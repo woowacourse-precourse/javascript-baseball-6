@@ -2,7 +2,7 @@ import {
   NUMBER_ERROR,
   DUPLICATION_ERROR,
   LENGTH_ERROR,
-} from "../constants/error-message";
+} from "../constants/error-message.js";
 
 function isLengthError(userNumbers) {
   if (userNumbers.length !== 3) throw new Error(LENGTH_ERROR);
@@ -27,7 +27,7 @@ function isNumberError(userNumbers) {
   return false;
 }
 
-function validateUserNumbers(userNumbers) {
+function validateUserInputNumber(userNumbers) {
   isLengthError(userNumbers);
   isDuplicationError(userNumbers);
   isNumberError(userNumbers);
@@ -37,5 +37,5 @@ export {
   isLengthError,
   isDuplicationError,
   isNumberError,
-  validateUserNumbers,
+  validateUserInputNumber,
 };

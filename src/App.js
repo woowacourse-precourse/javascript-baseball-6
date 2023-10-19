@@ -3,7 +3,7 @@ import {
   generateComputerNumbers,
   generateResultMessage,
 } from "./utils/generate.js";
-import { validateUserNumbers } from "./utils/validation.js";
+import { validateUserInputNumber } from "./utils/validation.js";
 import { compareNumbers } from "./utils/game.js";
 import {
   GAME_START_MESSAGE,
@@ -20,14 +20,16 @@ class App {
       const computerNumbers = generateComputerNumbers();
 
       while (true) {
-        const userNumbers = await Console.readLineAsync(INPUT_NUMBER_MESSAGE);
-        validateUserNumbers(userNumbers);
+        const userInputNumber = await Console.readLineAsync(
+          INPUT_NUMBER_MESSAGE
+        );
+        validateUserInputNumber(userInputNumber);
 
-        const result = compareNumbers(computerNumbers, userNumbers);
+        const result = compareNumbers(computerNumbers, userInputNumber);
         const resultMessage = generateResultMessage(result);
         Console.print(resultMessage);
 
-        if (computerNumbers === userNumbers) {
+        if (computerNumbers === userInputNumber) {
           break;
         }
       }
