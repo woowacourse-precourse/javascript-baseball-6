@@ -31,7 +31,7 @@ class App {
     );
 
     if (response !== "1" && response !== "2") {
-      throw Error("[Error]");
+      throw Error("[ERROR]");
     }
 
     if (response === "1") return true;
@@ -42,7 +42,7 @@ class App {
     const number = await Console.readLineAsync("숫자를 입력해주세요 : ");
 
     if (!this.isNumberIsValid(number)) {
-      throw Error("[Error]");
+      throw Error("[ERROR]");
     }
 
     const { strikeCount, ballCount } = this.getJudgedCountsFor(number);
