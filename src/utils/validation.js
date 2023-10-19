@@ -6,4 +6,15 @@ function isLengthError(userNumbers) {
   return false;
 }
 
-export { isLengthError };
+// 입력받은 숫자에 중복이 포함될 경우 에러 표시
+function isDuplicationError(userNumbers) {
+  for (let i = 0; i < userNumbers.length; i++) {
+    if (userNumbers.substring(i + 1).includes(userNumbers[i])) {
+      throw new Error("입력받은 숫자에 중복이 포함되어 있습니다.");
+    }
+  }
+
+  return false;
+}
+
+export { isLengthError, isDuplicationError };

@@ -1,6 +1,6 @@
 import { Console } from "@woowacourse/mission-utils";
 import { generateComputerNumbers } from "./utils/generate.js";
-import { isLengthError } from "./utils/validation.js";
+import { isDuplicationError, isLengthError } from "./utils/validation.js";
 
 class App {
   async play() {
@@ -13,6 +13,7 @@ class App {
     // 사용자에게 입력 받기
     const userNumbers = await Console.readLineAsync("숫자를 입력해주세요 : ");
     isLengthError(userNumbers);
+    isDuplicationError(userNumbers);
   }
 }
 
