@@ -3,16 +3,11 @@ import { MissionUtils, Console } from '@woowacourse/mission-utils';
 
 class App {
   constructor(){
-    this.start = true // boolean
     this.computer; // [number]
   }
 
   async play() {
-    if(this.start) {
-      Console.print('숫자 야구 게임을 시작합니다.');
-      this.start=false;
-    }
-
+    Console.print('숫자 야구 게임을 시작합니다.');
     this.initialization();
 
     while(true){
@@ -23,11 +18,14 @@ class App {
       if(result==='3스트라이크'){
         Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
         Console.print('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.')
+        const restart = await this.restart_input();
+        if(restart){
+          this.initialization();
+          continue
+        }
+        break
       }
     }
-    Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
-    Console.print('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.')
-    whi
   }
 
   initialization () {
@@ -44,19 +42,17 @@ class App {
     if(this.valid_input(input)){
       return input.split('').map(item=>parseInt(item))
     } else{
-      Console.print('올바르지 않은 입력')
-      return null
+      throw new Error("[ERROR]");
     }
   }
 
   async restart_input() {
-    while(true){
-      const input = await Console.readLineAsync('숫자를 입력해주세요')
-      if(/^[12]$/.test(input)){
-        
-      }
+    const input = await Console.readLineAsync('숫자를 입력해주세요')
+    if(/^[12]$/.test(input)) {
+      return input==='1'
+    } else{
+      throw new Error("[ERROR]");
     }
-    
   }
 
   valid_input(input){
@@ -82,7 +78,6 @@ class App {
     for(let i=0;i<3;i++){
       if(this.computer.includes(input[i])) same++;
     }
-    console.log("same",same)
     return same;
   }
 
@@ -91,7 +86,6 @@ class App {
     for(let i=0;i<3;i++){
       if(this.computer[i] === input[i]) strike++;
     }
-    console.log("strike",strike)
     return strike;
   }
   
