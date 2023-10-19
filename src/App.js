@@ -5,6 +5,7 @@ import {
   isLengthError,
   isNumberError,
 } from "./utils/validation.js";
+import { compareNumbers } from "./utils/game.js";
 
 class App {
   async play() {
@@ -19,6 +20,9 @@ class App {
     isLengthError(userNumbers);
     isDuplicationError(userNumbers);
     isNumberError(userNumbers);
+
+    // 컴퓨터와 사용자의 숫자를 비교하기
+    const result = compareNumbers(computerNumbers, userNumbers);
   }
 }
 
