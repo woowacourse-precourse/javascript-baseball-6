@@ -8,12 +8,9 @@ const MESSAGE = {
   RESTART: "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
 }
 
-const ERROR_MESSAGE = {
-  RESTART: "게임을 재시작하려면 1, 게임을 종료하려면 2를 입력해야 합니다.",
-  CHECK_LENGTH: "입력 값은 숫자로 이루어져야 하고 길이는 3이어야 합니다.",
-  CHECK_NUMBE: "숫자만 입력을 해야 합니다.",
-  CHECK_DUPLICATE: "중복된 숫자는 입력되어서는 안됩니다."
-}
+const ERROR = "[ERROR]"
+
+const REGEXP = /\D/g;
 
 const {Random, Console} = MissionUtils;
 
@@ -32,31 +29,29 @@ class App {
   async play(){
     this.makeRandomComputerNumber()
     Console.print(MESSAGE.START);
-    Console.print(this.computerNumber);
     while(true){
-      const number = await Console.readLineAsync(MESSAGE.TYPE);
-      const answer = this.checkStrikeAndBall(number);
+      const output = await Console.readLineAsync(MESSAGE.TYPE);
+      this.checkOutputError(output)
+      const answer = this.checkStrikeAndBall(output);
       Console.print(answer);
+
+      // 게임 재시작
       if(answer === MESSAGE.ANSWER){
-        Console.print(MESSAGE.END);
-        Console.print(MESSAGE.RESTART);
-        const isRestart = Number(await Console.readLineAsync(""));
-        if(isRestart === 1){
-          this.computerNumber = Random.pickUniqueNumbersInRange(1,9,3);
-        }
-        else break
+        const check = await this.restart()
+        if(check === ERROR_MESSAGE.RESTART) throw(ERROR_MESSAGE.RESTART)
+        if(!check) break
       }
     }
   }
 
-  checkStrikeAndBall(number){
+  checkStrikeAndBall(output){
     const check = {
       ball : 0,
       strike: 0
     }
 
-    for(let i=0; i<number.length; i++ ){
-      const num = Number(number[i]);
+    for(let i=0; i<output.length; i++ ){
+      const num = Number(output[i]);
       const index = this.computerNumber.indexOf(num);
       if(index === -1) continue
       else if(index > -1) {
@@ -75,12 +70,24 @@ class App {
     else return `${strike}스트라이크`;
   }
 
-  checkRestartError(){
+  async restart(){
+    Console.print(MESSAGE.END);
+    Console.print(MESSAGE.RESTART); 
+    const isRestart = Number(await Console.readLineAsync(""));
+    if(isRestart === 1){
+      this.computerNumber = Random.pickUniqueNumbersInRange(1,9,3);
+      return true;
+    }
+    else return false;
+  }
+
+  checkRestartError(str){
 
   }
 
-  checkAnswerError(){
-
+  checkOutputError(str){
+    if(str.length<3 || str.length >3) throw new Error(ERROR);
+    if(REGEXP.test(str)) throw new Error(ERROR);
   }
 }
 
