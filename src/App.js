@@ -2,6 +2,9 @@ import { MissionUtils } from "@woowacourse/mission-utils"
 
 const INTRO_SENTENCE = "숫자 야구 게임을 시작합니다.";
 const INPUT_NUMBERS_SENTENCE = "숫자를 입력해주세요 : ";
+const NOTHING_TEXT = "낫싱";
+const STRIKE_TEXT = "스트라이크";
+const BALL_TEXT = "볼";
 
 const NUMBER_LENGTH = 3;
 const MIN_NUMBER = 1;
@@ -17,9 +20,11 @@ class App {
     MissionUtils.Console.print(INTRO_SENTENCE);
 
     this.setComputer();
+    MissionUtils.Console.print(this.computer);
     await this.requestPredictedNumbers();
 
     const { strike, ball } = this.calculateResult();
+    this.printResultMessage({ strike, ball });
   }
 
   setComputer() {
@@ -108,6 +113,25 @@ class App {
     });
 
     return result;
+  }
+
+  printResultMessage({ strike, ball }) {
+    if (strike === 0 && ball === 0) {
+      MissionUtils.Console.print(NOTHING_TEXT);
+      return;
+    }
+
+    let messages = [];
+    if (ball > 0) {
+      messages = [...messages, `${ball}${BALL_TEXT}`];
+    }
+    if (strike > 0) {
+      messages = [...messages, `${strike}${STRIKE_TEXT}`];
+    }
+
+    const generatedMessage = messages.join(" ");
+
+    MissionUtils.Console.print(generatedMessage);
   }
 }
 
