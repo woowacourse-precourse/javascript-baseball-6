@@ -35,6 +35,12 @@ class App {
     if (Validator.checkHasZero(userNumbers)) {
       throw new Error(ERROR.HAS_ZERO);
     }
+    this.getNumberOfMatches(userNumbers);
+  }
+
+  getNumberOfMatches(userNumbers) {
+    const result = this.#game.compareUserNumbersWithAnswer(userNumbers);
+    Console.print(result);
   }
 }
 
