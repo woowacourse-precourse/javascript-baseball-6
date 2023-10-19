@@ -3,18 +3,41 @@ import { Console, MissionUtils } from "@woowacourse/mission-utils";
 class App {
   async play() {
     Console.print("숫자 야구 게임을 시작합니다.");
-    const computer = this.getComputerRandomNumber();
-    console.log("컴퓨터 숫자", computer);
+
+    const computerNumber = this.getComputerRandomNumber();
     let continueGame = true;
+
     while (continueGame) {
       const number = await Console.readLineAsync("숫자를 입력해주세요 : ");
       if (this.validateInput(number)) {
-        Console.print(number);
+        const { strike, ball } = this.calculateBaseball(computerNumber, number);
+
+        if (ball !== 0 && strike === 0) {
+          Console.print(`${ball}볼`);
+        } else if (ball === 0 && strike !== 0) {
+          Console.print(`${strike}스트라이크`);
+        } else if (ball !== 0 && strike !== 0) {
+          Console.print(`${ball}볼 ${strike}스트라이크`);
+        }
       } else {
         Console.print("종료");
         continueGame = false;
       }
     }
+  }
+
+  calculateBaseball(computerNumbers, number) {
+    const userNum = Array.from(String(number), Number);
+    let score = { strike: 0, ball: 0 };
+    userNum.forEach((num, index) => {
+      if (num === computerNumbers[index]) {
+        score.strike++;
+      } else if (computerNumbers.includes(num)) {
+        score.ball++;
+      }
+    });
+
+    return score;
   }
 
   getComputerRandomNumber() {
@@ -25,7 +48,6 @@ class App {
         computer.push(number);
       }
     }
-
     return computer;
   }
 
