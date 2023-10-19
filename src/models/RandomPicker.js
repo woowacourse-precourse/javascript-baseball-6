@@ -14,7 +14,15 @@ class RandomPicker {
   }
 
   pickRandomNumbers() {
-    // 세자리의 중복되지 않는 랜덤한 숫자 생성하기
+    const digitsArray = new Set();
+
+    while (digitsArray.size < 3) {
+      const randomNumber = Random.pickNumberInRange(1, 9);
+      digitsArray.add(randomNumber);
+    }
+
+    const resultArray = Array.from(digitsArray);
+    return parseInt(resultArray.join(''), 10);
   }
 }
 
