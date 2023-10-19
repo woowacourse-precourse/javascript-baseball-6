@@ -20,7 +20,11 @@ class App {
       throw Error("[Error]");
     }
 
-    Console.print(this.getStrikeCount(number));
+    const strikeCount = this.getStrikeCount(number);
+    const ballCount = this.getBallCount(number, strikeCount);
+
+    Console.print(strikeCount);
+    Console.print(ballCount);
   }
 
   isNumberIsValid(number) {
@@ -52,6 +56,16 @@ class App {
     }
 
     return count;
+  }
+
+  getBallCount(number, strikeCount) {
+    let count = 0;
+
+    for (const eachNumber of number) {
+      if (this.answer.includes(eachNumber)) count++;
+    }
+
+    return count - strikeCount;
   }
 }
 
