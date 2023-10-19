@@ -23,16 +23,13 @@ export default class BaseballController {
     printGameStart();
   }
 
-  play() {
-    getPlayerInput().then((input) => {
-      const selectedNumber = new Set(input.split('').map(Number));
-      this.#Player.setSelectNumber(selectedNumber);
-      this.#test();
-      this.#check();
-    });
+  async play() {
+    const res = await getPlayerInput();
+    this.#Player.setSelectNumber(res);
+    return this.#check();
   }
 
-  #check() {
+  async #check() {
     const playerNumber = this.#Player.getSelectNumber();
     const computerNumber = this.#Computer.getSelectNumber();
     const result = this.#Referee.compare(playerNumber, computerNumber);
@@ -44,18 +41,13 @@ export default class BaseballController {
     return this.play();
   }
 
-  #retry() {
+  async #retry() {
     printGameEnd();
-    getRetryInput().then((input) => {
-      if (input === GAME_OPTION.retry) {
-        this.#Computer.generate();
-        return this.play();
-      }
-    });
-  }
-
-  #test() {
-    console.log(this.#Player.getSelectNumber());
-    console.log(this.#Computer.getSelectNumber());
+    const res = await getRetryInput();
+    if (res === GAME_OPTION.retry) {
+      this.#Computer.generate();
+      return this.play();
+    }
+    return 0;
   }
 }
