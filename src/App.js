@@ -40,6 +40,20 @@ class App {
     return { STRIKE, BALL };
   }
 
+  gameResultMessage(strike, ball) {
+    let str = '';
+
+    if (strike === CORRECT_NUMBER) {
+      str = '3스트라이크';
+    } else if (strike === 0 && ball === 0) {
+      str = '낫싱';
+    } else if (strike > 0 || ball > 0) {
+      str = `${ball ? ball + '볼' : ''} ${strike ? strike + '스트라이크' : ''}`.trim();
+    }
+
+    return str;
+  }
+
   async play() {}
 }
 
