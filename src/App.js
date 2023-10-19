@@ -10,14 +10,14 @@ class App {
     Console.print(this.answer);
 
     this.printStartMessage();
-    this.playOneLoop();
+    this.playOneRound();
   }
 
   printStartMessage() {
     Console.print("숫자 야구 게임을 시작합니다.");
   }
 
-  async playOneLoop() {
+  async playOneRound() {
     const number = await Console.readLineAsync("숫자를 입력해주세요 : ");
 
     if (!this.isNumberIsValid(number)) {
