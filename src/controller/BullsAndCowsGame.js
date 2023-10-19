@@ -1,15 +1,17 @@
 import RandomPicker from "../models/RandomPicker.js";
+import OutputView from "../views/OutputView.js";
 
 class BullsAndCowsGame {
 
   constructor() {
     this.randomPicker = new RandomPicker();
     this.randomPicker.getComputerNumber();
-    // console.log(this.randomPicker.computerNumber);
   }
 
   async startGame() {
-    // 게임시작 문구 출력
+    // 추후 정적인 메세지 따로 분리필요
+    OutputView.printStaticMessage('숫자 야구 게임을 시작합니다.');
+    
     // 사용자의 입력값 받기
   }
 };
