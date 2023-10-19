@@ -3,6 +3,8 @@ import { MissionUtils } from '@woowacourse/mission-utils';
 export default class Opponent {
   #numbers = [];
 
+  constructor() {}
+
   resetNumbers() {
     this.#numbers = [];
   }
@@ -17,7 +19,7 @@ export default class Opponent {
     }
   }
 
-  getNumbers(numbers) {
+  tellResultOf(numbers) {
     let strike = 0;
     let ball = 0;
 
