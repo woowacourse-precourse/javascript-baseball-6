@@ -1,14 +1,14 @@
-function compareNumbers(computerNumbers, userNumbers) {
+function compareNumbers(computerNumbers, userInputNumber) {
   let strikeCount = 0;
   let ballCount = 0;
 
   for (let i = 0; i < computerNumbers.length; i++) {
-    if (computerNumbers[i] === userNumbers[i]) {
+    if (computerNumbers[i] === userInputNumber[i]) {
       strikeCount += 1;
       continue;
     }
 
-    if (computerNumbers.includes(userNumbers[i])) {
+    if (computerNumbers.includes(userInputNumber[i])) {
       ballCount += 1;
     }
   }
