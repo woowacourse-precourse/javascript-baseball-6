@@ -64,6 +64,10 @@ class App {
       throw new Error(ERROR.NOT_ONE_OR_TWO);
     }
   }
+
+  restart() {
+    this.#game = new BaseballGame();
+    this.getUserGuessInput();
   }
 }
 
