@@ -15,7 +15,7 @@ class App {
   async playOneLoop() {
     const number = await Console.readLineAsync("숫자를 입력해주세요 : ");
 
-    if (this.isNumberIsValid(number)) {
+    if (!this.isNumberIsValid(number)) {
       throw Error("[Error]");
     }
   }
