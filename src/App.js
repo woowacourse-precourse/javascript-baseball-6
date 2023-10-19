@@ -9,6 +9,8 @@ class App {
             userinput = await MissionUtils.Console.readLineAsync(
                 '숫자를 입력해주세요.'
             );
+
+
         }
     }
     // 정답을 생성하는 함수
@@ -46,6 +48,33 @@ class App {
 
         return [ball, strike];
     }
+
+    // 유저의 정답 여부를 확인하는 함수
+    isUserWin(ball, strike) {
+        let printText = '';
+
+        if(ball > 0){
+            printText += `${ball}볼`
+        }
+
+        if(strike > 0){
+            printText += `${strike}스트라이크`
+            if (strike === 3) {
+                MissionUtils.Console.print(printText);
+                return true;
+            }
+        }
+
+        if(ball + strike === 0){
+            printText = '낫싱'
+        }
+
+        MissionUtils.Console.print(printText);
+        return false;
+    }
+
+    }
+
 
     // 게임을 다시 시작할지 판단하는 함수
 }
