@@ -1,10 +1,11 @@
-import { Console } from "@woowacourse/mission-utils";
+import { Console, MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
   async play() {
     Console.print("숫자 야구 게임을 시작합니다.");
+    const computer = this.getComputerRandomNumber();
+    console.log("컴퓨터 숫자", computer);
     let continueGame = true;
-
     while (continueGame) {
       const number = await Console.readLineAsync("숫자를 입력해주세요 : ");
       if (this.validateInput(number)) {
@@ -14,6 +15,18 @@ class App {
         continueGame = false;
       }
     }
+  }
+
+  getComputerRandomNumber() {
+    const computer = [];
+    while (computer.length < 3) {
+      const number = MissionUtils.Random.pickNumberInRange(1, 9);
+      if (!computer.includes(number)) {
+        computer.push(number);
+      }
+    }
+
+    return computer;
   }
 
   validateInput(number) {
