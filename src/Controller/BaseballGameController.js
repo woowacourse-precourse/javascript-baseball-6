@@ -4,6 +4,9 @@ import { InputView } from "../View/InputView.js";
 import BaseballGame from "../Model/BaseballGame.js";
 
 const GAME_OVER = GAME_MESSAGE.STRIKE(3);
+const RESTART = '1';
+const QUIT = '2';
+
 
 class BaseballGameController{
   constructor(){
@@ -12,7 +15,14 @@ class BaseballGameController{
 
   bashballGameOver(){
     OutputView.printMessage(GAME_MESSAGE.GAMEOVER);
-    InputView.InputRestartOrQuit();
+    InputView.InputRestartOrQuit(this.handlerInputRestartOrQuit);
+  }
+
+  handlerInputRestartOrQuit = (RestartOrQuit) => {
+    if (RestartOrQuit === RESTART){
+      this.baseballgame.generateRandomNumber();
+      InputView.InputBaseBallNumber(this.handlerInputbaseballNumber);
+    }
   }
 
   handlerInputbaseballNumber = (player_num) => {

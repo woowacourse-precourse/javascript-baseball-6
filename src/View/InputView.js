@@ -10,9 +10,10 @@ const InputView = {
     handlerInputbaseballNumber(player_num);
   },
 
-  async InputRestartOrQuit(handlerInputbaseballNumber) {
+  async InputRestartOrQuit(handlerInputRestartOrQuit) {
     const restartOrQuit = await Console.readLineAsync(GAME_MESSAGE.RESTART);
     validation.checkRestartCommand(restartOrQuit);
+    handlerInputRestartOrQuit(restartOrQuit);
   }
 
 };
