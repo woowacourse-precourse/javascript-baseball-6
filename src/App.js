@@ -6,7 +6,12 @@ class App {
   }
 
   playOneLoop() {
-    Console.print("숫자를 입력해주세요 : ");
+    this.askThreeNumber();
+  }
+
+  async askThreeNumber() {
+    const number = await Console.readLineAsync("숫자를 입력해주세요 : ");
+    Console.print(number);
   }
 
   async play() {
