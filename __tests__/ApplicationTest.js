@@ -128,6 +128,20 @@ describe("숫자 야구 게임", () => {
 
     await expect(app.play()).rejects.toThrow("[ERROR]");
   });
+
+  test("소수 확인", async () => {
+    // given
+    const randoms = [1, 3, 5];
+    const answers = ["135.3", "32.4"];
+
+    mockRandoms(randoms);
+    mockQuestions(answers);
+
+    // when & then
+    const app = new App();
+
+    await expect(app.play()).rejects.toThrow("[ERROR]");
+  });
   
   test("랜덤값 중복 확인", async () => {
     // given
