@@ -12,7 +12,7 @@ class BaseballGameController{
 
   bashballGameOver(){
     OutputView.printMessage(GAME_MESSAGE.GAMEOVER);
-    OutputView.printMessage(GAME_MESSAGE.RESTART);
+    InputView.InputRestartOrQuit();
   }
 
   handlerInputbaseballNumber = (player_num) => {
