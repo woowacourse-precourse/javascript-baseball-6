@@ -19,7 +19,7 @@ class App {
 	 * @description 게임을 재시작하지 않을 경우, 게임을 종료합니다.
 	 */
 	async play() {
-		await Console.print(LOG.START);
+		Console.print(LOG.START);
 
 		try {
 			while (this.isPlaying) {
@@ -32,6 +32,10 @@ class App {
 				}
 
 				const { strike, ball } = this.calculateStrikeBall(input);
+
+				const message = this.makeMessage(strike, ball);
+
+				Console.print(message);
 			}
 		} catch (e) {
 			throw new Error(e.message);
@@ -107,6 +111,31 @@ class App {
 		}
 
 		return { strike, ball };
+	}
+
+	/**
+	 * @param {number} strike
+	 * @param {number} ball
+	 * @description 스트라이크와 볼의 개수에 따라 메시지를 생성합니다.
+	 * @description 볼이 0 이상일 경우 "n볼"을, 스트라이크가 0 이상일 경우 "n스트라이크"를, 둘 다 0일 경우 "낫싱"을 리턴합니다.
+	 * @returns {string}
+	 */
+	makeMessage(strike, ball) {
+		const messages = [];
+
+		if (ball > 0) {
+			messages.push(`${ball}${LOG.BALL}`);
+		}
+
+		if (strike > 0) {
+			messages.push(`${strike}${LOG.STRIKE}`);
+		}
+
+		if (strike === 0 && ball === 0) {
+			messages.push(LOG.NOTHING);
+		}
+
+		return messages.join(" ");
 	}
 }
 
