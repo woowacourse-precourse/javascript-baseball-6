@@ -2,10 +2,9 @@ import BaseballController from './controller/BaseballController.js';
 
 export default class App {
   async play() {
-    this.controller = new BaseballController();
-    this.controller.play();
+    this.controller = await new BaseballController();
+    await this.controller.play();
   }
 }
 
-const app = new App();
-app.play();
+new App().play();
