@@ -5,6 +5,7 @@ const INPUT_NUMBERS_SENTENCE = "숫자를 입력해주세요 : ";
 const NOTHING_TEXT = "낫싱";
 const STRIKE_TEXT = "스트라이크";
 const BALL_TEXT = "볼";
+const SUCCESS_SENTENCE = "3개의 숫자를 모두 맞히셨습니다! 게임 종료";
 
 const NUMBER_LENGTH = 3;
 const MIN_NUMBER = 1;
@@ -14,17 +15,26 @@ class App {
   constructor() {
     this.computer = [];
     this.user = [];
+    this.success = false;
   }
 
   async play() {
     MissionUtils.Console.print(INTRO_SENTENCE);
 
     this.setComputer();
-    MissionUtils.Console.print(this.computer);
-    await this.requestPredictedNumbers();
 
-    const { strike, ball } = this.calculateResult();
-    this.printResultMessage({ strike, ball });
+    while(!this.success) {
+      MissionUtils.Console.print(this.computer);
+      await this.requestPredictedNumbers();
+  
+      const { strike, ball } = this.calculateResult();
+      this.printResultMessage({ strike, ball });
+
+      if (this.checkSuccess(strike)) {
+        this.success = true;
+        this.printSuccessMessage();
+      }
+    }
   }
 
   setComputer() {
@@ -132,6 +142,14 @@ class App {
     const generatedMessage = messages.join(" ");
 
     MissionUtils.Console.print(generatedMessage);
+  }
+
+  checkSuccess(strike) {
+    return strike === NUMBER_LENGTH;
+  }
+
+  printSuccessMessage() {
+    MissionUtils.Console.print(SUCCESS_SENTENCE);
   }
 }
 
