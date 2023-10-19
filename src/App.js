@@ -17,7 +17,12 @@ class App {
       this.initGame();
       // Console.print(this.target); // 정답 출력
       while (true) {
-        await this.runSingleGuess();
+        try {
+          let flag = await this.runSingleGuess();
+          if (!flag) throw new Error("[ERROR]");
+        } catch (err) {
+          throw err;
+        }
         if (await this.endGame()) break;
       }
     }
@@ -39,8 +44,15 @@ class App {
 
   async runSingleGuess() {
     await this.getGuess();
+    try {
+      if (this.guess.length > 3)
+        throw new Error("[Error] 입력의 길이는 3 자리이여야 합니다.");
+    } catch (err) {
+      return false;
+    }
     this.evalGuess();
     this.tellResult();
+    return true;
   }
 
   async getGuess() {
@@ -83,7 +95,7 @@ class App {
   }
 
   async endGame() {
-    if (this.gameState == 2) return true;
+    Console.print(this.strike);
     if (this.strike != 3) return false; // 계속 질문하기
     try {
       this.gameState = await Console.readLineAsync(
