@@ -9,9 +9,7 @@ class App {
                 const answer = this.createAnswer();
                 console.log(answer);
                 while (true) {
-                    userinput = await MissionUtils.Console.readLineAsync(
-                        '숫자를 입력해주세요.'
-                    );
+                    userinput = await this.getUserInput('숫자를 입력해주세요.');
                     const judgelist = this.getBallandStrike(userinput, answer);
                     console.log(judgelist);
                     if (this.isUserWin(judgelist[0], judgelist[1])) {
@@ -24,6 +22,11 @@ class App {
                 userinput = await MissionUtils.Console.readLineAsync(
                     '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.'
                 );
+
+                if (userinput.length !== '1') {
+                    throw new Error('입력이 잘못되었습니다.');
+                }
+
                 if (userinput === '2') {
                     return;
                 }
@@ -33,6 +36,27 @@ class App {
             return;
         }
     }
+
+    // 유저의 입력을 받는 함수
+    async getUserInput(text) {
+        const userinput = MissionUtils.Console.readLineAsync(text);
+
+        if (userinput.length === 1) {
+            if (userinput === '1' || userinput === '2') {
+                return userinput;
+            }
+        }
+
+        if (userinput.length === 3) {
+            const check = new Set(userinput);
+            if (check.size === 3) {
+                return userinput;
+            }
+        }
+
+        throw new Error('입력이 잘못되었습니다.');
+    }
+
     // 정답을 생성하는 함수
     createAnswer() {
         const answerList = [];
