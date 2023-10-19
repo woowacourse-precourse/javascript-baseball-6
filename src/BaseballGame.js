@@ -4,6 +4,7 @@ class BaseballGame {
   #GAME_NUMBER_LEN = 3;
   #computerNumbers;
   #userNumbers;
+  #gameEnd = false;
 
   constructor() {
     this.gameStart();
@@ -48,13 +49,15 @@ class BaseballGame {
    *
    * @returns {boolean} 성공시 ture값을, 실패시 false값을 반환
    */
-  inputResult() {
+  printResult() {
     const { strike, ball } = this.getStrikeAndBall();
 
-    this.outputResult({ strike, ball });
+    this.printStrikeAndBall({ strike, ball });
 
-    if (strike === 3) return true;
-    return false;
+    if (strike === 3) {
+      MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+      this.#gameEnd = true;
+    }
   }
 
   getStrikeAndBall() {
@@ -73,11 +76,15 @@ class BaseballGame {
     return { strike, ball };
   }
 
-  outputResult({ strike, ball }) {
+  printStrikeAndBall({ strike, ball }) {
     if (strike === 0 && ball === 0) MissionUtils.Console.print(`낫싱`);
     else if (strike === 0) MissionUtils.Console.print(`${ball}볼`);
     else if (ball === 0) MissionUtils.Console.print(`${strike}스트라이크`);
     MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
+  }
+
+  IsGameEnd() {
+    return this.#gameEnd;
   }
 
   /**
@@ -85,7 +92,6 @@ class BaseballGame {
    * @returns {boolean} 재시작시 true, 게임 종료시 false를 반환
    */
   async endGame() {
-    MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
     const input = await MissionUtils.Console.readLineAsync(
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. \n"
     );
