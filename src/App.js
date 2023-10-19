@@ -64,6 +64,22 @@ class App {
     return result;
   }
 
+  getResultMessage(strikeCount, ballCount) {
+    if (strikeCount > 0 && ballCount > 0) {
+      return `${ballCount}볼 ${strikeCount}스트라이크`;
+    }
+
+    if (strikeCount > 0) {
+      return `${strikeCount}스트라이크`;
+    }
+
+    if (ballCount > 0) {
+      return `${ballCount}볼`;
+    }
+
+    return '낫싱';
+  }
+
   async play() {
     Console.print('숫자 야구 게임을 시작합니다.');
 
@@ -88,6 +104,9 @@ class App {
     // TODO: Remove this code
     Console.print(computerNumbers);
     Console.print(userNumbers);
+
+    const resultMessage = this.getResultMessage(strikeCount, ballCount);
+    Console.print(resultMessage);
   }
 }
 
