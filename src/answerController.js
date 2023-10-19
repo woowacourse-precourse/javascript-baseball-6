@@ -1,7 +1,7 @@
-import { MissionUtils, Console } from '@woowacourse/mission-utils';
+import { MissionUtils } from '@woowacourse/mission-utils';
 
 export async function setAnswer() {
-    let answer = [];
+    const answer = [];
     while (answer.length < 3) {
         const number = MissionUtils.Random.pickNumberInRange(1, 9);
         if (!answer.includes(number.toString())) {
@@ -13,31 +13,31 @@ export async function setAnswer() {
 }
 
 export async function guessJudge(guess, answer) {
-    let result = {
-        ball: 0,
-        strike: 0
-    };
+    let ball = 0;
+    let strike = 0;
 
     for (let i = 0; i < 3; i++) {
-        if (guess[i] == answer[i]) {
-            result.strike++;
+        if (guess[i] === answer[i]) {
+            strike += 1;
         } else if (answer.includes(guess[i])) {
-            result.ball++;
+            ball += 1;
         }
     }
-    return result
+    
+    return {ball, strike};
 }
 
-export async function guessOutput(result) {
-    let output = '';
-    if (result.ball + result.strike== 0){
-        output = `낫싱`;
-    } else if (result.ball * result.strike !== 0) {
-        output = `${result.ball}볼 ${result.strike}스트라이크`;
-    } else if (result.ball !== 0) {
-        output = `${result.ball}볼`;
-    } else if (result.strike !== 0) {
-        output = `${result.strike}스트라이크`;
+export async function guessOutput({ball, strike}) {
+    let output = ''
+
+    if (ball + strike === 0) {
+        output = '낫싱';
+    } else if (ball * strike !== 0) {
+        output = `${ball}볼 ${strike}스트라이크`;
+    } else if (ball !== 0) {
+        output = `${ball}볼`;
+    } else if (strike !== 0) {
+        output = `${strike}스트라이크`;
     }
 
     return output;
