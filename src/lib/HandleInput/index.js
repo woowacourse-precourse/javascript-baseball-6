@@ -2,7 +2,7 @@ const ReadLine = require("./readLine");
 const Validate = require("./validate");
 const Parse = require("./parse");
 
-async function handleGuessInput () {
+const handleGuessInput = async function () {
     let response;
     try {
         response = await ReadLine.readGuessInput();
@@ -13,7 +13,7 @@ async function handleGuessInput () {
     return response;
 };
 
-async function handleCommandInput () {
+const handleCommandInput = async function () {
     let response;
     try {
         response = await ReadLine.readCommandInput();
