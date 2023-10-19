@@ -1,4 +1,3 @@
-import { Console } from "@woowacourse/mission-utils";
 import playBaseball from "./game/gamePlay.js";
 
 class App {
