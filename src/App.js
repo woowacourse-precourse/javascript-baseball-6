@@ -3,6 +3,9 @@ import {Console, MissionUtils} from "@woowacourse/mission-utils";
 class App {
     async play() {
 
+        // 2. 정답일 때 까지 반복시키기
+        let isOut = false
+
         // 1. 중복되지 않는 랜덤한 숫자 (3자릿수) 만들기
         function randomNumberMaker() {
             const computer = [];
@@ -15,14 +18,15 @@ class App {
             return computer
         }
 
-        // 2. 입력한 숫자의 유효성 검사
+        // 2.1 입력한 숫자의 유효성 검사
         function checkNumber(input) {
-            // 2.1 숫자가 입력이 되었는가?
-            if (typeof input !== "number") throw new Error();
-            // 2.2 3자리수가 입력이 되었는가?
-            if (String(input).length !== 3) throw new Error();
-            // 모두 다른 숫자가 입력이 되었는가?
-            if (input[0] === input[1] || input[1] === input[2] || input[2] === input[0]) throw new Error();
+            // 2.1.1 숫자가 입력이 되었는가?
+            if (isNaN(input)) throw new Error("[ERROR]");
+            // 2.1.2 3자리수가 입력이 되었는가?
+            if (String(input).length !== 3) throw new Error("[ERROR]");
+            // 2.1.3 모두 다른 숫자가 입력이 되었는가?
+            const StringInput = String(input)
+            if (StringInput[0] === StringInput[1] || StringInput[1] === StringInput[2] || StringInput[2] === StringInput[0]) throw new Error("[ERROR]");
         }
 
         // 3. 입력한 숫자와의 랜던한 값의 일치 검사
@@ -33,20 +37,23 @@ class App {
             let strike_count = 0;
             let ball_count = 0;
 
-            // 3.1 모든 숫자가 일치하는지 확인하기
+            // 2.2.1 모든 숫자가 일치하는지 확인하기
 
-            if (RANDOM_STRING === INPUT_STRING) return "3개의 숫자를 모두 맞히셨습니다! 게임 종료"
+            if (RANDOM_STRING === INPUT_STRING) {
+                isOut = true;
+                return "3스트라이크"
+            }
 
             const INPUT_NUMBER_ARRAY = INPUT_STRING.split('');
 
             for (let i in INPUT_NUMBER_ARRAY) {
-                if (INPUT_NUMBER_ARRAY[i].includes(RANDOM_STRING)) {
+                if (RANDOM_STRING.includes(INPUT_NUMBER_ARRAY[i])) {
 
-                    // 3.2 자리와 값이 일치하는 수 골라내기 = strike
-                    // 3.3 자리는 다르지만 값이 일치하는 수 골라내기 = ball
-
-                    RANDOM_STRING[i] === INPUT_NUMBER_ARRAY[i] ? strike_count++ : ball_count++;
+                    // 2.2.2 자리와 값이 일치하는 수 골라내기 = strike
+                    // 2.2.3 자리는 다르지만 값이 일치하는 수 골라내기 = ball
+                    RANDOM_STRING[i] === (INPUT_NUMBER_ARRAY[i]) ? strike_count++ : ball_count++;
                 }
+                ;
             }
 
             if (!strike_count && !ball_count) return "낫싱";
@@ -58,7 +65,19 @@ class App {
             return `${ball_count}볼 ${strike_count}스트라이크`
         }
 
+
         const RANDOM_NUMBER_ARRAY = randomNumberMaker;
+
+        while (!isOut) {
+            const input = await Console.readLineAsync("숫자를 입력해주세요 : ")
+            const NumInput = Number(input)
+            checkNumber(NumInput);
+            Console.print(baseGame(RANDOM_NUMBER_ARRAY, input));
+        }
+
+        Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료")
+
+        if (await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.") === '1') await this.play();
 
     }
 }
