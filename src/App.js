@@ -4,14 +4,19 @@ import { randomNumber } from "./random-number.js";
 class App {
   constructor() {
     this.computer = randomNumber();
+    this.firstStart = true;
+    this.inputContinuation = true;
   }
 
   async play() {
-    Console.print('숫자 야구 게임을 시작합니다.');
+    if (this.firstStart) {
+      Console.print('숫자 야구 게임을 시작합니다.');
+      this.firstStart = false;
+    }
     try {
-      console.log(this.computer);
       const userInput = await Console.readLineAsync('숫자를 입력해주세요 :');
       this.gameResultOutput(this.gameResult(userInput));
+      this.try();
     } catch (error) {
       
     }
@@ -37,6 +42,7 @@ class App {
     const [strike, ball] = score;
 
     if (strike === 3) {
+      this.inputContinuation = false;
       return Console.print('3스트라이크');
     }
     if (strike === 0 && ball === 0) {
@@ -50,6 +56,10 @@ class App {
     }
 
     return Console.print(`${ball}볼 ${strike}스트라이크`);
+  }
+
+  try() {
+    if(this.inputContinuation) this.play();
   }
 }
 
