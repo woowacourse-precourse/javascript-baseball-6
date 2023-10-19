@@ -1,8 +1,11 @@
-
 import { MissionUtils } from '@woowacourse/mission-utils';
 function start() {
-	makeRandomNumber();
-	getUserInput();
+	const computer = makeRandomNumber();
+	try {
+		getUserInput(computer);
+	} catch (error) {
+		throw new Error(error);
+	}
 }
 function makeRandomNumber() {
 	const computer = [];
@@ -14,7 +17,7 @@ function makeRandomNumber() {
 	}
 	return computer;
 }
-async function getUserInput() {
+async function getUserInput(computer) {
 	const userInput = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 :');
 	validateUserInput(userInput, computer);
 	//compare
@@ -27,8 +30,12 @@ function validateUserInput(userInput, computer) {
 			const { strike, ball } = compareUserComputer(user, computer);
 			returnScore(strike, ball);
 			finishGame();
-		}
-	}
+		} else {
+      throw new Error;
+    }
+	} else {
+    throw new Error;
+  }
 }
 async function finishGame() {
 	const finalResult = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
@@ -71,11 +78,11 @@ function compareUserComputer(user, computer) {
 				ball++;
 			}
 		}
-		return {
-			strike: strike,
-			ball: ball,
-		};
 	}
+  return {
+    strike: strike,
+    ball: ball,
+  };
 }
 class App {
 	async play() {
