@@ -106,6 +106,13 @@ class App {
     // TODO: Remove this code
     Console.print(computerNumbers);
     Console.print(userNumbers);
+
+    const resultMessage = this.getResultMessage(
+      this.strikeCount,
+      this.ballCount
+    );
+
+    Console.print(resultMessage);
   }
 
   async play() {
@@ -115,12 +122,9 @@ class App {
 
     await this.userInputProcess(computerNumbers);
 
-    const resultMessage = this.getResultMessage(
-      this.strikeCount,
-      this.ballCount
-    );
-
-    Console.print(resultMessage);
+    while (this.strikeCount !== 3) {
+      await this.userInputProcess(computerNumbers);
+    }
   }
 }
 
