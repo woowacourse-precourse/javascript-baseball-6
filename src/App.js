@@ -3,6 +3,7 @@ import BaseballGame from "./BaseballGame";
 class App {
   async play() {
     const baseballGame = new BaseballGame();
+    let is_pass = false;
 
     while (!is_pass) {
       await baseballGame.inputUserNumber();
