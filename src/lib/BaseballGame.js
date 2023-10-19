@@ -1,6 +1,8 @@
 const { VALIDATION_RULE } = require("./Constants");
 const { Random } = require("@woowacourse/mission-utils");
 const { handleGuessInput } = require("./HandleInput");
+const { parseCount, printCount } = require("./HandleOutput")
+const { calcCount } = require("./Calc")
 
 class BaseballGame {
     constructor() {
@@ -24,10 +26,23 @@ class BaseballGame {
     async play() {
         try {
             const guess = await handleGuessInput();
+            const count = calcCount(guess, this.numbers);
+            const result = parseCount(count);
+            printCount(result);
+            if (count.strikeCount === VALIDATION_RULE.VALID_GUESS_LENGTH) this.checkRetry();
+            if (count.strikeCount !== VALIDATION_RULE.VALID_GUESS_LENGTH) this.play();
         } catch(e) {
             throw e;
         };
     };
+
+    checkRetry() {
+        try {
+
+        } catch(e) {
+
+        }
+    }
 };
 
 module.exports = BaseballGame;
