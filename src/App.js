@@ -9,18 +9,22 @@ import {
   isNumberError,
 } from "./utils/validation.js";
 import { compareNumbers } from "./utils/game.js";
+import {
+  GAME_START_MESSAGE,
+  GAME_WIN_MESSAGE,
+  INPUT_NUMBER_MESSAGE,
+  RESTART_INFO_MESSAGE,
+} from "./constants/info-message.js";
 
 class App {
   async play() {
-    Console.print("숫자 야구 게임을 시작합니다.");
+    Console.print(GAME_START_MESSAGE);
 
     while (true) {
       const computerNumbers = generateComputerNumbers();
 
       while (true) {
-        const userNumbers = await Console.readLineAsync(
-          "숫자를 입력해주세요 : "
-        );
+        const userNumbers = await Console.readLineAsync(INPUT_NUMBER_MESSAGE);
         isLengthError(userNumbers);
         isDuplicationError(userNumbers);
         isNumberError(userNumbers);
@@ -34,8 +38,8 @@ class App {
         }
       }
 
-      Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-      Console.print("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+      Console.print(GAME_WIN_MESSAGE);
+      Console.print(RESTART_INFO_MESSAGE);
 
       const num = await Console.readLineAsync("");
       if (num === "1") {
