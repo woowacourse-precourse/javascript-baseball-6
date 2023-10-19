@@ -5,7 +5,15 @@
 
 class App {
   async play(num) {
-  
+    //예외 상황 1 - 입력값이 없을 때
+    num
+    //예외 상황 2 - 입력값이 숫자가 아닌 경우
+    typeof num !== 'number'
+    //예외 상황 3 - 세 자리 숫자가 아닌 경우
+    const numArr = String(num).split('').map((num)=> +num)
+    numArr.length !== 3 
+    // 예외 상황 4 - 숫자가 중복될 때
+    
 
   }
 }
