@@ -2,8 +2,8 @@ import { MissionUtils } from '@woowacourse/mission-utils';
 
 class App {
     async play() {
-        let userinput;
         try {
+            let userinput;
             MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
             while (true) {
                 const answer = this.createAnswer();
