@@ -15,12 +15,13 @@ class App {
   async play() {
     while (this.gameState != 2) {
       this.initGame();
-      Console.print(this.target);
+      // Console.print(this.target); // 정답 출력
       while (true) {
         await this.runSingleGuess();
         if (await this.endGame()) break;
       }
     }
+    Console.print("게임 종료");
   }
 
   initGame() {
@@ -32,13 +33,12 @@ class App {
     }
 
     // 첫 게임일 경우 시작 멘트 발생
-    if (this.gameState == 0) Console.print("숫자 야구 게임을 시작합니다.");
+    // if (this.gameState == 0) Console.print("숫자 야구 게임을 시작합니다.");
     return;
   }
 
   async runSingleGuess() {
     await this.getGuess();
-    // Console.print(this.guess); // 정답 확인
     this.evalGuess();
     this.tellResult();
   }
@@ -46,7 +46,9 @@ class App {
   async getGuess() {
     // 사용자 입력 받기, 비동기 처리 필요
     try {
-      this.guess = await Console.readLineAsync("숫자를 입력해주세요 : ");
+      this.guess = await Console.readLineAsync(
+        "숫자 야구 게임을 시작합니다.\n숫자를 입력해주세요 : "
+      );
     } catch (e) {
       Console.print(e);
     }
@@ -74,18 +76,19 @@ class App {
     let res = "";
     if (this.out) res += "낫싱";
     else {
-      if (this.strike > 0) res += `${this.strike}스트라이크 `;
-      if (this.ball > 0) res += `${this.ball}볼`;
+      if (this.ball > 0) res += `${this.ball}볼 `;
+      if (this.strike > 0) res += `${this.strike}스트라이크`;
     }
     Console.print(res);
   }
 
   async endGame() {
+    if (this.gameState == 2) return true;
     if (this.strike != 3) return false; // 계속 질문하기
-    Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
     try {
       this.gameState = await Console.readLineAsync(
-        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+        "3개의 숫자를 모두 맞히셨습니다! 게임 종료\n" +
+          "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
       );
     } catch (e) {
       Console.print(e);
@@ -94,7 +97,7 @@ class App {
   }
 }
 
-const game = new App();
-game.play();
+// const game = new App();
+// game.play();
 
-// export default App;
+export default App;
