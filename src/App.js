@@ -38,6 +38,10 @@ class App {
   }
 
   compareUserAndRamdomNumber(input, computer) {
+    if (input.join('') === computer.join('')) {
+      return this.notifyGameEnd();
+    }
+
     /* 실패일 때, 힌트 출력 후 숫자 입력받기 */
     let strike = 0;
     let ball = 0;
@@ -90,5 +94,5 @@ class App {
 
 const app = new App();
 //app.play();
-app.compareUserAndRamdomNumber(['1','2','3'], ['4', '5', '6']);
+app.compareUserAndRamdomNumber(['1','2','3'], ['1', '2', '3']);
 export default App;
