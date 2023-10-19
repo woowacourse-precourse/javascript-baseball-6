@@ -8,7 +8,7 @@ async function handleGuessInput() {
         response = await ReadLine.readGuessInput();
         Validate.validateGuessInput(response);
     } catch(e) {
-        throw e
+        throw e;
     };
     return response;
 };

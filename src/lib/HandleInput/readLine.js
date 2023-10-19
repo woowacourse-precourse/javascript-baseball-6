@@ -9,8 +9,8 @@ async function readGuessInput() {
 
 async function readCommandInput() {
     return await Console.readLineAsync(INPUT_MESSAGE.COMMAND, (answer) => {
-        return answer
-    })
-}
+        return answer;
+    });
+};
 
 module.exports = {readCommandInput, readGuessInput};

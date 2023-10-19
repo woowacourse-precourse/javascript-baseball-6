@@ -1,13 +1,13 @@
 const { Random } = require("@woowacourse/mission-utils");
-const { calcCount } = require("./Calc")
+const { calcCount } = require("./Calc");
 const { VALIDATION_RULE } = require("./Constants");
 const { handleCommandInput, handleGuessInput } = require("./HandleInput");
-const { parseCount, printCount, printInitMessage, printWin } = require("./HandleOutput")
+const { parseCount, printCount, printInitMessage, printWin } = require("./HandleOutput");
 
 class BaseballGame {
     constructor() {
         // 출력 처리
-        printInitMessage()
+        printInitMessage();
         // 난수 부여
         this.numbers = this.#getComputerRandom();
     };
@@ -22,7 +22,7 @@ class BaseballGame {
                 cur = Random.pickNumberInRange(MIN, MAX);
             }
             result += cur.toString();
-            visited.add(cur)
+            visited.add(cur);
         };
         return result;
     };
@@ -46,7 +46,7 @@ class BaseballGame {
 
     async #checkRetry() {
         // 출력 처리
-        printWin()
+        printWin();
         // 결과 처리
         try {
             // 입력 처리
@@ -59,8 +59,8 @@ class BaseballGame {
             return;
         } catch(e) {
             throw e;
-        }
-    }
+        };
+    };
 };
 
 module.exports = BaseballGame;

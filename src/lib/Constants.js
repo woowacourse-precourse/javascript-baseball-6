@@ -13,7 +13,7 @@ const VALIDATION_RULE = {
 const COMMAND_HASH = {
     '1' : true,
     '2' : false,
-}
+};
 
 const _Error_HEAD = '[ERROR]'
 const ERROR_MESSAGE = {
