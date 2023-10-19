@@ -64,6 +64,16 @@ class App {
     return result;
   }
 
+  getIsNothing(computerNumbers, userNumbers) {
+    for (let i = 0; i < 3; i += 1) {
+      if (computerNumbers.includes(userNumbers[i])) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
   async play() {
     Console.print('숫자 야구 게임을 시작합니다.');
 
@@ -78,6 +88,12 @@ class App {
 
     const strikeCount = this.getStrikeCount(computerNumbers, userNumbers);
     const ballCount = this.getBallCount(computerNumbers, userNumbers);
+    const isNothing = this.getIsNothing(computerNumbers, userNumbers);
+
+    // TODO: Remove this code
+    Console.print(strikeCount);
+    Console.print(ballCount);
+    Console.print(isNothing);
 
     // TODO: Remove this code
     Console.print(computerNumbers);
