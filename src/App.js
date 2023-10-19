@@ -125,7 +125,4 @@ class App {
   }
 }
 
-// 콘솔 테스팅 용도
-new App().play();
-
 export default App;
