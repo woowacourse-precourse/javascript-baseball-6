@@ -1,6 +1,11 @@
 import { Random, Console } from '@woowacourse/mission-utils';
 
 class App {
+  isUnique(input) {
+    const set = new Set(input);
+    return set.size === input.length;
+  }
+
   getThreeNumbers() {
     const numbers = new Set();
 
@@ -12,10 +17,41 @@ class App {
     return [...numbers];
   }
 
+  validateUserInput(userInput) {
+    if (userInput.length !== 3) {
+      return false;
+    }
+
+    if (!this.isUnique(userInput)) {
+      return false;
+    }
+
+    for (const input of userInput) {
+      const num = Number(input);
+
+      if (isNaN(num) || num === 0) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
   async play() {
     Console.print('숫자 야구 게임을 시작합니다.');
 
     const computerNumbers = this.getThreeNumbers();
+    const userInput = await Console.readLineAsync('숫자를 입력해주세요 : ');
+
+    if (this.validateUserInput(userInput) === false) {
+      throw new Error('잘못된 값이 입력되었습니다.');
+    }
+
+    const userNumbers = [...userInput].map(Number);
+
+    // TODO: Remove this code
+    Console.print(computerNumbers);
+    Console.print(userNumbers);
   }
 }
 
