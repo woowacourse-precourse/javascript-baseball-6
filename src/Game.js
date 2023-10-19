@@ -10,18 +10,15 @@ export default class Game {
     this.strike = 0;
   }
 
-  async start() {
-    await this.setGame();
+  start() {
+    this.setGame();
 
-    this.compareTwoNumber();
-
-    Print.showHint(this.ball, this.strike);
+    this.proceedGame();
   }
 
-  async setGame() {
+  setGame() {
     Print.startMessage();
     this.createComputerNumber();
-    this.player = await Print.getPlayerNumber();
   }
 
   createComputerNumber() {
@@ -34,5 +31,24 @@ export default class Game {
     const calculate = new Calculate();
     calculate.compareAnsAndPlayer(this.answer, this.player);
     [this.ball, this.strike] = calculate.getResult();
+  }
+
+  async proceedGame() {
+    this.player = await Print.getPlayerNumber();
+
+    this.compareTwoNumber();
+
+    Print.showHint(this.ball, this.strike);
+
+    this.decideGameClear();
+  }
+
+  decideGameClear() {
+    if (!Calculate.isPlayerWin(this.strike)) {
+      this.proceedGame();
+      return;
+    }
+
+    Print.winMessage();
   }
 }

@@ -8,3 +8,4 @@ export const SHOW_STRIKE_COUNT = (count) => `${count}스트라이크`;
 export const SHOW_BALL_STRIKE_COUNT = (ball, strike) =>
   `${ball}볼 ${strike}스트라이크`;
 export const NOTHING_MESSAGE = "낫싱";
+export const WIN_MESSAGE = `${GAME_NUM_LENGTH}개의 숫자를 모두 맞히셨습니다! 게임 종료`;

@@ -8,6 +8,7 @@ import {
   SHOW_STRIKE_COUNT,
   SHOW_BALL_STRIKE_COUNT,
   NOTHING_MESSAGE,
+  WIN_MESSAGE,
 } from "./constant/message.js";
 import Validate from "./Validate.js";
 
@@ -47,5 +48,9 @@ export default class Print {
     }
 
     Console.print(NOTHING_MESSAGE);
+  }
+
+  static winMessage() {
+    Console.print(WIN_MESSAGE);
   }
 }
