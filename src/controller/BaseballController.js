@@ -1,8 +1,8 @@
-import { getPlayerInput } from '../view/InputView.js';
+import { getPlayerInput, getRetryInput } from '../view/InputView.js';
 import Player from '../model/Player.js';
 import Computer from '../model/Computer.js';
 import Referee from '../model/Referee.js';
-import { GAME_SETTINGS } from '../constants/GameSettings.js';
+import { GAME_OPTION, GAME_SETTINGS } from '../constants/GameSettings.js';
 import {
   printGameEnd,
   printGameStart,
@@ -39,13 +39,19 @@ export default class BaseballController {
 
     printGameStatus(result);
     if (result.strike === GAME_SETTINGS.numberLength) {
-      this.#retry();
+      return this.#retry();
     }
-    this.play();
+    return this.play();
   }
 
-  static #retry() {
+  #retry() {
     printGameEnd();
+    getRetryInput().then((input) => {
+      if (input === GAME_OPTION.retry) {
+        this.#Computer.generate();
+        return this.play();
+      }
+    });
   }
 
   #test() {
