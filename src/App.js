@@ -1,13 +1,20 @@
-const START_MESSAGE = "숫자 야구 게임을 시작합니다.";
-
+import generateRandomNumber from "./randomNumber.js";
 class App {
   async play() {
-    outputMessage(START_MESSAGE);
+    this.outputMessage("숫자 야구 게임을 시작합니다.");
+  }
+
+  outputMessage(message) {
+    console.log(message);
+    this.createComputerNumber();
+  }
+
+  createComputerNumber() {
+    this.computerNumber = generateRandomNumber();
   }
 }
 
-function outputMessage(message) {
-  console.log(message);
-}
+const app = new App();
+app.play();
 
 export default App;
