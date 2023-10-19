@@ -1,4 +1,5 @@
 import { CONSTANT, RESULT } from './Constant.js';
+import { Random } from '@woowacourse/mission-utils';
 
 class BaseballGame {
   #answer;
