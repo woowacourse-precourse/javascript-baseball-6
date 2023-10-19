@@ -15,6 +15,11 @@ export default class OutputView {
     return parsedResults.join(" ");
   }
 
+  printGameWin(matchResult) {
+    const strikeText = this.getResultString(matchResult);
+    print(`${strikeText}\n${GAME_MESSAGES.FINISH}`);
+  }
+
   printNoMatch() {
     print(GAME_RESULTS.NO_MATCH);
   }
