@@ -1,5 +1,9 @@
+const BaseballGame = require("./lib/BaseballGame")
+
 class App {
-  async play() {}
+  async play() {
+    const baseballGame = new BaseballGame()
+  }
 }
 
-export default App;
+module.exports = App;
