@@ -2,8 +2,8 @@ import {
   GAME_CONSTANTS,
   GAME_MESSAGES,
   GAME_RESULTS,
-} from "../utils/constants";
-import { print } from "../utils/missionUtils";
+} from "../utils/constants.js";
+import { print } from "../utils/missionUtils.js";
 
 export default class OutputView {
   printStart() {
