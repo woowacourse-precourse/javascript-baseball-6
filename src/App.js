@@ -9,7 +9,15 @@ class App {
 
   makeRamdomNumber() {}
 
-  inputUserNumber() {}
+  async getUserNumber() {
+    try {
+      const input = await Console.readLineAsync('숫자를 입력해주세요 : ');
+      Console.print(`숫자 ${input}`);
+    } catch (error) {
+
+    }
+    
+  }
 
   compareUserAndRamdomNumber() {}
 
@@ -18,5 +26,6 @@ class App {
 
 const app = new App();
 app.printGameStart();
+app.getUserNumber();
 
 export default App;
