@@ -15,3 +15,12 @@
    - (입력) 사용자 입력 받기
    - 입력값이 1,2 인지 확인하기
    - 1이면 재시작, 2이면 종료
+
+### Test
+
+1. [ ] getRandomNumbers 반환 값이 서로 다른 숫자인가?
+2. [ ] inputUserNumber 에서 에러가 적절한가?
+3. [ ] printResult 출력 값이 적절한가?
+4. [ ] endGame 입력값에 따른 반환값과 에러가 적절한가?
+
+### Refacotring
