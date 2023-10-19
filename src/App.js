@@ -12,6 +12,8 @@ class App {
       const isGameEnd = await this.playOneRound();
       if (isGameEnd) break;
     }
+
+    Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
   }
 
   printStartMessage() {
