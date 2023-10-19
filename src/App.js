@@ -1,23 +1,5 @@
 import { Console, MissionUtils } from "@woowacourse/mission-utils";
 
-const computer =[];
-while (computer.length<3){
-  const number = MissionUtils.Random.pickNumberInRange(1,9);
-  if(!computer.includes(number)){
-    computer.push(number);
-  }
-}
-let na = Console.readLineAsync;
-let naArray = [];
-do {
-  naArray.push(na % 10);
-  n= Math.floor(na / 10);
-} while(n>0);
-
-let strike =0;
-let ball =0;
-let gameset =0;
-
 class App {
 
 // 컴퓨터는 랜덤값 추출
@@ -50,6 +32,24 @@ class App {
 }
 
 function play(){
+  let computer =[];
+  while (computer.length<3){
+    let number = MissionUtils.Random.pickNumberInRange(1,9);
+    if(!computer.includes(number)){
+      computer.push(number);
+    }
+  }
+  let na = Console.readLineAsync;
+  let naArray = [];
+  do {
+    naArray.push(na % 10);
+    n= Math.floor(na / 10);
+  } while(n>0);
+  
+  let strike =0;
+  let ball =0;
+  let gameset =0;
+  
   for(let i=0; i<computer.length; i++){
     for(let j=0; j<naArray.length;j++){
       if(computer[i]==naArray[j]){
