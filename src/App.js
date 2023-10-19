@@ -19,31 +19,37 @@ function makeRandomNumber() {
 }
 async function getUserInput() {
 	const userInput = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 :');
-	validateUserInput(userInput,computer)
-  //compare
-
+	validateUserInput(userInput, computer);
+	//compare
 }
-function validateUserInput(userInput,computer) {
+function validateUserInput(userInput, computer) {
 	if (userInput.length === 3) {
 		const user = userInput.split('').map((number) => +number && +number); //arr
-    //console.log(user)
-    if(user[0]&&user[1]&&user[2]){compareUserComputer(user,computer)}
+		//console.log(user)
+		if (user[0] && user[1] && user[2]) {
+			compareUserComputer(user, computer);
+		}
 	}
 }
-function compareUserComputer(user,computer){ //123, 236
-  let strike = 0
-  let ball = 0
-  for(let i = 0 ; i < user.length ; i++){
-    for(let j = 0; j < computer.length ; j++){
-      if(user[i]===computer[j]){
-        strike ++
-      } else if(computer.includes(user[i])){
-        ball++
-      } else {
-        MissionUtils.Console.print('낫싱')
-      }
-    }
-  }
+function compareUserComputer(user, computer) {
+	//123, 236
+	let strike = 0;
+	let ball = 0;
+	for (let i = 0; i < user.length; i++) {
+		for (let j = 0; j < computer.length; j++) {
+			if (user[i] === computer[j]) {
+				strike++;
+			} else if (computer.includes(user[i])) {
+				ball++;
+			} else {
+				MissionUtils.Console.print('낫싱');
+			}
+		}
+		return {
+			strike: strike,
+			ball: ball,
+		};
+	}
 }
 class App {
 	async play() {
