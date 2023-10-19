@@ -23,13 +23,15 @@ class App {
   }
 
   async askReplay() {
+    const WANT_REPLAY = "1";
+    const END_GAME = "2";
+
     const response = await Console.readLineAsync(
-      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. : "
+      `게임을 새로 시작하려면 ${WANT_REPLAY}, 종료하려면 ${END_GAME}를 입력하세요. : `
     );
 
-    if (response !== "1" && response !== "2") this.throwError();
-
-    return response === "1";
+    if (response !== WANT_REPLAY && response !== END_GAME) this.throwError();
+    return response === WANT_REPLAY;
   }
 
   async playAGame() {
