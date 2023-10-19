@@ -39,7 +39,7 @@ class App {
 
     // 유저의 입력을 받는 함수
     async getUserInput(text) {
-        const userinput = MissionUtils.Console.readLineAsync(text);
+        const userinput = await MissionUtils.Console.readLineAsync(text);
 
         if (userinput.length === 1) {
             if (userinput === '1' || userinput === '2') {
