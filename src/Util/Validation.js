@@ -5,6 +5,7 @@ const validation = {
     commonValidation.checkLength(baseballNumber, 3);
     commonValidation.checkNumber(baseballNumber);
     commonValidation.checkDuplicate(baseballNumber);
+    return baseballNumber.split("").map((num) => Number(num));
   }
 }
 

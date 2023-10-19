@@ -6,8 +6,8 @@ const InputView = {
 
   async InputBaseBallNumber(handlerInputbaseballNumber) {
     const baseballNumber = await Console.readLineAsync(GAME_MESSAGE.INPUT_BASEBALLNUMBER);
-    validation.checkBaseBallNumber(baseballNumber);
-    handlerInputbaseballNumber(baseballNumber);
+    const player_num = validation.checkBaseBallNumber(baseballNumber);
+    handlerInputbaseballNumber(player_num);
   }
 
 };
