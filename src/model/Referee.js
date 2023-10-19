@@ -1,5 +1,5 @@
 export default class Referee {
-  static compare(playerNumbers, computerNumbers) {
+  compare(playerNumbers, computerNumbers) {
     const status = {
       strike: 0,
       ball: 0,
