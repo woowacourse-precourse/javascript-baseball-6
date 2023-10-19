@@ -25,6 +25,9 @@ class App {
     if (!Validator.checkIsNumber(userNumbers)) {
       throw new Error(ERROR.NOT_A_NUMBER);
     }
+    if (!Validator.checkIsThreeNumbers(userNumbers)) {
+      throw new Error(ERROR.NOT_THREE_NUMBERS);
+    }
   }
 }
 
