@@ -131,10 +131,14 @@ class App {
     return { strikeCount, ballCount };
   }
 
+  getRandomNumberExceptZero() {
+    return Random.pickNumberInRange(1, 9).toString();
+  }
+
   setAnswer() {
     this.answer = "";
     for (let i = 0; i < this.ANSWER_LENGTH; i++) {
-      this.answer += Random.pickNumberInRange(1, 9).toString();
+      this.answer += this.getRandomNumberExceptZero();
     }
   }
 
