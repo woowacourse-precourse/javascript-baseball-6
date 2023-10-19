@@ -25,4 +25,8 @@ export default class Calculate {
       index++;
     }
   }
+
+  getResult() {
+    return [this.ball, this.strike];
+  }
 }

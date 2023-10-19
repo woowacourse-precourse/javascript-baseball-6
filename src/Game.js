@@ -16,6 +16,9 @@ export default class Game {
 
     const calculate = new Calculate();
     calculate.compareAnsAndPlayer(this.answer, this.player);
+    const [ball, strike] = calculate.getResult();
+
+    Print.showHint(ball, strike);
   }
 
   createComputerNumber() {
