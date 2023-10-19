@@ -22,11 +22,11 @@ class Controller {
     async getInputNumber() {
         while (true){
             CONSTANTS.USER_NUMBER = await MissionUtils.Console.readLineAsync(`${INPUT_MSG.INPUT_NUMBER}`);
-            console.log(CONSTANTS);
             MissionUtils.Console.print(`${INPUT_MSG.INPUT_NUMBER} ${CONSTANTS.USER_NUMBER}`);
             STRIKE_BALL.STRIKE = 0;
             STRIKE_BALL.BALL = 0;
             this.#checkingStrike(CONSTANTS.USER_NUMBER);
+            this.OUT.printResult();
             if (STRIKE_BALL.STRIKE === 3) return;
         }
     }

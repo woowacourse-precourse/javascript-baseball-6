@@ -10,10 +10,15 @@ class GamePlay {
     constructor() {
         this.CON = new CONTROL();
         this.startGame();
+        // this.getAnswer();
     }
 
     startGame() {
         MissionUtils.Console.print(OUTPUT_MSG.START_GAME);
+        this.#getAnswer();
+    }
+
+    #getAnswer() {
         this.CON.makeAnswer();
         this.#inputNumber();
     }
