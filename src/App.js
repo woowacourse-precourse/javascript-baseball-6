@@ -3,7 +3,10 @@ import {
   generateComputerNumbers,
   printResultMessage,
 } from "./utils/generate.js";
-import { validateUserInputNumber } from "./utils/validation.js";
+import {
+  validateUserInputNumber,
+  validateUserSelectNumber,
+} from "./utils/validation.js";
 import { compareNumbers } from "./utils/game.js";
 import {
   GAME_START_MESSAGE,
@@ -11,15 +14,16 @@ import {
   INPUT_NUMBER_MESSAGE,
   RESTART_INFO_MESSAGE,
 } from "./constants/info-message.js";
-import { GAME_EXIT, GAME_RESTART } from "./constants/game.js";
+import { GAME_EXIT } from "./constants/game.js";
 
 class App {
   async play() {
     Console.print(GAME_START_MESSAGE);
 
     let userInputNumber;
+    let userSelectNumber;
 
-    while (true) {
+    do {
       const computerNumbers = generateComputerNumbers();
 
       do {
@@ -33,17 +37,9 @@ class App {
       Console.print(GAME_WIN_MESSAGE);
       Console.print(RESTART_INFO_MESSAGE);
 
-      const num = await Console.readLineAsync("");
-      if (num === GAME_RESTART) {
-        continue;
-      }
-      if (num === GAME_EXIT) {
-        break;
-      }
-      if (num !== GAME_RESTART || num !== GAME_RESTART) {
-        throw new Error(INVALID_INPUT_ERROR);
-      }
-    }
+      userSelectNumber = await Console.readLineAsync("");
+      validateUserSelectNumber(userSelectNumber);
+    } while (userSelectNumber !== GAME_EXIT);
   }
 }
 

@@ -2,7 +2,9 @@ import {
   NUMBER_ERROR,
   DUPLICATION_ERROR,
   LENGTH_ERROR,
+  INVALID_INPUT_ERROR,
 } from "../constants/error-message.js";
+import { GAME_RESTART, GAME_EXIT } from "../constants/game.js";
 
 function isLengthError(userNumbers) {
   if (userNumbers.length !== 3) throw new Error(LENGTH_ERROR);
@@ -33,9 +35,17 @@ function validateUserInputNumber(userNumbers) {
   isNumberError(userNumbers);
 }
 
+function validateUserSelectNumber(userSelectNumber) {
+  if (userSelectNumber !== GAME_RESTART && userSelectNumber !== GAME_EXIT) {
+    throw new Error(INVALID_INPUT_ERROR);
+  }
+  return false;
+}
+
 export {
   isLengthError,
   isDuplicationError,
   isNumberError,
   validateUserInputNumber,
+  validateUserSelectNumber,
 };
