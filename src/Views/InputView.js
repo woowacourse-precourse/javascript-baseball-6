@@ -1,12 +1,16 @@
+import { MissionUtils } from "@woowacourse/mission-utils";
 import { GAME_MESSAGES } from "../utils/constants.js";
-import { readLineAsync } from "../utils/missionUtils.js";
 
 export default class InputView {
   async readUserInputNumbers() {
-    return await readLineAsync(GAME_MESSAGES.INPUT_NUMBERS);
+    return await MissionUtils.Console.readLineAsync(
+      GAME_MESSAGES.INPUT_NUMBERS
+    );
   }
 
   async readUserInputCommand() {
-    return await readLineAsync(GAME_MESSAGES.INPUT_COMMAND);
+    return await MissionUtils.Console.readLineAsync(
+      GAME_MESSAGES.INPUT_COMMAND
+    );
   }
 }

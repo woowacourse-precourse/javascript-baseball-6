@@ -1,13 +1,13 @@
+import { MissionUtils } from "@woowacourse/mission-utils";
 import {
   GAME_CONSTANTS,
   GAME_MESSAGES,
   GAME_RESULTS,
 } from "../utils/constants.js";
-import { print } from "../utils/missionUtils.js";
 
 export default class OutputView {
   printStart() {
-    print(GAME_MESSAGES.START);
+    MissionUtils.Console.print(GAME_MESSAGES.START);
   }
 
   printMatchResult(matchResult) {
@@ -21,7 +21,7 @@ export default class OutputView {
       return;
     }
     const resultText = this.getResultString(matchResult);
-    print(resultText);
+    MissionUtils.Console.print(resultText);
   }
 
   getResultString(matchResult) {
@@ -35,10 +35,10 @@ export default class OutputView {
 
   printGameWin(matchResult) {
     const strikeText = this.getResultString(matchResult);
-    print(`${strikeText}\n${GAME_MESSAGES.FINISH}`);
+    MissionUtils.Console.print(`${strikeText}\n${GAME_MESSAGES.FINISH}`);
   }
 
   printNoMatch() {
-    print(GAME_RESULTS.NO_MATCH);
+    MissionUtils.Console.print(GAME_RESULTS.NO_MATCH);
   }
 }
