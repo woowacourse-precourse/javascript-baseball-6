@@ -7,7 +7,7 @@ class App {
   }
 
   throwError() {
-    throw Error("[ERROR]");
+    throw new Error("[ERROR]");
   }
 
   printStartMessage() {
