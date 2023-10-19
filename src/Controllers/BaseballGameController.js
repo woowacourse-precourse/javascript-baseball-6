@@ -2,12 +2,13 @@ import BaseballGame from "../Models/BaseballGame.js";
 import InputView from "../Views/InputView.js";
 import OutputView from "../Views/OutputView.js";
 import { GAME_CONSTANTS, USER_COMMANDS } from "../utils/constants.js";
+import { validateUtils } from "../utils/validateUtils.js";
 
 export default class BaseballGameController {
   #inputView;
   #outputView;
 
-  constructor() {
+  async play() {
     this.#inputView = new InputView();
     this.#outputView = new OutputView();
     const baseballGame = new BaseballGame();
@@ -26,24 +27,34 @@ export default class BaseballGameController {
   }
 
   async processNumbers(input, game) {
-    const matchResult = game.calculateBallStrikeScore(input);
-    const [ball, strike] = matchResult;
-    this.#outputView.printMatchResult(matchResult);
-    if (strike === GAME_CONSTANTS.STRIKE_OUT_COUNT) {
-      this.readCommand(game);
-      return;
+    try {
+      validateUtils.validateNumbers(input);
+      const matchResult = game.calculateBallStrikeScore(input);
+      const [ball, strike] = matchResult;
+      this.#outputView.printMatchResult(matchResult);
+      if (strike === GAME_CONSTANTS.STRIKE_OUT_COUNT) {
+        this.readCommand(game);
+        return;
+      }
+      this.readNumbers(game);
+    } catch (error) {
+      throw error;
     }
-    this.readNumbers(game);
   }
 
   async processCommand(input, game) {
-    if (input === USER_COMMANDS.RESTART) {
-      game.setNewAnswer();
-      this.readNumbers(game);
-      return;
-    }
-    if (input === USER_COMMANDS.QUIT) {
-      return;
+    try {
+      validateUtils.validateCommand(input);
+      if (input === USER_COMMANDS.RESTART) {
+        game.setNewAnswer();
+        this.readNumbers(game);
+        return;
+      }
+      if (input === USER_COMMANDS.QUIT) {
+        return;
+      }
+    } catch (error) {
+      throw error;
     }
   }
 }
