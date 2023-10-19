@@ -1,3 +1,4 @@
+import { MissionUtils, Console } from "@woowacourse/mission-utils";
 import { LOG, MAX_INPUT_LENGTH, MAX_RANDOM_NUMBER, MIN_RANDOM_NUMBER } from "./constants.js";
 
 class App {
@@ -29,6 +30,8 @@ class App {
 				if (!isValid) {
 					throw new Error(LOG.ERROR);
 				}
+
+				const { strike, ball } = this.calculateStrikeBall(input);
 			}
 		} catch (e) {
 			throw new Error(e.message);
@@ -75,6 +78,35 @@ class App {
 		const isValid = !(isNaN(Number(input)) || set.has("0") || set.size !== MAX_INPUT_LENGTH);
 
 		return isValid;
+	}
+
+	/**
+	 * @param {string} input
+	 * @description 스트라이크와 볼의 개수를 계산합니다.
+	 * @description 스트라이크는 자릿수와 값이 모두 같을 경우, 볼은 자릿수는 다르지만 값이 같을 경우입니다.
+	 * @returns {{strike: number, ball: number}}
+	 */
+	calculateStrikeBall(input) {
+		const randomNumberToString = String(this.randomNumber);
+
+		let strike = 0;
+		let ball = 0;
+
+		for (let i = 0; i < MAX_INPUT_LENGTH; i++) {
+			const inputNumber = input[i];
+			const randomNumber = randomNumberToString[i];
+
+			if (inputNumber === randomNumber) {
+				strike++;
+				continue;
+			}
+
+			if (randomNumberToString.includes(inputNumber)) {
+				ball++;
+			}
+		}
+
+		return { strike, ball };
 	}
 }
 
