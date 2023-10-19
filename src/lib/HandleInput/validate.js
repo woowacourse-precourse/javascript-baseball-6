@@ -14,4 +14,10 @@ function validateGuessInput(input) {
     return true;
 };
 
-module.exports = {validateGuessInput};
+function validateCommandInput(input) {
+    if (parseInt(input).toString() != input) throw new Error(ERROR_MESSAGE.NOT_AN_INT);
+    if (!VALIDATION_RULE.VALID_COMMAND.includes(input)) throw new Error(ERROR_MESSAGE.INVALID_COMMAND);
+    return true;
+}
+
+module.exports = {validateCommandInput, validateGuessInput};

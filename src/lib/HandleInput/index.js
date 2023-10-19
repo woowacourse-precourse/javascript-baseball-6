@@ -13,4 +13,16 @@ async function handleGuessInput() {
     return response;
 };
 
-module.exports = {handleGuessInput};
+async function handleCommandInput() {
+    let response;
+    try {
+        response = await ReadLine.readCommandInput();
+        Validate.validateCommandInput(response);
+        response = Parse.parseCommandInput(response);
+    } catch(e) {
+        throw e;
+    };
+    return response;
+};
+
+module.exports = {handleCommandInput, handleGuessInput};

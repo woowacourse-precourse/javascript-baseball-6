@@ -1,9 +1,16 @@
 const { Console } = require("@woowacourse/mission-utils")
 const { OUTPUT_MESSAGE } = require("./Constants")
 
+function printInitMessage() {
+    Console.print(OUTPUT_MESSAGE.INIT)
+}
 
 function printCount(count) {
     Console.print(count)
+}
+
+function printWin() {
+    Console.print(OUTPUT_MESSAGE.WIN)
 }
 
 function parseCount(count) {
@@ -16,4 +23,4 @@ function parseCount(count) {
     return response;
 }
 
-module.exports = { parseCount, printCount }
+module.exports = { parseCount, printCount, printInitMessage, printWin }

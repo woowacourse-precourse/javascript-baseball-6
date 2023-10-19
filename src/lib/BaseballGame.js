@@ -1,11 +1,14 @@
-const { VALIDATION_RULE } = require("./Constants");
 const { Random } = require("@woowacourse/mission-utils");
-const { handleGuessInput } = require("./HandleInput");
-const { parseCount, printCount } = require("./HandleOutput")
 const { calcCount } = require("./Calc")
+const { VALIDATION_RULE } = require("./Constants");
+const { handleCommandInput, handleGuessInput } = require("./HandleInput");
+const { parseCount, printCount, printInitMessage, printWin } = require("./HandleOutput")
 
 class BaseballGame {
     constructor() {
+        // 출력 처리
+        printInitMessage()
+        // 난수 부여
         this.numbers = this.#getComputerRandom();
     };
 
@@ -25,22 +28,36 @@ class BaseballGame {
 
     async play() {
         try {
+            // 입력 처리
             const guess = await handleGuessInput();
+            // 계산
             const count = calcCount(guess, this.numbers);
+            // 출력 처리
             const result = parseCount(count);
             printCount(result);
-            if (count.strikeCount === VALIDATION_RULE.VALID_GUESS_LENGTH) this.checkRetry();
-            if (count.strikeCount !== VALIDATION_RULE.VALID_GUESS_LENGTH) this.play();
+            // 결과 처리
+            if (count.strikeCount === VALIDATION_RULE.VALID_GUESS_LENGTH) await this.#checkRetry();
+            if (count.strikeCount !== VALIDATION_RULE.VALID_GUESS_LENGTH) await this.play();
         } catch(e) {
             throw e;
         };
     };
 
-    checkRetry() {
+    async #checkRetry() {
+        // 출력 처리
+        printWin()
+        // 결과 처리
         try {
-
+            // 입력 처리
+            const retry = await handleCommandInput();
+            // 결과 처리
+            if (retry) {
+                this.numbers = this.#getComputerRandom();
+                await this.play();
+            }
+            return;
         } catch(e) {
-
+            throw e;
         }
     }
 };

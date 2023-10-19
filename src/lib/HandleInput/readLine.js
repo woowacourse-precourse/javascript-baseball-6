@@ -3,8 +3,14 @@ const { INPUT_MESSAGE } = require("../Constants");
 
 async function readGuessInput() {
     return await Console.readLineAsync(INPUT_MESSAGE.GUESS, (answer) => {
-        response = answer;
+        return answer;
     });
 };
 
-module.exports = {readGuessInput};
+async function readCommandInput() {
+    return await Console.readLineAsync(INPUT_MESSAGE.COMMAND, (answer) => {
+        return answer
+    })
+}
+
+module.exports = {readCommandInput, readGuessInput};
