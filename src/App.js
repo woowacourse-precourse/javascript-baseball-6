@@ -30,9 +30,7 @@ class App {
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. : "
     );
 
-    if (response !== "1" && response !== "2") {
-      throw Error("[ERROR]");
-    }
+    if (response !== "1" && response !== "2") this.throwError();
 
     if (response === "1") return true;
     return false;
@@ -41,9 +39,7 @@ class App {
   async playOneRound() {
     const number = await Console.readLineAsync("숫자를 입력해주세요 : ");
 
-    if (!this.isNumberIsValid(number)) {
-      throw Error("[ERROR]");
-    }
+    if (!this.isNumberIsValid(number)) this.throwError();
 
     const { strikeCount, ballCount } = this.getJudgedCountsFor(number);
 
@@ -119,6 +115,10 @@ class App {
 
   isGameEnd(strikeCount) {
     return strikeCount === this.ANSWER_LENGTH;
+  }
+
+  throwError() {
+    throw Error("[ERROR]");
   }
 }
 
