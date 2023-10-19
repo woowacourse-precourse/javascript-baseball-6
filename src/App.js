@@ -23,7 +23,7 @@ class App {
                     '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.'
                 );
 
-                if (userinput.length !== '1') {
+                if (userinput.length !== 1) {
                     throw new Error('입력이 잘못되었습니다.');
                 }
 
