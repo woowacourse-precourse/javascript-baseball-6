@@ -1,7 +1,7 @@
-import BaseballGame from "../Models/BaseballGame";
-import InputView from "../Views/InputView";
-import OutputView from "../Views/OutputView";
-import { GAME_CONSTANTS } from "../utils/constants";
+import BaseballGame from "../Models/BaseballGame.js";
+import InputView from "../Views/InputView.js";
+import OutputView from "../Views/OutputView.js";
+import { GAME_CONSTANTS, USER_COMMANDS } from "../utils/constants.js";
 
 export default class BaseballGameController {
   #inputView;
@@ -22,7 +22,7 @@ export default class BaseballGameController {
 
   async readCommand() {
     const input = await this.#inputView.readUserInputCommand();
-    await this.processCommand(input);
+    await this.processCommand(input, game);
   }
 
   async processNumbers(input, game) {
@@ -36,5 +36,14 @@ export default class BaseballGameController {
     this.readNumbers(game);
   }
 
-  async processCommand() {}
+  async processCommand(input, game) {
+    if (input === USER_COMMANDS.RESTART) {
+      game.setNewAnswer();
+      this.readNumbers(game);
+      return;
+    }
+    if (input === USER_COMMANDS.QUIT) {
+      return;
+    }
+  }
 }
