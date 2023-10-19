@@ -12,20 +12,32 @@ class BaseballGame {
     try {
       const userNum = await this.getUserNum();
 
-      console.log("input value : " + userNum);
+      Console.print(this.computerNum);
     } catch (error) {
       throw error;
     }
   }
 
   async getUserNum() {
-    let num;
+    let input;
     try {
-      num = Console.readLineAsync(messages.INPUT_NUMBER);
+      input = await Console.readLineAsync(messages.INPUT_NUMBER);
+      this.checkValidation(input);
     } catch (error) {
-      throw new Error(error);
+      throw error;
     }
-    return num;
+    return input;
+  }
+
+  checkValidation(input) {
+    const uniqueInput = new Set(input);
+    if (parseInt(input) !== Number(input))
+      throw new Error(messages.INVALID_NOT_NUM);
+    if (input.length !== 3) throw new Error(messages.INVALID_LENGTH);
+    if (input.includes(0)) throw new Error(messages.INVALID_HAS_ZERO);
+    if (Number(input) < 0) throw new Error(messages.INVALID_NEGATIVE_NUM);
+    if (uniqueInput.size !== 3)
+      throw new Error(messages.INVALID_HAS_UNIQUE_NUM);
   }
 
   getComputerNum() {
