@@ -4,9 +4,10 @@ import { ERROR, MESSAGE } from './Constant.js';
 import Validator from './Validator.js';
 
 class App {
+  #game;
   async play() {
     Console.print(MESSAGE.START_GAME);
-    const game = await new BaseballGame();
+    this.#game = await new BaseballGame();
     await this.getUserGuessInput();
   }
 
