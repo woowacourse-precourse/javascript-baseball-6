@@ -5,17 +5,20 @@ class App {
   answer = "";
 
   async play() {
-    this.setAnswer();
     this.printStartMessage();
-
     while (1) {
-      const isGameEnd = await this.playOneRound();
-      if (isGameEnd) break;
+      this.setAnswer();
+
+      while (1) {
+        const isGameEnd = await this.playOneRound();
+        if (isGameEnd) break;
+      }
+
+      Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+
+      const wantReplay = await this.askReplay();
+      if (!wantReplay) break;
     }
-
-    Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-
-    const wantReplay = await this.askReplay();
   }
 
   printStartMessage() {
