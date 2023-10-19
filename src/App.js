@@ -1,6 +1,6 @@
 import BaseballGame from './BaseballGame.js';
 import { Console } from '@woowacourse/mission-utils';
-import { ERROR, MESSAGE } from './Constant.js';
+import { ERROR, MESSAGE, RESULT } from './Constant.js';
 import Validator from './Validator.js';
 
 class App {
@@ -41,6 +41,16 @@ class App {
   printNumberOfMatches(userNumbers) {
     const result = this.#game.compareUserNumbersWithAnswer(userNumbers);
     Console.print(result);
+    this.checkIsAnswer(result);
+  }
+
+  checkIsAnswer(result) {
+    if (result === RESULT.THREE_STRIKE) {
+      Console.print(MESSAGE.CORRECT_ANSWER);
+      this.guessRestart();
+    } else this.getUserGuessInput();
+  }
+
   }
 }
 
