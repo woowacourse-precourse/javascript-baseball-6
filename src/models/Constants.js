@@ -3,4 +3,9 @@ const CONSTANTS = {
     USER_NUMBER : '',
 };
 
-module.exports = { CONSTANTS }
+const STRIKE_BALL = {
+    STRIKE : 0,
+    BALL : 0,
+}
+
+module.exports = { CONSTANTS , STRIKE_BALL }

@@ -3,7 +3,8 @@ const MissionUtils = require('@woowacourse/mission-utils');
 const { OUTPUT_MSG } = require('../models/OutputMsg');
 
 // CONSTANTS
-const { CONSTANTS } = require('../models/Constants');
+const { CONSTANTS , STRIKE_BALL } = require('../models/Constants');
+
 
 class GamePlay {
     constructor() {
