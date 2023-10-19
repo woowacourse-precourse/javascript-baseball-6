@@ -1,6 +1,11 @@
 import { Random, Console } from '@woowacourse/mission-utils';
 
 class App {
+  constructor() {
+    this.strikeCount = 0;
+    this.ballCount = 0;
+  }
+
   isUnique(input) {
     const set = new Set(input);
     return set.size === input.length;
@@ -64,26 +69,23 @@ class App {
     return result;
   }
 
-  getResultMessage(strikeCount, ballCount) {
-    if (strikeCount > 0 && ballCount > 0) {
-      return `${ballCount}볼 ${strikeCount}스트라이크`;
+  getResultMessage() {
+    if (this.strikeCount > 0 && this.ballCount > 0) {
+      return `${this.ballCount}볼 ${this.strikeCount}스트라이크`;
     }
 
-    if (strikeCount > 0) {
-      return `${strikeCount}스트라이크`;
+    if (this.strikeCount > 0) {
+      return `${this.strikeCount}스트라이크`;
     }
 
-    if (ballCount > 0) {
-      return `${ballCount}볼`;
+    if (this.ballCount > 0) {
+      return `${this.ballCount}볼`;
     }
 
     return '낫싱';
   }
 
-  async play() {
-    Console.print('숫자 야구 게임을 시작합니다.');
-
-    const computerNumbers = this.getThreeNumbers();
+  async userInputProcess(computerNumbers) {
     const userInput = await Console.readLineAsync('숫자를 입력해주세요 : ');
 
     if (this.validateUserInput(userInput) === false) {
@@ -92,20 +94,32 @@ class App {
 
     const userNumbers = [...userInput].map(Number);
 
-    const strikeCount = this.getStrikeCount(computerNumbers, userNumbers);
-    const ballCount = this.getBallCount(computerNumbers, userNumbers);
-    const isNothing = strikeCount + ballCount === 0;
+    this.strikeCount = this.getStrikeCount(computerNumbers, userNumbers);
+    this.ballCount = this.getBallCount(computerNumbers, userNumbers);
+    const isNothing = this.strikeCount + this.ballCount === 0;
 
     // TODO: Remove this code
-    Console.print(strikeCount);
-    Console.print(ballCount);
+    Console.print(this.strikeCount);
+    Console.print(this.ballCount);
     Console.print(isNothing);
 
     // TODO: Remove this code
     Console.print(computerNumbers);
     Console.print(userNumbers);
+  }
 
-    const resultMessage = this.getResultMessage(strikeCount, ballCount);
+  async play() {
+    Console.print('숫자 야구 게임을 시작합니다.');
+
+    const computerNumbers = this.getThreeNumbers();
+
+    await this.userInputProcess(computerNumbers);
+
+    const resultMessage = this.getResultMessage(
+      this.strikeCount,
+      this.ballCount
+    );
+
     Console.print(resultMessage);
   }
 }
