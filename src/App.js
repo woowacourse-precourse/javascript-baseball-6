@@ -79,17 +79,22 @@ class App {
     Console.print(`${strikeCount}스트라이크`);
   }
 
-  isNumberIsValid(number) {
-    function isOnlyNumbersExceptZero(number) {
-      for (const eachNumber of number) {
-        if (!"123456789".includes(eachNumber)) return false;
-      }
-
-      return true;
+  isOnlyNumbersExceptZero(number) {
+    for (const eachNumber of number) {
+      if (!"123456789".includes(eachNumber)) return false;
     }
 
-    const isSameAsAnswerLength = number.length === this.ANSWER_LENGTH;
-    return isSameAsAnswerLength && isOnlyNumbersExceptZero(number);
+    return true;
+  }
+
+  isSameAsAnswerLength(number) {
+    return number.length === this.ANSWER_LENGTH;
+  }
+
+  isNumberIsValid(number) {
+    return (
+      this.isSameAsAnswerLength(number) && this.isOnlyNumbersExceptZero(number)
+    );
   }
 
   getStrikeCount(number) {
