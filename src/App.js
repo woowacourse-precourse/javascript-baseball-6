@@ -6,34 +6,41 @@ const NOTHING_TEXT = "낫싱";
 const STRIKE_TEXT = "스트라이크";
 const BALL_TEXT = "볼";
 const SUCCESS_SENTENCE = "3개의 숫자를 모두 맞히셨습니다! 게임 종료";
+const REPLAY_QUESTION_SENTENCE = "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n";
 
 const NUMBER_LENGTH = 3;
 const MIN_NUMBER = 1;
 const MAX_NUMBER = 9;
+const REPLAY = "1";
+const EXIT = "2";
 
 class App {
   constructor() {
     this.computer = [];
     this.user = [];
     this.success = false;
+    this.isPlaying = true;
   }
 
   async play() {
     MissionUtils.Console.print(INTRO_SENTENCE);
 
-    this.setComputer();
+    while(this.isPlaying) {
+      this.initStage();
 
-    while(!this.success) {
-      MissionUtils.Console.print(this.computer);
-      await this.requestPredictedNumbers();
+      while(!this.success) {
+        await this.requestPredictedNumbers();
+    
+        const { strike, ball } = this.calculateResult();
+        this.printResultMessage({ strike, ball });
   
-      const { strike, ball } = this.calculateResult();
-      this.printResultMessage({ strike, ball });
-
-      if (this.checkSuccess(strike)) {
-        this.success = true;
-        this.printSuccessMessage();
+        if (this.checkSuccess(strike)) {
+          this.success = true;
+          this.printSuccessMessage();
+        }
       }
+    
+      await this.requestReplay();
     }
   }
 
@@ -150,6 +157,26 @@ class App {
 
   printSuccessMessage() {
     MissionUtils.Console.print(SUCCESS_SENTENCE);
+  }
+
+  async requestReplay() {
+    const text = await MissionUtils.Console.readLineAsync(REPLAY_QUESTION_SENTENCE);
+
+    if (!this.validateReplay(text)) {
+      throw new Error("[ERROR]");
+    }
+
+    this.isPlaying = text === REPLAY;
+  }
+
+  validateReplay(text) {
+    return text === REPLAY || text === EXIT;
+  }
+
+  initStage() {
+    this.setComputer();
+    this.user = [];
+    this.success = false;
   }
 }
 
