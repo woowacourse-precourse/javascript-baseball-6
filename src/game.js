@@ -16,26 +16,30 @@ export default class Game {
     this.keepQnA();
   }
 
-  keepQnA() {
-    Message.printEnterNumbers().then((numbers) => {
-      const { strike, ball } = this.#computer.getNumbers(numbers);
-      this.tellOf(strike, ball);
+  async keepQnA() {
+    const numbers = await Message.printEnterNumbers();
 
-      if (this.gameOver) {
-        Message.printReset().then((num) => {
-          if (num === '1') {
-            this.reset();
-          }
-          if (num === '2') {
-            // 종료
-          }
-        });
-      }
+    const { strike, ball } = this.#computer.getNumbers(numbers);
+    this.tellOf(strike, ball);
 
-      if (!this.gameOver) {
-        this.keepQnA();
-      }
-    });
+    if (this.gameOver) {
+      this.askRegame();
+    }
+
+    if (!this.gameOver) {
+      this.keepQnA();
+    }
+  }
+
+  async askRegame() {
+    const num = await Message.printReset();
+
+    if (num === '1') {
+      this.reset();
+    }
+    if (num === '2') {
+      return;
+    }
   }
 
   reset() {
