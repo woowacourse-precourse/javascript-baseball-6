@@ -8,10 +8,10 @@ class App {
   async play() {
     Console.print(MESSAGE.START_GAME);
     this.#game = await new BaseballGame();
-    await this.getUserGuessInput();
+    this.getUserGuessInput();
   }
 
-  async getUserGuessInput() {
+  getUserGuessInput() {
     Console.readLineAsync(MESSAGE.ENTER_NUMBERS).then((inputNumbers) => {
       const userNumbers = this.splitUserInput(inputNumbers);
       this.validateUserInput(userNumbers);
