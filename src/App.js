@@ -1,4 +1,4 @@
-const BaseballGame = require('./BaseballGame');
+import BaseballGame from './BaseballGame.js';
 
 class App {
   async play() {
@@ -6,5 +6,8 @@ class App {
     game.start();
   }
 }
+
+const app = new App();
+app.play();
 
 export default App;

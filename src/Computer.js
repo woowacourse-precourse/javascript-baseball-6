@@ -1,4 +1,4 @@
-const { Random } = require('@woowacourse/mission-utils');
+import { Random } from '@woowacourse/mission-utils';
 
 class Computer {
 
@@ -16,4 +16,4 @@ class Computer {
 
 }
 
-module.exports = Computer;
+export default Computer;
