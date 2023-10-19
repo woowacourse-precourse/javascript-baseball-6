@@ -18,18 +18,24 @@ class App {
     // 컴퓨터 숫자 랜덤 생성
     const computerNumbers = generateComputerNumbers();
 
-    // 사용자에게 입력 받기
-    const userNumbers = await Console.readLineAsync("숫자를 입력해주세요 : ");
-    isLengthError(userNumbers);
-    isDuplicationError(userNumbers);
-    isNumberError(userNumbers);
+    while (true) {
+      // 사용자에게 입력 받기
+      const userNumbers = await Console.readLineAsync("숫자를 입력해주세요 : ");
+      isLengthError(userNumbers);
+      isDuplicationError(userNumbers);
+      isNumberError(userNumbers);
 
-    // 컴퓨터와 사용자의 숫자를 비교하기
-    const result = compareNumbers(computerNumbers, userNumbers);
+      // 컴퓨터와 사용자의 숫자를 비교하기
+      const result = compareNumbers(computerNumbers, userNumbers);
 
-    // 결과 화면에 출력하기
-    const resultMessage = generateResultMessage(result);
-    Console.print(resultMessage);
+      // 결과 화면에 출력하기
+      const resultMessage = generateResultMessage(result);
+      Console.print(resultMessage);
+
+      if (computerNumbers === userNumbers) {
+        break;
+      }
+    }
   }
 }
 
