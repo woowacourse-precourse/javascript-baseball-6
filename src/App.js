@@ -14,7 +14,8 @@ class App {
     }
 
     Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-    await this.askReplay();
+
+    const wantReplay = await this.askReplay();
   }
 
   printStartMessage() {
@@ -26,7 +27,12 @@ class App {
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. : "
     );
 
-    Console.print(response);
+    if (response !== "1" && response !== "2") {
+      throw Error("[Error]");
+    }
+
+    if (response === "1") return true;
+    return false;
   }
 
   async playOneRound() {
