@@ -1,12 +1,20 @@
+const CONTROL = require('../controller/Controller');
 const MissionUtils = require('@woowacourse/mission-utils');
+const { OUTPUT_MSG } = require('../models/OutputMsg');
+
+// CONSTANTS
+const { CONSTANTS } = require('../models/Constants');
 
 class GamePlay {
     constructor() {
-        this.test();
+        this.CON = new CONTROL();
+        this.startGame();
     }
 
-    test() {
-        MissionUtils.Console.print('test');
+    startGame() {
+        MissionUtils.Console.print(OUTPUT_MSG.START_GAME);
+        this.CON.makeAnswer();
+        console.log(CONSTANTS.ANSWER_NUMBER);
     }
 }
 
