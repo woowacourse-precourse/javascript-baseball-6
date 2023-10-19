@@ -8,6 +8,9 @@ class App {
 
     // 컴퓨터 숫자 랜덤 생성
     const computerNumbers = generateComputerNumbers();
+
+    // 사용자에게 입력 받기
+    const userNumbers = await Console.readLineAsync("숫자를 입력해주세요 : ");
   }
 }
 
