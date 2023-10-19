@@ -1,6 +1,10 @@
 import { Console } from '@woowacourse/mission-utils';
 
 class App {
+  constructor (computer) {
+    this.computer = computer;
+  }
+
   async play() {}
 
   notifyGameStart() {
@@ -21,7 +25,15 @@ class App {
 
   compareUserAndRamdomNumber() {}
 
-  notifyGameEnd() {}
+  isExecuteGame(input) {
+    if (input === computer) {
+
+    } else if (input === 1) {
+
+    } else if (input === 2) {
+      
+    }
+  }
 }
 
 const app = new App();
