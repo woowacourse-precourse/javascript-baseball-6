@@ -6,11 +6,11 @@ class App {
 
     while (!is_pass) {
       await baseballGame.inputUserNumber();
-
       is_pass = baseballGame.inputResult();
     }
 
-    baseballGame.endGame();
+    const IS_RETRY = await baseballGame.endGame();
+    if (IS_RETRY) this.play();
   }
 }
 
