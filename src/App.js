@@ -3,9 +3,13 @@ import { Console, Random } from '@woowacourse/mission-utils';
 class App {
   async play() {
     this.notifyGameStart();
-    const number = await this.getUserNumber();
-    const executeCondition = await this.notifyGameEnd();
-    this.isExecuteGame(executeCondition);
+    while(1) {
+      const computer = this.makeRamdomNumber();
+      const number = await this.getUserNumber();
+      this.compareUserAndRamdomNumber(number, computer);
+      const executeCondition = await this.notifyGameEnd();
+      this.isExecuteGame(executeCondition);
+    }
   }
 
   notifyGameStart() {
@@ -20,23 +24,49 @@ class App {
         computer.push(number);
       }
     }
-    return computer.join('');
+    return computer//.join('');
   }
 
   async getUserNumber() {
     try {
       const input = await Console.readLineAsync('숫자를 입력해주세요 : ');
       //input 잘못 입력 안했는지 확인해야함
-      return input;
+      return input.split('');
     } catch (error) {
       throw new Error('reject');
     }
   }
 
-  compareUserAndRamdomNumber(input) {
+  compareUserAndRamdomNumber(input, computer) {
+    /* 실패일 때, 힌트 출력 후 숫자 입력받기 */
+    let strike = 0;
+    let ball = 0;
+    let nothing = 0;
+    let hint = '';
+    console.log('compareUserAndRamdomNumber');
+    // 스트라이크 확인
+    computer.forEach((number, index) => {
+      if (number === input[index]) { // 스트라이크
+        console.log('number', number, 'input[index]', input[index]);
+        strike += 1;
+      }
+    });
+    hint += `${strike}스트라이크 `;
+
+    /*if () { // 볼
+
+    } else if () { // 낫싱
+
+    }*/
+    Console.print(hint);
+
+    // 성공일때 return this.notifyGameEnd();
   }
 
+
+
   async notifyGameEnd() {
+    Console.print('3스트라이크');
     Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
     Console.print('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
     
@@ -61,5 +91,5 @@ class App {
 
 const app = new App();
 //app.play();
-app.makeRamdomNumber();
+app.compareUserAndRamdomNumber(['1','2','3'], ['1', '2', '9']);
 export default App;
