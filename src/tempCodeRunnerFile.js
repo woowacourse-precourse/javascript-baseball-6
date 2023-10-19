@@ -1,0 +1,1 @@
+sionUtils.Console.print(`${balls > 0 ? `${balls}볼 ` : ''}${strikes > 0 ? `${strikes}스트라이크` : ''}`);
