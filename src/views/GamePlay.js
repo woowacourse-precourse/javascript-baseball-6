@@ -14,7 +14,11 @@ class GamePlay {
     startGame() {
         MissionUtils.Console.print(OUTPUT_MSG.START_GAME);
         this.CON.makeAnswer();
-        console.log(CONSTANTS.ANSWER_NUMBER);
+        this.#inputNumber();
+    }
+
+    #inputNumber() {
+        this.CON.getInputNumber();
     }
 }
 
