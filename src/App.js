@@ -20,8 +20,12 @@ class App {
       throw Error("[Error]");
     }
 
-    const strikeCount = this.getStrikeCount(number);
-    const ballCount = this.getBallCount(number, strikeCount);
+    if (this.isNothing(number)) {
+      Console.print("x");
+      return;
+    }
+
+    const { strikeCount, ballCount } = this.getJudgedCountsFor(number);
 
     Console.print(strikeCount);
     Console.print(ballCount);
@@ -66,6 +70,12 @@ class App {
     }
 
     return count - strikeCount;
+  }
+
+  getJudgedCountsFor(number) {
+    const strikeCount = this.getStrikeCount(number);
+    const ballCount = this.getBallCount(number, strikeCount);
+    return { strikeCount, ballCount };
   }
 }
 
