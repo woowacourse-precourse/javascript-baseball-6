@@ -3,17 +3,12 @@ import { Console, MissionUtils } from "@woowacourse/mission-utils";
 class App {
   async play() {
     Console.print("숫자 야구 게임을 시작합니다.");
-
-    let gameType = true;
-    while (gameType) {
-      gameType = await this.GameStart();
-    }
+    this.GameStart();
   }
 
   async GameStart() {
-    let gameType = true;
     const computerNumber = this.getComputerRandomNumber();
-    // Console.print(computerNumber);
+    Console.print(computerNumber);
     let continueGame = true;
     while (continueGame) {
       const number = await Console.readLineAsync("숫자를 입력해주세요 : ");
@@ -35,18 +30,22 @@ class App {
           const userChoice = await Console.readLineAsync(
             "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
           );
-          if (userChoice == 2) {
-            gameType = false;
+          if (userChoice == 1) {
+            this.restart();
           }
           continueGame = false;
         }
       } else {
         Console.print("에러");
         continueGame = false;
-        gameType = false;
       }
     }
-    return gameType;
+  }
+
+  restart() {
+    const app = new App();
+
+    return app.play();
   }
 
   calculateBaseball(computerNumbers, number) {
