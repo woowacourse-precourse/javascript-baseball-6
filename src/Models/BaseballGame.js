@@ -27,7 +27,6 @@ export default class BaseballGame {
         ball += 1;
       }
     }
-    console.log(ball, strike);
     return [ball, strike];
   }
 
