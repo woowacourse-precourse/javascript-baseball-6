@@ -27,10 +27,38 @@ function validateUserInput(userInput, computer) {
 		const user = userInput.split('').map((number) => +number && +number); //arr
 		//console.log(user)
 		if (user[0] && user[1] && user[2]) {
-
 			const { strike, ball } = compareUserComputer(user, computer);
-			const strikeScore = strike ? `${strike}스트라이크` : '';
-			const ballScore = ball ? `${ball}볼` : '';
+			returnScore(strike, ball);
+			finishGame();
+		}
+	}
+}
+async function finishGame() {
+	const finalResult = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+	switch (finalResult) {
+		case 1:
+			// 게임 새로 시작
+			start();
+			break;
+		case 2:
+			//게임 끝
+			break;
+	}
+}
+function returnScore(strike, ball) {
+	const strikeScore = strike ? `${strike}스트라이크` : '';
+	const ballScore = ball ? `${ball}볼` : '';
+	if (strike === 3) {
+		MissionUtils.Console.print(strikeScore);
+		MissionUtils.Console.print('3개의 숫자를 모두 맞추셨습니다! 게임 종료');
+	} else {
+		if (strike === 0) {
+			MissionUtils.Console.print(ballScore);
+			if (ball === 0) {
+				MissionUtils.Console.print('낫싱');
+			}
+		} else {
+			MissionUtils.Console.print(ballScore + ' ' + strikeScore);
 		}
 	}
 }
