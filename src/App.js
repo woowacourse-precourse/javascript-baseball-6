@@ -19,7 +19,14 @@ const getUserInput = async () => {
 };
 
 const validateAnswer = (user) => {
-	const computer = MissionUtils.Random.pickUniqueNumbersInRange(1, 9, 3);
+	const computer = [];
+	while (computer.length <= 3) {
+		const number = MissionUtils.Random.pickNumberInRange(1, 9);
+		if (!computer.includes(number)) {
+			computer.push(number);
+		}
+	}
+  console.log(computer)
 	//낫싱 판별
 	if (getNothing(user, computer)) {
 		return MissionUtils.Console.print('낫싱');
