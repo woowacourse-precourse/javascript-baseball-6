@@ -17,4 +17,15 @@ function isDuplicationError(userNumbers) {
   return false;
 }
 
-export { isLengthError, isDuplicationError };
+// 입력받은 숫자에 문자가 포함될 경우 에러 표시
+function isNumberError(userNumbers) {
+  for (let i = 0; i < userNumbers.length; i++) {
+    if (!(userNumbers[i] >= "0" && userNumbers[i] <= "9")) {
+      throw new Error("입력받은 숫자에 문자가 포함되어 있습니다.");
+    }
+  }
+
+  return false;
+}
+
+export { isLengthError, isDuplicationError, isNumberError };
