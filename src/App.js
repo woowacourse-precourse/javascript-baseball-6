@@ -1,5 +1,11 @@
-class App {
-  async play() {}
+import BaseballController from './controller/BaseballController.js';
+
+export default class App {
+  async play() {
+    this.controller = new BaseballController();
+    this.controller.play();
+  }
 }
 
-export default App;
+const app = new App();
+app.play();
