@@ -11,13 +11,13 @@ class App {
     while (1) {
       let userNums = await this.getUserNum();
       const result = await this.compareUserAndComputer(userNums, computerNum);
-      console.log(
+      MissionUtils.Console.print(
         `${result[1] === 0 ? "0볼" : result[1] + "볼"} ${
           result[0] === 0 ? "0스트라이크" : result[0] + "스트라이크"
         }`
       );
       if (result[0] === 3) {
-        console.log(SUCCESS);
+        MissionUtils.Console.print(SUCCESS);
         const reStart = await MissionUtils.Console.readLineAsync(
           "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. : "
         );
