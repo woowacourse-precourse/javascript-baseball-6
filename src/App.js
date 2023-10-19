@@ -1,5 +1,5 @@
 class App {
-  async play() {}
+  async play(s) {}
 }
 
 export default App;
