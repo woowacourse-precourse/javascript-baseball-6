@@ -8,6 +8,9 @@ class Validator {
   static checkHasDuplicate(input) {
     return new Set(input).size === input.length;
   }
+  static checkHasZero(input) {
+    return input.includes(0);
+  }
 }
 
 export default Validator;

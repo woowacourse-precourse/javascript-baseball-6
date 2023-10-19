@@ -31,6 +31,9 @@ class App {
     if (!Validator.checkHasDuplicate(userNumbers)) {
       throw new Error(ERROR.HAS_DUPLICATE);
     }
+    if (Validator.checkHasZero(userNumbers)) {
+      throw new Error(ERROR.HAS_ZERO);
+    }
   }
 }
 
