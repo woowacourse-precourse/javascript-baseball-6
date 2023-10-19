@@ -9,8 +9,10 @@ class App {
             userinput = await MissionUtils.Console.readLineAsync(
                 '숫자를 입력해주세요.'
             );
-
-
+            const judgelist = this.getBallandStrike(userinput, answer);
+            if(this.isUserWin(judgelist[0], judgelist[1])){
+                break;
+            }
         }
     }
     // 정답을 생성하는 함수
