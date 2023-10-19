@@ -51,13 +51,16 @@ class App {
         strike += 1;
       }
     });
-    hint += `${strike}스트라이크 `;
+    if(strike) hint += `${strike}스트라이크 `;
 
-    /*if () { // 볼
+    // 볼
+    ball = computer.filter((number) => input.includes(number)).length;
+    ball -= strike;
+    if(ball) hint += `${ball}볼 `; 
+    
+    // 낫싱
 
-    } else if () { // 낫싱
-
-    }*/
+    
     Console.print(hint);
 
     // 성공일때 return this.notifyGameEnd();
