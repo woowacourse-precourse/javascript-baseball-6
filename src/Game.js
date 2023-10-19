@@ -4,6 +4,7 @@ import Calculate from "./Calculate.js";
 
 export default class Game {
   constructor() {
+    Print.startMessage();
     this.answer = null;
     this.player = null;
     this.ball = 0;
@@ -17,7 +18,6 @@ export default class Game {
   }
 
   setGame() {
-    Print.startMessage();
     this.createComputerNumber();
   }
 
