@@ -149,4 +149,23 @@ describe("숫자 야구 게임", () => {
     });
   });
 
+  test("경우 출력 확인", async () => {
+    // given
+    const randoms = [1, 2, 3];
+    const answers = ["456", "451", "412", "312", "145", "142", "132", "124", "123", "2" ];
+    const logSpy = getLogSpy();
+    const messages = ["낫싱", "1볼", "2볼", "3볼", "1스트라이크", "1볼 1스트라이크", "2볼 1스트라이크", "2스트라이크", "3스트라이크", "게임 종료"];
+
+    mockRandoms(randoms);
+    mockQuestions(answers);
+
+    // when
+    const app = new App();
+    await expect(app.play()).resolves.not.toThrow();
+
+    // then
+    messages.forEach((output) => {
+      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(output));
+    });
+  });
 });
