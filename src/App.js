@@ -97,21 +97,29 @@ class App {
     );
   }
 
+  isSameIndexWithAnswer(idx, number) {
+    return this.answer[idx] === number[idx];
+  }
+
   getStrikeCount(number) {
     let count = 0;
 
     for (let idx = 0; idx < this.ANSWER_LENGTH; idx++) {
-      if (this.answer[idx] === number[idx]) count++;
+      if (this.isSameIndexWithAnswer(idx, number)) count++;
     }
 
     return count;
+  }
+
+  isAnswerIncludes(number) {
+    return this.answer.includes(number);
   }
 
   getBallCount(number, strikeCount) {
     let count = 0;
 
     for (const eachNumber of number) {
-      if (this.answer.includes(eachNumber)) count++;
+      if (this.isAnswerIncludes(eachNumber)) count++;
     }
 
     return count - strikeCount;
