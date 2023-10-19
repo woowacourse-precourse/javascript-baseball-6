@@ -1,6 +1,6 @@
 const { VALIDATION_RULE, ERROR_MESSAGE } = require("../Constants");
 
-function validateGuessInput(input) {
+const validateGuessInput = function (input) {
     const visited = new Set();
     if (parseInt(input) !== Number(input)) throw new Error(ERROR_MESSAGE.NOT_AN_INT);
     if (input.length !== VALIDATION_RULE.VALID_GUESS_LENGTH) throw new Error(ERROR_MESSAGE.INVALID_GUESS_LENGTH);
@@ -14,10 +14,10 @@ function validateGuessInput(input) {
     return true;
 };
 
-function validateCommandInput(input) {
+const validateCommandInput = function (input) {
     if (parseInt(input) !== Number(input)) throw new Error(ERROR_MESSAGE.NOT_AN_INT);
     if (!VALIDATION_RULE.VALID_COMMAND.includes(input)) throw new Error(ERROR_MESSAGE.INVALID_COMMAND);
     return true;
 }
 
-module.exports = {validateCommandInput, validateGuessInput};
+module.exports = { validateCommandInput, validateGuessInput };

@@ -5,14 +5,14 @@ const { handleCommandInput, handleGuessInput } = require("./HandleInput");
 const { parseCount, printCount, printInitMessage, printWin } = require("./HandleOutput");
 
 class BaseballGame {
-    constructor() {
+    constructor () {
         // 출력 처리
         printInitMessage();
         // 난수 부여
         this.numbers = this.#getComputerRandom();
     };
 
-    #getComputerRandom() {
+    #getComputerRandom () {
         const visited = new Set();
         const [MIN, MAX] = [VALIDATION_RULE.GUESS_MIN_VALUE_INCLUSIVE, VALIDATION_RULE.GUESS_MAX_VALUE_INCLUSIVE];
         let result = '';
@@ -27,7 +27,7 @@ class BaseballGame {
         return result;
     };
 
-    async play() {
+    async play () {
         try {
             // 입력 처리
             const guess = await handleGuessInput();
@@ -44,7 +44,7 @@ class BaseballGame {
         };
     };
 
-    async #checkRetry() {
+    async #checkRetry () {
         // 출력 처리
         printWin();
         // 결과 처리

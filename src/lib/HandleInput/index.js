@@ -2,7 +2,7 @@ const ReadLine = require("./readLine");
 const Validate = require("./validate");
 const Parse = require("./parse");
 
-async function handleGuessInput() {
+async function handleGuessInput () {
     let response;
     try {
         response = await ReadLine.readGuessInput();
@@ -13,7 +13,7 @@ async function handleGuessInput() {
     return response;
 };
 
-async function handleCommandInput() {
+async function handleCommandInput () {
     let response;
     try {
         response = await ReadLine.readCommandInput();
@@ -25,4 +25,4 @@ async function handleCommandInput() {
     return response;
 };
 
-module.exports = {handleCommandInput, handleGuessInput};
+module.exports = { handleCommandInput, handleGuessInput };

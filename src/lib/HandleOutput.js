@@ -1,19 +1,19 @@
 const { Console } = require("@woowacourse/mission-utils");
 const { OUTPUT_MESSAGE } = require("./Constants");
 
-function printInitMessage() {
+const printInitMessage = function () {
     Console.print(OUTPUT_MESSAGE.INIT);
 };
 
-function printCount(count) {
+const printCount = function (count) {
     Console.print(count);
 };
 
-function printWin() {
+const printWin = function () {
     Console.print(OUTPUT_MESSAGE.WIN);
 };
 
-function parseCount({ballCount, strikeCount}) {
+const parseCount = function ({ ballCount, strikeCount }) {
     if (strikeCount === 0 && ballCount === 0) return OUTPUT_MESSAGE.NOTHING;
     let response = '';
     if (ballCount !== 0) response += `${ballCount}볼`;

@@ -1,12 +1,12 @@
 const { VALIDATION_RULE } = require("./Constants");
 
-function calcCount(guess, coumputerNumbers) {
+const calcCount = function (guess, coumputerNumbers) {
     const strikeCount = getStrike(guess, coumputerNumbers);
     const ballCount = getMatch(guess, coumputerNumbers) - strikeCount;
     return {ballCount, strikeCount};
 };
 
-function getMatch(guess, coumputerNumbers) {
+const getMatch = function (guess, coumputerNumbers) {
     let count = 0;
     const visited = new Set();
     for (const char of guess) visited.add(char);
@@ -16,7 +16,7 @@ function getMatch(guess, coumputerNumbers) {
     return count;
 };
 
-function getStrike(guess, coumputerNumbers) {
+const getStrike = function (guess, coumputerNumbers) {
     let count = 0;
     for (let i= 0; i < VALIDATION_RULE.VALID_GUESS_LENGTH; i++) {
         if (guess[i] === coumputerNumbers[i]) count++;
@@ -25,4 +25,4 @@ function getStrike(guess, coumputerNumbers) {
 };
 
 
-module.exports = {calcCount};
+module.exports = { calcCount };
