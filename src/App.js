@@ -19,6 +19,14 @@ class App {
 	 */
 	async play() {
 		await Console.print(LOG.START);
+
+		try {
+			while (this.isPlaying) {
+				const input = (await Console.readLineAsync(LOG.INPUT_NUMBER)).trim();
+			}
+		} catch (e) {
+			throw new Error(e.message);
+		}
 	}
 
 	/**
