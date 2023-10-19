@@ -9,6 +9,8 @@ import {
   SHOW_BALL_STRIKE_COUNT,
   NOTHING_MESSAGE,
   WIN_MESSAGE,
+  RESTART_MESSAGE,
+  ERROR_MESSAGE_FOR_RESTART,
 } from "./constant/message.js";
 import Validate from "./Validate.js";
 
@@ -52,5 +54,17 @@ export default class Print {
 
   static winMessage() {
     Console.print(WIN_MESSAGE);
+  }
+
+  static async getReStart() {
+    try {
+      const restartNum = await Console.readLineAsync(RESTART_MESSAGE);
+
+      if (!Validate.isValidReStartNumber(restartNum)) {
+        throw new Error(ERROR_MESSAGE_FOR_RESTART);
+      }
+    } catch (error) {
+      Console.print(error);
+    }
   }
 }

@@ -1,4 +1,4 @@
-import { GAME_NUM_LENGTH } from "./constant/rule.js";
+import { GAME_NUM_LENGTH, RESTART_NUM, QUIT_NUM } from "./constant/rule.js";
 import { ONLY_NUMBER_1_TO_9_REGEX } from "./constant/validation.js";
 
 export default class Validate {
@@ -16,5 +16,13 @@ export default class Validate {
     }
 
     return true;
+  }
+
+  static isValidReStartNumber(num) {
+    if (num === RESTART_NUM || num === QUIT_NUM) {
+      return true;
+    }
+
+    return false;
   }
 }

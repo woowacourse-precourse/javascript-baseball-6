@@ -50,5 +50,6 @@ export default class Game {
     }
 
     Print.winMessage();
+    Print.getReStart();
   }
 }
