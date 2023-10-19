@@ -22,6 +22,7 @@ class BaseballGame {
                 cur = Random.pickNumberInRange(MIN, MAX);
             }
             result += cur.toString();
+            visited.add(cur)
         };
         return result;
     };
