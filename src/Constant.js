@@ -16,3 +16,9 @@ export const ERROR = {
   HAS_ZERO: '오류 - 입력값이 0을 가지고 있습니다. 1-9사이의 숫자만 입력 가능합니다.',
   NOT_ONE_OR_TWO: '오류 - 1이나 2를 입력해야 합니다.',
 };
+
+export const RESULT = {
+  BALL: '볼',
+  STRIKE: '스트라이크',
+  NOTHING: '낫싱',
+};
