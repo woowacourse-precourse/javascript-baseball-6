@@ -41,12 +41,6 @@ class App {
     async getUserInput(text) {
         const userinput = await MissionUtils.Console.readLineAsync(text);
 
-        if (userinput.length === 1) {
-            if (userinput === '1' || userinput === '2') {
-                return userinput;
-            }
-        }
-
         if (userinput.length === 3) {
             const check = new Set(userinput);
             if (check.size === 3) {
