@@ -23,6 +23,12 @@ class App {
 		try {
 			while (this.isPlaying) {
 				const input = (await Console.readLineAsync(LOG.INPUT_NUMBER)).trim();
+
+				const isValid = this.validateInput(input);
+
+				if (!isValid) {
+					throw new Error(LOG.ERROR);
+				}
 			}
 		} catch (e) {
 			throw new Error(e.message);
@@ -55,6 +61,20 @@ class App {
 		}
 
 		return randomNumber;
+	}
+
+	/**
+	 *
+	 * @param {string} input
+	 * @description 입력한 데이터가 숫자가 아니거나, 0이 포함되거나, 3자리가 아니거나, 중복된 숫자가 있는지 확인합니다.
+	 * @returns {boolean}
+	 */
+	validateInput(input) {
+		const set = new Set(input.split(""));
+
+		const isValid = !(isNaN(Number(input)) || set.has("0") || set.size !== MAX_INPUT_LENGTH);
+
+		return isValid;
 	}
 }
 
