@@ -1,4 +1,4 @@
-import generateRandomNumber from '../util/generate-random-number';
+import generateRandomNumbers from '../util/generateRandomNumbers.js';
 
 class Computer {
   #number;
@@ -8,7 +8,7 @@ class Computer {
   }
 
   setNumber() {
-    this.#number = generateRandomNumber();
+    this.#number = generateRandomNumbers();
   }
 
   compareNumber(answer) {
@@ -22,7 +22,7 @@ class Computer {
         strike += 1;
       }
 
-      if (currentNumber !== Number(number) && this.#number.includes(number)) {
+      if (currentNumber !== Number(number) && this.#number.includes(Number(number))) {
         ball += 1;
       }
     });
