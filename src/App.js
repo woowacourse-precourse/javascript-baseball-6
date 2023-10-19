@@ -4,4 +4,8 @@ class App {
   }
 }
 
+// TODO: Remove this code
+const app = new App();
+app.play();
+
 export default App;
