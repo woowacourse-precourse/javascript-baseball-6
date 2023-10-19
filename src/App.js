@@ -79,8 +79,29 @@ class App {
             ); // 숫자를 입력한다.
 
             if (this.inputValidation(userNumber)) {
+                const gameResult = this.compareUserComputer(userNumber); // 비교 메서드
+                MissionUtils.Console.print(gameResult); // 게임 결과 반환
+
+                if (gameResult === "3스트라이크") {
+                    MissionUtils.Console.print(
+                        "3개의 숫자를 모두 맞히셨습니다!"
+                    );
+                    const retryGame = await MissionUtils.Console.readLineAsync(
+                        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+                    ); // 게임을 다시 시작할지 여부
+                    if (retryGame === "1") {
+                        this.computerNumberCreate();
+                        continue;
+                    } else if (retryGame === "2") {
+                        MissionUtils.Console.print("게임 종료");
+                        break;
+                    } else {
+                        throw Error("[ERROR]");
+                    }
+                }
             } else {
                 //잘못된 값을 입력했을 경우 에러 반환.
+
                 throw Error("[ERROR]");
             }
         }
