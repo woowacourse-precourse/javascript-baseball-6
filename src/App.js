@@ -55,4 +55,12 @@ const compare = function compareUserInputWithRandomNumbers(user, random) {
   return result;
 }
 
+const check = function checkIsGameCleared(guessResult) {
+  if (guessResult.strike === 3) {
+    return true;
+  }
+  
+  return false;
+}
+
 export default App;
