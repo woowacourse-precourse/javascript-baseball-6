@@ -1,4 +1,4 @@
-import { GAME_NUM_LENGTH, NUM_TO_WIN } from "./constant/rule.js";
+import { GAME_NUM_LENGTH, NUM_TO_WIN, RESTART_NUM } from "./constant/rule.js";
 
 export default class Calculate {
   constructor() {
@@ -32,6 +32,14 @@ export default class Calculate {
 
   static isPlayerWin(strikeCount) {
     if (strikeCount === NUM_TO_WIN) {
+      return true;
+    }
+
+    return false;
+  }
+
+  static isReStart(option) {
+    if (option === RESTART_NUM) {
       return true;
     }
 

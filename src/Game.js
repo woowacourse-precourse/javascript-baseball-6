@@ -43,13 +43,18 @@ export default class Game {
     this.decideGameClear();
   }
 
-  decideGameClear() {
+  async decideGameClear() {
     if (!Calculate.isPlayerWin(this.strike)) {
       this.proceedGame();
       return;
     }
 
     Print.winMessage();
-    Print.getReStart();
+    const restartOption = await Print.getReStart();
+
+    if (Calculate.isReStart(restartOption)) {
+      this.start();
+      return;
+    }
   }
 }

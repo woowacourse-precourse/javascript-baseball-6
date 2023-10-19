@@ -63,6 +63,8 @@ export default class Print {
       if (!Validate.isValidReStartNumber(restartNum)) {
         throw new Error(ERROR_MESSAGE_FOR_RESTART);
       }
+
+      return restartNum;
     } catch (error) {
       Console.print(error);
     }
