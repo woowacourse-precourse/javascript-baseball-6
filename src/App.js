@@ -50,6 +50,9 @@ class App {
       if (num === "2") {
         break;
       }
+      if (num !== "1" || num !== "2") {
+        throw new Error("잘못된 값을 입력하였습니다.");
+      }
     }
   }
 }
