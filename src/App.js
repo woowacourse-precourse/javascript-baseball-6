@@ -24,6 +24,10 @@ class App {
     const { strikeCount, ballCount } = this.getJudgedCountsFor(number);
 
     this.printRoundResult({ strikeCount, ballCount });
+
+    if (this.isGameEnd(strikeCount)) {
+      Console.print("끝");
+    }
   }
 
   printRoundResult({ strikeCount, ballCount }) {
@@ -89,6 +93,10 @@ class App {
     for (let i = 0; i < this.ANSWER_LENGTH; i++) {
       this.answer += Random.pickNumberInRange(1, 9).toString();
     }
+  }
+
+  isGameEnd(strikeCount) {
+    return strikeCount === this.ANSWER_LENGTH;
   }
 }
 
