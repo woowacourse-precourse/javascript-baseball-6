@@ -6,6 +6,15 @@ export default class OutputView {
     print(GAME_MESSAGES.START);
   }
 
+  getResultString(result) {
+    const text = [GAME_RESULTS.BALL, GAME_RESULTS.STRIKE];
+    const parsedResults = result.map((item, idx) => {
+      if (!item) return;
+      return item.toString() + text[idx];
+    });
+    return parsedResults.join(" ");
+  }
+
   printNoMatch() {
     print(GAME_RESULTS.NO_MATCH);
   }
