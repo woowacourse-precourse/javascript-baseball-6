@@ -8,14 +8,13 @@ class App {
   async play() {
     Console.print(MESSAGE.START_GAME);
     this.#game = await new BaseballGame();
-    this.getUserGuessInput();
+    await this.getUserGuessInput();
   }
 
-  getUserGuessInput() {
-    Console.readLineAsync(MESSAGE.ENTER_NUMBERS).then((inputNumbers) => {
-      const userNumbers = this.splitUserInput(inputNumbers);
-      this.validateUserInput(userNumbers);
-    });
+  async getUserGuessInput() {
+    const inputNumbers = await Console.readLineAsync(MESSAGE.ENTER_NUMBERS);
+    const userNumbers = this.splitUserInput(inputNumbers);
+    this.validateUserInput(userNumbers);
   }
 
   splitUserInput(input) {
@@ -44,11 +43,11 @@ class App {
     this.checkIsAnswer(result);
   }
 
-  checkIsAnswer(result) {
+  async checkIsAnswer(result) {
     if (result === RESULT.THREE_STRIKE) {
       Console.print(MESSAGE.CORRECT_ANSWER);
       this.guessRestart();
-    } else this.getUserGuessInput();
+    } else await this.getUserGuessInput();
   }
 
   guessRestart() {
