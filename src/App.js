@@ -1,10 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 
 class App {
-  /*constructor (computer) {
-    this.computer = computer;
-  }*/
-
   async play() {
     this.notifyGameStart();
     const number = await this.notifyGameEnd();
