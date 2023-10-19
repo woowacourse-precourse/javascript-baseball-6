@@ -51,6 +51,12 @@ class App {
     } else this.getUserGuessInput();
   }
 
+  guessRestart() {
+    Console.readLineAsync(MESSAGE.WANT_RESTART).then((input) => {
+      this.validateRestartInput(input);
+    });
+  }
+
   validateRestartInput(input) {
     if (!Validator.checkIsOneOrTwo(input)) {
       throw new Error(ERROR.NOT_ONE_OR_TWO);
