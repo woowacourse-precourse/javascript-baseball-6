@@ -1,6 +1,6 @@
 import generateRandomNumber from "./randomNumber.js";
 import userInput from "./userInput.js";
-import scoreCheck from "./scoreCheck.js";
+import successCheck from "./successCheck.js";
 import { Console } from "@woowacourse/mission-utils";
 
 class App {
@@ -24,9 +24,11 @@ class App {
   }
 
   scoreResult() {
-    scoreCheck(this.computerNumber, this.userNumber);
-    this.userInputCheck();
+    const isSuccess = successCheck(this.computerNumber, this.userNumber);
+    isSuccess ? this.gameClear() : this.userInputCheck();
   }
+
+  async gameClear() {}
 }
 
 const app = new App();
