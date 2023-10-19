@@ -1,4 +1,4 @@
-import { Random } from "@woowacourse/mission-utils";
+import { Console, Random } from "@woowacourse/mission-utils";
 
 function generateComputerNumbers() {
   const computer = [];
@@ -13,7 +13,7 @@ function generateComputerNumbers() {
   return computer.join("");
 }
 
-function generateResultMessage(result) {
+function printResultMessage(result) {
   const [strikeCount, ballCount] = result;
   let resultMessage = "";
 
@@ -22,7 +22,7 @@ function generateResultMessage(result) {
   else if (ballCount === 0) resultMessage = `${strikeCount}스트라이크`;
   else resultMessage = `${ballCount}볼 ${strikeCount}스트라이크`;
 
-  return resultMessage;
+  Console.print(resultMessage);
 }
 
-export { generateComputerNumbers, generateResultMessage };
+export { generateComputerNumbers, printResultMessage };

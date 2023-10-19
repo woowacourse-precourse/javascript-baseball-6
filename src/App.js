@@ -1,7 +1,7 @@
 import { Console } from "@woowacourse/mission-utils";
 import {
   generateComputerNumbers,
-  generateResultMessage,
+  printResultMessage,
 } from "./utils/generate.js";
 import { validateUserInputNumber } from "./utils/validation.js";
 import { compareNumbers } from "./utils/game.js";
@@ -26,8 +26,7 @@ class App {
         validateUserInputNumber(userInputNumber);
 
         const result = compareNumbers(computerNumbers, userInputNumber);
-        const resultMessage = generateResultMessage(result);
-        Console.print(resultMessage);
+        printResultMessage(result);
       } while (computerNumbers !== userInputNumber);
 
       Console.print(GAME_WIN_MESSAGE);
