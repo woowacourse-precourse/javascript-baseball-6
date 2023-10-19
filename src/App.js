@@ -2,7 +2,6 @@ import {Console, MissionUtils} from "@woowacourse/mission-utils";
 
 class App {
     async play() {
-
         // 2. 정답일 때 까지 반복시키기
         let isOut = false
 
@@ -29,7 +28,7 @@ class App {
             if (StringInput[0] === StringInput[1] || StringInput[1] === StringInput[2] || StringInput[2] === StringInput[0]) throw new Error("[ERROR]");
         }
 
-        // 3. 입력한 숫자와의 랜던한 값의 일치 검사
+        // 2.2 입력한 숫자와의 랜던한 값의 일치 검사
 
         function baseGame(randomNumberArray, inputNumber) {
             const RANDOM_STRING = randomNumberArray.join('')
@@ -65,8 +64,7 @@ class App {
             return `${ball_count}볼 ${strike_count}스트라이크`
         }
 
-
-        const RANDOM_NUMBER_ARRAY = randomNumberMaker;
+        const RANDOM_NUMBER_ARRAY = randomNumberMaker();
 
         while (!isOut) {
             const input = await Console.readLineAsync("숫자를 입력해주세요 : ")
@@ -78,7 +76,6 @@ class App {
         Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료")
 
         if (await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.") === '1') await this.play();
-
     }
 }
 
