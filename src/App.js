@@ -31,6 +31,15 @@ class App {
     return false;
   }
 
+  calculateStrikesAndBalls(userInput, computerValue) {
+    const USER_INPUT_ARRAY = [...String(userInput)];
+    const COMPUTER_VALUE_ARRAY = [...String(computerValue)];
+    const STRIKE = USER_INPUT_ARRAY.filter((v, i) => v === COMPUTER_VALUE_ARRAY[i]).length;
+    const BALL = COMPUTER_VALUE_ARRAY.filter((v, i) => (v !== USER_INPUT_ARRAY[i]) && USER_INPUT_ARRAY.includes(v)).length;
+
+    return { STRIKE, BALL };
+  }
+
   async play() {}
 }
 
