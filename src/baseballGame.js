@@ -18,6 +18,7 @@ class BaseballGame {
       Console.print(result);
       Console.print(this.printGameResult(result));
       if (result.strikeCount !== 3) await this.play();
+      if (result.strikeCount === 3) this.retry();
     } catch (error) {
       throw error;
     }
@@ -88,6 +89,27 @@ class BaseballGame {
       result += `${strikeCount}스트라이크 `;
     }
     return result;
+  }
+
+  retry() {
+    Console.print(messages.GAME_END);
+    Console.print(messages.GAME_RETRY);
+    this.retryOpt();
+  }
+
+  async retryOpt() {
+    try {
+      let input = await Console.readLineAsync("");
+      if (Number(input) !== 1 && Number(input) !== 2)
+        throw new Error(messages.INVALID_COMMAND);
+      if (input === "1") {
+        this.computerNum = this.getComputerNum();
+        await this.play();
+      }
+      return;
+    } catch (error) {
+      throw error;
+    }
   }
 }
 
