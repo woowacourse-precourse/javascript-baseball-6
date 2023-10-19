@@ -47,7 +47,9 @@ class Game {
     }else {
       Console.print(`낫싱`);
     }
+  }
 
+  end() {
     if(STIRKE == 3) {
       Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
     }
