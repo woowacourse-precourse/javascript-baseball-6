@@ -68,3 +68,36 @@
 1볼
 ...
 ```
+
+## 프로그래밍 요구 사항
+
+- 프로그램 실행의 시작점은 App.js의 play 메서드
+
+```
+const app = new App();
+app.play();
+```
+
+- `package.json`을 변경할 수 없고 외부 라이브러리(jQuery, Lodash 등)를 사용하지 않는다. 순수 Vanilla JS로만 구현한다.
+- [JavaScript 코드 컨벤션](https://github.com/woowacourse/woowacourse-docs/tree/main/styleguide/javascript)을 지키면서 프로그래밍 한다
+- 프로그램 종료 시 `process.exit()`를 호출하지 않는다.
+- 프로그램 구현이 완료되면 `ApplicationTest`의 모든 테스트가 성공해야 한다. **테스트가 실패할 경우 0점 처리한다.**
+- 프로그래밍 요구 사항에서 달리 명시하지 않는 한 파일, 패키지 이름을 수정하거나 이동하지 않는다.
+
+### 라이브러리
+
+- `@woowacourse/mission-utils`의 `Random` 및 `Console` API를 사용하여 구현해야 한다.
+  - Random 값 추출은 `Random.pickNumberInRange()`를 활용한다.
+  - 사용자의 값을 입력 받고 출력하기 위해서는 `Console.readLineAsync`, `Console.print`를 활용한다.
+
+#### 사용 예시
+
+```javascript
+const computer = [];
+while (computer.length < 3) {
+  const number = MissionUtils.Random.pickNumberInRange(1, 9);
+  if (!computer.includes(number)) {
+    computer.push(number);
+  }
+}
+```
