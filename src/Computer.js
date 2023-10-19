@@ -20,4 +20,8 @@ export default class Computer {
       }
     }
   }
+
+  getComputerNumber() {
+    return this.randomArray;
+  }
 }

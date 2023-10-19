@@ -1,0 +1,28 @@
+import { GAME_NUM_LENGTH } from "./constant/rule.js";
+
+export default class Calculate {
+  constructor() {
+    this.strike = 0;
+    this.ball = 0;
+  }
+
+  compareAnsAndPlayer(answer, player) {
+    let index = 0;
+
+    while (index < GAME_NUM_LENGTH) {
+      if (!answer.includes(player[index])) {
+        index++;
+        continue;
+      }
+
+      if (answer[index] === player[index]) {
+        this.strike++;
+        index++;
+        continue;
+      }
+
+      this.ball++;
+      index++;
+    }
+  }
+}

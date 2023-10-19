@@ -20,7 +20,7 @@ export default class Print {
         throw new Error(ERROR_MESSAGE_FOR_PLAYER_NUM);
       }
 
-      return playerNum;
+      return playerNum.split("").map((str) => parseInt(str));
     } catch (error) {
       Console.print(error);
     }
