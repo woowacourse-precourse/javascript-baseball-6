@@ -1,6 +1,8 @@
 import BaseballGame from './BaseballGame.js';
 import { Console } from '@woowacourse/mission-utils';
 import { MESSAGE } from './Constant.js';
+import { ERROR, MESSAGE } from './Constant.js';
+import Validator from './Validator.js';
 
 class App {
   async play() {
@@ -11,8 +13,13 @@ class App {
 
   async getUserGuessInput() {
     Console.readLineAsync(MESSAGE.ENTER_NUMBERS).then((inputNumbers) => {
-      const userNumbers = inputNumbers;
+      const userNumbers = this.splitUserInput(inputNumbers);
+      this.validateUserInput(userNumbers);
     });
+  }
+
+  splitUserInput(input) {
+    return input.split('').map(Number);
   }
 }
 
