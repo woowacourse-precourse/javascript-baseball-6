@@ -20,3 +20,17 @@ export const getInputNumberArr = (number) => {
 
   return inputNumberArr;
 };
+
+export const checkArr = (randomArr, inputArr) => {
+  let ball = 0,
+    strike = 0;
+  for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 3; j++) {
+      if (inputArr[i] === randomArr[j]) {
+        if (i === j) strike++;
+        else ball++;
+      }
+    }
+  }
+  return { ball, strike };
+};

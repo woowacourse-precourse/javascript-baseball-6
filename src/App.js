@@ -1,5 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import { getRandomNumberArr, getInputNumberArr } from "./utils.js";
+import { getRandomNumberArr, getInputNumberArr, checkArr } from "./utils.js";
 
 class App {
   async play() {
@@ -11,6 +11,8 @@ class App {
     );
     const inputArr = getInputNumberArr(inputNum);
     console.log(inputArr);
+    const result = checkArr(randomArr, inputArr);
+    console.log(result.ball, "볼", result.strike, "스트라이크");
   }
 }
 
