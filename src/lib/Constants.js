@@ -15,7 +15,8 @@ const ERROR_MESSAGE = {
     NOT_AN_INT: `입력은 정수형이어야 합니다.`,
     INVALID_GUESS_LENGTH: `${_Error_HEAD} 입력은 ${VALIDATION_RULE.VALID_GUESS_LENGTH} 자리의 정수형이어야 합니다.`,
     INVALID_GUESS_VALUE: `${_Error_HEAD} 입력은 ${VALIDATION_RULE.GUESS_MIN_VALUE_INCLUSIVE}부터 ${VALIDATION_RULE.GUESS_MAX_VALUE_INCLUSIVE} 사이의 정수값이어야 합니다.`,
-    INVALID_COMMAND: `${_Error_HEAD} 명령어는 [${VALIDATION_RULE.VALID_COMMAND.join(' ')}] 중 하나로 제한됩니다.`
+    INVALID_COMMAND: `${_Error_HEAD} 명령어는 [${VALIDATION_RULE.VALID_COMMAND.join(' ')}] 중 하나로 제한됩니다.`,
+    UNIQUE_CONSTRAINT_VIOLATED: `중복된 값은 입력할 수 없습니다.`
 };
 
 const OUTPUT_MESSAGE = {
