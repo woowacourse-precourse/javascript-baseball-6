@@ -10,7 +10,7 @@ export default class Game {
 
   async start() {
     Print.startMessage();
-    this.getComputerNumber();
+    this.createComputerNumber();
 
     this.player = await Print.getPlayerNumber();
 
@@ -18,7 +18,7 @@ export default class Game {
     calculate.compareAnsAndPlayer(this.answer, this.player);
   }
 
-  getComputerNumber() {
+  createComputerNumber() {
     const computer = new Computer();
     computer.makeThreeRandomNumber();
     this.answer = computer.getComputerNumber();
