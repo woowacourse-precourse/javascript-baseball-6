@@ -32,6 +32,7 @@ class BaseballGame{
   }
 
   getTurnResultMessage(player_num){
+    //console.log(this.computer_num);
     const strikeCount = this.selectStrikeCount(player_num);
     const ballCount = this.selectBallCount(player_num);
     if (strikeCount === 0 && ballCount === 0) return GAME_MESSAGE.NOTHING;

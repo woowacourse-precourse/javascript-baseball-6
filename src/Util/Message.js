@@ -9,11 +9,11 @@ const GAME_MESSAGE = Object.freeze({
 })
 
 const ERROR_MESSAGE = Object.freeze({
-  LENGTH : "숫자의 길이는 3이여야 합니다.",
-  NUMBER : "숫자를 입력하셔야 합니다.",
-  DUPLICATE : "숫자가 중복되면 안됩니다.",
-  RANGE : "숫자는 1~9까지 입력해야 합니다.",
-  ONEORTWO : "1,2만 입력하셔야 합니다."
+  LENGTH : "[ERROR] 숫자의 길이는 3이여야 합니다.",
+  NUMBER : "[ERROR] 숫자를 입력하셔야 합니다.",
+  DUPLICATE : "[ERROR] 숫자가 중복되면 안됩니다.",
+  RANGE : "[ERROR] 숫자는 1~9까지 입력해야 합니다.",
+  ONEORTWO : "[ERROR] 1,2만 입력하셔야 합니다."
 })
 
 export { GAME_MESSAGE, ERROR_MESSAGE };

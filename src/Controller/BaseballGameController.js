@@ -13,29 +13,29 @@ class BaseballGameController{
     this.baseballgame = new BaseballGame();
   }
 
-  bashballGameOver(){
+  async bashballGameOver(){
     OutputView.printMessage(GAME_MESSAGE.GAMEOVER);
-    InputView.InputRestartOrQuit(this.handlerInputRestartOrQuit);
+    await InputView.InputRestartOrQuit(this.handlerInputRestartOrQuit);
   }
 
-  handlerInputRestartOrQuit = (RestartOrQuit) => {
+  handlerInputRestartOrQuit = async (RestartOrQuit) => {
     if (RestartOrQuit === RESTART){
       this.baseballgame.generateRandomNumber();
-      InputView.InputBaseBallNumber(this.handlerInputbaseballNumber);
+      await InputView.InputBaseBallNumber(this.handlerInputbaseballNumber);
     }
   }
 
-  handlerInputbaseballNumber = (player_num) => {
+  handlerInputbaseballNumber = async (player_num) => {
     const turnOverResult = this.baseballgame.getTurnResultMessage(player_num);
     OutputView.printMessage(turnOverResult);
     if (turnOverResult === GAME_OVER) return this.bashballGameOver();
-    InputView.InputBaseBallNumber(this.handlerInputbaseballNumber);
+    await InputView.InputBaseBallNumber(this.handlerInputbaseballNumber);
   }
 
-  baseballGameStart(){
+  async baseballGameStart(){
     this.baseballgame.generateRandomNumber();
     OutputView.printMessage(GAME_MESSAGE.START);
-    InputView.InputBaseBallNumber(this.handlerInputbaseballNumber);
+    await InputView.InputBaseBallNumber(this.handlerInputbaseballNumber);
   }  
 }
 
