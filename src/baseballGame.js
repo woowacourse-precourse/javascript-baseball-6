@@ -13,6 +13,11 @@ class BaseballGame {
       const userNum = await this.getUserNum();
 
       Console.print(this.computerNum);
+
+      const result = this.getGameResult(this.computerNum, userNum);
+      Console.print(result);
+      Console.print(this.printGameResult(result));
+      if (result.strikeCount !== 3) await this.play();
     } catch (error) {
       throw error;
     }
@@ -49,6 +54,40 @@ class BaseballGame {
       }
     }
     return num;
+  }
+
+  getGameResult(computerNum, userNum) {
+    let strikeCount = 0;
+    let ballCount = 0;
+
+    for (let i = 0; i < 3; i++) {
+      if (computerNum[i] === Number(userNum[i])) {
+        strikeCount += 1;
+      }
+    }
+
+    for (let i = 0; i < 3; i++) {
+      if (userNum.includes(computerNum[i])) {
+        ballCount += 1;
+      }
+    }
+
+    ballCount = ballCount - strikeCount;
+    return { strikeCount, ballCount };
+  }
+
+  printGameResult({ strikeCount, ballCount }) {
+    Console.print(strikeCount);
+    Console.print(ballCount);
+    let result = "";
+    if (strikeCount === 0 && ballCount === 0) result = "낫싱";
+    if (ballCount !== 0) {
+      result += `${ballCount}볼 `;
+    }
+    if (strikeCount !== 0) {
+      result += `${strikeCount}스트라이크 `;
+    }
+    return result;
   }
 }
 
