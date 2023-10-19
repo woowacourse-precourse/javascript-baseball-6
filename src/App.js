@@ -3,14 +3,26 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 const GREETING = "숫자 야구 게임을 시작합니다.";
 const ERROR_USER_NUM = "숫자를 3개만 입력해주세요.";
 const ERROR_USER_OVERLAPPING = "숫자가 중복되었어요.";
-
+const SUCCESS =
+  "3개의 숫자를 모두 맞히셨습니다 ! 게임 종료\n 게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.";
 class App {
   async play() {
     MissionUtils.Console.print(GREETING);
     const computerNum = await this.makeComputerNumber();
 
-    let userNums = await this.getUserNum();
-    this.compareUserAndComputer(userNums, computerNum);
+    while (1) {
+      let userNums = await this.getUserNum();
+      const result = await this.compareUserAndComputer(userNums, computerNum);
+      console.log(result);
+      console.log(
+        `${result[1] === 0 ? "0볼" : result[1] + "볼"} ${
+          result[0] === 0 ? "0스트라이크" : result[0] + "스트라이크"
+        }`
+      );
+      if (result[0] === 3) {
+        console.log(SUCCESS);
+      }
+    }
   }
 
   makeComputerNumber() {
@@ -48,7 +60,6 @@ class App {
     }
   }
   async compareUserAndComputer(userNums, computerNum) {
-    console.log(userNums, computerNum);
     let strike = 0;
     let ball = 0;
 
