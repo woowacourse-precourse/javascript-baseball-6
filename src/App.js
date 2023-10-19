@@ -11,7 +11,7 @@ class App {
     try {
       console.log(this.computer);
       const userInput = await Console.readLineAsync('숫자를 입력해주세요 :');
-      console.log(this.gameResult(userInput));
+      this.gameResultOutput(this.gameResult(userInput));
     } catch (error) {
       
     }
@@ -31,6 +31,25 @@ class App {
     });
 
     return [strike, ball];
+  }
+
+  gameResultOutput(score) {
+    const [strike, ball] = score;
+
+    if (strike === 3) {
+      return Console.print('3스트라이크');
+    }
+    if (strike === 0 && ball === 0) {
+      return Console.print('낫싱');
+    }
+    if (strike === 0) {
+      return Console.print(`${ball}볼`);
+    }
+    if (ball === 0) {
+      return Console.print(`${strike}스트라이크`);
+    }
+
+    return Console.print(`${ball}볼 ${strike}스트라이크`);
   }
 }
 
