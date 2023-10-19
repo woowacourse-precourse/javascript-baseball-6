@@ -1,4 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
+import { Console } from "@woowacourse/mission-utils";
 
 class App {
   async play(numberPlayer) {
@@ -6,7 +7,7 @@ class App {
     const arrayPlayer = [...numberPlayer];
 
     console.log("숫자 야구 게임을 시작합니다.");
-    console.log("숫자를 입력해주세요.");
+    Console.readLineAsync("숫자를 입력해주세요.");
 
     let computerPlayer = [];
     computerPlayer = arrayPlayer.map((v) => parseInt(v));
@@ -19,6 +20,18 @@ class App {
         computer.push(number);
       }
     }
+    console.log(computer);
+
+    let numberStrike = computer.filter(
+      (v, i) => computerPlayer.indexOf(v) === i
+    );
+    let numberBall = computer.filter((v) => computerPlayer.includes(v));
+
+    Console.print(
+      `${numberBall.length - numberStrike.length}볼 ${
+        numberStrike.length
+      }스트라이크`
+    );
   }
 }
 
