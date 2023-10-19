@@ -1,5 +1,21 @@
 import { ERROR_MESSAGES, GAME_CONSTANTS, USER_COMMANDS } from "./constants.js";
 
+export const validateUtils = {
+  validateNumbers(numbers) {
+    if (numbers.length !== GAME_CONSTANTS.ANSWER_LENGTH) {
+      throw new Error(ERROR_MESSAGES.INVALID_NUMBERS);
+    }
+    if (!isValidIntegers(numbers) || hasDuplicateNumber(numbers)) {
+      throw new Error(ERROR_MESSAGES.INVALID_NUMBERS);
+    }
+  },
+  validateCommand(command) {
+    if (!isValidCommand(command)) {
+      throw new Error(ERROR_MESSAGES.INVALID_COMMAND);
+    }
+  },
+};
+
 function isValidIntegers(input) {
   const arr = input.split("");
   arr.forEach((item) => {
