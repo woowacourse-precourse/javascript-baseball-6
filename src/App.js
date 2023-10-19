@@ -1,9 +1,13 @@
 import { Console, Random } from '@woowacourse/mission-utils';
 
+const NUMBER_COUNT = 3;
+const GAME_CONTINUE = '1';
+const GAME_END = '2';
+const ERROR_MESSAGE = '[ERROR]';
+
 class App {
   constructor() {
     this.answerNumbers = [];
-    this.initializeAnswerNumbers();
   }
 
   initializeAnswerNumbers() {
@@ -21,23 +25,20 @@ class App {
     if (this.checkValidInput(numbers)) {
       return numbers.split('').map(Number);
     }
+    return [];
   }
 
   checkValidInput(value) {
     if (isNaN(value) || value.length !== 3) {
-      throw new Error('잘못된 입력입니다.');
+      throw new Error(ERROR_MESSAGE);
     }
 
-    value = value.split('').map(Number);
+    const numValues = value.split('').map(Number);
     if (
-      value[0] === value[1] ||
-      value[1] === value[2] ||
-      value[2] === value[0] ||
-      value[0] === 0 ||
-      value[1] === 0 ||
-      value[2] === 0
+      new Set(numValues).size !== NUMBER_COUNT ||
+      numValues.some(num => num === 0)
     ) {
-      throw new Error('잘못된 입력입니다.');
+      throw new Error(ERROR_MESSAGE);
     }
 
     return true;
@@ -81,16 +82,20 @@ class App {
   async checkDoAgain() {
     Console.print(`게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.`);
     const doAgain = await Console.readLineAsync('');
+    if (doAgain !== GAME_CONTINUE && doAgain !== GAME_END) {
+      throw new Error(ERROR_MESSAGE);
+    }
 
-    if (doAgain === '1') return true;
-    return false;
+    return doAgain === GAME_CONTINUE;
   }
 
-  async play() {
+  async play(maxRounds = Infinity) {
     let continueGame = true;
-    while (continueGame) {
+    let roundsPlayed = 0;
+
+    while (continueGame && roundsPlayed < maxRounds) {
       this.initializeAnswerNumbers();
-      // Console.print('숫자 야구 게임을 시작합니다.');
+      Console.print('숫자 야구 게임을 시작합니다.');
       console.log(this.answerNumbers);
 
       let isCorrect = false;
@@ -102,12 +107,12 @@ class App {
         );
       }
       continueGame = await this.checkDoAgain();
+      roundsPlayed++;
     }
     Console.print('게임이 종료되었습니다.');
+
+    return Promise.resolve();
   }
 }
-
-const app = new App();
-app.play();
 
 export default App;
