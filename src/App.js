@@ -7,14 +7,14 @@ class App {
 
         // 1. 중복되지 않는 랜덤한 숫자 (3자릿수) 만들기
         function randomNumberMaker() {
-            const computer = [];
-            while (computer.length < 3) {
-                const number = MissionUtils.Random.pickNumberInRange(1, 9);
-                if (!computer.includes(number)) {
-                    computer.push(number);
+            const NUMBER_ARRAY = [];
+            while (NUMBER_ARRAY.length < 3) {
+                const NUMBER = MissionUtils.Random.pickNumberInRange(1, 9);
+                if (!NUMBER_ARRAY.includes(NUMBER)) {
+                    NUMBER_ARRAY.push(NUMBER);
                 }
             }
-            return computer
+            return NUMBER_ARRAY
         }
 
         // 2.1 입력한 숫자의 유효성 검사
@@ -24,8 +24,8 @@ class App {
             // 2.1.2 3자리수가 입력이 되었는가?
             if (String(input).length !== 3) throw new Error("[ERROR]");
             // 2.1.3 모두 다른 숫자가 입력이 되었는가?
-            const StringInput = String(input)
-            if (StringInput[0] === StringInput[1] || StringInput[1] === StringInput[2] || StringInput[2] === StringInput[0]) throw new Error("[ERROR]");
+            const STRING_INPUT = String(input)
+            if (STRING_INPUT[0] === STRING_INPUT[1] || STRING_INPUT[1] === STRING_INPUT[2] || STRING_INPUT[2] === STRING_INPUT[0]) throw new Error("[ERROR]");
         }
 
         // 2.2 입력한 숫자와의 랜던한 값의 일치 검사
@@ -52,7 +52,6 @@ class App {
                     // 2.2.3 자리는 다르지만 값이 일치하는 수 골라내기 = ball
                     RANDOM_STRING[i] === (INPUT_NUMBER_ARRAY[i]) ? strike_count++ : ball_count++;
                 }
-                ;
             }
 
             if (!strike_count && !ball_count) return "낫싱";
@@ -67,10 +66,10 @@ class App {
         const RANDOM_NUMBER_ARRAY = randomNumberMaker();
 
         while (!isOut) {
-            const input = await Console.readLineAsync("숫자를 입력해주세요 : ")
-            const NumInput = Number(input)
-            checkNumber(NumInput);
-            Console.print(baseGame(RANDOM_NUMBER_ARRAY, input));
+            const STRING_INPUT = await Console.readLineAsync("숫자를 입력해주세요 : ")
+            const NUMBER_INPUT = Number(STRING_INPUT)
+            checkNumber(NUMBER_INPUT);
+            Console.print(baseGame(RANDOM_NUMBER_ARRAY, STRING_INPUT));
         }
 
         Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료")
