@@ -18,7 +18,7 @@ const threeRandomInts = function createThreeRandomIntegers() {
 
 const convert = async function convertUserInputIntoArray() {
   try {
-    const input = await Console.readLineAsync('숫자를 입력해주세요 : ')
+    const input = await Console.readLineAsync('숫자를 입력해주세요 : ');
 
     if (input.length !== 3) {
       throw new Error('입력한 값이 3자리가 아닙니다.');
@@ -59,8 +59,28 @@ const check = function checkIsGameCleared(guessResult) {
   if (guessResult.strike === 3) {
     return true;
   }
-  
+
   return false;
+}
+
+const replay = async function replayWithNewRandomNumbers() {
+  try {
+    const input = Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
+
+    if (input !== '1' || input !== '2') {
+      throw new Error('올바르지 않은 입력입니다.');
+    }
+
+    if (input === '1') {
+      return true;
+    }
+
+    if (input === '2') {
+      return false;
+    }
+  } catch (error) {
+    Console.print(error.message);
+  }
 }
 
 export default App;
