@@ -16,7 +16,3 @@ export async function getRetryInput() {
     return Console.print(error.log);
   }
 }
-
-export async function exit() {
-  return Console.close();
-}
