@@ -53,7 +53,9 @@ class App {
 
   guessRestart() {
     Console.readLineAsync(MESSAGE.WANT_RESTART).then((input) => {
-      this.validateRestartInput(input);
+      const num = Number(input);
+      this.validateRestartInput(num);
+      if (num === 1) this.restart();
     });
   }
 
