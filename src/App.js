@@ -20,7 +20,7 @@ class App {
       throw Error("[Error]");
     }
 
-    Console.print(this.isNothing(number));
+    Console.print(this.getStrikeCount(number));
   }
 
   isNumberIsValid(number) {
@@ -42,6 +42,16 @@ class App {
     }
 
     return true;
+  }
+
+  getStrikeCount(number) {
+    let count = 0;
+
+    for (let idx = 0; idx < this.ANSWER_LENGTH; idx++) {
+      if (this.answer[idx] === number[idx]) count++;
+    }
+
+    return count;
   }
 }
 
