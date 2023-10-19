@@ -58,14 +58,6 @@ class App {
     return isSameAsAnswerLength && isOnlyNumbersExceptZero(number);
   }
 
-  isNothing(number) {
-    for (const eachNumber of number) {
-      if (this.answer.includes(eachNumber)) return false;
-    }
-
-    return true;
-  }
-
   getStrikeCount(number) {
     let count = 0;
 
