@@ -6,15 +6,8 @@ class App {
     this.answer = "";
   }
 
-  async play() {
-    this.printStartMessage();
-
-    while (true) {
-      await this.playAGame();
-
-      const wantReplay = await this.askReplay();
-      if (!wantReplay) break;
-    }
+  throwError() {
+    throw Error("[ERROR]");
   }
 
   printStartMessage() {
@@ -23,6 +16,90 @@ class App {
 
   printEndMessage() {
     Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+  }
+
+  printRoundResult({ strikeCount, ballCount }) {
+    if (ballCount > 0 && strikeCount > 0) {
+      Console.print(`${ballCount}볼 ${strikeCount}스트라이크`);
+      return;
+    }
+
+    if (ballCount === 0 && strikeCount === 0) {
+      Console.print("낫싱");
+      return;
+    }
+
+    if (ballCount > 0) {
+      Console.print(`${ballCount}볼`);
+      return;
+    }
+
+    Console.print(`${strikeCount}스트라이크`);
+  }
+
+  setAnswer() {
+    this.answer = "";
+    for (let i = 0; i < this.ANSWER_LENGTH; i++) {
+      this.answer += this.generateRandomNonZeroDigit();
+    }
+  }
+
+  getStrikeCount(number) {
+    let count = 0;
+
+    for (const idx in number) {
+      if (this.isSameIndexWithAnswer(idx, number)) count++;
+    }
+
+    return count;
+  }
+
+  getBallCount(number, strikeCount) {
+    let count = 0;
+
+    for (const eachNumber of number) {
+      if (this.isAnswerIncludes(eachNumber)) count++;
+    }
+
+    return count - strikeCount;
+  }
+
+  getJudgedCountsFor(number) {
+    const strikeCount = this.getStrikeCount(number);
+    const ballCount = this.getBallCount(number, strikeCount);
+    return { strikeCount, ballCount };
+  }
+
+  generateRandomNonZeroDigit() {
+    return Random.pickNumberInRange(1, 9).toString();
+  }
+
+  isSameAsAnswerLength(number) {
+    return number.length === this.ANSWER_LENGTH;
+  }
+
+  isNumberIsValid(number) {
+    return this.isSameAsAnswerLength(number) && this.isNonZeroDigits(number);
+  }
+
+  isSameIndexWithAnswer(idx, number) {
+    return this.answer[idx] === number[idx];
+  }
+
+  isAnswerIncludes(number) {
+    return this.answer.includes(number);
+  }
+
+  isGameEnd(strikeCount) {
+    return strikeCount === this.ANSWER_LENGTH;
+  }
+
+  isNonZeroDigits(number) {
+    for (const eachNumber of number) {
+      if (!"123456789".includes(eachNumber)) return false;
+    }
+
+    return true;
   }
 
   async askReplay() {
@@ -35,6 +112,17 @@ class App {
 
     if (response !== WANT_REPLAY && response !== END_GAME) this.throwError();
     return response === WANT_REPLAY;
+  }
+
+  async play() {
+    this.printStartMessage();
+
+    while (true) {
+      await this.playAGame();
+
+      const wantReplay = await this.askReplay();
+      if (!wantReplay) break;
+    }
   }
 
   async playAGame() {
@@ -58,94 +146,6 @@ class App {
     this.printRoundResult({ strikeCount, ballCount });
 
     return this.isGameEnd(strikeCount);
-  }
-
-  printRoundResult({ strikeCount, ballCount }) {
-    if (ballCount > 0 && strikeCount > 0) {
-      Console.print(`${ballCount}볼 ${strikeCount}스트라이크`);
-      return;
-    }
-
-    if (ballCount === 0 && strikeCount === 0) {
-      Console.print("낫싱");
-      return;
-    }
-
-    if (ballCount > 0) {
-      Console.print(`${ballCount}볼`);
-      return;
-    }
-
-    Console.print(`${strikeCount}스트라이크`);
-  }
-
-  isNonZeroDigits(number) {
-    for (const eachNumber of number) {
-      if (!"123456789".includes(eachNumber)) return false;
-    }
-
-    return true;
-  }
-
-  isSameAsAnswerLength(number) {
-    return number.length === this.ANSWER_LENGTH;
-  }
-
-  isNumberIsValid(number) {
-    return this.isSameAsAnswerLength(number) && this.isNonZeroDigits(number);
-  }
-
-  isSameIndexWithAnswer(idx, number) {
-    return this.answer[idx] === number[idx];
-  }
-
-  getStrikeCount(number) {
-    let count = 0;
-
-    for (const idx in number) {
-      if (this.isSameIndexWithAnswer(idx, number)) count++;
-    }
-
-    return count;
-  }
-
-  isAnswerIncludes(number) {
-    return this.answer.includes(number);
-  }
-
-  getBallCount(number, strikeCount) {
-    let count = 0;
-
-    for (const eachNumber of number) {
-      if (this.isAnswerIncludes(eachNumber)) count++;
-    }
-
-    return count - strikeCount;
-  }
-
-  getJudgedCountsFor(number) {
-    const strikeCount = this.getStrikeCount(number);
-    const ballCount = this.getBallCount(number, strikeCount);
-    return { strikeCount, ballCount };
-  }
-
-  generateRandomNonZeroDigit() {
-    return Random.pickNumberInRange(1, 9).toString();
-  }
-
-  setAnswer() {
-    this.answer = "";
-    for (let i = 0; i < this.ANSWER_LENGTH; i++) {
-      this.answer += this.generateRandomNonZeroDigit();
-    }
-  }
-
-  isGameEnd(strikeCount) {
-    return strikeCount === this.ANSWER_LENGTH;
-  }
-
-  throwError() {
-    throw Error("[ERROR]");
   }
 }
 
