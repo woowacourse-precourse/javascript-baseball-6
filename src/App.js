@@ -1,6 +1,11 @@
 import { Console } from "@woowacourse/mission-utils";
 
 class App {
+  async play() {
+    this.printStartMessage();
+    this.playOneLoop();
+  }
+
   printStartMessage() {
     Console.print("숫자 야구 게임을 시작합니다.");
   }
@@ -10,13 +15,26 @@ class App {
   }
 
   async askThreeNumber() {
-    const number = await Console.readLineAsync("숫자를 입력해주세요 : ");
-    Console.print(number);
-  }
+    function isOnlyNumbersExceptZero(number) {
+      for (const eachNumber of number) {
+        if (!"123456789".includes(eachNumber)) return false;
+      }
 
-  async play() {
-    this.printStartMessage();
-    this.playOneLoop();
+      return true;
+    }
+
+    function isNumberIsValid(number) {
+      const isThree = number.length === 3;
+      return isThree && isOnlyNumbersExceptZero(number);
+    }
+
+    const numberString = await Console.readLineAsync("숫자를 입력해주세요 : ");
+
+    if (!isNumberIsValid(numberString)) {
+      throw Error("[ERROR]");
+    }
+
+    Console.print(`${numberString} 은 유효합니다!`);
   }
 }
 
