@@ -29,7 +29,7 @@ const game = async function gameLoop() {
 }
 
 const threeRandomInts = function createThreeRandomIntegers() {
-  const result = new Array(3);
+  const result = [];
   while (result.length < 3) {
     const number = Random.pickNumberInRange(1, 9);
     if (!result.includes(number)) {
@@ -50,7 +50,7 @@ const userInput = async function convertUserInputIntoArray() {
 
     const numbers = input.split('').map(c => parseInt(c));
 
-    if (characters.includes(NaN)) {
+    if (numbers.includes(NaN)) {
       throw new Error('입력한 값이 수가 아닙니다.');
     }
 
@@ -89,7 +89,7 @@ const check = function checkIsGameCleared(guessResult) {
 
 const replay = async function replayWithNewRandomNumbers() {
   try {
-    const input = Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
+    const input = Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
 
     if (input !== '1' || input !== '2') {
       throw new Error('올바르지 않은 입력입니다.');
