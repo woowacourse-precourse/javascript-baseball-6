@@ -6,13 +6,16 @@ const Constants = {
 
     VALIDATION_RULE: {
         VALID_GUESS_LENGTH: 3,
-        VALID_COMMAND: [0, 1]
+        VALID_COMMAND: [0, 1],
+        GUESS_MIN_VALUE_INCLUSIVE: 1,
+        GUESS_MAX_VALUE_INCLUSIVE: 9,
     },
 
     ERROR_MESSAGE: {
         NOT_AN_INT: `입력은 정수형이어야 합니다.`,
-        INVALID_GUESS_LENGTH: `입력은 ${VALIDATION_RULE.VALID_GUESS_LENGTH} 자리의 정수형이어야 합니다.`,
-        INVALID_COMMAND: `명령어는 [${VALIDATION_RULE.VALID_COMMAND.join(' ')}] 중 하나로 제한됩니다.`
+        INVALID_GUESS_LENGTH: `입력은 ${this.VALIDATION_RULE.VALID_GUESS_LENGTH} 자리의 정수형이어야 합니다.`,
+        INVALID_GUESS_VALUE: `입력은 ${this.VALIDATION_RULE.GUESS_MIN_VALUE_INCLUSIVE}부터 ${this.GUESS_MAX_VALUE_INCLUSIVE} 사이의 정수값이어야 합니다.`,
+        INVALID_COMMAND: `명령어는 [${this.VALIDATION_RULE.VALID_COMMAND.join(' ')}] 중 하나로 제한됩니다.`
     },
 
     OUTPUT_MESSAGE: {
