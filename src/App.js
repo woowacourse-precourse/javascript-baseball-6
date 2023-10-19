@@ -18,6 +18,8 @@ class App {
 
     this.setComputer();
     await this.requestPredictedNumbers();
+
+    const { strike, ball } = this.calculateResult();
   }
 
   setComputer() {
@@ -76,6 +78,36 @@ class App {
     ];
 
     return numbers;
+  }
+
+  calculateResult() {
+    const result = this.user.reduce((result, userNumber, index) => {
+      const { strike, ball } = result;
+
+      const matchedIndex = this.computer.findIndex((computerNumber) => userNumber === computerNumber);
+
+      if (matchedIndex === index) {
+        return {
+          ball,
+          strike: strike + 1
+        };
+      } else if (matchedIndex !== -1) {
+        return {
+          strike,
+          ball: ball + 1
+        };
+      } else {
+        return {
+          ball,
+          strike,
+        };
+      }
+    }, {
+      strike: 0,
+      ball: 0,
+    });
+
+    return result;
   }
 }
 
