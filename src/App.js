@@ -45,7 +45,7 @@ class App {
         break;
       }
       if (num !== "1" || num !== "2") {
-        throw new Error("잘못된 값을 입력하였습니다.");
+        throw new Error(INVALID_INPUT_ERROR);
       }
     }
   }
