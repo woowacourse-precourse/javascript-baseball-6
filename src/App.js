@@ -79,7 +79,12 @@ class App {
 	validateInput(input) {
 		const set = new Set(input.split(""));
 
-		const isValid = !(isNaN(Number(input)) || set.has("0") || set.size !== MAX_INPUT_LENGTH);
+		const isValid = !(
+			isNaN(Number(input)) ||
+			input.length !== MAX_INPUT_LENGTH ||
+			set.size !== MAX_INPUT_LENGTH ||
+			set.has("0")
+		);
 
 		return isValid;
 	}
