@@ -21,6 +21,7 @@ class BaseballGame {
   compareUserNumbersWithAnswer(userNumbers) {
     const numsOfStrike = this.#countStrike(userNumbers);
     const numsOfBall = this.#countBall(userNumbers);
+    return this.#makeResultString(numsOfStrike, numsOfBall);
   }
 
   #countStrike(userNumbers) {
@@ -38,6 +39,14 @@ class BaseballGame {
       }
       return acc;
     }, 0);
+  }
+
+  #makeResultString(strike, ball) {
+    let result = [];
+    if (!strike && !ball) return RESULT.NOTHING;
+    if (ball) result.push(ball + RESULT.BALL);
+    if (strike) result.push(strike + RESULT.STRIKE);
+    return result.join(' ');
   }
 }
 
