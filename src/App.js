@@ -28,6 +28,9 @@ class App {
     if (!Validator.checkIsThreeNumbers(userNumbers)) {
       throw new Error(ERROR.NOT_THREE_NUMBERS);
     }
+    if (!Validator.checkHasDuplicate(userNumbers)) {
+      throw new Error(ERROR.HAS_DUPLICATE);
+    }
   }
 }
 
