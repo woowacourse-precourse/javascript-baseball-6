@@ -38,11 +38,11 @@ class App {
     const text = await MissionUtils.Console.readLineAsync(INPUT_NUMBERS_SENTENCE);
 
     if (!this.checkValidCharacters(text)) {
-      throw new Error("not allowed character");
+      throw new Error("[ERROR]");
     } else if (!this.checkValidLength(text)) {
-      throw new Error("invalid text length");
+      throw new Error("[ERROR]");
     } else if (!this.checkAllNumbersUnique(text)) {
-      throw new Error("duplicated number");
+      throw new Error("[ERROR]");
     }
 
     const numbers = this.toUniqueNumbers(text);
