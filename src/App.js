@@ -3,17 +3,14 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 const GREETING = "숫자 야구 게임을 시작합니다.";
 const ERROR_USER_NUM = "숫자를 3개만 입력해주세요.";
 const ERROR_USER_OVERLAPPING = "숫자가 중복되었어요.";
-const SUCCESS =
-  "3개의 숫자를 모두 맞히셨습니다 ! 게임 종료\n 게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.";
+const SUCCESS = "3개의 숫자를 모두 맞히셨습니다 ! 게임 종료";
 class App {
   async play() {
     MissionUtils.Console.print(GREETING);
-    const computerNum = await this.makeComputerNumber();
-
+    let computerNum = await this.makeComputerNumber();
     while (1) {
       let userNums = await this.getUserNum();
       const result = await this.compareUserAndComputer(userNums, computerNum);
-      console.log(result);
       console.log(
         `${result[1] === 0 ? "0볼" : result[1] + "볼"} ${
           result[0] === 0 ? "0스트라이크" : result[0] + "스트라이크"
@@ -21,6 +18,15 @@ class App {
       );
       if (result[0] === 3) {
         console.log(SUCCESS);
+        const reStart = await MissionUtils.Console.readLineAsync(
+          "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. : "
+        );
+        if (reStart === "1") {
+          computerNum = await this.makeComputerNumber();
+          continue;
+        } else if (reStart === "2") {
+          return;
+        }
       }
     }
   }
@@ -39,7 +45,7 @@ class App {
   async getUserNum() {
     while (1) {
       let data = await MissionUtils.Console.readLineAsync(
-        "숫자를 입력해주세요 :"
+        "숫자를 입력해주세요 : "
       );
       const userNum = data.split("").map(Number);
       if (userNum.length !== 3) {
