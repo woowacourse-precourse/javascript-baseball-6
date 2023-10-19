@@ -6,7 +6,6 @@ import {
 
 function isLengthError(userNumbers) {
   if (userNumbers.length !== 3) throw new Error(LENGTH_ERROR);
-
   return false;
 }
 
@@ -16,7 +15,6 @@ function isDuplicationError(userNumbers) {
       throw new Error(DUPLICATION_ERROR);
     }
   }
-
   return false;
 }
 
@@ -26,8 +24,18 @@ function isNumberError(userNumbers) {
       throw new Error(NUMBER_ERROR);
     }
   }
-
   return false;
 }
 
-export { isLengthError, isDuplicationError, isNumberError };
+function validateUserNumbers(userNumbers) {
+  isLengthError(userNumbers);
+  isDuplicationError(userNumbers);
+  isNumberError(userNumbers);
+}
+
+export {
+  isLengthError,
+  isDuplicationError,
+  isNumberError,
+  validateUserNumbers,
+};

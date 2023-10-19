@@ -3,11 +3,7 @@ import {
   generateComputerNumbers,
   generateResultMessage,
 } from "./utils/generate.js";
-import {
-  isDuplicationError,
-  isLengthError,
-  isNumberError,
-} from "./utils/validation.js";
+import { validateUserNumbers } from "./utils/validation.js";
 import { compareNumbers } from "./utils/game.js";
 import {
   GAME_START_MESSAGE,
@@ -25,9 +21,7 @@ class App {
 
       while (true) {
         const userNumbers = await Console.readLineAsync(INPUT_NUMBER_MESSAGE);
-        isLengthError(userNumbers);
-        isDuplicationError(userNumbers);
-        isNumberError(userNumbers);
+        validateUserNumbers(userNumbers);
 
         const result = compareNumbers(computerNumbers, userNumbers);
         const resultMessage = generateResultMessage(result);
