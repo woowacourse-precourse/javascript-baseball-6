@@ -5,7 +5,7 @@ import makeAnswer from "../handleAnswer/makeAnswer.js";
 
 function reset() {
   Console.readLine("게임이 끝났습니다. 다시 플레이 하시겠습니까?", (replay) => {
-    if (replay === 1) {
+    if (replay === '1') {
       computerAnswer = makeAnswer();
       init();
     } else {
