@@ -11,11 +11,18 @@ export default class BaseballGameController {
     this.#outputView = new OutputView();
     const baseballGame = new BaseballGame();
     baseballGame.setNewAnswer();
+    this.readNumbers();
   }
 
-  async readNumbers() {}
+  async readNumbers() {
+    const input = await this.#inputView.readUserInputNumbers();
+    await this.processNumbers(input);
+  }
 
-  async readCommands() {}
+  async readCommands() {
+    const input = await this.#inputView.readUserInputCommand();
+    await this.processCommands(input);
+  }
 
   async processNumbers() {}
 
