@@ -1,1 +1,5 @@
+import { GAME_NUM_LENGTH } from "./rule.js";
+
 export const START_MESSAGE = "숫자 야구 게임을 시작합니다.";
+export const MESSAGE_TO_GET_PLAYER_NUM = "숫자를 입력해주세요 : ";
+export const ERROR_MESSAGE_FOR_PLAYER_NUM = `잘못된 입력입니다. ${GAME_NUM_LENGTH}개의 숫자를 입력해주세요. 게임을 종료합니다.`;
