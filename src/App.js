@@ -6,9 +6,6 @@ class App {
 
   async play() {
     this.setAnswer();
-
-    Console.print(this.answer);
-
     this.printStartMessage();
     this.playOneRound();
   }
@@ -24,15 +21,28 @@ class App {
       throw Error("[Error]");
     }
 
-    if (this.isNothing(number)) {
-      Console.print("x");
+    const { strikeCount, ballCount } = this.getJudgedCountsFor(number);
+
+    this.printRoundResult({ strikeCount, ballCount });
+  }
+
+  printRoundResult({ strikeCount, ballCount }) {
+    if (ballCount > 0 && strikeCount > 0) {
+      Console.print(`${ballCount}볼 ${strikeCount}스트라이크`);
       return;
     }
 
-    const { strikeCount, ballCount } = this.getJudgedCountsFor(number);
+    if (ballCount === 0 && strikeCount === 0) {
+      Console.print("낫싱");
+      return;
+    }
 
-    Console.print(strikeCount);
-    Console.print(ballCount);
+    if (ballCount > 0) {
+      Console.print(`${ballCount}볼`);
+      return;
+    }
+
+    Console.print(`${strikeCount}스트라이크`);
   }
 
   isNumberIsValid(number) {
@@ -83,6 +93,7 @@ class App {
   }
 
   setAnswer() {
+    this.answer = "";
     for (let i = 0; i < this.ANSWER_LENGTH; i++) {
       this.answer += Random.pickNumberInRange(1, 9).toString();
     }
