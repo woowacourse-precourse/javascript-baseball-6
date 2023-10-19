@@ -1,10 +1,14 @@
-import { Console } from "@woowacourse/mission-utils";
+import { Console, Random } from "@woowacourse/mission-utils";
 
 class App {
   ANSWER_LENGTH = 3;
-  answer = "425";
+  answer = "";
 
   async play() {
+    this.setAnswer();
+
+    Console.print(this.answer);
+
     this.printStartMessage();
     this.playOneLoop();
   }
@@ -76,6 +80,12 @@ class App {
     const strikeCount = this.getStrikeCount(number);
     const ballCount = this.getBallCount(number, strikeCount);
     return { strikeCount, ballCount };
+  }
+
+  setAnswer() {
+    for (let i = 0; i < this.ANSWER_LENGTH; i++) {
+      this.answer += Random.pickNumberInRange(1, 9).toString();
+    }
   }
 }
 
