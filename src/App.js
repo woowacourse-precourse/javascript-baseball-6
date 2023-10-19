@@ -36,4 +36,23 @@ const convert = async function convertUserInputIntoArray() {
   }
 }
 
+const compare = function compareUserInputWithRandomNumbers(user, random) {
+  const result = { ball: 0, strike: 0, x: 0 };
+  
+  for (let i = 0; i < 3; i++) {
+    if (!random.includes(user[i])) {
+      result.x++;
+    } else {
+      if (random[i] === user[i]) {
+        result.strike++;
+      }
+      else {
+        result.ball++;
+      }
+    }
+  }
+
+  return result;
+}
+
 export default App;
