@@ -1,5 +1,8 @@
 import { Console } from "@woowacourse/mission-utils";
-import { generateComputerNumbers } from "./utils/generate.js";
+import {
+  generateComputerNumbers,
+  generateResultMessage,
+} from "./utils/generate.js";
 import {
   isDuplicationError,
   isLengthError,
@@ -23,6 +26,10 @@ class App {
 
     // 컴퓨터와 사용자의 숫자를 비교하기
     const result = compareNumbers(computerNumbers, userNumbers);
+
+    // 결과 화면에 출력하기
+    const resultMessage = generateResultMessage(result);
+    Console.print(resultMessage);
   }
 }
 

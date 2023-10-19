@@ -13,4 +13,16 @@ function generateComputerNumbers() {
   return computer.join("");
 }
 
-export { generateComputerNumbers };
+function generateResultMessage(result) {
+  const [strikeCount, ballCount] = result;
+  let resultMessage = "";
+
+  if (strikeCount === 0 && ballCount === 0) resultMessage = "낫싱";
+  else if (strikeCount === 0) resultMessage = `${ballCount}볼`;
+  else if (ballCount === 0) resultMessage = `${strikeCount}스트라이크`;
+  else resultMessage = `${ballCount}볼 ${strikeCount}스트라이크`;
+
+  return resultMessage;
+}
+
+export { generateComputerNumbers, generateResultMessage };
