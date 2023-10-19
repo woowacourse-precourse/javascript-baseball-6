@@ -4,7 +4,7 @@ import {
   LENGTH_ERROR,
   INVALID_INPUT_ERROR,
 } from "../constants/error-message.js";
-import { GAME_RESTART, GAME_EXIT } from "../constants/game.js";
+import { GAME_RESTART, GAME_EXIT } from "../constants/game-control.js";
 
 function isLengthError(userInputNumber) {
   if (userInputNumber.length !== 3) throw new Error(LENGTH_ERROR);
