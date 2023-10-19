@@ -8,6 +8,10 @@ const validation = {
     commonValidation.checkRange(baseballNumber);
     return baseballNumber.split("").map((num) => Number(num));
   },
+
+  checkRestartCommand(input){
+    if(input !== '1' && input !== '2') throw new Error(ERROR_MESSAGE.ONEORTWO);
+  }
 }
 
 const commonValidation = {

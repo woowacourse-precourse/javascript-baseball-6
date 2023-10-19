@@ -12,6 +12,7 @@ const InputView = {
 
   async InputRestartOrQuit(handlerInputbaseballNumber) {
     const restartOrQuit = await Console.readLineAsync(GAME_MESSAGE.RESTART);
+    validation.checkRestartCommand(restartOrQuit);
   }
 
 };
