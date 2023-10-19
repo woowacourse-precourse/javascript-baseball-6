@@ -1,6 +1,8 @@
 import { Console } from "@woowacourse/mission-utils";
 
 class App {
+  answer = "425";
+
   async play() {
     this.printStartMessage();
     this.playOneLoop();
