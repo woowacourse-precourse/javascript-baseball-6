@@ -12,4 +12,12 @@ export default class BaseballGameController {
     const baseballGame = new BaseballGame();
     baseballGame.setNewAnswer();
   }
+
+  async readNumbers() {}
+
+  async readCommands() {}
+
+  async processNumbers() {}
+
+  async processCommands() {}
 }
