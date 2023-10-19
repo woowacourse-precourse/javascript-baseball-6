@@ -1,0 +1,3 @@
+class BaseballGame {
+  constructor() {}
+}

@@ -1,5 +1,7 @@
 class App {
-  async play() {}
+  async play() {
+    const game = new BaseballGame();
+  }
 }
 
 export default App;
