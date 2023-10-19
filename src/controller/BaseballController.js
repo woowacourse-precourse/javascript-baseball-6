@@ -25,6 +25,7 @@ export default class BaseballController {
 
   async play() {
     const res = await getPlayerInput();
+
     this.#Player.setSelectNumber(res);
     return this.#check();
   }
@@ -36,14 +37,15 @@ export default class BaseballController {
 
     printGameStatus(result);
     if (result.strike === GAME_SETTINGS.numberLength) {
+      printGameEnd();
       return this.#retry();
     }
     return this.play();
   }
 
   async #retry() {
-    printGameEnd();
     const res = await getRetryInput();
+
     if (res === GAME_OPTION.retry) {
       this.#Computer.generate();
       return this.play();
