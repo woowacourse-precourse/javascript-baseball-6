@@ -16,23 +16,19 @@ class App {
   async play() {
     Console.print(GAME_START_MESSAGE);
 
+    let userInputNumber;
+
     while (true) {
       const computerNumbers = generateComputerNumbers();
 
-      while (true) {
-        const userInputNumber = await Console.readLineAsync(
-          INPUT_NUMBER_MESSAGE
-        );
+      do {
+        userInputNumber = await Console.readLineAsync(INPUT_NUMBER_MESSAGE);
         validateUserInputNumber(userInputNumber);
 
         const result = compareNumbers(computerNumbers, userInputNumber);
         const resultMessage = generateResultMessage(result);
         Console.print(resultMessage);
-
-        if (computerNumbers === userInputNumber) {
-          break;
-        }
-      }
+      } while (computerNumbers !== userInputNumber);
 
       Console.print(GAME_WIN_MESSAGE);
       Console.print(RESTART_INFO_MESSAGE);
