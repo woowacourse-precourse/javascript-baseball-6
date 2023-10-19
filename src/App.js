@@ -7,12 +7,10 @@ const ERROR_USER_OVERLAPPING = "숫자가 중복되었어요.";
 class App {
   async play() {
     MissionUtils.Console.print(GREETING);
-    const computerNum = this.makeComputerNumber();
+    const computerNum = await this.makeComputerNumber();
 
-    MissionUtils.Console.print(computerNum);
-
-    let userNums = this.getUserNum();
-    console.log(userNums);
+    let userNums = await this.getUserNum();
+    this.compareUserAndComputer(userNums, computerNum);
   }
 
   makeComputerNumber() {
@@ -48,6 +46,22 @@ class App {
         return userNum;
       }
     }
+  }
+  async compareUserAndComputer(userNums, computerNum) {
+    console.log(userNums, computerNum);
+    let strike = 0;
+    let ball = 0;
+
+    for (let i = 0; i < 3; i++) {
+      if (userNums.includes(computerNum[i])) {
+        if (userNums[i] === computerNum[i]) {
+          strike++;
+        } else {
+          ball++;
+        }
+      }
+    }
+    return [strike, ball];
   }
 }
 const app = new App();
