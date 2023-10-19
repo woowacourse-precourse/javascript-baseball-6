@@ -1,4 +1,3 @@
-
 import { MissionUtils, Console } from '@woowacourse/mission-utils';
 
 class App {
@@ -21,7 +20,6 @@ class App {
         const restart = await this.restart_input();
         if(restart){
           this.initialization();
-          continue
         }
         break
       }
@@ -41,26 +39,24 @@ class App {
     const input = await Console.readLineAsync('숫자를 입력해주세요')
     if(this.valid_input(input)){
       return input.split('').map(item=>parseInt(item))
-    } else{
-      throw new Error("[ERROR]");
-    }
+    } 
+    throw new Error("[ERROR]");
   }
-
-  async restart_input() {
-    const input = await Console.readLineAsync('숫자를 입력해주세요')
-    if(/^[12]$/.test(input)) {
-      return input==='1'
-    } else{
-      throw new Error("[ERROR]");
-    }
-  }
-
   valid_input(input){
     // 아래 check들 정규표현식 처리
+    // 서로다른 3자리의 숫자
     const regex = /^(?!.*(.).*\1)^[1-9]{3}$/;
     return regex.test(input);
   }
 
+  async restart_input() {
+    const input = await Console.readLineAsync('')
+    if(/^[12]$/.test(input)) {
+      return input==='1'
+    } 
+    throw new Error("[ERROR]");
+  }
+  
   check_input(input){
     const strike = this.check_strike(input);
     const ball = this.check_same(input) - strike;
@@ -92,4 +88,3 @@ class App {
 }
 
 export default App;
-
