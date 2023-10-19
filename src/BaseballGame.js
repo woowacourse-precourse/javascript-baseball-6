@@ -17,6 +17,17 @@ class BaseballGame {
     }
     return randomNumbers;
   }
+
+  compareUserNumbersWithAnswer(userNumbers) {
+    const numsOfStrike = this.#countStrike(userNumbers);
+  }
+
+  #countStrike(userNumbers) {
+    return userNumbers.reduce((acc, cur, i) => {
+      if (cur === this.#answer[i]) return acc + 1;
+      return acc;
+    }, 0);
+  }
 }
 
 export default BaseballGame;
