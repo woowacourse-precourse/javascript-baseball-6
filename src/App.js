@@ -1,7 +1,29 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 
 class App {
-  async play() {}
+  async play() {
+    Console.print('숫자 야구 게임을 시작합니다.\n');
+
+    do {
+      await game();
+    } while (await replay());
+  }
+}
+
+const game = async function gameLoop() {
+  const random = threeRandomInts();
+
+  let isGameCleared = false;
+
+  while (!isGameCleared) {
+    const user = await userInput();
+
+    const result = compare(user, random);
+
+    isGameCleared = check(result);
+  }
+
+  Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
 }
 
 const threeRandomInts = function createThreeRandomIntegers() {
@@ -16,7 +38,7 @@ const threeRandomInts = function createThreeRandomIntegers() {
   return result;
 }
 
-const convert = async function convertUserInputIntoArray() {
+const userInput = async function convertUserInputIntoArray() {
   try {
     const input = await Console.readLineAsync('숫자를 입력해주세요 : ');
 
@@ -75,9 +97,7 @@ const replay = async function replayWithNewRandomNumbers() {
       return true;
     }
 
-    if (input === '2') {
-      return false;
-    }
+    return false;
   } catch (error) {
     Console.print(error.message);
   }
