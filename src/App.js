@@ -1,7 +1,12 @@
 class App {
   async play() {
-    computerNumber = [];
-    userNumber = [];
+    let STIRKE = 0;
+    let BALL = 0;
+    let computerNumber = [];
+    let userNumber = [];
+    
+
+
   }
 }
 
