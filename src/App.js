@@ -32,7 +32,7 @@ class App {
       return true;
     }
 
-    const isSameAsAnswerLength = number.length === ANSWER_LENGTH;
+    const isSameAsAnswerLength = number.length === this.ANSWER_LENGTH;
     return isSameAsAnswerLength && isOnlyNumbersExceptZero(number);
   }
 
