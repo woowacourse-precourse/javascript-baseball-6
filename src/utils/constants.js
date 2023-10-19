@@ -5,6 +5,12 @@ export const GAME_CONSTANTS = {
   STRIKE_OUT_COUNT: 3,
 };
 
+export const GAME_STATES = {
+  PLAYING: "PLAYING",
+  COMMAND: "COMMAND",
+  QUIT: "QUIT",
+};
+
 export const GAME_RESULTS = {
   BALL: "볼",
   STRIKE: "스트라이크",
