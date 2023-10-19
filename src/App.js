@@ -1,6 +1,7 @@
 import { Console } from "@woowacourse/mission-utils";
 
 class App {
+  ANSWER_LENGTH = 3;
   answer = "425";
 
   async play() {
@@ -31,8 +32,8 @@ class App {
       return true;
     }
 
-    const isThree = number.length === 3;
-    return isThree && isOnlyNumbersExceptZero(number);
+    const isSameAsAnswerLength = number.length === ANSWER_LENGTH;
+    return isSameAsAnswerLength && isOnlyNumbersExceptZero(number);
   }
 
   isNothing(number) {
