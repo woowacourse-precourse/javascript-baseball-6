@@ -1,5 +1,7 @@
 import { Console } from "@woowacourse/mission-utils";
 import handleUserInput from "../handleAnswer/handleUserInput.js";
+import printHint from "./gameHint.js";
+import makeAnswer from "../handleAnswer/makeAnswer.js";
 
 function reset() {
   Console.readLine("게임이 끝났습니다. 다시 플레이 하시겠습니까?", (replay) => {
