@@ -4,7 +4,13 @@ class App {
   async play() {
     const baseballGame = new BaseballGame();
 
-    await baseballGame.inputUserNumber();
+    while (!is_pass) {
+      await baseballGame.inputUserNumber();
+
+      is_pass = baseballGame.inputResult();
+    }
+
+    baseballGame.endGame();
   }
 }
 

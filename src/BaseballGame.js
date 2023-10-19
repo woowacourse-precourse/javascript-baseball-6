@@ -32,7 +32,6 @@ class BaseballGame {
       .map(Number);
     this.validUserInput(input);
     this.#userNumbers = input;
-    console.log(this.#userNumbers);
   }
 
   validUserInput(input) {
@@ -44,6 +43,43 @@ class BaseballGame {
       if (isNaN(value)) throw new Error("서로 다른 3자리 수를 입력해주세요.");
     }
   }
+
+  /**
+   *
+   * @returns {boolean} 성공시 ture값을, 실패시 false값을 반환
+   */
+  inputResult() {
+    const { strike, ball } = this.getStrikeAndBall();
+
+    this.outputResult({ strike, ball });
+
+    if (strike === 3) return true;
+    return false;
+  }
+
+  getStrikeAndBall() {
+    let strike = 0;
+    let ball = 0;
+
+    for (let i = 0; i < this.#GAME_NUMBER_LEN; i++) {
+      const COMPUTER_NUM = this.#computerNumbers[i];
+      for (let j = 0; j < this.#GAME_NUMBER_LEN; j++) {
+        const USER_NUM = this.#userNumbers[j];
+        if (i === j && COMPUTER_NUM === USER_NUM) strike++;
+        if (i !== j && COMPUTER_NUM === USER_NUM) ball++;
+      }
+    }
+
+    return { strike, ball };
+  }
+
+  outputResult({ strike, ball }) {
+    if (strike === 0 && ball === 0) MissionUtils.Console.print(`낫싱`);
+    else if (strike === 0) MissionUtils.Console.print(`${ball}볼`);
+    else if (ball === 0) MissionUtils.Console.print(`${strike}스트라이크`);
+  }
+
+  endGame() {}
 }
 
 export default BaseballGame;
