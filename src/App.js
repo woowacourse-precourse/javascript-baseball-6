@@ -16,13 +16,26 @@ class App {
       }
     }
   }
+  compareNumbers(guessNumber){
+    console.log(guessNumber);
+  }
+  askNumber() {
+    rl.question('숫자를 입력해주세요 : ',(guessNumber)=>{
+      if(guessNumber.length!==3 || !guessNumber || isNaN(guessNumber)){
+        console.log('3개의 숫자만 입력가능합니다.');
+        this.askNumber();
+      }
+      else {
+        this.compareNumbers(guessNumber);
+      }
+    })
+  }
   async play() {
     console.log('숫자 야구 게임을 시작합니다.');
     this.generateRandomNumber();
+    this.askNumber();
     
-    rl.question('숫자를 입력해주세요 : ',(guessNumber)=>{
-      console.log(guessNumber)
-    })
+    
     
     
   }
