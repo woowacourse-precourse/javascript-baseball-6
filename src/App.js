@@ -7,13 +7,11 @@ class App {
             MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
             while (true) {
                 const answer = this.createAnswer();
-                console.log(answer);
                 while (true) {
                     userinput = await this.getUserInput(
                         '숫자를 입력해주세요 : '
                     );
                     const judgelist = this.getBallandStrike(userinput, answer);
-                    console.log(judgelist);
                     if (this.isUserWin(judgelist[0], judgelist[1])) {
                         break;
                     }
