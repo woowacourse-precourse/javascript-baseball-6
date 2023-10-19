@@ -1,4 +1,5 @@
 import { Console, MissionUtils } from "@woowacourse/mission-utils";
+import { Rules } from "./constants/index.js";
 
 class App {
   #isCorrect = false;
@@ -24,7 +25,7 @@ class App {
   }
 
   _checkAnswer(cntStrike) {
-    return cntStrike === 3;
+    return cntStrike === Rules.DIGIT_COUNT;
   }
 
   _countStrikeAndBall(answer, numbers) {
@@ -43,7 +44,7 @@ class App {
 
   _initAnswer() {
     const computer = [];
-    while (computer.length < 3) {
+    while (computer.length < Rules.DIGIT_COUNT) {
       const number = MissionUtils.Random.pickNumberInRange(1, 9);
       if (!computer.includes(number)) {
         computer.push(number);
