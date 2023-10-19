@@ -14,6 +14,10 @@ do {
   n= Math.floor(na / 10);
 } while(n>0);
 
+let strike =0;
+let ball =0;
+let gameset =0;
+
 class App {
 
 // 컴퓨터는 랜덤값 추출
@@ -43,6 +47,41 @@ class App {
 //   - Random 값 추출은 `Random.pickNumberInRange()`를 활용한다.
 //   - 사용자의 값을 입력 받고 출력하기 위해서는 `Console.readLineAsync`, `Console.print`를 활용한다.
   async play() {}
+}
+
+function play(){
+  for(let i=0; i<computer.length; i++){
+    for(let j=0; j<naArray.length;j++){
+      if(computer[i]==naArray[j]){
+        if(i==j){
+          strike++
+        } else if(i!=j){
+          ball++
+        }
+      }
+    }
+  }
+  if(strike==0 && ball == 0){
+    Console.print('낫싱\n');
+  } else if(strike!=0 && ball !=0){
+    Console.print(`$(ball)볼 $(strike)스트라이크\n`);
+  } else if(strike!=0 && ball ==0){
+    Console.print(`$(strike)스트라이크\n`);
+  } else if(strike==0 && ball !=0){
+    Console.print(`$(ball)볼\n`);
+  }
+  if(strike==3){
+    Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료\n게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n`)
+    gameset = Console.readLineAsync;
+    if(gameset ==1){
+      let re = new App.play();
+      // 위와 같이 하면 내가 입력하는 값은 몰라도 랜덤생성 컴퓨터 값은 안 바뀔수 있으니 확인해야 함
+    } else if(gameset ==2){
+      return
+    }
+  } else if(strike!=3){
+    na = Console.readLineAsync;
+  }
 }
 
 export default App;
