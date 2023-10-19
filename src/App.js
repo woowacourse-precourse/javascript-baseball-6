@@ -7,14 +7,7 @@ class App {
   async play() {
     this.printStartMessage();
     while (1) {
-      this.setAnswer();
-
-      while (1) {
-        const isGameEnd = await this.playOneRound();
-        if (isGameEnd) break;
-      }
-
-      this.printEndMessage();
+      await this.playAGame();
 
       const wantReplay = await this.askReplay();
       if (!wantReplay) break;
@@ -37,6 +30,17 @@ class App {
     if (response !== "1" && response !== "2") this.throwError();
 
     return response === "1";
+  }
+
+  async playAGame() {
+    this.setAnswer();
+
+    while (1) {
+      const isGameEnd = await this.playOneRound();
+      if (isGameEnd) break;
+    }
+
+    this.printEndMessage();
   }
 
   async playOneRound() {
