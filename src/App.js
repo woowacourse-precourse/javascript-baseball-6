@@ -11,6 +11,7 @@ import {
   INPUT_NUMBER_MESSAGE,
   RESTART_INFO_MESSAGE,
 } from "./constants/info-message.js";
+import { GAME_EXIT, GAME_RESTART } from "./constants/game.js";
 
 class App {
   async play() {
@@ -33,13 +34,13 @@ class App {
       Console.print(RESTART_INFO_MESSAGE);
 
       const num = await Console.readLineAsync("");
-      if (num === "1") {
+      if (num === GAME_RESTART) {
         continue;
       }
-      if (num === "2") {
+      if (num === GAME_EXIT) {
         break;
       }
-      if (num !== "1" || num !== "2") {
+      if (num !== GAME_RESTART || num !== GAME_RESTART) {
         throw new Error(INVALID_INPUT_ERROR);
       }
     }
