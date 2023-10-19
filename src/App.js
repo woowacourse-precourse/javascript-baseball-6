@@ -5,6 +5,7 @@ class App {
     this.Numbers = [];
   }
 
+  // 랜덤 세 자리 숫자 생성기
   randomNumbers() {
     this.Numbers = [];
     while (this.Numbers.length < 3) {
@@ -14,7 +15,7 @@ class App {
       }
     }
   }
-  // 숫자 판별기, 랜덤숫자 3개와 유저 숫자 3개를 비교해야함!
+  // 숫자 판별기, 랜덤숫자 세자리와 유저 숫자 세자리를 비교
   matchNumberPositions(USER_INPUT) {
     let BALLS = 0
     let STRIKES = 0
@@ -28,25 +29,25 @@ class App {
     }
     return {BALLS, STRIKES}
   }
-  // 유저 인풋 3숫자 검사기
+
+  // 유저 인풋 검사기
   checkNumericPattern(USER_INPUT) {
     const DIGITS = USER_INPUT.split("").map(Number)
-    if (DIGITS.length != 3){
-      throw new Error("[ERROR] 숫자는 최소 3개여야 합니다")
+    if (DIGITS.length != 3 || DIGITS.some(isNaN)){
+      throw new Error("[ERROR]")
     }
     if (DIGITS.some((DIGIT) => DIGIT < 1 || 9 < DIGIT)){
-      throw new Error("[ERROR] 1~9 사이의 숫자만 골라주세요")
+      throw new Error("[ERROR]")
     }
     if (new Set(DIGITS).size != 3){
-      throw new Error("[ERROR] 중복된 숫자는 고를수 없습니다")
+      throw new Error("[ERROR]")
     }
     return DIGITS
   }
   // 숫자 야구 결과 출력기
   checkBaseballResult(BALLS, STRIKES) {
     if (STRIKES == 3){
-      MissionUtils.Console.print("3스트라이크")
-      MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료")
+      MissionUtils.Console.print("3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료")
       return true
     }
     else if (BALLS && STRIKES) {
@@ -66,6 +67,7 @@ class App {
 
   async play() {
     this.randomNumbers()
+    MissionUtils.Console.print(`숫자 야구 게임을 시작합니다.`)
 
     while (true) {
       const USER_INPUT = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ")
@@ -83,7 +85,7 @@ class App {
           return
         }
         else {
-          throw new Error("[ERROR] 잘못된 숫자를 입력 하셨습니다 종료합니다")
+          throw new Error("[ERROR]")
         }
       }
     }
