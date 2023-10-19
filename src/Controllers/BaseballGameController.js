@@ -19,12 +19,12 @@ export default class BaseballGameController {
     await this.processNumbers(input);
   }
 
-  async readCommands() {
+  async readCommand() {
     const input = await this.#inputView.readUserInputCommand();
-    await this.processCommands(input);
+    await this.processCommand(input);
   }
 
   async processNumbers() {}
 
-  async processCommands() {}
+  async processCommand() {}
 }
