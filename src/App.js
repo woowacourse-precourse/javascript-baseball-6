@@ -52,8 +52,6 @@ class App {
   async play() {
     console.log("숫자 야구 게임을 시작합니다.");
     this.generateRandomNumber();
-    let STRIKE_NUMBERS = 0;
-    let BALLNUMBERS = 0;
     this.askNumber();
   }
 }
