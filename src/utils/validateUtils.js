@@ -18,15 +18,12 @@ export const validateUtils = {
 
 function isValidIntegers(input) {
   const arr = input.split("");
-  arr.forEach((item) => {
-    if (parseFloat(item) !== parseInt(item)) {
-      return false;
-    }
-    if (parseInt(item) < GAME_CONSTANTS.MIN_NUMBER) {
-      return false;
-    }
+  return arr.every((item) => {
+    return (
+      parseFloat(item) === parseInt(item) &&
+      parseInt(item) >= GAME_CONSTANTS.MIN_NUMBER
+    );
   });
-  return true;
 }
 
 function hasDuplicateNumber(input) {
