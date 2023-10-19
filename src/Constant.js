@@ -21,4 +21,5 @@ export const RESULT = {
   BALL: '볼',
   STRIKE: '스트라이크',
   NOTHING: '낫싱',
+  THREE_STRIKE: '3스트라이크',
 };
