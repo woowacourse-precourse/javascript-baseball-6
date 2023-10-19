@@ -1,6 +1,6 @@
 const INPUT_MESSAGE ={
-    GUESS: `숫자를 입력해주세요 :`,
-    COMMAND: `게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.`,
+    GUESS: '숫자를 입력해주세요 :',
+    COMMAND: '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.',
 };
 
 const VALIDATION_RULE = {
@@ -25,11 +25,11 @@ const ERROR_MESSAGE = {
 };
 
 const OUTPUT_MESSAGE = {
-    INIT: `숫자 야구 게임을 시작합니다.`,
+    INIT: '숫자 야구 게임을 시작합니다.',
     NOTHING: '낫싱',
-    BALL: `볼`,
-    STRIKE: `스트라이크`,
-    WIN: `3개의 숫자를 모두 맞히셨습니다! 게임 종료`
+    BALL: '볼',
+    STRIKE: '스트라이크',
+    WIN: '3개의 숫자를 모두 맞히셨습니다! 게임 종료'
 };
 
 module.exports = {COMMAND_HASH, ERROR_MESSAGE, INPUT_MESSAGE, OUTPUT_MESSAGE, VALIDATION_RULE};
