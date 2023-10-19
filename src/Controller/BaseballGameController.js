@@ -10,8 +10,15 @@ class BaseballGameController{
     this.baseballgame = new BaseballGame();
   }
 
+  bashballGameOver(){
+    OutputView.printMessage(GAME_MESSAGE.GAMEOVER);
+    OutputView.printMessage(GAME_MESSAGE.RESTART);
+  }
+
   handlerInputbaseballNumber = (player_num) => {
     const turnOverResult = this.baseballgame.getTurnResultMessage(player_num);
+    OutputView.printMessage(turnOverResult);
+    if (turnOverResult === GAME_OVER) return this.bashballGameOver();
     InputView.InputBaseBallNumber(this.handlerInputbaseballNumber);
   }
 
