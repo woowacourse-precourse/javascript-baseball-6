@@ -35,10 +35,10 @@ class App {
     if (Validator.checkHasZero(userNumbers)) {
       throw new Error(ERROR.HAS_ZERO);
     }
-    this.getNumberOfMatches(userNumbers);
+    this.printNumberOfMatches(userNumbers);
   }
 
-  getNumberOfMatches(userNumbers) {
+  printNumberOfMatches(userNumbers) {
     const result = this.#game.compareUserNumbersWithAnswer(userNumbers);
     Console.print(result);
   }
