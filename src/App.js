@@ -4,10 +4,17 @@ class App {
   async play() {
     Console.print("숫자 야구 게임을 시작합니다.");
 
-    const computerNumber = this.getComputerRandomNumber();
-    Console.print(computerNumber);
-    let continueGame = true;
+    let gameType = true;
+    while (gameType) {
+      gameType = await this.GameStart();
+    }
+  }
 
+  async GameStart() {
+    let gameType = true;
+    const computerNumber = this.getComputerRandomNumber();
+    // Console.print(computerNumber);
+    let continueGame = true;
     while (continueGame) {
       const number = await Console.readLineAsync("숫자를 입력해주세요 : ");
       if (this.validateInput(number)) {
@@ -26,20 +33,20 @@ class App {
         if (strike === 3) {
           Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
           const userChoice = await Console.readLineAsync(
-            "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+            "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
           );
           if (userChoice == 2) {
-            continueGame = false;
-          } else {
-            computerNumber = this.getComputerRandomNumber();
-            Console.print(computerNumber);
+            gameType = false;
           }
+          continueGame = false;
         }
       } else {
-        Console.print("종료");
+        Console.print("에러");
         continueGame = false;
+        gameType = false;
       }
     }
+    return gameType;
   }
 
   calculateBaseball(computerNumbers, number) {
