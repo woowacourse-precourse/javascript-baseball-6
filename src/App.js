@@ -1,22 +1,26 @@
 import { Console, MissionUtils } from "@woowacourse/mission-utils";
-import { Rules } from "./constants/index.js";
+import { GameType, Rules } from "./constants/index.js";
 
 class App {
-  #isCorrect = false;
-  #answer = '123';
+  #isPause = false;
+  #answer = null;
   async play() {
     Console.print('숫자 야구 게임을 시작합니다.');
-    while (!this.#isCorrect) {
-      // this.#answer = this._initAnswer();
+    this._initAnswer();
+    while (!this.#isPause) {
       let inputedNumbers = '';
       try {
         inputedNumbers = await Console.readLineAsync('숫자를 입력해주세요 : ');
         const countedResult = this._countStrikeAndBall(this.#answer, inputedNumbers);
         Console.print(countedResult.cntBall + '볼 ' + countedResult.cntStrike + '스트라이크');
-        Console.print('정답입니까?: ' + this._checkAnswer(countedResult.cntStrike));
         if (this._checkAnswer(countedResult.cntStrike)) {
-          this.#isCorrect = true;
-          return;
+          Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+          const pickedType = await Console.readLineAsync(`게임을 새로 시작하려면 ${GameType.RESTART}, 종료하려면 ${GameType.END}를 입력하세요.`);
+          if (pickedType === GameType.END) {
+            this.#isPause = true;
+          } else if (pickedType === GameType.RESTART) {
+            this._initAnswer();
+          }
         }
       } catch (error) {
         Console.print('Error: ' + error.message);
@@ -31,11 +35,11 @@ class App {
   _countStrikeAndBall(answer, numbers) {
     let cntStrike = 0;
     let cntBall = 0;
-    const answers = answer.split('');
+    const answers = answer?.split('');
     numbers.split('').forEach((item, idx) => {
       if (answers[idx] === item) {
         ++cntStrike;
-      } else if (answers.indexOf(item) !== -1) {
+      } else if (answers?.indexOf(item) !== -1) {
         ++cntBall;
       }
     });
@@ -50,11 +54,11 @@ class App {
         computer.push(number);
       }
     }
-    return computer.join('');
+    this.#answer = computer.join('');
   }
 }
 
-const app = new App();
-app.play();
+// const app = new App();
+// app.play();
 
 export default App;
