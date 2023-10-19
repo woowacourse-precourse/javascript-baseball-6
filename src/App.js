@@ -79,7 +79,7 @@ class App {
     Console.print(`${strikeCount}스트라이크`);
   }
 
-  isOnlyNumbersExceptZero(number) {
+  isNonZeroDigits(number) {
     for (const eachNumber of number) {
       if (!"123456789".includes(eachNumber)) return false;
     }
@@ -92,9 +92,7 @@ class App {
   }
 
   isNumberIsValid(number) {
-    return (
-      this.isSameAsAnswerLength(number) && this.isOnlyNumbersExceptZero(number)
-    );
+    return this.isSameAsAnswerLength(number) && this.isNonZeroDigits(number);
   }
 
   isSameIndexWithAnswer(idx, number) {
@@ -131,14 +129,14 @@ class App {
     return { strikeCount, ballCount };
   }
 
-  getRandomNumberExceptZero() {
+  generateRandomNonZeroDigit() {
     return Random.pickNumberInRange(1, 9).toString();
   }
 
   setAnswer() {
     this.answer = "";
     for (let i = 0; i < this.ANSWER_LENGTH; i++) {
-      this.answer += this.getRandomNumberExceptZero();
+      this.answer += this.generateRandomNonZeroDigit();
     }
   }
 
