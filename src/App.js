@@ -3,15 +3,28 @@ import { MissionUtils } from '@woowacourse/mission-utils';
 class App {
     async play() {
         let userinput;
-        MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
-        const answer = this.createAnswer();
         while (true) {
-            userinput = await MissionUtils.Console.readLineAsync(
-                '숫자를 입력해주세요.'
-            );
-            const judgelist = this.getBallandStrike(userinput, answer);
-            if(this.isUserWin(judgelist[0], judgelist[1])){
-                break;
+            MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
+            const answer = this.createAnswer();
+            console.log(answer);
+            while (true) {
+                userinput = await MissionUtils.Console.readLineAsync(
+                    '숫자를 입력해주세요.'
+                );
+                const judgelist = this.getBallandStrike(userinput, answer);
+                console.log(judgelist);
+                if (this.isUserWin(judgelist[0], judgelist[1])) {
+                    break;
+                }
+                MissionUtils.Console.print(
+                    '3개의 숫자를 모두 맞히셨습니다! 게임 종료'
+                );
+                userinput = await MissionUtils.Console.readLineAsync(
+                    '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.'
+                );
+                if (userinput === '2') {
+                    return;
+                }
             }
         }
     }
@@ -55,30 +68,25 @@ class App {
     isUserWin(ball, strike) {
         let printText = '';
 
-        if(ball > 0){
-            printText += `${ball}볼`
+        if (ball > 0) {
+            printText += `${ball}볼`;
         }
 
-        if(strike > 0){
-            printText += `${strike}스트라이크`
+        if (strike > 0) {
+            printText += `${strike}스트라이크`;
             if (strike === 3) {
                 MissionUtils.Console.print(printText);
                 return true;
             }
         }
 
-        if(ball + strike === 0){
-            printText = '낫싱'
+        if (ball + strike === 0) {
+            printText = '낫싱';
         }
 
         MissionUtils.Console.print(printText);
         return false;
     }
-
-    }
-
-
-    // 게임을 다시 시작할지 판단하는 함수
 }
 
 export default App;
