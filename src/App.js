@@ -4,8 +4,8 @@ class App {
     async play() {
         let userinput;
         try {
+            MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
             while (true) {
-                MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
                 const answer = this.createAnswer();
                 console.log(answer);
                 while (true) {
