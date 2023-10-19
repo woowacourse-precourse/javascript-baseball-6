@@ -23,8 +23,8 @@ class App {
                     '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'
                 );
 
-                if (userinput.length !== 1) {
-                    throw new Error('입력이 잘못되었습니다.');
+                if (userinput.length !== 1 || !['1', '2'].includes(userinput)) {
+                    throw new Error('[ERROR]');
                 }
 
                 if (userinput === '2') {
@@ -32,8 +32,7 @@ class App {
                 }
             }
         } catch (e) {
-            MissionUtils.Console.print('[ERROR]');
-            return;
+            throw new Error('[ERROR]');
         }
     }
 
@@ -48,7 +47,7 @@ class App {
             }
         }
 
-        throw new Error('입력이 잘못되었습니다.');
+        throw new Error('[ERROR]');
     }
 
     // 정답을 생성하는 함수
@@ -96,9 +95,9 @@ class App {
         }
 
         if (strike > 0) {
-            printText += `${strike}스트라이크`;
+            printText += ` ${strike}스트라이크`;
             if (strike === 3) {
-                MissionUtils.Console.print(printText);
+                MissionUtils.Console.print(printText.trim());
                 return true;
             }
         }
@@ -107,7 +106,7 @@ class App {
             printText = '낫싱';
         }
 
-        MissionUtils.Console.print(printText);
+        MissionUtils.Console.print(printText.trim());
         return false;
     }
 }
