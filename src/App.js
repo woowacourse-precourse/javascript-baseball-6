@@ -37,6 +37,36 @@ class App {
   async requestPredictedNumbers() {
     const text = await MissionUtils.Console.readLineAsync(INPUT_NUMBERS_SENTENCE);
 
+    if (!this.checkValidCharacters(text)) {
+      throw new Error("not allowed character");
+    } else if (!this.checkValidLength(text)) {
+      throw new Error("invalid text length");
+    } else if (!this.checkAllNumbersUnique(text)) {
+      throw new Error("duplicated number");
+    }
+
+    const numbers = this.toUniqueNumbers(text);
+
+    this.user = [...numbers];
+  }
+
+  checkValidCharacters(text) {
+    const pattern = /^[0-9]*$/;
+
+    return pattern.test(text);
+  }
+
+  checkValidLength(text) {
+    return text.length === NUMBER_LENGTH;
+  }
+
+  checkAllNumbersUnique(text) {
+    const uniqueNumbers = this.toUniqueNumbers(text);
+
+    return uniqueNumbers.length === NUMBER_LENGTH;
+  }
+
+  toUniqueNumbers(text) {
     const numbers = [
       ...new Set(
         text
@@ -44,6 +74,8 @@ class App {
           .map((character) => parseInt(character))
       )
     ];
+
+    return numbers;
   }
 }
 
