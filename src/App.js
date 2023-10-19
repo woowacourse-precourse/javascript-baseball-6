@@ -10,11 +10,15 @@ class App {
     Console.print("숫자 야구 게임을 시작합니다.");
   }
 
-  playOneLoop() {
-    this.askThreeNumber();
+  async playOneLoop() {
+    const number = await Console.readLineAsync("숫자를 입력해주세요 : ");
+
+    if (this.isNumberIsValid(number)) {
+      throw Error("[Error]");
+    }
   }
 
-  async askThreeNumber() {
+  isNumberIsValid(number) {
     function isOnlyNumbersExceptZero(number) {
       for (const eachNumber of number) {
         if (!"123456789".includes(eachNumber)) return false;
@@ -23,18 +27,8 @@ class App {
       return true;
     }
 
-    function isNumberIsValid(number) {
-      const isThree = number.length === 3;
-      return isThree && isOnlyNumbersExceptZero(number);
-    }
-
-    const numberString = await Console.readLineAsync("숫자를 입력해주세요 : ");
-
-    if (!isNumberIsValid(numberString)) {
-      throw Error("[ERROR]");
-    }
-
-    Console.print(`${numberString} 은 유효합니다!`);
+    const isThree = number.length === 3;
+    return isThree && isOnlyNumbersExceptZero(number);
   }
 }
 
