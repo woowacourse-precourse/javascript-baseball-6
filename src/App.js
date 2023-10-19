@@ -1,6 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils"
 
-const INTRO_SENTENCE = "숫자 야구 게임을 시작합니다.\n";
+const INTRO_SENTENCE = "숫자 야구 게임을 시작합니다.";
 const NUMBER_LENGTH = 3;
 
 class App {
