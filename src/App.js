@@ -1,5 +1,13 @@
 import { MissionUtils, Console } from "@woowacourse/mission-utils";
-import { LOG, MAX_INPUT_LENGTH, MAX_RANDOM_NUMBER, MIN_RANDOM_NUMBER } from "./constants.js";
+import {
+	LOG,
+	MAX_INPUT_LENGTH,
+	MAX_STRIKE_COUNT,
+	MIN_RANDOM_NUMBER,
+	MAX_RANDOM_NUMBER,
+	END_NUMBER,
+	RESTART_NUMBER,
+} from "./constants.js";
 
 class App {
 	isPlaying;
@@ -36,6 +44,20 @@ class App {
 				const message = this.makeMessage(strike, ball);
 
 				Console.print(message);
+
+				if (strike !== MAX_STRIKE_COUNT) {
+					continue;
+				}
+
+				Console.print(LOG.CORRECT);
+
+				const isRestart = await this.confirmRestart();
+
+				if (isRestart) {
+					this.init();
+				} else {
+					this.isPlaying = false;
+				}
 			}
 		} catch (e) {
 			throw new Error(e.message);
@@ -141,6 +163,24 @@ class App {
 		}
 
 		return messages.join(" ");
+	}
+
+	/**
+	 * @description 게임을 재시작할지 확인합니다.
+	 * @description 입력받은 숫자가 1이나 2가 아닐 경우, 에러 메시지를 출력합니다.
+	 * @description 입력받은 숫자가 1일 경우, true를 반환합니다.
+	 * @returns {boolean}
+	 */
+	async confirmRestart() {
+		const input = await Console.readLineAsync(LOG.RESTART);
+
+		const restartNumber = Number(input);
+
+		if (restartNumber !== RESTART_NUMBER && restartNumber !== END_NUMBER) {
+			throw new Error(LOG.ERROR);
+		}
+
+		return restartNumber === RESTART_NUMBER;
 	}
 }
 
