@@ -5,7 +5,7 @@ class App {
     const baseballGame = new BaseballGame();
     let isEnd = false;
 
-    while (!is_end) {
+    while (!isEnd) {
       await baseballGame.inputUserNumber();
       baseballGame.printResult();
       isEnd = baseballGame.IsGameEnd();

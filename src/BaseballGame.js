@@ -2,7 +2,9 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 
 class BaseballGame {
   #GAME_NUMBER_LEN = 3;
+  /**@type {number[]} */
   #computerNumbers;
+  /**@type {number[]} */
   #userNumbers;
   #gameEnd = false;
 
@@ -45,10 +47,6 @@ class BaseballGame {
     }
   }
 
-  /**
-   *
-   * @returns {boolean} 성공시 ture값을, 실패시 false값을 반환
-   */
   printResult() {
     const { strike, ball } = this.getStrikeAndBall();
 
