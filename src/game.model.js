@@ -37,6 +37,21 @@ class Game {
     } 
   }
 
+  result() {
+    if (STRIKE && BALL) {
+      Console.print(`${BALL}볼 ${STRIKE}스트라이크`);
+    }else if(STIRKE) {
+      Console.print(`${STRIKE}스트라이크`);
+    }else if(BALL) {
+      Console.print(`${BALL}볼`);
+    }else {
+      Console.print(`낫싱`);
+    }
+
+    if(STIRKE == 3) {
+      Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
+    }
+  }
   
 }
 
