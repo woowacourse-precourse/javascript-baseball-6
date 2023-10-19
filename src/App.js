@@ -37,6 +37,18 @@ class App {
     return true;
   }
 
+  getStrikeCount(computerNumbers, userNumbers) {
+    let result = 0;
+
+    for (let i = 0; i < 3; i += 1) {
+      if (computerNumbers[i] === userNumbers[i]) {
+        result += 1;
+      }
+    }
+
+    return result;
+  }
+
   async play() {
     Console.print('숫자 야구 게임을 시작합니다.');
 
@@ -48,6 +60,8 @@ class App {
     }
 
     const userNumbers = [...userInput].map(Number);
+
+    const strikeCount = this.getStrikeCount(computerNumbers, userNumbers);
 
     // TODO: Remove this code
     Console.print(computerNumbers);
