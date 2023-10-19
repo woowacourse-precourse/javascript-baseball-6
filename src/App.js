@@ -1,13 +1,13 @@
 import { Console } from "@woowacourse/mission-utils";
 import {
-  generateComputerNumbers,
-  printResultMessage,
-} from "./utils/generate.js";
-import {
   validateUserInputNumber,
   validateUserSelectNumber,
 } from "./utils/validation.js";
-import { compareNumbers } from "./utils/game.js";
+import {
+  generateComputerNumbers,
+  compareNumbers,
+  printResultMessage,
+} from "./utils/game.js";
 import {
   GAME_START_MESSAGE,
   GAME_WIN_MESSAGE,
