@@ -27,12 +27,6 @@ export default class Game {
     this.answer = computer.getComputerNumber();
   }
 
-  compareTwoNumber() {
-    const calculate = new Calculate();
-    calculate.compareAnsAndPlayer(this.answer, this.player);
-    [this.ball, this.strike] = calculate.getResult();
-  }
-
   async proceedGame() {
     this.player = await Print.getPlayerNumber();
 
@@ -41,6 +35,12 @@ export default class Game {
     Print.showHint(this.ball, this.strike);
 
     this.decideGameClear();
+  }
+
+  compareTwoNumber() {
+    const calculate = new Calculate();
+    calculate.compareAnsAndPlayer(this.answer, this.player);
+    [this.ball, this.strike] = calculate.getResult();
   }
 
   async decideGameClear() {
