@@ -1,9 +1,9 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 const GREETING = "숫자 야구 게임을 시작합니다.";
-const ERROR_USER_NUM = "숫자를 3개만 입력해주세요.";
-const ERROR_USER_OVERLAPPING = "숫자가 중복되었어요.";
 const SUCCESS = "3개의 숫자를 모두 맞히셨습니다 ! 게임 종료";
+const ERROR = "[ERROR]";
+
 class App {
   async play() {
     MissionUtils.Console.print(GREETING);
@@ -11,9 +11,14 @@ class App {
     while (1) {
       let userNums = await this.getUserNum();
       const result = await this.compareUserAndComputer(userNums, computerNum);
+      {
+        result[0] === 0 &&
+          result[1] === 0 &&
+          MissionUtils.Console.print("낫싱");
+      }
       MissionUtils.Console.print(
-        `${result[1] === 0 ? "0볼" : result[1] + "볼"} ${
-          result[0] === 0 ? "0스트라이크" : result[0] + "스트라이크"
+        `${result[1] !== 0 && result[1] + "볼"} ${
+          result[0] !== 0 && result[0] + "스트라이크"
         }`
       );
       if (result[0] === 3) {
@@ -47,18 +52,16 @@ class App {
       let data = await MissionUtils.Console.readLineAsync(
         "숫자를 입력해주세요 : "
       );
-      const userNum = data.split("").map(Number);
+      const userNum = data?.split("").map(Number);
       if (userNum.length !== 3) {
-        MissionUtils.Console.print(ERROR_USER_NUM);
-        continue;
+        throw new Error(ERROR);
       } else if (
         userNum[0] === userNum[1] ||
         userNum[1] === userNum[2] ||
         userNum[2] === userNum[0]
       ) {
         {
-          MissionUtils.Console.print(ERROR_USER_OVERLAPPING);
-          continue;
+          throw new Error(ERROR);
         }
       } else {
         return userNum;
