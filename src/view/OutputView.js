@@ -13,7 +13,7 @@ export function printGameStatus(status) {
   const message = [];
 
   if (status.ball) {
-    message.push(`${status.ball}${STATUS_MESSAGE.ball} `);
+    message.push(`${status.ball}${STATUS_MESSAGE.ball}`);
   }
   if (status.strike) {
     message.push(`${status.strike}${STATUS_MESSAGE.strike}`);
@@ -22,5 +22,5 @@ export function printGameStatus(status) {
     message.push(`${STATUS_MESSAGE.nothing}`);
   }
 
-  Console.print(message.join(''));
+  Console.print(message.join(' '));
 }
