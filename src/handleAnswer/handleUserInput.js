@@ -1,5 +1,3 @@
-import { Console } from "@woowacourse/mission-utils";
-
 const validLength = (userInput) => userInput.length !== 3;
 const validType = (userInput) => isNaN(userInput);
 
