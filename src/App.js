@@ -51,6 +51,11 @@ class App {
     } else this.getUserGuessInput();
   }
 
+  validateRestartInput(input) {
+    if (!Validator.checkIsOneOrTwo(input)) {
+      throw new Error(ERROR.NOT_ONE_OR_TWO);
+    }
+  }
   }
 }
 

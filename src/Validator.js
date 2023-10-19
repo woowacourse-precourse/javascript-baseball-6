@@ -11,6 +11,9 @@ class Validator {
   static checkHasZero(input) {
     return input.includes(0);
   }
+  static checkIsOneOrTwo(input) {
+    return input === 1 || input === 2;
+  }
 }
 
 export default Validator;
