@@ -90,7 +90,7 @@ class App {
     const userInput = await Console.readLineAsync('숫자를 입력해주세요 : ');
 
     if (this.validateUserInput(userInput) === false) {
-      throw new Error('잘못된 값이 입력되었습니다.');
+      throw new Error('[ERROR]');
     }
 
     const userNumbers = [...userInput].map(Number);
@@ -137,7 +137,7 @@ class App {
       } else if (retryNumber === '2') {
         return;
       } else {
-        throw new Error('잘못된 값이 입력되었습니다.');
+        throw new Error('[ERROR]');
       }
     }
   }
