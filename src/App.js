@@ -104,7 +104,7 @@ class App {
   getStrikeCount(number) {
     let count = 0;
 
-    for (let idx = 0; idx < this.ANSWER_LENGTH; idx++) {
+    for (const idx in number) {
       if (this.isSameIndexWithAnswer(idx, number)) count++;
     }
 
