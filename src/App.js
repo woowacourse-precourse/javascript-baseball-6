@@ -41,6 +41,33 @@ class App {
         return true;
     }
 
+    compareUserComputer(userNumber) {
+        // 정답 테스트 메서드
+
+        let strike = 0;
+        let ball = 0;
+        for (let i = 0; i <= 2; i++) {
+            if (userNumber[i] == this.computerNumber[i]) {
+                // 정확하게 일치하면 스트라이크 개수 증가
+                strike++;
+            } else if (
+                this.computerNumber.includes(parseInt(userNumber[i], 10)) // userNumber를 숫자로 변경하여 computerNumber의 숫자와 비교한다.
+            ) {
+                // 존재하면 볼
+                ball++;
+            }
+        }
+
+        if (strike === 0 && ball === 0) {
+            return "낫싱"; // 다 틀렸으면 낫싱 반환
+        } else {
+            // 맞은 개수대로 결과 반환
+            return `${ball ? ball + "볼" : ""} ${
+                strike ? strike + "스트라이크" : ""
+            }`.trim();
+        }
+    }
+
     async play() {
         this.computerNumberCreate(); // 컴퓨터 숫자 생성 메서드 호출
         MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
