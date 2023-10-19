@@ -22,11 +22,8 @@ class App {
         Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
         Console.print('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.')
         const IS_RESTART = await this.checkRestart();
-        if(IS_RESTART) {
-          this.start = true
-        }else{
-          break
-        }
+        if(!IS_RESTART) break;
+        this.start = true
       }
     }
   }
