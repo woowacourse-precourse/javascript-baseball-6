@@ -29,3 +29,9 @@ function typeAnswer(computerAnswer) {
     ballmanager(computerAnswer, userAnswer);
   });
 }
+
+export default function playBaseball() {
+  const computerAnswer = makeAnswer();
+  Console.print(computerAnswer);
+  typeAnswer(computerAnswer);
+}
