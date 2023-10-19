@@ -11,7 +11,7 @@ const getMatch = function (guess, coumputerNumbers) {
     const visited = new Set();
     for (const char of guess) visited.add(char);
     for (const char of coumputerNumbers) {
-        if (visited.has(char)) count++;
+        if (visited.has(char)) count += 1;
     };
     return count;
 };
@@ -19,7 +19,7 @@ const getMatch = function (guess, coumputerNumbers) {
 const getStrike = function (guess, coumputerNumbers) {
     let count = 0;
     for (let i= 0; i < VALIDATION_RULE.VALID_GUESS_LENGTH; i++) {
-        if (guess[i] === coumputerNumbers[i]) count++;
+        if (guess[i] === coumputerNumbers[i]) count += 1;
     };
     return count;
 };
