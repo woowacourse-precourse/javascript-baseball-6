@@ -34,3 +34,17 @@ export const checkArr = (randomArr, inputArr) => {
   }
   return { ball, strike };
 };
+
+export const printResult = (ball, strike) => {
+  let str = "";
+  if (strike === 0 && ball === 0) {
+    str = "낫싱";
+  } else if (strike === 0) {
+    str = ball + "볼";
+  } else if (ball === 0) {
+    str = strike + "스트라이크";
+  } else {
+    str = ball + "볼 " + strike + "스트라이크";
+  }
+  MissionUtils.Console.print(str);
+};
