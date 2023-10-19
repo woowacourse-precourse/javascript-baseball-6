@@ -41,7 +41,6 @@ class App {
     /* 실패일 때, 힌트 출력 후 숫자 입력받기 */
     let strike = 0;
     let ball = 0;
-    let nothing = 0;
     let hint = '';
     console.log('compareUserAndRamdomNumber');
     // 스트라이크 확인
@@ -51,19 +50,16 @@ class App {
         strike += 1;
       }
     });
-    if(strike) hint += `${strike}스트라이크 `;
 
     // 볼
     ball = computer.filter((number) => input.includes(number)).length;
     ball -= strike;
-    if(ball) hint += `${ball}볼 `; 
+    if(ball) hint += `${ball}볼 `;
+    if(strike) hint += `${strike}스트라이크 `;
     
     // 낫싱
-
-    
+    if ((strike === 0) & (ball === 0)) hint += '낫싱';
     Console.print(hint);
-
-    // 성공일때 return this.notifyGameEnd();
   }
 
 
@@ -94,5 +90,5 @@ class App {
 
 const app = new App();
 //app.play();
-app.compareUserAndRamdomNumber(['1','2','3'], ['1', '2', '9']);
+app.compareUserAndRamdomNumber(['1','2','3'], ['4', '5', '6']);
 export default App;
