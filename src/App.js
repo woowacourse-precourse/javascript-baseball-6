@@ -28,6 +28,24 @@ class App {
     }
 
     // 유저의 입력을 판단하는 함수
+    getBallandStrike(userinput, answer) {
+        let ball = 0;
+        let strike = 0;
+
+        for (let i = 0; i < userinput.length; i++) {
+            if (userinput[i] in answer) {
+                if (answer[userinput[i]] === i) {
+                    // 번호도 같고 자리도 같은 경우
+                    strike++;
+                } else {
+                    // 번호는 같지만 자리가 다른 경우
+                    ball++;
+                }
+            }
+        }
+
+        return [ball, strike];
+    }
 
     // 게임을 다시 시작할지 판단하는 함수
 }
