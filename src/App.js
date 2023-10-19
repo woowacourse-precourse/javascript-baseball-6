@@ -27,7 +27,10 @@ function validateUserInput(userInput, computer) {
 		const user = userInput.split('').map((number) => +number && +number); //arr
 		//console.log(user)
 		if (user[0] && user[1] && user[2]) {
-			compareUserComputer(user, computer);
+
+			const { strike, ball } = compareUserComputer(user, computer);
+			const strikeScore = strike ? `${strike}스트라이크` : '';
+			const ballScore = ball ? `${ball}볼` : '';
 		}
 	}
 }
@@ -41,8 +44,6 @@ function compareUserComputer(user, computer) {
 				strike++;
 			} else if (computer.includes(user[i])) {
 				ball++;
-			} else {
-				MissionUtils.Console.print('낫싱');
 			}
 		}
 		return {
