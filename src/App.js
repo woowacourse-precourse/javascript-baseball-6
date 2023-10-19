@@ -7,7 +7,11 @@ class App {
   async play() {
     this.setAnswer();
     this.printStartMessage();
-    this.playOneRound();
+
+    while (1) {
+      const isGameEnd = await this.playOneRound();
+      if (isGameEnd) break;
+    }
   }
 
   printStartMessage() {
@@ -25,9 +29,7 @@ class App {
 
     this.printRoundResult({ strikeCount, ballCount });
 
-    if (this.isGameEnd(strikeCount)) {
-      Console.print("끝");
-    }
+    return this.isGameEnd(strikeCount);
   }
 
   printRoundResult({ strikeCount, ballCount }) {
