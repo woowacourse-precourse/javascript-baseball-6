@@ -3,11 +3,13 @@ import { GAME_MESSAGE } from "../Util/Message.js";
 import validation from "../Util/Validation.js";
 
 const InputView = {
-  InputBaseBallNumber(message) {
-    Console.readLine(GAME_MESSAGE.INPUT_BASEBALLNUMBER, (baseballNumber) => {
-      validation.checkBaseBallNumber(baseballNumber);
-    });
+
+  async InputBaseBallNumber(handlerInputbaseballNumber) {
+    const baseballNumber = await Console.readLineAsync(GAME_MESSAGE.INPUT_BASEBALLNUMBER);
+    validation.checkBaseBallNumber(baseballNumber);
+    handlerInputbaseballNumber(baseballNumber);
   }
+
 };
 
 export { InputView };

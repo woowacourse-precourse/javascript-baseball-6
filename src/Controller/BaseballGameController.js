@@ -5,13 +5,13 @@ import { InputView } from "../View/InputView.js";
 
 class BaseballGameController{
 
-  baseballNumberInput(){
-    InputView.InputBaseBallNumber();
+  handlerInputbaseballNumber = (baseballNumber) => {
+    InputView.InputBaseBallNumber(this.handlerInputbaseballNumber);
   }
 
   baseballGameStart(){
     OutputView.printMessage(GAME_MESSAGE.START);
-    this.baseballNumberInput();
+    InputView.InputBaseBallNumber(this.handlerInputbaseballNumber);
   }  
 }
 
