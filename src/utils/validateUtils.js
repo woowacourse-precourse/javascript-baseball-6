@@ -12,3 +12,8 @@ function isValidIntegers(input) {
   });
   return true;
 }
+
+function hasDuplicateNumber(input) {
+  const arr = input.split("");
+  return arr.length !== new Set(arr).size;
+}
