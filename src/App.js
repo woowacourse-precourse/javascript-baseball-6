@@ -1,11 +1,16 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
-  async play(num) {
-    let arr = [];
+  async play(numberPlayer) {
+    numberPlayer = numberPlayer + "";
+    const arrayPlayer = [...numberPlayer];
+
     console.log("숫자 야구 게임을 시작합니다.");
     console.log("숫자를 입력해주세요.");
-    console.log(typeof num);
+
+    let computerPlayer = [];
+    computerPlayer = arrayPlayer.map((v) => parseInt(v));
+    console.log(computerPlayer);
 
     const computer = [];
     while (computer.length < 3) {
