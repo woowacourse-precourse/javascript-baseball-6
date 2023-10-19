@@ -5,8 +5,9 @@ const validation = {
     commonValidation.checkLength(baseballNumber, 3);
     commonValidation.checkNumber(baseballNumber);
     commonValidation.checkDuplicate(baseballNumber);
+    commonValidation.checkRange(baseballNumber);
     return baseballNumber.split("").map((num) => Number(num));
-  }
+  },
 }
 
 const commonValidation = {
@@ -21,6 +22,12 @@ const commonValidation = {
   checkDuplicate(input){
     const baseballNumberSet = new Set(input.split(""));
     if([...baseballNumberSet].length !== 3) throw new Error(ERROR_MESSAGE.DUPLICATE);
+  },
+
+  checkRange(input){
+    input.split("").forEach((num) => {
+      if(Number(num) < 1 || Number(num) > 9) throw new Error(ERROR_MESSAGE.RANGE)
+    })
   }
 }
 
