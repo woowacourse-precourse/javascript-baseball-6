@@ -1,5 +1,7 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 
+const CORRECT_NUMBER = 3;
+
 class App {
   #computerNumber;
 
@@ -54,7 +56,40 @@ class App {
     return str;
   }
 
-  async play() {}
+  async play() {
+    this.assignComputerNumber();
+    let isPlaying = true;
+    try {
+      while (isPlaying) {
+        const INPUT = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
+
+        if (!this.isValidInput(INPUT)) throw new Error('[ERROR]');
+
+        const { STRIKE, BALL } = this.calculateStrikesAndBalls(INPUT, this.#computerNumber);
+        MissionUtils.Console.print(this.gameResultMessage(STRIKE, BALL));
+
+        if (STRIKE === CORRECT_NUMBER) {
+          const INPUT = await MissionUtils.Console.readLineAsync('3개의 숫자를 모두 맞히셨습니다! 게임 종료\n게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+
+          if (!/^[12]$/.test(INPUT)) throw new Error('1또는 2가 입력되지 않았습니다.');
+
+          if (INPUT === '1') {
+            this.assignComputerNumber();
+            continue;
+          }
+
+          if (INPUT === '2') {
+            isPlaying = false;
+            MissionUtils.Console.print('게임 종료');
+          }
+        }
+      }
+    } catch (e) {
+      MissionUtils.Console.print('잘못된 입력입니다. 게임을 종료합니다');
+
+      throw e;
+    }
+  }
 }
 
 export default App;
