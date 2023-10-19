@@ -9,7 +9,9 @@ class App {
                 const answer = this.createAnswer();
                 console.log(answer);
                 while (true) {
-                    userinput = await this.getUserInput('숫자를 입력해주세요.');
+                    userinput = await this.getUserInput(
+                        '숫자를 입력해주세요 : '
+                    );
                     const judgelist = this.getBallandStrike(userinput, answer);
                     console.log(judgelist);
                     if (this.isUserWin(judgelist[0], judgelist[1])) {
@@ -20,7 +22,7 @@ class App {
                     '3개의 숫자를 모두 맞히셨습니다! 게임 종료'
                 );
                 userinput = await MissionUtils.Console.readLineAsync(
-                    '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.'
+                    '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'
                 );
 
                 if (userinput.length !== 1) {
