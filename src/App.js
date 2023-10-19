@@ -20,6 +20,8 @@ const game = async function gameLoop() {
 
     const result = compare(user, random);
 
+    Console.print(resultMessage(replay));
+
     isGameCleared = check(result);
   }
 
@@ -101,6 +103,25 @@ const replay = async function replayWithNewRandomNumbers() {
   } catch (error) {
     Console.print(error.message);
   }
+}
+
+const resultMessage = function resultToString(guessResult) {
+  if (guessResult.x === 3) {
+    return '낫싱';
+  }
+
+  let ballMessage = '';
+  let strikeMessage = '';
+
+  if (guessResult.ball > 0) {
+    ballMessage = `${guessResult.ball}볼`;
+  }
+
+  if (guessResult.strike > 0) {
+    strikeMessage = `${guessResult.strike}스트라이크`;
+  }
+
+  return `${ballMessage} ${strikeMessage}`.trim();
 }
 
 export default App;
