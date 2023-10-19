@@ -18,6 +18,8 @@ class App {
     if (!this.isNumberIsValid(number)) {
       throw Error("[Error]");
     }
+
+    Console.print(this.isNothing(number));
   }
 
   isNumberIsValid(number) {
@@ -31,6 +33,14 @@ class App {
 
     const isThree = number.length === 3;
     return isThree && isOnlyNumbersExceptZero(number);
+  }
+
+  isNothing(number) {
+    for (const eachNumber of number) {
+      if (this.answer.includes(eachNumber)) return false;
+    }
+
+    return true;
   }
 }
 
