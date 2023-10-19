@@ -1,4 +1,4 @@
-import { MAX_INPUT_LENGTH, MAX_RANDOM_NUMBER, MIN_RANDOM_NUMBER } from "./constants.js";
+import { LOG, MAX_INPUT_LENGTH, MAX_RANDOM_NUMBER, MIN_RANDOM_NUMBER } from "./constants.js";
 
 class App {
 	isPlaying;
@@ -17,7 +17,9 @@ class App {
 	 * @description 게임을 재시작할 경우, 게임을 초기화합니다.
 	 * @description 게임을 재시작하지 않을 경우, 게임을 종료합니다.
 	 */
-	async play() {}
+	async play() {
+		await Console.print(LOG.START);
+	}
 
 	/**
 	 * @description 게임을 초기화합니다.
