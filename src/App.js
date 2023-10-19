@@ -32,8 +32,7 @@ class App {
 
     if (response !== "1" && response !== "2") this.throwError();
 
-    if (response === "1") return true;
-    return false;
+    return response === "1";
   }
 
   async playOneRound() {
