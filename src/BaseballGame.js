@@ -21,6 +21,7 @@ class BaseballGame {
   compareUserNumbersWithAnswer(userNumbers) {
     const numsOfStrike = this.#countStrike(userNumbers);
     const numsOfBall = this.#countBall(userNumbers);
+    const numsOfNothing = this.#countNothing(userNumbers);
   }
 
   #countStrike(userNumbers) {
@@ -38,6 +39,10 @@ class BaseballGame {
       }
       return acc;
     }, 0);
+  }
+
+  #countNothing(userNumbers) {
+    return new Set([...userNumbers, ...this.#answer]).size - CONSTANT.MAX_NUM_LEN;
   }
 }
 
