@@ -97,16 +97,6 @@ class App {
 
     this.strikeCount = this.getStrikeCount(computerNumbers, userNumbers);
     this.ballCount = this.getBallCount(computerNumbers, userNumbers);
-    const isNothing = this.strikeCount + this.ballCount === 0;
-
-    // TODO: Remove this code
-    Console.print(this.strikeCount);
-    Console.print(this.ballCount);
-    Console.print(isNothing);
-
-    // TODO: Remove this code
-    Console.print(computerNumbers);
-    Console.print(userNumbers);
 
     const resultMessage = this.getResultMessage(
       this.strikeCount,
@@ -142,9 +132,5 @@ class App {
     }
   }
 }
-
-// TODO: Remove this code
-const app = new App();
-app.play();
 
 export default App;
