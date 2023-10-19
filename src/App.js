@@ -1,11 +1,14 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 
 class App {
-  ANSWER_LENGTH = 3;
-  answer = "";
+  constructor() {
+    this.ANSWER_LENGTH = 3;
+    this.answer = "";
+  }
 
   async play() {
     this.printStartMessage();
+
     while (true) {
       await this.playAGame();
 
