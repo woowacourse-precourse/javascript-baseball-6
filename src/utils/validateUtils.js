@@ -17,3 +17,7 @@ function hasDuplicateNumber(input) {
   const arr = input.split("");
   return arr.length !== new Set(arr).size;
 }
+
+function isValidCommand(input) {
+  return input === USER_COMMANDS.RESTART || input === USER_COMMANDS.QUIT;
+}
