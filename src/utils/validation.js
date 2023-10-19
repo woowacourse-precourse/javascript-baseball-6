@@ -1,4 +1,3 @@
-// 입력받은 숫자가 3개가 아닐 경우 게임 종료
 function isLengthError(userNumbers) {
   if (userNumbers.length !== 3)
     throw new Error("입력받은 숫자가 3개가 아닙니다.");
@@ -6,7 +5,6 @@ function isLengthError(userNumbers) {
   return false;
 }
 
-// 입력받은 숫자에 중복이 포함될 경우 에러 표시
 function isDuplicationError(userNumbers) {
   for (let i = 0; i < userNumbers.length; i++) {
     if (userNumbers.substring(i + 1).includes(userNumbers[i])) {
@@ -17,7 +15,6 @@ function isDuplicationError(userNumbers) {
   return false;
 }
 
-// 입력받은 숫자에 문자가 포함될 경우 에러 표시
 function isNumberError(userNumbers) {
   for (let i = 0; i < userNumbers.length; i++) {
     if (!(userNumbers[i] >= "0" && userNumbers[i] <= "9")) {
