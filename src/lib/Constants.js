@@ -7,7 +7,7 @@ const VALIDATION_RULE = {
     VALID_GUESS_LENGTH: 3,
     VALID_COMMAND: [0, 1],
     GUESS_MIN_VALUE_INCLUSIVE: 1,
-    GUESS_MAX_VALUE_INCLUSIVE: 9,
+    GUESS_MAX_VALUE_INCLUSIVE: 9,    
 };
 
 const _Error_HEAD = '[ERROR]'
@@ -21,9 +21,10 @@ const ERROR_MESSAGE = {
 
 const OUTPUT_MESSAGE = {
     INIT: `숫자 야구 게임을 시작합니다.`,
+    NOTHING: '낫싱',
     BALL: `볼`,
     STRIKE: `스트라이크`,
-    SUCCESS: `3개의 숫자를 모두 맞히셨습니다! 게임 종료`
+    WIN: `3개의 숫자를 모두 맞히셨습니다! 게임 종료`
 };
 
 module.exports = {INPUT_MESSAGE, VALIDATION_RULE, ERROR_MESSAGE, OUTPUT_MESSAGE};
