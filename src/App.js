@@ -68,7 +68,7 @@ class App {
 
     while (true) {
       // 야구게임 정답 생성
-      let answer = await this.generateRandomNumber();
+      let answer = this.generateRandomNumber();
 
       while (true) {
         // 야구게임 정답 입력
@@ -98,7 +98,7 @@ class App {
       let selectContinue = await Console.readLineAsync("");
 
       if (selectContinue === "2") {
-        return 2;
+        return;
       } else if (selectContinue !== "1") {
         throw new Error("[ERROR] 잘못된 접근입니다");
       }
