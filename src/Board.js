@@ -23,7 +23,9 @@ class Board {
 	}
 
 	getUserGuess() {
-		console.log("Board.js/Board/getUserGuess");
+		Console.readLine('', (input) => {
+			this._guess = new Numbers(input);
+		});
 	}
 
 	checkUserGuess() {
