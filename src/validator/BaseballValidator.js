@@ -53,7 +53,6 @@ class BaseballValidator {
     Object.values(BaseballValidator.validationTypes).forEach(({ errorMessage, isValid }) => {
       if (!isValid(this.#baseball)) throw new AppError(errorMessage);
     });
-    return this.#baseball;
   }
 }
 
