@@ -6,17 +6,17 @@ beforeEach(() => {
 });
 
 describe('컴퓨터의 야구 숫자 뽑기', () => {
-  test('숫자 3개를 뽑았는가', () => {
+  test('컴퓨터 숫자는 3개여야 합니다.', () => {
     expect(computer.numbers).toHaveLength(3);
   });
 
-  test('1과 9 사이의 숫자인가', () => {
+  test('컴퓨터 숫자는 1과 9 사이의 숫자여야 합니다.', () => {
     computer.numbers.forEach((number) => {
       expect(number).toBeWithinRange(1, 9);
     });
   });
 
-  test('숫자가 정수인가', () => {
+  test('컴퓨터 숫자는 정수여야 합니다.', () => {
     computer.numbers.forEach((number) => {
       expect(number).toBeIntNumber();
     });
