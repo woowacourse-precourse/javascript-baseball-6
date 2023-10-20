@@ -22,6 +22,8 @@ class App {
                         gameEnd = false;
                     } else if (ReStart === '2') {
                         gameEnd = true;
+                    }else {
+                        throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
                     }
 
                 }
@@ -31,4 +33,6 @@ class App {
     }
 }
 
+let san = new App();
+san.play();
 export default App;
