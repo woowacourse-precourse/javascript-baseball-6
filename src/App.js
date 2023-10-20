@@ -22,8 +22,12 @@ class App {
   // 사용자로부터 예상 정답을 입력 받고 유효성 검사
   async readAnswer() {
     const answer = await Console.readLineAsync(MESSAGE.INPUT);
-    BaseballGame.validateNumber(answer);
-    this.printResult(answer);
+    try {
+      BaseballGame.validateNumber(answer);
+      this.printResult(answer);
+    } catch (err) {
+      Console.print(err);
+    }
   }
 
   // ball, strike 수에 맞는 출력 메세지 반환
@@ -41,6 +45,7 @@ class App {
 
     if (strike == 3) {
       Console.print(MESSAGE.SUCCESS);
+      this.readRetry();
       return;
     }
 
@@ -57,9 +62,11 @@ class App {
     }
 
     if (answer != 2) {
-      throw MESSAGE.INVALID_RETRY_ANSWER;
+      Console.print(MESSAGE.INVALID_RETRY_ANSWER);
     }
   }
 }
+
+new App().play();
 
 export default App;
