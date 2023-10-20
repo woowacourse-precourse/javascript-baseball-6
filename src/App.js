@@ -10,7 +10,7 @@ class App {
 
     init() {
         this.isplaying=true;
-        //this.randomNumber=[];
+        this.randomNumber= this.makeRandomNumber();
     }
     async play() {
         Console.print(STRING.START);
@@ -27,6 +27,7 @@ class App {
                 randomNumber.push(pickNumber);
             }
         }
+        return randomNumber;
     }
     
 }
