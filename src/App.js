@@ -6,7 +6,8 @@ class App {
     let isGameEnded = false;
 
     while (!isGameEnded) {
-      const answer = MissionUtils.Random.pickUniqueNumbersInRange(1, 9, 3);
+      const answer = this.createThreeRandomNumbers();
+
       console.log(answer); // debug용 로그
       while (true) {
         const userResponse = await Console.readLineAsync(
@@ -26,6 +27,19 @@ class App {
 
       isGameEnded = await this.promptNewGameOrExit();
     }
+  }
+
+  createThreeRandomNumbers() {
+    const threeRandomInteger = [];
+
+    while (threeRandomInteger.length < 3) {
+      const number = MissionUtils.Random.pickNumberInRange(1, 9);
+      if (!threeRandomInteger.includes(number)) {
+        threeRandomInteger.push(number);
+      }
+    }
+
+    return threeRandomInteger;
   }
 
   compareNumbers(answer, userResponse) {
