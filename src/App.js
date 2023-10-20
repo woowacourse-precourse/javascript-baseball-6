@@ -3,12 +3,28 @@ import { printStartMessage, readBaseballNumbers } from './View.js';
 import BaseBall from './BaseBall.js';
 
 class App {
-  constructor() {}
+  constructor() {
+    this.baseBall = new BaseBall();
+  }
 
-  async play() {
+  play() {
     printStartMessage();
+    this.baseBall.init();
+    this.piching();
+  }
 
+  async piching() {
     const userInput = await readBaseballNumbers('숫자를 입력해주세요 : ');
+    this.check(Number(userInput));
+  }
+
+  check(userInput) {
+    const countResult = this.baseBall.countResult(userInput);
+    const { ball, strike, isNothing } = countResult;
+    Console.print(`${ball}, ${strike}, ${isNothing}`);
+    if (strike !== 3) {
+      this.piching();
+    }
   }
 }
 
