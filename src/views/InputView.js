@@ -1,14 +1,12 @@
 import { Console } from "@woowacourse/mission-utils";
+import InputValidater from "../models/InputValidater.js";
+import { MESSAGES } from "../constants/Messages.js";
 
 const InputView = {
   async getUserNumber (message) {
-    try {
-      // 예외검증 처리 필요
       const userNumber = await Console.readLineAsync(message);
+      if (!InputValidater.numberValidate(userNumber)) throw new Error (MESSAGES.INPUT_ERROR);
       return userNumber;
-    } catch (error) {
-      // 입력값 예외처리 throw 하기
-    }
   }
 };
 
