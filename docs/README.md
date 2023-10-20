@@ -23,6 +23,7 @@
 - 게임 종료 판단
     name : checkGameStatus()
     input : 사용자 입력
-    output : isEnd, isContinue
-    isEnd : 사용자가 게임 종료를 원할 경우 press 2.
-    isContinue : 사용자가 게임을 계속하길 원할 경우 press 1.
+    output : isError, true, false
+    true : 사용자가 게임 종료를 원할 경우 press 2.
+    false : 사용자가 게임을 계속하길 원할 경우 press 1.
+    isError : 사용자가 잘못된 값을 입력한 경우.

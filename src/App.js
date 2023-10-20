@@ -56,4 +56,14 @@ const checkReferee = (userInput, randomNumber) => {
   return socreBoard;
 };
 
+const checkGameStatus = (userInput) => {
+  if (userInput === '1') {
+    return false;
+  } else if (userInput === '2') {
+    return true;
+  } else {
+    return {isError: true};
+  }
+}
+
 export default App;
