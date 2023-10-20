@@ -1,12 +1,36 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 
 
+
 class App {
   async play() {
-    // const userInputNumber = await Console.readLineAsync('숫자를 입력해 주세요 : ')
-    const result = compare([1, 2, 3], numberToArray(123))
-
-    Console.print(result)
+    let KEEP_PLAY = true
+    while (KEEP_PLAY) {
+      const HOME_RUN = false
+      const TARGET_NUMBER = getRandomNumber()
+      console.log('TARGET_NUMBER', TARGET_NUMBER)
+      Console.print("숫자 야구 게임을 시작합니다.")
+      while (!HOME_RUN) {
+        let printMsg = ""
+        const userInputNumber = await Console.readLineAsync('숫자를 입력해 주세요 : ')
+        const userInputArray = numberToArray(userInputNumber)
+        console.log('userInputArray', userInputArray)
+        const result = compare(TARGET_NUMBER, userInputArray)
+        Console.print(result)
+        result[0] == 0 && result[1] == 0 
+          ? printMsg = '낫싱'
+          : result[1] == 3
+            ? (
+              printMsg = '3스트라이크',
+              HOME_RUN = true
+            )
+            : printMsg = `${result[0]}볼 ${result[1]}스트라이크`
+        Console.print(printMsg)
+      }
+      Console.log('3개의 숫자를 모두맞히셨습니다! 게임 종료')
+    }
+    let userInput = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.'); 
+    (userInput == 2) && (KEEP_PLAY = false)
   }
 }
 
