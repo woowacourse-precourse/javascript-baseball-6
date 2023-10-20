@@ -9,6 +9,7 @@ function setComputerNumber() {
       computerNumber.push(number);
     }
   }
+  Console.print(computerNumber);
   return computerNumber;
 }
 
@@ -29,10 +30,10 @@ function isValidNumber(num) {
   let isSame = new Set(num).size != 3;
   let isInvalidNum = num.includes("0") || num.length != 3 || Number.isNaN(num);
   if (isSame) {
-    throw new Error("[Error]");
+    throw new Error("[ERROR]");
   }
   if (isInvalidNum) {
-    throw new Error("[Error]");
+    throw new Error("[ERROR]");
   }
 }
 
@@ -64,6 +65,14 @@ class App {
       let [ball, strike] = compare(player, computer);
       let isSuccess = result(ball, strike);
       if (isSuccess) break;
+    }
+    Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    let regame = await Console.readLineAsync(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+    );
+    if (regame == 1) {
+      this.play();
+      return;
     }
   }
 }
