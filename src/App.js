@@ -1,9 +1,10 @@
-import { Random, Console } from "@woowacourse/mission-utils/MissionUtils";
-
+import { MissionUtils } from "@woowacourse/mission-utils";
+let Console = MissionUtils.Console;
+let Random = MissionUtils.Random;
 function makeAnswer() {
   const answer = [];
   while (answer.length < 3) {
-    const number = MissionUtils.Random.pickNumberInRange(1, 9);
+    const number = Random.pickNumberInRange(1, 9);
     if (!answer.includes(number)) {
       answer.push(number);
     }
