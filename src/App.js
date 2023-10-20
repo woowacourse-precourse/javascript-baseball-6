@@ -43,10 +43,21 @@ class App {
     this.showResults(strikeNumbers, ballNumbers);
     return strikeNumbers;
   }
-
+  //각 자리 숫자들이 서로 다른지 판별
+  verifyUnigueDigit(guessNumber) {
+    const digit1 = Math.floor(guessNumber / 100);
+    const digit2 = Math.floor((guessNumber % 100) / 10);
+    const digit3 = guessNumber % 10;
+    return !(digit1 !== digit2 && digit1 !== digit3 && digit2 !== digit3);
+  }
   askNumber() {
     rl.question("숫자를 입력해주세요 : ", (guessNumber) => {
-      if (guessNumber.length !== 3 || !guessNumber || isNaN(guessNumber)) {
+      if (
+        guessNumber.length !== 3 ||
+        !guessNumber ||
+        isNaN(guessNumber) ||
+        this.verifyUnigueDigit(guessNumber)
+      ) {
         console.log("올바른 값을 입력하세요.");
       } else {
         if (this.compareNumbers(guessNumber) === 3) {
@@ -86,7 +97,6 @@ class App {
     console.log("숫자 야구 게임을 시작합니다.");
     this.startGame();
   }
-
 }
 const app = new App();
 app.play();
