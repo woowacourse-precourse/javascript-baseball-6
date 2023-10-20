@@ -12,9 +12,13 @@ export default class BaseballInput {
   async getUserInput() {
     try {
       const userInput = await Console.readLineAsync("숫자를 입력해 주세요 : ");
-      this.changeUserState(Number(userInput));
+      this.changeUserState(userInput);
     } catch (err) {
       throw Error("입력 오류: " + err);
     }
+  }
+
+  async getRestartInput() {
+    console.log(`check`);
   }
 }

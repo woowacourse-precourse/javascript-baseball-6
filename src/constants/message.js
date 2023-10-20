@@ -6,3 +6,10 @@ export const INPUT_ERROR_MESSAGE = Object.freeze({
   DUPLICATE_ERR: "[ERROR] 서로 다른 수로 이루어진 숫자를 입력해 주세요.",
   INCLUDE_ZERO_ERR: `[ERROR] 숫자 ${MAGIC_NUM.NUM_NOT_INCLUDED}이 포함되지 않아야 합니다.`,
 });
+
+export const INFO_MESSAGE = Object.freeze({
+  START_MESSAGE: "숫자 야구 게임을 시작합니다.",
+  END_MESSAGE: "3개의 숫자를 모두 맞히셨습니다! 게임 종료",
+  RESTART_MESSAGE: `게임을 새로 시작하려면 ${MAGIC_NUM.NEW_GAME_NUM}, 종료하려면 ${MAGIC_NUM.END_GAME_NUM}를 입력하세요.`,
+  NOTHING_MESSAGE: "낫싱",
+});

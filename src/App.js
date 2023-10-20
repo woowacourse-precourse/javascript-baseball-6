@@ -1,11 +1,12 @@
 import BaseballGame from "./BaseballGame.js";
+import { INFO_MESSAGE } from "./constants/message.js";
+
+import { Console } from "@woowacourse/mission-utils";
 
 class App {
-  constructor() {
-    this.baseballGame = new BaseballGame();
-  }
   async play() {
-    this.baseballGame;
+    Console.print(INFO_MESSAGE.START_MESSAGE);
+    this.baseballGame = new BaseballGame();
   }
 }
 
