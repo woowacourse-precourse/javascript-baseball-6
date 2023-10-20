@@ -25,7 +25,8 @@
 ### 💡 1.2. 사용자 시나리오
 ```mermaid
 flowchart LR
-  start(["프로그램 시작⭕"])
+  start(["Program Start"])
+  
   
 
 ```
