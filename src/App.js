@@ -2,19 +2,36 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 import { Console } from "@woowacourse/mission-utils";
 
 function setComputerNumber() {
-  let COMPUTER = [];
-  while (COMPUTER.length < 3) {
+  let computerNumber = [];
+  while (computerNumber.length < 3) {
     let number = MissionUtils.Random.pickNumberInRange(1, 9);
-    if (!COMPUTER.includes(number)) {
-      COMPUTER.push(number);
+    if (!computerNumber.includes(number)) {
+      computerNumber.push(number);
     }
-    return COMPUTER;
+    return computerNumber;
   }
+}
+
+function compare(player, computer) {
+  let ball = 0;
+  let strike = 0;
+  for (let i = 0; i < 3; i++) {
+    if (player[i] == computer[i]) {
+      strike += 1;
+    } else if (computer.includes(player[i])) {
+      ball += 1;
+    }
+  }
+  return [ball, strike];
 }
 
 function run() {
   Console.print("숫자 야구 게임을 시작합니다.");
-  let COMPUTER = setComputerNumber();
+  let computer = setComputerNumber();
+  while (true) {
+    let ball = 0;
+    let strike = 0;
+  }
 }
 
 class App {
