@@ -20,7 +20,7 @@ class GamePlay {
     }
 
     #getAnswer() {
-        this.CON.makeAnswer();
+        // this.CON.makeAnswer();
         this.#inputNumber();
     }
 

@@ -1,4 +1,5 @@
 const OUT_VIEW = require('../views/OutputView');
+const VAL = require('../controller/Validate');
 const MissionUtils = require('@woowacourse/mission-utils');
 const { CONSTANTS , STRIKE_BALL } = require('../models/Constants'); 
 const { INPUT_MSG } = require('../models/InputMsg');
@@ -7,6 +8,7 @@ const { OUTPUT_MSG } = require('../models/OutputMsg');
 class Controller {
     constructor() {
         this.OUT = new OUT_VIEW();
+        this.VAL = new VAL();
     }
     makeAnswer() {
         const computer = [];
@@ -20,8 +22,10 @@ class Controller {
     }
 
     async getInputNumber() {
+        this.makeAnswer();
         while (true){
             CONSTANTS.USER_NUMBER = await MissionUtils.Console.readLineAsync(`${INPUT_MSG.INPUT_NUMBER}`);
+            this.VAL.numberValidate(CONSTANTS.USER_NUMBER);
             MissionUtils.Console.print(`${INPUT_MSG.INPUT_NUMBER} ${CONSTANTS.USER_NUMBER}`);
             STRIKE_BALL.STRIKE = 0;
             STRIKE_BALL.BALL = 0;
