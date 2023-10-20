@@ -34,6 +34,10 @@ class App {
       //throw new Error(ERROR.DUPLICATE_NUMBER_ERROR);
     }
   }
+  //추측한 값 중복 체크
+  duplicateCheck(guess) {
+    return new Set(guess).size !== 3 || isNaN(Number(guess)) ? false : true;
+  }
 }
 
 const app = new App();
