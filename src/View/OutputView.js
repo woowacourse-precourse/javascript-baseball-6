@@ -5,7 +5,7 @@ const OutputView = {
     Console.print(msg);
   },
   printError(err) {
-    Console.print(`[ERROR] ${err}`);
+    Console.print(`${err}\n`);
   },
 };
 
