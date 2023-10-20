@@ -12,15 +12,12 @@ class App {
 
     // 플레이어 숫자 생성기
     async getPlayerNum() {
-        let str = MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
-        return str;
+        let playerInput =
+            MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
+        return playerInput;
     }
 
-    async play() {
-        let data = await this.getComputerNum();
-        let player = await this.getPlayerNum();
-        MissionUtils.Console.print(player);
-    }
+    async play() {}
 }
 
 const app = new App();
