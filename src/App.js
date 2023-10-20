@@ -33,12 +33,16 @@ class RandomNumberMaker {
 class App {
   constructor() {
     this.maker = new RandomNumberMaker();
+    this.reader = new UserNumberReader();
   }
 
   async play() {
     try {
       const uniqueNumber = this.maker.makeRandomNumber();
       Console.print(uniqueNumber);
+      
+      const userAnswer = await this.reader.userInputNumber();
+      Console.print(userAnswer);
     } catch(error) {
       /* console.error("에러 메시지:", error);
       throw error; */
