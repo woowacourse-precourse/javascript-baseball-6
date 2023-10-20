@@ -22,6 +22,11 @@ class App {
   startGame() {
     const { ball, strike } = this.#refree.playGame();
     OutputView.printResult(ball, strike);
+    this.checkSuccess(strike);
+  }
+
+  checkSuccess(strike) {
+    strike === 3 ? this.confirmGame() : this.continueGame();
   }
 }
 
