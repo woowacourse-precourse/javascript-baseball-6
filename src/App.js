@@ -16,19 +16,19 @@ class App {
         const userInputNumber = await Console.readLineAsync('숫자를 입력해 주세요 : ')
 
         if (!checkExceptionalInput(userInputNumber)) {
-          throw new Error('[ERROR] 중복되지 않은 3자리 숫자를 입력해 주세요.')
+          throw new Error('[ERROR] 3자리 숫자를 입력해 주세요.')
         }
 
         const userInputArray = numberToArray(userInputNumber)
         let result = compareTwo3digitNumbers(TARGET_NUMBER, userInputArray)
-        result[0] == 0 && result[1] == 0 
+        result[0] == 0 && result[1] == 0
           ? printMsg = '낫싱'
           : result[1] == 3
             ? (
               printMsg = '3스트라이크',
               HOME_RUN = true
             )
-            : printMsg = `${result[0]}볼 ${result[1]}스트라이크`
+            : printMsg = `${result[0] != 0 ? (result[0] + '볼') : ""}${result[1] != 0 ? (result[1] + '스트라이크') : ""}`
         Console.print(printMsg)
       }
       Console.print('3개의 숫자를 모두맞히셨습니다! 게임 종료')
