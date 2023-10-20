@@ -6,6 +6,6 @@ export default class ComputerNumber {
     while (computerNumber < 3) {
       computerNumber.add(Random.pickNumberInRange(1, 9));
     }
-    return computerNumber;
+    return [...computerNumber];
   }
 }
