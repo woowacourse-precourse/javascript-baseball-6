@@ -101,7 +101,7 @@ class App {
             this.compareResultText(result);
 
             if (result[0] === 3) {
-                let data = await this.threeStrikes();
+                let data = await this.isEndGame();
                 if (data === 1) await this.play();
                 else if (data === 2) {
                     MissionUtils.Console.print("게임 종료");
