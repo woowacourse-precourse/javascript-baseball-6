@@ -11,6 +11,7 @@ class App {
 const app = new App();
 app.play();
 
+// 정답 만드는 함수
 function generateAnswer() {
   const answer = [];
   while(answer.length < 3) {
@@ -19,11 +20,11 @@ function generateAnswer() {
       answer.push(number)
     }
   }
-
-  console.log(answer);
-  return answer;
+  
+  return answer
 }
 
+// 사용자 입력 받는 함수
 async function onUserGuessInput(answer) {
   const input = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
 
@@ -44,6 +45,7 @@ async function onUserGuessInput(answer) {
   }
 }
 
+// 정답과 비교하는 함수
 function compareAnswer(guess, answer) {
   let strike = 0, ball = 0;
 
@@ -58,6 +60,19 @@ function compareAnswer(guess, answer) {
   return { strike, ball };
 }
 
+// 재게임 요청하는 함수
+async function requestReGame() {
+  MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+  const requestInput = await MissionUtils.Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+  if(+requestInput === 1) {
+    const answer = generateAnswer();
+    onUserGuessInput(answer);
+  } 
+
+  return
+}
+
+// 결과를 출력하는 함수
 function printOutput(strike, ball) {
   if(strike === 0 && ball === 0) {
     return '낫싱';
@@ -70,28 +85,17 @@ function printOutput(strike, ball) {
   }
 }
 
-async function requestReGame() {
-  MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-  const requestInput = await MissionUtils.Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
-  if(+requestInput === 1) {
-    const answer = generateAnswer();
-    onUserGuessInput(answer);
-  } 
-
-  return
-}
-
+// 사용자 유효성 검사 함수
 function isCheckValidation(input) {
   if(new Set(input).size !== 3) {
-    throw new Error('[ERROR] 중복된 숫자를 입력할 수 없습니다.')
+    throw new Error('[ERROR] 중복된 값을 입력할 수 없습니다.')
   }
   if(input.length !== 3) {
-    throw new Error('[ERROR] 3자리의 숫자를 입력해야 합니다.')
+    throw new Error('[ERROR] 3자리를 입력해야 합니다.')
   }
   if(input.includes(0)) {
-    throw new Error('[ERROR] 숫자 0이 포함되면 안됩니다.')
+    throw new Error('[ERROR] 숫자 0을 포함할 수 없습니다.')
   }
 }
-
 
 export default App;
