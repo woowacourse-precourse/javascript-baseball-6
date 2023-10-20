@@ -96,13 +96,13 @@ class App {
                         MissionUtils.Console.print("게임 종료");
                         break;
                     } else {
-                        throw Error("[ERROR]");
+                        throw Error("[ERROR] 숫자가 잘못된 형식입니다.");
                     }
                 }
             } else {
                 //잘못된 값을 입력했을 경우 에러 반환.
 
-                throw Error("[ERROR]");
+                throw Error("[ERROR] 숫자가 잘못된 형식입니다.");
             }
         }
     }
