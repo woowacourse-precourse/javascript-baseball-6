@@ -10,23 +10,23 @@ const ERROR_MESSAGE = Object.freeze({
 const ErrorCatcher = {
   validateType(answer) {
     if (Number.isNaN(parseInt(answer))) {
-      throw new Error(ERROR_MESSAGE.NO_NUMBER);
+      throw ERROR_MESSAGE.NO_NUMBER;
     }
 
     if (answer.split('').includes('.')) {
-      throw new Error(ERROR_MESSAGE.NO_INTEGER);
+      throw ERROR_MESSAGE.NO_INTEGER;
     }
   },
 
   validateLength(answer) {
     if (answer.split('').length !== ANSWER_LENGTH) {
-      throw new Error(ERROR_MESSAGE.INVALID_LENGTH);
+      throw ERROR_MESSAGE.INVALID_LENGTH;
     }
   },
 
   validateUnique(answer) {
     if (new Set(answer.split('')).size !== ANSWER_LENGTH) {
-      throw new Error(ERROR_MESSAGE.NO_UNIQUE);
+      throw ERROR_MESSAGE.NO_UNIQUE;
     }
   },
 };
