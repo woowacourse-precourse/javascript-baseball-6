@@ -28,7 +28,9 @@ class App {
     }
   }
 
-  #finish() {}
+  #finish() {
+    OutputView.printFinish();
+  }
 
   #matchComputerNumber(userInput) {
     const table = {
