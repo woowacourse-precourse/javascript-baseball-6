@@ -22,32 +22,30 @@ class App {
   
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
   
-    while (true) {
-      try {
+    try {
+      while (true) {
         userInput = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요: ");
         this.checkInput(userInput);
         // 유효한 입력일 때의 코드 계속
-      } catch (error) {
-        MissionUtils.Console.print(error.message);
-        continue;
-      }
+        this.attempts++;  // 시도 횟수 +1
+        const result = this.countResult(userInput);
+        MissionUtils.Console.print(result);
   
-      this.attempts++;  // 시도 횟수 +1
-      const result = this.countResult(userInput);
-      MissionUtils.Console.print(result);
-  
-      if (result === "3스트라이크") {
-        MissionUtils.Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
-        const restart = await MissionUtils.Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요: ");
-        if (restart.trim() === '1') {
-          this.computerNumbers = this.setComputerNumbers();
-          this.attempts = 0;
-          MissionUtils.Console.print("게임을 다시 시작합니다.");
-        } else {
-          MissionUtils.Console.print("게임을 종료합니다.");
-          break;
+        if (result === "3스트라이크") {
+          MissionUtils.Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
+          const restart = await MissionUtils.Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요: ");
+          if (restart.trim() === '1') {
+            this.computerNumbers = this.setComputerNumbers();
+            this.attempts = 0;
+            MissionUtils.Console.print("게임을 다시 시작합니다.");
+          } else {
+            MissionUtils.Console.print("게임을 종료합니다.");
+            break; // 반복문을 종료하여 프로그램을 종료합니다.
+          }
         }
       }
+    } catch (error) {
+      MissionUtils.Console.print(error.message);
     }
   }
   
