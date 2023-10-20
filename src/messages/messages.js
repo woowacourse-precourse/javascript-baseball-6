@@ -7,8 +7,8 @@ export const MESSAGES = {
   },
 
   GAME_ERROR: {
-    LENGTH_VALID: "3개의 숫자를 입력해주세요.",
-    RANGE_VALID: "1~9까지의 숫자를 입력해주세요.",
-    DUPLICATE_VALID: "중복되지 않은 숫자를 입력해주세요.",
+    LENGTH_VALID: "[ERROR] 3개의 숫자를 입력해주세요.",
+    RANGE_VALID: "[ERROR] 1~9까지의 숫자를 입력해주세요.",
+    DUPLICATE_VALID: "[ERRPR] 중복되지 않은 숫자를 입력해주세요.",
   },
 };
