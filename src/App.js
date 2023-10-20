@@ -16,8 +16,8 @@ class App {
 
         const { strike, ball } = this.compareNumbers(answer, userResponse);
 
-        console.log(strike, ball);
-        // TODO 결과에 대한 출력 필요
+        this.displayGameStatus(strike, ball);
+
         if (strike === 3) {
           Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
           break;
@@ -43,6 +43,24 @@ class App {
       }
     }
     return { strike, ball };
+  }
+
+  displayGameStatus(strike, ball) {
+    let message = "";
+
+    if (ball !== 0) {
+      message += `${ball}볼 `;
+    }
+
+    if (strike !== 0) {
+      message += `${strike}스트라이크`;
+    }
+
+    if (!message) {
+      message = "낫싱";
+    }
+
+    Console.print(message.trim());
   }
 }
 
