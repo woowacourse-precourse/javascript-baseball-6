@@ -16,6 +16,7 @@ class App {
       }
     }
     // numArr = [1, 3, 5];
+    // Console.print(numArr);
     return numArr;
   }
 
@@ -25,7 +26,7 @@ class App {
       throw new Error("[ERROR] 3자리의 숫자를 입력해주세요");
     }
     if (input.includes(NaN)) {
-      throw new Error("[ERROR] 숫자가 아닌 문자를 입력하였습니다");
+      throw new Error("[ERROR] 숫자를 입력해주세요");
     }
     let message = "";
     let strike = 0;
@@ -85,8 +86,6 @@ class App {
         }
       } catch (e) {
         throw e;
-        // Error: 숫자가 아닌 문자를 입력하였습니다
-        return;
       }
     }
     await Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
