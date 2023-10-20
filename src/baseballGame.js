@@ -1,10 +1,10 @@
 import { Random, Console } from "@woowacourse/mission-utils";
 
-import { messages } from "./const.js";
+import { GAMEMSG, ERRORMSG } from "./const.js";
 
 class BaseballGame {
   constructor() {
-    Console.print(messages.GAME_START);
+    Console.print(GAMEMSG.game_start);
     this.computerNum = this.getComputerNum();
   }
 
@@ -27,7 +27,7 @@ class BaseballGame {
   async getUserNum() {
     let input;
     try {
-      input = await Console.readLineAsync(messages.INPUT_NUMBER);
+      input = await Console.readLineAsync(GAMEMSG.game_input_number);
       this.checkValidation(input);
     } catch (error) {
       throw error;
@@ -38,12 +38,12 @@ class BaseballGame {
   checkValidation(input) {
     const uniqueInput = new Set(input);
     if (parseInt(input) !== Number(input))
-      throw new Error(messages.INVALID_NOT_NUM);
-    if (input.length !== 3) throw new Error(messages.INVALID_LENGTH);
-    if (input.includes(0)) throw new Error(messages.INVALID_HAS_ZERO);
-    if (Number(input) < 0) throw new Error(messages.INVALID_NEGATIVE_NUM);
+      throw new Error(ERRORMSG.invalid_not_num);
+    if (input.length !== 3) throw new Error(ERRORMSG.invalid_length);
+    if (input.includes(0)) throw new Error(ERRORMSG.invalid_has_zero);
+    if (Number(input) < 0) throw new Error(ERRORMSG.invalid_negative_num);
     if (uniqueInput.size !== 3)
-      throw new Error(messages.INVALID_HAS_UNIQUE_NUM);
+      throw new Error(ERRORMSG.invalid_not_unique_num);
   }
 
   getComputerNum() {
@@ -92,8 +92,8 @@ class BaseballGame {
   }
 
   retry() {
-    Console.print(messages.GAME_END);
-    Console.print(messages.GAME_RETRY);
+    Console.print(GAMEMSG.game_end);
+    Console.print(GAMEMSG.game_retry);
     this.retryOpt();
   }
 
@@ -101,7 +101,7 @@ class BaseballGame {
     try {
       let input = await Console.readLineAsync("");
       if (Number(input) !== 1 && Number(input) !== 2)
-        throw new Error(messages.INVALID_COMMAND);
+        throw new Error(ERRORMSG.invalid_command);
       if (input === "1") {
         this.computerNum = this.getComputerNum();
         await this.play();
