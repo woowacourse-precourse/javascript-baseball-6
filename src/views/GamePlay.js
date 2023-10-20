@@ -16,18 +16,18 @@ class GamePlay {
     }
 
     startGame = async () => {
-        MissionUtils.Console.print(OUTPUT_MSG.START_GAME);
+        // MissionUtils.Console.print(OUTPUT_MSG.START_GAME);
         await this.#getAnswerUserNumber();
     }
 
     #getAnswerUserNumber = async () => {
         this.CON.makeAnswer();
         while (true) {
-            await this.CON.inputUserNumber();
             STRIKE_BALL.STRIKE = 0;
             STRIKE_BALL.BALL = 0;
+            await this.CON.inputUserNumber();
             this.CON.checkingStrike(CONSTANTS.USER_NUMBER);
-            this.OUT.printResult();
+            MissionUtils.Console.print(`${this.OUT.printResult()}`);
             if (STRIKE_BALL.STRIKE === 3) break;
         }
         this.#getUserReGame();
@@ -35,11 +35,11 @@ class GamePlay {
 
     #getUserReGame = async () => {
         await this.CON.endGame();
-        (CONSTANTS.REGAME_CONSTANTS == 1) ? this.#getAnswerUserNumber() : this.#gameOver();
+        (CONSTANTS.REGAME_CONSTANTS == 1) ? this.startGame() : this.#gameOver();
     }
 
-    #gameOver = () => {
-        MissionUtils.Console.print(OUTPUT_MSG.GAME_OVER);
+    #gameOver = async () => {
+        await MissionUtils.Console.print(OUTPUT_MSG.GAME_OVER);
     }
 }
 

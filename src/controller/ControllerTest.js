@@ -8,6 +8,7 @@ const { OUTPUT_MSG , ERROR_MSG } = require('../models/OutputMsg');
 class Controller {
     constructor () {
         this.VAL = new VALIDATE();
+
     }
     makeAnswer = () => {
         const computer = [];
@@ -24,7 +25,7 @@ class Controller {
         try {
             CONSTANTS.USER_NUMBER = await MissionUtils.Console.readLineAsync(INPUT_MSG.INPUT_NUMBER);
             this.VAL.numberValidate(CONSTANTS.USER_NUMBER);
-            MissionUtils.Console.print(`${INPUT_MSG.INPUT_NUMBER} ${CONSTANTS.USER_NUMBER}`);
+            // MissionUtils.Console.print(`${INPUT_MSG.INPUT_NUMBER} ${CONSTANTS.USER_NUMBER}`);
         } catch (error) {
             throw error;
         }
@@ -41,15 +42,15 @@ class Controller {
     }
 
     async endGame() {
-        MissionUtils.Console.print(OUTPUT_MSG.END_GAME);
+        // MissionUtils.Console.print(OUTPUT_MSG.END_GAME);
         await this.#reGame();
     }
 
     async #reGame() {
         try {
-            MissionUtils.Console.print(OUTPUT_MSG.RE_GAME);
+            // MissionUtils.Console.print(OUTPUT_MSG.RE_GAME);
             CONSTANTS.REGAME_CONSTANTS = await MissionUtils.Console.readLineAsync(OUTPUT_MSG.RE_GAME);
-            MissionUtils.Console.print(CONSTANTS.REGAME_CONSTANTS);
+            // MissionUtils.Console.print(CONSTANTS.REGAME_CONSTANTS);
             this.VAL.reGameValidate(CONSTANTS.REGAME_CONSTANTS);
         } catch (error) {
             throw error

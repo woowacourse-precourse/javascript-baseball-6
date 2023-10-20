@@ -1,23 +1,24 @@
-const { CONSTANTS , STRIKE_BALL } = require('../models/Constants'); 
+const { STRIKE_BALL } = require('../models/Constants'); 
+const { OUTPUT_MSG } = require('../models/OutputMsg');
 const MissionUtils = require('@woowacourse/mission-utils');
 
 
 class OutputView {
     printResult() {
-        ( STRIKE_BALL.STRIKE > 0 && STRIKE_BALL.BALL > 0 ) ? this.#printAll() : this.#nothingCheck()
+        const MSG = ( STRIKE_BALL.STRIKE > 0 && STRIKE_BALL.BALL > 0 ) ? this.#printAll() : this.#nothingCheck();
+        return MSG
     }
 
     #printAll() {
-        MissionUtils.Console.print(`${STRIKE_BALL.BALL}볼 ${STRIKE_BALL.STRIKE}스트라이크`);
+        return `${STRIKE_BALL.BALL+OUTPUT_MSG.BALL} ${STRIKE_BALL.STRIKE+OUTPUT_MSG.STRIKE}`;
     }
 
     #nothingCheck() {
-        ( STRIKE_BALL.STRIKE === 0 && STRIKE_BALL.BALL === 0 ) ? MissionUtils.Console.print(`낫싱`) : this.#resultCheck()
-
+        return ( STRIKE_BALL.STRIKE === 0 && STRIKE_BALL.BALL === 0 ) ? OUTPUT_MSG.NOTHING : this.#resultCheck();
     }
 
     #resultCheck() {
-        ( STRIKE_BALL.STRIKE > 0) ? MissionUtils.Console.print(`${STRIKE_BALL.STRIKE}스트라이크`) : MissionUtils.Console.print(`${STRIKE_BALL.BALL}볼`)
+        return ( STRIKE_BALL.STRIKE > 0) ? `${STRIKE_BALL.STRIKE+OUTPUT_MSG.STRIKE}` : `${STRIKE_BALL.BALL+OUTPUT_MSG.BALL}`
     }
 }
 
