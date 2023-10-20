@@ -13,7 +13,7 @@
     - 세자리수
     - 중복되는 숫자 없음
     - 1~9 범위의 자연수로 구성 
-  - 조건에 맞지 않는 데이터를 입력할 경우 에러 출력
+  - 조건에 맞지 않는 데이터를 입력할 경우 <span style="color:black; background-color:#eff1f3;">에러 발생 및 프로그램 종료</span>
 
 - 볼 및 스트라이크 판별
   - 판별 방식
@@ -42,11 +42,32 @@
 - 게임 종료 선택 시 프로그램 종료
 
 
+
 ## 기능 목록 
 
-### 1.게임 시작
-- 1. 게임 시작 여부 및 랜덤 숫자 초기화
-    - init 메소드 사용
-    - 랜덤 숫자 초기화를 위해 랜덤 숫자 생성 메소드 [] 추가
+### etc
+- 각종 안내 문구 및 조건들을 위한 상수 숫자 파일 생성
+    - src/constants
+- 주어진 API를 좀 더 편하게 불러오기 위한 파일 생성
+    - src/utils
+        - Console : MissionUtils.Console
+        - Random : MissionUtils.Random
+
+### 1. 게임 시작
+- 게임 시작 여부 및 랜덤 숫자 초기화
+    - 게임 진행 여부 <span style="color:black; background-color:#eff1f3;">isplaying<span>, 랜덤숫자 <span style="color:black; background-color:#eff1f3;">randomNumber</span>
+    - init 메소드를 통해 초기화
+    - 랜덤 숫자 초기화 및 생성을 위해 랜덤 숫자 생성 메소드 <span style="color:black; background-color:#eff1f3;">makeRandomNumber()</span> 추가
         - 중복 없이 숫자 생성
-- 2. 게임 시작 안내 문구 출력
+- 게임 시작 안내 문구 출력
+    - Console.print() 사용
+### 2. 게임 플레이
+- 사용자에게 데이터 입력 받음
+    - <span style="color:black; background-color:#eff1f3;">playerInputNumber()</span>를 통해 데이터를 입력 받음
+    - <span style="color:black; background-color:#eff1f3;">validateInput(input:string)</span>를 통해 데이터 조건 검사 
+        - 1. 입력받은 데이터 값은 세자리여야 한다 => input.length가 3인지 if문을 통해 검사하여 예외처리
+        - 2. 입력받는 데이터는 1~9 범위의 자연수로만 이루어져야 한다. => 정규식을 이용하여 예외처리 (/^[1-9]+$/)
+        - 3. 각 자리의 숫자는 중복되지 않아야 한다.   => Set()을 통해 중복된 숫자를 없애고, 길이를 측정하여 3미만이면 예외처리 (1번에서 이미 길이가 3인지 검사하였기에 가능)
+
+
+### 3. 게임 클리어
