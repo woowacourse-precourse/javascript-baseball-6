@@ -11,16 +11,21 @@ class App {
     let numArr = [];
     while (numArr.length < 3) {
       let pickNum = Random.pickNumberInRange(1, 9);
-      if (!numArr.includes(pickNum)) {
-        numArr.push(pickNum);
-      }
+      if (!numArr.includes(pickNum)) numArr.push(pickNum);
     }
-    console.log(numArr);
     return numArr;
   }
 
   // 야구게임 정답 판별
-  checkAnswer(input, answer) {
+  checkAnswer(input = [], answer = []) {
+    if (
+      !Array.isArray(input) ||
+      !Array.isArray(answer) ||
+      input.length !== 3 ||
+      answer.length !== 3
+    ) {
+      throw new Error("[ERROR] 올바르지 않은 인자 형식입니다.");
+    }
     let message = "";
     let strike = 0;
     let ball = 0;
@@ -35,65 +40,67 @@ class App {
     message += ball !== 0 ? `${ball}볼 ` : ``;
     message += strike !== 0 ? `${strike}스트라이크` : ``;
 
-    message += message.length === 0 ? `낫싱` : ``;
-
-    return message;
+    return message.length === 0 ? `낫싱` : message;
   }
 
   // 야구게임 진행구간
   async playBaseballGame(answer) {
-    let input = await this.userInputNumbers();
-    let check = await this.checkAnswer(input, answer);
+    try {
+      let input = await this.userInputNumbers();
+      let check = await this.checkAnswer(input, answer);
 
-    Console.print(check);
-    if (check === "3스트라이크") {
-      return Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-    } else {
-      await this.playBaseballGame(answer);
-    }
+      await Console.print(check);
 
-    return check;
+      if (check !== "3스트라이크") {
+        // 재귀적 호출로 게임 계속 진행
+        return await this.playBaseballGame(answer);
+      }
+
+      return await Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    } catch (e) {}
   }
 
   // 유저의 숫자 입력받기 + 예외처리
   async userInputNumbers() {
-    let input = await Console.readLineAsync("숫자를 입력해주세요 : ");
-    if (input.length === 0) {
-      throw new Error("[ERROR] 입력된 값이 없습니다");
-    } else {
-      input = input.split("").map(Number);
-    }
-    if (input.length !== 3)
-      throw new Error("[ERROR] 3자리의 숫자를 입력해주세요");
-    if (input.includes(NaN)) throw new Error("[ERROR] 숫자를 입력해주세요");
+    try {
+      let input = await Console.readLineAsync("숫자를 입력해주세요 : ");
 
-    return input;
+      if (input === "") throw new Error("[ERROR] 입력된 값이 없습니다");
+      if (input && input.length !== 3)
+        throw new Error("[ERROR] 3자리의 숫자를 입력해주세요");
+      if (input && input.includes(NaN))
+        throw new Error("[ERROR] 숫자를 입력해주세요");
+
+      if (input !== undefined) input = input.split("").map(Number);
+
+      return input;
+    } catch (e) {}
   }
 
-  // 게임이 진행되는곳
+  // 게임이 진행되는 곳
   async play() {
-    // 시작 멘트
-    Console.print("숫자 야구 게임을 시작합니다.");
-
-    // 야구게임 정답 생성
-    let answer = this.generateRandomNumber();
-
     try {
+      // 시작 멘트
+      Console.print("숫자 야구 게임을 시작합니다.");
+
+      // 야구게임 정답 생성
+      let answer = this.generateRandomNumber();
+
       await this.playBaseballGame(answer);
+
+      // 야구게임 재시작 / 종료 이행
+      Console.print("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+      let selectContinue = await Console.readLineAsync("");
+
+      if (selectContinue === "2") {
+        return;
+      } else if (selectContinue !== "1") {
+        throw new Error("[ERROR] 잘못된 접근입니다");
+      }
+      return app.play();
     } catch (e) {
       throw e;
     }
-
-    // 야구게임 재시작 / 종료 이행
-    Console.print("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
-    let selectContinue = await Console.readLineAsync("");
-
-    if (selectContinue === "2") {
-      return;
-    } else if (selectContinue !== "1") {
-      throw new Error("[ERROR] 잘못된 접근입니다");
-    }
-    return this.play();
   }
 }
 
