@@ -16,6 +16,15 @@ class Game {
     }
     this.computerNums = computer;
   };
+  getUserNums = async () => {
+    try {
+      const input = await Console.readLineAsync("숫자를 입력해주세요 : ");
+      const userNums = input.split("").map(Number);
+      return userNums;
+    } catch (err) {
+      console.log(err);
+    }
+  };
 }
 
 export default Game;
