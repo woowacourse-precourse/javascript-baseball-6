@@ -100,9 +100,24 @@ class App {
     await this.printMsgIs(this.result);
   }
 
+  judge() {}
+
+  congrat() {
+    const CONGRAT = this.message("CONGRAT");
+    this.printMsgIs(CONGRAT);
+  }
+
+  async retry() {
+    const RETRY = this.message("RETRY");
+    const retryInput = await MissionUtils.Console.readLineAsync(RETRY);
+    if (retryInput === "1") {
+      this.makeStrikeZoneNumber();
+      this.game();
+    }
+  }
+
   async play() {
-    this.makeStrikeZoneNumber();
-    this.game();
+    this.retry();
   }
 }
 
