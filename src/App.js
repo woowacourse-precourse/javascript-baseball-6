@@ -39,25 +39,30 @@ function compareNumber() {
   const cpu = cpuPickNum();
   const user = userPickNum();
 
+  countStrike(cpu, user);
+  countBall(cpu, user);
+}
+
+function countStrike(cpu, user) {
+  const CPULENGTH = cpu.length;
   let strike = 0;
+  for (let i = 0; i < CPULENGTH; i++) {
+    if (cpu[i] === user[i]) {
+      strike++;
+    }
+  }
+  return strike;
+}
+
+function countBall(cpu, user) {
+  const CPULENGTH = cpu.length;
   let ball = 0;
-
-  for(let i = 0; i < cpu.length; i++){
-    if(countStrike(cpu[i], user[i])) strike++;
-    else if(countBall(cpu, cpu[i], user[i])) ball++;
+  for (let i = 0; i < CPULENGTH; i++) {
+    if (cpu[i] !== user[i] && cpu.includes(user[i])) {
+      ball++;
+    }
   }
-}
-
-function countStrike(cpu, user){
-  if(cpu === user){
-    return true;
-  }
-}
-
-function countBall(cpuArr, cpu, user){
-  if(cpu !== user && cpuArr.includes(user)){
-    return true;
-  }
+  return ball;
 }
 
 class App {
