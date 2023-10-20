@@ -1,5 +1,9 @@
+const init = require("./playGame");
+
 class App {
-  async play() {}
+  async play() {
+    gameinit();
+  }
 }
 
 export default App;
