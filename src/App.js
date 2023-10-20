@@ -2,16 +2,16 @@ import { Console, MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
   _status = "idle";
-  _answer = [];
+  _answer = null;
 
   async play() {
     Console.print("숫자 야구 게임을 시작합니다.");
-    this._createAnswer();
+    this._answer = this._createAnswer();
     await this._transition("playing");
   }
 
   async restart() {
-    this._createAnswer();
+    this._answer = this._createAnswer();
     await this._transition("playing");
   }
 
@@ -32,7 +32,8 @@ class App {
         answer.push(number);
       }
     }
-    this._answer = answer;
+
+    return answer.join("");
   }
 
   async _entryEffect(status) {
