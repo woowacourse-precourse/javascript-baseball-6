@@ -39,15 +39,14 @@ const Game = async (answer) => {
         const USER_INPUT = parseInt(USER_INPUT_STR, 10);
 
         // 예외 조건으로 게임 종료
-        if (
-            isNaN(USER_INPUT) ||
-            USER_INPUT_STR.length !== 3 ||
-            USER_INPUT_STR[0] === USER_INPUT_STR[1] ||
-            USER_INPUT_STR[0] === USER_INPUT_STR[2] ||
-            USER_INPUT_STR[1] === USER_INPUT_STR[2]
-        ) {
-
-            throw "[ERROR]";
+        if (isNaN(USER_INPUT)){
+            throw "[ERROR] 입력이 숫자가 아닙니다.";
+        }
+        if(USER_INPUT_STR.length !== 3){
+            throw "[ERROR] 숫자가 잘못된 형식입니다.";
+        }
+        if(USER_INPUT_STR[0] === USER_INPUT_STR[1] || USER_INPUT_STR[0] === USER_INPUT_STR[2] || USER_INPUT_STR[1] === USER_INPUT_STR[2]) {
+            throw "[ERROR] 입력이 서로 다른 수가 아닙니다.";
         }
 
         // 사용자의 점수 출력( 볼, 스트라이크, 낫싱)
