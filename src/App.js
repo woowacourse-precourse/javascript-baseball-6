@@ -2,7 +2,7 @@ import { Console, Random } from "@woowacourse/mission-utils";
 
 class App {
   computerNum = [];
-  numberLength = 3;
+  NUMBER_LENGTH = 3;
 
   async play() {
     Console.print("숫자 야구 게임을 시작합니다.");
@@ -11,47 +11,55 @@ class App {
   }
 
   async inputNum() {
-    const INPUT_RESULT = await Console.readLineAsync("숫자를 입력해주세요.");
+    const inputValue = await Console.readLineAsync("숫자를 입력해주세요.");
 
-    this.checkInputNum(INPUT_RESULT);
-    this.checkResult(INPUT_RESULT);
+    this.checkInputNum(inputValue);
+    this.checkResult(inputValue);
   }
 
   checkResult(INPUT_RESULT) {
-    const arr = INPUT_RESULT.split("");
-    console.log(arr);
+    const numArr = INPUT_RESULT.split("");
+    console.log("checkResult");
+    console.log(numArr);
   }
 
   createRandomNum() {
-    while (this.computerNum.length < this.numberLength) {
-      const RANDOM_NUM = Random.pickNumberInRange(1, 9); // 랜덤 숫자를 돌린다.
-      const IS_INCLUDE = this.computerNum.includes(RANDOM_NUM); // 중복 숫자가 있으면 true, 없으면 false 를 반환한다.
+    while (this.computerNum.length < this.NUMBER_LENGTH) {
+      const randomNum = Random.pickNumberInRange(1, 9).toString(); // 랜덤 숫자를 돌린다.
+      const isInclude = this.computerNum.includes(randomNum); // 중복 숫자가 있으면 true, 없으면 false 를 반환한다.
 
-      if (!IS_INCLUDE) {
-        this.computerNum.push(RANDOM_NUM);
+      if (!isInclude) {
+        //숫자가 압겹치면 ?
+        this.computerNum.push(randomNum); //배열에 push 해
       }
     }
-    console.log(this.computerNum);
   }
 
   checkInputNum(inputValue) {
-    const NUM_ARR = inputValue.split("");
-    const NEW_NUM = parseInt(inputValue);
+    const numArr = inputValue.split("");
+    const newNum = parseInt(inputValue);
 
-    if (this.isDuplicate(NUM_ARR)) {
+    if (this.isHasZero(numArr)) {
+      throw new Error("0을 제외한 숫자를 입력해주세요.");
+    }
+    if (this.isDuplicate(numArr)) {
       throw new Error("입력한 값이 중복일 수 없습니다.");
     }
 
-    if (this.isNotInteger(NEW_NUM)) {
+    if (this.isNotInteger(newNum)) {
       throw new Error("입력 값이 숫자 혹은 정수가 아닙니다.");
     }
 
-    if (inputValue.length != this.numberLength) {
+    if (inputValue.length != this.NUMBER_LENGTH) {
       throw new Error("입력 값의 길이가 3이 아닙니다.");
     }
   }
 
   //예외처리 함수
+  isHasZero(arr) {
+    return arr.some((num) => num === "0");
+  }
+
   isDuplicate(arr) {
     return arr.some((x) => arr.indexOf(x) !== arr.lastIndexOf(x));
   }
