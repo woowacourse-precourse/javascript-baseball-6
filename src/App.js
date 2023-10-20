@@ -2,6 +2,7 @@ import { Console } from "@woowacourse/mission-utils";
 import generateNum from "./functions/generateNum.js";
 import throwBall from "./functions/throwBall.js";
 import askReplayAsync from "./functions/askReplayAsync.js";
+import askUserNumAsync from "./functions/askUserNumAsync.js";
 import printResult from "./functions/printResult.js";
 
 class App {
@@ -9,15 +10,13 @@ class App {
     const computerNum = generateNum({ length: 3 });
 
     while (true) {
-      const userStr = await Console.readLineAsync("숫자를 입력해주세요 : ");
-      const userNum = Array.from(userStr, Number);
+      const userNum = await askUserNumAsync("숫자를 입력해주세요 : ");
       // Todo. userNum 유효성 검사
 
       const result = throwBall({
         dest: computerNum,
         src: userNum,
       });
-
       printResult(result);
 
       if (result.strike === 3) {
