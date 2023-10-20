@@ -1,8 +1,12 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 
 const NUMBER_LENGTH = 3;
+const CONTINUE = '1';
+const EXIT = '2';
 
 class App {
+  gameStatus = CONTINUE;
+
   answer = [];
 
   userInput = [];
@@ -99,6 +103,21 @@ class App {
     );
   }
 
+  async decideGameContinuation() {
+    try {
+      const input = await MissionUtils.Console.readLineAsync(
+        `게임을 새로 시작하려면 ${CONTINUE}, 종료하려면 ${EXIT}를 입력하세요.\n`,
+      );
+      if (input !== CONTINUE && input !== EXIT) {
+        throw Error('[ERROR] 입력 값이 올바르지 않습니다.');
+      }
+      return input;
+    } catch (error) {
+      MissionUtils.Console.print(error);
+      return EXIT;
+    }
+  }
+
   init() {
     this.printStartMessage();
     this.setAnswer();
@@ -109,7 +128,7 @@ class App {
   async play() {
     this.init();
 
-    while (this.cntStrike !== NUMBER_LENGTH) {
+    while (this.gameStatus !== EXIT) {
       this.initCntStrike();
       this.initCntBall();
       await this.getUserInput();
@@ -119,6 +138,7 @@ class App {
 
       if (this.cntStrike === NUMBER_LENGTH) {
         this.printGameOverMessage();
+        this.gameStatus = await this.decideGameContinuation();
       }
     }
   }
