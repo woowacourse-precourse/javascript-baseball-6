@@ -11,10 +11,18 @@ class App {
 
   checkInputValid(input) {
     const numberInput = Number(input);
+
     if (isNaN(numberInput)) {
       throw "숫자가 잘못된 형식입니다.";
     } else if (input.length !== 3) {
       throw "세자리 숫자로 입력해주세요.";
+    } else {
+      const inputIntArray = Array.from(input).map((data) => parseInt(data));
+      const checkArray = [];
+      for (let i = 0; i < inputIntArray.length; i++) {
+        if (checkArray.includes(inputIntArray[i])) throw "서로 다른 숫자를 입력하세요.";
+        checkArray.push(inputIntArray[i]);
+      }
     }
   }
 
@@ -39,7 +47,7 @@ class App {
 
     if (isEndGame == 1) return 0;
     else if (isEndGame == 2) return 1;
-    else throw new Error("[ERROR] 숫자를 다시 입력해주세요.");
+    else throw new Error("숫자를 다시 입력해주세요.");
   }
 
   getBaseballResult(userNumber, computerNumber) {
@@ -66,11 +74,11 @@ class App {
       MissionUtils.Console.print(nothingMessage);
       return 0;
     } else if (strike === 3) {
-      MissionUtils.Console.print(`${ballMessage} ${strikeMessage}`);
+      MissionUtils.Console.print(`${ballMessage} ${strikeMessage}`.trim());
       MissionUtils.Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
       return 1;
     } else if (strike !== 3) {
-      MissionUtils.Console.print(`${ballMessage} ${strikeMessage}`);
+      MissionUtils.Console.print(`${ballMessage} ${strikeMessage}`.trim());
       return 0;
     }
   }
