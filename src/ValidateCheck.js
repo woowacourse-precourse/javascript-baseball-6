@@ -1,4 +1,4 @@
-import { ERROR } from '../utils/constants.js';
+import { ERROR } from './utils/constants.js';
 
 class ValidateCheck {
   inputCheck(numbers) {
@@ -10,6 +10,14 @@ class ValidateCheck {
 
     return numbers.split('').map(Number);
   };
+
+  countCheck(computerNumber, userNumber) {
+    const STRIKE = [...computerNumber].filter((x, idx) => userNumber[idx] === x).length;
+    const BALL = [...computerNumber].filter(x => userNumber.includes(x)).length - STRIKE;
+    
+    return [STRIKE, BALL];
+  };
+
 }
 
 export default ValidateCheck;

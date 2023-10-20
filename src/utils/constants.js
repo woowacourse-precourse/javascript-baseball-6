@@ -1,6 +1,10 @@
 const MESSAGE = {
   startMessage: `숫자 야구 게임을 시작합니다.`,
-  inputUserNumber: `숫자를 입력해주세요 : `
+  inputUserNumber: `숫자를 입력해주세요 : `,
+  nothing: `낫싱`,
+  ball: `${BALL}볼`,
+  strike: ``,
+  ballStrike: ``
 };
 
 const ERROR = {
