@@ -45,9 +45,9 @@ class App {
     let input = await this.userInputNumbers();
     let check = await this.checkAnswer(input, answer);
 
-    await Console.print(check);
+    Console.print(check);
     if (check === "3스트라이크") {
-      return await Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+      return Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
     } else {
       await this.playBaseballGame(answer);
     }
@@ -63,19 +63,17 @@ class App {
     } else {
       input = input.split("").map(Number);
     }
-    if (input.length !== 3) {
+    if (input.length !== 3)
       throw new Error("[ERROR] 3자리의 숫자를 입력해주세요");
-    }
-    if (input.includes(NaN)) {
-      throw new Error("[ERROR] 숫자를 입력해주세요");
-    }
+    if (input.includes(NaN)) throw new Error("[ERROR] 숫자를 입력해주세요");
+
     return input;
   }
 
   // 게임이 진행되는곳
   async play() {
     // 시작 멘트
-    await Console.print("숫자 야구 게임을 시작합니다.");
+    Console.print("숫자 야구 게임을 시작합니다.");
 
     // 야구게임 정답 생성
     let answer = this.generateRandomNumber();
@@ -87,7 +85,7 @@ class App {
     }
 
     // 야구게임 재시작 / 종료 이행
-    await Console.print("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+    Console.print("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
     let selectContinue = await Console.readLineAsync("");
 
     if (selectContinue === "2") {
