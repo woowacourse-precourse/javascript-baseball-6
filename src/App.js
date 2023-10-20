@@ -37,6 +37,8 @@ class App {
         if (strike === 3) {
           await this._transition("clear");
         } else {
+          const hint = this._createHint(result);
+          Console.print(hint);
           await this._transition("playing");
         }
         break;
@@ -72,6 +74,16 @@ class App {
       throw new Error(
         "[ERROR] 1부터 9까지 서로 다른 수로 이루어진 3자리의 수를 입력해야합니다."
       );
+  }
+
+  _createHint(result) {
+    const { strike, ball } = result;
+
+    const hints = [];
+    if (ball > 0) hints.push(`${ball}볼`);
+    if (strike > 0) hints.push(`${strike}스트라이크`);
+
+    return hints.length === 0 ? "낫싱" : hints.join(" ");
   }
 }
 
