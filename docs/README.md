@@ -12,6 +12,7 @@
 ## 입력
 - @woowacourse/mission-utils의 Console API 중 Console.readLineAsync 사용하여 사용자의 입력 값 받아오기
 - 숫자가 3자리 초과인 경우  & 숫자가 아닌 경우: 경고 문구와 함께 다시 질문
+- 숫자가 중복된 경우 : 경고 문구와 함께 다시 질문
 
 ## 입력과 생성 숫자 비교
 - User가 입력한 값을 split 메소드를 통해 배열로 나누기
