@@ -36,7 +36,7 @@ const pickNumberInRange = (min, max) => {
 /**
  * @param {string} message - 에러 메시지
  * @param {boolean} condition - 에러가 발생할 조건
- * @description condition이 true일 경우, 에러 메시지를 출력하는 함수
+ * @description condition이 true일 경우, 에러 메시지를 전파하는 함수
  */
 const throwError = (message, condition = true) => {
   if (!condition) {
