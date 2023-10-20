@@ -55,6 +55,12 @@ class Controller {
   compareUserToComputer() {
     const hintCounter = new HintCounter();
     hintCounter.countHint(this.user.getAnswer(), this.computer.getAnswer());
+
+    this.printHint(hintCounter);
+  }
+
+  printHint(hintCounter) {
+    OutputView.printMessage(hintCounter.getHint());
   }
 }
 
