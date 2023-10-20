@@ -44,12 +44,13 @@ class App {
         );
         this._invalid(playerInput);
 
-        const result = this._scoreAnswer(playerInput);
-        const { strike } = result;
+        const score = this._createScore(playerInput);
+        const { strike } = score;
+
         if (strike === 3) {
           await this._transition("clear");
         } else {
-          const hint = this._createHint(result);
+          const hint = this._createHint(score);
           Console.print(hint);
           await this._transition("playing");
         }
@@ -79,20 +80,20 @@ class App {
     }
   }
 
-  _scoreAnswer(answer) {
-    const result = { strike: 0, ball: 0 };
+  _createScore(playerInput) {
+    const score = { strike: 0, ball: 0 };
     for (let i = 0; i < 3; i++) {
-      const current = answer[i];
+      const current = playerInput[i];
       if (current === this._answer[i]) {
-        result.strike++;
+        score.strike++;
         continue;
       }
       if (this._answer.includes(current)) {
-        result.ball++;
+        score.ball++;
       }
     }
 
-    return result;
+    return score;
   }
 
   _invalid(answer) {
@@ -107,8 +108,8 @@ class App {
       );
   }
 
-  _createHint(result) {
-    const { strike, ball } = result;
+  _createHint(score) {
+    const { strike, ball } = score;
 
     const hints = [];
     if (ball > 0) hints.push(`${ball}볼`);
