@@ -8,11 +8,11 @@ class App {
 
         while (true) {
             // 랜덤 3자리 번호 생성
-            const cpuNumSet = this.cpuNumGenerator(); // 볼 여부는 접근 속도가 빠른 Set으로 검사
+            const cpuNumArr = this.cpuNumGenerator();
             // 게임 시작
             while (true) {
                 const userNumArr = await this.userInput(); // 유저 입력 받기
-                const { strike, ball } = this.calculate(cpuNumSet, userNumArr); // 채점
+                const { strike, ball } = this.calculate(cpuNumArr, userNumArr); // 채점
 
                 // 결과 출력
                 MissionUtils.Console.print(
