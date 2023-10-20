@@ -1,25 +1,12 @@
-import BaseballGame from "./BaseballGame";
+import BaseballGame from "./BaseballGame.js";
 
 class App {
   async play() {
+    console.log("숫자 야구 게임을 시작합니다.");
+
     const baseballGame = new BaseballGame();
 
-    await this.startPlay(baseballGame);
-  }
-
-  async startPlay(game) {
-    game.startGame();
-
-    await this.startUser(game);
-
-    const IS_RETRY = await game.endGame();
-    if (IS_RETRY) await this.startPlay(game);
-  }
-
-  async startUser(game) {
-    await game.startUserInput();
-    const IS_REINPUT = game.startUserResult();
-    if (IS_REINPUT) await this.startUser(game);
+    await baseballGame.playGame();
   }
 }
 
