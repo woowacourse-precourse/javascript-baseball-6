@@ -10,6 +10,7 @@ class Refree {
   playGame() {
     const ball = this.countBall();
     const strike = this.countStrike();
+    return { ball, strike };
   }
 
   countBall() {
