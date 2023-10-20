@@ -20,6 +20,22 @@ export default class BaseBall {
     this._password = password;
   }
 
+  _checkBallsAmount(userInput) {
+    const userInputArray = [...String(userInput)];
+    const ballsAmount = [...String(this._password)].reduce(
+      (ballAmount, currentPassword, idx) => {
+        if (currentPassword === userInputArray[idx]) return ballAmount;
+        if (userInputArray.includes(currentPassword)) {
+          ballAmount += 1;
+          return ballAmount;
+        }
+      },
+      0
+    );
+
+    return ballsAmount;
+  }
+
   init() {
     const password = this.createPassword();
     this._setPassword(password);
