@@ -31,7 +31,7 @@ class App {
     //게임 시작문구를 출력한다.
     Console.print("숫자 야구 게임을 시작합니다.");
     //컴퓨터는 1~9까지 서로다른 임의수 3개를 선택
-    const answer = Random.pickUniqueNumbersInRange(1, 9, 3);
+    const answer = makeAnswer();
 
     while (!score.성공) {
       //사용자에게 서로다른 숫자 3개를 입력받는다. 숫자를 입력해주세요 :
@@ -39,9 +39,6 @@ class App {
         let isError = checkError(number);
         if (!isError) {
           review(answer, number);
-        }
-        if (score.성공) {
-          //세변수 모두 0이라면 3개의 숫자를 모두 맞히셨습니다! 게임 종료 출력하고
         }
       });
     }
