@@ -17,8 +17,14 @@ class App {
           "숫자를 입력해주세요 : "
         );
 
-        if (isNaN(+threeNumber)) {
-          throw new Error("숫자를 입력해주세요");
+        const set = new Set(threeNumber.split(""));
+
+        if (
+          isNaN(+threeNumber) ||
+          threeNumber.length !== 3 ||
+          set.size !== threeNumber.split("").length
+        ) {
+          throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
         }
 
         let array = threeNumber.split("");
@@ -36,29 +42,35 @@ class App {
             ball++;
         });
 
-        if (strike === 3)
+        if (strike === 3) {
           Console.print(
             `3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료`
           );
-        else if (strike && ball) {
+
+          const startCheck = await Console.readLineAsync(
+            "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+          );
+
+          if (startCheck === "1") {
+            const app = new App();
+            await app.play();
+          } else if (startCheck !== "2") {
+            throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+          }
+          return;
+        } else if (strike && ball)
           Console.print(`${ball}볼 ${strike}스트라이크`);
-          getNumber();
-        } else if (strike) {
-          Console.print(`${strike}스트라이크`);
-          getNumber();
-        } else if (ball) {
-          Console.print(`${ball}볼`);
-          getNumber();
-        } else {
-          Console.print("낫싱");
-          getNumber();
-        }
+        else if (strike) Console.print(`${strike}스트라이크`);
+        else if (ball) Console.print(`${ball}볼`);
+        else Console.print("낫싱");
+
+        await getNumber();
       } catch (error) {
-        Console.print("숫자를 입력해주세요");
+        throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
       }
     }
 
-    getNumber();
+    await getNumber();
   }
 }
 
