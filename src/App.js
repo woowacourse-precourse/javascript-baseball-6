@@ -47,6 +47,7 @@ class App {
         }
         const answer = this.checkAnswer(answerNumber, inputNumber);
         if (answer) {
+          Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
           break;
         }
       }
@@ -54,6 +55,7 @@ class App {
       console.log(error);
       // Console.print("[ERROR] 숫자가 잘못된 형식입니다.");
     }
+    await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
   }
 }
 export default App;
