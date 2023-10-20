@@ -2,16 +2,11 @@ import { Random } from "@woowacourse/mission-utils";
 import NUMBER from "./constant/NUMBER.js";
 
 class Computer {
-  constructor() {
-    this.selectedNumberArray = this.createNumbers();
-  }
-
-  createNumbers() {
+  createNumberArray() {
     let newNumberArray = [];
 
     while (newNumberArray.length < NUMBER.LENGTH) {
-      let randomNumber = this.generateSingleDigitNaturalNumber();
-
+      const randomNumber = this.generateSingleDigitNaturalNumber();
       if (newNumberArray.includes(randomNumber)) continue;
       newNumberArray.push(randomNumber);
     }

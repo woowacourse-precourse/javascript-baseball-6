@@ -3,11 +3,7 @@ import MESSAGE from "./constant/MESSAGE.js";
 import ERROR from "./constant/ERROR.js";
 
 class User {
-  constructor() {
-    this.inputNumberArray = this.getValidatedInput();
-  }
-
-  async getValidatedInput() {
+  async getValidatedNumberArray() {
     const input = await Console.readLineAsync(MESSAGE.ENTER_NUMBER);
 
     return this.validateUserInput(input)

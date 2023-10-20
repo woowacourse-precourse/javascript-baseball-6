@@ -1,32 +1,32 @@
-import Computer from "./Computer.js";
-import User from "./User.js";
-import ConsoleUtil from "./ConsoleUtil.js";
 import MESSAGE from "./constant/MESSAGE.js";
 import NUMBER from "./constant/NUMBER.js";
 
 class Baseball {
-  constructor() {
+  constructor(computer, user, consoleUtils) {
+    this.computer = computer;
+    this.user = user;
+    this.consoleUtils = consoleUtils;
+
     this.computerNumbers = [];
     this.userNumbers = [];
     this.isCorrectAnswer = false;
-    this.consoleUtils = new ConsoleUtil();
   }
 
   async play() {
     this.startGame();
 
     while (!this.isCorrectAnswer) {
-      await this.playUntilUserFindComputer();
+      await this.getUserInputAndCompareToComputer();
     }
   }
 
   startGame() {
     this.consoleUtils.print(MESSAGE.START_GAME);
-    this.computerNumbers = new Computer().selectedNumberArray;
+    this.computerNumbers = this.computer.createNumberArray();
   }
 
-  async playUntilUserFindComputer() {
-    this.userNumbers = await new User().inputNumberArray;
+  async getUserInputAndCompareToComputer() {
+    this.userNumbers = await this.user.getValidatedNumberArray();
 
     let judgeResult = this.calculateResult(
       this.computerNumbers,
