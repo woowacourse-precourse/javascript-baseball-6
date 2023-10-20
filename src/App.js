@@ -15,11 +15,16 @@ class App {
   constructor(){
     this.randomNumber = [];
     this.userInput = [];
+    this.gameResults = {};
 
     this.validation = {
       isLenThree: (input) => input.length === 3,
       isInt: (input) => Number.isInteger(+input),
       isNegative: answer => Math.sign(answer) === -1,
+    }
+    this.compare = {
+      isStrike: ((num, idx) => this.randomNumber[idx] === num),
+      isBall: ((num, idx) =>  this.randomNumber[idx] !== num && this.randomNumber.includes(num)),
     }
   }
 
@@ -47,6 +52,7 @@ class App {
     this.validateInput(input);
 
     this.userInput = [...input];
+    this.getResult();
   }
 
   validateInput(input){
@@ -54,6 +60,16 @@ class App {
     if(!isLenThree(input)) throw new Error(ERROR_MESSAGE.LENGTH);
     else if(!isInt(input)) throw new Error(ERROR_MESSAGE.INT);
     else if(!isNegative(input)) throw new Error(ERROR_MESSAGE.NEGATIVE);
+  }
+
+  getResult(){
+    const { gameResults } = this;
+    const { isStrike, isBall } = this.compare;
+
+    this.userInput.forEach((num, idx)=> {
+      if(isStrike(num, idx)) gameResults.strike = gameResults.strike + 1 || 1;
+      if(isBall(num, idx)) gameResults.ball = gameResults.ball + 1 || 1;
+    })
   }
 }
 
