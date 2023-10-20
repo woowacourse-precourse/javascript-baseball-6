@@ -1,6 +1,6 @@
 import { Console, MissionUtils } from "@woowacourse/mission-utils";
 
-class App {
+
 
 // 컴퓨터는 랜덤값 추출
 // ㄴ 아래 있는 `Random.pickNumberInRange()`를 활용 예시는 README.md참조
@@ -28,6 +28,8 @@ class App {
 // - `@woowacourse/mission-utils`의 `Random` 및 `Console` API를 사용하여 구현해야 한다.
 //   - Random 값 추출은 `Random.pickNumberInRange()`를 활용한다.
 //   - 사용자의 값을 입력 받고 출력하기 위해서는 `Console.readLineAsync`, `Console.print`를 활용한다.
+class App {
+  
   async play() {}
 }
 
@@ -43,9 +45,11 @@ function play(){
   let naArray = Array.from(na);
 
   if(naArray.length != 3){
-    throw Console.print("Error");
+    throw new Error();
   }
   
+console.log(naArray);
+
   let strike =0;
   let ball =0;
   let gameset =0;
@@ -84,8 +88,5 @@ function play(){
   }
 }
 
-// function err(){
-//   Console.print([Error])
-// }
 
 export default App;
