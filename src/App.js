@@ -7,7 +7,7 @@ class App {
   #game;
   async play() {
     Console.print(MESSAGE.START_GAME);
-    this.#game = await new BaseballGame();
+    this.#game = new BaseballGame();
     await this.getUserGuessInput();
   }
 
