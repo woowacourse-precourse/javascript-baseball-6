@@ -48,17 +48,6 @@ class App {
     return message;
   }
 
-  // 야구게임 재시작 / 종료 이행
-  newGameOrQuit(selectContinue) {
-    if (selectContinue === "1") {
-      this.play();
-    } else if (selectContinue === "2") {
-      return;
-    } else {
-      throw new Error("[ERROR] 잘못된 접근입니다");
-    }
-  }
-
   // 게임이 진행되는곳
   async play() {
     // 시작 멘트
