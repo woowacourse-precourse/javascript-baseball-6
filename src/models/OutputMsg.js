@@ -5,4 +5,9 @@ const OUTPUT_MSG = {
     GAME_OVER : '게임 종료'
 };
 
-module.exports = { OUTPUT_MSG }
+const ERROR_MSG = {
+    COMMAND_ERROR : '[ERROR] 잘못 입력하셨습니다',
+    NUMBER_LENGTH_ERROR : '[ERROR] 3자리의 숫자를 입력해주세요.'
+}
+
+module.exports = { OUTPUT_MSG ,ERROR_MSG } 

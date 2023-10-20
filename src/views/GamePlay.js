@@ -1,7 +1,7 @@
 const CONTROL = require('../controller/ControllerTest');
 const VAL = require('../controller/Validate')
 const MissionUtils = require('@woowacourse/mission-utils');
-const { OUTPUT_MSG } = require('../models/OutputMsg');
+const { OUTPUT_MSG , ERROR_MSG } = require('../models/OutputMsg');
 
 // CONSTANTS
 const { CONSTANTS , STRIKE_BALL } = require('../models/Constants');
@@ -13,29 +13,15 @@ class GamePlay {
         this.VAL = new VAL();
     }
 
-    startGame = () => {
+    startGame = async () => {
         MissionUtils.Console.print(OUTPUT_MSG.START_GAME);
-        this.#getUserNumber();
+        await this.#getAnswerUserNumber();
     }
 
-    // #getAnswer() {
-    //     // this.CON.makeAnswer();
-    //     this.#inputNumber();
-    // }
-
-    // #inputNumber() {
-    //     this.CON.getInputNumber();
-    // }
-
-    #getUserNumber = async () => {
+    #getAnswerUserNumber = async () => {
         this.CON.makeAnswer();
         await this.CON.inputUserNumber();
-        // this.VAL.numberValidate(CONSTANTS.USER_NUMBER);
-        // throw new Error("[ERROR]")
     }
-
-
 }
 
 module.exports = GamePlay;
-// export default GamePlay;

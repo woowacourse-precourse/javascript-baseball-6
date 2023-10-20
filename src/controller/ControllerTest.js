@@ -2,6 +2,7 @@ const VALIDATE = require('./Validate');
 const MissionUtils = require('@woowacourse/mission-utils');
 const { CONSTANTS } = require('../models/Constants');
 const { INPUT_MSG } = require('../models/InputMsg');
+const { OUTPUT_MSG , ERROR_MSG } = require('../models/OutputMsg');
 
 class Controller {
     constructor () {
@@ -19,7 +20,12 @@ class Controller {
     }
 
     inputUserNumber = async () => {
-        CONSTANTS.USER_NUMBER = await MissionUtils.Console.readLineAsync(`${INPUT_MSG.INPUT_NUMBER}`);
+        try {
+            CONSTANTS.USER_NUMBER = await MissionUtils.Console.readLineAsync(INPUT_MSG.INPUT_NUMBER);
+            this.VAL.numberValidate(CONSTANTS.USER_NUMBER);
+        } catch (error) {
+            throw error;
+        }
     }
 }
 
