@@ -1,5 +1,9 @@
-import { Console } from '@woowacourse/mission-utils';
-import { printResult, printStartMessage, readBaseballNumbers } from './View.js';
+import {
+  printEndMessage,
+  printResult,
+  printStartMessage,
+  readBaseballNumbers,
+} from './View.js';
 import BaseBall from './BaseBall.js';
 
 class App {
@@ -24,7 +28,16 @@ class App {
     printResult(countResult);
     if (strike !== 3) {
       this.piching();
+      return;
     }
+
+    if (strike === 3) {
+      this.complete();
+    }
+  }
+
+  complete() {
+    printEndMessage('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
   }
 }
 
