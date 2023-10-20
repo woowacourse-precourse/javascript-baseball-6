@@ -46,6 +46,8 @@ class App {
       if (ball !== 0 && strike !== 0)
         MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
     }
+
+    await this.handleEndGame();
   }
 
   async getUserNumber() {
@@ -61,6 +63,22 @@ class App {
 
       return number;
     } catch (error) {}
+  }
+
+  async handleEndGame() {
+    try {
+      const answer = await MissionUtils.Console.readLineAsync(
+        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+      );
+
+      if (answer === "1") {
+        return this.play();
+      } else if (answer === "2") {
+        return;
+      } else {
+        throw new Error("[ERROR] 1 또는 2를 입력해주세요.");
+      }
+    } catch {}
   }
 }
 
