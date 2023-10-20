@@ -6,6 +6,8 @@ class App {
     this.attempts = 0;  // 사용자가 게임을 시도한 횟수
   }
 
+
+  // 난수 생성
   setComputerNumbers() {
     const computer = [];
     while (computer.length < 3) {
@@ -17,6 +19,8 @@ class App {
     return computer.join('');
   }
 
+
+  // 숫자 찾기
   async play() {
     let userInput;
   
@@ -28,15 +32,15 @@ class App {
         this.checkInput(userInput);
         // 유효한 입력일 때의 코드 계속
         this.attempts++;  // 시도 횟수 +1
-        const result = this.countResult(userInput);
-        MissionUtils.Console.print(result);
+        const result = this.countResult(userInput);  // 결과 확인
+        MissionUtils.Console.print(result); 
   
         if (result === "3스트라이크") {
           MissionUtils.Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
           const restart = await MissionUtils.Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요: ");
           if (restart.trim() === '1') {
             this.computerNumbers = this.setComputerNumbers();
-            this.attempts = 0;
+            this.attempts = 0;  // 재도전시 시도 횟수 초기화
             MissionUtils.Console.print("게임을 다시 시작합니다.");
           } else {
             MissionUtils.Console.print("게임을 종료합니다.");
@@ -55,11 +59,12 @@ class App {
     if (/^[1-9]{3}$/.test(input)) {
       return true; // 유효한 입력
     } else {
-      throw new Error("올바른 숫자를 입력해주세요."); // 잘못된 입력일 경우 예외 발생
+      throw new Error("[Error] 올바른 숫자를 입력해주세요."); // 잘못된 입력일 경우 프로그램 종료
     }
   }
   
 
+  // 결과(스트라이크, 볼, 낫싱)
   countResult(userInput) {
     let strikes = 0;
     let balls = 0;
