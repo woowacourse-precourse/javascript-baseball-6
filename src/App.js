@@ -34,10 +34,14 @@ class App {
     return inputPlayerBaseball.split(SYMBOLS.emptyString).map(Number);
   }
 
+  #askCompareResult(playerBaseball) {
+    return this.#computer.comparePlayerBaseball(playerBaseball);
+  }
+
   async play() {
     this.#initGameSetting();
     this.#askPrintStartGame();
-    const baseball = await this.#askPlayerBaseball();
+    const playerBaseball = await this.#askPlayerBaseball();
   }
 }
 
