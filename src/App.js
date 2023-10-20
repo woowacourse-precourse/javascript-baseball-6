@@ -15,15 +15,7 @@ class App {
         let printMsg = ""
         const userInputNumber = await Console.readLineAsync('숫자를 입력해 주세요 : ')
         const userInputArray = numberToArray(userInputNumber)
-
-        console.log('userInputArray', userInputArray)
-        console.log('TARGET_NUMBER', TARGET_NUMBER)
-        let test = compare([1, 2, 3], [4, 5, 1])
-        Console.print(test)
-
         let result = compare(TARGET_NUMBER, userInputArray)
-        Console.print(result)
-
         result[0] == 0 && result[1] == 0 
           ? printMsg = '낫싱'
           : result[1] == 3
