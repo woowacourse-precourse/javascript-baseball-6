@@ -1,8 +1,15 @@
 import { Console } from "@woowacourse/mission-utils";
 
 async function startGame(computerNumber) {
-  const userInput = await getUserInput();
-  compareNumber(userInput, computerNumber);
+  while (true) {
+    const userInput = await getUserInput();
+    const result = compareNumber(userInput, computerNumber);
+    Console.print(getHint(result));
+    // TODO: 상수로 빼기
+    if (result.strikes === 3) {
+      break;
+    }
+  }
 }
 
 async function getUserInput() {
@@ -24,6 +31,20 @@ function compareNumber(userInput, computerNumber) {
       result.balls++;
     }
   });
+  return result;
+}
+
+function getHint(hint) {
+  const strikes = hint.strikes;
+  const balls = hint.balls;
+  // TODO: 상수로 빼기
+  if (strikes === 3) {
+    return "3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료";
+  }
+  if (strikes === 0 && balls === 0) {
+    return "낫싱";
+  }
+  return `${balls}볼 ${strikes}스트라이크`;
 }
 
 export default startGame;
