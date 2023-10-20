@@ -5,7 +5,7 @@ import { MissionUtils, Console } from "@woowacourse/mission-utils";
  * @description 사용자에게 메시지를 출력하는 함수
  */
 const printMessage = (message) => {
-	return Console.print(message);
+  return Console.print(message);
 };
 
 /**
@@ -17,7 +17,7 @@ const printMessage = (message) => {
  * console.log(input); // "123"
  */
 const readLineAsync = async (message) => {
-	return Console.readLineAsync(message);
+  return Console.readLineAsync(message);
 };
 
 /**
@@ -30,7 +30,7 @@ const readLineAsync = async (message) => {
  * console.log(randomNumber); // 7
  */
 const pickNumberInRange = (min, max) => {
-	return MissionUtils.Random.pickNumberInRange(min, max);
+  return MissionUtils.Random.pickNumberInRange(min, max);
 };
 
 export { printMessage, readLineAsync, pickNumberInRange };
