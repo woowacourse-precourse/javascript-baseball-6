@@ -15,6 +15,7 @@ class App {
 
   printMessage(message) {
     Console.print(message);
+    return this;
   }
 
   async startGame() {
