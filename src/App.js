@@ -39,7 +39,7 @@ class App {
 
   /**
    * @description 게임을 시작하는 메서드
-   * - 사용자의 입력을 잗아 유효성을 확인하고 스트라이크와 볼의 개수를 출력합니다.
+   * - 사용자의 입력을 받아 유효성을 확인하고 스트라이크와 볼의 개수를 출력합니다.
    * - 스트라이크가 3개일 경우, 게임을 재시작할지 확인합니다.
    * - 에러가 발생할 경우, 에러 메시지를 출력합니다.
    */
@@ -66,7 +66,6 @@ class App {
       }
     } catch (e) {
       this.isPlaying = false;
-      console.log(e.message, "@@@@@@@@@");
       throw new Error(`${ERROR_MESSAGE.HEADER} ${e.message}`);
     }
   }
