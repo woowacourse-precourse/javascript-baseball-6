@@ -17,10 +17,25 @@ class App {
     this.checkResult(inputValue);
   }
 
-  checkResult(INPUT_RESULT) {
-    const numArr = INPUT_RESULT.split("");
-    console.log("checkResult");
-    console.log(numArr);
+  checkResult(inputValue) {
+    const inputNumArr = inputValue.split("");
+    let strike = 0;
+    let ball = 0;
+
+    for (let i = 0; i < this.NUMBER_LENGTH; i++) {
+      for (let j = 0; j < 3; j++) {
+        if (i === j && this.computerNum[i] === inputNumArr[j]) {
+          strike++;
+        }
+        if (this.computerNum[i] === inputNumArr[j]) {
+          ball++;
+        }
+      }
+    }
+
+    if (ball === 0 && strike === 0) {
+      console.log("낫싱,,");
+    }
   }
 
   createRandomNum() {
@@ -29,8 +44,7 @@ class App {
       const isInclude = this.computerNum.includes(randomNum); // 중복 숫자가 있으면 true, 없으면 false 를 반환한다.
 
       if (!isInclude) {
-        //숫자가 압겹치면 ?
-        this.computerNum.push(randomNum); //배열에 push 해
+        this.computerNum.push(randomNum);
       }
     }
   }
