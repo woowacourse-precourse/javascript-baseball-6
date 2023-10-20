@@ -1,7 +1,8 @@
 /*
 게임에 사용되는 문구들을 모아놓은 파일
-START, RESTART, INPUT_NUMBER, CORRECT, ERROR, STRIKE, BALL, NOTHING
+START, RESTART, INPUT_NUM, CORRECT, ERROR, STRIKE, BALL, NOTHING
  */
+
 const LOG = {
 
 	 // 게임 시작 문구
@@ -19,7 +20,6 @@ const LOG = {
 
 
 	//에러 문구
-
 	ERROR: "[ERROR]",
 
 
@@ -28,3 +28,5 @@ const LOG = {
 	BALL: "볼",
 	NOTHING: "낫싱",
 };
+
+export {LOG}
