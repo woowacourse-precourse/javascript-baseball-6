@@ -1,10 +1,10 @@
+import { GAME, STRIKE_OUT } from './constants.js';
 import Mc from './mc.js';
 import Opponent from './opponent.js';
 
 class App {
   opponent;
   mc;
-  gameOver = false;
 
   constructor() {
     this.opponent = new Opponent();
@@ -12,32 +12,34 @@ class App {
   }
 
   async play() {
-    this.mc.startMention();
+    this.mc.startGame();
     this.opponent.makeNumbers();
-    await this.askQnA();
+    await this.repeatQnA();
 
-    if (this.gameOver) {
-      const playerAnswer = await this.mc.askRegame();
-      if (playerAnswer === '1') {
-        this.gameOver = false;
-        this.opponent.resetNumbers();
-        this.opponent.makeNumbers();
-        await this.askQnA();
-      }
-    }
+    const playerAnswer = await this.mc.askRegame();
+    this.mc.validateRegameNumber(playerAnswer);
+    playerAnswer === GAME.REPLAY ? this.replay() : this.gameover();
   }
 
-  async askQnA() {
+  async repeatQnA() {
     const numbers = await this.mc.askQuestion();
     this.mc.validateNumbers(numbers);
     const { strike, ball } = this.opponent.tellResultOf(numbers);
     this.mc.tellOf(strike, ball);
 
-    if (strike === 3) {
-      this.gameOver = true;
-    } else {
-      await this.askQnA();
+    if (strike !== STRIKE_OUT) {
+      await this.repeatQnA();
     }
+  }
+
+  replay() {
+    this.opponent.resetNumbers();
+    this.opponent.makeNumbers();
+    this.repeatQnA();
+  }
+
+  gameover() {
+    return;
   }
 }
 

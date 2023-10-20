@@ -1,3 +1,5 @@
+import { GAME } from './constants';
+
 const Validate = {
   inputProperNumbers(numbers) {
     this.inputTrebleFigures(numbers);
@@ -20,9 +22,11 @@ const Validate = {
     if (!Number(numbers)) throw new Error('[ERROR] 숫자를 입력하셔야 합니다.');
   },
 
-  inputProperResetNumber(number) {
-    if (!['1', '2'].includes(number))
-      throw new Error('[ERROR] 재시작하려면 1, 종료하려면 2를 입력하셔야 합니다.');
+  inputProperRegameNumber(number) {
+    if (![GAME.REPLAY, GAME.END].includes(number))
+      throw new Error(
+        `[ERROR] 재시작하려면 ${GAME.REPLAY}, 종료하려면 ${GAME.END}를 입력하셔야 합니다.`,
+      );
   },
 };
 

@@ -4,12 +4,16 @@ import Validate from './validate.js';
 export default class Mc {
   constructor() {}
 
-  startMention() {
+  startGame() {
     Message.printGameStart();
   }
 
   validateNumbers(numbers) {
     return Validate.inputProperNumbers(numbers);
+  }
+
+  validateRegameNumber(number) {
+    return Validate.inputProperRegameNumber(number);
   }
 
   async askQuestion() {
@@ -19,6 +23,7 @@ export default class Mc {
   }
 
   async askRegame() {
+    Message.printGameOver();
     const num = await Message.printReset();
 
     return num;
@@ -26,9 +31,5 @@ export default class Mc {
 
   tellOf(strike, ball) {
     Message.printResult(strike, ball);
-
-    if (strike === 3) {
-      Message.printGameOver();
-    }
   }
 }
