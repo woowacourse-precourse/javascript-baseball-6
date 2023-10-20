@@ -30,15 +30,15 @@ class App {
     });
   }
 
-  getHint(userVal, computerVal) {
+  getHint(userVal) {
     let strikeCount = 0;
     let ballCount = 0;
     let nothing = 0;
     return new Promise((resolve) => {
       for (let i = 0; i < userVal.length; i++) {
-        if (userVal[i] == computerVal[i]) {
+        if (userVal[i] == this.computerVal[i]) {
           strikeCount++;
-        } else if (computerVal.includes(userVal[i])) {
+        } else if (this.computerVal.includes(userVal[i])) {
           ballCount++;
         } else {
           nothing++;
@@ -56,9 +56,7 @@ class App {
         let userInput = await Console.readLineAsync("숫자를 입력해주세요 : ");
         let userVal = await this.checkUserInput(userInput);
         let [strikeCount, ballCount, nothing] = await this.getHint(
-          userVal,
-          this.computerVal
-        );
+          userVal);
         if (nothing === 3) {
           Console.print("낫싱");
         } else if (strikeCount === 3) {
