@@ -56,6 +56,19 @@ class App {
     }
     return ballCount;
   }
+
+  createJudgeMessage({ strikeCount, ballCount }) {
+    if (strikeCount === 3)
+      return this.printMessage("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+
+    if (strikeCount === 0 && ballCount === 0) return this.printMessage("낫싱");
+
+    if (strikeCount === 0) return this.printMessage(`${ballCount}볼`);
+
+    if (ballCount === 0) return this.printMessage(`${strikeCount}스트라이크`);
+
+    return this.printMessage(`${ballCount}볼 ${strikeCount}스트라이크`);
+  }
 }
 
 export default App;
