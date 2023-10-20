@@ -5,7 +5,7 @@ class Computer {
   createNumbers() {
     let newNumberArray = [];
 
-    while (newNumberArray.length < 3) {
+    while (newNumberArray.length < NUMBER.LENGTH) {
       let randomNumber = this.generateSingleDigitNaturalNumber();
 
       if (newNumberArray.includes(randomNumber)) continue;
