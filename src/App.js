@@ -9,7 +9,8 @@ class App {
     this.#computerNumber = ComputerNumber.generateComputerNumber();
     const answer = await InputView.readUserInput();
     const input = Validator.validateUserInput(answer);
-    this.#matchComputerNumber(input);
+    const table = this.#matchComputerNumber(input);
+    this.#makeTemplate(table);
   }
 
   #matchComputerNumber(userInput) {
@@ -28,6 +29,21 @@ class App {
       }
     });
     return table;
+  }
+
+  #makeTemplate(table) {
+    if (table.STRIKE_COUNT && table.BALL_COUNT) {
+      return `${table.BALL_COUNT}볼 ${table.STRIKE_COUNT}스트라이크`;
+    }
+    if (table.STRIKE_COUNT && !table.BALL_COUNT) {
+      return `${table.STRIKE_COUNT}스트라이크`;
+    }
+    if (!table.STRIKE_COUNT && table.BALL_COUNT) {
+      return `${table.BALL_COUNT}볼`;
+    }
+    if (!table.STRIKE_COUNT && !table.BALL_COUNT) {
+      return `낫싱`;
+    }
   }
 }
 
