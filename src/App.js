@@ -9,14 +9,25 @@ class App {
       const COM_NUMBER = this.createNumber();
       while (true) {
         try {
-          let userNumber = await this.userNumber();
+          let userNumber = await this.requestInput(
+            "숫자를 입력해주세요 : ",
+            (input) =>
+              !isNaN(Number(input)) &&
+              input.length === 3 &&
+              new Set(input).size === 3,
+            "3자리의 중복되지 않는 숫자를 입력해주세요."
+          );
           let { strikes, balls } = this.checkNumber(COM_NUMBER, userNumber);
 
           if (strikes === 3) {
             console.log(
               "3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료"
             );
-            let answer = await this.restart();
+            let answer = await this.requestInput(
+              "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n",
+              (input) => input === "1" || input === "2",
+              "1 또는 2를 입력해주세요."
+            );
             if (answer === "1") {
               break;
             } else {
@@ -52,20 +63,19 @@ class App {
     return COMPUTER.join("");
   }
 
-  async userNumber() {
+  async requestInput(promptMessage, validation, errorMessage) {
     while (true) {
       try {
         const USERINPUT = await MissionUtils.Console.readLineAsync(
-          "숫자를 입력해주세요 : "
+          promptMessage
         );
 
         if (isNaN(Number(USERINPUT))) {
           throw new Error("INVALID_INPUT");
         }
 
-        if (USERINPUT.length !== 3 || new Set(USERINPUT).size !== 3) {
-          console.log("3자리의 중복되지 않는 숫자를 입력해주세요.");
-          continue;
+        if (!validation(USERINPUT)) {
+          throw new Error(errorMessage);
         }
 
         return USERINPUT;
@@ -92,17 +102,6 @@ class App {
     }
 
     return { strikes, balls };
-  }
-
-  async restart() {
-    try {
-      const USERINPUT = await MissionUtils.Console.readLineAsync(
-        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
-      );
-      return USERINPUT;
-    } catch (error) {
-      console.error("숫자만 입력해주세요 : ", error);
-    }
   }
 }
 
