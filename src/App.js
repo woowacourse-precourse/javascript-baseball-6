@@ -7,7 +7,7 @@ class App {
     const inputNumber = MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
   }
 
-  getComputerNumber() {
+  async getComputerNumber() {
     const computerNumber = new Set();
 
     while (computerNumber.length < 3) {
