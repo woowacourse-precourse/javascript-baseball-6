@@ -6,7 +6,7 @@ const InputView = {
   async getUserNumber (message) {
       const userNumber = await Console.readLineAsync(message);
       if (!InputValidator.numberValidate(userNumber)) throw new Error (MESSAGES.INPUT_ERROR);
-      return userNumber;
+      return parseInt(userNumber, 10);
   }
 };
 
