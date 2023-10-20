@@ -1,4 +1,4 @@
-import { Console, Random } from "@woowacourse/mission-utils";
+import { Console, MissionUtils, Random } from "@woowacourse/mission-utils";
 import MESSAGE from "./constant/MESSAGE.js";
 import NUMBER from "./constant/NUMBER.js";
 
@@ -17,7 +17,7 @@ class App {
   }
 
   startGame() {
-    this.printMessage(MESSAGE.START);
+    this.printMessage(MESSAGE.START_GAME);
   }
 
   chooseComputerNumber() {
@@ -31,6 +31,10 @@ class App {
 
   generateSingleDigitNaturalNumber() {
     return Random.pickNumberInRange(NUMBER.MIN, NUMBER.MAX);
+  }
+
+  getUserInput() {
+    MissionUtils.readLineAsync();
   }
 }
 
