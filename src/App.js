@@ -18,9 +18,9 @@ class App {
   playGame() {
     this.rl.question(`숫자를 입력해주세요: `, (answer) => {
       const playerNumbers = answer.split("").map((number) => parseInt(number));
-      //입력받은 값과 컴퓨터 값을 계산해서 얼마나 일치하는지 알려주기
-      //TODO:연산하는 함수
+
       const result = this.calculateResult(playerNumbers);
+
       Console.print(result);
       this.rl.close();
     });
@@ -53,7 +53,19 @@ class App {
       }
     }
 
-    return { strike, ball };
+    if (strike === 3) {
+      return "3개의 숫자를 모두 맞히셨습니다!";
+    }
+    if (ball === 0 && strike === 0) {
+      return "낫싱";
+    }
+    if (ball === 0) {
+      return `${strike}스트라이크`;
+    }
+    if (strike === 0) {
+      return `${ball}볼`;
+    }
+    return `${ball}볼 ${strike}스트라이크`;
   }
 }
 
