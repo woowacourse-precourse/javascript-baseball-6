@@ -12,14 +12,29 @@ class App {
     }
     return result;
   }
-  async play() {
-    Console.print("숫자 야구 게임을 시작합니다.");
-    try {
-      const inputNumber = await Console.readLineAsync("숫자를 입력해주세요 : ");
-      if (isNaN(inputNumber) || inputNumber.length !== this.LENGTH_OF_NUMBER) {
-        throw new Error();
+
+  checkAnswer(answerNumber, inputNumber) {
+    const strike = 0;
+    const ball = 0;
+    for (let i = 0; i < inputNumber.length; i++) {
+      if (inputNumber[i] === answerNumber[i]) {
       }
-      console.log(inputNumber);
+    }
+    return strike === 3 ? true : false;
+  }
+
+  async play() {
+    const answerNumber = this.createAnswerNumber();
+    Console.print("숫자 야구 게임을 시작합니다.");
+    let inputNumber;
+    try {
+      while (true) {
+        inputNumber = await Console.readLineAsync("숫자를 입력해주세요 : ");
+        if (isNaN(inputNumber) || inputNumber.length !== this.LENGTH_OF_NUMBER) {
+          throw new Error();
+        }
+        const answer = this.checkAnswer(answerNumber, inputNumber);
+      }
     } catch (error) {
       Console.print("[ERROR] 숫자가 잘못된 형식입니다.");
     }
