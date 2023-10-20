@@ -1,49 +1,34 @@
 import {makeRandomNumber} from './MakeRandomNumber.js'
 import {MissionUtils} from "@woowacourse/mission-utils";
 import {resultOut} from "./ResultOut.js";
-
+import {printInputScreen} from "./PrintInputScreen.js";
+import {wantReStart} from "./WantReStart.js";
 class App {
     async play() {
-        async function gamePlay() {
-            let randomNumber = makeRandomNumber();
-            MissionUtils.Console.print(randomNumber);
-            let result;
-            while (result !== `3스트라이크`) {
-                try {
-                    const inputNum = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
+            let gameEnd = false;
+            while (!gameEnd){
+                MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
+                let result;
+                let randomNumber = makeRandomNumber();
+                while (result !== `3스트라이크`){
+                    const inputNum = await printInputScreen();
                     result = resultOut(randomNumber, inputNum);
-                } catch (e) {
-                    MissionUtils.Console.print('[ERROR]');
-                  break;
+                    MissionUtils.Console.print(result);
                 }
-                MissionUtils.Console.print(result);
-            }
-            if (result === `3스트라이크`) {
-                try {
-                    MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
-                    MissionUtils.Console.print('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
-                    const restart = await MissionUtils.Console.readLineAsync('');
-                    if (restart === '1') {
-                        gamePlay();
-                    } else if (restart === '2') {
+                if (result === `3스트라이크`) {
 
-                    }else {
-                        throw new Error('[ERROR]');
+                    const ReStart = await wantReStart();
+                    if (ReStart === '1') {
+                        gameEnd = false;
+                    } else if (ReStart === '2') {
+                        gameEnd = true;
                     }
-                }catch (e){
-                    MissionUtils.Console.print(e);
+
                 }
-
             }
-        }
 
-        MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
-        await gamePlay();
 
     }
 }
-
-let san = new App();
-san.play();
 
 export default App;

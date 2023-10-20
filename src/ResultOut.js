@@ -1,20 +1,16 @@
 export function resultOut(random, inputNo) {
     let input = inputNo.split('').map(v => {
         if (isNaN(v)) {
-            throw new Error('숫자만 입력해주세요');
+            throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
         } else {
             return parseInt(v);
         }
     });
     if(new Set([...input]).size !== 3){
-        throw new Error('[ERROR]');
+        throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
     }
-    if(input.length !== 3){
-        throw new Error('[ERROR]');
-    }
-    if(input.length === 0){
-        throw new Error('[ERROR]');
-    }
+
+
 
     let strike = 0;
     let ball = 0;
