@@ -39,10 +39,12 @@ class App {
   async _entryEffect(status) {
     switch (status) {
       case "playing": {
-        const answer = await Console.readLineAsync("숫자를 입력해주세요 : ");
-        this._invalid(answer);
+        const playerInput = await Console.readLineAsync(
+          "숫자를 입력해주세요 : "
+        );
+        this._invalid(playerInput);
 
-        const result = this._scoreAnswer(answer);
+        const result = this._scoreAnswer(playerInput);
         const { strike } = result;
         if (strike === 3) {
           await this._transition("clear");
@@ -55,12 +57,12 @@ class App {
       }
       case "clear": {
         Console.print("3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-        const input = await Console.readLineAsync(
+        const playerInput = await Console.readLineAsync(
           "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
         );
-        if (input === "1") {
+        if (playerInput === "1") {
           await this.restart();
-        } else if (input === "2") {
+        } else if (playerInput === "2") {
           await this._transition("end");
         } else {
           await Console.readLineAsync(
