@@ -6,3 +6,6 @@
 - 스트라이크, 볼 개수 체크 => 둘 다 0이면 '낫싱' 출력
 - 각각 스트라이크, 볼의 개수를 가지고 결과 메시지 출력(1볼 2스트라이크)
 - 3스트라이크 시 해당 멘트 출력 후 재시작/종료 묻기
+
+@woowacourse/mission-utils 해당 라이브러리
+https://github.com/woowacourse-projects/javascript-mission-utils
