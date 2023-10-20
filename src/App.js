@@ -42,9 +42,6 @@ class App {
       if(replay === "2"){
         this.isGameRunning = false;
       }
-
-      console.log("isGameRunning : " + this.isGameRunning);
-
     }
   }
 
