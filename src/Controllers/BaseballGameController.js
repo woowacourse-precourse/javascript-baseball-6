@@ -1,7 +1,7 @@
 import BaseballGame from "../Models/BaseballGame.js";
 import InputView from "../Views/InputView.js";
 import OutputView from "../Views/OutputView.js";
-import { validateUtils } from "../utils/validateUtils.js";
+import { validationUtils } from "../utils/validationUtils.js";
 
 export default class BaseballGameController {
   #inputView;
@@ -30,7 +30,7 @@ export default class BaseballGameController {
   }
 
   #processNumbers(game, input) {
-    validateUtils.validateNumbers(input);
+    validationUtils.validateNumbers(input);
     const matchResult = game.handleUserPitches(input);
     this.#outputView.printMatchResult(matchResult);
   }
@@ -41,7 +41,7 @@ export default class BaseballGameController {
   }
 
   #processCommand(game, input) {
-    validateUtils.validateCommand(input);
+    validationUtils.validateCommand(input);
     game.handleUserCommand(input);
   }
 }

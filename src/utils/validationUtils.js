@@ -1,7 +1,7 @@
 import { ERROR_MESSAGES, GAME_CONSTANTS, USER_COMMANDS } from "./constants.js";
 const { INVALID_NUMBERS, INVALID_COMMAND } = ERROR_MESSAGES;
 
-export const validateUtils = {
+export const validationUtils = {
   validateNumbers(input) {
     const numbers = input.split("");
     for (const validation of validations) {
