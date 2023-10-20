@@ -69,6 +69,21 @@ class App {
 
     s === 3 ? this.restartMessage() : this.gameResultMessage(b, s);
   }
+  //게임 끝난 직후 재시작/종료 메시지 출력
+  async restartMessage() {
+    MissionUtils.Console.print(TEXT.THREE_STRKE_MESSAGE);
+    const restartOrExit = await MissionUtils.Console.readLineAsync(
+      TEXT.RESTART_OR_EXIT
+    );
+    if (restartOrExit === RESTART.YES) {
+      this.play();
+      return;
+    } else if (restartOrExit === RESTART.NO) {
+      return;
+    } else {
+      throw new Error(ERROR.INVALID_OPTION_ERROR);
+    }
+  }
 }
 
 const app = new App();
