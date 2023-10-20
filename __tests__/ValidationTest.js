@@ -4,7 +4,7 @@ describe("입력값 검증", () => {
   test("3자리 수인지 검증한다.", () => {
     expect(Validator.isValidLength("123")).toBeTruthy();
     expect(Validator.isValidLength("1234")).toBeFalsy();
-    expect(Validator.isValidLength("12a")).toBeFalsy();
+    expect(Validator.isValidLength("12")).toBeFalsy();
   });
 
   test("서로 다른 수인지 검증한다.", () => {
