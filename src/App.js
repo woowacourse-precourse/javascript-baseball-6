@@ -11,8 +11,8 @@ class App {
 
   async play() {
     this.startGame();
-    this.chooseComputerNumber();
-    await this.getUserInput();
+    this.computerNumber = this.chooseComputerNumber();
+    this.userNumber = await this.getUserInput();
   }
 
   printMessage(message) {
@@ -24,12 +24,16 @@ class App {
   }
 
   chooseComputerNumber() {
-    while (this.computerNumber.length < 3) {
+    let newNumberArray = [];
+
+    while (newNumberArray.length < 3) {
       let randomNumber = this.generateSingleDigitNaturalNumber();
 
-      if (this.computerNumber.includes(randomNumber)) continue;
-      this.computerNumber.push(randomNumber);
+      if (newNumberArray.includes(randomNumber)) continue;
+      newNumberArray.push(randomNumber);
     }
+
+    return newNumberArray;
   }
 
   generateSingleDigitNaturalNumber() {
@@ -38,7 +42,7 @@ class App {
 
   async getUserInput() {
     const userInput = await Console.readLineAsync(MESSAGE.ENTER_NUMBER);
-    this.userNumber = this.validateUserInput(userInput)
+    return this.validateUserInput(userInput)
       .split("")
       .map((string) => +string);
   }
