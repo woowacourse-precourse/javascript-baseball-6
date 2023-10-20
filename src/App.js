@@ -46,7 +46,6 @@ class App {
         this.cntStrike += 1;
       }
     }
-    console.log(this.cntStrike);
   }
 
   async play() {
