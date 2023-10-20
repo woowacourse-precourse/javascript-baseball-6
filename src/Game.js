@@ -3,7 +3,7 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 export class Game {
   constructor() {
     this.welcome();
-    this.randomGenerator();
+    this.getUserInput();
   }
 
   welcome() {
@@ -17,5 +17,19 @@ export class Game {
       set.add(number);
     }
     return [...set];
+  }
+
+  getUserInput() {
+    async function getInputPromise() {
+      try {
+        const inputPromise = await MissionUtils.Console.readLineAsync(
+          "서로 다른 세 자리 숫자를 입력해주세요: "
+        );
+        return inputPromise;
+      } catch (error) {
+        MissionUtils.Console.print("error");
+      }
+    }
+    const inputString = getInputPromise();
   }
 }

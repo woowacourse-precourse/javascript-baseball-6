@@ -1,6 +1,5 @@
-import { Game } from "./Game.js";
+import { Game } from "./game.js";
 
-Game;
 class App {
   async play() {
     const newGame = new Game();
