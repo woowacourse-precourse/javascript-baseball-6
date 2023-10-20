@@ -3,7 +3,7 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 class App {
   constructor() {
     this.computerNumbers = this.setComputerNumbers();
-    this.attempts = 0;
+    this.attempts = 0;  // 사용자가 게임을 시도한 횟수
   }
 
   setComputerNumbers() {
@@ -27,7 +27,7 @@ class App {
         continue;
       }
 
-      this.attempts++;
+      this.attempts++;  // 숫자 입력할 때마다 횟수 +1
       const result = this.countResult(userInput);
       MissionUtils.Console.print(result);
 
@@ -36,7 +36,7 @@ class App {
         const restart = await MissionUtils.Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요: ");  // 게임 재시작 여부
         if (restart.trim() === '1') {  // 새로 시작
           this.computerNumbers = this.setComputerNumbers();  // 난수 재생성
-          this.attempts = 0;  // attempts 초기화
+          this.attempts = 0;  // attempts 0으로 초기화
           MissionUtils.Console.print("게임을 다시 시작합니다.");
         } else {  // 종료
           MissionUtils.Console.print("게임을 종료합니다.");
