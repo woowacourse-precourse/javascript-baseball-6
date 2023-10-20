@@ -23,7 +23,7 @@
    1. [x] handleUserInput
       - 에러 출력
       - 정상값 리턴
-   2. [ ] handleUserResult
+   2. [x] handleUserResult
       - getStrikeAndBall, printStrikeAndBall 볼, 스트라이크 출력
       - 정상값 리턴
 3. endGame

@@ -69,7 +69,30 @@ describe("메서드 유닛 테스트", () => {
     mockQuestions(answers);
 
     answers.forEach(async () => {
-      await expect(game.handleUserInput()).resolves;
+      await expect(game.handleUserInput()).resolves.not.toThrow();
+    });
+  });
+
+  test("handleUserResult 메서드 출력", () => {
+    const randoms = [1, 2, 3, 4, 5, 6, 9, 5, 1, 9, 5, 1];
+    const userNumbers = [
+      [1, 2, 3],
+      [4, 6, 5],
+      [9, 5, 1],
+      [2, 4, 6],
+    ];
+    const answers = ["3스트라이크", "2볼 1스트라이크", "3스트라이크", "낫싱"];
+    mockRandoms(randoms);
+    mockQuestions(answers);
+    const logSpy = getLogSpy();
+
+    answers.forEach((answer, index) => {
+      game.setComputerNumbers();
+      game.setUserNumbers(userNumbers[index]);
+      const result = game.handleUserResult();
+      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(answer));
+      if (index % 2 === 0) expect(result).toBeFalsy();
+      if (index % 2 === 1) expect(result).toBeTruthy();
     });
   });
 });
