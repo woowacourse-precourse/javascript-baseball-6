@@ -1,3 +1,5 @@
+import Player from './Player.js';
+
 class Refree {
   #playerNumber;
   #opponentNumber;
@@ -5,6 +7,7 @@ class Refree {
   constructor(playerNumber, opponentNumber) {
     this.#playerNumber = playerNumber;
     this.#opponentNumber = opponentNumber;
+    console.log(playerNumber, opponentNumber);
   }
 
   playGame() {
@@ -27,6 +30,10 @@ class Refree {
         ? count + 1
         : count;
     }, 0);
+  }
+
+  changeUserNumber(inputNumber) {
+    this.#playerNumber = new Player(inputNumber).userNumberArray;
   }
 }
 export default Refree;
