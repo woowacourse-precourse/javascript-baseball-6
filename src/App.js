@@ -1,33 +1,31 @@
+const correctNumber = (userNumber) => {
+  if (userNumber.length !== 3) {
+    return false;
+  }
+  const uniqueChars = [...new Set([...userNumber])]; // 중복 숫자 제거
+  return userNumber.length === uniqueChars.length;
+};
+
 class UserNumberReader {
   constructor(userNumber = '') {
     this.userNumber = userNumber;
   }
 
-  async userInputNumber() {
+  async run() {
     try {
       this.userNumber = await Console.readLineAsync();
-      return this.userNumber;
+
+      if (!correctNumber(this.userNumber)) {
+        throw new Error("유효하지 않은 입력값입니다.");
+      }
     } catch (error) {
-      console.error("오류 발생:", error);
-      throw error;
+      Console.print("입력 오류: " + error.message);
     }
   }
 }
 
-// 사용자 입력값 유효성 검사
-class UserNumberCorrect {
-  constructor(userNumber) {
-    this.userNumber = userNumber;
-  }
-
-  correctNumber() {
-    if (this.userNumber.length !== 3) {
-      return false;
-    }
-    const uniqueChars = [...new Set([...this.userNumber])]; // 중복 숫자 제거
-    return this.userNumber.length === uniqueChars.length;
-  }
-}
+const read = new UserNumberReader();
+read.run();
 
 class RandomNumberMaker {
   constructor(randomNumber = '') {
@@ -59,8 +57,7 @@ class App {
       const userAnswer = await this.reader.userInputNumber();
       Console.print(userAnswer);
     } catch(error) {
-      /* console.error("에러 메시지:", error);
-      throw error; */
+      throw error;
     }
   }
 }
