@@ -1,0 +1,66 @@
+/* 숫자 야구 게임 결과를 위한 JS */
+import { MissionUtils } from "@woowacourse/mission-utils";
+import playGame from "../game/playGame.js";
+import inputUserNumber from "../data/inputUserNumber.js";
+
+export default async function gameResult(userNumber, computerNumber){
+    const strike = strikeCount(userNumber, computerNumber);
+    const ball = ballCount(userNumber, computerNumber)-strike;
+
+    if (strike === 0 && ball === 0) {
+        MissionUtils.Console.print('낫싱');
+        const newUserNumber = await inputUserNumber();
+        return gameResult(newUserNumber, computerNumber);
+    } else if (strike === 3) {
+        MissionUtils.Console.print(`${strike}스트라이크`);
+        MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');        
+        return playRestart();
+    } else if (strike > 0 && ball > 0) {
+        MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
+        const newUserNumber = await inputUserNumber();
+        return gameResult(newUserNumber, computerNumber);
+    } else if (strike > 0 && ball === 0) {
+        MissionUtils.Console.print(`${strike}스트라이크`);
+        const newUserNumber = await inputUserNumber();
+        return gameResult(newUserNumber, computerNumber);
+    } else if (strike === 0 && ball > 0) {
+        MissionUtils.Console.print(`${ball}볼`);
+        const newUserNumber = await inputUserNumber();
+        return gameResult(newUserNumber, computerNumber);
+    }
+
+
+}
+
+const strikeCount = (userNumber, computerNumber) => {
+    return userNumber.split("").reduce((acc, cur, idx) => {        
+        if(computerNumber.split(",")[idx] === cur){
+            acc++;
+        }
+        return acc;
+    }, 0);
+}
+
+const ballCount = (userNumber, computerNumber) => {
+    return userNumber.split("").reduce((acc, cur, idx) => {        
+        if(computerNumber.includes(cur)){
+            acc++;
+        }
+        return acc;
+    }, 0);
+}
+
+async function playRestart(){
+    MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n')
+    .then((res) => {
+        if(res == 1){
+            return playGame();
+        }else if(res == 2){
+            return MissionUtils.Console.print('게임을 이용해 주셔서 감사드립니다.');
+        }
+    })
+    .catch((error) => {
+        MissionUtils.Console.print(error);
+    });    
+}
+
