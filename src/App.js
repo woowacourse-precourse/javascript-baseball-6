@@ -37,6 +37,7 @@ class App {
     // 플레이어와 컴퓨터 숫자 비교
     compare(playerNum, computerNum) {
         let strike = 0;
+        let ball = 0;
 
         // 스트라이크 검사
         for (let i = 0; i < playerNum.length; i++) {
@@ -48,7 +49,11 @@ class App {
             }
         }
         // 볼 검사
-        // 낫싱 검사
+        for (let i = 0; i < playerNum.length; i++) {
+            if (computerNum.includes(playerNum[i])) {
+                ball++;
+            }
+        }
     }
 
     async play() {}
