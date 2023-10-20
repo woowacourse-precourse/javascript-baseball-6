@@ -146,13 +146,30 @@ ex) const FIREFOX = 1; const IS_LEFT = true;
 - 사용자의 값을 입력 받고 출력하기 위해서는 `Console.readLineAsync`(입력용), `Console.print`(출력용)를 활용한다.
 
 ```js
-// 랜덤 숫자뽑기 메서드 사용예시
-
+/* 
+Random.pickNumberInRange(startInclusive, endInclusive) 메서드 사용예시
+숫자 범위를 지정하면 시작 또는 끝 숫자를 포함하여 범위의 숫자를 반환한다.
+*/
 const computer = [];
 while (computer.length < 3) {
   const number = MissionUtils.Random.pickNumberInRange(1, 9);
   if (!computer.includes(number)) {
     computer.push(number);
+  }
+}
+```
+
+```js
+/* 
+readLineAsync(query) 사용예시
+주어진 질문을 화면에 출력하고, 사용자가 입력한 답변을 Promise를 통해 반환한다.
+*/
+
+async function getUsername() {
+  try {
+    const username = await Console.readLineAsync("닉네임을 입력해주세요.");
+  } catch (error) {
+    // reject 되는 경우
   }
 }
 ```
