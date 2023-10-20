@@ -2,6 +2,8 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
   async play() {  
+    MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
+    
     let answer = this.GameStart();
     let userAnswer = '';
 
@@ -25,8 +27,6 @@ class App {
         }
       }
     }
-
-    return MissionUtils.Console.print('숫자 야구 게임을 종료합니다.')
   }
 
   GameStart(){
@@ -39,10 +39,12 @@ class App {
         baseball.push(number);
       }
     }
-
-    MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
     
     return baseball.join('');
+  }
+
+  EndGame(){
+    MissionUtils.Console.print('숫자 야구 게임을 종료합니다.')
   }
 
   Exception(string){
@@ -50,7 +52,7 @@ class App {
   }
 
   Hint(answer,userAnswer){
-    let hint = '';
+    let hint = [];
     let ball = 0;
     let strike = 0;
 
@@ -61,11 +63,11 @@ class App {
       }
     })
 
-    if(ball > 0) hint += `${ball}볼`;
-    if(strike > 0) hint += `${strike}스트라이크`;
-    if(ball === 0 && strike === 0) hint += '낫싱';
+    if(ball > 0) hint.push(`${ball}볼`);
+    if(strike > 0) hint.push(`${strike}스트라이크`);
+    if(ball === 0 && strike === 0) hint.push('낫싱');
 
-    return hint
+    return hint.join(' ');
   }
   
 
