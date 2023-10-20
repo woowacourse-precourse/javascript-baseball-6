@@ -21,17 +21,15 @@ computer객체는 값의 정보를 받아서,
 strike, ball, nothing의 정보가 적힌 객체(메세지)를 돌려준다.
 
 ## 구조
-| src
-
-|		|---components
-
-|		|		|---components.js // components 모음
-
-| 	|---App.js
-
-| 	|---computer.js
-
-| 	|---user.js
+```
++ src
+  + constants  ------  constant를 모아둔 폴더
+    └ constants.js --- constants를 선언한 js파일
+  └ App.js  ---------  프로그램의 실행 진입점
+  └ computer.js  ------컴퓨터 객체
+  └ user.js  --------- user 객체 
+	└ game.js  --------- game의 실행 로직
+```
 
 
 ## 기능 설명
