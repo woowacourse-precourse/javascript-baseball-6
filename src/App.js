@@ -23,6 +23,16 @@ class App {
       const userInput = await MissionUtils.Console.readLineAsync(
         '숫자를 입력해주세요 : ',
       );
+
+      const regexp = new RegExp(`^(?!.*(.).*\\1)[1-9]{${NUMBER_LENGTH}}$`);
+      // ^: 문자열의 시작
+      // (?!.*(.).*\1): 중복 비허용
+      // [1-9]{n}: 1~9 사이 숫자를 n번 반복
+      // $: 문자열의 끝
+
+      if (regexp.test(userInput) === false) {
+        throw Error('[ERROR] 입력 값이 올바르지 않습니다.');
+      }
     } catch (error) {
       console.log(error);
     }
