@@ -11,7 +11,9 @@ class App {
       }
     }
     const random = computer.join('');
-    return random;
+
+    // 시작 문구 출력
+    Console.print('숫자 야구 게임을 시작합니다.');
   }
 }
 
