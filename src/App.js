@@ -35,10 +35,13 @@ async function userPickNum() {
 //   else if() throw new Error("숫자를 입력해주세요.");
 // }
 
-function compareNumber() {
+async function playGame(){
   const cpu = cpuPickNum();
-  const user = userPickNum();
+  await compareNumber(cpu);
+}
 
+async function compareNumber(cpu) {
+  const user = await userPickNum();
   const strike = countStrike(cpu, user);
   const ball = countBall(cpu, user);
 
@@ -82,6 +85,7 @@ function printResult(strike, ball) {
 class App {
   async play() {
     startGame();
+    await playGame();
   }
 }
 
