@@ -79,6 +79,21 @@ class App {
 
   finishGame() {
     Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+    Console.readLineAsync(
+      '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'
+    )
+      .then((input) => {
+        if (input === '1') {
+          this.startGame();
+        } else if (input === '2') {
+          return;
+        } else {
+          throw new Error('[ERROR] 잘못된 형식입니다.');
+        }
+      })
+      .catch((error) => {
+        Console.print(error.message);
+      });
   }
 
   async play() {
