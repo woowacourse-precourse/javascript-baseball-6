@@ -8,6 +8,5 @@ export default function handleUserInput(userInput) {
     throw new Error("잘못된 입력입니다.");
   }
 
-  const listedInput = userInput;
-  return listedInput;
+  return userInput;
 }
