@@ -22,7 +22,7 @@ class App {
           else computer = this.setAnswer();
         }
       } catch (error) {
-        throw new Error("[ERROR]");
+        throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
       }
     }
   }
