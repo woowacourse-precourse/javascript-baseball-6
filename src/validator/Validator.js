@@ -25,7 +25,13 @@ const Validator = {
 
     return true;
   },
-  isExitOrRestart: (input) => { },
+  isExitOrRestart: (input) => {
+    const RESTART = 1;
+    const EXIT = 2;
+    const numberInput = Number(input);
+
+    return numberInput === RESTART || numberInput === EXIT;
+  },
   isNumber: (input) => {
     return !isNaN(input);
   }
