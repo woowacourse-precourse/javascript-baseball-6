@@ -15,7 +15,19 @@ class RandomNumberMaker {
 }
 
 class App {
-  async play() {}
+  constructor() {
+    this.maker = new RandomNumberMaker();
+  }
+
+  async play() {
+    try {
+      const uniqueNumber = this.maker.makeRandomNumber();
+      Console.print(uniqueNumber);
+    } catch(error) {
+      /* console.error("에러 메시지:", error);
+      throw error; */
+    }
+  }
 }
 
 export default App;
