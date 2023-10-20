@@ -7,3 +7,5 @@ const CONSTANTS = Object.freeze({
   winningStrike: 3,
   nothing: 0,
 });
+
+export default CONSTANTS;
