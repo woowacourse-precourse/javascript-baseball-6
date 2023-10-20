@@ -1,4 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
+import * as messages from "./constants/messages";
 
 async function startGame(computerNumber) {
   while (true) {
@@ -14,14 +15,14 @@ async function startGame(computerNumber) {
 
 async function getUserInput() {
   try {
-    const userInput = await Console.readLineAsync("숫자를 입력해주세요 :");
+    const userInput = await Console.readLineAsync(messages.INPUT_PROMPT);
     // TODO: 상수로 빼기
     if (!/^[1-9]{3}$/.test(userInput)) {
-      throw new Error("[ERROR] 세 자리 숫자를 입력해야 합니다.");
+      throw new Error(messages.NUMBER_COUNT_ERROR);
     }
     const uniqueDigits = new Set(userInput);
     if (uniqueDigits.size !== 3) {
-      throw new Error("[ERROR] 서로 다른 숫자를 입력해야 합니다.");
+      throw new Error(messages.DUPLICATE_DIGIT_ERROR);
     }
     return userInput;
   } catch (error) {
@@ -47,12 +48,12 @@ function getHint(hint) {
   const balls = hint.balls;
   // TODO: 상수로 빼기
   if (strikes === 3) {
-    return "3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료";
+    return messages.CORRECT_ANSWER_MESSAGE;
   }
   if (strikes === 0 && balls === 0) {
-    return "낫싱";
+    return messages.NOTHING_MESSAGE;
   }
-  return `${balls}볼 ${strikes}스트라이크`;
+  return messages.BALL_STRIKE_MESSAGE(balls, strikes);
 }
 
 export default startGame;

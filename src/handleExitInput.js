@@ -1,10 +1,9 @@
 import { Console } from "@woowacourse/mission-utils";
+import * as messages from "./constants/messages";
 
 async function handleExitInput() {
   try {
-    const exitInput = await Console.readLineAsync(
-      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
-    );
+    const exitInput = await Console.readLineAsync(messages.GAME_RESTART_PROMPT);
     // TODO: 상수로 빼기
     switch (Number(exitInput)) {
       case 1:
@@ -12,7 +11,7 @@ async function handleExitInput() {
       case 2:
         return -1;
       default:
-        throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+        throw new Error(messages.INVALID_INPUT_ERROR);
     }
   } catch (error) {
     throw error;

@@ -1,13 +1,16 @@
 import { Console } from "@woowacourse/mission-utils";
+import * as messages from "./constants/messages";
+
 import generateComputerNumber from "./generateComputerNumber.js";
 import startGame from "./startGame.js";
 import handleExitInput from "./handleExitInput.js";
+
 class App {
   constructor() {
     this.gameState = 1;
   }
   async play() {
-    Console.print("숫자 야구 게임을 시작합니다.");
+    Console.print(messages.GAME_START_MESSAGE);
     while (this.gameState) {
       const computerNumber = generateComputerNumber();
       this.gameState = await startGame(computerNumber);
