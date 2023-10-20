@@ -25,6 +25,21 @@ class Game {
       console.log(err);
     }
   };
+  checkResult = (userNums) => {
+    const result = {
+      strike: 0,
+      ball: 0,
+    };
+
+    userNums.forEach((num, index) => {
+      if (num === this.computerNums[index]) {
+        result.strike++;
+      } else if (this.computerNums.includes(num)) {
+        result.ball++;
+      }
+    });
+    return result;
+  };
 }
 
 export default Game;
