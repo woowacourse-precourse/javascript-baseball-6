@@ -6,6 +6,9 @@ class Validate {
     numberValidate = (number) => {
         if (number.length !== 3) throw new Error(ERROR_MSG.NUMBER_LENGTH_ERROR);
     }
+    reGameValidate = (number) => {
+        if (isNaN(number)) throw new Error(ERROR_MSG.IS_NUMBER);
+    }
 }
 
 module.exports = Validate;
