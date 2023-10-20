@@ -11,9 +11,15 @@ class App {
   async play() {
     const answer = await InputView.readUserInput();
     const input = Validator.validateUserInput(answer);
-    const table = this.#matchComputerNumber(input);
+    const table = this.#matchComputerNumber([...input].map((e) => Number(e)));
     const template = this.#makeTemplate(table);
     OutputView.printResult(template);
+
+    table.STRIKE_COUNT !== 3 ? this.play() : this.#retry();
+  }
+
+  async #retry() {
+    const answer = await InputView.readRetryAnswer();
   }
 
   #matchComputerNumber(userInput) {
