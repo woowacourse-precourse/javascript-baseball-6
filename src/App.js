@@ -1,9 +1,12 @@
 import { Console } from "@woowacourse/mission-utils";
 import generateComputerNumber from "./generateComputerNumber.js";
+import startGame from "./startGame.js";
 class App {
   async play() {
     Console.print("숫자 야구 게임을 시작합니다.");
-    generateComputerNumber();
+    const computerNumber = generateComputerNumber();
+    Console.print(computerNumber); //임시로 출력
+    startGame(computerNumber);
   }
 }
 
