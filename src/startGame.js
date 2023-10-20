@@ -12,7 +12,7 @@ async function startGame(computerNumber) {
     // TODO: 상수로 빼기
 
     if (result.strikes === 3) {
-      break;
+      return 0;
     }
   }
 }
