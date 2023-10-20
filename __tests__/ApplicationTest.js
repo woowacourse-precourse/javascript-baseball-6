@@ -1,8 +1,6 @@
 import App from "../src/App.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
 
-//제출 방식 숙달 테스트
-
 const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
 
@@ -55,7 +53,7 @@ describe("숫자 야구 게임", () => {
     mockQuestions(answers);
 
     // when & then
-    const app = new App();
+    const app = new App(); // 여기서 new 키워드를 사용해 App을 인스턴스화 해줘서, App의 생성자 함수가 실행됨
 
     await expect(app.play()).rejects.toThrow("[ERROR]");
   });
