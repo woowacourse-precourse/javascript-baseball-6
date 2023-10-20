@@ -2,10 +2,12 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
   async play() {
-    const computerNumber = this.getRandomNumber();
     MissionUtils.Console.print("숫자 야구를 시작합니다.");
-    const userNumber = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
-    this.getBaseballResult(userNumber, computerNumber);
+    while (true) {
+      const computerNumber = this.getRandomNumber();
+      const userNumber = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
+      const result = await this.getBaseballResult(userNumber, computerNumber);
+    }
   }
 
   async getBaseballResult(userNumber, computerNumber) {
@@ -13,7 +15,7 @@ class App {
 
     let strike = 0;
     let ball = 0;
-    let nothing = 0;
+    let nothing = false;
 
     for (let i = 0; i < 3; i++) {
       if (inputIntArray[i] === computerNumber[i]) {
@@ -22,10 +24,21 @@ class App {
         ball += 1;
       }
     }
+    if (strike === 0 && ball === 0) nothing = true;
 
-    if (strike === 0 && ball === 0) nothing = 1;
+    const strikeMessage = strike ? `${strike}스트라이크` : "";
+    const ballMessage = ball ? `${ball}볼` : "";
+    const nothingMessage = "낫싱";
 
-    MissionUtils.Console.print(`숫자 야구 결과 : ${strike} ${ball} ${nothing}`);
+    if (nothing) MissionUtils.Console.print(nothingMessage);
+
+    if (strike === 3) {
+      MissionUtils.Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
+      return 1;
+    } else if (strike !== 3) {
+      MissionUtils.Console.print(`${ballMessage}${strikeMessage}`);
+      return 0;
+    }
   }
 
   getRandomNumber() {
