@@ -17,7 +17,21 @@ class App {
       }
       MissionUtils.Console.print(computer) //테스트
 
-  
+        
+      //입력 받기
+      try {
+        let user = await Console.readLineAsync("숫자를 입력해주세요 : ");
+
+        user=user.split("");         //배열
+        for(let i=0; i<3; i++){      //문자열->숫자
+          user[i]=Number(user[i]);
+        }
+        MissionUtils.Console.print(user); //테스트
+
+      } catch (error) {
+      }  
+
+        
     }
   }
 
