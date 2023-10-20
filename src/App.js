@@ -14,8 +14,13 @@ class App {
       while (!HOME_RUN) {
         let printMsg = ""
         const userInputNumber = await Console.readLineAsync('숫자를 입력해 주세요 : ')
+
+        if (!checkExceptionalInput(userInputNumber)) {
+          throw new Error('[ERROR] 중복되지 않은 3자리 숫자를 입력해 주세요.')
+        }
+
         const userInputArray = numberToArray(userInputNumber)
-        let result = compare(TARGET_NUMBER, userInputArray)
+        let result = compareTwo3digitNumbers(TARGET_NUMBER, userInputArray)
         result[0] == 0 && result[1] == 0 
           ? printMsg = '낫싱'
           : result[1] == 3
@@ -42,7 +47,26 @@ function getRandomNumber() {
     return number
 }
 
-function compare(targetNumber, userInputNumber) {
+
+function checkExceptionalInput(input) {
+  // return input.toString().length == 3 && !isNaN(input) && checkDuplicateNumber(input)  
+  return input.toString().length == 3 && !isNaN(input)
+    ? true
+    : false
+}
+
+function checkDuplicateNumber(number) {
+  const numberToString = number.toString()
+  for (let i = 0; i < numberToString.length; i++) {
+    for (let j = i+1; j < numberToString.length; j++) {
+      return (numberToString[i] == numberToString[j]) 
+        ? false
+        : true
+    }
+  }
+}
+
+function compareTwo3digitNumbers(targetNumber, userInputNumber) {
   let strike = 0;
   let ball = 0;
 
