@@ -1,8 +1,8 @@
 import { Console } from "@woowacourse/mission-utils";
-import { GUIDE_TEXT, ERROR_MESSAGE } from "./constant/constant";
-import User from "./utils/User";
-import Computer from "./utils/Computer";
-import Control from "./utils/Control";
+import User from "./utils/User.js";
+import Computer from "./utils/Computer.js";
+import Control from "./utils/Control.js";
+import { ERROR_MESSAGE, GUIDE_TEXT } from "./constant.js";
 
 class App {
   constructor() {

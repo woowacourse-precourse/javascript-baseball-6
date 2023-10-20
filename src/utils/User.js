@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import { ERROR_MESSAGE, GUIDE_TEXT, NUMBER_SIZE } from "../constant/constant";
+import { ERROR_MESSAGE, GUIDE_TEXT, NUMBER_SIZE } from "../constant.js";
 
 class User {
   // 사용자의 숫자 입력
