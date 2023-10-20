@@ -17,9 +17,9 @@ export default async function inputUserNumber(){
 function inputNumberValidate(inputNumber){
     const numberLength = inputNumber.length;
     const numberSize = new Set(inputNumber.split("")).size;
-    const test = isNaN(inputNumber);
+    const numberCheck = isNaN(inputNumber);
 
-    if(numberLength === 3 && numberSize === 3 && test == false){
+    if(numberLength === 3 && numberSize === 3 && numberCheck == false){
         return inputNumber;
     } else {
         throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
