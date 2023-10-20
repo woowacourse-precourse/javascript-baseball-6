@@ -42,6 +42,14 @@ class App {
     }
   }
 
+  initCntStrike() {
+    this.cntStrike = 0;
+  }
+
+  initCntBall() {
+    this.cntBall = 0;
+  }
+
   countStrike() {
     for (let i = 0; i < NUMBER_LENGTH; i += 1) {
       if (this.answer[i] === this.userInput[i]) {
