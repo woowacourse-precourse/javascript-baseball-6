@@ -59,12 +59,14 @@ class App {
   }
 
   async #processGame() {
+    this.#askPrintStartGame();
     while (true) {
       const playerBaseball = await this.#askPlayerBaseball();
       const { strike, ball } = this.#askCompareResult(playerBaseball);
       this.#askPrintCompareResult({ strike, ball });
       if (strike === GAME_TERMS.baseball.digit) break;
     }
+    this.#askPrintExitGame();
   }
 
   async #restartGame() {
@@ -80,9 +82,7 @@ class App {
 
   async play() {
     this.#initGameSetting();
-    this.#askPrintStartGame();
     await this.#processGame();
-    this.#askPrintExitGame();
     await this.#processExitGameCommand();
   }
 }
