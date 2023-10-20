@@ -16,6 +16,12 @@ class App {
     const opponent = new Opponent();
 
     this.#refree = new Refree(player.userNumberArray, opponent.makeRandomNumber());
+    this.startGame();
+  }
+
+  startGame() {
+    const { ball, strike } = this.#refree.playGame();
+    OutputView.printResult(ball, strike);
   }
 }
 
