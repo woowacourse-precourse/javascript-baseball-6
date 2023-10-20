@@ -27,10 +27,31 @@ const readToList = (answer) => {
   return arr;
 };
 
+// 두 배열을 비교하는 함수
+const compareNumber = (computerList, humanList) => {
+  let strikeCnt = 0;
+  let ballCnt = 0;
+  for (let i = 0; i < computerList.length; i++) {
+    if (computerList[i] === humanList[i]) {
+      strikeCnt += 1;
+    } else {
+      for (let j = 0; j < humanList.length; j++) {
+        if (computerList[i] === humanList[j]) {
+          ballCnt += 1;
+        }
+      }
+    }
+  }
+  return { strikeCnt, ballCnt };
+};
+
 class App {
   async play() {
-    MissionUtils.Console.print(getComputerNumber());
-    MissionUtils.Console.print(await readFromPlayer());
+    // MissionUtils.Console.print(getComputerNumber());
+    // MissionUtils.Console.print(await readFromPlayer());
+    const computerList = getComputerNumber();
+    const humanList = await readFromPlayer();
+    const { strikeCnt, ballCnt } = compareNumber(computerList, humanList);
   }
 }
 
