@@ -12,6 +12,22 @@ class InsideGame {
     return computer;
   }
 
+  vaild(answer){
+    const inputSet = new Set(answer.split('').map(Number));
+        if (isNaN(answer)) {
+          throw new Error("[ERROR] 숫자만 입력해주세요.");
+        }
+        if (answer.length !== 3){
+          throw new Error("[ERROR] 세 자리 숫자를 입력해주세요.");
+        }
+        if (answer.includes(' ')) {
+          throw new Error("[ERROR] 공백이 포함되어 있습니다.");
+        } 
+        if ([...inputSet].length !== 3){
+          throw new Error("[ERROR] 중첩되지 않은 세 자리 숫자를 입력해주세요");
+        }
+    return "Normal Value";
+  }
   strikeCheck(computerNumber, userNumber) {
     let strike = 0;
 
