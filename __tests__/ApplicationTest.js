@@ -27,9 +27,32 @@ describe("숫자 야구 게임", () => {
   test("게임 종료 후 재시작", async () => {
     // given
     const randoms = [1, 3, 5, 5, 8, 9];
-    const answers = ["246", "135", "1", "597", "589", "2"];
+    const answers = ["246","135", "1", "597", "589", "2"];
     const logSpy = getLogSpy();
-    const messages = ["낫싱", "3스트라이크", "1볼 1스트라이크", "3스트라이크", "게임 종료"];
+    const messages = ["낫싱","3스트라이크", "1볼 1스트라이크", "3스트라이크", "게임 종료"];
+    
+
+    mockRandoms(randoms);
+    mockQuestions(answers);
+
+    // when
+    const app = new App();
+    await expect(app.play()).resolves.not.toThrow();
+
+    // then
+    messages.forEach((output) => {
+      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(output));
+    });
+  });
+
+  // TEST
+  test("게임 종료 후 재시작(TEST)", async () => {
+    // given
+    const randoms = [5,8,9,1,3,5];
+    // const answers = ["135","1", "597", "589", "2"];
+    const answers = ["850","589","1", "130", "351","135","2"];
+    const logSpy = getLogSpy();
+    const messages = ["2볼","3스트라이크","2스트라이크","3볼","3스트라이크","게임 종료"];
     
 
     mockRandoms(randoms);
