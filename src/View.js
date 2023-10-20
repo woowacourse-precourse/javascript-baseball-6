@@ -6,7 +6,7 @@ export const readBaseballNumbers = async (message) => {
 };
 
 export const readRestartNumber = async (message) => {
-  const userInput = await Console.readLineAsync('message');
+  const userInput = await Console.readLineAsync(message);
   return userInput;
 };
 
