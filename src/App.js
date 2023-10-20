@@ -25,18 +25,28 @@ function compare(player, computer) {
   return [ball, strike];
 }
 
-function run() {
-  Console.print("숫자 야구 게임을 시작합니다.");
-  let computer = setComputerNumber();
-  while (true) {
-    let ball = 0;
-    let strike = 0;
+function isValidNumber(num) {
+  let isSame = new Set(num).size != 3;
+  let isInvalidNum = num.includes("0") || num.length != 3 || Number.isNaN(num);
+  if (isSame) {
+    throw new Error("[Error]");
+  }
+  if (isInvalidNum) {
+    throw new Error("[Error]");
   }
 }
 
 class App {
   async play() {
-    run();
+    Console.print("숫자 야구 게임을 시작합니다.");
+    let computer = setComputerNumber();
+    while (true) {
+      let ball = 0;
+      let strike = 0;
+      let num = await Console.readLineAsync("숫자를 입력해주세요 : ");
+      let player = num.split("").map(Number);
+      isValidNumber(player);
+    }
   }
 }
 
