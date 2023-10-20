@@ -18,7 +18,6 @@ class App {
             "3자리의 중복되지 않는 숫자를 입력해주세요."
           );
           let { strikes, balls } = this.checkNumber(COM_NUMBER, userNumber);
-
           if (strikes === 3) {
             console.log(
               "3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료"
