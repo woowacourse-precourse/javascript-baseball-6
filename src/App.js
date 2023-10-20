@@ -35,7 +35,30 @@ async function userPickNum() {
 //   else if() throw new Error("숫자를 입력해주세요.");
 // }
 
-function compareNumber() {}
+function compareNumber() {
+  const cpu = cpuPickNum();
+  const user = userPickNum();
+
+  let strike = 0;
+  let ball = 0;
+
+  for(let i = 0; i < cpu.length; i++){
+    if(countStrike(cpu[i], user[i])) strike++;
+    else if(countBall(cpu, cpu[i], user[i])) ball++;
+  }
+}
+
+function countStrike(cpu, user){
+  if(cpu === user){
+    return true;
+  }
+}
+
+function countBall(cpuArr, cpu, user){
+  if(cpu !== user && cpuArr.includes(user)){
+    return true;
+  }
+}
 
 class App {
   async play() {
