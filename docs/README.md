@@ -16,7 +16,7 @@
 
 - 사용자 입력 검사
     name : checkReferee()
-    input : 사용자 입력
+    input : 사용자 입력, 3자리 랜덤 숫자.
     output : isEnd
     isEnd : 3 스트라이크시 종료를 알리기 위함.
 
