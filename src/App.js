@@ -1,7 +1,11 @@
+import ComputerNumber from './ComputerNumber.js';
+
 class App {
   #isStart;
+  #computerNumber;
   async play() {
     this.#isStart = true;
+    this.#computerNumber = ComputerNumber.generateComputerNumber();
     this.#render();
   }
 
