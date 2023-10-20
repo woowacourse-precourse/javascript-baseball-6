@@ -18,7 +18,7 @@ class App {
   _createAnswer() {
     const answer = [];
     while (answer.length < 3) {
-      const number = MissionUtils.Random.pickNumberInRange(1, 9);
+      const number = String(MissionUtils.Random.pickNumberInRange(1, 9));
       if (!answer.includes(number)) {
         answer.push(number);
       }
@@ -30,12 +30,34 @@ class App {
     switch (status) {
       case "playing": {
         const answer = await Console.readLineAsync("숫자를 입력해주세요 : ");
-        Console.print(answer);
+        const result = this._scoreAnswer(answer);
+        const { strike } = result;
+        if (strike === 3) {
+          await this._transition("clear");
+        } else {
+          await this._transition("playing");
+        }
         break;
       }
       default:
         break;
     }
+  }
+
+  _scoreAnswer(answer) {
+    const result = { strike: 0, ball: 0 };
+    for (let i = 0; i < 3; i++) {
+      const current = answer[i];
+      if (current === this._answer[i]) {
+        result.strike++;
+        continue;
+      }
+      if (this._answer.includes(current)) {
+        result.ball++;
+      }
+    }
+
+    return result;
   }
 }
 
