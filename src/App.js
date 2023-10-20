@@ -9,23 +9,6 @@ class App {
     if (!isEnd) this.play();
   }
 
-  checkInputValid(input) {
-    const numberInput = Number(input);
-
-    if (isNaN(numberInput)) {
-      throw "숫자가 잘못된 형식입니다.";
-    } else if (input.length !== 3) {
-      throw "세자리 숫자로 입력해주세요.";
-    } else {
-      const inputIntArray = Array.from(input).map((data) => parseInt(data));
-      const checkArray = [];
-      for (let i = 0; i < inputIntArray.length; i++) {
-        if (checkArray.includes(inputIntArray[i])) throw "서로 다른 숫자를 입력하세요.";
-        checkArray.push(inputIntArray[i]);
-      }
-    }
-  }
-
   async startGame(computerNumber) {
     try {
       const userNumber = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
@@ -52,34 +35,48 @@ class App {
 
   getBaseballResult(userNumber, computerNumber) {
     const inputIntArray = Array.from(userNumber).map((data) => parseInt(data));
-
-    let strike = 0;
-    let ball = 0;
-    let nothing = false;
+    const score = { strike: 0, ball: 0, nothing: false };
 
     for (let i = 0; i < inputIntArray.length; i++) {
       if (inputIntArray[i] === computerNumber[i]) {
-        strike += 1;
+        score.strike += 1;
       } else if (computerNumber.includes(inputIntArray[i])) {
-        ball += 1;
+        score.ball += 1;
       }
     }
-    if (strike === 0 && ball === 0) nothing = true;
+    if (score.strike === 0 && score.ball === 0) score.nothing = true;
 
-    const strikeMessage = strike ? `${strike}스트라이크` : "";
-    const ballMessage = ball ? `${ball}볼` : "";
+    const strikeMessage = score.strike ? `${score.strike}스트라이크` : "";
+    const ballMessage = score.ball ? `${score.ball}볼` : "";
     const nothingMessage = "낫싱";
 
-    if (nothing) {
+    if (score.nothing) {
       MissionUtils.Console.print(nothingMessage);
       return 0;
-    } else if (strike === 3) {
+    } else if (score.strike === 3) {
       MissionUtils.Console.print(`${ballMessage} ${strikeMessage}`.trim());
       MissionUtils.Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
       return 1;
-    } else if (strike !== 3) {
+    } else if (score.strike !== 3) {
       MissionUtils.Console.print(`${ballMessage} ${strikeMessage}`.trim());
       return 0;
+    }
+  }
+
+  checkInputValid(input) {
+    const numberInput = Number(input);
+
+    if (isNaN(numberInput)) {
+      throw "숫자가 잘못된 형식입니다.";
+    } else if (input.length !== 3) {
+      throw "세자리 숫자로 입력해주세요.";
+    } else {
+      const inputIntArray = Array.from(input).map((data) => parseInt(data));
+      const checkArray = [];
+      for (let i = 0; i < inputIntArray.length; i++) {
+        if (checkArray.includes(inputIntArray[i])) throw "서로 다른 숫자를 입력하세요.";
+        checkArray.push(inputIntArray[i]);
+      }
     }
   }
 
