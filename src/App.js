@@ -8,13 +8,23 @@ class App {
       await this.startGame(computerNumber);
       const isEnd = await this.endGame();
       if (!isEnd) this.play();
-    } catch (err) {
-      MissionUtils.Console.print(`[에러에러에러에러]${err}`);
+    } catch (error) {
+      MissionUtils.Console.print(`[ERROR] ${error}`);
+    }
+  }
+
+  checkInputValid(input) {
+    const numberInput = Number(input);
+    if (isNaN(numberInput)) {
+      throw "숫자가 잘못된 형식입니다.";
+    } else if (input.length !== 3) {
+      throw "세자리 숫자로 입력해주세요.";
     }
   }
 
   async startGame(computerNumber) {
     const userNumber = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
+    this.checkInputValid(userNumber);
     const result = this.getBaseballResult(userNumber, computerNumber);
     if (result === 0) {
       await this.startGame(computerNumber);
@@ -32,7 +42,8 @@ class App {
     } else if (isEndGame == 2) {
       return 1;
     } else {
-      throw "[ERROR] 숫자가 잘못된 형식입니다.";
+      MissionUtils.Console.print("숫자를 다시 입력해주세요.");
+      return await this.endGame();
     }
   }
 
@@ -43,7 +54,7 @@ class App {
     let ball = 0;
     let nothing = false;
 
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < inputIntArray.length; i++) {
       if (inputIntArray[i] === computerNumber[i]) {
         strike += 1;
       } else if (computerNumber.includes(inputIntArray[i])) {
@@ -58,6 +69,7 @@ class App {
 
     if (nothing) {
       MissionUtils.Console.print(nothingMessage);
+      return 0;
     } else if (strike === 3) {
       MissionUtils.Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
       return 1;
