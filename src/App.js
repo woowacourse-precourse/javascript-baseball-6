@@ -4,8 +4,9 @@ class App {
     // 상대방 숫자 생성기
     async getComputerNum() {
         let l = [];
-        for (let i = 0; i < 3; i++) {
-            l.push(MissionUtils.Random.pickNumberInRange(1, 9));
+        while (l.length < 3) {
+            let tmp = MissionUtils.Random.pickNumberInRange(1, 9);
+            if (!l.includes(tmp)) l.push(tmp);
         }
         return Promise.resolve(l);
     }
@@ -24,7 +25,7 @@ class App {
                 Number(playerInput) <= 999
             )
         ) {
-            throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+            throw new Error("[ERROR]");
         }
         // 배열화
         let l = [];
@@ -36,30 +37,50 @@ class App {
 
     // 플레이어와 컴퓨터 숫자 비교
     compare(playerNum, computerNum) {
+        let playerNumCopy = [...playerNum];
+        let computerNumCopy = [...computerNum];
+
         let strike = 0;
         let ball = 0;
 
         // 스트라이크 검사
-        for (let i = 0; i < playerNum.length; i++) {
-            if (playerNum[i] === computerNum[i]) {
+        for (let i = 0; i < playerNumCopy.length; i++) {
+            if (playerNumCopy[i] === computerNumCopy[i]) {
                 strike++;
-                playerNum.splice(i, 1);
-                computerNum.splice(i, 1);
-                i--; // 배열을 자르면서 길이가 줄어서
+                playerNumCopy.splice(i, 1);
+                computerNumCopy.splice(i, 1);
+                i--; // 배열을 자르면서 길이가 줄어듬
             }
         }
         // 볼 검사
-        for (let i = 0; i < playerNum.length; i++) {
-            if (computerNum.includes(playerNum[i])) {
+        for (let i = 0; i < playerNumCopy.length; i++) {
+            if (computerNumCopy.includes(playerNumCopy[i])) {
                 ball++;
             }
         }
+
+        return [strike, ball];
+    }
+
+    // 비교 결과 텍스트 출력기
+    compareResultText(data) {
+        // [strike, ball]
+        let result = "";
+
+        if (data[0] === 0 && data[1] === 0) result = "낫싱";
+        else if (data[0] !== 0 && data[1] === 0)
+            result = `${data[0]}스트라이크`;
+        else if (data[0] === 0 && data[1] !== 0) result = `${data[1]}볼`;
+        else if (data[0] !== 0 && data[1] !== 0)
+            result = `${data[1]}볼 ${data[0]}스트라이크`;
+
+        MissionUtils.Console.print(result);
     }
 
     async play() {}
 }
 
-const app = new App();
+let app = new App();
 app.play();
 
 export default App;
