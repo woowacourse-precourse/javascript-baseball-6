@@ -43,6 +43,17 @@ function countStrike(userNumber,computerNumber) {
   return strike;
 }
 
+function countBall(userNumber,computerNumber) {
+  const length = computerNumber.length;
+  let ball = 0;
+  for(let i = 0; i < length; i++) {
+    if(computerNumber[i] !== userNumber[i] && userNumber.includes(computerNumber[i])) {
+      ball++;
+    }
+  }
+  return ball;
+}
+
 const app = new App();
 app.play();
 export default App;
