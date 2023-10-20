@@ -50,7 +50,7 @@ class App {
       isNaN(guessNumber) ||
       this.verifyUniqueDigit(guessNumber)
     ) {
-      MissionUtils.Console.print('올바른 값을 입력하세요');
+      throw new Error('[ERROR]');
     } else {
       if (this.compareNumbers(guessNumber) === 3) {
         this.gameExiter();
@@ -75,9 +75,7 @@ class App {
       MissionUtils.Console.print("게임을 종료합니다.");
       return;
     } else {
-      MissionUtils.Console.print("올바른 값을 입력하세요");
-      this.gameExiter();
-      return;
+      throw new Error('[ERROR]');
     }
     this.startGame();
   }
