@@ -15,7 +15,7 @@ class App {
     const player = new Player(inputNumber);
     const opponent = new Opponent();
 
-    this.#refree = new Refree(player.userNumber, opponent.makeRandomNumber());
+    this.#refree = new Refree(player.userNumberArray, opponent.makeRandomNumber());
   }
 }
 
