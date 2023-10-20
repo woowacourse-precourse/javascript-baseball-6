@@ -45,6 +45,24 @@ class App {
 
   checkTarget(target) {
     //스트라이크, 볼, 낫싱 판정 메소드, 판정결과를 return해야 한다. ex) "3스트라이크"
+    let balls = 0;
+    let strikes = 0;
+
+    for (let i = 0; i < 3; i++) {
+      if (target[i] == this.answer[i]) {
+        strikes++;
+      } else if (this.answer.includes(target[i])) {
+        balls++;
+      }
+    }
+
+    if (strikes == 0 && balls == 0) return "낫싱";
+    if (strikes == 3) return "3스트라이크";
+
+    if (strikes === 3) return "3스트라이크";
+    return `${balls ? balls + "볼" : ""} ${
+      strikes ? strikes + "스트라이크" : ""
+    }`.trim();
   }
 }
 
