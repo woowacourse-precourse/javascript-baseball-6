@@ -8,5 +8,8 @@ export function validateInput(input) {
   if (new Set(input).size !== input.length) {
     throw new Error('[ERROR] 입력값은 중복된 숫자를 포함할 수 없습니다.');
   }
+  if (![...input].every(c => c >= '1' && c <= '9')) {
+    throw new Error('[ERROR] 입력값은 1부터 9까지의 숫자로 이루어져야 합니다.');
+  }
 }
   
