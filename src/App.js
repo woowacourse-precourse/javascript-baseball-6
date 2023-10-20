@@ -1,6 +1,10 @@
 import { Console, Random } from '@woowacourse/mission-utils'
 
 class App {
+  constructor() {
+    Console.print('숫자 야구 게임을 시작합니다.');
+  }
+
   getCompuerNumbers() {
     const computerNumbers = [];
 
@@ -36,11 +40,62 @@ class App {
     });
   };
 
+  // 볼, 스트라이크 개수 계산하는 함수
+  getStrikeOrBall(computerNumbers, userNumbers) {
+    let strike = 0;
+    let ball = 0;
+
+    computerNumbers.forEach((computerNumber, index) => {
+      const userNumber = userNumbers[index];
+      if (computerNumber === userNumber) {
+        strike += 1;
+      } else if (userNumbers.includes(computerNumber)) {
+        ball += 1;
+      }
+    });
+
+    return { strike, ball };
+  }
+
+  // 볼, 스트라이크 개수에 따라 결과를 출력하는 함수
+  printResult(strike, ball) {
+    let result = ''
+
+    if (strike === 0) {
+      if (ball === 0) {
+        result = '낫싱';
+      } else {
+        result = `${ball}볼`;
+      }
+    } else {
+      if (ball === 0) {
+        result = `${strike}스트라이크`;
+      } else {
+        result = `${strike}스트라이크 ${ball}볼`;
+      }
+    }
+
+    Console.print(result);
+  }
+
   async play() {
-    Console.print('숫자 야구 게임을 시작합니다.')
-    const computerNumbers = this.getCompuerNumbers();
-    const userNumbers = await this.getUserNumbers();
-    Console.print(userNumbers);
+    do {
+      const computerNumbers = this.getCompuerNumbers();
+      let userNumbers = await this.getUserNumbers();
+  
+      const { strike, ball } = this.getStrikeOrBall(computerNumbers, userNumbers);
+      this.printResult(strike, ball);
+  
+      if (strike === 3) {
+        Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+        Console.print('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+        const restartFlag = await Console.readLineAsync('');
+  
+        if (restartFlag !== '1') {
+          break;
+        }
+      }
+    } while (true);
   };
 };
 
