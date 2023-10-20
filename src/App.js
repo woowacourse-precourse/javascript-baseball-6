@@ -19,11 +19,16 @@ class App {
       return;
     }
     Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-    const regameYn = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
-    if(regameYn == 1) {
+    const reGameYn = await this.getReGameYn();
+    if(reGameYn) {
       const correctNums = this.getCorrectNums();
       this.goSwing(correctNums);
     }
+  }
+
+  async getReGameYn() {
+    const reGameYn = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+    return reGameYn == 1 ? true : false;
   }
 
   async getInputNums() {
@@ -53,11 +58,16 @@ class App {
         result[0]+=1;
       }
     });
-    const resultStr = result[0]+result[1] ? `${result[0]} 볼 ${result[1]} 스트라이크` : '낫싱';
+
+    const resultStr = result.reduce((acc, count,i) => { 
+      if(!count) return acc
+      if(!i) return `${count}볼`;
+      return result[0] ? `${acc} ${count}스트라이크` : `${count}스트라이크`;
+    },'낫싱')
     const isSuccess = result[1] === 3;
+
     return [resultStr, isSuccess]
   }
-
 }
 
 new App();
