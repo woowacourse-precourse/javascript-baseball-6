@@ -1,5 +1,6 @@
 import { MissionUtils, Console } from "@woowacourse/mission-utils";
 import { validateInput } from './validation.js'; 
+import { NUM_DIGITS, RESTART_GAME, GAME_OVER_MESSAGE,GAME_END_INSTRUCTION,STRIKE_TEXT,BALL_TEXT,NOTHING_TEXT } from "./Constants.js";
 
 class App {
   async play() {
@@ -22,9 +23,9 @@ async function gamePlay(computerNumber) {
 }
 
 async function gamePlayResult() {
-  Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-  const gameEnd = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
-  if(gameEnd === '1') {
+  Console.print(GAME_OVER_MESSAGE);
+  const gameEnd = await Console.readLineAsync(GAME_END_INSTRUCTION);
+  if(gameEnd === RESTART_GAME) {
     return gamePlay(createComputerNumber());
   }
 }
@@ -39,7 +40,7 @@ function startGameTitle() {
 
 function createComputerNumber() {
   const computer = [];
-  while (computer.length < 3) {
+  while (computer.length < NUM_DIGITS) {
     const number = MissionUtils.Random.pickNumberInRange(1, 9);
     if (!computer.includes(number)) {
       computer.push(number);
@@ -79,18 +80,18 @@ function countBall(userNumber,computerNumber) {
   return ball;
 }
 
-function countResult(userNumber,computerNumber) {
-  const strike = countStrike(userNumber,computerNumber);
-  const ball = countBall(userNumber,computerNumber);
+function countResult(userNumber, computerNumber) {
+  const strike = countStrike(userNumber, computerNumber);
+  const ball = countBall(userNumber, computerNumber);
 
   if (strike > 0 && ball > 0) {
-    Console.print(`${ball}볼 ${strike}스트라이크`);
+    Console.print(`${ball}${BALL_TEXT} ${strike}${STRIKE_TEXT}`);
   } else if (strike > 0) {
-    Console.print(`${strike}스트라이크`);
+    Console.print(`${strike}${STRIKE_TEXT}`);
   } else if (ball > 0) {
-    Console.print(`${ball}볼`);
+    Console.print(`${ball}${BALL_TEXT}`);
   } else {
-    Console.print(`낫싱`);
+    Console.print(NOTHING_TEXT);
   }
 }
 
