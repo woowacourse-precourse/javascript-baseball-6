@@ -18,17 +18,14 @@ const getComputerNum = () => {
 // 입력 : 1. 컴퓨터의 세자리 수
 // 출력 : 유저가 입력한 수 리스트로 출력
 // 특이사항 : 3자리 수 이상의 자릿수를 입력하면 throw문으로 애플리케이션을 종료시킨다.
-const getUserNum = async (computer) => {
-  const userNum = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ')
-  const userNumList = []
-  if (userNum.length !== 3 ) {
+const getUserNum = async () => {
+  const userNum = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
+  if (userNum.length !== 3) {
     throw userNum;
   }
-  for (let i = 0; userNumList.length < 3; i++) {
-    userNumList.push(Number(userNum[i]))
-  }
-  return userNumList
-}
+  const userNumList = userNum.split('').map(Number);
+  return userNumList;
+};
 // 설명 : 유저의 세자리 수와 컴퓨터의 세자리 수를 비교하여 스트라이크, 볼, 낫싱 여부를 판단하는 함수
 // 입력 : 1. 유저의 세자리 수 리스트
 //        2. 컴퓨터의 세자리 수 리스트
@@ -58,10 +55,10 @@ const checkStrike = async (computerList) => {
     } else {
       let output = '';
       if (ballCount > 0) {
-        output += `${ballCount} 볼 `;
+        output += `${ballCount}볼 `;
       }
       if (strikeCount > 0) {
-        output += `${strikeCount} 스트라이크`;
+        output += `${strikeCount}스트라이크`;
       }
       MissionUtils.Console.print(output);
     }
@@ -75,20 +72,13 @@ const checkStrike = async (computerList) => {
 }
 }
 
-const main = async () => {
-let computer = getComputerNum()
-let endPoint = false;
-while(endPoint === false) {
-  endPoint = await checkStrike(computer)
-  computer = getComputerNum();
-}
-
-
-}
-
 class App {
   async play() {
-    main()
+    let endPoint = false;
+    while(!endPoint) {
+      const computer = getComputerNum();
+      endPoint = await checkStrike(computer)
+    }
 }
 }
 
