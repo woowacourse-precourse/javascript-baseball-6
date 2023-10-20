@@ -90,7 +90,9 @@ class App {
     const userInput = await Console.readLineAsync('숫자를 입력해주세요 : ');
 
     if (this.validateUserInput(userInput) === false) {
-      throw new Error('[ERROR]');
+      throw new Error(
+        '[ERROR] 입력 값은 오직 1 이상, 9 이하의 세 정수로 이루어져야 합니다.'
+      );
     }
 
     const userNumbers = [...userInput].map(Number);
@@ -127,7 +129,7 @@ class App {
       } else if (retryNumber === '2') {
         return;
       } else {
-        throw new Error('[ERROR]');
+        throw new Error('[ERROR] 입력 값은 오직 1 또는 2가 되어야 합니다.');
       }
     }
   }
