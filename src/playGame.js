@@ -15,9 +15,17 @@ const compareTwoNums = (random, user) => {
       }
     }
   }
-
-  return { strike, ball };
   console.log("strike : ", strike, "ball", ball);
+
+  if (strike === 0 && ball === 0) {
+    console.log("낫싱");
+  } else if (strike && !ball) {
+    console.log(`${strike}스트라이크`);
+  } else if (!strike && ball) {
+    console.log(`${ball}볼`);
+  } else {
+    console.log(`${strike}스트라이크 `,`${ball}볼`);
+  }
 };
 
 const checkValidation = (random, user) => {
