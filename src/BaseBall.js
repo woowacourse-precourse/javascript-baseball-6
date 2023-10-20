@@ -36,6 +36,20 @@ export default class BaseBall {
     return ballsAmount;
   }
 
+  _checkStrikesAmount(userInput) {
+    const userInputArray = [...String(userInput)];
+    const strikesAmount = [...String(this._password)].reduce(
+      (strikeAmount, currentPassword, idx) => {
+        return currentPassword === userInputArray[idx]
+          ? (strikeAmount += 1)
+          : strikeAmount;
+      },
+      0
+    );
+
+    return strikesAmount;
+  }
+
   init() {
     const password = this.createPassword();
     this._setPassword(password);
