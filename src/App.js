@@ -4,14 +4,22 @@ class App {
   constructor() {
     this.random = MissionUtils.Random;
     this.console = MissionUtils.Console;
+    this.ball = 0;
+    this.strike = 0;
   }
 
   async play() {
     this.console.print("숫자 야구 게임을 시작합니다.");
     const answer = this.makeRandomNum();
-    // this.console.print(answer);
-    const question = this.giveQuestion();
-    const getUserInput = await question;
+    this.console.print(answer);
+
+    while (this.strike < 3) {
+      this.ball = 0;
+      this.strike = 0;
+      const question = this.giveQuestion();
+      const getUserInput = await question;
+      const giveHint = this.checkInputAndGiveHint(answer, getUserInput.split("").map(Number));
+    }
   }
 
   makeRandomNum() {
@@ -25,6 +33,22 @@ class App {
 
   giveQuestion() {
     return this.console.readLineAsync("숫자를 입력해 주세요 : ");
+  }
+
+  checkInputAndGiveHint(answer, userInput) {
+    for (let i = 0; i < 3; i++) {
+      const curAnswer = answer[i];
+      const curInput = [...userInput][i];
+
+      if (curAnswer === curInput) this.strike++;
+      else if (answer.includes(curInput)) this.ball++;
+    }
+
+    if (this.ball > 0 && this.strike > 0) this.console.print(`${this.ball}볼 ${this.strike}스트라이크`);
+    else if (this.ball > 0 && this.strike === 0) this.console.print(`${this.ball}볼`);
+    else if (this.ball === 0 && this.strike > 0 && this.strike < 3) this.console.print(`${this.strike}스트라이크`);
+    else if (this.strike === 3) this.console.print(`3스트라이크${"\n"}3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
+    else if (this.strike === 0 && this.ball === 0) this.console.print("낫싱");
   }
 }
 
