@@ -27,6 +27,8 @@ function generateAnswer() {
 async function onUserGuessInput(answer) {
   const input = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
 
+  isCheckValidation(input)
+
   const { strike, ball } = compareAnswer(input, answer);
 
   console.log(strike, ball);
@@ -44,6 +46,18 @@ function compareAnswer(guess, answer) {
   }
 
   return { strike, ball };
+}
+
+function isCheckValidation(input) {
+  if(new Set(input).size !== 3) {
+    throw new Error('중복된 숫자를 입력할 수 없습니다.')
+  }
+  if(input.length !== 3) {
+    throw new Error('3자리의 숫자를 입력해야 합니다.')
+  }
+  if(input.includes(0)) {
+    throw new Error('숫자 0이 포함되면 안됩니다.')
+  }
 }
 
 
