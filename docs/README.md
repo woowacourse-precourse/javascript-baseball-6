@@ -1,18 +1,17 @@
 # 기능 구현 과제
 
-## 게임 시작
-- @woowacourse/mission-utils의 Console API 중 Console.print 사용하여 게임 시작 문구 출력
-
 ## 숫자 생성
 - @woowacourse/mission-utils의 Random API 중 Random.pickNumberInRange() 사용하여 컴퓨터의 랜덤 수 생성
 - 3자리 자연수 생성
 - 1부터 9까지 숫자로 구성
 - 숫자는 중복이 불가능
 
+## 게임 시작
+- @woowacourse/mission-utils의 Console API 중 Console.print 사용하여 게임 시작 문구 출력
+
 ## 입력
-- 숫자는 3자리까지 입력가능하도록 설정
 - @woowacourse/mission-utils의 Console API 중 Console.readLineAsync 사용하여 사용자의 입력 값 받아오기
-- 3자리 숫자가 아닌 값일 경우, 콘솔에 경고 문구 출력
+- 숫자가 3자리 초과인 경우  & 숫자가 아닌 경우: 경고 문구와 함께 다시 질문
 
 ## 입력과 생성 숫자 비교
 - User가 입력한 값을 split 메소드를 통해 배열로 나누기
