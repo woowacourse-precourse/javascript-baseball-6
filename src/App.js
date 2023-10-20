@@ -1,9 +1,22 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
+function makeAnswer() {
+  const answer = [];
+  while (answer.length < 3) {
+    const number = MissionUtils.Random.pickNumberInRange(1, 9);
+    if (!answer.includes(number)) {
+      answer.push(number);
+    }
+  }
+  return answer;
+}
+
 class App {
   async play() {
     //게임 시작문구를 출력한다.
+    console.log("숫자 야구 게임을 시작합니다.");
     //컴퓨터는 1~9까지 서로다른 임의수 3개를 선택
-    console.log(MissionUtils.Random.pickNumberInList());
+    const answerNum = makeAnswer();
+    console.log(answerNum);
     //사용자에게 서로다른 숫자 3개를 입력받는다. 숫자를 입력해주세요 :
     //컴퓨터의 숫자를 순회하여 사용자의 숫자와 비교한다
     //findindex 로 스트라이크 갯수 변수와 볼 변수 낫싱 변수를 체크한다.
