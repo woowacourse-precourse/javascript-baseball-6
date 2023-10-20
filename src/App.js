@@ -1,32 +1,36 @@
 import { Random, Console } from "@woowacourse/mission-utils";
 
 class App {
+  #strike;
+  #ball;
+  #nothing;
+
   constructor() {
     this.computer = "";
-    this.user = "";
+    this.player = "";
+    this.#strike = 0;
+    this.#ball = 0;
+    this.#nothing = false;
   }
 
   async play() {
-    this.computer = this.pickRandomNum();
+    this.pickComputerNumber();
     Console.print("숫자 야구 게임을 시작합니다.");
 
     while (true) {
-      this.user = await this.getUserNumber();
-
-      // 결과 출력하기
-      const success = this.grade(this.user);
-      // 숫자를 모두 맞혔으면 통과
-      if (success) break;
+      await this.enterPlayerNumber();
+      this.compareNumber();
+      this.printScore();
+      if (this.isThreeStrike()) break;
     }
 
     Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-
-    if (await this.isRestart()) {
-      this.play();
-    }
+    this.initScore();
+    await this.reStart();
   }
 
-  pickRandomNum() {
+  /* 컴퓨터가 서로 다른 숫자 3개를 뽑는다. */
+  pickComputerNumber() {
     let arr = [];
 
     while (arr.length < 3) {
@@ -36,34 +40,33 @@ class App {
       }
     }
 
-    return arr.join("");
+    this.computer = arr.join("");
   }
 
-  // 사용자 입력 받기
-  async getUserNumber() {
-    const user = await Console.readLineAsync("숫자를 입력해주세요 : ");
+  /* 플레이어의 숫자를 입력받는다. */
+  async enterPlayerNumber() {
+    const answer = await Console.readLineAsync("숫자를 입력해주세요 : ");
     const regex = new RegExp(/[0-9]/);
 
-    if (user.length !== 3 || !regex.test(user)) {
-      throw new Error("[ERROR]");
-    }
-    return user;
+    this.logErrorIf(answer.length !== 3 || !regex.test(answer));
+    this.player = answer;
   }
 
-  grade(answer) {
+  /* 컴퓨터와 플레이어의 숫자 비교한다. */
+  compareNumber() {
     let strike = 0;
     let ball = 0;
     let nothing = false;
 
-    for (let i = 0; i < answer.length; i++) {
+    for (let i = 0; i < this.player.length; i++) {
       // '스트라이크'인 경우
-      if (answer[i] === this.computer[i]) {
+      if (this.player[i] === this.computer[i]) {
         strike++;
         continue;
       }
 
       // '볼'인 경우
-      if (this.computer.includes(answer[i])) {
+      if (this.computer.includes(this.player[i])) {
         ball++;
       }
     }
@@ -71,38 +74,61 @@ class App {
     if (strike === 0 && ball === 0) {
       nothing = true;
     }
+    this.strike = strike;
+    this.ball = ball;
+    this.nothing = nothing;
+  }
 
-    // 결과 출력하기
+  /* 점수를 출력한다. */
+  printScore() {
     let score = "";
 
-    if (nothing) {
+    if (this.nothing) {
       score = "낫싱";
     } else {
-      if (ball > 0) {
-        score += `${ball}볼 `;
+      if (this.ball > 0) {
+        score += `${this.ball}볼 `;
       }
-      if (strike > 0) {
-        score += `${strike}스트라이크`;
+      if (this.strike > 0) {
+        score += `${this.strike}스트라이크`;
       }
     }
     Console.print(score);
+  }
 
-    // 모두 맞히면 true, 아니면 false
-    if (strike !== 3) {
+  /* 3 스트라이크 여부(숫자를 모두 맞췄는지)를 반환한다.  */
+  isThreeStrike() {
+    if (this.strike !== 3) {
       return false;
     }
     return true;
   }
 
-  async isRestart() {
-    const user = await Console.readLineAsync(
+  /* 점수를 초기화한다. */
+  initScore() {
+    this.strike = 0;
+    this.ball = 0;
+    this.nothing = false;
+  }
+
+  /* 게임 재시작 여부를 입력받는다. */
+  async reStart() {
+    const answer = await Console.readLineAsync(
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
     );
-    if (user !== "1" && user !== "2") {
+
+    this.logErrorIf(answer !== "1" && answer !== "2");
+
+    if (answer === "1") {
+      this.play();
+    }
+  }
+
+  /* 조건에 따라 error를 던진다. */
+  logErrorIf(condition) {
+    if (condition) {
       throw new Error("[ERROR]");
     }
-    if (user === "1") return true;
-    return false;
   }
 }
 
