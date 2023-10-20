@@ -19,8 +19,7 @@ class App {
     this.checkResult(inputValue);
   }
 
-  async checkResult(inputValue) {
-    console.log("checkResult");
+  calculateStrikeAndBall(inputValue) {
     const inputNumArr = inputValue.split("");
     let strike = 0;
     let ball = 0;
@@ -35,6 +34,13 @@ class App {
         }
       }
     }
+
+    return { strike, ball };
+  }
+
+  async checkResult(inputValue) {
+    console.log("checkResult");
+    const { strike, ball } = this.calculateStrikeAndBall(inputValue);
 
     if (ball === 0 && strike === 0) {
       Console.print("낫싱");
