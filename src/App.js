@@ -10,7 +10,7 @@ class App {
   getRandomNumbers() {
     const numbers = new Set();
     while (numbers.size < 3) {
-      numbers.add(Math.floor(Math.random() * 9 + 1))
+      numbers.add(MissionUtils.Random.pickNumberInRange(1, 9))
     }
     return [...numbers];
   }
