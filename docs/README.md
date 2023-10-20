@@ -1,5 +1,5 @@
 ### 게임 시작
-- [ ] `@woowacourse/mission-utils`의 `Console.print`을 활용해 게임을 시작할 게임 시작 문구를 출력한다
+- [x] `@woowacourse/mission-utils`의 `Console.print`을 활용해 게임을 시작할 게임 시작 문구를 출력한다
 
 ### 컴퓨터 숫자 정하기
 - [ ] `@woowacourse/mission-utils`의 `Random.pickNumberInRange()`을 활용해 1에서 9까지의 난수를 생성한다
