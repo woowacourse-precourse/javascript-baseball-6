@@ -33,7 +33,6 @@ class App {
   compareNumbers(guessNumber) {
     let strikeNumbers = 0,
       ballNumbers = 0;
-    console.log(COMPUTER_NUMBER);
     for (let i = 0; i < 3; i++) {
       if (parseInt(guessNumber[i]) === COMPUTER_NUMBER[i]) {
         strikeNumbers += 1;
