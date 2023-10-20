@@ -10,8 +10,9 @@ class App {
     this._transition("playing");
   }
 
-  _transition(status) {
+  async _transition(status) {
     this._status = status;
+    await this._entryEffect(this._status);
   }
 
   _createAnswer() {
@@ -22,8 +23,19 @@ class App {
         answer.push(number);
       }
     }
-
     this._answer = answer;
+  }
+
+  async _entryEffect(status) {
+    switch (status) {
+      case "playing": {
+        const answer = await Console.readLineAsync("숫자를 입력해주세요 : ");
+        Console.print(answer);
+        break;
+      }
+      default:
+        break;
+    }
   }
 }
 
