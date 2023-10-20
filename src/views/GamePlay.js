@@ -16,6 +16,7 @@ class GamePlay {
     startGame() {
         MissionUtils.Console.print(OUTPUT_MSG.START_GAME);
         this.#getAnswer();
+        
     }
 
     #getAnswer() {

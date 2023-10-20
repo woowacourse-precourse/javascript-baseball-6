@@ -1,6 +1,7 @@
 const CONSTANTS = {
     ANSWER_NUMBER : [],
     USER_NUMBER : '',
+    REGAME_CONSTANTS : 0,
 };
 
 const STRIKE_BALL = {

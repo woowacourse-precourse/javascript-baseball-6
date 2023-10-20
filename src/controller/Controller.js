@@ -27,8 +27,9 @@ class Controller {
             STRIKE_BALL.BALL = 0;
             this.#checkingStrike(CONSTANTS.USER_NUMBER);
             this.OUT.printResult();
-            if (STRIKE_BALL.STRIKE === 3) return;
+            if (STRIKE_BALL.STRIKE === 3) break;
         }
+        this.#endGame();
     }
 
     #checkingStrike(number) {
@@ -39,6 +40,17 @@ class Controller {
 
     #checkingBall(num) {
         (CONSTANTS.ANSWER_NUMBER.includes(parseInt(num))) ? STRIKE_BALL.BALL += 1 : false;
+    }
+
+    #endGame() {
+        MissionUtils.Console.print(OUTPUT_MSG.END_GAME);
+        this.#reGame();
+    }
+
+    async #reGame() {
+        MissionUtils.Console.print(OUTPUT_MSG.RE_GAME);
+        CONSTANTS.REGAME_CONSTANTS = await MissionUtils.Console.readLineAsync(`${INPUT_MSG.INPUT_NUMBER}`);
+        (CONSTANTS.REGAME_CONSTANTS == 1) ? this.getInputNumber() : MissionUtils.Console.print(`${OUTPUT_MSG.GAME_OVER}`); 
     }
 }
 
