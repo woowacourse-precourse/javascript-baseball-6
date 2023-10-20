@@ -3,9 +3,9 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 class App {
   async play() {
     const number = this.getRandomNumber();
-    console.log(number);
+    MissionUtils.Console.print("숫자 야구를 시작합니다.");
+    const inputNumber = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
   }
-
   getRandomNumber() {
     const computer = [];
     while (computer.length < 3) {
