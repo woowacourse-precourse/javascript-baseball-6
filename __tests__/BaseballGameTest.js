@@ -13,8 +13,6 @@ describe('BaseballGame 도메인 테스트', () => {
   ])('.result($userInput, $computerInput)', ({ userInput, computerInput, result }) => {
     test(`strike: ${result.strike}, ball: ${result.ball} 반환`, () => {
       const baseballGame = new BaseballGame({ size: 3, min: 1, max: 9 });
-      baseballGame.start();
-
       const gameResult = baseballGame.result(userInput, computerInput);
 
       expect(gameResult).toEqual(result);
