@@ -5,6 +5,10 @@ const NUMBER_LENGTH = 3;
 class App {
   answer = [];
 
+  userInput = [];
+
+  cntStrike = 0;
+
   setAnswer() {
     while (this.answer.length < NUMBER_LENGTH) {
       const number = MissionUtils.Random.pickNumberInRange(1, 9);
@@ -23,9 +27,20 @@ class App {
       console.log(error);
     }
   }
+
+  countStrike() {
+    for (let i = 0; i < NUMBER_LENGTH; i += 1) {
+      if (this.answer[i] === this.userInput[i]) {
+        this.cntStrike += 1;
+      }
+    }
+    console.log(this.cntStrike);
+  }
+
   async play() {
     this.setAnswer();
     await this.getUserInput();
+    this.countStrike();
   }
 }
 
