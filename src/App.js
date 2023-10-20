@@ -71,9 +71,9 @@ function calculateStrikeCount(userNumber,computerNumber) {
 function calculateBallCount(userNumber,computerNumber) {
   const length = computerNumber.length;
   let ball = 0;
-  const userNmberSet = new Set(userNumber);
+  const userNumberSet = new Set(userNumber);
   for(let i = 0; i < length; i++) {
-    if(computerNumber[i] !== userNumber[i] && userNmberSet.has(computerNumber[i])) {
+    if(computerNumber[i] !== userNumber[i] && userNumberSet.has(computerNumber[i])) {
       ball++;
     }
   }
