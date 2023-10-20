@@ -2,6 +2,10 @@ import { Random } from "@woowacourse/mission-utils";
 import NUMBER from "./constant/NUMBER.js";
 
 class Computer {
+  constructor() {
+    this.selectedNumberArray = this.createNumbers();
+  }
+
   createNumbers() {
     let newNumberArray = [];
 

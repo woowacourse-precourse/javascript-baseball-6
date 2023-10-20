@@ -10,17 +10,17 @@ class App {
   }
 
   async play() {
-    this.startGame();
-    this.computerNumber = new Computer().createNumbers();
-    this.userNumber = await new User().getValidatedInput();
+    await this.startGame();
   }
 
   printMessage(message) {
     Console.print(message);
   }
 
-  startGame() {
+  async startGame() {
     this.printMessage(MESSAGE.START_GAME);
+    this.computerNumber = new Computer().selectedNumberArray;
+    this.userNumber = await new User().inputNumberArray;
   }
 }
 
