@@ -14,8 +14,18 @@ class App {
     }
   }
 
+  async getUserInput() {
+    try {
+      const userInput = await MissionUtils.Console.readLineAsync(
+        '숫자를 입력해주세요 : ',
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }
   async play() {
     this.setAnswer();
+    await this.getUserInput();
   }
 }
 
