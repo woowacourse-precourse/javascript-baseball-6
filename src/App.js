@@ -3,6 +3,10 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 class App {
   async play() {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
+    await this.playing();
+  }
+
+  async playing() {
     const computerNumberArray = this.setComputerNumber();
 
     while (1) {
@@ -10,6 +14,7 @@ class App {
       if (answers == 1) break;
     }
     MissionUtils.Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
+    this.restartOrExit();
   }
 
   setComputerNumber() {
@@ -55,6 +60,7 @@ class App {
   async checkNumber(computerNumberArray) {
     const userNumberArray = await this.getUserNumber();
 
+    if (userNumberArray == null) throw new Error("[ERROR]");
     let strikeCount = 0;
     let ballCount = 0;
     const ballCheckArray = [];
@@ -86,9 +92,20 @@ class App {
       return 0;
     }
   }
-}
 
-const app = new App();
-app.play();
+  async restartOrExit() {
+    try {
+      const choice = await MissionUtils.Console.readLineAsync(
+        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+      );
+
+      if (choice == 1) this.play();
+      else if (choice == 2) MissionUtils.Console.print("게임을 종료합니다.");
+      else throw new Error("1또는 2를 입력해주세요");
+    } catch (error) {
+      MissionUtils.Console.print(`에러발생 ${error}`);
+    }
+  }
+}
 
 export default App;
