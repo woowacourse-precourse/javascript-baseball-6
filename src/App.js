@@ -27,16 +27,20 @@ function generateAnswer() {
 async function onUserGuessInput(answer) {
   const input = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
 
-  isCheckValidation(input)
-  const { strike, ball } = compareAnswer(input, answer);
+  try {
+    isCheckValidation(input)
+    const { strike, ball } = compareAnswer(input, answer);
 
-  const message = printOutput(strike, ball);
-  MissionUtils.Console.print(message);
+    const message = printOutput(strike, ball);
+    MissionUtils.Console.print(message);
 
-  if(message !== '3스트라이크') {
-    onUserGuessInput(answer);
-  } else {
-    // 재게임 요청 
+    if(message !== '3스트라이크') {
+      onUserGuessInput(answer);
+    } else {
+      requestReGame();
+    }
+  } catch(err) {
+    throw new Error('다시 시도해 주세요.')
   }
 }
 
@@ -64,6 +68,17 @@ function printOutput(strike, ball) {
   } else if(strike > 0 && ball > 0) {
     return `${ball}볼 ${strike}스트라이크 `
   }
+}
+
+async function requestReGame() {
+  MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+  const requestInput = await MissionUtils.Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+  if(+requestInput === 1) {
+    const answer = generateAnswer();
+    onUserGuessInput(answer);
+  } 
+
+  return
 }
 
 function isCheckValidation(input) {
