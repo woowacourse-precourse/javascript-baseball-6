@@ -3,11 +3,13 @@ import { MissionUtils, Console } from "@woowacourse/mission-utils";
 class App {
   async play() {
     startGameTitle();
+    gamePlay(createComputerNumber());
   }
 }
 
-async function gamePlay() {
-
+async function gamePlay(computerNumber) {
+  const userNumber = await createUserNumber();
+  countResult(userNumber,computerNumber);
 }
 
 function startGameTitle() {
