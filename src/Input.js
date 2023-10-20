@@ -12,6 +12,8 @@ async function Input() {
         throw new Error("[ERROR]"); 
     }else if(answerArr[0] === answerArr[1] || answerArr[0] === answerArr[2] || answerArr[1] === answerArr[2]){
         throw new Error("[ERROR]"); 
+    }else if(!answerArr.includes(1, 2, 3, 4, 5, 6, 7, 8, 9)){
+        throw new Error("[ERROR]"); 
     }else{
         return answerArr;
     }

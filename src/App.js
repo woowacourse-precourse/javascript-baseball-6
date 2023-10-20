@@ -32,5 +32,5 @@ class App {
     }
   }
 }
-
+App.play();
 export default App;

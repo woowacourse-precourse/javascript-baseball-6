@@ -22,6 +22,8 @@ function AnswerCheck(correctAnswer ,answer) {
         return 1;
     }else if(strike === 0){
         Console.print(ball + '볼');
+    }else if(ball === 0){
+        Console.print(strike + '스트라이크');
     }else{
         Console.print(ball + '볼 ' + strike + '스트라이크');
     }
