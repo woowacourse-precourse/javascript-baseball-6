@@ -1,6 +1,7 @@
 import App from "../src/App.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
 
+// readLineAsync - 입력을 위한 라인
 const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
 
@@ -10,6 +11,7 @@ const mockQuestions = (inputs) => {
   });
 };
 
+// random Number 를 위한 라인
 const mockRandoms = (numbers) => {
   MissionUtils.Random.pickNumberInRange = jest.fn();
   numbers.reduce((acc, number) => {
