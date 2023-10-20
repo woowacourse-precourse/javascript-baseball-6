@@ -16,6 +16,11 @@ class Computer {
     return this.nums;
   }
 
+  isEnd(scores) {
+    const [strike, _] = scores;
+    return strike === 3;
+  }
+
   match(input) {
     const inputNums = [...input].map(Number);
     const { nums } = this;
