@@ -5,4 +5,10 @@ export default class Validator {
     }
     return answer;
   }
+  static validateRetry(answer) {
+    if (answer !== '1' && answer !== '2') {
+      throw new Error('[ERROR] 1과 2만 입력해주세요.');
+    }
+    return answer;
+  }
 }
