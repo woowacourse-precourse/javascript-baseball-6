@@ -91,7 +91,7 @@ class App {
 
     if (this.validateUserInput(userInput) === false) {
       throw new Error(
-        '[ERROR] 입력 값은 오직 1 이상, 9 이하의 세 정수로 이루어져야 합니다.'
+        '[ERROR] 입력 값은 오직 1 이상, 9 이하의 서로 다른 세 정수로 이루어져야 합니다.'
       );
     }
 
