@@ -1,4 +1,4 @@
-const LOG = {
+const LOG = Object.freeze({
   /**
    * 게임 시작 시 출력되는 메시지
    */
@@ -18,9 +18,9 @@ const LOG = {
    * 정답을 맞혔을 때 출력되는 메시지
    */
   CORRECT: "3개의 숫자를 모두 맞히셨습니다! 게임 종료",
-};
+});
 
-const ERROR_MESSAGE = {
+const ERROR_MESSAGE = Object.freeze({
   HEADER: "[ERROR]",
 
   /**
@@ -47,7 +47,7 @@ const ERROR_MESSAGE = {
    * 사용자 입력이 1 또는 2가 아닐 경우
    */
   NOT_RESTART_OR_END: "1 또는 2를 입력해주세요.",
-};
+});
 
 /**
  * 사용자 입력의 최대 길이
