@@ -26,22 +26,16 @@ class App {
   async makePitchingNumber() {
     const START_MESSAGE = this.message("START");
     const inputNumber = await MissionUtils.Console.readLineAsync(START_MESSAGE);
-    // 입력값 유효성 검사
-    // const reg = /[^1-9]/g;
-    // if (inputNumber.length !== 3) throw new Error(this.ERROR_MESSAGE.LENGTH);
-    // if (reg.test(inputNumber)) throw new Error(this.ERROR_MESSAGE.NOT_NUMBER);
-    // if (inputNumber.length !== new Set(inputNumber).size)
-    //   throw new Error(this.ERROR_MESSAGE.SAME_NUMBER);
-    // 유효성 검사 통과하면 숫자 배열로 변환
-    this.pitchingNumber = new Array(...inputNumber).map((number) =>
-      parseInt(number)
+    // 유효성 테스트 통과 시 배열로 할당
+    this.pitchingNumber = new Array(...this.inputValidation(inputNumber)).map(
+      (number) => parseInt(number)
     );
   }
 
   message(NAME) {
     const MESSAGE = {
       // 상수는 대문자로 짓고, _로 구분한다.
-      START: "숫자 야구 게임을 시작합니다.",
+      START: "숫자 야구 게임을 시작합니다.\n",
       INPUT: "숫자를 입력해주세요 : ",
       RETRY: "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n",
       STRIKE: "스트라이크",
@@ -60,6 +54,17 @@ class App {
       SAME_NUMBER: "[ERROR] 입력값은 서로 다른 숫자여야 합니다.",
     };
     return ERROR_MESSAGE[NAME];
+  }
+
+  inputValidation(inputNumber) {
+    //입력값 유효성 검사
+    const reg = /[^1-9]/g;
+    if (inputNumber.length !== 3) throw new Error(this.errorMessage("LENGTH"));
+    if (reg.test(inputNumber)) throw new Error(this.errorMessage("NOT_NUMBER"));
+    if (inputNumber.length !== new Set(inputNumber).size)
+      throw new Error(this.errorMessage("SAME_NUMBER"));
+    //유효성 검사 통과하면 변환
+    return inputNumber;
   }
 
   async play() {
