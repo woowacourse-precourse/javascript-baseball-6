@@ -4,4 +4,9 @@ export const GAME_TERMS = Object.freeze({
     maxNumber: 9,
     digit: 3,
   }),
+  compareResult: Object.freeze({
+    strike: '스트라이크',
+    ball: '볼',
+    nothing: '낫싱',
+  }),
 });

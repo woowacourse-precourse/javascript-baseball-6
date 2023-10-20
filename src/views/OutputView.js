@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import { OUTPUT_MESSAGE } from '../constants/message';
+import { OUTPUT_MESSAGE_METHOD, OUTPUT_MESSAGE_TEXT } from '../constants/message';
 
 const OutputView = {
   print(message) {
@@ -7,7 +7,15 @@ const OutputView = {
   },
 
   printStartGame() {
-    this.print(OUTPUT_MESSAGE.gameStart);
+    this.print(OUTPUT_MESSAGE_TEXT.gameStart);
+  },
+
+  printCompareResult({ strike, ball }) {
+    this.print(OUTPUT_MESSAGE_METHOD.compareResult({ strike, ball }));
+  },
+
+  printExitGame() {
+    this.print(OUTPUT_MESSAGE_TEXT.exitGame);
   },
 };
 
