@@ -1,11 +1,9 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 class User {
-	async guessTheAnswer() {
-		let userInputValue = await MissionUtils.Console.readLineAsync(
-			"숫자를 입력하세요."
-		);
-		return userInputValue;
+	async response(request) {
+		const inputValue = await MissionUtils.Console.readLineAsync(request);
+		return inputValue;
 	}
 }
 

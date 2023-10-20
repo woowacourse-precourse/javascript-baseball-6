@@ -1,63 +1,27 @@
-import { Console, MissionUtils } from "@woowacourse/mission-utils";
-import User from "./User.js";
-import Analyzer from "./Analyzer.js";
-import Printer from "./Printer.js";
+import { Console } from "@woowacourse/mission-utils";
+import GameManager from "./GameManager.js";
 
 class App {
-	#answerLength = 3;
-	constructor() {
-		this.user = new User();
-		this.printer = new Printer();
-		this.analyzer = new Analyzer();
-	}
+	#answerSize = 3;
 
-	get #answer() {
-		const result = new Set();
-		while (result.size < this.#answerLength) {
-			const number = MissionUtils.Random.pickNumberInRange(1, 9);
-			result.add(number);
-		}
-		return [...result.values()];
+	constructor() {
+		this.gameManager = new GameManager();
 	}
 
 	async play() {
 		Console.print("숫자 야구 게임을 시작합니다.");
-		const answer = this.#answer;
-		const gameResult = await this.progressTheGame(answer);
-	}
+		this.gameManager.createAnswer(this.#answerSize);
 
-	async progressTheGame(answer) {
-		const userGuessInput = await this.user.guessTheAnswer();
-		const analyzeResult = this.analyzeTheGame(answer, userGuessInput);
-		this.printer.printOutpu(analyzeResult);
-		return this.restartOrNot(analyzeResult, answer);
-	}
+		const gameResult = await this.gameManager.progressTheGame();
 
-	analyzeTheGame(answer, userGuessInput) {
-		this.analyzer.settingAnalyzer(answer, userGuessInput);
-		this.analyzer.checkValidInput();
-		return this.analyzer.checkTheResult();
-	}
-
-	async restartOrNot(gameResult, answer) {
-		const { strike } = gameResult;
-
-		if (strike === 3) {
-			Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-			const userInputValue = await MissionUtils.Console.readLineAsync(
-				"게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
-			);
-
-			const isRestart = userInputValue === "1";
-
-			if (isRestart) {
-				return await this.play();
-			}
-			return;
+		if (gameResult === "Restart") {
+			return await this.play();
 		}
-
-		return await this.progressTheGame(answer);
+		return "Game Over";
 	}
 }
 
 export default App;
+
+const app = new App();
+app.play();
