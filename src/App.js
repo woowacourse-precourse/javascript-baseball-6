@@ -33,6 +33,8 @@ class App {
       if (regexp.test(userInput) === false) {
         throw Error('[ERROR] 입력 값이 올바르지 않습니다.');
       }
+
+      this.userInput = Array.from(userInput, (char) => Number(char));
     } catch (error) {
       console.log(error);
     }
