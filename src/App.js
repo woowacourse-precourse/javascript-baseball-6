@@ -7,7 +7,16 @@ class App {
   async play() {
     Console.print("숫자 야구 게임을 시작합니다.");
     this._createAnswer();
-    this._transition("playing");
+    await this._transition("playing");
+  }
+
+  async restart() {
+    this._createAnswer();
+    await this._transition("playing");
+  }
+
+  quit() {
+    return;
   }
 
   async _transition(status) {
@@ -43,6 +52,25 @@ class App {
         }
         break;
       }
+      case "clear": {
+        Console.print("3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+        const input = await Console.readLineAsync(
+          "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+        );
+        if (input === "1") {
+          await this.restart();
+        } else if (input === "2") {
+          await this._transition("end");
+        } else {
+          await Console.readLineAsync(
+            "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+          );
+        }
+      }
+
+      case "end":
+        this.quit();
+        break;
       default:
         break;
     }
