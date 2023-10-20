@@ -1,4 +1,5 @@
 import { MissionUtils, Console } from "@woowacourse/mission-utils";
+import { validateInput } from './validation.js'; 
 
 class App {
   async play() {
@@ -9,6 +10,7 @@ class App {
 
 async function gamePlay(computerNumber) {
   const userNumber = await createUserNumber();
+  validateInput(userNumber);
   countResult(userNumber,computerNumber);
   if(!numbersEqual(userNumber,computerNumber)) return gamePlay(computerNumber);
   await gamePlayResult();
