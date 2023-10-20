@@ -56,6 +56,7 @@ class App {
     }
     if (strike === 3) {
       MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+      this.restartQuestion();
     } else if (strike !== 0 || ball !== 0) {
       {
         if (strike === 0) {
@@ -70,6 +71,25 @@ class App {
     } else {
       MissionUtils.Console.print("낫싱");
       return this.compareNumber(answer);
+    }
+  }
+
+  async restartQuestion() {
+    try {
+      const restart = await MissionUtils.Console.readLineAsync(
+        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+      );
+      if (restart === "1") {
+        const answerNumber = this.createAnswerNumber();
+        MissionUtils.Console.print(answerNumber);
+        this.compareNumber(answerNumber);
+      } else if (restart === "2") {
+        return;
+      } else {
+        throw new Error("[ERROR] 1 또는 2만 입력할 수 있습니다.");
+      }
+    } catch (error) {
+      MissionUtils.Console.print(error.message);
     }
   }
 }
