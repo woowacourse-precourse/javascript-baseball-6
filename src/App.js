@@ -14,6 +14,12 @@ class App {
 
     // 시작 문구 출력
     Console.print('숫자 야구 게임을 시작합니다.');
+
+    while (1) {
+      // 사용자 입력 받아서 출력해보기
+      const userRandom = await Console.readLineAsync('숫자를 입력해주세요 : ');
+      Console.print(userRandom);
+    }
   }
 }
 
