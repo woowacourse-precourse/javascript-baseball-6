@@ -14,17 +14,29 @@ class App {
   }
 
   checkAnswer(answerNumber, inputNumber) {
-    const strike = 0;
-    const ball = 0;
+    let strike = 0;
+    let ball = 0;
     for (let i = 0; i < inputNumber.length; i++) {
       if (inputNumber[i] === answerNumber[i]) {
+        strike += 1;
+      } else if (answerNumber.includes(inputNumber[i])) {
+        ball += 1;
       }
     }
+    let result = "";
+    if (ball !== 0) {
+      result += `${ball}볼 `;
+    }
+    if (strike !== 0) {
+      result += `${strike}스트라이크 `;
+    }
+    Console.print(result);
     return strike === 3 ? true : false;
   }
 
   async play() {
     const answerNumber = this.createAnswerNumber();
+    console.log(answerNumber);
     Console.print("숫자 야구 게임을 시작합니다.");
     let inputNumber;
     try {
@@ -34,9 +46,13 @@ class App {
           throw new Error();
         }
         const answer = this.checkAnswer(answerNumber, inputNumber);
+        if (answer) {
+          break;
+        }
       }
     } catch (error) {
-      Console.print("[ERROR] 숫자가 잘못된 형식입니다.");
+      console.log(error);
+      // Console.print("[ERROR] 숫자가 잘못된 형식입니다.");
     }
   }
 }
