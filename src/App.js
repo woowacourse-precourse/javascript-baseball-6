@@ -58,7 +58,7 @@ class App {
   }
 
   // 볼, 스트라이크 개수에 따라 결과를 계산하는 함수
-  getResult(strike, ball) {
+  printResult(strike, ball) {
     let result = ''
 
     if (strike === 0) {
@@ -90,7 +90,7 @@ class App {
       const userNumbers = await this.getUserNumbers();
   
       const { strike, ball } = this.getStrikeOrBall(computerNumbers, userNumbers);
-      this.getResult(strike, ball);
+      this.printResult(strike, ball);
   
       if (strike === 3) {
         Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
