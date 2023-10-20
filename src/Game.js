@@ -51,6 +51,18 @@ class Game {
       return `${result.ball}볼 ${result.strike}스트라이크`;
     }
   };
+  checkPlayAgain = async () => {
+    try {
+      const input = await Console.readLineAsync(
+        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+      );
+
+      const inputNum = Number(input);
+      return inputNum === 1;
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }
 
 export default Game;
