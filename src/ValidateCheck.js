@@ -14,8 +14,16 @@ class ValidateCheck {
   countCheck(computerNumber, userNumber) {
     const STRIKE = [...computerNumber].filter((x, idx) => userNumber[idx] === x).length;
     const BALL = [...computerNumber].filter(x => userNumber.includes(x)).length - STRIKE;
-    
+
     return [STRIKE, BALL];
+  };
+
+  retryCheck(retry) {
+    if (retry !== '1' && retry !== '2') {
+      throw ERROR.retryInput;
+    };
+
+    return retry;
   };
 
 }

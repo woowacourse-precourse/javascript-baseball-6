@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import { MESSAGE } from './utils/constants.js';
+import { ERROR, MESSAGE } from './utils/constants.js';
 import Computer from './Computer.js';
 import ValidateCheck from './ValidateCheck.js';
 
@@ -52,13 +52,30 @@ class BaseballGame {
     if (ball + strike === 0) answer = `낫싱`;
     console.log(answer)
 
-    if (strike === 3) {
-      // 정답 출력 후 재시작 묻기 루틴
+    if (strike === 3) this.chooseRetry();
+    else this.inputUserNumber();
+    
+  };
+
+  async chooseRetry() {
+    try {
+      Console.print(MESSAGE.allStrike);
+      let retry = await Console.readLineAsync(MESSAGE.askRetry);
+      Console.print(retry);
+      this.retryOrExit(this.validateCheck.retryCheck(retry));
+      // retryOrExit(retry);
+    } catch (error) {
+      Console.print(error);
     }
-    
-    this.inputUserNumber();
-    
-  }
+  };
+
+  retryOrExit(retry) {
+    if (retry === '1') {
+      this.start();
+    } else {
+      Console.print(MESSAGE.gameOver);
+    };
+  };
 
 
 
