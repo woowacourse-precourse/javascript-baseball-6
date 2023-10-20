@@ -18,38 +18,49 @@ class App {
   }
 
   async play() {
+    let userInput;
+  
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
-
+  
     while (true) {
-      const userInput = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요: ");  // 사용자 값 입력
-      if (!this.checkInput(userInput)) {  // 조건에 만족하지 않는 수 입력
-        MissionUtils.Console.print("올바른 숫자를 입력해주세요.");
+      try {
+        userInput = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요: ");
+        this.checkInput(userInput);
+        // 유효한 입력일 때의 코드 계속
+      } catch (error) {
+        MissionUtils.Console.print(error.message);
         continue;
       }
-
-      this.attempts++;  // 숫자 입력할 때마다 횟수 +1
+  
+      this.attempts++;  // 시도 횟수 +1
       const result = this.countResult(userInput);
       MissionUtils.Console.print(result);
-
+  
       if (result === "3스트라이크") {
         MissionUtils.Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
-        const restart = await MissionUtils.Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요: ");  // 게임 재시작 여부
-        if (restart.trim() === '1') {  // 새로 시작
-          this.computerNumbers = this.setComputerNumbers();  // 난수 재생성
-          this.attempts = 0;  // attempts 0으로 초기화
+        const restart = await MissionUtils.Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요: ");
+        if (restart.trim() === '1') {
+          this.computerNumbers = this.setComputerNumbers();
+          this.attempts = 0;
           MissionUtils.Console.print("게임을 다시 시작합니다.");
-        } else {  // 종료
+        } else {
           MissionUtils.Console.print("게임을 종료합니다.");
           break;
         }
       }
     }
   }
+  
 
-  // 입력이 1부터 9까지의 세 자릿수로 이루어진 문자열인지를 확인 -> 필요한가?
+  // 입력이 1부터 9까지의 세 자릿수로 이루어진 문자열인지를 확인
   checkInput(input) {
-    return /^[1-9]{3}$/.test(input);
+    if (/^[1-9]{3}$/.test(input)) {
+      return true; // 유효한 입력
+    } else {
+      throw new Error("올바른 숫자를 입력해주세요."); // 잘못된 입력일 경우 예외 발생
+    }
   }
+  
 
   countResult(userInput) {
     let strikes = 0;
