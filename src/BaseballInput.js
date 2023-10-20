@@ -3,18 +3,18 @@ import { Console } from "@woowacourse/mission-utils";
 export default class BaseballInput {
   state = null;
 
-  constructor({ initialState, changeUserInput }) {
+  constructor({ initialState, changeUserState }) {
     this.state = initialState;
-    this.changeUserInput = changeUserInput;
+    this.changeUserState = changeUserState;
     this.getUserInput();
   }
 
   async getUserInput() {
     try {
       const userInput = await Console.readLineAsync("숫자를 입력해 주세요 : ");
-      this.changeUserInput(Number(userInput));
+      this.changeUserState(Number(userInput));
     } catch (err) {
-      throw Error(err);
+      throw Error("입력 오류: " + err);
     }
   }
 }
