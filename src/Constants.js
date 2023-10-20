@@ -7,6 +7,7 @@ export const MESSAGE = Object.freeze({
   INVALID_RETRY_ANSWER: '[ERROR] 1 또는 2만 입력해 주세요.',
   STRIKE: '스트라이크',
   BALL: '볼',
+  NOTHING: '낫싱',
 });
 
 export default { MESSAGE };
