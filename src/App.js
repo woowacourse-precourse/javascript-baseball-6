@@ -13,6 +13,7 @@ class App {
         randomNumber += newRandomNumber;
       }
     }
+    return Number(randomNumber);
   }
 }
 
