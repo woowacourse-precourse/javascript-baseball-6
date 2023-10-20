@@ -1,4 +1,5 @@
 import { Random, Console } from '@woowacourse/mission-utils';
+import { validate } from './utils.js';
 
 class App {
   constructor() {
@@ -7,12 +8,7 @@ class App {
     this.ballCount = 0;
   }
 
-  isEveryStringDifferent(input) {
-    const set = new Set(input);
-    return set.size === input.length;
-  }
-
-  getThreeNumbers() {
+  generateComputerNumbers() {
     const numbers = new Set();
 
     while (numbers.size < 3) {
@@ -23,24 +19,20 @@ class App {
     return [...numbers];
   }
 
-  validateUserInput(userInput) {
-    if (userInput.length !== 3) {
-      return false;
+  getResultMessage(strikeCount, ballCount) {
+    if (strikeCount > 0 && ballCount > 0) {
+      return `${ballCount}볼 ${strikeCount}스트라이크`;
     }
 
-    if (!this.isEveryStringDifferent(userInput)) {
-      return false;
+    if (strikeCount > 0) {
+      return `${strikeCount}스트라이크`;
     }
 
-    for (const input of userInput) {
-      const num = Number(input);
-
-      if (isNaN(num) || num === 0) {
-        return false;
-      }
+    if (ballCount > 0) {
+      return `${ballCount}볼`;
     }
 
-    return true;
+    return '낫싱';
   }
 
   getStrikeCount(computerNumbers, userNumbers) {
@@ -70,26 +62,19 @@ class App {
     return result;
   }
 
-  getResultMessage() {
-    if (this.strikeCount > 0 && this.ballCount > 0) {
-      return `${this.ballCount}볼 ${this.strikeCount}스트라이크`;
-    }
+  printResultMessage() {
+    const resultMessage = this.getResultMessage(
+      this.strikeCount,
+      this.ballCount
+    );
 
-    if (this.strikeCount > 0) {
-      return `${this.strikeCount}스트라이크`;
-    }
-
-    if (this.ballCount > 0) {
-      return `${this.ballCount}볼`;
-    }
-
-    return '낫싱';
+    Console.print(resultMessage);
   }
 
-  async userInputProcess(computerNumbers) {
+  async inputAndPrintResult(computerNumbers) {
     const userInput = await Console.readLineAsync('숫자를 입력해주세요 : ');
 
-    if (this.validateUserInput(userInput) === false) {
+    if (validate(userInput) === false) {
       throw new Error(
         '[ERROR] 입력 값은 오직 1 이상, 9 이하의 서로 다른 세 정수로 이루어져야 합니다.'
       );
@@ -100,19 +85,14 @@ class App {
     this.strikeCount = this.getStrikeCount(computerNumbers, userNumbers);
     this.ballCount = this.getBallCount(computerNumbers, userNumbers);
 
-    const resultMessage = this.getResultMessage(
-      this.strikeCount,
-      this.ballCount
-    );
-
-    Console.print(resultMessage);
+    this.printResultMessage();
   }
 
   async play() {
-    const computerNumbers = this.getThreeNumbers();
+    const computerNumbers = this.generateComputerNumbers();
 
     do {
-      await this.userInputProcess(computerNumbers);
+      await this.inputAndPrintResult(computerNumbers);
     } while (this.strikeCount !== 3);
 
     if (this.strikeCount === 3) {
@@ -132,8 +112,5 @@ class App {
     }
   }
 }
-
-const app = new App();
-app.play();
 
 export default App;
