@@ -96,12 +96,23 @@ class App {
     MissionUtils.Console.print(`${this.cntBall}볼 ${this.cntStrike}스트라이크`);
   }
 
-  async play() {
+  init() {
     this.setAnswer();
-    await this.getUserInput();
-    this.countStrike();
-    this.countBall();
-    this.printResult();
+    this.initCntStrike();
+    this.initCntBall();
+  }
+
+  async play() {
+    this.init();
+
+    while (this.cntStrike !== 3) {
+      this.initCntStrike();
+      this.initCntBall();
+      await this.getUserInput();
+      this.countStrike();
+      this.countBall();
+      this.printResult();
+    }
   }
 }
 
