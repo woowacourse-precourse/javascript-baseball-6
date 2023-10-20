@@ -11,7 +11,9 @@ class App {
     return result;
   }
   async play() {
-    console.log(this.createAnswerNumber());
+    Console.print("숫자 야구 게임을 시작합니다.");
+    const inputNumber = await Console.readLineAsync("숫자를 입력해주세요 : ");
+    console.log(inputNumber);
   }
 }
 export default App;
