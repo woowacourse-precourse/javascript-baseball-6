@@ -10,32 +10,47 @@ class App {
     };
   }
 
-  async printMsgIs(message) {
+  printMsgIs(message) {
     MissionUtils.Console.print(message);
   }
 
-  makeStrikeZoneNumber() {
-    while (this.strikeZoneNumber.length < 3) {
+  async makeStrikeZoneNumber() {
+    const computer = [];
+    while (computer.length < 3) {
       const number = MissionUtils.Random.pickNumberInRange(1, 9);
-      if (!this.strikeZoneNumber.includes(number)) {
-        this.strikeZoneNumber.push(number);
+      if (!computer.includes(number)) {
+        computer.push(number);
       }
     }
+    this.strikeZoneNumber = computer;
   }
 
   async makePitchingNumber() {
-    const START_MESSAGE = this.message("INPUT");
-    const inputNumber = await MissionUtils.Console.readLineAsync(START_MESSAGE);
+    const INPUT_MESSAGE = this.message("INPUT");
+    const inputNumber = await MissionUtils.Console.readLineAsync(INPUT_MESSAGE);
     // 유효성 테스트 통과 시 배열로 할당
-    this.pitchingNumber = new Array(...this.inputValidation(inputNumber)).map(
-      (number) => parseInt(number)
+    this.inputValidation(inputNumber);
+    this.pitchingNumber = new Array(...inputNumber).map((number) =>
+      parseInt(number)
     );
+  }
+
+  inputValidation(inputNumber) {
+    //입력값 유효성 검사
+    const reg = /[^1-9]/;
+    if (typeof inputNumber !== "string")
+      throw new Error(this.errorMessage("UNDEFINED"));
+    if (inputNumber.length !== 3) throw new Error(this.errorMessage("LENGTH"));
+    if (reg.test(inputNumber)) throw new Error(this.errorMessage("NOT_NUMBER"));
+    if (inputNumber.length !== new Set(inputNumber).size)
+      throw new Error(this.errorMessage("SAME_NUMBER"));
+    return inputNumber;
   }
 
   message(NAME) {
     const MESSAGE = {
       // 상수는 대문자로 짓고, _로 구분한다.
-      START: "숫자 야구 게임을 시작합니다.\n",
+      START: "숫자 야구 게임을 시작합니다.",
       INPUT: "숫자를 입력해주세요 : ",
       RETRY: "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n",
       NOTHING: "낫싱",
@@ -47,6 +62,7 @@ class App {
   errorMessage(NAME) {
     const ERROR_MESSAGE = {
       // 상수는 대문자로 짓고, _로 구분한다.
+      UNDEFINED: "[ERROR] 입력값을 확인해주세요.",
       LENGTH: "[ERROR] 입력값은 3자리 수여야 합니다.",
       NOT_NUMBER: "[ERROR] 입력값은 1-9 사이에 숫자여야 합니다.",
       SAME_NUMBER: "[ERROR] 입력값은 서로 다른 숫자여야 합니다.",
@@ -54,89 +70,64 @@ class App {
     return ERROR_MESSAGE[NAME];
   }
 
-  inputValidation(inputNumber) {
-    //입력값 유효성 검사
-    const reg = /[^1-9]/g;
-    if (inputNumber.length !== 3) throw new Error(this.errorMessage("LENGTH"));
-    if (reg.test(inputNumber)) throw new Error(this.errorMessage("NOT_NUMBER"));
-    if (inputNumber.length !== new Set(inputNumber).size)
-      throw new Error(this.errorMessage("SAME_NUMBER"));
-    //유효성 검사 통과하면 변환
-    return inputNumber;
-  }
-
-  async makeResult(strikeZoneArray, pitchingArray) {
+  makeResult(strikeZoneArray, pitchingArray) {
     let strikeCount = 0;
     let ballCount = 0;
-    for (let i = 0; i < strikeZoneArray.length; i++) {
-      if (strikeZoneArray[i] === pitchingArray[i]) strikeCount += 1;
-      if (strikeZoneArray.includes(pitchingArray[i])) ballCount += 1;
+    for (let i = 0; i < 3; i++) {
+      if (strikeZoneArray[i] === pitchingArray[i]) {
+        strikeCount += 1;
+      } else if (strikeZoneArray.includes(pitchingArray[i])) {
+        ballCount += 1;
+      }
     }
-    if (strikeCount === 3) {
-      this.result.strikes = strikeCount;
-      return;
-    }
-    if (strikeCount === 2) {
-      this.result.strikes = strikeCount;
-      return;
-    }
-    if (strikeCount === 1 && ballCount === 0) {
-      this.result.strikes = strikeCount;
-      return;
-    }
-    if (strikeCount === 1 && ballCount !== 0) {
-      this.result.strikes = strikeCount;
-      this.result.balls = ballCount - 1;
-      return;
-    }
+    this.result.strikes = strikeCount;
+    this.result.balls = ballCount;
   }
 
   async game() {
     await this.makePitchingNumber();
-    await this.makeResult(this.strikeZoneNumber, this.pitchingNumber);
+    this.makeResult(this.strikeZoneNumber, this.pitchingNumber);
     await this.judge();
   }
 
   async judge() {
     const NOTHING = this.message("NOTHING");
-    if (this.result.strikes === 3) this.congrat();
-    if (this.result.strikes === 2) {
-      this.printMsgIs(`2스트라이크`);
-    }
-    if (this.result.strikes === 1 && this.result.balls !== 0) {
-      this.printMsgIs(`${this.result.balls}볼 1스트라이크`);
-    }
-    if (this.result.strikes === 0 && this.result.balls !== 0) {
-      this.printMsgIs(`${this.result.balls}볼`);
-    }
-    if (this.result.strikes === 0 && this.result.balls === 0) {
+    const STRIKES = this.result.strikes;
+    const BALLS = this.result.balls;
+    if (STRIKES === 3) {
+      this.printMsgIs(`${STRIKES}스트라이크`);
+      await this.congrat();
+    } else if (STRIKES !== 0 && BALLS !== 0) {
+      this.printMsgIs(`${BALLS}볼 ${STRIKES}스트라이크`);
+      await this.game();
+    } else if (STRIKES !== 0 && BALLS === 0) {
+      this.printMsgIs(`${STRIKES}스트라이크`);
+      await this.game();
+    } else if (STRIKES === 0 && BALLS !== 0) {
+      this.printMsgIs(`${BALLS}볼`);
+      await this.game();
+    } else {
       this.printMsgIs(NOTHING);
+      await this.game();
     }
-    await this.game();
   }
 
-  congrat() {
+  async congrat() {
     const CONGRAT = this.message("CONGRAT");
-    this.printMsgIs(CONGRAT);
-    this.retry();
-  }
-
-  async retry() {
     const RETRY = this.message("RETRY");
+    this.printMsgIs(CONGRAT);
     const retryInput = await MissionUtils.Console.readLineAsync(RETRY);
     if (retryInput === "1") {
-      this.makeStrikeZoneNumber();
-      this.game();
-    }
+      await this.makeStrikeZoneNumber();
+      await this.game();
+    } else if (retryInput === "2") return;
   }
 
   async play() {
-    this.makeStrikeZoneNumber();
-    this.game();
+    this.printMsgIs(this.message("START"));
+    await this.makeStrikeZoneNumber();
+    await this.game();
   }
 }
-
-const app = new App();
-app.play();
 
 export default App;
