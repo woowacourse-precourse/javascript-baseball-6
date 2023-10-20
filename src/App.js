@@ -15,8 +15,6 @@ class App {
         numArr.push(pickNum);
       }
     }
-    // numArr = [1, 3, 5];
-    // Console.print(numArr);
     return numArr;
   }
 
