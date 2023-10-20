@@ -2,28 +2,33 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
   async play() {
-    console.log("숫자 야구 게임을 시작합니다.");
-    const COM_NUMBER = this.createNumber();
-    while (true) {
-      let userNumber = await this.userNumber();
-      let { strikes, balls } = this.checkNumber(COM_NUMBER, userNumber);
+    let gameOver = true;
 
-      if (strikes === 3) {
-        console.log("3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-        let answer = await this.restart();
-        if (answer === 1) {
-          return this.play();
+    console.log("숫자 야구 게임을 시작합니다.");
+    while (gameOver) {
+      const COM_NUMBER = this.createNumber();
+      while (true) {
+        let userNumber = await this.userNumber();
+        let { strikes, balls } = this.checkNumber(COM_NUMBER, userNumber);
+
+        if (strikes === 3) {
+          console.log("3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+          let answer = await this.restart();
+          if (answer === "1") {
+            break;
+          } else {
+            gameOver = false;
+            break;
+          }
+        } else if (strikes === 0 && balls === 0) {
+          console.log("낫싱");
+        } else if (strikes === 0 && balls > 0) {
+          console.log(`${balls}볼`);
+        } else if (strikes > 0 && balls === 0) {
+          console.log(`${strikes}스트라이크`);
         } else {
-          break;
+          console.log(`${balls}볼 ${strikes}스트라이크`);
         }
-      } else if (strikes === 0 && balls === 0) {
-        console.log("낫싱");
-      } else if (strikes === 0 && balls > 0) {
-        console.log(`${balls}볼`);
-      } else if (strikes > 0 && balls === 0) {
-        console.log(`${strikes}스트라이크`);
-      } else {
-        console.log(`${balls}볼 ${strikes}스트라이크`);
       }
     }
   }
