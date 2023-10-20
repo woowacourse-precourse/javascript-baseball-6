@@ -21,6 +21,10 @@ describe('컴퓨터의 야구 숫자 뽑기', () => {
       expect(number).toBeIntNumber();
     });
   });
+
+  test('컴퓨터 숫자는 중복이 없습니다.', () => {
+    expect(computer.numbers).toBeUniqueNumbers();
+  });
 });
 
 expect.extend({
@@ -55,6 +59,29 @@ expect.extend({
     } else {
       return {
         message: () => `expected ${received} not to be Int number`,
+        pass: false,
+      };
+    }
+  },
+});
+
+expect.extend({
+  toBeUniqueNumbers(received) {
+    const uniques = received.reduce(
+      (uniques, number) =>
+        uniques.includes(number) ? uniques : [...uniques, number],
+      []
+    );
+    const pass = uniques.length === 3;
+
+    if (pass) {
+      return {
+        message: () => `expected ${received} to be unique number`,
+        pass: true,
+      };
+    } else {
+      return {
+        message: () => `expected ${received} not to be unique number`,
         pass: false,
       };
     }
