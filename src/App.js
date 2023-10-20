@@ -9,9 +9,8 @@ class App {
   async play() {
     this.game = new Game();
     await this.game.guess();
-    const isContinue = await this.askContinue();
 
-    if (isContinue) this.play();
+    if (await this.askContinue()) this.play();
   }
 
   /** 계속할지 여부 */
