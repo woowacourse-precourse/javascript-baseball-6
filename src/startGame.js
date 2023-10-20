@@ -3,9 +3,14 @@ import { Console } from "@woowacourse/mission-utils";
 async function startGame(computerNumber) {
   while (true) {
     const userInput = await getUserInput();
+    // TODO: 게임 종료 플래그 빼기
+    if (userInput === -1) {
+      return -1;
+    }
     const result = compareNumber(userInput, computerNumber);
     Console.print(getHint(result));
     // TODO: 상수로 빼기
+
     if (result.strikes === 3) {
       break;
     }
@@ -15,9 +20,18 @@ async function startGame(computerNumber) {
 async function getUserInput() {
   try {
     const userInput = await Console.readLineAsync("숫자를 입력해주세요 :");
+    // TODO: 상수로 빼기
+    if (!/^[1-9]{3}$/.test(userInput)) {
+      throw "[ERROR] 세 자리 숫자를 입력해야 합니다.";
+    }
+    const uniqueDigits = new Set(userInput);
+    if (uniqueDigits.size !== 3) {
+      throw "[ERROR] 서로 다른 숫자를 입력해야 합니다.";
+    }
     return userInput;
   } catch (error) {
-    // TODO: reject 되는 경우
+    Console.print(error);
+    return -1;
   }
 }
 

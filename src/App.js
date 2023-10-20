@@ -6,7 +6,8 @@ class App {
     Console.print("숫자 야구 게임을 시작합니다.");
     const computerNumber = generateComputerNumber();
     Console.print(computerNumber); //임시로 출력
-    startGame(computerNumber);
+    const flag = startGame(computerNumber);
+    if (flag === -1) return;
   }
 }
 
