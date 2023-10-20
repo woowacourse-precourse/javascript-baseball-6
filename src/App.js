@@ -4,10 +4,8 @@ class App {
   async play() {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
     const answerNumber = this.createAnswerNumber();
-    console.log(answerNumber);
-    const inputNumber = await this.createInputNumber();
-
-    this.compareNumber(answerNumber, inputNumber);
+    MissionUtils.Console.print(answerNumber);
+    this.compareNumber(answerNumber);
   }
 
   //사용자가 입력한 숫자에 대해 유효성 검사를 진행하고 반환하는 메서드
@@ -45,7 +43,8 @@ class App {
     return answerNumArray;
   }
 
-  compareNumber(answer, input) {
+  async compareNumber(answer) {
+    let input = await this.createInputNumber();
     let strike = 0;
     let ball = 0;
     for (let i = 0; i < 3; i++) {
@@ -67,12 +66,13 @@ class App {
           MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
         }
       }
+      return this.compareNumber(answer);
     } else {
       MissionUtils.Console.print("낫싱");
+      return this.compareNumber(answer);
     }
   }
 }
-
 const app = new App();
 app.play();
 
