@@ -7,6 +7,7 @@ class BaseballGame {
 
   play() {
     this.printStart();
+    this.readNumber();
   }
 
   printStart() {
@@ -14,6 +15,10 @@ class BaseballGame {
   }
   generateComputer() {
     this.computer = Computer.generateNumber();
+  }
+
+  async readNumber() {
+    const userNumber = await Console.readLineAsync(MESSAGES.numberQuery);
   }
 }
 
