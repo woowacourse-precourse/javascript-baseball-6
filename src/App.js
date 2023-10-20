@@ -1,5 +1,27 @@
 import * as MissionUtils from '@woowacourse/mission-utils'
 
+// 설명 : 메세지 출력 함수
+// 입력 : 메세지 내용
+// 출력 : 메세지를 터미널에 출력
+const printMessage = (message) => {
+  MissionUtils.Console.print(message)
+}
+
+// 설명 : 메세지 입력 함수
+// 입력 : 메세지 내용
+// 출력 : 메세지에 대한 답을 입력한 값을 반환.
+// 주의사항 : 비동기 함수이기 때문에 동기적으로 사용 하기위해 async, await 구문을 이용할 것.
+const inputMessage = async (message) => {
+  return await MissionUtils.Console.readLineAsync(message);
+}
+// 설명 : 게임을 재시작 할지 여부를 리턴에 주는 함수
+// 입력 : X
+// 출력 : 1을 입력한다면 false를 반환하여 재시작을 하게되고 2를 입력한다면 true를 반환하여 종료하게된다.
+const restartGame = async () => {
+  const restart = Number(await inputMessage('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요'));
+  return restart !== 1;
+};
+
 // 설명 : 컴퓨터의 랜덤한 수를 얻어냅니다.
 // 입력 : X
 // 출력 : 랜덤한 3자리 수(랜덤한 값이며 각각 다릅니다.)가 포함된 리스트
@@ -19,8 +41,8 @@ const getComputerNum = () => {
 // 출력 : 유저가 입력한 수 리스트로 출력
 // 특이사항 : 3자리 수 이상의 자릿수를 입력하면 throw문으로 애플리케이션을 종료시킨다.
 const getUserNum = async () => {
-  MissionUtils.Console.print('숫자 야구 게임을 시작합니다.')
-  const userNum = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
+  
+  const userNum = await inputMessage('숫자를 입력해주세요 : ');
   if (userNum.length !== 3) {
     throw new Error('[ERROR]');
   }
@@ -53,7 +75,7 @@ const checkStrike = async (computerList) => {
   }
 
   if (strikeCount === 0 && ballCount === 0) {
-      MissionUtils.Console.print('낫싱');
+      printMessage('낫싱');
     } else {
       let output = '';
       if (ballCount > 0) {
@@ -62,12 +84,11 @@ const checkStrike = async (computerList) => {
       if (strikeCount > 0) {
         output += `${strikeCount}스트라이크`;
       }
-      MissionUtils.Console.print(output);
+      printMessage(output);
     }
   if(strikeCount === 3) {
-    MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료')
-    const restart = Number(await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요'))
-    return endPoint = restart !== 1;
+    printMessage('3개의 숫자를 모두 맞히셨습니다! 게임 종료')
+    return restartGame();
   }
   strikeCount = 0
   ballCount = 0
@@ -81,6 +102,7 @@ const checkStrike = async (computerList) => {
 const main = async () => {
   let endPoint = false;
   while(!endPoint) {
+    printMessage('숫자 야구 게임을 시작합니다.')
     const computer = getComputerNum();
     endPoint = await checkStrike(computer)
   }
