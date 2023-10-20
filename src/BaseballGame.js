@@ -47,7 +47,11 @@ class BaseballGame {
     const USER_INPUT = await this.readUserInputNumbers();
     const USER_NUMBERS = USER_INPUT.split("").map(Number);
     this.validUserNumber(USER_NUMBERS);
-    this.#userNumbers = USER_NUMBERS;
+    setUerNumber(USER_NUMBERS);
+  }
+
+  setUerNumber(user_numbers) {
+    this.#userNumbers = user_numbers;
   }
 
   async readUserInputNumbers() {
