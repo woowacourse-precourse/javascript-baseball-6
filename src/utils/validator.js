@@ -1,13 +1,12 @@
 import { CONSTANTS } from '.';
 
-const isThreeWordLong = (numbers) => numbers.length === 3;
-const isUnique = (numbers) => new Set(numbers).size === numbers.length;
+const isAllNumber = (numbers) => !numbers.some(Number.isNaN);
 const isInRange = (numbers) =>
   numbers.every(
     (number) => CONSTANTS.RANGE.from <= number && number <= CONSTANTS.RANGE.to
   );
-const isAllNumber = (numbers) =>
-  numbers.every((number) => !Number.isNaN(number));
+const isThreeWordLong = (numbers) => numbers.length === 3;
+const isUnique = (numbers) => new Set(numbers).size === numbers.length;
 
 export default function validate(numbers) {
   if (!isAllNumber(numbers)) {
