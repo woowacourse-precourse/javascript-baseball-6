@@ -27,6 +27,12 @@ function generateAnswer() {
 async function onUserGuessInput(answer) {
   const input = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
 
+  const { strike, ball } = compareAnswer(input, answer);
+
+  console.log(strike, ball);
+}
+
+function compareAnswer(guess, answer) {
   let strike = 0, ball = 0;
 
   for(let i = 0; i < answer.length; i++) {
@@ -36,6 +42,8 @@ async function onUserGuessInput(answer) {
       ball += 1
     }
   }
+
+  return { strike, ball };
 }
 
 
