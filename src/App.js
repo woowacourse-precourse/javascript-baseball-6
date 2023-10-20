@@ -10,7 +10,7 @@ class App {
     };
   }
 
-  printMsgIs(message) {
+  async printMsgIs(message) {
     MissionUtils.Console.print(message);
   }
 
@@ -49,8 +49,8 @@ class App {
   errorMessage(NAME) {
     const ERROR_MESSAGE = {
       // 상수는 대문자로 짓고, _로 구분한다.
-      LENGTH: "[ERROR] 입력값은 3자리 수이어야 합니다.",
-      NOT_NUMBER: "[ERROR] 입력값은 숫자여야 합니다.",
+      LENGTH: "[ERROR] 입력값은 3자리 수여야 합니다.",
+      NOT_NUMBER: "[ERROR] 입력값은 1-9 사이에 숫자여야 합니다.",
       SAME_NUMBER: "[ERROR] 입력값은 서로 다른 숫자여야 합니다.",
     };
     return ERROR_MESSAGE[NAME];
@@ -67,9 +67,42 @@ class App {
     return inputNumber;
   }
 
+  async makeResult(strikeZoneArray, pitchingArray) {
+    console.log(strikeZoneArray, pitchingArray);
+    let strikeCount = 0;
+    let ballCount = 0;
+    for (let i = 0; i < strikeZoneArray.length; i++) {
+      if (strikeZoneArray[i] === pitchingArray[i]) strikeCount += 1;
+      if (strikeZoneArray.includes(pitchingArray[i])) ballCount += 1;
+    }
+    if (strikeCount === 3) {
+      this.result.strikes = strikeCount;
+      return;
+    }
+    if (strikeCount === 2) {
+      this.result.strikes = strikeCount;
+      return;
+    }
+    if (strikeCount === 1 && ballCount === 0) {
+      this.result.strikes = strikeCount;
+      return;
+    }
+    if (strikeCount === 1 && ballCount !== 0) {
+      this.result.strikes = strikeCount;
+      this.result.balls = ballCount - 1;
+      return;
+    }
+  }
+
+  async game() {
+    await this.makePitchingNumber();
+    await this.makeResult(this.strikeZoneNumber, this.pitchingNumber);
+    await this.printMsgIs(this.result);
+  }
+
   async play() {
     this.makeStrikeZoneNumber();
-    this.makePitchingNumber();
+    this.game();
   }
 }
 
