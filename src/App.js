@@ -17,6 +17,15 @@ class App {
     }
   }
 
+  executeInput(input) {
+    let input_list = input.split("").map((data) => Number(data));
+    this.ball = 0;
+    this.strike = 0;
+    for (let i = 0; i < input_list.length; i++) {
+      if (this.randomNumberList[i] == Number(input_list[i])) this.strike++;
+      else if (this.randomNumberList.includes(input_list[i])) this.ball++;
+    }
+  }
 
   async play() {
 
@@ -25,8 +34,7 @@ class App {
   
       while(this.strike < 3){
         let input = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
-
-        
+        this.executeInput(input);
         if(this.ball == 0 && this.strike == 0) MissionUtils.Console.print("낫싱")
         else {
           MissionUtils.Console.print(`${this.ball > 0 ? `${this.ball}볼` : ""}${this.ball > 0 && this.strike > 0 ? " " : ""}${this.strike > 0 ? `${this.strike}스트라이크` : ""}`);
