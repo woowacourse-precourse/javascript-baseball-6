@@ -4,7 +4,7 @@ class App {
   async play() {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
     const answer = generateAnswer();
-    onUserGuessInput(answer);
+    await onUserGuessInput(answer);
   }
 }
 
@@ -28,10 +28,16 @@ async function onUserGuessInput(answer) {
   const input = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
 
   isCheckValidation(input)
-
   const { strike, ball } = compareAnswer(input, answer);
 
-  console.log(strike, ball);
+  const message = printOutput(strike, ball);
+  MissionUtils.Console.print(message);
+
+  if(message !== '3스트라이크') {
+    onUserGuessInput(answer);
+  } else {
+    // 재게임 요청 
+  }
 }
 
 function compareAnswer(guess, answer) {
@@ -46,6 +52,18 @@ function compareAnswer(guess, answer) {
   }
 
   return { strike, ball };
+}
+
+function printOutput(strike, ball) {
+  if(strike === 0 && ball === 0) {
+    return '낫싱';
+  } else if(ball === 0 && strike > 0) {
+    return `${strike}스트라이크`
+  } else if(strike === 0 && ball > 0) {
+    return `${ball}볼`
+  } else if(strike > 0 && ball > 0) {
+    return `${ball}볼 ${strike}스트라이크 `
+  }
 }
 
 function isCheckValidation(input) {
