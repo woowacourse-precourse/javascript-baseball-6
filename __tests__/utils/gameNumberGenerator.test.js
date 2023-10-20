@@ -13,4 +13,3 @@ describe('GameNumberGenerator', () => {
     }).not.toThrow();
   });
 });
-

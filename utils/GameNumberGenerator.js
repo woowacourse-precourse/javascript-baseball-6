@@ -19,4 +19,3 @@ const GameNumberGenerator = () => {
 };
 
 export default GameNumberGenerator;
-

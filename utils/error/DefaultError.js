@@ -12,4 +12,3 @@ class DefaultError extends Error {
 }
 
 export default DefaultError;
-

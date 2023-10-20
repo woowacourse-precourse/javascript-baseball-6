@@ -11,4 +11,3 @@ export const ERROR_MESSAGE = Object.freeze({
   THREE_DIGIT: '3자리 숫자만 가능합니다.',
   GAME_NUMBER_GENERATOR: '생선된 결과 값은 1~9 사이의 서로 다른 3자리 숫자가 아닙니다.',
 });
-

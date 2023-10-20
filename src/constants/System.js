@@ -5,4 +5,3 @@ const SYSTEM = Object.freeze({
 });
 
 export default SYSTEM;
-

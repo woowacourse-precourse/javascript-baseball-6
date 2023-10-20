@@ -22,4 +22,3 @@ class BaseballModel {
 }
 
 export default BaseballModel;
-

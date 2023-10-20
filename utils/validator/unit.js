@@ -41,4 +41,3 @@ export const checkThreeDigitNumber = (inputNumber) => {
     throw new ValidationError(ERROR_MESSAGE.THREE_DIGIT);
   }
 };
-

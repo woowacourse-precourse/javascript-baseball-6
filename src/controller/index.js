@@ -23,4 +23,3 @@ class BaseBallController {
 }
 
 export default BaseBallController;
-
