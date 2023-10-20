@@ -14,7 +14,7 @@ import {
   INPUT_NUMBER_MESSAGE,
   RESTART_INFO_MESSAGE,
 } from "./constants/info-message.js";
-import { GAME_EXIT } from "./constants/game-control.js";
+import { GAME_EXIT } from "./constants/game-control-command.js";
 
 class App {
   async play() {

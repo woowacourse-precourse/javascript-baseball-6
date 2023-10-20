@@ -4,10 +4,7 @@ import {
   LENGTH_ERROR,
   INVALID_INPUT_ERROR,
 } from "../constants/error-message.js";
-import {
-  GAME_RESTART,
-  GAME_EXIT,
-} from "../constants/game-control-command.js.js";
+import { GAME_RESTART, GAME_EXIT } from "../constants/game-control-command.js";
 
 /**
  * 사용자가 입력한 숫자의 길이가 3인지 확인하는 함수
