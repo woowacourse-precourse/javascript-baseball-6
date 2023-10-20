@@ -21,6 +21,10 @@ const STRING = {
     STRIKE: "스트라이크",
     NOTHING: "낫싱",
 }
+/**
+ * 입력값 제한
+ */
+const INPUT_LIMIT = 3;
 
 /**
  * 랜덤 숫자 범위
@@ -28,6 +32,15 @@ const STRING = {
 const RANDOM_NUMBER_MIN = 1;
 const RANDOM_NUMBER_MAX = 9;
 
+/**
+ * 에러에 사용될 문자열
+ */
+const ERRORS = {
+    FRONT: "[ERROR]",
+    LENGTH: "데이터의 길이가 3이 아닙니다.",
+    NUMBER: "데이터의 인덱스 값은 [1~9]범위의 값으로만 이루어져야합니다.",
+    DUPLICATION: "중복되는 숫자가 존재합니다."
+}
 /*
 *   게임을 클리어 하기 위한 strike 조건
 */
@@ -41,8 +54,10 @@ const END_NUMBER = 2;
 
 export{
     STRING,
+    INPUT_LIMIT,
     RANDOM_NUMBER_MIN,
     RANDOM_NUMBER_MAX,
+    ERRORS,
     STRIKE_GAME_CLEAR,
     RESTART_NUMBER,
     END_NUMBER,
