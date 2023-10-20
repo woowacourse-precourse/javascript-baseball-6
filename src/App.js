@@ -22,12 +22,8 @@ class App {
     return computerNumbers;
   };
 
-  throwError() {
-    throw new Error('[ERROR] 숫자가 잘못된 형식입니다')
-  }
-
   async getUserNumbers() {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       Console.readLineAsync('숫자를 입력해주세요 : ').then((userNumbers) => {
         // 사용자가 잘못된 값을 입력한 경우 throw문을 사용해 예외를 발생시키고 애플리케이션을 종료한다.
         // 1. 숫자인지, 숫자라면 3자리인지 체크
@@ -36,7 +32,7 @@ class App {
         const isDuplicated = userNumbers.split('').some((number, index, numbers) => numbers.indexOf(number) !== index);
 
         if (!isValid || isDuplicated) {
-          this.throwError();
+          reject(new Error('[ERROR] 숫자가 잘못된 형식입니다'))
         }
 
         resolve(userNumbers.split('').map((number) => parseInt(number)));
@@ -75,7 +71,7 @@ class App {
       if (ball === 0) {
         result = `${strike}스트라이크`;
       } else {
-        result = `${strike}스트라이크 ${ball}볼`;
+        result = `${ball}볼 ${strike}스트라이크`;
       }
     }
 
@@ -108,7 +104,7 @@ class App {
             computerNumbers = this.getCompuerNumbers();
           }
         } else {
-          this.throwError();
+          throw new Error('[ERROR] 숫자가 잘못된 형식입니다')
         }
       }
     } while (true);
