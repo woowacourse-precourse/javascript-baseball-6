@@ -15,17 +15,12 @@ class App {
         numArr.push(pickNum);
       }
     }
+    console.log(numArr);
     return numArr;
   }
 
   // 야구게임 정답 판별
   checkAnswer(input, answer) {
-    if (input.length !== 3) {
-      throw new Error("[ERROR] 3자리의 숫자를 입력해주세요");
-    }
-    if (input.includes(NaN)) {
-      throw new Error("[ERROR] 숫자를 입력해주세요");
-    }
     let message = "";
     let strike = 0;
     let ball = 0;
@@ -46,7 +41,19 @@ class App {
   }
 
   // 야구게임 진행구간
-  playBaseballGame() {}
+  async playBaseballGame(answer) {
+    let input = await this.userInputNumbers();
+    let check = await this.checkAnswer(input, answer);
+
+    await Console.print(check);
+    if (check === "3스트라이크") {
+      return await Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    } else {
+      await app.playBaseballGame(answer);
+    }
+
+    return check;
+  }
 
   // 유저의 숫자 입력받기 + 예외처리
   async userInputNumbers() {
@@ -55,6 +62,12 @@ class App {
       throw new Error("[ERROR] 입력된 값이 없습니다");
     } else {
       input = input.split("").map(Number);
+    }
+    if (input.length !== 3) {
+      throw new Error("[ERROR] 3자리의 숫자를 입력해주세요");
+    }
+    if (input.includes(NaN)) {
+      throw new Error("[ERROR] 숫자를 입력해주세요");
     }
     return input;
   }
@@ -67,25 +80,13 @@ class App {
     // 야구게임 정답 생성
     let answer = this.generateRandomNumber();
 
-    while (true) {
-      // 야구게임 정답 입력
-      try {
-        let input = await this.userInputNumbers();
-        let check = await this.checkAnswer(input, answer);
-
-        if (check.includes("3스트라이크")) {
-          await Console.print(check);
-          break;
-        } else {
-          await Console.print(check);
-        }
-      } catch (e) {
-        throw e;
-      }
+    try {
+      await this.playBaseballGame(answer);
+    } catch (e) {
+      throw e;
     }
-    await Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
 
-    // 야구게임 재시작 / 종료 이행 (정상작동) (class로 변경 예정)
+    // 야구게임 재시작 / 종료 이행
     await Console.print("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
     let selectContinue = await Console.readLineAsync("");
 
