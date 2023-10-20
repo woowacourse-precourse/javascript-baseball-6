@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import { printStartMessage, readBaseballNumbers } from './View.js';
+import { printResult, printStartMessage, readBaseballNumbers } from './View.js';
 import BaseBall from './BaseBall.js';
 
 class App {
@@ -20,8 +20,8 @@ class App {
 
   check(userInput) {
     const countResult = this.baseBall.countResult(userInput);
-    const { ball, strike, isNothing } = countResult;
-    Console.print(`${ball}, ${strike}, ${isNothing}`);
+    const { strike } = countResult;
+    printResult(countResult);
     if (strike !== 3) {
       this.piching();
     }
