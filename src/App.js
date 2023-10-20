@@ -8,10 +8,16 @@ class App {
   }
 }
 
+function processGame(userNumber,computerNumber) {
+  countResult(userNumber,computerNumber);
+  return numbersEqual(userNumber,computerNumber);
+}
+
 async function gamePlay(computerNumber) {
   const userNumber = await createUserNumber();
-  countResult(userNumber,computerNumber);
-  if(!numbersEqual(userNumber,computerNumber)) return gamePlay(computerNumber);
+  const isEqual = processGame(userNumber,computerNumber);
+
+  if(!isEqual) return gamePlay(computerNumber);
   await gamePlayResult();
 }
 
