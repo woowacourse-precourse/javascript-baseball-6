@@ -50,6 +50,15 @@ export default class BaseBall {
     return strikesAmount;
   }
 
+  _checkNothing(userInput) {
+    const userInputArray = [...String(userInput)];
+    const isNothing = [...String(this._password)].every(
+      (number) => !userInputArray.includes(number)
+    );
+
+    return isNothing;
+  }
+
   init() {
     const password = this.createPassword();
     this._setPassword(password);
