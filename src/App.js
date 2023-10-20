@@ -8,25 +8,44 @@ import { Random } from "@woowacourse/mission-utils";
 class App {
   // 시작 멘트
   startMent() {
-    console.log("숫자 야구 게임을 시작합니다.");
+    Console.print("숫자 야구 게임을 시작합니다.");
   }
 
   // 야구게임 정답 생성
   generateRandomNumber() {
     let numArr = [];
-    for (let i = 0; i < 3; i++) {
-      numArr.push(Random.pickNumberInRange(1, 9));
+    while (numArr.length < 3) {
+      let pickNum = Random.pickNumberInRange(1, 9);
+      if (!numArr.includes(pickNum)) {
+        numArr.push(pickNum);
+      }
     }
-    // 추후에 지울 것
-    console.log(numArr);
+    return numArr;
   }
 
   // 야구게임 정답 판별
-  checkAnswer(answer = [0, 0, 0]) {
-    console.log(answer);
+  checkAnswer(input = [], answer = []) {
+    let message = "";
+    let strike = 0;
+    let ball = 0;
+    for (let i = 0; i < 3; i++) {
+      if (input[i] === answer[i]) {
+        strike++;
+      } else if (answer.includes(input[i])) {
+        ball++;
+      }
+    }
+    if (ball > 0) {
+      message += `${ball}볼 `;
+    }
+    if (strike > 0) {
+      message += `${strike}스트라이크`;
+    }
+    if (message.length === 0) {
+      message = "낫싱";
+    }
+    return message;
   }
-
-  // 야구게임 재시작 / 종료 이행
 
   // 게임이 진행되는곳
   async play() {
@@ -36,16 +55,32 @@ class App {
     // 야구게임 정답 생성
     let answer = this.generateRandomNumber();
 
-    // 야구게임 정답 입력
-    let input = await Console.readLineAsync("숫자를 입력해주세요 : ");
-    input = input.split("").map(Number);
-    console.log(input);
+    while (true) {
+      // 야구게임 정답 입력
+      let input = await Console.readLineAsync("숫자를 입력해주세요 : ");
+      input = input.split("").map(Number);
 
-    // 야구게임 정답 판별
-    let check = await this.checkAnswer(answer);
-    console.log(check);
+      // 야구게임 정답 판별
+      let check = await this.checkAnswer(input, answer);
+      if (check === "3스트라이크") {
+        break;
+      } else {
+        Console.print(check);
+      }
+    }
+    Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
 
-    // 야구게임 재시작 / 종료 이행
+    // 야구게임 재시작 / 종료 이행 (정상작동)
+    let selectContinue = await Console.readLineAsync(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+    );
+    if (selectContinue === "1") {
+      this.play();
+    } else if (selectContinue === "2") {
+      return;
+    } else {
+      Console.print("잘못된 접근입니다.");
+    }
   }
 }
 
