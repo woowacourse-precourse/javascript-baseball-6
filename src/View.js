@@ -5,6 +5,11 @@ export const readBaseballNumbers = async (message) => {
   return userInput;
 };
 
+export const readRestartNumber = async (message) => {
+  const userInput = await Console.readLineAsync('message');
+  return userInput;
+};
+
 export const printStartMessage = (message) => {
   Console.print(message);
 };

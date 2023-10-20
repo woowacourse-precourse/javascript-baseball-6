@@ -3,6 +3,7 @@ import {
   printResult,
   printStartMessage,
   readBaseballNumbers,
+  readRestartNumber,
 } from './View.js';
 import BaseBall from './BaseBall.js';
 
@@ -41,7 +42,9 @@ class App {
     this.requestRestart();
   }
 
-  requestRestart() {}
+  requestRestart() {
+    const userInput = await readRestartNumber('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.')
+  }
 }
 
 const app = new App();
