@@ -20,12 +20,8 @@ class App {
     }
 
     Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-    const again = await Console.readLineAsync(
-      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
-    );
 
-    if (again === "1") {
-      // 게임 다시 시작
+    if (await this.isRestart()) {
       this.play();
     }
   }
@@ -96,6 +92,17 @@ class App {
       return false;
     }
     return true;
+  }
+
+  async isRestart() {
+    const user = await Console.readLineAsync(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+    );
+    if (user !== "1" && user !== "2") {
+      throw new Error("1 또는 2를 입력해주세요.");
+    }
+    if (user === "1") return true;
+    return false;
   }
 }
 
