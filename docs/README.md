@@ -21,7 +21,9 @@
 </br>
 
 ## 게임 진행
-> - [ ] 임의 정답 생성 : 게임 시작 시 3자리 난수 생성
+> - [ ] 게임 시작
+>   - [ ] 게임 시작 메시지 출력
+>   - [x] 임의 정답 생성 : 게임 시작 시 3자리 난수 생성
 > </br></br>
 > - [ ] 추측 입력
 >   - [ ] 추측 요청 메시지 출력
@@ -65,8 +67,8 @@
 ## 🕹️ GameManager
 프로그램의 전체적인 흐름을 처리하는 클래스
 > ### variables
-> - `bool` `isPlaying = True` : 게임 시작 조건
-> - `Board` `board` : 게임판
+> - `bool` `_isPlaying = True` : 게임 시작 조건
+> - `Board` `_board` : 게임판
 > 
 > ### functions
 > - `play` `()` : 프로그램 실행
@@ -75,32 +77,33 @@
 >     - `this.playGame()` : 게임 진행
 >     - `this.finishGame()` : 게임 종료
 > </br></br>
-> - `startGame` `()` : 게임 시작
+> - `_startGame` `()` : 게임 시작
 >   - `Message.START` : 게임 시작 메시지
 >   - `this.board = new Board()` : 새로운 게임판 생성
 > </br></br>
-> - `playGame` `()` : 게임 진행
+> - `_playGame` `()` : 게임 진행
 >   - `Message.REQUEST` : 추측 요청 메시지
 >   - `board.getUserGuess()` : 추측 입력
 >   - `board.checkUserGuess()` : 정답 확인
 >   - `board.printFeedback()` : 피드백 출력
 > </br></br>
-> - `finishGame` `()` : 게임 종료
+> - `_finishGame` `()` : 게임 종료
 >   - `Message.FINISH` : 게임종료 메시지
->   - `isPlaying = this.willReplay()` : 재경기 여부 확인
+>   - `isPlaying = this.willReplay()` : 재시작 여부 확인
 > </br></br>
-> - `bool` `willReplay` `()` : 재경기 선택
->   - `Message.REPLAY` : 재경기 안내 메시지
->   - `return userInput` : 사용자입력 \[True(1) | False(2) | Except]
+> - `bool` `_willReplay` `()` : 재시작 선택
+>   - `Message.REPLAY` : 재시작 안내 메시지
+>   - `return` : 사용자입력 \[True(1) | False(2) | Except]
 
 </br>
 
 ## 🎮 Board
 게임의 진행을 담당하는 클래스
-> ### Members
+> ### Const
 > - `Number` `LENGTH = 3` : 정답 길이
-> - `Number` `answer` : 실제 정답
-> - `Number` `guess` : 사용자 예측
+> ### Members
+> - `Numbers` `answer` : 실제 정답
+> - `Numbers` `guess` : 사용자 예측
 > - `Feedback` `feedback` : 예측에 대한 피드백
 > </br></br>
 > ### Functions
@@ -108,10 +111,10 @@
 >   - `setAnswer()` : 임의 정답 생성
 > </br></br>
 > - `setAnswer` `()` : 임의 정답 생성
->   - `this.answer = new Number(LENGTH)`
+>   - `this.answer = new Numbers(LENGTH)`
 > </br></br>
 > - `getUserGuess` `()` : 추측 입력
->   - `this.guess = new Number(LENGTH, value)`
+>   - `this.guess = new Numbers(LENGTH, value)`
 > </br></br>
 > - `checkUserGuess` `()` : 피드백 생성
 >   - `[balls, strikes] = answer.compare(guess)`
@@ -122,7 +125,7 @@
 
 </br>
 
-## 🎱 Number
+## 🎱 Numbers
 숫자의 조합을 저장하고 유효성 검사를 수행하는 클래스
 > ### Members
 > - `DATA_TYPE_REGEX = /^[1-9]+$/` : 정규식 (타입)
@@ -158,14 +161,14 @@
 >   - `if(!NO_DUPLICATES_REGEX.test(value))` : 예외 처리
 >     - `Message.ERROR_INPUT_DUPLICATE` : 중복 에러메시지
 > </br></br>
-> - `Array` `compare` `(Number target)` : value와 target을 비교하여 \[balls, strikes] 반환
+> - `Array` `compare` `(Numbers target)` : value와 target을 비교하여 \[balls, strikes] 반환
 >   - `balls = countBalls(target)`
 >   - `strikes = countStrikes(target)`
 >   - `return [balls, strikes]`
 > </br></br>
-> - `Number` `countBalls` `(Number target)` : 볼 카운팅
+> - `Number` `countBalls` `(Numbers target)` : 볼 카운팅
 > </br></br>
-> - `Number` `countBalls` `(Number target)` : 스트라이크 카운팅
+> - `Number` `countBalls` `(Numbers target)` : 스트라이크 카운팅
 
 </br>
 
