@@ -26,13 +26,15 @@ class App {
         ) {
             throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
         }
-        return playerInput;
+        // 배열화
+        let l = [];
+        for (let i = 0; i < 3; i++) {
+            l.push(Number(playerInput[i]));
+        }
+        return Promise.resolve(l);
     }
 
-    async play() {
-        let playerNum = await this.getPlayerNum();
-        MissionUtils.Console.print(playerNum);
-    }
+    async play() {}
 }
 
 const app = new App();
