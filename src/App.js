@@ -39,12 +39,12 @@ function play(){
       computer.push(number);
     }
   }
-  let na = Console.readLineAsync;
-  let naArray = [];
-  do {
-    naArray.push(na % 10);
-    n= Math.floor(na / 10);
-  } while(n>0);
+  let na = String(Console.readLineAsync);
+  let naArray = Array.from(na);
+
+  if(naArray.length != 3){
+    throw Console.print("Error");
+  }
   
   let strike =0;
   let ball =0;
@@ -62,13 +62,13 @@ function play(){
     }
   }
   if(strike==0 && ball == 0){
-    Console.print('낫싱\n');
+    Console.print(`낫싱\n`);
   } else if(strike!=0 && ball !=0){
-    Console.print(`$(ball)볼 $(strike)스트라이크\n`);
+    Console.print(`${ball}볼 ${strike}스트라이크\n`);
   } else if(strike!=0 && ball ==0){
-    Console.print(`$(strike)스트라이크\n`);
+    Console.print(`${strike}스트라이크\n`);
   } else if(strike==0 && ball !=0){
-    Console.print(`$(ball)볼\n`);
+    Console.print(`${ball}볼\n`);
   }
   if(strike==3){
     Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료\n게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n`)
@@ -83,5 +83,9 @@ function play(){
     na = Console.readLineAsync;
   }
 }
+
+// function err(){
+//   Console.print([Error])
+// }
 
 export default App;
