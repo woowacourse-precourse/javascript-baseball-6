@@ -5,11 +5,9 @@ class App {
   NUMBER_LENGTH = 3;
 
   async play() {
-    Console.print("숫자 야구 게임을 시작합니다.");
+    Console.print("숫자 야구 게임을 시작합니돠.");
     this.computerNum = [];
     this.createRandomNum();
-    console.log("--컴퓨터 함수--");
-    console.log(this.computerNum);
     this.inputNum();
   }
 
@@ -39,7 +37,7 @@ class App {
   }
 
   async checkResult(inputValue) {
-    console.log("checkResult");
+    console.log(inputValue);
     const { strike, ball } = this.calculateStrikeAndBall(inputValue);
 
     if (ball === 0 && strike === 0) {
@@ -70,9 +68,9 @@ class App {
       );
 
       if (parseInt(inputValue) === 1) {
-        this.play();
+        await this.play();
       } else {
-        console.log("겜 종료");
+        Console.print("겜 종료");
       }
     }
   }
@@ -89,36 +87,45 @@ class App {
   }
 
   checkInputNum(inputValue) {
-    const numArr = inputValue.split("");
-    const newNum = parseInt(inputValue);
-
-    if (this.isHasZero(numArr)) {
-      throw new Error("0을 제외한 숫자를 입력해주세요.");
-    }
-    if (this.isDuplicate(numArr)) {
-      throw new Error("입력한 값이 중복일 수 없습니다.");
-    }
-
-    if (this.isNotInteger(newNum)) {
-      throw new Error("입력 값이 숫자 혹은 정수가 아닙니다.");
-    }
-
     if (inputValue.length != this.NUMBER_LENGTH) {
-      throw new Error("입력 값의 길이가 3이 아닙니다.");
+      throw new Error("[ERROR] 입력 값의 길이가 3이 아닙니다.");
+    }
+
+    if (inputValue === "") {
+      throw new Error("[ERROR] 값을 비울 수 없어요.");
+    }
+
+    if (this.isHasZero(inputValue)) {
+      throw new Error("[ERROR] 0을 제외한 숫자를 입력해주세요.");
+    }
+
+    if (this.isDuplicate(inputValue)) {
+      throw new Error("[ERROR] 입력한 값이 중복일 수 없습니다.");
+    }
+
+    if (this.isNotInteger(parseInt(inputValue))) {
+      throw new Error("[ERROR] 입력 값이 숫자 혹은 정수가 아닙니다.");
     }
   }
 
   //예외처리 함수
-  isHasZero(arr) {
-    return arr.some((num) => num === "0");
+  isHasZero(inputValue) {
+    const numArr = inputValue.split("");
+    return numArr.some((num) => num === "0");
   }
 
-  isDuplicate(arr) {
-    return arr.some((x) => arr.indexOf(x) !== arr.lastIndexOf(x));
+  isDuplicate(inputValue) {
+    const numArr = inputValue.split("");
+    console.log(numArr);
+    return numArr.some((x) => numArr.indexOf(x) !== numArr.lastIndexOf(x));
   }
 
   isNotInteger(inputValue) {
     if (inputValue % 1 !== 0) {
+      return true;
+    }
+
+    if (inputValue < 0) {
       return true;
     }
 
