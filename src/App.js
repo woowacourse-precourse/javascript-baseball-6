@@ -10,7 +10,7 @@ class App {
 }
 
 function processGame(userNumber,computerNumber) {
-  countResult(userNumber,computerNumber);
+  displayCountResult(userNumber,computerNumber);
   return numbersEqual(userNumber,computerNumber);
 }
 
@@ -57,7 +57,7 @@ async function createUserNumber() {
   return userNumber;
 }
 
-function countStrike(userNumber,computerNumber) {
+function calculateStrikeCount(userNumber,computerNumber) {
   const length = computerNumber.length;
   let strike = 0;
   for(let i = 0; i < length; i++) {
@@ -68,7 +68,7 @@ function countStrike(userNumber,computerNumber) {
   return strike;
 }
 
-function countBall(userNumber,computerNumber) {
+function calculateBallCount(userNumber,computerNumber) {
   const length = computerNumber.length;
   let ball = 0;
   const userNmberSet = new Set(userNumber);
@@ -80,9 +80,9 @@ function countBall(userNumber,computerNumber) {
   return ball;
 }
 
-function countResult(userNumber, computerNumber) {
-  const strike = countStrike(userNumber, computerNumber);
-  const ball = countBall(userNumber, computerNumber);
+function displayCountResult(userNumber, computerNumber) {
+  const strike = calculateStrikeCount(userNumber, computerNumber);
+  const ball = calculateBallCount(userNumber, computerNumber);
 
   if (strike > 0 && ball > 0) {
     Console.print(`${ball}${BALL_TEXT} ${strike}${STRIKE_TEXT}`);
