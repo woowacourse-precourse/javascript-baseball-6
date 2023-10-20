@@ -13,6 +13,8 @@ class App {
     }
   }
 }
+const app = new App()
+app.play()
 
 export default App;
 
@@ -25,7 +27,7 @@ async function GameStart(){
         throw new Error("[ERROR] 숫자는 세자리여야 합니다")
       }
       for(let i=0; i<inp.length; i++){
-        if(typeof Number(inp[i]) !== 'number') throw new Error("[ERROR] 숫자가 잘못된 형식입니다")
+        if(Number.isNaN(Number(inp[i]))) throw new Error("[ERROR] 입력은 숫자 형식이어야 합니다")
       }
     
     const [ball, strike] = getBallAndStrike(ans, inp)
