@@ -1,8 +1,7 @@
 const Validator = {
-  isValidLength: (input) => {
-    const SIZE = 3;
+  isValidLength: (input, size) => {
 
-    return String(input).length === SIZE;
+    return String(input).length === size;
   },
   hasUniqueNumbers: (input) => {
     if (!Validator.isNumber(input)) return false;
@@ -12,25 +11,21 @@ const Validator = {
 
     return filteredArray.length === array.length;
   },
-  isValidRange: (input) => {
+  isValidRange: (input, min, max) => {
     if (!Validator.isNumber(input)) return false;
 
-    const MIN = 1;
-    const MAX = 9;
 
     for (const key of String(input)) {
       const numberKey = Number(key);
-      if (numberKey < MIN || numberKey > MAX) return false;
+      if (numberKey < min || numberKey > max) return false;
     }
 
     return true;
   },
-  isExitOrRestart: (input) => {
-    const RESTART = 1;
-    const EXIT = 2;
+  isExitOrRestart: (input, restart, exit) => {
     const numberInput = Number(input);
 
-    return numberInput === RESTART || numberInput === EXIT;
+    return numberInput === restart || numberInput === exit;
   },
   isNumber: (input) => {
     return !isNaN(input);
