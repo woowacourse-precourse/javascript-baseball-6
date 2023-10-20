@@ -23,15 +23,15 @@ strike, ball, nothing의 정보가 적힌 객체(메세지)를 돌려준다.
 ## 구조
 | src
 
-| ├── components
+|		|---components
 
-| |   ├── components.js // components 모음
+|		|		|---components.js // components 모음
 
-| ├── App.js
+| 	|---App.js
 
-| ├── computer.js
+| 	|---computer.js
 
-| ├── user.js
+| 	|---user.js
 
 
 ## 기능 설명
