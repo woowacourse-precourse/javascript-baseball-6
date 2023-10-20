@@ -16,6 +16,24 @@ class App {
     MissionUtils.Console.print(this.computerNumber);
     await this.inputGuessNumber();
   }
+
+  //추측값 입력
+  async inputGuessNumber() {
+    try {
+      const guess = await MissionUtils.Console.readLineAsync(
+        TEXT.INPUT_GUESS_NUMBER
+      );
+
+      if (!this.duplicateCheck(guess)) {
+        throw new Error(ERROR.DUPLICATE_NUMBER_ERROR);
+      }
+
+      this.countBallAndStrike(this.computerNumber, guess);
+    } catch (error) {
+      throw error;
+      //throw new Error(ERROR.DUPLICATE_NUMBER_ERROR);
+    }
+  }
 }
 
 const app = new App();
