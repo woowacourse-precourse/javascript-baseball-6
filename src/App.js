@@ -22,6 +22,10 @@ class App {
       try {
         let user = await Console.readLineAsync("숫자를 입력해주세요 : ");
 
+        if (user<100 || user>999){   //3자리 숫자가 아닐 경우 에러
+        throw "[ERROR] 숫자가 잘못된 형식입니다.";
+        }
+
         user=user.split("");         //배열
         for(let i=0; i<3; i++){      //문자열->숫자
           user[i]=Number(user[i]);
@@ -29,6 +33,7 @@ class App {
         MissionUtils.Console.print(user); //테스트
 
       } catch (error) {
+        MissionUtils.Console.print(error);
       }  
 
         
