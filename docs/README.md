@@ -149,16 +149,39 @@
 - 도메인간 교류를 관리한다. (비즈니스 로직)
 - 입력값을 도메인의 요구 인자와 알맞도록 파싱한다.
 
-- 필드
+<table>
+  <tr>
+    <th>필드</th>
+    <th>설명</th>
+  </tr>
+  <tr>
+    <td>answer</td>
+    <td><code>AnswerBalls</code>의 인스턴스입니다.</td>
+  </tr>
+  <tr>
+    <td>submittedCorrectly</td>
+    <td>정답을 맞춘 <code>SubmittedBalls</code>이 있는지 기록됩니다.</td>
+  </tr>
+</table>
 
-  - `answer`: `AnswerBalls`의 인스턴스이다.
-  - `submittedCorrectly`: 정답을 맞춘 `SubmittedBalls`이 있는지 기록된다.
-
-- 메서드
-
-  - `setRandomAnswer`: 랜덤한 `TargetBall` 3개로 이루어진 `AnswerBalls`를 `answer` 필드에 설정한다.
-  - `calculateScore`: 입력받은 값을 숫자인 배열로 변환해 `SubmittedBalls`를 생성후 `answer`와 비교하여 결과를 반환한다.
-  - `isEnd`: `submittedCorrectly`가 존재하여 게임의 종료 여부를 반환한다.
+<table>
+  <tr>
+    <th>메서드</th>
+    <th>설명</th>
+  </tr>
+  <tr>
+    <td>setRandomAnswer()</td>
+    <td>랜덤한 <code>TargetBall</code> 3개로 이루어진 <code>AnswerBalls</code>를 <code>answer</code> 필드에 설정합니다.</td>
+  </tr>
+  <tr>
+    <td>calculateScore(<i>inputArray</i>)</td>
+    <td>입력받은 값을 숫자 배열로 변환하여 <code>SubmittedBalls</code>를 생성하고, <code>answer</code>와 비교하여 결과를 반환합니다.</td>
+  </tr>
+  <tr>
+    <td>isEnd()</td>
+    <td><code>submittedCorrectly</code>가 존재하여 게임의 종료 여부를 반환합니다.</td>
+  </tr>
+</table>
 
 ## Views
 
