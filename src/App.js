@@ -24,7 +24,7 @@ class App {
                 );
 
                 if (userinput.length !== 1 || !['1', '2'].includes(userinput)) {
-                    throw new Error('[ERROR]');
+                    throw new Error('[ERROR] 잘못된 입력입니다.');
                 }
 
                 if (userinput === '2') {
@@ -32,7 +32,7 @@ class App {
                 }
             }
         } catch (e) {
-            throw new Error('[ERROR]');
+            throw new Error(`${e.message}`);
         }
     }
 
@@ -47,7 +47,7 @@ class App {
             }
         }
 
-        throw new Error('[ERROR]');
+        throw new Error('[ERROR] 잘못된 입력입니다.');
     }
 
     // 정답을 생성하는 함수
