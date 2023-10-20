@@ -8,19 +8,29 @@ class App {
   constructor() {
     this.computerNumber = [];
     this.userNumber = [];
+    this.isPlaying = true;
   }
 
   async play() {
     await this.startGame();
 
+    while (this.isPlaying) {
+      await this.playUntilWin();
+    }
+  }
+
+  isNotThreeStrike(strikeCount) {
+    return strikeCount !== 3;
+  }
+
+  async playUntilWin() {
+    this.userNumber = await new User().inputNumberArray;
     let judgeResult = this.calculateResult(
       this.computerNumber,
       this.userNumber
     );
-
-    this.printMessage(this.computerNumber)
-      .printMessage("볼 " + judgeResult.ballCount)
-      .printMessage("스트라이크: " + judgeResult.strikeCount);
+    this.createJudgeMessage(judgeResult);
+    this.isPlaying = this.isNotThreeStrike(judgeResult.strikeCount);
   }
 
   printMessage(message) {
@@ -31,7 +41,6 @@ class App {
   async startGame() {
     this.printMessage(MESSAGE.START_GAME);
     this.computerNumber = new Computer().selectedNumberArray;
-    this.userNumber = await new User().inputNumberArray;
   }
 
   calculateResult(computer, user) {
