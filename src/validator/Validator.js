@@ -4,7 +4,14 @@ const Validator = {
 
     return String(input).length === SIZE;
   },
-  hasUniqueNumbers: (input) => { },
+  hasUniqueNumbers: (input) => {
+    if (!Validator.isNumber(input)) return false;
+
+    const array = String(input).split('');
+    const filteredArray = [...new Set(array)];
+
+    return filteredArray.length === array.length;
+  },
   isValidRange: (input) => { },
   isExitOrRestart: (input) => { },
   isNumber: (input) => {
