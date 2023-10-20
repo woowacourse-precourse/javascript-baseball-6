@@ -38,7 +38,9 @@ class App {
 
   async getUserInput() {
     const userInput = await Console.readLineAsync(MESSAGE.ENTER_NUMBER);
-    this.userNumber = this.validateUserInput(userInput).split("");
+    this.userNumber = this.validateUserInput(userInput)
+      .split("")
+      .map((string) => +string);
   }
 
   validateUserInput(input) {
