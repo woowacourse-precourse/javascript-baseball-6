@@ -35,7 +35,7 @@ async function userPickNum() {
 //   else if() throw new Error("숫자를 입력해주세요.");
 // }
 
-async function playGame(){
+async function playGame() {
   const cpu = cpuPickNum();
   await compareNumber(cpu);
 }
@@ -46,7 +46,15 @@ async function compareNumber(cpu) {
   const ball = countBall(cpu, user);
 
   printResult(strike, ball);
+  if (strike === 3) {
+    // 정답을 맞췄을 때
+  } else {
+    // 못 맞췄을 때
+    return compareNumber(cpu);
+  }
 }
+
+function correctNum() {}
 
 function countStrike(cpu, user) {
   const CPULENGTH = cpu.length;
