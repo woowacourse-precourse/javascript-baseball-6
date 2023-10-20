@@ -95,7 +95,7 @@ class App {
       );
     }
 
-    const userNumbers = [...userInput].map(Number);
+    const userNumbers = Array.from(userInput, Number);
 
     this.strikeCount = this.getStrikeCount(computerNumbers, userNumbers);
     this.ballCount = this.getBallCount(computerNumbers, userNumbers);
@@ -111,11 +111,9 @@ class App {
   async play() {
     const computerNumbers = this.getThreeNumbers();
 
-    await this.userInputProcess(computerNumbers);
-
-    while (this.strikeCount !== 3) {
+    do {
       await this.userInputProcess(computerNumbers);
-    }
+    } while (this.strikeCount !== 3);
 
     if (this.strikeCount === 3) {
       Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
@@ -134,5 +132,8 @@ class App {
     }
   }
 }
+
+const app = new App();
+app.play();
 
 export default App;
