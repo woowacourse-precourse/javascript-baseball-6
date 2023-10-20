@@ -11,6 +11,7 @@ async function gamePlay(computerNumber) {
   const userNumber = await createUserNumber();
   countResult(userNumber,computerNumber);
   if(!numbersEqual(userNumber,computerNumber)) return gamePlay(computerNumber);
+  await gamePlayResult();
 }
 
 async function gamePlayResult() {
