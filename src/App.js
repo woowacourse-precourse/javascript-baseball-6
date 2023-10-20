@@ -28,6 +28,15 @@ class App {
   checkSuccess(strike) {
     strike === 3 ? this.confirmGame() : this.continueGame();
   }
+
+  async confirmGame() {
+    OutputView.printDone();
+    const input = await InputView.confirmContinue();
+
+    if (parseInt(input) === 1) this.play();
+    else if (parseInt(input) === 2) return;
+    else throw Error('1 또는 2를 입력해주세요.');
+  }
 }
 
 const app = new App();
