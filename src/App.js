@@ -45,7 +45,7 @@ class App {
     const regex = new RegExp(/[0-9]/);
 
     if (user.length !== 3 || !regex.test(user)) {
-      throw new Error("숫자 3개를 입력해주세요.");
+      throw new Error("[ERROR]");
     }
     return user;
   }
@@ -99,14 +99,11 @@ class App {
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
     );
     if (user !== "1" && user !== "2") {
-      throw new Error("1 또는 2를 입력해주세요.");
+      throw new Error("[ERROR]");
     }
     if (user === "1") return true;
     return false;
   }
 }
-
-const app = new App();
-await app.play();
 
 export default App;
