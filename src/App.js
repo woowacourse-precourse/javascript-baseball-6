@@ -49,7 +49,15 @@ class App {
   playBaseballGame() {}
 
   // 유저의 숫자 입력받기 + 예외처리
-  userInputNumbers() {}
+  async userInputNumbers() {
+    let input = await Console.readLineAsync("숫자를 입력해주세요 : ");
+    if (input.length === 0) {
+      throw new Error("[ERROR] 입력된 값이 없습니다");
+    } else {
+      input = input.split("").map(Number);
+    }
+    return input;
+  }
 
   // 게임이 진행되는곳
   async play() {
@@ -61,11 +69,8 @@ class App {
 
     while (true) {
       // 야구게임 정답 입력
-      let input = await Console.readLineAsync("숫자를 입력해주세요 : ");
-      input = input.split("").map(Number);
-
-      // 야구게임 정답 판별
       try {
+        let input = await this.userInputNumbers();
         let check = await this.checkAnswer(input, answer);
 
         if (check.includes("3스트라이크")) {
