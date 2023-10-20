@@ -1,7 +1,5 @@
 import { Console, Random } from '@woowacourse/mission-utils';
-import { RANGE } from './utils/constants.js';
-import { validate } from './utils/validator.js';
-import { score } from './utils/score.js';
+import { CONSTANTS, validate, score } from './utils';
 
 class Game {
   #answer = [];
@@ -39,7 +37,9 @@ class Game {
   #setAnswer() {
     const set = new Set();
     while (set.size < 3) {
-      set.add(Random.pickNumberInRange(RANGE.from, RANGE.to));
+      set.add(
+        Random.pickNumberInRange(CONSTANTS.RANGE.from, CONSTANTS.RANGE.to)
+      );
     }
     this.#answer = Array.from(set);
   }

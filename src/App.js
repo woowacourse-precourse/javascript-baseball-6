@@ -1,5 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
-import Game from './game.js';
+import Game from './game';
+import { CONSTANTS } from './utils';
 
 class App {
   constructor() {
@@ -21,7 +22,7 @@ class App {
 
     if (input === '1') return true;
     if (input === '2') return false;
-    throw new Error('[ERROR] 1 또는 2를 입력해주세요.');
+    throw new Error(`${CONSTANTS.ERROR_HEADER} 1 또는 2를 입력해주세요.`);
   }
 }
 

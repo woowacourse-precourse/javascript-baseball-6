@@ -1,4 +1,4 @@
-export const score = (guesser, answer) => ({
+const score = (guesser, answer) => ({
   get strikes() {
     return guesser.filter((num, index) => answer[index] === num).length;
   },
@@ -22,3 +22,5 @@ export const score = (guesser, answer) => ({
     return result;
   },
 });
+
+export default score;
