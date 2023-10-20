@@ -78,7 +78,7 @@ class Baseball {
   }
 
   isThreeStrike(strikeCount) {
-    return strikeCount === 3;
+    return strikeCount === NUMBER.LENGTH;
   }
 }
 
