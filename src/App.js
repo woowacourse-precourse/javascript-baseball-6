@@ -28,12 +28,20 @@ function compare(player, computer) {
 
 function isValidNumber(num) {
   let isSame = new Set(num).size != 3;
-  let isInvalidNum = num.includes("0") || num.length != 3 || Number.isNaN(num);
+  let includeZero = num.includes("0");
+  let notThree = num.length != 3;
+  let isInvalidNum = Number.isNaN(num);
   if (isSame) {
-    throw new Error("[ERROR]");
+    throw new Error("[ERROR]같은 숫자가 입력되었습니다.");
+  }
+  if (includeZero) {
+    throw new Error("[ERROR]숫자엔 0이 들어갈 수 없습니다.");
+  }
+  if (notThree) {
+    throw new Error("[ERROR]숫자의 길이는 3이어야 합니다.");
   }
   if (isInvalidNum) {
-    throw new Error("[ERROR]");
+    throw new Error("[ERROR]숫자를 입력해야합니다.");
   }
 }
 
