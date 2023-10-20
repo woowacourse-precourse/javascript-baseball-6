@@ -23,7 +23,7 @@ class App {
         if (
           //사용자로부터의 입력 처리
           input.length !== 3 ||
-          new Set(input) !== 3 ||
+          new Set(input).size !== 3 ||
           [...input].some((item) => Number(item) < 1 || Number(item) > 9)
         ) {
           throw new Error("Error - 잘못된 값을 입력하셨습니다.");
@@ -33,7 +33,7 @@ class App {
 
       //게임 종료 조건을 충족하면 while문을 빠져나온다.
       MissionUtils.Console.print("정답입니다. 게임이 종료됩니다.");
-      const replay = MissionUtils.Console.readLineAsync(
+      const replay = await MissionUtils.Console.readLineAsync(
         "게임을 다시 시작하려면 1, 종료하려면 2를 입력하세요."
       );
 
@@ -48,7 +48,7 @@ class App {
     this.answer = []; // 객체가 생성될 때 뿐만 아니라 사용자가 게임을 다시 시작할때도 정답을 다시 만들어줘야한다.
     while (this.answer.length < 3) {
       const randoms = MissionUtils.Random.pickNumberInRange(1, 9);
-      if (this.answer.includes(randoms)) this.answer.push(randoms); //중복 검사
+      if (!this.answer.includes(randoms)) this.answer.push(randoms); //중복 검사
     }
   }
 
@@ -68,7 +68,6 @@ class App {
     if (strikes == 0 && balls == 0) return "낫싱";
     if (strikes == 3) return "3스트라이크";
 
-    if (strikes === 3) return "3스트라이크";
     return `${balls ? balls + "볼" : ""} ${
       strikes ? strikes + "스트라이크" : ""
     }`.trim();
