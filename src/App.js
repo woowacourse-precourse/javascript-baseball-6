@@ -26,7 +26,7 @@ async function getNumber() {
 function checkError(number) {
   return false;
 }
-let score = {
+let SCORE = {
   볼: 0,
   스트라이크: 0,
   낫싱: 0,
@@ -41,6 +41,9 @@ function review(answer, number) {
   return;
 }
 class App {
+  constructor() {
+    this.answer = answer;
+  }
   async play() {
     //게임 시작문구를 출력한다.
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
