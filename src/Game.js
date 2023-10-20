@@ -1,3 +1,5 @@
-class Game {}
+class Game {
+  start = () => {};
+}
 
 export default Game;
