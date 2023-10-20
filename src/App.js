@@ -1,10 +1,10 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-let Console = MissionUtils.Console;
-let Random = MissionUtils.Random;
+// let Console = MissionUtils.Console;
+// let Random = MissionUtils.Random;
 function makeAnswer() {
   const answer = [];
   while (answer.length < 3) {
-    const number = Random.pickNumberInRange(1, 9);
+    const number = MissionUtils.Random.pickNumberInRange(1, 9);
     if (!answer.includes(number)) {
       answer.push(number);
     }
@@ -13,22 +13,19 @@ function makeAnswer() {
 }
 async function getNumber() {
   try {
-    const number = await Console.readLineAsync("숫자를 입력해주세요 :");
+    const number = await MissionUtils.Console.readLineAsync(
+      "숫자를 입력해주세요 :"
+    );
+    console.log(number);
     return number;
   } catch (error) {
-    Console.print("[ERROR] 숫자가 잘못된 형식입니다.");
+    throw error;
   }
 }
 
 function checkError(number) {
   return false;
 }
-let score = {
-  볼: 0,
-  스트라이크: 0,
-  낫싱: 0,
-  성공: 0,
-};
 
 function review(answer, number) {
   //컴퓨터의 숫자를 순회하여 사용자의 숫자와 비교한다
@@ -40,19 +37,25 @@ function review(answer, number) {
 class App {
   async play() {
     //게임 시작문구를 출력한다.
-    Console.print("숫자 야구 게임을 시작합니다.");
+    MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
     //컴퓨터는 1~9까지 서로다른 임의수 3개를 선택
     const answer = makeAnswer();
-
+    let score = {
+      볼: 0,
+      스트라이크: 0,
+      낫싱: 0,
+      성공: 0,
+    };
     while (!score.성공) {
       //사용자에게 서로다른 숫자 3개를 입력받는다. 숫자를 입력해주세요 :
       let number = getNumber();
       let isError = checkError(number);
       if (!isError) {
-        review(answer, number);
+        return number;
       }
+      review(answer, number);
     }
-    Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
     // 게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. 것을 출력한다.
     //입력받은 수가 1이면 시작 2를 하면 종료를 한다.
   }
