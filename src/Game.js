@@ -41,8 +41,9 @@ class Game {
       const input = await Console.readLineAsync("숫자를 입력해주세요 : ");
       const userNums = input.split("").map(Number);
       return userNums;
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.log("[ERROR]", error.message);
+      process.exit(1); // todo: process.exit() 사용하지 않고 프로그램 종료하기
     }
   };
   checkResult = (userNums) => {
@@ -80,7 +81,8 @@ class Game {
       const inputNum = Number(input);
       return inputNum === 1;
     } catch (error) {
-      console.log(error);
+      Console.print("[ERROR] ", error.message);
+      process.exit(1);
     }
   };
 }
