@@ -20,7 +20,15 @@ class App {
 
   async #retry() {
     const answer = await InputView.readRetryAnswer();
+    if (Validator.validateRetry(answer) === '1') {
+      this.#computerNumber = ComputerNumber.generateComputerNumber();
+      this.play();
+    } else {
+      this.#finish();
+    }
   }
+
+  #finish() {}
 
   #matchComputerNumber(userInput) {
     const table = {
