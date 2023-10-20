@@ -12,7 +12,7 @@ class App {
       RANDOM_NUMBER.add(MissionUtils.Random.pickNumberInRange(1, 9));
     }
 
-    return RANDOM_NUMBER;
+    return [...new Set(RANDOM_NUMBER)];
   }
 
   async play() {
