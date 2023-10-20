@@ -58,3 +58,13 @@ describe("숫자 야구 게임", () => {
     await expect(app.play()).rejects.toThrow("[ERROR]");
   });
 });
+
+describe("기능 단위 테스트", () => {
+  test("1. 게임 시작 알림 기능 테스트", () => {
+    const printSpy = getLogSpy();
+    const app = new App();
+
+    app.showStartMessage();
+    expect(printSpy).toHaveBeenCalledWith("숫자 야구 게임을 시작합니다.");
+  });
+});
