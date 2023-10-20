@@ -14,10 +14,18 @@ class App {
     }
     return [...numbers];
   }
-  
+
   async play() {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.")
+
+    while(1) {
+      const input = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ")
+      MissionUtils.Console.print(input);
+    }
   }
 }
 
 export default App;
+
+const app = new App();
+app.play();
