@@ -6,6 +6,23 @@ class Game {
     Console.print("숫자 야구 게임을 시작합니다.");
   };
 
+  playRound = async () => {
+    this.setComputerNums();
+    //console.log("computer: ", this.computerNums);
+
+    while (true) {
+      const userNums = await this.getUserNums();
+
+      const result = this.checkResult(userNums);
+      const resultStr = this.getResultStr(result);
+      Console.print(resultStr);
+
+      if (result.strike === 3) {
+        Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+        break;
+      }
+    }
+  };
   setComputerNums = () => {
     const computer = [];
     while (computer.length < 3) {
