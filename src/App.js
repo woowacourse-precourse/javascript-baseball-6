@@ -10,9 +10,16 @@ class App {
         return Promise.resolve(l);
     }
 
+    // 플레이어 숫자 생성기
+    async getPlayerNum() {
+        let str = MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
+        return str;
+    }
+
     async play() {
         let data = await this.getComputerNum();
-        MissionUtils.Console.print(data);
+        let player = await this.getPlayerNum();
+        MissionUtils.Console.print(player);
     }
 }
 
