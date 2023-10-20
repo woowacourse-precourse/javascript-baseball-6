@@ -28,7 +28,7 @@ class App {
           Console.print("게임 종료");
           break;
         } else {
-          throw new Error("[ERROR] 잘못된 입력입니다");
+          throw new Error("[ERROR] 잘못된 입력입니다.");
         }
       } else {
         printHint(computerAnswer, userAnswer);
