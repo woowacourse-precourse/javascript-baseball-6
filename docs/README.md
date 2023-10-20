@@ -1,23 +1,23 @@
 # 구현할 기능 목록
 
-- `@woowacourse/mission-utils`의 `Console` API를 사용하여 입력값 받기
-  - `Console.readLineAsync` 사용
+- `@woowacourse/mission-utils`의 `Console` API를 사용하여 입력값 받기 ✅
+  - `Console.readLineAsync` 사용 ✅
 
  <br/>
 
 - 입력값 유효성 검사를 진행
-  - 게임 시작 후 입력값은 0을 제외한 세자리 숫자
+  - 게임 시작 후 입력값은 0을 제외한 세자리 숫자 ✅
   - 게임 종료 후 입력값은 숫자 1 또는 2
 
 <br/>
 
-- 사용자가 잘못된 값을 입력한 경우 `throw`문을 사용하여 예외 발생
+- 사용자가 잘못된 값을 입력한 경우 `throw`문을 사용하여 예외 발생 ✅
   - 애플리케이션 종료
 
  <br/>
 
-- 야구 게임의 정답(0을 제외한 세자리 숫자)을 생성
-  - `@woowacourse/mission-utils`의 `Random` API를 사용하여 Random 값 추출
+- 야구 게임의 정답(0을 제외한 세자리 숫자)을 생성 ✅
+  - `@woowacourse/mission-utils`의 `Random` API를 사용하여 Random 값 추출 ✅
 
  <br/>
 
