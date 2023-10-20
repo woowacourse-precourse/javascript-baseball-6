@@ -43,13 +43,14 @@ class App {
   printResult(answer) {
     const { ball, strike } = this.baseballGame.getResult(answer);
 
+    Console.print(this.getResultMessage(ball, strike));
+
     if (strike == 3) {
       Console.print(MESSAGE.SUCCESS);
       this.readRetry();
       return;
     }
-
-    Console.print(this.getResultMessage(ball, strike));
+    
     this.readAnswer();
   }
 
