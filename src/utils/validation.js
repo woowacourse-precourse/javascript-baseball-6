@@ -1,10 +1,10 @@
-import {
-  NUMBER_ERROR,
-  DUPLICATION_ERROR,
-  LENGTH_ERROR,
-  INVALID_INPUT_ERROR,
-} from "../constants/error-message.js";
-import { GAME_RESTART, GAME_EXIT } from "../constants/game-control-command.js";
+const LENGTH_ERROR = "[ERROR] 입력받은 숫자가 3개가 아닙니다.";
+const DUPLICATION_ERROR = "[ERROR] 입력받은 숫자에 중복이 포함되어 있습니다.";
+const NUMBER_ERROR = "[ERROR] 입력받은 숫자에 문자가 포함되어 있습니다.";
+const INVALID_INPUT_ERROR = "[ERROR] 유효하지 않은 입력입니다.";
+
+const GAME_RESTART = "1";
+const GAME_EXIT = "2";
 
 /**
  * 사용자가 입력한 숫자의 길이가 3인지 확인하는 함수
@@ -77,4 +77,5 @@ export {
   isNumberError,
   validateUserInputNumber,
   validateUserSelectNumber,
+  GAME_EXIT,
 };

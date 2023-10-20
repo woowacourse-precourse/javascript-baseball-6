@@ -2,6 +2,7 @@ import { Console } from "@woowacourse/mission-utils";
 import {
   validateUserInputNumber,
   validateUserSelectNumber,
+  GAME_EXIT,
 } from "./utils/validation.js";
 import {
   generateComputerNumbers,
@@ -14,7 +15,6 @@ import {
   INPUT_NUMBER_MESSAGE,
   RESTART_INFO_MESSAGE,
 } from "./constants/info-message.js";
-import { GAME_EXIT } from "./constants/game-control-command.js";
 
 class App {
   async play() {
@@ -37,6 +37,7 @@ class App {
       Console.print(GAME_WIN_MESSAGE);
       Console.print(RESTART_INFO_MESSAGE);
 
+      // 1(GAME_RESTART) 재시작, 2(GAME_EXIT) 종료
       userSelectNumber = await Console.readLineAsync("");
       validateUserSelectNumber(userSelectNumber);
     } while (userSelectNumber !== GAME_EXIT);
