@@ -4,6 +4,18 @@ class App {
   RANDOM_NUMBER;
   USER_NUMBER;
 
+  testNumber() {
+    if (this.number.length !== 3) {
+      return false;
+    } else if (this.number.type !== "number") {
+      return false;
+    } else if (this.number < 1 || this.number > 9) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   getUserInput() {
     MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ", (number) => {
       if (!this.testNumber(number))
