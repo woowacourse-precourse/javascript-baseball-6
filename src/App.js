@@ -1,12 +1,14 @@
 import { Console } from '@woowacourse/mission-utils';
-
-const printStartMessage = () => {
-  Console.print('숫자 야구 게임을 시작합니다.');
-};
+import { printStartMessage, readBaseballNumbers } from './View.js';
+import BaseBall from './BaseBall.js';
 
 class App {
+  constructor() {}
+
   async play() {
     printStartMessage();
+
+    const userInput = await readBaseballNumbers('숫자를 입력해주세요 : ');
   }
 }
 
