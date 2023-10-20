@@ -28,16 +28,16 @@ export default class BaseballGameController {
     while (this.#gameState !== QUIT) {
       switch (this.#gameState) {
         case PLAYING:
-          await this.readAndProcessNumbers(baseballGame);
+          await this.#readAndProcessNumbers(baseballGame);
           break;
         case COMMAND:
-          await this.readAndProcessCommand(baseballGame);
+          await this.#readAndProcessCommand(baseballGame);
           break;
       }
     }
   }
 
-  async readAndProcessNumbers(game) {
+  async #readAndProcessNumbers(game) {
     const input = await this.#inputView.readUserInputNumbers();
     validateUtils.validateNumbers(input);
 
@@ -50,13 +50,13 @@ export default class BaseballGameController {
     }
   }
 
-  async readAndProcessCommand(game) {
+  async #readAndProcessCommand(game) {
     const input = await this.#inputView.readUserInputCommand();
     validateUtils.validateCommand(input);
 
     switch (input) {
       case USER_COMMANDS.RESTART:
-        game.setNewAnswer();
+        game.resetAnswer();
         this.#gameState = PLAYING;
         break;
       case USER_COMMANDS.QUIT:

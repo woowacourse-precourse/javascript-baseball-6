@@ -13,18 +13,18 @@ export default class OutputView {
   printMatchResult(matchResult) {
     const [ball, strike] = matchResult;
     if (strike === GAME_CONSTANTS.STRIKE_OUT_COUNT) {
-      this.printGameWin(matchResult);
+      this.#printGameWin(matchResult);
       return;
     }
     if (!ball && !strike) {
-      this.printNoMatch();
+      this.#printNoMatch();
       return;
     }
-    const resultText = this.getResultString(matchResult);
+    const resultText = this.#getResultString(matchResult);
     MissionUtils.Console.print(resultText);
   }
 
-  getResultString(matchResult) {
+  #getResultString(matchResult) {
     const text = [GAME_RESULTS.BALL, GAME_RESULTS.STRIKE];
     const parsedResults = matchResult.map((item, idx) => {
       if (!item) return;
@@ -33,12 +33,12 @@ export default class OutputView {
     return parsedResults.join(" ");
   }
 
-  printGameWin(matchResult) {
-    const strikeText = this.getResultString(matchResult);
+  #printGameWin(matchResult) {
+    const strikeText = this.#getResultString(matchResult);
     MissionUtils.Console.print(`${strikeText}\n${GAME_MESSAGES.FINISH}`);
   }
 
-  printNoMatch() {
+  #printNoMatch() {
     MissionUtils.Console.print(GAME_RESULTS.NO_MATCH);
   }
 }
