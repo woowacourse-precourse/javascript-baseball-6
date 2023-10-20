@@ -3,6 +3,7 @@ import InputView from '../View/InputView.js';
 
 import User from '../Model/User.js';
 import Computer from '../Model/Computer.js';
+import HintCounter from '../Model/HintCounter.js';
 import RandomNumbersMaker from '../Model/RandomNumbersMaker.js';
 
 import ErrorCatcher from '../ErrorCatcher.js';
@@ -47,6 +48,13 @@ class Controller {
   setComputerAnswer() {
     const randomNumbersMaker = new RandomNumbersMaker();
     this.computer.setAnswer(randomNumbersMaker.makeNumbers());
+
+    this.compareUserToComputer();
+  }
+
+  compareUserToComputer() {
+    const hintCounter = new HintCounter();
+    hintCounter.countHint(this.user.getAnswer(), this.computer.getAnswer());
   }
 }
 
