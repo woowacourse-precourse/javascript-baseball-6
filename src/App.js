@@ -18,7 +18,10 @@ class App {
   playGame() {
     this.rl.question(`숫자를 입력해주세요: `, (answer) => {
       const playerNumbers = answer.split("").map((number) => parseInt(number));
-      Console.print(playerNumbers)
+      //입력받은 값과 컴퓨터 값을 계산해서 얼마나 일치하는지 알려주기
+      //TODO:연산하는 함수
+      const result = this.calculateResult(playerNumbers);
+      Console.print(result);
       this.rl.close();
     });
   }
@@ -34,6 +37,24 @@ class App {
     return numbers;
   }
 
+  calculateResult(playerNumbers) {
+    let strike = 0;
+    let ball = 0;
+
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+        if (this.computerNumbers[i] === playerNumbers[j]) {
+          if (i === j) {
+            strike++;
+          } else {
+            ball++;
+          }
+        }
+      }
+    }
+
+    return { strike, ball };
+  }
 }
 
 const app = new App();
