@@ -7,6 +7,10 @@
 - 🟢 진행 완료
 - 🔵 리팩토링
 
+### 🔗 Workflow
+
+![workflow](./docs/workflow.png)
+
 ### 🔴 1. 게임 시작 문구 출력
 
 - ✏️ 기능 설명
