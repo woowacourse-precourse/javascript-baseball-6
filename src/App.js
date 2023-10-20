@@ -6,7 +6,7 @@ class App {
   }
 
   async play() {
-    // 컴퓨터 랜덤으로 숫자 3개 선택
+    // 랜덤으로 서로 다른 숫자 3개 선택
     this.computer = this.pickRandomNum();
     Console.print("숫자 야구 게임을 시작합니다.");
 
@@ -22,7 +22,7 @@ class App {
 
     Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
     const again = await Console.readLineAsync(
-      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
     );
 
     if (again === 1) {
@@ -36,7 +36,9 @@ class App {
 
     while (arr.length < 3) {
       const num = Random.pickNumberInRange(1, 9);
-      arr.push(num);
+      if (!arr.includes(num)) {
+        arr.push(num);
+      }
     }
 
     return arr.join("");
