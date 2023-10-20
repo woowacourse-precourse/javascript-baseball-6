@@ -14,14 +14,14 @@ class App {
   async getUserGuessInput() {
     const inputNumbers = await Console.readLineAsync(MESSAGE.ENTER_NUMBERS);
     const userNumbers = this.splitUserInput(inputNumbers);
-    this.validateUserInput(userNumbers);
+    await this.validateUserInput(userNumbers);
   }
 
   splitUserInput(input) {
     return input.split('').map(Number);
   }
 
-  validateUserInput(userNumbers) {
+  async validateUserInput(userNumbers) {
     if (!Validator.checkIsNumber(userNumbers)) {
       throw new Error(ERROR.NOT_A_NUMBER);
     }
@@ -34,28 +34,27 @@ class App {
     if (Validator.checkHasZero(userNumbers)) {
       throw new Error(ERROR.HAS_ZERO);
     }
-    this.printNumberOfMatches(userNumbers);
+    await this.printNumberOfMatches(userNumbers);
   }
 
-  printNumberOfMatches(userNumbers) {
+  async printNumberOfMatches(userNumbers) {
     const result = this.#game.compareUserNumbersWithAnswer(userNumbers);
     Console.print(result);
-    this.checkIsAnswer(result);
+    await this.checkIsAnswer(result);
   }
 
   async checkIsAnswer(result) {
     if (result === RESULT.THREE_STRIKE) {
       Console.print(MESSAGE.CORRECT_ANSWER);
-      this.guessRestart();
+      await this.guessRestart();
     } else await this.getUserGuessInput();
   }
 
-  guessRestart() {
-    Console.readLineAsync(MESSAGE.WANT_RESTART).then((input) => {
-      const num = Number(input);
-      this.validateRestartInput(num);
-      if (num === 1) this.restart();
-    });
+  async guessRestart() {
+    const input = await Console.readLineAsync(MESSAGE.WANT_RESTART);
+    const num = Number(input);
+    this.validateRestartInput(num);
+    if (num === 1) await this.restart();
   }
 
   validateRestartInput(input) {
@@ -64,9 +63,9 @@ class App {
     }
   }
 
-  restart() {
+  async restart() {
     this.#game = new BaseballGame();
-    this.getUserGuessInput();
+    await this.getUserGuessInput();
   }
 }
 
