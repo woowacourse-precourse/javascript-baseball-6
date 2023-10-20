@@ -9,7 +9,7 @@ class App {
         if(!restart) break
       }
     }catch(e){
-      throw new Error("[ERROR] 에러가 발생했습니다")
+      throw new Error(e.message)
     }
   }
 }
@@ -22,7 +22,7 @@ async function GameStart(){
       const inp = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ')
       /* 사용자 입력 예외처리 */
       if(inp.length !== 3){
-        throw new Error("[ERROR] 숫자가 잘못된 형식입니다")
+        throw new Error("[ERROR] 숫자는 세자리여야 합니다")
       }
       for(let i=0; i<inp.length; i++){
         if(typeof Number(inp[i]) !== 'number') throw new Error("[ERROR] 숫자가 잘못된 형식입니다")
