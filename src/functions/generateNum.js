@@ -1,6 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
-function generateNum({ length }) {
+const generateNum = function generateRandomNumberList({ length }) {
   const computer = [];
   while (computer.length < length) {
     const number = MissionUtils.Random.pickNumberInRange(1, 9);
@@ -10,6 +10,6 @@ function generateNum({ length }) {
   }
 
   return computer;
-}
+};
 
 export default generateNum;

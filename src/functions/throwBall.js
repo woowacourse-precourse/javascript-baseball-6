@@ -1,13 +1,8 @@
 /**
- * 두 리스트를 비교
- * strike , ball 개수 계산하여 반환
- */
-
-/**
  * @param {{dest: number[], src: number[]}}
  */
 
-function throwBall({ dest, src }) {
+const throwBall = function compareSrcWithDest({ dest, src }) {
   let strike = 0;
   let ball = 0;
 
@@ -22,6 +17,6 @@ function throwBall({ dest, src }) {
   });
 
   return { strike, ball };
-}
+};
 
 export default throwBall;
