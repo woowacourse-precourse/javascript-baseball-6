@@ -1,15 +1,18 @@
-import { Console, MissionUtils, Random } from "@woowacourse/mission-utils";
+import { Console, Random } from "@woowacourse/mission-utils";
 import MESSAGE from "./constant/MESSAGE.js";
 import NUMBER from "./constant/NUMBER.js";
+import ERROR from "./constant/ERROR.js";
 
 class App {
   constructor() {
     this.computerNumber = [];
+    this.userNumber = [];
   }
 
   async play() {
     this.startGame();
     this.chooseComputerNumber();
+    await this.getUserInput();
   }
 
   printMessage(message) {
@@ -33,8 +36,30 @@ class App {
     return Random.pickNumberInRange(NUMBER.MIN, NUMBER.MAX);
   }
 
-  getUserInput() {
-    MissionUtils.readLineAsync();
+  async getUserInput() {
+    const userInput = await Console.readLineAsync(MESSAGE.ENTER_NUMBER);
+    this.userNumber = this.validateUserInput(userInput).split("");
+  }
+
+  validateUserInput(input) {
+    if (!this.isNotEmpty(input)) throw new Error(ERROR.EMPTY_INPUT);
+    if (!this.isValidNumber(input)) throw new Error(ERROR.INVALID_NUMBER);
+    if (!this.areDigitsUnique(input)) throw new Error(ERROR.NON_UNIQUE_DIGITS);
+
+    return input;
+  }
+
+  isNotEmpty(input) {
+    return input !== null && input.trim() !== "";
+  }
+
+  isValidNumber(input) {
+    return /^[1-9]{3}$/.test(input);
+  }
+
+  areDigitsUnique(input) {
+    const uniqueDigits = [...new Set(input)];
+    return uniqueDigits.length === input.length;
   }
 }
 
