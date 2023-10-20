@@ -43,7 +43,11 @@ class App {
   }
 
   check(input_numbers) {
-    if (input_numbers.length !== 3 || this.isDuplicateNumbers(input_numbers)) {
+    if (
+      !input_numbers ||
+      input_numbers.length !== 3 ||
+      this.isDuplicateNumbers(input_numbers)
+    ) {
       return 1;
     }
 
@@ -85,6 +89,7 @@ class App {
 
     while (true) {
       const answer = await Console.readLineAsync("숫자를 입력해주세요 : ");
+      if (answer === "") continue;
       if (this.check(answer)) {
         throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
       }
@@ -93,6 +98,7 @@ class App {
         const retry = await Console.readLineAsync(
           "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
         );
+        if (retry === "") continue;
         if (retry === "1") {
           this.init_secret_number();
         } else if (retry === "2") {
@@ -104,8 +110,11 @@ class App {
     }
   }
 }
-
-const my_app = new App();
-my_app.play();
+try {
+  const my_app = new App();
+  my_app.play();
+} catch (e) {
+  console.log(e);
+}
 
 export default App;
