@@ -40,6 +40,17 @@ class Game {
     });
     return result;
   };
+  getResultStr = (result) => {
+    if (result.strike === 0 && result.ball === 0) {
+      return "낫싱";
+    } else if (result.strike === 0) {
+      return `${result.ball}볼`;
+    } else if (result.ball === 0) {
+      return `${result.strike}스트라이크`;
+    } else {
+      return `${result.ball}볼 ${result.strike}스트라이크`;
+    }
+  };
 }
 
 export default Game;
