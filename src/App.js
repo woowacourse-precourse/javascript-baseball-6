@@ -19,13 +19,13 @@ function cpuPickNum() {
 async function userPickNum() {
   const userNum = await Console.readLineAsync("숫자를 입력해주세요 : ");
 
-  const num = userNum.split("");
+  const numArr = userNum.split("");
 
-  const intNum = num.map(function (e) {
+  const userNumArr = numArr.map(function (e) {
     return Number(e);
   });
 
-  return intNum;
+  return userNumArr;
 }
 
 function compareNumber() {}
