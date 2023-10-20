@@ -15,17 +15,17 @@ class App {
         numArr.push(pickNum);
       }
     }
-    // numArr = [5, 8, 9];
+    // numArr = [1, 3, 5];
     return numArr;
   }
 
   // 야구게임 정답 판별
   checkAnswer(input, answer) {
     if (input.length !== 3) {
-      throw new Error("[Error] 3자리의 숫자를 입력해주세요");
+      throw new Error("[ERROR] 3자리의 숫자를 입력해주세요");
     }
     if (input.includes(NaN)) {
-      throw new Error("[Error] 숫자가 아닌 문자를 입력하였습니다");
+      throw new Error("[ERROR] 숫자가 아닌 문자를 입력하였습니다");
     }
     let message = "";
     let strike = 0;
@@ -56,7 +56,7 @@ class App {
     } else if (selectContinue === "2") {
       return;
     } else {
-      throw new Error("[Error] 잘못된 접근입니다");
+      throw new Error("[ERROR] 잘못된 접근입니다");
     }
   }
 
@@ -84,7 +84,7 @@ class App {
           await Console.print(check);
         }
       } catch (e) {
-        await Console.print(e);
+        throw e;
         // Error: 숫자가 아닌 문자를 입력하였습니다
         return;
       }
@@ -92,15 +92,14 @@ class App {
     await Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
 
     // 야구게임 재시작 / 종료 이행 (정상작동) (class로 변경 예정)
-    let selectContinue = await Console.readLineAsync(
-      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
-    );
+    await Console.print("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+    let selectContinue = await Console.readLineAsync("");
     if (selectContinue === "1") {
       this.play();
     } else if (selectContinue === "2") {
       return;
     } else {
-      throw new Error("[Error] 잘못된 접근입니다");
+      throw new Error("[ERROR] 잘못된 접근입니다");
     }
   }
 }
