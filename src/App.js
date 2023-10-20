@@ -42,14 +42,8 @@ class App {
     }
 
     ComputerNumber() {
-        const COMPUTER = [];
-        while (COMPUTER.length < 3) {
-            const RANDOMNUM = MissionUtils.Random.pickNumberInRange(1, 9);
-            if (!COMPUTER.includes(RANDOMNUM)) {
-                COMPUTER.push(RANDOMNUM);
-            }
-        }
-        return COMPUTER.join("");
+        const RANDOMNUM = MissionUtils.Random.pickNumberInRange(1, 9, 3);
+        return RANDOMNUM;
     }
 
     CheckNum(USERINPUT) {
