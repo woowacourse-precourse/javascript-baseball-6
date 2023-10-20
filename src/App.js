@@ -30,6 +30,8 @@ class App {
     switch (status) {
       case "playing": {
         const answer = await Console.readLineAsync("숫자를 입력해주세요 : ");
+        this._invalid(answer);
+
         const result = this._scoreAnswer(answer);
         const { strike } = result;
         if (strike === 3) {
@@ -58,6 +60,18 @@ class App {
     }
 
     return result;
+  }
+
+  _invalid(answer) {
+    const numberRegex = /^[1-9]+$/;
+
+    if (answer.length === 0) throw new Error("[ERROR] 숫자를 입력해야합니다.");
+    if (answer.includes(" "))
+      throw new Error("[ERROR] 입력값에 공백이 포함되어 있습니다.");
+    if (!numberRegex.test(answer) || new Set(answer).size !== 3)
+      throw new Error(
+        "[ERROR] 1부터 9까지 서로 다른 수로 이루어진 3자리의 수를 입력해야합니다."
+      );
   }
 }
 
