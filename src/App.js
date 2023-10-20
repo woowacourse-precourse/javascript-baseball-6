@@ -1,9 +1,16 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
+const INPUT_LENGTH = 3;
+
+function InputException(message) {
+  this.message = message;
+  this.name = "InputException";
+}
+
 // 컴퓨터가 3개의 난수 배열을 생성하는 함수
 const getComputerNumber = () => {
   const computer = [];
-  while (computer.length < 3) {
+  while (computer.length < INPUT_LENGTH) {
     const number = MissionUtils.Random.pickNumberInRange(1, 9);
     if (!computer.includes(number)) {
       computer.push(number);
@@ -16,7 +23,12 @@ const getComputerNumber = () => {
 const readFromPlayer = () => {
   return new Promise((resolve) => {
     MissionUtils.Console.readLine("숫자를 입력해주세요 : ", (answer) => {
-      resolve(readToList(answer));
+      console.log(answer);
+      if (answer.length === INPUT_LENGTH && answer >= 100 && answer <= 999) {
+        resolve(readToList(answer));
+      } else {
+        throw new InputException("예외가 발생했습니다.");
+      }
     });
   });
 };
@@ -47,7 +59,7 @@ const compareNumber = (computerList, humanList) => {
 
 // 결과를 출력하는 함수
 const printResult = (strikeCnt, ballCnt) => {
-  if (strikeCnt === 3) {
+  if (strikeCnt === INPUT_LENGTH) {
     MissionUtils.Console.print(`${strikeCnt}스트라이크`);
     MissionUtils.Console.print(
       `${strikeCnt}개의 숫자를 모두 맞히셨습니다! 게임 종료`
