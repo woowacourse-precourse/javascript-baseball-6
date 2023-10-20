@@ -15,4 +15,22 @@ const makeRandomNumber = () => {
 
   return randomNumber;
 }
+
+const checkInputIsValid = (userInput) => {
+  const input = [...userInput].reduce((acc, cur) => {
+    if (acc[acc.length] === 0 || acc[acc.length - 1] != cur) {
+      acc += cur;
+    }
+
+    return acc;
+  }, '');
+  
+  if (input.length != 3) {
+    return true;
+  }
+
+  return false;
+}
+
+checkInputIsValid('115');
 export default App;
