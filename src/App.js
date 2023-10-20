@@ -1,5 +1,8 @@
 import { Console, MissionUtils } from "@woowacourse/mission-utils";
 
+const RESTART = "1";
+const QUIT = "2";
+
 class App {
   _status = "idle";
   _answer = null;
@@ -13,10 +16,6 @@ class App {
   async restart() {
     this._answer = this._createAnswer();
     await this._transition("playing");
-  }
-
-  quit() {
-    return;
   }
 
   async _transition(status) {
@@ -58,23 +57,21 @@ class App {
       }
       case "clear": {
         Console.print("3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-        const playerInput = await Console.readLineAsync(
-          "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
-        );
-        if (playerInput === "1") {
-          await this.restart();
-        } else if (playerInput === "2") {
-          await this._transition("end");
-        } else {
-          await Console.readLineAsync(
+
+        let playerInput = null;
+        while (playerInput !== RESTART && playerInput !== QUIT) {
+          playerInput = await Console.readLineAsync(
             "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
           );
         }
+
+        if (playerInput === RESTART) {
+          await this.restart();
+        } else if (playerInput === QUIT) {
+          await this._transition("end");
+        }
       }
 
-      case "end":
-        this.quit();
-        break;
       default:
         break;
     }
