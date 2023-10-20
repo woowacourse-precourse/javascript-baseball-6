@@ -49,7 +49,7 @@ class App {
     if (check === "3스트라이크") {
       return await Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
     } else {
-      await app.playBaseballGame(answer);
+      await this.playBaseballGame(answer);
     }
 
     return check;
@@ -95,7 +95,7 @@ class App {
     } else if (selectContinue !== "1") {
       throw new Error("[ERROR] 잘못된 접근입니다");
     }
-    return app.play();
+    return this.play();
   }
 }
 
