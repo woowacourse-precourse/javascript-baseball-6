@@ -8,4 +8,3 @@ export function makeRandomNumber() {
     return [...setArr];
 }
 
-console.log(makeRandomNumber());

@@ -18,7 +18,8 @@ export function resultOut(random, inputNo) {
     if (strike !== 0) {
         result += `${strike}스트라이크`
     }
-    console.log(result);
+    if (ball === 0 && strike === 0) {
+        result += `낫싱`
+    }
+    return result;
 }
-
-resultOut([1, 2, 3], '123');
