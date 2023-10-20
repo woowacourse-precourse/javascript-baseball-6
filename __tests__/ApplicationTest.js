@@ -2,6 +2,7 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 import App from "../src/App.js";
 import { ERROR_MESSAGE } from "../src/constants.js";
 import { pickNumberInRange, printMessage, readLineAsync, throwError } from "../src/utils.js";
+import BaseBallGame from "../src/BaseballGame.js";
 
 const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
@@ -154,8 +155,25 @@ describe("게임 재시작 여부 테스트", () => {
   });
 });
 
-describe("스트라이크 볼 테스트", () => {
-  test("스트라이크 볼 스코어 생성", () => {
+describe("BaseballGame class", () => {
+  const props = { min: 1, max: 9, maxInputLength: 3 };
+  const scores = [
+    { strike: 0, ball: 0 },
+    { strike: 1, ball: 2 },
+    { strike: 3, ball: 0 },
+  ];
+
+  test("랜덤 숫자 생성", () => {
+    const randoms = [1, 2, 3];
+
+    mockRandoms(randoms);
+
+    const game = new BaseBallGame(props);
+
+    expect(game.generateRandomNumbers()).toEqual([1, 2, 3]);
+  });
+
+  test("스트라이크 볼 계산", () => {
     const randoms = [1, 2, 3];
     mockRandoms(randoms);
 
@@ -164,53 +182,40 @@ describe("스트라이크 볼 테스트", () => {
       [1, 3, 2],
       [1, 2, 3],
     ];
-    const scores = [
-      { strike: 0, ball: 0 },
-      { strike: 1, ball: 2 },
-      { strike: 3, ball: 0 },
-    ];
 
-    const app = new App();
-
-    app.init();
+    const game = new BaseBallGame(props);
+    game.init();
 
     answers.forEach((answer, i) => {
-      expect(app.calculateStrikeBall(answer)).toEqual(scores[i]);
+      expect(game.calculateStrikeBall(answer)).toEqual(scores[i]);
     });
   });
-});
 
-describe("메시지 생성 테스트", () => {
-  test("메시지 생성", () => {
-    const scores = [
-      { strike: 0, ball: 0 },
-      { strike: 0, ball: 2 },
-      { strike: 1, ball: 2 },
-      { strike: 3, ball: 0 },
-    ];
+  test("스코어 메시지 생성", () => {
+    const messages = ["낫싱", "2볼 1스트라이크", "3스트라이크"];
 
-    const messages = ["낫싱", "2볼", "2볼 1스트라이크", "3스트라이크"];
-
-    const app = new App();
+    const game = new BaseBallGame(props);
 
     scores.forEach(({ strike, ball }, i) => {
-      const result = app.generateScoreMessage(strike, ball);
+      const result = game.generateScoreMessage(strike, ball);
 
       expect(result).toEqual(messages[i]);
     });
   });
-});
 
-describe("랜덤 숫자 생성 테스트", () => {
-  test("랜덤 숫자 생성", () => {
-    const randoms = [1, 3, 5, 5, 8, 9];
-
+  test("게임 진행", () => {
+    const randoms = [1, 2, 3];
     mockRandoms(randoms);
 
-    const app = new App();
+    const answer = [1, 2, 3];
+    const score = { strike: 3, ball: 0 };
+    const message = "3스트라이크";
 
-    expect(app.generateRandomNumbers()).toEqual([1, 3, 5]);
-    expect(app.generateRandomNumbers()).toEqual([5, 8, 9]);
+    const game = new BaseBallGame(props);
+    game.init();
+
+    expect(game.calculateStrikeBall(answer)).toEqual(score);
+    expect(game.generateScoreMessage(score.strike, score.ball)).toEqual(message);
   });
 });
 
