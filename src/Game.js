@@ -30,6 +30,22 @@ export class Game {
         MissionUtils.Console.print("error");
       }
     }
-    const inputString = getInputPromise();
+
+    getInputPromise().then((input) => {
+      this.validateUserInput(input);
+    });
+  }
+
+  validateUserInput(input) {
+    const set = new Set();
+    for (const element of input) {
+      set.add(parseInt(element));
+    }
+    set.forEach((el) => {
+      if (isNaN(el)) {
+        throw new Error("[ERROR] 숫자를 입력해주세요");
+      }
+    });
+    if (set.size !== 3) throw new Error("[ERROR] 세 자리 숫자가 아닙니다");
   }
 }
