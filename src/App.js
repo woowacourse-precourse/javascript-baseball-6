@@ -1,6 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
 import Game from './game';
-import { CONSTANTS } from './utils';
 import InputError from './errors/input-error';
 
 class App {
