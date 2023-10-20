@@ -49,6 +49,26 @@ class App {
     }
     return computer;
   }
+  //볼, 스트라이크 개수 체크
+  countBallAndStrike(computerNumber, guess) {
+    let b = 0;
+    let s = 0;
+
+    const stringComputerNumberArray = computerNumber.map(String);
+    const stringGuessArray = guess.split("");
+    //MissionUtils.Console.print("num : " + computerNumber);
+    stringComputerNumberArray.forEach((val, i) => {
+      if (stringGuessArray.indexOf(val) !== -1) {
+        if (stringGuessArray.indexOf(val) === i) {
+          s++;
+        } else {
+          b++;
+        }
+      }
+    });
+
+    s === 3 ? this.restartMessage() : this.gameResultMessage(b, s);
+  }
 }
 
 const app = new App();
