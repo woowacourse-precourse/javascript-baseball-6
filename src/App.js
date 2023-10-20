@@ -3,6 +3,7 @@ import { MissionUtils, Console } from "@woowacourse/mission-utils";
 class App {
   async play() {
     startGame();
+    createUserNumber();
   }
 }
 
@@ -19,6 +20,13 @@ function createComputerNumber() {
   }
 }
   return computer;
+}
+
+async function createUserNumber() {
+  const createNumber = await Console.readLineAsync('숫자를 입력해주세요 : ');
+  const userNumber = Array.from(createNumber).map((value) => Number(value));
+
+  return userNumber;
 }
 
 const app = new App();
