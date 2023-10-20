@@ -25,8 +25,8 @@ class Controller {
         this.makeAnswer();
         while (true){
             CONSTANTS.USER_NUMBER = await MissionUtils.Console.readLineAsync(`${INPUT_MSG.INPUT_NUMBER}`);
-            this.VAL.numberValidate(CONSTANTS.USER_NUMBER);
             MissionUtils.Console.print(`${INPUT_MSG.INPUT_NUMBER} ${CONSTANTS.USER_NUMBER}`);
+            this.VAL.numberValidate(CONSTANTS.USER_NUMBER);
             STRIKE_BALL.STRIKE = 0;
             STRIKE_BALL.BALL = 0;
             this.#checkingStrike(CONSTANTS.USER_NUMBER);
@@ -54,8 +54,11 @@ class Controller {
     async #reGame() {
         MissionUtils.Console.print(OUTPUT_MSG.RE_GAME);
         CONSTANTS.REGAME_CONSTANTS = await MissionUtils.Console.readLineAsync(`${INPUT_MSG.INPUT_NUMBER}`);
+        MissionUtils.Console.print(CONSTANTS.REGAME_CONSTANTS);
         (CONSTANTS.REGAME_CONSTANTS == 1) ? this.getInputNumber() : MissionUtils.Console.print(`${OUTPUT_MSG.GAME_OVER}`); 
     }
 }
 
 module.exports = Controller;
+// export default Controller;
+

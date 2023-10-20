@@ -1,8 +1,12 @@
 const GamePlay = require('./views/GamePlay');
 
 class App {
+  constructor() {
+    this.GAME = new GamePlay();
+
+  }
   async play() {
-    const game_play = new GamePlay();
+    this.GAME.startGame();
   }
 }
 
