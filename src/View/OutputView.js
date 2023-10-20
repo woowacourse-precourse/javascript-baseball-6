@@ -6,6 +6,10 @@ const OutputView = {
   printStartMessage() {
     MissionUtils.Console.print(START_MESSAGE);
   },
+
+  printError(error) {
+    MissionUtils.Console.print(error);
+  },
 };
 
 export default OutputView;
