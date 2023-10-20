@@ -28,7 +28,7 @@ class Baseball {
   async getUserInputAndCompareToComputer() {
     this.userNumbers = await this.user.getValidatedNumberArray();
 
-    let judgeResult = this.calculateResult(
+    const judgeResult = this.calculateResult(
       this.computerNumbers,
       this.userNumbers
     );
@@ -38,8 +38,8 @@ class Baseball {
   }
 
   calculateResult(computer, user) {
-    let strikeCount = this.judgeStrike(computer, user);
-    let ballCount = this.judgeBall(computer, user);
+    const strikeCount = this.judgeStrike(computer, user);
+    const ballCount = this.judgeBall(computer, user);
 
     return { strikeCount, ballCount };
   }
