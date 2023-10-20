@@ -61,20 +61,20 @@ class Baseball {
   }
 
   createJudgeMessage({ strikeCount, ballCount }) {
-    if (strikeCount === 3)
-      return this.consoleUtils.print(
-        "3개의 숫자를 모두 맞히셨습니다! 게임 종료"
-      );
+    if (strikeCount === 3) return this.consoleUtils.print(MESSAGE.FINISH_GAME);
 
     if (strikeCount === 0 && ballCount === 0)
-      return this.consoleUtils.print("낫싱");
+      return this.consoleUtils.print(MESSAGE.NO_STRIKE_BALL);
 
-    if (strikeCount === 0) return this.consoleUtils.print(`${ballCount}볼`);
+    if (strikeCount === 0)
+      return this.consoleUtils.print(MESSAGE.ONLY_BALL(ballCount));
 
     if (ballCount === 0)
-      return this.consoleUtils.print(`${strikeCount}스트라이크`);
+      return this.consoleUtils.print(MESSAGE.ONLY_STRIKE(strikeCount));
 
-    return this.consoleUtils.print(`${ballCount}볼 ${strikeCount}스트라이크`);
+    return this.consoleUtils.print(
+      MESSAGE.STRIKE_AND_BALL({ ballCount, strikeCount })
+    );
   }
 
   isThreeStrike(strikeCount) {
