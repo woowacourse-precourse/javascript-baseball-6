@@ -11,13 +11,12 @@ class App {
   END_MSG = '3개의 숫자를 모두 맞히셨습니다! 게임 종료';
   SELECT_MSG = '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.';
 
-  async play() {
+  constructor() {
     Console.print(this.START_MSG);
-    this.startGame();
   }
 
-  startGame() {
-    this.#COMPUTER = this.createComputer();
+  async play() {
+    this.createComputer();
     this.validateNumber();
   }
 
@@ -29,29 +28,25 @@ class App {
         random.push(number);
       }
     }
-    return random;
+    this.#COMPUTER = [...random];
   }
 
   async validateNumber() {
-    try {
-      const answer = await Console.readLineAsync(this.INPUT_MSG);
-      let number = Number(answer);
-      if (!number) {
-        throw new Error(this.ERROR_MSG);
-      }
-      const set = new Set();
-      while (number > 0) {
-        set.add(number % 10);
-        number = Math.floor(number / 10);
-      }
-      if (!set.has(0) && set.size === 3) {
-        const numbers = [...set].reverse();
-        this.continueGame(numbers);
-      } else {
-        throw new Error(this.ERROR_MSG);
-      }
-    } catch (e) {
-      Console.print(e.message);
+    const answer = await Console.readLineAsync(this.INPUT_MSG);
+    let number = Number(answer);
+    if (!number) {
+      throw new Error(this.ERROR_MSG);
+    }
+    const set = new Set();
+    while (number > 0) {
+      set.add(number % 10);
+      number = Math.floor(number / 10);
+    }
+    if (!set.has(0) && set.size === 3) {
+      const numbers = [...set].reverse();
+      this.continueGame(numbers);
+    } else {
+      throw new Error(this.ERROR_MSG);
     }
   }
 
@@ -89,20 +84,11 @@ class App {
   }
 
   async endGame() {
-    try {
-      const answer = await Console.readLineAsync(this.SELECT_MSG);
-      const number = Number(answer);
-      switch (number) {
-        case 1:
-          this.startGame();
-          break;
-        case 2:
-          break;
-        default:
-          this.endGame();
-      }
-    } catch (e) {
-      Console.print(e.message);
+    const answer = await Console.readLineAsync(this.SELECT_MSG);
+    if (answer === '1') {
+      this.play();
+    } else if (answer !== '2') {
+      throw new Error(this.ERROR_MSG);
     }
   }
 }
