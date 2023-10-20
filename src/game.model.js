@@ -27,7 +27,7 @@ class Game {
     const userInput = await Console.readLineAsync("숫자를 입력해주세요 : ");
     for (let i = 0; i < 3; i++) {
       if (!+userInput) {
-        throw error;
+        throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
       }
       this.userNumber.push(userInput[i]);
     }
@@ -40,7 +40,7 @@ class Game {
     for (let i = 0; i < 3; i++) {
       if (this.computerNumber[i] === this.userNumber[i]) {
         this.STRIKE++;
-      } else if (this.userNumber.includes(computerNumber[i])) {
+      } else if (this.userNumber.includes(this.computerNumber[i])) {
         this.BALL++;
       }
     }
@@ -49,9 +49,9 @@ class Game {
   result() {
     if (this.STRIKE && this.BALL) {
       Console.print(`${this.BALL}볼 ${this.STRIKE}스트라이크`);
-    } else if (STIRKE) {
+    } else if (this.STIRKE) {
       Console.print(`${this.STRIKE}스트라이크`);
-    } else if (BALL) {
+    } else if (this.BALL) {
       Console.print(`${this.BALL}볼`);
     } else {
       Console.print(`낫싱`);

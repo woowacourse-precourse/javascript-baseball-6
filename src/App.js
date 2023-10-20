@@ -5,7 +5,7 @@ class App {
     const game = new Game();
     while (game.GAMEMODE == 1) {
       game.computerNumberSet();
-      game.userNumberSet();
+      await game.userNumberSet();
       game.numberCompare();
       game.result();
       game.end();
