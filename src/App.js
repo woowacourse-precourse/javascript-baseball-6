@@ -2,11 +2,17 @@ import { Random, Console } from "@woowacourse/mission-utils";
 
 class App {
   createAnswerNumber() {
-    const result = "";
-    const number = MissionUtils.Random.pickNumberInRange(1, 9);
+    const LENGTH_OF_NUMBER = 3;
+    let result = "";
+    for (let i = 0; i < LENGTH_OF_NUMBER; i++) {
+      const number = Random.pickNumberInRange(1, 9);
+      result += number.toString();
+    }
     return result;
   }
-  async play() {}
+  async play() {
+    console.log(this.createAnswerNumber());
+  }
 }
 export default App;
 
