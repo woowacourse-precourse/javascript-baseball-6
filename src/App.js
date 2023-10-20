@@ -14,6 +14,21 @@ class UserNumberReader {
   }
 }
 
+// 사용자 입력값 유효성 검사
+class UserNumberCorrect {
+  constructor(userNumber) {
+    this.userNumber = userNumber;
+  }
+
+  correctNumber() {
+    if (this.userNumber.length !== 3) {
+      return false;
+    }
+    const uniqueChars = [...new Set([...this.userNumber])]; // 중복 숫자 제거
+    return this.userNumber.length === uniqueChars.length;
+  }
+}
+
 class RandomNumberMaker {
   constructor(randomNumber = '') {
     this.randomNumber = randomNumber;
