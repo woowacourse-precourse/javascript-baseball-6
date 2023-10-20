@@ -4,13 +4,12 @@ import { validateInput } from './validation.js';
 class App {
   async play() {
     startGameTitle();
-    gamePlay(createComputerNumber());
+    await gamePlay(createComputerNumber());
   }
 }
 
 async function gamePlay(computerNumber) {
   const userNumber = await createUserNumber();
-  validateInput(userNumber);
   countResult(userNumber,computerNumber);
   if(!numbersEqual(userNumber,computerNumber)) return gamePlay(computerNumber);
   await gamePlayResult();
@@ -45,6 +44,7 @@ function createComputerNumber() {
 
 async function createUserNumber() {
   const createNumber = await Console.readLineAsync('숫자를 입력해주세요 : ');
+  validateInput(createNumber);
   const userNumber = Array.from(createNumber).map((value) => Number(value));
 
   return userNumber;
