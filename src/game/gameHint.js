@@ -1,5 +1,6 @@
 import { Console } from "@woowacourse/mission-utils";
 
+// 같은 수가 같은 자리에 있으면 '스트라이크'
 function countStrike(computerAnswer, userAnswer) {
   let strike = 0;
   for (let i = 0; i < 3; i++) {
@@ -9,7 +10,7 @@ function countStrike(computerAnswer, userAnswer) {
   }
   return strike;
 }
-
+// 같은 수가 다른 자리에 있으면 '볼'
 function countBall(computerAnswer, userAnswer) {
   let ball = 0;
   computerAnswer.split("").forEach((num) => {
