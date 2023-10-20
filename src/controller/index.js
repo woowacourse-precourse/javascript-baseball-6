@@ -10,6 +10,10 @@ class BaseBallController {
   run() {
     this.#view.printStart();
   }
+
+  #gamePlay() {
+    this.#view.readGameNumbers();
+  }
 }
 
 export default BaseBallController;
