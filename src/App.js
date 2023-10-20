@@ -1,7 +1,8 @@
-import { Random } from "@woowacourse/mission-utils";
+import { Console, Random } from "@woowacourse/mission-utils";
 
 class App {
-  async play() {}
+  async play() {
+  }
 }
 
 const makeRandomNumber = () => {
@@ -39,15 +40,15 @@ const checkReferee = (userInput, randomNumber) => {
 
   const socreBoard = { strike: 0, ball: 0 };
 
-  randomNumber.forEach((randomNum, randomIndex) => {
+  randomNumber.forEach((number, randomIndex) => {
     const userInputIndex = input.findIndex((inputNum) => {
-      return inputNum === randomNum;
+      return inputNum === number;
     });
 
     if (userInputIndex != -1 && userInputIndex === randomIndex) {
       socreBoard.strike += 1;
     } else if (userInputIndex != -1) {
-      socreBoard.ball +=1;
+      socreBoard.ball += 1;
     } else {
       return;
     }
@@ -56,14 +57,24 @@ const checkReferee = (userInput, randomNumber) => {
   return socreBoard;
 };
 
+const printScore = (scoreBoard) => {
+  const returnString = `${
+    scoreBoard.ball === 0 ? '' : scoreBoard.ball + "볼"
+  } ${scoreBoard.strike === 0 ? "" : scoreBoard.strike + "스트라이크"}`.trim();
+  
+  return returnString;
+};
+
 const checkGameStatus = (userInput) => {
-  if (userInput === '1') {
+  if (userInput === "1") {
     return false;
-  } else if (userInput === '2') {
+  } else if (userInput === "2") {
     return true;
   } else {
-    return {isError: true};
+    return { isError: true };
   }
-}
+};
+
+printScore({strike: 0, ball: 1});
 
 export default App;

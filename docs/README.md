@@ -20,6 +20,13 @@
     output : isEnd
     isEnd : 3 스트라이크시 종료를 알리기 위함.
 
+- 스코어 판단 출력
+    name : printScore()
+    input : scoreBoard
+    output : returnString
+    socreBoard : 사용자 입력 검사의 output.
+    returnString : (number)볼 (number)스트라이크.
+
 - 게임 종료 판단
     name : checkGameStatus()
     input : 사용자 입력
