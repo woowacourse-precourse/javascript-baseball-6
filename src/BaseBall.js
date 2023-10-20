@@ -19,4 +19,9 @@ export default class BaseBall {
   _setPassword(password) {
     this._password = password;
   }
+
+  init() {
+    const password = this.createPassword();
+    this._setPassword(password);
+  }
 }
