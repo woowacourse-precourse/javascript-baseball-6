@@ -44,7 +44,16 @@ class NumberBaseball {
   }
 
   // 유효값 검증
-  validateInput() {}
+  validateInput(input) {
+    // 숫자로 변환
+    const validInput = new Set([...input].map(Number).filter((n) => n));
+
+    if (input.length !== 3 || validInput.size !== 3) {
+      return false;
+    }
+
+    return true;
+  }
 }
 
 export default App;
