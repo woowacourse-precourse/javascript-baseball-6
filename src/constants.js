@@ -1,8 +1,3 @@
-/**
- * 게임에 사용되는 상수들을 모아놓은 파일
- * - 다음 프로퍼티가 존재합니다.
- * - START, RESTART, INPUT_NUMBER, CORRECT, ERROR, STRIKE, BALL, NOTHING
- */
 const LOG = {
 	/**
 	 * 게임 시작 시 출력되는 메시지
@@ -24,14 +19,38 @@ const LOG = {
 	 */
 	CORRECT: "3개의 숫자를 모두 맞히셨습니다! 게임 종료",
 
-	/**
-	 * 에러 발생 시 출력되는 메시지
-	 */
-	ERROR: "[ERROR]",
-
 	STRIKE: "스트라이크",
 	BALL: "볼",
 	NOTHING: "낫싱",
+};
+
+const ERROR_MESSAGE = {
+	HEADER: "[ERROR]",
+
+	/**
+	 * 사용자 입력이 숫자가 아닐 경우
+	 */
+	NOT_NUMBER: "숫자가 아닙니다.",
+
+	/**
+	 * 사용자 입력이 3자리가 아닐 경우
+	 */
+	NOT_THREE_DIGITS: "3자리의 숫자가 아닙니다.",
+
+	/**
+	 * 사용자 입력이 중복된 숫자일 경우
+	 */
+	NOT_UNIQUE: "중복된 숫자가 있습니다.",
+
+	/**
+	 * 사용자 입력이 0을 포함할 경우
+	 */
+	NOT_RANGE: "1~9 사이의 숫자가 아닙니다.",
+
+	/**
+	 * 사용자 입력이 1 또는 2가 아닐 경우
+	 */
+	NOT_RESTART_OR_END: "1 또는 2를 입력해주세요.",
 };
 
 /**
@@ -72,4 +91,5 @@ export {
 	MAX_RANDOM_NUMBER,
 	RESTART_NUMBER,
 	END_NUMBER,
+	ERROR_MESSAGE,
 };
