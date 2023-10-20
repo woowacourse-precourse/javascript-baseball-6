@@ -19,6 +19,16 @@ class App {
       // 숫자를 모두 맞혔으면 통과
       if (success) break;
     }
+
+    Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    const again = await Console.readLineAsync(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+    );
+
+    if (again === 1) {
+      // 게임 다시 시작
+      this.play();
+    }
   }
 
   pickRandomNum() {
