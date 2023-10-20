@@ -5,8 +5,8 @@ const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
 
   MissionUtils.Console.readLineAsync.mockImplementation(() => {
-    const input = inputs.shift();
-    return Promise.resolve(input);
+    const INPUT = inputs.shift();
+    return Promise.resolve(INPUT);
   });
 };
 
@@ -18,43 +18,43 @@ const mockRandoms = (numbers) => {
 };
 
 const getLogSpy = () => {
-  const logSpy = jest.spyOn(MissionUtils.Console, "print");
-  logSpy.mockClear();
-  return logSpy;
+  const LOG_SP = jest.spyOn(MissionUtils.Console, "print");
+  LOG_SP.mockClear();
+  return LOG_SP;
 };
 
 describe("숫자 야구 게임", () => {
   test("게임 종료 후 재시작", async () => {
     // given
-    const randoms = [1, 3, 5, 5, 8, 9];
-    const answers = ["246", "135", "1", "597", "589", "2"];
-    const logSpy = getLogSpy();
-    const messages = ["낫싱", "3스트라이크", "1볼 1스트라이크", "3스트라이크", "게임 종료"];
+    const RANDOMS = [1, 3, 5, 5, 8, 9];
+    const ANSWERS = ["246", "135", "1", "597", "589", "2"];
+    const LOG_SPY = getLogSpy();
+    const MESSAGES = ["낫싱", "3스트라이크", "1볼 1스트라이크", "3스트라이크", "게임 종료"];
 
-    mockRandoms(randoms);
-    mockQuestions(answers);
+    mockRandoms(RANDOMS);
+    mockQuestions(ANSWERS);
 
     // when
-    const app = new App();
-    await expect(app.play()).resolves.not.toThrow();
+    const APP_INSTANCE = new App();
+    await expect(APP_INSTANCE.play()).resolves.not.toThrow();
 
     // then
-    messages.forEach((output) => {
-      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(output));
+    MESSAGES.forEach((output) => {
+      expect(LOG_SPY).toHaveBeenCalledWith(expect.stringContaining(output));
     });
   });
 
   test("예외 테스트", async () => {
     // given
-    const randoms = [1, 3, 5];
-    const answers = ["1234"];
+    const RANDOMS = [1, 3, 5];
+    const ANSWERS = ["1234"];
 
-    mockRandoms(randoms);
-    mockQuestions(answers);
+    mockRandoms(RANDOMS);
+    mockQuestions(ANSWERS);
 
     // when & then
-    const app = new App();
+    const APP_INSTANCE = new App();
 
-    await expect(app.play()).rejects.toThrow("[ERROR]");
+    await expect(APP_INSTANCE.play()).rejects.toThrow("[ERROR]");
   });
 });
