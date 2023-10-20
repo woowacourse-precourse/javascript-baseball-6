@@ -4,7 +4,7 @@ class App {
   async play() {
     console.log("숫자 야구 게임을 시작합니다.");
     const COM_NUMBER = this.createNumber();
-    console.log(COM_NUMBER);
+    let userNumber = this.userNumber();
   }
 
   createNumber() {
@@ -16,6 +16,17 @@ class App {
       }
     }
     return COMPUTER.join("");
+  }
+
+  userNumber() {
+    try {
+      const USERINPUT = MissionUtils.Console.readLineAsync(
+        "숫자를 입력해주세요 : "
+      );
+      return USERINPUT;
+    } catch (error) {
+      console.error("숫자만 입력해주세요 : ", error);
+    }
   }
 }
 
