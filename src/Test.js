@@ -1,3 +1,7 @@
+import InputView from "./view/InputView.mjs";
 import InputValidator from "./utils/InputValidator.mjs";
 
-console.log(InputValidator.validateUserNumber("349"));
+InputView.readUserNumber((input) => {
+  InputValidator.validateUserNumber(input);
+  console.log(input);
+});
