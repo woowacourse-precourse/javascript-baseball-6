@@ -3,19 +3,18 @@ import { Random, Console } from "@woowacourse/mission-utils";
 class App {
   constructor() {
     this.computer = "";
+    this.user = "";
   }
 
   async play() {
-    // 랜덤으로 서로 다른 숫자 3개 선택
     this.computer = this.pickRandomNum();
     Console.print("숫자 야구 게임을 시작합니다.");
 
     while (true) {
-      // 사용자 입력 받기
-      const user = await Console.readLineAsync("숫자를 입력해주세요 : ");
+      this.user = await this.getUserNumber();
 
       // 결과 출력하기
-      const success = this.grade(user);
+      const success = this.grade(this.user);
       // 숫자를 모두 맞혔으면 통과
       if (success) break;
     }
@@ -42,6 +41,17 @@ class App {
     }
 
     return arr.join("");
+  }
+
+  // 사용자 입력 받기
+  async getUserNumber() {
+    const user = await Console.readLineAsync("숫자를 입력해주세요 : ");
+    const regex = new RegExp(/[0-9]/);
+
+    if (user.length !== 3 || !regex.test(user)) {
+      throw new Error("숫자 3개를 입력해주세요.");
+    }
+    return user;
   }
 
   grade(answer) {
