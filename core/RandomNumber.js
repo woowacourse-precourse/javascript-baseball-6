@@ -1,10 +1,10 @@
-import { MissionUtils } from '@woowacourse/mission-utils';
+import { Random } from '@woowacourse/mission-utils';
 
-class Random {
+class RandomNumber {
   static createNumber() {
     const computer = [];
     while (computer.length < 3) {
-      const getPerNumber = MissionUtils.Random.pickNumberInRange(1, 9);
+      const getPerNumber = Random.pickNumberInRange(1, 9);
       if (!computer.includes(getPerNumber)) {
         computer.push(getPerNumber);
       }
@@ -14,6 +14,4 @@ class Random {
   }
 }
 
-console.log(Random.createNumber());
-
-export default Random;
+export default RandomNumber;
