@@ -4,65 +4,76 @@ const Console = MissionUtils.Console;
 const Random = MissionUtils.Random;
 
 class Game {
+  constructor() {
+    this.STIRKE = 0;
+    this.BALL = 0;
+    this.GAMEMODE = 1;
+    this.computerNumber = [];
+    this.userNumber = [];
+    this.startText();
+  }
+
   startText() {
     Console.print("숫자 야구 게임을 시작합니다.");
   }
 
-  ComputerNumberSet() {
+  computerNumberSet() {
     const randomNumber = Random.pickUniqueNumbersInRange(1, 9, 3);
-    computerNumber = randomNumber;
+    this.computerNumber = randomNumber;
   }
 
-  async UserNumberSet() {
-    userNumber = [];
+  async userNumberSet() {
+    this.userNumber = [];
     const userInput = await Console.readLineAsync("숫자를 입력해주세요 : ");
     for (let i = 0; i < 3; i++) {
       if (!+userInput) {
         throw error;
       }
-      userNumber.push(userInput[i]);
+      this.userNumber.push(userInput[i]);
     }
   }
 
-  compare() {
-    STIRKE = 0;
-    BALL = 0;
+  numberCompare() {
+    this.STIRKE = 0;
+    this.BALL = 0;
 
     for (let i = 0; i < 3; i++) {
-      if (computerNumber[i] === userNumber[i]) {
-        STRIKE++;
-      } else if (userNumber.includes(computerNumber[i])) {
-        BALL++;
+      if (this.computerNumber[i] === this.userNumber[i]) {
+        this.STRIKE++;
+      } else if (this.userNumber.includes(computerNumber[i])) {
+        this.BALL++;
       }
-    } 
+    }
   }
 
   result() {
-    if (STRIKE && BALL) {
-      Console.print(`${BALL}볼 ${STRIKE}스트라이크`);
-    }else if(STIRKE) {
-      Console.print(`${STRIKE}스트라이크`);
-    }else if(BALL) {
-      Console.print(`${BALL}볼`);
-    }else {
+    if (this.STRIKE && this.BALL) {
+      Console.print(`${this.BALL}볼 ${this.STRIKE}스트라이크`);
+    } else if (STIRKE) {
+      Console.print(`${this.STRIKE}스트라이크`);
+    } else if (BALL) {
+      Console.print(`${this.BALL}볼`);
+    } else {
       Console.print(`낫싱`);
     }
   }
 
   end() {
-    if(STIRKE == 3) {
+    if (this.STIRKE == 3) {
       Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
     }
   }
 
   restart() {
-    if(STRIKE == 3) {
-      Console.readLine('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.', (answer) => {
-        GAMEMODE = answer;
-      })
+    if (this.STRIKE == 3) {
+      Console.readLine(
+        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.",
+        (answer) => {
+          this.GAMEMODE = +answer;
+        }
+      );
     }
   }
-  
 }
 
 export default Game;

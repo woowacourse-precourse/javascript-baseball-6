@@ -1,10 +1,16 @@
+import  Game  from "./game.model";
+
 class App {
   async play() {
-    let STIRKE = 0;
-    let BALL = 0;
-    let GAMEMODE = 1;
-    let computerNumber = [];
-    let userNumber = [];
+    const game = new Game();
+    while (game.GAMEMODE == 1) {
+      game.computerNumberSet();
+      game.userNumberSet();
+      game.numberCompare();
+      game.result();
+      game.end();
+      game.restart();
+    }
     
     
 
