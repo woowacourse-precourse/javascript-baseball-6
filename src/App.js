@@ -34,6 +34,23 @@ class App {
         return Promise.resolve(l);
     }
 
+    // 플레이어와 컴퓨터 숫자 비교
+    compare(playerNum, computerNum) {
+        let strike = 0;
+
+        // 스트라이크 검사
+        for (let i = 0; i < playerNum.length; i++) {
+            if (playerNum[i] === computerNum[i]) {
+                strike++;
+                playerNum.splice(i, 1);
+                computerNum.splice(i, 1);
+                i--; // 배열을 자르면서 길이가 줄어서
+            }
+        }
+        // 볼 검사
+        // 낫싱 검사
+    }
+
     async play() {}
 }
 
