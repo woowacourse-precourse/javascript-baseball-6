@@ -55,6 +55,7 @@ function printResultMessage(result) {
   else resultMessage = `${ballCount}볼 ${strikeCount}스트라이크`;
 
   Console.print(resultMessage);
+  return;
 }
 
 export { generateComputerNumbers, compareNumbers, printResultMessage };

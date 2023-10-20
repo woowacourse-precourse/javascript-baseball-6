@@ -14,7 +14,8 @@ const GAME_EXIT = "2";
  */
 function isLengthError(userInputNumber) {
   if (userInputNumber.length !== 3) throw new Error(LENGTH_ERROR);
-  return false;
+
+  return;
 }
 
 /**
@@ -29,7 +30,8 @@ function isDuplicationError(userInputNumber) {
       throw new Error(DUPLICATION_ERROR);
     }
   }
-  return false;
+
+  return;
 }
 
 /**
@@ -44,7 +46,8 @@ function isNumberError(userInputNumber) {
       throw new Error(NUMBER_ERROR);
     }
   }
-  return false;
+
+  return;
 }
 
 /**
@@ -56,6 +59,8 @@ function validateUserInputNumber(userInputNumber) {
   isLengthError(userInputNumber);
   isDuplicationError(userInputNumber);
   isNumberError(userInputNumber);
+
+  return;
 }
 
 /**
@@ -68,7 +73,8 @@ function validateUserSelectNumber(userSelectNumber) {
   if (userSelectNumber !== GAME_RESTART && userSelectNumber !== GAME_EXIT) {
     throw new Error(INVALID_INPUT_ERROR);
   }
-  return false;
+
+  return;
 }
 
 export {
