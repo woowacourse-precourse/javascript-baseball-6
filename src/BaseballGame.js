@@ -35,6 +35,11 @@ class BaseballGame {
     );
     return result;
   }
+
+  // 게임을 진행하기 위해 컴퓨터의 수를 랜덤으로 정함
+  start() {
+    this.#answer = BaseballGame.getRandomNumber();
+  }
 }
 
 export default BaseballGame;
