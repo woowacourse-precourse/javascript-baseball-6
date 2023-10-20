@@ -67,9 +67,9 @@ async function requestReGame() {
   if(+requestInput === 1) {
     const answer = generateAnswer();
     onUserGuessInput(answer);
-  } 
-
-  return
+  } else {
+    return
+  }
 }
 
 // 결과를 출력하는 함수
