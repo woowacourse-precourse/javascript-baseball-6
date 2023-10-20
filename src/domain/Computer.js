@@ -1,4 +1,4 @@
-import generateNumbers from "../utils/generateNumber";
+import generateNumbers from "../utils/generateNumber.js";
 
 class Computer {
   #value;
