@@ -37,6 +37,12 @@ class App {
     else if (parseInt(input) === 2) return;
     else throw Error('1 또는 2를 입력해주세요.');
   }
+
+  async continueGame() {
+    const inputNumber = await InputView.getUserNumber();
+    this.#refree.changeUserNumber(inputNumber);
+    this.startGame();
+  }
 }
 
 const app = new App();
