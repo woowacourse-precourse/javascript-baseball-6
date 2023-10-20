@@ -62,11 +62,38 @@ class App {
     }
   }
 
+  printResult() {
+    if (this.cntBall === 0 && this.cntStrike === 0) {
+      MissionUtils.Console.print('낫싱');
+      return;
+    }
+
+    if (this.cntBall === 0 && this.cntStrike === 3) {
+      MissionUtils.Console.print(
+        '3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료',
+      );
+      return;
+    }
+
+    if (this.cntBall === 0) {
+      MissionUtils.Console.print(`${this.cntStrike}스트라이크`);
+      return;
+    }
+
+    if (this.cntStrike === 0) {
+      MissionUtils.Console.print(`${this.cntBall}볼`);
+      return;
+    }
+
+    MissionUtils.Console.print(`${this.cntBall}볼 ${this.cntStrike}스트라이크`);
+  }
+
   async play() {
     this.setAnswer();
     await this.getUserInput();
     this.countStrike();
     this.countBall();
+    this.printResult();
   }
 }
 
