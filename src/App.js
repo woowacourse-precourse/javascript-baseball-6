@@ -91,10 +91,25 @@ class App {
         return Number(playerInput);
     }
 
-    async play() {}
-}
+    async play() {
+        MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
+        let computerNum = await this.getComputerNum();
+        while (true) {
+            let playerNum = await this.getPlayerNum();
 
-let app = new App();
-app.play();
+            let result = this.compare(playerNum, computerNum);
+            this.compareResultText(result);
+
+            if (result[0] === 3) {
+                let data = await this.threeStrikes();
+                if (data === 1) await this.play();
+                else if (data === 2) {
+                    MissionUtils.Console.print("게임 종료");
+                }
+                return;
+            } else continue;
+        }
+    }
+}
 
 export default App;
