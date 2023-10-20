@@ -26,29 +26,43 @@ class Computer {
         return this.isLenThree(input) && this.isMadeByDigit(input) && this.isUnique(input);
     }
 
+    getStrikeCounts(userInput, correctAnswer) {
+        let cnt = 0;
+        for(let i = 0; i < correctAnswer.length; i++){
+            if(userInput[i] === correctAnswer[i])   cnt++;
+        }
+
+        return cnt;
+    }
+
+    getBallCounts(userInput, correctAnswer, strikeCounts) {
+        let cnt = 0;
+        for(let i = 0; i < userInput.length; i++){
+            if(correctAnswer.includes(userInput[i]))    cnt++;
+        }
+
+        return cnt - strikeCounts;
+    }
+
+    getStringCounts(ballCounts, strikeCounts) {
+        let hint = '';
+        if(ballCounts > 0)  hint += `${ballCounts}볼`;
+        if(strikeCounts > 0)  hint += `${strikeCounts}스트라이크`;
+        if(hint === '')  hint += '낫싱';
+
+        return hint;
+    }
+
     setHint(input) {
         const userInput = input.split('');
         const correctAnswer = this.answer.split('');
-        let hint = '';
-        let allCnt = 0;
-        let strikeCnt = 0;
-        let ballCnt = 0;
-
-        for(let i = 0; i < correctAnswer.length; i++){
-            if(userInput[i] === correctAnswer[i])   strikeCnt++;
-        }
         
-        for(let i = 0; i < userInput.length; i++){
-            if(correctAnswer.includes(userInput[i]))    allCnt++;
-        }
-        ballCnt = allCnt - strikeCnt;
-
-        if(ballCnt > 0)   hint += `${ballCnt}볼`;
-        if(strikeCnt > 0)   hint += `${strikeCnt}스트라이크`;
-        if(hint === '')   hint += `낫싱`;
+        const strikeCounts = this.getStrikeCounts(userInput, correctAnswer);
+        const ballCounts = this.getBallCounts(userInput, correctAnswer, strikeCounts);
         
-        return hint;
-    };
+        MissionUtils.Console.print(this.getStringCounts(ballCounts, strikeCounts));
+        return this.getStringCounts(ballCounts, strikeCounts);
+    }
 }
 
 function getRandAnswer() {
