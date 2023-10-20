@@ -1,22 +1,20 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 // let Console = MissionUtils.Console;
 // let Random = MissionUtils.Random;
-function makeAnswer() {
+function makeRandom() {
   const answer = [];
   while (answer.length < 3) {
     const number = MissionUtils.Random.pickNumberInRange(1, 9);
-    if (!answer.includes(number)) {
-      answer.push(number);
+    if (!answer.includes(number + "")) {
+      answer.push(number + "");
     }
   }
+  console.log(answer);
   return answer;
 }
-async function getNumber() {
+async function getUserInput(message) {
   try {
-    const number = await MissionUtils.Console.readLineAsync(
-      "숫자를 입력해주세요 :"
-    );
-    console.log(number);
+    const number = await MissionUtils.Console.readLineAsync(message);
     return number;
   } catch (error) {
     throw error;
@@ -26,38 +24,90 @@ async function getNumber() {
 function checkError(number) {
   return false;
 }
-
+//애는 어디에 놔야하는지 모르겠음
+let SCORE = {
+  볼: 0,
+  스트라이크: 0,
+};
 function review(answer, number) {
   //컴퓨터의 숫자를 순회하여 사용자의 숫자와 비교한다
   //findindex 로 스트라이크 갯수 변수와 볼 변수 낫싱 변수를 체크한다.
-  //세변수 모두 0이라면 3개의 숫자를 모두 맞히셨습니다! 게임 종료 출력하고
-  score.성공 = 1;
-  return;
+  console.log(answer, number);
+  for (let i = 0; i < answer.length; i++) {
+    let index = answer.findIndex((el) => el === number[i]);
+    if (index === i) {
+      SCORE.스트라이크++;
+    }
+    if (index > 0 && index !== i) {
+      SCORE.볼++;
+    }
+  }
+
+  return SCORE;
+}
+function resetScore() {
+  SCORE.볼 = 0;
+  SCORE.스트라이크 = 0;
+}
+function printResult(SCORE) {
+  if (SCORE.볼 === 0 && SCORE.스트라이크 === 0) {
+    //낫싱
+    MissionUtils.Console.print("낫싱");
+    return true;
+  }
+  if (SCORE.스트라이크 === 3) {
+    //성공
+    MissionUtils.Console.print(
+      "3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료"
+    );
+    return false;
+  }
+  if (!SCORE.볼 && !SCORE.스트라이크) {
+    MissionUtils.Console.print(
+      SCORE.볼 + "볼" + " " + SCORE.스트라이크 + "스트라이크"
+    );
+    return true;
+  }
+  let text = SCORE.볼 ? SCORE.볼 + "볼" : SCORE.스트라이크 + "스트라이크";
+  MissionUtils.Console.print(text);
+  return true;
+}
+async function getSomting() {
+  //비동기 동작원리를 정확히 파악하지 못하는듯
+  getUserInput("숫자를 입력해주세요 :")
+    .then((num) => {
+      if (!checkError(num)) {
+        return num;
+      }
+    })
+    .then((num) => {
+      return review(answer, num);
+    })
+    .then((result) => {
+      let isContinue = printResult(result);
+      if (isContinue) {
+        resetScore();
+        getSomting();
+      }
+      getUserInput("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.").then(
+        (num) => {
+          if (num === "1") {
+            app.play();
+          }
+          //종료
+          return;
+        }
+      );
+    });
 }
 class App {
   async play() {
-    //게임 시작문구를 출력한다.
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
-    //컴퓨터는 1~9까지 서로다른 임의수 3개를 선택
-    const answer = makeAnswer();
-    let score = {
-      볼: 0,
-      스트라이크: 0,
-      낫싱: 0,
-      성공: 0,
-    };
-    while (!score.성공) {
-      //사용자에게 서로다른 숫자 3개를 입력받는다. 숫자를 입력해주세요 :
-      let number = getNumber();
-      let isError = checkError(number);
-      if (!isError) {
-        return number;
-      }
-      review(answer, number);
-    }
-    MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-    // 게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. 것을 출력한다.
-    //입력받은 수가 1이면 시작 2를 하면 종료를 한다.
+    //반복되는 구간을 while 로 돌리고 싶은데 비동기때문에 어려움 그래서 일단 함수로 만들어서 자기 호출하는 식으로 만듦
+    getSomting();
+    //비동기 라이브러리쓰니까 입력하는 동안 미리 할 수 잇는 답안 작성하기 하고 싶은데 안됨
+    //호이스팅 개념도 흔들리는 중
+    const answer = makeRandom();
   }
 }
 
