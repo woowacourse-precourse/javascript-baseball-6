@@ -4,3 +4,5 @@ class ValidationError extends Error {
     this.name = "ValidationError";
   }
 }
+
+export default ValidationError;
