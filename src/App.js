@@ -1,5 +1,5 @@
-import { Console, Random } from '@woowacourse/mission-utils';
-import { validate } from './utils/validator.js';
+import { Console } from '@woowacourse/mission-utils';
+import Game from './game.js';
 
 class App {
   constructor() {
@@ -7,35 +7,22 @@ class App {
   }
 
   async play() {
-    const input = await this.#input();
-    // 게임 로직
-    const isContinue = await this.#askContinue();
-    if (isContinue) {
-      this.play();
-    }
+    this.game = new Game();
+    await this.game.guess();
+    const isContinue = await this.askContinue();
+
+    if (isContinue) this.play();
   }
 
   /** 계속할지 여부 */
-  async #askContinue() {
+  async askContinue() {
     const input = await Console.readLineAsync(
-      '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.'
+      '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'
     );
 
-    if (input === '1' || input === '2') {
-      return input === '1';
-    }
-
+    if (input === '1') return true;
+    if (input === '2') return false;
     throw new Error('[ERROR] 1 또는 2를 입력해주세요.');
-  }
-
-  /** 숫자 입력을 받아오는 메서드 */
-  async #input() {
-    const inputString = await Console.readLineAsync('숫자를 입력해주세요 : ');
-
-    const numbers = inputString.split('').map(Number);
-    validate(numbers);
-
-    return numbers;
   }
 }
 
