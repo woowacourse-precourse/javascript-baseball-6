@@ -9,6 +9,8 @@ class App {
 
   cntStrike = 0;
 
+  cntBall = 0;
+
   setAnswer() {
     while (this.answer.length < NUMBER_LENGTH) {
       const number = MissionUtils.Random.pickNumberInRange(1, 9);
@@ -48,10 +50,23 @@ class App {
     }
   }
 
+  countBall() {
+    for (let i = 0; i < NUMBER_LENGTH; i += 1) {
+      const targetNumber = this.userInput[i];
+      if (
+        this.answer.includes(targetNumber) &&
+        this.answer[i] !== targetNumber
+      ) {
+        this.cntBall += 1;
+      }
+    }
+  }
+
   async play() {
     this.setAnswer();
     await this.getUserInput();
     this.countStrike();
+    this.countBall();
   }
 }
 
