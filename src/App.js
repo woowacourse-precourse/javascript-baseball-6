@@ -1,26 +1,15 @@
+import Validator from '../utils/Validator.js';
 import ComputerNumber from './ComputerNumber.js';
+import InputView from './InputView.js';
 
 class App {
   #isStart;
   #computerNumber;
   async play() {
-    this.#isStart = true;
     this.#computerNumber = ComputerNumber.generateComputerNumber();
-    this.#render();
+    const answer = await InputView.readUserInput();
+    const input = Validator.validateUserInput(answer);
   }
-
-  #render() {
-    this.#isStart ? this.#start() : this.#finish();
-  }
-
-  #setIsStart(newState) {
-    this.#isStart = newState;
-    this.#render();
-  }
-
-  async #start() {}
-
-  #finish() {}
 }
 
 const app = new App();
