@@ -9,7 +9,7 @@ function setComputerNumber() {
       computerNumber.push(number);
     }
   }
-  Console.print(computerNumber);
+  // Console.print(computerNumber);
   return computerNumber;
 }
 
@@ -45,7 +45,7 @@ function result(ball, strike) {
   } else if (strike == 0) {
     Console.print(ball + "볼");
   } else {
-    Console.print(ball + "볼" + strike + "스트라이크");
+    Console.print(ball + "볼 " + strike + "스트라이크");
   }
 
   if (strike == 3) {
@@ -56,7 +56,6 @@ function result(ball, strike) {
 
 class App {
   async play() {
-    Console.print("숫자 야구 게임을 시작합니다.");
     let computer = setComputerNumber();
     while (true) {
       let num = await Console.readLineAsync("숫자를 입력해주세요 : ");
@@ -76,6 +75,8 @@ class App {
     }
   }
 }
+
+Console.print("숫자 야구 게임을 시작합니다.");
 
 const app = new App();
 app.play();
