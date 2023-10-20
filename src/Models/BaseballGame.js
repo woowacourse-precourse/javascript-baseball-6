@@ -29,8 +29,4 @@ export default class BaseballGame {
     }
     return [ball, strike];
   }
-
-  resetAnswer() {
-    this.setNewAnswer();
-  }
 }

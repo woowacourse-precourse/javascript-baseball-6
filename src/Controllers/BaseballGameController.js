@@ -56,7 +56,7 @@ export default class BaseballGameController {
 
     switch (input) {
       case USER_COMMANDS.RESTART:
-        game.resetAnswer();
+        game.setNewAnswer();
         this.#gameState = PLAYING;
         break;
       case USER_COMMANDS.QUIT:
