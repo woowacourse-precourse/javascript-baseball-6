@@ -4,10 +4,11 @@ import InputView from './InputView.js';
 import OutputView from './OutputView.js';
 
 class App {
-  #isStart;
   #computerNumber;
-  async play() {
+  constructor() {
     this.#computerNumber = ComputerNumber.generateComputerNumber();
+  }
+  async play() {
     const answer = await InputView.readUserInput();
     const input = Validator.validateUserInput(answer);
     const table = this.#matchComputerNumber(input);
