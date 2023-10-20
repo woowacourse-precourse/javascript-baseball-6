@@ -6,6 +6,10 @@ class App {
   }
 }
 
+async function gamePlay() {
+
+}
+
 function startGameTitle() {
   return Console.print("숫자 야구 게임을 시작합니다.");
 }
