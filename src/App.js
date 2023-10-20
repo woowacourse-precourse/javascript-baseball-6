@@ -101,7 +101,7 @@ class App {
    * @description 사용자의 입력을 받는 메서드
    * - 사용자의 입력을 받고 유효성을 검사합니다.
    * - 유효하지 않은 입력일 경우, 에러 메시지를 출력합니다.
-   * @returns {number[]} 사용자가 입력한 3자리 숫자
+   * @returns {Promise<number[]>} 사용자가 입력한 3자리 숫자
    */
   async getUserNumbers() {
     const input = (await readLineAsync(LOG.INPUT_NUMBER)).trim();
@@ -116,7 +116,7 @@ class App {
    * - 입력받은 숫자가 1이나 2가 아닐 경우, 에러 메시지를 출력합니다.
    * - 입력받은 숫자가 1일 경우, 게임을 초기화합니다.
    * - 입력받은 숫자가 2일 경우, 게임을 종료합니다.
-   * @returns {boolean} 게임을 재시작할지 여부
+   * @returns {Promise<boolean>} 게임을 재시작할지 여부
    */
   async confirmRestart() {
     const input = await readLineAsync(LOG.RESTART);
