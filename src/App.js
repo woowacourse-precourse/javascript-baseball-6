@@ -7,7 +7,7 @@ class App {
 
     while (!isGameEnded) {
       const answer = MissionUtils.Random.pickUniqueNumbersInRange(1, 9, 3);
-      console.log(answer);
+      console.log(answer); // debug용 로그
       while (true) {
         const userResponse = await Console.readLineAsync(
           "숫자를 입력해주세요: "
@@ -24,10 +24,7 @@ class App {
         }
       }
 
-      Console.readLineAsync(
-        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
-      );
-      // TODO 재시작, 종료에 대한 처리 필요
+      isGameEnded = await this.promptNewGameOrExit();
     }
   }
 
@@ -61,6 +58,24 @@ class App {
     }
 
     Console.print(message.trim());
+  }
+
+  async promptNewGameOrExit() {
+    const userResponse = await Console.readLineAsync(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+    );
+
+    if (userResponse === "1") {
+      return false;
+    }
+
+    if (userResponse === "2") {
+      Console.print("게임을 종료합니다.");
+      return true;
+    }
+
+    return false;
+    // TODO 입력 예외처리 필요
   }
 }
 
