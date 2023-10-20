@@ -1,4 +1,6 @@
 import App from '../src/App'
+import MissionUtils from "@woowacourse/mission-utils";
+
 
 describe("야구 게임 테스트", () => {
   test("시작 메세지 출력", () => {
@@ -10,4 +12,5 @@ describe("야구 게임 테스트", () => {
 
     expect(logSpy).toHaveBeenCalledWith('숫자 야구 게임을 시작합니다.');
   });
+
 });

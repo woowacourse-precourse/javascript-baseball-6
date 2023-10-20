@@ -1,5 +1,4 @@
-import MissionUtils from "@woowacourse/mission-utils";
-
+import { MissionUtils} from '@woowacourse/mission-utils';
 class App {
   async play() {
     this.startGame();
@@ -24,5 +23,4 @@ class App {
     return computer.join('');
   }
 }
-
 export default App;
