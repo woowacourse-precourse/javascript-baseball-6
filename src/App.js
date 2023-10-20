@@ -1,7 +1,7 @@
-import { Console, Random } from "@woowacourse/mission-utils";
+import { Console } from "@woowacourse/mission-utils";
 import MESSAGE from "./constant/MESSAGE.js";
-import NUMBER from "./constant/NUMBER.js";
 import ERROR from "./constant/ERROR.js";
+import Computer from "./Computer.js";
 
 class App {
   constructor() {
@@ -11,7 +11,8 @@ class App {
 
   async play() {
     this.startGame();
-    this.computerNumber = this.chooseComputerNumber();
+    this.computerNumber = new Computer().createNumbers();
+    Console.print(this.computerNumber);
     this.userNumber = await this.getUserInput();
   }
 
@@ -21,23 +22,6 @@ class App {
 
   startGame() {
     this.printMessage(MESSAGE.START_GAME);
-  }
-
-  chooseComputerNumber() {
-    let newNumberArray = [];
-
-    while (newNumberArray.length < 3) {
-      let randomNumber = this.generateSingleDigitNaturalNumber();
-
-      if (newNumberArray.includes(randomNumber)) continue;
-      newNumberArray.push(randomNumber);
-    }
-
-    return newNumberArray;
-  }
-
-  generateSingleDigitNaturalNumber() {
-    return Random.pickNumberInRange(NUMBER.MIN, NUMBER.MAX);
   }
 
   async getUserInput() {
