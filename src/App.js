@@ -3,14 +3,36 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 class App {
   async play() {
     MissionUtils.Console.print("숫자 야구를 시작합니다.");
+    const computerNumber = this.getRandomNumber();
     while (true) {
-      const computerNumber = this.getRandomNumber();
       const userNumber = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
-      const result = await this.getBaseballResult(userNumber, computerNumber);
+      const result = this.getBaseballResult(userNumber, computerNumber);
+      if (result === 1) {
+        MissionUtils.Console.print("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+        const isEnd = await this.endGame();
+        if (isEnd === 1) {
+          this.play();
+        } else {
+          break;
+        }
+      }
     }
   }
 
-  async getBaseballResult(userNumber, computerNumber) {
+  async endGame() {
+    const isEndGame = await MissionUtils.Console.readLineAsync("");
+
+    if (isEndGame == 1) {
+      this.play();
+      return 1;
+    } else if (isEndGame == 2) {
+      return 0;
+    } else {
+      throw "[ERROR] 숫자가 잘못된 형식입니다.";
+    }
+  }
+
+  getBaseballResult(userNumber, computerNumber) {
     const inputIntArray = Array.from(userNumber).map((data) => parseInt(data));
 
     let strike = 0;
