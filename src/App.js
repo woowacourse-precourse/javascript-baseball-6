@@ -1,5 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
+// 비교 할 수의 총 갯수를 지정하는 상수
 const INPUT_LENGTH = 3;
 
 function InputException(message) {
@@ -64,6 +65,7 @@ const printResult = (strikeCnt, ballCnt) => {
     MissionUtils.Console.print(
       `${strikeCnt}개의 숫자를 모두 맞히셨습니다! 게임 종료`
     );
+    return true;
   } else {
     const ballText = ballCnt > 0 ? `${ballCnt}볼` : "";
     const strikeText = strikeCnt > 0 ? `${strikeCnt}스트라이크` : "";
@@ -76,18 +78,21 @@ const printResult = (strikeCnt, ballCnt) => {
         ? `${strikeText}`
         : "낫싱"
     );
-    MissionUtils.Console.print("다시 게임을 시작하는 기능 추가예정");
+    // MissionUtils.Console.print("다시 게임을 시작하는 기능 추가예정");
+    return false;
   }
 };
 
 class App {
   async play() {
-    // MissionUtils.Console.print(getComputerNumber());
-    // MissionUtils.Console.print(await readFromPlayer());
+    let success = false;
     const computerList = getComputerNumber();
-    const humanList = await readFromPlayer();
-    const { strikeCnt, ballCnt } = compareNumber(computerList, humanList);
-    printResult(strikeCnt, ballCnt);
+
+    while (!success) {
+      const humanList = await readFromPlayer();
+      const { strikeCnt, ballCnt } = compareNumber(computerList, humanList);
+      success = printResult(strikeCnt, ballCnt);
+    }
   }
 }
 
