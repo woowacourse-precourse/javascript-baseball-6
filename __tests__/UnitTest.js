@@ -1,4 +1,4 @@
-import App from "../src/App.js";
+import BaseballGame from "../src/BaseballGame";
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 const mockQuestions = (inputs) => {
@@ -23,6 +23,7 @@ const getLogSpy = () => {
   return logSpy;
 };
 
-describe("메서드 정상 작동 테스트", () => {
-  test("테스트", () => {});
+describe("메서드 유닛 테스트", () => {
+  const game = new BaseballGame();
+  test("123", () => {});
 });
