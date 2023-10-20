@@ -22,4 +22,5 @@ export const OUTPUT_MESSAGE_METHOD = Object.freeze({
 
 export const INPUT_MESSAGE = Object.freeze({
   playerBaseball: '숫자를 입력해주세요 : ',
+  exitGameCommand: `게임을 새로 시작하려면 ${GAME_TERMS.exitGameCommand.restart}, 종료하려면 ${GAME_TERMS.exitGameCommand.exit}을 입력하세요.\n`,
 });

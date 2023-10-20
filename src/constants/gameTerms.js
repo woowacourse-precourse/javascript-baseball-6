@@ -9,4 +9,8 @@ export const GAME_TERMS = Object.freeze({
     ball: '볼',
     nothing: '낫싱',
   }),
+  exitGameCommand: Object.freeze({
+    restart: 1,
+    exit: 2,
+  }),
 });

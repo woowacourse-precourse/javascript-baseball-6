@@ -1,7 +1,7 @@
 import { GAME_TERMS } from './constants/gameTerms';
 import { SYMBOLS } from './constants/symbols';
 import { Computer } from './model';
-import { BaseballValidator } from './validator';
+import { BaseballValidator, ExitGameCommandValidator } from './validator';
 import { InputView, OutputView } from './views';
 
 class App {
@@ -37,10 +37,21 @@ class App {
     return inputPlayerBaseball;
   }
 
+  async #inputExitGameCommand() {
+    const inputExitGameCommand = await this.#inputView.readExitGameCommand();
+    return inputExitGameCommand;
+  }
+
   async #askPlayerBaseball() {
     const inputPlayerBaseball = await this.#inputPlayerBaseball();
     BaseballValidator.from(inputPlayerBaseball).validateBaseball();
     return inputPlayerBaseball.split(SYMBOLS.emptyString).map(Number);
+  }
+
+  async #askExitGameCommand() {
+    const inputExitGameCommand = await this.#inputExitGameCommand();
+    ExitGameCommandValidator.from(inputExitGameCommand).validateExitGameCommand();
+    return Number(inputExitGameCommand);
   }
 
   #askCompareResult(playerBaseball) {
@@ -56,11 +67,23 @@ class App {
     }
   }
 
+  async #restartGame() {
+    await this.play();
+  }
+
+  async #processExitGameCommand() {
+    const userCommand = await this.#askExitGameCommand();
+    if (userCommand === GAME_TERMS.exitGameCommand.restart) {
+      await this.#restartGame();
+    }
+  }
+
   async play() {
     this.#initGameSetting();
     this.#askPrintStartGame();
     await this.#processGame();
     this.#askPrintExitGame();
+    await this.#processExitGameCommand();
   }
 }
 
