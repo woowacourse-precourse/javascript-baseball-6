@@ -19,7 +19,7 @@
   - 컴퓨터 수는 1부터 9까지 서로 다른 수로 이루어진 3자리의 수이다.
 - MakeComputerNumber는 컴퓨터 수를 App에게 전달한다.
 
-## Feature 2
+## Feature 2 ✅
 
 - App은 InputView에게 유저의 입력값을 입력받기를 메시지를 보낸다.
 - InputView는 유저로부터 입력값을 입력받는다.
