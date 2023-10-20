@@ -45,6 +45,29 @@ const compareNumber = (computerList, humanList) => {
   return { strikeCnt, ballCnt };
 };
 
+// 결과를 출력하는 함수
+const printResult = (strikeCnt, ballCnt) => {
+  if (strikeCnt === 3) {
+    MissionUtils.Console.print(`${strikeCnt}스트라이크`);
+    MissionUtils.Console.print(
+      `${strikeCnt}개의 숫자를 모두 맞히셨습니다! 게임 종료`
+    );
+  } else {
+    const ballText = ballCnt > 0 ? `${ballCnt}볼` : "";
+    const strikeText = strikeCnt > 0 ? `${strikeCnt}스트라이크` : "";
+    MissionUtils.Console.print(
+      ballText && strikeText
+        ? `${ballText} ${strikeText}`
+        : ballText
+        ? `${ballText}`
+        : strikeText
+        ? `${strikeText}`
+        : "낫싱"
+    );
+    MissionUtils.Console.print("다시 게임을 시작하는 기능 추가예정");
+  }
+};
+
 class App {
   async play() {
     // MissionUtils.Console.print(getComputerNumber());
@@ -52,6 +75,7 @@ class App {
     const computerList = getComputerNumber();
     const humanList = await readFromPlayer();
     const { strikeCnt, ballCnt } = compareNumber(computerList, humanList);
+    printResult(strikeCnt, ballCnt);
   }
 }
 
