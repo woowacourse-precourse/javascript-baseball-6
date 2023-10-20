@@ -38,9 +38,39 @@ class App {
     this.userNumber = await this.userInput();
     const isChecked = this.userInputValidation(this.userNumber);
     if (isChecked) {
-      // 옳은 형식일 시, 컴퓨터와 유저의 숫자 서로 비교.
+      // 4. 옳은 형식일 시, 컴퓨터와 유저의 숫자 서로 비교.
+      await this.compareResult;
     } else {
       throw new Error('숫자가 잘못된 형식입니다.');
+    }
+  }
+
+  // 4-1. 컴퓨터와 유저의 숫자 서로 비교.
+  checkResult(computerNumber, userNumber) {
+    let ball = 0;
+    let strike = 0;
+
+    for (let i = 0; i < computerNumber.length; i++) {
+      if (computerNumber[i] === userNumber[i]) {
+        strike++;
+      } else {
+        if (computerNumber.includes(userNumber[i])) {
+          ball++;
+        }
+      }
+    }
+
+    // 결과 출력
+
+    return strike === 3;
+  }
+
+  async compareResult() {
+    const isSuccess = this.checkResult(this.computerNumber, this.userNumber);
+    if (isSuccess) {
+      // 게임 초기화
+    } else {
+      this.userInputCheck();
     }
   }
 }
