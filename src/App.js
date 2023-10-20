@@ -44,13 +44,13 @@ const userInput = async function convertUserInputIntoArray() {
   const input = await Console.readLineAsync('숫자를 입력해주세요 : ');
 
   if (input.length !== 3) {
-    throw new Error('[ERROR]');
+    throw new Error('[ERROR] 입력되는 값의 길이는 3자리여야 합니다.');
   }
 
   const numbers = input.split('').map(c => parseInt(c));
 
   if (numbers.includes(NaN)) {
-    throw new Error('[ERROR]');
+    throw new Error('[ERROR] 입력되는 값은 숫자여야 합니다.');
   }
 
   return numbers;
@@ -94,7 +94,7 @@ const replay = async function replayWithNewRandomNumbers() {
     return false;
   }
 
-  throw new Error('[ERROR]')
+  throw new Error('[ERROR] 알 수 없는 입력입니다.')
 }
 
 const resultMessage = function resultToString(guessResult) {
