@@ -67,4 +67,12 @@ describe("기능 단위 테스트", () => {
     app.showStartMessage();
     expect(printSpy).toHaveBeenCalledWith("숫자 야구 게임을 시작합니다.");
   });
+
+  test("2. 랜덤 숫자 생성 테스트 (컴퓨터)", () => {
+    const randoms = [1, 2, 2, 5, 9];
+    mockRandoms(randoms);
+
+    const app = new App();
+    expect(app.setRandomNumber()).toEqual([1, 2, 5]);
+  });
 });

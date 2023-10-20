@@ -12,7 +12,7 @@
 
 #### 2. 랜덤 숫자 생성 (컴퓨터)
 
-- [] `Random.pickNumberInRange(1, 9)`를 사용해 랜덤 숫자 생성하기
+- [x] `Random.pickNumberInRange(1, 9)`를 사용해 랜덤 숫자 생성하기
   - 3자리, 정수, 중복X
 
 <br />
