@@ -1,3 +1,19 @@
+class UserNumberReader {
+  constructor(userNumber = '') {
+    this.userNumber = userNumber;
+  }
+
+  async userInputNumber() {
+    try {
+      this.userNumber = await Console.readLineAsync();
+      return this.userNumber;
+    } catch (error) {
+      console.error("오류 발생:", error);
+      throw error;
+    }
+  }
+}
+
 class RandomNumberMaker {
   constructor(randomNumber = '') {
     this.randomNumber = randomNumber;
