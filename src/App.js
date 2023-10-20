@@ -8,13 +8,17 @@ class App {
   async play() {
     // 컴퓨터 랜덤으로 숫자 3개 선택
     this.computer = this.pickRandomNum();
-
     Console.print("숫자 야구 게임을 시작합니다.");
-    // 사용자 입력 받기
-    const user = await Console.readLineAsync("숫자를 입력해주세요 : ");
 
-    // 결과 출력하기
-    this.grade(user);
+    while (true) {
+      // 사용자 입력 받기
+      const user = await Console.readLineAsync("숫자를 입력해주세요 : ");
+
+      // 결과 출력하기
+      const success = this.grade(user);
+      // 숫자를 모두 맞혔으면 통과
+      if (success) break;
+    }
   }
 
   pickRandomNum() {
@@ -64,6 +68,12 @@ class App {
       }
     }
     Console.print(score);
+
+    // 모두 맞히면 true, 아니면 false
+    if (strike !== 3) {
+      return false;
+    }
+    return true;
   }
 }
 
