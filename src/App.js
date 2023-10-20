@@ -48,48 +48,48 @@ class App {
     return message;
   }
 
+  // 야구게임 진행구간
+  playBaseballGame() {}
+
   // 게임이 진행되는곳
   async play() {
     // 시작 멘트
     await Console.print("숫자 야구 게임을 시작합니다.");
 
+    // 야구게임 정답 생성
+    let answer = this.generateRandomNumber();
+
     while (true) {
-      // 야구게임 정답 생성
-      let answer = this.generateRandomNumber();
+      // 야구게임 정답 입력
+      let input = await Console.readLineAsync("숫자를 입력해주세요 : ");
+      input = input.split("").map(Number);
 
-      while (true) {
-        // 야구게임 정답 입력
-        let input = await Console.readLineAsync("숫자를 입력해주세요 : ");
-        input = input.split("").map(Number);
+      // 야구게임 정답 판별
+      try {
+        let check = await this.checkAnswer(input, answer);
 
-        // 야구게임 정답 판별
-        try {
-          let check = await this.checkAnswer(input, answer);
-
-          if (check.includes("3스트라이크")) {
-            await Console.print(check);
-            break;
-          } else {
-            await Console.print(check);
-          }
-        } catch (e) {
-          throw e;
+        if (check.includes("3스트라이크")) {
+          await Console.print(check);
+          break;
+        } else {
+          await Console.print(check);
         }
-      }
-      await Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-
-      // 야구게임 재시작 / 종료 이행 (정상작동) (class로 변경 예정)
-      await Console.print(
-        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
-      );
-      let selectContinue = await Console.readLineAsync("");
-
-      if (selectContinue === "2") {
-        return;
-      } else if (selectContinue !== "1") {
-        throw new Error("[ERROR] 잘못된 접근입니다");
+      } catch (e) {
+        throw e;
       }
     }
+    await Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+
+    // 야구게임 재시작 / 종료 이행 (정상작동) (class로 변경 예정)
+    await Console.print("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+    let selectContinue = await Console.readLineAsync("");
+
+    if (selectContinue === "2") {
+      return;
+    } else if (selectContinue !== "1") {
+      throw new Error("[ERROR] 잘못된 접근입니다");
+    }
+    return app.play();
   }
 }
 
