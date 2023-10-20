@@ -48,13 +48,14 @@ async function compareNumber(cpu) {
   printResult(strike, ball);
   if (strike === 3) {
     // 정답을 맞췄을 때
+    await correctNum();
   } else {
     // 못 맞췄을 때
     return compareNumber(cpu);
   }
 }
 
-function correctNum() {}
+async function correctNum() {}
 
 function countStrike(cpu, user) {
   const CPULENGTH = cpu.length;
