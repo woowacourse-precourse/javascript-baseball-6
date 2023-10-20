@@ -45,6 +45,14 @@ class App {
       userAnswer = USER_INPUT.split('');
 
       MissionUtils.Console.print(Hint(answer,userAnswer));
+
+      if(answer.join('') === userAnswer.join('')){
+        MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+        const GameSelect = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+        if(GameSelect === '1'){
+          answer = GameStart();
+        }
+      }
     }
 
     MissionUtils.Console.print('숫자 야구 게임을 종료합니다.')
