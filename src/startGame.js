@@ -6,7 +6,6 @@ async function startGame(computerNumber) {
     const result = compareNumber(userInput, computerNumber);
     Console.print(getHint(result));
     // TODO: 상수로 빼기
-
     if (result.strikes === 3) {
       return 0;
     }

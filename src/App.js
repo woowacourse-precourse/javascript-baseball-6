@@ -10,8 +10,8 @@ class App {
     Console.print("숫자 야구 게임을 시작합니다.");
     while (this.gameState) {
       const computerNumber = generateComputerNumber();
-      Console.print(computerNumber); //임시로 출력
       this.gameState = await startGame(computerNumber);
+
       //TODO: 플래그 처리
       if (this.gameState === 0) {
         this.gameState = await handleExitInput();
@@ -20,10 +20,4 @@ class App {
     }
   }
 }
-
-(() => {
-  const app = new App();
-  app.play();
-})();
-
 export default App;
