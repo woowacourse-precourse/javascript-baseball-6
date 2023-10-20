@@ -10,7 +10,11 @@ class App {
 async function gamePlay(computerNumber) {
   const userNumber = await createUserNumber();
   countResult(userNumber,computerNumber);
-  if(userNumber.length === computerNumber.length && userNumber.every((value,index) => value === computerNumber[index])) return gamePlay(computerNumber);
+  if(!numbersEqual(userNumber,computerNumber)) return gamePlay(computerNumber);
+}
+
+function numbersEqual(userNumber, computerNumber) {
+  return userNumber.length === computerNumber.length && userNumber.every((number, index) => number === computerNumber[index]);
 }
 
 function startGameTitle() {
