@@ -2,11 +2,11 @@ import { MissionUtils } from '@woowacourse/mission-utils';
 
 class App {
   async play() {
-    const computerNumber = this.getComputerNumber();
-    MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
-    const inputNumber = MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
+    const computerNumber = await this.getComputerNumber();
+    await MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
+    const inputNumber = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
     const { strike, ball } = this.getGameResult(computerNumber, inputNumber);
-    this.printGameResult(strike, ball);
+    await this.printGameResult(strike, ball);
   }
 
   async getComputerNumber() {
