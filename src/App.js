@@ -32,6 +32,17 @@ async function createUserNumber() {
   return userNumber;
 }
 
+function countStrike(userNumber,computerNumber) {
+  const length = computerNumber.length;
+  let strike = 0;
+  for(let i = 0; i < length; i++) {
+    if(computerNumber[i] === userNumber[i]) {
+      strike++;
+    }
+  }
+  return strike;
+}
+
 const app = new App();
 app.play();
 export default App;
