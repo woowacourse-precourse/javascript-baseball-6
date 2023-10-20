@@ -1,22 +1,19 @@
-import { Console, MissionUtils, Random } from '@woowacourse/mission-utils';
+import { Console, Random } from '@woowacourse/mission-utils';
 
 class App {
   async play() {
-    console.log('숫자 야구 게임을 시작합니다.');
+    Console.print('숫자 야구 게임을 시작합니다.');
     const computer = this.generateRandomNumber();
-    console.log(`1번 조건 테스트: ${computer}`);
   }
 
-  // 1. 컴퓨터가 1~9까지의 랜덤한 숫자 3개를 선택.
+  // 1. 컴퓨터가 1~9까지의 랜덤한 숫자 3개를 선택. 단, 숫자는 겹쳐서는 안된다.
   generateRandomNumber() {
-    const computer = [];
-    while (computer.length < 3) {
-      const number = MissionUtils.Random.pickNumberInRange(1, 9);
-      if (!computer.includes(number)) {
-        computer.push(number);
-      }
+    const computer = new Set();
+    while (computer.size < 3) {
+      const randomNumber = Random.pickNumberInRange(1, 9);
+      computer.add(randomNumber);
     }
-    return computer;
+    return Array.from(computer);
   }
 }
 
