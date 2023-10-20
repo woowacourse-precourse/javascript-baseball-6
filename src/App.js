@@ -2,15 +2,11 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
   async play() {
-    try {
-      MissionUtils.Console.print("숫자 야구를 시작합니다.");
-      const computerNumber = this.getRandomNumber();
-      await this.startGame(computerNumber);
-      const isEnd = await this.endGame();
-      if (!isEnd) this.play();
-    } catch (error) {
-      MissionUtils.Console.print(`[ERROR] ${error}`);
-    }
+    MissionUtils.Console.print("숫자 야구를 시작합니다.");
+    const computerNumber = this.getRandomNumber();
+    await this.startGame(computerNumber);
+    const isEnd = await this.endGame();
+    if (!isEnd) this.play();
   }
 
   checkInputValid(input) {
@@ -23,28 +19,27 @@ class App {
   }
 
   async startGame(computerNumber) {
-    const userNumber = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
-    this.checkInputValid(userNumber);
-    const result = this.getBaseballResult(userNumber, computerNumber);
-    if (result === 0) {
-      await this.startGame(computerNumber);
-    } else {
-      MissionUtils.Console.print("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
-      return 1;
+    try {
+      const userNumber = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
+      this.checkInputValid(userNumber);
+      const result = this.getBaseballResult(userNumber, computerNumber);
+      if (result === 0) {
+        await this.startGame(computerNumber);
+      } else {
+        MissionUtils.Console.print("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+        return 1;
+      }
+    } catch (error) {
+      throw new Error(`[ERROR] ${error}`);
     }
   }
 
   async endGame() {
     const isEndGame = await MissionUtils.Console.readLineAsync("");
 
-    if (isEndGame == 1) {
-      return 0;
-    } else if (isEndGame == 2) {
-      return 1;
-    } else {
-      MissionUtils.Console.print("숫자를 다시 입력해주세요.");
-      return await this.endGame();
-    }
+    if (isEndGame == 1) return 0;
+    else if (isEndGame == 2) return 1;
+    else throw new Error("[ERROR] 숫자를 다시 입력해주세요.");
   }
 
   getBaseballResult(userNumber, computerNumber) {
@@ -71,10 +66,11 @@ class App {
       MissionUtils.Console.print(nothingMessage);
       return 0;
     } else if (strike === 3) {
+      MissionUtils.Console.print(`${ballMessage} ${strikeMessage}`);
       MissionUtils.Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
       return 1;
     } else if (strike !== 3) {
-      MissionUtils.Console.print(`${ballMessage}${strikeMessage}`);
+      MissionUtils.Console.print(`${ballMessage} ${strikeMessage}`);
       return 0;
     }
   }
