@@ -14,7 +14,7 @@ class BullsAndCowsGame {
     OutputView.printStaticMessage(MESSAGES.START_GUIDE);
     
     const userNumber = await InputView.getUserNumber(MESSAGES.INPUT_GUIDE);
-    // console.log(userNumber);
+    console.log(userNumber);
   }
 };
 
