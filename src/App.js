@@ -36,20 +36,20 @@ class App {
         ball++;
       }
     }
-    if (ball !== 0) {
-      message += `${ball}볼 `;
-    }
-    if (strike !== 0) {
-      message += `${strike}스트라이크`;
-    }
-    if (message.length === 0) {
-      message = "낫싱";
-    }
+
+    message += ball !== 0 ? `${ball}볼 ` : ``;
+    message += strike !== 0 ? `${strike}스트라이크` : ``;
+
+    message += message.length === 0 ? `낫싱` : ``;
+
     return message;
   }
 
   // 야구게임 진행구간
   playBaseballGame() {}
+
+  // 유저의 숫자 입력받기 + 예외처리
+  userInputNumbers() {}
 
   // 게임이 진행되는곳
   async play() {
