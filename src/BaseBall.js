@@ -26,9 +26,9 @@ export default class BaseBall {
       (ballAmount, currentPassword, idx) => {
         if (currentPassword === userInputArray[idx]) return ballAmount;
         if (userInputArray.includes(currentPassword)) {
-          ballAmount += 1;
-          return ballAmount;
+          return (ballAmount += 1);
         }
+        return ballAmount;
       },
       0
     );
@@ -57,6 +57,14 @@ export default class BaseBall {
     );
 
     return isNothing;
+  }
+
+  countResult(userInput) {
+    const ball = this._checkBallsAmount(userInput);
+    const strike = this._checkStrikesAmount(userInput);
+    const isNothing = this._checkNothing(userInput);
+
+    return { ball, strike, isNothing };
   }
 
   init() {
