@@ -21,6 +21,17 @@ class Computer {
     return strike === 3;
   }
 
+  makeMatchString(scores) {
+    const [strike, ball] = scores;
+    const strikeString = strike && `${strike}스트라이크`;
+    const ballString = ball && `${ball}볼 `;
+
+    if (!strike && !ball) {
+      return '낫싱';
+    }
+    return `${ballString}${strikeString}`.trim();
+  }
+
   match(input) {
     const inputNums = [...input].map(Number);
     const { nums } = this;
