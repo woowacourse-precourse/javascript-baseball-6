@@ -33,4 +33,43 @@ describe("메서드 유닛 테스트", () => {
       expect(numbersSet.size === numbers.length).toBeTruthy();
     }
   });
+
+  test("handleUserInput 메서드 에러", async () => {
+    const answers = [
+      "1234",
+      "1239",
+      "q12",
+      "45z",
+      "44z",
+      "z123",
+      "7899",
+      "799",
+    ];
+    const messages = [
+      "[ERROR] 입력한 값은 3자리가 아닙니다.",
+      "[ERROR] 입력한 값은 3자리가 아닙니다.",
+      "[ERROR] 입력한 값에 숫자가 아닌 값이 있습니다.",
+      "[ERROR] 입력한 값에 숫자가 아닌 값이 있습니다.",
+      "[ERROR] 입력한 값에 숫자가 아닌 값이 있습니다.",
+      "[ERROR] 입력한 값은 3자리가 아닙니다.",
+      "[ERROR] 입력한 값은 3자리가 아닙니다.",
+      "[ERROR] 입력한 값에 중복이 있습니다.",
+    ];
+
+    mockQuestions(answers);
+
+    for (const message of messages) {
+      await expect(game.handleUserInput()).rejects.toThrow(message);
+    }
+  });
+
+  test("handleUserInput 메서드 패스", async () => {
+    const answers = ["123", "456", "789", "987", "734", "931"];
+
+    mockQuestions(answers);
+
+    answers.forEach(async () => {
+      await expect(game.handleUserInput()).resolves;
+    });
+  });
 });

@@ -57,12 +57,12 @@ class BaseballGame {
   validUserNumber(input) {
     if (input.length !== this.#GAME_NUMBER_LEN)
       throw new Error("[ERROR] 입력한 값은 3자리가 아닙니다.");
-    if (new Set(input).size !== this.#GAME_NUMBER_LEN)
-      throw new Error("[ERROR] 입력한 값에 중복이 있습니다.");
     for (const value of input) {
       if (isNaN(value))
         throw new Error("[ERROR] 입력한 값에 숫자가 아닌 값이 있습니다.");
     }
+    if (new Set(input).size !== this.#GAME_NUMBER_LEN)
+      throw new Error("[ERROR] 입력한 값에 중복이 있습니다.");
   }
 
   handleUserResult() {

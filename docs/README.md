@@ -20,7 +20,7 @@
 
 1. [x] getRandomNumbers 반환 값이 서로 다른 숫자인가?
 2. handleUser
-   1. [ ] handleUserInput
+   1. [x] handleUserInput
       - 에러 출력
       - 정상값 리턴
    2. [ ] handleUserResult
