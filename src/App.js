@@ -38,6 +38,17 @@ class App {
   duplicateCheck(guess) {
     return new Set(guess).size !== 3 || isNaN(Number(guess)) ? false : true;
   }
+  //랜덤 값 생성
+  makeRandomNumber() {
+    const computer = [];
+    while (computer.length < 3) {
+      const number = MissionUtils.Random.pickNumberInRange(1, 9);
+      if (!computer.includes(number)) {
+        computer.push(number);
+      }
+    }
+    return computer;
+  }
 }
 
 const app = new App();
