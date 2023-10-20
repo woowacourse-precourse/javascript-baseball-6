@@ -41,3 +41,4 @@ class InsideGame {
     }
   }
 }
+export default InsideGame;
