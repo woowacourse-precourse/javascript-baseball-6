@@ -9,5 +9,6 @@ export const ERROR_MESSAGE = Object.freeze({
   ZERO: '0 은 포함될 수 없습니다. 1~9 사이의 숫자만 입력해 주세요',
   DUPLICATION: '서로 다른 숫자를 입력해야 합니다.',
   THREE_DIGIT: '3자리 숫자만 가능합니다.',
+  GAME_NUMBER_GENERATOR: '생선된 결과 값은 1~9 사이의 서로 다른 3자리 숫자가 아닙니다.',
 });
 
