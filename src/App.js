@@ -4,8 +4,9 @@ class App {
   async play() {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
     const answerNumber = this.createAnswerNumber();
-    const inputNumber = await this.createInputNumber();
     console.log(answerNumber);
+    const inputNumber = await this.createInputNumber();
+
     this.compareNumber(answerNumber, inputNumber);
   }
 
@@ -47,7 +48,29 @@ class App {
   compareNumber(answer, input) {
     let strike = 0;
     let ball = 0;
-    
+    for (let i = 0; i < 3; i++) {
+      if (answer[i] === input[i]) {
+        strike++;
+      } else if (answer.includes(input[i])) {
+        ball++;
+      }
+    }
+    if (strike === 3) {
+      MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    } else if (strike !== 0 || ball !== 0) {
+      {
+        if (strike === 0) {
+          MissionUtils.Console.print(`${ball}볼`);
+        } else if (ball === 0) {
+          MissionUtils.Console.print(`${strike}스트라이크`);
+        } else {
+          MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
+        }
+      }
+    } else {
+      MissionUtils.Console.print("낫싱");
+    }
+  }
 }
 
 const app = new App();
