@@ -24,6 +24,7 @@ async function getUserInput(message) {
 function checkError(number) {
   return false;
 }
+//애는 어디에 놔야하는지 모르겠음
 let SCORE = {
   볼: 0,
   스트라이크: 0,
@@ -72,6 +73,7 @@ function printResult(SCORE) {
   return true;
 }
 async function getSomting() {
+  //비동기 동작원리를 정확히 파악하지 못하는듯
   getUserInput("숫자를 입력해주세요 :")
     .then((num) => {
       if (!checkError(num)) {
@@ -104,6 +106,7 @@ class App {
     //반복되는 구간을 while 로 돌리고 싶은데 비동기때문에 어려움 그래서 일단 함수로 만들어서 자기 호출하는 식으로 만듦
     getSomting();
     //비동기 라이브러리쓰니까 입력하는 동안 미리 할 수 잇는 답안 작성하기 하고 싶은데 안됨
+    //호이스팅 개념도 흔들리는 중
     const answer = makeRandom();
   }
 }
