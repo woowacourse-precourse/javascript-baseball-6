@@ -1,7 +1,9 @@
 import { Random } from '@woowacourse/mission-utils';
 
 export default class BaseBall {
-  constructor() {}
+  constructor() {
+    this._password = null;
+  }
 
   createPassword() {
     const passwordArray = [];
@@ -12,5 +14,9 @@ export default class BaseBall {
     }
 
     return Number(passwordArray.join(''));
+  }
+
+  _setPassword(password) {
+    this._password = password;
   }
 }
