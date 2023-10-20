@@ -76,13 +76,6 @@ class App {
       return;
     }
 
-    if (this.cntBall === 0 && this.cntStrike === 3) {
-      MissionUtils.Console.print(
-        '3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료',
-      );
-      return;
-    }
-
     if (this.cntBall === 0) {
       MissionUtils.Console.print(`${this.cntStrike}스트라이크`);
       return;
@@ -100,6 +93,12 @@ class App {
     MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
   }
 
+  printGameOverMessage() {
+    MissionUtils.Console.print(
+      `${NUMBER_LENGTH}개의 숫자를 모두 맞히셨습니다! 게임 종료`,
+    );
+  }
+
   init() {
     this.printStartMessage();
     this.setAnswer();
@@ -110,13 +109,17 @@ class App {
   async play() {
     this.init();
 
-    while (this.cntStrike !== 3) {
+    while (this.cntStrike !== NUMBER_LENGTH) {
       this.initCntStrike();
       this.initCntBall();
       await this.getUserInput();
       this.countStrike();
       this.countBall();
       this.printResult();
+
+      if (this.cntStrike === NUMBER_LENGTH) {
+        this.printGameOverMessage();
+      }
     }
   }
 }
