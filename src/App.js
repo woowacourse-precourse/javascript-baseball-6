@@ -10,7 +10,7 @@ class App extends InsideGame {
   start() {
     this.randoms = super.randomNumber();
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
-    console.log(this.randoms);
+    console.log(this.randoms); // <----- 지워야함
   }
   // 사용자가 숫자를 입력하는 구간.
   // 입력 값에 따라 에러가 발생할지 계속 진행할 지 정해짐
@@ -34,11 +34,15 @@ class App extends InsideGame {
   ballAndStrike(answer) {
     const ball = super.ballCheck(this.randoms, answer);
     const strike = super.strikeCheck(this.randoms, answer);
-
-
+    console.log(strike); // <--------- 지워야함
     MissionUtils.Console.print(super.outputHint(ball, strike));
+    if (strike === 3) {
+      return this.threeStrike();
+    }
+
     return this.play();
   }
+  threeStrike() {}
 }
 
 export default App;

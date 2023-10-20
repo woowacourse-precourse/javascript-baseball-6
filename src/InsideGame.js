@@ -49,19 +49,19 @@ class InsideGame {
   }
 
   outputHint(ball, strike) {
+    if(strike === 0 && ball === 0){
+      return "낫싱";
+    }
     if (strike === 3) {
       return "3스트라이크";
-    } 
-    if (strike === 0 && ball !== 0) {
+    } else if (strike === 0 && ball !== 0) {
       return `${ball}볼`;
-    }
-    if (strike !== 0 && ball === 0) {
+    } else if (strike !== 0 && ball === 0) {
       return `${strike}스트라이크`;
-    }
-    if (strike !== 0 && ball !== 0){
+    } else {
       return `${ball}볼 ${strike}스트라이크`;
     }
-    return "낫싱";
+    
   }
 }
 export default InsideGame;
