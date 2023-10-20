@@ -4,7 +4,7 @@ const { Console } = MissionUtils;
 class App {
   async play() {
     async function StartGame() {
-      return await PlayGame(); // StartGame이 PlayGame의 완료를 기다리고 결과를 반환하도록 합니다.
+      return await PlayGame();
     }
 
     async function PlayGame() {
@@ -20,10 +20,10 @@ class App {
         if (strikeCount === 3) {
           const answer = await AskForRestart();
           if (answer === "1") {
-            return await PlayGame(); // 재귀적으로 PlayGame을 호출하고 그 결과를 반환합니다.
+            return await PlayGame();
           } else {
             Console.print("게임을 종료합니다.");
-            return; // 함수에서 빠져나와 play 함수가 종료될 수 있게 합니다.
+            return;
           }
         }
       }
@@ -38,7 +38,6 @@ class App {
           computer.push(number);
         }
       }
-      Console.print(`컴퓨터의 숫자는 ${computer}`);
 
       return computer;
     }
@@ -91,8 +90,7 @@ class App {
       );
 
       if (answer !== "1" && answer !== "2") {
-        Console.print("1 또는 2를 입력해주세요.");
-        return await AskForRestart();
+        throw new Error("[ERROR] 잘못된 입력으로 인해 게임이 종료됩니다.");
       }
 
       return answer;
