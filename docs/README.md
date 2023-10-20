@@ -2,9 +2,9 @@
 - [x] `@woowacourse/mission-utils`의 `Console.print`을 활용해 게임을 시작할 게임 시작 문구를 출력한다
 
 ### 컴퓨터 숫자 정하기
-- [ ] `@woowacourse/mission-utils`의 `Random.pickNumberInRange()`을 활용해 1에서 9까지의 난수를 생성한다
-- [ ] 컴퓨터는 총 3개의 숫자를 가진다
-- [ ] 컴퓨터가 선택한 숫자는 서로 다르다
+- [x] `@woowacourse/mission-utils`의 `Random.pickNumberInRange()`을 활용해 1에서 9까지의 난수를 생성한다
+- [x] 컴퓨터는 총 3개의 숫자를 가진다
+- [x] 컴퓨터가 선택한 숫자는 서로 다르다
 
 ### 사용자 입력
 - [ ] `@woowacourse/mission-utils`의 `Console.readLineAsync`을 활용해 사용자에게 값을 입력받는다
