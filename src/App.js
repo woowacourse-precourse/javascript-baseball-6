@@ -2,20 +2,25 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
   async play() {
-    MissionUtils.Console.print("숫자 야구를 시작합니다.");
-    const computerNumber = this.getRandomNumber();
-    while (true) {
-      const userNumber = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
-      const result = this.getBaseballResult(userNumber, computerNumber);
-      if (result === 1) {
-        MissionUtils.Console.print("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
-        const isEnd = await this.endGame();
-        if (isEnd === 1) {
-          this.play();
-        } else {
-          break;
-        }
-      }
+    try {
+      MissionUtils.Console.print("숫자 야구를 시작합니다.");
+      const computerNumber = this.getRandomNumber();
+      await this.startGame(computerNumber);
+      const isEnd = await this.endGame();
+      if (!isEnd) this.play();
+    } catch (err) {
+      MissionUtils.Console.print(`[에러에러에러에러]${err}`);
+    }
+  }
+
+  async startGame(computerNumber) {
+    const userNumber = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
+    const result = this.getBaseballResult(userNumber, computerNumber);
+    if (result === 0) {
+      await this.startGame(computerNumber);
+    } else {
+      MissionUtils.Console.print("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+      return 1;
     }
   }
 
@@ -23,10 +28,9 @@ class App {
     const isEndGame = await MissionUtils.Console.readLineAsync("");
 
     if (isEndGame == 1) {
-      this.play();
-      return 1;
-    } else if (isEndGame == 2) {
       return 0;
+    } else if (isEndGame == 2) {
+      return 1;
     } else {
       throw "[ERROR] 숫자가 잘못된 형식입니다.";
     }
@@ -52,9 +56,9 @@ class App {
     const ballMessage = ball ? `${ball}볼` : "";
     const nothingMessage = "낫싱";
 
-    if (nothing) MissionUtils.Console.print(nothingMessage);
-
-    if (strike === 3) {
+    if (nothing) {
+      MissionUtils.Console.print(nothingMessage);
+    } else if (strike === 3) {
       MissionUtils.Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
       return 1;
     } else if (strike !== 3) {
