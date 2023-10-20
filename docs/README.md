@@ -9,7 +9,9 @@
 
 ### 🔗 Workflow
 
-![workflow](./docs/workflow.png)
+![workflow](./workflow.png)
+
+<br />
 
 ### 🔴 1. 게임 시작 문구 출력
 
