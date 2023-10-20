@@ -28,8 +28,17 @@ class App {
         ) {
           throw new Error("Error - 잘못된 값을 입력하셨습니다.");
         }
-
         result = this.checkTarget(input); // checkTarget 메소드는 판정결과를 return한다 ex) "3스트라이크"
+      }
+
+      //게임 종료 조건을 충족하면 while문을 빠져나온다.
+      MissionUtils.Console.print("정답입니다. 게임이 종료됩니다.");
+      const replay = MissionUtils.Console.readLineAsync(
+        "게임을 다시 시작하려면 1, 종료하려면 2를 입력하세요."
+      );
+
+      if(replay === "2"){
+        this.isGameRunning = false;
       }
     }
   }
