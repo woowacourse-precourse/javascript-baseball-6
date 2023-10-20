@@ -2,8 +2,11 @@ import { Console, Random } from "@woowacourse/mission-utils";
 class Game {
   computerNums = [];
 
-  start = () => {
+  start = async () => {
     Console.print("숫자 야구 게임을 시작합니다.");
+    do {
+      await this.playRound();
+    } while (await this.checkPlayAgain());
   };
 
   playRound = async () => {
