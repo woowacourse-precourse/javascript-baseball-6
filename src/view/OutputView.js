@@ -4,7 +4,7 @@ const OutputView = {
   printStartMessage: () => {
     Console.print("숫자 야구 게임을 시작합니다.\n");
   },
-  printGuessResult: (ball, strike) => {
+  printGuessResult: ({ ball, strike }) => {
     Console.print(`${ball}볼 ${strike}스트라이크\n`);
   },
   printEndMessage: () => {
