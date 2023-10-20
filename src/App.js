@@ -2,8 +2,9 @@ import { MissionUtils} from '@woowacourse/mission-utils';
 class App {
   async play() {
     this.startGame();
-    this.selectComputer();
-    this.selectUser();
+    const computer = this.selectComputer();
+    const user = this.selectUser();
+    this.countScore(computer, user);
   }
 
   startGame() {
@@ -30,8 +31,17 @@ class App {
     MissionUtils.Console.readLine('숫자를 입력해주세요 : ', (num) => {
       user = num;
     });
-
     return user;
+  }
+
+  countScore(computer, user) {
+    this.isError(user);
+  }
+
+  isError(number) {
+    if (number.length !== 3 || isNum(number)) {
+      throw 'Parameter is not a number!';
+    }
   }
 }
 export default App;
