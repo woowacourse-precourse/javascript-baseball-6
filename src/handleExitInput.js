@@ -12,11 +12,10 @@ async function handleExitInput() {
       case 2:
         return -1;
       default:
-        throw "[ERROR] 숫자가 잘못된 형식입니다.";
+        throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
     }
   } catch (error) {
-    Console.print(error);
-    return -1;
+    throw error;
   }
 }
 
