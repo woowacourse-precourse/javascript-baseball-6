@@ -1,5 +1,6 @@
 import { Random, Console } from '@woowacourse/mission-utils';
 import { validate } from './utils.js';
+import { MAX_LENGTH } from './data.js';
 
 class App {
   constructor() {
@@ -11,7 +12,7 @@ class App {
   generateComputerNumbers() {
     const numbers = new Set();
 
-    while (numbers.size < 3) {
+    while (numbers.size < MAX_LENGTH) {
       const randomNumber = Random.pickNumberInRange(1, 9);
       numbers.add(randomNumber);
     }
@@ -38,7 +39,7 @@ class App {
   getStrikeCount(computerNumbers, userNumbers) {
     let result = 0;
 
-    for (let i = 0; i < 3; i += 1) {
+    for (let i = 0; i < MAX_LENGTH; i += 1) {
       if (computerNumbers[i] === userNumbers[i]) {
         result += 1;
       }
@@ -50,7 +51,7 @@ class App {
   getBallCount(computerNumbers, userNumbers) {
     let result = 0;
 
-    for (let i = 0; i < 3; i += 1) {
+    for (let i = 0; i < MAX_LENGTH; i += 1) {
       if (
         computerNumbers[i] !== userNumbers[i] &&
         computerNumbers.includes(userNumbers[i])
@@ -93,10 +94,10 @@ class App {
 
     do {
       await this.inputAndPrintResult(computerNumbers);
-    } while (this.strikeCount !== 3);
+    } while (this.strikeCount !== MAX_LENGTH);
 
-    if (this.strikeCount === 3) {
-      Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+    if (this.strikeCount === MAX_LENGTH) {
+      Console.print(`${MAX_LENGTH}개의 숫자를 모두 맞히셨습니다! 게임 종료`);
 
       const retryNumber = await Console.readLineAsync(
         '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'
