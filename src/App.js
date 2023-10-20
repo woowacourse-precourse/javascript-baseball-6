@@ -1,41 +1,50 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 
-MissionUtils.Random.pickNumberNotDuplicateInRange = function (min, max, count) {
-  const numbers = [];
-  while (numbers.length < count) {
-    const number = this.pickNumberInRange(min, max);
-    if (!numbers.includes(number)) {
-      numbers.push(number);
-    }
-  }
-  return numbers;
-};
+class App {
+  static MIN_NUMBER = 1;
+  static MAX_NUMBER = 9;
+  static NUMBER_LENGTH = 3;
 
-class NumberBaseball {
-  constructor(min, max, length) {
-    this.min = min;
-    this.max = max;
-    this.length = length;
+  async play() {
+    MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
+
+    do {
+      const targetNumbers = this.pickRandomNumbers();
+      let result = {};
+      do {
+        const inputNumbers = await this.getInputNumbers(
+          '숫자를 입력해주세요 : '
+        );
+
+        result = this.matchGuessNumber(targetNumbers, inputNumbers);
+      } while (!this.displayAndCheckWinTheGame(result));
+    } while (await this.playAgain());
   }
 
   pickRandomNumbers() {
-    const numbers = MissionUtils.Random.pickNumberNotDuplicateInRange(
-      this.min,
-      this.max,
-      this.length
-    );
+    const numbers = [];
+    while (numbers.length < App.NUMBER_LENGTH) {
+      const number = MissionUtils.Random.pickNumberInRange(
+        App.MIN_NUMBER,
+        App.MAX_NUMBER
+      );
+      if (!numbers.includes(number)) {
+        numbers.push(number);
+      }
+    }
     return numbers;
   }
 
   async getInputNumbers(message) {
     const inputNumbers = await MissionUtils.Console.readLineAsync(message);
+    this.validateInputNumbers(inputNumbers);
     return inputNumbers;
   }
 
   validateInputNumbers(inputNumbers) {
     if (isNaN(inputNumbers)) {
       throw new Error('[ERROR] : 숫자만 입력 가능합니다.');
-    } else if (inputNumbers.length !== this.length) {
+    } else if (inputNumbers.length !== App.NUMBER_LENGTH) {
       throw new Error('[ERROR] : 3자리 숫자를 입력해주세요.');
     }
   }
@@ -46,7 +55,7 @@ class NumberBaseball {
       ball: 0,
     };
 
-    for (let i = 0; i < this.length; i++) {
+    for (let i = 0; i < App.NUMBER_LENGTH; i++) {
       if (targetNumbers[i] === Number(inputNumbers[i])) {
         result.strike++;
       } else if (targetNumbers.includes(Number(inputNumbers[i]))) {
@@ -69,44 +78,14 @@ class NumberBaseball {
       MissionUtils.Console.print(message);
     }
 
-    if (result.strike === this.length) {
+    if (result.strike === App.NUMBER_LENGTH) {
       MissionUtils.Console.print(
-        `${this.length}개의 숫자를 모두 맞히셨습니다! 게임 종료`
+        `${App.NUMBER_LENGTH}개의 숫자를 모두 맞히셨습니다! 게임 종료`
       );
       return true;
     }
 
     return false;
-  }
-}
-
-class App {
-  static MIN_NUMBER = 1;
-  static MAX_NUMBER = 9;
-  static NUMBER_LENGTH = 3;
-
-  async play() {
-    MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
-    const numberBaseball = new NumberBaseball(
-      App.MIN_NUMBER,
-      App.MAX_NUMBER,
-      App.NUMBER_LENGTH
-    );
-
-    do {
-      const targetNumbers = numberBaseball.pickRandomNumbers();
-
-      let result = {};
-
-      do {
-        const inputNumbers = await numberBaseball.getInputNumbers(
-          '숫자를 입력해주세요 : '
-        );
-        numberBaseball.validateInputNumbers(inputNumbers);
-
-        result = numberBaseball.matchGuessNumber(targetNumbers, inputNumbers);
-      } while (!numberBaseball.displayAndCheckWinTheGame(result));
-    } while (await this.playAgain());
   }
 
   async playAgain() {
