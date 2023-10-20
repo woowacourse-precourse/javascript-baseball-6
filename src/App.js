@@ -16,20 +16,30 @@ class App {
 
   async play() {
     this.generateRandomNumbers();
-
+  
+    // 1. 생성된 무작위 숫자를 로그로 출력
+    console.log("Generated Random Numbers:", this.RANDOM_NUMBERS);
+  
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
-
+  
     while (true) {
       const USER_INPUT = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
-
+  
+      // 2. 사용자 입력값을 로그로 출력
+      console.log("User Input:", USER_INPUT);
+  
       // 유효성 검사: 3자리 숫자가 아니면 예외 발생
       if (USER_INPUT.length !== 3 || isNaN(USER_INPUT) || new Set(USER_INPUT.split('')).size !== 3) {
         throw new Error("[ERROR]");
       }
-
+  
       const RESULT = this.compareNumbers(USER_INPUT);
+  
+      // 3. compareNumbers의 결과를 로그로 출력
+      console.log("Comparison Result:", RESULT);
+  
       MissionUtils.Console.print(RESULT);
-
+  
       // 3스트라이크면 게임 종료
       if (RESULT === "3스트라이크") {
         MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
@@ -59,18 +69,17 @@ class App {
       }
     }
 
+    const STRIKE_MESSAGE = STRIKES > 0 ? `${STRIKES}스트라이크` : '';
+    const BALL_MESSAGE = BALLS > 0 ? `${BALLS}볼` : '';
+
     if (STRIKES === 0 && BALLS === 0) {
       return "낫싱";
     } else if (STRIKES === 3) {
       return "3스트라이크";
-    } else if (BALLS === 0) {
-      return `${STRIKES}스트라이크`;
-    } else if (STRIKES === 0) {
-      return `${BALLS}볼`;
     } else {
-      return `${STRIKES}스트라이크 ${BALLS}볼`;
+      return [BALL_MESSAGE, STRIKE_MESSAGE].filter(Boolean).join(' ').trim();
     }
-  }
+    }
 }
 
 export default App;
