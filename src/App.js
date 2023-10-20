@@ -13,7 +13,7 @@ class App {
     return result;
   }
 
-  checkAnswer(answerNumber, inputNumber) {
+  calculateResult(answerNumber, inputNumber) {
     let strike = 0;
     let ball = 0;
     for (let i = 0; i < inputNumber.length; i++) {
@@ -23,23 +23,12 @@ class App {
         ball += 1;
       }
     }
-    let result = "";
-    if (ball !== 0) {
-      result += `${ball}볼 `;
-    }
-    if (strike !== 0) {
-      result += `${strike}스트라이크 `;
-    }
-    if (ball === 0 && strike === 0) {
-      result = "낫싱";
-    }
-    Console.print(result);
-    return strike === 3 ? true : false;
+    return { strike, ball };
   }
 
   async restart() {
     const restart = await Console.readLineAsync(
-      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
     );
     if (restart === "1") {
       this.play();
@@ -56,6 +45,17 @@ class App {
     }
   }
 
+  printResult(strike, ball) {
+    if (strike === 3) {
+      Console.print("3스트라이크");
+      Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    } else if (strike === 0 && ball === 0) {
+      Console.print("낫싱");
+    } else {
+      Console.print(`${ball ? `${ball}볼 ` : ""}${strike ? `${strike}스트라이크 ` : ""}`);
+    }
+  }
+
   async play() {
     const answerNumber = this.createAnswerNumber();
     this.validateNumber(answerNumber);
@@ -63,11 +63,9 @@ class App {
     while (true) {
       const inputNumber = await Console.readLineAsync("숫자를 입력해주세요 : ");
       this.validateNumber(inputNumber);
-      const correct = this.checkAnswer(answerNumber, inputNumber);
-      if (correct) {
-        Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-        break;
-      }
+      const { strike, ball } = this.calculateResult(answerNumber, inputNumber);
+      this.printResult(strike, ball);
+      if (strike === 3) break;
     }
     await this.restart();
   }
