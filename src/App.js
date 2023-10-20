@@ -60,9 +60,18 @@ class App {
       }
     }
 
-    // 결과 출력
-
+    // 5. 결과 출력
+    this.printResult(ball, strike);
     return strike === 3;
+  }
+
+  // 5-1. 결과 출력
+  printResult(ball, strike) {
+    let result = '';
+    if ((ball & strike) === 0) result = '낫싱 ';
+    if (ball > 0) result += ball + '볼 ';
+    if (strike > 0) result += strike + '스트라이크';
+    Console.print(result);
   }
 
   async compareResult() {
