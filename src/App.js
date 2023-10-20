@@ -1,5 +1,8 @@
 import * as MissionUtils from '@woowacourse/mission-utils'
 
+// checkStrike 함수에서 무한 반복이 되는 상태에서 끊음.
+// 사용자의 입력부터 리셋이 되서 해야함.
+
 // 설명 : 컴퓨터의 랜덤한 수를 얻어냅니다.
 // 입력 : X
 // 출력 : 랜덤한 3자리 수(랜덤한 값이며 각각 다릅니다.)가 포함된 리스트
@@ -22,7 +25,7 @@ const getUserNum = async (computer) => {
   const userNum = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ')
   const userNumList = []
   if (userNum.length !== 3 ) {
-    throw new Error('입력값은 세자리 수여야 합니다.');
+    throw userNum;
   }
   for (let i = 0; userNumList.length < 3; i++) {
     userNumList.push(Number(userNum[i]))
@@ -33,9 +36,12 @@ const getUserNum = async (computer) => {
 // 입력 : 1. 유저의 세자리 수 리스트
 //        2. 컴퓨터의 세자리 수 리스트
 // 출력 : 스트라이크, 볼, 나싱 여부에 대한 결과
-const checkStrike = (computerList, userList) => {
+const checkStrike = async (computerList) => {
   let strikeCount = 0
   let ballCount = 0
+  let endPoint = false;
+  while (endPoint !== true) {
+  const userList = await getUserNum(computerList)
   for (let i = 0; i < computerList.length; i++){
     for(let j = 0; j< userList.length; j++) {
       if (computerList[i] === userList[j]) {
@@ -52,19 +58,33 @@ const checkStrike = (computerList, userList) => {
   } else{
     MissionUtils.Console.print(`${ballCount > 0 ? ballCount+'볼 ' : ''}${strikeCount > 0 ? strikeCount+'스트라이크' : ''}`)
   }
+  if(strikeCount === 3) {
+    MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료')
+    const restart = Number(await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요'))
+    restart === 1 ? endPoint = false : endPoint = true;
+    return endPoint
+  }
+  strikeCount = 0
+  ballCount = 0
+}
 }
 
 const main = async () => {
-const cc =  getComputerNum()
-checkStrike(cc,await getUserNum(cc))
+let computer = getComputerNum()
+let endPoint = false;
+while(endPoint === false) {
+  endPoint = await checkStrike(computer)
+  computer = getComputerNum();
+}
+
+
 }
 main()
 
 class App {
   async play() {
-    
-    
-  }
+    main()
+}
 }
 
 export default App;
