@@ -7,7 +7,7 @@ import printResult from "./functions/printResult.js";
 import { MESSAGE } from "./constant/message.js";
 
 class App {
-  async playOneGame() {
+  async playGameOnce() {
     const computerNum = generateNum({ length: 3 });
 
     while (true) {
@@ -32,7 +32,7 @@ class App {
 
     let isFinish = false;
     while (!isFinish) {
-      isFinish = await this.playOneGame();
+      isFinish = await this.playGameOnce();
     }
   }
 }
