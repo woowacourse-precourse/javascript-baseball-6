@@ -1,8 +1,7 @@
+import { Console } from "@woowacourse/mission-utils";
 /**
  * @param {{strike: number, ball: number}}
  */
-
-import { Console } from "@woowacourse/mission-utils";
 
 function printResult({ strike, ball }) {
   if (strike > 0 && ball > 0) {
@@ -12,7 +11,7 @@ function printResult({ strike, ball }) {
   } else if (ball > 0) {
     Console.print(`${ball}볼`);
   } else {
-    Console.print("나싱");
+    Console.print("낫싱");
   }
 }
 

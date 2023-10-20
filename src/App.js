@@ -1,12 +1,12 @@
 import { Console } from "@woowacourse/mission-utils";
 import generateNum from "./functions/generateNum.js";
 import throwBall from "./functions/throwBall.js";
+import askReplayAsync from "./functions/askReplayAsync.js";
 import printResult from "./functions/printResult.js";
 
 class App {
   async playOneGame() {
     const computerNum = generateNum({ length: 3 });
-    Console.print(`정답(임시): ${computerNum}`);
 
     while (true) {
       const userStr = await Console.readLineAsync("숫자를 입력해주세요 : ");
@@ -20,18 +20,12 @@ class App {
 
       printResult(result);
 
-      // 마지막 프로세스
       if (result.strike === 3) {
         Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-        const replayOrNot = await Console.readLineAsync(
+        const replay = await askReplayAsync(
           "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
         );
-
-        if (replayOrNot === "1") {
-          return false;
-        } else if (replayOrNot === "2") {
-          return true;
-        }
+        return replay;
       }
     }
   }
@@ -45,7 +39,7 @@ class App {
   }
 }
 
-const app = new App();
-app.play();
+// const app = new App();
+// app.play();
 
 export default App;
