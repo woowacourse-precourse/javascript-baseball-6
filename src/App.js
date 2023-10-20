@@ -24,7 +24,7 @@ class App {
   }
 
   async makePitchingNumber() {
-    const START_MESSAGE = this.message("START");
+    const START_MESSAGE = this.message("INPUT");
     const inputNumber = await MissionUtils.Console.readLineAsync(START_MESSAGE);
     // 유효성 테스트 통과 시 배열로 할당
     this.pitchingNumber = new Array(...this.inputValidation(inputNumber)).map(
@@ -38,8 +38,6 @@ class App {
       START: "숫자 야구 게임을 시작합니다.\n",
       INPUT: "숫자를 입력해주세요 : ",
       RETRY: "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n",
-      STRIKE: "스트라이크",
-      BALL: "볼",
       NOTHING: "낫싱",
       CONGRAT: "3개의 숫자를 모두 맞히셨습니다! 게임 종료",
     };
@@ -68,7 +66,6 @@ class App {
   }
 
   async makeResult(strikeZoneArray, pitchingArray) {
-    console.log(strikeZoneArray, pitchingArray);
     let strikeCount = 0;
     let ballCount = 0;
     for (let i = 0; i < strikeZoneArray.length; i++) {
@@ -97,14 +94,31 @@ class App {
   async game() {
     await this.makePitchingNumber();
     await this.makeResult(this.strikeZoneNumber, this.pitchingNumber);
-    await this.printMsgIs(this.result);
+    await this.judge();
   }
 
-  judge() {}
+  async judge() {
+    const NOTHING = this.message("NOTHING");
+    if (this.result.strikes === 3) this.congrat();
+    if (this.result.strikes === 2) {
+      this.printMsgIs(`2스트라이크`);
+    }
+    if (this.result.strikes === 1 && this.result.balls !== 0) {
+      this.printMsgIs(`${this.result.balls}볼 1스트라이크`);
+    }
+    if (this.result.strikes === 0 && this.result.balls !== 0) {
+      this.printMsgIs(`${this.result.balls}볼`);
+    }
+    if (this.result.strikes === 0 && this.result.balls === 0) {
+      this.printMsgIs(NOTHING);
+    }
+    await this.game();
+  }
 
   congrat() {
     const CONGRAT = this.message("CONGRAT");
     this.printMsgIs(CONGRAT);
+    this.retry();
   }
 
   async retry() {
@@ -117,7 +131,8 @@ class App {
   }
 
   async play() {
-    this.retry();
+    this.makeStrikeZoneNumber();
+    this.game();
   }
 }
 
