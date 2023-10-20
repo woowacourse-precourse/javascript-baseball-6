@@ -14,9 +14,23 @@ class App {
     return computerNumbers;
   };
 
+  throwError() {
+    throw new Error('[ERROR] 숫자가 잘못된 형식입니다')
+  }
+
+  async getUserNumbers() {
+    return new Promise((resolve) => {
+      Console.readLineAsync('숫자를 입력해주세요 : ').then((userNumbers) => {
+        resolve(userNumbers.split('').map((number) => parseInt(number)));
+      });
+    });
+  };
+
   async play() {
     const computerNumbers = this.getCompuerNumbers();
     Console.print(computerNumbers);
+    const userNumbers = await this.getUserNumbers();
+    Console.print(userNumbers);
   };
 };
 
