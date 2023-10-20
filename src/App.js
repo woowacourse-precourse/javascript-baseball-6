@@ -3,7 +3,7 @@ import { Console, MissionUtils } from "@woowacourse/mission-utils";
 class App {
   async play() {
     Console.print("숫자 야구 게임을 시작합니다.");
-    this.GameStart();
+    await this.GameStart();
   }
 
   async GameStart() {
@@ -12,6 +12,7 @@ class App {
     let continueGame = true;
     while (continueGame) {
       const number = await Console.readLineAsync("숫자를 입력해주세요 : ");
+
       if (this.validateInput(number)) {
         const { strike, ball } = this.calculateBaseball(computerNumber, number);
 
@@ -36,16 +37,14 @@ class App {
           continueGame = false;
         }
       } else {
-        Console.print("에러");
         continueGame = false;
+        throw new Error("[ERROR]");
       }
     }
   }
 
   restart() {
-    const app = new App();
-
-    return app.play();
+    this.GameStart();
   }
 
   calculateBaseball(computerNumbers, number) {
