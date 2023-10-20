@@ -45,7 +45,7 @@ async function compareNumber(cpu) {
   const strike = countStrike(cpu, user);
   const ball = countBall(cpu, user);
 
-  printResult(strike, ball);
+  compareResult(strike, ball);
   if (strike === 3) {
     // 정답을 맞췄을 때
     await correctNum();
@@ -55,7 +55,13 @@ async function compareNumber(cpu) {
   }
 }
 
-async function correctNum() {}
+async function correctNum() {
+  printResult();
+}
+
+function printResult(){
+  return Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+}
 
 function countStrike(cpu, user) {
   const CPULENGTH = cpu.length;
@@ -79,7 +85,7 @@ function countBall(cpu, user) {
   return ball;
 }
 
-function printResult(strike, ball) {
+function compareResult(strike, ball) {
   if (strike > 0 && ball > 0) {
     Console.print(`${ball}볼 ${strike}스트라이크`);
   } else if (ball > 0) {
