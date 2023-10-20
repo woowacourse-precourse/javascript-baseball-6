@@ -10,11 +10,11 @@ class App {
     this.game = new Game();
     await this.game.guess();
 
-    if (await this.askContinue()) this.play();
+    if (await this.#askContinue()) this.play();
   }
 
   /** 계속할지 여부 */
-  async askContinue() {
+  async #askContinue() {
     const input = await Console.readLineAsync(
       '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'
     );
