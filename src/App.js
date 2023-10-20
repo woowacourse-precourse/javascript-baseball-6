@@ -23,15 +23,13 @@ class App {
             randomNumber = makeRandomNumber();
           }
           else if (isEnd.isError) {
-            Console.print("[Error] 숫자가 잘못된 형식입니다.");
-            return;
+            throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
           }
         } else {
           Console.print(printScore(scoreBoard));
         }
       } else if (!inputIsValid) {
-        Console.print("[Error] 숫자가 잘못된 형식입니다.");
-        return;
+        throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
       }
     }
   }
@@ -50,7 +48,7 @@ const makeRandomNumber = () => {
 };
 
 const checkInputIsValid = (userInput) => {
-  const input = [...userInput].reduce((acc, cur) => {
+  const input = [...userInput].sort().reduce((acc, cur) => {
     if (acc[acc.length] === 0 || acc[acc.length - 1] != cur) {
       acc += cur;
     }
