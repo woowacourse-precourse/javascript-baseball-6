@@ -18,7 +18,7 @@ class App {
     this.#render();
   }
 
-  #start() {}
+  async #start() {}
 
   #finish() {}
 }
