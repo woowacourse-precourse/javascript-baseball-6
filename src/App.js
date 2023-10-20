@@ -65,7 +65,7 @@ class App {
      * @returns {{strike: number, ball: number}}
      */
     calculate(cpuNumArr, userNumArr) {
-        const cpuNumSet = new Set(cpuNumArr);
+        const cpuNumSet = new Set([...cpuNumArr]);
         let strike = 0,
             ball = 0;
 
