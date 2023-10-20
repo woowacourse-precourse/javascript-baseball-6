@@ -36,7 +36,7 @@ class App {
 
       this.userInput = Array.from(userInput, (char) => Number(char));
     } catch (error) {
-      console.log(error);
+      MissionUtils.Console.print(error);
     }
   }
 
