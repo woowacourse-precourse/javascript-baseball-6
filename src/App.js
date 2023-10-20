@@ -1,8 +1,5 @@
 import * as MissionUtils from '@woowacourse/mission-utils'
 
-// checkStrike 함수에서 무한 반복이 되는 상태에서 끊음.
-// 사용자의 입력부터 리셋이 되서 해야함.
-
 // 설명 : 컴퓨터의 랜덤한 수를 얻어냅니다.
 // 입력 : X
 // 출력 : 랜덤한 3자리 수(랜덤한 값이며 각각 다릅니다.)가 포함된 리스트
@@ -40,29 +37,38 @@ const checkStrike = async (computerList) => {
   let strikeCount = 0
   let ballCount = 0
   let endPoint = false;
-  while (endPoint !== true) {
+
+  while (!endPoint) {
   const userList = await getUserNum(computerList)
-  for (let i = 0; i < computerList.length; i++){
-    for(let j = 0; j< userList.length; j++) {
+  
+  for (let i = 0; i < computerList.length; i++) {
+    for (let j = 0; j < userList.length; j++) {
       if (computerList[i] === userList[j]) {
-        if(i === j){
-          strikeCount += 1
-        } else{
-          ballCount += 1
+        if (i === j) {
+          strikeCount++;
+        } else {
+          ballCount++;
         }
-      } 
+      }
     }
   }
-  if (strikeCount === 0 && ballCount === 0){
-    MissionUtils.Console.print('낫싱')
-  } else{
-    MissionUtils.Console.print(`${ballCount > 0 ? ballCount+'볼 ' : ''}${strikeCount > 0 ? strikeCount+'스트라이크' : ''}`)
-  }
+
+  if (strikeCount === 0 && ballCount === 0) {
+      MissionUtils.Console.print('낫싱');
+    } else {
+      let output = '';
+      if (ballCount > 0) {
+        output += `${ballCount} 볼 `;
+      }
+      if (strikeCount > 0) {
+        output += `${strikeCount} 스트라이크`;
+      }
+      MissionUtils.Console.print(output);
+    }
   if(strikeCount === 3) {
     MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료')
     const restart = Number(await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요'))
-    restart === 1 ? endPoint = false : endPoint = true;
-    return endPoint
+    return endPoint = restart !== 1;
   }
   strikeCount = 0
   ballCount = 0
@@ -79,7 +85,6 @@ while(endPoint === false) {
 
 
 }
-main()
 
 class App {
   async play() {
