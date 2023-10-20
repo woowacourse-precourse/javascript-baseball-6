@@ -8,10 +8,10 @@ const GuideMessage = Object.freeze({
 const ErrorMessage = Object.freeze({
   RESTART_NUMBER_ERROR: "[ERROR] 입력값은 1 또는 2로 이루어진 숫자여야 합니다.",
   RESTART_COUNT_ERROR: "[ERROR] 입력값은 1 또는 2, 둘 중 하나여야 합니다.",
-  INPUT_LENGTH_ERROR: "[ERROR] 입력값은 3자리로 구성되어야 합니다.",
-  INPUT_NUMBER_ERROR: "[ERROR] 입력값은 숫자로 구성되어야 합니다.",
-  INPUT_DUPLICATE_ERROR: "[ERROR] 입력값은 모두 다른 숫자로 구성되어야 합니다.",
-  INPUT_INCLUDE_ZERO_ERROR: "[ERROR] 입력값에 0은 포함될 수 없습니다.",
+  USER_LENGTH_ERROR: "[ERROR] 입력값은 3자리로 구성되어야 합니다.",
+  USER_NUMBER_ERROR: "[ERROR] 입력값은 숫자로 구성되어야 합니다.",
+  USER_DUPLICATE_ERROR: "[ERROR] 입력값은 모두 다른 숫자로 구성되어야 합니다.",
+  USER_INCLUDE_ZERO_ERROR: "[ERROR] 입력값에 0은 포함될 수 없습니다.",
 });
 
 export { GuideMessage, ErrorMessage };
