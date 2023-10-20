@@ -1,15 +1,16 @@
-import { CONTROL_NUMS, ASNWER_LENGTH } from '../contants/index.js';
+import { CONTROL_NUMS, ASNWER_LENGTH } from '../constants/number.js';
+import { ERROR } from '../constants/index.js';
 
 class Validator {
   static isValidGuessNumber(input) {
     if ([...input].every(Number) && input.length === ASNWER_LENGTH) {
-      throw Error(`숫자 ${ASNWER_LENGTH}개를 입력하세요.`);
+      throw Error(ERROR.VALID_LENGTH);
     }
   }
 
   static isValidControlNumber(input) {
     if (CONTROL_NUMS.includes(input)) {
-      throw Error('1, 2 중 1개를 입력하세요');
+      throw Error(ERROR.VALID_CONTROL_NUM);
     }
   }
 }
