@@ -33,6 +33,7 @@ class App {
       }
 
       //게임 종료 조건을 충족하면 while문을 빠져나온다.
+      //test 파일에서 "2"에 대한 예측값으로 "게임 종료"로  설정해두었기 때문에 "게임 종료"라는 문구가 포함되어 있어야 한다.
       MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
 
       const replay = await MissionUtils.Console.readLineAsync(
