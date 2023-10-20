@@ -6,6 +6,7 @@ class App {
     MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
     const inputNumber = MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
     const { strike, ball } = this.getGameResult(computerNumber, inputNumber);
+    this.printGameResult(strike, ball);
   }
 
   async getComputerNumber() {
@@ -33,6 +34,17 @@ class App {
     }
 
     return { strike, ball };
+  }
+
+  async printGameResult(strike, ball) {
+    if (strike === 3) {
+      MissionUtils.Console.print('3스트라이크');
+      MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+    } else if (ball === 0 && strike === 0) {
+      MissionUtils.Console.print('낫싱');
+    } else {
+      MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
+    }
   }
 }
 
