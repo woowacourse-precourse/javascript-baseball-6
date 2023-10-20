@@ -84,6 +84,32 @@ class App {
       throw new Error(ERROR.INVALID_OPTION_ERROR);
     }
   }
+
+  //게임 결과 출력
+  gameResultMessage(ball, strike) {
+    const message = ball > 0 ? `${ball}볼 ` : "";
+    const strikeMessage = strike > 0 ? `${strike}스트라이크` : "";
+    const result = message + strikeMessage || "낫싱";
+    MissionUtils.Console.print(result);
+    this.inputGuessNumber();
+    return;
+  }
+  //결과 메시지
+  /*gameResultMessage(ball, strike) {
+      let message = "";
+      if (ball > 0) {
+        message += `${ball}볼 `;
+      }
+      if (strike > 0) {
+        message += `${strike}스트라이크`;
+      }
+      if (message === "") {
+        message = "낫싱";
+      }
+      MissionUtils.Console.print(message);
+      this.inputGuessNumber();
+      return;
+    }*/
 }
 
 const app = new App();
