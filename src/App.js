@@ -62,8 +62,8 @@ class App {
         return [ballCnt, strikeCnt];
     }
     async retry() {
-        let input = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
-        if (input.length != 1 || input.charCodeAt(0) != 49 || input.charCodeAt(0) != 50) throw Error("[ERROR] Wrong Input");
+        let input = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+        if (input.length != 1 || (input.charCodeAt(0) != 49 && input.charCodeAt(0) != 50)) throw Error("[ERROR] Wrong Input");
         if (input.charCodeAt(0) == 49) return true;
         if (input.charCodeAt(0) == 50) return false;
     }
