@@ -1,7 +1,7 @@
 export const GAME_TERMS = Object.freeze({
-  BALL: Object.freeze({
-    MIN_VALUE: 1,
-    MAX_VALUE: 9,
-    DIGIT: 3,
+  baseball: Object.freeze({
+    minNumber: 1,
+    maxNumber: 9,
+    digit: 3,
   }),
 });
