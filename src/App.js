@@ -3,6 +3,7 @@ class App {
   async play() {
     this.startGame();
     this.selectComputer();
+    this.selectUser();
   }
 
   startGame() {
@@ -21,6 +22,16 @@ class App {
     }
 
     return computer.join('');
+  }
+
+  selectUser() {
+    let user;
+
+    MissionUtils.Console.readLine('숫자를 입력해주세요 : ', (num) => {
+      user = num;
+    });
+
+    return user;
   }
 }
 export default App;
