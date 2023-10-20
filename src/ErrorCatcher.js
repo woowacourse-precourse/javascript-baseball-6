@@ -1,4 +1,4 @@
-const ANSWER_LENGTH = Object.freeze(3);
+import { ANSWER_LENGTH } from './constants/constants.js';
 
 const ERROR_MESSAGE = Object.freeze({
   NO_NUMBER: '[ERROR] 숫자가 아닌 값은 입력할 수 없습니다.',
