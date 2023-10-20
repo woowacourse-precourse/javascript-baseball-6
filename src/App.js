@@ -77,6 +77,20 @@ class App {
         MissionUtils.Console.print(result);
     }
 
+    // 3스트라이크 이후 게임 종료 여부
+    async isEndGame() {
+        let endPhrase =
+            "3개의 숫자를 모두 맞히셨습니다! 게임 종료 \n게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.";
+        let playerInput = await MissionUtils.Console.readLineAsync(endPhrase);
+
+        // 예외처리
+        if (Number(playerInput) !== 1 && Number(playerInput) !== 2) {
+            throw new Error("[ERROR]");
+        }
+
+        return Number(playerInput);
+    }
+
     async play() {}
 }
 
