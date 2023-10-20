@@ -1,3 +1,5 @@
+import { TargetBall } from '../../../src/domain';
+
 describe('TargetBall 테스트', () => {
   it.each([
     { input: 1 },
