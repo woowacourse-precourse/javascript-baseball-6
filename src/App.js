@@ -18,11 +18,36 @@ class App {
   }
 
 
-
   async play() {
 
+    while(this.isPlaying){
+      MissionUtils.Console.print("숫자 야구게임을 시작합니다.");
+  
+      while(this.strike < 3){
+        let input = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
+
+        
+        if(this.ball == 0 && this.strike == 0) MissionUtils.Console.print("낫싱")
+        else {
+          MissionUtils.Console.print(`${this.ball > 0 ? `${this.ball}볼` : ""}${this.ball > 0 && this.strike > 0 ? " " : ""}${this.strike > 0 ? `${this.strike}스트라이크` : ""}`);
+        }
+      }
+
+      MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+      
+      let input = await MissionUtils.Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n");
+      switch (input) {
+        case '1':
+          this.initialize()
+          break;
+        case '2':
+          this.isPlaying = false;
+          break;
+        default: 
+          break;
+      }
+    }
   }
 }
-
 
 export default App;
