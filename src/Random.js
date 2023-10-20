@@ -1,4 +1,4 @@
-//기능1. 라이브러리의 Random을 활용하여 상대방(컴퓨터)의 수 정하기
+// 기능1. 라이브러리의 Random을 활용하여 상대방(컴퓨터)의 수 정하기
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 export function random(){
