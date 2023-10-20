@@ -5,8 +5,8 @@ export const readBaseballNumbers = async (message) => {
   return userInput;
 };
 
-export const printStartMessage = () => {
-  Console.print('숫자 야구 게임을 시작합니다.');
+export const printStartMessage = (message) => {
+  Console.print(message);
 };
 
 export const printResult = ({ strike, ball, isNothing }) => {
