@@ -1,6 +1,7 @@
 import Validator from '../utils/Validator.js';
 import ComputerNumber from './ComputerNumber.js';
 import InputView from './InputView.js';
+import OutputView from './OutputView.js';
 
 class App {
   #isStart;
@@ -10,7 +11,8 @@ class App {
     const answer = await InputView.readUserInput();
     const input = Validator.validateUserInput(answer);
     const table = this.#matchComputerNumber(input);
-    this.#makeTemplate(table);
+    const template = this.#makeTemplate(table);
+    OutputView.printResult(template);
   }
 
   #matchComputerNumber(userInput) {
