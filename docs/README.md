@@ -1,5 +1,26 @@
 # javascript-baseball-6
 
+## 작성자
+프론트엔드 6기 참가자 조수민
+
+## 컨셉
+우리가 실제 숫자 야구게임을 할 때를 떠올려봤다.
+상대방의 숫자는 알 수 없다. 상대방은 내가 말하는 숫자를 판정하여 결과만 말해준다.
+이 과정을 구현하고 싶어서 oop를 활용했다.
+게임의 참가자인 computer와 user를 추상화 했다.
+user는 상대방 값에 접근할 수 없고, 
+usernumber를 파라미터로 메소드를 호출하여 객체로부터 메세지를 돌려받는다.
+computer객체는 값의 정보를 받아서, 
+strike, ball, nothing의 정보가 적힌 객체(메세지)를 돌려준다.
+
+## 구조
+|-src
+|	|-constants
+|		|-constants.js //constant 모음
+|	|App.js
+|	|computer.js
+|	|user.js
+
 ## 기능 설명
 
 컴퓨터는 1에서 9까지 서로 다른 임의의 수 3개를 선택한다.
@@ -15,41 +36,42 @@
 
 ### 게임 세팅 초기화
 
-- [ ] 3자리의 정수를 생성한다
+- 3자리의 정수를 생성한다
 	- [ ] Random.pickNumberInRange()를 사용한다
-- [ ] 게임 시작 메세지 출력
+- 게임 시작 메세지 출력
 	- [ ] Console.print를 사용한다
 
 ### 숫자 입력 받기
 
-- [ ] 1부터 9까지 임의의 수 3개를 공백없이 입력받는다
+- 1부터 9까지 임의의 수 3개를 공백없이 입력받는다
 	- [ ] Console.readLineAsync를 사용한다
 	- [ ] [Exception] 숫자가 아닌 다른 문자를 입력한 경우
 	- [ ] [Exception] 숫자의 중복이 존재할 경우
 	- [ ] [Exception] 3개 이상의 숫자를 입력한 경우
-- [ ] Exception이 생기면 throw를 통해 예외를 발생시키고 프로그램 종료한다
+- Exception이 생기면 throw를 통해 예외를 발생시키고 프로그램 종료한다
 
 
 ### 숫자 판정
 
--	[ ] strike, ball, nothing의 프로퍼티를 가진 객체를 생성한다
-	- [ ] strike, ball은 정수 nothing은 boolean
-- [ ] 수를 비교하여 strike, ball이 판정될 때 각 프로퍼티의 정수에 1씩 더해준다
-- [ ] 전부 일치하는 것이 없다면 nothing을 true로 바꿔준다
-- [ ] 객체를 반환한다
+- strike, ball, nothing의 프로퍼티를 가진 객체를 생성한다
+	- strike, ball은 정수 nothing은 boolean
+- 수를 비교하여 strike, ball이 판정될 때 각 프로퍼티의 정수에 1씩 더해준다
+- 전부 일치하는 것이 없다면 nothing을 true로 바꿔준다
+- 객체를 반환한다
 
 ### 출력
 
-- [ ] 반환값을 통해 알맞은 출력 문자를 만든다
-- [ ] 출력한다
+- 반환값을 통해 알맞은 출력 문자를 만든다
+- 출력한다
 	- [ ] Console.print를 사용한다
 
 ### 게임 종료 여부 판단
 
-- [ ] 사용자가 정답을 맞추면 게임 종료 메세지를 출력한다
+- 사용자가 정답을 맞추면 게임 종료 메세지를 출력한다
 	- [ ] Console.print를 사용한다
--[ ] 게임의 종료 혹은 재시작 여부를 묻고 입력을 받는다
+- 게임의 종료 혹은 재시작 여부를 묻고 입력을 받는다
 	- [ ] Console.print를 사용한다
 	- [ ] Console.readLineAsync를 사용한다
   - [ ] [Exception] 3개 이상의 숫자를 입력한 경우
-- [ ] Exception이 생기면 throw를 통해 예외를 발생시키고 프로그램 종료한다
+  - [ ] [Exception] 1, 2가 아닌 숫자를 입력한 경우
+- Exception이 생기면 throw를 통해 예외를 발생시키고 프로그램 종료한다
