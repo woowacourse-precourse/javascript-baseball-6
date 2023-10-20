@@ -7,7 +7,7 @@ class App {
     this.ballCount = 0;
   }
 
-  isUnique(input) {
+  isEveryStringDifferent(input) {
     const set = new Set(input);
     return set.size === input.length;
   }
@@ -28,7 +28,7 @@ class App {
       return false;
     }
 
-    if (!this.isUnique(userInput)) {
+    if (!this.isEveryStringDifferent(userInput)) {
       return false;
     }
 
