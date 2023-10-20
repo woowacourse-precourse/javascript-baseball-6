@@ -46,12 +46,14 @@ class App {
 
   async userNumber() {
     try {
-      const USERINPUT = await MissionUtils.Console.readLineAsync(
-        "숫자를 입력해주세요 : "
-      );
+      const USERINPUT = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
+      if (isNaN(Number(USERINPUT))) {
+        throw new Error("입력값이 숫자가 아닙니다. 애플리케이션을 종료합니다.");
+      }
+
       return USERINPUT;
     } catch (error) {
-      console.error("숫자만 입력해주세요 : ", error);
+      console.log(error);
     }
   }
 
