@@ -9,10 +9,11 @@ function cpuPickNum() {
 
   while (cpuNumArr.length < 3) {
     const number = MissionUtils.Random.pickNumberInRange(1, 9);
-    if (!cpuNumArr.includes(number)) {
+    if (!new Set(cpuNumArr).has(number)) {
       cpuNumArr.push(number);
     }
   }
+  console.log(cpuNumArr);
   return cpuNumArr;
 }
 
@@ -60,15 +61,17 @@ async function correctNum() {
   await startOrExitGame();
 }
 
-function printResult(){
+function printResult() {
   return Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
 }
 
-async function startOrExitGame(){
-  const userInput = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. ");
+async function startOrExitGame() {
+  const userInput = await Console.readLineAsync(
+    "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. "
+  );
 
   // TODO - userInput 예외처리 및 2를 입력해서 종료하기
-  if(userInput === '1'){
+  if (userInput === "1") {
     await playGame();
   }
 }
