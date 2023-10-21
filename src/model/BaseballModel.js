@@ -8,26 +8,34 @@ export class BaseballModel {
   create() {
     this.computerNumber = this.#generateNumbers();
     this.#checkComputerNumberLength(this.computerNumber);
+    this.#checkComputerNumberDuplication(this.computerNumber);
   }
 
   #generateNumbers() {
     const pickedNumbers = new Set();
     while (pickedNumbers.size !== BASEBALL_RANGE.LENGTH) {
       const pickedNumber = Random.pickNumberInRange(BASEBALL_RANGE.START, BASEBALL_RANGE.END);
-      this.#checkInvalidateGeneratedNumber(pickedNumber);
+      this.#checkGeneratedNumber(pickedNumber);
       pickedNumbers.add(pickedNumber);
     }
     return Array.from(pickedNumbers).join('');
   }
 
-  #checkInvalidateGeneratedNumber(generatedNumber) {
+  #checkGeneratedNumber(generatedNumber) {
     if (generatedNumber < BASEBALL_RANGE.START || generatedNumber > BASEBALL_RANGE.END) {
       throw ERROR_MESSAGE.INVALID_COPUTER_RANGE;
     }
   }
 
   #checkComputerNumberLength(computerNumber) {
-    if (computerNumber.length !== BASEBALL_RANGE.length) {
+    if (computerNumber.length !== BASEBALL_RANGE.LENGTH) {
+      throw ERROR_MESSAGE.INVALID_COPUTER_RANGE;
+    }
+  }
+
+  #checkComputerNumberDuplication(computerNumber) {
+    const uniqueNumbers = new Set(computerNumber.split(''));
+    if (uniqueNumbers.size !== BASEBALL_RANGE.LENGTH) {
       throw ERROR_MESSAGE.INVALID_COPUTER_RANGE;
     }
   }
