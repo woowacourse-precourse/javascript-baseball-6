@@ -27,15 +27,21 @@ class App {
 
     return computerNumber
   }
-
-  BaseballGame() {
+  
+  async BaseballGame(compterNumber) {
     // TODO : 숫자를 입력 받는 기능
-    // TODO : 모든 숫자에 대해 유효한 값인지 확인하는 기능
-    // TODO : 볼과 스트라이크를 계산하는 기능
+    try {
+      const userNumber = await Console.readLineAsync(GAME_MESSAGE.INPUT);
+      // TODO : 모든 숫자에 대해 유효한 값인지 확인하는 기능
+      // TODO : 볼과 스트라이크를 계산하는 기능
+      // TODO : 비교한 결과에 대해 출력하는 기능
+      // TODO : 재시작 여부를 확인하는 기능
+      
+    } catch (error) {
+      throw new Error(ERROR_MESSAGE.IS_INVALID)
+    }
   }
 
-  // TODO : 비교한 결과에 대해 출력하는 기능
-  // TODO : 재시작 여부를 확인하는 기능
 }
 
 const app = new App();
