@@ -20,6 +20,7 @@ export const GAME = {
 
     return `${ball}볼 ${strike}스트라이크`;
   },
+  END: '게임을 종료합니다.',
 };
 
 export const ERROR = {

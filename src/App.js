@@ -36,6 +36,10 @@ class App {
       if (option === '1') {
         await this.#start();
       }
+
+      if (option === '2') {
+        MissionUtils.Console.print(GAME.END);
+      }
     }
   }
 
