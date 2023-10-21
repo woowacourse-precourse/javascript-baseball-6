@@ -1,7 +1,11 @@
-class Player {
-  constructor() {}
-  makeBalls = (string) => {
-    const balls = new Balls(string);
-    return balls;
+import BallsBox from "./BallsBox";
+
+export default class Player {
+  constructor() {
+    super();
+  }
+  throwBalls = (ballNumbers) => {
+    const balls = new BallsBox(ballNumbers);
+    return balls.ballArray;
   };
 }

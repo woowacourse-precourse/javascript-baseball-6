@@ -1,5 +1,6 @@
 import { Console } from "@woowacourse/mission-utils";
 import BallsBox from "./BallsBox.js";
+import Game from "./Game.js";
 
 class App {
   // async getAnswer() {
@@ -11,8 +12,8 @@ class App {
   //   }
   // }
   async play() {
-    const balls = new BallsBox("142");
-    console.log("balls : ", balls);
+    const game = new Game();
+    game.gameInit();
   }
 }
 
