@@ -1,4 +1,4 @@
-import { ANSWER, ERROR, NUMBER_LENGTH } from './Constants.js';
+import { ANSWER, ERROR, NUMBER_LENGTH } from './Constants';
 
 export default class Validator {
   static validateUserInput(answer) {
@@ -13,6 +13,7 @@ export default class Validator {
     }
     return answer;
   }
+
   static validateRetry(answer) {
     if (answer !== ANSWER.RESTART && answer !== ANSWER.FINISH) {
       throw new Error(ERROR.UNCORRECT_RETRY_ANSWER);
