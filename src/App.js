@@ -1,24 +1,16 @@
-import { Console, Random } from '@woowacourse/mission-utils';
+import { Console } from '@woowacourse/mission-utils';
+
+import { generateRandomNumber } from './generateRandomNumber';
 
 class App {
   async play() {
     Console.print('숫자 야구 게임을 시작합니다.');
     try {
-      this.computerNumber = this.generateRandomNumber();
+      this.computerNumber = generateRandomNumber();
       await this.userInputCheck();
     } catch (e) {
       throw new Error(`[ERROR] ${e}`);
     }
-  }
-
-  // 1. 컴퓨터가 1~9까지의 랜덤한 숫자 3개를 선택. 단, 숫자는 겹쳐서는 안된다.
-  generateRandomNumber() {
-    const computerNums = new Set();
-    while (computerNums.size < 3) {
-      const randomNumber = Random.pickNumberInRange(1, 9);
-      computerNums.add(randomNumber);
-    }
-    return Array.from(computerNums);
   }
 
   // 2. 유저, 입력 받기(123 => [1, 2, 3])
