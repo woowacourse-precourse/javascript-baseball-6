@@ -4,6 +4,7 @@ export const OUTPUT_MESSAGES = Object.freeze({
 });
 
 export const ERROR_MESSAGE = Object.freeze({
+  error: '[ERROR]',
   STRING: '숫자만 입력 가능합니다.',
   ZERO: '0 은 포함될 수 없습니다. 1~9 사이의 숫자만 입력해 주세요',
   DUPLICATION: '서로 다른 숫자를 입력해야 합니다.',
