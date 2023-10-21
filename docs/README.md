@@ -45,18 +45,6 @@
 
 ## 기능 목록 
 
-### etc
-- 각종 안내 문구 및 조건들을 위한 상수 숫자 파일 생성
-    - src/constants
-- 주어진 API와 반복적인 작업을 함수로 만들어 간편하게 불러올 수 있도록 작성
-    - src/utils
-        - API 관련
-            - print() : MissionUtils.Console.print()
-            - readLineAsync() : MissionUtils.Console.readLineAsync()
-            - pickNumberInRange() : MissionUtils.Random.pickNumberInRange()
-        - Error 관련
-            - throwError() : throw new Error()을 활용하여 생성
-
 ### 1. 게임 시작
 - 게임 시작 여부 및 랜덤 숫자 초기화
     - 게임 진행 여부 `isplaying`, 랜덤숫자 `randomNumber`
@@ -72,7 +60,7 @@
     - `validateInput()`를 통해 데이터 조건 검사 
         - 1. 입력받은 데이터 값은 세자리여야 한다 => input.length가 3인지 if문을 통해 검사하여 예외처리
         - 2. 입력받는 데이터는 1~9 범위의 자연수로만 이루어져야 한다. => 정규식을 이용하여 예외처리 `(/^[1-9]+$/)`
-        - 3. 각 자리의 숫자는 중복되지 않아야 한다.   => Set()을 통해 중복된 숫자를 없애고, 길이를 측정하여 3미만이면 예외처리 (1번에서 이미 길이가 3인지 검사하였기에 가능)
+        - 3. 각 자리의 숫자는 중복되지 않아야 한다.   => Set()을 통해 중복된 숫자를 없애고, 길이를 측정하여 3이 아니면 예외처리 (1번에서 이미 길이가 3인지 검사하였기에 가능)
 - 입력받은 데이터의 볼,스트라이크 유무를 판별함
     - `umpireOfGame()`를 통해 판별함
 - 판별한 결과를 출력함
@@ -85,3 +73,15 @@
     - 재시작 여부를 물어봄.
         - (1 입력) 재시작 시 `init()`을 통해 isplaying와 randomNumber을 초기화하여 게임 진행 여부를 true로 만들고 새로운 randomNumber을 생성함.
         - (2 입력) 종료시 `isplaying`이 false가 되어 프로그램이 자연스럽게 종료된다.
+
+### 4. etc
+- 각종 안내 문구 및 조건들을 위한 상수 파일 생성
+    - src/constants
+- 주어진 API와 반복적인 작업을 함수로 만들어 간편하게 불러올 수 있도록 작성
+    - src/utils
+        - API 관련
+            - print() : MissionUtils.Console.print()
+            - readLineAsync() : MissionUtils.Console.readLineAsync()
+            - pickNumberInRange() : MissionUtils.Random.pickNumberInRange()
+        - Error 관련
+            - throwError() : throw new Error()을 활용하여 생성
