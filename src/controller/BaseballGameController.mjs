@@ -1,4 +1,3 @@
-import { Console } from "@woowacourse/mission-utils";
 import Baseball from "../domain/Baseball.mjs";
 import RandomNumberGenerator from "../utils/RandomNumberGenerator.mjs";
 import InputView from "../view/InputView.mjs";
@@ -35,7 +34,6 @@ class BaseballGameController {
       InputValidator.validateRestartNumber(input);
       if (input === "1") {
         this.resetGame();
-        this.inputUserNumber();
       }
       if (input === "2") return;
     });
@@ -49,6 +47,11 @@ class BaseballGameController {
       return this.inputRestart();
     }
 
+    this.inputUserNumber();
+  }
+
+  resetGame() {
+    this.#baseball.resetGame();
     this.inputUserNumber();
   }
 }
