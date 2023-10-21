@@ -10,11 +10,11 @@ class App {
     OutputView.printStart();
     this.#computerNumber = ComputerNumber.generateComputerNumber();
   }
+
   async play() {
     while (true) {
-      const answer = await InputView.readUserInput();
-      const input = Validator.validateUserInput(answer);
-      const table = this.#matchComputerNumber([...input].map((e) => Number(e)));
+      const input = await this.#getUserInput();
+      const table = this.#matchComputerNumber(input);
       const template = this.#makeTemplate(table);
       OutputView.printResult(template);
 
@@ -22,7 +22,7 @@ class App {
         OutputView.printCorrect();
         const retryAnswer = await InputView.readRetryAnswer();
         if (retryAnswer === ANSWER.RESTART) {
-          this.#computerNumber = ComputerNumber.generateComputerNumber(); // 컴퓨터 수 초기화
+          this.#computerNumber = ComputerNumber.generateComputerNumber();
         }
         if (retryAnswer === ANSWER.FINISH) {
           this.#finish();
@@ -30,6 +30,12 @@ class App {
         }
       }
     }
+  }
+
+  async #getUserInput() {
+    const answer = await InputView.readUserInput();
+    const input = Validator.validateUserInput(answer);
+    return [...input].map((e) => Number(e));
   }
 
   #finish() {
