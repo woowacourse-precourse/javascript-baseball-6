@@ -45,7 +45,15 @@ class App {
     //3. 힌트 결과 계산
     const {ball,strike} = this.getHintCount(mynumber, computer);
 
-    Console.print(`${strike} / ${ball}`);
+
+    //4. 힌트 출력
+    let result_array = [];
+    if(ball >= 1) result_array.push(`${ball}볼`);
+    if(strike >= 1) result_array.push(`${strike}스트라이크`);
+    if(ball === 0 && strike === 0) result_array.push('낫싱');
+    const RESULT_STRING = result_array.join(' ');
+
+    Console.print(RESULT_STRING);
 
   }
 }
