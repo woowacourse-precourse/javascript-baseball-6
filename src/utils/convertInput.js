@@ -9,7 +9,7 @@ const convertInput = (inputStr) => {
   // 공백제거
   result = inputStr.replace(/\s/, "");
   // 문자열을 배열로 변환하고 각 요소를 숫자로 변환
-  result.split("").map((element) => parseInt(element));
+  result = result.split("").map((element) => parseInt(element));
   return result;
 };
 export default convertInput;

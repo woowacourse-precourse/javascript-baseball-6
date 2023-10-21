@@ -9,13 +9,9 @@ const InputView = {
     try {
       const input = await Console.readLineAsync(Message.ASK_NUMBERS);
       const numArr = convertInput(input);
-      // 예외처리
-      ExceptionHandler.checkIsNum(numArr);
-      ExceptionHandler.checkIsThreeDigit(numArr);
-      ExceptionHandler.checkIsUnique(numArr);
+      return numArr;
     } catch (error) {
-      OutputView.printError(error);
-      this.askNumbers();
+      // TODO
     }
   },
 };
