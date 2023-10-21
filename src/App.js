@@ -1,6 +1,17 @@
 import {Console, MissionUtils, Random} from '@woowacourse/mission-utils';
 
 class App {
+
+  //params: 문자로 이루어진 배열
+  isInValidNumber(number) {
+    const condition = (
+      number.length > 3 || // 3자리 초과
+      number.contain('0') || //0포함
+      new Set(number).size !== 3 //중복된 수
+    )
+
+    return condition;
+  }
   async play() {
 
     //1. 컴퓨터 숫자 저장
@@ -14,13 +25,10 @@ class App {
 
     //2. 3자리 숫자 입력
     const mynumber = await Console.readLineAsync("숫자를 입력해주세요 : ");
-    Console.print(mynumber);
-    if(mynumber.length > 3 || // 3자리 초과
-        mynumber.contain('0') || //0포함
-        new Set(mynumber).size !== 3 //중복된 수
-      ){
+    
+    if(this.isInValidNumber(mynumber)){
         throw new Error("[ERROR]");
-      }
+    }
 
   }
 }
