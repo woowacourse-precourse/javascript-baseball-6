@@ -1,4 +1,5 @@
 import RandomPicker from "../models/RandomPicker.js";
+import GameAnalyzer from "../models/GameAnalyzer.js";
 import OutputView from "../views/OutputView.js";
 import InputView from "../views/InputView.js";
 import { MESSAGES } from "../constants/Messages.js";
@@ -14,8 +15,12 @@ class BullsAndCowsGame {
     const userNumber = await InputView.getUserNumber(MESSAGES.INPUT_GUIDE);
     // console.log(userNumber, this.computerNumber);
     
+    const progress = GameAnalyzer.getBullsAndCows(userNumber, this.computerNumber);
+    OutputView.progressMessage(progress.ball, progress.strike);
+
     if (userNumber === this.computerNumber) return this.finishGame();
-    this.startGame();
+
+    return this.startGame();
   }
 
   async finishGame() {
