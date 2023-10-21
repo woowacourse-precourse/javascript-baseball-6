@@ -1,3 +1,4 @@
+import { ANSWER } from '../utils/Constants.js';
 import Validator from '../utils/Validator.js';
 import ComputerNumber from './ComputerNumber.js';
 import InputView from './InputView.js';
@@ -18,11 +19,12 @@ class App {
 
       if (table.STRIKE_COUNT === 3) {
         const retryAnswer = await InputView.readRetryAnswer();
-        if (retryAnswer === '1') {
+        if (retryAnswer === ANSWER.RESTART) {
           this.#computerNumber = ComputerNumber.generateComputerNumber(); // 컴퓨터 수 초기화
-        } else {
+        }
+        if (retryAnswer === ANSWER.FINISH) {
           this.#finish();
-          break; // 게임 종료
+          break;
         }
       }
     }

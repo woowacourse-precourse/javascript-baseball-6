@@ -1,13 +1,15 @@
+import { ANSWER, ERROR, NUMBER_LENGTH } from './Constants.js';
+
 export default class Validator {
   static validateUserInput(answer) {
-    if ([...answer].length !== 3) {
-      throw new Error('[ERROR] 3개의 숫자를 입력해주세요.');
+    if ([...answer].length !== NUMBER_LENGTH) {
+      throw new Error(ERROR.NUMBER_LENGTH);
     }
     return answer;
   }
   static validateRetry(answer) {
-    if (answer !== '1' && answer !== '2') {
-      throw new Error('[ERROR] 1과 2만 입력해주세요.');
+    if (answer !== ANSWER.RESTART && answer !== ANSWER.FINISH) {
+      throw new Error(ERROR.UNCORRECT_RETRY_ANSWER);
     }
     return answer;
   }
