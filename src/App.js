@@ -5,9 +5,13 @@ import Computer from './Computer.js';
 class App {
   async play() {
     MissionUtils.Console.print(GAME.START);
+
     const computer = new Computer();
     const input = await MissionUtils.Console.readLineAsync(GAME.INPUT_NUMBER);
+
     App.validate(input);
+
+    const result = computer.judgment(input);
   }
 
   static validate(input) {
