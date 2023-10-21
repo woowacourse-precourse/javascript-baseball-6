@@ -6,33 +6,33 @@ const ExceptionHandler = {
   checkIsNum(inputArr) {
     for (const element of inputArr) {
       if (isNaN(element)) {
-        throw new Error(Message.INPUT_IS_NUMBER);
+        throw Message.INPUT_IS_NUMBER();
       }
     }
   },
   // 0을 포함하는지
   checkIsNonzero(inputArr) {
     if (inputArr.includes(0)) {
-      throw new Error(Message.INPUT_IS_NONZERO);
+      throw Message.INPUT_IS_NONZERO;
     }
   },
   // 입력이 세자리인지 확인
   checkIsThreeDigit(inputArr) {
     if (inputArr.length !== constants.NUM_COUNT) {
-      throw new Error(Message.INPUT_IS_THREE_DIGIT);
+      throw Message.INPUT_IS_THREE_DIGIT;
     }
   },
   // 입력이 서로 중복되지 않는지 확인
   checkIsUnique(inputArr) {
     const set = new Set(inputArr);
     if (set.size !== constants.NUM_COUNT) {
-      throw new Error(Message.INPUT_IS_UNIQUE);
+      throw Message.INPUT_IS_UNIQUE;
     }
   },
   // 리플레이 질문에 입력이 1나 2가 아닌지 확인
   checkRestartOrQuitAnswer(inputStr) {
     if (inputStr !== constants.RESTART && inputStr !== constants.QUIT) {
-      throw new Error(Message.ANSWER_MUST_BE_ONE_OR_TWO);
+      throw Message.ANSWER_MUST_BE_ONE_OR_TWO;
     }
   },
 };

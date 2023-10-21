@@ -10,10 +10,10 @@ class GameController {
     this.game;
   }
 
-  startGame() {
+  async startGame() {
     this.createAGame(); // 게임생성
     OutputView.print(Message.Greeting); // 인사말 출력
-    this.askNumbers(); // 번호 물어보기
+    await this.askNumbers(); // 번호 물어보기
   }
 
   createAGame() {
@@ -26,10 +26,9 @@ class GameController {
       this.handleException(numArr); // 예외처리
       this.game.checkResult(numArr); // 결과 확인하기
       this.printResult(); // 결과 출력하기
-      this.isGameFinished(); // 게임 계속하거나 끝내기
+      await this.isGameFinished(); // 게임 계속하거나 끝내기
     } catch (error) {
-      OutputView.printError(error);
-      // this.askNumbers(); 예외는 바로 종료
+      throw new Error(`[ERROR] ${error}`); // 예외 입력 시 종료
     }
   }
 
@@ -54,12 +53,13 @@ class GameController {
     }
   }
 
-  isGameFinished() {
+  async isGameFinished() {
+    // 3스트라이크이면 게임종료
     if (this.game.getStrike() === constants.NUM_COUNT) {
       OutputView.print(Message.GAME_END);
-      this.askRestartOrQuit();
+      await this.askRestartOrQuit(); // 게임을 계속할지 끝낼지 물어보기
     } else {
-      this.askNumbers();
+      await this.askNumbers(); // 다른숫자 물어보기
     }
   }
 
@@ -69,13 +69,12 @@ class GameController {
       ExceptionHandler.checkRestartOrQuitAnswer(answer);
 
       if (answer === constants.RESTART) {
-        this.restartGame();
+        await this.restartGame();
       } else if (answer === constants.QUIT) {
         this.quitGame();
       }
     } catch (error) {
-      OutputView.printError(error);
-      // this.askRestartOrQuit();
+      throw new Error(`[ERROR] ${error}`); // 예외 입력 시 종료
     }
   }
 
@@ -83,9 +82,9 @@ class GameController {
     // Console.close(); // TODO 완전히 종료
   }
 
-  restartGame() {
+  async restartGame() {
     this.createAGame();
-    this.askNumbers();
+    await this.askNumbers();
   }
 }
 

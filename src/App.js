@@ -3,11 +3,11 @@ import GameController from "./Controller/GameController.js";
 class App {
   async play() {
     const gameController = new GameController();
-    gameController.startGame();
+    await gameController.startGame();
   }
 }
 
-// const app = new App();
-// app.play();
+const app = new App();
+app.play();
 
 export default App;
