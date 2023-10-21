@@ -12,6 +12,13 @@ class Controller {
   constructor() {
     this.user = new User();
     this.computer = new Computer();
+
+    this.setComputerAnswer();
+  }
+
+  setComputerAnswer() {
+    const randomNumbersMaker = new RandomNumbersMaker();
+    this.computer.setAnswer(randomNumbersMaker.makeNumbers());
   }
 
   async init() {
@@ -41,13 +48,6 @@ class Controller {
 
   async setUserAnswer(numbers) {
     this.user.setAnswer(numbers);
-
-    await this.setComputerAnswer();
-  }
-
-  async setComputerAnswer() {
-    const randomNumbersMaker = new RandomNumbersMaker();
-    this.computer.setAnswer(randomNumbersMaker.makeNumbers());
 
     await this.compareUserToComputer();
   }
