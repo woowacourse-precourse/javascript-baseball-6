@@ -11,10 +11,6 @@ export const MESSAGE = Object.freeze({
   END: `${DONE_COUNT}개의 숫자를 모두 맞히셨습니다! 게임 종료\n`,
   RESTART: `게임을 새로 시작하려면 ${RESTART_COMMAND.NEWGAME_NUM}, 종료하려면 ${RESTART_COMMAND.END_NUM}를 입력하세요.\n`,
   getGameResult: ({ ball, strike }) => {
-    if (strike === DONE_COUNT) {
-      return MESSAGE.END;
-    }
-
     if (!ball && !strike) {
       return `낫싱\n`;
     }
@@ -28,7 +24,9 @@ export const MESSAGE = Object.freeze({
     }
 
     if (!ball && strike) {
-      strike === 3 ? `${strike}스트라이크\n${MESSAGE.END}` : `${strike}스트라이크\n`;
+      return strike === DONE_COUNT
+        ? `${strike}스트라이크\n${MESSAGE.END}`
+        : `${strike}스트라이크\n`;
     }
   },
 });
