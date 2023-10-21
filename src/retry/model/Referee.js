@@ -1,3 +1,5 @@
+const VALUE = require('../constant/value');
+
 class Referee {
     #ball;
     #strike;
@@ -10,8 +12,8 @@ class Referee {
     compare(computer, user) {
       computer.forEach((number, index) => {
         if (user.includes(number)) {
-          if (index === user.indexOf(number)) this.#strike += 1;
-          else this.#ball += 1;
+          if (index === user.indexOf(number)) this.#strike += VALUE.SCORE;
+          else this.#ball += VALUE.SCORE;
         }
       });
       return { ball: this.#ball, strike: this.#strike };

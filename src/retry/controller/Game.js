@@ -7,6 +7,7 @@ const Referee = require('../model/Referee');
 const UserValidation = require('../validation/UserValidation');
 const OptionValidation = require('../validation/OptionValidation');
 const MESSAGE = require('../constant/message');
+const VALUE = require('../constant/value');
 
 
 class Game {
@@ -33,31 +34,31 @@ class Game {
     handleUserNumbers = (numbers) => {
         UserValidation.validateUser(numbers);
         this.#user = numbers.split('').map((number) => {
-            return parseInt(number, 10);
+            return parseInt(number, VALUE.DECIMAL_NUMBER);
         });
         this.compare();
     };
     compare() {
         const result = new Referee().compare(this.#computer, this.#user);
         let message = [];
-        if (result.ball === 0 && result.strike === 0) message.push(MESSAGE.NOTHING);
-        if (result.ball !== 0) message.push(MESSAGE.BALL(result.ball));
-        if (result.strike !== 0) message.push(MESSAGE.STRIKE(result.strike));
+        if (result.ball === VALUE.NOTHING && result.strike === VALUE.NOTHING) message.push(MESSAGE.NOTHING);
+        if (result.ball !== VALUE.NOTHING) message.push(MESSAGE.BALL(result.ball));
+        if (result.strike !== VALUE.NOTHING) message.push(MESSAGE.STRIKE(result.strike));
         OutputView.printResult(message);
 
         this.progress(result);
     }
 
     progress(result) {
-        if (result.strike !== 3) {
+        if (result.strike !== VALUE.LENGTH) {
             return this.getUserNumbers();
         }
         InputView.getOptions(this.handleOptions);
     }
     handleOptions = (option) => {
         OptionValidation.validateOption(option);
-        if (option === '1') return this.getNumbers();
-        if (option === '2') return OutputView.finishGame();
+        if (option === VALUE.OPTION_RESTART) return this.getNumbers();
+        if (option === VALUE.OPTION_FINISH) return OutputView.finishGame();
     };
 }
 

@@ -1,5 +1,6 @@
 const ValidationError = require('./ValidationError');
 const ERROR = require('../constant/error');
+const VALUE = require('../constant/value');
 
 
 const UserValidation = {
@@ -10,14 +11,14 @@ const UserValidation = {
   },
 
   checkLength(user) {
-    if (user.length !== 3) {
+    if (user.length !== VALUE.LENGTH) {
       throw new ValidationError(ERROR.NUMBER_LENGTH);
     }
   },
-  
+
   checkDuplicate(user) {
     const userNumberDeletedDuplicate = new Set(user);
-    if (userNumberDeletedDuplicate.size !== 3) {
+    if (userNumberDeletedDuplicate.size !== VALUE.LENGTH) {
       throw new ValidationError(ERROR.NUMBER_DUPLICATE);
     }
   },
