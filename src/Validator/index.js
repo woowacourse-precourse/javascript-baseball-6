@@ -2,7 +2,11 @@ import { NUMS, ERROR } from '../constants/index.js';
 
 class Validator {
   static guessNumber(input) {
-    if (![...input].every(Number) || input.length !== NUMS.ASNWER_LENGTH) {
+    if (
+      ![...input].every(Number) ||
+      input.length !== NUMS.ASNWER_LENGTH ||
+      new Set(input).size !== NUMS.ASNWER_LENGTH
+    ) {
       throw Error(ERROR.VALID_LENGTH);
     }
   }
