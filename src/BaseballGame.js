@@ -21,7 +21,8 @@ class BaseballGame {
   async play() {
     while (true) {
       const userInput = await UserInput.getUserInputAsync();
-      this.calculateResult(userInput);
+      const result = this.calculateResult(userInput);
+      this.printResult(result);
     }
   }
 
@@ -41,6 +42,24 @@ class BaseballGame {
     }
 
     return { strikes, balls };
+  }
+
+  printResult(result) {
+    let resultMessage = '';
+
+    if (result.strikes > 0) {
+      resultMessage += `${result.strikes}스트라이크 `;
+    }
+
+    if (result.balls > 0) {
+      resultMessage += `${result.balls}볼 `;
+    }
+
+    if (result.strikes === 0 && result.balls === 0) {
+      resultMessage = '낫싱';
+    }
+
+    MissionUtils.Console.print(resultMessage);
   }
 }
 
