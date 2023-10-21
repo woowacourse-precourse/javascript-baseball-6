@@ -8,4 +8,11 @@ describe("ValidatorTest", () => {
     expect(Validator.containsZero(array)).toBeFalsy();
     expect(Validator.isUnique(array)).toBeTruthy();
   });
+
+  test("3자리가 아닌 경우 false 반환", () => {
+    expect(
+      Validator.isLength({ min: 3, max: 3, array: [1, 2, 3, 4] })
+    ).toBeFalsy();
+    expect(Validator.isLength({ min: 3, max: 3, array: [8, 9] })).toBeFalsy();
+  });
 });
