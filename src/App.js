@@ -61,8 +61,18 @@ class App {
     this.inGame(computerBall, user);
   }
 
+  errorCase(user) {
+    if (/^[1-9]$/.test(user)) {
+      throw new Error("[ERROR] 잘못된 값을 입력하였습니다");
+    }
+    if (user[0] === user[1] || user[1] === user[2] || user[0] === user[1]) {
+      throw new Error("[ERROR] 잘못된 값을 입력하였습니다");
+    }
+  }
+
   async inGame(computerBall, user) {
     const gameResult = this.strikeBall(computerBall, user);
+    this.errorCase(user);
     if (computerBall === user) {
       const response = await MissionUtils.Console.readLineAsync(
         "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
