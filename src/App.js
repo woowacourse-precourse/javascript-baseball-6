@@ -1,21 +1,11 @@
 import { Console, MissionUtils } from "@woowacourse/mission-utils";
 
-console.log(MissionUtils.Random.pickNumberInList([1, 2, 3]));
-
 class App {
   async play() {
-    // Console.readLine('닉네임을 입력해주세요.', (answer) => {
-    //   console.log(`닉네임: ${answer}`);
-    // });
-    Console.print('안녕하세요.');
-
-    // async function getUsername() {
-    //   try {
-    //     const username = await Console.readLineAsync('닉네임을 입력해주세요.');
-    //   } catch (error) {
-    //     // reject 되는 경우
-    //   }
-    // }
+    Console.print("숫자 야구 게임을 시작합니다.");
+    Console.readLine("숫자를 입력해주세요 : ", (input) => {
+      console.log(input);
+    });
   }
 }
 
