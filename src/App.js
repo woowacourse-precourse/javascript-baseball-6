@@ -94,7 +94,7 @@ class App {
   // 게임이 진행되는 곳
   async play() {
     if (this.checkFirstRun) {
-      // 게임 시작 멘트
+      // 게임 시작 멘트, 첫 실행 시에만 출력되도록 한다.
       this.systemStartMent();
       this.checkFirstRun = false;
     }
