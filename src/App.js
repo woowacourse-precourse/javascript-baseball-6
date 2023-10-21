@@ -4,10 +4,19 @@ import { Console } from '@woowacourse/mission-utils';
 class App {
   async play() {
     this.StartMessage(); // StartMessage 메서드 호출
-    const answer = this.MakeRandomNumbers();
+    let answer = this.MakeRandomNumbers();
 
-    const unserInput = await this.InputPlayerNumbers();
-    this.JudgeNumber(answer, unserInput);
+    let userInput = [];
+
+    while (true) {
+      userInput = await this.InputPlayerNumbers();
+      let result = this.JudgeNumber(answer, userInput);
+
+      if (result.strike === 3) {
+        Console.print('3개의 숫자를 모두 맞히셨습니다! 게임종료');
+        break;
+      }
+    }
   }
 
   StartMessage() {
@@ -35,10 +44,10 @@ class App {
 
       if (playerNumber.length === 3 && new Set(playerNumber).size === 3) {
         // Console.print(playerNumber);
-      } else {
-        Console.print('서로 다른 3가지 숫자를 입력해주세요.');
-        return this.InputPlayerNumbers(); // 잘못된 입력에 대해 재귀 호출
-      }
+      } //else {
+      //   Console.print('서로 다른 3가지 숫자를 입력해주세요.');
+      //   return this.InputPlayerNumbers(); // 잘못된 입력에 대해 재귀 호출
+      // }
 
       return playerNumber; // 입력이 유효한 경우 반환
     } catch (error) {
@@ -55,31 +64,34 @@ class App {
     let ball = 0;
     let nothing = '낫싱';
 
-    Console.print(computer);
-    Console.print(player);
+    // Console.print(computer);
+    // Console.print(player);
 
-    //   for (let i = 0; i < 3; i++) {
-    //     if (player[i] === computer[i]) {
-    //       strike++;
-    //     }
-    //   }
-    //   for (let i = 0; i < 3; i++) {
-    //     if (
-    //       player[i] === computer[(i + 1) % 3] ||
-    //       player[i] === computer[(i + 2) % 3]
-    //     ) {
-    //       ball++;
-    //     }
-    //   }
-    //   if (strike === 0 && ball === 0) {
-    //     Console.print(nothing);
-    //   } else if (strike > 0 && ball > 0) {
-    //     Console.print(`${ball}볼 ${strike}스트라이크`);
-    //   } else if (strike === 0 && ball > 0) {
-    //     Console.print(`${ball}볼`);
-    //   } else {
-    //     Console.print(`${strike}스트라이크`);
-    //   }
+    for (let i = 0; i < 3; i++) {
+      if (player[i] === computer[i]) {
+        strike++;
+      }
+      if (
+        player[i] === computer[(i + 1) % 3] ||
+        player[i] === computer[(i + 2) % 3]
+      ) {
+        ball++;
+      }
+    }
+
+    if (strike === 0 && ball === 0) {
+      Console.print(nothing);
+    } else if (strike > 0 && ball > 0) {
+      Console.print(`${ball}볼 ${strike}스트라이크`);
+    } else if (strike === 0 && ball > 0) {
+      Console.print(`${ball}볼`);
+    } else if (strike > 0 && ball === 0) {
+      Console.print(`${strike}스트라이크`);
+    } else {
+      Console.print('3개의 숫자를 모두 맞히셨습니다! 게임종료');
+    }
+
+    return { strike, ball };
   }
 }
 
