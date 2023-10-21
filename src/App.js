@@ -36,6 +36,7 @@ export default class App{
       this.judgeResult();
     }
   }
+
   //결과를 판단
   judgeResult() {
     const result = this.#_player.getJudgeResultPaper(this.#_opponent);
@@ -48,13 +49,13 @@ export default class App{
     }
   }
 
-    //틀렸을 때 다시 시도
+  //틀렸을 때 다시 시도
   wrongAnswerRetry(result) {
     this.#_view.result(result);
     this.play();
   }
     
-    //정답일 때 게임 재시작 의사를 물음
+  //정답일 때 게임 재시작 의사를 물음
   async correct() {
     this.#_view.correct();
     const retryOrEnd = await this.#_view.retry();
