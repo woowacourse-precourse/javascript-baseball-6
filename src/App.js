@@ -1,4 +1,4 @@
-import { ANSWER } from '../utils/Constants';
+import { ANSWER, CORRECT_NUMBER, NO_MATCH_NUMBER } from '../utils/Constants';
 import Validator from '../utils/Validator';
 import { makeTemplate } from '../utils/makeTemplate';
 import ComputerNumber from './ComputerNumber';
@@ -7,6 +7,7 @@ import OutputView from './OutputView';
 
 class App {
   #computerNumber;
+  #isGaming;
 
   constructor() {
     OutputView.printStart();
@@ -15,25 +16,30 @@ class App {
 
   #initGame() {
     this.#computerNumber = ComputerNumber.generateComputerNumber();
+    this.#isGaming = true;
   }
 
   async play() {
-    while (true) {
+    while (this.#isGaming) {
       const input = await this.#getUserInput();
       const table = this.#matchComputerNumber(input);
       const template = makeTemplate(table);
       OutputView.printResult(template);
 
-      if (table.STRIKE_COUNT === 3) {
-        OutputView.printCorrect();
-        const retryAnswer = await InputView.readRetryAnswer();
-        if (retryAnswer === ANSWER.RESTART) {
-          this.#initGame();
-        }
-        if (retryAnswer === ANSWER.FINISH) {
-          OutputView.printFinish();
-          return Promise.resolve('게임 종료');
-        }
+      this.#checkCorrect(table);
+    }
+  }
+
+  async #checkCorrect(table) {
+    if (table.STRIKE_COUNT === CORRECT_NUMBER) {
+      OutputView.printCorrect();
+      const retryAnswer = await InputView.readRetryAnswer();
+      if (retryAnswer === ANSWER.RESTART) {
+        this.#initGame();
+      }
+      if (retryAnswer === ANSWER.FINISH) {
+        OutputView.printFinish();
+        this.#isGaming = false;
       }
     }
   }
@@ -53,7 +59,7 @@ class App {
       const matchedIndex = this.#computerNumber.findIndex(
         (computerNum) => computerNum === userNum,
       );
-      if (matchedIndex !== -1) {
+      if (matchedIndex !== NO_MATCH_NUMBER) {
         if (userNumIndex === matchedIndex) table.STRIKE_COUNT += 1;
         if (userNumIndex !== matchedIndex) table.BALL_COUNT += 1;
       }
