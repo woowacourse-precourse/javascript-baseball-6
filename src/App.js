@@ -14,6 +14,18 @@ class App {
     return computerNumber;
   }
 
+  async checkStrikeAndBall(computerNumber, userNumber) {
+    let strike = 0;
+    let ball = 0;
+    // 스트라이크, 볼, 낫싱 판단
+    for (let i = 0; i < computerNumber.length; i++) {
+      if (computerNumber[i] === userNumber[i]) strike += 1;
+      else if (computerNumber.includes(userNumber[i])) ball += 1;
+    }
+
+    return [strike, ball];
+  }
+
   async play() {
     let isStart = true;
 
