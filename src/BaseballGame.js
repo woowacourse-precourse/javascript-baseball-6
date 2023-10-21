@@ -3,6 +3,7 @@ import { Console, Random } from "@woowacourse/mission-utils";
 export default class BaseballGame {
   constructor() {
     this.computer = [];
+    this.correct = false;
   }
 
   startGame() {
@@ -16,17 +17,39 @@ export default class BaseballGame {
       }
     }
 
-    this.throwBall();
+    while (!this.correct) this.getUserInput();
+    if (this.correct) this.correctGuess;
   }
 
-  async throwBall() {
-    try {
-      const myBall = await Console.readLineAsync("숫자를 입력해주세요 : ");
-      Console.print(myBall);
-    } catch (error) {
-      Console.print(error);
-    }
+  getUserInput() {
+    (async () => {
+      try {
+        const guess = await Console.readLineAsync("숫자를 입력해주세요 : ");
+        this.validateGuess(guess);
+      } catch (error) {
+        Console.print(error);
+      }
+    })();
   }
 
-  validateBall() {}
+  validateGuess(guess) {
+    const guessArr = guess.trim().split("").map(Number);
+
+    let strikes = 0;
+    let balls = 0;
+
+    this.computer.forEach((computerNum, idx) => {
+      if (computerNum === guessArr[idx]) strikes++;
+      else if (guessArr.includes(computerNum)) balls++;
+    });
+
+    const output =
+      (balls === 0 ? "" : `${balls}볼`) +
+      (strikes === 0 ? "" : `${strikes}스트라이크`);
+    Console.print(output || "낫싱");
+
+    strikes === 3 ? (this.correct = true) : null;
+  }
+
+  correctGuess() {}
 }

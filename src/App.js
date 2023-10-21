@@ -4,7 +4,7 @@ class App {
   constructor() {
     this.baseballGame = new BaseballGame();
   }
-  play() {
+  async play() {
     this.baseballGame.startGame();
   }
 }
