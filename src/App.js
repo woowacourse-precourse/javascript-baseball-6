@@ -5,33 +5,60 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 // Console.<Method Name> 을 통해 콘솔을 사용할 것
 
 class App {
-  // 야구게임 정답 생성
-  generateRandomNumber() {
-    let numArr = [];
-    while (numArr.length < 3) {
-      let pickNum = MissionUtils.Random.pickNumberInRange(1, 9);
-      if (!numArr.includes(pickNum)) numArr.push(pickNum);
-    }
-    return numArr;
+  systemStartMent() {
+    MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
   }
 
-  // 야구게임 정답 판별
-  checkAnswer(input = [], answer = []) {
-    if (
-      !Array.isArray(input) ||
-      !Array.isArray(answer) ||
-      input.length !== 3 ||
-      answer.length !== 3
-    ) {
-      throw new Error("[ERROR] 올바르지 않은 인자 형식입니다.");
+  systemGenerateRandomAnswer() {
+    let answerNumArr = [];
+    while (answerNumArr.length < 3) {
+      let randomNum = MissionUtils.Random.pickNumberInRange(1, 9);
+      // 서로 다른 랜덤의 수 3개가 들어와야 하므로 조건을 지정하여 처리
+      if (!answerNumArr.includes(randomNum)) answerNumArr.push(randomNum);
     }
+    console.log(answerNumArr);
+    return answerNumArr;
+  }
+
+  async playGame(answerNumArr) {
+    while (true) {
+      // 사용자의 정답 입력
+      let inputAnswer = await this.userInputAnswer();
+      // 사용자의 정답에 따른 결과 return
+      let checkMessage = this.systemCheckAnswer(inputAnswer, answerNumArr);
+      // return된 결과를 출력하기
+      MissionUtils.Console.print(checkMessage);
+      if (checkMessage === "3스트라이크") {
+        break;
+      }
+    }
+  }
+
+  async userInputAnswer() {
+    let inputAnswer = await MissionUtils.Console.readLineAsync(
+      "숫자를 입력해주세요 : "
+    );
+
+    if (inputAnswer === "") throw new Error("[ERROR] 입력된 값이 없습니다");
+    if (inputAnswer && inputAnswer.length !== 3)
+      throw new Error("[ERROR] 3자리의 숫자를 입력해주세요");
+    if (inputAnswer && inputAnswer.includes(NaN))
+      throw new Error("[ERROR] 숫자를 입력해주세요");
+
+    if (inputAnswer !== undefined)
+      inputAnswer = inputAnswer.split("").map(Number);
+
+    return inputAnswer;
+  }
+
+  systemCheckAnswer(inputAnswer, answerNumArr) {
     let message = "";
-    let strike = 0;
     let ball = 0;
+    let strike = 0;
     for (let i = 0; i < 3; i++) {
-      if (input[i] === answer[i]) {
+      if (inputAnswer[i] === answerNumArr[i]) {
         strike++;
-      } else if (answer.includes(input[i])) {
+      } else if (answerNumArr.includes(inputAnswer[i])) {
         ball++;
       }
     }
@@ -42,67 +69,37 @@ class App {
     return message.length === 0 ? `낫싱` : message;
   }
 
-  // 야구게임 진행구간
-  async playBaseballGame(answer) {
-    try {
-      let input = await this.userInputNumbers();
-      let check = await this.checkAnswer(input, answer);
-
-      await MissionUtils.Console.print(check);
-
-      if (check === "3스트라이크") {
-        MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-        return;
-      }
-
-      // 재귀적 호출로 게임 계속 진행
-      return await this.playBaseballGame(answer);
-    } catch (e) {}
+  async userSelectRestartOrQuit() {
+    MissionUtils.Console.print(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+    );
+    let selectRestartOrQuit = await MissionUtils.Console.readLineAsync("");
+    return selectRestartOrQuit;
   }
 
-  // 유저의 숫자 입력받기 + 예외처리
-  async userInputNumbers() {
-    try {
-      let input = await MissionUtils.Console.readLineAsync(
-        "숫자를 입력해주세요 : "
-      );
-
-      if (input === "") throw new Error("[ERROR] 입력된 값이 없습니다");
-      if (input && input.length !== 3)
-        throw new Error("[ERROR] 3자리의 숫자를 입력해주세요");
-      if (input && input.includes(NaN))
-        throw new Error("[ERROR] 숫자를 입력해주세요");
-
-      if (input !== undefined) input = input.split("").map(Number);
-
-      return input;
-    } catch (e) {}
+  systemRestartOrQuitProcess(restartOrQuitNum) {
+    if (restartOrQuitNum === "2") {
+      return;
+    } else if (restartOrQuitNum !== "1") {
+      throw new Error("[ERROR] 잘못된 접근입니다");
+    }
+    return app.play();
   }
 
   // 게임이 진행되는 곳
   async play() {
+    // 게임 시작 멘트
+    this.systemStartMent();
+    // try/catch를 통해 비동기 작업에 대한 error 핸들링하기
     try {
-      // 시작 멘트
-      MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
-
       // 야구게임 정답 생성
-      let answer = this.generateRandomNumber();
-
-      let endMessage = await this.playBaseballGame(answer);
-      MissionUtils.Console.print(endMessage);
-
-      // 야구게임 재시작 / 종료 이행
-      MissionUtils.Console.print(
-        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
-      );
-      let selectContinue = await MissionUtils.Console.readLineAsync("");
-
-      if (selectContinue === "2") {
-        return;
-      } else if (selectContinue !== "1") {
-        throw new Error("[ERROR] 잘못된 접근입니다");
-      }
-      return app.play();
+      let answerNumArr = this.systemGenerateRandomAnswer();
+      // 정답을 받아 게임을 진행
+      await this.playGame(answerNumArr);
+      // "3스트라이크"가 나왔을 때 게임 재시작/종료 선택
+      let restartOrQuitNum = await this.userSelectRestartOrQuit();
+      // 게임 재시작/종료 로직 수행
+      this.systemRestartOrQuitProcess(restartOrQuitNum);
     } catch (e) {
       throw e;
     }
@@ -116,6 +113,3 @@ const app = new App();
 app.play();
 
 // npm test를 통해 최종 테스트 진행할 것
-
-// 현재 발생한 문제: Jest 상에서 모든 코드가 정상적으로 돌아가지만 사용자의 입력이 대기중인 상태로 남음
-// 따라서 test환경에서는 사용자의 입력 상황을 없애는 것으로 처리를 해야할 것으로 보임
