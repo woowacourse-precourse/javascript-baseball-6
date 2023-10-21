@@ -1,2 +1,2 @@
-export { default as Game } from "./Game";
-export { default as GameTerminator } from "./GameTerminator";
+export { default as Game } from "./Game.js";
+export { default as GameTerminator } from "./GameTerminator.js";

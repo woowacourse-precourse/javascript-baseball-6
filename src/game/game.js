@@ -1,4 +1,5 @@
 import { MissionUtils, Console } from "@woowacourse/mission-utils";
+import Validation from "./Validation.js";
 
 class Game {
   constructor() {
@@ -69,20 +70,7 @@ class Game {
     let userResponse = await Console.readLineAsync("숫자를 입력해주세요: ");
     userResponse = userResponse.trim();
 
-    // 길이 확인
-    if (userResponse.length !== 3) {
-      throw new Error("[ERROR] 숫자의 길이가 3이 아닙니다.");
-    }
-
-    // 중복 확인
-    if (new Set(userResponse).size !== 3) {
-      throw new Error("[ERROR] 중복된 숫자가 있습니다.");
-    }
-
-    // 정수 입력인지 확인
-    if (isNaN(userResponse)) {
-      throw new Error("[ERROR] 입력값이 숫자가 아닙니다.");
-    }
+    Validation.validateUserNumbersInput(userResponse);
 
     return userResponse;
   }
