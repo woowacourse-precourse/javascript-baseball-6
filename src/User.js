@@ -7,9 +7,8 @@ export class User {
       if (!this.isValidInput(userAnswer)) {
         throw Error("[ERROR] 숫자가 잘못된 형식입니다.");
       }
-      Console.print(userAnswer);
     } catch (error) {
-      Console.print("[ERROR] 숫자가 잘못된 형식입니다.");
+      throw Error("[ERROR] 숫자가 잘못된 형식입니다.");
     }
   }
 
