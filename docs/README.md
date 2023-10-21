@@ -6,9 +6,7 @@
   - [x] 시작 문구 출력 (`Console.print` 활용)
   - [x] 상대방(컴퓨터) 숫자 랜덤 값 추출 (`Random.pickNumberInRange` 활용)
 - [ ] 데이터 입력
-  - [ ] 입력된 세자리 숫자 입력 및 Validation
-  - [ ] 데이터 입력은 `Console.readLineAsync` 활용
-  - [ ] 입력된 데이터 유형 및 자릿수 확인
+  - [x] 세자리 숫자 입력 및 Validation (데이터 입력은 `Console.readLineAsync` 활용)
   - [ ] 숫자 세자리가 모두 다른 숫자인지 확인
   - [ ] 입력된 값이 잘못된 경우 `throw`문으로 에러 처리
 - [ ] 입력값-랜덤값 비교 (각 숫자 비교하여 총 3회 반복)
