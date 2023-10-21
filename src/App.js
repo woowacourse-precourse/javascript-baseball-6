@@ -21,7 +21,6 @@ async function userPickNum() {
   const userNum = await Console.readLineAsync("숫자를 입력해주세요 : ");
 
   // checkUserNum(userNum);
-
   const numArr = userNum.split("");
 
   const userNumArr = numArr.map(function (e) {
@@ -31,10 +30,14 @@ async function userPickNum() {
   return userNumArr;
 }
 
-// function checkUserNum(user){
-//   if(user.length !== 3) throw new Error("3자리의 숫자를 입력해주세요.");
-//   else if() throw new Error("숫자를 입력해주세요.");
-// }
+function checkUserNum(user) {
+  if (user.length !== 3) {
+    throw new Error("3자리의 숫자를 입력해주세요.");
+  }
+  if (parseInt(user, 10) === user) {
+    throw new Error("숫자를 입력해주세요.");
+  }
+}
 
 async function playGame() {
   const cpu = cpuPickNum();
