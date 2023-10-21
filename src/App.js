@@ -12,12 +12,17 @@ class App {
     const computerNumber = this.computer.generateNumber();
 
     let userNumber;
+    let result;
     do {
       userNumber = await this.getUserInput();
       this.validateUserInput(userNumber); 
 
-      const result = this.compareNumber(computerNumber, userNumber);
+      result = this.compareNumber(computerNumber, userNumber);
       this.printResult(result);
+      
+      if (result.strike === 3) {
+        await this.askRestart();
+      }
     } while (result.strike !== 3);
   }
 
@@ -90,6 +95,18 @@ class App {
       Console.print(`${ball} ${RESULT_MESSAGE.BALL} ${strike} ${RESULT_MESSAGE.STRIKE}`);
     }
   }
+
+  async askRestart() {
+    const userAnswer = await Console.readLineAsync(GAME_MESSAGE.GAME_RESTART);
+    
+    if (userAnswer === '1') {
+      await this.play();
+    } else if (userAnswer === '2') {
+      process.exit(); 
+    } else {
+      throw new Error(ERROR_MESSAGE.INVALID_CHOICE);
+    }
+  }  
 }
 
 export default App;
