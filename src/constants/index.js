@@ -1,6 +1,6 @@
 export const NUMS = {
-  REPLAY: 1,
-  END: 2,
+  REPLAY: '1',
+  END: '2',
   ASNWER_LENGTH: 3,
 };
 
