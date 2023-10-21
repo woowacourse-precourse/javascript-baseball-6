@@ -30,16 +30,15 @@ class Controller {
   async readNumbers() {
     const numbers = await InputView.readNumbers();
 
-    await this.validateNumbers(numbers);
+    this.validateNumbers(numbers);
+    await this.setUserAnswer(numbers);
   }
 
-  async validateNumbers(numbers) {
+  validateNumbers(numbers) {
     try {
       ErrorCatcher.validateType(numbers);
       ErrorCatcher.validateLength(numbers);
       ErrorCatcher.validateUnique(numbers);
-
-      await this.setUserAnswer(numbers);
     } catch (error) {
       OutputView.printError(error);
       throw new Error(error);
@@ -68,10 +67,6 @@ class Controller {
     }
 
     await this.readNumbers();
-  }
-
-  async readRetry() {
-    // 재시작 여부 입력 받기
   }
 }
 
