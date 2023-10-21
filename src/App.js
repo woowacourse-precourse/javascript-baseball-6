@@ -1,5 +1,6 @@
 import { ANSWER } from '../utils/Constants.js';
 import Validator from '../utils/Validator.js';
+import { makeTemplate } from '../utils/makeTemplate.js';
 import ComputerNumber from './ComputerNumber.js';
 import InputView from './InputView.js';
 import OutputView from './OutputView.js';
@@ -19,7 +20,7 @@ class App {
     while (true) {
       const input = await this.#getUserInput();
       const table = this.#matchComputerNumber(input);
-      const template = this.#makeTemplate(table);
+      const template = makeTemplate(table);
       OutputView.printResult(template);
 
       if (table.STRIKE_COUNT === 3) {
@@ -62,21 +63,6 @@ class App {
       }
     });
     return table;
-  }
-
-  #makeTemplate(table) {
-    if (table.STRIKE_COUNT && table.BALL_COUNT) {
-      return `${table.BALL_COUNT}볼 ${table.STRIKE_COUNT}스트라이크`;
-    }
-    if (table.STRIKE_COUNT && !table.BALL_COUNT) {
-      return `${table.STRIKE_COUNT}스트라이크`;
-    }
-    if (!table.STRIKE_COUNT && table.BALL_COUNT) {
-      return `${table.BALL_COUNT}볼`;
-    }
-    if (!table.STRIKE_COUNT && !table.BALL_COUNT) {
-      return `낫싱`;
-    }
   }
 }
 
