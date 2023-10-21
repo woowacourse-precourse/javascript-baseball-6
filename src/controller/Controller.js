@@ -1,16 +1,16 @@
 const OUT_VIEW = require('../views/OutputView');
-const VAL = require('../controller/Validate');
+const VALIDATE = require('./Validate');
 const MissionUtils = require('@woowacourse/mission-utils');
-const { CONSTANTS , STRIKE_BALL } = require('../models/Constants'); 
+const { CONSTANTS , STRIKE_BALL } = require('../models/Constants');
 const { INPUT_MSG } = require('../models/InputMsg');
-const { OUTPUT_MSG } = require('../models/OutputMsg');
+const { OUTPUT_MSG , ERROR_MSG } = require('../models/OutputMsg');
 
 class Controller {
-    constructor() {
-        this.OUT = new OUT_VIEW();
-        this.VAL = new VAL();
+    constructor () {
+        this.VAL = new VALIDATE();
+
     }
-    makeAnswer() {
+    makeAnswer = () => {
         const computer = [];
         while (computer.length < 3) {
             const number = MissionUtils.Random.pickNumberInRange(1, 9);
@@ -21,22 +21,17 @@ class Controller {
         CONSTANTS.ANSWER_NUMBER = computer;
     }
 
-    async getInputNumber() {
-        this.makeAnswer();
-        while (true){
-            CONSTANTS.USER_NUMBER = await MissionUtils.Console.readLineAsync(`${INPUT_MSG.INPUT_NUMBER}`);
-            MissionUtils.Console.print(`${INPUT_MSG.INPUT_NUMBER} ${CONSTANTS.USER_NUMBER}`);
+    inputUserNumber = async () => {
+        try {
+            CONSTANTS.USER_NUMBER = await MissionUtils.Console.readLineAsync(INPUT_MSG.INPUT_NUMBER);
             this.VAL.numberValidate(CONSTANTS.USER_NUMBER);
-            STRIKE_BALL.STRIKE = 0;
-            STRIKE_BALL.BALL = 0;
-            this.#checkingStrike(CONSTANTS.USER_NUMBER);
-            this.OUT.printResult();
-            if (STRIKE_BALL.STRIKE === 3) break;
+            MissionUtils.Console.print(`${INPUT_MSG.INPUT_NUMBER} ${CONSTANTS.USER_NUMBER}`);
+        } catch (error) {
+            throw error;
         }
-        this.#endGame();
     }
 
-    #checkingStrike(number) {
+    checkingStrike(number) {
         CONSTANTS.ANSWER_NUMBER.map((num,idx) => {
             (number[idx] == num) ? STRIKE_BALL.STRIKE += 1 : this.#checkingBall(number[idx])
         })
@@ -46,19 +41,21 @@ class Controller {
         (CONSTANTS.ANSWER_NUMBER.includes(parseInt(num))) ? STRIKE_BALL.BALL += 1 : false;
     }
 
-    #endGame() {
+    async endGame() {
         MissionUtils.Console.print(OUTPUT_MSG.END_GAME);
-        this.#reGame();
+        await this.#reGame();
     }
 
     async #reGame() {
-        MissionUtils.Console.print(OUTPUT_MSG.RE_GAME);
-        CONSTANTS.REGAME_CONSTANTS = await MissionUtils.Console.readLineAsync(`${INPUT_MSG.INPUT_NUMBER}`);
-        MissionUtils.Console.print(CONSTANTS.REGAME_CONSTANTS);
-        (CONSTANTS.REGAME_CONSTANTS == 1) ? this.getInputNumber() : MissionUtils.Console.print(`${OUTPUT_MSG.GAME_OVER}`); 
+        try {
+            MissionUtils.Console.print(OUTPUT_MSG.RE_GAME);
+            CONSTANTS.REGAME_CONSTANTS = await MissionUtils.Console.readLineAsync(OUTPUT_MSG.RE_GAME);
+            MissionUtils.Console.print(CONSTANTS.REGAME_CONSTANTS);
+            this.VAL.reGameValidate(CONSTANTS.REGAME_CONSTANTS);
+        } catch (error) {
+            throw error
+        }
     }
 }
 
 module.exports = Controller;
-// export default Controller;
-

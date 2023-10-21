@@ -11,7 +11,9 @@ const OUTPUT_MSG = {
 const ERROR_MSG = {
     COMMAND_ERROR : '[ERROR] 잘못 입력하셨습니다',
     NUMBER_LENGTH_ERROR : '[ERROR] 3자리의 숫자를 입력해주세요.',
-    IS_NUMBER : '[ERRROR] 숫자형태로 입력해주세요.'
+    IS_NUMBER : '[ERROR] 숫자형태로 입력해주세요.',
+    IS_ZERO : '[ERROR] 1 부터 9 까지의 값을 입력해주세요',
+    ANSWER_NUMBER_ERROR : '[ERROR] 정답 숫자가 잘못 입력되었습니다.'
 }
 
 module.exports = { OUTPUT_MSG ,ERROR_MSG } 

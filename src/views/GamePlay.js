@@ -1,4 +1,4 @@
-const CONTROL = require('../controller/ControllerTest');
+const CONTROL = require('../controller/Controller');
 const OUT_VIEW = require('../views/OutputView');
 const VAL = require('../controller/Validate')
 const MissionUtils = require('@woowacourse/mission-utils');
@@ -35,11 +35,11 @@ class GamePlay {
 
     #getUserReGame = async () => {
         await this.CON.endGame();
-        (CONSTANTS.REGAME_CONSTANTS == 1) ? this.#getAnswerUserNumber() : this.#gameOver();
+        (CONSTANTS.REGAME_CONSTANTS == 1) ? this.startGame() : this.#gameOver();
     }
 
-    #gameOver = async () => {
-        await MissionUtils.Console.print(OUTPUT_MSG.GAME_OVER);
+    #gameOver = () => {
+        MissionUtils.Console.print(OUTPUT_MSG.GAME_OVER);
     }
 }
 

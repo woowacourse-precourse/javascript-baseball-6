@@ -6,6 +6,8 @@ class Validate {
     numberValidate = (number) => {
         if (number.length !== 3) throw new Error(ERROR_MSG.NUMBER_LENGTH_ERROR);
         if (isNaN(number)) throw new Error(ERROR_MSG.IS_NUMBER);
+        if (number.includes('0')) throw new Error(ERROR_MSG.IS_ZERO);
+        
 
     }
     reGameValidate = (number) => {
