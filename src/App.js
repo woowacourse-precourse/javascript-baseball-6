@@ -1,15 +1,26 @@
-import {MissionUtils,Random, Console} from "@woowacourse/mission-utils";
+import {Random, Console} from "@woowacourse/mission-utils";
 
 class App {
   async play() {
-    const Target = getRandom();
-    var key=1;
-    while(key){
-      const input = await getInput();
-      Console.print(input);
-      key = getCheck(Target, input);
+    Console.print('숫자 야구 게임을 시작합니다.');
+    while(1){
+      const Target = getRandom();
+      var key=1;
+      while(key){
+        const input = await getInput();
+        Console.print(input);
+        key = getCheck(Target, input);
+      }
+      let restartInput = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n");
+      if(restartInput === '1'){
+        
+      }
+      else if(restartInput === '2'){
+        break;
+      }
+      else{throw new Error("1 또는 2를 입력하세요");}
+      return;
     }
-    return;
   }
 }
 
@@ -17,6 +28,8 @@ export default App;
 
 const app = new App();
 app.play();
+
+
 
 function getRandom(){
   const Target = [];
@@ -36,7 +49,7 @@ function getRandom(){
 async function getInput(){
   const Target = [];
   while(true){
-    let userInput = await Console.readLineAsync("입력 ㄱㄱ : ");
+    let userInput = await Console.readLineAsync("숫자를 입력해주세요 : ");
     Console.print(userInput);
     if(userInput.length!==3){
       throw new Error("세 자리가 아닙니다.");
@@ -57,7 +70,7 @@ async function getInput(){
 
 function getCheck(target, userInput){
   if(target===userInput){
-    Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    Console.print("3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료");
     return 0;
   }
   var ball = 0;
