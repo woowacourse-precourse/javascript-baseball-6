@@ -21,7 +21,7 @@ class App {
 
     if(value.length !== 3 || new Set(value).size!==3 || value.split('').every(element => {
       const num = parseInt(element);  
-      return (9 < num || num < 0)
+      return (9 < num || num < 1)
     })){
       throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
     }
