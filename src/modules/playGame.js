@@ -1,5 +1,5 @@
 import { MissionUtils} from '@woowacourse/mission-utils';
-const { NUMBER_LENGTH, SCORES, MESSAGES } = require("../constants");
+const { NUMBER, SCORES, MESSAGES } = require("../constants");
 const { selectComputer } = require("./selectComputer");
 const { isUserError } = require("./isUserError");
 const { selectOption } = require("./selectOption");
@@ -59,8 +59,8 @@ printScore = ({ ball, strike }) => {
 };
 
 isAnswer = (answer, computer) => {
-  if (answer.includes(`${NUMBER_LENGTH}${SCORES.STRIKE}`)) {
-    MissionUtils.Console.print(MESSAGES.SUCCESS);
+    if (answer.includes(`${NUMBER.LENGTH}${SCORES.STRIKE}`)) {
+        MissionUtils.Console.print(MESSAGES.SUCCESS);
     return selectOption();
   }
 

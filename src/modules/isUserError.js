@@ -1,4 +1,4 @@
-const { NUMBER_LENGTH, ERRORS } = require("../constants");
+const { NUMBER, ERRORS } = require("../constants");
 
 isUserError = (user) => {
   checkOverlap(user);
@@ -10,14 +10,14 @@ isUserError = (user) => {
 checkOverlap = (number) => {
   const numberList = number.split("").sort();
   const validNumber = [...new Set(numberList)];
-  if (validNumber.length < 3) {
+  if (validNumber.length < NUMBER.LENGTH) {
     throw ERRORS.OVERLAP;
   }
 };
 
 checkLength = (number) => {
-  if (number.length !== NUMBER_LENGTH) {
-    throw ERRORS.LENGTH;
+    if (number.length !== NUMBER.LENGTH) {
+        throw ERRORS.LENGTH;
   }
 };
 
@@ -28,8 +28,8 @@ checkNumber = (number) => {
 };
 
 checkRange = (number) => {
-  if (number.includes("0")) {
-    throw ERRORS.RANGE;
+    if (number.includes(NUMBER.NOT_INCLUDE)) {
+        throw ERRORS.RANGE;
   }
 };
 
