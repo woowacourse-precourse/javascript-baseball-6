@@ -2,10 +2,10 @@ import {MissionUtils} from "@woowacourse/mission-utils";
 
 const getUserNumber = async () => {
     try {
-        const userNumber = await MissionUtils.Console.readLineAsync("숫자를 입력하세요: ");
+        const userNumber = await MissionUtils.Console.readLineAsync("숫자를 입력하세요 : ");
         return userNumber;
     } catch (error) {
-        return 0;
+        return;
     }
 }
 
