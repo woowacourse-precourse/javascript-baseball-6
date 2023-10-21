@@ -11,14 +11,14 @@ class Baseball {
 
   async play() {
     this.startGame();
-
     while (!this.isCorrectAnswer) {
       await this.getUserInputAndCompareToComputer();
     }
+    return false;
   }
 
   startGame() {
-    this.consoleUtils.print(MESSAGE.START_GAME);
+    this.isCorrectAnswer = false;
     this.computer.createNumberArray();
   }
 
