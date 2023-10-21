@@ -7,6 +7,7 @@ import OutputView from './OutputView.js';
 class App {
   #computerNumber;
   constructor() {
+    OutputView.printStart();
     this.#computerNumber = ComputerNumber.generateComputerNumber();
   }
   async play() {
@@ -18,6 +19,7 @@ class App {
       OutputView.printResult(template);
 
       if (table.STRIKE_COUNT === 3) {
+        OutputView.printCorrect();
         const retryAnswer = await InputView.readRetryAnswer();
         if (retryAnswer === ANSWER.RESTART) {
           this.#computerNumber = ComputerNumber.generateComputerNumber(); // 컴퓨터 수 초기화
