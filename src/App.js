@@ -12,8 +12,15 @@ class App {
       
       if (isEnd) break;
     }
+
+    console.log('3개의 숫자를 모두 맞히셨습니다! 게임 종료'); 
     
-    console.log('3개의 숫자를 모두 맞히셨습니다! 게임 종료');    
+    const option = await this.endingOption();
+    if (option == 1) {
+      await this.play();
+    } else {
+      Console.print('게임 종료');
+    }
   }
 
   computerNumber() {
@@ -70,6 +77,14 @@ class App {
     }
     
     return false; 
+  }
+
+  async endingOption() {
+    const option = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. \n');
+    if (option != 1 && option != 2) {
+      throw new Error('[ERROR] 1,2만 입력할 수 있습니다.');  
+    }
+    return option;
   }
 }
 
