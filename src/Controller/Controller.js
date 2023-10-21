@@ -68,6 +68,21 @@ class Controller {
 
     await this.readNumbers();
   }
+
+  async readRetry() {
+    const retryAnswer = await InputView.readRetry();
+
+    this.validateRetryAnswer(retryAnswer);
+  }
+
+  validateRetryAnswer(answer) {
+    try {
+      ErrorCatcher.validateOrder(answer);
+    } catch (error) {
+      OutputView.printError(error);
+      throw new Error(error);
+    }
+  }
 }
 
 export default Controller;
