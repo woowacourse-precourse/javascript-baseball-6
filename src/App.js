@@ -1,5 +1,10 @@
+import readline from 'readline';
+
 class App {
-  async play() {}
+  async play() {
+    this.StartMessage(); // StartMessage 메서드 호출
+    const userInput = await this.InputPlayerNumbers();
+  }
 
   StartMessage() {
     const StartMessage = '숫자 야구 게임을 시작합니다.';
@@ -17,28 +22,22 @@ class App {
   }
 
   InputPlayerNumbers() {
-    const InputMessage = '숫자를 입력해주세요 : ';
-    console.log(InputMessage);
-
-    const readline = require('readline');
     const rl = readline.createInterface({
       input: process.stdin,
       output: process.stdout,
     });
-
-    let input = [];
-    rl.on('line', (line) => {
-      input = line.split('').map((number) => parseInt(number));
-      rl.close();
-    });
-
-    rl.on('close', () => {
-      process.exit();
+    return new Promise((resolve) => {
+      let input = [];
+      rl.question('숫자를 입력해주세요 : ', (userInput) => {
+        input = userInput.split('').map((number) => parseInt(number));
+        rl.close();
+        resolve(userInput);
+      });
     });
   }
 }
 
-const GameStart = new App(); // App 클래스의 인스턴스 생성
-GameStart.play();
+const app = new App();
+app.play();
 
 export default App;
