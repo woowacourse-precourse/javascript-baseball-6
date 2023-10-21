@@ -26,7 +26,7 @@ export default class View {
   /**
    * player가 시도한 input 검증 결과가 false일 시 에러를 출력합니다.
    */
-  async playerInputError() {
+  async throwPlayerInputError() {
     throw new Error(this.RESTSART_INPUT_ERROR);
   }
 }

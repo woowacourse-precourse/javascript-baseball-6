@@ -29,7 +29,7 @@ export default class Controller {
     );
 
     if(!VALIDATION_RESULT) {
-      await this.view.playerInputError();
+      await this.view.throwPlayerInputError();
     }
 
     await this.checkPlayerInput();
