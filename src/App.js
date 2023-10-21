@@ -89,9 +89,9 @@ class App {
           break;
         }
       }
-    }
-  }
-}  
+    }  
+  }  
+}
 
 
 export default App;
