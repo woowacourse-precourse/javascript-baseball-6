@@ -39,8 +39,8 @@ class App {
       MESSAGE.ASK_GAME_RESTART
     );
 
-    if (answer === "2") return false;
-    if (answer === "1") return true;
+    if (answer === MESSAGE.FINISH_APP) return false;
+    if (answer === MESSAGE.RESTART_GAME) return true;
 
     throw new Error(ERROR.VALID_RESTART_INPUT);
   }
