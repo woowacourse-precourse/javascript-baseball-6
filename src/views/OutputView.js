@@ -1,4 +1,4 @@
-const { CONSTANTS, STRIKE_BALL } = require('../models/Constants'); 
+const { STRIKE_BALL } = require('../models/Constants'); 
 const { OUTPUT_MSG } = require('../models/OutputMsg');
 const MissionUtils = require('@woowacourse/mission-utils');
 

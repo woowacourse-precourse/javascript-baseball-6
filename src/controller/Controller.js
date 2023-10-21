@@ -1,24 +1,22 @@
-const OUT_VIEW = require('../views/OutputView');
 const VALIDATE = require('./Validate');
 const MissionUtils = require('@woowacourse/mission-utils');
 const { CONSTANTS , STRIKE_BALL } = require('../models/Constants');
 const { INPUT_MSG } = require('../models/InputMsg');
-const { OUTPUT_MSG , ERROR_MSG } = require('../models/OutputMsg');
+const { OUTPUT_MSG } = require('../models/OutputMsg');
 
 class Controller {
     constructor () {
         this.VAL = new VALIDATE();
-
     }
     makeAnswer = () => {
-        const computer = [];
-        while (computer.length < 3) {
-            const number = MissionUtils.Random.pickNumberInRange(1, 9);
-            if (!computer.includes(number)) {
-                computer.push(number);
+        const COMPUTER = [];
+        while (COMPUTER.length < 3) {
+            const NUMBER = MissionUtils.Random.pickNumberInRange(1, 9);
+            if (!COMPUTER.includes(NUMBER)) {
+                COMPUTER.push(NUMBER);
             }
         }
-        CONSTANTS.ANSWER_NUMBER = computer;
+        CONSTANTS.ANSWER_NUMBER = COMPUTER;
     }
 
     inputUserNumber = async () => {

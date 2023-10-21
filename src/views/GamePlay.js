@@ -1,8 +1,7 @@
 const CONTROL = require('../controller/Controller');
 const OUT_VIEW = require('../views/OutputView');
-const VAL = require('../controller/Validate')
 const MissionUtils = require('@woowacourse/mission-utils');
-const { OUTPUT_MSG , ERROR_MSG } = require('../models/OutputMsg');
+const { OUTPUT_MSG } = require('../models/OutputMsg');
 
 // CONSTANTS
 const { CONSTANTS , STRIKE_BALL } = require('../models/Constants');
@@ -12,7 +11,6 @@ class GamePlay {
     constructor() {
         this.OUT = new OUT_VIEW();
         this.CON = new CONTROL();
-        this.VAL = new VAL();
     }
 
     startGame = async () => {

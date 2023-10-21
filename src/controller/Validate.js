@@ -1,5 +1,4 @@
-const { CONSTANTS , STRIKE_BALL } = require('../models/Constants');
-const { OUTPUT_MSG , ERROR_MSG } = require('../models/OutputMsg');
+const { ERROR_MSG } = require('../models/OutputMsg');
 
 
 class Validate {
