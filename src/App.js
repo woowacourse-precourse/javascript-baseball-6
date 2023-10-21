@@ -1,4 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
+import { GAME_TEXT } from "./constants/string.js";
 
 class App {
   async play() {
@@ -11,7 +12,7 @@ class App {
       }
     }
     
-    console.log(computer);
+    MissionUtils.Console.print(GAME_TEXT.START);
   }
 }
 
