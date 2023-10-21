@@ -1,5 +1,5 @@
 const { Console } = require('@woowacourse/mission-utils');
-const { GAME_MESSAGE, ERROR_MESSAGE } = require('./constants/Message');
+const { GAME_MESSAGE, ERROR_MESSAGE, RESULT_MESSAGE } = require('./constants/Message');
 const Computer = require('./Computer');
 
 class App {
@@ -17,6 +17,7 @@ class App {
       this.validateUserInput(userNumber); 
 
       const result = this.compareNumber(computerNumber, userNumber);
+      this.printResult(result);
     } while (result.strike !== 3);
   }
 
@@ -68,6 +69,26 @@ class App {
       }
     }
     return { ball, strike };
+}
+
+  printResult(result) {
+    const { ball, strike } = result;
+
+    if (strike === 3) {
+      Console.print(`${strike} ${RESULT_MESSAGE.STRIKE}`);
+      Console.print(GAME_MESSAGE.CORRECT_ANSWER);
+      return;
+    }
+    
+    if (strike === 0 && ball === 0) {
+      Console.print(RESULT_MESSAGE.NOTHING);
+    } else if (strike === 0 && ball !== 0) {
+      Console.print(`${ball} ${RESULT_MESSAGE.BALL}`);
+    } else if (strike !== 0 && ball === 0) {
+      Console.print(`${strike} ${RESULT_MESSAGE.STRIKE}`);
+    } else {
+      Console.print(`${ball} ${RESULT_MESSAGE.BALL} ${strike} ${RESULT_MESSAGE.STRIKE}`);
+    }
   }
 }
 

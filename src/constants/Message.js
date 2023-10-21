@@ -11,8 +11,15 @@ const ERROR_MESSAGE = Object.freeze({
   DUPLICATE_NUMBER: '[ERROR] 중복된 숫자를 입력하셨습니다.'
 })
 
+const RESULT_MESSAGE = Object.freeze({
+  BALL: '볼',
+  STRIKE: '스트라이크',
+  NOTHING: '낫싱'
+})
+
 module.exports = {
   GAME_MESSAGE,
-  ERROR_MESSAGE
+  ERROR_MESSAGE,
+  RESULT_MESSAGE
 };
 
