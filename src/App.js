@@ -32,7 +32,7 @@ class App {
           `${strike}스트라이크 \n3개의 숫자를 모두 맞히셨습니다! 게임 종료`
         );
       } else {
-        MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
+        MissionUtils.Console.print(`${ball - 1}볼 ${strike}스트라이크`);
       }
     } else if (ball) {
       MissionUtils.Console.print(`${ball}볼`);
