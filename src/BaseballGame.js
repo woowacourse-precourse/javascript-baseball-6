@@ -20,7 +20,7 @@ class BaseballGame {
   // 숫자 야구에 사용될 수 있는 숫자인지 유효성 검사
   static validateNumber(number) {
     if (isNaN(number) || !Number.isInteger(parseFloat(number)) || number < 100 || number > 999 || new Set(number).size !== 3) {
-      throw MESSAGE.INVALID_NUMBER;
+      throw new Error(MESSAGE.INVALID_NUMBER);
     }
   }
 
