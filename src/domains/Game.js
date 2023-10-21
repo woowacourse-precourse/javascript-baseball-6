@@ -1,7 +1,7 @@
 // 한판의 게임을 책임지는 클래스
 
-import Oppenent from "./Opponent.js";
-import { GAME_MESSAGES } from "../constants/gameMessages.js";
+import Oppenent from './Opponent.js';
+import { GAME_MESSAGES } from '../constants/gameMessages.js';
 
 class Game {
   /**
@@ -62,11 +62,10 @@ class Game {
       };
     }
 
-    const messages = [
-      balls && BALLS_COUNT(balls),
-      strikes && STRIKES_COUNT(strikes),
-    ].filter(Boolean);
-    const message = messages.length ? messages.join(" ") : NOTHING;
+    const messages = [balls && BALLS_COUNT(balls), strikes && STRIKES_COUNT(strikes)].filter(
+      Boolean,
+    );
+    const message = messages.length ? messages.join(' ') : NOTHING;
 
     return { success: false, message };
   }
@@ -78,6 +77,7 @@ class Game {
 
   getStrikes() {
     let strikes = 0;
+    // eslint-disable-next-line no-plusplus
     for (let i = 0; i < this.#opponentGongs.length; i++) {
       if (this.#opponentGongs[i] === this.#userGongs[i]) {
         strikes++;
@@ -92,12 +92,10 @@ class Game {
    */
 
   getBalls() {
-    const commonBalls = this.#userGongs.filter((ball) =>
-      this.#opponentGongs.includes(ball)
-    ).length;
+    const commonBalls = this.#userGongs.filter((ball) => this.#opponentGongs.includes(ball)).length;
 
     const strikes = this.#userGongs.filter(
-      (ball, index) => ball === this.#opponentGongs[index]
+      (ball, index) => ball === this.#opponentGongs[index],
     ).length;
 
     return commonBalls - strikes;

@@ -1,9 +1,9 @@
-import AppError from "../error/AppError.js";
-import { ERROR_MESSAGES } from "../constants/errorMessages.js";
+import AppError from '../error/AppError.js';
+import { ERROR_MESSAGES } from '../constants/errorMessages.js';
 
 export const SELECTED = Object.freeze({
-  RESTART_GAME: "1",
-  END_GAME: "2",
+  RESTART_GAME: '1',
+  END_GAME: '2',
 });
 
 /**

@@ -1,5 +1,5 @@
 // 상대방 (컴퓨터)를 정의하는 클래스
-import Gong from "./Gong.js";
+import Gong from './Gong.js';
 
 class Oppenent {
   /**

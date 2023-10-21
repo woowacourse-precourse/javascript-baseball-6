@@ -1,6 +1,6 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
-import { ERROR_MESSAGES } from "../constants/errorMessages.js";
-import AppError from "../error/AppError.js";
+import { MissionUtils } from '@woowacourse/mission-utils';
+import { ERROR_MESSAGES } from '../constants/errorMessages.js';
+import AppError from '../error/AppError.js';
 
 // 공들을 관리하는 클래스
 
@@ -11,7 +11,9 @@ class Gong {
    *  @member {number} GONG_MAX_NUM
    */
   static GONGS_LENGTH = 3;
+
   static GONG_MIN_NUM = 1;
+
   static GONG_MAX_NUM = 9;
 
   /**
@@ -46,8 +48,8 @@ class Gong {
   }
 
   static fromString(gongString) {
-    const trimmedGongString = gongString.replace(/\s+/g, "");
-    const gongs = trimmedGongString.split("").map((str) => Number(str));
+    const trimmedGongString = gongString.replace(/\s+/g, '');
+    const gongs = trimmedGongString.split('').map((str) => Number(str));
     return new Gong(gongs);
   }
 
@@ -59,7 +61,7 @@ class Gong {
   }
 
   validateOfType() {
-    if (this.#gongs.some(isNaN)) {
+    if (this.#gongs.some(Number.isNaN)) {
       throw new AppError(ERROR_MESSAGES.NOT_A_NUMBER);
     }
   }
@@ -71,11 +73,7 @@ class Gong {
   }
 
   validateOfRange() {
-    if (
-      !this.#gongs.every(
-        (num) => num >= Gong.GONG_MIN_NUM && num <= Gong.GONG_MAX_NUM
-      )
-    ) {
+    if (!this.#gongs.every((num) => num >= Gong.GONG_MIN_NUM && num <= Gong.GONG_MAX_NUM)) {
       throw new AppError(ERROR_MESSAGES.OUT_OF_RANGE);
     }
   }
