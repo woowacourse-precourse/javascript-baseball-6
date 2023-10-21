@@ -7,6 +7,8 @@ const {
   ERRORS,
   OPTIONS,
 } = require("./constants.js");
+const { selectComputer } = require("./modules/selectComputer");
+
 
 class App {
   async play() {
@@ -20,21 +22,8 @@ class App {
     }
 
   playGame() {
-    const computer = this.selectComputer();
+    const computer = selectComputer();
     this.solveNumber(computer);
-  }
-
-  selectComputer() {
-    const computer = [];
-
-    while (computer.length < NUMBER_LENGTH) {
-      const number = MissionUtils.Random.pickNumberInRange(1, 9);
-      if (!computer.includes(number)) {
-        computer.push(number);
-      }
-    }
-
-    return computer.join('');
   }
 
   solveNumber(computer) {
