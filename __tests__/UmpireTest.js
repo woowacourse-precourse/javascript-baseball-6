@@ -20,4 +20,10 @@ describe("UmpireTest", () => {
       `1${BaseballTerms.STRIKE}`
     );
   });
+
+  test("같은 수가 다른 자리에 있는 경우 볼", () => {
+    expect(umpire.umpire([1, 2, 3], [2, 3, 1])).toBe(`3${BaseballTerms.BALL}`);
+    expect(umpire.umpire([1, 2, 3], [2, 3, 4])).toBe(`2${BaseballTerms.BALL}`);
+    expect(umpire.umpire([1, 2, 3], [2, 5, 6])).toBe(`1${BaseballTerms.BALL}`);
+  });
 });
