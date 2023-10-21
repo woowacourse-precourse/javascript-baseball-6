@@ -11,6 +11,8 @@ class App {
       const playerAnswer = await this.getPlayerAnswer();
       matchAnswer = this.compareAnswer(computerAnswer, playerAnswer);
     } while (!matchAnswer);
+
+    this.askRestart();
   }
 
   // 랜덤한 숫자 3개를 생성
@@ -78,6 +80,19 @@ class App {
       if (computer[i] === player[i]) strikeCount++;
     }
     return strikeCount;
+  }
+
+  // 재시작/종료
+  async askRestart() {
+    const restartReq = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+
+    if (Number(restartReq) === 1) {
+      await this.startGame();
+    } else if (Number(restartReq) === 2) {
+      MissionUtils.Console.print('게임 종료');
+    } else {
+      throw new Error('[ERROR] 숫자 1이나 2만 입력 가능합니다.');
+    }
   }
 }
 
