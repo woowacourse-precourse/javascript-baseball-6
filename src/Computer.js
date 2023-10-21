@@ -1,19 +1,14 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import { NUM_DIGITS, MIN_NUMBER, MAX_NUMBER } from "./constants/NumberConstants";
 
 export default class Computer {
-    constructor() {
-        this.numbers = this.generateRandomNumbers();
+  generateNumbers() {
+    let numbers = [];
+    while (numbers.length < 3) {
+      const number = MissionUtils.Random.pickNumberInRange(1, 9);
+      if (!numbers.includes(number)) {
+        numbers.push(number);
+      }
     }
-
-    generateRandomNumbers() {
-        const numbers = [];
-        while(numbers.length < NUM_DIGITS) {
-            const num = MissionUtils.Random.pickNumberInRange(MIN_NUMBER, MAX_NUMBER);
-            if(!numbers.includes(num)) {
-                numbers.push(num);
-            }
-        }
-        return numbers;
-    }
+    return numbers;
+  }
 }
