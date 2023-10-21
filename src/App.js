@@ -10,6 +10,12 @@ class App {
     };
   }
 
+  async play() {
+    this.printMsgIs(this.message("START"));
+    await this.makeStrikeZoneNumber();
+    await this.game();
+  }
+
   printMsgIs(message) {
     MissionUtils.Console.print(message);
   }
@@ -25,6 +31,12 @@ class App {
     this.strikeZoneNumber = computer;
   }
 
+  async game() {
+    await this.makePitchingNumber();
+    this.makeResult(this.strikeZoneNumber, this.pitchingNumber);
+    await this.judge();
+  }
+
   async makePitchingNumber() {
     const INPUT_MESSAGE = this.message("INPUT");
     const inputNumber = await MissionUtils.Console.readLineAsync(INPUT_MESSAGE);
@@ -33,6 +45,56 @@ class App {
     this.pitchingNumber = new Array(...inputNumber).map((number) =>
       parseInt(number)
     );
+  }
+
+  makeResult(strikeZoneArray, pitchingArray) {
+    let strikeCount = 0;
+    let ballCount = 0;
+    for (let i = 0; i < 3; i++) {
+      if (strikeZoneArray[i] === pitchingArray[i]) {
+        strikeCount += 1;
+      } else if (strikeZoneArray.includes(pitchingArray[i])) {
+        ballCount += 1;
+      }
+    }
+    this.result.strikes = strikeCount;
+    this.result.balls = ballCount;
+  }
+
+  async judge() {
+    const STRIKES = this.result.strikes;
+    const BALLS = this.result.balls;
+    if (STRIKES === 3) {
+      this.printMsgIs(`${STRIKES}스트라이크`);
+      await this.retry();
+    } else {
+      this.replayMessagePrint(STRIKES, BALLS);
+      await this.game();
+    }
+  }
+
+  async retry() {
+    this.congratMessagePrint();
+    const RETRY = this.message("RETRY");
+    const retryInput = await MissionUtils.Console.readLineAsync(RETRY);
+    if (retryInput === "1") {
+      await this.makeStrikeZoneNumber();
+      await this.game();
+    } else if (retryInput === "2") return;
+  }
+
+  congratMessagePrint() {
+    const CONGRAT = this.message("CONGRAT");
+    this.printMsgIs(CONGRAT);
+  }
+
+  replayMessagePrint(strikes, balls) {
+    const NOTHING = this.message("NOTHING");
+    if (strikes === 0 && balls === 0) this.printMsgIs(NOTHING);
+    if (strikes !== 0 && balls !== 0)
+      this.printMsgIs(`${balls}볼 ${strikes}스트라이크`);
+    if (strikes === 0 && balls !== 0) this.printMsgIs(`${balls}볼`);
+    if (strikes !== 0 && balls === 0) this.printMsgIs(`${strikes}스트라이크`);
   }
 
   inputValidation(inputNumber) {
@@ -68,68 +130,6 @@ class App {
       SAME_NUMBER: "[ERROR] 입력값은 서로 다른 숫자여야 합니다.",
     };
     return ERROR_MESSAGE[NAME];
-  }
-
-  makeResult(strikeZoneArray, pitchingArray) {
-    let strikeCount = 0;
-    let ballCount = 0;
-    for (let i = 0; i < 3; i++) {
-      if (strikeZoneArray[i] === pitchingArray[i]) {
-        strikeCount += 1;
-      } else if (strikeZoneArray.includes(pitchingArray[i])) {
-        ballCount += 1;
-      }
-    }
-    this.result.strikes = strikeCount;
-    this.result.balls = ballCount;
-  }
-
-  async game() {
-    await this.makePitchingNumber();
-    this.makeResult(this.strikeZoneNumber, this.pitchingNumber);
-    await this.judge();
-  }
-
-  async judge() {
-    const STRIKES = this.result.strikes;
-    const BALLS = this.result.balls;
-    if (STRIKES === 3) {
-      this.printMsgIs(`${STRIKES}스트라이크`);
-      await this.retry();
-    } else {
-      this.replayMessagePrint(STRIKES, BALLS);
-      await this.game();
-    }
-  }
-
-  replayMessagePrint(strikes, balls) {
-    const NOTHING = this.message("NOTHING");
-    if (strikes === 0 && balls === 0) this.printMsgIs(NOTHING);
-    if (strikes !== 0 && balls !== 0)
-      this.printMsgIs(`${balls}볼 ${strikes}스트라이크`);
-    if (strikes === 0 && balls !== 0) this.printMsgIs(`${balls}볼`);
-    if (strikes !== 0 && balls === 0) this.printMsgIs(`${strikes}스트라이크`);
-  }
-
-  congratMessagePrint() {
-    const CONGRAT = this.message("CONGRAT");
-    this.printMsgIs(CONGRAT);
-  }
-
-  async retry() {
-    this.congratMessagePrint();
-    const RETRY = this.message("RETRY");
-    const retryInput = await MissionUtils.Console.readLineAsync(RETRY);
-    if (retryInput === "1") {
-      await this.makeStrikeZoneNumber();
-      await this.game();
-    } else if (retryInput === "2") return;
-  }
-
-  async play() {
-    this.printMsgIs(this.message("START"));
-    await this.makeStrikeZoneNumber();
-    await this.game();
   }
 }
 
