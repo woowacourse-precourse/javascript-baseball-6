@@ -15,6 +15,10 @@ class App {
 
   cntBall = 0;
 
+  initAnswer() {
+    this.answer = [];
+  }
+
   setAnswer() {
     while (this.answer.length < NUMBER_LENGTH) {
       const number = MissionUtils.Random.pickNumberInRange(1, 9);
@@ -139,6 +143,8 @@ class App {
       if (this.cntStrike === NUMBER_LENGTH) {
         this.printGameOverMessage();
         this.gameStatus = await this.decideGameContinuation();
+        this.initAnswer();
+        this.setAnswer();
       }
     }
   }
