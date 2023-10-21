@@ -18,16 +18,12 @@ class App {
     this.control.assignComputerNumber();
     try {
       while (this.isPlaying) {
-        // 사용자의 입력 값을 받아 유효성 확인
         const input = await this.user.getUserChoice();
-        // 위 입력과 컴퓨터 숫자를 비교하여 문구 출력
         const result = this.control.compareNumbers(input);
-        // 만약 3스트라이크라면
+
         if (result) {
-          // 종료 또는 재시작 문구 출력 및 답 입력
           const reset = await Console.readLineAsync(GUIDE_TEXT.RESTART);
 
-          // 입력된 값이 1일 경우, 컴퓨터 값 다시 도출 및 while 반복
           if (reset === "1") {
             this.control.assignComputerNumber();
             continue;
@@ -39,7 +35,6 @@ class App {
         }
       }
     } catch (error) {
-      // while 반복 중 에러 발생 시 문구 출력
       Console.print(ERROR_MESSAGE.ERROR_WHILE_PLAYING);
       throw error;
     }

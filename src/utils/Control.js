@@ -8,17 +8,14 @@ class Control {
     this.computer = new Computer();
   }
 
-  // 게임 시작
   startGame() {
     Console.print(GUIDE_TEXT.START_GAME);
   }
 
-  // 랜덤으로 출력된 숫자를 constructor에 저장
   assignComputerNumber() {
     this.app.computerNumber = this.computer.getComputerChoice();
   }
 
-  // 사용자의 입력과 컴퓨터의 숫자를 비교
   compareNumbers(userInput) {
     let computer = this.app.computerNumber;
     const userArr = String(userInput).split("");
@@ -30,7 +27,6 @@ class Control {
     return this.getMessage(strike, ball);
   }
 
-  // 비교에 따른 결과 문구 출력
   getMessage(strike, ball) {
     if (strike === NUMBER_SIZE) {
       Console.print("3스트라이크");
