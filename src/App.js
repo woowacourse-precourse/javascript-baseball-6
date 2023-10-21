@@ -6,6 +6,7 @@ class App {
 
     while (true) {
       const user = await this.userNumber();
+      this.validateInput(user);
     }
   }
 
@@ -25,6 +26,14 @@ class App {
 
   async userNumber() {
     return Console.readLineAsync('숫자를 입력해주세요 : ' );
+  }
+
+  validateInput(value) {
+    const regex = /^(?!.*(.).*\1)\d{3}$/;
+
+    if (!regex.test(value)) {
+      throw new Error('[ERROR] 잘못된 입력값 입니다.');
+    }
   }
 }
 
