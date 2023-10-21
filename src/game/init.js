@@ -11,7 +11,7 @@ const startGame = async () => {
         if (validateUserNumber(userNumber)) {
             getHint(computerAnswer, userNumber);
         } else {
-            throw new Error("[ERROR]");
+            throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
 
         }
         userNumber = await getUserNumber();
@@ -31,10 +31,10 @@ const choiceForGame = async () => {
         } else if (userChoice === "2") {
             return;
         } else {
-            throw new Error("[Error]");
+            throw new Error("[ERROR]");
         }
     } catch (error) {
-        throw new Error("[Error]");
+        throw new Error("[ERROR] 숫자가 잘못된 형식입니다. 1 혹은 2로 입력해주세요.");
     }
 
 }
