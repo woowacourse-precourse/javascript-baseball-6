@@ -5,6 +5,21 @@ export const GAME = {
   OPTION: '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n',
   PASS: 'pass',
   FAIL: 'fail',
+  RESULT: (strike, ball) => {
+    if (ball === 0 && strike > 0) {
+      return `${strike}스트라이크`;
+    }
+
+    if (ball === 0 && strike === 0) {
+      return '낫싱';
+    }
+
+    if (strike === 0 && ball > 0) {
+      return `${ball}볼`;
+    }
+
+    return `${ball}볼 ${strike}스트라이크`;
+  },
 };
 
 export const ERROR = {
