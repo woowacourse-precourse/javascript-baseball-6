@@ -26,13 +26,13 @@ export class BaseballModel {
     return Array.from(pickedNumbers).join('');
   }
 
-  getCountScore() {
-    return this.countScore(this.#computerNumber, this.#userNumber);
+  getGameResult() {
+    return this.countGameResult(this.#computerNumber, this.#userNumber);
   }
 
-  countScore(computerNumber, userNumber) {
+  countGameResult(computerNumber, userNumber) {
     if (computerNumber === userNumber) {
-      return { ball: 0, strike: 3 };
+      return { ball: 0, strike: 3, isDone: true };
     }
 
     let ball = 0;
@@ -49,7 +49,7 @@ export class BaseballModel {
       }
     }
 
-    return { ball, strike };
+    return { ball, strike, isDone: false };
   }
 
   setUserNumber(userNumber) {
