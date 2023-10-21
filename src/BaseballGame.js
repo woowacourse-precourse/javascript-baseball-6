@@ -12,8 +12,8 @@ class BaseballGame {
       if (!computer.includes(number)) {
         computer.push(number);
       }
-      return computer;
     }
+    return computer;
   }
 }
 
