@@ -2,6 +2,7 @@ import { Console, Random } from "@woowacourse/mission-utils";
 
 class App {
   computerNum;
+  inputValue;
   NUMBER_LENGTH = 3;
 
   async play() {
@@ -13,8 +14,8 @@ class App {
 
   async inputNum() {
     const inputValue = await Console.readLineAsync("숫자를 입력해주세요.");
-    this.checkInputNum(inputValue);
-    this.checkResult(inputValue);
+    this.checkInputValidate(inputValue);
+    await this.printStrikeAndBall(inputValue);
   }
 
   calculateStrikeAndBall(inputValue) {
@@ -36,8 +37,7 @@ class App {
     return { strike, ball };
   }
 
-  async checkResult(inputValue) {
-    console.log(inputValue);
+  async printStrikeAndBall(inputValue) {
     const { strike, ball } = this.calculateStrikeAndBall(inputValue);
 
     if (ball === 0 && strike === 0) {
@@ -86,9 +86,9 @@ class App {
     }
   }
 
-  checkInputNum(inputValue) {
-    if (inputValue.length != this.NUMBER_LENGTH) {
-      throw new Error("[ERROR] 입력 값의 길이가 3이 아닙니다.");
+  async checkInputValidate(inputValue) {
+    if (!/^\d{3}$/.test(inputValue)) {
+      throw new Error("[ERROR] 입력 값은 3자리 숫자여야 합니다.");
     }
 
     if (inputValue === "") {
@@ -116,7 +116,6 @@ class App {
 
   isDuplicate(inputValue) {
     const numArr = inputValue.split("");
-    console.log(numArr);
     return numArr.some((x) => numArr.indexOf(x) !== numArr.lastIndexOf(x));
   }
 
