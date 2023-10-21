@@ -6,6 +6,7 @@ export default class App {
     this.computerNumber = "";
     this.strikeCnt = 0;
     this.ballCnt = 0;
+    this.result = "";
   }
 
   initComputerNumber() {
@@ -15,7 +16,6 @@ export default class App {
         this.computerNumber += randomNumber;
       }
     }
-    MissionUtils.Console.print(this.computerNumber);
   }
 
   async getUserNumber() {
@@ -44,6 +44,19 @@ export default class App {
     });
   }
 
+  printResult() {
+    if (this.ballCnt === 0 && this.strikeCnt === 0) {
+      this.result = "낫싱";
+    }
+    if (this.ballCnt > 0) {
+      this.result += `${this.ballCnt}볼 `;
+    }
+    if (this.strikeCnt > 0) {
+      this.result += `${this.strikeCnt}스트라이크`;
+    }
+    MissionUtils.Console.print(this.result);
+  }
+
   // 게임 진행 함수
   async play() {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
@@ -51,6 +64,7 @@ export default class App {
     let userInput = await this.getUserNumber();
     this.checkUserNumberValid(userInput);
     this.compareToComputerNumber(userInput);
+    this.printResult();
   }
 }
 
