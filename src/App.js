@@ -11,7 +11,12 @@ function generateComputer(computer) {
 
 async function inputTreating() {
   //# 인풋 받기
-  const rawBaseballNum = await MissionUtils.Console.readLineAsync();
+  // const rl = readline.createInterface({ input, output });
+  // const inputNum = await rl.question("");
+
+  const rawBaseballNum = await MissionUtils.Console.readLineAsync(
+    "숫자를 입력해주세요 : "
+  );
 
   const parsedBaseballNum = [];
   //## valid확인
@@ -58,9 +63,10 @@ function matching(computer, baseballNum) {
   let commentFinal = "";
   if (balls === 0 && strikes === 0) {
     commentFinal = "낫싱";
+  } else if (balls !== 0 && strikes !== 0) {
+    commentFinal = `${ballComment} ${strikesComment}`;
   } else {
-    commentFinal =
-      balls === 0 ? strikesComment : `${ballComment} ${strikesComment}`;
+    commentFinal = `${ballComment}${strikesComment}`;
   }
 
   //## 출력하기
@@ -75,6 +81,7 @@ function matching(computer, baseballNum) {
 class App {
   async play() {
     try {
+      MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
       let start = 1;
       while (start === 1) {
         //# 컴퓨터 값 생성.
@@ -91,10 +98,12 @@ class App {
           correct = matching(computer, baseballNum);
         }
         MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-        MissionUtils.Console.print(
-          "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+
+        start = parseInt(
+          await MissionUtils.Console.readLineAsync(
+            "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+          )
         );
-        start = parseInt(await MissionUtils.Console.readLineAsync());
 
         if (start !== 1 && start !== 2) {
           throw new Error("[ERROR]");
