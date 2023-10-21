@@ -11,4 +11,42 @@ const generateComputerAnswer = () => {
     return computerAnswer.join('');
 }
 
-export {generateComputerAnswer};
+
+const getHint = (computerAnswer, userNumber) => {
+    const ballCount = getBallCount(computerAnswer, userNumber);
+    const strikeCount = getStrikeCount(computerAnswer, userNumber);
+
+    if (ballCount === 0 && strikeCount === 0) {
+        MissionUtils.Console.print("낫싱");
+    } else if (ballCount === 0 && strikeCount !== 0) {
+        MissionUtils.Console.print(`${strikeCount}스트라이크`);
+    } else if (ballCount !== 0 && strikeCount === 0) {
+        MissionUtils.Console.print(`${ballCount}볼`);
+    } else {
+        MissionUtils.Console.print(`${ballCount}볼 ${strikeCount}스트라이크`);
+    }
+
+}
+
+const getBallCount = (computerAnswer, userNumber) => {
+    let ballCount = 0;
+    for (let idx = 0; idx < 3; idx++) {
+        if (computerAnswer.includes(userNumber[idx]) && computerAnswer[idx] !== userNumber[idx]) {
+            ballCount++;
+        }
+    }
+    return ballCount;
+}
+
+const getStrikeCount = (computerAnswer, userNumber) => {
+    let strikeCount = 0;
+    for (let idx = 0; idx < 3; idx++) {
+        if (computerAnswer[idx] === userNumber[idx]) {
+            strikeCount++;
+        }
+    }
+    return strikeCount;
+}
+
+
+export {generateComputerAnswer, getHint};
