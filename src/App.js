@@ -25,8 +25,7 @@ class App {
       const table = this.#matchComputerNumber(input);
       const template = makeTemplate(table);
       OutputView.printResult(template);
-
-      this.#checkCorrect(table);
+      await this.#checkCorrect(table);
     }
   }
 
@@ -38,10 +37,14 @@ class App {
         this.#initGame();
       }
       if (retryAnswer === ANSWER.FINISH) {
-        OutputView.printFinish();
-        this.#isGaming = false;
+        this.#finish();
       }
     }
+  }
+
+  #finish() {
+    OutputView.printFinish();
+    this.#isGaming = false;
   }
 
   async #getUserInput() {
