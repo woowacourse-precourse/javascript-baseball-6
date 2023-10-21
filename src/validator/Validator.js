@@ -1,6 +1,5 @@
 const Validator = {
-  isValidLength: (input, size) => {
-
+  isValidLength: (input, { size }) => {
     return String(input).length === size;
   },
   hasUniqueNumbers: (input) => {
@@ -11,7 +10,7 @@ const Validator = {
 
     return filteredArray.length === array.length;
   },
-  isValidRange: (input, min, max) => {
+  isValidRange: (input, { min, max }) => {
     if (!Validator.isNumber(input)) return false;
 
 
@@ -22,7 +21,7 @@ const Validator = {
 
     return true;
   },
-  isExitOrRestart: (input, restart, exit) => {
+  isExitOrRestart: (input, { restart, exit }) => {
     const numberInput = Number(input);
 
     return numberInput === restart || numberInput === exit;

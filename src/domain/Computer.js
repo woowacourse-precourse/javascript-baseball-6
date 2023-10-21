@@ -1,3 +1,4 @@
+import SETTING from "../constants/setting.js";
 import generateNumbers from "../utils/generateNumber.js";
 
 class Computer {
@@ -7,7 +8,11 @@ class Computer {
   }
 
   start() {
-    this.#value = generateNumbers({ size: 3, min: 1, max: 9 });
+    this.#value = generateNumbers({
+      size: SETTING.RULE.SIZE,
+      min: SETTING.RULE.RANGE.MIN,
+      max: SETTING.RULE.RANGE.MAX,
+    });
   }
 
   reset() {

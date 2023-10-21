@@ -1,13 +1,11 @@
-class BaseballGame {
-  constructor(rule = { size, min, max }) {
-    this.rule = rule;
-  }
+import SETTING from "../constants/setting";
 
-  result(userInput, computerInput) {
+class BaseballGame {
+  compare(userInput, computerInput) {
     const stringUserInput = userInput + '';
     const stringComputerInput = computerInput + '';
 
-    return stringComputerInput.split('').reduce((acc, computerNumber, index) => {
+    const ballStrike = stringComputerInput.split('').reduce((acc, computerNumber, index) => {
       const userNumber = stringUserInput[index];
 
       if (userNumber === computerNumber) {
@@ -22,12 +20,19 @@ class BaseballGame {
 
       return acc;
     }, { strike: 0, ball: 0 });
+
+    return ballStrike;
   }
 
-  getRule() {
-    return this.rule;
-  }
+  result(userInput, computerInput) {
+    const { strike, ball } = this.compare(userInput, computerInput);
 
+    return {
+      isEnd: strike === SETTING.RULE.SIZE,
+      strike,
+      ball,
+    }
+  }
 }
 
 export default BaseballGame;
