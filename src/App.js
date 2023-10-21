@@ -55,6 +55,7 @@ class App {
     const answer = await Console.readLineAsync(MESSAGE.RETRY);
     if (answer == 1) {
       this.start();
+      return;
     }
 
     if (answer != 2) {
@@ -62,7 +63,5 @@ class App {
     }
   }
 }
-
-new App().play();
 
 export default App;
