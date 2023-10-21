@@ -4,9 +4,10 @@ import UmpireIndicator from "./UmpireIndicator.js";
 class Umpire {
   umpire(array1, array2) {
     const { strikeCount, ballCount } = this.#count(array1, array2);
-    if (strikeCount) return strikeCount + BaseballTerms.STRIKE;
-    if (ballCount) return ballCount + BaseballTerms.BALL;
-    return BaseballTerms.NOTHING;
+    const { NOTHING, STRIKE, BALL } = BaseballTerms;
+    if (strikeCount) return strikeCount + STRIKE;
+    if (ballCount) return ballCount + BALL;
+    return NOTHING;
   }
 
   #count(array1, array2) {
