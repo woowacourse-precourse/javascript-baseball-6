@@ -14,8 +14,9 @@ class Baseball {
       : `${this.isStrike(ballResult)}`;
   }
 
-  static isStrikeOut() {
-    if (this.isStrikeCount === 3) return true;
+  static isStrikeOut(random, input) {
+    if (this.isStrikeCount(random, this.changeNumToArr(input)) === 3)
+      return true;
   }
 
   static changeNumToArr(input) {
