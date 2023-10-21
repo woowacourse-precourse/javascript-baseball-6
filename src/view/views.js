@@ -34,11 +34,11 @@ export default class views{
   }
 
   async retry() {
-		const reryOrNot = Console.readLineAsync(MESSAGE.RETRY);
-		return reryOrNot;
-	}
+    const reryOrNot = Console.readLineAsync(MESSAGE.RETRY);
+    return reryOrNot;
+  }
 
   gameOver() {
-		Console.print(MESSAGE.GAMEOVER);
-	}
+    Console.print(MESSAGE.GAMEOVER);
+  }
 }
