@@ -1,5 +1,7 @@
 export const CONSTANT = {
   MAX_NUM_LEN: 3,
+  RESTART_GAME: 1,
+  FINISH_GAME: 2,
 };
 
 export const MESSAGE = {

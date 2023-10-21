@@ -1,6 +1,6 @@
 import BaseballGame from './BaseballGame.js';
 import { Console } from '@woowacourse/mission-utils';
-import { ERROR, MESSAGE, RESULT } from './Constant.js';
+import { CONSTANT, ERROR, MESSAGE, RESULT } from './Constant.js';
 import Validator from './Validator.js';
 
 class App {
@@ -69,7 +69,7 @@ class App {
     const input = await Console.readLineAsync(MESSAGE.WANT_RESTART);
     const num = Number(input);
     this.validateRestartInput(num);
-    if (num === 1) await this.restart();
+    if (num === CONSTANT.RESTART_GAME) await this.restart();
   }
 
   validateRestartInput(input) {
