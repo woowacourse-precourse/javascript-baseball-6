@@ -31,7 +31,7 @@
 
 6. `judge()` 결과가 삼진인 경우 `retry()`
 
-   - 축하메세지 출력 `congratMessage()`
+   - 축하메세지 출력 `congratMessagePrint()`
    - 재시도 여부 확인 `retry()`
      - 입력값이 `1`인 경우(재시작)
        - 컴퓨터 숫자(strikeZoneNumber) 생성 `makeStrikeZoneNumber()`
@@ -39,7 +39,7 @@
      - 입력값이 `2`인 경우(종료)
        - 게임 종료 `Console.close()`
 
-7. `judge()` 결과가 삼진이 아닌 경우 `replayMessage()`
+7. `judge()` 결과가 삼진이 아닌 경우 `replayMessagePrint()`
 
-   - 결과 메세지 출력 `replayMessage()`
+   - 결과 메세지 출력 `replayMessagePrint()`
    - 3번 부터 5번까지 재귀호출 `game()`
