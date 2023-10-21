@@ -22,7 +22,7 @@ class App {
     console.log(random_num);
     return random_num;
   }
-  // result 스트링 만들어내는 함수
+  // 사용자 입력 값 판단하는 함수
   judgeNum(strike, ball) {
     let result = "";
     if (strike == 0 && ball == 0) {
@@ -39,14 +39,13 @@ class App {
     }
     return result;
   }
-  //사용자의 입력 값 받고 판단하는 함수
+  //사용자의 입력 값 받고 결과 반환하는 함수
   async getUserAnswer() {
+    let strike = 0;
+    let ball = 0;
     let user_num = await MissionUtils.Console.readLineAsync(
       "숫자를 입력해주세요 : "
     );
-
-    let strike = 0;
-    let ball = 0;
 
     for (let i = 0; i < 3; i++) {
       if (this.randomNum[i] == Number(user_num[i])) {
@@ -57,7 +56,6 @@ class App {
     }
     const judge_user_answer = this.judgeNum(strike, ball);
     MissionUtils.Console.print(judge_user_answer);
-    // MissionUtils.Console.print(judgeNum(strike, ball));
   }
   // 입력 다시 받을지 끝낼지 결정하는 함수
   async againOrFinish() {
