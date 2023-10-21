@@ -1,4 +1,6 @@
 export const NUMBER_LENGTH = 3;
+export const CORRECT_NUMBER = 3;
+export const NO_MATCH_NUMBER = -1;
 
 export const GAME_MESSAGE = {
   START: '숫자 야구 게임을 시작합니다.',
