@@ -2,7 +2,7 @@ import { Console, Random } from "@woowacourse/mission-utils";
 
 /**
  * 1에서 9까지 서로 다른 임의의 수 3개를 생성하는 함수
- * @returns {string} 서도 다른 3자리의 수
+ * @returns {string} 서로 다른 3자리의 수
  */
 function generateComputerNumbers() {
   const computer = [];
