@@ -3,19 +3,19 @@ import { validateComputerNumber } from "../utils/validateNumber.js";
 
 class Model {
   makeComputerRandomNumber() {
-    const computerRandomNumber = [];
+    const computerRandomNumbers = [];
 
-    while (computerRandomNumber.length < 3) {
+    while (computerRandomNumbers.length < 3) {
       const number = Random.pickNumberInRange(1, 9);
 
-      if (!computerRandomNumber.includes(number)) {
-        computerRandomNumber.push(number);
+      if (!computerRandomNumbers.includes(number)) {
+        computerRandomNumbers.push(number);
       }
     }
 
-    validateComputerNumber(computerRandomNumber);
+    validateComputerNumber(computerRandomNumbers);
 
-    return computerRandomNumber;
+    return computerRandomNumbers;
   }
 }
 
