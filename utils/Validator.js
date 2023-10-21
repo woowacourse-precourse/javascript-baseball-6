@@ -5,6 +5,12 @@ export default class Validator {
     if ([...answer].length !== NUMBER_LENGTH) {
       throw new Error(ERROR.NUMBER_LENGTH);
     }
+    if (![...answer].every((input) => !isNaN(input))) {
+      throw new Error(ERROR.ONLY_NUMBER);
+    }
+    if (new Set([...answer]).size !== 3) {
+      throw new Error(ERROR.NOT_DUPLICATION);
+    }
     return answer;
   }
   static validateRetry(answer) {
