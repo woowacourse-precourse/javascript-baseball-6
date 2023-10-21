@@ -13,6 +13,18 @@ class App {
     }
   }
 
+  calculateResult(answer, input) {
+    let strike = 0;
+    let ball = 0;
+
+    input.split('').map((number, index) => {
+      if (answer[index] === Number(number)) strike++;
+      else if (answer.includes(Number(number))) ball++;
+    });
+
+    return { strike, ball };
+  }
+
   async play() {
     // 랜덤 값 생성하기
     const computer = [];
@@ -33,13 +45,7 @@ class App {
       this.isValidInput(userRandom);
 
       // 계산
-      let strike = 0;
-      let ball = 0;
-
-      userRandom.split('').map((number, index) => {
-        if (computer[index] === Number(number)) strike++;
-        else if (computer.includes(Number(number))) ball++;
-      });
+      const { strike, ball } = this.calculateResult(computer, userRandom);
 
       if (strike === 0 && ball === 0) {
         Console.print('낫싱');
