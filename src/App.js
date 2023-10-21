@@ -1,14 +1,11 @@
-import { Console } from "@woowacourse/mission-utils";
 import { GameController } from "./GameController.js";
-import { User } from "./User.js";
 
 class App {
   constructor() {
     this.gameController = new GameController();
-    this.user = new User();
   }
   async play() {
-    this.user.inputAnswer();
+    this.gameController.startGame();
   }
 }
 const app = new App();
