@@ -27,7 +27,8 @@ class App {
   solveNumber(computer) {
     const user = this.selectUser();
     const result = this.countScore(computer, user);
-    this.isAnswer(result);  }
+    this.isAnswer(result, computer);
+  }
 
   selectUser() {
     let user;
@@ -92,12 +93,13 @@ class App {
     return result;
   }
 
-  isAnswer(answer) {
+  isAnswer(answer, computer) {
     if (answer.includes("3스트라이크")) {
       console.log("3개의 숫자를 모두 맞히셨습니다!");
       MissionUtils.Console.print("게임 종료");
       return;
     }
+    this.solveNumber(computer);
   }
 }
 export default App;
