@@ -1,5 +1,27 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
+async function inputTreating() {
+  //# 인풋 받기
+  const rawBaseballNum = await MissionUtils.Console.readLineAsync();
+  //## valid확인
+  //###   문자열 길이
+  if (rawBaseballNum.length != 3) {
+    throw new Error("[ERROR]");
+  }
+
+  //### 각 자리 값이 1~9외의 다른 것들이 들어갔는지.  (문자, 0 등)
+  for (let i = 0; i < 3; i++) {
+    const parsed = parseInt(rawBaseballNum[0]);
+    if (parsed === 0 || isNaN(parsed)) {
+      throw new Error("[ERROR]");
+    }
+  }
+
+  //## valid 인풋 값.
+  const parsedBaseballNum = parseInt(rawBaseballNum);
+  return parsedBaseballNum;
+}
+
 class App {
   async play() {
     // while로 반복해야 할지도>
@@ -12,30 +34,23 @@ class App {
         computer.push(number);
       }
     }
-    //# 인풋 받기   ->3개의 숫자를 모두 맞히면 게임이 종료된다. -> 그 때까지 반복...
+
     let correct = false;
+    //->3개의 숫자를 모두 맞히면 게임이 종료된다. -> 그 때까지 반복...
     while (!correct) {
-      const rawBaseballNum = await MissionUtils.Console.readLineAsync();
+      try {
+        const baseballNum = await inputTreating();
 
-      //# input은.. 서로 다른 3자리의 수
+        //# 비교하기
+        let strikes = 0;
+        let balls = 0;
 
-      //# valid확인
+        //## 숫자 포함 여부부터.
 
-      //##   문자열 길이
-      if (rawBaseballNum.length != 3) {
-        throw new Error("[ERROR]");
+        //## 알맞은 위치 여부.
+      } catch (e) {
+        throw e;
       }
-
-      //## 각 자리 값이 1~9외의 다른 것들이 들어갔는지.  (문자, 0 등)
-      for (let i = 0; i < 3; i++) {
-        const parsed = parseInt(rawBaseballNum[0]);
-        if (parsed === 0 || isNaN(parsed)) {
-          throw new Error("[ERROR]");
-        }
-      }
-
-      //# valid 인풋 값.
-      const parsedBaseballNum = parseInt(rawBaseballNum);
     }
   }
 }
