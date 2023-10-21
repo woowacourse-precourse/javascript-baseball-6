@@ -15,7 +15,9 @@ class App {
     do {
       userNumber = await this.getUserInput();
       this.validateUserInput(userNumber); 
-    } while (true); 
+
+      const result = this.compareNumber(computerNumber, userNumber);
+    } while (result.strike !== 3);
   }
 
   printStartMessage() {
@@ -54,8 +56,18 @@ class App {
     }
   }
 
-  printErrorMessage(message) {
-    Console.print(message);
+  compareNumber(computerNumber, userNumber) {
+    let ball = 0;
+    let strike = 0;
+
+    for (let i = 0; i < 3; i++) {
+      if (computerNumber[i] === userNumber[i]) {
+        strike++;
+      } else if (computerNumber.includes(userNumber[i])) {
+        ball++;
+      }
+    }
+    return { ball, strike };
   }
 }
 
