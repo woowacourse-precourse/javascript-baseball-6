@@ -1,3 +1,5 @@
+import App from "./App.js";
+
 export const TEXT = {
   INITIAL: "숫자 야구 게임을 시작합니다.",
   INPUT_GUESS_NUMBER: "숫자를 입력해주세요 : ",
@@ -14,4 +16,11 @@ export const ERROR = {
 export const RESTART = {
   YES: "1",
   NO: "2",
+};
+
+export const ACTION = {
+  [RESTART.YES]: () => {
+    new App().play();
+  },
+  [RESTART.NO]: () => {},
 };
