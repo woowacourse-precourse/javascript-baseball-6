@@ -6,10 +6,13 @@ const GAME_MESSAGE = Object.freeze({
 })
 
 const ERROR_MESSAGE = Object.freeze({
-  INVALID_NUMBER: '[ERROR] 숫자가 잘못된 형식입니다.'
+  INVALID_LENGTH: '[ERROR] 입력한 숫자의 길이가 3이 아닙니다.',
+  INVALID_NUMBER: '[ERROR] 1부터 9까지의 숫자만 입력해야 합니다.',
+  DUPLICATE_NUMBER: '[ERROR] 중복된 숫자를 입력하셨습니다.'
 })
 
 module.exports = {
   GAME_MESSAGE,
   ERROR_MESSAGE
 };
+

@@ -14,11 +14,8 @@ class App {
     let userNumber;
     do {
       userNumber = await this.getUserInput();
-      if (!this.isValidNumberInput(userNumber)) {
-        this.printErrorMessage(ERROR_MESSAGE.INVALID_NUMBER);
-        throw new Error(ERROR_MESSAGE.INVALID_NUMBER);
-      }
-    } while (!this.isValidNumberInput(userNumber));
+      this.validateUserInput(userNumber); 
+    } while (true); 
   }
 
   printStartMessage() {
@@ -30,22 +27,31 @@ class App {
     return input;
   }
 
-  isValidNumberInput(input) {
-    if (input.length !== 3) {
-      return false;
-    }
+  validateUserInput(input) {
+    this.validateLength(input);
+    this.validateNumberInRange(input);
+    this.ensureNoDuplicateNumber(input);
+  }
 
+  validateLength(input) {
+    if (input.length !== 3) {
+      throw new Error(ERROR_MESSAGE.INVALID_LENGTH);
+    }
+  }
+
+  validateNumberInRange(input) {
     for (let char of input) {
       if (char < '1' || char > '9') {
-        return false;
+        throw new Error(ERROR_MESSAGE.INVALID_NUMBER);
       }
     }
+  }
 
+  ensureNoDuplicateNumber(input) {
     const distinctDigits = new Set(input);
     if (distinctDigits.size !== 3) {
-      return false;
+      throw new Error(ERROR_MESSAGE.DUPLICATE_NUMBER);
     }
-    return true;
   }
 
   printErrorMessage(message) {
