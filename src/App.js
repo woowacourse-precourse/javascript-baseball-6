@@ -30,16 +30,28 @@ class App {
 				// 결과값 초기화
 				this.BALL = this.STRIKE = 0;
 
-				// 사용자 입력 받아서 유효성 체크
+				// 입력 받는 부분
 				const input = await Console.readLineAsync(
 					"숫자를 입력해주세요 : "
 				);
 				const user = input.split("").map(Number);
-				if (
-					new Set(user).size !== this.LIMIT ||
-					user.some((c) => isNaN(c) || 0)
-				) {
-					throw new Error("[ERROR]");
+
+				// 에러 처리하는 부분
+				let errorMessage = "";
+				switch (true) {
+					case user.length !== 3:
+						errorMessage = "반드시 3자리 숫자만 입력해야 합니다.";
+						break;
+					case user.some((c) => isNaN(c) || c === 0):
+						errorMessage =
+							"오직 숫자 1~9까지의 숫자만 입력해야 합니다.";
+						break;
+					case new Set(user).size !== 3:
+						errorMessage = "오직 서로 다른 숫자만 입력해야 합니다.";
+						break;
+				}
+				if (errorMessage) {
+					throw new Error("[ERROR] " + errorMessage);
 				}
 
 				// 볼, 스트라이크 카운트
