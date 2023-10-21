@@ -1,7 +1,10 @@
+import { Console } from '@woowacourse/mission-utils';
+
 const OutputView = require('./OutputView');
 const InputView = require('./InputView');
 const Computer = require('./Computer');
 const Referee = require('./Referee');
+
 
 
 class Game {
@@ -19,6 +22,10 @@ class Game {
 
     getNumbers() {
         this.#computer = new Computer().getNumbers();
+        this.getUserNumbers();
+    }
+
+    getUserNumbers() {
         InputView.getNumbers(this.handleUserNumbers);
     }
     handleUserNumbers = (numbers) => {
@@ -36,6 +43,13 @@ class Game {
         if (result.strike !== 0) message.push(`${result.strike}스트라이크`);
     
         OutputView.printResult(message);
+        this.progress(result);
+    }
+
+    progress(result) {
+        if (result.strike !== 3) {
+            return this.getUserNumbers();
+        }
     }
 }
 
