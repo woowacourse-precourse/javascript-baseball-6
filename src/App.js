@@ -4,6 +4,7 @@ const CORRECT_NUMBER = 3;
 
 class App {
   computer = new Computer();
+  player = new Player();
 
   isValidInput(input) {
     const STR_USER_INPUT = String(input);
@@ -44,11 +45,12 @@ class App {
     let isPlaying = true;
     try {
       while (isPlaying) {
-        const INPUT = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
+        const USER_INPUT = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
 
-        if (!this.isValidInput(INPUT)) throw new Error('[ERROR]');
+        if (!this.isValidInput(USER_INPUT)) throw new Error('[ERROR]');
+        this.player.setNumber(USER_INPUT);
 
-        const { STRIKE, BALL } = this.calculateStrikesAndBalls(INPUT, this.computer.number);
+        const { STRIKE, BALL } = this.calculateStrikesAndBalls(this.player.number, this.computer.number);
         MissionUtils.Console.print(this.gameResultMessage(STRIKE, BALL));
 
         if (STRIKE === CORRECT_NUMBER) {
@@ -93,7 +95,11 @@ class Computer {
 }
 
 class Player {
+  number;
 
+  setNumber(num) {
+    this.number = num;
+  }
 }
 
 class GameManager {
