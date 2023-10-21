@@ -1,9 +1,10 @@
 const ValidationError = require('./ValidationError');
+const ERROR = require('../constant/error');
 
 const OptionValidation = {
   validateOption(option) {
     if (option !== '1' && option !== '2') {
-      throw new ValidationError('[ERROR] 1 혹은 2를 입력할 수 있습니다.');
+      throw new ValidationError(ERROR.OPTION);
     }
   },
 };
