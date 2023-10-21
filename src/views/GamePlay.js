@@ -35,10 +35,11 @@ class GamePlay {
 
     #getUserReGame = async () => {
         await this.CON.endGame();
-        (CONSTANTS.REGAME_CONSTANTS == 1) ? this.startGame() : this.#gameOver();
+        (CONSTANTS.REGAME_CONSTANTS == 1) ? await this.startGame() : this.#gameOver();
     }
 
     #gameOver = () => {
+        // (CONSTANTS.REGAME_CONSTANTS == 1) ? this.startGame() : this.#gameOver();
         MissionUtils.Console.print(OUTPUT_MSG.GAME_OVER);
     }
 }

@@ -65,7 +65,6 @@ describe("숫자 야구 게임", () => {
   test("게임 종료 후 재시작(TEST)", async () => {
     // given
     const randoms = [5,8,9,1,3,5];
-    // const answers = ["135","1", "597", "589", "2"];
     const answers = ["851","589","1", "132", "351","135","2"];
     const logSpy = getLogSpy();
     const messages = ["2볼","3스트라이크","2스트라이크","3볼","3스트라이크","게임 종료"];
@@ -122,7 +121,7 @@ describe("숫자 야구 게임", () => {
   test("예외 테스트(REGAME ERROR)", async () => {
     // given
     const randoms = [1, 3, 5];
-    const answers = ["135","3스트라이크","a"];
+    const answers = ["135","1123414"];
     
     mockRandoms(randoms);
     mockQuestions(answers);
@@ -133,10 +132,39 @@ describe("숫자 야구 게임", () => {
     await expect(app.play()).rejects.toThrow("[ERROR]");
   });
 
-  test("예외 테스트(REGAME ERROR)", async () => {
+  test("예외 테스트(REGAME ERROR) 문자 입력", async () => {
     // given
-    const randoms = [1, 3, 5];
-    const answers = ["135","3스트라이크","a"];
+    const randoms = [1, 3, 5, 2, 3, 1];
+    const answers = ["135","1","231","a"];
+    
+    mockRandoms(randoms);
+    mockQuestions(answers);
+    
+    // when & then
+    const app = new App();
+    
+    await expect(app.play()).rejects.toThrow("[ERROR]");
+  });
+
+  test("스트라이크 & 볼 테스트", async () => {
+    // given
+    const randoms = [2, 7, 4];
+    const answers = ["734", "274", "99999999"];    
+  
+    mockRandoms(randoms);
+    mockQuestions(answers);
+
+      // when & then
+    const app = new App();
+    
+    await expect(app.play()).rejects.toThrow("[ERROR]");
+  });
+  
+
+  test("예외 테스트(REGAME ERROR) 잘못된 숫자 입력", async () => {
+    // given
+    const randoms = [1, 3, 5 ,2 ,3 ,6];
+    const answers = ["135","1","236","1234"];
     
     mockRandoms(randoms);
     mockQuestions(answers);
@@ -193,6 +221,20 @@ describe("숫자 야구 게임", () => {
     // given
     const randoms = [5, 6, 7];
     const answers = ["000"];
+    
+    mockRandoms(randoms);
+    mockQuestions(answers);
+    
+    // when & then
+    const app = new App();
+    
+    await expect(app.play()).rejects.toThrow("[ERROR]");
+  });
+
+  test("예외 테스트(USER_NUMBER ERROR) 잘못된 숫자 입력", async () => {
+    // given
+    const randoms = [5, 6, 7];
+    const answers = ["0"];
     
     mockRandoms(randoms);
     mockQuestions(answers);
