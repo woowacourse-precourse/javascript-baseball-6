@@ -8,12 +8,12 @@ export class BaseballModel {
   #userNumber;
 
   create() {
-    this.computerNumber = this.#generateNumbers();
-    this.#checkValidComputerNumber(this.computerNumber);
-    this.#checkComputerNumberLength(this.computerNumber);
-    this.#checkComputerNumberDuplication(this.computerNumber);
+    this.#computerNumber = this.#generateNumbers();
+    this.#checkValidComputerNumber(this.#computerNumber);
+    this.#checkComputerNumberLength(this.#computerNumber);
+    this.#checkComputerNumberDuplication(this.#computerNumber);
 
-    console.log(this.computerNumber);
+    console.log(this.#computerNumber);
   }
 
   #generateNumbers() {
