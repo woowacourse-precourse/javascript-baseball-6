@@ -13,9 +13,8 @@ async function getUserNumber() {
 }
 
 function getComputerNumber() {
-  const computerNumber = Array.from({ length: 3 }, () =>
-    MissionUtils.Random.pickNumberInRange(1, 9)
-  ).join("");
+  const uniqueNumber = MissionUtils.Random.pickUniqueNumbersInRange(1, 9, 3);
+  const computerNumber = uniqueNumber.join("");
   console.log(`컴퓨터가 생성한 숫자 : ${computerNumber}`);
   return computerNumber;
 }
