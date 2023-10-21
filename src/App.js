@@ -12,8 +12,9 @@ class App {
         const computer = Array(3).fill().map((i) => MissionUtils.Random.pickNumberInRange(1, 9));
         let strike=0;
         while (strike<3){
-          //strike 초기화
+          //strike, ball 초기화
           strike=0;
+          let ball = 0;
           const playerNumber = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 :");
 
           //에러: 입력 값이 3자리보다 많거나 입력하지 않은 경우
@@ -33,7 +34,19 @@ class App {
               if (computer[i] == num) { strike++; } else { ball++; }
             }
           }
+
+          //비교 결과 출력
+          if (ball + strike > 0) {
+            MissionUtils.Console.print(
+              `${ball > 0 ? ball + "볼 " : ""}${
+                strike > 0 ? strike + "스트라이크" : ""
+              }`
+            );
+          } else {
+            MissionUtils.Console.print("낫싱");
+          }
         }
+        
         replay = await MissionUtils.Console.readLineAsync(
           "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
         );
