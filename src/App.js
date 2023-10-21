@@ -131,6 +131,22 @@ class BaseBallGame {
       MissionUtils.Console.print('낫싱');
     }
   }
+
+  /**
+   *
+   * @returns {Promise<boolean>}
+   */
+  async askUserForReply() {
+    const userInput = await MissionUtils.Console.readLineAsync(
+      '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n',
+    );
+    if (userInput === '1') {
+      return true;
+    } else if (userInput === '2') {
+      return false;
+    }
+    throw new Error('[ERROR] 입력값은 1 또는 2여야 합니다.');
+  }
 }
 
 export default App;
