@@ -1,16 +1,16 @@
-import Pipe from './Pipe.js';
-import Board from './Board.js';
-import Calculate from './Calculate.js';
-import Print from './Print.js';
+import Filter from './module/Filter.js';
+import Board from './module/Board.js';
+import Calculate from './module/Calculate.js';
+import Print from './module/Print.js';
 
 class App {
   async play() {
     let isPlaying = true;
-    Print.printPlayStartMessage();
+    Print.playStartMessage();
     while (isPlaying) {
-      const computerList = Calculate.getRandomList();
+      const computerList = Calculate.randomList();
       await Board.run(computerList);
-      isPlaying = await Pipe.retryPipe();
+      isPlaying = await Filter.retry();
     }
   }
 }
