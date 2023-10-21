@@ -9,6 +9,7 @@ export class BaseballModel {
 
   create() {
     this.computerNumber = this.#generateNumbers();
+    this.#checkValidComputerNumber(this.computerNumber);
     this.#checkComputerNumberLength(this.computerNumber);
     this.#checkComputerNumberDuplication(this.computerNumber);
 
@@ -49,6 +50,12 @@ export class BaseballModel {
       if (userNumber < BASEBALL_RANGE.START || userNumber > BASEBALL_RANGE.END) {
         throw ERROR_MESSAGE.INVALID_RANGE;
       }
+    }
+  }
+
+  #checkValidComputerNumber(generatedNumber) {
+    if (!REGEXP.VALID_NUMBER_RANGE.test(generatedNumber)) {
+      throw ERROR_MESSAGE.INVALID_COPUTER_NUMBER;
     }
   }
 
