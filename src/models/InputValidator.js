@@ -12,8 +12,9 @@ const InputValidator = {
 
   commandValidate(input) {
     const commandInput = parseInt(input);
+    
     return commandInput === USER_COMMAND.REPLAY || commandInput === USER_COMMAND.END;
-  },
-};
+  }
+}
 
 export default InputValidator;

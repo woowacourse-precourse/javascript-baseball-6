@@ -11,6 +11,7 @@ class RandomPicker {
     if (this.computerNumber === null) { 
       this.computerNumber = this.pickRandomNumbers();
     }
+
     return this.computerNumber;
   }
 
@@ -23,6 +24,7 @@ class RandomPicker {
     }
 
     const resultArray = Array.from(digitsArray);
+    
     return parseInt(resultArray.join(""));
   }
 }

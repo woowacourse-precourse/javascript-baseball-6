@@ -9,4 +9,4 @@ export const MESSAGES = {
   NATING: "낫싱",
   BALL: "볼",
   STRIKE: "스트라이크",
-};
+}

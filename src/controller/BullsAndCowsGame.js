@@ -9,6 +9,7 @@ class BullsAndCowsGame {
 
   constructor() {
     this.computerNumber = new RandomPicker().getComputerNumber();
+
     OutputView.printStaticMessage(MESSAGES.START_GUIDE);
   }
 
@@ -31,8 +32,8 @@ class BullsAndCowsGame {
     if (userCommand === USER_COMMAND.REPLAY) {
       this.computerNumber = new RandomPicker().getComputerNumber();
       return this.startGame();
-    }
-
+    };
+    
     return;
   }
 }
