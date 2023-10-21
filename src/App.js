@@ -97,12 +97,12 @@ class App {
       this.printMsgIs(`${STRIKES}스트라이크`);
       await this.retry();
     } else {
-      this.replay(STRIKES, BALLS);
+      this.replayMessagePrint(STRIKES, BALLS);
       await this.game();
     }
   }
 
-  replay(strikes, balls) {
+  replayMessagePrint(strikes, balls) {
     const NOTHING = this.message("NOTHING");
     if (strikes === 0 && balls === 0) this.printMsgIs(NOTHING);
     if (strikes !== 0 && balls !== 0)
