@@ -40,4 +40,13 @@ export default class player {
 	  return isValid
   }
 
+	hasDuplicates(userNumber) {
+		for (let i = 0; i < userNumber.length; i++) {
+			if (userNumber.includes(userNumber[i], i + 1)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 }
