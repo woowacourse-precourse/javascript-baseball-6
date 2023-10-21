@@ -20,7 +20,7 @@ class UserNumberReader {
   }
 }
 
-/* class RandomNumberMaker {
+class RandomNumberMaker {
   constructor(randomNumber = '') {
     this.randomNumber = randomNumber;
   }
@@ -34,18 +34,18 @@ class UserNumberReader {
     }
     return this.randomNumber;
   }
-} */
+}
 
 class App {
   constructor() {
-    //this.maker = new RandomNumberMaker();
+    this.maker = new RandomNumberMaker();
     this.reader = new UserNumberReader();
   }
 
   async play() {
     try {
-      /* const uniqueNumber = this.maker.makeRandomNumber();
-      Console.print(uniqueNumber); */
+      const uniqueNumber = this.maker.makeRandomNumber();
+      Console.print(uniqueNumber);
 
       const userNumber = await Console.readLineAsync();
       if (!correctNumber(userNumber)) {
