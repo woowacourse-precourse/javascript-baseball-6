@@ -6,8 +6,14 @@ import { REGEXP } from '../constants/regexp.js';
 export class BaseballModel {
   #computerNumber;
   #userNumber;
+  isDone = false;
+
+  init() {
+    this.isDone = false;
+  }
 
   create() {
+    this.init();
     this.#computerNumber = this.#generateNumbers();
     this.#checkValidComputerNumber(this.#computerNumber);
     this.#checkComputerNumberLength(this.#computerNumber);
@@ -32,7 +38,8 @@ export class BaseballModel {
 
   countGameResult(computerNumber, userNumber) {
     if (computerNumber === userNumber) {
-      return { ball: 0, strike: 3, isDone: true };
+      this.isDone = true;
+      return { ball: 0, strike: 3 };
     }
 
     let ball = 0;
@@ -49,7 +56,7 @@ export class BaseballModel {
       }
     }
 
-    return { ball, strike, isDone: false };
+    return { ball, strike };
   }
 
   setUserNumber(userNumber) {
