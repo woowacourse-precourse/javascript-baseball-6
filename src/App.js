@@ -2,6 +2,16 @@ import {Console, MissionUtils, Random} from '@woowacourse/mission-utils';
 
 class App {
 
+  printHint(BALL, STRIKE){
+    let result_array = [];
+    if(BALL >= 1) result_array.push(`${BALL}볼`);
+    if(STRIKE >= 1) result_array.push(`${STRIKE}스트라이크`);
+    if(BALL === 0 && STRIKE === 0) result_array.push('낫싱');
+    const RESULT_STRING = result_array.join(' ');
+
+    Console.print(RESULT_STRING);
+  }
+
   //params: 문자 타입의 3자리 숫자
   isInValidNumber(number) {
     const condition = (
@@ -47,13 +57,8 @@ class App {
 
 
     //4. 힌트 출력
-    let result_array = [];
-    if(BALL >= 1) result_array.push(`${BALL}볼`);
-    if(STRIKE >= 1) result_array.push(`${STRIKE}스트라이크`);
-    if(BALL === 0 && STRIKE === 0) result_array.push('낫싱');
-    const RESULT_STRING = result_array.join(' ');
+    this.printHint(BALL, STRIKE);
 
-    Console.print(RESULT_STRING);
 
   }
 }
