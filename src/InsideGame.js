@@ -9,25 +9,26 @@ class InsideGame {
         computer.push(number);
       }
     }
-    return computer.join('');
+    return computer.join("");
   }
 
-  vaild(answer){
-    const inputSet = new Set(answer.split('').map(Number));
-        if (isNaN(answer)) {
-          throw new Error("[ERROR] 숫자만 입력해주세요.");
-        }
-        if (answer.length !== 3){
-          throw new Error("[ERROR] 세 자리 숫자를 입력해주세요.");
-        }
-        if (answer.includes(' ')) {
-          throw new Error("[ERROR] 공백이 포함되어 있습니다.");
-        } 
-        if ([...inputSet].length !== 3){
-          throw new Error("[ERROR] 중첩되지 않은 세 자리 숫자를 입력해주세요");
-        }
+  vaild(answer) {
+    const inputSet = new Set(answer.split("").map(Number));
+    if (isNaN(answer)) {
+      throw new Error("[ERROR] 숫자만 입력해주세요.");
+    }
+    if (answer.length !== 3) {
+      throw new Error("[ERROR] 세 자리 숫자를 입력해주세요.");
+    }
+    if (answer.includes(" ")) {
+      throw new Error("[ERROR] 공백이 포함되어 있습니다.");
+    }
+    if ([...inputSet].length !== 3) {
+      throw new Error("[ERROR] 중첩되지 않은 세 자리 숫자를 입력해주세요");
+    }
     return "Normal Value";
   }
+
   strikeCheck(computerNumber, userNumber) {
     let strike = 0;
 
@@ -41,15 +42,18 @@ class InsideGame {
     let ball = 0;
 
     for (let j = 0; j < 3; j++) {
-      if (computerNumber[j] !== userNumber[j] && computerNumber.includes(userNumber[j])){
+      if (
+        computerNumber[j] !== userNumber[j] &&
+        computerNumber.includes(userNumber[j])
+      ) {
         ball++;
-      } 
+      }
     }
     return ball;
   }
 
   outputHint(ball, strike) {
-    if(strike === 0 && ball === 0){
+    if (strike === 0 && ball === 0) {
       return "낫싱";
     }
     if (strike === 3) {
@@ -61,7 +65,14 @@ class InsideGame {
     } else {
       return `${ball}볼 ${strike}스트라이크`;
     }
-    
+  }
+
+  endInputVaild(question){
+    const questionNumber = Number(question);
+    if(questionNumber !== 1 && questionNumber !== 2){
+      throw new Error ("[ERROR] 1과 2만 입력해주세요.");
+    }
+    return questionNumber;
   }
 }
 export default InsideGame;
