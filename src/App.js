@@ -6,35 +6,34 @@ class App {
     let startGameFlag = 1;
     while (startGameFlag === 1) {
       const computerSelectedNumber = await this.pickRandomNumber();
-      const userSelectedNumber = await Console.readLine(
-        '숫자를 입력해주세요 : ',
-        (usersInputNumber) => {
-          return usersInputNumber;
+      let isThreeStrike = false;
+      while (!isThreeStrike) {
+        const userSelectedNumber = await getUsersInputNumber;
+        const { strikeCounter, ballCounter } = this.compareNumber(
+          computerSelectedNumber,
+          userSelectedNumber
+        );
+
+        if (strikeCounter === 0 && ballCounter === 0) {
+          Console.print('낫싱');
         }
-      );
-      const { strikeCounter, ballCounter } = this.compareNumber(
-        computerSelectedNumber,
-        userSelectedNumber
-      );
 
-      if (strikeCounter === 0 && ballCounter === 0) {
-        Console.print('낫싱');
-      }
+        if (strikeCounter !== 0 && ballCounter !== 0) {
+          Console.print(`${ballCounter}볼 ${strikeCounter}스트라이크`);
+        }
 
-      if (strikeCounter !== 0 && ballCounter !== 0) {
-        Console.print(`${ballCounter}볼 ${strikeCounter}스트라이크`);
-      }
+        if (strikeCounter !== 0) {
+          Console.print(`${strikeCounter}스트라이크`);
+        }
 
-      if (strikeCounter !== 0) {
-        Console.print(`${strikeCounter}스트라이크`);
-      }
+        if (ballCounter !== 0) {
+          Console.print(`${ballCounter}볼`);
+        }
 
-      if (ballCounter !== 0) {
-        Console.print(`${ballCounter}볼`);
-      }
-
-      if (strikeCounter === 3) {
-        startGameFlag = 2;
+        if (strikeCounter === 3) {
+          isThreeStrike = true;
+          startGameFlag = 2;
+        }
       }
     }
     Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
@@ -60,6 +59,20 @@ class App {
       }
     }
     return Number(randomNumber);
+  }
+
+  async getUsersInputNumber() {
+    try {
+      const userSelectedNumber = await Console.readLineAsync(
+        '숫자를 입력해주세요 : ',
+        (usersInputNumber) => {
+          return usersInputNumber;
+        }
+      );
+      return userSelectedNumber;
+    } catch (error) {
+      Console.print('[ERROR] 숫자가 잘못된 형식입니다.');
+    }
   }
 
   compareNumber(num1, num2) {
