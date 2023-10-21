@@ -36,17 +36,24 @@ class App {
     let isEnd = false;
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
     while (!isEnd) {
-      const computerNumbersArray = MissionUtils.Random.pickUniqueNumbersInRange(1, 9, 3);
+      const computerNumbersArray = [];
+      while (computerNumbersArray.length < 3) {
+        const number = MissionUtils.Random.pickNumberInRange(1, 9);
+        if (!computerNumbersArray.includes(number)) computerNumbersArray.push(number);
+      }
+
       MissionUtils.Console.print(computerNumbersArray); //test용 출력
       let isWine = false;
       while (!isWine) {
         let userNumber;
         // 에러 체크
-        try {
-          userNumber = await MissionUtils.Console.readLineAsync("서로 다른 3자리의 수를 넣어주세요 ");
-          //TODO 타입체크, 길이체크, 중복 체크 , 함수로 빼주고 함수형으로
-          if (userNumber.length !== 3) throw Error("3자리의 숫자를 입력해주세요");
-        } catch (error) {}
+
+        userNumber = await MissionUtils.Console.readLineAsync("서로 다른 3자리의 수를 넣어주세요 ");
+        //TODO 타입체크, 길이체크, 중복 체크 , 함수로 빼주고 함수형으로
+
+        if (userNumber === undefined || userNumber === null) throw Error("낫싱");
+        if (userNumber.length !== 3) throw Error("낫싱");
+        if ([...new Set(userNumber.split(""))].length !== 3) throw Error("낫싱");
 
         //숫자 비교
         let ball = 0;
@@ -57,9 +64,13 @@ class App {
           if (integerNumber === computerNumbersArray[index]) strike++;
           else if (computerNumbersArray.includes(integerNumber)) ball++;
         });
-        if (strike === 3) isWine = true;
+
         const message = getMessage(ball, strike);
         MissionUtils.Console.print(message);
+        if (strike === 3) {
+          isWine = true;
+          MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+        }
       }
       // 게임종료 확인
       const endAnswer = await MissionUtils.Console.readLineAsync("게임을 새로 시작하시려면 1, 종료하시려면 2를 입력하세요");
