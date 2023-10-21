@@ -1,26 +1,6 @@
 import RandomNumberMaker from '../src/play/RandomNumberMaker';
-
-const correctNumber = (userNumber) => {
-  if (userNumber.length !== 3) {
-    return false;
-  }
-  const uniqueChars = [...new Set([...userNumber])]; // 중복 숫자 제거
-  return userNumber.length === uniqueChars.length;
-};
-
-class UserNumberReader {
-  constructor() {
-    this.userNumber = '';
-  }
-
-  getUserNumber() {
-    return this.userNumber;
-  }
-
-  setUserNumber(value) {
-    this.userNumber = value;
-  }
-}
+import UserNumberReader from '../src/play/UserNumberReader';
+import correctNumber from '../src/utils/correctNumber';
 
 class App {
   constructor() {
