@@ -1,35 +1,30 @@
-import { throwError, printMessage, readLineAsync, pickNumberInRange } from "./utils.js";
-import {
-  LOG,
-  MAX_INPUT_LENGTH,
-  END_NUMBER,
-  RESTART_NUMBER,
-  ERROR_MESSAGE,
-  MIN_RANDOM_NUMBER,
-  MAX_RANDOM_NUMBER,
-} from "./constants.js";
+import { throwError, printMessage, readLineAsync } from "./utils.js";
+import { LOG, GAME_SETTING, ERROR_MESSAGE, SCORE } from "./constants.js";
 import BaseBallGame from "./BaseballGame.js";
+
+const { STRIKE, BALL, NOTHING } = SCORE;
+const { MIN_RANDOM_NUMBER, MAX_RANDOM_NUMBER, MAX_INPUT_LENGTH, END_NUMBER, RESTART_NUMBER } =
+  GAME_SETTING;
 
 class App {
   /**
    * @type {boolean} 게임 진행 여부
    */
-  isPlaying = false;
+  isPlaying;
 
   /**
-   * @type {number} 랜덤 숫자의 최소값
+   * @type {BaseBallGame} BaseBallGame 인스턴스
    */
-  min = MIN_RANDOM_NUMBER;
+  baseballGame;
 
   /**
-   * @type {number} 랜덤 숫자의 최대값
+   * @type {{ min: number, max: number, maxInputLength: number }} 게임 설정
    */
-  max = MAX_RANDOM_NUMBER;
-
-  /**
-   * @type {number} 사용자 입력의 최대 길이
-   */
-  maxInputLength = MAX_INPUT_LENGTH;
+  gameSetting = {
+    min: MIN_RANDOM_NUMBER,
+    max: MAX_RANDOM_NUMBER,
+    maxInputLength: MAX_INPUT_LENGTH,
+  };
 
   /**
    * @description 게임을 시작하는 메서드
@@ -50,11 +45,11 @@ class App {
 
         const { strike, ball } = baseballGame.calculateStrikeBall(numbers);
 
-        const message = baseballGame.generateScoreMessage(strike, ball);
+        const message = this.generateScoreMessage(strike, ball);
 
         printMessage(message);
 
-        if (strike !== this.maxInputLength) {
+        if (strike !== this.gameSetting.maxInputLength) {
           continue;
         }
 
@@ -74,12 +69,10 @@ class App {
    * @description 게임을 시작하는 메서드
    */
   start() {
-    const props = { min: this.min, max: this.max, maxInputLength: this.maxInputLength };
-
-    this.baseballGame = new BaseBallGame(props);
+    this.baseballGame = new BaseBallGame();
     this.isPlaying = true;
 
-    this.baseballGame.init();
+    this.baseballGame.init(this.gameSetting);
   }
 
   /**
@@ -88,7 +81,7 @@ class App {
    */
   restart(isRestart) {
     if (isRestart) {
-      this.baseballGame.init();
+      this.baseballGame.init(this.gameSetting);
     }
 
     this.isPlaying = isRestart;
@@ -142,20 +135,45 @@ class App {
   validateInput(input) {
     const splittedInput = input.split("");
     const set = new Set(splittedInput);
+    const { maxInputLength, min, max } = this.gameSetting;
 
     throwError(ERROR_MESSAGE.NOT_NUMBER, isNaN(Number(input)));
 
-    throwError(ERROR_MESSAGE.NOT_LENGTH, input.length !== this.maxInputLength);
+    throwError(ERROR_MESSAGE.NOT_LENGTH, input.length !== maxInputLength);
 
-    throwError(ERROR_MESSAGE.NOT_UNIQUE, set.size !== this.maxInputLength);
+    throwError(ERROR_MESSAGE.NOT_UNIQUE, set.size !== maxInputLength);
 
     throwError(
       ERROR_MESSAGE.NOT_RANGE,
-      splittedInput.filter((number) => Number(number) < this.min || Number(number) > this.max)
-        .length > 0,
+      splittedInput.filter((number) => Number(number) < min || Number(number) > max).length > 0,
     );
 
     return true;
+  }
+
+  /**
+   * @param {number} strike - 스트라이크의 개수
+   * @param {number} ball - 볼의 개수
+   * @description 스트라이크와 볼의 개수에 따라 메시지를 생성하는 메서드
+   * - 볼이 0 이상일 경우 "n볼"을, 스트라이크가 0 이상일 경우 "n스트라이크"를, 둘 다 0일 경우 "낫싱"을 리턴합니다.
+   * @returns {string}
+   */
+  generateScoreMessage(strike, ball) {
+    const messages = [];
+
+    if (ball > 0) {
+      messages.push(`${ball}${BALL}`);
+    }
+
+    if (strike > 0) {
+      messages.push(`${strike}${STRIKE}`);
+    }
+
+    if (strike === 0 && ball === 0) {
+      messages.push(NOTHING);
+    }
+
+    return messages.join(" ");
   }
 }
 
