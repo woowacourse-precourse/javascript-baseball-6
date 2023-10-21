@@ -4,6 +4,10 @@ class Computer {
   #baseball;
 
   constructor() {
+    this.#initBaseball();
+  }
+
+  #initBaseball() {
     this.#baseball = BaseballMaker.create().createBaseball();
   }
 
