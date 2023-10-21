@@ -3,13 +3,12 @@ import {MissionUtils,Random, Console} from "@woowacourse/mission-utils";
 class App {
   async play() {
     const Target = getRandom();
-    Console.print(Target.join(''));
-    const input = await getInput();
-    Console.print(input);
-    // const Answer = getInput();
-    // console.log(Answer);
-
-
+    var key=1;
+    while(key){
+      const input = await getInput();
+      Console.print(input);
+      key = getCheck(Target, input);
+    }
     return;
   }
 }
@@ -31,11 +30,10 @@ function getRandom(){
     Target.push(a);
     count--;
   }
-  return Target;
+  return Target.join('');
 }
 
 async function getInput(){
-  
   const Target = [];
   while(true){
     let userInput = await Console.readLineAsync("입력 ㄱㄱ : ");
@@ -51,13 +49,42 @@ async function getInput(){
       if(Target.includes(digit)){
         throw new Error("중복되는 숫자가 입력되었습니다.");
       }
-      Target.push(digit);
-      
+      Target.push(digit);   
     }
     return userInput;
   }
 }
 
-function getAnswer(){
-
+function getCheck(target, userInput){
+  if(target===userInput){
+    Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    return 0;
+  }
+  var ball = 0;
+  var strike = 0;
+  for(var i=0; i<3; i++){
+    for(var j=0; j<3; j++){
+      if(target[i]==userInput[j]){
+        if(i==j){
+          strike+=1;
+        }
+        else{
+          ball+=1;
+        }
+      }
+    }
+  }
+  if(!ball&&!strike){
+    Console.print('낫싱');
+  }
+  else if(ball&&!strike){
+    Console.print(`${ball}볼`);
+  }
+  else if(!ball&&strike){
+    Console.print(`${strike}스트라이크`);
+  }
+  else{
+    Console.print(`${ball}볼 ${strike}스트라이크`);
+  }
+  return 1; 
 }
