@@ -19,14 +19,14 @@ const getBbNum = async function inputTreating() {
 
   // valid 확인 - 문자열 길이
   if (rawBaseballNum.length != 3) {
-    throw new Error('[ERROR] 3자리 수만 가능합니다');
+    throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
   }
 
   // valid 확인 -  각 자리 값
   let parsedBaseballNum = rawBaseballNum.split('').map((raw) => {
     let parsed = Number(raw);
     if (parsed === 0 || Number.isNaN(parsed)) {
-      throw new Error('[ERROR] 각 자리는 9 이하의 자연수만 가능합니다');
+      throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
     }
     return parsed;
   });
@@ -103,7 +103,7 @@ class App {
 
         // 계속 및 종료의 에러 체크
         if (start !== 1 && start !== 2) {
-          throw new Error('[ERROR] 1 혹은 2만 입력해야 합니다.');
+          throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
         }
       }
     } catch (e) {
