@@ -1,7 +1,10 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 
 class App {
-  async play() {}
+  async play() {
+    MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
+    await this.startGame();
+  }
 
   // 게임 시작
   async startGame() {
@@ -12,7 +15,7 @@ class App {
       matchAnswer = this.compareAnswer(computerAnswer, playerAnswer);
     } while (!matchAnswer);
 
-    this.askRestart();
+    await this.askRestart();
   }
 
   // 랜덤한 숫자 3개를 생성
@@ -95,5 +98,8 @@ class App {
     }
   }
 }
+
+const app = new App();
+app.play();
 
 export default App;
