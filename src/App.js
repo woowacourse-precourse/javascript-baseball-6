@@ -29,12 +29,11 @@ class App {
           MissionUtils.Console.print("[ERROR] 숫자가 잘못된 형식입니다.");
           throw new Error("[ERROR]");
         }
-        
-        //break;
       }
 
       // 재시작/종료 여부 얻기 - askForRestart() - 미구현
-      const restart = 2
+      const restart = await this.askForRestart()
+      MissionUtils.Console.print(restart)
 
       // restart 값이 2일 때, 프로그램 완전 종료
       if (restart === 2) break;
@@ -82,6 +81,13 @@ class App {
       return `${ball}볼${strike > 0 ? `${strike}스트라이크` : ''}`
     }
     return `${strike}스트라이크`;
+  }
+
+  // 재시작/종료 여부 얻기
+  async askForRestart() {
+    MissionUtils.Console.print("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.")
+    const result = await MissionUtils.Console.readLineAsync();
+    return Number(result);
   }
 }
 
