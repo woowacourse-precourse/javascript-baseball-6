@@ -14,11 +14,12 @@ const printMessage = (message) => {
 const inputMessage = async (message) => {
   return await MissionUtils.Console.readLineAsync(message);
 }
+
 // 설명 : 게임을 재시작 할지 여부를 리턴에 주는 함수
 // 입력 : X
 // 출력 : 1을 입력한다면 false를 반환하여 재시작을 하게되고 2를 입력한다면 true를 반환하여 종료하게된다.
 const restartGame = async () => {
-  const restart = Number(await inputMessage('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요'));
+  const restart = Number(await inputMessage(`게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n`));
   return restart !== 1;
 };
 
@@ -69,7 +70,6 @@ const guessStrike = (computer, user) => {
       }
     }
   }
-
   return { strikeCount, ballCount };
 }
 
@@ -113,7 +113,6 @@ const checkStrike = async (computerList) => {
 // 설명 : 전체 함수들을 실행 시켜주는 메인 함수
 // 입력 : X
 // 출력 : X
-
 const main = async () => {
   let endPoint = false;
   while(!endPoint) {
@@ -122,7 +121,7 @@ const main = async () => {
     endPoint = await checkStrike(computer)
   }
 }
-main()
+
 class App {
   async play() {
     await main()
