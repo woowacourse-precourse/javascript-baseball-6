@@ -9,4 +9,5 @@ export function random(){
       computer.push(number);
     }
   }
+  return computer;
 }
