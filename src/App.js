@@ -4,7 +4,7 @@ function start() {
 	try {
 		getUserInput(computer);
 	} catch (error) {
-		throw new Error(error);
+		throw new Error('[Error]', error);
 	}
 }
 function makeRandomNumber() {
@@ -31,10 +31,10 @@ function validateUserInput(userInput, computer) {
 			returnScore(strike, ball);
 			finishGame();
 		} else {
-      throw new Error;
+      // throw new Error('[Error]', error);
     }
 	} else {
-    throw new Error;
+    // throw new Error('[Error]', error);
   }
 }
 async function finishGame() {
