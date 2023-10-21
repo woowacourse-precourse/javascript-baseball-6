@@ -18,8 +18,6 @@
     &nbsp;  &nbsp;  &nbsp;  &nbsp;1.2.2. 게임 동작 루틴<br>
     &nbsp;  &nbsp;  &nbsp;  &nbsp;1.2.3. 게임 종료 루틴<br>
     &nbsp;  &nbsp;  &nbsp;  &nbsp;1.2.4. 전체 종합
-  2. 프로그래밍 요구 사항 분석
-  3. 과제 진행 요구 사항 분석
 
 <br><br><br>
 
