@@ -11,6 +11,8 @@ class App {
     }
 
     Console.print(computer); //[1, 3, 5] 출력
+
+    Console.print('낫싱');
   }
 }
 
