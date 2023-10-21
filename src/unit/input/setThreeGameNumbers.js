@@ -1,4 +1,7 @@
-import {Console} from "@woowacourse/mission-utils";
+import {Console, MissionUtils} from "@woowacourse/mission-utils";
+
+// 데이터와 관련된
+
 
 const setThreeGameNumbers = async () => {
     let userGameNumbers = [];

@@ -1,13 +1,8 @@
-import setThreeGameNumbers from "./unit/input/setThreeGameNumbers.js";
-
-
 class App {
-  async play() {
-
-      const userGameNumbers =  setThreeGameNumbers();
+    async play(){
 
 
-  }
+    }
 }
 
 const app = new App();
