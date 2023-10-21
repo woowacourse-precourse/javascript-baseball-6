@@ -7,6 +7,7 @@ class App {
 
     do {
       const user_input = await Console.readLineAsync('숫자를 입력해주세요 : ');
+      if (!validate(user_input)) throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
       const { hint_msg, isCorrect } = check(answer, user_input);
       Console.print(hint_msg);
       if (isCorrect) break;
@@ -24,6 +25,12 @@ const genNum = function generateRandomNumber() {
     }
   }
   return computer;
+};
+
+const validate = function checkValidateInput(input) {
+  if (input.length !== 3) return false;
+  const regex = /^[1-9]$/;
+  return regex.test(inputValue);
 };
 
 const check = function checkAnswer(answer, input) {
