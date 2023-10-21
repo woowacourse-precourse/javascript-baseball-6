@@ -1,4 +1,7 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
+import { Console } from '@woowacourse/mission-utils';
+
+Console.print('Dd');
 
 class App {
   async play() {
@@ -9,7 +12,7 @@ class App {
 
   StartMessage() {
     const StartMessage = '숫자 야구 게임을 시작합니다.';
-    console.log(StartMessage);
+    Console.print(StartMessage);
   }
 
   MakeRandomNumbers() {
@@ -20,22 +23,16 @@ class App {
         computer.push(number);
       }
     }
-    console.print(computer);
+    // console.print(computer);
   }
 
-  InputPlayerNumbers() {
-    const rl = readline.createInterface({
-      input: process.stdin,
-      output: process.stdout,
-    });
-    return new Promise((resolve) => {
-      let input = [];
-      rl.question('숫자를 입력해주세요 : ', (userInput) => {
-        input = userInput.split('').map((number) => parseInt(number));
-        rl.close();
-        resolve(userInput);
-      });
-    });
+  async InputPlayerNumbers() {
+    try {
+      const input = await Console.readLineAsync('숫자를 입력해주세요 :');
+    } catch (error) {
+      // reject 되는 경우
+      Console.print('[Error]');
+    }
   }
 }
 
