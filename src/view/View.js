@@ -1,3 +1,5 @@
+import { Console } from "@woowacourse/mission-utils";
+
 export default class View {
   constructor(controller) {
     this.controller = controller;
@@ -8,5 +10,16 @@ export default class View {
     this.RESTART_INPUT_MESSAGE = '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n';
     this.RESTSART_INPUT_ERROR = '[ERROR] 1(재시작) 또는 2(게임종료)만 입력해주세요!';
     this.GAME_OVER_MESSAGE = '게임을 종료합니다.';
+  }
+
+  /**
+   * player가 시도한 input을 입력 받은 후 유효성을 검증합니다.
+   * 
+   */
+  async getPlayerInputNumber() {
+    const PLAYER_INPUT = await Console.readLineAsync(this.IN_GAME_INPUT_MESSAGE);
+
+    this.controller.updatePlayerNumber(PLAYER_INPUT.split(''));
+    await this.controller.isPlayerInputValid();
   }
 }
