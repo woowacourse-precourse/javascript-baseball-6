@@ -3,24 +3,7 @@ import { MissionUtils } from '@woowacourse/mission-utils';
 const CORRECT_NUMBER = 3;
 
 class App {
-  #computerNumber;
-
-  threeDigitsGenerator() {
-    let computerStr = '';
-
-    while (computerStr.length < 3) {
-      const RANDOM_NUM = MissionUtils.Random.pickNumberInRange(1, 9);
-      if (!computerStr.includes(String(RANDOM_NUM))) {
-        computerStr += String(RANDOM_NUM);
-      }
-    }
-
-    return Number(computerStr);
-  }
-
-  assignComputerNumber() {
-    this.#computerNumber = this.threeDigitsGenerator();
-  }
+  computer = new Computer();
 
   isValidInput(input) {
     const STR_USER_INPUT = String(input);
@@ -57,7 +40,7 @@ class App {
   }
 
   async play() {
-    this.assignComputerNumber();
+    this.computer.generateThreeDigits();
     let isPlaying = true;
     try {
       while (isPlaying) {
@@ -65,7 +48,7 @@ class App {
 
         if (!this.isValidInput(INPUT)) throw new Error('[ERROR]');
 
-        const { STRIKE, BALL } = this.calculateStrikesAndBalls(INPUT, this.#computerNumber);
+        const { STRIKE, BALL } = this.calculateStrikesAndBalls(INPUT, this.computer.number);
         MissionUtils.Console.print(this.gameResultMessage(STRIKE, BALL));
 
         if (STRIKE === CORRECT_NUMBER) {
@@ -74,7 +57,7 @@ class App {
           if (!/^[12]$/.test(INPUT)) throw new Error('1또는 2가 입력되지 않았습니다.');
 
           if (INPUT === '1') {
-            this.assignComputerNumber();
+            this.computer.generateThreeDigits();
             continue;
           }
 
@@ -93,7 +76,20 @@ class App {
 }
 
 class Computer {
+  number;
 
+  generateThreeDigits() {
+    let stringThreeDigits = '';
+
+    while (stringThreeDigits.length < 3) {
+      const RANDOM_NUM = MissionUtils.Random.pickNumberInRange(1, 9);
+      if (!stringThreeDigits.includes(String(RANDOM_NUM))) {
+        stringThreeDigits += String(RANDOM_NUM);
+      }
+    }
+
+    this.number = Number(stringThreeDigits);
+  }
 }
 
 class Player {
