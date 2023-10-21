@@ -4,12 +4,12 @@ class App {
   async play() {}
 }
 
-function getUserNumber() {
-  console.log(
+async function getUserNumber() {
+  return new Promise((resolve) => {
     MissionUtils.Console.readLine("숫자를 입력해주세요 : ", (input) => {
-      console.log(`입력한 숫자 : ${input}`);
-    })
-  );
+      resolve(input);
+    });
+  });
 }
 
 function getComputerNumber() {
@@ -20,8 +20,40 @@ function getComputerNumber() {
   return computerNumber;
 }
 
+async function compareNumber() {
+  let strike = 0;
+
+  while (strike !== 3) {
+    const userNumber = await getUserNumber();
+    const computerNumber = getComputerNumber();
+    strike = 0;
+    let ball = 0;
+
+    for (let i = 0; i < 3; i++) {
+      if (userNumber[i] === computerNumber[i]) {
+        strike++;
+      } else if (computerNumber.includes(userNumber[i])) {
+        ball++;
+      }
+    }
+
+    printResult(ball, strike);
+
+    if (strike === 3) {
+      console.log("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    }
+  }
+}
+
+function printResult(ball, strike) {
+  if (ball === 0 && strike === 0) {
+    console.log("낫싱");
+  } else {
+    console.log(`${ball}볼 ${strike}스트라이크`);
+  }
+}
+
 export default App;
 
 console.log(MissionUtils.Console.print("숫자 야구 게임을 시작합니다."));
-getUserNumber();
-getComputerNumber();
+compareNumber();
