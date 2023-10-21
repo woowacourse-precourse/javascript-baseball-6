@@ -4,15 +4,19 @@ import { messages } from './message.js'
 class App {
   constructor() {
     this.computer = []
+    this.player = []
   }
-  async startMessage() {
-    Console.print(messages.gameStart)
+  async getPlayerNumber() {
+    this.player = [...(await Console.readLineAsync(messages.inputNumber))]
   }
   async createRandomNumber() {
     while (this.computer.length < 3) {
       const random = MissionUtils.Random.pickNumberInRange(1, 9)
       if (!this.computer.includes(random)) this.computer.push(random)
     }
+  }
+  async startMessage() {
+    Console.print(messages.gameStart)
   }
   async play() {
     this.startMessage()
