@@ -25,10 +25,9 @@ function isLengthError(userInputNumber) {
  * @returns 입력한 숫자에 중복된 값이 포함되어있지 않다면 false 반환
  */
 function isDuplicationError(userInputNumber) {
-  for (let i = 0; i < userInputNumber.length; i++) {
-    if (userInputNumber.substring(i + 1).includes(userInputNumber[i])) {
-      throw new Error(DUPLICATION_ERROR);
-    }
+  const uniqueNumber = new Set(userInputNumber);
+  if (uniqueNumber.size !== 3) {
+    throw new Error(DUPLICATION_ERROR);
   }
 
   return;
