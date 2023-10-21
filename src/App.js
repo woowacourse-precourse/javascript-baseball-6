@@ -15,6 +15,27 @@ class App {
       }
     }
   }
+
+  InputPlayerNumbers() {
+    const InputMessage = '숫자를 입력해주세요 : ';
+    console.log(InputMessage);
+
+    const readline = require('readline');
+    const rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout,
+    });
+
+    let input = [];
+    rl.on('line', (line) => {
+      input = line.split('').map((number) => parseInt(number));
+      rl.close();
+    });
+
+    rl.on('close', () => {
+      process.exit();
+    });
+  }
 }
 
 const GameStart = new App(); // App 클래스의 인스턴스 생성

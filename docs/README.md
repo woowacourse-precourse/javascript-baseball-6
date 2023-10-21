@@ -1,6 +1,6 @@
 ### RandomNumberMaker
 
-- [] 랜덤한 3개의 숫자를 생성한다
+- [x] 랜덤한 3개의 숫자를 생성한다
 
 ### GameMc
 
