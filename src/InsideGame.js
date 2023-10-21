@@ -21,6 +21,13 @@ class InsideGame {
     if (isNaN(answer)) {
       throw new Error("[ERROR] 숫자만 입력해주세요.");
     }
+    const answerArr = answer.split('');
+    if (answerArr.includes('0')){
+      throw new Error("[ERROR] 0이 포함되어 있습니다.")
+    }
+    if (answerArr.includes('-')){
+      throw new Error("[ERROR] - 가 포함되어 있습니다.")
+    }
     if (answer.length !== 3) {
       throw new Error("[ERROR] 세 자리 숫자를 입력해주세요.");
     }
