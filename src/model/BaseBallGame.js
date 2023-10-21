@@ -1,8 +1,8 @@
 import { stringToNumberArray } from "../utils/convert/convert.js";
 import { BaseBall, GameOver } from "../constants/status.js";
 import IncorrectFormatError from "../error/IncorrectFormatError.js";
-import { MissionUtils } from "@woowacourse/mission-utils";
 import { getRandomNumbers } from "../utils/random/random.js";
+import { print, readLineAsync } from "../utils/console/console.js";
 
 class BaseBallGame {
   answer = []; // 정답
@@ -10,13 +10,13 @@ class BaseBallGame {
   // 게임 스타트
   async start() {
     // 게임 시작 메세지 출력
-    this.print("숫자 야구 게임을 시작합니다.");
+    print("숫자 야구 게임을 시작합니다.");
 
     // 게임 종료 전까지 반복
     while (await this.play());
 
     // 게임 끝
-    this.print("게임을 종료합니다.");
+    print("게임을 종료합니다.");
   }
 
   // 하나의 게임 진행 (첫 게임 or 재 시작)
@@ -28,7 +28,7 @@ class BaseBallGame {
     while (await this.round());
 
     // 게임 재시작 여부 확인
-    const line = await this.readLineAsync(
+    const line = await readLineAsync(
       `게임을 새로 시작하려면 ${GameOver.RESTART}, 종료하려면 ${GameOver.END}를 입력하세요.\n`
     );
 
@@ -49,7 +49,7 @@ class BaseBallGame {
   // 하나의 라운드 진행
   async round() {
     // 라운드를 진행하기 위해 메세지 입력 필요
-    const line = await this.readLineAsync("숫자를 입력해주세요 : ");
+    const line = await readLineAsync("숫자를 입력해주세요 : ");
 
     // 입력 받은 숫자의 길이가 BaseBall.LENGTH가 아니면 IncorrectFormatError
     if (line.length !== BaseBall.LENGTH) {
@@ -66,14 +66,14 @@ class BaseBallGame {
     const hint = this.getHint(ballCount);
 
     // hint 출력
-    this.print(hint);
+    print(hint);
 
     // 게임 종료 여부 구하기
     const isGameOver = ballCount.strike === BaseBall.LENGTH;
 
     // 숫자를 모두 맞히면 게임 종료
     if (isGameOver) {
-      this.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+      print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
     }
 
     // 게임 진행 여부 boolean 리턴
@@ -125,16 +125,6 @@ class BaseBallGame {
     }
 
     return hint;
-  }
-
-  // print
-  print(msg) {
-    MissionUtils.Console.print(msg);
-  }
-
-  // readLineAsync
-  async readLineAsync(msg) {
-    return await MissionUtils.Console.readLineAsync(msg);
   }
 }
 
