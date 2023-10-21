@@ -3,15 +3,28 @@ import { GAME, ERROR } from './constant.js';
 import Computer from './Computer.js';
 
 class App {
-  async play() {
+  #computer;
+
+  play() {
     MissionUtils.Console.print(GAME.START);
 
-    const computer = new Computer();
+    this.#computer = new Computer();
+    this.#input();
+  }
+
+  async #input() {
     const input = await MissionUtils.Console.readLineAsync(GAME.INPUT_NUMBER);
 
     App.validate(input);
 
-    const result = computer.judgment(input);
+    const result = this.#computer.judgment(input);
+
+    if (result === 'fail') {
+      this.#input();
+    }
+    if (result === 'pass') {
+      MissionUtils.Console.print(GAME.CLEAR);
+    }
   }
 
   static validate(input) {
@@ -36,5 +49,8 @@ class App {
     }
   }
 }
+
+const app = new App();
+app.play();
 
 export default App;
