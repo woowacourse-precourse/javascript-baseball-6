@@ -10,6 +10,7 @@ class App {
       while (replay==1){
         //컴퓨터의 임의의 수 선택
         const computer = Array(3).fill().map((i) => MissionUtils.Random.pickNumberInRange(1, 9));
+        
         let strike=0;
         while (strike<3){
           //strike, ball 초기화
@@ -46,7 +47,11 @@ class App {
             MissionUtils.Console.print("낫싱");
           }
         }
-        
+
+        //게임 종료 문구
+        MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+
+        //재시작 또는 종료
         replay = await MissionUtils.Console.readLineAsync(
           "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
         );
