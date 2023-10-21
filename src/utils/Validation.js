@@ -2,6 +2,7 @@ export default class Validation {
   constructor() {
     this.NUMBER_RANGE = /^[1-9]+$/;
     this.PLAYER_INPUT_VALIDATON = true;
+    this.RESTART_INPUT_VALIDATION = true;
   }
 
   /**
@@ -28,5 +29,15 @@ export default class Validation {
     await this.validatePlayerInput(playerInput);
     
     return this.PLAYER_INPUT_VALIDATON;
+  }
+
+  /**
+   * 재시작 입력 값이 유효한지 검증합니다.
+   * @param {string} restartInput [재시작 여부 입력 값]
+   */
+  async validateRestartInput(restartInput) {
+    if(restartInput !== '1' && restartInput !== '2') {
+      this.RESTART_INPUT_VALIDATION = false;
+    }
   }
 }
