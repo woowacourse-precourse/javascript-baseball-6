@@ -49,28 +49,27 @@ export default class App{
   }
 
     //틀렸을 때 다시 시도
-    wrongAnswerRetry(result) {
-      this.#_view.result(result);
-      this.play();
-    }
+  wrongAnswerRetry(result) {
+    this.#_view.result(result);
+    this.play();
+  }
     
     //정답일 때 게임 재시작 의사를 물음
-    async correct() {
-      this.#_view.correct();
-      const retryOrEnd = await this.#_view.retry();
+  async correct() {
+    this.#_view.correct();
+    const retryOrEnd = await this.#_view.retry();
   
-      if (retryOrEnd !== CONSTANT.RETRY && retryOrEnd !== CONSTANT.END)
-        throw new Error(MESSAGE.ERROR);
+    if (retryOrEnd !== CONSTANT.RETRY && retryOrEnd !== CONSTANT.END)
+      throw new Error(MESSAGE.ERROR);
   
-      if (retryOrEnd === CONSTANT.RETRY) {
-        this.init();
-      }
-        
-      if (retryOrEnd === CONSTANT.END) {
-        this.#_view.gameOver();
-      };
-  
-      return 0;
+    if (retryOrEnd === CONSTANT.RETRY) {
+      this.init();
     }
+        
+    if (retryOrEnd === CONSTANT.END) {
+      this.#_view.gameOver();
+    };
   
+    return 0;
+  }
 }
