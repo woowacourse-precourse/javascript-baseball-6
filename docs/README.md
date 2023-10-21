@@ -7,7 +7,7 @@
 #### _-랜덤 조건_
 
 __1) 3자리 수__ : 각 자리마다 1~9까지의 숫자 중 하나가 들어감
-```
+```JavaScript
 MissionUtils.Random.pickNumberInRange(1, 9)
 ```
 
@@ -18,7 +18,7 @@ __2) 각자리 수마다 숫자가 달라야 함__ :
 두번째 자리수 => 첫번째 자리수를 제외한 8개 중 하나
 
 세번째 자리수 => 앞의 두 수를 제외한 7개 중 하나
-```
+```JavaScript
 if (!computer.includes(number)) {
   computer.push(number);
 }
@@ -39,17 +39,17 @@ __\- 정수형__ : 문자열로 입력받아 사용해왔던 값을 throw의 예
 ```
 
 __\- 자릿수__ : 입력값이 3자리 이상인 경우 `[ERROR] 올바른 숫자를 입력하세요`하고 종료시키기
-```
+```JavaScript
 i.length>3
 ```
 
 __\- 공백__ : 입력값이 공백일 경우 `[ERROR] 올바른 숫자를 입력하세요`하고 종료시키기
-```
+```JavaScript
 i.trim() === "" // trim으로 공백제거
 ```
 
 __\- 중복__ : 입력값이 중복될 경우 `[ERROR] 올바른 숫자를 입력하세요`하고 종료시키기
-```
+```JavaScript
 [...new Set(i)].length !== 3
 // ...new Set(i)로 값이 중복이 되면 1개로 인식하는 배열 만들기
 // 문자열의 길이가 3이 아니면 중복값이 있는 것
@@ -74,6 +74,34 @@ __\- 낫싱__ : 볼이 성립하지 않을 경우(볼이 성립하지 않으니 
  
  3스트라이크 후 => `3개의 숫자를 모두 맞히셨습니다! 게임 종료` 출력
 
+ ```JavaScript
+ for(let x=0; x<3; x++){
+    for(let y=0; y<3; y++){
+      if(computer[x] === +user1[y]){ // 컴퓨터값과 사용자값이 일치하는게 있음(볼,스트라이크)
+        if(x===y){
+          strike++;
+        }
+        else{ // 위치가 다를때(볼)
+          ball++;
+        }
+      }
+    }
+  }
+  if(ball != 0){
+    if(strike !=0){
+      return (`${ball}볼 ${strike}스트라이크`);
+    }else{
+      return (`${ball}볼`);
+    }
+  }else{
+    if(strike !=0){
+      return (`${strike}스트라이크`);
+    }else{
+      return ('낫싱'); // 위치도 다르고 값도 없을때(낫싱)
+    }
+  }
+ ```
+
 ## 기능4.
 
 ### 게임이 종료되고 게임을 다시 시작할지 여부
@@ -84,4 +112,15 @@ __\- 재시작__ : 1을 입력
 
 __\- 종료__ : 2를 입력
 
-__\- 예외처리__ : 입력값이 1,2가 아닐 경우 `[ERROR] 올바른 숫자를 입력하세요` 하고 다시시작 나오게하기
+__\- 예외처리__ : 입력값이 1,2가 아닐 경우 `[ERROR] 올바른 숫자를 입력하세요` 하고 종료
+
+```JavaScript
+let user2 = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
+  if(+user2 === 1){
+    computer = random();
+  }else if(+user2 === 2){
+    break;
+  }else{
+    throw new Error();
+  }      
+```
