@@ -12,10 +12,13 @@ class App {
           computer += number;
         }
       }
-      // Console.print(computer);
+
       while (game) {
         user = await Console.readLineAsync("숫자를 입력해 주세요 : ");
         /* 예외처리 코드*/
+        if (!/^\d{3}$/.test(user)) {
+          throw new Error("[ERROR]");
+        }
         let ball = 0;
         let strike = 0;
         let prom = "";
@@ -43,6 +46,7 @@ class App {
           const regame = await Console.readLineAsync(
             "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
           );
+
           if (regame === "1") {
             computer = "";
             while (computer.length < 3) {
@@ -51,9 +55,10 @@ class App {
                 computer += number;
               }
             }
-            // Console.print(computer);
           } else if (regame === "2") {
             game = false;
+          } else {
+            throw new Error("[ERROR]");
           }
         }
       }
