@@ -10,7 +10,6 @@ class App {
         computer.push(number);
       }
     }
-    const random = computer.join('');
 
     let flag = 1;
     // 시작 문구 출력
