@@ -2,7 +2,12 @@ import Baseball from './Baseball.js';
 class App {
   async play() {
     const game = new Baseball();
-    game.makeGameResult();
+    game.getUserinputNumber().then((userinputNumber) => {
+      console.log(userinputNumber);
+      const gameResult = game.calcGameCount(userinputNumber);
+      console.log(gameResult);
+      console.log(game.makeGameResultString(gameResult));
+    });
   }
 }
 const app = new App();
