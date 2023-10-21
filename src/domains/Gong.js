@@ -35,6 +35,10 @@ class Gong {
     return numbers;
   }
 
+  getGongs() {
+    return this.#gongs;
+  }
+
   static fromString(gongString) {
     const trimmedGongString = gongString.replace(/\s+/g, "");
     const gongs = trimmedGongString.split("").map((str) => Number(str));

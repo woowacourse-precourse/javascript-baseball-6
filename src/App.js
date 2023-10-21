@@ -11,12 +11,19 @@ class App {
   }
 
   async startGame() {
+    const game = new Game();
+
     while (true) {
       const userInput = await readLine(gameMessages.INPUT_GONGS);
       const gongs = Gong.fromString(userInput);
+      const { success, message } = game.compareBalls(gongs);
 
-      print("gongs : ", gongs);
-      break;
+      print(message);
+
+      if (success) {
+        print(gameMessages.WINNING_GAME);
+        break;
+      }
     }
   }
 }

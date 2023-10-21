@@ -1,6 +1,7 @@
 // 한판의 게임을 책임지는 클래스
 
 import Oppenent from "./Opponent.js";
+import { gameMessages } from "../constants/gameMessages.js";
 
 class Game {
   /**
@@ -16,13 +17,90 @@ class Game {
   #opponentGongs;
 
   /**
+   * @type {[number, number, number]}
+   */
+
+  #userGongs;
+
+  /**
    *
-   * @param {Opponent} opponent
+   * @param {Oppenent} opponent
    */
 
   constructor(opponent = new Oppenent()) {
     this.#opponent = opponent;
     this.#opponentGongs = this.#opponent.getGongs();
+  }
+
+  /**
+   * @typedef {object} CompareResult
+   * @property {boolean} success - 성공 여부
+   * @property {number} [strikes] - 스트라이크 수
+   * @property {number} [balls] - 볼 수
+   * @property {string} message - 메시지
+   */
+
+  /**
+   * 비교 결과를 반환
+   * @param {Gong} gongs
+   * @returns {CompareResult}
+   */
+
+  compareBalls(gongs) {
+    this.#userGongs = gongs.getGongs();
+    const { ALL_MATCH, BALLS_COUNT, STRIKES_COUNT, NOTHING } = gameMessages;
+
+    const strikes = this.getStrikes();
+    const balls = this.getBalls();
+
+    if (strikes === 3) {
+      return {
+        success: true,
+        strikes,
+        balls,
+        message: ALL_MATCH,
+      };
+    }
+
+    const messages = [
+      balls && BALLS_COUNT(balls),
+      strikes && STRIKES_COUNT(strikes),
+    ].filter(Boolean);
+    const message = messages.length ? messages.join(" ") : NOTHING;
+
+    return { success: false, message };
+  }
+
+  /**
+   *
+   * @returns {number}
+   */
+
+  getStrikes() {
+    let strikes = 0;
+    for (let i = 0; i < this.#opponentGongs.length; i++) {
+      if (this.#opponentGongs[i] === this.#userGongs[i]) {
+        strikes++;
+      }
+    }
+    return strikes;
+  }
+
+  /**
+   *
+   * @returns {number}
+   */
+
+  getBalls() {
+    const commonBalls = this.#userGongs.filter((ball) =>
+      this.#opponentGongs.includes(ball)
+    ).length;
+
+    const strikes = this.#userGongs.filter(
+      (ball, index) => ball === this.#opponentGongs[index]
+    ).length;
+
+    return commonBalls - strikes;
   }
 }
 
