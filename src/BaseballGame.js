@@ -53,12 +53,12 @@ class BaseballGame {
   printResult(result) {
     let resultMessage = '';
 
-    if (result.strikes > 0) {
-      resultMessage += `${result.strikes}스트라이크 `;
-    }
-
     if (result.balls > 0) {
       resultMessage += `${result.balls}볼 `;
+    }
+
+    if (result.strikes > 0) {
+      resultMessage += `${result.strikes}스트라이크 `;
     }
 
     if (result.strikes === 0 && result.balls === 0) {
