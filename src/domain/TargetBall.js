@@ -1,7 +1,12 @@
+import { ERROR_MESSAGE } from '../constants/error';
+import CustomError from '../exceptions/CustomError';
+import { isOutOfRange } from '../utils/validator';
+
 export class TargetBall {
   #number;
 
   constructor(number) {
+    this.#validate(number);
     this.#number = number;
   }
 
@@ -10,7 +15,7 @@ export class TargetBall {
   static MAX = 9;
 
   static #TARGET_NUMBERS = Object.fromEntries(
-    Array.from({ length: TargetBall.MAX }, (_, i) => [i + 1, new TargetBall(i + 1)])
+    Array.from({ length: TargetBall.MAX }, (_, i) => [i + 1, new TargetBall(i + 1)]),
   );
 
   static valueOf(value) {
@@ -20,5 +25,17 @@ export class TargetBall {
 
   get number() {
     return this.#number;
+  }
+
+  #validate(number) {
+    if (typeof number !== 'number') {
+      throw new CustomError(ERROR_MESSAGE.COMMON.NOT_NUMBER, this.constructor.name);
+    }
+    if (!Number.isInteger(number)) {
+      throw new CustomError(ERROR_MESSAGE.COMMON.NOT_INTEGER, this.constructor.name);
+    }
+    if (isOutOfRange(number, TargetBall.MIN, TargetBall.MAX)) {
+      throw new CustomError(ERROR_MESSAGE.TARGET_BALL.OUT_OF_RANGE, this.constructor.name);
+    }
   }
 }
