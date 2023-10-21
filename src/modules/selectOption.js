@@ -17,10 +17,10 @@ isOptionError = (option) => {
 
   if (option === END) {
     Console.print(MESSAGES.END);
-    return;
   }
 
-  throw new Error(ERRORS.OPTION);
-};
+  if (option !== RESTART && option !== END) {
+    throw new Error(ERRORS.OPTION);
+  }};
 
 module.exports.selectOption = selectOption;
