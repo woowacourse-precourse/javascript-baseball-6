@@ -11,14 +11,28 @@ class BaseBallController {
     this.#model = new BaseballModel();
   }
 
-  run() {
+  async run() {
     this.#view.printStart();
-    this.#gamePlay();
+    await this.#gamePlay();
   }
 
-  #gamePlay() {
+  // TODO : playGame으로 변경하기
+  async #gamePlay() {
     this.#model.generateGameNumbers();
-    this.#view.readGameNumbers();
+    await this.#guessNumber();
+  }
+
+  // TODO : no-await-in-loop 정리
+  async #guessNumber() {
+    while (true) {
+      const userNumbers = await this.#view.readGameNumbers();
+      const score = this.#model.compareUserWithComputerNumbers(userNumbers);
+      this.#view.printHint(score);
+      if (score.strike === 3) {
+        this.#view.printSuccess();
+        break;
+      }
+    }
   }
 }
 

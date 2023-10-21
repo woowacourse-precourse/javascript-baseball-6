@@ -8,11 +8,11 @@ class App {
   }
 
   async play() {
-    this.#controller.run();
+    await this.#controller.run();
   }
 }
 
+export default App;
+
 const app = new App();
 app.play();
-
-export default App;

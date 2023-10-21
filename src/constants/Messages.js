@@ -1,5 +1,6 @@
 export const OUTPUT_MESSAGES = Object.freeze({
   GAME_START: '숫자 야구 게임을 시작합니다.',
+  GAME_SUCCESS: '3개의 숫자를 모두 맞히셨습니다! 게임 종료',
   GAME_NUMBER: '숫자를 입력해주세요 : ',
 });
 

@@ -4,19 +4,32 @@ import Validators from '../../utils/validator/index.js';
 import InputView from './InputView.js';
 
 const View = {
+  print(message) {
+    OutputView.print(message);
+  },
+
   printStart() {
     OutputView.print(OUTPUT_MESSAGES.GAME_START);
   },
 
+  printSuccess() {
+    OutputView.print(OUTPUT_MESSAGES.GAME_SUCCESS);
+  },
+
   async readGameNumbers() {
-    let userNumbers;
-    try {
-      userNumbers = await InputView.readLineAsync(OUTPUT_MESSAGES.GAME_NUMBER);
-      Validators.checkGameNumbers(userNumbers);
-    } catch (error) {
-      OutputView.print(error);
-    }
+    const userNumbers = await InputView.readLineAsync(OUTPUT_MESSAGES.GAME_NUMBER);
+    Validators.checkGameNumbers(userNumbers);
     return userNumbers;
+  },
+
+  printHint({ ball, strike }) {
+    if (ball === 0 && strike === 0) {
+      OutputView.print('낫싱');
+    } else {
+      const message = `${ball}볼 ${strike}스트라이크`;
+      const hint = message.replace(/0볼|0스트라이크/g, '').trim();
+      OutputView.print(hint);
+    }
   },
 };
 
