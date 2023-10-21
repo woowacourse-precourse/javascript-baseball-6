@@ -39,7 +39,9 @@ const ERRORS = Object.freeze({
     FRONT: "[ERROR]",
     LENGTH: "데이터의 길이가 3이 아닙니다.",
     NUMBER: "데이터의 인덱스 값은 [1~9]범위의 값으로만 이루어져야합니다.",
-    DUPLICATION: "중복되는 숫자가 존재합니다."
+    DUPLICATION: "중복되는 숫자가 존재합니다.",
+    // 게임 클리어 후 재시작 혹은 종료를 위한 입력값을 벗어났을때 발생하는 오류 메세지
+    CLEAR_INPUT_NUMBER: "[1,2]를 제외한 숫자는 입력할 수 없습니다."
 })
 /*
 *   게임을 클리어 하기 위한 strike 조건
