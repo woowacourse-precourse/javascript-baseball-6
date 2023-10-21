@@ -33,7 +33,7 @@ class App {
     try {
       const userNumber = await Console.readLineAsync(GAME_MESSAGE.INPUT);
       // TODO : 사용자가 입력한 숫자에 대해 유효한 값인지 확인하는 기능
-      if (!inValidNumber(userNumber)) {
+      if (!this.inValidNumber(userNumber)) {
         return this.BaseballGame();
       }
       // TODO : 볼과 스트라이크를 계산하는 기능
@@ -42,7 +42,7 @@ class App {
         this.userNumber
       );
       // TODO : 비교한 결과에 대해 출력하는 기능
-      // TODO : 재시작 여부를 확인하는 기능
+      this.printResult(ball, strike);
     } catch (error) {
       throw new Error(ERROR_MESSAGE.IS_INVALID);
     }
@@ -83,6 +83,38 @@ class App {
     });
 
     return { ball, strike };
+  }
+
+  printResult(ball, strike) {
+    this.ball = ball;
+    this.strike = strike;
+
+    if (this.ball === 0 && this.strike === 0) {
+      Console.print(BASEBALL_MESSAGE.NOTHING);
+      return this.BaseballGame();
+    }
+
+    if (this.strike > 0 && this.strike < 3) {
+      Console.print(`${this.strike}${BASEBALL_MESSAGE.STRIKE}`);
+      return this.BaseballGame();
+    }
+
+    if (this.ball > 0) {
+      Console.print(`${this.ball}${BASEBALL_MESSAGE.BALL}`);
+      return this.BaseballGame();
+    }
+
+    if (this.ball > 0 && this.strike > 0 && this.strike < 3) {
+      Console.print(
+        `${this.ball}${BASEBALL_MESSAGE.BALL} ${this.strike}${BASEBALL_MESSAGE.STRIKE}`
+      );
+      return this.BaseballGame();
+    }
+
+    if (this.strike === 3) {
+      Console.print(`${this.strike}\n${GAME_MESSAGE.END}`);
+      return this.reStart();
+    }
   }
 }
 
