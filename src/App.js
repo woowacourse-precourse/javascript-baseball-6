@@ -7,25 +7,18 @@ const correctNumber = (userNumber) => {
 };
 
 class UserNumberReader {
-  constructor(userNumber = '') {
-    this.userNumber = userNumber;
+  constructor() {
+    this.userNumber = '';
   }
 
-  async run() {
-    try {
-      this.userNumber = await Console.readLineAsync();
+  getUserNumber() {
+    return this.userNumber;
+  }
 
-      if (!correctNumber(this.userNumber)) {
-        throw new Error("유효하지 않은 입력값입니다.");
-      }
-    } catch (error) {
-      Console.print("입력 오류: " + error.message);
-    }
+  setUserNumber(value) {
+    this.userNumber = value;
   }
 }
-
-const read = new UserNumberReader();
-read.run();
 
 class RandomNumberMaker {
   constructor(randomNumber = '') {
@@ -53,11 +46,17 @@ class App {
     try {
       const uniqueNumber = this.maker.makeRandomNumber();
       Console.print(uniqueNumber);
-      
-      const userAnswer = await this.reader.userInputNumber();
+
+      const userNumber = await Console.readLineAsync();
+      if (!correctNumber(userNumber)) {
+        throw new Error("유효하지 않은 입력값입니다.");
+      }
+
+      this.reader.setUserNumber(userNumber);
+      const userAnswer = this.reader.getUserNumber();
       Console.print(userAnswer);
-    } catch(error) {
-      throw error;
+    } catch (error) {
+      Console.print("입력 오류: " + error.message);
     }
   }
 }
