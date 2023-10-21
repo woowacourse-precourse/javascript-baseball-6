@@ -21,4 +21,9 @@ describe("UmpireTest", () => {
     expect(umpire.umpire([1, 2, 3], [2, 3, 4])).toBe(`2${BALL}`);
     expect(umpire.umpire([1, 2, 3], [2, 5, 6])).toBe(`1${BALL}`);
   });
+
+  test("스트라이크와 볼이 둘 다 있는 경우", () => {
+    expect(umpire.umpire([1, 2, 3], [1, 3, 2])).toBe(`2${BALL} 1${STRIKE}`);
+    expect(umpire.umpire([1, 2, 3], [1, 3, 9])).toBe(`1${BALL} 1${STRIKE}`);
+  });
 });
