@@ -32,4 +32,9 @@ export default class views{
     
     return resultMESSAGE;
   }
+
+  async retry() {
+		const reryOrNot = Console.readLineAsync(MESSAGE.RETRY);
+		return reryOrNot;
+	}
 }
