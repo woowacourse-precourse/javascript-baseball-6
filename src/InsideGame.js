@@ -26,7 +26,7 @@ class InsideGame {
     }
     const answerSet = new Set(answer);
     if (answerSet.size !== 3) {
-      throw new Error("[ERROR] 중첩되지 않은 세 자리 숫자를 입력해주세요");
+      throw new Error("[ERROR] 중복된 숫자를 입력했습니다.");
     }
     return "Normal Value";
   }

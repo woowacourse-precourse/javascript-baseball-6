@@ -78,7 +78,13 @@ class App extends InsideGame {
     if (endAnswer === 1) {
       this.randoms = super.randomNumber();
       this.play();
+    } else{
+      this.close();
     }
+  } 
+  close() {
+    MissionUtils.Console.print("프로그램을 종료합니다.");
+    return;
   }
 }
 
