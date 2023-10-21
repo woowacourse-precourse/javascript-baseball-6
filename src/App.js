@@ -50,21 +50,17 @@ const getUserNum = async () => {
   return userNumList;
 };
 
-// 설명 : 유저의 세자리 수와 컴퓨터의 세자리 수를 비교하여 
-//        스트라이크, 볼, 낫싱 여부를 판단한 후 화면에 출력 및 게임을 재시작 할지 결정하는 함수
-// 입력 : 1. 유저의 세자리 수 리스트
-// 출력 : 재식작 할지에 대한 여부
-const checkStrike = async (computerList) => {
-  let strikeCount = 0
-  let ballCount = 0
-  let endPoint = false;
+// 설명 : 컴퓨터와 유저의 세자리 수를 입력받아 스트라이크, 볼의 수를 파악하여 반환한다.
+// 입력 : 1. 컴퓨터 세자리 수 List
+//        2. 유저 세자리 수 List
+// 출력 : 스크라이크 수, 볼 수를 비 구조화 할당에 쓰기위해 오브젝트로 반환
+const guessStrike = (computer, user) => {
+  let strikeCount = 0;
+  let ballCount = 0;
 
-  while (!endPoint) {
-  const userList = await getUserNum(computerList)
-  
-  for (let i = 0; i < computerList.length; i++) {
-    for (let j = 0; j < userList.length; j++) {
-      if (computerList[i] === userList[j]) {
+  for (let i = 0; i < computer.length; i++) {
+    for (let j = 0; j < user.length; j++) {
+      if (computer[i] === user[j]) {
         if (i === j) {
           strikeCount++;
         } else {
@@ -74,24 +70,43 @@ const checkStrike = async (computerList) => {
     }
   }
 
-  if (strikeCount === 0 && ballCount === 0) {
-      printMessage('낫싱');
-    } else {
-      let output = '';
-      if (ballCount > 0) {
-        output += `${ballCount}볼 `;
-      }
-      if (strikeCount > 0) {
-        output += `${strikeCount}스트라이크`;
-      }
-      printMessage(output);
+  return { strikeCount, ballCount };
+}
+
+// 설명 : 입력받는 스트라이크 수와 볼 수에 따라 문구를 출력해준다.
+// 입력 : 1. strike 수
+//        2. ball 수
+// 출력 : 터미널에 문구 출력
+const printResult = (strike,ball) => {
+  if (strike === 0 && ball === 0) {
+    printMessage('낫싱');
+  } else {
+    let output = '';
+    if (ball > 0) {
+      output += `${ball}볼 `;
     }
+    if (strike > 0) {
+      output += `${strike}스트라이크`;
+    }
+    printMessage(output);
+  }
+}
+
+// 설명 : 유저의 세자리 수와 컴퓨터의 세자리 수를 비교하여 
+//        스트라이크, 볼, 낫싱 여부를 판단한 후 화면에 출력 및 게임을 재시작 할지 결정하는 함수
+// 입력 : 1. 유저의 세자리 수 리스트
+// 출력 : 재식작 할지에 대한 여부
+const checkStrike = async (computerList) => {
+  let endPoint = false;
+
+  while (!endPoint) {
+  const userList = await getUserNum(computerList)
+  const { strikeCount, ballCount } = guessStrike(computerList, userList);
+  printResult(strikeCount, ballCount);
   if(strikeCount === 3) {
     printMessage('3개의 숫자를 모두 맞히셨습니다! 게임 종료')
     return restartGame();
   }
-  strikeCount = 0
-  ballCount = 0
 }
 }
 
@@ -107,6 +122,7 @@ const main = async () => {
     endPoint = await checkStrike(computer)
   }
 }
+main()
 class App {
   async play() {
     await main()
