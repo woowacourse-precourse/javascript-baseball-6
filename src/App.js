@@ -37,8 +37,28 @@ class App {
     }
     if (strike === 3) {
       // 게임 종료.
-      MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+      this.gameSet();
+    } else {
+      const userNumber = await this.getUserNumber();
+      await this.getResult(comNums, userNumber);
     }
+  }
+
+  async gameSet() {
+    MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    const userInput = await MissionUtils.Console.readLineAsync(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+    );
+
+    if (userInput !== "1" && userInput !== "2") {
+      // throw new Error("1또는 2를 선택해야합니다.");
+      MissionUtils.Console.print("1또는 2를 선택해야합니다.");
+    }
+    if (userInput === "1") {
+      return this.play();
+    }
+    MissionUtils.Console.print("게임이 종료되었습니다.");
+    return;
   }
 
   async play() {
@@ -54,6 +74,7 @@ class App {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
 
     const userNumber = await this.getUserNumber();
+    await this.getResult(computer, userNumber);
   }
 }
 
