@@ -16,8 +16,16 @@ class App {
     return randomNumber;
   }
 
+  setUserInput() {
+    Console.readLine("숫자를 입력해주세요 : ", (inputNumber) => {
+      const userInputNumber = inputNumber.split("").map(Number);
+      Console.print(userInputNumber);
+    });
+  }
+
   async play() {
     this.showStartMessage();
+    this.setUserInput();
   }
 }
 
