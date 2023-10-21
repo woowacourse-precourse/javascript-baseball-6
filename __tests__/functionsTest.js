@@ -33,7 +33,6 @@ describe("야구 게임 테스트", () => {
   test("컴퓨터 숫자 랜덤", () => {
     const number = [1, 2, 3];
     mockRandoms(number);
-    const app = new App();
     const result = selectComputer();
     expect(result).toEqual("123");
   });
@@ -47,9 +46,7 @@ describe("야구 게임 테스트", () => {
     const user = ["123"];
 
     mockQuestions(user);
-
-    const app = new App();
-    app.solveNumber(computer);
+    solveNumber(computer);
 
     expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("3스트라이크"));
   });
@@ -58,8 +55,7 @@ describe("야구 게임 테스트", () => {
     const user = "1234";
 
     expect(() => {
-        const app = new App();
-        app.checkLength(user);
+        checkLength(user);
     }).toThrow();
   });
 
@@ -67,8 +63,7 @@ describe("야구 게임 테스트", () => {
     const user = "abc";
 
     expect(() => {
-        const app = new App();
-        app.checkNumber(user);
+        checkNumber(user);
     }).toThrow();
   });
 
@@ -76,8 +71,7 @@ describe("야구 게임 테스트", () => {
     const user = "012";
 
     expect(() => {
-      const app = new App();
-      app.checkRange(user);
+        checkRange(user);
     }).toThrow();
   });
 
@@ -85,8 +79,7 @@ describe("야구 게임 테스트", () => {
     const user = "224";
 
     expect(() => {
-      const app = new App();
-      app.checkOverlap(user);
+        checkOverlap(user);
     }).toThrow();
   });
 
@@ -94,8 +87,7 @@ describe("야구 게임 테스트", () => {
     const computer = "589";
     const user = "597";
 
-    const app = new App();
-    const result = app.calculateScore(computer, user);
+    const result = calculateScore(computer, user);
 
     expect(result).toEqual({ ball: 1, strike: 1 });
 });
@@ -106,8 +98,7 @@ describe("야구 게임 테스트", () => {
 
     const score = { ball: 1, strike: 1 };
 
-    const app = new App();
-    app.printScore(score);
+    printScore(score);
 
     expect(logSpy).toHaveBeenCalledWith("1볼 1스트라이크");
   });
@@ -118,8 +109,7 @@ describe("야구 게임 테스트", () => {
 
     const result = "3스트라이크";
 
-    const app = new App();
-    app.isAnswer(result);
+    isAnswer(result);
 
     expect(logSpy).toHaveBeenCalledWith(
         "3개의 숫자를 모두 맞히셨습니다! 게임 종료"
@@ -194,8 +184,7 @@ describe("야구 게임 테스트", () => {
     const option = "3";
 
     expect(() => {
-      const app = new App();
-      app.isOptionError(option);
+        isOptionError(option);
     }).toThrow();
   });
 });
