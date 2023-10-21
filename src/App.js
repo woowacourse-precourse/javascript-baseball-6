@@ -90,8 +90,9 @@ function countStrike(cpu, user) {
 function countBall(cpu, user) {
   const CPULENGTH = cpu.length;
   let ball = 0;
+  let cpuSet = new Set(cpu);
   for (let i = 0; i < CPULENGTH; i++) {
-    if (cpu[i] !== user[i] && cpu.includes(user[i])) {
+    if (cpu[i] !== user[i] && cpuSet.has(user[i])) {
       ball++;
     }
   }
