@@ -1,5 +1,4 @@
 const isValidNumber = (string) => {
-  console.log(string);
   if (!string) {
     return false;
   }
