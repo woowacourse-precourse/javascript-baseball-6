@@ -1,6 +1,8 @@
+import MESSAGE from "../constants/message";
+
 class ValidationError extends Error {
   constructor(message) {
-    super(message);
+    super(MESSAGE.ERROR.PREFIX + message);
     this.name = "ValidationError";
   }
 }
