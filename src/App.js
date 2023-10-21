@@ -30,5 +30,16 @@ export default class App{
       this.judgeResult();
     }
   }
-
+  //결과를 판단
+  judgeResult() {
+    const result = this.#_player.getJudgeResultPaper(this.#_opponent);
+  
+    if (result.STRIKE === CONSTANT.THREESTRIKE) {
+      this.correct();
+    }  
+    if (result.STRIKE !== CONSTANT.THREESTRIKE){
+      this.wrongAnswerRetry(result);
+    }
+  }
+  
 }
