@@ -5,8 +5,14 @@ import AppError from "../error/AppError.js";
 // 공들을 관리하는 클래스
 
 class Gong {
-  /** @type {number} */
+  /**
+   *  @member {number} GONGS_LENGTH
+   *  @member {number} GONG_MIN_NUM
+   *  @member {number} GONG_MAX_NUM
+   */
   static GONGS_LENGTH = 3;
+  static GONG_MIN_NUM = 1;
+  static GONG_MAX_NUM = 9;
 
   /**
    * @type {[number, number, number]}
@@ -48,7 +54,14 @@ class Gong {
   validate() {
     this.validateOfType();
     this.validateOfLength();
+    this.validateOfRange();
     this.validateOfDupliacation();
+  }
+
+  validateOfType() {
+    if (this.#gongs.some(isNaN)) {
+      throw new AppError(errorMessages.NOT_A_NUMBER);
+    }
   }
 
   validateOfLength() {
@@ -57,9 +70,13 @@ class Gong {
     }
   }
 
-  validateOfType() {
-    if (this.#gongs.some(isNaN)) {
-      throw new AppError(errorMessages.NOT_A_NUMBER);
+  validateOfRange() {
+    if (
+      !this.#gongs.every(
+        (num) => num >= Gong.GONG_MIN_NUM && num <= Gong.GONG_MAX_NUM
+      )
+    ) {
+      throw new AppError(errorMessages.OUT_OF_RANGE);
     }
   }
 
