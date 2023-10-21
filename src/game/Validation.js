@@ -1,8 +1,9 @@
 import InputValidator from "../utils/InputValidator.js";
+import { ANSWER_LENGTH } from "./constants.js";
 
 class Validation {
   static validateUserNumbersInput(userResponse) {
-    InputValidator.validateLength(userResponse, 3);
+    InputValidator.validateLength(userResponse, ANSWER_LENGTH);
     InputValidator.validateNotDuplicate(userResponse);
     InputValidator.validateIsNumber(userResponse);
   }

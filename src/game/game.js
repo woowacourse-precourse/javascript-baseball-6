@@ -1,9 +1,10 @@
 import { MissionUtils, Console } from "@woowacourse/mission-utils";
 import Validation from "./Validation.js";
+import { GAME_MESSAGES, ANSWER_LENGTH } from "./constants.js";
 
 class Game {
   constructor() {
-    this.answer = this.createThreeRandomNumbers();
+    this.answer = this.createRandomNumbers();
   }
 
   async play() {
@@ -14,17 +15,17 @@ class Game {
 
       this.displayGameStatus(strike, ball);
 
-      if (strike === 3) {
-        Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+      if (strike === ANSWER_LENGTH) {
+        Console.print(GAME_MESSAGES.END);
         break;
       }
     }
   }
 
-  createThreeRandomNumbers() {
+  createRandomNumbers() {
     const threeRandomInteger = [];
 
-    while (threeRandomInteger.length < 3) {
+    while (threeRandomInteger.length < ANSWER_LENGTH) {
       const number = MissionUtils.Random.pickNumberInRange(1, 9);
       if (!threeRandomInteger.includes(number)) {
         threeRandomInteger.push(number);
@@ -38,7 +39,7 @@ class Game {
     let strike = 0;
     let ball = 0;
 
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < ANSWER_LENGTH; i++) {
       if (userResponse.charAt(i) - "0" === answer[i]) {
         strike++;
       } else if (answer.includes(userResponse.charAt(i) - "0")) {
@@ -67,7 +68,7 @@ class Game {
   }
 
   async promptUserForNumbers() {
-    let userResponse = await Console.readLineAsync("숫자를 입력해주세요: ");
+    let userResponse = await Console.readLineAsync(GAME_MESSAGES.ENTER_NUMBERS);
     userResponse = userResponse.trim();
 
     Validation.validateUserNumbersInput(userResponse);

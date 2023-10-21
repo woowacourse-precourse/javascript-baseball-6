@@ -1,6 +1,7 @@
 import { Console } from "@woowacourse/mission-utils";
 import Game from "./Game.js";
 import Validation from "./Validation.js";
+import { GAME_MESSAGES } from "./constants.js";
 
 class GameLifecycleManager {
   constructor() {
@@ -8,7 +9,7 @@ class GameLifecycleManager {
   }
 
   startGame() {
-    Console.print("숫자 야구 게임을 시작합니다.");
+    Console.print(GAME_MESSAGES.START);
   }
 
   async playGame() {
@@ -18,13 +19,13 @@ class GameLifecycleManager {
 
   async promptNewGameOrExit() {
     let userResponse = await Console.readLineAsync(
-      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+      GAME_MESSAGES.ENTER_RESTART_OR_QUIT
     );
     userResponse = userResponse.trim();
     Validation.validateGameTerminationInput(userResponse);
 
     if (userResponse === "2") {
-      Console.print("게임을 종료합니다.");
+      Console.print(GAME_MESSAGES.EXIT);
       this.isGameEnded = true;
     }
   }
