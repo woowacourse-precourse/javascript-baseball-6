@@ -1,11 +1,11 @@
-// 컴퓨터와 플레이어 수 비교
+/* // 컴퓨터와 플레이어 수 비교
 const computerNumber = "952";
 const playerNumber = "512";
 
 const arrNumber = (arr) => arr.split('').map(Number); // 배열로 바꿈
 
 const computerArray = arrNumber(computerNumber);
-const playerArray = arrNumber(playerNumber);
+const playerArray = arrNumber(playerNumber); */
 
 // 게임 결과 출력
 const showResult = () => {
