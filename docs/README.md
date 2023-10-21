@@ -27,7 +27,7 @@
   - [x] Player가 입력한 수 상태 관리 로직 구현
 
 ### 🎯 View 구현
-- [x] Player가 시도한 input을 입력 받는 로직 구현
+- [x] Player가 시도할 input을 입력 받는 로직 구현
 - [] Player가 시도한 input이 잘못된 입력일 때 에러를 보내는 로직 구현
 - [] Player가 시도한 결과에 따른 출력 결과 로직 구현
 - [] Player가 시도한 input이 정답일 때 출력 결과 구현
