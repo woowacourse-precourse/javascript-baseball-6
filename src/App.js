@@ -33,13 +33,13 @@ async function userPickNum() {
 function checkUserNum(user) {
   const setUserNum = new Set(user);
   if (user.length !== 3) {
-    throw new Error("3자리의 숫자를 입력해주세요.");
+    throw new Error("[ERROR] 3자리의 숫자를 입력해주세요.");
   }
-  if (parseInt(user, 10) !== user) {
-    throw new Error("숫자를 입력해주세요.");
+  if (parseInt(user, 10) !== Number(user)) {
+    throw new Error("[ERROR] 숫자를 입력해주세요.");
   }
-  if(setUserNum.has("0")){
-    throw new Error("1~9까지의 숫자만 입력해주세요");
+  if (setUserNum.has("0")) {
+    throw new Error("[ERROR] 1~9까지의 숫자만 입력해주세요");
   }
 }
 
@@ -83,7 +83,7 @@ async function startOrExitGame() {
   } else if (userInput === "2") {
     return false;
   } else {
-    throw new Error("1, 2중에서 입력해주세요.");
+    throw new Error("[ERROR] 1, 2중에서 입력해주세요.");
   }
 }
 
