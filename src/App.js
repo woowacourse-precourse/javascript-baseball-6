@@ -1,6 +1,17 @@
 import { Console, MissionUtils } from '@woowacourse/mission-utils';
 
 class App {
+  generateRandomNumber() {
+    const computer = [];
+    while (computer.length < 3) {
+      const number = MissionUtils.Random.pickNumberInRange(1, 9);
+      if (!computer.includes(number)) {
+        computer.push(number);
+      }
+    }
+    return computer;
+  }
+
   isValidInput(input, restart = false) {
     // 게임 재시작 여부에 대한 입력값 검증
     if (restart) {
@@ -51,18 +62,10 @@ class App {
   }
 
   async play() {
-    // 랜덤 값 생성하기
-    const computer = [];
-    while (computer.length < 3) {
-      const number = MissionUtils.Random.pickNumberInRange(1, 9);
-      if (!computer.includes(number)) {
-        computer.push(number);
-      }
-    }
-
+    let computer = this.generateRandomNumber();
     let flag = 1;
-    Console.print('숫자 야구 게임을 시작합니다.');
 
+    Console.print('숫자 야구 게임을 시작합니다.');
     while (flag) {
       const userRandom = await Console.readLineAsync('숫자를 입력해주세요 : ');
       this.isValidInput(userRandom);
@@ -79,16 +82,7 @@ class App {
         if (restart === '2') {
           flag = 0;
         } else {
-          // 새로운 랜덤 값 생성
-          while (computer.length > 0) {
-            computer.pop();
-          }
-          while (computer.length < 3) {
-            const number = MissionUtils.Random.pickNumberInRange(1, 9);
-            if (!computer.includes(number)) {
-              computer.push(number);
-            }
-          }
+          computer = this.generateRandomNumber();
         }
       }
     }
