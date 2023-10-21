@@ -1,4 +1,4 @@
-# Lv1. 기능 분석
+bb# Lv1. 기능 분석
 
 ## 기본 입출력 요구사항
 > - 입력
@@ -29,8 +29,8 @@
 > - [ ] 추측 요청 메시지 출력
 > </br></br>
 > - [ ] 피드백
->   - [ ] 피드백 생성 : 실제 정답과 사용자의 추측을 대조
->   - [ ] 피드백 출력
+>   - [x] 피드백 생성 : 볼, 스트라이크 카운트
+>   - [x] 피드백 출력
 > </br></br>
 > - [ ] 게임 종료
 >   - [ ] 정답을 맞추면 게임 종료
@@ -38,14 +38,14 @@
 > </br></br>
 > - [ ] 재시작
 >   - [ ] 재시작 안내 메시지 출력
->   - [ ] 사용자 입력 : 1(재시작), 2(종료)
+>   - [x] 사용자 입력 : 1(재시작), 2(종료)
 
 </br>
 
 ## 정답/추측
-> - [ ] 유효성검사
->   - [ ] 사용자 추측 유효성 검사 : 중복없는 3자리의 숫자로 구성
->   - [ ] 유효성 검사 실패 : 예외 발생 및 메시지 출력
+> - [x] 유효성검사
+>   - [x] 사용자 추측 유효성 검사 : 중복없는 3자리의 숫자로 구성
+>   - [x] 유효성 검사 실패 : 예외 발생 및 메시지 출력
 > </br></br>
 > - [ ] 정답 대조 : 정답과 추측을 대조
 >   - [ ] Balls : Value만 일치하고 Index가 불일치하는 숫자의 수
@@ -111,7 +111,8 @@
 >   - `setAnswer()` : 임의 정답 생성
 > </br></br>
 > - `setAnswer` `()` : 임의 정답 생성
->   - `this.answer = new Numbers(LENGTH)`
+>   - `numbers` := 랜덤한 LENGTH 길이의 수
+>   - `this.answer = new Numbers(numbers)`
 > </br></br>
 > - `getUserGuess` `()` : 추측 입력
 >   - `this.guess = new Numbers(LENGTH, value)`
@@ -129,20 +130,16 @@
 숫자의 조합을 저장하고 유효성 검사를 수행하는 클래스
 > ### Members
 > - `DATA_TYPE_REGEX = /^[1-9]+$/` : 정규식 (타입)
-> - `NO_DUPLICATES_REGEX = /^([a-zA-Z0-9])\1*$/` : 정규식 (중복)
+> - `NO_DUPLICATES_REGEX = /^(?!.*(\d).*\1)\d+$/` : 정규식 (중복)
 > - `Number` `length` : 정답 길이
 > - `String` `value` : 현재 객체의 값
 > </br></br>
 > ### Functions
-> - `constructor` `(Number length, String value = null)` : 생성자
+> - `constructor` `(Number length, String value)` : 생성자
 >   - `this.length = length` : 정답 길이 초기화
->   - `value === null` : 임의 정답 객체 생성
->     - `this.value = getRandomValue()`
 >   - `value !== null` : 사용자 추측 객체 생성
 >     - `this.validate(value)` : 유효성 검사
 >     - `this.value = value`
-> </br></br>
-> - `String` `getRandomValue` `()` : 입의 정답 객체 생성
 > </br></br>
 > - `validate` `(String value)` : 유효성 검사
 >   - `this.checkLength(value)` : 길이 검사
@@ -169,6 +166,8 @@
 > - `Number` `countBalls` `(Numbers target)` : 볼 카운팅
 > </br></br>
 > - `Number` `countBalls` `(Numbers target)` : 스트라이크 카운팅
+> </br></br>
+> - `String` `getValue` `()` : value의 getter
 
 </br>
 
