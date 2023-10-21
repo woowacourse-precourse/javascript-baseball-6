@@ -16,11 +16,14 @@ class App {
     return randomNumber;
   }
 
-  setUserInput() {
-    Console.readLine("숫자를 입력해주세요 : ", (inputNumber) => {
+  async setUserInput(randomNumber) {
+    try {
+      const inputNumber = await Console.readLineAsync("숫자를 입력해주세요 : ");
       const userInputNumber = this.userInputNumberValidation(inputNumber).split("").map(Number);
-      Console.print(userInputNumber);
-    });
+      this.calcBallStrike(userInputNumber, randomNumber);
+    } catch (error) {
+      Console.print(`[ERROR] 숫자가 잘못된 형식입니다.`);
+    }
   }
 
   lengthValidation(inputNumber) {
@@ -48,9 +51,46 @@ class App {
     return inputNumber;
   }
 
+  isStrike(randomNumber, userInputNumber, idx) {
+    return randomNumber.includes(userInputNumber) && randomNumber[idx] === userInputNumber;
+  }
+
+  isBall(randomNumber, userInputNumber, idx) {
+    return randomNumber.includes(userInputNumber) && randomNumber[idx] !== userInputNumber;
+  }
+
+  calcBallStrike(userInputNumber, randomNumber) {
+    const baseBallCount = {
+      strike: 0,
+      ball: 0,
+    };
+
+    userInputNumber.forEach((userInputNumber, idx) => {
+      if (this.isBall(randomNumber, userInputNumber, idx)) {
+        baseBallCount.ball++;
+      } else if (this.isStrike(randomNumber, userInputNumber, idx)) {
+        baseBallCount.strike++;
+      }
+    });
+
+    if (baseBallCount.ball > 0) {
+      Console.print(`${baseBallCount.ball}볼`);
+    }
+
+    if (baseBallCount.strike > 0) {
+      Console.print(`${baseBallCount.strike}스트라이크`);
+    }
+
+    if (baseBallCount.strike === 0 && baseBallCount.ball === 0) {
+      Console.print(`낫싱`);
+    }
+
+    return baseBallCount;
+  }
+
   async play() {
     this.showStartMessage();
-    this.setUserInput();
+    this.setUserInput(this.setRandomNumber());
   }
 }
 
