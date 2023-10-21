@@ -1,6 +1,12 @@
 import { MissionUtils} from '@woowacourse/mission-utils';
 
-const NUMBER_LENGTH = 3;
+const {
+  NUMBER_LENGTH,
+  SCORES,
+  MESSAGES,
+  ERRORS,
+  OPTIONS,
+} = require("./constants.js");
 
 class App {
   async play() {
@@ -10,7 +16,7 @@ class App {
 
   startGame() {
     const START = "숫자 야구 게임을 시작합니다.";
-    MissionUtils.Console.print(START);
+    MissionUtils.Console.print(MESSAGES.START);
     }
 
   playGame() {
@@ -32,7 +38,7 @@ class App {
   }
 
   solveNumber(computer) {
-    MissionUtils.Console.readLine('숫자를 입력해주세요 : ', (num) => {
+    MissionUtils.Console.readLine(MESSAGES.INPUT_NUMBER, (num) => {
       this.isUserError(num, computer);
     });
   }
@@ -51,25 +57,25 @@ class App {
     const validNumber = [...new Set(numberList)];
 
     if (validNumber.length < 3) {
-      throw "중복되지 않은 숫자 3개를 입력해주세요.";
+      throw ERRORS.OVERLAP;
     }
   }
 
   checkLength(number) {
     if (number.length !== NUMBER_LENGTH) {
-      throw `${NUMBER_LENGTH}자리 숫자를 입력해주세요.`;
+      throw ERRORS.LENGTH;
     }
   }
 
   checkNumber(number) {
     if (isNaN(number)) {      
-      throw `${NUMBER_LENGTH}자리 숫자를 입력해주세요.`;    
+      throw ERRORS.TYPE;
     }
   }
 
   checkRange(number) {
     if (number.includes("0")) {
-      throw `1과 9 사이의 숫자 ${NUMBER_LENGTH}개를 입력해주세요.`;
+      throw ERRORS.RANGE;
     }
   }
 
@@ -97,11 +103,11 @@ class App {
     });
     return [
       {
-        name: "볼",
+        name: SCORES.BALL,
         score: ball,
       },
       {
-        name: "스트라이크",
+        name: SCORES.STRIKE,
         score: strike,
       },
     ];  }
@@ -118,43 +124,38 @@ class App {
     result = result.join(" ");
 
     if (result.length === 0) {
-      result = "낫싱";
+      result = SCORES.NOTHING;
     }
     MissionUtils.Console.print(result);
     return result;
   }
 
   isAnswer(answer, computer) {
-    if (answer.includes(`${NUMBER_LENGTH}스트라이크`)) {
-      MissionUtils.Console.print(
-        `${NUMBER_LENGTH}개의 숫자를 모두 맞히셨습니다! 게임 종료`
-      );   
+    if (answer.includes(`${NUMBER_LENGTH}${SCORES.STRIKE}`)) {
+      MissionUtils.Console.print(MESSAGES.SUCCESS); 
       return this.selectOption();
     }
     this.solveNumber(computer);
   }
 
   selectOption() {
-    MissionUtils.Console.readLine(
-      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n",      
-      (num) => {
-        this.isOptionError(num);
-      }
-    )
+    MissionUtils.Console.readLine(MESSAGES.INPUT_OPTION, (num) => {
+      this.isOptionError(num);
+    });
   }
 
   isOptionError(option) {
-    const RESTART = "1";
-    const END = "2";
+    const RESTART = OPTIONS.RESTART;
+    const END = OPTIONS.END;
 
     if (option !== RESTART && option !== END) {
-      throw "잘못된 옵션을 선택하였습니다.";
+      throw ERRORS.OPTION;
     }
     if (option === RESTART) {
       return this.playGame();
     }
     if (option === END) {
-      MissionUtils.Console.print("게임 종료");
+      MissionUtils.Console.print(MESSAGES.END);
     }
   }
 }
