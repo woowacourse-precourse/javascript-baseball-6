@@ -25,8 +25,8 @@ class App {
         Console.print(STRING.START);
         console.log(this.randomNumber);
         const input = await this.playerInputNumber();
-        const {strike, ball} = await this.umpireOfGame(input);
-        console.log(`${ball}${STRING.BALL} ${strike}${STRING.STRIKE}`);
+        const {ball,strike} = await this.umpireOfGame(input);
+        this.makeJudgement(ball,strike)
     }
 
     /**
@@ -83,10 +83,9 @@ class App {
     */
     async umpireOfGame(input) {
         const result = {
-            strike: 0,
-            ball: 0
+            ball: 0,
+            strike: 0
         }
-        Console.print("동작");
         this.randomNumber.forEach((number, index) => {
             if (number == input[index]) {
                 result.strike++;
@@ -97,6 +96,26 @@ class App {
             }
         })
         return result;
+    }
+    /**
+     * 데이터 판별 결과를 출력함
+     * @param {number} ball
+     * @param {number} strike
+     * @returns 
+     */
+
+    printJudgement(ball, strike){
+        if(ball+strike === 0){
+            Console.print(STRING.NOTHING);
+        }
+        let str = "";
+        if(ball != 0){
+            str += `${ball}${STRING.BALL} `;
+        }
+        if(strike !=0){
+            str += `${strike}${STRING.STRIKE}`;
+        }
+        Console.print(str);
     }
 
 
