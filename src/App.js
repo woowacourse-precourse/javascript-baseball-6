@@ -48,8 +48,10 @@ function review(answer, number) {
 function resetScore() {
   SCORE.볼 = 0;
   SCORE.스트라이크 = 0;
+  console.log(SCORE);
 }
 function printResult(SCORE) {
+  console.log(SCORE);
   if (SCORE.볼 === 0 && SCORE.스트라이크 === 0) {
     //낫싱
     MissionUtils.Console.print("낫싱");
@@ -63,51 +65,46 @@ function printResult(SCORE) {
     return false;
   }
   if (!SCORE.볼 && !SCORE.스트라이크) {
-    MissionUtils.Console.print(
-      SCORE.볼 + "볼" + " " + SCORE.스트라이크 + "스트라이크"
-    );
+    console.log("볼과 스트라이크");
+    let text = SCORE.볼 + "볼" + " " + SCORE.스트라이크 + "스트라이크";
+    MissionUtils.Console.print(text);
     return true;
   }
+  console.log("볼또는스트라이크");
   let text = SCORE.볼 ? SCORE.볼 + "볼" : SCORE.스트라이크 + "스트라이크";
   MissionUtils.Console.print(text);
   return true;
 }
-async function getSomting() {
+async function getSomething(answer) {
   //비동기 동작원리를 정확히 파악하지 못하는듯
-  getUserInput("숫자를 입력해주세요 :")
-    .then((num) => {
-      if (!checkError(num)) {
-        return num;
-      }
-    })
-    .then((num) => {
-      return review(answer, num);
-    })
-    .then((result) => {
-      let isContinue = printResult(result);
-      if (isContinue) {
-        resetScore();
-        getSomting();
-      }
-      getUserInput("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.").then(
-        (num) => {
-          if (num === "1") {
-            app.play();
-          }
-          //종료
-          return;
-        }
-      );
-    });
+  let num = await getUserInput("숫자를 입력해주세요 :");
+  if (!checkError(num)) {
+    let result = review(answer, num);
+    let isContinue = printResult(result);
+    if (isContinue) {
+      resetScore();
+      getSomting();
+    }
+    let number = await getUserInput(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+    );
+
+    if (number === "1") {
+      app.play();
+    }
+    //종료
+    return;
+  }
 }
 class App {
   async play() {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
     //반복되는 구간을 while 로 돌리고 싶은데 비동기때문에 어려움 그래서 일단 함수로 만들어서 자기 호출하는 식으로 만듦
-    getSomting();
+
+    getSomething(answer);
+    const answer = makeRandom();
     //비동기 라이브러리쓰니까 입력하는 동안 미리 할 수 잇는 답안 작성하기 하고 싶은데 안됨
     //호이스팅 개념도 흔들리는 중
-    const answer = makeRandom();
   }
 }
 
