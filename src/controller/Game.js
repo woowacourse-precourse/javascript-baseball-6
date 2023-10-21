@@ -2,7 +2,7 @@ import { Console } from '@woowacourse/mission-utils';
 
 const OutputView = require('../view/OutputView');
 const InputView = require('../view/InputView');
-const RandomNumberGenerator = require('../model/RandomNumberGenerator');
+const RandomNumberGenerator = require('../model//RandomNumberMaker');
 const Referee = require('../model/Referee');
 const UserValidation = require('../validation/UserValidation');
 const OptionValidation = require('../validation/OptionValidation');
