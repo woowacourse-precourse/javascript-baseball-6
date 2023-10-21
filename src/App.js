@@ -31,10 +31,10 @@ function validateUserInput(userInput, computer) {
 			returnScore(strike, ball);
 			finishGame();
 		} else {
-      // throw new Error('[Error]', error);
+      throw new Error('[Error] 숫자가 잘못된 형식입니다.');
     }
 	} else {
-    // throw new Error('[Error]', error);
+    throw new Error('[Error] 세자리 숫자를 입력해주세요.');
   }
 }
 async function finishGame() {
