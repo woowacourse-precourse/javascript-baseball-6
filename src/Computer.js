@@ -1,5 +1,7 @@
 export class Computer {
-    function createRandomNum() {
+    constructor() {}
+
+    createRandomNum() {
         let result = '';
         while (result.length < 3) {
             const randomNum = Math.floor(Math.random() * 9 + 1);
