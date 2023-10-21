@@ -61,7 +61,7 @@ class GameController {
 
   /**
    * 읽어온 플레이어의 숫자 입력 값을 반환하는 메서드
-   * @returns {string} - 플레이어가 입력한 숫자.
+   * @returns {Promise<string>} - 플레이어가 입력한 숫자.
    * @private
    */
   #inputPlayerBaseball() {
@@ -70,7 +70,7 @@ class GameController {
 
   /**
    * 읽어온 플레이어의 종료 명령어 값을 반환하는 메서드
-   * @returns {string} - 플레이어가 입력한 게임 종료 명령어.
+   * @returns {Promise<string>} - 플레이어가 입력한 게임 종료 명령어.
    * @private
    */
   #inputExitGameCommand() {
@@ -101,7 +101,7 @@ class GameController {
 
   /**
    * Computer(Domain Model)로 부터 플레이어 야구공과 비교 한 결과를 요청하는 메서드
-   * @param {Array<number>} playerBaseball - 플레이어의 야구공
+   * @param {number[]} playerBaseball - 플레이어의 야구공
    * @returns {Object} - 스트라이크와 볼 수를 포함한 객체.
    * @private
    */
