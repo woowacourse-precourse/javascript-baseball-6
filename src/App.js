@@ -14,8 +14,7 @@ class App {
             (input) =>
               !isNaN(Number(input)) &&
               input.length === 3 &&
-              new Set(input).size === 3,
-            "3자리의 중복되지 않는 숫자를 입력해주세요."
+              new Set(input).size === 3
           );
           let { strikes, balls } = this.checkNumber(COM_NUMBER, userNumber);
           if (strikes === 3) {
@@ -24,8 +23,7 @@ class App {
             );
             let answer = await this.requestInput(
               "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n",
-              (input) => input === "1" || input === "2",
-              "1 또는 2를 입력해주세요."
+              (input) => input === "1" || input === "2"
             );
             if (answer === "1") {
               break;
@@ -43,7 +41,7 @@ class App {
             MissionUtils.Console.print(`${balls}볼 ${strikes}스트라이크`);
           }
         } catch (error) {
-          if (error.message === "INVALID_INPUT") {
+          if (error.message === "[ERROR]") {
             return;
           }
         }
@@ -62,7 +60,7 @@ class App {
     return COMPUTER.join("");
   }
 
-  async requestInput(promptMessage, validation, errorMessage) {
+  async requestInput(promptMessage, validation) {
     while (true) {
       try {
         const USERINPUT = await MissionUtils.Console.readLineAsync(
@@ -70,20 +68,22 @@ class App {
         );
 
         if (isNaN(Number(USERINPUT))) {
-          throw new Error("INVALID_INPUT");
+          throw new Error("[ERROR]");
         }
 
         if (!validation(USERINPUT)) {
-          throw new Error(errorMessage);
+          throw new Error("[ERROR]");
         }
 
         return USERINPUT;
       } catch (error) {
-        if (error.message === "INVALID_INPUT") {
-          MissionUtils.Console.print("문자가 포함된 입력입니다. 애플리케이션을 종료합니다.");
+        if (error.message === "[ERROR]") {
+          MissionUtils.Console.print(
+            "문자가 포함된 입력입니다. 애플리케이션을 종료합니다."
+          );
           throw error;
         }
-        console.log(error.message);
+        MissionUtils.Console.print(error.message);
       }
     }
   }
