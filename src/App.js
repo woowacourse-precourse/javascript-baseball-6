@@ -30,8 +30,8 @@ class App {
           this.#makeComputerNumber();
         }
         if (retryAnswer === ANSWER.FINISH) {
-          this.#finish();
-          break;
+          OutputView.printFinish();
+          return Promise.resolve('게임 종료');
         }
       }
     }
@@ -43,23 +43,18 @@ class App {
     return [...input].map((e) => Number(e));
   }
 
-  #finish() {
-    OutputView.printFinish();
-  }
-
   #matchComputerNumber(userInput) {
     const table = {
       STRIKE_COUNT: 0,
       BALL_COUNT: 0,
     };
     userInput.forEach((userNum, userNumIndex) => {
-      if (this.#computerNumber.findIndex((computerNum) => computerNum === userNum) !== -1) {
-        const computerNumIndex = this.#computerNumber.findIndex((computerNum) => computerNum === userNum);
-        if (userNumIndex === computerNumIndex) {
-          table.STRIKE_COUNT += 1;
-        } else {
-          table.BALL_COUNT += 1;
-        }
+      const matchedIndex = this.#computerNumber.findIndex(
+        (computerNum) => computerNum === userNum,
+      );
+      if (matchedIndex !== -1) {
+        if (userNumIndex === matchedIndex) table.STRIKE_COUNT += 1;
+        if (userNumIndex !== matchedIndex) table.BALL_COUNT += 1;
       }
     });
     return table;
