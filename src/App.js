@@ -6,6 +6,31 @@ class App {
     this.isCorret = false;
     this.randomNum = [];
   }
+
+  exceptionUserNum(str) {
+    if (str.length != 3) {
+      throw Error("[ERROR]");
+    }
+    if (isNaN(str)) {
+      throw Error("[ERROR]");
+    }
+    if (Number(str[0]) == 0 || Number(str[1]) == 0 || Number(str[2]) == 0) {
+      throw Error("[ERROR]");
+    }
+    if (
+      Number(str[0]) == Number(str[1]) ||
+      Number(str[0]) == Number(str[2]) ||
+      Number(str[1]) == Number(str[2])
+    ) {
+      throw Error("[ERROR]");
+    }
+  }
+
+  exceptionReplayAnswer(str) {
+    if (str != "1" && str != "2") {
+      throw Error("[ERROR]");
+    }
+  }
   // 서로 다른 숫자 3자리 랜덤 생성하기
   makeRandomNum() {
     const random_num = [];
@@ -37,41 +62,12 @@ class App {
     if (strike == 3) {
       this.isCorret = true;
     }
-    return result;
+    MissionUtils.Console.print(result);
   }
 
-  exceptionUserNum(str) {
-    if (str.length != 3) {
-      throw Error("[ERROR]");
-    }
-    if (isNaN(str)) {
-      throw Error("[ERROR]");
-    }
-    if (Number(str[0]) == 0 || Number(str[1]) == 0 || Number(str[2]) == 0) {
-      throw Error("[ERROR]");
-    }
-    if (
-      Number(str[0]) == Number(str[1]) ||
-      Number(str[0]) == Number(str[2]) ||
-      Number(str[1]) == Number(str[2])
-    ) {
-      throw Error("[ERROR]");
-    }
-  }
-
-  exceptionReplayAnswer(str) {
-    if (str != "1" && str != "2") {
-      throw Error("[ERROR]");
-    }
-  }
-  //사용자의 입력 값 받고 결과 반환하는 함수
-  async getUserAnswer() {
+  countUserAnswer(user_num) {
     let strike = 0;
     let ball = 0;
-    let user_num = await MissionUtils.Console.readLineAsync(
-      "숫자를 입력해주세요 : "
-    );
-
     this.exceptionUserNum(user_num);
     for (let i = 0; i < 3; i++) {
       if (this.randomNum[i] == Number(user_num[i])) {
@@ -80,30 +76,39 @@ class App {
         ball += 1;
       }
     }
-    const judge_user_answer = this.judgeNum(strike, ball);
-    MissionUtils.Console.print(judge_user_answer);
+    this.judgeNum(strike, ball);
   }
+
+  //사용자의 입력 값 받기
+  async getUserAnswer() {
+    let user_num = await MissionUtils.Console.readLineAsync(
+      "숫자를 입력해주세요 : "
+    );
+    this.countUserAnswer(user_num);
+  }
+  async restart() {
+    const finalAnswer = await MissionUtils.Console.readLineAsync(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+    );
+    this.exceptionReplayAnswer(finalAnswer);
+    if (finalAnswer == "1") {
+      this.replay = true;
+      this.isCorret = false;
+      this.play();
+    }
+    if (finalAnswer == "2") {
+      MissionUtils.Console.print("게임 종료");
+    }
+  }
+
   // 입력 다시 받을지 끝낼지 결정하는 함수
   async againOrFinish() {
     if (this.isCorret == false) {
-      this.getUserAnswer().then(() => {
-        this.againOrFinish();
-      });
+      await this.getUserAnswer();
+      this.againOrFinish();
     } else if (this.isCorret == true) {
       MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-      MissionUtils.Console.readLineAsync(
-        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
-      ).then((result) => {
-        this.exceptionReplayAnswer(result);
-        if (result == "1") {
-          this.replay = true;
-          this.isCorret = false;
-          this.play();
-        }
-        if (result == "2") {
-          MissionUtils.Console.print("게임 종료");
-        }
-      });
+      this.restart();
     }
   }
 
