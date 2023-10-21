@@ -21,3 +21,4 @@
   - 세 자리 숫자를 제외한 모든 입력
 
 ### 플로우 차트
+![20231021_131444](https://github.com/JungHun98/javascript-baseball-6/assets/97653343/43497cb4-ddcc-45f7-a588-68017a4495e0)
