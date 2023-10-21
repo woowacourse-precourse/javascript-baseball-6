@@ -61,15 +61,12 @@ class App {
     }
 
     let flag = 1;
-    // 시작 문구 출력
     Console.print('숫자 야구 게임을 시작합니다.');
 
     while (flag) {
-      // 사용자 입력
       const userRandom = await Console.readLineAsync('숫자를 입력해주세요 : ');
       this.isValidInput(userRandom);
 
-      // 계산
       const { strike, ball } = this.calculateResult(computer, userRandom);
       this.printResult(strike, ball);
 
@@ -77,8 +74,8 @@ class App {
         const restart = await Console.readLineAsync(
           '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'
         );
-
         this.isValidInput(restart, true);
+
         if (restart === '2') {
           flag = 0;
         } else {
