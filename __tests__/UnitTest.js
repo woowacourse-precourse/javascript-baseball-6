@@ -17,7 +17,7 @@ const mockRandoms = (numbers) => {
   }, MissionUtils.Random.pickNumberInRange);
 };
 
-const getLogSpy = () => {
+const getPrintLogSpy = () => {
   const logSpy = jest.spyOn(MissionUtils.Console, "print");
   logSpy.mockClear();
   return logSpy;
@@ -25,6 +25,12 @@ const getLogSpy = () => {
 
 describe("메서드 유닛 테스트", () => {
   const game = new BaseballGame();
+
+  const getRestartLogSpy = () => {
+    const logSpy = jest.spyOn(game, "playGame");
+    logSpy.mockClear();
+    return logSpy;
+  };
 
   test("getRandomNumbers 메서드", () => {
     for (let i = 0; i < 100; i++) {
@@ -81,18 +87,48 @@ describe("메서드 유닛 테스트", () => {
       [9, 5, 1],
       [2, 4, 6],
     ];
-    const answers = ["3스트라이크", "2볼 1스트라이크", "3스트라이크", "낫싱"];
+    const messages = ["3스트라이크", "2볼 1스트라이크", "3스트라이크", "낫싱"];
     mockRandoms(randoms);
-    mockQuestions(answers);
-    const logSpy = getLogSpy();
+    mockQuestions(messages);
+    const logSpy = getPrintLogSpy();
 
-    answers.forEach((answer, index) => {
+    messages.forEach((message, index) => {
       game.setComputerNumbers();
       game.setUserNumbers(userNumbers[index]);
       const result = game.handleUserResult();
-      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(answer));
+      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(message));
       if (index % 2 === 0) expect(result).toBeFalsy();
       if (index % 2 === 1) expect(result).toBeTruthy();
     });
+  });
+
+  test.only("endGame 재시작 확인", async () => {
+    async function endGameTest(answers) {
+      mockQuestions(answers);
+
+      const numberOfEndGameCalled = answers.length;
+      const numberOfPlayGameCalled = answers.filter((v) => v === "1").length;
+      const isNotCallError = answers.every(
+        (answer) => answer === "1" || answer === "2"
+      );
+      game.playGame = jest.fn().mockResolvedValue();
+      const test = async () => {
+        await Promise.all(
+          Array.from(
+            { length: numberOfEndGameCalled },
+            async () => await game.endGame()
+          )
+        );
+      };
+
+      if (isNotCallError) {
+        await test();
+        expect(game.playGame).toHaveBeenCalledTimes(numberOfPlayGameCalled);
+      } else await expect(test()).rejects.toThrow("[ERROR]");
+    }
+
+    await endGameTest(["1", "2", "1", "1", "2"]);
+    await endGameTest(["1", "123", "111"]);
+    await endGameTest(["1", "2", "123", "q", "2"]);
   });
 });

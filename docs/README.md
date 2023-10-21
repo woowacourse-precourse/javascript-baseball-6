@@ -26,9 +26,9 @@
    2. [x] handleUserResult
       - getStrikeAndBall, printStrikeAndBall 볼, 스트라이크 출력
       - 정상값 리턴
-3. endGame
-   1. [ ] 입력 및 검사.
-   2. [ ] 정상 작동 확인.
+3. [x] endGame
+   1. 입력 및 검사.
+   2. 정상 작동 확인.
 
 ### Refacotring
 
