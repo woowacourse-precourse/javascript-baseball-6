@@ -42,6 +42,10 @@ class App {
     if (inputNumber.length > 3) {
       throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
     }
+
+    if (isNaN(inputNumber)) {
+      throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+    }
   }
 
   getGameResult(computerNumber, inputNumber) {
