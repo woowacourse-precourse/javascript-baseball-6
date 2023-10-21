@@ -51,7 +51,7 @@ const validator = (computer, user) => {
   }
   Console.print(score);
   if(score[0]==0 && score[1]==0){
-    Console.print("낫씽");
+    Console.print("낫싱");
     return 0;
   }else if(score[0]==0 && score[1]>0){
     Console.print(`${score[1]}볼`);
