@@ -61,6 +61,15 @@ class Controller {
 
   printHint(hintCounter) {
     OutputView.printMessage(hintCounter.getHint());
+
+    if (hintCounter.isAllStrike()) {
+      OutputView.printSuccessMessage();
+      return this.readRetry();
+    }
+  }
+
+  readRetry() {
+    // 재시작 여부 입력 받기
   }
 }
 

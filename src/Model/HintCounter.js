@@ -29,6 +29,12 @@ class HintCounter {
     this.ballCnt += 1;
   }
 
+  isAllStrike() {
+    if (this.strikeCnt === ANSWER_LENGTH) return true;
+
+    return false;
+  }
+
   getHint() {
     if (this.strikeCnt === ANSWER_LENGTH) return `${ANSWER_LENGTH}${STRIKE}`;
     if (this.strikeCnt === 0 && this.ballCnt === 0) return NOTHING;
