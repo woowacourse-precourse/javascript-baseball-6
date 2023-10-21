@@ -19,5 +19,19 @@ export default class Controller {
     this.player.setNumber(playerInput);
   }
 
+  /**
+   * player가 입력한 input이 유효한지 검증 후 검증 결과에 따라
+   * 에러 출력 또는 다음 단계 진행
+   */
+  async isPlayerInputValid() {
+    const VALIDATION_RESULT = await this.validation.getPlayerInputValidation(
+      this.player.getNumber()
+    );
 
+    if(!VALIDATION_RESULT) {
+      await this.view.playerInputError();
+    }
+
+    await this.checkPlayerInput();
+  }
 }
