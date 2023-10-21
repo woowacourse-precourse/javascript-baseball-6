@@ -1,6 +1,9 @@
 import RandomNumberMaker from '../src/play/RandomNumberMaker';
 import UserNumberReader from '../src/play/UserNumberReader';
 import correctNumber from '../src/utils/correctNumber';
+import * as Constants from './constants.js';
+
+// Console.print(Constants.GAME_START);
 
 class App {
   constructor() {
