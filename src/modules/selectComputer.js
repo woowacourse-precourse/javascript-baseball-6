@@ -1,10 +1,10 @@
-import { MissionUtils} from '@woowacourse/mission-utils';
+import { Random } from '@woowacourse/mission-utils';
 const { NUMBER } = require("../constants");
 
 selectComputer = () => {
   const computer = [];
   while (computer.length < NUMBER.LENGTH) {
-    const number = MissionUtils.Random.pickNumberInRange(1, 9);
+    const number = Random.pickNumberInRange(1, 9);
 
     if (!computer.includes(number)) {
       computer.push(number);
