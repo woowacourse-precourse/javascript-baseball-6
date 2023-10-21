@@ -68,4 +68,4 @@ isAnswer = (answer, computer) => {
 };
 
 
-exports.playGame = playGame;
+module.exports.playGame = playGame;

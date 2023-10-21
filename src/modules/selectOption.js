@@ -23,4 +23,4 @@ isOptionError = (option) => {
   throw new Error(ERRORS.OPTION);
 };
 
-exports.selectOption = selectOption;
+module.exports.selectOption = selectOption;
