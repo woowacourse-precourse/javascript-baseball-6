@@ -4,7 +4,7 @@ function start() {
 	try {
 		getUserInput(computer);
 	} catch (error) {
-		throw new Error('[Error]', error);
+		throw new Error(`[ERROR]${error.message}`);
 	}
 }
 function makeRandomNumber() {
@@ -19,40 +19,42 @@ function makeRandomNumber() {
 }
 async function getUserInput(computer) {
 	const userInput = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 :');
-	validateUserInput(userInput, computer);
-	//compare
-}
-function isRepeated(user){
-  let newArr = []
-  for(let i = 0; i < user.length; i++){
-    if(newArr.includes(user[i])){
-      continue;
-    } else {
-      newArr.push(user[i]);
-    }
+	try {
+    validateUserInput(userInput, computer);
+  } catch (error) {
+    throw new Error(`[ERROR]${error.message}`)
   }
-  return newArr.length === 3 ? false : true;
+}
+function isRepeated(user) {
+	let newArr = [];
+	for (let i = 0; i < user.length; i++) {
+		if (newArr.includes(user[i])) {
+			continue;
+		} else {
+			newArr.push(user[i]);
+		}
+	}
+	return newArr.length === 3 ? false : true;
 }
 function validateUserInput(userInput, computer) {
 	if (userInput.length === 3) {
 		const user = userInput.split('').map((number) => +number && +number); //arr
-		//console.log(user)
-    console.log(user[0], user[1], user[2])
+
 		if (user[0] && user[1] && user[2]) {
-      //숫자 중복이 있을 경우
-      if(isRepeated(user)){
-        throw new Error('[ERROR] 서로 다른 수를 입력해주세요')
-      } else {
-        const { strike, ball } = compareUserComputer(user, computer);
-        returnScore(strike, ball);
-        finishGame();
-      }
+			//숫자 중복이 있을 경우
+			if (isRepeated(user)) {
+				throw new Error('[ERROR] 서로 다른 수를 입력해주세요');
+			} else {
+				const { strike, ball } = compareUserComputer(user, computer);
+				returnScore(strike, ball);
+				finishGame();
+			}
 		} else {
-      throw new Error('[Error] 숫자가 잘못된 형식입니다.');
-    }
+			throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+		}
 	} else {
-    throw new Error('[Error] 세자리 숫자를 입력해주세요.');
-  }
+		throw new Error('[ERROR] 세자리 숫자를 입력해주세요.');
+	}
 }
 async function finishGame() {
 	const finalResult = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
@@ -79,27 +81,30 @@ function returnScore(strike, ball) {
 				MissionUtils.Console.print('낫싱');
 			}
 		} else {
-			MissionUtils.Console.print(ballScore + ' ' + strikeScore);
+			if (ball === 0) {
+				MissionUtils.Console.print(strikeScore);
+			} else {
+				MissionUtils.Console.print(ballScore + ' ' + strikeScore);
+			}
 		}
 	}
 }
 function compareUserComputer(user, computer) {
-	//123, 236
 	let strike = 0;
 	let ball = 0;
 	for (let i = 0; i < user.length; i++) {
 		for (let j = 0; j < computer.length; j++) {
 			if (user[i] === computer[j]) {
 				strike++;
-			} else if (computer.includes(user[i])) {
+			} else if (user.includes(computer[i])) {
 				ball++;
 			}
 		}
 	}
-  return {
-    strike: strike,
-    ball: ball,
-  };
+	return {
+		strike: strike,
+		ball: ball,
+	};
 }
 class App {
 	async play() {
