@@ -24,7 +24,8 @@ async function getUserInput(message) {
     const number = await MissionUtils.Console.readLineAsync(message);
     return number;
   } catch (error) {
-    throw error;
+    MissionUtils.Console.print("[ERROR] 숫자가 잘못된 형식입니다.");
+    throw "[ERROR]";
   }
 }
 
@@ -57,14 +58,14 @@ function resetScore() {
 }
 function printResult() {
   console.log(SCORE);
-
+  //스위치문으로 변경할 것
   if (SCORE.ball[0] === 0 && SCORE.strike[0] === 0) {
     MissionUtils.Console.print("낫싱");
     return;
   }
   if (SCORE.strike[0] === 3) {
     MissionUtils.Console.print(
-      "3strike\n3개의 숫자를 모두 맞히셨습니다! 게임 종료"
+      "3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료"
     );
     SCORE.success = true;
     return;
@@ -77,39 +78,15 @@ function printResult() {
   }
   console.log("ball또는strike");
   let text = SCORE.ball[0]
-    ? SCORE.ball[0] + "ball"
-    : SCORE.strike[0] + "strike";
+    ? SCORE.ball[0] + "볼"
+    : SCORE.strike[0] + "스트라이크";
   MissionUtils.Console.print(text);
   return;
 }
-// async function playGame(answer) {
-//   //비동기 동작원리를 정확히 파악하지 못하는듯
 
-//   while (!SCORE.성공) {
-//     let num = await getUserInput("숫자를 입력해주세요 :");
-//     if (!checkError(num)) {
-//       review(answer, num);
-//       console.log(isContinue);
-
-//       if (!SCORE.성공) {
-//         resetScore();
-//       }
-//     }
-//   }
-//   let number = await getUserInput(
-//     "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
-//   );
-
-//   if (number === "1") {
-//     app.play();
-//   }
-//   //종료
-//   return;
-// }
 class App {
   async play() {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
-    //반복되는 구간을 while 로 돌리고 싶은데 비동기때문에 어려움 그래서 일단 함수로 만들어서 자기 호출하는 식으로 만듦
     const answer = makeRandom();
 
     while (!SCORE.success) {
@@ -131,12 +108,8 @@ class App {
       SCORE.success = false;
       app.play();
     }
-    //종료
-    return;
-    // playGame();
 
-    //비동기 라이브러리쓰니까 입력하는 동안 미리 할 수 잇는 답안 작성하기 하고 싶은데 안됨
-    //호이스팅 개념도 흔들리는 중
+    return;
   }
 }
 
