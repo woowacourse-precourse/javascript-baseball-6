@@ -12,15 +12,13 @@ class App {
       const randomNum = MissionUtils.Random.pickNumberInRange(1, 9).toString();
       if (!answer.includes(randomNum)) answer += randomNum;
     }
-    await this.checkValue(answer);
+    await this.playGame(answer);
   }
 
-  async checkValue(answer) {
+  async playGame(answer) {
     const value = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
-    let s = 0, b = 0;
     let result = '';
 
-    //사용자 입력 예외 처리
     if(value.length !== 3 || new Set(value).size!==3 || value.split('').every(element => {
       const num = parseInt(element);  
       return (9 < num || num < 0)
@@ -28,14 +26,7 @@ class App {
       throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
     }
 
-    //입력값과 컴퓨터의 숫자 비교
-    for (let i = 0; i < 3; i++) {
-      if (answer[i] === value[i]) {
-        s++;
-      } else if (answer.includes(value[i])) {
-        b++;
-      } 
-    }
+    const { s, b } = this.calculateScore(answer, value);
 
     if (s !== 0) {
       if (b !== 0) result = `${b}볼 ${s}스트라이크`;
@@ -44,10 +35,8 @@ class App {
     else if (b !== 0) result = `${b}볼`;
     else result ='낫싱';
 
-    // 게임 결과 출력
     MissionUtils.Console.print(result);
-
-    //게임 재시작 또는 종료 여부 확인
+    
     if (s === 3) {
       MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
       const choice = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'); 
@@ -57,8 +46,20 @@ class App {
         MissionUtils.Console.print('프로그램 종료');
       }
     } else {
-      await this.checkValue(answer);
+      await this.playGame(answer);
     }
+  }
+
+  calculateScore(answer, value) {
+    let s = 0, b = 0;
+    for (let i = 0; i < 3; i++) {
+      if (answer[i] === value[i]) {
+        s++;
+      } else if (answer.includes(value[i])) {
+        b++;
+      }
+    }
+    return { s, b };
   }
 }
 
