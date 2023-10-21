@@ -11,7 +11,7 @@ export function getResultString([ball, strike]) {
   });
   const resultString = parsedResults.join(" ");
   if (strike === GAME_CONSTANTS.STRIKE_OUT_COUNT) {
-    return `${resultString}\n${GAME_MESSAGES.FINISH}`;
+    return `${resultString}\n${GAME_MESSAGES.FINISH}`.trim();
   }
   return resultString;
 }
