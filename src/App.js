@@ -4,7 +4,7 @@ class App {
   async play() {
     const computerNumber = await this.getComputerNumber();
     await MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
-    const inputNumber = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
+    const inputNumber = this.getInputNumber();
     const { strike, ball } = this.getGameResult(computerNumber, inputNumber);
     await this.printGameResult(strike, ball);
   }
@@ -18,6 +18,10 @@ class App {
     }
 
     return [...computerNumber];
+  }
+
+  async getInputNumber() {
+    return await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
   }
 
   getGameResult(computerNumber, inputNumber) {
