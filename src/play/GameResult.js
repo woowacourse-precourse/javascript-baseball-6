@@ -19,6 +19,10 @@ const countStrike = () => {
       }
   }
 
-  Console.print(`${strike} 스트라이크`);
+  if (strike === 3) {
+    Console.print("성공!");
+  } else if (strike > 0) {
+    Console.print(`${strike} 스트라이크`);
+  }
 }
   
