@@ -13,11 +13,10 @@ class BaseBallController {
 
   async run() {
     this.#view.printStart();
-    await this.#gamePlay();
+    await this.#playGame();
   }
 
-  // TODO : playGame으로 변경하기
-  async #gamePlay() {
+  async #playGame() {
     this.#model.generateGameNumbers();
     await this.#guessNumber();
   }
