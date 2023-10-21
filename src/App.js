@@ -15,6 +15,15 @@ class App {
 			}
 		}
 	}
+	// 스트라이크 수, 볼 수 체크
+	ballCheck(guessNum, answerNumber) {
+		let strike = 0;
+		let ball = 0;
+		for (let i = 0; i < guessNum.length; i++) {
+			if (guessNum[i] === answerNumber[i]) strike++;
+			else ball++;
+		}
+	}
 	// 시작
 	async play() {
 		MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
