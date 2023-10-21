@@ -1,5 +1,9 @@
+import GameStartPage from "./GameStartPage";
+
 class App {
-  async play() {}
+  async play() {
+    <GameStartPage />
+  }
 }
 
 export default App;
