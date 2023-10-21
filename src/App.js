@@ -23,10 +23,16 @@ class App {
     }
     async play() {
         Console.print(STRING.START);
+        // for test
         console.log(this.randomNumber);
-        const input = await this.playerInputNumber();
-        const {ball,strike} = await this.umpireOfGame(input);
-        this.makeJudgement(ball,strike)
+        while (this.isplaying) {
+            const input = await this.playerInputNumber();
+            const { ball, strike } = await this.umpireOfGame(input);
+            this.printJudgement(ball, strike)
+            if(strike === STRIKE_GAME_CLEAR){
+                await this.gameClear();
+            }
+        }
     }
 
     /**
@@ -49,11 +55,11 @@ class App {
      * @returns {number[]}
      */
     async playerInputNumber() {
-        const input = await Console.readLineAsync(STRING.INPUT);
+        const a = await Console.readLineAsync(STRING.INPUT);
         // 입력받은 데이터의 양쪽 공백을 제거해준다.
-        const trimmedInput = input.trim();
-        this.validateInput(trimmedInput);
-        return Array.from(trimmedInput, Number);
+        const input = a.trim();
+        this.validateInput(input);
+        return Array.from(input, Number);
     }
 
     /**
@@ -86,13 +92,13 @@ class App {
             ball: 0,
             strike: 0
         }
-        this.randomNumber.forEach((number, index) => {
-            if (number == input[index]) {
+        const randomNumber = this.randomNumber;
+        randomNumber.forEach((number, idx) => {
+            const inputNumber = input[idx];
+            if (number == inputNumber) {
                 result.strike++;
-                Console.print("strike up");
-            } else if (this.randomNumber.includes(input[index])) {
+            } else if (this.randomNumber.includes(inputNumber)) {
                 result.ball++;
-                Console.print("ball up");
             }
         })
         return result;
@@ -104,20 +110,33 @@ class App {
      * @returns 
      */
 
-    printJudgement(ball, strike){
-        if(ball+strike === 0){
+    printJudgement(ball, strike) {
+        if (ball + strike === 0) {
             Console.print(STRING.NOTHING);
         }
         let str = "";
-        if(ball != 0){
+        if (ball != 0) {
             str += `${ball}${STRING.BALL} `;
         }
-        if(strike !=0){
+        if (strike != 0) {
             str += `${strike}${STRING.STRIKE}`;
         }
         Console.print(str);
     }
 
+    /**
+     * 게임 클리어시(3strike) 발생하는 메소드
+     */
+    async gameClear() {
+        Console.print(STRING.CLEAR);
+        const a = await Console.readLineAsync(`${STRING.RESTART}\n`);
+        const input = a.trim();
+        if (input == RESTART_NUMBER) {
+            this.init();
+        } else if (input == END_NUMBER) {
+            this.isplaying = false;
+        }
+    }
 
 }
 
