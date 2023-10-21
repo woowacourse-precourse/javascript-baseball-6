@@ -1,10 +1,10 @@
 class ErrorCheck {
   static listStringCheck(string) {
-    // ascii code ('0':48 '9':57)
+    // ascii code ('1':49 '9':57)
     try {
       ErrorCheck.stringLengthCheck(string, 3);
       ErrorCheck.duplicationInStringCheck(string);
-      ErrorCheck.rangeCheckByCharCode(string, 48, 57);
+      ErrorCheck.rangeCheckByCharCode(string, 49, 57);
     } catch (error) {
       throw new Error('[ERROR] Wrong input')
     }
