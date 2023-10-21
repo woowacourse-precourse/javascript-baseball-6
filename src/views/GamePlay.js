@@ -39,7 +39,6 @@ class GamePlay {
     }
 
     #gameOver = () => {
-        // (CONSTANTS.REGAME_CONSTANTS == 1) ? this.startGame() : this.#gameOver();
         MissionUtils.Console.print(OUTPUT_MSG.GAME_OVER);
     }
 }
