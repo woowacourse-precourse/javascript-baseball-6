@@ -1,5 +1,4 @@
-import { Console } from "@woowacourse/mission-utils";
-import { Random } from "@woowacourse/mission-utils";
+import { MissionUtils } from "@woowacourse/mission-utils";
 
 // async 내부에는 await + Method를 할 것
 // Random.<Method Name> 을 통해 랜덤을 사용할 것
@@ -10,7 +9,7 @@ class App {
   generateRandomNumber() {
     let numArr = [];
     while (numArr.length < 3) {
-      let pickNum = Random.pickNumberInRange(1, 9);
+      let pickNum = MissionUtils.Random.pickNumberInRange(1, 9);
       if (!numArr.includes(pickNum)) numArr.push(pickNum);
     }
     return numArr;
@@ -49,21 +48,24 @@ class App {
       let input = await this.userInputNumbers();
       let check = await this.checkAnswer(input, answer);
 
-      await Console.print(check);
+      await MissionUtils.Console.print(check);
 
-      if (check !== "3스트라이크") {
-        // 재귀적 호출로 게임 계속 진행
-        return await this.playBaseballGame(answer);
+      if (check === "3스트라이크") {
+        MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+        return;
       }
 
-      return await Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+      // 재귀적 호출로 게임 계속 진행
+      return await this.playBaseballGame(answer);
     } catch (e) {}
   }
 
   // 유저의 숫자 입력받기 + 예외처리
   async userInputNumbers() {
     try {
-      let input = await Console.readLineAsync("숫자를 입력해주세요 : ");
+      let input = await MissionUtils.Console.readLineAsync(
+        "숫자를 입력해주세요 : "
+      );
 
       if (input === "") throw new Error("[ERROR] 입력된 값이 없습니다");
       if (input && input.length !== 3)
@@ -81,16 +83,19 @@ class App {
   async play() {
     try {
       // 시작 멘트
-      Console.print("숫자 야구 게임을 시작합니다.");
+      MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
 
       // 야구게임 정답 생성
       let answer = this.generateRandomNumber();
 
-      await this.playBaseballGame(answer);
+      let endMessage = await this.playBaseballGame(answer);
+      MissionUtils.Console.print(endMessage);
 
       // 야구게임 재시작 / 종료 이행
-      Console.print("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
-      let selectContinue = await Console.readLineAsync("");
+      MissionUtils.Console.print(
+        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+      );
+      let selectContinue = await MissionUtils.Console.readLineAsync("");
 
       if (selectContinue === "2") {
         return;
@@ -111,3 +116,6 @@ const app = new App();
 app.play();
 
 // npm test를 통해 최종 테스트 진행할 것
+
+// 현재 발생한 문제: Jest 상에서 모든 코드가 정상적으로 돌아가지만 사용자의 입력이 대기중인 상태로 남음
+// 따라서 test환경에서는 사용자의 입력 상황을 없애는 것으로 처리를 해야할 것으로 보임
