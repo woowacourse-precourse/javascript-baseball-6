@@ -20,7 +20,10 @@ class App {
       // console.log(computer.join(''), player);
       if (strike === 3) {
         MissionUtils.Console.print(GAME_TEXT.WIN);
-        break;
+        const choice = await this.getChoice();
+        if (Number(choice) === 2) {
+          break;
+        }
       }
       MissionUtils.Console.print(`${ball}${GAME_TEXT.BALL} ${strike}${GAME_TEXT.STRIKE}`);
     }
@@ -79,6 +82,20 @@ class App {
     }
 
     return result;
+  }
+
+  async getChoice() {
+    try {
+      const choice = await MissionUtils.Console.readLineAsync(GAME_TEXT.CHOICE);
+
+      if (Number(choice) !== 1 && Number(choice) !== 2) {
+        throw new Error(GAME_TEXT.ERROR(GAME_TEXT.NOT_MATCH_CHOICE));
+      }
+
+      return Number(choice);
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 }
 
