@@ -55,10 +55,8 @@ async function compareNumber(cpu) {
 
   compareResult(strike, ball);
   if (strike === 3) {
-    // 정답을 맞췄을 때
     await correctNum();
   } else {
-    // 못 맞췄을 때
     return compareNumber(cpu);
   }
 }
@@ -77,7 +75,6 @@ async function startOrExitGame() {
     "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. "
   );
 
-  // TODO - userInput 예외처리 및 2를 입력해서 종료하기
   if (userInput === "1") {
     await playGame();
   } else if (userInput === "2") {
