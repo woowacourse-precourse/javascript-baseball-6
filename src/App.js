@@ -1,5 +1,4 @@
-import { Console } from "@woowacourse/mission-utils";
-import { MissionUtils } from "@woowacourse/mission-utils";
+import { Console, MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
   //게임시작
@@ -18,6 +17,11 @@ class App {
     }
     const computer =  computerArr.join('');
     return computer;
+  }
+
+  //사용자로부터 값 입력받기
+  async getNumbers() {
+      const numbers = await Console.readLineAsync('숫자를 입력해주세요: ');
   }
   
   async play() {
