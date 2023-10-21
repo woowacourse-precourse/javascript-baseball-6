@@ -37,7 +37,7 @@ class BaseballGameController {
         this.resetGame();
         this.inputUserNumber();
       }
-      if (input === "2") return Console.close();
+      if (input === "2") return;
     });
   }
 
