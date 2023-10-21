@@ -46,31 +46,26 @@ const match = function matchingComputerNumWithBaseballNum(
   let strikes = 0;
   let balls = 0;
   //## 숫자 포함 여부부터.
-  for (let i = 0; i < 3; i++) {
-    //#####// in을 사용하니까 제대로 안되네..  => in은 속성명이 존재한다면 true인 것. 기본은 index를 속성명으로 할 듯?
-    //###// map이나 forEach으로 해야 할 듯.
-    computer.forEach((computerNum, index) => {
-      if (computerNum === baseballNum[i]) {
-        if (index === i) {
-          strikes += 1;
-        } else {
-          balls += 1;
-        }
+
+  baseballNum.forEach((bNum, index) => {
+    if (computer.includes(bNum)) {
+      if (bNum === computer[index]) {
+        strikes += 1;
+        return false;
       }
-    });
-  }
+      balls += 1;
+    }
+  });
 
   // ## 코멘트 정하기
   let ballComment = balls !== 0 ? `${balls}볼` : '';
   let strikesComment = strikes !== 0 ? `${strikes}스트라이크` : '';
-  let commentFinal = '';
-  if (balls === 0 && strikes === 0) {
-    commentFinal = '낫싱';
-  } else if (balls !== 0 && strikes !== 0) {
-    commentFinal = `${ballComment} ${strikesComment}`;
-  } else {
-    commentFinal = `${ballComment}${strikesComment}`;
-  }
+  let beteween = balls !== 0 && strikes !== 0 ? ' ' : '';
+
+  let commentFinal =
+    balls === 0 && strikes === 0
+      ? '낫싱'
+      : `${ballComment}${beteween}${strikesComment}`;
 
   //## 출력하기
   MissionUtils.Console.print(commentFinal);
