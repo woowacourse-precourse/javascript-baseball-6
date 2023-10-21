@@ -12,11 +12,6 @@ class BaseBallController {
   }
 
   async run() {
-    this.#view.printStart();
-    await this.#playGame();
-  }
-
-  async #playGame() {
     this.#model.generateGameNumbers();
     await this.#guessNumber();
   }
