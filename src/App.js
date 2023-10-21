@@ -2,6 +2,8 @@ import {Console, MissionUtils, Random} from '@woowacourse/mission-utils';
 
 class App {
   async play() {
+
+    //1. 컴퓨터 숫자 저장
     const computer = [];
     while (computer.length < 3) {
       const number = MissionUtils.Random.pickNumberInRange(1, 9);
@@ -10,13 +12,9 @@ class App {
       }
     }
 
-    Console.print(computer); //[1, 3, 5] 출력
-//"3스트라이크", "1볼 1스트라이크", "3스트라이크", "게임 종료"
-    Console.print('낫싱');
-    Console.print('3스트라이크');
-    Console.print('1볼 1스트라이크');
-    Console.print('3스트라이크');
-    Console.print('게임 종료');
+    //2. 3자리 숫자 입력
+    const mynumber = await Console.readLineAsync("숫자를 입력해주세요 : ");
+    Console.print(mynumber);
   }
 }
 
