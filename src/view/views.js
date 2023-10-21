@@ -37,4 +37,8 @@ export default class views{
 		const reryOrNot = Console.readLineAsync(MESSAGE.RETRY);
 		return reryOrNot;
 	}
+
+  gameOver() {
+		Console.print(MESSAGE.GAMEOVER);
+	}
 }
