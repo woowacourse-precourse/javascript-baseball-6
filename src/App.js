@@ -37,7 +37,11 @@ class App {
   }
 
   async getInputNumber() {
-    return await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
+    const inputNumber = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
+    
+    if (inputNumber.length > 3) {
+      throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+    }
   }
 
   getGameResult(computerNumber, inputNumber) {
