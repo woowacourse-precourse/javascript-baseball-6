@@ -27,7 +27,7 @@ class App {
     const computer = [];
 
     while (computer.length < 3) {
-      const number = MissionUtils.Random.pickNumberInRange(1, 9);
+      const number = await MissionUtils.Random.pickNumberInRange(1, 9);
       if (!computer.includes(number)) {
         computer.push(number);
       }
@@ -46,6 +46,8 @@ class App {
     if (isNaN(inputNumber)) {
       throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
     }
+
+    return inputNumber;
   }
 
   getGameResult(computerNumber, inputNumber) {
@@ -66,12 +68,12 @@ class App {
 
   async printGameResult(strike, ball) {
     if (strike === 3) {
-      MissionUtils.Console.print('3스트라이크');
-      MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+      await MissionUtils.Console.print('3스트라이크');
+      await MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
     } else if (ball === 0 && strike === 0) {
-      MissionUtils.Console.print('낫싱');
+      await MissionUtils.Console.print('낫싱');
     } else {
-      MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
+      await MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
     }
   }
 }
