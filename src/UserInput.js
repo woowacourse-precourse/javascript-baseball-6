@@ -9,6 +9,15 @@ class UserInput {
 			console.error(err);
 		}
 	}
+
+	async gameEndInput(query = '') {
+		try {
+			const val = await Console.readLineAsync(query);
+			return val;
+		} catch (err) {
+			console.error(err);
+		}
+	}
 }
 
 export default UserInput;
