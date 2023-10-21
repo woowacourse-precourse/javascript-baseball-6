@@ -4,7 +4,6 @@ const Board = require('./Board');
 
 class GameManager {
 
-	_isPlaying = true;
 	_board = null;
 
 	// GameManager를 실행한다.
