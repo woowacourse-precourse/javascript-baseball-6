@@ -37,6 +37,19 @@ class App {
     return { strike, ball };
   }
 
+  printResult(strike, ball) {
+    if (strike === 0 && ball === 0) {
+      Console.print('낫싱');
+    } else {
+      Console.print(
+        `${ball ? `${ball}볼 ` : ''}${strike ? `${strike}스트라이크` : ''}`
+      );
+      if (strike === 3) {
+        Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+      }
+    }
+  }
+
   async play() {
     // 랜덤 값 생성하기
     const computer = [];
@@ -58,32 +71,25 @@ class App {
 
       // 계산
       const { strike, ball } = this.calculateResult(computer, userRandom);
+      this.printResult(strike, ball);
 
-      if (strike === 0 && ball === 0) {
-        Console.print('낫싱');
-      } else {
-        Console.print(
-          `${ball ? `${ball}볼 ` : ''}${strike ? `${strike}스트라이크` : ''}`
+      if (strike === 3) {
+        const restart = await Console.readLineAsync(
+          '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'
         );
-        if (strike === 3) {
-          Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
-          const restart = await Console.readLineAsync(
-            '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'
-          );
 
-          this.isValidInput(restart, true);
-          if (restart === '2') {
-            flag = 0;
-          } else {
-            // 새로운 랜덤 값 생성
-            while (computer.length > 0) {
-              computer.pop();
-            }
-            while (computer.length < 3) {
-              const number = MissionUtils.Random.pickNumberInRange(1, 9);
-              if (!computer.includes(number)) {
-                computer.push(number);
-              }
+        this.isValidInput(restart, true);
+        if (restart === '2') {
+          flag = 0;
+        } else {
+          // 새로운 랜덤 값 생성
+          while (computer.length > 0) {
+            computer.pop();
+          }
+          while (computer.length < 3) {
+            const number = MissionUtils.Random.pickNumberInRange(1, 9);
+            if (!computer.includes(number)) {
+              computer.push(number);
             }
           }
         }
