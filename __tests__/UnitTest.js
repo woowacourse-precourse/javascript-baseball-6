@@ -102,7 +102,7 @@ describe("메서드 유닛 테스트", () => {
     });
   });
 
-  test.only("endGame 재시작 확인", async () => {
+  test("endGame 재시작 확인", async () => {
     async function endGameTest(answers) {
       mockQuestions(answers);
 
