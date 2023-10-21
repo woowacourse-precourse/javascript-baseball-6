@@ -10,4 +10,12 @@ export default class Controller {
     this.player = new Player();
     this.validation = new Validation();
   }
+
+  /**
+   * player가 입력한 input을 받은 후 상태를 업데이트 합니다.
+   * @param {string[]} playerInput [player가 제시한 수]
+   */
+  updatePlayerNumber(playerInput) {
+    this.player.setNumber(playerInput);
+  }
 }
