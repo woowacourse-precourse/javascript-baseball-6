@@ -6,9 +6,6 @@ class Baseball {
     this.computer = computer;
     this.user = user;
     this.consoleUtils = consoleUtils;
-
-    this.computerNumbers = [];
-    this.userNumbers = [];
     this.isCorrectAnswer = false;
   }
 
@@ -22,15 +19,15 @@ class Baseball {
 
   startGame() {
     this.consoleUtils.print(MESSAGE.START_GAME);
-    this.computerNumbers = this.computer.createNumberArray();
+    this.computer.createNumberArray();
   }
 
   async getUserInputAndCompareToComputer() {
-    this.userNumbers = await this.user.getValidatedNumberArray();
+    await this.user.getValidatedNumberArray();
 
     const judgeResult = this.calculateResult(
-      this.computerNumbers,
-      this.userNumbers
+      this.computer.numberArray,
+      this.user.numberArray
     );
 
     this.createJudgeMessage(judgeResult);
