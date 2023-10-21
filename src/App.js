@@ -4,20 +4,31 @@ class App {
   async play() {
     const computerNumber = await this.getComputerNumber();
     await MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
-    const inputNumber = this.getInputNumber();
+    const inputNumber = await this.getInputNumber();
     const { strike, ball } = this.getGameResult(computerNumber, inputNumber);
     await this.printGameResult(strike, ball);
   }
 
   async getComputerNumber() {
-    const computerNumber = new Set();
+    // TODO: Set으로 구현되지 않는 원인 확인
+    // const computerNumber = new Set();
 
-    while (computerNumber.length < 3) {
+    // while (computerNumber.length < 3) {
+    //   const number = MissionUtils.Random.pickNumberInRange(1, 9);
+    //   computerNumber.add(number);
+    // }
+
+    // return [...computerNumber];
+    const computer = [];
+
+    while (computer.length < 3) {
       const number = MissionUtils.Random.pickNumberInRange(1, 9);
-      computerNumber.add(number);
+      if (!computer.includes(number)) {
+        computer.push(number);
+      }
     }
-
-    return [...computerNumber];
+    
+    return computer;
   }
 
   async getInputNumber() {
