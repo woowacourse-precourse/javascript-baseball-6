@@ -1,7 +1,15 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
-  async play() {}
+  async play() {
+    try {
+      MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
+      compareNumber();
+    } catch (error) {
+      MissionUtils.Console.print("프로그램을 종료합니다.");
+      return;
+    }
+  }
 }
 
 async function getUserNumber() {
@@ -9,9 +17,13 @@ async function getUserNumber() {
     const userNumber = await MissionUtils.Console.readLineAsync(
       "숫자를 입력해주세요 : "
     );
+    if (userNumber.length !== 3) {
+      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+    }
     return userNumber;
   } catch (error) {
-    console.error("[ERROR] 숫자가 잘못된 형식입니다.", error);
+    MissionUtils.Console.print("[ERROR] 숫자가 잘못된 형식입니다.", error);
+    throw error;
   }
 }
 
@@ -41,7 +53,7 @@ async function compareNumber() {
     printHint(ball, strike);
 
     if (strike === 3) {
-      console.log("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+      MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
       isReplay();
     }
   }
@@ -49,9 +61,9 @@ async function compareNumber() {
 
 function printHint(ball, strike) {
   if (ball === 0 && strike === 0) {
-    console.log("낫싱");
+    MissionUtils.Console.print("낫싱");
   } else {
-    console.log(`${ball}볼 ${strike}스트라이크`);
+    MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
   }
 }
 
@@ -64,16 +76,13 @@ async function isReplay() {
     if (isReplay === "1") {
       compareNumber();
     } else if (isReplay === "2") {
-      console.log("게임을 종료합니다.");
+      MissionUtils.Console.print("게임을 종료합니다.");
     } else {
-      console.error("[ERROR] 숫자가 잘못된 형식입니다.");
+      MissionUtils.Console.print("[ERROR] 숫자가 잘못된 형식입니다.");
     }
   } catch (error) {
-    console.error("[ERROR] 숫자가 잘못된 형식입니다.", error);
+    MissionUtils.Console.print("[ERROR] 숫자가 잘못된 형식입니다.", error);
   }
 }
 
 export default App;
-
-console.log(MissionUtils.Console.print("숫자 야구 게임을 시작합니다."));
-compareNumber();
