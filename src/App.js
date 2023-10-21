@@ -7,38 +7,12 @@ class App {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
     while (gameOver) {
       const COM_NUMBER = this.createNumber();
+
       while (true) {
         try {
-          let userNumber = await this.requestInput(
-            "숫자를 입력해주세요 : ",
-            (input) =>
-              !isNaN(Number(input)) &&
-              input.length === 3 &&
-              new Set(input).size === 3
-          );
-          let { strikes, balls } = this.checkNumber(COM_NUMBER, userNumber);
-          if (strikes === 3) {
-            MissionUtils.Console.print(
-              "3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료"
-            );
-            let answer = await this.requestInput(
-              "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n",
-              (input) => input === "1" || input === "2"
-            );
-            if (answer === "1") {
-              break;
-            } else {
-              gameOver = false;
-              break;
-            }
-          } else if (strikes === 0 && balls === 0) {
-            MissionUtils.Console.print("낫싱");
-          } else if (strikes === 0 && balls > 0) {
-            MissionUtils.Console.print(`${balls}볼`);
-          } else if (strikes > 0 && balls === 0) {
-            MissionUtils.Console.print(`${strikes}스트라이크`);
-          } else {
-            MissionUtils.Console.print(`${balls}볼 ${strikes}스트라이크`);
+          if (await this.playRound(COM_NUMBER)) {
+            gameOver = await this.restartGameDecision();
+            break;
           }
         } catch (error) {
           if (error.message === "[ERROR]") {
@@ -47,6 +21,47 @@ class App {
         }
       }
     }
+  }
+
+  async playRound(comNumber) {
+    let userNumber = await this.requestUserNumber();
+    let { strikes, balls } = this.checkNumber(comNumber, userNumber);
+
+    return this.determineGameResult(strikes, balls);
+  }
+
+  async requestUserNumber() {
+    return await this.requestInput(
+      "숫자를 입력해주세요 : ",
+      (input) =>
+        !isNaN(Number(input)) && input.length === 3 && new Set(input).size === 3
+    );
+  }
+
+  determineGameResult(strikes, balls) {
+    if (strikes === 3) {
+      MissionUtils.Console.print(
+        "3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료"
+      );
+      return true;
+    } else if (strikes === 0 && balls === 0) {
+      MissionUtils.Console.print("낫싱");
+    } else if (strikes === 0 && balls > 0) {
+      MissionUtils.Console.print(`${balls}볼`);
+    } else if (strikes > 0 && balls === 0) {
+      MissionUtils.Console.print(`${strikes}스트라이크`);
+    } else {
+      MissionUtils.Console.print(`${balls}볼 ${strikes}스트라이크`);
+    }
+    return false;
+  }
+
+  async restartGameDecision() {
+    let answer = await this.requestInput(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n",
+      (input) => input === "1" || input === "2"
+    );
+    return answer === "1";
   }
 
   createNumber() {
