@@ -5,7 +5,7 @@ import {
     ERRORS,
     STRIKE_GAME_CLEAR,
     RESTART_NUMBER,
-    END_NUMBER 
+    END_NUMBER
 } from "./constants/index.js"
 import { Console, Random } from './utils/index.js'
 
@@ -24,7 +24,9 @@ class App {
     async play() {
         Console.print(STRING.START);
         console.log(this.randomNumber);
-        this.playerInputNumber();
+        const input = await this.playerInputNumber();
+        const {strike, ball} = await this.umpireOfGame(input);
+        console.log(`${ball}${STRING.BALL} ${strike}${STRING.STRIKE}`);
     }
 
     /**
@@ -47,9 +49,11 @@ class App {
      * @returns {number[]}
      */
     async playerInputNumber() {
-        const input = (await Console.readLineAsync(STRING.INPUT)).trim();
-        this.validateInput(input);
-        return Array.from(input, Number);
+        const input = await Console.readLineAsync(STRING.INPUT);
+        // 입력받은 데이터의 양쪽 공백을 제거해준다.
+        const trimmedInput = input.trim();
+        this.validateInput(trimmedInput);
+        return Array.from(trimmedInput, Number);
     }
 
     /**
@@ -74,8 +78,27 @@ class App {
 
         return true;
     }
+    /**
+         * 사용자에게 입력받은 데이터의 스트라이크와 볼의 개수를 판별해냄
+    */
+    async umpireOfGame(input) {
+        const result = {
+            strike: 0,
+            ball: 0
+        }
+        Console.print("동작");
+        this.randomNumber.forEach((number, index) => {
+            if (number == input[index]) {
+                result.strike++;
+                Console.print("strike up");
+            } else if (this.randomNumber.includes(input[index])) {
+                result.ball++;
+                Console.print("ball up");
+            }
+        })
+        return result;
+    }
 
-    
 
 }
 
