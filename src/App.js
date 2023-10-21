@@ -18,7 +18,7 @@ class App {
   async #input() {
     const input = await MissionUtils.Console.readLineAsync(GAME.INPUT_NUMBER);
 
-    App.validate(input);
+    App.#validateInput(input);
 
     const result = this.#computer.judgment(input);
 
@@ -31,13 +31,15 @@ class App {
 
       const option = await MissionUtils.Console.readLineAsync(GAME.OPTION);
 
+      App.#validateOption(option);
+
       if (option === '1') {
         await this.#start();
       }
     }
   }
 
-  static validate(input) {
+  static #validateInput(input) {
     if (input.length !== 3) {
       throw new Error(ERROR.LENGTH);
     }
@@ -58,9 +60,12 @@ class App {
       throw new Error(ERROR.UNIQUE);
     }
   }
-}
 
-const app = new App();
-app.play();
+  static #validateOption(option) {
+    if (option !== '1' && option !== '2') {
+      throw new Error(ERROR.OPTION);
+    }
+  }
+}
 
 export default App;

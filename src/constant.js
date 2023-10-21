@@ -9,4 +9,5 @@ export const ERROR = {
   LENGTH: '[ERROR] 야구 숫자는 3개여야 합니다.',
   RANGE: '[ERROR] 야구 숫자는 1과 9 사이의 숫자여야 합니다.',
   UNIQUE: '[ERROR] 야구 숫자는 중복이 없어야 합니다.',
+  OPTION: '[ERROR] 옵션으로 1 또는 2를 선택해 주세요.',
 };
