@@ -1,5 +1,5 @@
 const App = require('../src/retry/App');
-import { MissionUtils } from '@woowacourse/mission-utils';
+const { MissionUtils } = require('@woowacourse/mission-utils');
 
 
 const mockQuestions = (inputs) => {
