@@ -1,5 +1,6 @@
 const { Console, Random } = require('@woowacourse/mission-utils');
 const Numbers = require('./Numbers');
+const Feedback = require('./Feedback');
 
 class Board {
 
@@ -23,17 +24,23 @@ class Board {
 	}
 
 	getUserGuess() {
+		// FIXME: 임시 주석
+		/*
 		Console.readLine('', (input) => {
 			this._guess = new Numbers(input);
 		});
+		*/
+
+		this.guess = new Numbers('123');
 	}
 
 	checkUserGuess() {
-		console.log("Board.js/Board/checkUserGuess");
+		let [balls, strikes] = this._answer.compare(this._guess);
+		this._feedback = new Feedback(balls, strikes);
 	}
 
 	printFeedback() {
-		console.log("Board.js/Board/printFeedback");
+		this._feedback.print();
 	}
 }
 

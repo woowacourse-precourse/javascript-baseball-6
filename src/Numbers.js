@@ -7,6 +7,19 @@ class Numbers {
 			'value => ', value);
 		this._value = value;
 	}
+
+	compare(target) {
+		console.log('Numbers.js/Numbers/targets');
+		return [1, 2];
+	}
+
+	countBalls(target) {
+		console.log('Numbers.js/Numbers/countBalls');
+	}
+
+	countStrikes(target) {
+		console.log('Numbers.js/Numbers/countStrikes');
+	}
 }
 
 module.exports = Numbers;
