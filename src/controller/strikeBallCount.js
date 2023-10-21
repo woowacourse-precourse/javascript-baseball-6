@@ -11,6 +11,10 @@ const strikeBallCount = (gameInstance, computer, user) => {
   if (strikeBall[1] > 0) result += `${strikeBall[1]}스트라이크`;
   if (strikeBall === "nothing") result += "낫싱";
   Console.print(result);
+
+  if (strikeBall[1] === 3) {
+    Console.print(Messages.SUCCESS_MESSAGE);
+  } else gameInstance.getUserInputNumbers();
 };
 
 export default strikeBallCount;

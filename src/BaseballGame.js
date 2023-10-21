@@ -34,6 +34,7 @@ class BaseballGame {
     }
 
     this.inputValue = input.split("").map(Number);
+    strikeBallCount(this, this.computerNumber, this.inputValue);
   }
 }
 
