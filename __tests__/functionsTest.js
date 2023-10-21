@@ -2,6 +2,13 @@ import App from '../src/App'
 import {MissionUtils} from "@woowacourse/mission-utils";
 
 
+const mockRandoms = (numbers) => {
+    MissionUtils.Random.pickNumberInRange = jest.fn();
+    numbers.reduce((acc, number) => {
+      return acc.mockReturnValueOnce(number);
+    }, MissionUtils.Random.pickNumberInRange);
+  };
+
 const mockQuestions = (answers) => {
     MissionUtils.Console.readLine = jest.fn();
     answers.reduce((acc, input) => {
@@ -21,6 +28,16 @@ describe("야구 게임 테스트", () => {
 
     expect(logSpy).toHaveBeenCalledWith('숫자 야구 게임을 시작합니다.');
   });
+
+
+  test("컴퓨터 숫자 랜덤", () => {
+    const number = [1, 2, 3];
+    mockRandoms(number);
+    const app = new App();
+    const result = app.selectComputer();
+    expect(result).toEqual("123");
+  });
+
 
   test("사용자 숫자 입력 받기", () => {
     const userNumber = ["456"];
@@ -85,5 +102,24 @@ describe("야구 게임 테스트", () => {
     app.isAnswer(result);
 
     expect(logSpy).toHaveBeenCalledWith("게임 종료");
+  });
+
+  test("숫자 맞지 않음", () => {
+    const logSpy = jest.spyOn(console, "log");
+    logSpy.mockClear();
+
+    const randoms = [1, 3, 5];
+    const answers = ["246", "135"];
+    const messages = ["낫싱", "3스트라이크", "게임 종료"];
+
+    mockRandoms(randoms);
+    mockQuestions(answers);
+
+    const app = new App();
+    app.play();
+
+    messages.forEach((output) => {
+      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(output));
+    });
   });
 });
