@@ -9,8 +9,8 @@ const LENGTH = 3;
 class Board {
 
 	_answer = null;
-	_guess = null;
-	_feedback = null;
+	_guesss = [];
+	_feedbacks = [];
 
 	constructor() {
 		//this._setAnswer();
@@ -29,20 +29,20 @@ class Board {
 
 	async getUserGuess() {
 		const input = await Console.readLineAsync(Strings.REQUEST);
-		this._guess = new Numbers(input);
+		this._guesss.push(new Numbers(input));
 	}
 
 	checkUserGuess() {
-		let [balls, strikes] = this._answer.compare(this._guess);
-		this._feedback = new Feedback(balls, strikes);
+		let [balls, strikes] = this._answer.compare(this._guesss.at(-1));
+		this._feedbacks.push(new Feedback(balls, strikes));
 	}
 
 	printFeedback() {
-		this._feedback.print();
+		this._feedbacks.at(-1).print();
 	}
 
 	isCorrectAnswer() {
-		return LENGTH !== this._feedback.getStrikes();
+		return LENGTH !== this._feedbacks.at(-1).getStrikes();
 	}
 }
 
