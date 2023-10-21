@@ -17,6 +17,7 @@ class Feedback {
     let string = ''
     if (this._balls) string += `${this._balls}볼 `;
     if (this._strikes) string += `${this._strikes}스트라이크`;
+    if (!string) string += '낫싱'
     this._feedback = string;
   }
 
