@@ -1,5 +1,6 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import { generateRandomBallNumber } from './Ball.js';
+import { restartMessage } from './Message.js';
 
 const answer = generateRandomBallNumber();
 
@@ -12,23 +13,38 @@ const answer = generateRandomBallNumber();
 const getResult = (input) => {
   const countBall = [...input].filter((el) => answer.includes(~~el)).length;
   const countStrike = [...input].filter((num, i) => ~~num === answer[i]).length;
-  return [countBall, countStrike];
+  return [countBall - countStrike, countStrike];
 };
 
 /**
  * 입력 값과 정답 비교 후 결과 반환
- * @param {String} input 
+ * @param {String} input
  * @returns {String} 결과
  */
 const resultMessage = (input) => {
-    let resultText = [];
+  let resultText = [];
   const [ball, strike] = getResult(input);
-  if(ball === 0 && strike ===0) resultText.push('낫싱');
-  if(ball) resultText.push(`${ball}볼`);
-  if(strike) resultText.push(`${strike}스트라이크`);
+  if (ball === 0 && strike === 0) resultText.push('낫싱');
+  if (ball) resultText.push(`${ball}볼`);
+  if (strike) resultText.push(`${strike}스트라이크`);
   return resultText.join(' ');
 };
 
+/**
+ * 결과 값 프린트
+ * @param {String} input
+ */
+
+const printMessage = (input) => {
+  let message = resultMessage(input);
+  if (message === '3스트라이크') {
+    message = `${message}
+${restartMessage}`;
+  }
+  MissionUtils.Console.print(message);
+};
+
 console.log(answer);
-console.log(getResult("246"));
-console.log(resultMessage("246"));
+console.log(`getResult(): ${getResult('246')}`);
+console.log(`resultMessage(): ${resultMessage('246')}`);
+printMessage(answer);
