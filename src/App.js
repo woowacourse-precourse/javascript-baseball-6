@@ -18,6 +18,7 @@ class App {
         dest: computerNum,
         src: userNum,
       });
+
       printResult(result);
 
       if (result.strike === 3) {
@@ -31,11 +32,7 @@ class App {
   }
   async play() {
     Console.print(MESSAGE.GAME_START);
-
-    let isFinish = false;
-    while (!isFinish) {
-      isFinish = await this.playGameOnce();
-    }
+    while (!(await this.playGameOnce()));
   }
 }
 

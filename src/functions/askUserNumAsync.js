@@ -1,6 +1,6 @@
 import { Console } from "@woowacourse/mission-utils";
-import { THREE_DIGIT_REGEX } from "../constant/regex";
-import { ERROR_MESSAGE } from "../constant/message";
+import { THREE_DIGIT_REGEX } from "../constant/regex.js";
+import { ERROR_MESSAGE } from "../constant/message.js";
 
 /**
  * @param {string} message
