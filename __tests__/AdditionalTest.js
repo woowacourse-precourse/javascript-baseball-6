@@ -114,6 +114,20 @@ describe("숫자 야구 게임", () => {
     await expect(app.play()).rejects.toThrow(errorMessages.NOT_MATCH_LENGTH);
   });
 
+  test("입력 범위에 관한 예외 테스트", async () => {
+    // given
+    const randoms = [1, 3, 5];
+    const answers = ["120"];
+
+    mockRandoms(randoms);
+    mockQuestions(answers);
+
+    // when & then
+    const app = new App();
+
+    await expect(app.play()).rejects.toThrow(errorMessages.OUT_OF_RANGE);
+  });
+
   test("게임 종료 후 입력값 예외 테스트", async () => {
     // given
     const randoms = [1, 3, 5];
