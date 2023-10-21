@@ -37,6 +37,10 @@ class App {
         return this.BaseballGame();
       }
       // TODO : 볼과 스트라이크를 계산하는 기능
+      const { ball, strike } = this.calculateBallAndStrike(
+        compterNumber,
+        this.userNumber
+      );
       // TODO : 비교한 결과에 대해 출력하는 기능
       // TODO : 재시작 여부를 확인하는 기능
     } catch (error) {
@@ -61,6 +65,24 @@ class App {
     }
 
     return true;
+  }
+
+  calculateBallAndStrike(compterNumber, userNumber) {
+    const userNumberArray = userNumber.split("");
+    let ball = 0;
+    let strike = 0;
+
+    compterNumber.forEach((number, index) => {
+      if (compterNumber.includes(userNumber[index])) {
+        ball++;
+      }
+
+      if (number === userNumberArray[index]) {
+        strike++;
+      }
+    });
+
+    return { ball, strike };
   }
 }
 
