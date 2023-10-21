@@ -60,30 +60,40 @@ class App {
     return COMPUTER.join("");
   }
 
+  async getUserInput(promptMessage) {
+    return await MissionUtils.Console.readLineAsync(promptMessage);
+  }
+
+  isValidInput(input, validation) {
+    if (isNaN(Number(input))) {
+      throw new Error("[ERROR]");
+    }
+
+    if (!validation(input)) {
+      throw new Error("[ERROR] 중복되지 않은 3자리 숫자를 입력해주세요.");
+    }
+
+    return true;
+  }
+
+  printErrorMessage(error) {
+    if (error.message === "[ERROR]") {
+      MissionUtils.Console.print(
+        "문자가 포함된 입력입니다. 애플리케이션을 종료합니다."
+      );
+      throw error;
+    }
+    MissionUtils.Console.print(error.message);
+  }
+
   async requestInput(promptMessage, validation) {
     while (true) {
       try {
-        const USERINPUT = await MissionUtils.Console.readLineAsync(
-          promptMessage
-        );
-
-        if (isNaN(Number(USERINPUT))) {
-          throw new Error("[ERROR]");
-        }
-
-        if (!validation(USERINPUT)) {
-          throw new Error("[ERROR]");
-        }
-
-        return USERINPUT;
+        const userInput = await this.getUserInput(promptMessage);
+        this.isValidInput(userInput, validation);
+        return userInput;
       } catch (error) {
-        if (error.message === "[ERROR]") {
-          MissionUtils.Console.print(
-            "문자가 포함된 입력입니다. 애플리케이션을 종료합니다."
-          );
-          throw error;
-        }
-        MissionUtils.Console.print(error.message);
+        this.printErrorMessage(error);
       }
     }
   }
