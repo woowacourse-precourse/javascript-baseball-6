@@ -4,6 +4,8 @@ const VALID_INPUT_LENGTH = 3;
 export default class App {
   constructor() {
     this.computerNumber = "";
+    this.strikeCnt = 0;
+    this.ballCnt = 0;
   }
 
   initComputerNumber() {
@@ -35,12 +37,20 @@ export default class App {
     }
   }
 
+  compareToComputerNumber(userNumber) {
+    userNumber.split("").forEach((num, idx) => {
+      if (this.computerNumber.indexOf(num) === idx) this.strikeCnt++;
+      else if (this.computerNumber.split("").includes(num)) this.ballCnt++;
+    });
+  }
+
   // 게임 진행 함수
   async play() {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
     this.initComputerNumber();
     let userInput = await this.getUserNumber();
     this.checkUserNumberValid(userInput);
+    this.compareToComputerNumber(userInput);
   }
 }
 
