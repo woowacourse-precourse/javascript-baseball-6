@@ -20,7 +20,7 @@ const InputView = {
       throw new ValidationError(`[ERROR] ${MIN}~${MAX} 사이의 숫자가 아닙니다. 게임을 종료합니다.`);
     }
 
-    return guessNumber;
+    return Number(guessNumber);
   },
   readRestartAnswer: async () => {
     const { RESTART, EXIT } = SETTING.COMMAND;
@@ -30,7 +30,7 @@ const InputView = {
       throw new ValidationError(`[ERROR] ${RESTART} 또는 ${EXIT}를 입력하지 않았습니다. 게임을 종료합니다.`);
     }
 
-    return answer;
+    return Number(answer);
   }
 };
 
