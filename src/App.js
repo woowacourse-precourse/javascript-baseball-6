@@ -1,4 +1,3 @@
-//import readline from "readline";
 import { MissionUtils } from "@woowacourse/mission-utils";
 import { TEXT, ERROR, RESTART, ACTION } from "./constants.js";
 
@@ -34,15 +33,16 @@ class App {
       );
     } catch (error) {
       throw error;
-      //throw new Error(ERROR.DUPLICATE_NUMBER_ERROR);
     }
   }
+
   //입력한 값이 서로 다른 3자리 수인지 체크
   validateInput(guessNumber) {
     return new Set(guessNumber).size !== 3 || isNaN(Number(guessNumber))
       ? false
       : true;
   }
+
   //랜덤 값 생성
   makeRandomNumber() {
     const computer = [];
