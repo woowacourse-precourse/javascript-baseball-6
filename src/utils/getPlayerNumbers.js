@@ -1,5 +1,6 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import validate from './validate.js';
+import { ERROR_MESSAGE } from '../constants.js';
 
 export default async function getPlayerNumbers() {
   const playerNumbers = await MissionUtils.Console.readLineAsync(
@@ -9,6 +10,6 @@ export default async function getPlayerNumbers() {
   if (validate(playerNumbers)) {
     return +playerNumbers;
   } else {
-    throw new Error('[Error] 입력 값이 잘못된 형식입니다. 게임을 종료합니다.');
+    throw new Error(ERROR_MESSAGE);
   }
 }
