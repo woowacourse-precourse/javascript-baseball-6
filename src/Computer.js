@@ -3,8 +3,15 @@ import { GAME } from './constant.js';
 
 class Computer {
   #numbers;
+  #strike = 0;
+  #ball = 0;
+
   constructor() {
     this.#numbers = this.#createNumbers();
+  }
+
+  get numbers() {
+    return this.#numbers;
   }
 
   #createNumbers() {
@@ -20,29 +27,31 @@ class Computer {
     return numbers;
   }
 
-  get numbers() {
-    return this.#numbers;
-  }
-
-  judgment(input) {
-    const numbers = [...input].map(Number);
-
-    const same = numbers.reduce(
-      (count, number) => (this.#numbers.includes(number) ? count + 1 : count),
-      0
-    );
-
-    const strike = numbers.reduce(
+  #getStrike(numbers) {
+    return numbers.reduce(
       (count, number, index) =>
         this.#numbers[index] === number ? count + 1 : count,
       0
     );
+  }
 
-    const ball = same - strike;
+  #getBall(numbers) {
+    return (
+      numbers.reduce(
+        (count, number) => (this.#numbers.includes(number) ? count + 1 : count),
+        0
+      ) - this.#strike
+    );
+  }
 
-    MissionUtils.Console.print(GAME.RESULT(strike, ball));
+  judgment(input) {
+    const numbers = [...input].map(Number);
+    this.#strike = this.#getStrike(numbers);
+    this.#ball = this.#getBall(numbers);
 
-    return strike === 3 ? GAME.PASS : GAME.FAIL;
+    MissionUtils.Console.print(GAME.RESULT(this.#strike, this.#ball));
+
+    return this.#strike === 3 ? GAME.PASS : GAME.FAIL;
   }
 }
 
