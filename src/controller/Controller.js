@@ -58,4 +58,19 @@ export default class Controller {
 
     await this.checkEndGame(ballStrikeCounts);
   }
+
+  /**
+   * 스트라이크가 3개일 때, 정답 문구를 출력하고 재시작 의사에 관한 입력을 받습니다.
+   * 스트라이크가 3개가 아닐 시, 다시 숫자를 입력 받습니다.
+   * @param {number[]} ballStrikeCounts [볼, 스트라이크 개수]
+   */
+  async checkEndGame(ballStrikeCounts) {
+    if(ballStrikeCounts[1] === 3) {
+      this.view.printCorrectNumber();
+      await this.view.getRestartInputNumber();
+    }
+    else if(ballStrikeCounts[1] !== 3) {
+      await this.view.getPlayerInputNumber();
+    }
+  }
 }
