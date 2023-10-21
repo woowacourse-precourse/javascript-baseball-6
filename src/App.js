@@ -16,7 +16,7 @@ class App {
       // 서로 다른 랜덤의 수 3개가 들어와야 하므로 조건을 지정하여 처리
       if (!answerNumArr.includes(randomNum)) answerNumArr.push(randomNum);
     }
-    console.log(answerNumArr);
+
     return answerNumArr;
   }
 
@@ -70,6 +70,7 @@ class App {
   }
 
   async userSelectRestartOrQuit() {
+    MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
     MissionUtils.Console.print(
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
     );
