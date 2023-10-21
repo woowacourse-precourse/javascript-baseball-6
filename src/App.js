@@ -70,6 +70,11 @@ class User {
 
     return input;
   }
+
+  selectOption() {
+    const option = Console.readLineAsync(""); 
+    return option
+  }
 }
 
 class Game {
