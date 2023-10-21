@@ -2,7 +2,7 @@ import RandomPicker from "../models/RandomPicker.js";
 import GameAnalyzer from "../models/GameAnalyzer.js";
 import OutputView from "../views/OutputView.js";
 import InputView from "../views/InputView.js";
-import { MESSAGES } from "../constants/Messages.js";
+import { MESSAGES } from "../constants/StringMessages.js";
 import { USER_COMMAND } from "../constants/Constants.js";
 
 class BullsAndCowsGame {

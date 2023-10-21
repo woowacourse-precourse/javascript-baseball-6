@@ -1,6 +1,6 @@
 import { Console } from "@woowacourse/mission-utils";
 import InputValidator from "../models/InputValidator.js";
-import { MESSAGES } from "../constants/Messages.js";
+import { MESSAGES } from "../constants/StringMessages.js";
 
 const InputView = {
   async getUserNumber (message) {
