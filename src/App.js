@@ -5,6 +5,10 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 // Console.<Method Name> 을 통해 콘솔을 사용할 것
 
 class App {
+  constructor() {
+    this.checkFirstRun = true; // 플래그 변수
+  }
+
   systemStartMent() {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
   }
@@ -89,8 +93,11 @@ class App {
 
   // 게임이 진행되는 곳
   async play() {
-    // 게임 시작 멘트
-    this.systemStartMent();
+    if (this.checkFirstRun) {
+      // 게임 시작 멘트
+      this.systemStartMent();
+      this.checkFirstRun = false;
+    }
     // try/catch를 통해 비동기 작업에 대한 error 핸들링하기
     try {
       // 야구게임 정답 생성
