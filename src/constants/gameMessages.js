@@ -16,4 +16,6 @@ export const gameMessages = Object.freeze({
   STRIKES_COUNT: (strikesCount) => `${strikesCount}스트라이크`,
   NOTHING: "낫싱",
   ALL_MATCH: "3스트라이크",
+  SELECT_END_OR_RESTART:
+    "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n",
 });

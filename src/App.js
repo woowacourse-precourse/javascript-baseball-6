@@ -3,6 +3,8 @@ import { print } from "./viewControllers/print.js";
 import Game from "./domains/Game.js";
 import { readLine } from "./viewControllers/readLine.js";
 import Gong from "./domains/Gong.js";
+import { selectEndOrRestart } from "./utils/endOrRestart.js";
+import { SELECTED } from "./utils/endOrRestart.js";
 
 class App {
   async play() {
@@ -24,6 +26,15 @@ class App {
         print(gameMessages.WINNING_GAME);
         break;
       }
+    }
+
+    const endOrRestartInput = await readLine(
+      gameMessages.SELECT_END_OR_RESTART
+    );
+    const selectedNum = selectEndOrRestart(endOrRestartInput);
+
+    if (selectedNum === SELECTED.RESTART_GAME) {
+      await this.startGame();
     }
   }
 }
