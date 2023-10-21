@@ -1,15 +1,27 @@
 import { Console, MissionUtils } from '@woowacourse/mission-utils';
 
 class App {
-  isValidInput(input) {
+  isValidInput(input, restart = false) {
+    // 게임 재시작 여부에 대한 입력값 검증
+    if (restart) {
+      if (input !== '1' && input !== '2') {
+        throw new Error(
+          '[ERROR] 1 또는 2 외의 값을 입력하여, 게임을 종료합니다!'
+        );
+      } else {
+        return;
+      }
+    }
+
+    // 숫자야구 게임에 대한 입력값 검증
     if (!Number(input)) {
-      throw new Error('[ERROR] 숫자만 입력해주세요!'); // 숫자는 맞는가?
+      throw new Error('[ERROR] 숫자만 입력해주세요!');
     } else if (input.length !== 3) {
-      throw new Error('[ERROR] 3자리 숫자를 입력해주세요!'); // 3자리인가?
+      throw new Error('[ERROR] 3자리 숫자를 입력해주세요!');
     } else if (input.includes('0')) {
-      throw new Error('[ERROR] 각 자릿수는 1부터 9 사이 숫자여야 합니다!'); // 0이 포함된 수인가?
+      throw new Error('[ERROR] 각 자릿수는 1부터 9 사이 숫자여야 합니다!');
     } else if (input.length !== new Set(input.split('')).size) {
-      throw new Error('[ERROR] 3자리 숫자는 서로 다른 수로 이루어져야 합니다!'); // 중복 수는 없는가?
+      throw new Error('[ERROR] 3자리 숫자는 서로 다른 수로 이루어져야 합니다!');
     }
   }
 
@@ -59,11 +71,8 @@ class App {
             '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'
           );
 
-          if (restart !== '1' && restart !== '2') {
-            throw new Error(
-              '[ERROR] 1 또는 2 외의 값을 입력하여, 게임을 종료합니다!'
-            ); // 1이나 2 중 하나로 입력했는가?
-          } else if (restart === '2') {
+          this.isValidInput(restart, true);
+          if (restart === '2') {
             flag = 0;
           } else {
             // 새로운 랜덤 값 생성
