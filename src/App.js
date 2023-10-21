@@ -18,13 +18,19 @@ class App {
         const userInputArr = userInput.split('').map(Number);
 
         if(this.isValidInput(userInputArr)) {
-          MissionUtils.Console.print("제대로 입력")
+          const result = this.checkGuessResult(computerNumbers, userInputArr);
+          MissionUtils.Console.print(result);
+
+          if (result === "3스트라이크") {
+            MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+            break;
+          }
         } else { // 예외 발생
           MissionUtils.Console.print("[ERROR] 숫자가 잘못된 형식입니다.");
           throw new Error("[ERROR]");
         }
         
-        break;
+        //break;
       }
 
       // 재시작/종료 여부 얻기 - askForRestart() - 미구현
@@ -56,6 +62,26 @@ class App {
     if (new Set(userInput).size !== 3) // 중복된 수가 있는지
       return false;
     return true; // 제대로 입력
+  }
+
+  // 입력한 수, 상대방(컴퓨터)수에 대한 결과
+  checkGuessResult(computer, user) {
+    let strike = 0;
+    let ball = 0;
+
+    for (let i=0; i<3; i++) {
+      if (computer[i] === user[i]) 
+        strike++;
+      else if (computer.includes(user[i]))
+        ball++;
+    }
+
+    if (strike === 0 && ball ===0) return "낫싱";
+
+    if (ball > 0) {
+      return `${ball}볼${strike > 0 ? `${strike}스트라이크` : ''}`
+    }
+    return `${strike}스트라이크`;
   }
 }
 
