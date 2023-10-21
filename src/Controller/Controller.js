@@ -23,52 +23,54 @@ class Controller {
   async readNumbers() {
     const numbers = await InputView.readNumbers();
 
-    this.validateNumbers(numbers);
+    await this.validateNumbers(numbers);
   }
 
-  validateNumbers(numbers) {
+  async validateNumbers(numbers) {
     try {
       ErrorCatcher.validateType(numbers);
       ErrorCatcher.validateLength(numbers);
       ErrorCatcher.validateUnique(numbers);
 
-      this.setUserAnswer(numbers);
+      await this.setUserAnswer(numbers);
     } catch (error) {
       OutputView.printError(error);
       throw new Error(error);
     }
   }
 
-  setUserAnswer(numbers) {
+  async setUserAnswer(numbers) {
     this.user.setAnswer(numbers);
 
-    this.setComputerAnswer();
+    await this.setComputerAnswer();
   }
 
-  setComputerAnswer() {
+  async setComputerAnswer() {
     const randomNumbersMaker = new RandomNumbersMaker();
     this.computer.setAnswer(randomNumbersMaker.makeNumbers());
 
-    this.compareUserToComputer();
+    await this.compareUserToComputer();
   }
 
-  compareUserToComputer() {
+  async compareUserToComputer() {
     const hintCounter = new HintCounter();
     hintCounter.countHint(this.user.getAnswer(), this.computer.getAnswer());
 
-    this.printHint(hintCounter);
+    await this.printHint(hintCounter);
   }
 
-  printHint(hintCounter) {
+  async printHint(hintCounter) {
     OutputView.printMessage(hintCounter.getHint());
 
     if (hintCounter.isAllStrike()) {
       OutputView.printSuccessMessage();
-      return this.readRetry();
+      return await this.readRetry();
     }
+
+    await this.readNumbers();
   }
 
-  readRetry() {
+  async readRetry() {
     // 재시작 여부 입력 받기
   }
 }
