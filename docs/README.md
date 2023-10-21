@@ -37,12 +37,11 @@
 
 - `BaseballGameController` : 게임의 진행을 담당하는 클래스
 
-  - [ ] BaseballGame에게 게임을 시작하도록 요청한다.
-  - [ ] InputView로 User의 입력을 받는다.
-  - [ ] BaseballGame에게 User의 입력을 전달하여 결과를 받는다.
-  - [ ] OutputView로 게임의 결과를 출력한다.
-  - [ ] BaseballGame에게 게임을 종료하도록 요청한다.
-  - [ ] BaseballGame에게 게임을 재시작 여부를 전달한다.
+  - [x] BaseballGame에게 게임을 시작하도록 요청한다.
+  - [x] InputView로 User의 입력을 받는다.
+  - [x] BaseballGame에게 User의 입력을 전달하여 결과를 받는다.
+  - [x] OutputView로 게임의 결과를 출력한다.
+  - [x] BaseballGame에게 게임을 재시작 여부를 반환받는다.
 
 ## Domain
 
@@ -55,7 +54,8 @@
 - `BaseballGame`: 숫자 야구 게임 클래스
 
   - [x] 사용자가 입력한 수와 상대방의 수를 비교하여 스트라이크, 볼 개수를 반환한다.
-  - [x] 게임 룰을 반환한다.
+  - [x] 재시작 여부를 반환한다.
+  - [x] 이겼는지 여부를 반환한다.
 
 ## View
 
@@ -81,4 +81,4 @@
 
 - `ValidationError`: 입력값 오류를 처리하는 클래스
 
-  - [x] 에러 메시지를 출력한다.
+  - [x] 에러 메시지를 정의한다.
