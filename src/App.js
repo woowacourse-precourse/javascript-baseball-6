@@ -11,7 +11,6 @@ function start() {
     const number = Random.pickNumberInRange(1, 9);
     if(!computer.includes(number)) {
       computer.push(number);
-      Console.print(number);
     }
   }
   return computer;
@@ -78,12 +77,25 @@ function validateNumber(number) {
   }
 }
 
+async function finish() {
+  // 게임 재시작 여부 멘트 출력
+  Console.print('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.')
+  const input = await Console.readLineAsync('입력해주세요 : ')
+  
+  if(input === '1') return true
+  else if(input === '2') return false
+  else {
+    throw new Error("[ERROR] 잘못된 형식입니다.");
+  }
+}
+
 class App {
   async play() {
-    while(true) {
+    let playing = true;
+    while(playing) {
       const computer = start();
-      progress(computer);
-      break;
+      await progress(computer);
+      playing = await finish();
     }
   }
 }
