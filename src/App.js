@@ -30,11 +30,11 @@ class App {
     const isGameFinished = !(await this.game.play());
 
     if (isGameFinished) {
-      return this.handleGameRestartOrExit();
+      return this.askGameRestartOrExit();
     }
   }
 
-  async handleGameRestartOrExit() {
+  async askGameRestartOrExit() {
     const answer = await this.consoleUtils.readLineAsync(
       MESSAGE.ASK_GAME_RESTART
     );
