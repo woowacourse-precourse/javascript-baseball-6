@@ -12,6 +12,18 @@ class App {
 
     return condition;
   }
+
+  getHintCount(mynumber, computer){
+    let strike = 0;
+    let ball = 0;
+    mynumber.split('').forEach((number, i)=>{
+      if(computer.includes(+number) && computer.indexOf(+number) === i) strike++;
+      else if(computer.includes(+number) && computer.indexOf(+number) !== i) ball++;
+    });
+
+    return {strike, ball};
+  }
+
   async play() {
 
     //1. 컴퓨터 숫자 저장
@@ -31,12 +43,7 @@ class App {
     }
 
     //3. 힌트 결과 계산
-    let strike = 0;
-    let ball = 0;
-    mynumber.split('').forEach((number, i)=>{
-      if(computer.includes(+number) && computer.indexOf(+number) === i) strike++;
-      else if(computer.includes(+number) && computer.indexOf(+number) !== i) ball++;
-    });
+    const {ball,strike} = this.getHintCount(mynumber, computer);
 
     Console.print(`${strike} / ${ball}`);
 
