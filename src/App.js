@@ -35,12 +35,13 @@ class App {
   }
 
   async playGame(COMPUTER){
-
+    
+    
     //3스트라이크가 나올때 까지 반복
     while(true){
       //2. 3자리 숫자 입력
       const MYNUMBER = await Console.readLineAsync("숫자를 입력해주세요 : ");
-     
+
       if(this.isInValidNumber(MYNUMBER)){
           throw new Error("[ERROR]");
       }
@@ -56,7 +57,7 @@ class App {
       if(STRIKE === 3){
         Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
         const RETRY = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. ");
-        if(RETRY !== 0 && RETRY !== 1) throw new Error('[ERROR]');
+        if(RETRY !== '1' && RETRY !== '2') throw new Error('[ERROR]');
         return RETRY;
       }
     }
@@ -64,17 +65,24 @@ class App {
 
   async play() {
 
-    //1. 컴퓨터 숫자 저장
-    const COMPUTER = [];
-    while (COMPUTER.length < 3) {
-      const NUMBER = MissionUtils.Random.pickNumberInRange(1, 9);
-      if (!COMPUTER.includes(NUMBER)) {
-        COMPUTER.push(NUMBER);
-      }
-    }
+    
 
-    const RETRY = await this.playGame(COMPUTER);
-    console.log(RETRY);
+    while(true){
+      //1. 컴퓨터 숫자 저장
+      const COMPUTER = [];
+      while (COMPUTER.length < 3) {
+        const NUMBER = MissionUtils.Random.pickNumberInRange(1, 9);
+        if (!COMPUTER.includes(NUMBER)) {
+          COMPUTER.push(NUMBER);
+        }
+      }
+
+      //한 게임 시작 및 재시작 SIGNAL return
+      const RETRY = await this.playGame(COMPUTER);
+
+      //1인경우 -> while, 2인경우 break로 시스템 종료
+      if(RETRY === '2') break;
+    }
     
   }
 }
