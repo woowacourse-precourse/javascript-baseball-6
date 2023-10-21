@@ -4,27 +4,27 @@
 
 ###  :white_check_mark: 구현 로직 순서
 
-- [x] ##### startGame() 메소드를 이용해 게임 시작
+- [x] startGame() 메소드를 이용해 게임 시작
 
-  - [x] ##### getAnswerUserNumber(); 호출
+  - [x] getAnswerUserNumber(); 호출
 
-    - [x] ##### makeAnswer(); => 정답 번호를 받아오는 함수
+    - [x] makeAnswer(); => 정답 번호를 받아오는 함수
 
-    - [x] ##### inputUserNumber(); => 사용자 입력을 받아오는 함수
-
-      - [x] ###### 사용자 입력값 유효성 검사
-
-    - [x] ##### checkingStrike(); => 정답값과 입력값 비교하여 스트라이크 & 볼 체크
-
-  - [x] ##### getUserReGame(); => 3스트라이크 완성 시, 사용자 재게임 여부 확인 메소드
-
-    - [x] ###### endGame(); => 3스트라이크 완성 출력
-
-    - [x] ###### reGame(); => 게임 다시 시작 변수를 입력받는 함수
+    - [x] inputUserNumber(); => 사용자 입력을 받아오는 함수
 
       - [x] 사용자 입력값 유효성 검사
 
-  - [x] ##### 게임 다시 시작 ?  startGame() 메소드 호출 :  gameOver(); => 게임종료 안내문 함수 호출
+    - [x] checkingStrike(); => 정답값과 입력값 비교하여 스트라이크 & 볼 체크
+
+  - [x] getUserReGame(); => 3스트라이크 완성 시, 사용자 재게임 여부 확인 메소드
+
+    - [x] endGame(); => 3스트라이크 완성 출력
+
+    - [x] reGame(); => 게임 다시 시작 변수를 입력받는 함수
+
+      - [x] 사용자 입력값 유효성 검사
+
+  - [x] 게임 다시 시작 ?  startGame() 메소드 호출 :  gameOver(); => 게임종료 안내문 함수 호출
 
 
 
