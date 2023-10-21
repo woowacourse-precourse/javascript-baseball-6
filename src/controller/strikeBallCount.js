@@ -1,7 +1,8 @@
 import { Console } from "@woowacourse/mission-utils";
 
-import compareInput from "./compareInput.js";
 import Messages from "../common/messages.js";
+import compareInput from "./compareInput.js";
+import restartGame from "./restartGame.js";
 
 const strikeBallCount = (gameInstance, computer, user) => {
   let result = "";
@@ -14,6 +15,7 @@ const strikeBallCount = (gameInstance, computer, user) => {
 
   if (strikeBall[1] === 3) {
     Console.print(Messages.SUCCESS_MESSAGE);
+    restartGame();
   } else gameInstance.getUserInputNumbers();
 };
 
