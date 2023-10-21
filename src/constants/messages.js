@@ -1,8 +1,8 @@
 export const DONE_COUNT = 3;
 
 const RESTART_COMMAND = Object.freeze({
-  NEWGAME_NUM: 1,
-  END_NUM: 2,
+  NEWGAME: 1,
+  QUIT: 2,
 });
 
 export const MESSAGE = Object.freeze({
