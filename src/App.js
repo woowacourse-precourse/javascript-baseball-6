@@ -1,21 +1,24 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
+import { createNumber } from "./utility";
+import { playRound } from "./gameLogic";
+import { restartGameDecision } from "./consoleUI";
 
 class App {
   async play() {
-    let gameOver = true;
+    let gameContinue = true;
 
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
-    while (gameOver) {
-      const COM_NUMBER = this.createNumber();
+    while (gameContinue) {
+      const comNumber = createNumber();
 
       while (true) {
         try {
-          if (await this.playRound(COM_NUMBER)) {
-            gameOver = await this.restartGameDecision();
+          if (await playRound(comNumber)) {
+            gameContinue = await restartGameDecision();
             break;
           }
         } catch (error) {
-          if (error.message === "[ERROR]") {
+          if (error.message === "입력한 값이 숫자가 아닙니다.") {
             return;
           }
         }

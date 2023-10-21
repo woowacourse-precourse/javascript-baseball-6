@@ -1,9 +1,9 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
+import { requestUserNumber } from "./consoleUI";
 
-const playRound = async (comNumber, requestUserNumber, checkNumber) => {
+const playRound = async (computerNumber) => {
   let userNumber = await requestUserNumber();
-  let { strikes, balls } = checkNumber(comNumber, userNumber);
-
+  let { strikes, balls } = calculateStrikesAndBalls(computerNumber, userNumber);
   return determineGameResult(strikes, balls);
 };
 
@@ -13,26 +13,29 @@ const determineGameResult = (strikes, balls) => {
       "3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료"
     );
     return true;
-  } else if (strikes === 0 && balls === 0) {
+  }
+
+  if (strikes === 0 && balls === 0) {
     MissionUtils.Console.print("낫싱");
-  } else if (strikes === 0 && balls > 0) {
+  } else if (balls && !strikes) {
     MissionUtils.Console.print(`${balls}볼`);
-  } else if (strikes > 0 && balls === 0) {
+  } else if (strikes && !balls) {
     MissionUtils.Console.print(`${strikes}스트라이크`);
   } else {
     MissionUtils.Console.print(`${balls}볼 ${strikes}스트라이크`);
   }
+
   return false;
 };
 
-const checkNumber = (com, user) => {
+const calculateStrikesAndBalls = (computer, user) => {
   let strikes = 0;
   let balls = 0;
 
   for (let i = 0; i < 3; i++) {
-    if (com[i] === user[i]) {
+    if (computer[i] === user[i]) {
       strikes++;
-    } else if (com.includes(user[i])) {
+    } else if (computer.includes(user[i])) {
       balls++;
     }
   }
@@ -40,4 +43,4 @@ const checkNumber = (com, user) => {
   return { strikes, balls };
 };
 
-export { playRound, determineGameResult, checkNumber };
+export { playRound, determineGameResult, calculateStrikesAndBalls };
