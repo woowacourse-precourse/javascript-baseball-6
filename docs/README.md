@@ -55,13 +55,14 @@
 
 ### 1. 게임 시작
 - 게임 시작 여부 및 랜덤 숫자 초기화
-    - 게임 진행 여부 `isplaying<span>`, 랜덤숫자 `randomNumber`
+    - 게임 진행 여부 `isplaying`, 랜덤숫자 `randomNumber`
     - init 메소드를 통해 초기화
     - 랜덤 숫자 초기화 및 생성을 위해 랜덤 숫자 생성 메소드 `makeRandomNumber()` 추가
         - 중복 없이 숫자 생성
 - 게임 시작 안내 문구 출력
     - `Console.print()` 사용
 ### 2. 게임 플레이
+- while문을 통해 `isplaying`이 `true`일때 반복하도록 한다. 
 - 사용자에게 데이터 입력 받음
     - `playerInputNumber()`를 통해 데이터를 입력 받음
     - `validateInput()`를 통해 데이터 조건 검사 
@@ -70,4 +71,13 @@
         - 3. 각 자리의 숫자는 중복되지 않아야 한다.   => Set()을 통해 중복된 숫자를 없애고, 길이를 측정하여 3미만이면 예외처리 (1번에서 이미 길이가 3인지 검사하였기에 가능)
 - 입력받은 데이터의 볼,스트라이크 유무를 판별함
     - `umpireOfGame()`를 통해 판별함
+- 판별한 결과를 출력함
+    - `printJudgement()`를 통해 판별한 결과를 출력
+- 3stike가 나오면 게임이 클리어 되도록함.
+
 ### 3. 게임 클리어
+- 게임클리어(3strike)가 되면 `gameClear()`메소드를 불러냄
+    - 클리어 문구를 출력.
+    - 재시작 여부를 물어봄.
+        - (1 입력) 재시작 시 `init()`을 통해 isplaying와 randomNumber을 초기화하여 게임 진행 여부를 true로 만들고 새로운 randomNumber을 생성함.
+        - (2 입력) 종료시 `isplaying`이 false가 되어 프로그램이 자연스럽게 종료된다.
