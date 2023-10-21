@@ -7,7 +7,6 @@ class App {
   async play() {
     Console.print("숫자 야구 게임을 시작합니다.");
     let computer = random(); // 컴퓨터값(배열)을 랜덤으로 받기
-    Console.print(computer);
     while(true){
       try{
         let user1 = input(await Console.readLineAsync('숫자를 입력해주세요 : ')); // 사용자입력값(문자열) 애러 찾기
