@@ -18,7 +18,7 @@ function validateComputerNumber(numbers) {
       throw new InvalidNumberError("숫자는 1부터 9 사이 입니다.");
     }
 
-    if (Number.isInteger(number)) {
+    if (!Number.isInteger(number)) {
       throw new InvalidNumberError("숫자는 정수여야 합니다.");
     }
   });
