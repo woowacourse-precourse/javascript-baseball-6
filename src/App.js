@@ -29,7 +29,7 @@ class App {
   getRandomList() {
     const list = [];
     while (list.length < 3) {
-      const number = Random.pickNumberInRange(0, 9);
+      const number = Random.pickNumberInRange(1, 9);
       if (!list.includes(number)) list.push(number);
     }
     return computer;
@@ -79,11 +79,8 @@ class App {
     let input = await Console.readLineAsync(
       '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.'
     );
-    if (
-      input.length != 1 ||
-      (input.charCodeAt(0) != 49 && input.charCodeAt(0) != 50)
-    )
-      throw Error('[ERROR] Wrong Input');
+    if (input.length != 1) throw Error('[ERROR] Wrong Input');
+    if (input.charCodeAt(0) != 49 && input.charCodeAt(0) != 50) throw Error('[ERROR] Wrong Input');
     if (input.charCodeAt(0) == 49) return true;
     if (input.charCodeAt(0) == 50) return false;
   }
