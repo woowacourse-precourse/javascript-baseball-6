@@ -1,10 +1,12 @@
 const { startGame } = require("./modules/startGame");
 const { playGame } = require("./modules/playGame");
 
+
 class App {
-  async play() {
+  play() {
     startGame();
     playGame();
   }
 }
-export default App;
+
+module.exports = App;
