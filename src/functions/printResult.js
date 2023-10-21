@@ -1,4 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
+import { ERROR_MESSAGE } from '../constant/message';
 /**
  * @param {{strike: number, ball: number}}
  */
@@ -10,8 +11,10 @@ const printResult = function printStrikeAndBall({ strike, ball }) {
     Console.print(`${strike}스트라이크`);
   } else if (ball > 0) {
     Console.print(`${ball}볼`);
-  } else {
+  } else if (strike === 0 && ball === 0) {
     Console.print('낫싱');
+  } else {
+    throw Error(ERROR_MESSAGE.unknown);
   }
 };
 

@@ -7,4 +7,5 @@ export const MESSAGE = {
 
 export const ERROR_MESSAGE = {
   invalidInput: '[ERROR] 잘못된 입력.',
+  unknown: '[ERROR] 알 수 없는 오류.',
 };
