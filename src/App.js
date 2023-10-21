@@ -22,19 +22,15 @@ function makeRandom() {
 async function getUserInput(message) {
   try {
     const number = await MissionUtils.Console.readLineAsync(message);
-    // if (number.length === 3 && !isNaN(number)) {
-    //   return number;
-    // } else {
-    //   // throw new Error("[ERROR]");
-    //   throw "[ERROR]";
-    // }
-    return new Promise((resolve, reject) => {
-      if (number.length === 3 && !isNaN(number)) {
-        resolve(false);
-      } else {
-        reject(new Error("[ERROR]"));
-      }
-    });
+
+    // return new Promise((resolve, reject) => {
+    //   if (number.length === 3 && !isNaN(number)) {
+    //     resolve(false);
+    //   } else {
+    //     reject(new Error("[ERROR]"));
+    //   }
+    // });
+    return number;
   } catch (error) {
     // MissionUtils.Console.print("[ERROR] 숫자가 잘못된 형식입니다.");
     // throw new Error("[ERROR]");
@@ -42,25 +38,14 @@ async function getUserInput(message) {
   }
 }
 
-// function checkError(number) {
-//   if (number.length === 3 && !isNaN(number)) {
-//     return false;
-//   }
-//   // throw new Error("[ERROR]");
-//   throw error;
-// }
 function checkError(number) {
-  return new Promise((resolve, reject) => {
-    if (number.length === 3 && !isNaN(number)) {
-      resolve(false); // 성공(resolve) 상태
-    } else {
-      reject("[ERROR]");
-      // reject(false);
-      // return "[ERROR]";
-      // reject("[ERROR]");
-    }
-  });
+  if (number.length === 3 && !isNaN(number)) {
+    return true;
+  }
+
+  return false;
 }
+
 function review(answer, number) {
   // console.log(answer, number);
   // console.log(SCORE);
@@ -115,36 +100,20 @@ function printResult() {
 class App {
   async play() {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
-    const answer = makeRandom();
+    let answer = makeRandom();
 
     while (!SCORE.success) {
       let num = await getUserInput("숫자를 입력해주세요 :");
-      try {
-        await checkError(num);
-      } catch (err) {
-        MissionUtils.Console.print("[ERROR] 숫자가 잘못된 형식입니다.");
-        // throw console.error("[ERROR]");
+      if (!checkError(num)) {
+        throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
       }
-      // checkError(num)
-      //   .then((result) => {
-      //     // 성공한 경우 처리
-      //   })
-      //   .catch((error) => {
-      //     console.error("에러 발생: " + error.message);
-      //   });
-      review(answer, num);
 
-      if (!SCORE.성공) {
+      review(answer, num);
+      if (!SCORE.success) {
         resetScore();
       }
-      // if (!checkError(num)) {
-      //   review(answer, num);
-
-      //   if (!SCORE.성공) {
-      //     resetScore();
-      //   }
-      // }
     }
+
     let number = await getUserInput(
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
     );
@@ -152,6 +121,9 @@ class App {
     if (number === "1") {
       resetScore();
       SCORE.success = false;
+      //console.log(SCORE);
+      // answer = makeRandom();
+      // continue;
       return this.play();
     }
 
