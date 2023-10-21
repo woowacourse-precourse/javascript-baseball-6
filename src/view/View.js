@@ -54,4 +54,13 @@ export default class View {
   printCorrectNumber() {
     Console.print(this.CORRECT_NUMBER_MESSAGE);
   }
+
+  /**
+   * 게임 종료 후 재시작 의사를 입력 받은 후 유효성을 검증합니다.
+   */
+  async getRestartInputNumber() {
+    const RESTART_INPUT = await Console.readLineAsync(this.RESTART_INPUT_MESSAGE);
+
+    await this.controller.isRestartInputValid(RESTART_INPUT);
+  }
 }
