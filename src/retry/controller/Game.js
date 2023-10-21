@@ -2,10 +2,11 @@ import { Console } from '@woowacourse/mission-utils';
 
 const OutputView = require('../view/OutputView');
 const InputView = require('../view/InputView');
-const RandomNumberGenerator = require('../model//RandomNumberMaker');
+const RandomNumberGenerator = require('../model/RandomNumberMaker');
 const Referee = require('../model/Referee');
 const UserValidation = require('../validation/UserValidation');
 const OptionValidation = require('../validation/OptionValidation');
+const MESSAGE = require('../constant/message');
 
 
 class Game {
@@ -39,9 +40,9 @@ class Game {
     compare() {
         const result = new Referee().compare(this.#computer, this.#user);
         let message = [];
-        if (result.ball === 0 && result.strike === 0) message.push('낫싱');
-        if (result.ball !== 0) message.push(`${result.ball}볼`);
-        if (result.strike !== 0) message.push(`${result.strike}스트라이크`);
+        if (result.ball === 0 && result.strike === 0) message.push(MESSAGE.NOTHING);
+        if (result.ball !== 0) message.push(MESSAGE.BALL(result.ball));
+        if (result.strike !== 0) message.push(MESSAGE.STRIKE(result.strike));
         OutputView.printResult(message);
 
         this.progress(result);

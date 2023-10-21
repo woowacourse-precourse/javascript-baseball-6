@@ -1,4 +1,4 @@
-const Referee = require('../src/model/Referee');
+const Referee = require('../src/retry/model/Referee');
 
 describe('숫자 비교 결과 테스트', () => {
   test.each([

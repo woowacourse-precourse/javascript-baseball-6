@@ -8,7 +8,7 @@ import { Console } from '@woowacourse/mission-utils';
     * 게임 시작 메세지를 출력한다.
      */
     printStart() {
-        Console.print('숫자 야구 게임을 시작합니다.');
+        Console.print(MESSAGE.START);
     },
 
     /**
@@ -22,7 +22,7 @@ import { Console } from '@woowacourse/mission-utils';
    * 게임 종료 메세지를 출력하고 종료한다.
    */
     finishGame() {
-        Console.print('게임 종료');
+        Console.print(MESSAGE.FINISH);
         Console.close();
     },
 };
