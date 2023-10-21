@@ -1,4 +1,4 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
+import { MissionUtils } from '@woowacourse/mission-utils';
 
 const generateNum = function generateRandomNumberList({ length }) {
   const computer = [];

@@ -1,7 +1,7 @@
-import { Console } from "@woowacourse/mission-utils";
-import { THREE_DIGIT_REGEX } from "../constant/regex.js";
-import { ERROR_MESSAGE } from "../constant/message.js";
-import checkDuplication from "../utils/checkDuplication.js";
+import { Console } from '@woowacourse/mission-utils';
+import { THREE_DIGIT_REGEX } from '../constant/regex.js';
+import { ERROR_MESSAGE } from '../constant/message.js';
+import checkDuplication from '../utils/checkDuplication.js';
 
 /**
  * @param {string} message
