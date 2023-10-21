@@ -1,7 +1,7 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import { createNumber } from "./utility";
-import { playRound } from "./gameLogic";
-import { restartGameDecision } from "./consoleUI";
+import { createNumber } from "./utility.js";
+import { playRound } from "./gameLogic.js";
+import { restartGameDecision } from "./consoleUI.js";
 
 class App {
   async play() {

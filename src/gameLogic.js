@@ -1,5 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import { requestUserNumber } from "./consoleUI";
+import { requestUserNumber } from "./consoleUI.js";
 
 const playRound = async (computerNumber) => {
   let userNumber = await requestUserNumber();
