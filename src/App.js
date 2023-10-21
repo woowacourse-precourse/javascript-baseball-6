@@ -1,10 +1,12 @@
-import { MissionUtils } from "@woowacourse/mission-utils"; // 우테코 API
+import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
 
   randomNumber = [];
   userBaseballNumber = [];
   MatchingNumbers;
+  Strike = 0;
+
 
   setRandomNumber() {
     const computer = [];
@@ -39,13 +41,20 @@ class App {
     this.MatchingNumbers = this.randomNumber.filter((nums) => this.userBaseballNumber.includes(nums)).length;
   }
 
+  countStrike() {
+    for (let i = 0; i < randomNumber.length; i++) {
+      randomNumber[i] == userBaseballNumber[i] ? Strike += 1 : ;
+    }
+  }
+
 
 
   async play() {
     MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
     this.setRandomNumber();
     await this.getUserInput();
-    this.countMatchBall();
+    this.countMatchingNumbers();
+    this.countStrike();
   }
 
 }

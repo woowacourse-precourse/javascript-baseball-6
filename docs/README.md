@@ -40,15 +40,20 @@
 
 
 ### 4. 숫자 맞추기 게임
-	- Ball 개수 먼저 세기
-		- 사용자가 입력한 숫자 중 일치하는 것이 있다면 Ball++
+    - 랜덤숫자와 사용자 입력 숫자가 일치하는 개수 카운트
 
-	- Strike 개수 세기
-		- Strike가 나올 경우 Strike++ Ball-- 
+    - 스트라이크, 볼 일치 개수 카운트
+        - MatchCount가 0이라면 리턴
+
+	    - Strike 개수 먼저 세기
+		    - Strike가 나올 경우 Strike++ MatchCount--
+
+        - Ball 개수 세기
+		    - Strike 개수 감소로 인해 Ball 개수는 MatchCount와 동일
 
 		* 같은 숫자, 같은 자리 => 스트라이크
   		* 같은 숫자, 다른 자리 => 볼
-  		* 같은 숫자가 존재하지 않으면 => 낫싱(Ball이 0)
+  		* 같은 숫자가 존재하지 않으면 => 낫싱(MatchCount가 0)
 
     - 결과 출력
 
