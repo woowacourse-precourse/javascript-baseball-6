@@ -5,6 +5,10 @@ export default class opponent{
 
 	#_computerNumber;
 	
+	constructor() {
+		this.makeRandomNumber();
+	}
+
 	makeRandomNumber() {
 		this.#_computerNumber = [];
 		while (this.#_computerNumber.length < 3) {
