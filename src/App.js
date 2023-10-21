@@ -4,6 +4,7 @@ class App {
   async play() {
     this.StartMessage(); // StartMessage 메서드 호출
     const userInput = await this.InputPlayerNumbers();
+    this.MakeRandomNumbers();
   }
 
   StartMessage() {
@@ -12,13 +13,14 @@ class App {
   }
 
   MakeRandomNumbers() {
-    const computer = [];
+    let computer = [];
     while (computer.length < 3) {
-      const number = MissionUtils.Random.pickNumberInRange(1, 9);
+      let number = MissionUtils.Random.pickNumberInRange(1, 9);
       if (!computer.includes(number)) {
         computer.push(number);
       }
     }
+    console.log(computer);
   }
 
   InputPlayerNumbers() {
