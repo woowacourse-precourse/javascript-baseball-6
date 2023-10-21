@@ -1,4 +1,4 @@
-bb# Lv1. 기능 분석
+bbbb# Lv1. 기능 분석
 
 ## 기본 입출력 요구사항
 > - 입력
@@ -176,14 +176,17 @@ bb# Lv1. 기능 분석
 > ### Members
 > - `Number` `balls`
 > - `Number` `strikes`
+> - `string` `feedback`
 > </br></br>
 > ### Functions
 > - `constructor` `(Number balls, Number Strikes)` : 생성자
 >   - `this.balls = balls`
 >   - `this.strikes = strikes`
+>   - `this.makeFeedback()`
+> </br></br>
+> - `makeFeedback` `()` : 피드백 문자열 생성
 > </br></br>
 > - `print` `()` : 피드백 출력
->   - `${this.balls}${Message.BALL} ${this.strikes}${Message.STRIKE}`
 
 </br>
 
