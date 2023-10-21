@@ -1,4 +1,5 @@
 const { Console, Random } = require('@woowacourse/mission-utils');
+const Strings = require('./resources/Strings');
 const Board = require('./Board');
 
 
@@ -17,7 +18,7 @@ class GameManager {
 
 	// 게임을 시작한다.
 	_startGame() {
-		// TODO: 게임 시작 메시지 출력
+		Console.print(Strings.START);
 		this._board = new Board();
 	}
 
@@ -31,22 +32,16 @@ class GameManager {
 
 	// 게임을 마무리한다.
 	_finishGame() {
-		// TODO: 게임 종료 메시지
+		Console.print(Strings.FINISH);
 	}
 
 	// 재시작 여부를 입력받는다.
 	_willReplay() {
-		// TODO: 재경기 안내 메시지 추가
-		Console.readLine('', (input) => {
+		Console.readLine(Strings.REPLAY, (input) => {
 			if (input === '1') return true;
 			if (input === '2') return false;
 
-			// TODO: Error 메시지 추가
-			throw new Error("Temp: [ERROR] invalid input value")
+			throw new Error(Strings.ERROR_INPUT_REPLAY)
 		});
 	}
 }
-
-
-let gm = new GameManager();
-gm.play();

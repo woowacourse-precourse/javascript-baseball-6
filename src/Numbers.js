@@ -1,3 +1,4 @@
+const Strings = require('./resources/Strings');
 const LENGTH = 3;
 const DATA_TYPE_REGEX = /^[1-9]+$/;
 const NO_DUPLICATES_REGEX = /^(?!.*(\d).*\1)\d+$/;
@@ -20,23 +21,20 @@ class Numbers {
 
 	_checkLength(value) {
 		if (value.length !== LENGTH) {
-			// TODO: 에러메시지
-			throw new Error('Error in checkLength')
+			throw new Error(Strings.ERROR_INPUT_LENGTH)
 		}
 	}
 
 	_checkDataType(value) {
 		if (!DATA_TYPE_REGEX.test(value)) {
-			// TODO: 에러메시지
-			throw new Error('Error in checkDataType');
+			throw new Error(Strings.ERROR_INPUT_DATA_TYPE);
 		}
 	}
 
 	_checkDuplicate(value) {
 		if (!NO_DUPLICATES_REGEX.test(value)) {
-			// TODO: 에러메시지
 			console.log(value);
-			throw new Error('Error in checkDuplicate');
+			throw new Error(Strings.ERROR_INPUT_DUPLICATE);
 		}
 	}
 

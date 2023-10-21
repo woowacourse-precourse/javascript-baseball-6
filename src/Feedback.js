@@ -1,4 +1,6 @@
 const { Console, Random } = require('@woowacourse/mission-utils');
+const Strings = require('./resources/Strings');
+
 
 class Feedback {
 
@@ -13,11 +15,10 @@ class Feedback {
   }
 
   makeFeedback() {
-    // TODO: 문자열 포장
     let string = ''
-    if (this._balls) string += `${this._balls}볼 `;
-    if (this._strikes) string += `${this._strikes}스트라이크`;
-    if (!string) string += '낫싱'
+    if (this._balls) string += this._balls + Strings.BALL;
+    if (this._strikes) string += this._strikes + Strings.STRIKE;
+    if (!string) string += Strings.NOTHING
     this._feedback = string;
   }
 
