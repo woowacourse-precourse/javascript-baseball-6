@@ -1,12 +1,12 @@
 export function resultOut(random, inputNo) {
-    let input = inputNo.split('').map(v => {
+    const INPUT = inputNo.split('').map(v => {
         if (isNaN(v)) {
             throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
         } else {
             return parseInt(v);
         }
     });
-    if(new Set([...input]).size !== 3){
+    if(new Set([...INPUT]).size !== 3){
         throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
     }
 
@@ -15,7 +15,7 @@ export function resultOut(random, inputNo) {
     let strike = 0;
     let ball = 0;
     let result = '';
-    input.forEach((element, indexNumber) => {
+    INPUT.forEach((element, indexNumber) => {
         if (random.includes(element)) {
             if (random.indexOf(element) === indexNumber) {
                 strike++;
