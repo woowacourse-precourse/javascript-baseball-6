@@ -38,10 +38,12 @@ function review(answer, number) {
   for (let i = 0; i < answer.length; i++) {
     console.log(SCORE);
     let index = answer.findIndex((el) => el === number[i]);
+    console.log(index);
+    console.log(i);
     if (index === i) {
       SCORE.strike[0]++;
     }
-    if (index > 0 && index !== i) {
+    if (index >= 0 && index !== i) {
       SCORE.ball[0]++;
     }
   }
