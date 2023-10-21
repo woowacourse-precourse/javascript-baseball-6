@@ -4,17 +4,21 @@ import { Console } from '@woowacourse/mission-utils';
 class App {
   async play() {
     this.StartMessage(); // StartMessage 메서드 호출
-    let answer = this.MakeRandomNumbers();
 
-    let userInput = [];
+    let regame = 1;
 
-    while (true) {
-      userInput = await this.InputPlayerNumbers();
-      let result = this.JudgeNumber(answer, userInput);
+    while (regame === 1) {
+      let answer = this.MakeRandomNumbers();
 
-      if (result.strike === 3) {
-        Console.print('3개의 숫자를 모두 맞히셨습니다! 게임종료');
-        break;
+      while (true) {
+        let userInput = await this.InputPlayerNumbers();
+        let result = this.JudgeNumber(answer, userInput);
+
+        if (result.strike === 3) {
+          Console.print('3개의 숫자를 모두 맞히셨습니다! 게임종료');
+          regame = await this.AskRegame();
+          break;
+        }
       }
     }
   }
@@ -92,6 +96,28 @@ class App {
     }
 
     return { strike, ball };
+  }
+
+  async AskRegame() {
+    try {
+      const input = await Console.readLineAsync(
+        '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.'
+      );
+      let answer = [];
+      answer = input.split('').map((number) => parseInt(number));
+
+      // if (playerNumber.length === 3 && new Set(playerNumber).size === 3) {
+      //   // Console.print(playerNumber);
+      // } //else {
+      // //   Console.print('서로 다른 3가지 숫자를 입력해주세요.');
+      // //   return this.InputPlayerNumbers(); // 잘못된 입력에 대해 재귀 호출
+      // // }
+
+      return answer; // 입력이 유효한 경우 반환
+    } catch (error) {
+      // 예외 처리는 잘못된 입력과 관련된 오류에 사용
+      Console.print('[Error]');
+    }
   }
 }
 
