@@ -1,4 +1,4 @@
-import readline from 'readline';
+import { MissionUtils } from '@woowacourse/mission-utils';
 
 class App {
   async play() {
@@ -20,7 +20,7 @@ class App {
         computer.push(number);
       }
     }
-    console.log(computer);
+    console.print(computer);
   }
 
   InputPlayerNumbers() {
