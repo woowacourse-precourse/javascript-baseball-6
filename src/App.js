@@ -24,6 +24,17 @@ class App {
 			else ball++;
 		}
 	}
+	// 결과 프린트 출력
+	resultCheck(strike, ball) {
+		if (strike === 3) {
+			MissionUtils.Console.print(`${strike}스트라이크`);
+			MissionUtils.Console.print(`${strike}개의 숫자를 모두 맞추셨습니다! 게임 종료`);
+		} else if (ball === 3) {
+			MissionUtils.Console.print('낫싱');
+		} else {
+			MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
+		}
+	}
 	// 시작
 	async play() {
 		MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
