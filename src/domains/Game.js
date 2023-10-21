@@ -2,6 +2,8 @@
 
 import Oppenent from './Opponent.js';
 import { GAME_MESSAGES } from '../constants/gameMessages.js';
+// eslint-disable-next-line no-unused-vars
+import Gong from './Gong.js';
 
 class Game {
   /**

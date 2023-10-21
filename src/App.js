@@ -14,6 +14,7 @@ class App {
   async startGame() {
     const game = new Game();
 
+    // eslint-disable-next-line no-constant-condition
     while (true) {
       /* eslint-disable no-await-in-loop */
       const userInput = await readLine(GAME_MESSAGES.INPUT_GONGS);

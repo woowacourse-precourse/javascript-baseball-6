@@ -6,6 +6,7 @@ export const SELECTED = Object.freeze({
   END_GAME: '2',
 });
 
+// eslint-disable-next-line jsdoc/require-returns
 /**
  *
  * @param {string} endOrRestartInput
