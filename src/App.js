@@ -40,6 +40,11 @@ class App {
         return false;
       }
     }
+
+    const distinctDigits = new Set(input);
+    if (distinctDigits.size !== 3) {
+      return false;
+    }
     return true;
   }
 
