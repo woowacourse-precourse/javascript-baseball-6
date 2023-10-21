@@ -1,6 +1,6 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 
-const generateRandomThreeDigitNumber = () => {
+export const generateRandomThreeDigitNumber = () => {
     let randomNumbersList = [];
 
     while (randomNumbersList.length < 3) {
