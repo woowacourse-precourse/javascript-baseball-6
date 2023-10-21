@@ -28,6 +28,10 @@ class Baseball {
 
     return count - strikeCount;
   }
+
+  resetGame() {
+    this.#answer = RandomNumberGenerator.generateRandomNumber(3);
+  }
 }
 
 export default Baseball;
