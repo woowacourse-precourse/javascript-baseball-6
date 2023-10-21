@@ -52,15 +52,18 @@ class App {
   }
 
   countBallAndStrike(computerNumber, guessNumber) {
-    let b = 0;
-    let s = 0;
+    let count = {
+      ball: 0,
+      strike: 0,
+    };
 
     computerNumber.forEach((val, i) => {
-      if (val === guessNumber[i]) s++;
-      else if (guessNumber.includes(val)) b++;
+      if (val === guessNumber[i]) count.strike += 1;
+      else if (guessNumber.includes(val)) count.ball += 1;
     });
 
-    s === 3 ? this.restartMessage() : this.gameResultMessage(b, s);
+    if (count.strike === 3) this.restartMessage();
+    else this.gameResultMessage(count.ball, count.strike);
   }
 
   async restartMessage() {
@@ -77,9 +80,9 @@ class App {
   }
 
   gameResultMessage(ball, strike) {
-    const ballmessage = ball > 0 ? `${ball}볼 ` : "";
+    const ballMessage = ball > 0 ? `${ball}볼 ` : "";
     const strikeMessage = strike > 0 ? `${strike}스트라이크` : "";
-    const result = ballmessage + strikeMessage || "낫싱";
+    const result = ballMessage + strikeMessage || "낫싱";
     MissionUtils.Console.print(result);
     this.inputGuessNumber();
     return;
