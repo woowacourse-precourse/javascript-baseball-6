@@ -1,15 +1,15 @@
-import { Console } from "./console";
+import { Console } from "@woowacourse/mission-utils";
 
-const getLogSpy = () => {
-  const logSpy = jest.spyOn(Console, "print");
+const getLogSpy = (str) => {
+  const logSpy = jest.spyOn(Console, str);
   logSpy.mockClear();
   return logSpy;
 };
 
 describe("console.js test", () => {
-  test("출력 테스트", () => {
+  test("print 함수 출력 테스트", () => {
     const outputs = ["123", "aaa", "안녕"];
-    const logSpy = getLogSpy();
+    const logSpy = getLogSpy("print");
 
     outputs.forEach((output) => {
       Console.print(output);
