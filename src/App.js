@@ -38,6 +38,44 @@ class App {
         }
     }
 
+    // 플레이어와 컴퓨터 숫자 비교
+    async compare() {
+        const PLAYER_NUM = await this.createPlayerNum();
+        const COMPUTER_NUM = [...this.computerNum];
+        let strike = 0;
+        let ball = 0;
+
+        // 스트라이크 계산기
+        for (let i = 0; i < PLAYER_NUM.length; i++) {
+            if (PLAYER_NUM[i] === COMPUTER_NUM[i]) {
+                strike++;
+                PLAYER_NUM.splice(i, 1);
+                COMPUTER_NUM.splice(i, 1);
+                i--;
+            }
+        }
+        // 볼 계산기
+        for (let i = 0; i < PLAYER_NUM.length; i++) {
+            if (COMPUTER_NUM.includes(PLAYER_NUM[i])) ball++;
+        }
+        // 텍스트 출력
+        this.resultText(strike, ball);
+
+        if (strike !== 3) this.play();
+        else this.isEndGame();
+    }
+
+    // 스트라이크 볼 텍스 출력 함수
+    resultText(strike, ball) {
+        if (strike === 0 && ball === 0) MissionUtils.Console.print("낫싱");
+        else if (strike !== 0 && ball === 0)
+            MissionUtils.Console.print(`${strike}스트라이크`);
+        else if (strike === 0 && ball !== 0)
+            MissionUtils.Console.print(`${ball}볼`);
+        else if (strike !== 0 && ball !== 0)
+            MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
+    }
+
     async play() {
         console.log(this.computerNum);
         this.compare();
