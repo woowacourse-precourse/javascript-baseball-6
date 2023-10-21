@@ -37,10 +37,10 @@
   - [x] computerAnswer : 컴퓨터의 정답 (string)
   - [x] playStatus: 게임 종료 여부 (boolean, default : playing)
 
-- [ ] #genrateAnswer (컴퓨터 정답 생성 메서드, sync)
+- [x] #genrateAnswer (컴퓨터 정답 생성 메서드, sync)
 
-  - [ ] **반환 값 : 세 자리 숫자 형태의 문자열 (중복 x)**
-  - [ ] 문자열로 computerAnswer 멤버 변수에 저장 (인스터스 생성시 초기화 필요)
+  - [x] **반환 값 : 세 자리 숫자 형태의 문자열 (중복 x)**
+  - [x] 문자열로 computerAnswer 멤버 변수에 저장 (인스터스 생성시 초기화 필요)
 
 - [ ] #checkUserInput (유저 입력 값 확인 메서드, async)
 
@@ -75,6 +75,6 @@
   - [x] **반환 값 : MissionUtils.Console.print(message)**
 
 - [ ] play (게임 실행 메서드)
-  - [ ] 게임 실행 안내 문구 콘솔에 출력
+  - [x] 게임 실행 안내 문구 콘솔에 출력
   - [ ] playStatus === true 인 상태일 경우 게임이 계속 진행되도록 하는 반복문 로직
   - [ ] 게임 종료 안내 문구 콘솔에 출력 ("2"를 입력 받은 경우)
