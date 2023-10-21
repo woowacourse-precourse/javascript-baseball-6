@@ -15,4 +15,10 @@ describe("ValidatorTest", () => {
     ).toBeFalsy();
     expect(Validator.isLength({ min: 3, max: 3, array: [8, 9] })).toBeFalsy();
   });
+
+  test("숫자 배열이 아닌 경우 false 반환", () => {
+    expect(Validator.isNumberArray(["a", 1, 2])).toBeFalsy();
+    expect(Validator.isNumberArray([1, 5, "ㅇ"])).toBeFalsy();
+    expect(Validator.isNumberArray(["1", "6", "3"])).toBeFalsy();
+  });
 });
