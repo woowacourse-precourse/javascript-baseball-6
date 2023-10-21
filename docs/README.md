@@ -48,10 +48,14 @@
 ### etc
 - 각종 안내 문구 및 조건들을 위한 상수 숫자 파일 생성
     - src/constants
-- 주어진 API를 좀 더 편하게 불러오기 위한 파일 생성
+- 주어진 API와 반복적인 작업을 함수로 만들어 간편하게 불러올 수 있도록 작성
     - src/utils
-        - Console : MissionUtils.Console
-        - Random : MissionUtils.Random
+        - API 관련
+            - print() : MissionUtils.Console.print()
+            - readLineAsync() : MissionUtils.Console.readLineAsync()
+            - pickNumberInRange() : MissionUtils.Random.pickNumberInRange()
+        - Error 관련
+            - throwError() : throw new Error()을 활용하여 생성
 
 ### 1. 게임 시작
 - 게임 시작 여부 및 랜덤 숫자 초기화
