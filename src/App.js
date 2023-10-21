@@ -10,8 +10,6 @@ class App extends InsideGame {
   // 시작과 동시에 3자리의 숫자 랜덤 생성.
   start(endAnswer) {
     this.randoms = super.randomNumber();
-    // this.randoms = [1, 3, 5];
-    console.log(this.randoms);
     if(endAnswer === 1){
       this.play();
     }
@@ -49,12 +47,11 @@ class App extends InsideGame {
   // strike가 3개일 경우 endAndRestart로 이동하고, 아닐 경우에는 다시 숫자를 입력하는 play로 이동.
 
   ballAndStrike(answer) {
-    const ball = super.ballCheck(this.randoms, answer);
-    const strike = super.strikeCheck(this.randoms, answer);
+    const ballStrike = super.Check(this.randoms, answer);
 
-    MissionUtils.Console.print(super.outputHint(ball, strike));
+    MissionUtils.Console.print(super.outputHint(ballStrike[0], ballStrike[1]));
 
-    if (strike === 3) {
+    if (ballStrike[1] === 3) {
       return this.endAndRestart();
     } else {
       this.play();
@@ -82,7 +79,6 @@ class App extends InsideGame {
     const endAnswer = super.endInputVaild(questionAnswer);
 
     if (endAnswer === 1) {
-      // this.randoms = super.randomNumber();
       this.start(endAnswer);
     } else {
       this.close();

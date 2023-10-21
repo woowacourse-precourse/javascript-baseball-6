@@ -15,7 +15,6 @@ class InsideGame {
 
   // 게임을 진행할 때 입력된 값이 올바른 값인지 검증
   vaild(answer) {
-    console.log(answer);
     if (answer.includes(" ")) {
       throw new Error("[ERROR] 공백이 포함되어 있습니다.");
     }
@@ -39,31 +38,20 @@ class InsideGame {
     return "Normal Value";
   }
 
-  // strike 개수 확인
-  strikeCheck(computerNumber, userNumber) {
+  Check(computerNumber, userNumber){
+    let ball = 0;
     let strike = 0;
     const user = userNumber.split('').map(Number);
-    for (let i = 0; i < 3; i++) {
-      if (computerNumber[i] === user[i]) strike++;
-    }
 
-    return strike;
-  }
-
-  // ball 개수 확인
-  ballCheck(computerNumber, userNumber) {
-    let ball = 0;
-    const user = userNumber.split('').map(Number);
-
-    for (let j = 0; j < 3; j++) {
-      if (
-        computerNumber[j] !== user[j] &&
-        computerNumber.includes(user[j])
-      ) {
+    for(let i = 0; i < user.length; i++){
+      if (computerNumber[i] === user[i]) {
+        strike++;
+      }
+      if (computerNumber[i] !== user[i] && computerNumber.includes(user[i])){
         ball++;
       }
     }
-    return ball;
+    return [ball, strike];
   }
 
   // 맞춘 ball과 strike 출력
