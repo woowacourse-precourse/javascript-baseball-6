@@ -5,21 +5,22 @@ class Baseball {
 
   constructor() {
     this.#isPlaying = true;
+    this.makeRandomNumber();
   }
 
-  async getUserinput() {
+  async getUserinputNumber() {
     try {
       const userinput = await MissionUtils.Console.readLineAsync(
         '숫자를 입력해주세요 : '
       );
       if (this.#isPlaying) {
         if (this.checkInputGamePlaying(userinput)) {
-          return userinput;
+          return Number(userinput);
         }
         throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
       } else {
         if (this.checkInputGameOver(userinput)) {
-          return userinput;
+          return Number(userinput);
         }
         throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
       }
@@ -61,6 +62,21 @@ class Baseball {
       }
     }
     this.#randomNumber = [...computer];
+  }
+
+  calcGameCount(userinputNumber) {
+    const userinputNumberArray = Array.from(String(userinputNumber), Number);
+    let strikeCount = 0;
+    let ballCount = 0;
+
+    for (let i = 0; i < this.#randomNumber.length; i++) {
+      if (this.#randomNumber.at(i) === userinputNumberArray.at(i)) {
+        strikeCount += 1;
+      } else if (this.#randomNumber.includes(userinputNumberArray.at(i))) {
+        ballCount += 1;
+      }
+    }
+    return { strikeCount, ballCount };
   }
 }
 export default Baseball;

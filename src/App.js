@@ -2,8 +2,7 @@ import Baseball from './Baseball.js';
 class App {
   async play() {
     const game = new Baseball();
-    game.getUserinput().then((input) => console.log(input));
-    game.makeRandomNumber();
+    game.makeGameResult();
   }
 }
 const app = new App();
