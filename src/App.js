@@ -5,9 +5,16 @@ class App {
     this.randomNumArr = null;
   }
 
-  startGame() {
-    this.createRandomNumber();
-    this.getUserNumber();
+  async startGame() {
+    const userInput = await this.getUserNumber();
+    const { ballCount, strikeCount } = this.compareNumber(
+      userInput,
+      this.randomNumArr
+    );
+    this.printResult(ballCount, strikeCount);
+
+    if (strikeCount === 3) await this.finishGame();
+    else await this.startGame();
   }
 
   createRandomNumber() {
@@ -21,22 +28,13 @@ class App {
     this.randomNumArr = computer;
   }
 
-  getUserNumber() {
-    Console.readLineAsync('숫자를 입력해주세요 : ')
-      .then((input) => {
-        if (!this.isInputValid(input)) {
-          throw new Error('[Error] 숫자가 잘못된 형식입니다.');
-        }
+  async getUserNumber() {
+    const userInput = await Console.readLineAsync('숫자를 입력해주세요 : ');
+    if (!this.isInputValid(userInput)) {
+      throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+    }
 
-        const { ballCount, strikeCount } = this.compareNumber(
-          input,
-          this.randomNumArr
-        );
-        this.printResult(ballCount, strikeCount);
-      })
-      .catch((error) => {
-        Console.print(error.message);
-      });
+    return userInput;
   }
 
   isInputValid(userInput) {
@@ -71,34 +69,33 @@ class App {
     if (strike > 0) message += `${strike}스트라이크`;
     if (ball === 0 && strike === 0) message = '낫싱';
 
-    Console.print(message);
-
-    if (strike === 3) this.finishGame();
-    else this.getUserNumber();
+    Console.print(message.trim());
   }
 
-  finishGame() {
+  async finishGame() {
     Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
-    Console.readLineAsync(
+
+    const input = await Console.readLineAsync(
       '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'
-    )
-      .then((input) => {
-        if (input === '1') {
-          this.startGame();
-        } else if (input === '2') {
-          return;
-        } else {
-          throw new Error('[ERROR] 잘못된 형식입니다.');
-        }
-      })
-      .catch((error) => {
-        Console.print(error.message);
-      });
+    );
+
+    if (input !== '1' && input !== '2') {
+      throw new Error('[ERROR] 잘못된 형식입니다.');
+    } else if (input === '1') {
+      this.createRandomNumber();
+      await this.startGame();
+    }
   }
 
   async play() {
-    Console.print('숫자 야구 게임을 시작합니다.');
-    this.startGame();
+    try {
+      Console.print('숫자 야구 게임을 시작합니다.');
+      this.createRandomNumber();
+      await this.startGame();
+    } catch (error) {
+      Console.print(error.message);
+      return Promise.reject(error);
+    }
   }
 }
 
