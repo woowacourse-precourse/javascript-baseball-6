@@ -9,4 +9,10 @@ const MESSAGE = {
 	GAMEOVER : "게임 종료.",
 	ERROR : "[ERROR]",
 };
+
+const CONSTANT = {
+	RETRY : '1',
+	END : '2',
+	THREESTRIKE : 3,
+}
 export {MESSAGE, resultObject, CONSTANT};
