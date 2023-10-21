@@ -134,6 +134,9 @@ class App {
       if (this.cntStrike === NUMBER_LENGTH) {
         this.printGameOverMessage();
         this.gameStatus = await this.decideGameContinuation();
+        if (this.gameStatus === EXIT) {
+          break;
+        }
         this.initAnswer();
         this.setAnswer();
       }
