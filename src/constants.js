@@ -49,44 +49,38 @@ const ERROR_MESSAGE = Object.freeze({
   NOT_RESTART_OR_END: "1 또는 2를 입력해주세요.",
 });
 
-/**
- * 사용자 입력의 최대 길이
- */
-const MAX_INPUT_LENGTH = 3;
+const SCORE = Object.freeze({
+  STRIKE: "스트라이크",
+  BALL: "볼",
+  NOTHING: "낫싱",
+});
 
-/**
- * 랜덤 숫자의 최소 값
- */
-const MIN_RANDOM_NUMBER = 1;
+// 인풋 최대 길이, 랜덤 숫자 최소값, 랜덤 숫자 최대값, 재시작 숫자, 종료 숫자를 가지고 있는 객체
+const GAME_SETTING = Object.freeze({
+  /**
+   * 사용자 입력의 최대 길이
+   */
+  MAX_INPUT_LENGTH: 3,
 
-/**
- * 랜덤 숫자의 최대 값
- */
-const MAX_RANDOM_NUMBER = 9;
+  /**
+   * 랜덤 숫자의 최소 값
+   */
+  MIN_RANDOM_NUMBER: 1,
 
-/**
- * 게임을 재시작할 경우, 사용자 입력
- */
-const RESTART_NUMBER = 1;
+  /**
+   * 랜덤 숫자의 최대 값
+   */
+  MAX_RANDOM_NUMBER: 9,
 
-/**
- * 게임을 종료할 경우, 사용자 입력
- */
-const END_NUMBER = 2;
+  /**
+   * 게임을 재시작할 경우, 사용자 입력
+   */
+  RESTART_NUMBER: 1,
 
-const STRIKE = "스트라이크";
-const BALL = "볼";
-const NOTHING = "낫싱";
+  /**
+   * 게임을 종료할 경우, 사용자 입력
+   */
+  END_NUMBER: 2,
+});
 
-export {
-  LOG,
-  MAX_INPUT_LENGTH,
-  MIN_RANDOM_NUMBER,
-  MAX_RANDOM_NUMBER,
-  RESTART_NUMBER,
-  END_NUMBER,
-  ERROR_MESSAGE,
-  STRIKE,
-  BALL,
-  NOTHING,
-};
+export { LOG, GAME_SETTING, ERROR_MESSAGE, SCORE };
