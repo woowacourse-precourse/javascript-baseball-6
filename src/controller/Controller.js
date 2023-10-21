@@ -5,7 +5,7 @@ import View from "../view/View.js";
 
 export default class Controller {
   constructor() {
-    this.view = new View();
+    this.view = new View(this);
     this.computer = new Computer();
     this.player = new Player();
     this.validation = new Validation();
@@ -18,4 +18,6 @@ export default class Controller {
   updatePlayerNumber(playerInput) {
     this.player.setNumber(playerInput);
   }
+
+
 }
