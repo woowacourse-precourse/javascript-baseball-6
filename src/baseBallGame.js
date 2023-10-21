@@ -26,7 +26,11 @@ const baseBallGame = async (computerValue) => {
     return baseBallGame(computerValue);
   }
 
+  Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+  Console.print("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+
   const reStartValue = await restartChecked();
+  Console.print(reStartValue);
 
   if (reStartValue === "1") {
     return baseBallGame(createRandomNumber());
