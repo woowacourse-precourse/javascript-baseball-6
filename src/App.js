@@ -1,5 +1,9 @@
+import baseball from "./Controller/BaseBall.js";
+
 class App {
-  async play() {}
+  async play() {
+    baseball.init();
+  }
 }
 
 export default App;
