@@ -91,25 +91,24 @@ class App {
   }
 
   async judge() {
-    const NOTHING = this.message("NOTHING");
     const STRIKES = this.result.strikes;
     const BALLS = this.result.balls;
     if (STRIKES === 3) {
       this.printMsgIs(`${STRIKES}스트라이크`);
       await this.retry();
-    } else if (STRIKES !== 0 && BALLS !== 0) {
-      this.printMsgIs(`${BALLS}볼 ${STRIKES}스트라이크`);
-      await this.game();
-    } else if (STRIKES !== 0 && BALLS === 0) {
-      this.printMsgIs(`${STRIKES}스트라이크`);
-      await this.game();
-    } else if (STRIKES === 0 && BALLS !== 0) {
-      this.printMsgIs(`${BALLS}볼`);
-      await this.game();
     } else {
-      this.printMsgIs(NOTHING);
+      this.replay(STRIKES, BALLS);
       await this.game();
     }
+  }
+
+  replay(strikes, balls) {
+    const NOTHING = this.message("NOTHING");
+    if (strikes === 0 && balls === 0) this.printMsgIs(NOTHING);
+    if (strikes !== 0 && balls !== 0)
+      this.printMsgIs(`${balls}볼 ${strikes}스트라이크`);
+    if (strikes === 0 && balls !== 0) this.printMsgIs(`${balls}볼`);
+    if (strikes !== 0 && balls === 0) this.printMsgIs(`${strikes}스트라이크`);
   }
 
   congrat() {
