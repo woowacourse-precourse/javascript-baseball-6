@@ -112,7 +112,7 @@ class App {
     }
 
     if (this.strike === 3) {
-      Console.print(`${this.strike}\n${GAME_MESSAGE.END}`);
+      Console.print(`${this.strike}\n${GAME_MESSAGE.SUCCESS}`);
       return this.reStart();
     }
   }
