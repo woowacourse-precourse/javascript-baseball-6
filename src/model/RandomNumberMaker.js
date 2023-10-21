@@ -1,6 +1,6 @@
 import { Random } from '@woowacourse/mission-utils';
 
-const RandomNumberGenerator = {
+const RandomNumberMaker = {
   generate() {
     const numbers = [];
     while (numbers.length < 3) {
@@ -13,4 +13,4 @@ const RandomNumberGenerator = {
   },
 };
 
-module.exports = RandomNumberGenerator;
+module.exports = RandomNumberMaker;
