@@ -84,4 +84,31 @@ describe("기능 단위 테스트", () => {
       expect(() => app.userInputNumberValidation(inputNumber)).toThrow("잘못된 값 입력됨"),
     );
   });
+
+  test("5. 사용자에게 입력 받은 숫자 값 비교하기 (컴퓨터)", () => {
+    const userInputNumbers = [
+      [1, 3, 5],
+      [3, 4, 5],
+      [2, 4, 6],
+      [6, 7, 8],
+    ];
+    const randomNumbers = [
+      [1, 3, 5],
+      [4, 5, 3],
+      [2, 3, 4],
+      [9, 1, 2],
+    ];
+    const baseBallCounts = [
+      { strike: 3, ball: 0 },
+      { strike: 0, ball: 3 },
+      { strike: 1, ball: 1 },
+      { strike: 0, ball: 0 },
+    ];
+
+    const app = new App();
+
+    baseBallCounts.forEach((Count, idx) => {
+      expect(app.calcBallStrike(userInputNumbers[idx], randomNumbers[idx])).toEqual(Count);
+    });
+  });
 });
