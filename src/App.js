@@ -96,7 +96,7 @@ class App {
     const BALLS = this.result.balls;
     if (STRIKES === 3) {
       this.printMsgIs(`${STRIKES}스트라이크`);
-      await this.congrat();
+      await this.retry();
     } else if (STRIKES !== 0 && BALLS !== 0) {
       this.printMsgIs(`${BALLS}볼 ${STRIKES}스트라이크`);
       await this.game();
@@ -112,10 +112,14 @@ class App {
     }
   }
 
-  async congrat() {
+  congrat() {
     const CONGRAT = this.message("CONGRAT");
-    const RETRY = this.message("RETRY");
     this.printMsgIs(CONGRAT);
+  }
+
+  async retry() {
+    this.congrat();
+    const RETRY = this.message("RETRY");
     const retryInput = await MissionUtils.Console.readLineAsync(RETRY);
     if (retryInput === "1") {
       await this.makeStrikeZoneNumber();
