@@ -1,27 +1,32 @@
-import { Console, MissionUtils } from "@woowacourse/mission-utils";
+import { Console, MissionUtils } from '@woowacourse/mission-utils';
 
 class App {
   async play() {
+    console.log('숫자 야구 게임을 시작합니다.');
+    await this.playGame();    
+  }
+
+  async playGame() {
     const computer = this.computerNumber();
 
     while (true) {
       const user = await this.userNumber();
       this.validateInput(user);
-
       const isEnd = this.check(computer, user);
       
       if (isEnd) break;
     }
 
-    console.log('3개의 숫자를 모두 맞히셨습니다! 게임 종료'); 
-    
+    console.log('3개의 숫자를 모두 맞히셨습니다! 게임 종료');    
+        
     const option = await this.endingOption();
     if (option == 1) {
-      await this.play();
+      await this.playGame();
     } else {
       Console.print('게임 종료');
     }
   }
+
 
   computerNumber() {
     const numbers = [];
