@@ -13,7 +13,7 @@ class App {
   async play() {
     this.gameStartMessage();
     this.baseBallGame = new BaseballGame();
-    this.baseBallGame.play();
+    await this.baseBallGame.play();
   }
 }
 
