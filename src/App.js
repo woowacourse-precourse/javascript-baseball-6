@@ -11,10 +11,10 @@ class App {
 
   constructor() {
     OutputView.printStart();
-    this.#initGame();
+    this.#start();
   }
 
-  #initGame() {
+  #start() {
     this.#computerNumber = ComputerNumber.generateComputerNumber();
     this.#isGaming = true;
   }
@@ -33,12 +33,8 @@ class App {
     if (table.STRIKE_COUNT === CORRECT_NUMBER) {
       OutputView.printCorrect();
       const retryAnswer = await InputView.readRetryAnswer();
-      if (retryAnswer === ANSWER.RESTART) {
-        this.#initGame();
-      }
-      if (retryAnswer === ANSWER.FINISH) {
-        this.#finish();
-      }
+      if (retryAnswer === ANSWER.RESTART) this.#start();
+      if (retryAnswer === ANSWER.FINISH) this.#finish();
     }
   }
 
