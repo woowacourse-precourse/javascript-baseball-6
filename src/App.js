@@ -1,25 +1,36 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
+import {MissionUtils} from "@woowacourse/mission-utils";
 
 class App {
-    async play() {
-        let replay = true;
-        while (replay) {
-            const baseBallGame = new BaseBallGame();
-        }
+  async play() {
+    let replay = true;
+    const baseBallGame = new BaseBallGame();
+    while (replay) {
+      baseBallGame.reset();
+      // await baseBallGame.begin();
     }
+  }
 }
 
 class BaseBallGame {
-    constructor() {
-        MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
-        this.answer = [];
-        while (this.answer.length < 3) {
-            const number = MissionUtils.Random.pickNumberInRange(1, 9);
-            if (!this.answer.includes(number)) {
-                this.answer.push(number);
-            }
-        }
+  constructor() {
+    this.answer = "";
+    this.reset();
+  }
+
+  /**
+   * 게임을 초기화한다.
+   * 랜덤한 세 자리 숫자를 새로 생성한다.
+   */
+  reset() {
+    this.answer = "";
+    while (this.answer.length < 3) {
+      const number = MissionUtils.Random.pickNumberInRange(1, 9);
+      if (!this.answer.includes(number)) {
+        this.answer += number;
+      }
     }
+  }
+
 }
 
 export default App;
