@@ -111,13 +111,13 @@ class App {
     if (strikes !== 0 && balls === 0) this.printMsgIs(`${strikes}스트라이크`);
   }
 
-  congrat() {
+  congratMessagePrint() {
     const CONGRAT = this.message("CONGRAT");
     this.printMsgIs(CONGRAT);
   }
 
   async retry() {
-    this.congrat();
+    this.congratMessagePrint();
     const RETRY = this.message("RETRY");
     const retryInput = await MissionUtils.Console.readLineAsync(RETRY);
     if (retryInput === "1") {
