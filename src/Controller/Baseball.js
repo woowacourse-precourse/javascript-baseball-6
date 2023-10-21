@@ -8,7 +8,12 @@ class Baseball {
   }
 
   init() {
-    this.view.printGameStart();
+    try {
+      this.view.printGameStart();
+    } catch (err) {
+      this.view.printErrorMessage(err.message);
+      throw err;
+    }
   }
 }
 

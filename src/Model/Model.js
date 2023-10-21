@@ -1,4 +1,5 @@
 import { Random } from "@woowacourse/mission-utils";
+import { validateComputerNumber } from "../utils/validateNumber.js";
 
 class Model {
   makeComputerRandomNumber() {
@@ -11,6 +12,8 @@ class Model {
         computerRandomNumber.push(number);
       }
     }
+
+    validateComputerNumber(computerRandomNumber);
 
     return computerRandomNumber;
   }

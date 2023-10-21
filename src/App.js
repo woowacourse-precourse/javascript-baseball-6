@@ -2,7 +2,11 @@ import baseball from "./Controller/BaseBall.js";
 
 class App {
   async play() {
-    baseball.init();
+    try {
+      baseball.init();
+    } catch (err) {
+      throw err;
+    }
   }
 }
 
