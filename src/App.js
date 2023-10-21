@@ -18,8 +18,7 @@ class App {
     Console.print("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
     status = Console.readLineAsync();
     if(status == 1){
-      app = new App();
-      app.play(randomNumber,user);  
+      return new app.play(randomNumber,user);
     }else if(status == 2){
       Console.print("리얼 종료");
     }
