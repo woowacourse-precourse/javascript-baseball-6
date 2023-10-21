@@ -1,4 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
+import { MESSAGES } from "../constants/Messages";
 
 const OutputView = {
   
@@ -9,10 +10,10 @@ const OutputView = {
   progressMessage(ball, strike) {
     let message = '';
 
-    if (ball === 0 && strike === 0) message = `낫싱`;
-    if (ball === 0 && strike > 0) message = `${strike}스트라이크`;
-    if (ball > 0 && strike === 0) message = `${ball}볼`;
-    if (ball > 0 && strike > 0) message = `${ball}볼 ${strike}스트라이크`;
+    if (ball === 0 && strike === 0) message = MESSAGES.NATING;
+    if (ball === 0 && strike > 0) message = `${strike}${MESSAGES.STRIKE}`;
+    if (ball > 0 && strike === 0) message = `${ball}${MESSAGES.BALL}`;
+    if (ball > 0 && strike > 0) message = `${ball}${MESSAGES.BALL} ${strike}${MESSAGES.STRIKE}`;
 
     return this.printStaticMessage(message);
   },
