@@ -115,8 +115,9 @@ class App {
         option = num;
       }
     );
-    
+
     if (option === "1") {
+      return this.playGame();
     }
     if (option === "2") {
       MissionUtils.Console.print("게임 종료");
