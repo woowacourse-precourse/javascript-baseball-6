@@ -88,7 +88,7 @@ export default class Controller {
     }
     
     if(restartInput === '1') {
-      await new Controller().init()
+      await new Controller(false).init()
     }
 
     if(restartInput === '2') {
