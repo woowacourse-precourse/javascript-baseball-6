@@ -1,6 +1,6 @@
 class Validator {
   static isLength({ min, max, array }) {
-    return true;
+    return min <= array.length && array.length <= max;
   }
 
   static isNumberArray(array) {
