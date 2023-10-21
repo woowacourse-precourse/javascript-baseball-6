@@ -8,4 +8,8 @@ export const GAME_TEXT = Object.freeze({
   INVALID_NUMBER: "숫자가 잘못된 형식입니다.",
   DUPLICATE_NUMBER: "중복된 수가 있습니다.",
   IS_NEGATIVE_NUMBER: "음수는 입력할 수 없습니다.",
+  BALL: "볼",
+  STRIKE: "스트라이크",
+  NOTHING: "낫싱",
+  WIN: "3개의 숫자를 모두 맞히셨습니다! 게임 종료",
 });

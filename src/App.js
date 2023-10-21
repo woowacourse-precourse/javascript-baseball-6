@@ -15,7 +15,9 @@ class App {
     MissionUtils.Console.print(GAME_TEXT.START);
 
     const player = await this.getUserInput();
-    console.log(player);
+    const { strike, ball } = this.getCountArray(computer.join(""), player);
+    console.log(computer.join(''), player);
+    MissionUtils.Console.print(`${ball}${GAME_TEXT.BALL} ${strike}${GAME_TEXT.STRIKE}`);
   }
 
   async getUserInput() {
@@ -51,6 +53,25 @@ class App {
       isDuplicate[Number(number[index])] = true;
     }
     return false;
+  }
+  getCountArray(computer, player) {
+    const result = { strike: 0, ball: 0 };
+
+    for (let index = 0; index < 3; index++) {
+      if (Number(computer[index]) === Number(player[index])) {
+        result.strike++;
+      }
+    }
+
+    for (let index = 0; index < 3; index++) {
+      const getIdx = computer.indexOf(player[index]);
+      if (getIdx == -1 || getIdx === index) {
+        continue;
+      }
+      result.ball++;
+    }
+
+    return result;
   }
 }
 
