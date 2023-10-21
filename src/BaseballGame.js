@@ -4,6 +4,7 @@ import UserInput from './UserInput.js';
 class BaseballGame {
   constructor() {
     this.targetNumbers = this.generateRandomNumbers();
+    console.log(this.targetNumbers);
   }
 
   generateRandomNumbers() {
@@ -18,7 +19,28 @@ class BaseballGame {
   }
 
   async play() {
-    await UserInput.getUserInputAsync();
+    while (true) {
+      const userInput = await UserInput.getUserInputAsync();
+      this.calculateResult(userInput);
+    }
+  }
+
+  calculateResult(userNumbers) {
+    const userNumberArray = userNumbers.split('').map(Number);
+    const targetNumberArray = this.targetNumbers;
+
+    let strikes = 0;
+    let balls = 0;
+
+    for (let i = 0; i < 3; i++) {
+      if (userNumberArray[i] === targetNumberArray[i]) {
+        strikes++;
+      } else if (targetNumberArray.includes(userNumberArray[i])) {
+        balls++;
+      }
+    }
+
+    return { strikes, balls };
   }
 }
 
