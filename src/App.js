@@ -8,7 +8,18 @@ class App {
     this.message;
   }
 
-  userNumbersInput() {
+  computerInputNumbers() {
+    const computer = [];
+    while (computer.length < 3) {
+      const number = Random.pickNumberInRange(1, 9);
+      if (!computer.includes(number)) {
+        computer.push(number);
+      }
+    }
+    this.computerAnswers = computer;
+  }
+
+  userInputNumbers() {
     Console.readLine(
       "1~9 숫자 내에서 중복 없이 임의의 숫자 3자리를 입력하세요.",
       (nums) => {
@@ -28,6 +39,12 @@ class App {
         this.userAnswer = nums;
       }
     );
+  }
+
+  play() {
+    Console.print(MESSAGES.GAME_PROCESS.START);
+    this.computerInputNumbers();
+    this.userInputNumbers();
   }
 }
 
