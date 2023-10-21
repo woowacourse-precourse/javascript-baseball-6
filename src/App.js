@@ -42,7 +42,7 @@ class App {
         this.userNumber
       );
       // TODO : 비교한 결과에 대해 출력하는 기능
-      this.printResult(ball, strike);
+      return this.printResult(ball, strike);
     } catch (error) {
       throw new Error(ERROR_MESSAGE.IS_INVALID);
     }
@@ -114,6 +114,23 @@ class App {
     if (this.strike === 3) {
       Console.print(`${this.strike}\n${GAME_MESSAGE.SUCCESS}`);
       return this.reStart();
+    }
+  }
+
+  // TODO : 재시작 여부를 확인하는 기능
+  async reStart() {
+    try {
+      const choiceEndOption = await Console.readLineAsync(GAME_MESSAGE.RESTART);
+
+      if (choiceEndOption === END_OPTION.NEW_GAME) {
+        return this.play();
+      }
+
+      if (choiceEndOption === END_OPTION.EXIT) {
+        return Console.print(GAME_MESSAGE.END)
+      }
+    } catch (error) {
+      throw new Error(ERROR_MESSAGE.IS_INVALID);
     }
   }
 }
