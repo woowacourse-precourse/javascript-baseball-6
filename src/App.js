@@ -6,8 +6,9 @@ class App {
         while (true) {
             const COMNUM = this.ComputerNumber();
             const USERINPUT = await this.UserInput();
+            const USERINPUTArray = USERINPUT.split("").map(Number);
             if (this.CheckNum(USERINPUT)) {
-                const result = this.BSResult(COMNUM, USERINPUT);
+                const result = this.BSResult(COMNUM, USERINPUTArray);
                 await MissionUtils.Console.print(result);
                 if (result === "3스트라이크") {
                     await MissionUtils.Console.print(
@@ -42,8 +43,16 @@ class App {
     }
 
     ComputerNumber() {
-        const RANDOMNUM = MissionUtils.Random.pickNumberInRange(1, 9, 3);
-        return RANDOMNUM;
+        const RANDOMNUM = MissionUtils.Random.pickNumberInRange(1, 9);
+        const COMPUTER = [];
+        COMPUTER.push(RANDOMNUM);
+        for (let i = 0; i < 3; i++) {
+            const RANDOMNUM = MissionUtils.Random.pickNumberInRange(1, 9);
+            if (!COMPUTER.includes(RANDOMNUM)) {
+                COMPUTER.push(RANDOMNUM);
+            }
+        }
+        return COMPUTER.join("");
     }
 
     CheckNum(USERINPUT) {
@@ -53,14 +62,14 @@ class App {
         return false;
     }
 
-    BSResult(COMNUM, USERINPUT) {
+    BSResult(COMNUM, USERINPUTArray) {
         let STRIKES = 0;
         let BALLS = 0;
         for (let i = 0; i < 3; i++) {
-            if (COMNUM.includes(USERINPUT[i])) {
+            if (COMNUM.includes(USERINPUTArray[i])) {
                 BALLS++;
             }
-            if (USERINPUT[i] === COMNUM[i]) {
+            if (USERINPUTArray[i] == COMNUM[i]) {
                 STRIKES++;
                 BALLS--;
             }
