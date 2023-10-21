@@ -18,8 +18,8 @@ class App {
   async gameLoop() {
     while (true) {
       const userNumbers = await this.getUserGuessInput();
-      const result = this.printNumberOfMatches(userNumbers);
-      const isAnswer = this.checkIsAnswer(result);
+      const hint = this.getHint(userNumbers);
+      const isAnswer = this.checkIsAnswer(hint);
       if (isAnswer === true) break;
     }
     await this.guessRestart();
@@ -51,14 +51,14 @@ class App {
     }
   }
 
-  printNumberOfMatches(userNumbers) {
-    const result = this.#game.compareUserNumbersWithAnswer(userNumbers);
-    Console.print(result);
-    return result;
+  getHint(userNumbers) {
+    const hint = this.#game.compareUserNumbersWithAnswer(userNumbers);
+    Console.print(hint);
+    return hint;
   }
 
-  checkIsAnswer(result) {
-    if (result === RESULT.THREE_STRIKE) {
+  checkIsAnswer(hint) {
+    if (hint === RESULT.THREE_STRIKE) {
       Console.print(MESSAGE.CORRECT_ANSWER);
       return true;
     }
