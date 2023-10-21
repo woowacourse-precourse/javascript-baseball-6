@@ -4,6 +4,7 @@ class App {
 
   randomNumber = [];
   userBaseballNumber = [];
+  MatchingNumbers;
 
   setRandomNumber() {
     const computer = [];
@@ -34,6 +35,9 @@ class App {
     // 이후 예외조건 추가
   }
 
+  countMatchingNumbers() {
+    this.MatchingNumbers = this.randomNumber.filter((nums) => this.userBaseballNumber.includes(nums)).length;
+  }
 
 
 
@@ -41,6 +45,7 @@ class App {
     MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
     this.setRandomNumber();
     await this.getUserInput();
+    this.countMatchBall();
   }
 
 }
