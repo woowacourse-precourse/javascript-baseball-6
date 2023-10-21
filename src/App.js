@@ -1,25 +1,24 @@
 import { Console } from "@woowacourse/mission-utils";
 import Messages from "./Messages.js";
-import Computer from "./Computer.js";
-import Numbers from "./Numbers.js";
+import Game from "./Game.js";
 
 class App {
   async play() {
     Console.print(Messages.MSG_START);
-    const computer = new Computer();
-    Console.print(computer.targetNumbers);
-
-    // todo: repeat until user input and computer target numbers are same
-    // todo: print result (strike, ball)
-    // todo: make Game class!
-    try {
-      const input = await Console.readLineAsync(Messages.INPUT_NUMBERS);
-      const numbers = Numbers.checkNumbers(input);
-      Console.print(numbers);
-    } catch (error) {
-      Console.print(error);
+    while (true) {
+      const game = new Game();
+      await game.round();
+      
+      // todo: refactor tmp -> menu
+      const tmp = await Console.readLineAsync(Messages.INPUT_MENU + '\n');
+      if (tmp !== '1' && tmp !== '2') {
+        Console.print(Messages.ERROR_MENU);
+      } else if (tmp === '1') {
+        continue;
+      } else if (tmp === '2') {
+        break;
+      }
     }
-    // todo: print game menu (to decide restart or end game)
   }
 }
 
