@@ -1,7 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
 
 class Output {
-  static async print(string) {
+  static print(string) {
     Console.print(string);
   }
 }
