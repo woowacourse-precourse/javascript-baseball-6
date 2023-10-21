@@ -33,7 +33,6 @@ class App {
         ball++;
       }
     }
-
     // 5. 결과 출력
     this.printResult(ball, strike);
     return strike === 3;
