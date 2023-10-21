@@ -3,9 +3,9 @@ import { MESSAGES } from "./messages/messages";
 
 class App {
   constructor() {
-    this.pick = Random.pickUniqueNumbersInRange(1, 9, 3);
-    this.message = Console.print(MESSAGES.GAME_PROCESS.START);
-    this.userAnswer;
+    this.computerAnswers = [];
+    this.userAnswers;
+    this.message;
   }
 
   userPickNums() {
