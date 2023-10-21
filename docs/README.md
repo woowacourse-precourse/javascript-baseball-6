@@ -2,9 +2,9 @@
 
 ## ✅ 구현할 기능 목록
 
-- [ ] 게임 시작
+- [x] 게임 시작
   - [x] 시작 문구 출력 (`Console.print` 활용)
-  - [ ] 상대방(컴퓨터) 숫자 랜덤 값 추출 (`Random.pickNumberInRange` 활용)
+  - [x] 상대방(컴퓨터) 숫자 랜덤 값 추출 (`Random.pickNumberInRange` 활용)
 - [ ] 데이터 입력
   - [ ] 입력된 세자리 숫자 입력 및 Validation
   - [ ] 데이터 입력은 `Console.readLineAsync` 활용
