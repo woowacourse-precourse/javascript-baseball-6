@@ -5,6 +5,18 @@ export default class opponent{
 
 	#_computerNumber;
 
+
+	makeRandomNumber() {
+		this.#_computerNumber = [];
+		while (this.#_computerNumber.length < 3) {
+			const number = Random.pickNumberInRange(1, 9);
+			if (!this.#_computerNumber.includes(number)) {
+				this.#_computerNumber.push(number);
+			}
+		}
+		console.log(this.#_computerNumber);
+	}
+
 	judgeResult(userNumber) {
 		const result = {...resultObject};
 
