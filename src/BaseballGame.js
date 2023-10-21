@@ -4,7 +4,6 @@ import UserInput from './UserInput.js';
 class BaseballGame {
   constructor() {
     this.targetNumbers = this.generateRandomNumbers();
-    console.log(this.targetNumbers);
   }
 
   generateRandomNumbers() {
@@ -23,6 +22,11 @@ class BaseballGame {
       const userInput = await UserInput.getUserInputAsync();
       const result = this.calculateResult(userInput);
       this.printResult(result);
+
+      if (result.strikes === 3) {
+        MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+        break;
+      }
     }
   }
 
