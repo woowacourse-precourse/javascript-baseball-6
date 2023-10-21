@@ -8,27 +8,27 @@ export class GameController {
   }
 
   async startGame() {
-    const userAnswer = await this.user.inputAnswer();
-    const strikeCount = this.getStrikeCount(userAnswer);
-    const ballCount = this.getBallCount(userAnswer, strikeCount);
+    const userInput = await this.user.inputAnswer();
+    const strikeCount = this.getStrikeCount(userInput);
+    const ballCount = this.getBallCount(userInput, strikeCount);
 
-    this.printHint(strikeCount, ballCount);
+    this.checkGameSuccess(strikeCount, ballCount);
   }
 
-  getStrikeCount(userAnswer) {
+  getStrikeCount(userInput) {
     let count = 0;
-    for (let i = 0; i < userAnswer.length; i++) {
-      if (this.computer[i] === userAnswer[i]) {
+    for (let i = 0; i < userInput.length; i++) {
+      if (this.computer[i] === userInput[i]) {
         count++;
       }
     }
     return count;
   }
 
-  getBallCount(userAnswer, strikeCount) {
+  getBallCount(userInput, strikeCount) {
     let count = 0;
-    for (let i = 0; i < userAnswer.length; i++) {
-      if (this.computer.includes(userAnswer[i])) {
+    for (let i = 0; i < userInput.length; i++) {
+      if (this.computer.includes(userInput[i])) {
         count++;
       }
     }
@@ -42,5 +42,19 @@ export class GameController {
     if (ballCount === 0 && strikeCount === 0) hint.push(`낫싱`);
 
     Console.print(hint.join(" "));
+  }
+
+  async checkGameSuccess(strikeCount, ballCount) {
+    this.printHint(strikeCount, ballCount);
+    if (strikeCount === 3) {
+      Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+      const userInput = await this.user.inputRetry();
+      if (userInput === "1") {
+        // 다시 시작
+      }
+      if (userInput === "2") {
+        // 종료
+      }
+    }
   }
 }
