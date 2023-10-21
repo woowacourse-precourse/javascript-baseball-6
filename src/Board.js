@@ -1,7 +1,8 @@
-const { Console, Random } = require('@woowacourse/mission-utils');
-const Strings = require('./resources/Strings')
-const Numbers = require('./Numbers');
-const Feedback = require('./Feedback');
+import { Console, Random } from '@woowacourse/mission-utils';
+import Strings from './resources/Strings';
+import Numbers from './Numbers';
+import Feedback from './Feedback';
+
 const LENGTH = 3;
 
 
@@ -12,7 +13,7 @@ class Board {
 	_feedback = null;
 
 	constructor() {
-		this._setAnswer();
+		//this._setAnswer();
 	}
 
 	_setAnswer() {
@@ -26,10 +27,9 @@ class Board {
 		this._answer = new Numbers(numbers.join(''));
 	}
 
-	getUserGuess() {
-		Console.readLine('', (input) => {
-			this._guess = new Numbers(input);
-		});
+	async getUserGuess() {
+		const input = await Console.readLineAsync(Strings.REQUEST);
+		this._guess = new Numbers(input);
 	}
 
 	checkUserGuess() {
@@ -40,6 +40,10 @@ class Board {
 	printFeedback() {
 		this._feedback.print();
 	}
+
+	isCorrectAnswer() {
+		return LENGTH !== this._feedback.getStrikes();
+	}
 }
 
-module.exports = Board;
+export default Board;

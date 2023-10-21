@@ -1,4 +1,5 @@
-const Strings = require('./resources/Strings');
+import Strings from './resources/Strings';
+
 const LENGTH = 3;
 const DATA_TYPE_REGEX = /^[1-9]+$/;
 const NO_DUPLICATES_REGEX = /^(?!.*(\d).*\1)\d+$/;
@@ -21,7 +22,7 @@ class Numbers {
 
 	_checkLength(value) {
 		if (value.length !== LENGTH) {
-			throw new Error(Strings.ERROR_INPUT_LENGTH)
+			throw new Error(Strings.ERROR_INPUT_LENGTH);
 		}
 	}
 
@@ -33,7 +34,6 @@ class Numbers {
 
 	_checkDuplicate(value) {
 		if (!NO_DUPLICATES_REGEX.test(value)) {
-			console.log(value);
 			throw new Error(Strings.ERROR_INPUT_DUPLICATE);
 		}
 	}
@@ -74,4 +74,4 @@ class Numbers {
 	}
 }
 
-module.exports = Numbers;
+export default Numbers;
