@@ -29,6 +29,13 @@ class Game {
     };
     compare() {
         const result = new Referee().compare(this.#computer, this.#user);
+        let message = [];
+
+        if (result.ball === 0 && result.strike === 0) message.push('낫싱');
+        if (result.ball !== 0) message.push(`${result.ball}볼`);
+        if (result.strike !== 0) message.push(`${result.strike}스트라이크`);
+    
+        OutputView.printResult(message);
     }
 }
 
