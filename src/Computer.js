@@ -1,5 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import { NUM_DIGITS } from "./constants/NumberConstants";
+import { NUM_DIGITS, MIN_NUMBER, MAX_NUMBER } from "./constants/NumberConstants";
 
 export default class Computer {
     constructor() {
@@ -9,7 +9,7 @@ export default class Computer {
     generateRandomNumbers() {
         const numbers = [];
         while(numbers.length < NUM_DIGITS) {
-            const num = MissionUtils.Random.pickNumberInRange(1, 9);
+            const num = MissionUtils.Random.pickNumberInRange(MIN_NUMBER, MAX_NUMBER);
             if(!numbers.includes(num)) {
                 numbers.push(num);
             }
