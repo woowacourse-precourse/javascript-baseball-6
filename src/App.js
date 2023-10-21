@@ -25,7 +25,6 @@ class App {
         Console.print(STRING.START);
         console.log(this.randomNumber);
         this.playerInputNumber();
-        console.log(this.randomNumber);        console.log(this.randomNumber);
     }
 
     /**
@@ -35,7 +34,6 @@ class App {
     makeRandomNumber() {
         const randomNumber = [];
         while (randomNumber.length < INPUT_LIMIT) {
-        while (randomNumber.length < INPUT_LIMIT) {
             const pickNumber = Random.pickNumberInRange(RANDOM_NUMBER_MIN, RANDOM_NUMBER_MAX);
             if (!randomNumber.includes(pickNumber)) {
                 randomNumber.push(pickNumber);
@@ -43,6 +41,7 @@ class App {
         }
         return randomNumber;
     }
+
     /**
      * 사용자에게 데이터를 입력받는 메소드
      * @returns {number[]}
@@ -75,8 +74,6 @@ class App {
 
         return true;
     }
-
-    
 
     
 
