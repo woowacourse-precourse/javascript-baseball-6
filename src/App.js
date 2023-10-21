@@ -20,7 +20,7 @@ function cpuPickNum() {
 async function userPickNum() {
   const userNum = await Console.readLineAsync("숫자를 입력해주세요 : ");
 
-  // checkUserNum(userNum);
+  checkUserNum(userNum);
   const numArr = userNum.split("");
 
   const userNumArr = numArr.map(function (e) {
@@ -31,11 +31,15 @@ async function userPickNum() {
 }
 
 function checkUserNum(user) {
+  const setUserNum = new Set(user);
   if (user.length !== 3) {
     throw new Error("3자리의 숫자를 입력해주세요.");
   }
-  if (parseInt(user, 10) === user) {
+  if (parseInt(user, 10) !== user) {
     throw new Error("숫자를 입력해주세요.");
+  }
+  if(setUserNum.has("0")){
+    throw new Error("1~9까지의 숫자만 입력해주세요");
   }
 }
 
