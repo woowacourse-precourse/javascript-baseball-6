@@ -7,7 +7,7 @@ import {
     RESTART_NUMBER,
     END_NUMBER
 } from "./constants/index.js"
-import { Console, Random, throwError } from './utils/index.js'
+import { print,readLineAsync, pickNumberInRange, throwError } from './utils/index.js'
 
 class App {
     isplaying;
@@ -22,7 +22,7 @@ class App {
         this.randomNumber = this.makeRandomNumber();
     }
     async play() {
-        Console.print(STRING.START);
+        print(STRING.START);
         // for test
         console.log(this.randomNumber);
         while (this.isplaying) {
@@ -42,7 +42,7 @@ class App {
     makeRandomNumber() {
         const randomNumber = [];
         while (randomNumber.length < INPUT_LIMIT) {
-            const pickNumber = Random.pickNumberInRange(RANDOM_NUMBER_MIN, RANDOM_NUMBER_MAX);
+            const pickNumber = pickNumberInRange(RANDOM_NUMBER_MIN, RANDOM_NUMBER_MAX);
             if (!randomNumber.includes(pickNumber)) {
                 randomNumber.push(pickNumber);
             }
@@ -55,7 +55,7 @@ class App {
      * @returns {number[]}
      */
     async playerInputNumber() {
-        const a = await Console.readLineAsync(STRING.INPUT);
+        const a = await readLineAsync(STRING.INPUT);
         // 입력받은 데이터의 양쪽 공백을 제거해준다.
         const input = a.trim();
         this.validateInput(input);
@@ -106,7 +106,7 @@ class App {
 
     printJudgement(ball, strike) {
         if (ball + strike === 0) {
-            Console.print(STRING.NOTHING);
+            print(STRING.NOTHING);
         }
         let str = "";
         if (ball != 0) {
@@ -115,16 +115,16 @@ class App {
         if (strike != 0) {
             str += `${strike}${STRING.STRIKE}`;
         }
-        Console.print(str);
+        print(str);
     }
 
     /**
      * 게임 클리어시(3strike) 발생하는 메소드
      */
     async gameClear() {
-        Console.print(STRING.CLEAR);
+        print(STRING.CLEAR);
 
-        const a = await Console.readLineAsync(`${STRING.RESTART}\n`);
+        const a = await readLineAsync(`${STRING.RESTART}\n`);
         const input = a.trim();
 
         throwError(!/^[1-2]$/.test(input), `${ERRORS.CLEAR_INPUT_NUMBER}`)
