@@ -25,22 +25,25 @@ async function getUserInput(message) {
     return number;
   } catch (error) {
     MissionUtils.Console.print("[ERROR] 숫자가 잘못된 형식입니다.");
-    throw "[ERROR]";
+    throw new Error("[ERROR]");
   }
 }
 
 function checkError(number) {
-  return false;
+  if (number.length === 3 && !isNaN(number)) {
+    return false;
+  }
+  throw error;
 }
 
 function review(answer, number) {
-  console.log(answer, number);
-  console.log(SCORE);
+  // console.log(answer, number);
+  // console.log(SCORE);
   for (let i = 0; i < answer.length; i++) {
-    console.log(SCORE);
+    // console.log(SCORE);
     let index = answer.findIndex((el) => el === number[i]);
-    console.log(index);
-    console.log(i);
+    // console.log(index);
+    // console.log(i);
     if (index === i) {
       SCORE.strike[0]++;
     }
@@ -54,10 +57,10 @@ function resetScore() {
   SCORE.ball[0] = 0;
   SCORE.strike[0] = 0;
 
-  console.log(SCORE);
+  // console.log(SCORE);
 }
 function printResult() {
-  console.log(SCORE);
+  // console.log(SCORE);
   //스위치문으로 변경할 것
   if (SCORE.ball[0] === 0 && SCORE.strike[0] === 0) {
     MissionUtils.Console.print("낫싱");
@@ -71,12 +74,12 @@ function printResult() {
     return;
   }
   if (SCORE.ball[0] && SCORE.strike[0]) {
-    console.log("ball과 strike");
+    // console.log("ball과 strike");
     let text = `${SCORE.ball[0]}볼 ${SCORE.strike[0]}스트라이크`;
     MissionUtils.Console.print(text);
     return;
   }
-  console.log("ball또는strike");
+  // console.log("ball또는strike");
   let text = SCORE.ball[0]
     ? SCORE.ball[0] + "볼"
     : SCORE.strike[0] + "스트라이크";
@@ -91,13 +94,23 @@ class App {
 
     while (!SCORE.success) {
       let num = await getUserInput("숫자를 입력해주세요 :");
-      if (!checkError(num)) {
-        review(answer, num);
-
-        if (!SCORE.성공) {
-          resetScore();
-        }
+      try {
+        checkError(num);
+      } catch (err) {
+        throw new Error("[ERROR]");
       }
+      review(answer, num);
+
+      if (!SCORE.성공) {
+        resetScore();
+      }
+      // if (!checkError(num)) {
+      //   review(answer, num);
+
+      //   if (!SCORE.성공) {
+      //     resetScore();
+      //   }
+      // }
     }
     let number = await getUserInput(
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
