@@ -109,18 +109,18 @@ class BaseBallGame {
   }
 
   // 힌트 리턴
-  getHint(output) {
+  getHint(ballCount) {
     let hint = "";
 
-    if (output.ball > 0) {
-      hint += `${output.ball}볼 `;
+    if (ballCount.ball > 0) {
+      hint += `${ballCount.ball}볼 `;
     }
 
-    if (output.strike > 0) {
-      hint += `${output.strike}스트라이크`;
+    if (ballCount.strike > 0) {
+      hint += `${ballCount.strike}스트라이크`;
     }
 
-    if (output.ball === 0 && output.strike === 0) {
+    if (ballCount.ball === 0 && ballCount.strike === 0) {
       hint = "낫싱";
     }
 
