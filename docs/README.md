@@ -5,7 +5,10 @@
 - 게임 시작 문구 출력
 - computer 숫자 랜덤 생성
 
-2. 사용자 request function
+2. 사용자 입력 받기
+
+- 사용자가 숫자 입력하는 메서드 제작
+  [] 언제까지 입력 받을지 제한 사항 필요
 
 3. check request & send message
 

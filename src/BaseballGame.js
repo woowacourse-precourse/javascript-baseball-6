@@ -15,6 +15,18 @@ export default class BaseballGame {
         this.computer.push(number);
       }
     }
-    Console.print(this.computer);
+
+    this.throwBall();
   }
+
+  async throwBall() {
+    try {
+      const myBall = await Console.readLineAsync("숫자를 입력해주세요 : ");
+      Console.print(myBall);
+    } catch (error) {
+      Console.print(error);
+    }
+  }
+
+  validateBall() {}
 }
