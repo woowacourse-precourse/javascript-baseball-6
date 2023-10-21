@@ -1,7 +1,7 @@
 import { Random, Console } from "@woowacourse/mission-utils";
 class App {
   async play() {
-    console.log("숫자 야구 게임을 시작합니다.");
+    Console.print("숫자 야구 게임을 시작합니다.");
 
     // 컴퓨터 숫자 받는곳
     const computer = [];
@@ -11,60 +11,72 @@ class App {
         computer.push(number);
       }
     }
-    console.log(computer);
 
     // 입력값 받는곳
     let input;
     let input_arr = [];
 
-    const input_value = async () => {
+    async function input_value() {
       input = await Console.readLineAsync("숫자를 입력해주세요 : ");
-      input_arr = input.split("").map((value) => {
-        // console.log("input_arr.indexOf(value) = ", input_arr.indexOf(value));
+
+      input_arr = input.split("").map((value, index) => {
         if (
-          input.indexOf(value) === -1
-          // ||
-          //   Number(value) <= 0 ||
-          //   !Number(value) ||
-          //   value.length != 3
+          input.indexOf(value) !== index ||
+          Number(value) <= 0 ||
+          !Number(value) ||
+          input.length != 3
         ) {
-          throw new Error("올바른 형식이 아닙니다");
+          throw new Error("[ERROR] 올바른 형식이 아닙니다");
         }
 
         return +value;
       });
-    };
+    }
     await input_value();
-    console.log(input_arr);
     // Console.print(input_arr);
 
-    // let ball = 0;
-    // let strike = 0;
     const result = {
       ball: 0,
       strike: 0,
     };
-    for (const [computer_index, computer_value] of computer.entries()) {
-      // console.log("computer_value:", computer_value);
-      for (const [index, value] of input_arr.entries()) {
-        if (computer_index == index && computer_value == value) {
-          result.strike++;
-          // console.log(`${result.strike}스트라이크`);
-          break;
-        } else if (computer_value == value) {
-          result.ball++;
-          // console.log("value:", value);
 
-          // console.log(`${result.ball}볼`);
+    while (result.strike < 3) {
+      for (const [computer_index, computer_value] of computer.entries()) {
+        for (const [index, value] of input_arr.entries()) {
+          if (computer_index == index && computer_value == value) {
+            result.strike++;
+            break;
+          } else if (computer_value == value) {
+            result.ball++;
+          }
         }
       }
+      if (result.strike == 3) {
+        Console.print(
+          `${result.strike}스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료`
+        );
+        break;
+      } else if (result.ball > 0 && result.strike > 0) {
+        Console.print(`${result.ball}볼 ${result.strike}스트라이크`);
+        await input_value();
+      } else if (result.ball > 0) {
+        Console.print(`${result.ball}볼`);
+        await input_value();
+      } else if (result.strike > 0) {
+        Console.print(`${result.strike}스트라이크`);
+        await input_value();
+      } else if (result.ball == 0 && result.strike == 0) {
+        Console.print("낫싱");
+        await input_value();
+      }
+      result.strike = 0;
+      result.ball = 0;
     }
-
-    // for (const key in result) {
-    //   console.log(result[key]);
-    // }
-
-    process.exit(1);
+    Console.print("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+    input = await Console.readLineAsync("");
+    if (input == 1) {
+      this.play();
+    }
   }
 }
 const app = new App();
