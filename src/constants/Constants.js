@@ -12,5 +12,4 @@ export const GAME_CONTROL = {
 
 export const NO_BALL = 0;
 export const NO_STRIKE = 0;
-export const FIRST_DIGIT = 0;
 export const NUMBER_REGEX = /^\d+$/;
