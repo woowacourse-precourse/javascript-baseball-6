@@ -3,15 +3,11 @@ import { BaseBall } from "../../constants/status.js";
 import IncorrectFormatError from "../../error/IncorrectFormatError.js";
 import NumberOutOfRangeError from "../../error/NumberOutOfRangeError.js";
 
-const {
-  Random: { pickNumberInRange },
-} = MissionUtils;
-
 // parameter의 크기만큼의 랜덤 숫자를 배열에 넣어 리턴
 const pickNumbersInRange = (len) => {
   const numbers = [];
   while (numbers.length < len) {
-    const number = pickNumberInRange(BaseBall.START, BaseBall.END);
+    const number = MissionUtils.Random.pickNumberInRange(BaseBall.START, BaseBall.END);
     if (!numbers.includes(number)) {
       numbers.push(number);
     }
