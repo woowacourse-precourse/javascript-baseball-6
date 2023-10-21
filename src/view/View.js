@@ -22,4 +22,11 @@ export default class View {
     this.controller.updatePlayerNumber(PLAYER_INPUT.split(''));
     await this.controller.isPlayerInputValid();
   }
+
+  /**
+   * player가 시도한 input 검증 결과가 false일 시 에러를 출력합니다.
+   */
+  async playerInputError() {
+    throw new Error(this.RESTSART_INPUT_ERROR);
+  }
 }
