@@ -22,9 +22,14 @@ describe("ValidatorTest", () => {
     expect(Validator.isNumberArray(["1", "6", "3"])).toBeFalsy();
   });
 
-  test("배열에 0이 있으면 true 반환", () => {
+  test("배열에 0이 있는 경우 true 반환", () => {
     expect(Validator.containsZero([0, 6, 7])).toBeTruthy();
     expect(Validator.containsZero([5, 0, 3])).toBeTruthy();
     expect(Validator.containsZero([9, 1, 0])).toBeTruthy();
+  });
+
+  test("중복되는 숫자가 있는 경우 false 반환", () => {
+    expect(Validator.isUnique([5, 5, 9])).toBeFalsy();
+    expect(Validator.isUnique([7, 2, 7])).toBeFalsy();
   });
 });
