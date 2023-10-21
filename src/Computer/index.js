@@ -19,7 +19,6 @@ class Computer {
         nums.push(number);
       }
     }
-    return nums;
   }
 
   isMatch(scores) {

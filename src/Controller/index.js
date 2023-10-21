@@ -2,7 +2,7 @@ import Input from '../View/Input.js';
 import Output from '../View/Output.js';
 import Computer from '../Computer/index.js';
 import Validator from '../Validator/index.js';
-import { COMMAND } from '../constants/index.js';
+import { COMMAND, NUMS } from '../constants/index.js';
 
 class Controller {
   constructor() {
@@ -30,6 +30,16 @@ class Controller {
         return;
       }
       this.askNumber();
+    });
+  }
+
+  askReplay() {
+    Input.readAsync(COMMAND.ASK_REPLAY, (input) => {
+      Validator.controlNumber(input);
+      if (input === NUMS.END) {
+        return;
+      }
+      this.start();
     });
   }
 }
