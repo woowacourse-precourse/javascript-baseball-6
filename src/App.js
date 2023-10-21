@@ -24,6 +24,8 @@ class App {
     async play() {
         Console.print(STRING.START);
         console.log(this.randomNumber);
+        this.playerInputNumber();
+        console.log(this.randomNumber);
     }
 
     /**
@@ -45,7 +47,7 @@ class App {
      * @returns {number[]}
      */
     async playerInputNumber() {
-        const input = await Console.readLineAsync(STRING.INPUT).trim();
+        const input = (await Console.readLineAsync(STRING.INPUT)).trim();
         this.validateInput(input);
         return Array.from(input, Number);
     }
@@ -66,7 +68,7 @@ class App {
         }
 
         const dedupe = new Set(input);
-        if (dedupe.length !== 3) {
+        if (dedupe.size !== 3) {
             throw new Error(`${ERRORS.FRONT} ${ERRORS.DUPLICATION}`);
         }
 
