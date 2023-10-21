@@ -1,6 +1,6 @@
 import { MissionUtils, Console } from "@woowacourse/mission-utils";
-import { validateInput } from './validation.js'; 
-import { NUM_DIGITS, RESTART_GAME, GAME_OVER_MESSAGE,GAME_END_INSTRUCTION,STRIKE_TEXT,BALL_TEXT,NOTHING_TEXT } from "./Constants.js";
+import { validateInput,validateGameEndInput } from './validation.js'; 
+import { NUM_DIGITS, RESTART_GAME, GAME_OVER_MESSAGE,GAME_END_INSTRUCTION,STRIKE_TEXT,BALL_TEXT,NOTHING_TEXT, END_GAME } from "./Constants.js";
 
 class App {
   async play() {
@@ -25,8 +25,11 @@ async function gamePlay(computerNumber) {
 async function gamePlayResult() {
   Console.print(GAME_OVER_MESSAGE);
   const gameEnd = await Console.readLineAsync(GAME_END_INSTRUCTION);
+  validateGameEndInput(gameEnd);
   if(gameEnd === RESTART_GAME) {
     return gamePlay(createComputerNumber());
+  } else if(gameEnd === END_GAME) {
+    return false;
   }
 }
 
