@@ -10,7 +10,7 @@ class App {
       }
     } while (computerNum.length !== 3);
     const computerBall = computerNum.join("");
-    console.log(computerBall);
+    // console.log(computerBall);
     return computerBall;
   }
 
@@ -32,7 +32,17 @@ class App {
           `${strike}스트라이크 \n3개의 숫자를 모두 맞히셨습니다! 게임 종료`
         );
       } else {
-        MissionUtils.Console.print(`${ball - 1}볼 ${strike}스트라이크`);
+        if (ball > 0) {
+          if (ball - strike !== 0) {
+            MissionUtils.Console.print(
+              `${ball - strike}볼 ${strike}스트라이크`
+            );
+          } else {
+            MissionUtils.Console.print(`${strike}스트라이크`);
+          }
+        } else {
+          MissionUtils.Console.print(`${strike}스트라이크`);
+        }
       }
     } else if (ball) {
       MissionUtils.Console.print(`${ball}볼`);
