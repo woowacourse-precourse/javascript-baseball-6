@@ -10,7 +10,13 @@ export class BaseballView {
     return Console.readLineAsync(message);
   }
 
-  printGameResult({ ball, strike }) {
-    return this.printMessage(MESSAGE.getGameResult({ ball, strike }));
+  printGameResult({ ball, strike, isDone }) {
+    if (isDone) {
+      this.printMessage(MESSAGE.getGameResult({ ball, strike }));
+      this.getInputAsync(MESSAGE.RESTART);
+      return;
+    }
+
+    this.printMessage(MESSAGE.getGameResult({ ball, strike }));
   }
 }
