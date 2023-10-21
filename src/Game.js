@@ -8,7 +8,8 @@ class Game {
 
   startGame() {
     Console.print("숫자 야구 게임을 시작합니다.");
-    return this.inputUserValue();
+    console.log(this.computerNumber);
+    return this.playGame();
   }
 
   generateComputerNumber() {
@@ -39,6 +40,32 @@ class Game {
     Validation.validateUnique(userInput);
 
     return userInput;
+  }
+
+  compareValues(userInput) {
+    const userNumbers = [...userInput].map(Number);
+    const computerNumbers = this.computerNumber;
+
+    const score = {
+      strike: 0,
+      ball: 0,
+    };
+
+    userNumbers.forEach((userNumber, index) => {
+      if (userNumber === computerNumbers[index]) {
+        score.strike++;
+      } else if (computerNumbers.includes(userNumber)) {
+        score.ball++;
+      }
+    });
+
+    console.log(this.computerNumber, score);
+    return score;
+  }
+
+  async playGame() {
+    const userInput = await this.inputUserValue();
+    const score = this.compareValues(userInput);
   }
 }
 
