@@ -1,6 +1,11 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
+import BaseballGame from './BaseballGame.js';
 
 class App {
+  constructor() {
+    this.baseballGame = new BaseballGame();
+  }
+
   play() {
     this.gameStartMessage();
     this.getUserInputAsync();
@@ -15,6 +20,7 @@ class App {
       const userInput = await MissionUtils.Console.readLineAsync(
         '숫자를 입력해 주세요 :'
       );
+      await this.baseballGame.play(userInput);
     } catch (error) {
       throw error;
     }
