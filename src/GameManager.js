@@ -9,11 +9,11 @@ class GameManager {
 
 	// GameManager를 실행한다.
 	play() {
-		while (this._isPlaying) {
+		do {
 			this._startGame();
 			this._playGame();
 			this._finishGame();
-		}
+		} while (this._willReplay());
 	}
 
 	// 게임을 시작한다.
@@ -33,7 +33,6 @@ class GameManager {
 	// 게임을 마무리한다.
 	_finishGame() {
 		// TODO: 게임 종료 메시지
-		this._isPlaying = this._willReplay()
 	}
 
 	// 재시작 여부를 입력받는다.
@@ -48,3 +47,7 @@ class GameManager {
 		});
 	}
 }
+
+
+let gm = new GameManager();
+gm.play();
