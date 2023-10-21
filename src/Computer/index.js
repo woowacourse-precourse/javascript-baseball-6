@@ -5,7 +5,7 @@ class Computer {
     this.nums = [];
   }
 
-  generateRandomNumber() {
+  generate() {
     const { nums } = this;
     while (nums.length < 3) {
       const number = MissionUtils.Random.pickNumberInRange(1, 9);
@@ -13,7 +13,7 @@ class Computer {
         nums.push(number);
       }
     }
-    return this.nums;
+    return nums;
   }
 
   isEnd(scores) {
@@ -33,23 +33,20 @@ class Computer {
   }
 
   match(input) {
-    const inputNums = [...input].map(Number);
     const { nums } = this;
-    const scores = inputNums.reduce(
-      ([strike, ball], num, index) => {
-        if (nums.includes(num) && num === nums[index]) {
-          return [strike + 1, ball];
+    const scores = [...input].map(Number).reduce(
+      ([strike, ball], num, pos) => {
+        if (!nums.includes(num)) {
+          return [strike, ball];
         }
-        if (nums.includes(num)) {
-          return [strike, ball + 1];
-        }
-        return [strike, ball];
+        return num === nums[pos] ? [strike + 1, ball] : [strike, ball + 1];
       },
       [0, 0]
     );
-    const matchString = this.makeMatchString(scores);
-    const isEnd = this.isEnd(scores);
-    return { matchString, isEnd };
+    return {
+      matchString: this.makeMatchString(scores),
+      isEnd: this.isEnd(scores),
+    };
   }
 }
 
