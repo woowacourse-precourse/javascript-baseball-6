@@ -77,7 +77,7 @@ class Controller {
     this.validateRetryAnswer(retryAnswer);
 
     if (retryAnswer === RETRY_ORDER) {
-      await this.readNumbers();
+      await this.reStart();
     }
   }
 
@@ -88,6 +88,11 @@ class Controller {
       OutputView.printError(error);
       throw new Error(error);
     }
+  }
+
+  async reStart() {
+    this.setComputerAnswer();
+    await this.readNumbers();
   }
 }
 
