@@ -51,6 +51,9 @@ export default class View {
     Console.print(resultComment.trim());
   }
 
+  /**
+   * 정답 문구를 출력합니다.
+   */
   printCorrectNumber() {
     Console.print(this.CORRECT_NUMBER_MESSAGE);
   }
