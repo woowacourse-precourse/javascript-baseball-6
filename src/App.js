@@ -1,18 +1,19 @@
-import { ANSWER } from '../utils/Constants.js';
-import Validator from '../utils/Validator.js';
-import { makeTemplate } from '../utils/makeTemplate.js';
-import ComputerNumber from './ComputerNumber.js';
-import InputView from './InputView.js';
-import OutputView from './OutputView.js';
+import { ANSWER } from '../utils/Constants';
+import Validator from '../utils/Validator';
+import { makeTemplate } from '../utils/makeTemplate';
+import ComputerNumber from './ComputerNumber';
+import InputView from './InputView';
+import OutputView from './OutputView';
 
 class App {
   #computerNumber;
+
   constructor() {
     OutputView.printStart();
-    this.#makeComputerNumber();
+    this.#initGame();
   }
 
-  #makeComputerNumber() {
+  #initGame() {
     this.#computerNumber = ComputerNumber.generateComputerNumber();
   }
 
@@ -27,7 +28,7 @@ class App {
         OutputView.printCorrect();
         const retryAnswer = await InputView.readRetryAnswer();
         if (retryAnswer === ANSWER.RESTART) {
-          this.#makeComputerNumber();
+          this.#initGame();
         }
         if (retryAnswer === ANSWER.FINISH) {
           OutputView.printFinish();
