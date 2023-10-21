@@ -17,6 +17,14 @@ import { Console } from '@woowacourse/mission-utils';
     printResult(message) {
         Console.print(message.join(' '));
     },
+
+    /**
+   * 게임 종료 메세지를 출력하고 종료한다.
+   */
+    finishGame() {
+        Console.print('게임 종료');
+        Console.close();
+    },
 };
 
 module.exports = OutputView;

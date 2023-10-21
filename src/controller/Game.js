@@ -43,7 +43,7 @@ class Game {
         if (result.ball !== 0) message.push(`${result.ball}볼`);
         if (result.strike !== 0) message.push(`${result.strike}스트라이크`);
         OutputView.printResult(message);
-        
+
         this.progress(result);
     }
 
@@ -56,7 +56,7 @@ class Game {
     handleOptions = (option) => {
         OptionValidation.validateOption(option);
         if (option === '1') return this.getNumbers();
-        if (option === '2') Console.close();
+        if (option === '2') return OutputView.finishGame();
     };
 }
 
