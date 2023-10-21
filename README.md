@@ -16,8 +16,10 @@
   테스트 실행 : 콘솔에 `npm Test`
   테스트시, 출력하기 : `console.log("")`  → app.js랑 test 파일 둘 다에서 사용 가능
 
-
 ## 2. 기능 요구 사항
+<details>
+<summary> 기본 구현 설명 </summary>
+
 
 ### 기본 구현 설명
 
@@ -34,6 +36,10 @@
 4. 1,2,3 반복하여 컴퓨터의 숫자 3개를 모두 맞히면 게임 종료
 5. 게임을 종료한 후 게임을 다시 시작하거나 완전히 종료할 수 있음
 6. 사용자가 잘못된 값을 입력하면 throw 문을 사용해 예외 발생 후 애플리케이션 종료
+</details>
+
+<details>
+<summary> 입출력 요구 사항 </summary>
 
 ### 입출력 요구 사항
 
@@ -95,67 +101,38 @@
 1볼
 ...
 >
+</details>
 
-## 3. 개발 하면서 확인 할 부분
+## 3. 개발 진행 플로우 - 기능 명세
+### 개체 정의 
+#### 🖥️ 컴퓨터
 
-### 프로그램 실행
+- 속성 : 맞춰야하는 정답
+- 행동 : 플레이어에게 문제를 내고, 정답을 확인한다
 
-```jsx
-const app = new App();
-app.play();
-```
+#### 🙋‍♀️ 플레이어
 
-### 라이브러리
+- 속성 : 입력한 숫자
+- 행동 : 문제를 맞춘다. 계속 진행 여부를 판단한다.
 
-- package.json 변경 안됨
-- Vanilla JS로만 구현
-- JavaScript [코드 컨벤션](https://www.notion.so/2299d7afa7d54109ac9c9f3700f4f6ed?pvs=21) 지키기
-- 로그램 종료 시 `process.exit()`를 호출 X
-- 파일, 패키지 이름 수정 및 이동 안됨
-- `@woowacourse/mission-utils`의 `Random` 및 `Console` API를 사용하여 구현해야함
-- Random 라이브러리
+### 개체간 상호작용 정의 (구현 기능)
+#### 🖥️ 컴퓨터
+- [ ] 정답 숫자 3개를 선택한다 (서로다른 1~9)
+- [ ] 플레이어의 숫자를 받고, 유효성 검증
+- [ ] 입력받은 숫자를 정답과 비교한다
+- [ ] 비교 결과를 플레이어게 전달한다
+- [ ] 사용자의 입력이 잘못되면 게임을 종료시킨다
+- [ ] 사용자의 요구에 따라 게임을 종료하거나 다시 시작한다
 
-  값 추출 : Random.pickNumberInRange()
-
-- Console 라이브러리
-
-  사용자 값 입력 : Console.readLineAsync
-
-  출력 : Console.print
+#### 🙋‍♀️ 플레이어
+- [ ] 숫자를 3개 입력한다
+- [ ] 결과를 받는다
+- [ ] 정답을 맞춘 뒤, 게임 진행 여부를 결정할 수 있다
 
 
-```jsx
-const computer = [];
-while (computer.length < 3) {
-  const number = MissionUtils.Random.pickNumberInRange(1, 9);
-  if (!computer.includes(number)) {
-    computer.push(number);
-  }
-}
-```
+### 예외 처리 - TestCode 작성
 
-### 코드 컨벤션
-
-**변수명, 클래스명**
-
-- 영문 이외의 언어 사용 x
-- 이름에는 특수문자 사용 x
-
-**상수명**
-
-- SNAKE_CASE 사용
-
-## 4. 개발 진행 플로우
-
-### 1) 컴퓨터가 숫자 고르기 구현
-
-### 2) 사용자 입력 후 결과 출력
-
-### 3) 게임 종료 및 다시 실행
-
-### 4) 예외 처리 - TestCode 작성
-
-## 5. 제출 직전 확인
+## 4. 제출 직전 확인
 
 - [ ]  `npm test` 로 동작 확인하기
 - [ ]  컨벤션 지켰는지 다시 한번 확인
