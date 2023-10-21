@@ -6,11 +6,14 @@ import ValidateUserInput from "./utils/validateUserInput.js";
 class BaseballGame {
   constructor() {
     this.inputValue;
+    this.computerNumber;
   }
 
   // 게임 시작하기
   async startGame() {
+    this.computerNumber = new ComputerNumber().computerNumber;
     Console.print(Messages.START_MESSAGE);
+    console.log(this.computerNumber);
     this.getUserInputNumbers();
   }
 
