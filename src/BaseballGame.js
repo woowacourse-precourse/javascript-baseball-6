@@ -14,6 +14,7 @@ class BaseballGame {
         computer.push(number);
       }
     }
+    console.log(computer);
     return computer;
   }
 
@@ -25,6 +26,7 @@ class BaseballGame {
 
       if (result.strikes === 3) {
         MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+        await this.endGame();
         break;
       }
     }
@@ -64,6 +66,18 @@ class BaseballGame {
     }
 
     MissionUtils.Console.print(resultMessage);
+  }
+
+  async endGame() {
+    const playAgain = await UserInput.playAgainInputAsync();
+    if (playAgain === '1') {
+      this.reset();
+      await this.play();
+    }
+  }
+
+  reset() {
+    this.targetNumbers = this.generateRandomNumbers();
   }
 }
 
