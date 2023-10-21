@@ -8,7 +8,7 @@ class App {
     let computerAnswer = makeAnswer();
     while (true) {
       const userInput = await Console.readLineAsync("숫자를 입력해주세요 : ");
-      let userAnswer = handleUserInput(userInput); //예외 처리 후 userInput을 반환
+      let userAnswer = handleUserInput(userInput); 
 
       //게임 승리 판정
       if (computerAnswer === userAnswer) {

@@ -1,5 +1,5 @@
 // 서로 다른 3개의 숫자를 입력한다.
-export default function handleUserInput(userInput) {
+const handleUserInput = (userInput) => {
   // 길이가 3이어야 한다.
   const validLength = (userInput) => userInput.length !== 3;
   // 숫자여야 한다.
@@ -20,4 +20,5 @@ export default function handleUserInput(userInput) {
     throw new Error(`[ERROR] 잘못된 입력입니다. ${userInput}`);
   }
   return userInput;
-}
+};
+export default handleUserInput;

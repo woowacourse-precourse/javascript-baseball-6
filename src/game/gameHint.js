@@ -1,7 +1,7 @@
 import { Console } from "@woowacourse/mission-utils";
 
 // 같은 수가 같은 자리에 있으면 '스트라이크'
-function countStrike(computerAnswer, userAnswer) {
+const countStrike = (computerAnswer, userAnswer) => {
   let strike = 0;
   for (let i = 0; i < 3; i++) {
     if (computerAnswer[i] === userAnswer[i]) {
@@ -9,17 +9,17 @@ function countStrike(computerAnswer, userAnswer) {
     }
   }
   return strike;
-}
+};
 // 같은 수가 다른 자리에 있으면 '볼'
-function countBall(computerAnswer, userAnswer) {
+const countBall = (computerAnswer, userAnswer) => {
   let ball = 0;
   computerAnswer.split("").forEach((num) => {
     if (userAnswer.includes(num)) ball++;
   });
   return ball;
-}
+};
 
-export default function printHint(computerAnswer, userAnswer) {
+const printHint = (computerAnswer, userAnswer) => {
   const strike = countStrike(computerAnswer, userAnswer);
   const ball = countBall(computerAnswer, userAnswer) - strike;
 
@@ -32,4 +32,6 @@ export default function printHint(computerAnswer, userAnswer) {
   } else {
     Console.print(`${ball}볼 ${strike}스트라이크`);
   }
-}
+};
+
+export default printHint;
