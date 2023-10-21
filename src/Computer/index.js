@@ -6,7 +6,12 @@ class Computer {
     this.nums = [];
   }
 
+  clear() {
+    this.nums = [];
+  }
+
   generate() {
+    this.clear();
     const { nums } = this;
     while (nums.length < NUMS.ASNWER_LENGTH) {
       const number = MissionUtils.Random.pickNumberInRange(1, 9);
@@ -17,7 +22,7 @@ class Computer {
     return nums;
   }
 
-  isEnd(scores) {
+  isMatch(scores) {
     const [strike, _] = scores;
     return strike === NUMS.ASNWER_LENGTH;
   }
@@ -25,12 +30,12 @@ class Computer {
   makeMatchString(scores) {
     const [strike, ball] = scores;
     const strikeString = strike ? `${strike}스트라이크` : '';
-    const ballString = ball ? `${ball}볼 ` : '';
+    const ballString = ball ? `${ball}볼` : '';
 
     if (!strike && !ball) {
       return '낫싱';
     }
-    return `${ballString}${strikeString}`.trim();
+    return `${ballString} ${strikeString}`.trim();
   }
 
   match(input) {
@@ -46,7 +51,7 @@ class Computer {
     );
     return {
       matchString: this.makeMatchString(scores),
-      isEnd: this.isEnd(scores),
+      isMatch: this.isMatch(scores),
     };
   }
 }
