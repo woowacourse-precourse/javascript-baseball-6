@@ -5,11 +5,14 @@ import Computer from './Computer.js';
 class App {
   #computer;
 
-  play() {
+  async play() {
     MissionUtils.Console.print(GAME.START);
+    await this.#start();
+  }
 
+  async #start() {
     this.#computer = new Computer();
-    this.#input();
+    await this.#input();
   }
 
   async #input() {
@@ -20,10 +23,17 @@ class App {
     const result = this.#computer.judgment(input);
 
     if (result === 'fail') {
-      this.#input();
+      await this.#input();
     }
+
     if (result === 'pass') {
       MissionUtils.Console.print(GAME.CLEAR);
+
+      const option = await MissionUtils.Console.readLineAsync(GAME.OPTION);
+
+      if (option === '1') {
+        await this.#start();
+      }
     }
   }
 
