@@ -18,4 +18,15 @@ export default class Validation {
       this.PLAYER_INPUT_VALIDATON = false;
     }
   }
+
+  /**
+   * player가 입력한 input의 유효성을 검증하고 검증 결과를 가져옵니다.
+   * @param {string[]} playerInput [player가 제시한 수]
+   * @returns 
+   */
+  async getPlayerInputValidation(playerInput) {
+    await this.validatePlayerInput(playerInput);
+    
+    return this.PLAYER_INPUT_VALIDATON;
+  }
 }
