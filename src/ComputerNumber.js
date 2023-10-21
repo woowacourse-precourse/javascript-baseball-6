@@ -1,4 +1,4 @@
-import MissionUtils from "@woowacourse/mission-utils";
+import { Random } from "@woowacourse/mission-utils";
 
 class ComputerNumber {
   constructor() {
@@ -9,7 +9,7 @@ class ComputerNumber {
   createRandomNumber() {
     const randomComputerNumber = [];
     while (randomComputerNumber.length < 3) {
-      const number = MissionUtils.Random.pickNumberInRange(1, 9);
+      const number = Random.pickNumberInRange(1, 9);
       if (!randomComputerNumber.includes(number)) {
         randomComputerNumber.push(number);
       }

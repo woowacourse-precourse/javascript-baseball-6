@@ -1,7 +1,9 @@
 import { Console } from "@woowacourse/mission-utils";
 
+import ComputerNumber from "./ComputerNumber.js";
 import Messages from "./common/messages.js";
 import ValidateUserInput from "./utils/validateUserInput.js";
+import strikeBallCount from "./controller/strikeBallCount.js";
 
 class BaseballGame {
   constructor() {
