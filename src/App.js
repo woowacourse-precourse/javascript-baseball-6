@@ -8,7 +8,6 @@ class App {
       var key=1;
       while(key){
         const input = await getInput();
-        Console.print(input);
         key = getCheck(Target, input);
       }
       let restartInput = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n");
@@ -18,8 +17,7 @@ class App {
       else if(restartInput === '2'){
         break;
       }
-      else{throw new Error("1 또는 2를 입력하세요");}
-      return;
+      else{throw new Error("[ERROR] 1 또는 2를 입력하세요");}
     }
   }
 }
@@ -50,17 +48,16 @@ async function getInput(){
   const Target = [];
   while(true){
     let userInput = await Console.readLineAsync("숫자를 입력해주세요 : ");
-    Console.print(userInput);
     if(userInput.length!==3){
-      throw new Error("세 자리가 아닙니다.");
+      throw new Error("[ERROR] 세 자리가 아닙니다.");
     }
     for(let i=0; i<3; i++){
       const digit = parseInt(userInput[i]);
       if(isNaN(digit) || digit===0){
-        throw new Error("1~9의 숫자만 입력해주세요.")
+        throw new Error("[ERROR] 1~9의 숫자만 입력해주세요.")
       }
       if(Target.includes(digit)){
-        throw new Error("중복되는 숫자가 입력되었습니다.");
+        throw new Error("[ERROR] 중복되는 숫자가 입력되었습니다.");
       }
       Target.push(digit);   
     }
