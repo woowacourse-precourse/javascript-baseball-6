@@ -73,4 +73,25 @@ export default class Controller {
       await this.view.getPlayerInputNumber();
     }
   }
+
+  /**
+   * 재시작 여부 입력 값이 유효한지 검증합니다. 검증 결과에 따라
+   * 에러 출력 또는 입력 결과에 따른 다음 단계를 진행합니다.
+   * @param {string} restartInput [재시작 여부 입력 값]
+   */
+  async isRestartInputValid(restartInput) {
+    const RESTART_VALIDATION = await this.validation.getRestartInputValidation(restartInput);
+
+    if(!RESTART_VALIDATION) {
+      await this.view.printRestartError();
+    }
+    
+    if(restartInput === '1') {
+      await new Controller().init()
+    }
+
+    if(restartInput === '2') {
+      this.view.printGameOver();
+    }
+  }
 }
