@@ -29,4 +29,25 @@ export default class View {
   async throwPlayerInputError() {
     throw new Error(this.RESTSART_INPUT_ERROR);
   }
+
+  /**
+   * player가 시도한 결과를 출력합니다.
+   */
+  printPlayerGuessResult([ball, strike]) {
+    let resultComment = '';
+
+    if(!ball && !strike) {
+      resultComment+='낫싱'
+    }
+    
+    if(ball) {
+      resultComment+=`${ball}볼 `
+    }
+
+    if(strike) {
+      resultComment+=`${strike}스트라이크`
+    }
+
+    Console.print(resultComment.trim());
+  }
 }
