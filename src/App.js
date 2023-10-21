@@ -13,44 +13,44 @@ class App {
     return condition;
   }
 
-  getHintCount(mynumber, computer){
+  getHintCount(MYNUMBER, COMPUTER){
     let strike = 0;
     let ball = 0;
-    mynumber.split('').forEach((number, i)=>{
-      if(computer.includes(+number) && computer.indexOf(+number) === i) strike++;
-      else if(computer.includes(+number) && computer.indexOf(+number) !== i) ball++;
+    MYNUMBER.split('').forEach((number, i)=>{
+      if(COMPUTER.includes(+number) && COMPUTER.indexOf(+number) === i) strike++;
+      else if(COMPUTER.includes(+number) && COMPUTER.indexOf(+number) !== i) ball++;
     });
 
-    return {strike, ball};
+    return {STRIKE: strike, BALL: ball};
   }
 
   async play() {
 
     //1. 컴퓨터 숫자 저장
-    const computer = [];
-    while (computer.length < 3) {
-      const number = MissionUtils.Random.pickNumberInRange(1, 9);
-      if (!computer.includes(number)) {
-        computer.push(number);
+    const COMPUTER = [];
+    while (COMPUTER.length < 3) {
+      const NUMBER = MissionUtils.Random.pickNumberInRange(1, 9);
+      if (!COMPUTER.includes(NUMBER)) {
+        COMPUTER.push(NUMBER);
       }
     }
 
     //2. 3자리 숫자 입력
-    const mynumber = await Console.readLineAsync("숫자를 입력해주세요 : ");
+    const MYNUMBER = await Console.readLineAsync("숫자를 입력해주세요 : ");
     
-    if(this.isInValidNumber(mynumber)){
+    if(this.isInValidNumber(MYNUMBER)){
         throw new Error("[ERROR]");
     }
 
     //3. 힌트 결과 계산
-    const {ball,strike} = this.getHintCount(mynumber, computer);
+    const {BALL,STRIKE} = this.getHintCount(MYNUMBER, COMPUTER);
 
 
     //4. 힌트 출력
     let result_array = [];
-    if(ball >= 1) result_array.push(`${ball}볼`);
-    if(strike >= 1) result_array.push(`${strike}스트라이크`);
-    if(ball === 0 && strike === 0) result_array.push('낫싱');
+    if(BALL >= 1) result_array.push(`${BALL}볼`);
+    if(STRIKE >= 1) result_array.push(`${STRIKE}스트라이크`);
+    if(BALL === 0 && STRIKE === 0) result_array.push('낫싱');
     const RESULT_STRING = result_array.join(' ');
 
     Console.print(RESULT_STRING);
