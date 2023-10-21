@@ -61,9 +61,8 @@ async function createUserNumber() {
 }
 
 function calculateStrikeCount(userNumber,computerNumber) {
-  const length = computerNumber.length;
   let strike = 0;
-  for(let i = 0; i < length; i++) {
+  for(let i = 0; i < computerNumber.length; i++) {
     if(computerNumber[i] === userNumber[i]) {
       strike++;
     }
@@ -72,10 +71,9 @@ function calculateStrikeCount(userNumber,computerNumber) {
 }
 
 function calculateBallCount(userNumber,computerNumber) {
-  const length = computerNumber.length;
   let ball = 0;
   const userNumberSet = new Set(userNumber);
-  for(let i = 0; i < length; i++) {
+  for(let i = 0; i < computerNumber.length; i++) {
     if(computerNumber[i] !== userNumber[i] && userNumberSet.has(computerNumber[i])) {
       ball++;
     }
