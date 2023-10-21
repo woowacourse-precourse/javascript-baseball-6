@@ -1,15 +1,14 @@
-import { CONTROL_NUMS, ASNWER_LENGTH } from '../constants/number.js';
-import { ERROR } from '../constants/index.js';
+import { NUMS, ERROR } from '../constants/index.js';
 
 class Validator {
-  static isValidGuessNumber(input) {
-    if ([...input].every(Number) && input.length === ASNWER_LENGTH) {
+  static guessNumber(input) {
+    if ([...input].every(Number) && input.length === NUMS.ASNWER_LENGTH) {
       throw Error(ERROR.VALID_LENGTH);
     }
   }
 
-  static isValidControlNumber(input) {
-    if (CONTROL_NUMS.includes(input)) {
+  static controlNumber(input) {
+    if ([NUMS.REPLAY, NUMS.END].includes(input)) {
       throw Error(ERROR.VALID_CONTROL_NUM);
     }
   }

@@ -11,7 +11,7 @@ export const ERROR = {
 
 export const COMMAND = {
   WELCOME: '숫자 야구 게임을 시작합니다.',
-  ASK_INPUT: '숫자를 입력하세요',
-  ASK_REPLAY: `게임을 새로 시작하려면 ${NUMS.REPLAY}, 종료하려면 ${NUMS.END}를 입력하세요.`,
+  ASK_NUMBER: '숫자를 입력하세요: ',
+  ASK_REPLAY: `게임을 새로 시작하려면 ${NUMS.REPLAY}, 종료하려면 ${NUMS.END}를 입력하세요: `,
   MATCH: `${NUMS.ASNWER_LENGTH}개의 숫자를 모두 맞히셨습니다! 게임 종료`,
 };
