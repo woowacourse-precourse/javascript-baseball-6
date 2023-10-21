@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from "./Constant";
+import { ERROR_MESSAGE } from "../constants/Message";
 
 //유효성 검사
 export const isValidNumber = (string) => {

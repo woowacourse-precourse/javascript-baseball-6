@@ -1,7 +1,7 @@
 import { Console } from "@woowacourse/mission-utils";
-import { makeRandomNumber, checkNumber, makeText } from "./gameUtil";
-import { isValidNumber } from "./validation";
-import { GAME_MESSAGE, ERROR_MESSAGE } from "./Constant";
+import { makeRandomNumber, checkNumber, makeText } from "../src/utils/gameUtil";
+import { isValidNumber } from "../src/utils/validation";
+import { GAME_MESSAGE, ERROR_MESSAGE } from "../src/constants/Message";
 
 class App {
   constructor() {
@@ -9,7 +9,7 @@ class App {
   }
 
   async play() {
-    //첫 시작일 때 시작 메시지
+    //처음일때 시작 메시지
     if (this.first) {
       Console.print(GAME_MESSAGE.GAME_START);
     }
