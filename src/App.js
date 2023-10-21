@@ -2,7 +2,8 @@ import { MissionUtils } from '@woowacourse/mission-utils';
 
 const getCom = function generateComputer(computer) {
   while (computer.length < 3) {
-    let number = MissionUtils.Random.pickNumberInRange(1, 9); // 함수 이름이 number를 pick하는 것이므로, number형으로 준다고 생각하는게 맞겠지.
+    // 함수 이름에 따라 Number만 선택됨.
+    let number = MissionUtils.Random.pickNumberInRange(1, 9);
     if (!computer.includes(number)) {
       computer.push(number);
     }
@@ -10,31 +11,27 @@ const getCom = function generateComputer(computer) {
 };
 
 const getBbNum = async function inputTreating() {
-  //# 인풋 받기
-  // const rl = readline.createInterface({ input, output });
-  // const inputNum = await rl.question('');
+  // 인풋 받기
 
   let rawBaseballNum = await MissionUtils.Console.readLineAsync(
     '숫자를 입력해주세요 : '
   );
 
-  //## valid확인
-  //###   문자열 길이
+  // valid 확인 - 문자열 길이
   if (rawBaseballNum.length != 3) {
-    throw new Error('[ERROR]');
+    throw new Error('[ERROR] 3자리 수만 가능합니다');
   }
 
-  //### 각 자리 값이 1~9외의 다른 것들이 들어갔는지.  (문자, 0 등)
-
+  // valid 확인 -  각 자리 값
   let parsedBaseballNum = rawBaseballNum.split('').map((raw) => {
     let parsed = Number(raw);
     if (parsed === 0 || Number.isNaN(parsed)) {
-      throw new Error('[ERROR]');
+      throw new Error('[ERROR] 각 자리는 9 이하의 자연수만 가능합니다');
     }
     return parsed;
   });
 
-  //## valid 인풋 값.
+  // valid한 인풋 값.
   return parsedBaseballNum;
 };
 
@@ -42,11 +39,11 @@ const match = function matchingComputerNumWithBaseballNum(
   computer,
   baseballNum
 ) {
-  //# 비교하기
+  // 비교하기
   let strikes = 0;
   let balls = 0;
-  //## 숫자 포함 여부부터.
 
+  // 비교하기 - 숫자 포함 여부부터.
   baseballNum.forEach((bNum, index) => {
     if (computer.includes(bNum)) {
       if (bNum === computer[index]) {
@@ -57,7 +54,7 @@ const match = function matchingComputerNumWithBaseballNum(
     }
   });
 
-  // ## 코멘트 정하기
+  // 비교하기 - 코멘트 정하기
   let ballComment = balls !== 0 ? `${balls}볼` : '';
   let strikesComment = strikes !== 0 ? `${strikes}스트라이크` : '';
   let beteween = balls !== 0 && strikes !== 0 ? ' ' : '';
@@ -67,7 +64,7 @@ const match = function matchingComputerNumWithBaseballNum(
       ? '낫싱'
       : `${ballComment}${beteween}${strikesComment}`;
 
-  //## 출력하기
+  // 비교하기 = 출력하기
   MissionUtils.Console.print(commentFinal);
 
   if (strikes === 3) {
@@ -106,7 +103,7 @@ class App {
 
         // 계속 및 종료의 에러 체크
         if (start !== 1 && start !== 2) {
-          throw new Error('[ERROR]');
+          throw new Error('[ERROR] 1 혹은 2만 입력해야 합니다.');
         }
       }
     } catch (e) {
