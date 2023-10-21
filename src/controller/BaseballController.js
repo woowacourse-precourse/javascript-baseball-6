@@ -13,13 +13,15 @@ export class BaseballController {
       this.model.create();
       const userNumber = await this.view.getInputAsync(MESSAGE.INPUT);
       this.settingUserNumber(userNumber);
+
+      const gameResult = this.model.getGameResult();
+      this.view.printGameResult(gameResult);
     } catch (error) {
       this.view.printMessage(error);
     }
   }
 
   settingUserNumber(userNumber) {
-    // TODO 유효성 체크
     this.model.setUserNumber(userNumber);
   }
 }
