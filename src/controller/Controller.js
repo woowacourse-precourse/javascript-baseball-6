@@ -83,7 +83,7 @@ export default class Controller {
     const RESTART_VALIDATION = await this.validation.getRestartInputValidation(restartInput);
 
     if(!RESTART_VALIDATION) {
-      await this.view.printRestartError();
+      await this.view.throwRestartError();
     }
     
     if(restartInput === '1') {

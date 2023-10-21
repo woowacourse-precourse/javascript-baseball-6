@@ -70,7 +70,7 @@ export default class View {
   /**
    * 재시작 입력 값의 검증 결과가 false일 시 에러를 출력합니다
    */
-  async printRestartError() {
+  async throwRestartError() {
     throw new Error(this.RESTSART_INPUT_ERROR);
   }
 }
