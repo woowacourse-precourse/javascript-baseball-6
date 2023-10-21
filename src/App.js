@@ -33,6 +33,7 @@ function checkError(number) {
   if (number.length === 3 && !isNaN(number)) {
     return false;
   }
+  // throw new Error("[ERROR]");
   throw error;
 }
 
@@ -98,6 +99,7 @@ class App {
         checkError(num);
       } catch (err) {
         throw new Error("[ERROR]");
+        // throw console.error("[ERROR]");
       }
       review(answer, num);
 
