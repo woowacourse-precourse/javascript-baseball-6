@@ -20,7 +20,7 @@ isOptionError = (option) => {
     return;
   }
 
-  throw ERRORS.OPTION;
+  throw new Error(ERRORS.OPTION);
 };
 
 exports.selectOption = selectOption;
