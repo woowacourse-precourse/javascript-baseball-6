@@ -91,6 +91,10 @@ class Game {
       hint = com.getHint(answer, input);
     }
   }
+
+  shutDown() {
+    return;
+  }
 }
 
 class App {
