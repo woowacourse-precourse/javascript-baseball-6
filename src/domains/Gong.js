@@ -1,3 +1,5 @@
+import { MissionUtils } from "@woowacourse/mission-utils";
+
 // 공들을 관리하는 클래스
 
 class Gong {
