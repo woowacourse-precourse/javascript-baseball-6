@@ -1,7 +1,7 @@
 import { Random, Console } from "@woowacourse/mission-utils";
 
 //겹치지 않는 숫자 생성하기
-export function makeRandomNumber() {
+export const makeRandomNumber = () => {
   const computer = [];
   while (computer.length < 3) {
     let newNumber = Random.pickNumberInRange(1, 9);
@@ -10,10 +10,10 @@ export function makeRandomNumber() {
     }
   }
   return computer;
-}
+};
 
 //숫자가 정답인지 체크하기
-export function checkNumber(computer, user) {
+export const checkNumber = (computer, user) => {
   let result = {
     ball: 0,
     strike: 0,
@@ -28,10 +28,10 @@ export function checkNumber(computer, user) {
   });
   makeText(result);
   return result;
-}
+};
 
-//텍스트 생성하기
-function makeText(result) {
+//결과 텍스트 생성하기
+export const makeText = (result) => {
   const { ball, strike } = result;
   let answer = [];
   if (ball > 0) {
@@ -44,4 +44,4 @@ function makeText(result) {
     answer.push("낫싱");
   }
   Console.print(answer.join(" "));
-}
+};
