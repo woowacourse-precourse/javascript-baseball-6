@@ -17,6 +17,7 @@ isOptionError = (option) => {
 
   if (option === END) {
     Console.print(MESSAGES.END);
+    Console.close();
   }
 
   if (option !== RESTART && option !== END) {
