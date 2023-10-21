@@ -25,7 +25,7 @@ class Cpu {
   }
 }
 
-class Player {
+class User {
   async userPickNum() {
     const userNum = await GameConsole.readLineAsync("숫자를 입력해주세요 : ");
 
@@ -56,14 +56,14 @@ class Player {
 class App {
   constructor() {
     this.cpu = new Cpu();
-    this.player = new Player();
+    this.user = new User();
   }
   async play() {
     GameConsole.print("숫자 야구 게임을 시작합니다.");
     const cpuNum = this.cpu.cpuPickNum();
     let result;
     do {
-      const userNum = await this.player.userPickNum();
+      const userNum = await this.user.userPickNum();
       result = this.getStrikeBallCount(cpuNum, userNum);
       this.compareResult(result.strike, result.ball);
     } while (result.strike !== 3);
