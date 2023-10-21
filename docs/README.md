@@ -1,6 +1,9 @@
 ### 기능 목록
 
-1. computer 숫자 랜덤 생성
+1. 게임 시작
+
+- 게임 시작 문구 출력
+- computer 숫자 랜덤 생성
 
 2. 사용자 request function
 
