@@ -8,7 +8,7 @@ const isNumberLengthValid = (number) => {
 }
 
 const isValidNumber = (number) => {
-    if (isNaN(Number(number))) {
+    if (isNaN(number)) {
         return false;
     }
     return true;
@@ -34,5 +34,8 @@ export const isValidBaseballInput = (number) => {
 }
 
 export const isValidGameOption = (binary) => {
-    return binary === 0 || binary === 1;
+    if (binary !== '1' && binary !== '2') {
+        return false;
+    }
+    return true;
 }
