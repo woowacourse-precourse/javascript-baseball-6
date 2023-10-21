@@ -80,4 +80,11 @@ export default class View {
   printGameOver() {
     Console.print(this.GAME_OVER_MESSAGE);
   }
+
+  /**
+   * 게임 시작 문구를 출력합니다.
+   */
+  printGameStart() {
+    Console.print(this.GAME_START_MESSAGE);
+  }
 }
