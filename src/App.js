@@ -1,13 +1,13 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import { Console } from '@woowacourse/mission-utils';
 
-Console.print('Dd');
-
 class App {
   async play() {
     this.StartMessage(); // StartMessage 메서드 호출
-    const userInput = await this.InputPlayerNumbers();
-    this.MakeRandomNumbers();
+    const answer = this.MakeRandomNumbers();
+
+    const unserInput = await this.InputPlayerNumbers();
+    this.JudgeNumber(answer, unserInput);
   }
 
   StartMessage() {
@@ -23,16 +23,63 @@ class App {
         computer.push(number);
       }
     }
-    // console.print(computer);
+    Console.print(computer);
+    return computer;
   }
 
   async InputPlayerNumbers() {
     try {
       const input = await Console.readLineAsync('숫자를 입력해주세요 :');
+      let playerNumber = [];
+      playerNumber = input.split('').map((number) => parseInt(number));
+
+      if (playerNumber.length === 3 && new Set(playerNumber).size === 3) {
+        // Console.print(playerNumber);
+      } else {
+        Console.print('서로 다른 3가지 숫자를 입력해주세요.');
+        return this.InputPlayerNumbers(); // 잘못된 입력에 대해 재귀 호출
+      }
+
+      return playerNumber; // 입력이 유효한 경우 반환
     } catch (error) {
-      // reject 되는 경우
+      // 예외 처리는 잘못된 입력과 관련된 오류에 사용
       Console.print('[Error]');
     }
+  }
+
+  JudgeNumber(computerNumber, playerNumber) {
+    let computer = computerNumber;
+    let player = playerNumber;
+
+    let strike = 0;
+    let ball = 0;
+    let nothing = '낫싱';
+
+    Console.print(computer);
+    Console.print(player);
+
+    //   for (let i = 0; i < 3; i++) {
+    //     if (player[i] === computer[i]) {
+    //       strike++;
+    //     }
+    //   }
+    //   for (let i = 0; i < 3; i++) {
+    //     if (
+    //       player[i] === computer[(i + 1) % 3] ||
+    //       player[i] === computer[(i + 2) % 3]
+    //     ) {
+    //       ball++;
+    //     }
+    //   }
+    //   if (strike === 0 && ball === 0) {
+    //     Console.print(nothing);
+    //   } else if (strike > 0 && ball > 0) {
+    //     Console.print(`${ball}볼 ${strike}스트라이크`);
+    //   } else if (strike === 0 && ball > 0) {
+    //     Console.print(`${ball}볼`);
+    //   } else {
+    //     Console.print(`${strike}스트라이크`);
+    //   }
   }
 }
 
