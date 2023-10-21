@@ -10,11 +10,19 @@ class App {
   async play() {
     this.printStartMessage();
     const computerNumber = this.computer.generateNumber();
+
+    const userNumber = await this.getUserInput();
   }
-  
+
   printStartMessage() {
     Console.print(GAME_MESSAGE.GAME_START); 
+  }
+
+  async getUserInput() {
+    const input = await Console.readLineAsync(GAME_MESSAGE.NUMBER_INPUT);
+    return input;
   }
 }
 
 export default App;
+
