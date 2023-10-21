@@ -2,7 +2,7 @@ import {Console, MissionUtils, Random} from '@woowacourse/mission-utils';
 
 class App {
 
-  //params: 문자로 이루어진 배열
+  //params: 문자 타입의 3자리 숫자
   isInValidNumber(number) {
     const condition = (
       number.length > 3 || // 3자리 초과
@@ -29,6 +29,9 @@ class App {
     if(this.isInValidNumber(mynumber)){
         throw new Error("[ERROR]");
     }
+
+    //3. 힌트 결과 계산
+    
 
   }
 }
