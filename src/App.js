@@ -10,13 +10,13 @@ class App {
   // 시작 메시지 출력 후 게임 시작
   async play() {
     Console.print(MESSAGE.START);
-    this.start();
+    await this.start();
   }
 
   // 숫자야구 게임 시작
-  start() {
+  async start() {
     this.baseballGame.start();
-    this.readAnswer();
+    await this.readAnswer();
   }
 
   // 사용자로부터 예상 정답을 입력 받고 유효성 검사
@@ -24,7 +24,7 @@ class App {
     const answer = await Console.readLineAsync(MESSAGE.INPUT);
     try {
       BaseballGame.validateNumber(answer);
-      this.printResult(answer);
+      await this.printResult(answer);
     } catch (err) {
       Console.print(err);
     }
@@ -40,18 +40,18 @@ class App {
   }
 
   // 사용자가 입력한 숫자에 대한 결과 출력 후 판별
-  printResult(answer) {
+  async printResult(answer) {
     const { ball, strike } = this.baseballGame.getResult(answer);
 
     Console.print(this.getResultMessage(ball, strike));
 
     if (strike == 3) {
       Console.print(MESSAGE.SUCCESS);
-      this.readRetry();
+      await this.readRetry();
       return;
     }
     
-    this.readAnswer();
+    await this.readAnswer();
   }
 
   // 게임 재시작 여부 입력 받기
@@ -59,7 +59,6 @@ class App {
     const answer = await Console.readLineAsync(MESSAGE.RETRY);
     if (answer == 1) {
       this.start();
-      return;
     }
 
     if (answer != 2) {
