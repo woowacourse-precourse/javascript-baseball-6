@@ -45,25 +45,30 @@ class App {
       }
     }
 
-    //2. 3자리 숫자 입력
-    const MYNUMBER = await Console.readLineAsync("숫자를 입력해주세요 : ");
+    //3스트라이크가 나올때 까지 반복
+   while(true){
+     //2. 3자리 숫자 입력
+     const MYNUMBER = await Console.readLineAsync("숫자를 입력해주세요 : ");
     
-    if(this.isInValidNumber(MYNUMBER)){
-        throw new Error("[ERROR]");
-    }
-
-    //3. 힌트 결과 계산
-    const {BALL,STRIKE} = this.getHintCount(MYNUMBER, COMPUTER);
-
-
-    //4. 힌트 출력
-    this.printHint(BALL, STRIKE);
-
-    //5. 재시작 - 3스트라이크 여부
-    if(STRIKE === 3){
-      Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-      const SIGNAL = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. ");
-    }
+     if(this.isInValidNumber(MYNUMBER)){
+         throw new Error("[ERROR]");
+     }
+ 
+     //3. 힌트 결과 계산
+     const {BALL,STRIKE} = this.getHintCount(MYNUMBER, COMPUTER);
+ 
+ 
+     //4. 힌트 출력
+     this.printHint(BALL, STRIKE);
+ 
+     //5. 재시작 - 3스트라이크 여부
+     if(STRIKE === 3){
+       Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+       const SIGNAL = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. ");
+ 
+       return;
+     }
+   }
   }
 }
 
