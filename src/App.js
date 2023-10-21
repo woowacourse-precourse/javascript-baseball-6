@@ -112,28 +112,28 @@ class App {
 
   //유저의 인풋값에서 볼 , 스트라이크 , 아웃이 몇개인지 확인하는 함수
   checkUserInputCount(userInput) {
-    let strikeCount = 0;
-    let ballCount = 0;
-    let outCount = 0;
+    let STRIKECOUNT = 0;
+    let BALLCOUNT = 0;
+    let OUTCOUNT = 0;
 
     for (let i = 0; i < 3; i++) {
       // 만약에 위치랑 숫자가 모두 같을 때
       if (userInput[i] === this.answer[i]) {
-        strikeCount++;
+        STRIKECOUNT++;
       }
 
       // 만약에 위치는 다르지만 숫자가 같을 때
       else if (this.answer.includes(userInput[i])) {
-        ballCount++;
+        BALLCOUNT++;
       }
 
       // 둘다 아닐 때
       else {
-        outCount++;
+        OUTCOUNT++;
       }
     }
 
-    this.gameOver(strikeCount, ballCount, outCount);
+    this.gameOver(STRIKECOUNT, BALLCOUNT, OUTCOUNT);
   }
 }
 
