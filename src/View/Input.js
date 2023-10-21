@@ -1,4 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
+import Output from './Output';
 
 class Input {
   static async readAsync(string, cb) {
@@ -6,7 +7,7 @@ class Input {
       const input = await Console.readLineAsync(string);
       cb(input);
     } catch (err) {
-      throw new Error(`[ERROR] ${err.message}`);
+      Output.print(`[ERROR] ${err.message}`);
     }
   }
 }
