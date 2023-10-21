@@ -53,36 +53,17 @@ class User {
   }
 }
 
-class App {
-  constructor() {
-    this.cpu = new Cpu();
-    this.user = new User();
-  }
-  async play() {
-    GameConsole.print("숫자 야구 게임을 시작합니다.");
-    const cpuNum = this.cpu.cpuPickNum();
-    let result;
-    do {
-      const userNum = await this.user.userPickNum();
-      result = this.getStrikeBallCount(cpuNum, userNum);
-      this.compareResult(result.strike, result.ball);
-    } while (result.strike !== 3);
-
-    GameConsole.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-    await this.startOrExitGame();
-  }
-
+class ReturnGameResult {
   getStrikeBallCount(cpu, user) {
-    const strike = this.countStrike(cpu, user);
-    const ball = this.countBall(cpu, user);
-
-    return { strike, ball };
+    return {
+      strike: this.countStrike(cpu, user),
+      ball: this.countBall(cpu, user),
+    };
   }
 
   countStrike(cpu, user) {
-    const CPULENGTH = cpu.length;
     let strike = 0;
-    for (let i = 0; i < CPULENGTH; i++) {
+    for (let i = 0; i < cpu.length; i++) {
       if (cpu[i] === user[i]) {
         strike++;
       }
@@ -91,17 +72,18 @@ class App {
   }
 
   countBall(cpu, user) {
-    const CPULENGTH = cpu.length;
     let ball = 0;
     let cpuSet = new Set(cpu);
-    for (let i = 0; i < CPULENGTH; i++) {
+    for (let i = 0; i < cpu.length; i++) {
       if (cpu[i] !== user[i] && cpuSet.has(user[i])) {
         ball++;
       }
     }
     return ball;
   }
+}
 
+class PrintGameMessage {
   compareResult(strike, ball) {
     let message;
     if (strike > 0 && ball > 0) {
@@ -115,6 +97,12 @@ class App {
     }
     GameConsole.print(message);
   }
+}
+
+class NewGameController {
+  constructor(app) {
+    this.app = app;
+  }
 
   async startOrExitGame() {
     const userInput = await GameConsole.readLineAsync(
@@ -122,12 +110,35 @@ class App {
     );
 
     if (userInput === "1") {
-      await this.play();
+      await this.app.play();
     } else if (userInput === "2") {
       return false;
     } else {
       throw new Error("[ERROR] 1, 2중에서 입력해주세요.");
     }
+  }
+}
+
+class App {
+  constructor() {
+    this.cpu = new Cpu();
+    this.user = new User();
+    this.returnGameResult = new ReturnGameResult();
+    this.printGameMessage = new PrintGameMessage();
+    this.newGameController = new NewGameController(this);
+  }
+  async play() {
+    GameConsole.print("숫자 야구 게임을 시작합니다.");
+    const cpuNum = this.cpu.cpuPickNum();
+    let result;
+    do {
+      const userNum = await this.user.userPickNum();
+      result = this.returnGameResult.getStrikeBallCount(cpuNum, userNum);
+      this.printGameMessage.compareResult(result.strike, result.ball);
+    } while (result.strike !== 3);
+
+    GameConsole.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    await this.newGameController.startOrExitGame();
   }
 }
 
