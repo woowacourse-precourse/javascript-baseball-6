@@ -1,9 +1,13 @@
-import { Console } from "@woowacourse/mission-utils";
-import { MESSAGE } from "./constants/messages.js";
+import { BaseballView } from './view/BaseballView.js';
+import { BaseballModel } from './model/BaseballModel.js';
+import { BaseballController } from './controller/BaseballController.js';
 
 class App {
   async play() {
-    Console.print(MESSAGE.START);
+    const view = new BaseballView();
+    const model = new BaseballModel();
+    const controller = new BaseballController(model, view);
+    controller.start();
   }
 }
 
