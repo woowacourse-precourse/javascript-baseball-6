@@ -14,7 +14,7 @@ function print(message) {
  * @return {Promise<string>}
  */
 function input(message) {
-  Console.readLineAsync(message);
+  return Console.readLineAsync(message);
 }
 
 export { print, input };
