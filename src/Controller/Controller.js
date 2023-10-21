@@ -8,6 +8,8 @@ import RandomNumbersMaker from '../Model/RandomNumbersMaker.js';
 
 import ErrorCatcher from '../ErrorCatcher.js';
 
+import { RETRY_ORDER } from '../constants/constants.js';
+
 class Controller {
   constructor() {
     this.user = new User();
@@ -73,6 +75,10 @@ class Controller {
     const retryAnswer = await InputView.readRetry();
 
     this.validateRetryAnswer(retryAnswer);
+
+    if (retryAnswer === RETRY_ORDER) {
+      await this.readNumbers();
+    }
   }
 
   validateRetryAnswer(answer) {
