@@ -4,7 +4,7 @@ class Validator {
   }
 
   static isNumberArray(array) {
-    return true;
+    return array.every((v) => typeof v === "number");
   }
 
   static containsZero(array) {
