@@ -66,4 +66,11 @@ export default class View {
 
     await this.controller.isRestartInputValid(RESTART_INPUT);
   }
+
+  /**
+   * 재시작 입력 값의 검증 결과가 false일 시 에러를 출력합니다
+   */
+  async printRestartError() {
+    throw new Error(this.RESTSART_INPUT_ERROR);
+  }
 }
