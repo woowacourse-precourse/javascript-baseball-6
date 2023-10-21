@@ -9,10 +9,10 @@ import { MESSAGE } from "./constant/message.js";
 class App {
   async playGameOnce() {
     const computerNum = generateNum({ length: 3 });
+    let replay = false;
 
     while (true) {
       const userNum = await askUserNumAsync(MESSAGE.INPUT_NUM);
-      // Todo. userNum 유효성 검사
 
       const result = throwBall({
         dest: computerNum,
@@ -22,10 +22,12 @@ class App {
 
       if (result.strike === 3) {
         Console.print(MESSAGE.CORRECT);
-        const replay = await askReplayAsync(MESSAGE.INPUT_REPLAY);
-        return replay;
+        replay = await askReplayAsync(MESSAGE.INPUT_REPLAY);
+        break;
       }
     }
+
+    return replay;
   }
   async play() {
     Console.print(MESSAGE.GAME_START);
@@ -37,7 +39,7 @@ class App {
   }
 }
 
-// const app = new App();
-// app.play();
+const app = new App();
+app.play();
 
 export default App;
