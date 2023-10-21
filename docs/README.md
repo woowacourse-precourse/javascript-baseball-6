@@ -13,7 +13,7 @@
 
 <br />
 
-### 🔴 1. 게임 시작 문구 출력
+### 🟢 1. 게임 시작 문구 출력
 
 - ✏️ 기능 설명
 
@@ -27,7 +27,7 @@
 
         숫자 야구 게임을 시작합니다.
 
-### 🔴 2. 랜덤 숫자 생성
+### 🟢 2. 랜덤 숫자 생성
 
 - ✏️ 기능 설명
 
@@ -38,7 +38,7 @@
   - 1에서 9 사이의 숫자를 추출한다.
   - Random 값 추출은 `Random.pickNumberInRange()`를 활용한다
 
-### 🔴 3. 숫자 입력
+### 🟢 3. 숫자 입력
 
 - ✏️ 기능 설명
 
@@ -147,15 +147,15 @@
 <td>10월 20일 (금)</td>
 <td>환경 설정 및 기능 구현 목록 정리</td>
 <td>3 Hours</td>
-<td style="text-align: center">🟡</td>
+<td style="text-align: center">🟢</td>
 <td>5 Hours</td>
 </tr>
 <tr>
 <td>10월 21일 (토)</td>
 <td>기능 목록 1, 2, 3 구현</td>
 <td>3 Hours</td>
-<td style="text-align: center">🔴</td>
-<td>-</td>
+<td style="text-align: center">🟢</td>
+<td>2 Hours</td>
 </tr>
 <tr>
 <td>10월 22일 (일)</td>
