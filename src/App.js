@@ -8,6 +8,10 @@ class App {
   #computerNumber;
   constructor() {
     OutputView.printStart();
+    this.#makeComputerNumber();
+  }
+
+  #makeComputerNumber() {
     this.#computerNumber = ComputerNumber.generateComputerNumber();
   }
 
@@ -22,7 +26,7 @@ class App {
         OutputView.printCorrect();
         const retryAnswer = await InputView.readRetryAnswer();
         if (retryAnswer === ANSWER.RESTART) {
-          this.#computerNumber = ComputerNumber.generateComputerNumber();
+          this.#makeComputerNumber();
         }
         if (retryAnswer === ANSWER.FINISH) {
           this.#finish();
