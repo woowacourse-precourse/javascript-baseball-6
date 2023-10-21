@@ -7,12 +7,15 @@ export default class BallsBox {
     this.validationDuplicate(ballString);
     this.validationRange(ballString);
     this.validationSize(ballString);
-    this.ballArray = Array(ballString);
+    this.ballArray = ballString.split("");
   }
 
   validationSize(ballString) {
-    if (ballString.length !== this.#BALLS_NUMBERS_SIZE) {
-      throw new Error("[ERROR] 연속된 3개의 숫자여야 합니다.");
+    if (
+      typeof ballString != "string" ||
+      ballString.length !== this.#BALLS_NUMBERS_SIZE
+    ) {
+      throw new Error("[ERROR] 숫자는 3개를 입력해야합니다.");
     }
   }
 
