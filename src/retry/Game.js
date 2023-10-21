@@ -1,6 +1,7 @@
 const OutputView = require('./OutputView');
 const InputView = require('./InputView');
 const Computer = require('./Computer');
+const Referee = require('./Referee');
 
 
 class Game {
@@ -24,7 +25,11 @@ class Game {
         this.#user = numbers.split('').map((number) => {
             return parseInt(number, 10);
         });
+        this.compare();
     };
+    compare() {
+        const result = new Referee().compare(this.#computer, this.#user);
+    }
 }
 
 module.exports = Game;
