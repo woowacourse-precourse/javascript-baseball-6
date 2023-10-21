@@ -8,14 +8,16 @@ class App {
   async play() {
     Console.print("숫자 야구 게임을 시작합니돠.");
     this.computerNum = [];
+    this.inputValue = "";
     this.createRandomNum();
-    this.inputNum();
+    console.log(this.computerNum);
+    await this.getInputNum();
   }
 
-  async inputNum() {
-    const inputValue = await Console.readLineAsync("숫자를 입력해주세요.");
-    this.checkInputValidate(inputValue);
-    await this.printStrikeAndBall(inputValue);
+  async getInputNum() {
+    this.inputValue = await Console.readLineAsync("숫자를 입력해주세요.");
+    this.checkInputValidate(this.inputValue);
+    await this.printStrikeAndBall(this.inputValue);
   }
 
   calculateStrikeAndBall(inputValue) {
@@ -40,27 +42,8 @@ class App {
   async printStrikeAndBall(inputValue) {
     const { strike, ball } = this.calculateStrikeAndBall(inputValue);
 
-    if (ball === 0 && strike === 0) {
-      Console.print("낫싱");
-      await this.inputNum();
-    }
-
-    if (ball == 0 && strike !== 0) {
-      Console.print(`${strike}스트라이크`);
-      await this.inputNum();
-    }
-
-    if (strike == 0 && ball !== 0) {
-      Console.print(`${ball}볼`);
-      await this.inputNum();
-    }
-
-    if (ball !== 0 && strike !== 0) {
-      Console.print(`${ball}볼 ${strike}스트라이크`);
-      await this.inputNum();
-    }
-
     if (strike === 3) {
+      Console.print(`${strike}스트라이크`);
       Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
 
       const inputValue = await Console.readLineAsync(
@@ -71,7 +54,29 @@ class App {
         await this.play();
       } else {
         Console.print("겜 종료");
+        return;
       }
+
+      return;
+    }
+
+    if (ball === 0 && strike === 0) {
+      Console.print("낫싱");
+      await this.getInputNum();
+    }
+
+    if (ball == 0 && strike !== 0) {
+      await this.getInputNum();
+    }
+
+    if (strike == 0 && ball !== 0) {
+      Console.print(`${ball}볼`);
+      await this.getInputNum();
+    }
+
+    if (ball !== 0 && strike !== 0) {
+      Console.print(`${ball}볼 ${strike}스트라이크`);
+      await this.getInputNum();
     }
   }
 
@@ -86,7 +91,7 @@ class App {
     }
   }
 
-  async checkInputValidate(inputValue) {
+  checkInputValidate(inputValue) {
     if (!/^\d{3}$/.test(inputValue)) {
       throw new Error("[ERROR] 입력 값은 3자리 숫자여야 합니다.");
     }
