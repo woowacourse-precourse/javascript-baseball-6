@@ -24,11 +24,7 @@ async function getUserInput(message) {
 function checkError(number) {
   return false;
 }
-//애는 어디에 놔야하는지 모르겠음
-let SCORE = {
-  볼: 0,
-  스트라이크: 0,
-};
+
 function review(answer, number) {
   //컴퓨터의 숫자를 순회하여 사용자의 숫자와 비교한다
   //findindex 로 스트라이크 갯수 변수와 볼 변수 낫싱 변수를 체크한다.
@@ -75,34 +71,63 @@ function printResult(SCORE) {
   MissionUtils.Console.print(text);
   return true;
 }
-async function getSomething(answer) {
+async function playGame(answer) {
   //비동기 동작원리를 정확히 파악하지 못하는듯
-  let num = await getUserInput("숫자를 입력해주세요 :");
-  if (!checkError(num)) {
-    let result = review(answer, num);
-    let isContinue = printResult(result);
-    if (isContinue) {
-      resetScore();
-      getSomting();
-    }
-    let number = await getUserInput(
-      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
-    );
 
-    if (number === "1") {
-      app.play();
+  while (!SCORE.성공) {
+    let num = await getUserInput("숫자를 입력해주세요 :");
+    if (!checkError(num)) {
+      let result = review(answer, num);
+      let isContinue = printResult(result);
+      if (isContinue) {
+        resetScore();
+        getSomting();
+      }
+      let number = await getUserInput(
+        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+      );
+
+      if (number === "1") {
+        app.play();
+      }
+      //종료
+      return;
     }
-    //종료
-    return;
   }
 }
 class App {
   async play() {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
     //반복되는 구간을 while 로 돌리고 싶은데 비동기때문에 어려움 그래서 일단 함수로 만들어서 자기 호출하는 식으로 만듦
-
-    getSomething(answer);
     const answer = makeRandom();
+
+    let SCORE = {
+      볼: 0,
+      스트라이크: 0,
+      성공: false,
+    };
+
+    while (!SCORE.성공) {
+      let num = await getUserInput("숫자를 입력해주세요 :");
+      if (!checkError(num)) {
+        let result = review(answer, num);
+        let isContinue = printResult(result);
+        if (isContinue) {
+          resetScore();
+        }
+        let number = await getUserInput(
+          "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+        );
+
+        if (number === "1") {
+          app.play();
+        }
+        //종료
+        return;
+      }
+    }
+    // playGame();
+
     //비동기 라이브러리쓰니까 입력하는 동안 미리 할 수 잇는 답안 작성하기 하고 싶은데 안됨
     //호이스팅 개념도 흔들리는 중
   }
