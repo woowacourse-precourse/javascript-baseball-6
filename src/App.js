@@ -6,9 +6,10 @@ import makeAnswer from "./handleAnswer/makeAnswer.js";
 class App {
   async play() {
     let computerAnswer = makeAnswer();
+
     while (true) {
       const userInput = await Console.readLineAsync("숫자를 입력해주세요 : ");
-      let userAnswer = handleUserInput(userInput); 
+      let userAnswer = handleUserInput(userInput);
 
       //게임 승리 판정
       if (computerAnswer === userAnswer) {
@@ -21,7 +22,6 @@ class App {
         );
         if (replay === "1") {
           computerAnswer = makeAnswer();
-          Console.print("답: " + computerAnswer);
           continue;
         } else if (replay === "2") {
           Console.print("게임 종료");
@@ -29,10 +29,9 @@ class App {
         } else {
           throw new Error("[ERROR] 잘못된 입력입니다.");
         }
-      } else {
-        printHint(computerAnswer, userAnswer);
-        continue;
       }
+
+      printHint(computerAnswer, userAnswer);
     }
   }
 }
