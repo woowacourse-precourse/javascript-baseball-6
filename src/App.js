@@ -16,7 +16,7 @@ class App {
       }
     }
 
-    return numbers;
+    return numbers.join('');
   }
 }
 
