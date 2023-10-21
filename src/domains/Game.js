@@ -1,7 +1,7 @@
 // 한판의 게임을 책임지는 클래스
 
 import Oppenent from "./Opponent.js";
-import { gameMessages } from "../constants/gameMessages.js";
+import { GAME_MESSAGES } from "../constants/gameMessages.js";
 
 class Game {
   /**
@@ -48,7 +48,7 @@ class Game {
 
   compareBalls(gongs) {
     this.#userGongs = gongs.getGongs();
-    const { ALL_MATCH, BALLS_COUNT, STRIKES_COUNT, NOTHING } = gameMessages;
+    const { ALL_MATCH, BALLS_COUNT, STRIKES_COUNT, NOTHING } = GAME_MESSAGES;
 
     const strikes = this.getStrikes();
     const balls = this.getBalls();

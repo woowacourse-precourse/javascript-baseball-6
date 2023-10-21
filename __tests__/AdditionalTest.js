@@ -1,6 +1,6 @@
 import App from "../src/App.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
-import { errorMessages } from "../src/constants/errorMessages.js";
+import { ERROR_MESSAGES } from "../src/constants/errorMessages.js";
 
 const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
@@ -83,7 +83,7 @@ describe("숫자 야구 게임", () => {
     // when & then
     const app = new App();
 
-    await expect(app.play()).rejects.toThrow(errorMessages.HAVE_DUPLICATION);
+    await expect(app.play()).rejects.toThrow(ERROR_MESSAGES.HAVE_DUPLICATION);
   });
 
   test("타입에 관한 예외 테스트", async () => {
@@ -97,7 +97,7 @@ describe("숫자 야구 게임", () => {
     // when & then
     const app = new App();
 
-    await expect(app.play()).rejects.toThrow(errorMessages.NOT_A_NUMBER);
+    await expect(app.play()).rejects.toThrow(ERROR_MESSAGES.NOT_A_NUMBER);
   });
 
   test("공백 포함에 관한 예외 테스트", async () => {
@@ -111,7 +111,7 @@ describe("숫자 야구 게임", () => {
     // when & then
     const app = new App();
 
-    await expect(app.play()).rejects.toThrow(errorMessages.NOT_MATCH_LENGTH);
+    await expect(app.play()).rejects.toThrow(ERROR_MESSAGES.NOT_MATCH_LENGTH);
   });
 
   test("입력 범위에 관한 예외 테스트", async () => {
@@ -125,7 +125,7 @@ describe("숫자 야구 게임", () => {
     // when & then
     const app = new App();
 
-    await expect(app.play()).rejects.toThrow(errorMessages.OUT_OF_RANGE);
+    await expect(app.play()).rejects.toThrow(ERROR_MESSAGES.OUT_OF_RANGE);
   });
 
   test("게임 종료 후 입력값 예외 테스트", async () => {
@@ -140,7 +140,7 @@ describe("숫자 야구 게임", () => {
     const app = new App();
 
     await expect(app.play()).rejects.toThrow(
-      errorMessages.NOT_MATCH_END_OR_RESTART
+      ERROR_MESSAGES.NOT_MATCH_END_OR_RESTART
     );
   });
 });

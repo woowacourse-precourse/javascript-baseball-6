@@ -1,5 +1,5 @@
 import AppError from "../error/AppError.js";
-import { errorMessages } from "../constants/errorMessages.js";
+import { ERROR_MESSAGES } from "../constants/errorMessages.js";
 
 export const SELECTED = Object.freeze({
   RESTART_GAME: "1",
@@ -18,5 +18,5 @@ export const selectEndOrRestart = (endOrRestartInput) => {
     return SELECTED.END_GAME;
   }
 
-  throw new AppError(errorMessages.NOT_MATCH_END_OR_RESTART);
+  throw new AppError(ERROR_MESSAGES.NOT_MATCH_END_OR_RESTART);
 };

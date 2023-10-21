@@ -1,5 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import { errorMessages } from "../constants/errorMessages.js";
+import { ERROR_MESSAGES } from "../constants/errorMessages.js";
 import AppError from "../error/AppError.js";
 
 // 공들을 관리하는 클래스
@@ -60,13 +60,13 @@ class Gong {
 
   validateOfType() {
     if (this.#gongs.some(isNaN)) {
-      throw new AppError(errorMessages.NOT_A_NUMBER);
+      throw new AppError(ERROR_MESSAGES.NOT_A_NUMBER);
     }
   }
 
   validateOfLength() {
     if (this.#gongs.length !== Gong.GONGS_LENGTH) {
-      throw new AppError(errorMessages.NOT_MATCH_LENGTH);
+      throw new AppError(ERROR_MESSAGES.NOT_MATCH_LENGTH);
     }
   }
 
@@ -76,13 +76,13 @@ class Gong {
         (num) => num >= Gong.GONG_MIN_NUM && num <= Gong.GONG_MAX_NUM
       )
     ) {
-      throw new AppError(errorMessages.OUT_OF_RANGE);
+      throw new AppError(ERROR_MESSAGES.OUT_OF_RANGE);
     }
   }
 
   validateOfDupliacation() {
     if (this.#gongs.length !== new Set(this.#gongs).size) {
-      throw new AppError(errorMessages.HAVE_DUPLICATION);
+      throw new AppError(ERROR_MESSAGES.HAVE_DUPLICATION);
     }
   }
 }
