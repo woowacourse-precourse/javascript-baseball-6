@@ -40,4 +40,15 @@ export default class Validation {
       this.RESTART_INPUT_VALIDATION = false;
     }
   }
+
+  /**
+   * 재시작 입력 값의 유효성을 검증하고 검증 결과를 가져옵니다.
+   * @param {string} restartInput [재시작 여부 입력 값]
+   * @returns 
+   */
+  async getRestartInputValidation(restartInput) {
+    await this.validateRestartInput(restartInput);
+
+    return this.RESTART_INPUT_VALIDATION;
+  }
 }
