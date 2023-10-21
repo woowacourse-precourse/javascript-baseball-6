@@ -15,4 +15,10 @@ const CONSTANT = {
 	END : '2',
 	THREESTRIKE : 3,
 }
+
+const resultObject = {
+	STRIKE: 0,
+	BALL: 0,
+	NOTHING: false,
+}
 export {MESSAGE, resultObject, CONSTANT};
