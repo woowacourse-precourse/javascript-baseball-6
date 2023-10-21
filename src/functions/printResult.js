@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import { ERROR_MESSAGE } from '../constant/message';
+import { ERROR_MESSAGE } from '../constant/message.js';
 /**
  * @param {{strike: number, ball: number}}
  */

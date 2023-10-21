@@ -31,7 +31,7 @@ class App {
     return replay;
   }
   async play() {
-    Console.print(MESSAGE.GAME_START);
+    Console.print(MESSAGE.startGame);
     while (!(await this.playGameOnce()));
   }
 }
