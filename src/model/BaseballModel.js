@@ -3,12 +3,15 @@ import { BASEBALL_RANGE } from '../constants/range.js';
 import { ERROR_MESSAGE } from '../constants/messages.js';
 
 export class BaseballModel {
-  computerNumber;
+  #computerNumber;
+  #userNumber;
 
   create() {
     this.computerNumber = this.#generateNumbers();
     this.#checkComputerNumberLength(this.computerNumber);
     this.#checkComputerNumberDuplication(this.computerNumber);
+
+    console.log(this.computerNumber);
   }
 
   #generateNumbers() {
@@ -19,6 +22,10 @@ export class BaseballModel {
       pickedNumbers.add(pickedNumber);
     }
     return Array.from(pickedNumbers).join('');
+  }
+
+  setUserNumber(userNumber) {
+    this.#userNumber = userNumber;
   }
 
   #checkGeneratedNumber(generatedNumber) {
