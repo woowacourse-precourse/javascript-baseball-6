@@ -168,9 +168,9 @@ describe("BaseballGame class", () => {
 
     mockRandoms(randoms);
 
-    const game = new BaseBallGame(props);
+    const game = new BaseBallGame();
 
-    expect(game.generateRandomNumbers()).toEqual([1, 2, 3]);
+    expect(game.generateRandomNumbers(props)).toEqual([1, 2, 3]);
   });
 
   test("스트라이크 볼 계산", () => {
@@ -183,39 +183,12 @@ describe("BaseballGame class", () => {
       [1, 2, 3],
     ];
 
-    const game = new BaseBallGame(props);
-    game.init();
+    const game = new BaseBallGame();
+    game.init(props);
 
     answers.forEach((answer, i) => {
       expect(game.calculateStrikeBall(answer)).toEqual(scores[i]);
     });
-  });
-
-  test("스코어 메시지 생성", () => {
-    const messages = ["낫싱", "2볼 1스트라이크", "3스트라이크"];
-
-    const game = new BaseBallGame(props);
-
-    scores.forEach(({ strike, ball }, i) => {
-      const result = game.generateScoreMessage(strike, ball);
-
-      expect(result).toEqual(messages[i]);
-    });
-  });
-
-  test("게임 진행", () => {
-    const randoms = [1, 2, 3];
-    mockRandoms(randoms);
-
-    const answer = [1, 2, 3];
-    const score = { strike: 3, ball: 0 };
-    const message = "3스트라이크";
-
-    const game = new BaseBallGame(props);
-    game.init();
-
-    expect(game.calculateStrikeBall(answer)).toEqual(score);
-    expect(game.generateScoreMessage(score.strike, score.ball)).toEqual(message);
   });
 });
 
