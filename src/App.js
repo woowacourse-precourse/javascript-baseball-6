@@ -20,7 +20,12 @@ class App {
     try {
       const inputNumber = await Console.readLineAsync("숫자를 입력해주세요 : ");
       const userInputNumber = this.userInputNumberValidation(inputNumber).split("").map(Number);
-      this.calcBallStrike(userInputNumber, randomNumber);
+      const baseBallCount = this.calcBallStrike(userInputNumber, randomNumber);
+      if (baseBallCount.strike === 3) {
+        Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+      } else {
+        this.setUserInput(randomNumber);
+      }
     } catch (error) {
       Console.print(`[ERROR] 숫자가 잘못된 형식입니다.`);
     }
