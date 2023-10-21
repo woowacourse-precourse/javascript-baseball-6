@@ -7,7 +7,7 @@ class App {
   }
 
   async play() {  // 게임 시작 함수.
-    MissionUtils.Console.print('숫자 야구 게임을 시작합니다.'); // 게임 시작 문구
+    this.Print('숫자 야구 게임을 시작합니다.'); // 게임 시작 문구
     
     this.answer = this.GameStart(); // 게임이 시작되면 answer을 랜덤한 3글자 숫자로 바꾼다.
 
@@ -17,15 +17,15 @@ class App {
 
       try{ // 예외처리
         this.Exception(this.userAnswer);
-        MissionUtils.Console.print(this.Hint(this.answer,this.userAnswer));
+        this.Print(this.Hint(this.answer,this.userAnswer));
       }catch (error){
-        MissionUtils.Console.print(error);
+        this.Print(error);
         throw new Error('[ERROR]');
       }
 
       if(this.answer != this.userAnswer) continue; // 정답이 아니면 다시 while 문의 처음으로 돌아간다.
       
-      MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료'); // 정답이면 게임종료 !
+      this.Print('3개의 숫자를 모두 맞히셨습니다! 게임 종료'); // 정답이면 게임종료 !
       const GAME_SELECTED = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.'); // 유저의 1,2 중 선택
       if(GAME_SELECTED === '1'){ // 유저가 1 을 선택하면
         this.answer = this.GameStart(); // answer을 다시 랜덤한 3글자로 변환
@@ -70,6 +70,9 @@ class App {
     return hint.join(' '); // 띄어쓰기 한칸해서 합치기
   }
   
+  Print(messages){ // 자주 사용되는 메세지를 따로 빼기
+    MissionUtils.Console.print(messages);
+  }
 
 
 }
