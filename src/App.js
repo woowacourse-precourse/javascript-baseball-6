@@ -45,7 +45,7 @@ class App {
     let ball = 0;
 
     for (let i = 0; i < inputNumber.length; i++) {
-      const computerNumberIndex = computerNumber.indexOf(inputNumber[i]);
+      const computerNumberIndex = computerNumber.indexOf(Number(inputNumber[i]));
       if (i === computerNumberIndex) {
         strike++;
       } else if (computerNumberIndex !== -1) {
