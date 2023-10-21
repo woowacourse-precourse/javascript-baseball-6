@@ -14,7 +14,6 @@ class Referee {
           else this.#ball += 1;
         }
       });
-  
       return { ball: this.#ball, strike: this.#strike };
     }
   }

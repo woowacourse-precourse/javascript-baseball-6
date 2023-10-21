@@ -31,7 +31,6 @@ class Game {
     }
     handleUserNumbers = (numbers) => {
         UserValidation.validateUser(numbers);
-
         this.#user = numbers.split('').map((number) => {
             return parseInt(number, 10);
         });
@@ -40,12 +39,11 @@ class Game {
     compare() {
         const result = new Referee().compare(this.#computer, this.#user);
         let message = [];
-
         if (result.ball === 0 && result.strike === 0) message.push('낫싱');
         if (result.ball !== 0) message.push(`${result.ball}볼`);
         if (result.strike !== 0) message.push(`${result.strike}스트라이크`);
-    
         OutputView.printResult(message);
+        
         this.progress(result);
     }
 
