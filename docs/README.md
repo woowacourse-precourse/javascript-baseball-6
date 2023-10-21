@@ -11,7 +11,6 @@
    - `Random.pickNumberInRange()`를 활용한다.
    - `Random.pickNumberInRange()`은 범위 내에서 랜덤한 숫자를 반환.
    - 길이가 3인 배열 `strikeZoneNumber`을 만든다.
-   - 라이브러리 테스트도 진행한다.(생략가능)
 
 3. 입력값 유효성 검사 후 할당 `makePitchingNumber()`
 
@@ -30,9 +29,9 @@
 
    - result 객체를 읽고, 다음 메서드를 호출
 
-6. `judge()` 결과가 삼진인 경우 `congrat()`
+6. `judge()` 결과가 삼진인 경우 `retry()`
 
-   - 축하메세지 출력 `printMsgis()`
+   - 축하메세지 출력 `congrat()`
    - 재시도 여부 확인 `retry()`
      - 입력값이 `1`인 경우(재시작)
        - 컴퓨터 숫자(strikeZoneNumber) 생성 `makeStrikeZoneNumber()`
