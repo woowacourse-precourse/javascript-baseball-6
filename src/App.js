@@ -1,30 +1,34 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
+  constructor(){
+    this.answer = '';
+    this.userAnswer = '';
+  }
+
   async play() {  
     MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
     
-    let answer = this.GameStart();
-    let userAnswer = '';
+    this.answer = this.GameStart();
+    this.userAnswer = '';
 
-    while(answer != userAnswer){
-      userAnswer = await MissionUtils.Console.readLineAsync('숫자를 입력해 주세요 : ');  
+    while(this.answer != this.userAnswer){
+      this.userAnswer = await MissionUtils.Console.readLineAsync('숫자를 입력해 주세요 : ');  
 
       try{
-        this.Exception(userAnswer);
-        MissionUtils.Console.print(this.Hint(answer,userAnswer));
+        this.Exception(this.userAnswer);
+        MissionUtils.Console.print(this.Hint(this.answer,this.userAnswer));
       }catch (error){
         MissionUtils.Console.print(error);
         throw new Error('[ERROR]');
       }
 
-      if(answer === userAnswer){
-        MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
-        
-        const GAME_SELECTED = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
-        if(GAME_SELECTED === '1'){
-          answer = this.GameStart();
-        }
+      if(this.answer != this.userAnswer) continue;
+      
+      MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+      const GAME_SELECTED = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+      if(GAME_SELECTED === '1'){
+        this.answer = this.GameStart();
       }
     }
   }
@@ -43,12 +47,8 @@ class App {
     return baseball.join('');
   }
 
-  EndGame(){
-    MissionUtils.Console.print('숫자 야구 게임을 종료합니다.')
-  }
-
   Exception(string){
-    if(string.length != 3) throw '3자리 숫자여야 합니다.';
+    if(string.length != 3) throw '[ERROR] 숫자가 잘못된 형식입니다.';
   }
 
   Hint(answer,userAnswer){
