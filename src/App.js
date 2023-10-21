@@ -36,9 +36,8 @@ class App {
   }
 
   validateInput(guessNumber) {
-    return new Set(guessNumber).size !== 3 || isNaN(Number(guessNumber))
-      ? false
-      : true;
+    const regExp = /^(?!.*(.).*\1)[1-9]{3}$/;
+    return regExp.test(guessNumber);
   }
 
   makeRandomNumber() {
