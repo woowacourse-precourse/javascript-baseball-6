@@ -1,8 +1,8 @@
 class Validator {
-	evalutae(inputValue, answer) {
-		const validLength = answer.length;
+	evalutae(inputValue, answerLength) {
+		const validLength = answerLength;
 
-		if (inputValue.length !== validLength) {
+		if (!inputValue || inputValue.length !== validLength) {
 			throw new Error(`[ERROR] ${validLength} 자리의 숫자를 입력하세요.`);
 		}
 

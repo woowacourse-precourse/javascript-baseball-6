@@ -1,8 +1,8 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 class User {
-	async response(request) {
-		const inputValue = await MissionUtils.Console.readLineAsync(request);
+	async request(content) {
+		const inputValue = await MissionUtils.Console.readLineAsync(content);
 		return inputValue;
 	}
 }
