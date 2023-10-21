@@ -58,8 +58,6 @@ class Baseball {
   }
 
   createJudgeMessage({ strikeCount, ballCount }) {
-    if (strikeCount === 3) return this.consoleUtils.print(MESSAGE.FINISH_GAME);
-
     if (strikeCount === 0 && ballCount === 0)
       return this.consoleUtils.print(MESSAGE.NO_STRIKE_BALL);
 
