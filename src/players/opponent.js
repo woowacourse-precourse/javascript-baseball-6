@@ -4,8 +4,7 @@ import { resultObject } from '../constants/constants.js'
 export default class opponent{
 
 	#_computerNumber;
-
-
+	
 	makeRandomNumber() {
 		this.#_computerNumber = [];
 		while (this.#_computerNumber.length < 3) {
