@@ -28,6 +28,7 @@ class App {
       this.Print('3개의 숫자를 모두 맞히셨습니다! 게임 종료'); // 정답이면 게임종료 !
       const GAME_SELECTED = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.'); // 유저의 1,2 중 선택
       if(GAME_SELECTED === '1'){ // 유저가 1 을 선택하면
+        this.userAnswer = '' // userAnswer을 초기화
         this.answer = this.GameStart(); // answer을 다시 랜덤한 3글자로 변환
       }
     }
