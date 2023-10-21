@@ -50,4 +50,8 @@ export default class View {
 
     Console.print(resultComment.trim());
   }
+
+  printCorrectNumber() {
+    Console.print(this.CORRECT_NUMBER_MESSAGE);
+  }
 }
