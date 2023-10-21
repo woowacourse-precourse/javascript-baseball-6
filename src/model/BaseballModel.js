@@ -26,6 +26,32 @@ export class BaseballModel {
     return Array.from(pickedNumbers).join('');
   }
 
+  getCountScore() {
+    return this.countScore(this.#computerNumber, this.#userNumber);
+  }
+
+  countScore(computerNumber, userNumber) {
+    if (computerNumber === userNumber) {
+      return { ball: 0, strike: 3 };
+    }
+
+    let ball = 0;
+    let strike = 0;
+    for (let i = 0; i < computerNumber.length; i++) {
+      if (computerNumber[i] === userNumber[i]) {
+        strike += 1;
+        continue;
+      }
+
+      if (userNumber.includes(computerNumber[i])) {
+        ball += 1;
+        continue;
+      }
+    }
+
+    return { ball, strike };
+  }
+
   setUserNumber(userNumber) {
     this.#checkValidUserNumber(userNumber);
     this.#userNumber = userNumber;
