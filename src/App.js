@@ -76,6 +76,25 @@ class App {
             MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
     }
 
+    // 3스트라이크 이후 게임 종료 여부 함수
+    async isEndGame() {
+        const END_GAME_INPUT = await MissionUtils.Console.readLineAsync(
+            "3개의 숫자를 모두 맞히셨습니다! 게임 종료\n게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+        );
+        // 예외처리
+        if (END_GAME_INPUT === "1") {
+            this.createComputerNum();
+            this.play();
+        } //
+        else if (END_GAME_INPUT === "2") {
+            MissionUtils.Console.print("게임 종료");
+            return;
+        } //
+        else {
+            throw new Error("[ERROR]");
+        }
+    }
+
     async play() {
         console.log(this.computerNum);
         this.compare();
