@@ -12,7 +12,7 @@ class App {
     let replay = false;
 
     while (true) {
-      const userNum = await readThreeDigitNum(MESSAGE.INPUT_NUM);
+      const userNum = await readThreeDigitNum(MESSAGE.inputNum);
 
       const result = throwBall({
         dest: computerNum,
@@ -22,8 +22,8 @@ class App {
       printResult(result);
 
       if (result.strike === 3) {
-        Console.print(MESSAGE.CORRECT);
-        replay = await readReplayValue(MESSAGE.INPUT_REPLAY);
+        Console.print(MESSAGE.correct);
+        replay = await readReplayValue(MESSAGE.inputReplay);
         break;
       }
     }

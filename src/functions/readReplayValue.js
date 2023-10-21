@@ -11,7 +11,7 @@ const readReplayValue = async function readReplayValueFromUser(message) {
   const isValid = ONE_OR_TWO_REGEX.test(willReplay);
 
   if (!isValid) {
-    throw Error(ERROR_MESSAGE.INVALID_INPUT);
+    throw Error(ERROR_MESSAGE.invalidInput);
   }
 
   if (willReplay === '1') {

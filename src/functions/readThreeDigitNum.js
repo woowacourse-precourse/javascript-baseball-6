@@ -15,7 +15,7 @@ const readThreeDigitNum = async function readThreeDigitNumFromUser(message) {
   const isValid = isThreeDigit && !isDuplicated;
 
   if (!isValid) {
-    throw new Error(ERROR_MESSAGE.INVALID_INPUT);
+    throw new Error(ERROR_MESSAGE.invalidInput);
   }
 
   const userNum = Array.from(userStr, Number);
