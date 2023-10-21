@@ -22,7 +22,7 @@ class RandomPicker {
     }
 
     const resultArray = Array.from(digitsArray);
-    return parseInt(resultArray.join(''), 10);
+    return parseInt(resultArray.join(''));
   }
 }
 
