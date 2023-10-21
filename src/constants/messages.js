@@ -12,21 +12,19 @@ export const MESSAGE = Object.freeze({
   RESTART: `게임을 새로 시작하려면 ${RESTART_COMMAND.NEWGAME}, 종료하려면 ${RESTART_COMMAND.QUIT}를 입력하세요.\n`,
   getGameResult: ({ ball, strike }) => {
     if (!ball && !strike) {
-      return `낫싱\n`;
+      return `낫싱`;
     }
 
     if (ball && strike) {
-      return `${ball}볼 ${strike}스트라이크\n`;
+      return `${ball}볼 ${strike}스트라이크`;
     }
 
     if (ball && !strike) {
-      return `${ball}볼\n`;
+      return `${ball}볼`;
     }
 
     if (!ball && strike) {
-      return strike === DONE_COUNT
-        ? `${strike}스트라이크\n${MESSAGE.END}`
-        : `${strike}스트라이크\n`;
+      return strike === DONE_COUNT ? `${strike}스트라이크\n${MESSAGE.END}` : `${strike}스트라이크`;
     }
   },
 });
