@@ -1,11 +1,11 @@
 import { Console } from '@woowacourse/mission-utils';
 
-const OutputView = require('./OutputView');
-const InputView = require('./InputView');
-const Computer = require('./Computer');
-const Referee = require('./Referee');
-const UserValidation = require('./UserValidation');
-const OptionValidation = require('./OptionValidation');
+const OutputView = require('../view/OutputView');
+const InputView = require('../view/InputView');
+const Computer = require('../model/Computer');
+const Referee = require('../model/Referee');
+const UserValidation = require('../validation/UserValidation');
+const OptionValidation = require('../validation/OptionValidation');
 
 
 class Game {
