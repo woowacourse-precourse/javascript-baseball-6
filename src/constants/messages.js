@@ -1,9 +1,6 @@
-export const DONE_COUNT = 3;
+import { RESTART_COMMAND } from './commands.js';
 
-const RESTART_COMMAND = Object.freeze({
-  NEWGAME: 1,
-  QUIT: 2,
-});
+export const DONE_COUNT = 3;
 
 export const MESSAGE = Object.freeze({
   START: '숫자 야구 게임을 시작합니다.',
