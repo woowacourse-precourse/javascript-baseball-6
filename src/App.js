@@ -4,7 +4,7 @@ class App {
   constructor() {
     this.strikeZoneNumber = [];
     this.pitchingNumber = [];
-    this.result = {
+    this.compareResult = {
       strikes: 0,
       balls: 0,
     };
@@ -57,13 +57,13 @@ class App {
         ballCount += 1;
       }
     }
-    this.result.strikes = strikeCount;
-    this.result.balls = ballCount;
+    this.compareResult.strikes = strikeCount;
+    this.compareResult.balls = ballCount;
   }
 
   async judge() {
-    const STRIKES = this.result.strikes;
-    const BALLS = this.result.balls;
+    const STRIKES = this.compareResult.strikes;
+    const BALLS = this.compareResult.balls;
     if (STRIKES === 3) {
       this.printMsgIs(`${STRIKES}스트라이크`);
       await this.retry();
