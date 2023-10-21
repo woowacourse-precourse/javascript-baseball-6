@@ -1,10 +1,11 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 
-// 하나의 숫자 야구 게임 클래스
+// 하나의 숫자 야구 게임 인스턴스 생성
 export default class BaseballGame {
   constructor() {
     this.computer = [];
     this.correct = false;
+    this.gameEnd = false;
   }
 
   async startGame() {
@@ -18,24 +19,27 @@ export default class BaseballGame {
       }
     }
 
-    Console.print(this.computer);
+    // Console.print(this.computer);
 
     while (!this.correct) await this.getUserInput();
-    this.correct
-      ? Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료")
-      : null;
+    if (this.correct) {
+      Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+      5;
+      this.gameEnd = true;
+    }
   }
 
   async getUserInput() {
     try {
       const guess = await Console.readLineAsync("숫자를 입력해주세요 : ");
       this.validateGuess(guess);
+      this.getHint(guess);
     } catch (error) {
-      Console.print(error);
+      throw error;
     }
   }
 
-  validateGuess(guess) {
+  getHint(guess) {
     const guessArr = guess.trim().split("").map(Number);
 
     let strikes = 0;
@@ -54,5 +58,21 @@ export default class BaseballGame {
     strikes === 3 ? (this.correct = true) : null;
   }
 
-  checkError() {}
+  validateGuess(guess) {
+    const threeDigitsPattern = /^\d{3}$/;
+    const oneToNinePattern = /^[1-9]+$/;
+    const hasDuplicatePattern = /(.)\1/;
+
+    if (!threeDigitsPattern.test(guess)) {
+      throw new Error("[ERROR] 세 자리 수를 입력하세요.");
+    }
+
+    if (!oneToNinePattern.test(guess)) {
+      throw new Error("[ERROR] 1에서 9 사이의 숫자만 입력하세요.");
+    }
+
+    if (hasDuplicatePattern.test(guess)) {
+      throw new Error("[ERROR] 중복된 숫자는 사용할 수 없습니다.");
+    }
+  }
 }

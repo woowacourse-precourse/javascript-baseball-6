@@ -1,7 +1,7 @@
 import { Console } from "@woowacourse/mission-utils";
 import BaseballGame from "./BaseballGame.js";
 
-class App {
+export default class App {
   constructor() {
     this.baseballGame = new BaseballGame();
   }
@@ -20,7 +20,7 @@ class App {
         case "2":
           return; // 종료
         default:
-          throw new Error("올바른 입력이 아닙니다.");
+          throw new Error("[ERROR] 올바른 입력이 아닙니다.");
       }
     }
   }
