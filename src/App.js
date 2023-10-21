@@ -18,6 +18,35 @@ class App {
     return randomNumberArray;
   }
 
+  /** 입력받은 수와 컴퓨터가 생성한 수를 비교하여 결과를 출력하는 메소드 */
+  compareInputWithComputerNumber(input) {
+    const inputNumberArray = input.toString().split("").map(Number);
+    let strike = 0;
+    let ball = 0;
+
+    for (let i = 0; i < 3; i++) {
+      if (this.computerNumber.includes(inputNumberArray[i])) {
+        if (this.computerNumber[i] === inputNumberArray[i]) {
+          strike++;
+        } else {
+          ball++;
+        }
+      }
+    }
+
+    if (strike === 3) {
+      MissionUtils.Console.print(
+        "3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료"
+      );
+      return true;
+    } else if (!strike && !ball) {
+      MissionUtils.Console.print("낫싱");
+    } else {
+      MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
+    }
+    return false;
+  }
+
   async play() {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
   }
