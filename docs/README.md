@@ -19,3 +19,40 @@
 
 @woowacourse/mission-utils
 https://github.com/woowacourse-projects/javascript-mission-utils
+
+## 함수 설명
+
+play()
+
+- 처음에 여기서 시작함
+
+inputGuessNumber()
+
+- 추측한 값을 입력하면 서로 다른 3자리 수인지 체크함
+- false일 경우 에러를 발생
+- true일 경우 개수 체크를 위한 함수로 이동
+
+validateInput()
+
+- 입력한 값이 서로 다른 3자리 수로 이루어졌는지 확인
+- 정규표현식 사용
+
+makeRandomNumber()
+
+- 미리 제공한 라이브러리 활용해서 랜덤값 추출
+- 서로 다른 수 3개 추출
+
+countBallAndStrike()
+
+- 볼, 스트라이크 개수 체크함
+- 스트라이크 3개인 경우 종료 멘트와 함께 재시작을 묻는 함수 호출
+- 나머지는 개수를 인자로 받는 결과 메시지를 출력해주는 함수 호출
+
+restartMessage()
+
+- 게임 종료, 재시작 맨트 출력
+- "1" 입력 시 play() 호출, "2" 입력 시 종료, 그 외 입력 시 에러
+
+gameResultMessage()
+
+- 결과 멘트 출력
