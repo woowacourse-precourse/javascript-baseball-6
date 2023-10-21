@@ -1,13 +1,11 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
-async function getUsernumber() {
+async function getUserNumber() {
   try {
-    const userInput = await MissionUtils.Console.readLineAsync(
-      "숫자를 입력해주세요 : "
-    );
-    return userInput;
+    const userInput = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
+    return userInput.split('').map(Number);
   } catch (error) {
-    // reject 되는 경우
+    // reject 되는 경우 처리
   }
 }
 
@@ -15,20 +13,63 @@ class App {
   async play() {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
 
-    const computerAnswer = [];
-    while (computerAnswer.length < 3) {
-      const number = MissionUtils.Random.pickNumberInRange(1, 9);
-      if (!computerAnswer.includes(number)) {
-        computerAnswer.push(number);
+    const computerAnswer = generateComputerAnswer();
+
+    while (true) {
+      const userGuess = await getUserNumber();
+
+      const { strike, ball, message } = calculateResult(computerAnswer, userGuess);
+
+      MissionUtils.Console.print(message);
+
+      if (strike === 3) {
+        MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+        break;
       }
     }
-
-    MissionUtils.Console.print(`${computerAnswer}`);
-
-    const userInput = await getUsernumber();
-    MissionUtils.Console.print(`${userInput}`);
   }
 }
+
+const generateComputerAnswer = () => {
+  const computerAnswer = [];
+  while (computerAnswer.length < 3) {
+    const number = MissionUtils.Random.pickNumberInRange(1, 9);
+    if (!computerAnswer.includes(number)) {
+      computerAnswer.push(number);
+    }
+  }
+  return computerAnswer;
+}
+
+const calculateResult = (computerAnswer, userGuess) => {
+  let strike = 0;
+  let ball = 0;
+
+  computerAnswer.forEach((answer, index) => {
+    if (answer === userGuess[index]) {
+      strike += 1;
+    } else if (userGuess.includes(answer)) {
+      ball += 1;
+    }
+  });
+
+  let message = '';
+  if (strike === 0 && ball === 0) {
+    message = '낫싱';
+  } else {
+    if (ball > 0) {
+      message += `${ball}볼`;
+    }
+    if (strike > 0) {
+      if (ball > 0) {
+        message += ' ';
+      }
+      message += `${strike}스트라이크`;
+    }
+  }
+  
+  return { strike, ball, message };
+};
 
 export default App;
 
