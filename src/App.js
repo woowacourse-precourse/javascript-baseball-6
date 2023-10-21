@@ -14,10 +14,12 @@ class App {
 
     MissionUtils.Console.print(GAME_TEXT.START);
 
-    const player = await this.getUserInput();
-    const { strike, ball } = this.getCountArray(computer.join(""), player);
-    console.log(computer.join(''), player);
-    MissionUtils.Console.print(`${ball}${GAME_TEXT.BALL} ${strike}${GAME_TEXT.STRIKE}`);
+    while (true) {
+      const player = await this.getUserInput();
+      const { strike, ball } = this.getCountArray(computer.join(""), player);
+      // console.log(computer.join(''), player);
+      MissionUtils.Console.print(`${ball}${GAME_TEXT.BALL} ${strike}${GAME_TEXT.STRIKE}`);
+    }
   }
 
   async getUserInput() {
