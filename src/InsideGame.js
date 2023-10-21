@@ -10,11 +10,12 @@ class InsideGame {
         computer.push(number);
       }
     }
-    return computer.join("");
+    return computer;
   }
 
   // 게임을 진행할 때 입력된 값이 올바른 값인지 검증
   vaild(answer) {
+    console.log(answer);
     if (answer.includes(" ")) {
       throw new Error("[ERROR] 공백이 포함되어 있습니다.");
     }
@@ -41,9 +42,9 @@ class InsideGame {
   // strike 개수 확인
   strikeCheck(computerNumber, userNumber) {
     let strike = 0;
-
+    const user = userNumber.split('').map(Number);
     for (let i = 0; i < 3; i++) {
-      if (computerNumber[i] === userNumber[i]) strike++;
+      if (computerNumber[i] === user[i]) strike++;
     }
 
     return strike;
@@ -52,11 +53,12 @@ class InsideGame {
   // ball 개수 확인
   ballCheck(computerNumber, userNumber) {
     let ball = 0;
+    const user = userNumber.split('').map(Number);
 
     for (let j = 0; j < 3; j++) {
       if (
-        computerNumber[j] !== userNumber[j] &&
-        computerNumber.includes(userNumber[j])
+        computerNumber[j] !== user[j] &&
+        computerNumber.includes(user[j])
       ) {
         ball++;
       }
