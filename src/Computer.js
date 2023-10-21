@@ -1,14 +1,15 @@
+import { MissionUtils } from "@woowacourse/mission-utils";
+
 export class Computer {
-    constructor() {}
 
     createRandomNum() {
-        let result = '';
-        while (result.length < 3) {
-            const randomNum = Math.floor(Math.random() * 9 + 1);
-            if (!result.includes(randomNum)) {
-                result += randomNum;
+        const computer = [];
+        while (computer.length < 3) {
+            const number = MissionUtils.Random.pickNumberInRange(1, 9);
+            if (!computer.includes(number)) {
+                computer.push(number);
             }
         }
-        return result;
+        return computer;
     }
 }
