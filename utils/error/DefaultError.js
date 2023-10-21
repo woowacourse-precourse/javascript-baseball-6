@@ -6,8 +6,8 @@ class DefaultError extends Error {
    */
   constructor(message) {
     super(message);
-    this.message = `[${this.constructor.name}] ${message}`;
-    this.name = ERROR_MESSAGE.error;
+    this.message = `${ERROR_MESSAGE.ERROR} ${message}`;
+    this.name = this.constructor.name;
   }
 }
 
