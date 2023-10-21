@@ -16,9 +16,28 @@ class App {
         }
 
         // 플레이어에게 3자리 숫자를 입력받는다.
-        const playerInput = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
-        const player = playerInput.split("").map((number) => parseInt(number));
-        console.log(player);
+        let win = false;
+        while (!win) {
+            const playerInput = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
+            const player = playerInput.split("").map((number) => parseInt(number));
+            let ball = 0;
+            let strike = 0;
+            for (let i = 0; i < 3; i++) {
+                if (player[i] === computer[i]) {
+                    strike++;
+                } else if (computer.includes(player[i])) {
+                    ball++;
+                }
+            }
+            if (ball === 0 && strike === 0) {
+                MissionUtils.Console.print("낫싱");
+            } else if (strike === 3) {
+                MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+                win = true;
+            } else {
+                MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
+            }
+        }
     }
 }
 
