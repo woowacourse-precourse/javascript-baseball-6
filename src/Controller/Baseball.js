@@ -6,6 +6,7 @@ class Baseball {
     this.model = new Model();
     this.view = new View();
   }
+
   init() {
     this.view.printGameStart();
   }
