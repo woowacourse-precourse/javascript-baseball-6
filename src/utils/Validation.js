@@ -1,7 +1,7 @@
 export default class Validation {
   constructor() {
     this.NUMBER_RANGE = /^[1-9]+$/;
-    this.PLAYER_INPUT_VALIDATON = true;
+    this.PLAYER_INPUT_VALIDATION = true;
     this.RESTART_INPUT_VALIDATION = true;
   }
 
@@ -16,7 +16,7 @@ export default class Validation {
       playerInput.length !== 3 ||
       playerInputToSet.size !== 3
     ) {
-      this.PLAYER_INPUT_VALIDATON = false;
+      this.PLAYER_INPUT_VALIDATION = false;
     }
   }
 
@@ -28,7 +28,7 @@ export default class Validation {
   async getPlayerInputValidation(playerInput) {
     await this.validatePlayerInput(playerInput);
     
-    return this.PLAYER_INPUT_VALIDATON;
+    return this.PLAYER_INPUT_VALIDATION;
   }
 
   /**
