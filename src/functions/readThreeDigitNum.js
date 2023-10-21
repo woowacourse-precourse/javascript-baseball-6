@@ -1,12 +1,14 @@
 import { Console } from "@woowacourse/mission-utils";
 import { THREE_DIGIT_REGEX } from "../constant/regex.js";
 import { ERROR_MESSAGE } from "../constant/message.js";
+import checkDuplication from "../utils/checkDuplication.js";
 
 /**
  * @param {string} message
+ * @returns {number[]}
  */
 
-const askUserNumAsync = async function readNumListFromUser(message) {
+const readThreeDigitNum = async function readThreeDigitNumFromUser(message) {
   const userStr = await Console.readLineAsync(message);
   const isDuplicated = checkDuplication(userStr);
   const isThreeDigit = THREE_DIGIT_REGEX.test(userStr);
@@ -21,18 +23,4 @@ const askUserNumAsync = async function readNumListFromUser(message) {
   return userNum;
 };
 
-/**
- *
- * @param {string} str
- */
-const checkDuplication = function (str) {
-  const charSet = new Set(str);
-
-  if (str.length !== charSet.size) {
-    return true;
-  }
-
-  return false;
-};
-
-export default askUserNumAsync;
+export default readThreeDigitNum;

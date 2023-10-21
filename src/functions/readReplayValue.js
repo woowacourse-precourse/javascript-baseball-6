@@ -3,9 +3,10 @@ import { ONE_OR_TWO_REGEX } from "../constant/regex.js";
 import { ERROR_MESSAGE } from "../constant/message.js";
 
 /**
+ * @param {string} message
  * @returns {boolean}
  */
-const askReplayAsync = async function readReplayValueFromUser(message) {
+const readReplayValue = async function readReplayValueFromUser(message) {
   const willReplay = await Console.readLineAsync(message);
   const isValid = ONE_OR_TWO_REGEX.test(willReplay);
 
@@ -22,4 +23,4 @@ const askReplayAsync = async function readReplayValueFromUser(message) {
   return false;
 };
 
-export default askReplayAsync;
+export default readReplayValue;

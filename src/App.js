@@ -1,8 +1,8 @@
 import { Console } from "@woowacourse/mission-utils";
+import readThreeDigitNum from "./functions/readThreeDigitNum.js";
+import readReplayValue from "./functions/readReplayValue.js";
 import generateNum from "./functions/generateNum.js";
 import throwBall from "./functions/throwBall.js";
-import askReplayAsync from "./functions/askReplayAsync.js";
-import askUserNumAsync from "./functions/askUserNumAsync.js";
 import printResult from "./functions/printResult.js";
 import { MESSAGE } from "./constant/message.js";
 
@@ -12,7 +12,7 @@ class App {
     let replay = false;
 
     while (true) {
-      const userNum = await askUserNumAsync(MESSAGE.INPUT_NUM);
+      const userNum = await readThreeDigitNum(MESSAGE.INPUT_NUM);
 
       const result = throwBall({
         dest: computerNum,
@@ -23,7 +23,7 @@ class App {
 
       if (result.strike === 3) {
         Console.print(MESSAGE.CORRECT);
-        replay = await askReplayAsync(MESSAGE.INPUT_REPLAY);
+        replay = await readReplayValue(MESSAGE.INPUT_REPLAY);
         break;
       }
     }
