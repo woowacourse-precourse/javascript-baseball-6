@@ -3,30 +3,13 @@ import { GAME_TEXT } from "./constants/string.js";
 
 class App {
   async play() {
-    const computer = [];
-
-    while (computer.length < 3) {
-      const number = MissionUtils.Random.pickNumberInRange(1, 9);
-      if (!computer.includes(number)) {
-        computer.push(number);
-      }
-    }
-
+    let computer = this.initComputer();
     MissionUtils.Console.print(GAME_TEXT.START);
 
     while (true) {
       const player = await this.getUserInput();
       const { strike, ball } = this.getCountArray(computer.join(""), player);
-      // console.log(computer.join(''), player);
       let result = "";
-
-      if (strike === 3) {
-        MissionUtils.Console.print(GAME_TEXT.WIN);
-        const choice = await this.getChoice();
-        if (Number(choice) === 2) {
-          break;
-        }
-      }
 
       if (ball !== 0) {
         result += `${ball}${GAME_TEXT.BALL}`;
@@ -44,7 +27,32 @@ class App {
       } else {
         MissionUtils.Console.print(result);
       }
+
+      if (strike === 3) {
+        MissionUtils.Console.print(GAME_TEXT.WIN);
+        const choice = await this.getChoice();
+        if (Number(choice) === 1) {
+          computer = this.initComputer();
+          continue;
+        }
+        if (Number(choice) === 2) {
+          break;
+        }
+      }
     }
+  }
+
+  initComputer() {
+    const computer = [];
+
+    while (computer.length < 3) {
+      const number = MissionUtils.Random.pickNumberInRange(1, 9);
+      if (!computer.includes(number)) {
+        computer.push(number);
+      }
+    }
+
+    return computer;
   }
 
   async getUserInput() {
