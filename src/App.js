@@ -7,7 +7,7 @@ import {
     RESTART_NUMBER,
     END_NUMBER
 } from "./constants/index.js"
-import { Console, Random } from './utils/index.js'
+import { Console, Random, throwError } from './utils/index.js'
 
 class App {
     isplaying;
@@ -29,7 +29,7 @@ class App {
             const input = await this.playerInputNumber();
             const { ball, strike } = await this.umpireOfGame(input);
             this.printJudgement(ball, strike)
-            if(strike === STRIKE_GAME_CLEAR){
+            if (strike === STRIKE_GAME_CLEAR) {
                 await this.gameClear();
             }
         }
@@ -69,18 +69,12 @@ class App {
      */
     validateInput(input) {
 
-        if (input.length !== 3) {
-            throw new Error(`${ERRORS.FRONT} ${ERRORS.LENGTH}`);
-        }
-
-        if (!/^[1-9]+$/.test(input)) {
-            throw new Error(`${ERRORS.FRONT} ${ERRORS.NUMBER}`);
-        }
+        throwError(input.length !== 3, `${ERRORS.LENGTH}`);
+        throwError(!/^[1-9]+$/.test(input), `${ERRORS.NUMBER}`);
 
         const dedupe = new Set(input);
-        if (dedupe.size !== 3) {
-            throw new Error(`${ERRORS.FRONT} ${ERRORS.DUPLICATION}`);
-        }
+        throwError(dedupe.size !== 3, `${ERRORS.DUPLICATION}`);
+
 
         return true;
     }
@@ -129,14 +123,20 @@ class App {
      */
     async gameClear() {
         Console.print(STRING.CLEAR);
+
         const a = await Console.readLineAsync(`${STRING.RESTART}\n`);
         const input = a.trim();
+
+        throwError(!/^[1-2]$/.test(input), `${ERRORS.CLEAR_INPUT_NUMBER}`)
+
         if (input == RESTART_NUMBER) {
             this.init();
         } else if (input == END_NUMBER) {
             this.isplaying = false;
         }
     }
+
+
 
 }
 
