@@ -7,7 +7,7 @@ export default async function getPlayerNumbers() {
   );
 
   if (validate(playerNumbers)) {
-    return playerNumbers;
+    return +playerNumbers;
   } else {
     throw new Error('[Error] 입력 값이 잘못된 형식입니다. 게임을 종료합니다.');
   }
