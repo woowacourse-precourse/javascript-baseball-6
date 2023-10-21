@@ -45,6 +45,13 @@ function checkError(number) {
 
   return false;
 }
+function checkedError(number) {
+  if (number === "1" || number === "2") {
+    return true;
+  }
+
+  return false;
+}
 
 function review(answer, number) {
   // console.log(answer, number);
@@ -117,6 +124,9 @@ class App {
     let number = await getUserInput(
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
     );
+    if (!checkedError(number)) {
+      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+    }
 
     if (number === "1") {
       resetScore();
