@@ -3,18 +3,18 @@ import { ERROR_MESSAGE, GUIDE_TEXT, NUMBER_SIZE } from "../constant.js";
 
 class User {
   async getUserChoice() {
-    const myNum = await Console.readLineAsync(GUIDE_TEXT.USER_INPUT);
+    const USER_INPUT = await Console.readLineAsync(GUIDE_TEXT.USER_INPUT);
 
-    if (!this.checkValidation(myNum))
+    if (!this.checkValidation(USER_INPUT))
       throw new Error(ERROR_MESSAGE.INVALID_ANSWER);
-    return myNum;
+    return USER_INPUT;
   }
 
   checkValidation(input) {
-    const str = String(input);
-    const pattern = /^[1-9]{3}$/;
+    const STR = String(input);
+    const PATTERN = /^[1-9]{3}$/;
 
-    if (str.length === NUMBER_SIZE && pattern.test(str)) {
+    if (STR.length === NUMBER_SIZE && PATTERN.test(STR)) {
       return true;
     }
     return false;

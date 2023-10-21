@@ -18,16 +18,16 @@ class App {
     this.control.assignComputerNumber();
     try {
       while (this.isPlaying) {
-        const input = await this.user.getUserChoice();
-        const result = this.control.compareNumbers(input);
+        const INPUT = await this.user.getUserChoice();
+        const COMPARE_RESULT = this.control.compareNumbers(INPUT);
 
-        if (result) {
-          const reset = await Console.readLineAsync(GUIDE_TEXT.RESTART);
+        if (COMPARE_RESULT) {
+          const RESET = await Console.readLineAsync(GUIDE_TEXT.RESTART);
 
-          if (reset === "1") {
+          if (RESET === "1") {
             this.control.assignComputerNumber();
             continue;
-          } else if (reset === "2") {
+          } else if (RESET === "2") {
             this.control.endGame();
           } else {
             throw new Error(ERROR_MESSAGE.INVALID_PATTERN);

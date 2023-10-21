@@ -5,9 +5,9 @@ class Computer {
   getComputerChoice() {
     let str = "";
     while (str.length < NUMBER_SIZE) {
-      const num = Random.pickNumberInRange(1, 9);
-      if (!str.includes(String(num))) {
-        str += String(num);
+      const RANDOM_NUMBER = Random.pickNumberInRange(1, 9);
+      if (!str.includes(String(RANDOM_NUMBER))) {
+        str += String(RANDOM_NUMBER);
       }
     }
 

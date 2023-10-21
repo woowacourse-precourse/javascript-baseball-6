@@ -17,14 +17,14 @@ class Control {
   }
 
   compareNumbers(userInput) {
-    let computer = this.app.computerNumber;
-    const userArr = String(userInput).split("");
-    const comArr = String(computer).split("");
-    const strike = userArr.filter((s, i) => s === comArr[i]).length;
-    const ball = comArr.filter(
-      (b, i) => b !== userArr[i] && userArr.includes(b)
+    const COMPUTER = this.app.computerNumber;
+    const USER_ARR = String(userInput).split("");
+    const COM_ARR = String(COMPUTER).split("");
+    const STRIKE = USER_ARR.filter((s, i) => s === COM_ARR[i]).length;
+    const BALL = COM_ARR.filter(
+      (b, i) => b !== USER_ARR[i] && USER_ARR.includes(b)
     ).length;
-    return this.getMessage(strike, ball);
+    return this.getMessage(STRIKE, BALL);
   }
 
   getMessage(strike, ball) {
