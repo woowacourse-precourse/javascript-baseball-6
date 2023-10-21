@@ -1,9 +1,9 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import { GAME_MESSAGES } from "../utils/message.js"
+import { GAME_MESSAGES } from "../utils/message.js"
 import {
   isValidBaseballInput,
   isValidGameOption,
-} from "../utils/validation.js"; 
+} from "../utils/validation.js"; 
 import { generateRandomNumber } from "./generateRandomNumber.js";
 
 class Game {
