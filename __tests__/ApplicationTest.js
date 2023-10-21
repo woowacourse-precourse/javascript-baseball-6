@@ -75,4 +75,13 @@ describe("기능 단위 테스트", () => {
     const app = new App();
     expect(app.setRandomNumber()).toEqual([1, 2, 5]);
   });
+
+  test("4. 사용자에게 입력 받은 값 유효성 검사하기 (컴퓨터)", () => {
+    const randoms = ["012", "a34", "56", "78910"];
+
+    const app = new App();
+    randoms.forEach((inputNumber) =>
+      expect(() => app.userInputNumberValidation(inputNumber)).toThrow("잘못된 값 입력됨"),
+    );
+  });
 });
