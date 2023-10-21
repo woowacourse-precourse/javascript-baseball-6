@@ -10,7 +10,8 @@ const MESSAGE = {
 }
 
 const ERROR_MESSAGE = {
-  ERROR: '[ERROR] 세 자리 숫자만 입력해야합니다.',
+  LENGTH: '[ERROR] 세 자리 숫자만 입력해야합니다.',
+  INT: "[ERROR] 정수만 입력해야합니다.",
   RESTART: '[ERROR] 숫자가 잘못된 형식입니다.',
 }
 
@@ -19,31 +20,12 @@ class App {
     this.randomNumber = [];
     this.userInput = [];
     this.gameResults = {};
-
-    this.validation = {
-      isLenThree: (input) => input.length === 3,
-      isInt: (input) => Number.isInteger(+input),
-      isNegative: answer => Math.sign(answer) === -1,
-    }
-
-    this.compare = {
-      isStrike: ((num, idx) => this.randomNumber[idx] === num),
-      isBall: ((num, idx) =>  this.randomNumber[idx] !== num && this.randomNumber.includes(num)),
-    }
   }
 
   async play() {
-    this.printStartNotification();
-    await this.start();
-  }
-
-  async start(){
+    Console.print(MESSAGE.START);
     this.generateRandomNumber();
     await this.getUserInput();
-  }
-
-  printStartNotification(){
-    Console.print(MESSAGE.START);
   }
   
   generateRandomNumber(){
@@ -54,55 +36,53 @@ class App {
       const number = Random.pickNumberInRange(1, 9);
       if(!randomNumber.includes(number)) randomNumber.push(number);
     }
-    // Console.prit(randomNumber); [1,3,5]
   }
 
   async getUserInput(){
     const input = await Console.readLineAsync(MESSAGE.INPUT);
     this.validateInput(input);
+    this.userInput = [...input].map(Number);
 
-    this.userInput = [...input];
     this.getResult();
     this.printResult();
 
     const { strike } = this.gameResults;
-    if(strike === 3) await this.restart;
+    if(strike === 3) await this.restart();
     else this.getUserInput();
   }
 
   validateInput(input){
-    const { isLenThree, isInt } = this.validation;
-    if(!isLenThree(input) || !isInt(input)) throw new Error(ERROR_MESSAGE.ERROR);
+    if(input.length !== 3) throw new Error(ERROR_MESSAGE.LENGTH);
+    if(!Number.isInteger(+input)) throw new Error(ERROR_MESSAGE.INT);
   }
 
   getResult(){
-    // 매번 초기화
-    this.gameResults.strike = 0;
-    this.gameResults.ball = 0;
+    const { userInput } = this;
+    const { randomNumber } = this;
+    const result = { strike: 0, ball: 0};
 
-    const { strike, ball } = this.gameResults;
-    const { isStrike, isBall } = this.compare;
-
-    this.userInput.forEach((num, idx)=> {
-      if(isStrike(num, idx)) strike = strike += 1;
-      if(isBall(num, idx)) ball = ball +=  1;
+    userInput.forEach((num, idx)=> {
+      if(randomNumber[idx] === num) result.strike += 1;
+      if(randomNumber[idx] !== num && randomNumber.includes(num)) result.ball +=1 ;
     })
+  
+    this.gameResults = result;
   }
 
   printResult(){
     const { strike, ball } = this.gameResults;
     
-    if(strike === 0 && ball === 0) Console.print('낫싱');
-    if(ball > 0 && strike > 0)  Console.print(`${ball}볼 ${strike}스트라이크`);
-    if(ball > 0 && strike === 0) Console.print(`${ball}볼`);
-    if(strike > 0 && ball === 0) Console.print(`${strike}스트라이크`);
+    if(ball === 0 && strike ===0) Console.print(`낫싱`);
+    else if(ball > 0 && strike > 0) Console.print(`${ball}볼 ${strike}스트라이크`);
+    else if(ball > 0) Console.print(`${ball}볼`);
+    else Console.print(`${strike}스트라이크`);
   }
 
   async restart(){
     Console.print(MESSAGE.FINISH);
-    Console.pirnt(MESSAGE.RESTART);
+    Console.print(MESSAGE.RESTART);
     const input = await Console.readLineAsync('');
-    if(input === '1') await this.start;
+    if(input === '1') await this.play();
     else if(input === '2') Console.print(MESSAGE.END);
     else throw new Error(ERROR_MESSAGE.RESTART);
   }
