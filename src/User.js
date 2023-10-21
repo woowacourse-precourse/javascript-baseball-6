@@ -1,14 +1,14 @@
-import { Console } from "@woowacourse/mission-utils";
 import MESSAGE from "./constant/MESSAGE.js";
 import ERROR from "./constant/ERROR.js";
 
 class User {
-  constructor() {
+  constructor(consoleUtils) {
     this.numberArray = [];
+    this.consoleUtils = consoleUtils;
   }
 
   async getValidatedNumberArray() {
-    const input = await Console.readLineAsync(MESSAGE.ENTER_NUMBER);
+    const input = await this.consoleUtils.readLineAsync(MESSAGE.ENTER_NUMBER);
 
     this.numberArray = this.validateUserInput(input)
       .split("")
