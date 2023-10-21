@@ -33,14 +33,12 @@ class GameController {
     this.#computer = new Computer();
   }
 
-  async #inputPlayerBaseball() {
-    const inputPlayerBaseball = await this.#inputView.readPlayerBaseball();
-    return inputPlayerBaseball;
+  #inputPlayerBaseball() {
+    return this.#inputView.readPlayerBaseball();
   }
 
-  async #inputExitGameCommand() {
-    const inputExitGameCommand = await this.#inputView.readExitGameCommand();
-    return inputExitGameCommand;
+  #inputExitGameCommand() {
+    return this.#inputView.readExitGameCommand();
   }
 
   async #askPlayerBaseball() {
@@ -70,14 +68,14 @@ class GameController {
     this.#askPrintExitGame();
   }
 
-  async #restartGame() {
-    await this.run();
+  #restartGame() {
+    this.run();
   }
 
   async #processExitGameCommand() {
     const userCommand = await this.#askExitGameCommand();
     if (userCommand === GAME_TERMS.exitGameCommand.restart) {
-      await this.#restartGame();
+      this.#restartGame();
     }
   }
 
