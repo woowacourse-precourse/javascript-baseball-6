@@ -18,8 +18,6 @@ export class BaseballModel {
     this.#checkValidComputerNumber(this.#computerNumber);
     this.#checkComputerNumberLength(this.#computerNumber);
     this.#checkComputerNumberDuplication(this.#computerNumber);
-
-    console.log(this.#computerNumber);
   }
 
   #generateNumbers() {
