@@ -17,7 +17,7 @@ class BaseBallGame {
    * - cache store를 초기화합니다.
    */
   init(props) {
-    this.#randomNumbers = this.#generateRandomNumbers(props);
+    this.#randomNumbers = this.generateRandomNumbers(props);
     this.#scoreStore.clear();
   }
 
@@ -29,7 +29,7 @@ class BaseBallGame {
    * - 최소값, 최대값, 생성할 숫재의 개수를 인자로 받아 중복되지 않은 랜덤한 숫자를 생성합니다.
    * @returns {number[]} 랜덤한 숫자 배열
    */
-  #generateRandomNumbers({ min, max, maxInputLength }) {
+  generateRandomNumbers({ min, max, maxInputLength }) {
     const set = new Set();
 
     while (set.size < maxInputLength) {
