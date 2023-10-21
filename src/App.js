@@ -16,6 +16,12 @@ export default class App{
     this.#_view = new views();
   }
 
+  //상대방이 숫자를 다시 고름
+  init (){
+    this.#_opponent.makeRandomNumber();
+    this.play();
+  }
+    
   //게임 시작
   async play() {
     const isValid = await this.#_player.inputNumber();
