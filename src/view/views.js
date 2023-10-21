@@ -13,13 +13,4 @@ export default class views{
 	result(result) {
 		Console.print(this.makeResultMessage(result));
 	}
-
-	async retry() {
-		const reryOrNot = Console.readLineAsync(MESSAGE.RETRY);
-		return reryOrNot;
-	}
-
-	gameOver() {
-		Console.print(MESSAGE.GAMEOVER);
-	}
 }
