@@ -95,4 +95,15 @@ export default class Controller {
       this.view.printGameOver();
     }
   }
+
+  /**
+   * 게임을 시작할 때 초기 세팅(컴퓨터 숫자 설정, 숫자 입력받기)을 합니다.
+   */
+  async init() {
+    if(this.isFirstGame) {
+      this.view.printGameStart();
+    }
+    this.computer.chooseRandomNumber();
+    await this.view.getPlayerInputNumber();
+  }
 }
