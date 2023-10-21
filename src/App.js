@@ -22,11 +22,11 @@ class App {
 
     const result = this.#computer.judgment(input);
 
-    if (result === 'fail') {
+    if (result === GAME.FAIL) {
       await this.#input();
     }
 
-    if (result === 'pass') {
+    if (result === GAME.PASS) {
       MissionUtils.Console.print(GAME.CLEAR);
 
       const option = await MissionUtils.Console.readLineAsync(GAME.OPTION);
