@@ -15,14 +15,6 @@ const inputMessage = async (message) => {
   return await MissionUtils.Console.readLineAsync(message);
 }
 
-// 설명 : 게임을 재시작 할지 여부를 리턴에 주는 함수
-// 입력 : X
-// 출력 : 1을 입력한다면 false를 반환하여 재시작을 하게되고 2를 입력한다면 true를 반환하여 종료하게된다.
-const restartGame = async () => {
-  const restart = Number(await inputMessage(`게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n`));
-  return restart !== 1;
-};
-
 // 설명 : 컴퓨터의 랜덤한 수를 얻어냅니다.
 // 입력 : X
 // 출력 : 랜덤한 3자리 수(랜덤한 값이며 각각 다릅니다.)가 포함된 리스트
@@ -92,11 +84,19 @@ const printResult = (strike,ball) => {
   }
 }
 
+// 설명 : 게임을 재시작 할지 여부를 리턴에 주는 함수
+// 입력 : X
+// 출력 : 1을 입력한다면 false를 반환하여 재시작을 하게되고 2를 입력한다면 true를 반환하여 종료하게된다.
+const restartGame = async () => {
+  const restart = Number(await inputMessage(`게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n`));
+  return restart !== 1;
+};
+
 // 설명 : 유저의 세자리 수와 컴퓨터의 세자리 수를 비교하여 
 //        스트라이크, 볼, 낫싱 여부를 판단한 후 화면에 출력 및 게임을 재시작 할지 결정하는 함수
 // 입력 : 1. 유저의 세자리 수 리스트
 // 출력 : 재식작 할지에 대한 여부
-const checkStrike = async (computerList) => {
+const getThreeStrike = async (computerList) => {
   let endPoint = false;
 
   while (!endPoint) {
@@ -118,7 +118,7 @@ const main = async () => {
   while(!endPoint) {
     printMessage('숫자 야구 게임을 시작합니다.')
     const computer = getComputerNum();
-    endPoint = await checkStrike(computer)
+    endPoint = await getThreeStrike(computer)
   }
 }
 
