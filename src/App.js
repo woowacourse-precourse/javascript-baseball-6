@@ -1,17 +1,29 @@
 import { Random, Console } from "@woowacourse/mission-utils";
 
 class App {
+  constructor() {
+    this.computer = [];
+  }
+
   async play() {
     Console.print("숫자 야구 게임을 시작합니다.");
-    const computer = [];
-    while (computer.length < 3) {
+    await this.start();
+  }
+
+  async randomNumber() {
+    while (this.computer.length < 3) {
       const number = Random.pickNumberInRange(1, 9);
-      if (!computer.includes(number)) {
-        computer.push(number);
+      if (!this.computer.includes(number)) {
+        this.computer.push(number);
       }
     }
+    return this.computer;
+  }
 
-    async function getNumber() {
+  async start() {
+    await this.randomNumber();
+
+    const getNumber = async () => {
       try {
         const threeNumber = await Console.readLineAsync(
           "숫자를 입력해주세요 : "
@@ -28,21 +40,22 @@ class App {
         }
 
         let array = threeNumber.split("");
-        let ballCount = { strike: 0, ball: 0 };
-        let strike = 0;
-        let ball = 0;
+        const ballCount = { strike: 0, ball: 0 };
 
         array.map((item, index) => {
-          if (computer.includes(+item) && computer[index] === +array[index])
-            strike++;
-          else if (
-            computer.includes(+item) ||
-            computer[index] === +array[index]
+          if (
+            this.computer.includes(+item) &&
+            this.computer[index] === +array[index]
           )
-            ball++;
+            ballCount.strike++;
+          else if (
+            this.computer.includes(+item) ||
+            this.computer[index] === +array[index]
+          )
+            ballCount.ball++;
         });
 
-        if (strike === 3) {
+        if (ballCount.strike === 3) {
           Console.print(
             `3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료`
           );
@@ -53,22 +66,23 @@ class App {
 
           if (startCheck === "1") {
             const app = new App();
-            await app.play();
+            await app.start();
           } else if (startCheck !== "2") {
             throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
           }
           return;
-        } else if (strike && ball)
-          Console.print(`${ball}볼 ${strike}스트라이크`);
-        else if (strike) Console.print(`${strike}스트라이크`);
-        else if (ball) Console.print(`${ball}볼`);
+        } else if (ballCount.strike && ballCount.ball)
+          Console.print(`${ballCount.ball}볼 ${ballCount.strike}스트라이크`);
+        else if (ballCount.strike)
+          Console.print(`${ballCount.strike}스트라이크`);
+        else if (ballCount.ball) Console.print(`${ballCount.ball}볼`);
         else Console.print("낫싱");
 
         await getNumber();
       } catch (error) {
         throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
       }
-    }
+    };
 
     await getNumber();
   }
