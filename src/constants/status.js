@@ -1,6 +1,6 @@
 const GameOver = {
-  RESTART: 1,
-  END: 2,
+  RESTART: "1",
+  END: "2",
 };
 
 const BaseBall = {
