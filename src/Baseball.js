@@ -31,7 +31,7 @@ class Baseball {
     );
 
     this.createJudgeMessage(judgeResult);
-    this.isCorrectAnswer = this.isThreeStrike(judgeResult.strikeCount);
+    this.isCorrectAnswer = this.isGameFinished(judgeResult.strikeCount);
   }
 
   calculateResult(computer, user) {
@@ -72,8 +72,11 @@ class Baseball {
     );
   }
 
-  isThreeStrike(strikeCount) {
-    return strikeCount === NUMBER.LENGTH;
+  isGameFinished(strikeCount) {
+    if (strikeCount !== NUMBER.LENGTH) return false;
+
+    this.consoleUtils.print(MESSAGE.FINISH_GAME);
+    return true;
   }
 }
 
