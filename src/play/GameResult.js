@@ -9,23 +9,24 @@ const arrNumber = (arr) => {
 const computerArray = arrNumber(computerNumber);
 const playerArray = arrNumber(playerNumber);
 
-// 스트라이크 볼 횟수 카운트
-const countStrikeAndBall = () => {
+// 게임 결과 출력
+const showResult = () => {
   let strike = 0;
   let ball = 0;
 
   for (let i = 0; i < 3; i++) {
       if (computerArray[i] === playerArray[i]) {
-        strike++; // 조건이 만족될 때마다 strike 증가
+        strike++;
       } else if (playerArray.includes(computerArray[i])) {
         ball++;
       }
   }
 
-  if (strike === 3) {
-    Console.print("성공!");
-  } else {
-    if (strike > 0) { Console.print(`${strike} 스트라이크`); }
-    if (ball > 0) { Console.print(`${ball} 볼`); }
-  }
+  const result = [];
+
+  if (strike === 3) return Console.print("성공!");
+  if (strike > 0) result.push(`${스트라이크} 스트라이크`);
+  if (ball > 0) result.push(`${ball} 볼`);
+
+  Console.print(result.length ? result.join(' ') : "낫싱");
 }
