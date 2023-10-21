@@ -1,6 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
 
 import { generateRandomNumber } from './generateRandomNumber';
+import { userInput, userInputValidation } from './userInput';
 
 class App {
   async play() {
@@ -13,26 +14,9 @@ class App {
     }
   }
 
-  // 2. 유저, 입력 받기(123 => [1, 2, 3])
-  async userInput() {
-    const userInput = await Console.readLineAsync('숫자를 입력해주세요: ');
-    return this.changeNumArr(userInput);
-  }
-
-  changeNumArr(number) {
-    return number.split('').map(Number);
-  }
-
-  // 3. 유효성 검사 (1~9 숫자 3개 입력 가능)
-  userInputValidation(nums) {
-    const inputStr = nums.join('');
-    const regex = /^[1-9]{3}$/;
-    return regex.test(inputStr);
-  }
-
   async userInputCheck() {
-    this.userNumber = await this.userInput();
-    const isValidationSuccess = this.userInputValidation(this.userNumber);
+    this.userNumber = await userInput();
+    const isValidationSuccess = userInputValidation(this.userNumber);
     if (isValidationSuccess) await this.compareResult();
     else throw new Error('숫자가 잘못된 형식입니다.');
   }
