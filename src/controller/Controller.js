@@ -4,7 +4,8 @@ import Validation from "../utils/Validation.js";
 import View from "../view/View.js";
 
 export default class Controller {
-  constructor() {
+  constructor(isFirstGame) {
+    this.isFirstGame = !!isFirstGame;
     this.view = new View(this);
     this.computer = new Computer();
     this.player = new Player();
