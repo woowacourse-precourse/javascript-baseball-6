@@ -6,8 +6,15 @@ const OutputView = {
     Console.print(message);
   },
   
-  progressMessage() {
-    // 게임 진행상황별 메세지 ,분기처리 로직필요
+  progressMessage(ball, strike) {
+    let message = '';
+
+    if (ball === 0 && strike === 0) message = `낫싱`;
+    if (ball === 0 && strike > 0) message = `${strike}스트라이크`;
+    if (ball > 0 && strike === 0) message = `${ball}볼`;
+    if (ball > 0 && strike > 0) message = `${ball}볼 ${strike}스트라이크`;
+
+    return this.printStaticMessage(message);
   },
 }
 
