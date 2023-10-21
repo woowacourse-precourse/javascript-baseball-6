@@ -28,13 +28,16 @@ class App {
         while (this.isplaying) {
             const input = await this.playerInputNumber();
             const { ball, strike } = await this.umpireOfGame(input);
-            this.printJudgement(ball, strike)
+            this.printJudgement(ball, strike);
             if (strike === STRIKE_GAME_CLEAR) {
                 await this.gameClear();
             }
         }
     }
-
+    /**
+     * 게임 동작 함수
+     */
+    
     /**
      * 중복되지 않은 숫자배열을 생성해주는 메소드  (number.length=3)
      * @return {number[]}
@@ -74,7 +77,6 @@ class App {
 
         const dedupe = new Set(input);
         throwError(dedupe.size !== 3, `${ERRORS.DUPLICATION}`);
-
 
         return true;
     }
