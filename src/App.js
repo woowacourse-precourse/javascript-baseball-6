@@ -26,10 +26,15 @@ function validateUserInput(userInput, computer) {
 	if (userInput.length === 3) {
 		const user = userInput.split('').map((number) => +number && +number); //arr
 		//console.log(user)
+    console.log(user[0], user[1], user[2])
 		if (user[0] && user[1] && user[2]) {
-			const { strike, ball } = compareUserComputer(user, computer);
-			returnScore(strike, ball);
-			finishGame();
+      if(숫자중복){
+        throw new Error('[ERROR] 서로 다른 수를 입력해주세요')
+      } else {
+        const { strike, ball } = compareUserComputer(user, computer);
+        returnScore(strike, ball);
+        finishGame();
+      }
 		} else {
       throw new Error('[Error] 숫자가 잘못된 형식입니다.');
     }
