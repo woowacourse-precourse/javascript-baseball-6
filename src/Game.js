@@ -46,19 +46,17 @@ class Game {
     const userNumbers = [...userInput].map(Number);
     const computerNumbers = this.computerNumber;
 
-    const score = {
-      strike: 0,
-      ball: 0,
-    };
-
-    userNumbers.forEach((userNumber, index) => {
-      if (userNumber === computerNumbers[index]) {
-        score.strike++;
-      } else if (computerNumbers.includes(userNumber)) {
-        score.ball++;
-      }
-    });
-
+    const score = userNumbers.reduce(
+      (score, userNumber, index) => {
+        if (userNumber === computerNumbers[index]) {
+          score.strike++;
+        } else if (computerNumbers.includes(userNumber)) {
+          score.ball++;
+        }
+        return score;
+      },
+      { strike: 0, ball: 0 }
+    );
     console.log(this.computerNumber, score);
     return score;
   }
