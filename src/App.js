@@ -1,10 +1,10 @@
 import { Console, MissionUtils } from "@woowacourse/mission-utils";
-import GameConsole from "./GameConsole";
-import Cpu from "./Cpu";
-import User from "./User";
-import ReturnGameResult from "./ReturnGameResult";
-import PrintGameMessage from "./PrintGameMessage";
-import NewGameController from "./NewGameController";
+import GameConsole from "./GameConsole.js";
+import Cpu from "./Cpu.js";
+import User from "./User.js";
+import ReturnGameResult from "./ReturnGameResult.js";
+import PrintGameMessage from "./PrintGameMessage.js";
+import NewGameController from "./NewGameController.js";
 
 class App {
   constructor() {

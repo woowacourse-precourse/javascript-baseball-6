@@ -1,4 +1,4 @@
-import GameConsole from "./GameConsole";
+import GameConsole from "./GameConsole.js";
 
 class NewGameController {
   constructor(app) {
