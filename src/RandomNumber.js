@@ -1,12 +1,13 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 export function randomNumber() {
-  const computer = [];
-  while (computer.length < 3) {
+  const computerArr = [];
+  while (computerArr.length < 3) {
     const number = MissionUtils.Random.pickNumberInRange(1, 9);
-    if (!computer.includes(number)) {
-      computer.push(number);
+    if (!computerArr.includes(number)) {
+      computerArr.push(number);
     }
   }
+  const computer =  computerArr.join('');
   return computer;
 }
