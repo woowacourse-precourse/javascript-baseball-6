@@ -12,4 +12,9 @@ export function validateInput(input) {
     throw new Error('[ERROR] 입력값은 1부터 9까지의 숫자로 이루어져야 합니다.');
   }
 }
-  
+
+export function validateGameEndInput(input) {
+  if(input !== '1' && input !== '2') {
+    throw new Error('[ERROR] 1과 2만 입력할 수 있습니다.')
+  }
+}
