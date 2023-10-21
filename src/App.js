@@ -3,18 +3,52 @@ import { Console, Random } from '@woowacourse/mission-utils';
 class App {
   async play() {
     Console.print('숫자 야구 게임을 시작합니다.');
+    let startGameFlag = 1;
+    while (startGameFlag === 1) {
+      const computerSelectedNumber = await this.pickRandomNumber();
+      const userSelectedNumber = await Console.readLine(
+        '숫자를 입력해주세요 : ',
+        (usersInputNumber) => {
+          return usersInputNumber;
+        }
+      );
+      const { strikeCounter, ballCounter } = this.compareNumber(
+        computerSelectedNumber,
+        userSelectedNumber
+      );
 
-    const computerSelectedNumber = await this.pickRandomNumber();
-    const userSelectedNumber = await Console.readLine(
-      '숫자를 입력해주세요.',
+      if (strikeCounter === 0 && ballCounter === 0) {
+        Console.print('낫싱');
+      }
+
+      if (strikeCounter !== 0 && ballCounter !== 0) {
+        Console.print(`${ballCounter}볼 ${strikeCounter}스트라이크`);
+      }
+
+      if (strikeCounter !== 0) {
+        Console.print(`${strikeCounter}스트라이크`);
+      }
+
+      if (ballCounter !== 0) {
+        Console.print(`${ballCounter}볼`);
+      }
+
+      if (strikeCounter === 3) {
+        startGameFlag = 2;
+      }
+    }
+    Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+    startGameFlag = await this.gameController();
+  }
+
+  async gameController() {
+    const gameToggle = await Console.readLine(
+      '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.',
       (usersInputNumber) => {
         return usersInputNumber;
       }
     );
-    const { strikeCounter, ballCounter } = compareNumber(
-      computerSelectedNumber,
-      userSelectedNumber
-    );
+    return gameToggle;
   }
 
   async pickRandomNumber() {
@@ -47,9 +81,8 @@ class App {
       }
       if (indexOfTargetNumberInNum1 === numberIndex) {
         ++strikeCounter;
-      } else {
-        ++ballCounter;
       }
+      ++ballCounter;
     }
     return { strikeCounter, ballCounter };
   }
