@@ -9,14 +9,12 @@ class Computer {
 
   #createNumbers() {
     const numbers = [];
-    let number;
 
-    for (let i = 0; i < 3; i++) {
-      do {
-        number = MissionUtils.Random.pickNumberInRange(1, 9);
-      } while (numbers.includes(number));
-
-      numbers.push(number);
+    while (numbers.length < 3) {
+      const number = MissionUtils.Random.pickNumberInRange(1, 9);
+      if (!numbers.includes(number)) {
+        numbers.push(number);
+      }
     }
 
     return numbers;
