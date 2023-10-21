@@ -1,4 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
+import { NUMS } from '../constants/index.js';
 
 class Computer {
   constructor() {
@@ -7,7 +8,7 @@ class Computer {
 
   generate() {
     const { nums } = this;
-    while (nums.length < 3) {
+    while (nums.length < NUMS.ASNWER_LENGTH) {
       const number = MissionUtils.Random.pickNumberInRange(1, 9);
       if (!nums.includes(number)) {
         nums.push(number);
@@ -18,13 +19,13 @@ class Computer {
 
   isEnd(scores) {
     const [strike, _] = scores;
-    return strike === 3;
+    return strike === NUMS.ASNWER_LENGTH;
   }
 
   makeMatchString(scores) {
     const [strike, ball] = scores;
-    const strikeString = strike && `${strike}스트라이크`;
-    const ballString = ball && `${ball}볼 `;
+    const strikeString = strike ? `${strike}스트라이크` : '';
+    const ballString = ball ? `${ball}볼 ` : '';
 
     if (!strike && !ball) {
       return '낫싱';
