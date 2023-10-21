@@ -49,7 +49,7 @@ class App {
   }
 
   inValidNumber(userNumber) {
-    const userNumberArray = userNumber.split("");
+    const userNumberArray = String(userNumber).split("");
     const setUserNumber = new Set(userNumberArray);
 
     if (typeof userNumber !== number) {
@@ -68,7 +68,7 @@ class App {
   }
 
   calculateBallAndStrike(compterNumber, userNumber) {
-    const userNumberArray = userNumber.split("");
+    const userNumberArray = String(userNumber).split("");
     let ball = 0;
     let strike = 0;
 
