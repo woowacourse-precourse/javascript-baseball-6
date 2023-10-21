@@ -73,4 +73,11 @@ export default class View {
   async throwRestartError() {
     throw new Error(this.RESTSART_INPUT_ERROR);
   }
+
+  /**
+   * 게임 종료 문구를 출력합니다.
+   */
+  printGameOver() {
+    Console.print(this.GAME_OVER_MESSAGE);
+  }
 }
