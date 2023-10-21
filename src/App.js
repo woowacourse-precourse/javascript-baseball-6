@@ -3,6 +3,16 @@ import { MissionUtils } from '@woowacourse/mission-utils';
 class App {
   async play() {}
 
+  // 게임 시작
+  async startGame() {
+    const computerAnswer = this.createAnswerNumber();
+    let matchAnswer = false;
+    do {
+      const playerAnswer = await this.getPlayerAnswer();
+      matchAnswer = this.compareAnswer(computerAnswer, playerAnswer);
+    } while (!matchAnswer);
+  }
+
   // 랜덤한 숫자 3개를 생성
   createAnswerNumber() {
     const computerNumbers = [];
