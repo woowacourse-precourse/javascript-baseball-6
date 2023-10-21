@@ -14,6 +14,11 @@ export default function getResult(computerNumbers, playerNumbers) {
 
   const result = (ball ? ball : '') + (strike ? strike : '');
   result !== '' && MissionUtils.Console.print(result);
+
+  if (result === '3스트라이크') {
+    MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+    return result;
+  }
 }
 
 const getNothing = (computerNum, playerNum) => {
