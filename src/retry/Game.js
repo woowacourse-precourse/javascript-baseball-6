@@ -50,7 +50,12 @@ class Game {
         if (result.strike !== 3) {
             return this.getUserNumbers();
         }
+        InputView.getOptions(this.handleOptions);
     }
+    handleOptions = (option) => {
+        if (option === '1') return this.getNumbers();
+        if (option === '2') Console.close();
+    };
 }
 
 module.exports = Game;
