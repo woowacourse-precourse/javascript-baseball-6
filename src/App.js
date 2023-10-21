@@ -6,7 +6,7 @@ class App {
   isInValidNumber(number) {
     const condition = (
       number.length > 3 || // 3자리 초과
-      number.contain('0') || //0포함
+      number.includes('0') || //0포함
       new Set(number).size !== 3 //중복된 수
     )
 
@@ -30,8 +30,7 @@ class App {
         throw new Error("[ERROR]");
     }
 
-    //3. 힌트 결과 계산
-    
+
 
   }
 }
