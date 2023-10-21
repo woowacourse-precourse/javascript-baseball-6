@@ -10,6 +10,12 @@ const ExceptionHandler = {
       }
     }
   },
+  // 0을 포함하는지
+  checkIsNonzero(inputArr) {
+    if (inputArr.includes(0)) {
+      throw new Error(Message.INPUT_IS_NONZERO);
+    }
+  },
   // 입력이 세자리인지 확인
   checkIsThreeDigit(inputArr) {
     if (inputArr.length !== constants.NUM_COUNT) {
@@ -21,6 +27,12 @@ const ExceptionHandler = {
     const set = new Set(inputArr);
     if (set.size !== constants.NUM_COUNT) {
       throw new Error(Message.INPUT_IS_UNIQUE);
+    }
+  },
+  // 리플레이 질문에 입력이 1나 2가 아닌지 확인
+  checkRestartOrQuitAnswer(inputStr) {
+    if (inputStr !== constants.RESTART && inputStr !== constants.QUIT) {
+      throw new Error(Message.ANSWER_MUST_BE_ONE_OR_TWO);
     }
   },
 };

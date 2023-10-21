@@ -13,8 +13,8 @@ class Game {
 
   createAnswer() {
     const { MIN_NUM, MAX_NUM, NUM_COUNT } = constants;
-    this.#answerArr = [1, 2, 3];
-    // this.#answerArr = randomNumGenerator(MIN_NUM, MAX_NUM, NUM_COUNT); // 1~9까지 서로 다른 숫자 3개를 생성
+    this.#answerArr = randomNumGenerator(MIN_NUM, MAX_NUM, NUM_COUNT); // 1~9까지 서로 다른 숫자 3개를 생성
+    // console.log("answer is : ", this.#answerArr);
   }
 
   getBallStrike() {
@@ -22,6 +22,7 @@ class Game {
   }
 
   checkResult(inputArr) {
+    this.#ballStrike = {}; // 그전의 결과 초기화
     this.checkStrike(inputArr);
     this.checkBall(inputArr);
   }
@@ -45,6 +46,10 @@ class Game {
       );
     }).length;
     this.#ballStrike[constants.BALL] = ballCount;
+  }
+
+  getStrike() {
+    return this.#ballStrike[constants.STRIKE];
   }
 }
 export default Game;

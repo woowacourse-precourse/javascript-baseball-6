@@ -4,6 +4,8 @@ const constants = {
   NUM_COUNT: 3,
   BALL: "BALL",
   STRIKE: "STRIKE",
+  RESTART: "1",
+  QUIT: "2",
 };
 
 export default constants;
