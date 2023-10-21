@@ -5,6 +5,8 @@ class Umpire {
   umpire(array1, array2) {
     const { strikeCount, ballCount } = this.#count(array1, array2);
     const { NOTHING, STRIKE, BALL } = BaseballTerms;
+    if (strikeCount && ballCount)
+      return ballCount + BALL + " " + strikeCount + STRIKE;
     if (strikeCount) return strikeCount + STRIKE;
     if (ballCount) return ballCount + BALL;
     return NOTHING;
