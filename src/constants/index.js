@@ -1,7 +1,7 @@
 /**
  * 고정적으로 사용될 문자열
  */
-const STRING = {
+const STRING = Object.freeze({
     // 게임 시작 안내 문구
     START : "숫자 야구 게임을 시작합니다.",
     
@@ -20,7 +20,7 @@ const STRING = {
     BALL: "볼",
     STRIKE: "스트라이크",
     NOTHING: "낫싱",
-}
+});
 /**
  * 입력값 제한
  */
@@ -35,12 +35,12 @@ const RANDOM_NUMBER_MAX = 9;
 /**
  * 에러에 사용될 문자열
  */
-const ERRORS = {
+const ERRORS = Object.freeze({
     FRONT: "[ERROR]",
     LENGTH: "데이터의 길이가 3이 아닙니다.",
     NUMBER: "데이터의 인덱스 값은 [1~9]범위의 값으로만 이루어져야합니다.",
     DUPLICATION: "중복되는 숫자가 존재합니다."
-}
+})
 /*
 *   게임을 클리어 하기 위한 strike 조건
 */
