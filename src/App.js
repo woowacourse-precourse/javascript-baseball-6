@@ -57,10 +57,20 @@ async function compareNumber(cpu) {
 
 async function correctNum() {
   printResult();
+  await startOrExitGame();
 }
 
 function printResult(){
   return Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+}
+
+async function startOrExitGame(){
+  const userInput = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. ");
+
+  // TODO - userInput 예외처리 및 2를 입력해서 종료하기
+  if(userInput === '1'){
+    await playGame();
+  }
 }
 
 function countStrike(cpu, user) {
