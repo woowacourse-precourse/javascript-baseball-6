@@ -31,7 +31,7 @@ if (!computer.includes(number)) {
 #### _-예외 조건_
 
 __\- 정수형__ : 문자열로 입력받아 사용해왔던 값을 throw의 예외처리를 판별하기 위해 정수형으로 변환. 입력값이 정수형 아닌 경우 `[ERROR] 올바른 숫자를 입력하세요`하고 종료시키기
-```
+```JavaScript
 !Number.isInteger(+i)
 // +로 문자열을 정수형으로 반환
 // Number.isInteger로 정수형인지 판별
