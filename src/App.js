@@ -5,9 +5,13 @@ import Validator from './Validator.js';
 
 class App {
   #game;
+
+  constructor() {
+    this.#game = new BaseballGame();
+  }
+
   async play() {
     Console.print(MESSAGE.START_GAME);
-    this.#game = new BaseballGame();
     await this.getUserGuessInput();
   }
 
