@@ -12,7 +12,7 @@ class Validator {
   }
 
   static isUnique(array) {
-    return true;
+    return array.length === new Set(array).size;
   }
 }
 
