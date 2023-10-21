@@ -22,21 +22,45 @@ function makeRandom() {
 async function getUserInput(message) {
   try {
     const number = await MissionUtils.Console.readLineAsync(message);
-    return number;
+    // if (number.length === 3 && !isNaN(number)) {
+    //   return number;
+    // } else {
+    //   // throw new Error("[ERROR]");
+    //   throw "[ERROR]";
+    // }
+    return new Promise((resolve, reject) => {
+      if (number.length === 3 && !isNaN(number)) {
+        resolve(false);
+      } else {
+        reject(new Error("[ERROR]"));
+      }
+    });
   } catch (error) {
-    MissionUtils.Console.print("[ERROR] 숫자가 잘못된 형식입니다.");
+    // MissionUtils.Console.print("[ERROR] 숫자가 잘못된 형식입니다.");
+    // throw new Error("[ERROR]");
     throw new Error("[ERROR]");
   }
 }
 
+// function checkError(number) {
+//   if (number.length === 3 && !isNaN(number)) {
+//     return false;
+//   }
+//   // throw new Error("[ERROR]");
+//   throw error;
+// }
 function checkError(number) {
-  if (number.length === 3 && !isNaN(number)) {
-    return false;
-  }
-  // throw new Error("[ERROR]");
-  throw error;
+  return new Promise((resolve, reject) => {
+    if (number.length === 3 && !isNaN(number)) {
+      resolve(false); // 성공(resolve) 상태
+    } else {
+      reject("[ERROR]");
+      // reject(false);
+      // return "[ERROR]";
+      // reject("[ERROR]");
+    }
+  });
 }
-
 function review(answer, number) {
   // console.log(answer, number);
   // console.log(SCORE);
@@ -96,11 +120,18 @@ class App {
     while (!SCORE.success) {
       let num = await getUserInput("숫자를 입력해주세요 :");
       try {
-        checkError(num);
+        await checkError(num);
       } catch (err) {
-        throw new Error("[ERROR]");
+        MissionUtils.Console.print("[ERROR] 숫자가 잘못된 형식입니다.");
         // throw console.error("[ERROR]");
       }
+      // checkError(num)
+      //   .then((result) => {
+      //     // 성공한 경우 처리
+      //   })
+      //   .catch((error) => {
+      //     console.error("에러 발생: " + error.message);
+      //   });
       review(answer, num);
 
       if (!SCORE.성공) {
@@ -121,7 +152,7 @@ class App {
     if (number === "1") {
       resetScore();
       SCORE.success = false;
-      app.play();
+      return this.play();
     }
 
     return;
