@@ -92,4 +92,16 @@ class App {
   }
 }
 
+class Computer {
+
+}
+
+class Player {
+
+}
+
+class GameManager {
+  
+}
+
 export default App;
