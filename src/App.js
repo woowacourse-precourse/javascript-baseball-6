@@ -10,15 +10,6 @@ class App {
   }
 
   async getComputerNumber() {
-    // TODO: Set으로 구현되지 않는 원인 확인
-    // const computerNumber = new Set();
-
-    // while (computerNumber.length < 3) {
-    //   const number = MissionUtils.Random.pickNumberInRange(1, 9);
-    //   computerNumber.add(number);
-    // }
-
-    // return [...computerNumber];
     const computer = [];
 
     while (computer.length < 3) {
