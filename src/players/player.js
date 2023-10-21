@@ -48,5 +48,4 @@ export default class player {
     }
     return false;
   }
-
 }
