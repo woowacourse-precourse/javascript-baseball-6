@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import Output from './Output';
+import Output from './Output.js';
 
 class Input {
   static async readAsync(string, cb) {
