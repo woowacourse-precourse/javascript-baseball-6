@@ -23,7 +23,7 @@ class App {
     }
     async play() {
         Console.print(STRING.START);
-
+        console.log(this.randomNumber);
     }
 
     /**
@@ -32,7 +32,7 @@ class App {
      */
     makeRandomNumber() {
         const randomNumber = [];
-        while (randomNumber.length <= INPUT_LIMIT) {
+        while (randomNumber.length < INPUT_LIMIT) {
             const pickNumber = Random.pickNumberInRange(RANDOM_NUMBER_MIN, RANDOM_NUMBER_MAX);
             if (!randomNumber.includes(pickNumber)) {
                 randomNumber.push(pickNumber);
@@ -71,8 +71,9 @@ class App {
         }
 
         return true;
-
     }
+
+    
 
 }
 
