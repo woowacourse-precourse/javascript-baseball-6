@@ -18,6 +18,8 @@ class App {
       const player = await this.getUserInput();
       const { strike, ball } = this.getCountArray(computer.join(""), player);
       // console.log(computer.join(''), player);
+      let result = "";
+
       if (strike === 3) {
         MissionUtils.Console.print(GAME_TEXT.WIN);
         const choice = await this.getChoice();
@@ -25,7 +27,23 @@ class App {
           break;
         }
       }
-      MissionUtils.Console.print(`${ball}${GAME_TEXT.BALL} ${strike}${GAME_TEXT.STRIKE}`);
+
+      if (ball !== 0) {
+        result += `${ball}${GAME_TEXT.BALL}`;
+      }
+
+      if (strike !== 0) {
+        if (result !== "") {
+          result += " ";
+        }
+        result += `${strike}${GAME_TEXT.STRIKE}`;
+      }
+
+      if (result === "") {
+        MissionUtils.Console.print(GAME_TEXT.NOTHING);
+      } else {
+        MissionUtils.Console.print(result);
+      }
     }
   }
 
