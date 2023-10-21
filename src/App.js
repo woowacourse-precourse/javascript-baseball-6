@@ -28,6 +28,10 @@ class App {
       }
     }
 
+    await this.restartOrEnd();
+  }
+
+  async restartOrEnd() {
     const endOrRestartInput = await readLine(
       gameMessages.SELECT_END_OR_RESTART
     );
