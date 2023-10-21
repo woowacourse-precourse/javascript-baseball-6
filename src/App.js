@@ -55,9 +55,9 @@ class App {
       //5. 재시작 - 3스트라이크 여부
       if(STRIKE === 3){
         Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-        // const SIGNAL = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. ");
+        const RETRY = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. ");
   
-        return 1;
+        return RETRY;
       }
     }
   }
@@ -73,8 +73,8 @@ class App {
       }
     }
 
-    await this.playGame(COMPUTER);
-    
+    const RETRY = await this.playGame(COMPUTER);
+    console.log(RETRY);
     
   }
 }
