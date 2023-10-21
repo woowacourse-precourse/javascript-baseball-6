@@ -17,29 +17,33 @@ class App {
 
   async #input() {
     const input = await MissionUtils.Console.readLineAsync(GAME.INPUT_NUMBER);
-
     App.#validateInput(input);
+    this.#judgment(input);
+  }
 
+  #judgment(input) {
     const result = this.#computer.judgment(input);
 
     if (result === GAME.FAIL) {
-      await this.#input();
+      this.#input();
     }
 
     if (result === GAME.PASS) {
       MissionUtils.Console.print(GAME.CLEAR);
+      this.#getOption();
+    }
+  }
 
-      const option = await MissionUtils.Console.readLineAsync(GAME.OPTION);
+  async #getOption() {
+    const option = await MissionUtils.Console.readLineAsync(GAME.OPTION);
+    App.#validateOption(option);
 
-      App.#validateOption(option);
+    if (option === '1') {
+      this.#start();
+    }
 
-      if (option === '1') {
-        await this.#start();
-      }
-
-      if (option === '2') {
-        MissionUtils.Console.print(GAME.END);
-      }
+    if (option === '2') {
+      MissionUtils.Console.print(GAME.END);
     }
   }
 
