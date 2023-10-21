@@ -1,6 +1,14 @@
-import SETTING from "../constants/setting";
+import SETTING from "../constants/setting.js";
 
 class BaseballGame {
+  constructor() {
+    this.isPlaying = false;
+  }
+
+  start() {
+    this.isPlaying = true;
+  }
+
   compare(userInput, computerInput) {
     const stringUserInput = userInput + '';
     const stringComputerInput = computerInput + '';
@@ -25,13 +33,25 @@ class BaseballGame {
   }
 
   result(userInput, computerInput) {
-    const { strike, ball } = this.compare(userInput, computerInput);
+    const compareResult = this.compare(userInput, computerInput);
 
-    return {
-      isEnd: strike === SETTING.RULE.SIZE,
-      strike,
-      ball,
+    if (this.isWin(compareResult.strike)) {
+      this.end();
     }
+
+    return compareResult;
+  }
+
+  isWin(strike) {
+    return strike === SETTING.RULE.SIZE;
+  }
+
+  isRestart(answer) {
+    return answer === SETTING.COMMAND.RESTART;
+  }
+
+  end() {
+    this.isPlaying = false;
   }
 }
 
