@@ -7,7 +7,7 @@ class App {
   }
 }
 
-const app = new App();
+const app = new App(); //게임시작
 app.play();
 
 export default App;
