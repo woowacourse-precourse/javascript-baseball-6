@@ -3,6 +3,7 @@ import Computer from "./Computer.js";
 import ConsoleUtils from "./ConsoleUtils.js";
 import User from "./User.js";
 import MESSAGE from "./constant/MESSAGE.js";
+import ERROR from "./constant/ERROR.js";
 
 class App {
   constructor() {
@@ -35,13 +36,13 @@ class App {
 
   async handleGameRestartOrExit() {
     const answer = await this.consoleUtils.readLineAsync(
-      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. "
+      MESSAGE.ASK_GAME_RESTART
     );
 
     if (answer === "2") return false;
     if (answer === "1") return true;
 
-    throw new Error("[ERROR] 잘못된 입력입니다.");
+    throw new Error(ERROR.VALID_RESTART_INPUT);
   }
 }
 

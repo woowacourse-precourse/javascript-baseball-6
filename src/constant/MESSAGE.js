@@ -12,6 +12,7 @@ const MESSAGE = {
   STRIKE_AND_BALL: ({ ballCount, strikeCount }) => {
     return `${ballCount}볼 ${strikeCount}스트라이크`;
   },
+  ASK_GAME_RESTART: "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. ",
 };
 
 Object.freeze(MESSAGE);
