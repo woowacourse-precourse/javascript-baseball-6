@@ -31,10 +31,12 @@ function printResult(resultCount) {
 }
 
 function resultCheck(resultCount) {
+  //3스트라이크인 경우
   if (resultCount[STRIKEINDEX] === 3) {
     printEnd(resultCount);
     return false;
   }
+  //아닌경우
   printResult(resultCount);
   return true;
 }

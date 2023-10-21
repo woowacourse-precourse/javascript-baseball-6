@@ -1,22 +1,22 @@
-import { Console } from "@woowacourse/mission-utils";
 import randomNumSet from "./util/randomNumSet.js";
-import userResultCheck from "./util/userResultCheck.js";
-import resultCheck from "./util/printResult.js";
+import answering from "./util/answering.js";
 import restartCheck from "./util/restartCheck.js";
 
 const NUMSIZE = 3;
 
 class App {
   async play() {
-    var gaming = true;
-    while (gaming) {
-      var correctCheck = true;
+    //게임 진행 여부 확인.
+    let gamingStatus = true;
+    while (gamingStatus) {
+      //computer 숫자 세팅
       const computer = randomNumSet(NUMSIZE);
-      while (correctCheck) {
-        const resultCount = await userResultCheck(computer, NUMSIZE);
-        correctCheck = await resultCheck(resultCount);
-      }
-      gaming = await restartCheck();
+
+      //사용자와 게임 진행
+      await answering(computer);
+
+      //종료후 재시작 여부 확인
+      gamingStatus = await restartCheck();
     }
     return;
   }

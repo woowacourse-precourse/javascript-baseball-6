@@ -31,6 +31,41 @@
 
    1. 에러 코드별 적절한 메시지 출력
 
+1. 10/21(토)
+   a. 기능 수행 메소드
+
+   1. 컴퓨터의 3자리 수 선택
+
+      1. play에서 randomNumSet 사용.
+
+   2. 사용자 입력 수행
+
+      1. answering내 userResultCheck에서 확인.
+
+   3. 숫자 비교
+
+      1. 사용자의 input 비교하여 카운트하기 위해
+         scoreCount이용.
+
+   4. 힌트 출력
+
+      1. resultCheck를 사용하여 결과 확인 및 printResult 함수를 통해 결과 출력
+         -> 하지만 출력형식을 맞추기 위해 if문 과다 사용. 추가 리팩토링 작업 고민.
+
+   5. 재시작 여부 확인
+      1. restartCheck함수를 통해 재시작 여부 확인
+
+   b. 검증용 메소드
+
+   1. 에러 코드별 적절한 메시지 출력
+      1. 각 기능별 if문을 통해 해결.
+         -> 메소드화 하여 출력하는 형식 고민해야함.
+
 # 수행 결과
 
-- 차후 추가 예정
+npm test를 통한 확인 결과
+
+Test Suites: 1passed, 1 total
+Test: 2passed, 2total
+Snapshots: 0 total
+Time: 1.055 s, estimated 2 s
