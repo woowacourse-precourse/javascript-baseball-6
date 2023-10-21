@@ -15,7 +15,7 @@ class App {
     // 게임 시작 메서드(BaseballGame) 호출
     return this.BaseballGame(this.compterNumber);
   }
-  
+
   generateComputerNumber() {
     const computerNumber = [];
     while (computerNumber.length < 3) {
@@ -25,23 +25,43 @@ class App {
       }
     }
 
-    return computerNumber
+    return computerNumber;
   }
-  
+
   async BaseballGame(compterNumber) {
     // TODO : 숫자를 입력 받는 기능
     try {
       const userNumber = await Console.readLineAsync(GAME_MESSAGE.INPUT);
-      // TODO : 모든 숫자에 대해 유효한 값인지 확인하는 기능
+      // TODO : 사용자가 입력한 숫자에 대해 유효한 값인지 확인하는 기능
+      if (!inValidNumber(userNumber)) {
+        return this.BaseballGame();
+      }
       // TODO : 볼과 스트라이크를 계산하는 기능
       // TODO : 비교한 결과에 대해 출력하는 기능
       // TODO : 재시작 여부를 확인하는 기능
-      
     } catch (error) {
-      throw new Error(ERROR_MESSAGE.IS_INVALID)
+      throw new Error(ERROR_MESSAGE.IS_INVALID);
     }
   }
 
+  inValidNumber(userNumber) {
+    const userNumberArray = userNumber.split("");
+    const setUserNumber = new Set(userNumberArray);
+
+    if (typeof userNumber !== number) {
+      throw new Error(ERROR_MESSAGE.IS_NUMBER);
+    }
+
+    if (userNumberArray.length !== setUserNumber.size) {
+      throw new Error(ERROR_MESSAGE.IS_DUPLICATION);
+    }
+
+    if (userNumberArray.length !== 3) {
+      throw new Error(ERROR_MESSAGE.IS_DIGIT);
+    }
+
+    return true;
+  }
 }
 
 const app = new App();
