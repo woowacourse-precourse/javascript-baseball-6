@@ -1,14 +1,14 @@
-import { Random } from '@woowacourse/mission-utils';
 import { GAME_TERMS } from '../constants/gameTerms';
+import { pickRandomNumberInRange } from '../utils/random';
 
 class BaseballMaker {
-  #minValue;
+  #minNumber;
 
-  #maxValue;
+  #maxNumber;
 
   constructor() {
-    this.#minValue = GAME_TERMS.baseball.minNumber;
-    this.#maxValue = GAME_TERMS.baseball.maxNumber;
+    this.#minNumber = GAME_TERMS.baseball.minNumber;
+    this.#maxNumber = GAME_TERMS.baseball.maxNumber;
   }
 
   static create() {
@@ -18,7 +18,7 @@ class BaseballMaker {
   createBaseball() {
     const baseball = new Set();
     while (baseball.size < GAME_TERMS.baseball.digit) {
-      const baseballDigit = Random.pickNumberInRange(this.#minValue, this.#maxValue);
+      const baseballDigit = pickRandomNumberInRange(this.#minNumber, this.#maxNumber);
       baseball.add(baseballDigit);
     }
     return [...baseball];
