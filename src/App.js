@@ -10,10 +10,7 @@ class App {
 
       console.log(answer); // debug용 로그
       while (true) {
-        const userResponse = await Console.readLineAsync(
-          "숫자를 입력해주세요: "
-        );
-        // TODO 입력값 예외처리 필요
+        const userResponse = await this.promptUserForNumbers();
 
         const { strike, ball } = this.compareNumbers(answer, userResponse);
 
@@ -74,10 +71,38 @@ class App {
     Console.print(message.trim());
   }
 
+  async promptUserForNumbers() {
+    let userResponse = await Console.readLineAsync("숫자를 입력해주세요: ");
+    userResponse = userResponse.trim();
+
+    if (userResponse.length !== 3) {
+      throw new Error("[ERROR]");
+    }
+
+    if (new Set(userResponse).size !== 3) {
+      throw new Error("[ERROR]");
+    }
+
+    if (isNaN(userResponse)) {
+      throw new Error("[ERROR]");
+    }
+
+    return userResponse;
+  }
+
   async promptNewGameOrExit() {
-    const userResponse = await Console.readLineAsync(
-      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+    let userResponse = await Console.readLineAsync(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
     );
+    userResponse = userResponse.trim();
+
+    if (userResponse.length !== 1) {
+      throw new Error("[ERROR]");
+    }
+
+    if (isNaN(userResponse)) {
+      throw new Error("[ERROR]");
+    }
 
     if (userResponse === "1") {
       return false;
@@ -89,7 +114,6 @@ class App {
     }
 
     return false;
-    // TODO 입력 예외처리 필요
   }
 }
 
