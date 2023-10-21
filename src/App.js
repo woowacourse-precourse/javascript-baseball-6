@@ -64,6 +64,11 @@ class App {
       } else {
         throw new Error("잘못된 값을 입력하였습니다");
       }
+    } else {
+      const nextUser = await MissionUtils.Console.readLineAsync(
+        "숫자를 입력해주세요 : "
+      );
+      this.inGame(computerBall, nextUser);
     }
   }
 
