@@ -112,11 +112,8 @@ class App {
   async play() {
     console.log("숫자 야구 게임을 시작합니다.");
     const game = new Game();
-    game.reStart();
+    await game.reStart();
   }
 }
 
 export default App;
-
-const app = new App();
-app.play();
