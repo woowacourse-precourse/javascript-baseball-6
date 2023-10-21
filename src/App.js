@@ -3,24 +3,34 @@ import { Console, MissionUtils } from "@woowacourse/mission-utils";
 // Console.print
 
 class App {
-  async play(computer, user) {
-    const computerScore = computer();
-    const status = 0;
+  async play(computer) {
+    // const computerScore = computer;
     Console.print("숫자 야구 게임을 시작합니다.");
     while (1) {
-      Console.print("숫자를 입력해주세요 : "+user.join(''));
-      validator(computerScore,user);
-      if(validator(computerScore,user) == 0) {
-        Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-        break;
+      try {
+        const userScore = await Console.readLineAsync('숫자를 입력해주세요 : ');
+        const user = userScore.split('').map(Number);
+        if(validator(computer,user) == 0) {
+          Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+          break;
+        }else{
+          continue;
+        }
+      } catch (error) {
+        // reject 되는 경우
       }
+      // Console.print("숫자를 입력해주세요 : "+user.join(''));
     }
-    Console.print("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
-    status = Console.readLineAsync();
-    if(status == 1){
-      return new app.play(randomNumber,user);
-    }else if(status == 2){
-      Console.print("리얼 종료");
+    try {
+      const status = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+      if(status == 1){
+        Console.print("1입력");
+        return app.play(ranNum);
+      }else if(status == 2){
+        Console.print("리얼 종료");
+      }  
+    } catch (error) {
+      
     }
   }
 }
@@ -36,39 +46,33 @@ const randomNumber = ()=> {
 }
 
 const validator = (computer, user) => {
-  const computer2 = computer;
-  const user2 = user;
-  Console.print(computer2);
-  Console.print(user2);
+  // Console.print(computer);
+  // Console.print(user);
   let score = [0,0];
   for(let i=0;i<3;i++){
-    if(computer2[i]===user2[i]){
+    if(computer[i]===user[i]){
       score[0]+=1;
-    }else if(computer2.includes(user2[i])){
+    }else if(computer.includes(user[i])){
       score[1]+=1;
     }
   }
-  Console.print(score);
+  // Console.print(score);
   if(score[0]==0 && score[1]==0){
     Console.print("낫싱");
+  }else if(score[0]==3){
+    Console.print(`${score[0]}스트라이크`);
     return 0;
   }else if(score[0]==0 && score[1]>0){
     Console.print(`${score[1]}볼`);
-    return 0;
   }else if(score[0]>0 && score[1]==0){
     Console.print(`${score[0]}스트라이크`);
-    return 0;
   }else{
     Console.print(`${score[1]}볼 ${score
       [0]}스트라이크`);
-      return 0;
   }
 }
 
-const user = [4,5,6];
-// const userNumber = MissionUtils.answers;
-// user.push(userNumber);
-
+const ranNum = randomNumber();
 const app = new App();
-app.play(randomNumber,user);
+app.play(ranNum);
 export default App;
