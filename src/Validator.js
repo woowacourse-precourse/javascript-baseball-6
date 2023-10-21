@@ -8,7 +8,7 @@ class Validator {
   }
 
   static containsZero(array) {
-    return false;
+    return array.some((v) => v === 0);
   }
 
   static isUnique(array) {
