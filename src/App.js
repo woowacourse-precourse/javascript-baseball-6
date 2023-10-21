@@ -73,6 +73,8 @@ async function startOrExitGame() {
   // TODO - userInput 예외처리 및 2를 입력해서 종료하기
   if (userInput === "1") {
     await playGame();
+  } else if(userInput === "2"){
+    return false;
   }
 }
 
