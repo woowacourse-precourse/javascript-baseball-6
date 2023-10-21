@@ -18,6 +18,10 @@ class App {
       const player = await this.getUserInput();
       const { strike, ball } = this.getCountArray(computer.join(""), player);
       // console.log(computer.join(''), player);
+      if (strike === 3) {
+        MissionUtils.Console.print(GAME_TEXT.WIN);
+        break;
+      }
       MissionUtils.Console.print(`${ball}${GAME_TEXT.BALL} ${strike}${GAME_TEXT.STRIKE}`);
     }
   }
@@ -56,6 +60,7 @@ class App {
     }
     return false;
   }
+
   getCountArray(computer, player) {
     const result = { strike: 0, ball: 0 };
 
