@@ -4,7 +4,7 @@ class App {
   async play() {
     let gameOver = true;
 
-    console.log("숫자 야구 게임을 시작합니다.");
+    MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
     while (gameOver) {
       const COM_NUMBER = this.createNumber();
       while (true) {
@@ -19,7 +19,7 @@ class App {
           );
           let { strikes, balls } = this.checkNumber(COM_NUMBER, userNumber);
           if (strikes === 3) {
-            console.log(
+            MissionUtils.Console.print(
               "3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료"
             );
             let answer = await this.requestInput(
@@ -34,13 +34,13 @@ class App {
               break;
             }
           } else if (strikes === 0 && balls === 0) {
-            console.log("낫싱");
+            MissionUtils.Console.print("낫싱");
           } else if (strikes === 0 && balls > 0) {
-            console.log(`${balls}볼`);
+            MissionUtils.Console.print(`${balls}볼`);
           } else if (strikes > 0 && balls === 0) {
-            console.log(`${strikes}스트라이크`);
+            MissionUtils.Console.print(`${strikes}스트라이크`);
           } else {
-            console.log(`${balls}볼 ${strikes}스트라이크`);
+            MissionUtils.Console.print(`${balls}볼 ${strikes}스트라이크`);
           }
         } catch (error) {
           if (error.message === "INVALID_INPUT") {
@@ -80,7 +80,7 @@ class App {
         return USERINPUT;
       } catch (error) {
         if (error.message === "INVALID_INPUT") {
-          console.log("문자가 포함된 입력입니다. 애플리케이션을 종료합니다.");
+          MissionUtils.Console.print("문자가 포함된 입력입니다. 애플리케이션을 종료합니다.");
           throw error;
         }
         console.log(error.message);
