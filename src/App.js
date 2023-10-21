@@ -29,18 +29,19 @@ class App {
     const isGameFinished = !(await this.game.play());
 
     if (isGameFinished) {
-      const answer = await this.consoleUtils.readLineAsync(
-        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. "
-      );
-
-      if (answer === "2") {
-        this.consoleUtils.print("게임 종료");
-        return false;
-      }
-      if (answer !== "1") throw new Error("[ERROR] 잘못된 입력입니다.");
+      return this.handleGameRestartOrExit();
     }
+  }
 
-    return true;
+  async handleGameRestartOrExit() {
+    const answer = await this.consoleUtils.readLineAsync(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. "
+    );
+
+    if (answer === "2") return false;
+    if (answer === "1") return true;
+
+    throw new Error("[ERROR] 잘못된 입력입니다.");
   }
 }
 
