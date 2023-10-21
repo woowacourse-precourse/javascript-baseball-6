@@ -1,6 +1,7 @@
 import { Random } from '@woowacourse/mission-utils';
 import { BASEBALL_RANGE } from '../constants/range.js';
 import { ERROR_MESSAGE } from '../constants/messages.js';
+import { REGEXP } from '../constants/regexp.js';
 
 export class BaseballModel {
   #computerNumber;
@@ -25,7 +26,30 @@ export class BaseballModel {
   }
 
   setUserNumber(userNumber) {
+    this.#checkValidUserNumber(userNumber);
     this.#userNumber = userNumber;
+  }
+
+  #checkValidUserNumber(userNumber) {
+    const userNumbers = userNumber.split('');
+
+    if (!REGEXP.VALID_NUMBER_RANGE.test(userNumber)) {
+      throw ERROR_MESSAGE.INVALID_INPUT;
+    }
+
+    if (userNumbers.length !== BASEBALL_RANGE.LENGTH) {
+      throw ERROR_MESSAGE.INVALID_RANGE;
+    }
+
+    if (new Set(userNumbers).size !== BASEBALL_RANGE.LENGTH) {
+      throw ERROR_MESSAGE.DUPLICATION_INPUT;
+    }
+
+    for (const userNumber of userNumbers) {
+      if (userNumber < BASEBALL_RANGE.START || userNumber > BASEBALL_RANGE.END) {
+        throw ERROR_MESSAGE.INVALID_RANGE;
+      }
+    }
   }
 
   #checkGeneratedNumber(generatedNumber) {
