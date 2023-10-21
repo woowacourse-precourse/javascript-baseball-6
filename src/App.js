@@ -18,10 +18,7 @@ class App {
   constructor(){
     this.randomNumber = [];
     this.userInput = [];
-    this.gameResults = {
-      ball: 0,
-      strike: 0,
-    };
+    this.gameResults = {};
 
     this.validation = {
       isLenThree: (input) => input.length === 3,
@@ -50,7 +47,9 @@ class App {
   }
   
   generateRandomNumber(){
+    this.randomNumber = [];
     const { randomNumber } = this;
+    
     while(randomNumber.length < 3){
       const number = Random.pickNumberInRange(1, 9);
       if(!randomNumber.includes(number)) randomNumber.push(number);
@@ -65,6 +64,10 @@ class App {
     this.userInput = [...input];
     this.getResult();
     this.printResult();
+
+    const { strike } = this.gameResults;
+    if(strike === 3) await this.restart;
+    else this.getUserInput();
   }
 
   validateInput(input){
@@ -73,12 +76,16 @@ class App {
   }
 
   getResult(){
-    const { gameResults } = this;
+    // 매번 초기화
+    this.gameResults.strike = 0;
+    this.gameResults.ball = 0;
+
+    const { strike, ball } = this.gameResults;
     const { isStrike, isBall } = this.compare;
 
     this.userInput.forEach((num, idx)=> {
-      if(isStrike(num, idx)) gameResults.strike = gameResults.strike += 1;
-      if(isBall(num, idx)) gameResults.ball = gameResults.ball +=  1;
+      if(isStrike(num, idx)) strike = strike += 1;
+      if(isBall(num, idx)) ball = ball +=  1;
     })
   }
 
@@ -89,8 +96,15 @@ class App {
     if(ball > 0 && strike > 0)  Console.print(`${ball}볼 ${strike}스트라이크`);
     if(ball > 0 && strike === 0) Console.print(`${ball}볼`);
     if(strike > 0 && ball === 0) Console.print(`${strike}스트라이크`);
+  }
 
-    if(strike === 3) Console.print(MESSAGE.FINISH);
+  async restart(){
+    Console.print(MESSAGE.FINISH);
+    Console.pirnt(MESSAGE.RESTART);
+    const input = await Console.readLineAsync('');
+    if(input === '1') await this.start;
+    else if(input === '2') Console.print(MESSAGE.END);
+    else throw new Error(ERROR_MESSAGE.RESTART);
   }
 }
 
