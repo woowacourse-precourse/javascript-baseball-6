@@ -79,9 +79,14 @@ class App {
         if(strike === 3){
           const SELECT = await MissionUtils.Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
 
-          if(SELECT === '2'){
+          if( (SELECT !== '2') && (SELECT !== '1')){
+            throw new Error("[ERROR]");
+          }
+
+          else if(SELECT === '2'){
             return;
           }
+
           break;
         }
         
