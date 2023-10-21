@@ -74,24 +74,19 @@ function matching(computer, baseballNum) {
 
 class App {
   async play() {
-    ///
-    // while로 반복해야 할지도>
     try {
       let start = 1;
       while (start === 1) {
         //# 컴퓨터 값 생성.
         const computer = [];
         generateComputer(computer);
-
         // 컴퓨터 테스트
-        console.log("컴포터ㅓ", computer);
 
         let correct = false;
         //->3개의 숫자를 모두 맞히면 게임이 종료된다. -> 그 때까지 반복...
         while (!correct) {
           const baseballNum = await inputTreating(); // array
           // 인풋 테스트
-          console.log("INPUT", baseballNum);
 
           correct = matching(computer, baseballNum);
         }
@@ -99,7 +94,8 @@ class App {
         MissionUtils.Console.print(
           "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
         );
-        start = await MissionUtils.Console.readLineAsync();
+        start = parseInt(await MissionUtils.Console.readLineAsync());
+
         if (start !== 1 && start !== 2) {
           throw new Error("[ERROR]");
         }
