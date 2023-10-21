@@ -1,15 +1,15 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
+import { Console, Random } from "@woowacourse/mission-utils";
 import { MESSAGES } from "./messages/messages";
 
 class App {
   constructor() {
-    this.pick = MissionUtils.Random.pickUniqueNumbersInRange(1, 9, 3);
-    this.message = MissionUtils.Console.print(MESSAGES.GAME_PROCESS.START);
+    this.pick = Random.pickUniqueNumbersInRange(1, 9, 3);
+    this.message = Console.print(MESSAGES.GAME_PROCESS.START);
     this.userAnswer;
   }
 
   userPickNums() {
-    MissionUtils.Console.readLine(
+    Console.readLine(
       "1~9 숫자 내에서 중복 없이 임의의 숫자 3자리를 입력하세요.",
       (nums) => {
         const PICK_NUMS_IN_ARRAY = nums.split("").map(Number);
