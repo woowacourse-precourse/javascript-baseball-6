@@ -30,7 +30,15 @@ class App {
         throw new Error("[ERROR]");
     }
 
+    //3. 힌트 결과 계산
+    let strike = 0;
+    let ball = 0;
+    mynumber.split('').forEach((number, i)=>{
+      if(computer.includes(+number) && computer.indexOf(+number) === i) strike++;
+      else if(computer.includes(+number) && computer.indexOf(+number) !== i) ball++;
+    });
 
+    Console.print(`${strike} / ${ball}`);
 
   }
 }
