@@ -1,24 +1,24 @@
 import { Console } from "@woowacourse/mission-utils";
 import randomNumSet from "./util/randomNumSet.js";
 import userResultCheck from "./util/userResultCheck.js";
-import pirntResult from "./util/printResult.js";
+import resultCheck from "./util/printResult.js";
 import restartCheck from "./util/restartCheck.js";
+
+const NUMSIZE = 3;
+
 class App {
   async play() {
-    Console.print("숫자 야구 게임을 시작합니다.");
     var gaming = true;
     while (gaming) {
       var correctCheck = true;
-      const computer = randomNumSet(3);
+      const computer = randomNumSet(NUMSIZE);
       while (correctCheck) {
-        const resultCount = await userResultCheck(computer, 3);
-        correctCheck = await pirntResult(resultCount, correctCheck);
+        const resultCount = await userResultCheck(computer, NUMSIZE);
+        correctCheck = await resultCheck(resultCount);
       }
-      gaming = await restartCheck(gaming);
+      gaming = await restartCheck();
     }
+    return;
   }
 }
-//const app = new App();
-//app.play();
-
 export default App;
