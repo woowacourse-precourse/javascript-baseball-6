@@ -1,7 +1,7 @@
-import Pipe from './Pipe';
-import Board from './Board';
-import Calculate from './Calculate';
-import Print from './Print';
+import Pipe from './Pipe.js';
+import Board from './Board.js';
+import Calculate from './Calculate.js';
+import Print from './Print.js';
 
 class App {
   async play() {

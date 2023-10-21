@@ -1,6 +1,6 @@
-import Pipe from "./Pipe";
-import Calculate from "./Calculate";
-import Print from "./Print";
+import Pipe from "./Pipe.js";
+import Calculate from "./Calculate.js";
+import Print from "./Print.js";
 class Board {
   static async run(computerList) {
     while (true) {

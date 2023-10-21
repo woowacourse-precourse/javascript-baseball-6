@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import ErrorCheck from './ErrorCheck';
+import ErrorCheck from './ErrorCheck.js';
 
 class Pipe {
   static async listPipe() {
