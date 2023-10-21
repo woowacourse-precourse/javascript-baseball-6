@@ -15,7 +15,6 @@ class App {
 class BaseBallGame {
   constructor() {
     this.answer = '';
-    this.reset();
   }
 
   /**
@@ -84,9 +83,8 @@ class BaseBallGame {
       this.answer,
       userAnswer,
     );
-    if (strikes < 3) {
-      this.printBallsAndStrikes(balls, strikes);
-    } else if (strikes === 3) {
+    this.printBallsAndStrikes(balls, strikes);
+    if (strikes === 3) {
       MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
     }
   }
@@ -122,11 +120,11 @@ class BaseBallGame {
    */
   printBallsAndStrikes(balls, strikes) {
     if (balls !== 0 && strikes !== 0) {
-      MissionUtils.Console.print(`${balls} 볼 ${strikes} 스트라이크`);
+      MissionUtils.Console.print(`${balls}볼 ${strikes}스트라이크`);
     } else if (balls !== 0) {
-      MissionUtils.Console.print(`${balls} 볼`);
+      MissionUtils.Console.print(`${balls}볼`);
     } else if (strikes !== 0) {
-      MissionUtils.Console.print(`${strikes} 스트라이크`);
+      MissionUtils.Console.print(`${strikes}스트라이크`);
     } else if (balls === 0 && strikes === 0) {
       MissionUtils.Console.print('낫싱');
     }
