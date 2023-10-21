@@ -1,8 +1,12 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
+import { Console, MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
   async play() {
     const computer = this.computerNumber();
+
+    while (true) {
+      const user = await this.userNumber();
+    }
   }
 
   computerNumber() {
@@ -17,6 +21,10 @@ class App {
     }
 
     return numbers.join('');
+  }
+
+  async userNumber() {
+    return Console.readLineAsync('숫자를 입력해주세요 : ' );
   }
 }
 
