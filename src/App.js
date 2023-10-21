@@ -40,14 +40,14 @@ class App {
 				let errorMessage = "";
 				switch (true) {
 					case user.length !== 3:
-						errorMessage = "반드시 3자리 숫자만 입력해야 합니다.";
+						errorMessage = "3자리 숫자를 입력하지 않았습니다.";
 						break;
 					case user.some((c) => isNaN(c) || c === 0):
 						errorMessage =
-							"오직 숫자 1~9까지의 숫자만 입력해야 합니다.";
+							"0 또는 숫자 이외의 값들을 입력하셨습니다.";
 						break;
 					case new Set(user).size !== 3:
-						errorMessage = "오직 서로 다른 숫자만 입력해야 합니다.";
+						errorMessage = "중복되는 숫자가 존재합니다.";
 						break;
 				}
 				if (errorMessage) {
