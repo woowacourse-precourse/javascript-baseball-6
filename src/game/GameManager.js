@@ -13,8 +13,20 @@ class GameManager {
 
   playGame() {
     MissionUtils.Console.readLine("숫자를 입력해주세요 : ", (answer) => {
-      this.gameLogic.checkGameResult(answer);
+      return this.gameLogic.checkGameResult(answer);
     });
+  }
+
+  restartGame() {
+    MissionUtils.Console.readLine(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.",
+      (answer) => {
+        if (answer === 1) {
+          this.playGame();
+        } else if (answer === 2) {
+        }
+      }
+    );
   }
 }
 
