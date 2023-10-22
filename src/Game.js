@@ -11,10 +11,13 @@ export default class Game {
     this.strike = 0;
   }
 
-  start() {
-    this.setGame();
-
-    this.proceedGame();
+  async start() {
+    try {
+      this.setGame();
+      await this.proceedGame();
+    } catch (error) {
+      throw new Error(error.message);
+    }
   }
 
   setGame() {
@@ -28,13 +31,17 @@ export default class Game {
   }
 
   async proceedGame() {
-    this.player = await Print.getPlayerNumber();
+    try {
+      this.player = await Print.getPlayerNumber();
 
-    this.compareTwoNumber();
+      this.compareTwoNumber();
 
-    Print.showHint(this.ball, this.strike);
+      Print.showHint(this.ball, this.strike);
 
-    this.decideGameClear();
+      await this.decideGameClear();
+    } catch (error) {
+      throw new Error(error.message);
+    }
   }
 
   compareTwoNumber() {
@@ -45,16 +52,14 @@ export default class Game {
 
   async decideGameClear() {
     if (!Calculate.isPlayerWin(this.strike)) {
-      this.proceedGame();
-      return;
+      return await this.proceedGame();
     }
 
     Print.winMessage();
     const restartOption = await Print.getReStart();
 
     if (Calculate.isReStart(restartOption)) {
-      this.start();
-      return;
+      return await this.start();
     }
   }
 }

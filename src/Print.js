@@ -29,7 +29,7 @@ export default class Print {
 
       return playerNum.split("").map((str) => parseInt(str));
     } catch (error) {
-      Console.print(error);
+      throw new Error(error.message);
     }
   }
 
@@ -66,7 +66,7 @@ export default class Print {
 
       return restartNum;
     } catch (error) {
-      Console.print(error);
+      throw new Error(error.message);
     }
   }
 }
