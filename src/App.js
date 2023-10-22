@@ -6,24 +6,26 @@ import { getUserGameDecision } from "./getUserGameDecision.js"
 import { isGameEnded } from "./isGameEnded.js"
 import { isRoundEndedFromHint } from "./isRoundEndedFromHint.js"
 import { View } from "./view/View.js"
+import { Model } from "./model/Model.js"
 
 class App {
   async play() {
     const view = new View();
+    const model = new Model();
     view.printStartMsg()
     while (true) {
-      const computerNumber = generateRandomThreeDigitNumber();
+      const computerNumber = model.setRandomComputerNumber();
       while (true) {
         const userNumber = await getUserNumberInput()
-        const hint = getHint(userNumber, computerNumber);
+        const hint = model.getHint(userNumber);
         view.printHintMsg(hint);
-        if (isRoundEndedFromHint(hint) === true) {
+        if (model.isRoundEndedFromHint(hint) === true) {
           view.printEndMsg();
           break;
         }
       }
       const decision = await getUserGameDecision();
-      if (isGameEnded(decision) === true) {
+      if (model.isGameEnded(decision) === true) {
         break;
       }
     } 
