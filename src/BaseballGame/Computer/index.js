@@ -9,10 +9,7 @@ class Computer {
   generate() {
     const { nums } = this;
     while (nums.length < NUMS.THREE) {
-      const number = MissionUtils.Random.pickNumberInRange(
-        NUMS.RANGE_START,
-        NUMS.RANGE_END
-      );
+      const number = MissionUtils.Random.pickNumberInRange(NUMS.ONE, NUMS.NINE);
       if (!nums.includes(number)) {
         nums.push(number);
       }

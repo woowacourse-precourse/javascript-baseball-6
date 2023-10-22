@@ -2,7 +2,7 @@ import { NUMS, ERROR } from '../constants/index.js';
 
 class Validator {
   static guessNumber(input) {
-    if (![...input].every(Number) || new Set(input).size !== NUMS.THREE) {
+    if (/[^1-9]/g.test(input) || new Set(input).size !== NUMS.THREE) {
       throw Error(`[ERROR] ${ERROR.INVALID_LENGTH}`);
     }
   }
