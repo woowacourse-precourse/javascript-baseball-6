@@ -9,11 +9,22 @@ function pickRandomNumber(array) {
   }
 }
 
+async function finish() {
+  return await Console.readLineAsync(
+    "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+  );
+}
+
 class App {
   async play() {
     let randomArray = [];
+    let resetCode = 0;
 
-    pickRandomNumber(randomArray);
+    while (Number(resetCode) !== 2) {
+      pickRandomNumber(randomArray);
+
+      resetCode = await finish();
+    }
   }
 }
 
