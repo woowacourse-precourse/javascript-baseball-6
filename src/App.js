@@ -5,6 +5,7 @@ class App {
         // 게임 시작 문구 출력
         MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
 
+        // game function 사용
         async function game() {
             // 게임 실행
             // 임의의 3자리 숫자를 생성
@@ -20,6 +21,11 @@ class App {
             let win = false;
             while (!win) {
                 const playerInput = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
+                // 정규식 사용하여 입력
+                const regex = /^(?!.*(.).*\1)[0-9]{3}$/;
+                if (!regex.test(playerInput)) {
+                    throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+                }
                 const player = playerInput.split("").map((number) => parseInt(number));
                 let ball = 0;
                 let strike = 0;
@@ -41,20 +47,22 @@ class App {
                     MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
                 }
             }
-        }
-        let restart = true;
-        while (restart) {
-            await game();
+            // 게임 종료 후 재시작 여부 확인
             const restartInput = await MissionUtils.Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
-            if (restartInput === "2") {
-                restart = false;
+            if (restartInput === "1"){
+                await game();
+            } else if (restartInput !== "2") {
+                throw new Error("[ERROR] 숫자가 잘못된 형식입니다.")
             }
+        }
+
+        // game function 실행
+        try {
+            await game();
+        } catch (e) {
+            MissionUtils.Console.print(e.message);
         }
     }
 }
-
-// 앱 테스트 실행용
-const app = new App();
-app.play();
 
 export default App;
