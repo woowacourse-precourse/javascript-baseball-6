@@ -53,7 +53,7 @@ class App {
       }
       return numberArray;
     } catch (error) {
-      MissionUtils.Console.print(`에러발생 ${error}`);
+      MissionUtils.Console.print(`[ERROR] ${error.message}`);
     }
   }
 
@@ -103,7 +103,7 @@ class App {
       else if (choice == 2) MissionUtils.Console.print("게임을 종료합니다.");
       else throw new Error("1또는 2를 입력해주세요");
     } catch (error) {
-      MissionUtils.Console.print(`에러발생 ${error}`);
+      MissionUtils.Console.print(`[ERROR] ${error.message}`);
     }
   }
 }
