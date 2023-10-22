@@ -22,7 +22,7 @@ function inputNumberValidate(inputNumber){
     if(numberLength === 3 && numberSize === 3 && numberCheck == false){
         return inputNumber;
     } else {
-        throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+        return MissionUtils.Console.print('[ERROR] 숫자가 잘못된 형식입니다.');
     }
     
 }
