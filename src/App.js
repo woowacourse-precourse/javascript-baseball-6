@@ -41,14 +41,22 @@ class App {
     } else {
       Console.print(`${BALL}볼 ${STRIKE}스트라이크`);
     }
+
+    return STRIKE;
   }
 
   async play() {
+    let CORRECT = false;
     Console.print("숫자 야구 게임을 시작합니다.");
     const RANDOM_NUMBER = this.randomNumber().join("");
     Console.print(`${RANDOM_NUMBER}`);
-    const USER_NUMBER = await this.inputNumber();
-    await this.calculateScore(USER_NUMBER, RANDOM_NUMBER);
+    while (CORRECT === false) {
+      const USER_NUMBER = await this.inputNumber();
+      const STRIKE = await this.calculateScore(USER_NUMBER, RANDOM_NUMBER);
+      if (STRIKE === 3) {
+        CORRECT = true;
+      }
+    }
   }
 }
 
