@@ -6,7 +6,7 @@ class App {
 
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
     while (gameOver) {
-      const COM_NUMBER = this.createNumber();
+      const COM_NUMBER = "123" //this.createNumber();
 
       while (true) {
         try {
@@ -15,7 +15,10 @@ class App {
             break;
           }
         } catch (error) {
-          if (error.message === "[ERROR]") {
+          if (
+            error.message ===
+            "[ERROR] 문자가 포함된 입력입니다. 애플리케이션을 종료합니다."
+          ) {
             return;
           }
         }
@@ -85,21 +88,24 @@ class App {
 
   isValidInput(input, validation) {
     if (isNaN(Number(input))) {
-      throw new Error("[ERROR]");
+      throw new Error(
+        "[ERROR] 문자가 포함된 입력입니다. 애플리케이션을 종료합니다."
+      );
     }
 
     if (!validation(input)) {
-      throw new Error("[ERROR] 중복되지 않은 3자리 숫자를 입력해주세요.");
+      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
     }
 
     return true;
   }
 
   printErrorMessage(error) {
-    if (error.message === "[ERROR]") {
-      MissionUtils.Console.print(
-        "문자가 포함된 입력입니다. 애플리케이션을 종료합니다."
-      );
+    if (
+      error.message ===
+      "[ERROR] 문자가 포함된 입력입니다. 애플리케이션을 종료합니다."
+    ) {
+      MissionUtils.Console.print(error.message);
       throw error;
     }
 
