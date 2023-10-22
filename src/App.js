@@ -4,7 +4,8 @@ function start() {
 	try {
 		getUserInput(computer);
 	} catch (error) {
-		throw new Error(`[ERROR]${error.message}`);
+		MissionUtils.Console.print(error);
+		throw error;
 	}
 }
 function makeRandomNumber() {
@@ -19,11 +20,13 @@ function makeRandomNumber() {
 }
 async function getUserInput(computer) {
 	const userInput = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 :');
+	MissionUtils.Console.print(`숫자를 입력해주세요 : ${userInput}`);
 	try {
-    validateUserInput(userInput, computer);
-  } catch (error) {
-    throw new Error(`[ERROR]${error.message}`)
-  }
+		validateUserInput(userInput, computer);
+	} catch (error) {
+		MissionUtils.Console.print(error);
+		throw error;
+	}
 }
 function isRepeated(user) {
 	let newArr = [];
@@ -39,33 +42,53 @@ function isRepeated(user) {
 function validateUserInput(userInput, computer) {
 	if (userInput.length === 3) {
 		const user = userInput.split('').map((number) => +number && +number); //arr
-
 		if (user[0] && user[1] && user[2]) {
-			//숫자 중복이 있을 경우
-			if (isRepeated(user)) {
-				throw new Error('[ERROR] 서로 다른 수를 입력해주세요');
-			} else {
+			if (!isRepeated(user)) {
 				const { strike, ball } = compareUserComputer(user, computer);
 				returnScore(strike, ball);
-				finishGame();
+				return finishGame();
+			} else {
+				try {
+					throw '[ERROR] 서로 다른 수를 입력해주세요';
+				} catch (error) {
+					MissionUtils.Console.print(error);
+					throw error;
+				}
 			}
 		} else {
-			throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+			try {
+				throw '[ERROR] 숫자가 잘못된 형식입니다.';
+			} catch (error) {
+				MissionUtils.Console.print(error);
+				throw error;
+			}
 		}
 	} else {
-		throw new Error('[ERROR] 세자리 숫자를 입력해주세요.');
+		try {
+			throw '[ERROR] 세자리 숫자를 입력해주세요.';
+		} catch (error) {
+			MissionUtils.Console.print(error);
+			throw error;
+		}
 	}
 }
 async function finishGame() {
-	const finalResult = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
-	switch (finalResult) {
-		case 1:
-			// 게임 새로 시작
-			start();
-			break;
-		case 2:
-			//게임 끝
-			break;
+	try {
+		const finalResult = await MissionUtils.Console.readLineAsync(
+			'게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.'
+		);
+		switch (finalResult) {
+			case 1:
+				// 게임 새로 시작
+				start();
+				break;
+			case 2:
+				//게임 끝
+				break;
+		}
+	} catch (error) {
+		MissionUtils.Console.print(error);
+		throw error;
 	}
 }
 function returnScore(strike, ball) {
