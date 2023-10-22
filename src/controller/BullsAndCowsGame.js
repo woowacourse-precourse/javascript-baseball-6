@@ -15,9 +15,9 @@ class BullsAndCowsGame {
 
   async startGame() {
     const userNumber = await InputView.getUserNumber(MESSAGES.INPUT_GUIDE);    
-    const progress = GameAnalyzer.getBullsAndCows(userNumber, this.computerNumber);
+    const { ball, strike } = GameAnalyzer.getBullsAndCows(userNumber, this.computerNumber);
 
-    OutputView.progressMessage(progress.ball, progress.strike);
+    OutputView.progressMessage(ball, strike);
 
     if (userNumber === this.computerNumber) return this.finishGame();
 
