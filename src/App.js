@@ -23,7 +23,7 @@ class App {
                 (value) => value
             );
 
-            if (isNaN(inputNumber) || inputNumber.length !== 3) {
+            if (isNaN(Number(inputNumber)) || inputNumber.length !== 3) {
                 throw new Error(`[ERROR] 숫자가 잘못된 형식입니다.`);
             }
 
