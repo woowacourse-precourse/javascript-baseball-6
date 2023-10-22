@@ -57,7 +57,7 @@ export default class Controller {
     
     this.view.printPlayerGuessResult(ballStrikeCounts);
 
-    await this.checkEndGame(ballStrikeCounts);
+    await this.checkEndGame(ballStrikeCounts[1]);
   }
 
   /**
@@ -65,12 +65,12 @@ export default class Controller {
    * 스트라이크가 3개가 아닐 시, 다시 숫자를 입력 받습니다.
    * @param {number[]} ballStrikeCounts [볼, 스트라이크 개수]
    */
-  async checkEndGame(ballStrikeCounts) {
-    if(ballStrikeCounts[1] === 3) {
+  async checkEndGame(strike) {
+    if(strike === 3) {
       this.view.printCorrectNumber();
       await this.view.getRestartInputNumber();
     }
-    else if(ballStrikeCounts[1] !== 3) {
+    else if(strike !== 3) {
       await this.view.getPlayerInputNumber();
     }
   }
