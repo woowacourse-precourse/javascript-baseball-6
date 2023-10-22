@@ -39,7 +39,7 @@
      - 입력값이 `2`인 경우(종료)
        - 게임 종료 `Console.close()`
 
-7. `judge()` 결과가 삼진이 아닌 경우 `replayMessagePrint()`
+7. `judge()` 결과가 삼진이 아닌 경우 `resultMessagePrint()`
 
-   - 결과 메세지 출력 `replayMessagePrint()`
+   - 결과 메세지 출력 `resultMessagePrint()`
    - 3번 부터 5번까지 재귀호출 `game()`
