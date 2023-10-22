@@ -21,6 +21,7 @@ class App {
 
 
   async getUserInput() {
+    this.Strike = 0;
     try {
       const userInput = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
       const result = this.isValidUserInput(userInput);
@@ -66,16 +67,22 @@ class App {
       MissionUtils.Console.print(`${this.Strike}` + '스트라이크');
   }
 
+  async playBaseballGame() {
+    while (this.Strike < 3) {
+      await this.getUserInput();
+      this.countMatchingNumbers();
+      this.countMatchingStrikes();
+      this.countMatchingBalls();
+      this.printResult();
+    }
+  }
+
+
   async play() {
     MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
     this.setRandomNumber();
-    await this.getUserInput();
-    this.countMatchingNumbers();
-    this.countMatchingStrikes();
-    this.countMatchingBalls();
-    this.printResult();
+    this.playBaseballGame();
   }
-
 }
 
 const app = new App();
