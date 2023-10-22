@@ -29,7 +29,9 @@ class App {
         
         this.validation(userInput, this.IN_GAME);
 
-        this.checkInputAndGiveHint(answer, userInput);
+        this.compareInputAnswer(answer, userInput);
+
+        this.giveHint();
       }
 
       const restartInput = await this.giveQuestion(`게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.${"\n"}`);
@@ -53,15 +55,17 @@ class App {
     return this.console.readLineAsync(question);
   }
 
-  checkInputAndGiveHint(answer, userInput) {
+  compareInputAnswer(answer, input) {
     for (let i = 0; i < 3; i++) {
       const curAnswer = answer[i];
-      const curInput = userInput[i];
+      const curInput = input[i];
 
       if (curAnswer === curInput) this.strike++;
       else if (answer.includes(curInput)) this.ball++;
     }
+  }
 
+  giveHint() {
     if (this.ball > 0 && this.strike > 0) this.console.print(`${this.ball}볼 ${this.strike}스트라이크`);
     else if (this.ball > 0 && this.strike === 0) this.console.print(`${this.ball}볼`);
     else if (this.ball === 0 && this.strike > 0 && this.strike < 3) this.console.print(`${this.strike}스트라이크`);
