@@ -6,22 +6,26 @@ class App {
   constructor() {
     this.computer = new Computer();
   }
-  
+
   async play() {
     this.printStartMessage();
-    const computerNumber = this.computer.generateNumber();
+    const computerNumber = this.computer.generateNumber().join('');
 
     let userNumber;
     let result;
     do {
-      userNumber = await this.getUserInput();
-      this.validateUserInput(userNumber); 
+      try {
+        userNumber = await this.getUserInput();
+        this.validateUserInput(userNumber);
 
-      result = this.compareNumber(computerNumber, userNumber);
-      this.printResult(result);
-      
-      if (result.strike === 3) {
-        await this.askRestart();
+        result = this.compareNumber(computerNumber, userNumber);
+        this.printResult(result);
+        
+        if (result.strike === 3) {
+          await this.askRestart();
+        }
+      } catch (error) {
+        Console.print(error.message);
       }
     } while (result.strike !== 3);
   }
