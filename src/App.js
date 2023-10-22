@@ -1,23 +1,10 @@
 import { Random, Console } from '@woowacourse/mission-utils';
+import Computer from './Computer.js';
 import GameError from './GameError.js';
 
 const NUMBER_LENGTH = 3;
 
 class App {
-  constructor() {
-    this.answerNumbers = [];
-  }
-
-  generateRandomNumbers(length) {
-    const randomNumbers = [];
-    while (randomNumbers.length < length) {
-      const number = Random.pickNumberInRange(1, 9);
-      if (!randomNumbers.includes(number)) {
-        randomNumbers.push(number);
-      }
-    }
-    return randomNumbers;
-  }
 
   isInputValid(input) {
     const NUMBERS = /^[1-9]+$/;
@@ -33,6 +20,9 @@ class App {
 
   async play() {
     try {
+      const computer = new Computer;
+      computer.generateRandomNumbers(NUMBER_LENGTH);
+      Console.print(computer.answerNumbers);
       const input = await Console.readLineAsync('input : ');
       this.isInputValid(input)
       Console.print('ouput : ' + input);
