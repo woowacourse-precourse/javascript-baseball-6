@@ -83,18 +83,12 @@
     - `filter()`로 `userNumber`와 `computerNumber`가 일치하는 숫자만을 남기고 배열 생성
     - 생성된 배열의 length에서 `strikeNumber`를 뺀 수를 리턴
   - 각 함수 안에서 계산된 스트라이크 개수와 볼 개수를 `convertNumberToString()`의 인자로 전달
-    - 힌트 문자열 `HintMessage` 선언
+    - 힌트 문자열 `hintMessage` 선언
     - 입력: `strikeNumber`, `ballNumber`
     - 출력: 힌트 문자열
-      - `ballNumber` > 0이면, `${ballNumber}`을 `HintMessage`에 추가
-      - `strikeNumber` > 0이면, `${strikeNumber}`을 `HintMessage`에 추가
-      - `ballNumber` && `strikeNumber` = 0이면, `낫싱`을 `HintMessage`에 추가
-  - 컴퓨터가 생성한 숫자와 일치한다면,
-    - `Console.print()`로 `3스트라이크 3개의 숫자를 모두 맞히셨습니다! 게임 종료`를 출력
-    - `recommendRestart()` 호출
-  - 컴퓨터가 생성한 숫자와 불일치한다면,
-    - `convertNumberToString()`를 통해 나온 `HintMessage`를 `Console.print()`로 출력
-    - `handleUserInputDuringGame()` 호출
+      - `ballNumber` > 0이면, `${ballNumber}`을 `hintMessage`에 추가
+      - `strikeNumber` > 0이면, `${strikeNumber}`을 `hintMessage`에 추가
+      - `ballNumber` && `strikeNumber` = 0이면, `낫싱`을 `hintMessage`에 추가
 
 ### 컴퓨터의 숫자와 일치할 때까지 게임 반복
 
@@ -104,11 +98,12 @@
     - `Console.print()`로 `3스트라이크 3개의 숫자를 모두 맞히셨습니다! 게임 종료`를 출력
     - `recommendRestart()` 호출
   - 컴퓨터의 숫자와 불일치한다면,
-    - `convertNumberToString()`를 통해 나온 `HintMessage`를 `Console.print()`로 출력
+    - `convertNumberToString()`를 통해 나온 `hintMessage`를 `Console.print()`로 출력
     - `handleUserInputDuringGame()` 호출해 사용자가 다시 숫자를 입력하도록 함
 
 ### 재시작 여부 판별
 
+- `recommendRestart`로 게임을 다시 시작할지 물어보도록 함
 - `MissionUtils.Console.readLineAsync()`을 통해 사용자로부터 숫자를 입력 받음
   - 입력한 값이 1이면 `play()` 호출해 게임 시작
   - 입력한 값이 2면 `endGame()` 호출하여 게임 종료
