@@ -20,7 +20,13 @@ class App {
       while (isInGame) {
         const answer = await Console.readLineAsync("숫자를 입력해주세요. : ");
 
-        if (!this.isInteger(answer) || !this.isInRange(answer)) {
+        Console.print(answer);
+
+        if (
+          !this.isInteger(answer) ||
+          !this.isInRange(answer) ||
+          !this.isDigitUnique(answer)
+        ) {
           throw new Error("[ERROR] 숫자가 잘못된 형식입니다." + answer);
         }
 
@@ -62,6 +68,13 @@ class App {
     return score;
   }
 
+  isDigitUnique(number) {
+    const numberMap = number.toString().split("").map(Number);
+    const set = new Set(numberMap);
+
+    return set.size === numberMap.length && !number.toString().includes(0);
+  }
+
   isInteger(string) {
     return Number.isInteger(Number(string));
   }
@@ -72,7 +85,7 @@ class App {
 
   generateRandomNumber(min, max) {
     let number = Random.pickNumberInRange(this.MIN_VALUE, this.MAX_VALUE);
-    while (number.toString().includes(0)) {
+    while (!this.isDigitUnique(number)) {
       number = Random.pickNumberInRange(this.MIN_VALUE, this.MAX_VALUE);
     }
     return number;
