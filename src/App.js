@@ -5,15 +5,9 @@ class App {
     console.log("숫자 야구 게임을 시작합니다.");
     let restartGame = true;
 
-    while (restartGame) {
+    if (restartGame) {
       restartGame = await this.playGame(); // 게임 재시작 여부를 확인
-
-      if (restartGame) {
-        console.log("숫자 야구 게임을 시작합니다."); // 게임 재시작
-      }
     }
-
-    console.log("게임 종료");
   }
 
   async playGame() {
@@ -23,6 +17,9 @@ class App {
     let gameEnd = false;
 
     while (!gameEnd) {
+      if (gameEnd) {
+        break; // 게임 종료 조건 충족 시 게임 종료
+      }
       // 사용자로부터 3자리 숫자 입력 받기
       const userGuess = await this.getUserInput();
 
@@ -105,18 +102,22 @@ class App {
 
   async askForRestart() { // 게임을 다시 시작할지 종료할지 선택하는 옵션 제공
     console.log("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
-
-    while (true) {
-      const restartOption = await this.getUserInput();
-
-      if (restartOption === '1') { // 게임을 다시 시작하는 경우
-        return true;
-      } else if (restartOption === '2') { // 게임을 종료하는 경우
-        return false;
-      } else {
-        console.log("올바른 옵션을 선택하세요 (1: 재시작, 2: 종료)");
-      }
+    
+    async function getRestartOption() {
+      return new Promise(async (resolve) => {
+        const input = await MissionUtils.Console.readLineAsync();
+        if (input === '1') {
+          resolve(true);
+        } else if (input === '2') {
+          resolve(false);
+        } else {
+          console.log("올바른 옵션을 선택하세요 (1: 재시작, 2: 종료)");
+          resolve(await getRestartOption());
+        }
+      });
     }
+
+    return await getRestartOption();
   }
 }
 
