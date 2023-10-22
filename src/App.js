@@ -15,7 +15,7 @@ class App {
 
     while (this.isPlay) {
       const answer = this.makeRandomNum();
-      this.console.print(answer);
+      // this.console.print(answer);
   
       while (this.strike < 3) {
         this.ball = 0;
@@ -29,6 +29,8 @@ class App {
       }
 
       const restartInput = await this.giveQuestion(`게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.${"\n"}`);
+
+      this.restartValidation(restartInput);
 
       this.restart(restartInput);
     }
@@ -78,9 +80,15 @@ class App {
       this.ball = 0;
     }
   }
+
+  restartValidation(input) {
+    if (input !== "1") {
+      if (input !== "2") throw new Error("[ERROR]");
+    }
+  }
 }
 
 export default App;
 
-const app = new App();
-app.play();
+// const app = new App();
+// app.play();
