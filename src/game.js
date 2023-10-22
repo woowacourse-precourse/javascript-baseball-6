@@ -16,7 +16,7 @@ export default async function game() {
 
   const input = result === '3스트라이크' && (await enterOption());
   if (input === 1) {
-    game();
+    await game();
   } else {
     return;
   }
