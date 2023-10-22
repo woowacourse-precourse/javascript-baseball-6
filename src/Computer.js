@@ -45,7 +45,7 @@ class Computer {
   }
 
   judgment(input) {
-    const numbers = [...input].map(Number);
+    const numbers = Array.from(input, Number);
     this.#strike = this.#getStrike(numbers);
     this.#ball = this.#getBall(numbers);
 

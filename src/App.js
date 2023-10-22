@@ -60,7 +60,6 @@ class App {
     const unique = [...input].reduce(
       (unique, number) =>
         unique.includes(number) ? unique : [...unique, number],
-
       []
     );
 
