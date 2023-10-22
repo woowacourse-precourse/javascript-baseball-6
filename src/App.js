@@ -46,6 +46,9 @@ class App {
         }
       }
       const gameToggler = await gameController();
+      if (gameToggler !== 1 || gameToggler !== 2) {
+        throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+      }
       if (gameToggler !== 1) {
         isStartGame = false;
         break;
