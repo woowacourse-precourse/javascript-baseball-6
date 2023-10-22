@@ -11,7 +11,6 @@ export default class player {
     if (this.isValidNumber(userInput)) {
       this.#_userNumber = userInput.split('').map((num) => Number(num));
     }
-
     return;
   }
 
