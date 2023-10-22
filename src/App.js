@@ -100,6 +100,66 @@ class App {
     return true;
   }
 
+  // 사용자의 입력값이 모두 숫지인지 확인
+  checkUserInputData() {
+    for (let i = 0; i < this.userInputs.length; i++) {
+      if (isNaN(Number(this.userInputs[i]))) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  //사용자의 숫자가 모두 1~9 사이인지 확인
+  checkUserInputNumberRange() {
+    for (let i = 0; i < this.userInputs.length; i++) {
+      if (1 > Number(this.userInputs[i]) || Number(this.userInputs[i]) > 9) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  //사용자가 입력한 값이 3개 이하인지 확인
+  checkUserInputDataLength() {
+    if (this.userInputs.length === MAX_SCORE) {
+      return true;
+    }
+    return false;
+  }
+
+  //사용자의 숫자가 모두 다른 수인지 확인
+  checkUserInputIsDiff() {
+    let uniqueNumber = new Set(this.userInputs);
+    if (uniqueNumber.size === this.userInputs.length) {
+      return true;
+    }
+    return false;
+  }
+
+  //플레이어 입력값 유효성 검사 함수
+  checkUserInput() {
+    if (!this.checkUserInputData()) {
+      this.score[STRIKE_INDEX] = MAX_SCORE;
+      throw new Error("[ERROR] 입력한 값이 모두 숫자가 아닙니다.");
+    }
+    if (!this.checkUserInputNumberRange()) {
+      this.score[STRIKE_INDEX] = MAX_SCORE;
+      throw new Error("[ERROR] 입력한 수는 1~9 사이 값이어야 합니다.");
+    }
+    if (!this.checkUserInputDataLength()) {
+      this.score[STRIKE_INDEX] = MAX_SCORE;
+      throw new Error(
+        "[ERROR] 입력한 수는 3개여야 합니다 (띄어쓰기 빼주세요!)."
+      );
+    }
+    if (!this.checkUserInputIsDiff()) {
+      this.score[STRIKE_INDEX] = MAX_SCORE;
+      throw new Error("[ERROR] 입력한 값은 서로 다른 수여야 합니다.");
+    }
+    return true;
+  }
+
   //정답 여부 확인(3스트라이크)
   checkCorrectness(result) {
     if (result === "3스트라이크") {
