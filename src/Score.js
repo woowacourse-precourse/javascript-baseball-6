@@ -11,7 +11,7 @@ class Score {
     this.#nothing = false;
   }
 
-  /* 컴퓨터와 플레이어의 숫자 비교하여 점수를 매긴다. */
+  /* 컴퓨터와 플레이어의 숫자를 비교하여 점수를 매긴다. */
   compareNumber(computerNumber, playerNumber) {
     let strike = 0;
     let ball = 0;
