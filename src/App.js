@@ -1,17 +1,25 @@
-`use strict`;
-class App {
-  constructor(num1, num2, num3) {
-    this.one = num1;
-    this.two = num2;
-    this.thr = num3;
-  }
+import { MissionUtils } from "@woowacourse/mission-utils";
 
+class App {
   play() {
-    return Number(this.one + this.two + this.thr);
+    const computer = new Computer();
   }
 }
 
-const app = new App(5, 7, 9);
-console.log(app.play());
+class Computer {
+  constructor() {
+    this.numbers = [];
+  }
+  createNumbers() {
+    while (this.numbers.length < 3) {
+      const num = MissionUtils.Random.pickNumberInRange(1, 9);
+      if (!this.numbers.includes(num)) {
+        this.numbers.push(num);
+      }
+    }
+    console.log(this.numbers);
+  }
+}
 
-export default App;
+const computer = new Computer();
+computer.createNumbers();
