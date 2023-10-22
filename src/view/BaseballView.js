@@ -6,7 +6,7 @@ export class BaseballView {
     Console.print(message);
   }
 
-  getInputAsync(message) {
+  async getInputAsync(message) {
     return Console.readLineAsync(message);
   }
 
