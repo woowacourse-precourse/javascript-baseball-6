@@ -43,6 +43,28 @@ class App {
       ? true
       : false;
   };
+
+  // 스트라이크와 볼을 확인하는 함수
+  checkStrikeOrBall = (userGuess, computerAnswer) => {
+    let strikeCount = 0;
+    let ballCount = 0;
+
+    for (let i = 0; i < userGuess.length; i++) {
+      if (userGuess[i] === computerAnswer[i]) {
+        strikeCount += 1;
+      } else if (computerAnswer.includes(userGuess[i])) {
+        ballCount += 1;
+      }
+    }
+
+    if (strikeCount > 0 && ballCount > 0) {
+      Console.print(`${strikeCount}스트라이크 ${ballCount}`);
+    } else if (strikeCount > 0 && ballCount === 0) {
+      Console.print(`${strikeCount}스트라이크`);
+    } else {
+      Console.print(`${ballCount}볼`);
+    }
+  };
 }
 
 export default App;
