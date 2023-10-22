@@ -33,14 +33,20 @@ class App {
         BALL++;
       }
     }
-    // Console.print(`${RANDOM_NUMBER}`);
-    // Console.print(`${USER_NUMBER}`);
-    Console.print(`${BALL}볼 ${STRIKE}스트라이크`);
+
+    if (STRIKE === 0 && BALL === 0) {
+      Console.print("낫싱");
+    } else if (STRIKE === 3) {
+      Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    } else {
+      Console.print(`${BALL}볼 ${STRIKE}스트라이크`);
+    }
   }
 
   async play() {
     Console.print("숫자 야구 게임을 시작합니다.");
     const RANDOM_NUMBER = this.randomNumber().join("");
+    Console.print(`${RANDOM_NUMBER}`);
     const USER_NUMBER = await this.inputNumber();
     await this.calculateScore(USER_NUMBER, RANDOM_NUMBER);
   }
