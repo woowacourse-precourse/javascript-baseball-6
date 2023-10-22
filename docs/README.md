@@ -98,7 +98,18 @@
 
 **AnswerBalls**
 
-- 입력받은 배열에 따라 `balls` 필드에 `TargetBalls`를 가진다.
+- 입력받은 배열에 따라 `targetBalls` 필드에 `TargetBalls`를 가진다.
+
+<table>
+  <tr>
+    <th>필드</th>
+    <th>설명</th>
+  </tr>
+  <tr>
+    <td>targetBalls</td>
+    <td>입력받은 배열에 따라 <code>targetBalls</code> 필드에 <code>TargetBalls</code>를 가진다.</td>
+  </tr>
+</table>
 
 <table>
   <tr>
@@ -111,13 +122,13 @@
   </tr>
   <tr>
     <td>match(<i>index, ball</i>)</td>
-    <td><code>balls</code>에 입력받은 <i>index</i>가 입력받은 <code>TargetBall</code>과 같은지 판별합니다.</td>
+    <td><code>targetBalls</code>에 입력받은 <i>index</i>가 입력받은 <code>TargetBall</code>과 같은지 판별합니다.</td>
   </tr>
 </table>
 
 **SubmittedBalls**
 
-- 입력받은 배열에 따라 `balls` 필드에 `TargetBalls`를 가진다.
+- 입력받은 배열에 따라 `targetBalls` 필드에 `TargetBalls`를 가진다.
 
 <table>
   <tr>
@@ -125,7 +136,10 @@
     <th>설명</th>
   </tr>
   <tr>
-    <td>score</td>
+    <td>targetBalls</td>
+    <td>입력받은 배열에 따라 <code>targetBalls</code> 필드에 <code>TargetBalls</code>를 가진다.</td>
+  </tr>
+  <tr> <td>score</td>
     <td><code>strike</code>와 <code>ball</code>로 이루어진 객체입니다.</td>
   </tr>
 </table>
@@ -219,20 +233,20 @@
 
 - [ ] AnswerBalls
 
-  - [ ] 입력받은 배열에 따라 `balls` 필드에 `TargetBalls`를 가진다.
-  - [ ] `contains` 메서드는 입력받은 `TargetBall`을 `numbers`에 소유하고 있는지 판별한다.
-  - [ ] `match` 메서드는 `numbers`에 입력받은 `index`가 입력받은 `TargetBall`과 같은지 판별한다.
+  - [ ] 입력받은 배열에 따라 `targetBalls` 필드에 `TargetBalls`를 가진다.
+  - [ ] `contains` 메서드는 입력받은 `TargetBall`을 `targetBalls`에 소유하고 있는지 판별한다.
+  - [ ] `match` 메서드는 `targetBalls`에 입력받은 `index`가 입력받은 `TargetBall`과 같은지 판별한다.
 
 - [ ] AnswerBalls 예외 처리
 
-  - [ ] 입력받은 배열에 따라 `balls` 필드에 `TargetBalls`를 가진다.
+  - [ ] 입력받은 배열에 따라 `targetBalls` 필드에 `TargetBalls`를 가진다.
   - [ ] `contains` 메서드의 인자가 `TargetBall`가 아니라면 에러를 발생시킨다.
   - [ ] `match` 메서드의 `targetBall` 인자가 `TargetBall`이 아니라면 에러를 발생시킨다.
   - [ ] `match` 메서드의 `index` 인자가 정수가 아니라면 에러를 발생시킨다.
 
 - [ ] SubmittedBalls
 
-  - [ ] 입력받은 배열에 따라 `balls` 필드에 `TargetBalls`를 가진다.
+  - [ ] 입력받은 배열에 따라 `targetBalls` 필드에 `TargetBalls`를 가진다.
   - [ ] `grade` 메서드는 `AnswerBalls`와 비교하여 점수를 계산한다.
 
 - [ ] SubmittedBalls 예외 처리
@@ -243,7 +257,7 @@
 
 - [ ] BaseballService
 
-  - [ ] 필드값으로 `answer`와 랜덤한 `TargetBall`로 이루어진 `submittedCorrectly`를 보유한다.
+  - [ ] 필드값으로 랜덤한 `TargetBall`로 이루어진 `answer`와 `submittedCorrectly`를 보유한다.
   - [ ] `setRandomAnswer`는 `answer` 를 재설정한다.
   - [ ] `calculateScore`는 입력받은 값을 숫자인 배열로 변환해 `SubmittedBalls`를 생성후 `answer`와 비교하여 결과를 반환한다.
   - [ ] `isEnd`는 `submittedCorrectly`가 존재하여 게임의 종료 여부를 반환한다.
