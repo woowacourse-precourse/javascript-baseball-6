@@ -2,7 +2,7 @@ import * as MissionUtils from "@woowacourse/mission-utils";
 import { Console } from "@woowacourse/mission-utils";
 
 class App {
-  number() {
+  randomNumber() {
     const RANDOM_NUMBER = new Set();
     while (RANDOM_NUMBER.size !== 3) {
       RANDOM_NUMBER.add(MissionUtils.Random.pickNumberInRange(1, 9));
