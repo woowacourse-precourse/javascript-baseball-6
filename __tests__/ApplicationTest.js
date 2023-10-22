@@ -1,4 +1,5 @@
 import App from "../src/App.js";
+import {jest} from '@jest/globals'
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 const mockQuestions = (inputs) => {
@@ -48,6 +49,48 @@ describe("숫자 야구 게임", () => {
     // given
     const randoms = [1, 3, 5];
     const answers = ["1234"];
+
+    mockRandoms(randoms);
+    mockQuestions(answers);
+
+    // when & then
+    const app = new App();
+
+    await expect(app.play()).rejects.toThrow("[ERROR]");
+  });
+
+  test("Negative integer input 예외 테스트", async () => {
+    // given
+    const randoms = [1, 3, 5];
+    const answers = ["-12"];
+
+    mockRandoms(randoms);
+    mockQuestions(answers);
+
+    // when & then
+    const app = new App();
+
+    await expect(app.play()).rejects.toThrow("[ERROR]");
+  });
+
+  test("Charactor input 예외 테스트", async () => {
+    // given
+    const randoms = [1, 3, 5];
+    const answers = ["abc"];
+
+    mockRandoms(randoms);
+    mockQuestions(answers);
+
+    // when & then
+    const app = new App();
+
+    await expect(app.play()).rejects.toThrow("[ERROR]");
+  });
+
+  test("Empty string input 예외 테스트", async () => {
+    // given
+    const randoms = [1, 3, 5];
+    const answers = [""];
 
     mockRandoms(randoms);
     mockQuestions(answers);
