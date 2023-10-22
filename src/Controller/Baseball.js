@@ -7,11 +7,21 @@ class Baseball {
     this.view = new View();
   }
 
-  init() {
+  async init() {
     try {
       this.view.printGameStart();
+      await this.start(this.model.makeComputerRandomNumber());
     } catch (err) {
       this.view.printErrorMessage(err.message);
+      throw err;
+    }
+  }
+
+  async start(randomNumbers) {
+    try {
+      const userNumberInput = await this.view.readLineInput("숫자를 입력해주세요 : ");
+      const [ballCount, strikeCount] = this.model.compareNumbers(randomNumbers, userNumberInput);
+    } catch (err) {
       throw err;
     }
   }

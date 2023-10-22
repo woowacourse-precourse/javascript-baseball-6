@@ -8,6 +8,10 @@ class View {
   printErrorMessage(message) {
     Console.print(message);
   }
+
+  readLineInput(message) {
+    return Console.readLineAsync(message);
+  }
 }
 
 export default View;

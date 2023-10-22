@@ -17,6 +17,34 @@ class Model {
 
     return computerRandomNumbers;
   }
+
+  compareNumbers(computerNumbers, userNumbersInput) {
+    const userNumbers = this.changeUserNumbersArr(userNumbersInput);
+
+    return this.checkCount(computerNumbers, userNumbers);
+  }
+
+  checkCount(computerNumbers, userNumbers) {
+    let ball = 0;
+    let strike = 0;
+
+    computerNumbers.forEach((computerNum, i) => {
+      userNumbers.includes(computerNum) && i !== userNumbers.indexOf(computerNum) ? (ball += 1) : "";
+      userNumbers.includes(computerNum) && i === userNumbers.indexOf(computerNum) ? (strike += 1) : "";
+    });
+
+    return [ball, strike];
+  }
+
+  changeUserNumbersArr(userNumberInput) {
+    let userNumbers = userNumberInput.split("");
+
+    if (userNumbers.every(num => !isNaN(num))) {
+      userNumbers = userNumbers.map(num => Number(num));
+    }
+
+    return userNumbers;
+  }
 }
 
 export default Model;
