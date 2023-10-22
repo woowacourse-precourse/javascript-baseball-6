@@ -1,4 +1,4 @@
-import { Random } from '@woowacourse/mission-utils';
+import { Console, Random } from '@woowacourse/mission-utils';
 
 export function generateRandomThreeDigits() {
   const answerDigits = [];
