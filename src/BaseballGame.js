@@ -16,20 +16,21 @@ export class BaseballGame {
             try {
                 const userInput = await Console.readLineAsync('숫자를 입력해주세요: ');
                 if (isNaN(userInput)) {
-                    throw new Error("");
+                    throw new Error("[ERROR] 문자를 입력하였습니다");
                 }
 
                 const userNumber = userInput.split('').map(Number);
                 if (userNumber.length != 3) {
-                    throw new Error("");
+                    throw new Error("[ERROR] 3자리 숫자가 아닙니다");
                 }
                 if (userNumber[0] == userNumber[1] || userNumber[1] == userNumber[2] || userNumber[0] == userNumber[2]) {
-                    throw new Error("");
+                    throw new Error("[ERROR] 숫자가 잘못된 형식입니다");
                 }
 
                 pitch = this.compare(answer, userNumber);
 
             } catch (error) {
+                Console.print(error);
                 return false;
             }
         }
