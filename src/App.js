@@ -3,14 +3,15 @@ import { MissionUtils } from '@woowacourse/mission-utils';
 class App {
   async play() {
     this.infoPrint('숫자 야구 게임을 시작합니다.');
-    this.computerNumber();
+    const computerNumber = this.computerPick();
+    const userNumber = await this.userPick('숫자를 입력해주세요 : ');
   }
 
   infoPrint(message) {
     MissionUtils.Console.print(message);
   }
 
-  computerNumber() {
+  computerPick() {
     const computer = [];
     while (computer.length < 3) {
       const number = MissionUtils.Random.pickNumberInRange(1, 9);
@@ -19,6 +20,12 @@ class App {
       }
     }
     return computer;
+  }
+
+  async userPick(message) {
+    const inputValue = await MissionUtils.Console.readLineAsync(message);
+    const numberArr = inputValue.split('').map((char) => +char);
+    return numberArr;
   }
 }
 
