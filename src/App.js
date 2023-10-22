@@ -64,7 +64,7 @@ class App {
       const userSelectedNumber = await Console.readLineAsync(
         '숫자를 입력해주세요 : '
       );
-      if (this.isValidNumber(userSelectedNumber)) {
+      if (!this.isValidNumber(userSelectedNumber)) {
         throw new Error('숫자가 잘못된 형식입니다.');
       }
       return userSelectedNumber;
