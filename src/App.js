@@ -4,7 +4,6 @@ class App {
   #answer;
   #number;
   #hint;
-  #exit;
 
   constructor() {
     this.#answer = [];
@@ -87,14 +86,17 @@ class App {
     const { strike, ball } = this.#hint;
     if (strike === 3) {
       this.gameEnd();
-    } else if (strike && ball) {
-      Console.print(`${ball}볼 ${strike}스트라이크`);
-    } else if (ball) {
-      Console.print(`${ball}볼`);
-    } else if (strike) {
-      Console.print(`${strike}스트라이크`);
     } else {
-      Console.print('낫싱');
+      if (strike && ball) {
+        Console.print(`${ball}볼 ${strike}스트라이크`);
+      } else if (ball) {
+        Console.print(`${ball}볼`);
+      } else if (strike) {
+        Console.print(`${strike}스트라이크`);
+      } else {
+        Console.print('낫싱');
+      }
+      this.progressGame();
     }
   }
 
@@ -111,23 +113,39 @@ class App {
         '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'
       );
       this.isOneOrTwo(number);
-      this.#exit = Number(number);
+      if (number === '1') {
+        this.startGame();
+      } else {
+        this.endGame();
+      }
     } catch (error) {
       throw new Error(error);
     }
   }
 
-  async game() {
+  startGame() {
     this.createAnswer();
     Console.print(this.#answer);
+    this.progressGame();
+  }
+
+  async progressGame() {
+    this.#number = null;
+    this.#hint = { strike: 0, ball: 0 };
     await this.getNumber();
     this.createHint();
     this.printResult();
   }
 
+  endGame() {
+    this.#answer = null;
+    this.#number = null;
+    this.#hint = null;
+  }
+
   async play() {
     this.printStartMessage();
-    this.game();
+    this.startGame();
   }
 }
 
