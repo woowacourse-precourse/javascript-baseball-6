@@ -27,3 +27,12 @@ export function checkNumberRange(input) {
   }
   return true;
 }
+
+export function checkIsDiff(input) {
+  // 입력값이 모두 다른 수인지 확인
+  let uniqueNumber = new Set(input);
+  if (uniqueNumber.size === input.length) {
+    return true;
+  }
+  return false;
+}

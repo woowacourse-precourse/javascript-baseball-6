@@ -57,6 +57,9 @@ export default class BaseballGame {
     if (!checkNumberRange(userInput)) {
       throw new Error("[ERROR] 1~9 사이의 숫자만 입력해주세요.");
     }
+    if (!checkIsDiff(userInput)) {
+      throw new Error("[ERROR] 중복되지 않은 숫자를 입력해주세요.");
+    }
 
     return true;
   }
