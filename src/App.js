@@ -4,7 +4,7 @@ class App {
   async play() {
     this.infoPrint('숫자 야구 게임을 시작합니다.');
     const computerNumber = this.computerPick();
-    const userNumber = await this.userPick('숫자를 입력해주세요 : ');
+    const userPickValue = await this.userInput('숫자를 입력해주세요 : ');
   }
 
   infoPrint(message) {
@@ -22,10 +22,9 @@ class App {
     return computer;
   }
 
-  async userPick(message) {
+  async userInput(message) {
     const inputValue = await MissionUtils.Console.readLineAsync(message);
-    const numberArr = inputValue.split('').map((char) => +char);
-    return numberArr;
+    return inputValue;
   }
 }
 
