@@ -3,7 +3,7 @@ class App {
   async play() {
     Console.print("숫자 야구 게임을 시작합니다.");
 
-    // 컴퓨터 숫자 받는곳
+    // 컴퓨터 랜덤숫자 받기
     const computer = [];
     while (computer.length < 3) {
       const number = Random.pickNumberInRange(1, 9);
@@ -11,20 +11,19 @@ class App {
         computer.push(number);
       }
     }
+    // 입력값 받기
+    let user;
+    let userInput = [];
 
-    // 입력값 받는곳
-    let input;
-    let input_arr = [];
+    async function inputValue() {
+      user = await Console.readLineAsync("숫자를 입력해주세요 : ");
 
-    async function input_value() {
-      input = await Console.readLineAsync("숫자를 입력해주세요 : ");
-
-      input_arr = input.split("").map((value, index) => {
+      userInput = user.split("").map((value, index) => {
         if (
-          input.indexOf(value) !== index ||
+          user.indexOf(value) !== index ||
           Number(value) <= 0 ||
           !Number(value) ||
-          input.length != 3
+          user.length != 3
         ) {
           throw new Error("[ERROR] 올바른 형식이 아닙니다");
         }
@@ -32,9 +31,9 @@ class App {
         return +value;
       });
     }
-    await input_value();
-    // Console.print(input_arr);
+    await inputValue();
 
+    // 받은값 계산
     const result = {
       ball: 0,
       strike: 0,
@@ -42,11 +41,11 @@ class App {
 
     while (result.strike < 3) {
       for (const [computer_index, computer_value] of computer.entries()) {
-        for (const [index, value] of input_arr.entries()) {
-          if (computer_index == index && computer_value == value) {
+        for (const [user_index, user_value] of userInput.entries()) {
+          if (computer_index == user_index && computer_value == user_value) {
             result.strike++;
             break;
-          } else if (computer_value == value) {
+          } else if (computer_value == user_value) {
             result.ball++;
           }
         }
@@ -58,24 +57,26 @@ class App {
         break;
       } else if (result.ball > 0 && result.strike > 0) {
         Console.print(`${result.ball}볼 ${result.strike}스트라이크`);
-        await input_value();
+        await inputValue();
       } else if (result.ball > 0) {
         Console.print(`${result.ball}볼`);
-        await input_value();
+        await inputValue();
       } else if (result.strike > 0) {
         Console.print(`${result.strike}스트라이크`);
-        await input_value();
+        await inputValue();
       } else if (result.ball == 0 && result.strike == 0) {
         Console.print("낫싱");
-        await input_value();
+        await inputValue();
       }
       result.strike = 0;
       result.ball = 0;
     }
     Console.print("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
-    input = await Console.readLineAsync("");
-    if (input == 1) {
+    user = await Console.readLineAsync("");
+    if (user == 1) {
       this.play();
+    } else if (user == 2) {
+      return;
     }
   }
 }
