@@ -10,7 +10,7 @@ export class BaseballGame {
         Console.print('숫자 야구 게임을 사작합니다.');
         const computer = new Computer();
         const answer = computer.createRandomNum();
-        console.log(answer); //테스트를 위한 출력
+        
         let pitch = false;
         while (!pitch) {
             try {
