@@ -11,3 +11,5 @@ export const getThreeDistinctNumbers = () => {
 
   return result;
 };
+
+export const stringToNumberArray = (str) => str.split("").map((c) => Number(c));
