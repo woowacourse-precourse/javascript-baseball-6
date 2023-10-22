@@ -1,10 +1,5 @@
 import { Console, Random } from '@woowacourse/mission-utils';
-import {
-  isDuplicatedNumber,
-  isEmptyValue,
-  isNotValidNumberRange,
-  isOverMaxLength,
-} from './utils/validateRules.js';
+import { isDuplicatedNumber, isEmptyValue, isNotValidNumberRange, isOverMaxLength } from './utils/validateRules.js';
 import { calculateResult } from './utils/calculateResult.js';
 
 class App {
@@ -76,7 +71,7 @@ class App {
   }
 
   async askRestart() {
-    const userRestartAnswer = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+    const userRestartAnswer = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
     if (userRestartAnswer === '1') {
       this.computerRandomNumber = this.generateComputerNumber();
       await this.askNumber();
