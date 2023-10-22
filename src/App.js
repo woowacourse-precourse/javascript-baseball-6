@@ -47,6 +47,16 @@ class App {
     return false;
   }
 
+  /** 입력 받은 수를 체크해 올바른 값이 아니면 예외 처리하는 메소드 */
+  validateInput(input) {
+    // 각 자리의 수가 서로 다른 세자리 숫자인지 확인
+    const isValid = /^(?!.*(\d).*\1)\d{3}$/.test(input);
+
+    if (!isValid) {
+      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+    }
+  }
+
   async play() {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
   }
