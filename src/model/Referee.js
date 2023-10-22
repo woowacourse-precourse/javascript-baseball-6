@@ -1,5 +1,5 @@
 export default class Referee {
-  compare(playerNumbers, computerNumbers) {
+  compareNumbers = (playerNumbers, computerNumbers) => {
     const status = {
       strike: 0,
       ball: 0,
@@ -8,20 +8,33 @@ export default class Referee {
     const computerNumbersArray = Array.from(computerNumbers);
 
     playerNumbersArray.forEach((playerNumber, idx) => {
-      if (
-        computerNumbers.has(playerNumber) &&
-        computerNumbersArray[idx] === playerNumber
-      ) {
-        status.strike += 1;
-      }
-      if (
-        computerNumbers.has(playerNumber) &&
-        computerNumbersArray[idx] !== playerNumber
-      ) {
-        status.ball += 1;
-      }
+      status.strike += this.#checkStrikeCounts(
+        computerNumbers,
+        computerNumbersArray[idx],
+        playerNumber
+      );
+      status.ball += this.#checkBallCounts(
+        computerNumbers,
+        computerNumbersArray[idx],
+        playerNumber
+      );
     });
-
     return status;
-  }
+  };
+
+  #checkStrikeCounts = (
+    computerNumbers,
+    computerNumbersArrayValue,
+    playerNumber
+  ) =>
+    computerNumbers.has(playerNumber) &&
+    computerNumbersArrayValue === playerNumber;
+
+  #checkBallCounts = (
+    computerNumbers,
+    computerNumbersArrayValue,
+    playerNumber
+  ) =>
+    computerNumbers.has(playerNumber) &&
+    computerNumbersArrayValue !== playerNumber;
 }
