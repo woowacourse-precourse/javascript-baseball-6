@@ -19,7 +19,9 @@
 
 ## input 입력
 
-- input의 입력 시, XSS 공격을 막고 숫자만 입력할 수 있도록 input 의 type를 "number"로 특정
+- input의 입력 시, XSS 공격을 막고 상황에 맞는 입력값만 받을 수 있도록 함 
+  - 게임 진행 시에는 1부터 9가지의 서로다른 3자리의 수
+  - 3 스트라이크 시에는 1 또는 2
 - @woowacourse/mission-utils 의 " Console.readLineAsync"를 사용해 사용자의 값을 입력 받음
 
 ## 입력값 유효성 검사
