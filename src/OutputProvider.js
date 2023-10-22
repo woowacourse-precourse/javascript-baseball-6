@@ -1,12 +1,26 @@
+/**
+ * @typedef {Object} GameResult
+ * @property {"Correct" | "Incorrect"} result
+ * @property {string} message
+ */
+
 class OutputProvider {
-	output(strike, ball, answerLength) {
+	/**
+	 *
+	 * @param {{strike: number, ball: number}} counts - 스트라이크와 볼의 갯수
+	 * @param {number[]} answer - 정답
+	 * @returns {GameResult} -  스트라이크와 볼의 갯수에 따른 게임의 결과를 반환.
+	 */
+	calculate(counts, answer) {
+		const answerLength = answer.length;
+		const { strike, ball } = counts;
 		let result = "Incorrect",
 			message = "";
 
 		if (strike === answerLength)
 			return {
 				result: "Correct",
-				message: `${answerLength}스트라이크`,
+				message: "3스트라이크",
 			};
 
 		if (ball === 0 && strike === 0)

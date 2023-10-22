@@ -1,7 +1,10 @@
-import { Console, MissionUtils } from "@woowacourse/mission-utils";
+import { Console } from "@woowacourse/mission-utils";
 import GameManager from "./GameManager.js";
 
 class App {
+	/**
+	 * @private {number} - 몇 자리의 수를 정답으로 생성할 것인지 결정
+	 */
 	#answerSize = 3;
 
 	constructor() {
@@ -17,7 +20,7 @@ class App {
 		if (gameResult === "Restart") {
 			return await this.play();
 		}
-		return "Game Over";
+		return Console.print(gameResult);
 	}
 }
 
