@@ -16,7 +16,7 @@ export class Controller {
     }
 
     async playGame() {
-        while (true) {
+        do {
             this.model.setRandomComputerNumber();
             while (true) {
                 const hint = this.model.getHint(await this.getUserNumberInput());
@@ -26,9 +26,6 @@ export class Controller {
                     break;
                 }
             }
-            if (this.model.isGameEnded(await this.getUserGameDecision()) === true) {
-                return;
-            }
-        }
+        } while (this.model.isGameEnded(await this.getUserGameDecision()) !== true)
     }
 }
