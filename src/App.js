@@ -1,6 +1,7 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
+import { Console, Random } from "@woowacourse/mission-utils";
 // let Console = MissionUtils.Console;
-// let Random = MissionUtils.Random;
+// let Random = MissionUtils.Random; 구조분해
+
 let SCORE = {
   ball: [0, "볼"],
   strike: [0, "스트라이크"],
@@ -10,7 +11,7 @@ let SCORE = {
 function makeRandom() {
   const answer = [];
   while (answer.length < 3) {
-    const number = MissionUtils.Random.pickNumberInRange(1, 9);
+    const number = Random.pickNumberInRange(1, 9);
     if (!answer.includes(number + "")) {
       answer.push(number + "");
     }
@@ -21,19 +22,9 @@ function makeRandom() {
 
 async function getUserInput(message) {
   try {
-    const number = await MissionUtils.Console.readLineAsync(message);
-
-    // return new Promise((resolve, reject) => {
-    //   if (number.length === 3 && !isNaN(number)) {
-    //     resolve(false);
-    //   } else {
-    //     reject(new Error("[ERROR]"));
-    //   }
-    // });
+    const number = await Console.readLineAsync(message);
     return number;
   } catch (error) {
-    // MissionUtils.Console.print("[ERROR] 숫자가 잘못된 형식입니다.");
-    // throw new Error("[ERROR]");
     throw new Error("[ERROR]");
   }
 }
