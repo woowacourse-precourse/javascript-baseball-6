@@ -38,7 +38,7 @@ class App {
 
   calculateStrikeAndBall(inputValue) {
     //스트라이크인지 볼인지 계산하는 함수
-    const inputNumArr = inputValue.split("").map((numStr) => Number(numStr));
+    const inputNumArr = inputValue.split("").map(Number);
 
     const score = { strike: 0, ball: 0 };
 
