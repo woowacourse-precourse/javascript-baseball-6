@@ -1,13 +1,13 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import { GAME, ERROR } from './constant.js';
 import Computer from './Computer.js';
-import printResult from '../src/Print.js';
+import print from '../src/Print.js';
 
 class App {
   #computer;
 
   async play() {
-    MissionUtils.Console.print(GAME.START);
+    print(GAME.START);
     await this.#start();
   }
 
@@ -24,14 +24,15 @@ class App {
 
   #judgment(input) {
     const result = this.#computer.judgment(input);
-    printResult(this.#computer.getResult());
+    const { strike, ball } = this.#computer.getResult();
+    print(GAME.RESULT(strike, ball));
 
     if (result === GAME.FAIL) {
       this.#input();
     }
 
     if (result === GAME.PASS) {
-      MissionUtils.Console.print(GAME.CLEAR);
+      print(GAME.CLEAR);
       this.#getOption();
     }
   }
@@ -45,7 +46,7 @@ class App {
     }
 
     if (option === GAME.QUIT) {
-      MissionUtils.Console.print(GAME.END);
+      print(GAME.END);
     }
   }
 
