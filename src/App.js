@@ -1,4 +1,16 @@
 import { Console, Random } from "@woowacourse/mission-utils";
+import MSG from "./consts/msg.js";
+
+const { GAME, ERROR, GAME_SELECT_REPLAY } = MSG;
+const { GAME_START, GAME_END, GAME_INPUT, GAME_SUCCESS } = GAME;
+const {
+  ERROR_LENGTH_NUMBER,
+  ERROR_REPLAY_NUMBER,
+  ERROR_NONE_NUMBER,
+  ERROR_ZERO_NUMBER,
+  ERROR_DUPLICATE_NUMBER,
+  ERROR_NOT_NUMBER,
+} = ERROR;
 
 class App {
   computerNum;
@@ -6,7 +18,7 @@ class App {
   NUMBER_LENGTH = 3;
 
   async play() {
-    Console.print("숫자 야구 게임을 시작합니다.");
+    Console.print(GAME_START);
     this.createRandomNum();
     console.log(this.computerNum);
     await this.guessNum();
@@ -21,7 +33,7 @@ class App {
   async getInputNum() {
     //숫자를 입력받는 함수
     this.inputValue = "";
-    this.inputValue = await Console.readLineAsync("숫자를 입력해주세요.");
+    this.inputValue = await Console.readLineAsync(GAME_INPUT);
     this.checkInputValidate(this.inputValue);
   }
 
@@ -52,7 +64,7 @@ class App {
 
     if (strike === 3) {
       Console.print(`${strike}스트라이크`);
-      Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+      Console.print(GAME_SUCCESS);
       await this.selectPalyAgain();
       return;
     }
@@ -78,19 +90,17 @@ class App {
 
   async selectPalyAgain() {
     // 1 과 2 를 입력받아 게임을 시작할지 종료할지 검증하는 함수
-    const inputValue = await Console.readLineAsync(
-      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
-    );
+    const inputValue = await Console.readLineAsync(GAME_SELECT_REPLAY);
 
     if (parseInt(inputValue) === 1) {
       await this.play();
       return;
     }
     if (parseInt(inputValue) === 2) {
-      Console.print("게임을 종료합니다.");
+      Console.print(GAME_END);
       return;
     }
-    throw new Error("[ERROR] 1과 2의 숫자만 입력해주세요.");
+    throw new Error(ERROR_REPLAY_NUMBER);
   }
 
   createRandomNum() {
@@ -107,23 +117,23 @@ class App {
 
   checkInputValidate(inputValue) {
     if (!/^\d{3}$/.test(inputValue)) {
-      throw new Error("[ERROR] 입력 값은 3자리 숫자여야 합니다.");
+      throw new Error(ERROR_LENGTH_NUMBER);
     }
 
     if (inputValue === "") {
-      throw new Error("[ERROR] 값을 비울 수 없어요.");
+      throw new Error(ERROR_NONE_NUMBER);
     }
 
     if (this.isHasZero(inputValue)) {
-      throw new Error("[ERROR] 0을 제외한 숫자를 입력해주세요.");
+      throw new Error(ERROR_ZERO_NUMBER);
     }
 
     if (this.isDuplicate(inputValue)) {
-      throw new Error("[ERROR] 입력한 값이 중복일 수 없습니다.");
+      throw new Error(ERROR_DUPLICATE_NUMBER);
     }
 
     if (this.isNotInteger(parseInt(inputValue))) {
-      throw new Error("[ERROR] 입력 값이 숫자 혹은 정수가 아닙니다.");
+      throw new Error(ERROR_NOT_NUMBER);
     }
   }
 
