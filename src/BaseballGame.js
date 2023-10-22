@@ -5,21 +5,30 @@ import { MissionUtils } from '@woowacourse/mission-utils';
 export default class BaseballGame {
   #ballCount;
   #strikeCount;
-
+  #flage;
   constructor() {
     this.computer = new Computer();
     this.user = new User();
   }
 
-  gameStart() {
+  async gameStart() {
+    this.#ballCount = 0;
+    this.#strikeCount = 0;
+    this.#flage = 0;
     this.computer.setRandomThreeNummber();
+
     while (this.#strikeCount !== 3) {
+      if (this.#flage === 1) {
+        throw new `[ERROR]`();
+      }
       this.#ballCount = 0;
       this.#strikeCount = 0;
-      if (this.user.setThreeNummber()) {
-        return false;
-      }
-      this.comparNumber();
+      await this.user
+        .setThreeNummber()
+        .then(() => this.comparNumber())
+        .catch((error) => {
+          this.#flage = 1;
+        });
     }
     MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
   }
@@ -59,6 +68,7 @@ export default class BaseballGame {
       return parseInt(number, 10);
     } catch (error) {
       // reject 되는 경우
+      re;
     }
   }
 }

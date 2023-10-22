@@ -3,17 +3,30 @@ import BaseballGame from './BaseballGame';
 class App {
   async play() {
     MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
+
+    let errorflag = 0;
     const game = new BaseballGame();
-    if (!game.gameStart()) {
+    await game.gameStart().catch(() => {
+      errorflag = 1;
+    });
+    if (errorflag === 1) {
+      //MissionUtils.Console.print("[ERROR]");
+      throw new Error('[ERROR]');
       return;
     }
 
-    let retryflag = await game.retry();
-    while (retryflag === 1) {
-      if (!game.gameStart()) {
+    let flag = await game.retry();
+
+    while (flag === 1) {
+      await game.gameStart().catch(() => {
+        errorflag = 1;
+      });
+      if (errorflag === 1) {
+        //MissionUtils.Console.print("[ERROR]");
+        throw new Error('[ERROR]');
         return;
       }
-      retryflag = await game.retry();
+      flag = await game.retry();
     }
   }
 }

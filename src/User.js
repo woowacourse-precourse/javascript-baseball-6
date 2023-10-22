@@ -3,15 +3,13 @@ export default class User {
   #threeNummer; // 입력받은 숫자 배열
   constructor() {}
 
-  setThreeNummber() {
-    const number = this.getnumber();
+  async setThreeNummber() {
+    const number = await this.getnumber();
     this.numberToArray(number);
     if (this.#threeNummer.length !== 3) {
-      return 1;
+      throw new Error(`[ERROR]`);
     }
-    return 0;
   }
-
   numberToArray(n) {
     this.#threeNummer = [];
     const str = String(n);
@@ -30,7 +28,7 @@ export default class User {
       );
       return number;
     } catch (error) {
-      return 'nertwork err';
+      return `nertwork err`;
     }
   }
 }
