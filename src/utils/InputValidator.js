@@ -26,7 +26,8 @@ export default class InputValidator {
   }
 
   static validateInRange(input) {
-    if (![...input].every((value) => value >= '1' && value <= '9')) {
+    const regex = /^[1-9]{3}$/;
+    if (!regex.test(input)) {
       throw new Error(ERRORS.OUT_OF_RANGE);
     }
   }
