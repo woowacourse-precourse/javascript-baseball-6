@@ -11,13 +11,17 @@ class App {
     while (RANDOM_NUMBER.size !== 3) {
       RANDOM_NUMBER.add(MissionUtils.Random.pickNumberInRange(1, 9));
     }
-
     return [...new Set(RANDOM_NUMBER)];
+  }
+
+  async inputNumber() {
+    return await Console.readLineAsync("숫자를 입력해주세요: ");
   }
 
   async play() {
     Console.print("숫자 야구 게임을 시작합니다.");
-    // Console.print(this.number);
+    const USER_NUMBER = await this.inputNumber();
+    // Console.print(USER_NUMBER);
   }
 }
 
