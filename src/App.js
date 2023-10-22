@@ -80,11 +80,11 @@ class App {
             "3개의 숫자를 모두 맞히셨습니다! 게임 종료\n게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
         );
         // 예외처리
-        if (Number(END_GAME_INPUT) === 1) {
+        if (END_GAME_INPUT === "1") {
             this.createComputerNum();
             return this.compare();
         } //
-        else if (Number(END_GAME_INPUT) === 2) {
+        else if (END_GAME_INPUT === "2") {
             MissionUtils.Console.print("게임 종료");
             return;
         } //
