@@ -47,7 +47,12 @@ export default class App {
 
   validateInput(input) {
     const set = new Set(input.split(''));
-    if (isNaN(Number(input)) || set.size !== 3 || set.has('0')) {
+    if (
+      isNaN(Number(input)) ||
+      input.length > 3 ||
+      set.size !== 3 ||
+      set.has('0')
+    ) {
       throw new Error(
         '[ERROR] 사용자 입력값이 잘못되었습니다. 다시 확인해주세요.',
       );
