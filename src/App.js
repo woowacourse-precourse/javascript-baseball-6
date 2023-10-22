@@ -9,6 +9,11 @@ function pickRandomNumber(array) {
   }
 }
 
+async function start() {
+  Console.print("숫자 야구 게임을 시작합니다.");
+  return await Console.readLineAsync("숫자를 입력해주세요 : ");
+}
+
 async function finish() {
   return await Console.readLineAsync(
     "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
@@ -18,10 +23,12 @@ async function finish() {
 class App {
   async play() {
     let randomArray = [];
+    let inputData = 0;
     let resetCode = 0;
 
     while (Number(resetCode) !== 2) {
       pickRandomNumber(randomArray);
+      inputData = await start();
 
       resetCode = await finish();
     }
