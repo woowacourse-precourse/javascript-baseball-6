@@ -22,9 +22,27 @@ class App {
     return USER_NUMBER;
   }
 
+  async calculateScore(USER_NUMBER, RANDOM_NUMBER) {
+    let STRIKE = 0;
+    let BALL = 0;
+
+    for (let i = 0; i < 3; i++) {
+      if (RANDOM_NUMBER[i] === USER_NUMBER[i]) {
+        STRIKE++;
+      } else if (RANDOM_NUMBER.includes(USER_NUMBER[i])) {
+        BALL++;
+      }
+    }
+    // Console.print(`${RANDOM_NUMBER}`);
+    // Console.print(`${USER_NUMBER}`);
+    Console.print(`${BALL}볼 ${STRIKE}스트라이크`);
+  }
+
   async play() {
     Console.print("숫자 야구 게임을 시작합니다.");
-    await this.inputNumber();
+    const RANDOM_NUMBER = this.randomNumber().join("");
+    const USER_NUMBER = await this.inputNumber();
+    await this.calculateScore(USER_NUMBER, RANDOM_NUMBER);
   }
 }
 
