@@ -71,6 +71,7 @@ class App {
     else if (input.length !== 3) throw new Error("[ERROR]");
     else if (input.includes(" ")) throw new Error("[ERROR]");
     else if (input.includes("0")) throw new Error("[ERROR]");
+    else if (new Set(input).size !== 3) throw new Error("[ERROR]");
   }
 }
 
