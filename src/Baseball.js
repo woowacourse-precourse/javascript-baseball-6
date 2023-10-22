@@ -1,19 +1,38 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 class Baseball {
   #randomNumber;
-  #isPlaying;
 
   constructor() {
-    this.#isPlaying = true;
     this.makeRandomNumber();
   }
 
-  async getUserinputNumber() {
+  async gameStart() {
+    let isPlaying = true;
+    MissionUtils.Console.print(`숫자 야구 게임을 시작합니다.`);
+    while (isPlaying) {
+      const userinputNumber = await this.getUserinputNumber(false);
+      const gameResult = this.calcGameCount(userinputNumber);
+      MissionUtils.Console.print(this.makeGameResultString(gameResult));
+      if (gameResult.strikeCount === 3) {
+        MissionUtils.Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
+        MissionUtils.Console.print(
+          `게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.`
+        );
+        const userinputNumber = await this.getUserinputNumber(true);
+        if (userinputNumber === 1) {
+          this.makeRandomNumber();
+        } else {
+          isPlaying = false;
+        }
+      }
+    }
+  }
+  async getUserinputNumber(gameOver) {
     try {
       const userinput = await MissionUtils.Console.readLineAsync(
         '숫자를 입력해주세요 : '
       );
-      if (this.#isPlaying) {
+      if (!gameOver) {
         if (this.checkInputGamePlaying(userinput)) {
           return Number(userinput);
         }
@@ -26,7 +45,7 @@ class Baseball {
       }
     } catch (error) {
       // reject 되는 경우
-      console.log(error);
+      throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
     }
   }
 
