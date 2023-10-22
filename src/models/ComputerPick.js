@@ -3,7 +3,7 @@ import { GAME_RULES } from "../constants/Constants.js";
 
 class ComputerPick {
   getAnswer() {
-    let answer = [];
+    const answer = [];
     while (answer.length < GAME_RULES.LIMIT_LENGTH) {
       const number = Random.pickNumberInRange(
         GAME_RULES.MIN_NUMBER,
