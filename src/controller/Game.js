@@ -38,7 +38,7 @@ class Game {
     }
 
     if (restartInput === GAME_RULES.END_GAME) {
-      ConsoleOutput.printWinMessage(this.win);
+      // ConsoleOutput.printWinMessage(this.win);
       return;
     }
   }
