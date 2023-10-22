@@ -1,9 +1,9 @@
 import { Console } from "@woowacourse/mission-utils";
 import numConstant from "../constant/constant";
 
-function scoreCount(resultCount, idx, notingIdx) {
+function scoreCount(resultCount, idx) {
   resultCount[idx] = resultCount[idx] + 1;
-  resultCount[notingIdx] = 0;
+  resultCount[numConstant.NOTINGINDEX] = 0;
 
   return resultCount;
 }
@@ -22,19 +22,11 @@ async function userResult(computer, numSize) {
 
   for (let idx = 0; idx < numSize; idx++) {
     if (Number(stringUser[idx]) === computer[idx]) {
-      resultCount = scoreCount(
-        resultCount,
-        numConstant.STRIKEINDEX,
-        numConstant.NOTINGINDEX
-      );
+      resultCount = scoreCount(resultCount, numConstant.STRIKEINDEX);
       continue;
     }
     if (computer.includes(Number(stringUser[idx]))) {
-      resultCount = scoreCount(
-        resultCount,
-        numConstant.BALLINDEX,
-        numConstant.NOTINGINDEX
-      );
+      resultCount = scoreCount(resultCount, numConstant.BALLINDEX);
       continue;
     }
   }
