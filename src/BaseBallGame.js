@@ -23,6 +23,9 @@ class BaseBallGame {
    * 게임을 시작하고 진행합니다.
    */
   async begin() {
+    if (this.answer.length !== 3) {
+      throw new Error('[ERROR] reset 후 시작해야 합니다.');
+    }
     MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
 
     let userAnswer = '';
@@ -37,8 +40,7 @@ class BaseBallGame {
    * @returns {String}
    */
   async getUserGuessInput() {
-    const userInput =
-      await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
+    const userInput = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
     if (this.validateUserGuessInput(userInput)) {
       return userInput;
     }
