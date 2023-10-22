@@ -1,29 +1,28 @@
 import { Console } from "@woowacourse/mission-utils";
+import * as m from "./constants/message";
 
 export class User {
   async inputAnswer() {
     try {
-      const userInput = await Console.readLineAsync("숫자를 입력해주세요 : ");
+      const userInput = await Console.readLineAsync(m.INPUT_MESSAGE);
       if (!this.isValidAnswerInput(userInput)) {
-        throw Error("[ERROR] 숫자가 잘못된 형식입니다.");
+        throw Error(m.INPUT_ERROR);
       }
       return userInput;
     } catch (error) {
-      throw Error("[ERROR] 숫자가 잘못된 형식입니다.");
+      throw Error(m.INPUT_ERROR);
     }
   }
 
   async inputRetry() {
     try {
-      const userInput = await Console.readLineAsync(
-        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. : "
-      );
+      const userInput = await Console.readLineAsync(m.RESTART_MESSAGE);
       if (!this.isValidRetryInput(userInput)) {
-        throw Error("[ERROR] 숫자가 잘못된 형식입니다.");
+        throw new Error(m.INPUT_ERROR);
       }
       return userInput;
     } catch (error) {
-      throw Error("[ERROR] 숫자가 잘못된 형식입니다.");
+      throw new Error(m.INPUT_ERROR);
     }
   }
 
