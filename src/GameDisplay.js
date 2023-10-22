@@ -1,5 +1,5 @@
-import { Console } from "@woowacourse/mission-utils";
-import { GAME_START_MESSAGE, GAME_OVER_MESSAGE, GAME_END_INSTRUCTION, STRIKE_TEXT, BALL_TEXT, NOTHING_TEXT } from "./constants/MessageConstants.js";
+import { Console } from '@woowacourse/mission-utils';
+import { GAME_START_MESSAGE, GAME_OVER_MESSAGE, GAME_END_INSTRUCTION, STRIKE_TEXT, BALL_TEXT, NOTHING_TEXT } from './constants/MessageConstants.js';
 
 export default class GameDisplay {
   showStartMessage() {

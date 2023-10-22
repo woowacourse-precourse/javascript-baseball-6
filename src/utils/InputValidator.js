@@ -3,7 +3,7 @@ const ERRORS = {
   NOT_THREE_DIGITS: '[ERROR] 입력값은 3자리 숫자이어야 합니다.',
   DUPLICATE_DIGITS: '[ERROR] 입력값은 중복된 숫자를 포함할 수 없습니다.',
   OUT_OF_RANGE: '[ERROR] 입력값은 1부터 9까지의 숫자로 이루어져야 합니다.',
-  INVALID_END_INPUT: '[ERROR] 1과 2만 입력할 수 있습니다.'
+  INVALID_END_INPUT: '[ERROR] 1과 2만 입력할 수 있습니다.',
 };
 
 export default class InputValidator {
@@ -26,7 +26,7 @@ export default class InputValidator {
   }
 
   static validateInRange(input) {
-    if (![...input].every(c => c >= '1' && c <= '9')) {
+    if (![...input].every((value) => value >= '1' && value <= '9')) {
       throw new Error(ERRORS.OUT_OF_RANGE);
     }
   }

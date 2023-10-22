@@ -1,9 +1,9 @@
-import User from "./User.js";
+import User from './User.js';
 import Computer from './Computer.js';
-import GameDisplay from "./GameDisplay.js";
+import GameDisplay from './GameDisplay.js';
 import StrikeAndBallCalculator from './StrikeAndBallCalculator.js';
-import InputValidator from "./utils/InputValidator.js";
-import { RESTART_GAME } from "./constants/GameConstants.js";
+import InputValidator from './utils/InputValidator.js';
+import { RESTART_GAME } from './constants/GameConstants.js';
 
 export default class BaseballGame {
   constructor() {
@@ -34,11 +34,11 @@ export default class BaseballGame {
 
   async showGameEnd() {
     const gameEndChoice = await this.display.showEndMessage();
-    InputValidator.validateGameEndInput(gameEndChoice); 
+    InputValidator.validateGameEndInput(gameEndChoice);
 
     if (gameEndChoice === RESTART_GAME) {
       return this.start();
     }
-    return;
+    return false;
   }
 }
