@@ -42,6 +42,7 @@ class App {
   score(computer, numbers) {
     let strikes = 0;
     let balls = 0;
+    let answer = 0;
 
     for (let i = 0; i < 3; i++) {
       //같은 수, 같은 자리
@@ -55,7 +56,11 @@ class App {
     }
 
     if (strikes === 0 && balls === 0) {
-      Console.print("낫싱");
+      answer = "낫싱";
+    } else if (strikes === 0 && balls > 0) {
+      answer = "${balls}";
+    } else if (strikes > 0 && balls === 0) {
+      answer = "${strikes}"
     }
   }
 
