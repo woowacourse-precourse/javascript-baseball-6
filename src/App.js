@@ -16,15 +16,8 @@ class App {
     while (gameContinue) {
       const userNumber = await CustomUtils.getUserNumber();
       const score = CustomUtils.getScore(computer, userNumber);
-      MissionUtils.Console.print(
-        `컴퓨터: ${computer.join("")}, 사용자: ${userNumber.join("")}, 결과: ${
-          score.ball
-        }볼 ${score.strike}스트라이크`
-      );
-      if (score.strike === 3) {
-        gameContinue = false;
-        MissionUtils.Console.print(Messages.GAME_END);
-      }
+      MissionUtils.Console.print(computer, score);
+      gameContinue = CustomUtils.printScore(score);
     }
   }
 }

@@ -46,4 +46,23 @@ const getScore = (computer, userNumber) => {
   return { ball, strike };
 };
 
-export default { getUserNumber, getScore };
+const printScore = (score) => {
+  if (score.strike === 3) {
+    MissionUtils.Console.print(`${score.strike}스트라이크`);
+    MissionUtils.Console.print(Messages.GAME_END);
+    return false;
+  }
+
+  if (score.ball === 0 && score.strike === 0) {
+    MissionUtils.Console.print(Messages.NOTHING);
+    return true;
+  }
+
+  const ballMessage = score.ball > 0 ? `${score.ball}볼` : "";
+  const strikeMessage = score.strike > 0 ? `${score.strike}스트라이크` : "";
+  MissionUtils.Console.print(`${ballMessage} ${strikeMessage}`.trim());
+
+  return true;
+};
+
+export default { getUserNumber, getScore, printScore };
