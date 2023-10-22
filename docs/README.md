@@ -22,7 +22,8 @@
 
 ### 컴퓨터 랜덤값
 > 1부터 9사이의 3개의 랜덤 숫자가 배열로 반환된 값을 문자열로 변환하여 사용한다.
-- [ ] `MissionUtils.Random.pickNumberInRange(startInclusive, endInclusive, count)`
+- [ ] `Random.pickNumberInRange(startInclusive, endInclusive, count)`
+- [ ] `string`으로 변환
 
 ### 사용자 입력값
 - [ ] `string`으로 세 자리 받아온다.

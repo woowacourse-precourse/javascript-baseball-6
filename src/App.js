@@ -18,7 +18,6 @@ class App {
       console.log(userValue);
       this.whetherGameContinuesNot(computerValue, userValue);
     });
-    return userValue;
   }
 
   checkValues(userValue, computerValue) {
@@ -61,7 +60,10 @@ class App {
     
   }
 
-  async play() {}
+  async play() {
+    this.startMsg();
+    this.getUserValue();
+  }
 }
 
 export default App;
