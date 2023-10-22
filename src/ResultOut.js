@@ -8,7 +8,7 @@ export function resultOut(random, inputNo) {
             return parseInt(v);
         }
     });
-    if(new Set([...INPUT]).size !== 3){
+    if(new Set([...INPUT]).size !== 3 || new Set([...INPUT]).size !== INPUT){
         throw new Error('[ERROR] 서로 다른 숫자 3개를 입력해주세요');
     }
 
