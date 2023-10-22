@@ -1,5 +1,4 @@
-import { Console } from '@woowacourse/mission-utils';
-import { generateComputerNumber } from './utils/generateComputerNumber.js';
+import { Console, Random } from '@woowacourse/mission-utils';
 import { validateUserNumber } from './utils/validateUserNumber.js';
 import { calculateResult } from './utils/calculateResult.js';
 import { printResult } from './utils/printResult.js';
@@ -11,8 +10,19 @@ class App {
 
   async play() {
     Console.print('숫자 야구 게임을 시작합니다');
-    this.computerRandomNumber = generateComputerNumber();
+    this.computerRandomNumber = this.generateComputerNumber();
     await this.gameProgress();
+  }
+
+  generateComputerNumber() {
+    const computerNumber = [];
+    while (computerNumber.length < 3) {
+      const randomNumber = Random.pickNumberInRange(1, 9);
+      if (!computerNumber.includes(randomNumber)) {
+        computerNumber.push(randomNumber);
+      }
+    }
+    return computerNumber.join('');
   }
 
   async gameProgress() {
@@ -34,7 +44,7 @@ class App {
   async askRestart() {
     const userRestartAnswer = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
     if (userRestartAnswer === '1') {
-      this.computerRandomNumber = generateComputerNumber();
+      this.computerRandomNumber = this.generateComputerNumber();
       await this.gameProgress();
     }
   }
