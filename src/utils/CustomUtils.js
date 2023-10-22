@@ -66,4 +66,12 @@ const printScore = (score) => {
   return true;
 };
 
-export default { getUserNumber, getScore, printScore };
+const getRestartChoice = async () => {
+  const RESTART_CHOICE = await MissionUtils.Console.readLineAsync(
+    Messages.GAME_RESTART
+  );
+  if (RESTART_CHOICE === "1") return true;
+  if (RESTART_CHOICE === "2") return false;
+};
+
+export default { getUserNumber, getScore, printScore, getRestartChoice };

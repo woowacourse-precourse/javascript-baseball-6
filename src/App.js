@@ -20,6 +20,11 @@ class App {
       MissionUtils.Console.print(computer, score);
       gameContinue = CustomUtils.printScore(score);
     }
+    if (await CustomUtils.getRestartChoice()) {
+      this.play();
+    } else {
+      MissionUtils.Console.print(Messages.GAME_EXIT);
+    }
   }
 }
 
