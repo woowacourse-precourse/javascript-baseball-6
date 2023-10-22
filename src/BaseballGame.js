@@ -4,6 +4,7 @@ import GameDisplay from './GameDisplay.js';
 import { calculateStrikeAndBall } from './StrikeAndBallCalculator.js';
 import InputValidator from './utils/InputValidator.js';
 import { RESTART_GAME } from './constants/GameConstants.js';
+import { WINNING_STRIKE_COUNT } from './constants/NumberConstants.js';
 
 export default class BaseballGame {
   constructor() {
@@ -20,13 +21,13 @@ export default class BaseballGame {
   }
 
   async playGame(computerNumbers) {
-    let isEqual = false;
-    while (!isEqual) {
+    let isGameWon = false;
+    while (!isGameWon) {
       const userNumbers = await this.user.getInput();
       const { strike, ball } = calculateStrikeAndBall(userNumbers, computerNumbers);
       this.display.showResult(strike, ball);
-      isEqual = (strike === 3);
-      if (isEqual) {
+      isGameWon = (strike === WINNING_STRIKE_COUNT);
+      if (isGameWon) {
         this.display.showWinMessage();
       }
     }
