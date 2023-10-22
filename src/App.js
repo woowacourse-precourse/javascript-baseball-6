@@ -28,18 +28,28 @@ class App {
   }
 
   //값이 유효한지 확인, 유효하지 않으면 throw
-
   exception(numbers) {
-    if(numbers.length !==3){
+    if (numbers.length !== 3) {
       throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
     }
-    if(!/^\d+$/.test(numbers)){
+    if (!/^\d+$/.test(numbers)) {
       throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
     }
   }
 
+  //구 판정
+  ball(){
+    
+  }
+
   async play() {
     this.start();
+    const userNumbers = await this.getNumbers();
+    try {
+      this.exception(userNumbers);
+    } catch (error) {
+      Console.print(error.message);
+    }
   }
 }
 
