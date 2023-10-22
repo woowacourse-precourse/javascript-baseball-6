@@ -1,7 +1,7 @@
-import { MissionUtils } from '@woowacourse/mission-utils';
 import { GAME, ERROR } from './constant.js';
 import Computer from './Computer.js';
 import print from '../src/Print.js';
+import inputValue from '../src/Input.js';
 
 class App {
   #computer;
@@ -17,32 +17,32 @@ class App {
   }
 
   async #input() {
-    const input = await MissionUtils.Console.readLineAsync(GAME.INPUT_NUMBER);
+    const input = await inputValue(GAME.INPUT_NUMBER);
     App.#validateInput(input);
-    this.#judgment(input);
+    await this.#judgment(input);
   }
 
-  #judgment(input) {
+  async #judgment(input) {
     const result = this.#computer.judgment(input);
     const { strike, ball } = this.#computer.getResult();
     print(GAME.RESULT(strike, ball));
 
     if (result === GAME.FAIL) {
-      this.#input();
+      await this.#input();
     }
 
     if (result === GAME.PASS) {
       print(GAME.CLEAR);
-      this.#getOption();
+      await this.#getOption();
     }
   }
 
   async #getOption() {
-    const option = await MissionUtils.Console.readLineAsync(GAME.OPTION);
+    const option = await inputValue(GAME.OPTION);
     App.#validateOption(option);
 
     if (option === GAME.RESTART) {
-      this.#start();
+      await this.#start();
     }
 
     if (option === GAME.QUIT) {
