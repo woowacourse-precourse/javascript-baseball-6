@@ -110,7 +110,7 @@ describe("숫자 야구 게임", () => {
     const randoms = [1, 3, 5];
     const answers = ["135", "3"];
     const logSpy = getLogSpy();
-    const messages = ["3스트라이크", , "시도 횟수 : 1 회"];
+    const messages = ["3스트라이크", "시도 횟수 : 1 회"];
 
     mockRandoms(randoms);
     mockQuestions(answers);
