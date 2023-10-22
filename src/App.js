@@ -3,10 +3,16 @@ import { enterNumber } from "./player.js";
 
 class App {
   async play() {
-    const computerNum = pickRandomNumber();
-    enterNumber();
-    // judgeNumber(number);
-    // endGame();
+    let isRunning = true;
+    
+    while(isRunning == true) {
+      const computerNum = pickRandomNumber();
+      console.log(computerNum);
+      await enterNumber();
+      // judgeNumber(number);
+      // isRunning = await endGame();
+      isRunning = false; // 임시
+    }
   }
 }
 
