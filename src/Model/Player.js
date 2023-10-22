@@ -22,4 +22,8 @@ export class Player {
     if (!numberList.every(isBaseballNumber))
       throw new CustomError(MESSAGE.ERROR.OUT_OF_RANGE);
   }
+
+  get _numberList() {
+    return this.#numberList;
+  }
 }
