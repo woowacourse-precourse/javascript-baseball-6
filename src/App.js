@@ -15,10 +15,18 @@ class App extends GameUtil{
     async play(){
         try{
         const userNumber = await Console.readLineAsync('숫자를 입력해주세요 : ');
+        await this.validateInput(userNumber);
         }catch(error){
             Console.print(error);
         }
     }
+
+    validateInput(userNumber){
+        const result = super.validateInput(userNumber);
+        if(result === 'PASS') return this.countNumberResult(userNumber);
+        throw new Error(result);
+    }
+
 }
 
 const app = new App();
