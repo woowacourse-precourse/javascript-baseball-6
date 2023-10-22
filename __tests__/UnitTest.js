@@ -26,12 +26,6 @@ const getPrintLogSpy = () => {
 describe("메서드 유닛 테스트", () => {
   const game = new BaseballGame();
 
-  const getRestartLogSpy = () => {
-    const logSpy = jest.spyOn(game, "playGame");
-    logSpy.mockClear();
-    return logSpy;
-  };
-
   test("getRandomNumbers 메서드", () => {
     for (let i = 0; i < 100; i++) {
       const numbers = game.getRandomNumbers();
@@ -102,7 +96,7 @@ describe("메서드 유닛 테스트", () => {
     });
   });
 
-  test("endGame 재시작 확인", async () => {
+  test("handleEnd 재시작 확인", async () => {
     async function endGameTest(answers) {
       mockQuestions(answers);
 
@@ -116,7 +110,7 @@ describe("메서드 유닛 테스트", () => {
         await Promise.all(
           Array.from(
             { length: numberOfEndGameCalled },
-            async () => await game.endGame()
+            async () => await game.handleEnd()
           )
         );
       };

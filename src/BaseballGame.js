@@ -2,8 +2,10 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 
 class BaseballGame {
   #GAME_NUMBER_LEN = 3;
+
   /**@type {number[]} */
   #computerNumbers;
+
   /**@type {number[]} */
   #userNumbers;
 
@@ -14,7 +16,7 @@ class BaseballGame {
 
     await this.handleUser();
 
-    await this.endGame();
+    await this.handleEnd();
   }
 
   setComputerNumbers() {
@@ -22,7 +24,7 @@ class BaseballGame {
   }
 
   /**
-   *
+   * FIXME: get으로 시작하는 메서드는 게터함수를 표현한 것 같다. 수정이 필요할 듯.
    * @returns {number[]}
    */
   getRandomNumbers() {
@@ -39,8 +41,8 @@ class BaseballGame {
 
   async handleUser() {
     await this.handleUserInput();
-    const IS_RETRY = this.handleUserResult();
-    if (IS_RETRY) await this.handleUser();
+    const IS_REINPUT = this.handleUserResult();
+    if (IS_REINPUT) await this.handleUser();
   }
 
   async handleUserInput() {
@@ -69,6 +71,10 @@ class BaseballGame {
       throw new Error("[ERROR] 입력한 값에 중복이 있습니다.");
   }
 
+  /**
+   * FIXME: 재시작 여부를 반환하는 함수를 새로 짜는게 좋을듯
+   * @returns { boolean } 재시작 여부를 반환합니다.
+   */
   handleUserResult() {
     const { strike, ball } = this.getStrikeAndBall();
 
@@ -78,6 +84,10 @@ class BaseballGame {
     return true;
   }
 
+  /**
+   *
+   * @returns {{strike : number, ball : number}}
+   */
   getStrikeAndBall() {
     let strike = 0;
     let ball = 0;
@@ -101,16 +111,16 @@ class BaseballGame {
     else MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
   }
 
-  async endGame() {
-    const input = await this.getUserInputRetry();
+  async handleEnd() {
+    const input = await this.readUserInputRetry();
 
     this.validGameEndInput(input);
 
-    const IS_RETRY = await this.endGameResult(input);
-    if (IS_RETRY) await this.playGame();
+    const IS_GAME_RETRY = await this.handleEndResult(input);
+    if (IS_GAME_RETRY) await this.playGame();
   }
 
-  async getUserInputRetry() {
+  async readUserInputRetry() {
     return await MissionUtils.Console.readLineAsync(
       "3개의 숫자를 모두 맞히셨습니다! 게임 종료 \n게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. \n"
     );
@@ -121,7 +131,12 @@ class BaseballGame {
       throw new Error("[ERROR] 잘못 입력 하셨습니다.");
   }
 
-  async endGameResult(input) {
+  /**
+   *
+   * @param { "1" | "2" } input
+   * @returns { boolean }
+   */
+  async handleEndResult(input) {
     if (input === "1") return true;
     if (input === "2") {
       MissionUtils.Console.print("게임 종료");

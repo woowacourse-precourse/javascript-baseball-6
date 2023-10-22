@@ -26,7 +26,7 @@
    2. [x] handleUserResult
       - getStrikeAndBall, printStrikeAndBall 볼, 스트라이크 출력
       - 정상값 리턴
-3. [x] endGame
+3. [x] handleEnd
    1. 입력 및 검사.
    2. 정상 작동 확인.
 
@@ -35,3 +35,4 @@
 1. SOLID 법칙! 적용
 2. try catch문 적용
 3. 항상 테스트는 통과해야할 것.
+4. Airbnb 스타일 가이드 적용!
