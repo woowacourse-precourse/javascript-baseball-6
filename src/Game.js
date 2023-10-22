@@ -59,18 +59,14 @@ class Game {
   }
 
   async start() {
-    try {
-      while (!this.isUserGuessRight) {
-        const INPUT = await MissionUtils.Console.readLineAsync(
-          "숫자를 입력해주세요 : "
-        );
-        isInputValid(INPUT);
-        const GUESSES = INPUT.split("").map(Number);
-        const RESULT = this.compare(GUESSES);
-        this.printResult(RESULT);
-      }
-    } catch (e) {
-      print(e.message);
+    while (!this.isUserGuessRight) {
+      const INPUT = await MissionUtils.Console.readLineAsync(
+        "숫자를 입력해주세요 : "
+      );
+      isInputValid(INPUT);
+      const GUESSES = INPUT.split("").map(Number);
+      const RESULT = this.compare(GUESSES);
+      this.printResult(RESULT);
     }
     print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
   }
