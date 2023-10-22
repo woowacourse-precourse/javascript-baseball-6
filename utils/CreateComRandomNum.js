@@ -7,7 +7,7 @@ const createRandomNum = () => {
     if (!comNum.includes(num))
       comNum.push(num);
   }
-  Console.print(comNum);
+  Console.print("컴퓨터의 숫자: ", comNum);
 }
 
 module.exports = createRandomNum;
