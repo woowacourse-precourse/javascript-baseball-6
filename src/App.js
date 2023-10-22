@@ -7,6 +7,4 @@ class App {
     }
 }
 
-const san = new App();
-san.play();
 export default App;

@@ -1,13 +1,15 @@
 export function resultOut(random, inputNo) {
     const INPUT = inputNo.split('').map(v => {
         if (isNaN(v)) {
-            throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+            throw new Error('[ERROR] 숫자만 입력해주세요');
+        } else if (v === '0') {
+            throw new Error('[ERROR] 0을 입력하면 안됩니다.')
         } else {
             return parseInt(v);
         }
     });
     if(new Set([...INPUT]).size !== 3){
-        throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+        throw new Error('[ERROR] 서로 다른 숫자 3개를 입력해주세요');
     }
 
     let score = new Array(2).fill(0);
@@ -28,7 +30,5 @@ export function resultOut(random, inputNo) {
         return `${score[0]}볼`;
     }else if (score[0] === 0 && score[1] === 0) {
         return `낫싱`;
-    } else {
-        throw new Error('[ERROR]');
     }
 }
