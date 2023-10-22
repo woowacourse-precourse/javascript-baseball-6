@@ -65,7 +65,7 @@ class Game {
     const { strike, ball } = score;
 
     if (strike === 3) {
-      Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+      Console.print("3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료");
       return true;
     }
 
@@ -75,7 +75,10 @@ class Game {
       Console.print(`${strike}스트라이크`);
     } else if (strike === 0 && ball !== 0) {
       Console.print(`${ball}볼`);
+    } else if (strike !== 0 && ball !== 0) {
+      Console.print(`${ball}볼 ${strike}스트라이크 `);
     }
+    return false;
   }
 
   async playGame() {
