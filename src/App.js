@@ -3,11 +3,37 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 async function getUserNumber() {
   try {
     const userInput = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
-    return userInput.split('').map(Number);
+    const userNumbers = userInput.split('').map(Number);
+
+    if(!isValidInput(userNumbers)) {
+      throw (new Error('[ERROR] 숫자가 잘못된 형식입니다.'));
+    }
+
+    return userNumbers;
   } catch (error) {
-    // reject 되는 경우 처리
+    console.error(error.message);
+    process.exit(1);
   }
 }
+
+const isValidInput = (userNumbers) => {
+  if(userNumbers.length !== 3) {
+    return false;
+  }
+
+  const set = new Set(userNumbers);
+  if(set.size !== userNumbers.length) {
+    return false;
+  }
+
+  for(const num of userNumbers) {
+    if(num < 1 || num > 9) {
+      return false;
+    }
+  }
+
+  return true;
+};
 
 class App {
   async play() {
@@ -47,7 +73,7 @@ const generateComputerAnswer = () => {
     }
   }
   return computerAnswer;
-}
+};
 
 const calculateResult = (computerAnswer, userGuess) => {
   let strike = 0;
