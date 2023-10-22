@@ -22,20 +22,19 @@ class App {
 
   async getUserInput() {
     this.Strike = 0;
-    try {
-      const userInput = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
-      const result = this.isValidUserInput(userInput);
-      this.userBaseballNumber = userInput.split('').map(Number);
-    } catch (error) {
-      console.error('[Error] ', error.message)
-    }
+    const userInput = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
+    this.isValidUserInput(userInput);
+    this.userBaseballNumber = userInput.split('').map(Number);
   }
 
   isValidUserInput(userInput) {
-    if (userInput.length !== 3) {
-      throw new Error('3자리를 입력해주세요');
+    if (typeof userInput === "undefined") {
+      throw new Error('[ERROR] undefined입니다. 숫자를 입력해주세요.');
     }
-    // 이후 예외조건 추가
+
+    if (userInput.length !== 3) {
+      throw new Error('[ERROR] 3자리를 입력해주세요');
+    }
   }
 
   countMatchingNumbers() {
@@ -58,7 +57,7 @@ class App {
       MissionUtils.Console.print('낫싱');
 
     if (this.Balls > 0 && this.Strike > 0)
-      MissionUtils.Console.print(`${this.Balls}` + '볼' + `${this.Strike}` + ' 스트라이크');
+      MissionUtils.Console.print(`${this.Balls}` + '볼 ' + `${this.Strike}` + '스트라이크');
 
     if (this.Balls > 0 && this.Strike == 0)
       MissionUtils.Console.print(`${this.Balls}` + '볼');
@@ -81,12 +80,8 @@ class App {
 
   async askRestartGame() {
     let result;
-    try {
-      const userInput = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
-      result = this.isValidUserInputRestartGame(userInput);
-    } catch (error) {
-      console.error('[Error] ', error.message)
-    }
+    const userInput = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
+    result = this.isValidUserInputRestartGame(userInput);
 
     if (result == 1) {
       // 이 부분에서 모듈화 해야겠다는 생각이 듦
@@ -99,7 +94,7 @@ class App {
   isValidUserInputRestartGame(userInput) {
     userInput = Number(userInput);
     if (userInput != 1 && userInput != 2) {
-      throw new Error('1 또는 2를 입력해주세요');
+      throw new Error('[Error] 1 또는 2를 입력해주세요');
     }
 
     return userInput;
