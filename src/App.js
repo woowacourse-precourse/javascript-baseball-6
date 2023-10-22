@@ -4,9 +4,23 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 // Random.<Method Name> 을 통해 랜덤을 사용할 것
 // Console.<Method Name> 을 통해 콘솔을 사용할 것
 
+class ConsoleToClose extends MissionUtils.Console {
+  constructor() {
+    super();
+  }
+
+  close() {
+    if (this.readlineInterface) {
+      this.readlineInterface.close();
+    }
+  }
+}
+
 class App {
   constructor() {
-    this.checkFirstRun = true; // 플래그 변수
+    // 플래그 변수, SystemStartMent가 시스템 시작 후 한 번만 실행되어야 하기에 조건 추가
+    this.checkFirstRun = true;
+    this.console = new ConsoleToClose();
   }
 
   systemStartMent() {
@@ -32,9 +46,7 @@ class App {
       let checkMessage = this.systemCheckAnswer(inputAnswer, answerNumArr);
       // return된 결과를 출력하기
       MissionUtils.Console.print(checkMessage);
-      if (checkMessage === "3스트라이크") {
-        break;
-      }
+      if (checkMessage === "3스트라이크") break;
     }
   }
 
@@ -84,6 +96,7 @@ class App {
 
   systemRestartOrQuitProcess(restartOrQuitNum) {
     if (restartOrQuitNum === "2") {
+      this.console.close();
       return;
     } else if (restartOrQuitNum !== "1") {
       throw new Error("[ERROR] 잘못된 접근입니다");
