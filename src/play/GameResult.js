@@ -1,3 +1,4 @@
+import { Console } from "@woowacourse/mission-utils";
 import BetweenNumber from './BetweenNumber';
 import * as Constants from '../const/Messages';
 
@@ -10,18 +11,17 @@ export const showResult = (computerNumber, playerNumber) => {
   let ball = 0;
 
   for (let i = 0; i < 3; i++) {
-      if (computerArray[i] === playerArray[i]) { strike++; }
-      else if (playerArray.includes(computerArray[i])) { ball++; }
+    if (computerArray[i] === playerArray[i]) { 
+      strike++; 
+    } else if (playerArray.includes(computerArray[i])) {
+      ball++; 
+    }
   }
 
   const result = [];
   if (strike > 0) result.push(`${strike} ${Constants.STRIKE}`);
   if (ball > 0) result.push(`${ball} ${Constants.BALL}`);
 
-  if (strike === 3) {
-    Console.print(Constants.GOAL);
-    return;
-  }
   if (result.length === 0) {
     Console.print(Constants.NOTHING);
     return;
