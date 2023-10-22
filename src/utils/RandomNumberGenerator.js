@@ -10,5 +10,4 @@ const RandomNumberGenerator = {
     return randomNumbers;
   },
 };
-
 export default RandomNumberGenerator;

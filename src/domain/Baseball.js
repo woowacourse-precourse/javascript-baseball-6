@@ -1,4 +1,4 @@
-import RandomNumberGenerator from "../utils/RandomNumberGenerator.mjs";
+import RandomNumberGenerator from "../utils/RandomNumberGenerator.js";
 
 class Baseball {
   #answer;
@@ -7,7 +7,6 @@ class Baseball {
     this.#answer = randomNumber;
   }
 
-  // input = Array 형태
   getStrikeCount(input) {
     let count = 0;
 
@@ -18,7 +17,6 @@ class Baseball {
     return count;
   }
 
-  // input = Array 형태
   getBallCount(input, strikeCount) {
     let count = 0;
 
