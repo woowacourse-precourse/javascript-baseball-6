@@ -102,6 +102,7 @@ class App {
 
       if (userInput === "1") {
         this.setRandomNumber();
+        this.setUserInput(this.setRandomNumber());
       } else if (userInput === "2") {
         Console.print("게임 종료");
       } else {
