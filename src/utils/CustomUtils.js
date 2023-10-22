@@ -33,4 +33,17 @@ const isValidInput = (input) => {
   return true;
 };
 
-export default { getUserNumber };
+const getScore = (computer, userNumber) => {
+  let strike = 0;
+  let ball = 0;
+  for (let i = 0; i < computer.length; i++) {
+    if (computer[i] === userNumber[i]) {
+      strike++;
+    } else if (computer.includes(userNumber[i])) {
+      ball++;
+    }
+  }
+  return { ball, strike };
+};
+
+export default { getUserNumber, getScore };
