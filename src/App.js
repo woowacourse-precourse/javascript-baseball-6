@@ -1,10 +1,10 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import { GAME_SET } from './Game/game.js';
+import { GameSet } from './Game/game.js';
 
 class App {
   async play() {
     MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
-    await GAME_SET();
+    await GameSet();
   }
 }
 const app = new App();
