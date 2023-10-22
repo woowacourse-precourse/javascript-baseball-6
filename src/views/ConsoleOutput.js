@@ -24,6 +24,10 @@ const ConsoleOutput = {
   printEndMessage() {
     Console.print(MESSAGES.GAME_OVER);
   },
+
+  printWinMessage(win) {
+    Console.print(win + MESSAGES.GAME_WIN);
+  },
 };
 
 export default ConsoleOutput;

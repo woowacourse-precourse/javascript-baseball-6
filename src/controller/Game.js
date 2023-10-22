@@ -5,6 +5,10 @@ import GameCalculation from "../models/GameCalculation.js";
 import { GAME_RULES } from "../constants/Constants.js";
 
 class Game {
+  constructor() {
+    this.win = 0;
+  }
+
   async startGame() {
     this.answer = new ComputerPick().getAnswer();
     ConsoleOutput.printStartMessage();
@@ -19,6 +23,7 @@ class Game {
       const result = GameCalculation(userInput, this.answer);
       if (result.strike === GAME_RULES.LIMIT_LENGTH) {
         strikeOut = GAME_RULES.LIMIT_LENGTH;
+        this.win++;
       }
       ConsoleOutput.printResultMessage(result.ball, result.strike);
     }
@@ -32,7 +37,10 @@ class Game {
       return this.startGame();
     }
 
-    return;
+    if (restartInput === GAME_RULES.END_GAME) {
+      ConsoleOutput.printWinMessage(this.win);
+      return;
+    }
   }
 }
 
