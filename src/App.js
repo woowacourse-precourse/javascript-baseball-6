@@ -4,6 +4,7 @@ import * as func from "./Functions.js";
 class App {
   async play() {
     MissionUtils.Console.print(func.createRandomNumber());
+    func.takeUserInput();
   }
 }
 
