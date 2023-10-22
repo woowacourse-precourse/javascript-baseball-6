@@ -12,7 +12,7 @@
    - `Random.pickNumberInRange()`은 범위 내에서 랜덤한 숫자를 반환.
    - 길이가 3인 배열 `strikeZoneNumber`을 만든다.
 
-3. 입력값 유효성 검사 후 할당 `makePitchingNumber()`
+3. 입력값 유효성 검사 후 사용자 입력 배열 생성 `makePitchingNumber()`
 
    - 숫자 입력을 받고, 입력값 유효성 검사 후 pitchingNumber에 할당
    - 유효성 검사는 따로 메서드로 분리
