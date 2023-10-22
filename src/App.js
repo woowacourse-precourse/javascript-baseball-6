@@ -25,58 +25,37 @@ import * as CONSTANT from "./constants.js";
 
 class App {
   async play() {
-    const getMessage = (ball = 0, strike = 0) => {
-      return ball === 0 && strike === 0 ? "낫싱" : `${ball}볼 ${strike}스트라이크`;
-    };
-
     //게임시작
-
     let isEnd = false;
     MissionUtils.Console.print(CONSTANT.GAME_START_MESSAGE);
     while (!isEnd) {
-      //TODO 함수 분리
-      const computerNumbersArray = [];
-      while (computerNumbersArray.length < 3) {
-        const number = MissionUtils.Random.pickNumberInRange(1, 9);
-        if (!computerNumbersArray.includes(number)) computerNumbersArray.push(number);
-      }
-
-      MissionUtils.Console.print(computerNumbersArray); //test용 출력
-      let isWine = false;
-      while (!isWine) {
-        let userNumber;
-        // 에러 체크
-
-        userNumber = await MissionUtils.Console.readLineAsync(CONSTANT.QUESTION_MESSAGE);
-        //TODO 타입체크, 길이체크, 중복 체크 , 함수로 빼주고 함수형으로
+      const computerNumberArray = createComputerNumbers();
+      let isWin = false;
+      while (!isWin) {
+        let userNumber = await MissionUtils.Console.readLineAsync(CONSTANT.QUESTION_MESSAGE);
         checkUserNumber(userNumber);
-        //숫자 비교
-        let ball = 0;
-        let strike = 0;
         const userNumberArray = [...userNumber.split("")];
-        userNumberArray.forEach((number, index) => {
-          const integerNumber = Number(number);
-          if (integerNumber === computerNumbersArray[index]) strike++;
-          else if (computerNumbersArray.includes(integerNumber)) ball++;
-        });
-
+        const {ball, strike} = createGameScore(userNumberArray, computerNumberArray);
         const message = getMessage(ball, strike);
         MissionUtils.Console.print(message);
         if (strike === 3) {
-          isWine = true;
+          isWin = true;
           MissionUtils.Console.print(CONSTANT.WIN_MESSAGE);
         }
       }
       // 게임종료 확인
       const endAnswer = await MissionUtils.Console.readLineAsync(CONSTANT.GAME_END_QUESTION_MESSAGE);
-      //TODO endAnswer 타입 검사
       checkEndAnswer(endAnswer);
-      if (endAnswer === "2") isEnd = true;
+      isEnd = endAnswer === "2";
     }
   }
 }
 
 export default App;
+
+const getMessage = (ball = 0, strike = 0) => {
+  return ball === 0 && strike === 0 ? "낫싱" : `${ball}볼 ${strike}스트라이크`;
+};
 
 const checkUserNumber = (userNumber) => {
   if (userNumber === undefined || userNumber === null) throw Error(CONSTANT.ERROR_MESSAGE);
@@ -90,4 +69,25 @@ const checkEndAnswer = (endAnswer) => {
   if (typeof endAnswer !== "string") throw Error(CONSTANT.ERROR_MESSAGE);
   if (endAnswer.length !== 1) throw Error(CONSTANT.ERROR_MESSAGE);
   if (endAnswer !== "1" && endAnswer !== "2") throw Error(CONSTANT.ERROR_MESSAGE);
+};
+
+const createComputerNumbers = () => {
+  const computerNumbersArray = [];
+  while (computerNumbersArray.length < 3) {
+    const number = MissionUtils.Random.pickNumberInRange(1, 9);
+    if (!computerNumbersArray.includes(number)) computerNumbersArray.push(number);
+  }
+  return computerNumbersArray;
+};
+
+const createGameScore = (userNumberArray, computerNumberArray) => {
+  let ball = 0;
+  let strike = 0;
+  userNumberArray.forEach((number, index) => {
+    const integerNumber = Number(number);
+    if (integerNumber === computerNumberArray[index]) strike++;
+    else if (computerNumberArray.includes(integerNumber)) ball++;
+  });
+
+  return {ball, strike};
 };
