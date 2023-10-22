@@ -6,7 +6,10 @@ class App {
 
   async play() {
     try {
-      const randomNumber = this.generateRandomNumber(this.MIN_VALUE, this.MAX_VALUE);
+      const randomNumber = this.generateRandomNumber(
+        this.MIN_VALUE,
+        this.MAX_VALUE,
+      );
       let strikeCounts = 0;
       let ballCounts = 0;
       let isInGame = true;
@@ -14,28 +17,47 @@ class App {
       Console.print("숫자 야구 게임을 시작합니다.");
 
       while (isInGame) {
-        const number = await Console.readLineAsync("숫자를 입력해주세요. : ");
+        const answer = await Console.readLineAsync("숫자를 입력해주세요. : ");
+        let score = [];
 
-        if (!this.isInteger(number) || !this.isInRange(number)) {
-          throw new Error("[ERROR] 숫자가 잘못된 형식입니다." + number);
+        if (!this.isInteger(answer) || !this.isInRange(answer)) {
+          throw new Error("[ERROR] 숫자가 잘못된 형식입니다." + answer);
         }
+
+        score = this.getScore(randomNumber, answer);
       }
     } catch (error) {
       await Promise.reject(error);
     }
   }
 
+  getScore(randomNumber, answer) {
+    const randomNumberArray = randomNumber.split("");
+    const answerArray = answer.split("");
+    const score = [0, 0];
+    
+    answerArray.forEach((number, index) => {
+      if( number === randomNumberArray[index] ){
+        score[0]++;
+      } else if ( randomNumberArray.includes(number) ){
+        score[1]++;
+      }
+    });
+
+    return score;
+  }
+
   isInteger(string) {
     return Number.isInteger(Number(string));
   }
 
-  isInRange(n) {
-    return n <= this.MAX_VALUE && n >= this.MIN_VALUE;
+  isInRange(number) {
+    return number <= this.MAX_VALUE && number >= this.MIN_VALUE;
   }
 
-  generateRandomNumber(min, max){
+  generateRandomNumber(min, max) {
     let number = Random.pickNumberInRange(this.MIN_VALUE, this.MAX_VALUE);
-    while ( !number.toString().includes('0') ){
+    while (!number.toString().includes("0")) {
       number = Random.pickNumberInRange(this.MIN_VALUE, this.MAX_VALUE);
     }
     return number;
