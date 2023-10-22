@@ -33,8 +33,8 @@ class App {
     OutputView.printDone();
     const input = await InputView.confirmContinue();
 
-    if (parseInt(input) === 1) this.play();
-    else if (parseInt(input) === 2) return;
+    if (Number(input) === 1) this.play();
+    else if (Number(input) === 2) return;
     else throw Error('1 또는 2를 입력해주세요.');
   }
 
