@@ -3,7 +3,10 @@ import { Console, Random } from "@woowacourse/mission-utils";
 class App {
   async play() {
     Console.print("숫자 야구 게임을 시작합니다.");
+    await App.#startTrial();
+  }
 
+  static async #startTrial() {
     const answer = App.#pickRandomThreeNums();
 
     while (true) {
@@ -48,6 +51,17 @@ class App {
       if (strikeCount === 3) {
         break;
       }
+    }
+
+    Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    const endDecisionInput = await Console.readLineAsync(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+    );
+    if (endDecisionInput !== "1" && endDecisionInput !== "2") {
+      throw new Error("[ERROR] 1(재시작), 2(종료) 중 하나를 선택해야 합니다.");
+    }
+    if (endDecisionInput === "1") {
+      App.#startTrial();
     }
   }
 
