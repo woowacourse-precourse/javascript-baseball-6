@@ -75,8 +75,9 @@ class App {
 
   validation(input, mode) {
     if (mode === this.IN_GAME) {
+      const reg = /[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/ ]/gim;
       if (!Number(input)) throw new Error("[ERROR]");
-      else if (input.length !== 3) throw new Error("[ERROR]");
+      else if (input.replace(reg, "").length !== 3) throw new Error("[ERROR]");
       else if (input.includes(" ")) throw new Error("[ERROR]");
       else if (input.includes("0")) throw new Error("[ERROR]");
       else if (new Set(input).size !== 3) throw new Error("[ERROR]");
