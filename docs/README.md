@@ -44,17 +44,23 @@
 
 - [x] #checkUserInput (유저 입력 값 확인 메서드, async)
 
-  - [x] **반환 값 : 유저가 입력한 숫자 형태의 문자열 || undefined**
+  - [x] **반환 값 : 유저가 입력한 숫자 형태의 문자열 ~~|| undefined~~**
   - [x] readLineAsync로 입력 값 조회
   - [x] 숫자 외 문자 입력 값 예외 처리
   - [x] "1", "2" 이외의 세 자리가 안되는 숫자 문자열 입력 값 예외 처리
   - [x] 정답 도출 전 "1", "2" 입력에 대한 예외 처리
 
+- [x] #checkInputOneOrTwo (유저 입력 값이 1 또는 2 인지 확인, sync)
+
+  - [x] **입력 값 : input (string)**
+  - [x] 입력 받은 값이 "1" 또는 "2"인지 확인 후 로직 처리
+  - [x] 함수로 input을 평가만 하기 때문에 calculateStrikeAndBall 메서드에서 undefined가 나오는 경우 배제
+
 - [x] #calculateStrikeAndBall (스트라이크/볼/낫싱 판정 메서드, async)
 
-  - [x] **반환 값 : `{ ok : boolean, strike?: number, ball?: number }`**
+  - [x] **반환 값 : `{ ~~ok : boolean,~~ strike: number, ball: number }`**
   - [x] #checkUserInput 메서드 비동기로 호출 => 입력 값 확인 (undefined || string)
-  - [x] `입력 값 === undefined` 인 경우 예외 처리 => `{ ok: false }` 반환 후 메서드 종료
+  - [x] ~~`입력 값 === undefined` 인 경우 예외 처리 => `{ ok: false }` 반환 후 메서드 종료~~
   - [x] 예외 처리 후 스트라이크, 볼, 낫싱 판정 로직 작성
   - [x] 계산된 스트라이크, 볼, 낫싱 판정 값 반환 (낫싱의 경우 strike: 0, ball: 0)
 
