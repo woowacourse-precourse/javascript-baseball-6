@@ -34,6 +34,7 @@ class App {
     let isEnd = false;
     MissionUtils.Console.print(CONSTANT.GAME_START_MESSAGE);
     while (!isEnd) {
+      //TODO 함수 분리
       const computerNumbersArray = [];
       while (computerNumbersArray.length < 3) {
         const number = MissionUtils.Random.pickNumberInRange(1, 9);
@@ -48,11 +49,7 @@ class App {
 
         userNumber = await MissionUtils.Console.readLineAsync(CONSTANT.QUESTION_MESSAGE);
         //TODO 타입체크, 길이체크, 중복 체크 , 함수로 빼주고 함수형으로
-
-        if (userNumber === undefined || userNumber === null) throw Error(CONSTANT.ERROR_MESSAGE);
-        if (userNumber.length !== 3) throw Error(CONSTANT.ERROR_MESSAGE);
-        if ([...new Set(userNumber.split(""))].length !== 3) throw Error(CONSTANT.ERROR_MESSAGE);
-
+        checkUserNumber(userNumber);
         //숫자 비교
         let ball = 0;
         let strike = 0;
@@ -73,9 +70,24 @@ class App {
       // 게임종료 확인
       const endAnswer = await MissionUtils.Console.readLineAsync(CONSTANT.GAME_END_QUESTION_MESSAGE);
       //TODO endAnswer 타입 검사
+      checkEndAnswer(endAnswer);
       if (endAnswer === "2") isEnd = true;
     }
   }
 }
 
 export default App;
+
+const checkUserNumber = (userNumber) => {
+  if (userNumber === undefined || userNumber === null) throw Error(CONSTANT.ERROR_MESSAGE);
+  if (typeof userNumber !== "string") throw Error(CONSTANT.ERROR_MESSAGE);
+  if (userNumber.length !== 3) throw Error(CONSTANT.ERROR_MESSAGE);
+  if ([...new Set(userNumber.split(""))].length !== 3) throw Error(CONSTANT.ERROR_MESSAGE);
+};
+
+const checkEndAnswer = (endAnswer) => {
+  if (endAnswer === undefined || endAnswer === null) throw Error(CONSTANT.ERROR_MESSAGE);
+  if (typeof endAnswer !== "string") throw Error(CONSTANT.ERROR_MESSAGE);
+  if (endAnswer.length !== 1) throw Error(CONSTANT.ERROR_MESSAGE);
+  if (endAnswer !== "1" && endAnswer !== "2") throw Error(CONSTANT.ERROR_MESSAGE);
+};
