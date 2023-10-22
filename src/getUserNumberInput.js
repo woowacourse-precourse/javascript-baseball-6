@@ -1,7 +1,7 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 
 const isThreeDigit = (input) => {
-    if (input === 3) {
+    if (input.length === 3) {
         return true
     } else {
         return false
@@ -17,7 +17,7 @@ const isNotDuplicated = (input) => {
 }
 
 const isAllNumber = (input) => {
-    for (str of input) {
+    for (const str of input) {
         if (parseInt(str) === NaN) {
             return false
         }
@@ -26,7 +26,7 @@ const isAllNumber = (input) => {
 }
 
 const hasNoZero = (input) => {
-    for (str of input) {
+    for (const str of input) {
         if (parseInt(str) === 0) {
             return false
         }
