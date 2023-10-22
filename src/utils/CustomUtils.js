@@ -72,6 +72,7 @@ const getRestartChoice = async () => {
   );
   if (RESTART_CHOICE === "1") return true;
   if (RESTART_CHOICE === "2") return false;
+  throw new Error(Messages.INVALID_INPUT_RESTART_ERROR);
 };
 
 export default { getUserNumber, getScore, printScore, getRestartChoice };
