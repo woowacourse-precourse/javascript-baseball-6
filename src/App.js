@@ -1,11 +1,8 @@
 import RandomNumberMaker from '../src/play/RandomNumberMaker';
 import UserNumberReader from '../src/play/UserNumberReader';
 import { correctNumber } from './Utils/CorrectNumber';
-import { showResult } from './play/GameResult';
 import BetweenNumber from './play/BetweenNumber';
-import * as Constants from './const/Messages';
-
-// Console.print(Constants.GAME_START);
+import { showResult } from './play/GameResult';
 
 class App {
   constructor() {

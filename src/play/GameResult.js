@@ -1,4 +1,5 @@
 import BetweenNumber from './BetweenNumber';
+import * as Constants from '../const/Messages';
 
 export const showResult = (computerNumber, playerNumber) => {
   const game = new BetweenNumber(computerNumber, playerNumber);
@@ -14,15 +15,15 @@ export const showResult = (computerNumber, playerNumber) => {
   }
 
   const result = [];
-  if (strike > 0) result.push(`${strike} 스트라이크`);
-  if (ball > 0) result.push(`${ball} 볼`);
+  if (strike > 0) result.push(`${strike} ${Constants.STRIKE}`);
+  if (ball > 0) result.push(`${ball} ${Constants.BALL}`);
 
   if (strike === 3) {
-    Console.print("성공!");
+    Console.print(Constants.GOAL);
     return;
   }
   if (result.length === 0) {
-    Console.print("낫싱");
+    Console.print(Constants.NOTHING);
     return;
   }
 
