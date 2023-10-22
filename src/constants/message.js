@@ -11,7 +11,8 @@ export const INPUT_ERROR_MESSAGE = Object.freeze({
 
 export const INFO_MESSAGE = Object.freeze({
   START_MESSAGE: "숫자 야구 게임을 시작합니다.",
-  END_MESSAGE: "3개의 숫자를 모두 맞히셨습니다! 게임 종료",
+  WIN_MESSAGE: `${MAGIC_NUM.MAX_BASEBALL_NUM}개의 숫자를 모두 맞히셨습니다! `,
+  END_MESSAGE: "게임 종료",
   RESTART_MESSAGE: `게임을 새로 시작하려면 ${MAGIC_NUM.NEW_GAME_NUM}, 종료하려면 ${MAGIC_NUM.END_GAME_NUM}를 입력하세요.`,
   NOTHING_MESSAGE: "낫싱",
 });

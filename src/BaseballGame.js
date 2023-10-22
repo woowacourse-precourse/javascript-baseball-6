@@ -1,11 +1,11 @@
 import BaseballInput from "./BaseballInput.js";
 import BaseballGenRandomNum from "./BaseballGenRandomNum.js";
 import BaseballLogic from "./BaseballLogic.js";
-import { validateUserInput } from "./utils/inputValidator.js";
 import { INFO_MESSAGE } from "./constants/message.js";
+import { MAGIC_NUM } from "./constants/magicNum.js";
+import { validationRestartInput } from "./utils/inputValidator.js";
 
 import { Console } from "@woowacourse/mission-utils";
-import { MAGIC_NUM } from "./constants/magicNum.js";
 
 export default class BaseballGame {
   state = {
@@ -26,12 +26,17 @@ export default class BaseballGame {
     this.baseballInput = new BaseballInput({
       initialState: this.state,
       changeUserState: (userInput) => {
-        if (validateUserInput(userInput)) {
-          this.setState({
-            ...this.state,
-            user: userInput.split("").map((num) => Number(num)),
-          });
-          this.baseballLogic.compareNums(this.state.user, this.state.computer);
+        this.setState({
+          ...this.state,
+          user: userInput.split("").map((num) => Number(num)),
+        });
+        this.baseballLogic.compareNums(this.state.user, this.state.computer);
+      },
+      restartGame: (restartInput) => {
+        validationRestartInput(restartInput);
+        if (restartInput === `${MAGIC_NUM.MAX_RESTART_NUM}`) {
+          this.baseballGenRandomNum.genRandomNum();
+          this.baseballInput.getUserInput();
         }
       },
     });

@@ -16,6 +16,7 @@ export default class BaseballGenRandomNum {
         computer.push(num);
       }
     }
+    console.log(computer);
     this.changeComputerState(computer);
   }
 }

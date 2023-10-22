@@ -1,38 +1,43 @@
 import { MAGIC_NUM } from "./constants/magicNum.js";
-import { validationRestartInput } from "./utils/inputValidator.js";
+import { INFO_MESSAGE } from "./constants/message.js";
+import { validateUserInput } from "./utils/inputValidator.js";
 
 import { Console } from "@woowacourse/mission-utils";
 
 export default class BaseballInput {
   state = null;
 
-  constructor({ initialState, changeUserState }) {
+  constructor({ initialState, changeUserState, restartGame }) {
     this.state = initialState;
     this.changeUserState = changeUserState;
-    this.getRestartInput();
-    // this.getUserInput();
+    this.restartGame = restartGame;
+    this.getUserInput();
   }
 
   async getUserInput() {
     try {
       const userInput = await Console.readLineAsync("숫자를 입력해 주세요 : ");
+      validateUserInput(userInput);
       this.changeUserState(userInput);
     } catch (err) {
-      throw Error("입력 오류: " + err);
+      console.log(`check`);
+      throw err;
     }
   }
 
   async getRestartInput() {
     try {
-      Console.print(
-        `3개의 숫자를 모두 맞히셨습니다! 게임 종료 ${"\n"}게임을 새로 시작하려면 ${
-          MAGIC_NUM.NEW_GAME_NUM
-        }, 종료하려면 ${MAGIC_NUM.END_GAME_NUM}를 입력하세요.`
+      await Console.print(
+        INFO_MESSAGE.WIN_MESSAGE +
+          INFO_MESSAGE.END_MESSAGE +
+          "\n" +
+          `게임을 새로 시작하려면 ${MAGIC_NUM.NEW_GAME_NUM}, 종료하려면 ${MAGIC_NUM.END_GAME_NUM}를 입력하세요.`
       );
+      // await Console.print(INFO_MESSAGE.WIN_MESSAGE + INFO_MESSAGE.END_MESSAGE);
       const restartInput = await Console.readLineAsync("");
-      validationRestartInput(restartInput);
+      await this.restartGame(restartInput);
     } catch (err) {
-      throw Error("입력 오류: " + err);
+      Console.print(err);
     }
   }
 }

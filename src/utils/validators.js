@@ -1,8 +1,10 @@
 import { MAGIC_NUM } from "../constants/magicNum.js";
 
 export const validateIsNum = (value) => {
+  // let check = /^[1-9]$/;
   if (typeof value !== "number") return false;
   else if (Number.isNaN(value)) return false;
+  else if (!/^[1-9]{1,3}$/.test(value)) return false;
   return true;
 };
 
