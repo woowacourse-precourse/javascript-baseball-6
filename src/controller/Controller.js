@@ -29,22 +29,22 @@ class Controller {
         }
     }
 
-    checkingStrike(number) {
+    checkingStrike = (number) => {
         CONSTANTS.ANSWER_NUMBER.map((num,idx) => {
             (number[idx] == num) ? STRIKE_BALL.STRIKE += 1 : this.#checkingBall(number[idx])
         })
     }
 
-    #checkingBall(num) {
+    #checkingBall = (num) => {
         (CONSTANTS.ANSWER_NUMBER.includes(parseInt(num))) ? STRIKE_BALL.BALL += 1 : false;
     }
 
-    async endGame() {
+    endGame = async() => {
         MissionUtils.Console.print(OUTPUT_MSG.END_GAME);
         await this.#reGame();
     }
 
-    async #reGame() {
+    #reGame = async() => {
         try {
             MissionUtils.Console.print(OUTPUT_MSG.RE_GAME);
             CONSTANTS.REGAME_CONSTANTS = await MissionUtils.Console.readLineAsync(OUTPUT_MSG.RE_GAME);
