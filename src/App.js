@@ -1,5 +1,8 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import MESSAGE from '../constants/message.constans.js';
+import hintFromMatching from '../utils/hintFromMatching.js';
+import isThreeDifferentNum from '../utils/isThreeDifferentNum.js';
+import rl from '../utils/readlineInterface.js';
 
 class App {
   constructor() {
@@ -29,9 +32,9 @@ class App {
   }
 
   /**
-   * 입력에 따라 힌트를 반환하는 메서드
+   * 인자에 따라 볼과 스트라이크 개수 객체(matching)를 반환하는 메서드
    */
-  inputToHint(number) {
+  async inputToMatching(number) {
     const matching = { ball: 0, strike: 0 };
 
     const matchingNumberArray = [...this.matchNumber];
@@ -55,30 +58,29 @@ class App {
       }
     });
 
-    // 같은 수가 전혀 없는 경우 -> 낫싱
-    if (!matching.ball && !matching.strike) {
-      console.log(MESSAGE.hint.nothing);
-      return;
+    return matching;
+  }
+
+  /**
+   * 입력에 따른 matching 객체를 반환하는 메서드
+   */
+  async receiveInputNumberToMatching() {
+    const inputNumber = await new Promise((resolve) => {
+      rl.question(MESSAGE.input, (input) => {
+        resolve(input);
+      });
+    });
+
+    // 잘못된 형식으로 입력한 경우
+    if (!isThreeDifferentNum(inputNumber)) {
+      rl.close();
+      throw MESSAGE.error;
     }
 
-    // 볼과 스트라이크 둘 다 있을 때 -> N볼 M스트라이크
-    if (matching.ball && matching.strike) {
-      console.log(
-        `${matching.ball}${MESSAGE.hint.ball} ${matching.strike}${MESSAGE.hint.strike}`,
-      );
-      return;
-    }
+    const matching = await this.inputToMatching(inputNumber);
+    rl.close();
 
-    // 볼만 있을 경우 -> N볼
-    if (matching.ball && !matching.strike) {
-      console.log(`${matching.ball}${MESSAGE.hint.ball}`);
-      return;
-    }
-
-    // 스트라이크만 있을 경우 -> M볼
-    if (matching.strike && !matching.ball) {
-      console.log(`${matching.strike}${MESSAGE.hint.strike}`);
-    }
+    return { matching };
   }
 
   readyGame() {
@@ -86,11 +88,18 @@ class App {
     this.setMatchNumber();
   }
 
-  playingGame() {}
+  async playingGame() {
+    try {
+      const { matching } = await this.receiveInputNumberToMatching();
+      console.log(hintFromMatching(matching));
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   async play() {
     this.readyGame();
-    this.inputToHint(356); // 확인용
+    await this.playingGame();
   }
 }
 
