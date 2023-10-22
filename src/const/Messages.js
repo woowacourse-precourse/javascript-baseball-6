@@ -10,4 +10,5 @@ export const NOTHING = "낫싱";
 export const GOAL = "3개의 숫자를 모두 맞히셨습니다! 게임 종료";
 
 // 오류 메시지
-export const ERROR_MESSAGE = "올바르지 않은 입력값 입니다.";
+export const WRONG_NUMBER = "올바르지 않은 입력값 입니다. 1-9 중 서로 다른 세 자리의 정수를 입력하세요.";
+export const ERROR_MESSAGE = "오류가 발생했습니다.";
