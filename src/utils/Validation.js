@@ -23,7 +23,7 @@ export default class Validation {
   /**
    * player가 입력한 input의 유효성을 검증하고 검증 결과를 가져옵니다.
    * @param {string[]} playerInput [player가 제시한 수]
-   * @returns 
+   * @returns [player가 제시한 수의 유효성]
    */
   async getPlayerInputValidation(playerInput) {
     await this.validatePlayerInput(playerInput);
@@ -44,7 +44,7 @@ export default class Validation {
   /**
    * 재시작 입력 값의 유효성을 검증하고 검증 결과를 가져옵니다.
    * @param {string} restartInput [재시작 여부 입력 값]
-   * @returns 
+   * @returns [재시작 입력 값의 유효성]
    */
   async getRestartInputValidation(restartInput) {
     await this.validateRestartInput(restartInput);
