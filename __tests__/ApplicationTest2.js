@@ -60,7 +60,7 @@ describe("숫자 야구 게임", () => {
   test("예외 테스트3 : 유저 입력이 자연수가 아닌 수가 포함된 경우", async () => {
     // given
     const randoms = [4, 3, 5];
-    const answers = ["012"];
+    const answers = ["rr"];
 
     mockRandoms(randoms);
     mockQuestions(answers);
@@ -74,7 +74,7 @@ describe("숫자 야구 게임", () => {
   test("예외 테스트4 : 재시작 여부 물어볼 때 1 혹은 2가 아닐 경우", async () => {
     // given
     const randoms = [8, 3, 5];
-    const answers = ["835", "3"];
+    const answers = ["835", "r"];
     const logSpy = getLogSpy();
     const messages = ["3스트라이크"];
 
@@ -85,7 +85,6 @@ describe("숫자 야구 게임", () => {
     const app = new App();
 
     await expect(app.play()).rejects.toThrow(LOGS.INPUT_PROMPT2);
-
     messages.forEach((output) => {
       expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(output));
     });

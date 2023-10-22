@@ -11,9 +11,7 @@ class App {
 
   // 게임 시작 메서드
   async play() {
-    try{
-      Console.print(LOGS.GAME_START);
-
+    Console.print(LOGS.GAME_START);
     while(true){
       if(this.isStart) this.initialization();
       const USER_INPUT = await this.userInput();
@@ -30,12 +28,7 @@ class App {
       if(!IS_RESTART) break;
       // 재시작 : this.isStart true로 초기화 하여 initialization 재실행
       this.isStart = true
-    }
-
-    // Console.print(LOGS.END);
-    return;
-    } catch (error) {
-      throw error
+      Console.print(LOGS.END) 
     }
   }
 
