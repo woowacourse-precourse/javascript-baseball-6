@@ -1,5 +1,5 @@
 const Message = {
-  Greeting: "숫자 야구 게임을 시작합니다.",
+  GREETING: "숫자 야구 게임을 시작합니다.",
   ASK_NUMBERS: "숫자를 입력해주세요 : ",
   INPUT_IS_NUMBER: "숫자가 아닌 문자열을 입력할 수 없습니다",
   INPUT_IS_THREE_DIGIT: "세자리 숫자를 입력해주세요",
@@ -9,8 +9,7 @@ const Message = {
   ASK_CONTINUE_OR_QUIT:
     "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n",
   NOTHING: "낫싱",
-  ANSWER_MUST_BE_ONE_OR_TWO:
-    "게임을 다시 시작하려면 1, 끝내려면 2만 입력할 수 있습니다",
+  ANSWER_MUST_BE_ONE_OR_TWO: "1, 2만 입력할 수 있습니다",
 };
 
 export default Message;

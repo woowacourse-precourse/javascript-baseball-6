@@ -12,8 +12,12 @@ class GameController {
 
   async startGame() {
     this.createAGame(); // 게임생성
-    OutputView.print(Message.Greeting); // 인사말 출력
-    await this.askNumbers(); // 번호 물어보기
+    OutputView.print(Message.GREETING); // 인사말 출력
+    try {
+      await this.askNumbers(); // 번호 물어보기
+    } catch (err) {
+      throw new Error(`[ERROR] ${err}`);
+    }
   }
 
   createAGame() {
@@ -28,7 +32,7 @@ class GameController {
       this.printResult(); // 결과 출력하기
       await this.isGameFinished(); // 게임 계속하거나 끝내기
     } catch (error) {
-      throw new Error(`[ERROR] ${error}`); // 예외 입력 시 종료
+      throw error; // 예외 입력 시 종료
     }
   }
 
@@ -74,13 +78,11 @@ class GameController {
         this.quitGame();
       }
     } catch (error) {
-      throw new Error(`[ERROR] ${error}`); // 예외 입력 시 종료
+      throw error; // 예외 입력 시 종료
     }
   }
 
-  quitGame() {
-    // Console.close(); // TODO 완전히 종료
-  }
+  quitGame() {}
 
   async restartGame() {
     this.createAGame();

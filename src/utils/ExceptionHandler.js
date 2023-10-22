@@ -6,7 +6,7 @@ const ExceptionHandler = {
   checkIsNum(inputArr) {
     for (const element of inputArr) {
       if (isNaN(element)) {
-        throw Message.INPUT_IS_NUMBER();
+        throw Message.INPUT_IS_NUMBER;
       }
     }
   },
