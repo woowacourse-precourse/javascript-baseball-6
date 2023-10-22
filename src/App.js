@@ -21,11 +21,11 @@ class App {
         this.ball = 0;
         this.strike = 0;
   
-        const getUserInput = await this.giveQuestion("숫자를 입력해 주세요 : ");
+        const userInput = await this.giveQuestion("숫자를 입력해 주세요 : ");
         
-        this.inputValidation(getUserInput);
+        this.inputValidation(userInput);
 
-        this.checkInputAndGiveHint(answer, getUserInput);
+        this.checkInputAndGiveHint(answer, userInput);
       }
 
       const restartInput = await this.giveQuestion(`게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.${"\n"}`);
