@@ -1,5 +1,5 @@
 import { generateRandomThreeDigitNumber } from "./generateRandomThreeDigitNumber.js";
-import { isRoundEndedFromHint } from "./isRoundEndedFromHint.js";
+import { isRoundContinuedFromHint } from "./isRoundContinuedFromHint.js";
 import { isGameContinued } from "./isGameContinued.js";
 import { getHint } from "./getHint.js";
 
@@ -38,8 +38,8 @@ export class Model {
         return isGameContinued(decision)
     }
 
-    isRoundEndedFromHint(hint) {
-        return isRoundEndedFromHint(hint)
+    isRoundContinuedFromHint(hint) {
+        return isRoundContinuedFromHint(hint)
     }
 
 }
