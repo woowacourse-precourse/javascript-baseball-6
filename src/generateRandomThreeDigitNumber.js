@@ -12,5 +12,3 @@ export const generateRandomThreeDigitNumber = () => {
 
     return randomNumbersList.join('')
 }
-
-console.log(generateRandomThreeDigitNumber());

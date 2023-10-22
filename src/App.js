@@ -6,11 +6,12 @@ import { MissionUtils } from '@woowacourse/mission-utils'
 
 class App {
   async play() {
-    const userNumber = await getUserNumberInput().then((userInput) => console.log(userInput));
     const computerNumber = generateRandomThreeDigitNumber();
-    const cntStrikes = calculateBalls(userNumber, computerNumber)
-    const cntBall = calculateStrikes(userNumber, computerNumber)
-    MissionUtils.Console.print(cntStrikes, cntBall)
+    const userNumber = await getUserNumberInput()
+    const cntBall = calculateBalls(userNumber, computerNumber)
+    const cntStrike = calculateStrikes(userNumber, computerNumber)
+    console.log(userNumber, computerNumber)
+    console.log(cntStrike, cntBall)
   }
 }
 
