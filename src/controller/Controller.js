@@ -8,7 +8,7 @@ class Controller {
     constructor () {
         this.VAL = new VALIDATE();
     }
-    makeAnswer = () => {
+    makeAnswer() {
         const COMPUTER = [];
         while (COMPUTER.length < 3) {
             const NUMBER = MissionUtils.Random.pickNumberInRange(1, 9);
@@ -19,7 +19,7 @@ class Controller {
         CONSTANTS.ANSWER_NUMBER = COMPUTER;
     }
 
-    inputUserNumber = async () => {
+    async inputUserNumber() {
         try {
             CONSTANTS.USER_NUMBER = await MissionUtils.Console.readLineAsync(INPUT_MSG.INPUT_NUMBER);
             this.VAL.numberValidate(CONSTANTS.USER_NUMBER);
@@ -29,22 +29,22 @@ class Controller {
         }
     }
 
-    checkingStrike = (number) => {
+    checkingStrike(number) {
         CONSTANTS.ANSWER_NUMBER.map((num,idx) => {
             (number[idx] == num) ? STRIKE_BALL.STRIKE += 1 : this.#checkingBall(number[idx])
         })
     }
 
-    #checkingBall = (num) => {
+    #checkingBall(num) {
         (CONSTANTS.ANSWER_NUMBER.includes(parseInt(num))) ? STRIKE_BALL.BALL += 1 : false;
     }
 
-    endGame = async() => {
+    async endGame() {
         MissionUtils.Console.print(OUTPUT_MSG.END_GAME);
         await this.#reGame();
     }
 
-    #reGame = async() => {
+    async #reGame() {
         try {
             MissionUtils.Console.print(OUTPUT_MSG.RE_GAME);
             CONSTANTS.REGAME_CONSTANTS = await MissionUtils.Console.readLineAsync(OUTPUT_MSG.RE_GAME);
