@@ -16,6 +16,7 @@ class App {
         const hint = getHint(userNumber, computerNumber);
         MissionUtils.Console.print(hint);
         if (isRoundEndedFromHint(hint) === true) {
+          MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료')
           break;
         }
       }
