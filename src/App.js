@@ -3,38 +3,52 @@ import { Console, Random } from '@woowacourse/mission-utils';
 class App {
   async play() {
     Console.print('숫자 야구 게임을 시작합니다.');
-    const computerNumber = this.pickRandomNumber();
-    let isCorrectAnswer = false;
-    while (!isCorrectAnswer) {
-      const userSelectedNumber = await Console.readLineAsync(
-        '숫자를 입력해주세요 : '
-      );
-      if (!this.isValidNumber(userSelectedNumber)) {
-        throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
-      }
-      const { strikeCounter, ballCounter } = this.compareNumber(
-        computerNumber,
-        userSelectedNumber
-      );
+    let isStartGame = true;
+    while (isStartGame) {
+      const computerNumber = this.pickRandomNumber();
+      let isCorrectAnswer = false;
+      while (!isCorrectAnswer) {
+        const userSelectedNumber = await Console.readLineAsync(
+          '숫자를 입력해주세요 : '
+        );
+        if (!this.isValidNumber(userSelectedNumber)) {
+          throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+        }
+        const { strikeCounter, ballCounter } = this.compareNumber(
+          computerNumber,
+          userSelectedNumber
+        );
 
-      if (strikeCounter === 0 && ballCounter === 0) {
-        Console.print('낫싱');
-      }
+        if (strikeCounter === 0 && ballCounter === 0) {
+          Console.print('낫싱');
+          continue;
+        }
 
-      if (strikeCounter !== 0 && ballCounter !== 0) {
-        Console.print(`${ballCounter}볼 ${strikeCounter}스트라이크`);
-      }
+        if (strikeCounter !== 0 && ballCounter !== 0) {
+          Console.print(`${ballCounter}볼 ${strikeCounter}스트라이크`);
+          continue;
+        }
 
-      if (strikeCounter !== 0) {
-        Console.print(`${strikeCounter}스트라이크`);
-      }
+        if (strikeCounter !== 0) {
+          Console.print(`${strikeCounter}스트라이크`);
+          continue;
+        }
 
-      if (ballCounter !== 0) {
-        Console.print(`${ballCounter}볼`);
-      }
+        if (ballCounter !== 0) {
+          Console.print(`${ballCounter}볼`);
+          continue;
+        }
 
-      if (strikeCounter === 3) {
-        isCorrectAnswer = true;
+        if (strikeCounter === 3) {
+          Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+          isCorrectAnswer = true;
+          break;
+        }
+      }
+      const gameToggler = await gameController();
+      if (gameToggler !== 1) {
+        isStartGame = false;
+        break;
       }
     }
   }
@@ -94,5 +108,8 @@ class App {
     return { strikeCounter, ballCounter };
   }
 }
+
+const app = new App();
+app.play();
 
 export default App;
