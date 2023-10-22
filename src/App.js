@@ -18,7 +18,7 @@ class App {
     this.strikes = [];
     this.strikes = this.generateStrikes();
     console.log(this.strikes);
-    this.playRound();
+    this.playInning();
   }
 
   generateStrikes() {
@@ -39,7 +39,7 @@ class App {
     return randomNumber;
   }
 
-  playRound() {
+  playInning() {
     this.rl.question("숫자를 입력해주세요 : ", userInput => {
       try {
         this.isValidGuess(userInput);
