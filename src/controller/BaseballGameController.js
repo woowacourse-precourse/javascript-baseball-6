@@ -1,9 +1,8 @@
 import Baseball from "../domain/Baseball.js";
 import RandomNumberGenerator from "../utils/RandomNumberGenerator.js";
 import InputValidator from "../utils/InputValidator.js";
+import InputView from "../view/InputView.js";
 import OutputView from "../view/OutputView.js";
-import { Console } from "@woowacourse/mission-utils";
-import { GuideMessage } from "../constant/Constant.js";
 
 class BaseballGameController {
   #baseball;
@@ -16,38 +15,28 @@ class BaseballGameController {
 
   async startGame() {
     OutputView.printStartMessage();
-    await this.readUserNumber();
+    await this.inputUserNumber();
   }
 
-  async readUserNumber() {
-    try {
-      const input = await Console.readLineAsync(GuideMessage.INPUT_NUMBER);
+  async inputUserNumber() {
+    await InputView.readUserNumber((input) => {
       InputValidator.validateUserNumber(input);
-      this.callback(input);
-    } catch (error) {
-      throw error;
-    }
+      const inputNumber = input.split("").map(Number);
+      const strikeCount = this.#baseball.getStrikeCount(inputNumber);
+      const ballCount = this.#baseball.getBallCount(inputNumber, strikeCount);
+
+      return this.checkHint(strikeCount, ballCount);
+    });
   }
 
-  async readRestartNumber() {
-    try {
-      const input = await Console.readLineAsync(GuideMessage.RESTART_GAME);
+  async inputRestartNumber() {
+    await InputView.readRestartNumber((input) => {
       InputValidator.validateRestartNumber(input);
       if (input === "1") {
         this.resetGame();
       }
       if (input === "2") return;
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  callback(userNumber) {
-    const inputNumber = userNumber.split("").map(Number);
-    const strikeCount = this.#baseball.getStrikeCount(inputNumber);
-    const ballCount = this.#baseball.getBallCount(inputNumber, strikeCount);
-
-    this.checkHint(strikeCount, ballCount);
+    });
   }
 
   checkHint(strikeCount, ballCount) {
@@ -55,13 +44,13 @@ class BaseballGameController {
 
     if (strikeCount === 3) {
       OutputView.printEndMessage();
-      this.readRestartNumber();
-    } else this.readUserNumber();
+      this.inputRestartNumber();
+    } else this.inputUserNumber();
   }
 
   async resetGame() {
     this.#baseball.resetGame();
-    await this.readUserNumber();
+    await this.inputUserNumber();
   }
 }
 export default BaseballGameController;
