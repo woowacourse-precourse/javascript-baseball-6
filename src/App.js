@@ -16,12 +16,13 @@ export default class App {
         print(Message.GAME_START);
         const inputNumber = (await input(Message.INPUT_NUMBER)).trim();
         this.validateInput(inputNumber);
-        const { strike, ball } = this.checkGuess(inputNumber);
-        this.feedbackMessage(strike, ball);
+        const { ballCount, strikeCount } = this.checkGuess(inputNumber);
+        const message = this.feedbackMessage(ballCount, strikeCount);
+        print(message);
 
-        if (strike !== 3) continue;
+        if (strikeCount !== 3) continue;
 
-        if (strike === 3) {
+        if (strikeCount === 3) {
           //@TODO - 재시작 기능 구현
           this.#isFinish = true;
         }
@@ -38,7 +39,9 @@ export default class App {
 
   /**
    * @description 사용자 입력값 검증 함수
-   * 1.숫자가 아닌 다른 값의 유무 판단(공백포함) / 2.입력값의 길이 판단 / 3.서로 다른 3개의 숫자 판단 / 4. 0을 지니고 있는지 판단
+   * 1.숫자가 아닌 다른 값의 유무 판단(공백포함) / 2.입력값의 길이 판단
+   * 3.서로 다른 3개의 숫자 판단 / 4. 0을 지니고 있는지 판단
+   * 5.서로 다른 3가지 숫자를 중복으로 입력받는 경우
    * @param {string} input
    * @returns {boolean} 유효성 검사 결과 반환
    *
@@ -63,40 +66,42 @@ export default class App {
   /**
    * @description 두 값을 비교하여 판정을 내리는 함수
    * @param {string} input
-   * @returns {object} {strike: number, ball: number}
+   * @returns {object} {strikeCount: number, ballCount: number}
    */
   checkGuess(input) {
     const randomNumber = this.#answerNumbers.join('');
-    let strike = 0;
-    let ball = 0;
+    let strikeCount = 0;
+    let ballCount = 0;
 
     for (let i = 0; i < 3; i++) {
       if (input[i] === randomNumber[i]) {
-        strike++;
+        strikeCount++;
       } else if (randomNumber.includes(input[i])) {
-        ball++;
+        ballCount++;
       }
     }
-    return { strike, ball };
+    return { ballCount, strikeCount };
   }
 
   /**
-   * @description 스트라이크와 볼의 갯수를 판별하여 메세지를 출력하는 함수
-   * @param {number} strike
+   * @description 스트라이크와 볼의 갯수를 판별하여 메세지를 반환하는 함수
    * @param {number} ball
+   * @param {number} strike
+   * @returns {string} message
    */
-  feedbackMessage(strike, ball) {
-    if (ball === 0 && strike === 0) {
-      print(`${Message.NOTHING}`);
-    } else if (strike > 0 && ball > 0) {
-      print(`${ball}${Message.BALL} ${strike}${Message.STRIKE}`);
-    } else if (ball > 0 && strike === 0) {
-      print(`${ball}${Message.BALL}`);
-    } else if (strike === 3) {
-      print(`${strike}${Message.STRIKE}\n${Message.SUCCESS}`);
-    } else {
-      print(`${strike}${Message.STRIKE}`);
+  feedbackMessage(ball, strike) {
+    let message = '';
+
+    if (strike === 3) {
+      return `${strike}${Message.STRIKE}\n${Message.SUCCESS}`;
     }
+    if (ball > 0) {
+      message += `${ball}${Message.BALL} `;
+    }
+    if (strike > 0) {
+      message += `${strike}${Message.STRIKE}`;
+    }
+    return message.trim() || `${Message.NOTHING}`;
   }
 }
 
