@@ -14,24 +14,24 @@ class User {
     this.numbers = numbers;
   }
   async setInputNumbers() {
-    const stringNumbers = await Console.readLineAsync('숫자를 입력해주세요 : ');
+    const strNumbers = await Console.readLineAsync('숫자를 입력해주세요 : ');
     const numbers = [];
     try {
-      if (stringNumbers.length !== 3) {
+      if (strNumbers.length !== 3) {
         throw new Error('3자리 숫자를 입력해주세요');
       }
-      stringNumbers.split('').map((number) => {
-        if (isNaN(number)) {
+      strNumbers.split('').map((strNumber) => {
+        const number = Number(strNumber);
+        if (Number.isNaN(number)) {
           throw new Error('숫자를 입력해주세요');
-        } else if (numbers.includes(Number(number))) {
+        } else if (numbers.includes(number)) {
           throw new Error('중복되지 않은 숫자를 입력해주세요');
         } else {
-          numbers.push(Number(number));
+          numbers.push(number);
         }
       });
     } catch (error) {
       console.log(error.message);
-      return false;
     }
 
     this.numbers = numbers;
@@ -42,7 +42,21 @@ class App extends User {
     const computer = new User();
     const user = new User();
     computer.setRandomNumber();
-    await user.setInputNumbers();
+  }
+  compareNumbers(computer, user) {
+    const initial = {
+      strike: 0,
+      ball: 0,
+    };
+    const { strike, ball } = computer.numbers.reduce(({ strike, ball }, number, index) => {
+      if (user.numbers[index] === number) {
+        strike += 1;
+      } else if (user.numbers.includes(number)) {
+        ball += 1;
+      }
+      return { strike, ball };
+    }, initial);
+    return { strike, ball };
   }
 }
 const app = new App();
