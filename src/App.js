@@ -13,17 +13,20 @@ class App {
   }
 
   async guessNum() {
+    //숫자 맞히기 시작 함수
     await this.getInputNum();
     await this.printStrikeAndBall(this.inputValue);
   }
 
   async getInputNum() {
+    //숫자를 입력받는 함수
     this.inputValue = "";
     this.inputValue = await Console.readLineAsync("숫자를 입력해주세요.");
     this.checkInputValidate(this.inputValue);
   }
 
   calculateStrikeAndBall(inputValue) {
+    //스트라이크인지 볼인지 계산하는 함수
     const inputNumArr = inputValue
       .split("")
       .map((numStr) => parseInt(numStr, 10));
@@ -44,6 +47,7 @@ class App {
   }
 
   async printStrikeAndBall(inputValue) {
+    //결과를 출력하는 함수
     const { strike, ball } = this.calculateStrikeAndBall(inputValue);
 
     if (strike === 3) {
@@ -73,6 +77,7 @@ class App {
   }
 
   async selectPalyAgain() {
+    // 1 과 2 를 입력받아 게임을 시작할지 종료할지 검증하는 함수
     const inputValue = await Console.readLineAsync(
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
     );
@@ -86,8 +91,6 @@ class App {
       return;
     }
     throw new Error("[ERROR] 1과 2의 숫자만 입력해주세요.");
-    // Console.print("1과 2의 숫자만 입력해주세요.");
-    // await this.selectPalyAgain();
   }
 
   createRandomNum() {
@@ -137,14 +140,17 @@ class App {
 
   isNotInteger(inputValue) {
     if (inputValue % 1 !== 0) {
+      //소수점 판별
       return true;
     }
 
     if (inputValue < 0) {
+      //음수 판별
       return true;
     }
 
     if (typeof inputValue !== "number") {
+      //넘버 판별
       return true;
     }
 
