@@ -33,9 +33,8 @@ class App {
     try {
       const userNumber = await Console.readLineAsync(GAME_MESSAGE.INPUT);
       // TODO : 사용자가 입력한 숫자에 대해 유효한 값인지 확인하는 기능
-      if (!this.inValidNumber(userNumber)) {
-        return this.BaseballGame();
-      }
+      if (!this.inValidNumber(userNumber))
+        throw new Error(ERROR_MESSAGE.IS_INVALID);
       // TODO : 볼과 스트라이크를 계산하는 기능
       const { ball, strike } = this.calculateBallAndStrike(
         computerNumber,
@@ -50,18 +49,14 @@ class App {
 
   inValidNumber(userNumber) {
     const userNumberArray = String(userNumber).split("");
-    const setUserNumber = new Set(userNumberArray);
+    const setUserNumberArray = new Set(userNumberArray);
 
-    if (typeof userNumber !== number) {
-      throw new Error(ERROR_MESSAGE.IS_NUMBER);
+    if (isNaN(userNumber) || userNumberArray.length !== 3) {
+      return false;
     }
 
-    if (userNumberArray.length !== setUserNumber.size) {
-      throw new Error(ERROR_MESSAGE.IS_DUPLICATION);
-    }
-
-    if (userNumberArray.length !== 3) {
-      throw new Error(ERROR_MESSAGE.IS_DIGIT);
+    if(setUserNumberArray.size !== 3){
+      return false;
     }
 
     return true;
