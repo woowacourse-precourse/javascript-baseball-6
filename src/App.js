@@ -40,7 +40,7 @@ class App {
     let strike = 0;
     let ball = 0;
 
-    input.split('').map((string, index) => {
+    input.split('').forEach((string, index) => {
       const number = Number(string);
       if (answer[index] === number) strike++;
       else if (answer.includes(number)) ball++;
