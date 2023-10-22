@@ -9,8 +9,7 @@ class App {
         MissionUtils.Console.print('컴퓨터의 숫자는');
         MissionUtils.Console.print(computerNumber);
         const userNumber = await inputUserNumber();
-        MissionUtils.Console.print('유저의 숫자는');
-        MissionUtils.Console.print(userNumber);
+        calculateResults(computerNumber, userNumber);
     }
 }
 
@@ -35,6 +34,36 @@ function createComputerNumber(length) {
         }
     }
     return computer;
+}
+
+function calculateResults(computerNumber, userNumber) {
+    MissionUtils.Console.print('유저의 숫자는');
+    MissionUtils.Console.print(userNumber);
+    let score = {
+        strike: 0,
+        ball: 0,
+    };
+    computerNumber.forEach((element, index) => {
+        if (computerNumber[index] === userNumber[index]) {
+            score.strike++;
+        } else if (computerNumber.includes(userNumber[index])) {
+            score.ball++;
+        }
+    });
+
+    let resultText = '';
+    if (score.strike > 0) {
+        resultText += score.strike + '스트라이크 ';
+    }
+    if (score.ball > 0) {
+        resultText += score.ball + '볼';
+    }
+
+    if (resultText) {
+        MissionUtils.Console.print(resultText);
+    } else {
+        MissionUtils.Console.print('낫싱');
+    }
 }
 
 const app = new App();
