@@ -1,4 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
+
 class App {
   showStartMessage() {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
@@ -79,15 +80,13 @@ class App {
       }
     });
 
-    if (baseBallCount.ball > 0) {
+    if (baseBallCount.ball > 0 && baseBallCount.strike > 0) {
+      MissionUtils.Console.print(`${baseBallCount.ball}볼 ${baseBallCount.strike}스트라이크`);
+    } else if (baseBallCount.ball > 0) {
       MissionUtils.Console.print(`${baseBallCount.ball}볼`);
-    }
-
-    if (baseBallCount.strike > 0) {
+    } else if (baseBallCount.strike > 0) {
       MissionUtils.Console.print(`${baseBallCount.strike}스트라이크`);
-    }
-
-    if (baseBallCount.strike === 0 && baseBallCount.ball === 0) {
+    } else if (baseBallCount.strike === 0 && baseBallCount.ball === 0) {
       MissionUtils.Console.print(`낫싱`);
     }
 
