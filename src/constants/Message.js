@@ -18,8 +18,3 @@ export const outputMessage = {
   TWO_STRIKE: '2스트라이크',
   STRIKE_OUT: '3스트라이크',
 }
-
-export const option = {
-  RETRY: 1,
-  QUIT: 2,
-}

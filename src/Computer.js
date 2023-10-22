@@ -1,6 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils"
 import { outputMessage } from "./constants/Message.js";
-import { BALL_CONDITION, END_NUMBER, FROM_ONE_TO_NINE, NUMBER_LENGTH, RESET_COUNT, START_NUMBER, STRIKE_CONDITION } from './constants/Enum.js';
+import { BALL_CONDITION, END_NUMBER, FROM_ONE_TO_NINE, NUMBER_LENGTH, RESET_COUNT, START_NUMBER, STRIKE_CONDITION, WIN_CONDITION } from './constants/Enum.js';
 
 class Computer {
   constructor() {
@@ -34,7 +34,7 @@ class Computer {
     const strikeCount = this.#getTotalStrike();
 
     // 모두 맞힌 경우
-    if (strikeCount === 3) {
+    if (strikeCount === WIN_CONDITION) {
       return this.#gameWin();
     }
 

@@ -1,7 +1,8 @@
 import User from "./User.js";
 import Game from "./Game.js";
-import { message, option, outputMessage } from "./constants/Message.js";
+import { message, outputMessage } from "./constants/Message.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
+import { option } from "./constants/Enum.js";
 
 class App {
   #user = null;
