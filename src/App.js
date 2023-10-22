@@ -67,9 +67,9 @@ class App {
 
   async guessRestart() {
     const input = await Console.readLineAsync(MESSAGE.WANT_RESTART);
-    const num = Number(input);
-    this.validateRestartInput(num);
-    if (num === CONSTANT.RESTART_GAME) await this.restart();
+    const numberInput = Number(input);
+    this.validateRestartInput(numberInput);
+    if (numberInput === CONSTANT.RESTART_GAME) await this.restart();
   }
 
   validateRestartInput(input) {
