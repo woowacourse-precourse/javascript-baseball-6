@@ -10,15 +10,20 @@ class BaseballGame {
   #userNumbers;
 
   async playGame() {
-    this.setComputerNumbers();
+    this.handleComputer();
 
     await this.handleUser();
 
     await this.handleEnd();
   }
 
-  setComputerNumbers() {
-    this.#computerNumbers = this.getRandomNumbers();
+  handleComputer() {
+    this.setComputerNumbers(this.getRandomNumbers());
+  }
+
+  setComputerNumbers(numbers) {
+    //TODO: Numbers가 길이가 3인 숫자로 이루어진 배열인지 검사
+    this.#computerNumbers = numbers;
   }
 
   /**
@@ -55,8 +60,9 @@ class BaseballGame {
     this.setUserNumbers(USER_NUMBERS);
   }
 
-  setUserNumbers(user_numbers) {
-    this.#userNumbers = user_numbers;
+  setUserNumbers(numbers) {
+    //TODO: Numbers가 길이가 3인 숫자로 이루어진 배열인지 검사
+    this.#userNumbers = numbers;
   }
 
   validUserNumber(input) {
