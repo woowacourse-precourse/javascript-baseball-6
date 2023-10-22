@@ -6,7 +6,7 @@ import { isBaseballNumber } from '../utils/validation.js';
 export class Player {
   numberList;
 
-  constructor() {
+  constructor(numberList) {
     this.validateNumber(numberList);
 
     this.numberList = numberList;
