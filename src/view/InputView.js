@@ -5,14 +5,18 @@ import {
   isCorrectRetryInput,
 } from '../utils/Validation.js';
 
-export async function getPlayerInput() {
-  const res = await Console.readLineAsync(NOTIFICATION_MESSAGE.needInput);
-  isCorrectPlayerInput(res);
-  return res;
-}
+export const getPlayerInput = async () => {
+  const playerInput = await Console.readLineAsync(
+    NOTIFICATION_MESSAGE.needInput
+  );
+  isCorrectPlayerInput(playerInput);
+  return playerInput;
+};
 
-export async function getRetryInput() {
-  const res = await Console.readLineAsync(NOTIFICATION_MESSAGE.gameRetry);
-  isCorrectRetryInput(res);
-  return res;
-}
+export const getRetryInput = async () => {
+  const retryInput = await Console.readLineAsync(
+    NOTIFICATION_MESSAGE.gameRetry
+  );
+  isCorrectRetryInput(retryInput);
+  return retryInput;
+};
