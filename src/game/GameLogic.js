@@ -37,12 +37,6 @@ class GameLogic {
     } else {
       gameResult = `${ball}볼 ${strike}스트라이크`;
     }
-
-    MissionUtils.Console.print(gameResult);
-    if (gameResult === "3스트라이크") {
-      MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-    }
-
     return gameResult;
   }
 }

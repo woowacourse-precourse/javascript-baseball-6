@@ -11,10 +11,22 @@ class GameManager {
     this.playGame();
   }
 
-  playGame() {
-    MissionUtils.Console.readLine("숫자를 입력해주세요 : ", (answer) => {
-      return this.gameLogic.checkGameResult(answer);
-    });
+  async playGame() {
+    let userNumber = "";
+
+    while (true) {
+      const answer = await MissionUtils.Console.readLineAsync(
+        "숫자를 입력해주세요 : "
+      );
+
+      userNumber = this.gameLogic.checkGameResult(answer);
+      MissionUtils.Console.print(userNumber);
+
+      if (userNumber === "3스트라이크") {
+        MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+        return this.restartGame();
+      }
+    }
   }
 
   restartGame() {
