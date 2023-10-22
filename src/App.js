@@ -4,12 +4,16 @@ class App {
     async play() {
         console.log("숫자 야구 게임을 시작합니다.");
         let answer = [];
-        while (answer.length < 3) {
-            let number = Random.pickNumberInRange(1, 9);
-            if (!answer.includes(number)) {
-                answer.push(number);
+        const makeAnswer = () => {
+            while (answer.length < 3) {
+                let number = Random.pickNumberInRange(1, 9);
+                if (!answer.includes(number)) {
+                    answer.push(number);
+                }
             }
-        }
+            return answer;
+        };
+        makeAnswer();
         console.log(answer); //테스트 확인용 코드
 
         let strike = 0;
