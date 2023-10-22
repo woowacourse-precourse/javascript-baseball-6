@@ -10,14 +10,21 @@ class App {
   getRandomNumbers() {
     const numbers = new Set();
     while (numbers.size < 3) {
-      numbers.add(MissionUtils.Random.pickNumberInRange(1, 9))
+      numbers.add(MissionUtils.Random.pickNumberInRange(1, 9));
     }
     return [...numbers];
   }
 
   async inputNumbers() {
+    const numericRegex = /^[0-9]+$/;
+
     while(1) {
-      const input = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ")
+      const input = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
+      
+      if (input.length !== 3 || !numericRegex.test(input)){
+        throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+      }
+
       if (this.compareNumbers(input)){
         break;
       }
@@ -64,7 +71,7 @@ class App {
   }
 
   async play() {
-    MissionUtils.Console.print("숫자 야구 게임을 시작합니다.")
+    MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
 
     while(1) {
       await this.inputNumbers();
@@ -72,6 +79,10 @@ class App {
       MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
 
       const input = await MissionUtils.Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+
+      if (input !== "1" && input !== "2") {
+        throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+      }
       if (input === "2") {
         break;
       }
