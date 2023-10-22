@@ -1,6 +1,9 @@
 import * as MissionUtils from '@woowacourse/mission-utils';
 
 // TODO: Mission 1: 메세지 출력 함수 구현
+const printMessage = (message) => {
+  MissionUtils.Console.print(message);
+};
 
 // TODO: Mission 2: 메세지 입력 함수 구현
 
@@ -17,9 +20,17 @@ import * as MissionUtils from '@woowacourse/mission-utils';
 // TODO: Mission 8: "3스트라이크"이면, 게임 종료 하는 함수 구현
 
 // TODO: Mission 9: 전체 함수들을 실행 시켜주는 메인 함수 구현
+const main = async() => {
+  let endpoint = false;
+  while (!endpoint) {
+    printMessage('숫자 야구 게임을 시작합니다.');
+  }
+};
 
 class App {
-  async play() {}
+  async play() {
+    await main();
+  }
 }
 
 export default App;
