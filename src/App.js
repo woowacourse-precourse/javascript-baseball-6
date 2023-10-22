@@ -77,11 +77,31 @@ class App {
     Console.print(this.#hint);
   }
 
+  gameEnd() {
+    Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+  }
+
+  printResult() {
+    const { strike, ball } = this.#hint;
+    if (strike === 3) {
+      this.gameEnd();
+    } else if (strike && ball) {
+      Console.print(`${ball}볼 ${strike}스트라이크`);
+    } else if (ball) {
+      Console.print(`${ball}볼`);
+    } else if (strike) {
+      Console.print(`${strike}스트라이크`);
+    } else {
+      Console.print('낫싱');
+    }
+  }
+
   async game() {
     this.createAnswer();
     Console.print(this.#answer);
     await this.getNumber();
     this.createHint();
+    this.printResult();
   }
 
   async play() {
