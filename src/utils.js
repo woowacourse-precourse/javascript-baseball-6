@@ -67,3 +67,20 @@ async function assessResult(answerDigits, guessDigits) {
   Console.print(result);
   return { strike, ball, result };
 }
+
+export async function getUserRestartChoice() {
+  const userInput = await Console.readLineAsync(
+    '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'
+  );
+  if (userInput != 1 && userInput != 2) {
+    throw new Error(
+      '[ERROR] 재시작여부: 1(재시작)과 2(종료) 중 하나를 입력하셔야합니다.'
+    );
+  }
+  let shouldRestart = false;
+  if (userInput == 1) {
+    shouldRestart = true;
+  }
+
+  return shouldRestart ? 'RESTART' : 'END';
+}
