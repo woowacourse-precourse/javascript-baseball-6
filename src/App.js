@@ -1,34 +1,54 @@
 import User from "./User.js";
 import Game from "./Game.js";
 import { message, option, outputMessage } from "./constants/Message.js";
-import { Console } from "@woowacourse/mission-utils";
+import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
+  #user = null;
+  #baseball = null;
+
   async play() {
-    const user = new User(); 
+    this.#user = new User(); 
+
+    MissionUtils.Console.print(message.START_GAME);
+    
+    while(true) {
+      if (await this.#playGame()) break;
+    }
+  }
+
+  async #playGame() {
+    this.#baseball = new Game();
+
+    if (this.#baseball !== null) {
+      this.#baseball.startGame();     
+    }
 
     while(true) {
-      const baseball = new Game();
-      baseball.startGame();
-  
-      while(true) {
-        const userThreeNumber = await user.inputNumber();
-        const gameResult = baseball.makeComputerGrade(userThreeNumber);
-
-        user.printGameResult(gameResult);
-
-        if (gameResult === outputMessage.STRIKE_OUT) {
-          break;
-        }
-      }     
-
-      const retryOrEnd = await user.inputRetryOrEnd();
-  
-      if (retryOrEnd === option.QUIT) {
-        Console.print(message.END_GAME);
-        break;
-      }
+      if (await this.#playUntilStrikeOut()) break;
     }
+
+    const retryOrEnd = await this.#user.inputRetryOrEnd();
+
+    if (Number(retryOrEnd) === option.QUIT) {
+      MissionUtils.Console.print(message.END_GAME);
+      return true;
+    }
+
+    return false;
+  }
+
+  async #playUntilStrikeOut() {
+    const userThreeNumber = await this.#user.inputNumber();
+    const gameResult = this.#baseball.makeComputerGrade(userThreeNumber);
+
+    this.#user.printGameResult(gameResult);
+
+    if (gameResult === outputMessage.STRIKE_OUT) {
+      return true;
+    }
+
+    return false;
   }
 }
 
