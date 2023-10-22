@@ -7,29 +7,24 @@ export default async function gameResult(userNumber, computerNumber){
     const strike = strikeCount(userNumber, computerNumber);
     const ball = ballCount(userNumber, computerNumber)-strike;
 
-    if (strike === 0 && ball === 0) {
-        MissionUtils.Console.print('낫싱');
-        const newUserNumber = await inputUserNumber();
-        return gameResult(newUserNumber, computerNumber);
-    } else if (strike === 3) {
+    if(strike === 3 && ball === 0){
         MissionUtils.Console.print(`${strike}스트라이크`);
         MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');        
         return playRestart();
-    } else if (strike > 0 && ball > 0) {
-        MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
-        const newUserNumber = await inputUserNumber();
-        return gameResult(newUserNumber, computerNumber);
-    } else if (strike > 0 && ball === 0) {
-        MissionUtils.Console.print(`${strike}스트라이크`);
-        const newUserNumber = await inputUserNumber();
-        return gameResult(newUserNumber, computerNumber);
-    } else if (strike === 0 && ball > 0) {
-        MissionUtils.Console.print(`${ball}볼`);
-        const newUserNumber = await inputUserNumber();
-        return gameResult(newUserNumber, computerNumber);
     }
 
-
+    if (strike === 0 && ball === 0) {
+        MissionUtils.Console.print('낫싱');
+    } else if (strike > 0 && ball > 0) {
+        MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
+    } else if (strike > 0 && ball === 0) {
+        MissionUtils.Console.print(`${strike}스트라이크`);
+    } else if (strike === 0 && ball > 0) {
+        MissionUtils.Console.print(`${ball}볼`);
+    }
+    
+    const newUserNumber = await inputUserNumber();
+    return gameResult(newUserNumber, computerNumber);
 }
 
 const strikeCount = (userNumber, computerNumber) => {
