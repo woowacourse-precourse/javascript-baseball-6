@@ -1,4 +1,5 @@
 import {MissionUtils} from "@woowacourse/mission-utils";
+import * as CONSTANT from "./constants.js";
 /*
 기능 요구 사항
   기본적으로 1부터 9까지 서로 다른 수로 이루어진 3자리의 수를 맞추는 게임이다.
@@ -25,16 +26,13 @@ import {MissionUtils} from "@woowacourse/mission-utils";
 class App {
   async play() {
     const getMessage = (ball = 0, strike = 0) => {
-      if (ball === 0 && strike === 0) return "낫싱";
-      else {
-        return `${ball}볼 ${strike}스트라이크`;
-      }
+      return ball === 0 && strike === 0 ? "낫싱" : `${ball}볼 ${strike}스트라이크`;
     };
 
     //게임시작
 
     let isEnd = false;
-    MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
+    MissionUtils.Console.print(CONSTANT.GAME_START_MESSAGE);
     while (!isEnd) {
       const computerNumbersArray = [];
       while (computerNumbersArray.length < 3) {
@@ -48,12 +46,12 @@ class App {
         let userNumber;
         // 에러 체크
 
-        userNumber = await MissionUtils.Console.readLineAsync("서로 다른 3자리의 수를 넣어주세요 ");
+        userNumber = await MissionUtils.Console.readLineAsync(CONSTANT.QUESTION_MESSAGE);
         //TODO 타입체크, 길이체크, 중복 체크 , 함수로 빼주고 함수형으로
 
-        if (userNumber === undefined || userNumber === null) throw Error("[ERROR]");
-        if (userNumber.length !== 3) throw Error("[ERROR]");
-        if ([...new Set(userNumber.split(""))].length !== 3) throw Error("[ERROR]");
+        if (userNumber === undefined || userNumber === null) throw Error(CONSTANT.ERROR_MESSAGE);
+        if (userNumber.length !== 3) throw Error(CONSTANT.ERROR_MESSAGE);
+        if ([...new Set(userNumber.split(""))].length !== 3) throw Error(CONSTANT.ERROR_MESSAGE);
 
         //숫자 비교
         let ball = 0;
@@ -69,11 +67,11 @@ class App {
         MissionUtils.Console.print(message);
         if (strike === 3) {
           isWine = true;
-          MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+          MissionUtils.Console.print(CONSTANT.WIN_MESSAGE);
         }
       }
       // 게임종료 확인
-      const endAnswer = await MissionUtils.Console.readLineAsync("게임을 새로 시작하시려면 1, 종료하시려면 2를 입력하세요");
+      const endAnswer = await MissionUtils.Console.readLineAsync(CONSTANT.GAME_END_QUESTION_MESSAGE);
       //TODO endAnswer 타입 검사
       if (endAnswer === "2") isEnd = true;
     }
