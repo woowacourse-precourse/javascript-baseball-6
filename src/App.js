@@ -1,6 +1,8 @@
 import { Console, MissionUtils } from '@woowacourse/mission-utils'
 import { feedbackMessage, messages } from './message.js'
 
+import isError from './validation.js'
+
 class App {
   constructor() {
     this.computer = []
@@ -12,7 +14,7 @@ class App {
     try {
       while (this.flag) {
         await this.getPlayerNumber()
-        await this.isError()
+        await isError(this.player)
         await this.checkNumber()
       }
       await this.gameOver()
@@ -20,13 +22,15 @@ class App {
       throw new Error(e)
     }
   }
+  async reStart() {
+    await this.reset()
+    this.gameStart()
+  }
   async gameOver() {
     Console.print(messages.correctNumber)
     let rePlay = await Console.readLineAsync(messages.reStart)
-    if (rePlay == 1) {
-      await this.reset()
-      this.gameStart()
-    } else if (rePlay != 2) throw new Error(messages.errorMessage)
+    if (rePlay == 1) await this.reStart()
+    else if (rePlay != 2) throw new Error(messages.errorMessage)
   }
   async reset() {
     this.computer = []
@@ -48,11 +52,6 @@ class App {
       else if (this.computer.includes(playerNum)) ball++
     }
     this.printFeedback(strike, ball, feedback)
-  }
-  async isError() {
-    if (!(this.player.length === 3 && !!Number(this.player[0]) && !!Number(this.player[1]) && !!Number(this.player[2]))) {
-      throw new Error(messages.errorMessage)
-    }
   }
   async getPlayerNumber() {
     this.player = [...(await Console.readLineAsync(messages.inputNumber))]
