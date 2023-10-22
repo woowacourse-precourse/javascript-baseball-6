@@ -33,7 +33,7 @@ export default class BaseballController {
   #getCompareResults = async () => {
     const playerNumber = this.#Player.getSelectNumber();
     const computerNumber = this.#Computer.getSelectNumber();
-    const result = this.#Referee.compare(playerNumber, computerNumber);
+    const result = this.#Referee.compareNumbers(playerNumber, computerNumber);
 
     return this.#printCompareResults(result);
   };
