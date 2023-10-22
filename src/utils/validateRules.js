@@ -1,3 +1,5 @@
+import { RULES } from '../constants/constant.js';
+
 export const isEmptyValue = (userInput) => {
   return userInput === '';
 };
@@ -6,8 +8,8 @@ export const isNotNumber = (userInput) => {
   return userInput.match(/\D/);
 };
 
-export const isOverMaxLength = (userInput) => {
-  return userInput.length !== 3;
+export const isNotValidLength = (userInput) => {
+  return userInput.length !== RULES.MAX_LENGTH;
 };
 
 export const isWithZero = (userInput) => {
