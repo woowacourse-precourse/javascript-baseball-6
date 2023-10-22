@@ -35,6 +35,23 @@ function dataToArray(data, array) {
   }
 }
 
+function caculateStrike(randomArray, inputArray) {
+  let count = 0;
+
+  for (let i = 0; i < randomArray.length; i++) {
+    if (randomArray[i] === inputArray[i]) count++;
+  }
+
+  return count;
+}
+
+function caculateBall(randomArray, inputArray, strikeCount) {
+  let judgeArray = [];
+
+  judgeArray = randomArray.map((data) => inputArray.includes(data));
+  return judgeArray.filter((data) => data === true).length - strikeCount;
+}
+
 async function finish() {
   return await Console.readLineAsync(
     "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
@@ -48,14 +65,20 @@ class App {
     let inputData = 0;
     let resetCode = 0;
 
+    let strikeCount = 0;
+    let ballCount = 0;
+
     while (Number(resetCode) !== 2) {
       initalizeArray(inputArray);
       pickRandomNumber(randomArray);
 
       inputData = await start();
+      judgeError(inputData);
+
       dataToArray(inputData, inputArray);
 
-      judgeError(inputData);
+      strikeCount = caculateStrike(randomArray, inputArray);
+      ballCount = caculateBall(randomArray, inputArray, strikeCount);
 
       resetCode = await finish();
     }
