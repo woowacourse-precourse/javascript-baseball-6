@@ -3,7 +3,7 @@ import InputView from '../View/InputView.js';
 
 import User from '../Model/User.js';
 import Computer from '../Model/Computer.js';
-import HintCounter from '../Model/HintCounter.js';
+import Hint from '../Model/Hint.js';
 import RandomNumbersCreator from '../Model/RandomNumbersCreator.js';
 
 import ErrorCatcher from '../ErrorCatcher.js';
@@ -41,44 +41,41 @@ class Controller {
       ErrorCatcher.validateType(numbers);
       ErrorCatcher.validateUnique(numbers);
     } catch (error) {
-      OutputView.printError(error);
+      OutputView.print(error);
       throw new Error(error);
     }
   }
 
   async compareUserToComputer() {
-    const hintCounter = new HintCounter();
-    hintCounter.countHint(this.user.getAnswer(), this.computer.getAnswer());
+    const hint = new Hint();
+    hint.createHint(this.user, this.computer);
 
-    await this.printHint(hintCounter);
+    await this.printHint(hint);
   }
 
-  async printHint(hintCounter) {
-    OutputView.printMessage(hintCounter.getHint());
+  async printHint(hint) {
+    OutputView.print(hint.getHint());
 
-    if (hintCounter.isAllStrike()) {
+    if (hint.isAllStrike()) {
       OutputView.printSuccessMessage();
-      return await this.readRetry();
+      return await this.readRestart();
     }
 
     await this.createUserAnswer();
   }
 
-  async readRetry() {
+  async readRestart() {
     const retryAnswer = await InputView.readRetry();
-
     this.validateRetryAnswer(retryAnswer);
 
-    if (retryAnswer === RETRY_ORDER) {
-      await this.reStart();
-    }
+    if (retryAnswer === RETRY_ORDER) await this.reStart();
   }
 
   validateRetryAnswer(answer) {
     try {
       ErrorCatcher.validateOrder(answer);
     } catch (error) {
-      OutputView.printError(error);
+      OutputView.print(error);
       throw new Error(error);
     }
   }

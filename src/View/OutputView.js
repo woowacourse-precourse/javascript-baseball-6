@@ -8,11 +8,7 @@ const OutputView = {
     MissionUtils.Console.print(START_MESSAGE);
   },
 
-  printError(error) {
-    MissionUtils.Console.print(error);
-  },
-
-  printMessage(message) {
+  print(message) {
     MissionUtils.Console.print(message);
   },
 

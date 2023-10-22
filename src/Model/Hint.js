@@ -4,21 +4,13 @@ const STRIKE = Object.freeze('스트라이크');
 const BALL = Object.freeze('볼');
 const NOTHING = Object.freeze('낫싱');
 
-class HintCounter {
+class Hint {
+  #strikeCnt;
+  #ballCnt;
+
   constructor() {
     this.strikeCnt = 0;
     this.ballCnt = 0;
-  }
-
-  countHint(userAnswer, computerAnswer) {
-    userAnswer.split('').forEach((num, i) => {
-      if (num === computerAnswer.charAt(i)) {
-        this.addStrikeCnt();
-      }
-      if (computerAnswer.includes(num) && computerAnswer.charAt(i) !== num) {
-        this.addBallCnt();
-      }
-    });
   }
 
   addStrikeCnt() {
@@ -29,10 +21,26 @@ class HintCounter {
     this.ballCnt += 1;
   }
 
-  isAllStrike() {
-    if (this.strikeCnt === ANSWER_LENGTH) return true;
+  static isStrike(userNum, computer, i) {
+    return userNum === computer.charAt(i);
+  }
 
-    return false;
+  static isBall(userNum, computer, i) {
+    return computer.includes(userNum) && computer.charAt(i) !== userNum;
+  }
+
+  createHint(User, Computer) {
+    const user = User.getAnswer().split('');
+    const computer = Computer.getAnswer();
+
+    user.forEach((num, i) => {
+      if (Hint.isStrike(num, computer, i)) this.addStrikeCnt();
+      if (Hint.isBall(num, computer, i)) this.addBallCnt();
+    });
+  }
+
+  isAllStrike() {
+    return this.strikeCnt === ANSWER_LENGTH;
   }
 
   getHint() {
@@ -45,4 +53,4 @@ class HintCounter {
   }
 }
 
-export default HintCounter;
+export default Hint;
