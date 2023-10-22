@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import numberGenerator from "./numberGenerator.js";
+import generateNumber from "./generateNumber.js";
 import strike from "./strike.js";
 import ball from "./ball.js";
 import validateNumber from "./validateNumber.js";
@@ -7,7 +7,7 @@ import validateNumber from "./validateNumber.js";
 class App {
   async play() {
     let restart = "1";
-    let computer = numberGenerator();
+    let computer = generateNumber();
 
     Console.print("숫자 야구 게임을  시작합니다.");
 
@@ -33,7 +33,7 @@ class App {
         restart = await Console.readLineAsync("");
 
         if (restart === "1") {
-          computer = numberGenerator();
+          computer = generateNumber();
           Console.print("숫자 야구 게임을  시작합니다.");
         } else if (restart !== "2") {
           throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");

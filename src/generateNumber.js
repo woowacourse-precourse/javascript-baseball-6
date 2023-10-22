@@ -1,6 +1,6 @@
 import { Random } from "@woowacourse/mission-utils";
 
-export default function numberGenerator() {
+export default function generateNumber() {
   const computer = [];
   while (computer.length < 3) {
     const number = Random.pickNumberInRange(1, 9);
