@@ -7,7 +7,7 @@ export async function wantReStart() {
         return false;
     } else if (RESTART_INPUT === '2') {
         return true;
-    }else {
+    }else { //1,2를 제외한 경우 예외 처리
         throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
     }
 }
