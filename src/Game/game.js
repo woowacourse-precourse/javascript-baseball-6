@@ -71,13 +71,18 @@ export const isCorrectAnswer = (result) => {
   return false;
 };
 
-export const askRetry = () => {
-  MissionUtils.Console.readLine(
+export const askRetry = async () => {
+  // MissionUtils.Console.readLine(
+  //   '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n',
+  //   (answer) => {
+  //     retryOrExit(answer);
+  //   },
+  // );
+
+  const RETRY_MESSAGE = await MissionUtils.Console.readLineAsync(
     '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n',
-    (answer) => {
-      retryOrExit(answer);
-    },
   );
+  await retryOrExit(RETRY_MESSAGE);
 };
 
 export const retryOrExit = (answer) => {
