@@ -3,34 +3,14 @@ import { Random, Console } from "@woowacourse/mission-utils";
 class App {
     async play() {
         console.log("숫자 야구 게임을 시작합니다.");
-        let answer = [];
-        const makeAnswer = () => {
-            while (answer.length < 3) {
-                let number = Random.pickNumberInRange(1, 9);
-                if (!answer.includes(number)) {
-                    answer.push(number);
-                }
-            }
-            return answer;
-        };
-        makeAnswer();
-        console.log(answer); //테스트 확인용 코드
+        const answer = this.makeAnswer();
+        console.log(`play안에있는 ${answer}`); //테스트 확인용 코드
 
         let strike = 0;
         let ball = 0;
+
         while (strike !== 3) {
-            let inputNumber = await Console.readLineAsync().then(
-                (value) => value
-            );
-
-            if (isNaN(Number(inputNumber)) || inputNumber.length !== 3) {
-                throw new Error(`[ERROR] 숫자가 잘못된 형식입니다.`);
-            }
-
-            let inputNumberList =
-                inputNumber && inputNumber.split("").map((i) => i / 1); //문자형인 배열에서 숫자형인 배열로 변환
-
-            console.log(`숫자를 입력해주세요 : ${inputNumberList?.join("")}`); //하나의 숫자로 보이게 하기 위해
+            const inputNumberList = await this.makeInputList();
 
             for (let i = 0; i < 3; i++) {
                 if (answer[i] === inputNumberList[i]) {
@@ -52,11 +32,39 @@ class App {
         Console.print(
             `${strike}스트라이크입니다\n3개의 숫자를 모두 맞히셨습니다! 게임 종료\n게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.`
         );
+        this.restart();
+    }
+    makeAnswer() {
+        let answer = [];
+        while (answer.length < 3) {
+            let number = Random.pickNumberInRange(1, 9);
+            if (!answer.includes(number)) {
+                answer.push(number);
+            }
+        }
+        return answer;
+    }
+    async makeInputList() {
+        const inputNumber = await Console.readLineAsync().then(
+            (value) => value
+        );
+        console.log(`숫자: ${inputNumber} 숫자길이: ${inputNumber.length}`);
+        if (isNaN(Number(inputNumber)) || inputNumber.length !== 3) {
+            throw new Error(`[ERROR] 숫자가 잘못된 형식입니다.`);
+        }
+
+        console.log(`숫자를 입력해주세요 : ${inputNumber}`);
+
+        let inputNumberList =
+            inputNumber && inputNumber.split("").map((i) => i / 1); //문자형인 배열에서 숫자형인 배열로 변환
+        return inputNumberList;
+    }
+    async restart() {
         let restart = await Console.readLineAsync().then((value) => value);
         if (restart === "1") {
-            return console.log("재시작");
+            this.play();
         } else if (restart === "2") {
-            return console.log("게임종료");
+            console.log("게임종료");
         }
     }
 }
