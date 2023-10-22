@@ -3,7 +3,7 @@ import Controller from './Controller/Controller.js';
 class App {
   async play() {
     this.controller = new Controller();
-    await this.controller.init();
+    await this.controller.start();
   }
 }
 

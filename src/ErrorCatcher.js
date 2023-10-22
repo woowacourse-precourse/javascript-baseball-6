@@ -1,6 +1,6 @@
 import {
   ANSWER_LENGTH,
-  RETRY_ORDER,
+  START_ORDER,
   QUIT_ORDER,
 } from './constants/constants.js';
 
@@ -36,7 +36,7 @@ const ErrorCatcher = {
   },
 
   validateOrder(answer) {
-    if (answer !== RETRY_ORDER && answer !== QUIT_ORDER) {
+    if (answer !== START_ORDER && answer !== QUIT_ORDER) {
       throw ERROR_MESSAGE.INVALID_ORDER;
     }
   },

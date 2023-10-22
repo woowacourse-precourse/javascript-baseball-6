@@ -6,4 +6,5 @@ export const validateNumbers = (numbers) => {
   ErrorCatcher.validateUnique(numbers);
 };
 
-export const validateRetry = (number) => ErrorCatcher.validateOrder(number);
+export const validateStartOrder = (number) =>
+  ErrorCatcher.validateOrder(number);

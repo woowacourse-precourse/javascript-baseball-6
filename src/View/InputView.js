@@ -1,7 +1,7 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 
 const INPUT_MESSAGE = Object.freeze('숫자를 입력해주세요 : ');
-const RETRY_MESSAGE = Object.freeze(
+const RESTART_MESSAGE = Object.freeze(
   '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'
 );
 
@@ -12,10 +12,10 @@ const InputView = {
     return numbers;
   },
 
-  async readRetry() {
-    const answer = await MissionUtils.Console.readLineAsync(RETRY_MESSAGE);
+  async readStartOrder() {
+    const order = await MissionUtils.Console.readLineAsync(RESTART_MESSAGE);
 
-    return answer;
+    return order;
   },
 };
 

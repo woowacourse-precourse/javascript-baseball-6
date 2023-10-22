@@ -1,30 +1,17 @@
 import OutputView from '../View/OutputView.js';
 import InputView from '../View/InputView.js';
 
-import Player from '../Model/Player.js';
+import User from '../Model/User.js';
 import Computer from '../Model/Computer.js';
 import Hint from '../Model/Hint.js';
 import RandomNumbersCreator from '../Model/RandomNumbersCreator.js';
 
-import { validateNumbers, validateRetry } from '../Validator.js';
-
-import { RETRY_ORDER } from '../constants/constants.js';
+import { validateNumbers, validateStartOrder } from '../Validator.js';
 
 class Controller {
   constructor() {
-    this.user = new Player();
+    this.user = new User();
     this.computer = new Computer();
-  }
-
-  createComputerAnswer() {
-    this.computer.createAnswer(new RandomNumbersCreator());
-  }
-
-  async init() {
-    OutputView.printStartMessage();
-    this.createComputerAnswer();
-
-    await this.createUserAnswer();
   }
 
   static validate(input, validateFunc) {
@@ -36,42 +23,54 @@ class Controller {
     }
   }
 
-  async createUserAnswer() {
+  async start() {
+    OutputView.printStartMessage();
+
+    await this.createAnswers();
+  }
+
+  async createAnswers() {
+    this.createComputerAnswer();
+    await this.readUserAnswer();
+  }
+
+  createComputerAnswer() {
+    this.computer.createAnswer(new RandomNumbersCreator());
+  }
+
+  async readUserAnswer() {
     const numbers = await InputView.readNumbers();
     Controller.validate(numbers, validateNumbers);
     this.user.setAnswer(numbers);
 
-    await this.compareUserToComputer();
+    await this.showHint();
   }
 
-  async compareUserToComputer() {
+  async showHint() {
     const hint = new Hint();
     hint.createHint(this.user, this.computer);
-
-    await this.printHint(hint);
-  }
-
-  async printHint(hint) {
     OutputView.print(hint.getHint());
 
+    await this.checkSuccess(hint);
+  }
+
+  async checkSuccess(hint) {
     if (hint.isAllStrike()) {
       OutputView.printSuccessMessage();
-      return await this.readRestart();
+      return await this.readStartOrder();
     }
 
-    await this.createUserAnswer();
+    await this.readUserAnswer();
   }
 
-  async readRestart() {
-    const retryAnswer = await InputView.readRetry();
-    Controller.validate(retryAnswer, validateRetry);
+  async readStartOrder() {
+    const startOrder = await InputView.readStartOrder();
+    Controller.validate(startOrder, validateStartOrder);
+    this.user.setStartOrder(startOrder);
 
-    if (retryAnswer === RETRY_ORDER) await this.reStart();
-  }
-
-  async reStart() {
-    this.createComputerAnswer();
-    await this.createUserAnswer();
+    if (this.user.wantToStart()) {
+      await this.createAnswers();
+    }
   }
 }
 
