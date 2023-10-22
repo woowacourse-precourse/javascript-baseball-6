@@ -8,16 +8,17 @@ class App extends InsideGame {
   }
   async play() {
     const computerNumber = super.randomNumber();
-    while (true) {
+    let isGameEnd = false;
+    while (!isGameEnd) {
       try {
         const userAnswer = await MissionUtils.Console.readLineAsync(
           "숫자를 입력해주세요 : "
         );
 
         this.isValidAnswer(userAnswer);
-        const isGameEnd = this.ballAndStrike(computerNumber, userAnswer);
+        isGameEnd = this.ballAndStrike(computerNumber, userAnswer);
         if (isGameEnd) {
-          this.endAndRestart();
+          await this.endAndRestart();
           break;
         }
       } catch (error) {
@@ -25,6 +26,7 @@ class App extends InsideGame {
       }
     }
   }
+  
   isValidAnswer(answer) {
     if (answer.includes(" ")) {
       throw new Error("[ERROR] 공백이 포함되어 있습니다.");
@@ -57,7 +59,7 @@ class App extends InsideGame {
   }
   async endAndRestart() {
     MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-
+  
     try {
       const endAnswer = await MissionUtils.Console.readLineAsync(
         "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. \n"
@@ -73,7 +75,8 @@ class App extends InsideGame {
     if (endAnswer === 1) {
       this.play();
     } else {
-      this.close();
+      MissionUtils.Console.print("프로그램을 종료합니다.");
+      return;
     }
   }
   endInputValid(question) {
@@ -82,9 +85,6 @@ class App extends InsideGame {
       throw new Error("[ERROR] 1과 2만 입력해주세요.");
     }
     return questionNumber;
-  }
-  close() {
-    MissionUtils.Console.print("프로그램을 종료합니다.");
   }
 }
 
