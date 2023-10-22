@@ -1,114 +1,102 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
-    // 상대방 숫자 생성기
-    async getComputerNum() {
-        let l = [];
-        while (l.length < 3) {
+    // 컴퓨터 숫자 생성 함수
+    async createComputerNum() {
+        const TMP_ARRAY = [];
+        for (let i = 0; TMP_ARRAY.length < 3; i++) {
             let tmp = MissionUtils.Random.pickNumberInRange(1, 9);
-            if (!l.includes(tmp)) l.push(tmp);
+            if (!TMP_ARRAY.includes(tmp)) TMP_ARRAY.push(tmp);
         }
-        return Promise.resolve(l);
+        this.computerNum = TMP_ARRAY;
+
+        return;
     }
 
-    // 플레이어 숫자 생성기
-    async getPlayerNum() {
-        let playerInput = await MissionUtils.Console.readLineAsync(
+    // 플레이어 숫자 입력 함수
+    async createPlayerNum() {
+        const PLAYER_NUM = await MissionUtils.Console.readLineAsync(
             "숫자를 입력해주세요 : "
         );
         // 예외처리
         if (
-            isNaN(playerInput) || // 숫자가 아니거나
-            playerInput.length != 3 || // 3자리수가 아니거나
-            !(
-                Number(playerInput) >= 111 || // 111 ~ 999 사이가 아니라면
-                Number(playerInput) <= 999
-            )
+            isNaN(PLAYER_NUM) ||
+            PLAYER_NUM.length !== 3 ||
+            PLAYER_NUM.includes(0)
         ) {
             throw new Error("[ERROR]");
+        } //
+        else {
+            const TMP_ARRAY = [];
+            for (let i = 0; i < PLAYER_NUM.length; i++)
+                TMP_ARRAY.push(Number(PLAYER_NUM[i]));
+            return TMP_ARRAY;
         }
-        // 배열화
-        let l = [];
-        for (let i = 0; i < 3; i++) {
-            l.push(Number(playerInput[i]));
-        }
-        return Promise.resolve(l);
     }
 
     // 플레이어와 컴퓨터 숫자 비교
-    compare(playerNum, computerNum) {
-        let playerNumCopy = [...playerNum];
-        let computerNumCopy = [...computerNum];
-
+    async compare() {
+        const PLAYER_NUM = await this.createPlayerNum();
+        const COMPUTER_NUM = [...this.computerNum];
         let strike = 0;
         let ball = 0;
 
-        // 스트라이크 검사
-        for (let i = 0; i < playerNumCopy.length; i++) {
-            if (playerNumCopy[i] === computerNumCopy[i]) {
+        // 스트라이크 계산기
+        for (let i = 0; i < PLAYER_NUM.length; i++) {
+            if (PLAYER_NUM[i] === COMPUTER_NUM[i]) {
                 strike++;
-                playerNumCopy.splice(i, 1);
-                computerNumCopy.splice(i, 1);
-                i--; // 배열을 자르면서 길이가 줄어듬
+                PLAYER_NUM.splice(i, 1);
+                COMPUTER_NUM.splice(i, 1);
+                i--;
             }
         }
-        // 볼 검사
-        for (let i = 0; i < playerNumCopy.length; i++) {
-            if (computerNumCopy.includes(playerNumCopy[i])) {
-                ball++;
-            }
+        // 볼 계산기
+        for (let i = 0; i < PLAYER_NUM.length; i++) {
+            if (COMPUTER_NUM.includes(PLAYER_NUM[i])) ball++;
         }
+        // 텍스트 출력
+        this.resultText(strike, ball);
 
-        return [strike, ball];
+        if (strike !== 3) return this.compare();
+        else return this.isEndGame();
     }
 
-    // 비교 결과 텍스트 출력기
-    compareResultText(data) {
-        // [strike, ball]
-        let result = "";
+    // 스트라이크 볼 텍스 출력 함수
+    resultText(strike, ball) {
+        if (strike === 0 && ball === 0) MissionUtils.Console.print("낫싱");
+        else if (strike !== 0 && ball === 0)
+            MissionUtils.Console.print(`${strike}스트라이크`);
+        else if (strike === 0 && ball !== 0)
+            MissionUtils.Console.print(`${ball}볼`);
+        else if (strike !== 0 && ball !== 0)
+            MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
 
-        if (data[0] === 0 && data[1] === 0) result = "낫싱";
-        else if (data[0] !== 0 && data[1] === 0)
-            result = `${data[0]}스트라이크`;
-        else if (data[0] === 0 && data[1] !== 0) result = `${data[1]}볼`;
-        else if (data[0] !== 0 && data[1] !== 0)
-            result = `${data[1]}볼 ${data[0]}스트라이크`;
-
-        MissionUtils.Console.print(result);
+        return;
     }
 
-    // 3스트라이크 이후 게임 종료 여부
+    // 3스트라이크 이후 게임 종료 여부 함수
     async isEndGame() {
-        let endPhrase =
-            "3개의 숫자를 모두 맞히셨습니다! 게임 종료 \n게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.";
-        let playerInput = await MissionUtils.Console.readLineAsync(endPhrase);
-
+        const END_GAME_INPUT = await MissionUtils.Console.readLineAsync(
+            "3개의 숫자를 모두 맞히셨습니다! 게임 종료\n게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+        );
         // 예외처리
-        if (Number(playerInput) !== 1 && Number(playerInput) !== 2) {
+        if (Number(END_GAME_INPUT) === 1) {
+            this.createComputerNum();
+            return this.compare();
+        } //
+        else if (Number(END_GAME_INPUT) === 2) {
+            MissionUtils.Console.print("게임 종료");
+            return;
+        } //
+        else {
             throw new Error("[ERROR]");
         }
-
-        return Number(playerInput);
     }
 
     async play() {
         MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
-        let computerNum = await this.getComputerNum();
-        while (true) {
-            let playerNum = await this.getPlayerNum();
-
-            let result = this.compare(playerNum, computerNum);
-            this.compareResultText(result);
-
-            if (result[0] === 3) {
-                let data = await this.isEndGame();
-                if (data === 1) await this.play();
-                else if (data === 2) {
-                    MissionUtils.Console.print("게임 종료");
-                }
-                return;
-            } else continue;
-        }
+        this.createComputerNum();
+        return this.compare();
     }
 }
 
