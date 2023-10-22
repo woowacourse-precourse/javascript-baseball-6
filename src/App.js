@@ -11,27 +11,22 @@ class App {
   }
 
   async getInput() {
-    try {
-      const input = await Console.readLineAsync('숫자를 입력해주세요 : ');
-      this.inputCheck(input);
-      this.computeNumber();
-    } catch (error) {
-      console.error(error);
-    }
+    const input = await Console.readLineAsync('숫자를 입력해주세요 : ');
+    this.inputCheck(input);
+    this.computeNumber();
   }
 
   inputCheck(input) {
-    // 세자리 숫자
-    if (input.length !== 3) {
-      throw new Error('3자리가 아님');
-    }
     const number = input.split('').map(Number);
+    if (number.length !== 3) {
+      throw new Error('[ERROR] 3자리 숫자가 아닙니다.');
+    }
     const user = [];
     number.forEach(element => {
       if (!user.includes(element)) {
         user.push(element);
       } else {
-        throw new Error('서로 다른 수가 아님');
+        throw new Error('[ERROR] 서로 다른 숫자가 아닙니다.');
       }
     });
     this.user_number = user;
@@ -84,23 +79,24 @@ class App {
   async checkRestart() {
     Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
     Console.print('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
-    try {
-      const input = await Console.readLineAsync('');
-      if (input === 1) {
-        this.getRandomNumber();
-        this.getInput();
-      } else if (input === 2) {
-        return;
-      }
-    } catch (error) {
-      console.error(error);
+    const input = await Console.readLineAsync('');
+    if (input === '1') {
+      await this.startNewGame();
+    } else if (input === '2') {
+      return;
+    } else {
+      throw new Error('[ERROR] 1 또는 2를 입력받지 못했습니다.');
     }
+  }
+
+  async startNewGame() {
+    this.getRandomNumber();
+    await this.getInput();
   }
 
   async play() {
     this.start();
-    this.getRandomNumber();
-    await this.getInput();
+    await this.startNewGame();
   }
 }
 
