@@ -1,9 +1,9 @@
 import { Console } from '@woowacourse/mission-utils';
 
 class Print {
-  static counts({ ballCount, strikeCount }) {
-    let ballResult = `${ballCount == 0 ? '' : ballCount + '볼 '}`;
-    let strikeResult = `${strikeCount == 0 ? '' : strikeCount + '스트라이크'}`;
+  static resultsFrom({ ball, strike }) {
+    let ballResult = `${ball == 0 ? '' : ball + '볼 '}`;
+    let strikeResult = `${strike == 0 ? '' : strike + '스트라이크'}`;
     let result = `${ballResult}${strikeResult}`;
     if (result == '') result = '낫싱';
     Console.print(result);
