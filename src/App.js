@@ -1,4 +1,5 @@
 import { Console, Random } from "@woowacourse/mission-utils";
+import { validateThreeNaturalNumbers, validateEndDecision } from "./validators.js";
 
 class App {
   async play() {
@@ -14,19 +15,7 @@ class App {
       const parsedInput = answerInput.split("").map((char) => parseInt(char, 10));
 
       // 유효성 검사
-      const EXPECTED_LENGTH = 3;
-      if (parsedInput.some((char) => typeof char !== "number" || Number.isNaN(char))) {
-        throw new Error("[ERROR] 모든 자리가 숫자로 이루어져야 합니다.");
-      }
-      if (parsedInput.length !== EXPECTED_LENGTH) {
-        throw new Error("[ERROR] 세 자리를 입력해주세요.");
-      }
-      if (parsedInput.some((char) => char === 0)) {
-        throw new Error("[ERROR] 1이상 9이하의 숫자로 이루어져야 합니다. 0은 포함될 수 없습니다.");
-      }
-      if (new Set(parsedInput).size !== parsedInput.length) {
-        throw new Error("[ERROR] 모든 자리 수의 값은 서로 달라야 합니다.");
-      }
+      validateThreeNaturalNumbers(parsedInput);
 
       const scoredInput = parsedInput
         .map((number, index) => (number === answer[index] ? "strike" : number))
@@ -57,9 +46,9 @@ class App {
     const endDecisionInput = await Console.readLineAsync(
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
     );
-    if (endDecisionInput !== "1" && endDecisionInput !== "2") {
-      throw new Error("[ERROR] 1(재시작), 2(종료) 중 하나를 선택해야 합니다.");
-    }
+
+    validateEndDecision(endDecisionInput);
+
     if (endDecisionInput === "1") {
       App.#startTrial();
     }
