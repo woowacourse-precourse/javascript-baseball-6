@@ -4,7 +4,7 @@ const isValidDecision = (input) => {
     if (input === '1' || input === '2') {
         return true
     } else {
-        return false
+        false
     }
 }
 
