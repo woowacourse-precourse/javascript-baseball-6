@@ -1,6 +1,6 @@
-import { Console } from "@woowacourse/mission-utils";
-import Computer from "./Computer.js";
-import { GUIDE_TEXT, NUMBER_SIZE } from "../constant.js";
+import { Console } from '@woowacourse/mission-utils';
+import Computer from './Computer.js';
+import { GUIDE_TEXT, NUMBER_SIZE } from '../constant.js';
 
 class Control {
   constructor(app) {
@@ -18,8 +18,8 @@ class Control {
 
   compareNumbers(userInput) {
     const COMPUTER = this.app.computerNumber;
-    const USER_ARR = String(userInput).split("");
-    const COM_ARR = String(COMPUTER).split("");
+    const USER_ARR = String(userInput).split('');
+    const COM_ARR = String(COMPUTER).split('');
     const STRIKE = USER_ARR.filter((s, i) => s === COM_ARR[i]).length;
     const BALL = COM_ARR.filter(
       (b, i) => b !== USER_ARR[i] && USER_ARR.includes(b)
@@ -29,12 +29,12 @@ class Control {
 
   getMessage(strike, ball) {
     if (strike === NUMBER_SIZE) {
-      Console.print("3스트라이크");
+      Console.print('3스트라이크');
       Console.print(GUIDE_TEXT.CORRECT_ANSWER);
       return true;
     }
     if (strike === 0 && ball === 0) {
-      Console.print("낫싱");
+      Console.print('낫싱');
     }
     if (strike === 0 && ball !== 0) {
       Console.print(`${ball}볼`);

@@ -1,5 +1,5 @@
-import { Console } from "@woowacourse/mission-utils";
-import { ERROR_MESSAGE, GUIDE_TEXT, NUMBER_SIZE } from "../constant.js";
+import { Console } from '@woowacourse/mission-utils';
+import { ERROR_MESSAGE, GUIDE_TEXT, NUMBER_SIZE } from '../constant.js';
 
 class User {
   async getUserChoice() {
