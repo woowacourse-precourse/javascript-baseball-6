@@ -74,7 +74,7 @@ class App {
       this.printMsgIs(`${STRIKES}스트라이크`);
       // 축하 메세지 출력
       this.congratMessagePrint();
-      await this.retry();
+      await this.askRetry();
     } else {
       // 삼진이 아닌 경우 game 메서드 재귀호출
       this.resultMessagePrint(STRIKES, BALLS);
@@ -82,7 +82,7 @@ class App {
     }
   }
 
-  async retry() {
+  async askRetry() {
     // judge 메서드에서 삼진인 경우 호출
     const RETRY = this.message("RETRY");
     // 게임 재시도 여부 물어봄
