@@ -62,6 +62,21 @@
          -> 메소드화 하여 출력하는 형식 고민해야함.
          -> 메소드 별 처리라면 가독성이 떨어진다 생각함. 협업시 점을 찾아야 할것 같음.
 
+# 동작 구조
+
+play() 실행
+
+1. computer <- randomNumSet(무작위 3자리 숫자 할당)
+2. answering(사용자의 입력 처리)
+   a. resultCount <- userResult(사용자 입력 결과 판단)
+   (검증과정 및 count)
+3. correctCheck <- resultCheck(카운트의 정답 판단)
+   (정답 판단 및 결과 출력)
+4. restartCheck
+   (게임 재시작 여부 판단)
+
+play() 종료
+
 # 수행 결과
 
 npm test를 통한 확인 결과
