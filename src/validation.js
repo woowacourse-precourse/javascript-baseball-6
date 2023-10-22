@@ -17,3 +17,13 @@ export function checkIsNumbers(input) {
   }
   return true;
 }
+
+export function checkNumberRange(input) {
+  // 입력값이 모두 1~9 사이인지 확인
+  for (let i = 0; i < 3; i++) {
+    if (1 > Number(input[i]) || Number(input[i]) > 9) {
+      return false;
+    }
+  }
+  return true;
+}
