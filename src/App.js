@@ -8,11 +8,18 @@ class App {
         const computerNumber = createComputerNumber(3);
         MissionUtils.Console.print('컴퓨터의 숫자는');
         MissionUtils.Console.print(computerNumber);
-        const userNumber = await inputUserNumber();
-        calculateResults(computerNumber, userNumber);
+        baseBall(computerNumber);
     }
 }
 
+// * 야구 함수 생성
+async function baseBall(computerNumber) {
+    // 유저 넘버 받고, 야구 점수 카운팅 함수에 전달
+    const userNumber = await inputUserNumber();
+    calculateResults(computerNumber, userNumber);
+}
+
+// * 유저 숫자를 받는 함수
 async function inputUserNumber() {
     let inputValue = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
 
@@ -25,6 +32,7 @@ async function inputUserNumber() {
     return inputValue;
 }
 
+// * 컴퓨터 숫자 생성 함수
 function createComputerNumber(length) {
     const computer = [];
     while (computer.length < length) {
@@ -36,6 +44,7 @@ function createComputerNumber(length) {
     return computer;
 }
 
+// * 야구 결과 계산 함수
 function calculateResults(computerNumber, userNumber) {
     MissionUtils.Console.print('유저의 숫자는');
     MissionUtils.Console.print(userNumber);
@@ -63,6 +72,13 @@ function calculateResults(computerNumber, userNumber) {
         MissionUtils.Console.print(resultText);
     } else {
         MissionUtils.Console.print('낫싱');
+    }
+
+    if (score.strike === 3) {
+        MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+        // TODO: 재시작 여부 묻기
+    } else {
+        baseBall(computerNumber);
     }
 }
 
