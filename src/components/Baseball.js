@@ -1,4 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
+import { GAME_MESSAGE } from '../constants/constants.js';
+import Computer from './Computer.js';
 
 class Baseball {
   constructor() {
@@ -7,10 +9,13 @@ class Baseball {
       user: [],
     };
 
-    Console.print('숫자 야구 게임을 시작합니다.');
+    Console.print(GAME_MESSAGE.GAME_START);
   }
 
-  startGame() {}
+  startGame() {
+    const computer = new Computer();
+    this.player.computer = computer.getNumber();
+  }
 }
 
 export default Baseball;
