@@ -6,40 +6,35 @@ class App {
     const computerNumber = this.pickRandomNumber();
     let clearGameFlag = false;
     while (!clearGameFlag) {
-      try {
-        const userSelectedNumber = await Console.readLineAsync(
-          '숫자를 입력해주세요 : '
-        );
-        if (!this.isValidNumber(userSelectedNumber)) {
-          throw new Error('숫자가 잘못된 형식입니다.');
-        }
-        const { strikeCounter, ballCounter } = this.compareNumber(
-          computerNumber,
-          userSelectedNumber
-        );
+      const userSelectedNumber = await Console.readLineAsync(
+        '숫자를 입력해주세요 : '
+      );
+      if (!this.isValidNumber(userSelectedNumber)) {
+        throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+      }
+      const { strikeCounter, ballCounter } = this.compareNumber(
+        computerNumber,
+        userSelectedNumber
+      );
 
-        if (strikeCounter === 0 && ballCounter === 0) {
-          Console.print('낫싱');
-        }
+      if (strikeCounter === 0 && ballCounter === 0) {
+        Console.print('낫싱');
+      }
 
-        if (strikeCounter !== 0 && ballCounter !== 0) {
-          Console.print(`${ballCounter}볼 ${strikeCounter}스트라이크`);
-        }
+      if (strikeCounter !== 0 && ballCounter !== 0) {
+        Console.print(`${ballCounter}볼 ${strikeCounter}스트라이크`);
+      }
 
-        if (strikeCounter !== 0) {
-          Console.print(`${strikeCounter}스트라이크`);
-        }
+      if (strikeCounter !== 0) {
+        Console.print(`${strikeCounter}스트라이크`);
+      }
 
-        if (ballCounter !== 0) {
-          Console.print(`${ballCounter}볼`);
-        }
+      if (ballCounter !== 0) {
+        Console.print(`${ballCounter}볼`);
+      }
 
-        if (strikeCounter === 3) {
-          clearGameFlag = true;
-        }
-      } catch (error) {
-        Console.print('[ERROR] 숫자가 잘못된 형식입니다.');
-        break;
+      if (strikeCounter === 3) {
+        clearGameFlag = true;
       }
     }
   }
