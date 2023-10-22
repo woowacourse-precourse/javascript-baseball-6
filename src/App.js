@@ -7,7 +7,9 @@ class App {
   async play() {
     this.startGame();
 
-    await this.playGame();
+    do {
+      await this.playGame();
+    } while (await this.replayGame());
   }
 
   startGame() {
@@ -94,6 +96,19 @@ class App {
       return true;
     } else {
       return false;
+    }
+  }
+
+  async replayGame() {
+    const input = await Console.readLineAsync(MESSAGE.REPLAY);
+
+    switch (input) {
+      case WORD.RETRY:
+        return true;
+      case WORD.EXIT:
+        return false;
+      default:
+        throw new Error(ERROR.INPUT_REPLAY_TYPE);
     }
   }
 }

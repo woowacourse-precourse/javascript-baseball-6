@@ -3,6 +3,6 @@ export const WORD = {
   STRIKE: "스트라이크",
   NOTHING: "낫싱",
 
-  RETRY: 1,
-  EXIT: 2,
+  RETRY: "1",
+  EXIT: "2",
 };
