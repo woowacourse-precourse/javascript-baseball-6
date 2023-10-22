@@ -5,7 +5,7 @@ class App {
   constructor(){
     this.isStart = true;
     this.computer = []; // [number]
-    this.cnt = 0;
+    this.tryCount = 0;
   }
 
   async play() {
@@ -20,7 +20,7 @@ class App {
       // 스트라이크가 3이 아니면 continue
       if(STRIKE!==STRIKE_END_POINTS) continue;
       Console.print(LOGS.GAME_END);
-      Console.print(`시도 횟수 : ${this.cnt} 회`);
+      Console.print(`시도 횟수 : ${this.tryCount} 회`);
       Console.print(LOGS.RESTART_PROMPT)
       // 재시작 여부 묻기
       const IS_RESTART = await this.checkRestart();
@@ -41,13 +41,13 @@ class App {
     }
     this.computer = computer;
     this.isStart = false;
-    this.cnt = 0;
+    this.tryCount = 0;
     return ;
   }
 
   async userInput(){
     const input = await Console.readLineAsync(LOGS.INPUT_PROMPT)
-    this.cnt++;
+    this.tryCount++;
     // 서로 다른 3자리의 숫자 정규식 정의
     const REGEX = new RegExp(`^(?!.*(.).*\\1)^[${MIN_NUMBER}-${MAX_NUMBER}]{${INPUT_LENGTH}}$`);
     // 유효성 테스트 통과하면 배열 생성
