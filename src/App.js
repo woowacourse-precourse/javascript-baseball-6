@@ -67,11 +67,24 @@ class App {
   }
 
   //판정 결과 출력
-  printAnswer(answer, strikes) {
+  printAnswer(answer) {
+    Console.print(answer);
+  }
+
+  //게임재시작 여부
+  async reStart(strikes) {
     if (strikes === 3) {
       Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-    } else {
-      Console.print(answer);
+      const choice = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.")
+
+      if (choice === "1") {
+        this.play();
+      } else if (choice === "2") {
+        process.exit(0);
+      } else {
+        throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+      }
+
     }
   }
 
@@ -82,9 +95,10 @@ class App {
       this.exception(userNumbers);
       const computerNumbers = this.randomNumber();//랜덤으로 생성된 숫자
       const answer = this.score(computerNumbers, userNumbers);
-      this.printAnswer(answer, strikes);
+      this.printAnswer(answer);
     } catch (error) {
       Console.print(error.message);
+      process.exit(1);
     }
   }
 }
