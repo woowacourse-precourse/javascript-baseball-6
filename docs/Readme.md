@@ -44,6 +44,15 @@ node src/
 
 ### todo
 - [x] 정적 메세지 상수 관리 
+    
+    `src/lib/logs.js`
+- [x] 정규식 따로 관리  
+
+    `src/lib/reg.js`
+
+- [x] 상수 관리
+
+    `src/lib/constants.js`
 
 ### 추가 사항
 - 프로그램 종료시 '게임을 종료합니다' 문구 출력
