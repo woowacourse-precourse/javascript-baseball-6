@@ -1,4 +1,4 @@
-import { ErrorMessage } from "../constant/Constant";
+import { ErrorMessage } from "../constant/Constant.js";
 
 const InputValidator = {
   validateUserNumber(input) {
