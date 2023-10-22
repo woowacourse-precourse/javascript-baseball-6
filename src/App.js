@@ -1,90 +1,107 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import 출력 from "./export.js";
+import exportLibrary from "./exportLibrary.js";
+import radomNumber from "./randomNumber.js";
+
 class App {
   async play() {
-    const start = async () => {   
-        const 컴퓨터값 = [];
-        while (컴퓨터값.length < 3) {
-          const number = MissionUtils.Random.pickNumberInRange(1, 9);
-          if (!컴퓨터값.includes(number)) {
-            컴퓨터값.push(number);
+
+    const start = async () => {
+      const COMPUTER_NUMBER = [];
+      // 임의의 수 3가지를 설정하는 기능
+      radomNumber(COMPUTER_NUMBER);
+
+        // 게임을 새로 시작하는 기능
+        const restart = async () => {
+          const CHOICE = await MissionUtils.Console.readLineAsync('');
+          if (CHOICE === '1') {
+            await start(); 
+          } else if (CHOICE === '2') {
+            return
+          } else {
+            throw new Error('[ERROR] 1과 2중 하나를 입력하세요');
           }
-        }
-      const 재시작기능 = async () => {
-        const onetwo = await MissionUtils.Console.readLineAsync("");
-        if (onetwo === '1') {
-          await start(); // 이 부분에 await 키워드 추가
-        } else if (onetwo === '2') {
-          return;
-        } else {
-          throw new Error('[ERROR] 1과 2중 하나를 입력하세요');
-        }
-      };
+        };
 
+      const gameStart = async () => {
+        exportLibrary('숫자 야구 게임을 시작합니다.');
+        const USER_INPUT = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
 
-      출력('숫자 야구 게임을 시작합니다.');
-
-      const 시작 = async () => {
-        const 입력내용 = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
-        if (입력내용.length != 3) {//세자리수이상 세자리수 이하
+        // 세자리수가 아니면
+        if (USER_INPUT.length != 3) {
           throw new Error('[ERROR] 세자리수를 입력하세요');
-        }
-        if (isNaN(입력내용)) {//문자열을 입력받았을때
+        };
+
+        // 문자열을 입력받았을때
+        if (isNaN(USER_INPUT)) {
           throw new Error('[ERROR] 숫자를 입력하세요');
-        }
-        if (입력내용.split("").filter((item, index) => 입력내용.indexOf(item) !== index).length >0) { //서로같은 수를 입력받았을때
-          throw new Error('[ERROR] 서로다른 숫자를 입력하세요');
-        }
-        if (입력내용.length == 3 && isNaN(입력내용) == false) {//정상적으로 입력했을때
-          //비교기능
-          const 입력값 = 입력내용.split("").map((a) => parseInt(a));
+        };
+
+        // 서로같은 수를 입력받았을 때
+        if (
+          USER_INPUT
+          .split('')
+          .filter((item, index) => USER_INPUT.indexOf(item) !== index).length >0
+        ) {
+            throw new Error('[ERROR] 서로다른 숫자를 입력하세요');
+        };
+
+         // 정상적으로 입력했을때
+        if (USER_INPUT.length == 3 && isNaN(USER_INPUT) == false) {
+         
+          // 비교기능   
+          const USER_NUMBER = USER_INPUT.split("").map((a) => parseInt(a)); 
           let strike = 0;
           let ball = 0;
-          //아무것도 없을 때
-          if (컴퓨터값.filter((i) => 입력값.includes(i)).length == 0) {
-            출력('낫싱');
-            await 시작();
-          }
-          //같은게 있을때 각각 으로 검사해야함
-          if (컴퓨터값.filter((i) => 입력값.includes(i)).length > 0) {
-            //각각 비교시작
-            컴퓨터값.forEach((a, i) => {
-              if (입력값.indexOf(a) == i) {
-                strike += 1;
-                // console.log("스트라이크");
-              }
-              if (입력값.indexOf(a) != -1 && 입력값.indexOf(a) != i) {
-                ball += 1;
-                // console.log("볼");
-              }
+
+          // 아무것도 없을 때
+          if (COMPUTER_NUMBER.filter((i) => USER_NUMBER.includes(i)).length == 0) {
+            exportLibrary('낫싱');
+            await gameStart();
+          };
+
+          // 같은게 있을때 각각 검사해야함
+          if (COMPUTER_NUMBER.filter((i) => USER_NUMBER.includes(i)).length > 0) {
+            
+            //각각 비교gameStart
+            COMPUTER_NUMBER.forEach((a, i) => {
+              if (USER_NUMBER.indexOf(a) == i) {
+                return strike += 1;
+              };
+              if (USER_NUMBER.indexOf(a) != -1 && USER_NUMBER.indexOf(a) != i) {
+                return ball += 1;
+              };
             });
 
-            //출력
-            if (strike == 3) {
-              출력('3스트라이크');
-              출력('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
-              출력('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
-              await 재시작기능();
-            }
-            if (strike == 0) {
-              출력(ball + '볼');
+            // 힌트 출력 기능
+            if (strike === 3) {
+              exportLibrary('3스트라이크');
+              exportLibrary('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+              exportLibrary('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+              await restart();
+            };
 
-              await 시작();
-            }
-            if (ball == 0 && strike != 3) {
-              출력(strike + '스트라이크');
-              await 시작();
-            }
+            if (strike === 0) {
+              exportLibrary(ball + '볼');
+              await gameStart();
+            };
+
+            if (ball === 0 && strike != 3) {
+              exportLibrary(strike + '스트라이크');
+              await gameStart();
+            };
+
             if (strike > 0 && ball > 0) {
-              출력(ball + '볼' + ' ' + strike + '스트라이크');
-              await 시작();
-            }
-          }
-        }
+              exportLibrary(ball + '볼' + ' ' + strike + '스트라이크');
+              await gameStart();
+            };
 
+          };
+        };
       };
-      await 시작();
+
+      await gameStart();
     };
+
     await start();
   }
 }
