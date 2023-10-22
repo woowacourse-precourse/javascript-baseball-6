@@ -40,8 +40,10 @@ function isRepeated(user) {
 	return newArr.length === 3 ? false : true;
 }
 function validateUserInput(userInput, computer) {
-	if (userInput.length === 3) {
-		const user = userInput.split('').map((number) => +number && +number); //arr
+	if (userInput && String(userInput).length === 3) {
+		const user = String(userInput)
+			.split('')
+			.map((number) => +number && +number); //arr
 		if (user[0] && user[1] && user[2]) {
 			if (!isRepeated(user)) {
 				const { strike, ball } = compareUserComputer(user, computer);
@@ -57,7 +59,7 @@ function validateUserInput(userInput, computer) {
 			}
 		} else {
 			try {
-				throw '[ERROR] 숫자가 잘못된 형식입니다.';
+				throw '[ERROR] 숫자만 입력해주세요.';
 			} catch (error) {
 				MissionUtils.Console.print(error);
 				throw error;
