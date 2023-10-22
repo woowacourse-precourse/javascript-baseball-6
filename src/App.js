@@ -31,8 +31,8 @@ export default class App{
   //결과를 판단
   judgeResult() {
     const result = this.#_player.getJudgeResultPaper(this.#_opponent);
-  
-    //...결과를 출력하는 함수 작성 예정
+
+    this.view.printResultMessage(result);
     if (result.STRIKE === CONSTANT.THREESTRIKE) {
       return this.correct();
     }  
