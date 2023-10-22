@@ -45,16 +45,23 @@ class App extends GameUtil{
         else if(Number(decision)!==1 && Number(decision)!== 2) await this.answerCorrect();
     }
 
+    printWithDelay(message) {
+        return new Promise((resolve) => {
+            Console.print(message);
+            resolve();
+        });
+    }
+
+
     restart(){
         this.randomNumber = super.generateRandomNumbers();
         this.play();
     }
     
     async terminate(){
-        this.printWithDelay('게임 종료');
-        process.kill(process.pid);
+        await this.printWithDelay('게임 종료');
+        await process.kill(process.pid);
     }
-
 }
 
 const app = new App();
