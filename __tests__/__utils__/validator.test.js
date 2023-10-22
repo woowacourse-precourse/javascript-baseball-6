@@ -1,4 +1,4 @@
-import { isOutOfRange } from '../../src/utils/validator';
+import { isDuplicated, isOutOfRange } from '../../src/utils/validator';
 
 describe('유효성 검사 함수 테스트', () => {
   it.each([
@@ -12,5 +12,17 @@ describe('유효성 검사 함수 테스트', () => {
     { input: -2, min: -1, max: 1, result: true },
   ])('범위 외 숫자 확인', ({ input, min, max, result }) => {
     expect(isOutOfRange(input, min, max)).toBe(result);
+  });
+
+  it.each([
+    { input: [1, 2, 3], result: false },
+    { input: [3, 4, 5, 6, 7, 8], result: false },
+    { input: ['1', '2', '3'], result: false },
+    { input: [1, '1'], result: false },
+    { input: [1, 1, 1], result: true },
+    { input: [1, 2, 3, 1], result: true },
+    { input: [3, 4, 3], result: true },
+  ])('중복 확인', ({ input, result }) => {
+    expect(isDuplicated(input)).toBe(result);
   });
 });
