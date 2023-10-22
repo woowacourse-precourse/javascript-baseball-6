@@ -1,21 +1,33 @@
-import { Console } from "@woowacourse/mission-utils";
+import { Console, Random } from "@woowacourse/mission-utils";
 import Message from "./Message.js";
 import Player from "./Player.js";
 import Query from "./Query.js";
 import Validator from "./Validator.js";
 
 class NumberBaseballGame {
+  #computerNumbers = this.#getComputerNumbers();
+
   constructor() {
+    console.log(this.#computerNumbers);
     this.player = new Player();
     Console.print(Message.START);
   }
 
   async play() {
-    const playerNumbers = await this.askPlayerNumbers();
+    const playerNumbers = await this.#askPlayerNumbers();
     Console.print(`${Query.NUMBERS}${playerNumbers.join("")}`);
   }
 
-  async askPlayerNumbers() {
+  #getComputerNumbers() {
+    const array = [];
+    while (array.length < 3) {
+      const number = Random.pickNumberInRange(1, 9);
+      if (!array.includes(number)) array.push(number);
+    }
+    return array;
+  }
+
+  async #askPlayerNumbers() {
     const array = await this.player.answer(Query.NUMBERS);
     NumberBaseballGame.validate(array);
     return array;
