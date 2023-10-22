@@ -12,7 +12,7 @@ async function getUserNumber() {
     return userNumbers;
   } catch (error) {
     console.error(error.message);
-    process.exit(1);
+    return null;
   }
 }
 
@@ -43,6 +43,10 @@ class App {
 
     while (true) {
       const userGuess = await getUserNumber();
+
+      if(userGuess === null) {
+        break;
+      }
 
       const { strike, ball, message } = calculateResult(computerAnswer, userGuess);
 
