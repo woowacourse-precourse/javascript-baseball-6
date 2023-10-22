@@ -32,18 +32,11 @@ export default class App{
   judgeResult() {
     const result = this.#_player.getJudgeResultPaper(this.#_opponent);
   
+    //...결과를 출력하는 함수 작성 예정
     if (result.STRIKE === CONSTANT.THREESTRIKE) {
-      this.correct();
+      return this.correct();
     }  
-    if (result.STRIKE !== CONSTANT.THREESTRIKE){
-      this.wrongAnswerRetry(result);
-    }
-  }
-
-  //틀렸을 때 다시 시도
-  wrongAnswerRetry(result) {
-    this.#_view.result(result);
-    this.play();
+    return this.play();
   }
     
   //정답일 때 게임 재시작 의사를 물음
