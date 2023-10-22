@@ -1,14 +1,4 @@
-/* // 컴퓨터와 플레이어 수 비교
-const computerNumber = "952";
-const playerNumber = "512";
-
-const arrNumber = (arr) => arr.split('').map(Number); // 배열로 바꿈
-
-const computerArray = arrNumber(computerNumber);
-const playerArray = arrNumber(playerNumber); */
-
-// 게임 결과 출력
-const showResult = () => {
+export const showResult = () => {
   let strike = 0;
   let ball = 0;
 
@@ -18,10 +8,17 @@ const showResult = () => {
   }
 
   const result = [];
-
-  if (strike === 3) return Console.print("성공!");
   if (strike > 0) result.push(`${strike} 스트라이크`);
   if (ball > 0) result.push(`${ball} 볼`);
 
-  Console.print(result.length ? result.join(' ') : "낫싱");
+  if (strike === 3) {
+    Console.print("성공!");
+    return;
+  }
+  if (result.length === 0) {
+    Console.print("낫싱");
+    return;
+  }
+
+  Console.print(result.join(' '));
 }

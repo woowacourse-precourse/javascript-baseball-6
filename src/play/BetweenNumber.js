@@ -5,7 +5,7 @@ class BetweenNumber {
   }
 
   arrNumber(arr) {
-    return arr.split('').map(Number);
+    return arr.split('').map(Number); // 배열로 바꿈
   }
 
   getComputerArray() {

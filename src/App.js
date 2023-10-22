@@ -1,7 +1,8 @@
 import RandomNumberMaker from '../src/play/RandomNumberMaker';
 import UserNumberReader from '../src/play/UserNumberReader';
-import correctNumber from '../src/utils/correctNumber';
-import * as Constants from './constants.js';
+import correctNumber from './Utils/CorrectNumber';
+import BetweenNumber from './play/BetweenNumber';
+import * as Constants from './const/Messages';
 
 // Console.print(Constants.GAME_START);
 
