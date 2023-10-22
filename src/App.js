@@ -1,9 +1,9 @@
 import { Random, Console } from '@woowacourse/mission-utils';
 
 class App {
-  constructor(user_number, computer_number) {
-    this.user_number = user_number;
-    this.computer_number = computer_number;
+  constructor(userNumber, computerNumber) {
+    this.userNumber = userNumber;
+    this.computerNumber = computerNumber;
   }
 
   start() {
@@ -22,41 +22,42 @@ class App {
       throw new Error('[ERROR] 3자리 숫자가 아닙니다.');
     }
     const user = [];
-    number.forEach(element => {
+    number.forEach((element) => {
       if (!user.includes(element)) {
         user.push(element);
       } else {
         throw new Error('[ERROR] 서로 다른 숫자가 아닙니다.');
       }
     });
-    this.user_number = user;
+    this.userNumber = user;
   }
 
   getRandomNumber() {
     const computer = [];
     while (computer.length < 3) {
-      const computer_num = Random.pickNumberInRange(1,9);
-      if (!computer.includes(computer_num)) {
-        computer.push(computer_num);
+      const number = Random.pickNumberInRange(1, 9);
+      if (!computer.includes(number)) {
+        computer.push(number);
       }
     }
-    this.computer_number = computer;
+    this.computerNumber = computer;
   }
 
   computeNumber() {
-    const user = this.user_number;
-    const computer = this.computer_number;
+    const user = this.userNumber;
+    const computer = this.computerNumber;
     let ball = 0;
     let strike = 0;
-    for (let i = 0, j = 0; i < 3, j < 3; i++, j++) {
-      if (user.includes(computer[j])) {
-        if (user[i] === computer[j]) {
+    user.map((num, index) => {
+      if (computer.includes(num)) {
+        if (num === computer[index]) {
           strike += 1;
         } else {
           ball += 1;
         }
       }
-    }
+      return { strike, ball };
+    });
     if (ball > 0) {
       if (strike > 0) {
         Console.print(`${ball}볼 ${strike}스트라이크`);
