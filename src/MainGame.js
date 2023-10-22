@@ -45,11 +45,30 @@ class MainGame {
     const computerSelectNumberArray = Array.from(this.computerSelectNumber);
 
     userInputArray.forEach((number, index) => {
-      if (number === computerSelectNumberArray[index]) resultArr[0]++;
-      else if (computerSelectNumberArray.includes(number)) resultArr[1]++;
-      else resultArr[2]++;
+      if (number === computerSelectNumberArray[index]) this.resultArr[0]++;
+      else if (computerSelectNumberArray.includes(number)) this.resultArr[1]++;
+      else this.resultArr[2]++;
     });
+
+    this.printResult();
   };
+
+  //결과를 출력
+  printResult = () => {
+    let result = "";
+
+    if (this.resultArr[1] > 0) result += `${this.resultArr[1]}볼 `;
+    if (this.resultArr[0] > 0) result += `${this.resultArr[0]}스트라이크`;
+    if (this.resultArr[2] === 3) result += `낫싱`;
+
+    Console.print(result);
+
+    if (this.resultArr[0] === 3) {
+      this.isRestartOrExit();
+    } else this.getUserInput();
+  };
+
+  isRestartOrExit = () => {};
 }
 
 export { MainGame };
