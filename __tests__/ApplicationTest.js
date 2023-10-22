@@ -1,5 +1,6 @@
 import App from "../src/App.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
+import { LOGS } from "../src/lib/logs.js";
 
 const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
@@ -55,6 +56,6 @@ describe("숫자 야구 게임", () => {
     // when & then
     const app = new App();
 
-    await expect(app.play()).rejects.toThrow("[ERROR]");
+    await expect(app.play()).rejects.toThrow(LOGS.INVALID_INPUT1);
   });
 });
