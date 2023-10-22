@@ -40,7 +40,7 @@ class App {
 
   async continueGame() {
     const inputNumber = await InputView.getUserNumber();
-    this.#refree.changeUserNumber(inputNumber);
+    this.#refree.changePlayerNumber(inputNumber);
     this.startGame();
   }
 }

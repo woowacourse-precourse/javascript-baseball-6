@@ -13,6 +13,7 @@ class Refree {
   playGame() {
     const ball = this.countBall();
     const strike = this.countStrike();
+
     return { ball, strike };
   }
 
@@ -32,7 +33,7 @@ class Refree {
     }, 0);
   }
 
-  changeUserNumber(inputNumber) {
+  changePlayerNumber(inputNumber) {
     this.#playerNumber = new Player(inputNumber).numberArray;
   }
 }
