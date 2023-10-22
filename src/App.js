@@ -1,13 +1,14 @@
-import GameLogic from "./game/GameLogic.js";
+import { MissionUtils } from "@woowacourse/mission-utils";
+import GameManager from "./game/GameManager.js";
 
 class App {
-  #gameLogic;
-
   constructor() {
-    this.#gameLogic = new GameLogic();
+    this.gameManager = new GameManager();
   }
 
-  async play() {}
+  async play() {
+    this.gameManager.gameStart();
+  }
 }
 
 const app = new App();

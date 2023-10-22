@@ -17,26 +17,7 @@ class GameLogic {
     return numberArray.join("");
   }
 
-  checkGameResult(userNum) {
-    let strike = 0;
-    let ball = 0;
-
-    for (let i = 0; i < 3; i++) {
-      if (this.computerNumber[i] === userNum[i]) {
-        strike++;
-      } else if (this.computerNumber[i].includes(userNum[i])) {
-        ball++;
-      }
-    }
-
-    if (strike === 0 && ball === 0) {
-      return "낫싱";
-    } else if (strike === 3) {
-      return "3스트라이크";
-    } else {
-      return `${ball}볼 ${strike}스트라이크`;
-    }
-  }
+  checkGameResult(userNum) {}
 }
 
 export default GameLogic;
