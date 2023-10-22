@@ -5,7 +5,6 @@ class App {
   async play() {
     try {
       this.StartMessage();
-      // let answer = this.MakeRandomNumbers();
       let regame = 1;
       let answer;
 
@@ -14,7 +13,6 @@ class App {
 
         while (true) {
           let userInput = await this.InputPlayerNumbers();
-          //Console.print(answer);
 
           if (userInput.length !== 3 || new Set(userInput).size !== 3) {
             throw new Error('[ERROR] 숫자를 잘 못 입력했습니다.');
@@ -53,7 +51,6 @@ class App {
         computer.push(number);
       }
     }
-    // Console.print(computer);
     return computer;
   }
 
@@ -71,9 +68,6 @@ class App {
     let strike = 0;
     let ball = 0;
     let nothing = '낫싱';
-
-    // Console.print(computer);
-    // Console.print(player);
 
     for (let i = 0; i < 3; i++) {
       if (player[i] === computer[i]) {
