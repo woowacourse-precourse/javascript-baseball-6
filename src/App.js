@@ -5,6 +5,7 @@ class App {
     this.infoPrint('숫자 야구 게임을 시작합니다.');
     const computerNumber = this.computerPick();
     const userPickValue = await this.userInput('숫자를 입력해주세요 : ');
+    const userPickValidationResult = this.userPickValidation(userPickValue);
   }
 
   infoPrint(message) {
@@ -25,6 +26,22 @@ class App {
   async userInput(message) {
     const inputValue = await MissionUtils.Console.readLineAsync(message);
     return inputValue;
+  }
+
+  userPickValidation(value) {
+    if (value.length !== 3) return false;
+
+    const valueArr = [
+      ...new Set(
+        value
+          .split('')
+          .map((element) => +element)
+          .filter((element) => !isNaN(element))
+          .filter((element) => element > 0 && element < 10),
+      ),
+    ];
+    if (valueArr.length !== 3) return false;
+    if (valueArr.length === 3) return true;
   }
 }
 
