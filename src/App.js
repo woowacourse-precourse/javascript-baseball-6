@@ -1,4 +1,4 @@
-import { Console, MissionUtils } from "@woowacourse/mission-utils";
+import { Console, Random } from "@woowacourse/mission-utils";
 
 class App {
 
@@ -12,7 +12,7 @@ class App {
 // 1. 랜덤 숫자 생성
 // 2. 게임 시작
   async play() {
-    MissionUtils.Console.print(`숫자 야구 게임을 시작합니다.`)
+    Console.print(`숫자 야구 게임을 시작합니다.`)
     const COM_NUMBER = this.ranNumber();
     this.gameStart(COM_NUMBER);
   }
@@ -23,7 +23,7 @@ class App {
 ranNumber(){
   const COMPUTER = [];
 while (COMPUTER.length < 3) {
-  const NUMBER = MissionUtils.Random.pickNumberInRange(1, 9);
+  const NUMBER = Random.pickNumberInRange(1, 9);
   if (!COMPUTER.includes(NUMBER)) {
     COMPUTER.push(NUMBER);
   }
@@ -49,7 +49,7 @@ this.checkResult(COM_NUMBER,MY_NUM)
 // 문자로 변경후 배열로 만들어서 그 배열의 길이가 3이 아니면 에러,
 // 3이면 배열로 숫자 생성
 newNumber(){
-  MissionUtils.Console.readLineAsync(`숫자를 입력해주세요 : `,(myNum)=>{
+  Console.readLine(`숫자를 입력해주세요 : `,(myNum)=>{
   let MY_NUMBER_STRING = String(myNum);
   let MY_NUMBER_ARRAY = Array.from(MY_NUMBER_STRING);
   if(MY_NUMBER_ARRAY.length != 3){
@@ -73,15 +73,15 @@ const BALLS = this.ball(COM_NUMBER,MY_NUM);
 const STRIKES = this.strike(COM_NUMBER,MY_NUM);
 
 if(STRIKES==0 && BALLS == 0){
-  MissionUtils.Console.print(`낫싱`);
+  Console.print(`낫싱`);
 } else if(STRIKES!=0 && BALLS !=0){
-  MissionUtils.Console.print(`${BALLS}볼 ${STRIKES}스트라이크`);
+  Console.print(`${BALLS}볼 ${STRIKES}스트라이크`);
 } else if(STRIKES!=0 && BALLS ==0){
-  MissionUtils.Console.print(`${STRIKES}스트라이크`);
+  Console.print(`${STRIKES}스트라이크`);
 } else if(STRIKES==0 && BALLS !=0){
-  MissionUtils.Console.print(`${BALLS}볼`);
+  Console.print(`${BALLS}볼`);
 } else if(STRIKES==3){
-  MissionUtils.Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`)
+  Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`)
   this.gameset();
 }
 this.gameStart(COM_NUMBER);
@@ -128,13 +128,13 @@ return COUNT_STRIKE;
 // 둘다 아니면 에러 메세지 띄우고 종료
 
 gameset(){
-  MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.',(setNum)=>{
+  Console.readLine('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.',(setNum)=>{
     if(setNum==1){
       this.gameStart(this.ranNumber());
     } else if(setNum==2){
       return 
     } else if(setNum !=1 && setNum!=2){
-      throw MissionUtils.Console.print('[ERROR]1 또는 2를 입력하세요')
+      throw Console.print('[ERROR]1 또는 2를 입력하세요')
     }
   })
 } 
