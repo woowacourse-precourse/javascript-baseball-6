@@ -22,6 +22,23 @@ class Computer {
 
     return number;
   }
+
+  //* [x, y]
+  // 스트라이크, 볼 판정
+  countStrikeBall(randomNumber, playerInput) {
+    let strike = 0;
+    let ball = 0;
+
+    for (let i = 0; i < 3; i++) {
+      if (randomNumber[i] === Number(playerInput[i])) {
+        strike++;
+      } else if (randomNumber.includes(Number(playerInput[i]))) {
+        ball++;
+      }
+    }
+
+    return [strike, ball];
+  }
 }
 
 export default Computer;
