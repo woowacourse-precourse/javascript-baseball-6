@@ -150,8 +150,12 @@
     <th>설명</th>
   </tr>
   <tr>
-    <td>grade(<i>answerBalls</i>)</td>
-    <td><code>AnswerBalls</code>와 비교하여 점수를 계산합니다.</td>
+    <td>increaseStrike</td>
+    <td>`score`의 `strike`를 `1` 증가시킵니다.</td>
+  </tr>
+  <tr>
+    <td>increaseBall</td>
+    <td>`score`의 `ball`을 `1` 증가시킵니다.</td>
   </tr>
 </table>
 
@@ -245,8 +249,10 @@
 
 - [ ] SubmittedBalls
 
+  - [ ] `score` 필드에 strike와 ball로 이루어진 객체를 가진다.
   - [ ] 입력받은 배열에 따라 `targetBalls` 필드에 `TargetBalls`를 가진다.
-  - [ ] `grade` 메서드는 `AnswerBalls`와 비교하여 점수를 계산한다.
+  - [ ] `increaseStrike` 메서드는 `score`의 `strike`를 `1` 증가시킨다.
+  - [ ] `increaseBall` 메서드는 `score`의 `ball`을 `1` 증가시킨다.
 
 - [ ] SubmittedBalls 예외 처리
 
