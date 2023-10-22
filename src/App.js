@@ -2,6 +2,10 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
 
+  /**
+   * 1-9의 서로 다른 3자리 수 배열 반환한다.
+   * @returns {Number[]} 서로 다른 3자리 숫자 배열
+   */
   getRandomNumbers() {
     const numbers = new Set();
     
@@ -12,13 +16,16 @@ class App {
     return [...numbers];
   }
 
+  /**
+   * 플레이어가 컴퓨터가 생성한 숫자를 맞출 떄까지 3자리 숫자를 입력받는다.
+   */
   async inputNumbers() {
     const numericRegex = /^[0-9]+$/;
 
     while(1) {
       const input = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
       
-      if (input.length !== 3 || !numericRegex.test(input)){
+      if (input.length !== 3 || !numericRegex.test(input)){ // 3자 이내의 숫자를 입력하거나 문자가 포함된 경우 오류 발생
         throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
       }
 
@@ -28,6 +35,11 @@ class App {
     }
   }
 
+  /**
+   * 플레이어 입력한 숫자를 컴퓨터가 생성한 숫자와 비교하여 힌트를 출력하고 게임 종료 여부를 반환합니다.
+   * @param {string} inputNumbers 플레이어가 3자리 입력한 숫자
+   * @returns {boolean} 게임 종료 여부
+   */
   compareNumbers(inputNumbers) {
     const numbers = inputNumbers.split("");
     let strike = 0;
@@ -79,7 +91,7 @@ class App {
 
       const input = await MissionUtils.Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
 
-      if (input !== "1" && input !== "2") {
+      if (input !== "1" && input !== "2") { // 1과 2외의 숫자나 문자르 입력한 경우 오류 발생
         throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
       }
 
