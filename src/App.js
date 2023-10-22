@@ -69,9 +69,14 @@ class App {
 
     if (parseInt(inputValue) === 1) {
       await this.play();
-    } else {
-      Console.print("게임을 종료합니다.");
+      return;
     }
+    if (parseInt(inputValue) === 2) {
+      Console.print("게임을 종료합니다.");
+      return;
+    }
+    Console.print("1과 2의 숫자만 입력해주세요.");
+    this.selectPalyAgain();
   }
 
   createRandomNum() {
