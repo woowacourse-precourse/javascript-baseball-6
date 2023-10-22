@@ -6,15 +6,20 @@ export const validateIsNum = (value) => {
   return true;
 };
 
-export const validateIncludeZero = (value) => {
-  return value.includes(`${MAGIC_NUM.NUM_NOT_INCLUDED}`);
+export const validateIncludeSpecificNumber = (value, specificNumArr) => {
+  if (specificNumArr.length === 1) {
+    return value.includes(`${String(specificNumArr[0])}`);
+  }
+  return specificNumArr.includes(Number(value));
 };
 
-export const validateIsLengthNotThree = (value) => {
-  return value.length !== MAGIC_NUM.MAX_BASEBALL_NUM;
+export const validateIsLengthNotCorrect = (value, length) => {
+  return value.length !== length;
 };
 
 export const validateIsNumDuplicated = (value) => {
   let set = new Set([...value]);
   return set.size !== MAGIC_NUM.MAX_BASEBALL_NUM;
 };
+
+export const validateOneOrTwo = (value) => {};
