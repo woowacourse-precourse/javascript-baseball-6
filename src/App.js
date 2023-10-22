@@ -1,17 +1,12 @@
-import BaseBallController from './controller/index.js';
+import { MissionUtils } from '@woowacourse/mission-utils';
+import { gameSet } from './Game/game.js';
 
 class App {
-  #controller;
-
-  constructor() {
-    this.#controller = new BaseBallController();
-  }
-
   async play() {
-    this.#controller.run();
+    MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
+    await gameSet();
   }
 }
-
 const app = new App();
 app.play();
 
