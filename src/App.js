@@ -28,7 +28,7 @@ class App {
       const num = this.random.pickNumberInRange(1, 9);
       if (!nums.includes(num)) nums.push(num);
     }
-    return nums;
+    return nums.join("");
   }
 
   giveQuestion() {
