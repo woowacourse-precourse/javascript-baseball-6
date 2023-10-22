@@ -1,3 +1,5 @@
+import makeRandomNumber from "./utils/makeRandomNumber";
+
 const { Console } = require("@woowacourse/mission-utils");
 
 class App {
@@ -6,7 +8,12 @@ class App {
     this.gameTurn();
   }
 
-  gameTurn() {}
+  gameTurn() {
+    const randomNumber = makeRandomNumber();
+    this.gameStart(randomNumber);
+  }
+
+  gameStart() {}
 }
 
 const app = new App();
