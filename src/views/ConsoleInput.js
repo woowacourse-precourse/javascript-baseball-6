@@ -6,7 +6,7 @@ const ConsoleInput = {
   async getUserInput() {
     const input = await Console.readLineAsync(MESSAGES.USER_INPUT);
     InputValidator.validateInput(input);
-    return input;
+    return Array.from(input).map(Number);
   },
 };
 
