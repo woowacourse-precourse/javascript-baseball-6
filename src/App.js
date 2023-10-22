@@ -7,7 +7,6 @@ class App {
   MatchingNumbers;
   Strike = 0;
 
-
   setRandomNumber() {
     const computer = [];
     while (computer.length < 3) {
@@ -41,9 +40,10 @@ class App {
     this.MatchingNumbers = this.randomNumber.filter((nums) => this.userBaseballNumber.includes(nums)).length;
   }
 
-  countStrike() {
-    for (let i = 0; i < randomNumber.length; i++) {
-      randomNumber[i] == userBaseballNumber[i] ? Strike += 1 : ;
+  countMatchingStrikes() {
+    for (let i = 0; i < this.randomNumber.length; i++) {
+      if (this.randomNumber[i] == this.userBaseballNumber[i])
+        this.Strike += 1;
     }
   }
 
@@ -54,7 +54,7 @@ class App {
     this.setRandomNumber();
     await this.getUserInput();
     this.countMatchingNumbers();
-    this.countStrike();
+    this.countMatchingStrikes();
   }
 
 }
