@@ -1,4 +1,4 @@
-import playGame from './components/playGame.js';
+import { playGame } from './components/playGame.js';
 import { get } from './Utils.js';
 
 class App {

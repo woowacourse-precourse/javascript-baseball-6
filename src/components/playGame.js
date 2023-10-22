@@ -1,9 +1,10 @@
 import setNumber from './setNumber.js';
-import {compareNumber, isDuplicate, isCorrect} from './compareNumber.js';
+import {compareNumber, isDuplicate} from './compareNumber.js';
 import { get } from '../Utils.js';
 
 const COMPUTER_NUMBER = setNumber();
 const resultState = get('.result-state');
+const resultBall = get('.result-ball');
 
 const playGame = (e) => {  
   let USER_NUMBER = get('#user-input').value;
@@ -21,6 +22,8 @@ const playGame = (e) => {
   } else {
     resultState.innerText =`입력하신 숫자는 ${USER_NUMBER}입니다.`;
   }
+
+  compareNumber(COMPUTER_NUMBER, USER_NUMBER);
 }
  
-export default playGame
+export {playGame, resultState, resultBall} 
