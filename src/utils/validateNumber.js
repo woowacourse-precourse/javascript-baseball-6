@@ -25,13 +25,17 @@ function validateComputerNumber(numbers) {
 }
 
 function validateInputNumber(numbers) {
-  numbers.forEach(number => {
+  numbers.forEach((number, i) => {
     if (typeof number !== "number" || numbers.length !== 3) {
       throw new InvalidNumberError("숫자가 올바른 형식이 아닙니다.");
     }
 
     if (number < 1 || number > 9) {
       throw new InvalidNumberError("숫자는 1부터 9 사이 입니다.");
+    }
+
+    if (numbers.indexOf(number) !== i) {
+      throw new InvalidNumberError("서로 다른 숫자이여야 합니다.");
     }
   });
 }
