@@ -8,17 +8,17 @@ export default class views{
 
   printResultMessage(result) {
     
-    if (result.BALL === 0 && result.STRIKE === 0) {
+    if (result.ball === 0 && result.strike === 0) {
       return Console.print(MESSAGE.nothing);
     }
 
     let resultMessage = '';
 
-    if (result.BALL !== 0) {
+    if (result.ball !== 0) {
       resultMessage = resultMessage.concat(String(result.ball) + MESSAGE.ball + ' ');
     }
   
-    if (result.STRIKE !== 0) {
+    if (result.strike !== 0) {
       resultMessage = resultMessage.concat(String(result.strike) + MESSAGE.strike + ' ');
     }
 
