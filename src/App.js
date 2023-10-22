@@ -8,7 +8,7 @@ class App {
 
   async play() {
     this.computerNumbers = this.generateRandomNumbers();
-    // this.gameOver = false;
+    this.gameOver = false;
 
     while (!this.gameOver) {
       const userInput = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
