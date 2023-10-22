@@ -8,19 +8,16 @@ const printCorrectResult = async () => {
 };
 
 export const printResult = (ballCount, strikeCount) => {
-  if (strikeCount === 3) {
-    return printCorrectResult();
-  }
   if (ballCount === 0 && strikeCount === 0) {
-    return Console.print(`낫싱`);
+    return `낫싱`;
   }
   if (ballCount > 0 && strikeCount === 0) {
-    return Console.print(`${ballCount}볼`);
+    return `${ballCount}볼`;
   }
   if (ballCount === 0 && strikeCount > 0) {
-    return Console.print(`${strikeCount}스트라이크`);
+    return `${strikeCount}스트라이크`;
   }
   if (ballCount > 0 && strikeCount > 0) {
-    return Console.print(`${ballCount}볼 ${strikeCount}스트라이크`);
+    return `${ballCount}볼 ${strikeCount}스트라이크`;
   }
 };
