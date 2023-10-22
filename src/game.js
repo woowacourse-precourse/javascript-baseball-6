@@ -3,7 +3,6 @@ function finishGame() {
   this.checkResetGame();
 }
 
-// 6-2. 게임 초기화 / 종료 선택
 async function checkResetGame() {
   Console.print('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
   const isGameRestart = await Console.readLineAsync('');
