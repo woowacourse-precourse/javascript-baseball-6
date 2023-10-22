@@ -50,6 +50,20 @@ class App {
         }
       }
     }
+
+    //게임 메세지 처리
+    let message = '낫싱';
+    if (strike === 3) {
+      message = '3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료';
+      correctAnswer = true;
+    } else if (strike > 0) {
+      ball > 0
+        ? (message = `${ball}볼 ${strike}스트라이크`)
+        : `${strike}스트라이크`;
+    } else if (ball > 0) {
+      message = `${ball}볼`;
+    }
+    MissionUtils.Console.print(message);
   }
 }
 
