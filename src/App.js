@@ -19,7 +19,7 @@ export default class App{
   //상대방이 숫자를 다시 고름
   init (){
     this.#_opponent.makeRandomNumber();
-    this.play();
+    return this.play();
   }
     
   //게임 시작
@@ -34,14 +34,14 @@ export default class App{
 
     this.#_view.printResultMessage(result);
     if (result.STRIKE === CONSTANT.THREESTRIKE) {
-      return this.correct();
-    }  
+      this.#_view.print(MESSAGE.CORRECT);
+      return this.restartGame();
+    }
     return this.play();
   }
     
   //정답일 때 게임 재시작 의사를 물음
-  async correct() {
-    this.#_view.print(MESSAGE.CORRECT);
+  async restartGame() {
     const retryOrEnd = await this.#_view.readInput(MESSAGE.RETRY);
   
     if (retryOrEnd !== CONSTANT.RETRY && retryOrEnd !== CONSTANT.END) {
