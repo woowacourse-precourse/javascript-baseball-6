@@ -12,9 +12,9 @@
 ## Programming Requirements
 
 - [x] Install Node.js Version 18.17.1
-- [x] Execute the program from `play()` method in `App.js`
+- [x] Execute the program from `play()` method in `App.js` file
 - [x] Do not change `package.json` file and only use Vanilla JavaScript
-- [ ] Follow [JavaScript code convention](https://github.com/woowacourse/woowacourse-docs/tree/main/styleguide/javascript)
+- [ ] Follow [JavaScript Style Guidelines](https://github.com/woowacourse/woowacourse-docs/tree/main/styleguide/javascript)
 - [x] Do not call `process.exit()` method when the program terminates
 - [ ] Must pass every test in `ApplicationTest.js` file
 - [x] Do not modify file and package names or move them to another directory if not mentioned
@@ -26,4 +26,4 @@
 
 - [x] Fork & Clone [woowacourse-precourse/javascript-baseball-6](https://github.com/woowacourse-precourse/javascript-baseball-6) repository
 - [x] Make `docs/README.md` to-do list
-- [x] Refer to the [Pre-course Mission Guideline](https://github.com/woowacourse/woowacourse-docs/tree/main/precourse) document
+- [x] Refer to the [Pre-course Mission Guidelines](https://github.com/woowacourse/woowacourse-docs/tree/main/precourse) document
