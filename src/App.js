@@ -4,24 +4,24 @@ import { LOGS } from './logs.js';
 class App {
   constructor(){
     this.start = true;
-    this.computer; // [number]
+    this._computer; // [number]
   }
 
   async play() {
     Console.print(LOGS.GAME_START);
 
     while(true){
-      if(this.start) this.initialization();
-      const USER_INPUT = await this.userInput();
-      const [STRIKE,BALL] = this.checkInput(USER_INPUT);
-      const SCORE = this.returnScore(STRIKE,BALL)
+      if(this.start) this._initialization();
+      const USER_INPUT = await this._userInput();
+      const [STRIKE,BALL] = this._checkInput(USER_INPUT);
+      const SCORE = this._returnScore(STRIKE,BALL)
       Console.print(SCORE);
       // 스트라이크가 3이 아니면 continue
       if(STRIKE!==3) continue;
       Console.print(LOGS.GAME_END);
       Console.print(LOGS.RESTART_PROMPT)
       // 재시작 여부 묻기
-      const IS_RESTART = await this.checkRestart();
+      const IS_RESTART = await this._checkRestart();
       // restart 하지 않겠다고 하면 while문 종료
       if(!IS_RESTART) break;
       // 재시작 : this.start true로 초기화 하여 initialization 재실행
@@ -29,18 +29,18 @@ class App {
     }
   }
 
-  initialization () {
+  _initialization () {
     const computer = [];
     while(computer.length < 3){
       const NUMBER = MissionUtils.Random.pickNumberInRange(1,9)
       if (!computer.includes(NUMBER)) computer.push(NUMBER);
     }
-    this.computer = computer;
+    this._computer = computer;
     this.start = false;
     return ;
   }
 
-  async userInput(){
+  async _userInput(){
     const input = await Console.readLineAsync(LOGS.INPUT_PROMPT)
     // 서로 다른 3자리의 숫자 정규식
     const REGEX = /^(?!.*(.).*\1)^[1-9]{3}$/;
@@ -52,7 +52,7 @@ class App {
 
 
   // 재시작 여부 묻기
-  async checkRestart() {
+  async _checkRestart() {
     const INPUT = await Console.readLineAsync(LOGS.INPUT_PROMPT2)
     // input이 1 혹은 2 정규식
     const REGEX = /^[12]$/
@@ -63,25 +63,17 @@ class App {
   }
   
   // 입력값 처리
-  checkInput(input){
-    const STRIKE = this.checkStrike(input);
+  _checkInput(input){
+    const USER_INPUT = input;
+    const SAME = USER_INPUT.filter(item=> this._computer.includes(item)).length;
+    const STRIKE = USER_INPUT.filter((item,idx) => item === this._computer[idx]).length;
     // 볼 = 같은 수 - 스트라이크
-    const BALL = this.checkSame(input) - STRIKE;
+    const BALL = SAME - STRIKE;
     return [STRIKE,BALL]
   }
 
-  // 같은 수 갯수 구하기
-  checkSame(input) {
-    return input.filter(item=> this.computer.includes(item)).length;
-  }
-
-  // 스트라이크 수 구하기
-  checkStrike(input){
-    return input.filter((item,idx) => item === this.computer[idx]).length;
-  }
-
   // 채점후 메세지 반환
-  returnScore(strike,ball){
+  _returnScore(strike,ball){
     const messages = [];
     if (ball) messages.push(`${ball}볼`);
     if (strike) messages.push(`${strike}스트라이크`);
