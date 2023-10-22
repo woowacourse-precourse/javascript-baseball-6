@@ -1,6 +1,7 @@
 import RandomNumberMaker from '../src/play/RandomNumberMaker';
 import UserNumberReader from '../src/play/UserNumberReader';
-import correctNumber from './Utils/CorrectNumber';
+import { correctNumber } from './Utils/CorrectNumber';
+import { showResult } from './play/GameResult';
 import BetweenNumber from './play/BetweenNumber';
 import * as Constants from './const/Messages';
 
@@ -15,19 +16,32 @@ class App {
   async play() {
     try {
       const uniqueNumber = this.maker.makeRandomNumber();
-      Console.print(uniqueNumber);
+      Console.print(`컴퓨터의 숫자: ${uniqueNumber}`);
 
-      const userNumber = await Console.readLineAsync();
-      if (!correctNumber(userNumber)) {
-        throw new Error("유효하지 않은 입력값입니다.");
+      while (true) {
+        const userNumber = await Console.readLineAsync();
+        if (!correctNumber(userNumber)) {
+          Console.print("유효하지 않은 입력값입니다. 세 자리의 유일한 숫자를 입력해주세요.");
+          continue;
+        }
+
+        this.reader.setUserNumber(userNumber);
+        const userAnswer = this.reader.getUserNumber();
+        Console.print(`사용자의 숫자: ${userAnswer}`);
+        
+        showResult(uniqueNumber, userAnswer);
+
+        if (this.isGameOver(uniqueNumber, userAnswer)) {
+          break;
+        }
       }
-
-      this.reader.setUserNumber(userNumber);
-      const userAnswer = this.reader.getUserNumber();
-      Console.print(userAnswer);
     } catch (error) {
       
     }
+  }
+
+  isGameOver(computerNumber, playerNumber) {
+    return computerNumber === playerNumber;
   }
 }
 

@@ -5,4 +5,3 @@ export const correctNumber = (userNumber) => {
   const uniqueChars = [...new Set([...userNumber])]; // 중복 숫자 제거
   return userNumber.length === uniqueChars.length;
 };
-  
