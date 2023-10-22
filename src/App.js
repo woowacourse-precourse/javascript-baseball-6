@@ -1,17 +1,24 @@
-import { Console } from "@woowacourse/mission-utils";
-import randomNumber from "./PickRandom.js";
+import pickRandomNumber from "./PickRandom.js";
 import getNumber from "./Input.js";
 import compareNumber from "./Compare.js";
+import SelectStatus from "./SelectStatus.js";
+
+const isValid = (result) => {
+  if (result) {
+    SelectStatus();
+  } else if (!result) {
+    game.play();
+  }
+};
 
 class App {
+  constructor() {
+    this.answer = pickRandomNumber();
+  }
   async play() {
-    const answer = randomNumber;
-    while (true) {
-      const input = await getNumber();
-      const { result, message } = compareNumber(answer, input);
-      Console.print(message);
-      if (result === true) break;
-    }
+    this.input = await getNumber();
+    const result = compareNumber(this.answer, this.input);
+    isValid(result);
   }
 }
 
