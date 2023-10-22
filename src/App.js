@@ -82,6 +82,11 @@ class App {
 
       if (strikeCount === 3) {
         Console.print("3스트라이크");
+        Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+
+        resetCode = await finish();
+
+        initalizeArray(randomArray);
       } else if (strikeCount > 0 || ballCount > 0) {
         Console.print(ballCount + "볼 " + strikeCount + "스트라이크");
       } else {
