@@ -24,12 +24,22 @@ class App {
 			}
 		}
 
-		return this.#printConsole.gameResult(ball, strike);
+		this.#printConsole.gameResult(ball, strike);
+		return strike;
+	}
+
+	async #gameEnd() {
+		this.#printConsole.gameEnd();
+
+		const gameRestart = await this.#userInput.gameEndInput();
+		if (gameRestart === '1') return this.play();
+		return;
 	}
 
 	async #playGame() {
 		const inputVal = await this.#userInput.baseballInput();
-		this.#compareUserAndComputer(inputVal);
+		if (this.#compareUserAndComputer(inputVal) === 3) return this.#gameEnd();
+		return this.#playGame();
 	}
 
 	async play() {
