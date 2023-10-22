@@ -1,12 +1,12 @@
 import Input from './View/Input.js';
 import Output from './View/Output.js';
-import Computer from '../Computer/index.js';
+import Computer from './Computer/index.js';
 import Validator from './Validator/index.js';
-import { COMMAND, NUMS } from '../constants/index.js';
+import { COMMAND, NUMS } from './constants/index.js';
 
 class BaseballGame {
   constructor() {
-    this.computer = new Computer();
+    this.computer = null;
     this.isReplay = false;
   }
 
@@ -15,6 +15,7 @@ class BaseballGame {
       this.isReplay = true;
       Output.print(COMMAND.WELCOME);
     }
+    this.computer = new Computer();
     this.computer.generate();
     await this.askNumber();
   }

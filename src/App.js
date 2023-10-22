@@ -7,7 +7,7 @@ class App {
   }
 
   async play() {
-    await this.controller.start();
+    await this.controller.play();
   }
 }
 
