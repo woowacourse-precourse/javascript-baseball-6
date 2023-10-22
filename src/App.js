@@ -106,7 +106,7 @@ class App {
       } else if (userInput === "2") {
         MissionUtils.Console.print("게임 종료");
       } else {
-        throw new Error(MissionUtils.Console.print("[ERROR]"));
+        throw new Error();
       }
     } catch (error) {
       MissionUtils.Console.print(`[ERROR] 숫자가 잘못된 형식입니다.`);
