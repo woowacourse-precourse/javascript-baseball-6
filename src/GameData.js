@@ -1,9 +1,13 @@
 class GameData {
   constructor() {
+    this.state = true;
     this.threeStrike = false;
-    this.randomNumbers = [];
     this.ball = 0;
     this.strike = 0;
+  }
+
+  getState() {
+    return this.state;
   }
 
   getRandomNumbers() {
