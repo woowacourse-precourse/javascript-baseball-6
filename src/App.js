@@ -2,10 +2,6 @@ import * as MissionUtils from "@woowacourse/mission-utils";
 import { Console } from "@woowacourse/mission-utils";
 
 class App {
-  constructor() {
-    this.number = this.number();
-  }
-
   number() {
     const RANDOM_NUMBER = new Set();
     while (RANDOM_NUMBER.size !== 3) {
@@ -23,7 +19,6 @@ class App {
     ) {
       throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
     }
-    // Console.print(USER_NUMBER);
     return USER_NUMBER;
   }
 
