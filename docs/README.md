@@ -81,10 +81,9 @@
   </tr>
 </table>
 
-**Balls**
+**TargetBalls**
 
-- 수퍼클래스이다.
-- 입력받은 배열에 따라 `numbers` 필드에 `TargetBall`로 이루어진 배열을 가진다.
+- 입력받은 배열에 따라 `balls` 필드에 `TargetBall`로 이루어진 배열을 가진다.
 
 <table>
   <tr>
@@ -92,14 +91,14 @@
     <th>설명</th>
   </tr>
   <tr>
-    <td>numbers</td>
+    <td>balls</td>
     <td><code>TargetBall</code>로 이루어진 배열을 가집니다.</td>
   </tr>
 </table>
 
 **AnswerBalls**
 
-- `Balls`의 서브클래스이다.
+- 입력받은 배열에 따라 `balls` 필드에 `TargetBalls`를 가진다.
 
 <table>
   <tr>
@@ -108,17 +107,17 @@
   </tr>
   <tr>
     <td>contains(<i>ball</i>)</td>
-    <td>입력받은 <code>TargetBall</code>을 <code>numbers</code>에 소유하고 있는지 판별합니다.</td>
+    <td>입력받은 <code>TargetBall</code>을 <code>balls</code>에 소유하고 있는지 판별합니다.</td>
   </tr>
   <tr>
     <td>match(<i>index, ball</i>)</td>
-    <td><code>numbers</code>에 입력받은 <i>index</i>가 입력받은 <code>TargetBall</code>과 같은지 판별합니다.</td>
+    <td><code>balls</code>에 입력받은 <i>index</i>가 입력받은 <code>TargetBall</code>과 같은지 판별합니다.</td>
   </tr>
 </table>
 
 **SubmittedBalls**
 
-- `Balls`의 서브클래스이다.
+- 입력받은 배열에 따라 `balls` 필드에 `TargetBalls`를 가진다.
 
 <table>
   <tr>
@@ -208,11 +207,11 @@
   - [x] 입력받은 값이 정수가 아닐 경우 에러를 발생시킨다.
   - [x] 입력받은 값이 범위 내 숫자가 아닐 경우 에러를 발생시킨다.
 
-- [ ] Balls
+- [ ] TargetBalls
 
-  - [ ] 입력받은 배열에 따라 `numbers` 필드에 `TargetBall`로 이루어진 배열을 가진다.
+  - [ ] 입력받은 배열에 따라 `balls` 필드에 `TargetBall`로 이루어진 배열을 가진다.
 
-- [ ] Balls 예외 처리
+- [ ] TargetBalls 예외 처리
 
   - [ ] 입력받은 값이 배열이 아닐 경우 에러를 발생시킨다.
   - [ ] 입력받은 배열의 길이가 유효한 값이 아닐 경우 에러를 발생시킨다.
@@ -247,7 +246,7 @@
 
 - [ ] BaseballService 예외 처리
 
-  - [ ] `calculateScore` 메서드의 인자가 숫자로 이루어진 배열이 아니라면 에러를 발생시킨다.
+  - [ ] `computeScore` 메서드의 인자가 숫자로 이루어진 배열이 아니라면 에러를 발생시킨다.
 
 ## Controller 연결
 
