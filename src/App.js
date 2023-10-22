@@ -10,18 +10,28 @@ const GAME_ACTIONS = {
   EXIT: "exit",
 };
 
-const ERROR_MESSAGES = "[ERROR] 숫자가 잘못된 형식입니다.";
+const MESSAGES = {
+  GAME_START: "숫자 야구 게임을 시작합니다.",
+  INPUT_NUMBER: "숫자를 입력해주세요 : ",
+  INPUT_ACTION: "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.",
+  INPUT_ERROR: "[ERROR] 숫자가 잘못된 형식입니다.",
+  COMPARE_RESULT: {
+    ALL_MATCH: "3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료",
+    NO_MATCH: "낫싱",
+    BALL_STRIKE: (ball, strike) => `${ball}볼 ${strike}스트라이크`,
+  },
+};
 
 class App {
   /** 게임을 시작하는 메소드 */
   async play() {
-    Console.print("숫자 야구 게임을 시작합니다.");
+    Console.print(MESSAGES.GAME_START);
 
     while (true) {
       const computerNumber = this.generateRandomNumberArray();
 
       while (true) {
-        const input = await Console.readLineAsync("숫자를 입력해주세요 : ");
+        const input = await Console.readLineAsync(MESSAGES.INPUT_NUMBER);
 
         this.validateInput(input);
 
@@ -69,16 +79,16 @@ class App {
     }
 
     if (strike === 3) {
-      Console.print("3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+      Console.print(MESSAGES.COMPARE_RESULT.ALL_MATCH);
       return GAME_STATUS.END;
     }
 
     if (!strike && !ball) {
-      Console.print("낫싱");
+      Console.print(MESSAGES.COMPARE_RESULT.NO_MATCH);
       return GAME_STATUS.CONTINUE;
     }
 
-    Console.print(`${ball}볼 ${strike}스트라이크`);
+    Console.print(MESSAGES.COMPARE_RESULT.BALL_STRIKE(ball, strike));
     return GAME_STATUS.CONTINUE;
   }
 
@@ -88,21 +98,21 @@ class App {
     const isValid = /^(?!.*(\d).*\1)\d{3}$/.test(input);
 
     if (!isValid) {
-      throw new Error(ERROR_MESSAGES);
+      throw new Error(MESSAGES.INPUT_ERROR);
     }
   }
 
   /** 게임 재시작, 종료 컨트롤 메소드 */
   async handleGameRestartOrExit() {
     const finishControlInput = await Console.readLineAsync(
-      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+      MESSAGES.INPUT_ACTION
     );
 
     if (finishControlInput === "1") return GAME_ACTIONS.RESTART;
 
     if (finishControlInput === "2") return GAME_ACTIONS.EXIT;
 
-    throw new Error(ERROR_MESSAGES);
+    throw new Error(MESSAGES.INPUT_ERROR);
   }
 }
 
