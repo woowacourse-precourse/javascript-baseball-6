@@ -125,6 +125,27 @@ describe("숫자 야구 게임", () => {
     });
   });
 
+  test("스트라이크 & 볼 테스트", async () => {
+    // given
+    const randoms = [9,8,7,6,5,4];
+    const answers = ["978", "987", "1", "123", "654", "2"];
+    const logSpy = getLogSpy();
+    const messages = ["2볼 1스트라이크", "3스트라이크", "낫싱", "3스트라이크", "게임 종료"];
+    
+  
+    mockRandoms(randoms);
+    mockQuestions(answers);
+  
+    // when
+    const app = new App();
+    await expect(app.play()).resolves.not.toThrow();
+  
+    // then
+    messages.forEach((output) => {
+      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(output));
+    });
+  });
+
   test("예외 테스트(USER_NUMBER ERROR)", async () => {
     // given
     const randoms = [1, 3, 5];
