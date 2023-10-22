@@ -1,7 +1,8 @@
-import { generateRandomThreeDigitNumber } from "./generateRandomThreeDigitNumber";
-import { isRoundEndedFromHint } from "./isRoundEndedFromHint";
-import { isGameEnded } from "./isGameEnded";
-import { getHint } from "./getHint";
+import { generateRandomThreeDigitNumber } from "./generateRandomThreeDigitNumber.js";
+import { isRoundEndedFromHint } from "./isRoundEndedFromHint.js";
+import { isGameEnded } from "./isGameEnded.js";
+import { getHint } from "./getHint.js";
+
 
 export class Model {
     constructor() {

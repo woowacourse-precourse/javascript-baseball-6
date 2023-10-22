@@ -42,7 +42,6 @@ export const getUserNumberInput = async () => {
                 return userNumberInput
             } else {
                 throw new Error("[ERROR]");
-                // throw new Error('숫자 3자리를 입력해주세요.');
             }
         })
         .catch(err => {
