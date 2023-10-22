@@ -7,15 +7,13 @@ describe("checkValidation", () => {
 
     // when & then
     userNumbers.forEach((userNumber) => {
-      expect(() => {
-        checkValidation(userNumber);
-      }).toThrow("[ERROR] 세 자리의 숫자를 입력해주세요");
+      expect(checkValidation(userNumber)).toBeFalsy();
     });
   });
 
   test("숫자가 아닌 값이 들어갈 경우, 예외 발생", () => {
     // given
-    const userNumbers = [
+    const userNumbers = [ 
       ["1", 2],
       [" "],
       [2, Error(), 6, 7],
@@ -28,9 +26,7 @@ describe("checkValidation", () => {
 
     // when & then
     userNumbers.forEach((userNumber) => {
-      expect(() => {
-        checkValidation(userNumber);
-      }).toThrow("[ERROR] 세 자리의 숫자를 입력해주세요");
+      expect(checkValidation(userNumber)).toBeFalsy();
     });
   });
 
@@ -45,9 +41,7 @@ describe("checkValidation", () => {
 
     // when & then
     numbers.forEach((userNumber) => {
-      expect(() => {
-        checkValidation(userNumber);
-      }).toThrow("[ERROR] 중복되지 않은 세 자리의 숫자를 입력해주세요");
+      expect(checkValidation(userNumber)).toBeFalsy();
     });
   });
 
@@ -56,7 +50,7 @@ describe("checkValidation", () => {
     const number = [0, 2, 3];
 
     // when & then
-    expect(() => checkValidation(number)).toThrow();
+    expect(checkValidation(number)).toBeFalsy();
   });
 
   test("3자리 숫자를, 중복없이 입력할 경우, 예외가 발생하지 않아요", () => {

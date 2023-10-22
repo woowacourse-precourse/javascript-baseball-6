@@ -1,16 +1,16 @@
 const checkValidation = (user) => {
   if (!Array.isArray(user)) {
-    throw new Error("[ERROR] 세 자리의 숫자를 입력해주세요") 
+    return false; 
   }
 
   if (user.length !== 3) {
-    throw new Error("[ERROR] 세 자리의 숫자를 입력해주세요");
+    return false;
   }
   
   if (user) {
     for (let i = 0; i < 3; i++) {
       if (isNaN(user[i]) || user[i] === 0) {
-        throw new Error("[ERROR] 1~9까지의 세 자리의 숫자를 입력해주세요");
+        return false;
       }
     }
   }
@@ -24,7 +24,7 @@ const checkValidation = (user) => {
       }
     }
     if (count !== 0) {
-      throw new Error("[ERROR] 중복되지 않은 세 자리의 숫자를 입력해주세요");
+      return false;
     }
   }
   return true;
