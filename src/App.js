@@ -83,9 +83,18 @@ class App {
   async askRestartGame() {
     try {
       const userInput = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
+      const result = this.isValidUserInputRestartGame(userInput);
     } catch (error) {
       console.error('[Error] ', error.message)
     }
+  }
+
+  isValidUserInputRestartGame(userInput) {
+    userInput = Number(userInput);
+    if (userInput != 1 && userInput != 2) {
+      throw new Error('1 또는 2를 입력해주세요');
+    }
+    // 이후 예외조건 추가
   }
 
   async play() {
