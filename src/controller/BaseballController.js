@@ -24,29 +24,37 @@ export default class BaseballController {
   }
 
   async play() {
-    const res = await getPlayerInput();
+    const playerNumberInput = await getPlayerInput();
 
-    this.#Player.setSelectNumber(res);
-    return this.#check();
+    this.#Player.setSelectNumber(playerNumberInput);
+    return this.#getCompareResults();
   }
 
-  async #check() {
+  async #getCompareResults() {
     const playerNumber = this.#Player.getSelectNumber();
     const computerNumber = this.#Computer.getSelectNumber();
     const result = this.#Referee.compare(playerNumber, computerNumber);
 
+    return this.#printCompareResults(result);
+  }
+
+  async #printCompareResults(result) {
     printGameStatus(result);
+    return this.#checkGameFinish(result);
+  }
+
+  async #checkGameFinish(result) {
     if (result.strike === GAME_SETTINGS.numberLength) {
       printGameEnd();
-      return this.#retry();
+      return this.#checkGameRetry();
     }
     return this.play();
   }
 
-  async #retry() {
-    const res = await getRetryInput();
+  async #checkGameRetry() {
+    const playerRetryInput = await getRetryInput();
 
-    if (res === GAME_OPTION.retry) {
+    if (playerRetryInput === GAME_OPTION.retry) {
       this.#Computer.generate();
       return this.play();
     }
