@@ -4,9 +4,9 @@ class App {
   async play() {
     try {
       MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
-      compareNumber();
+      await compareNumber();
     } catch (error) {
-      throw new Error("[ERROR] 게임 종료");
+      throw error;
     }
   }
 }
@@ -27,25 +27,37 @@ async function getUserNumber() {
   if (user.length !== 3 || new Set(user).size !== 3) {
     throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
   }
-  return user.split("").map(Number);
+  try {
+    return user.split("").map(Number);
+  } catch (error) {
+    MissionUtils.Console.print(error);
+    return;
+  }
 }
 
 async function compareNumber() {
   const computer = generateComputerNumber();
+  MissionUtils.Console.print(computer);
 
   let ball = 0;
   let strike = 0;
 
   while (strike !== 3) {
     const user = await getUserNumber();
+
     ball = 0;
     strike = 0;
-    for (let num = 0; num < 3; num++) {
-      if (computer[num] === user[num]) {
-        strike++;
-      } else if (user.includes(computer[num])) {
-        ball++;
+    try {
+      for (let num = 0; num < 3; num++) {
+        if (computer[num] === user[num]) {
+          strike++;
+        } else if (user.includes(computer[num])) {
+          ball++;
+        }
       }
+    } catch (error) {
+      MissionUtils.Console.print("[ERROR] 숫자가 잘못된 형식입니다.");
+      return;
     }
 
     let printBall = ball !== 0 ? `${ball}볼 ` : "";
@@ -58,7 +70,7 @@ async function compareNumber() {
   }
 
   MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-  chooseReplay();
+  await chooseReplay();
 }
 
 async function chooseReplay() {
@@ -66,12 +78,14 @@ async function chooseReplay() {
     "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
   );
   if (replay === "1") {
-    compareNumber();
+    await compareNumber();
   } else if (replay === "2") {
     MissionUtils.Console.print("게임 종료");
   } else {
     throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
   }
 }
+const app = new App();
+app.play();
 
 export default App;
