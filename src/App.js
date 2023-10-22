@@ -75,7 +75,7 @@ class App {
       await this.retry();
     } else {
       // 삼진이 아닌 경우 game 메서드 재귀호출
-      this.replayMessagePrint(STRIKES, BALLS);
+      this.resultMessagePrint(STRIKES, BALLS);
       await this.game();
     }
   }
@@ -99,7 +99,7 @@ class App {
     this.printMsgIs(CONGRAT);
   }
 
-  replayMessagePrint(strikes, balls) {
+  resultMessagePrint(strikes, balls) {
     // judge 메서드에서 삼진이 아닌 경우 호출
     // compareResult 객체에서 스트라이크, 볼 개수 출력
     const NOTHING = this.message("NOTHING");
