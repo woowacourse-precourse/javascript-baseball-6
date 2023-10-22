@@ -9,7 +9,6 @@ const isNumber = (input) => {
 };
 
 const hasDuplicateWord = (input) => {
-  console.log(new Set(input).size);
   return new Set(input).size !== 3;
 };
 
