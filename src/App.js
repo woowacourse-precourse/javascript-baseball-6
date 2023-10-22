@@ -38,7 +38,7 @@ class App {
   checkInputAndGiveHint(answer, userInput) {
     for (let i = 0; i < 3; i++) {
       const curAnswer = answer[i];
-      const curInput = [...userInput][i];
+      const curInput = userInput[i];
 
       if (curAnswer === curInput) this.strike++;
       else if (answer.includes(curInput)) this.ball++;
