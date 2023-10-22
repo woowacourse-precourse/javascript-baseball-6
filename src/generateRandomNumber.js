@@ -2,6 +2,7 @@ import { Random } from '@woowacourse/mission-utils';
 
 function generateRandomNumber() {
   const computerNums = new Set();
+
   while (computerNums.size < 3) {
     const randomNumber = Random.pickNumberInRange(1, 9);
     computerNums.add(randomNumber);
