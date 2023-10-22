@@ -4,6 +4,7 @@ import Message from './utils/Message.js';
 
 export default class App {
   #answerNumbers;
+  #isFinish = false;
 
   constructor() {
     this.init();
@@ -11,11 +12,20 @@ export default class App {
 
   async play() {
     try {
-      print(Message.GAME_START);
-      const inputNumber = (await input(Message.INPUT_NUMBER)).trim();
-      this.validateInput(inputNumber);
-      const { strike, ball } = this.checkGuess(inputNumber);
-      this.feedbackMessage(strike, ball);
+      while (!this.#isFinish) {
+        print(Message.GAME_START);
+        const inputNumber = (await input(Message.INPUT_NUMBER)).trim();
+        this.validateInput(inputNumber);
+        const { strike, ball } = this.checkGuess(inputNumber);
+        this.feedbackMessage(strike, ball);
+
+        if (strike !== 3) continue;
+
+        if (strike === 3) {
+          //@TODO - 재시작 기능 구현
+          this.#isFinish = true;
+        }
+      }
     } catch (e) {
       console.error(e);
     }
@@ -34,6 +44,7 @@ export default class App {
    *
    * @TODO - 에러 메세지 세분화
    */
+
   validateInput(input) {
     const set = new Set(input.split(''));
     if (isNaN(Number(input)) || set.size !== 3 || set.has('0')) {
