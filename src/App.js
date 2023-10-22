@@ -58,7 +58,7 @@ const printScore = (strike, ball) => {
   } else {
     let output = '';
     if (ball > 0) {
-      output += `${ball}볼`;
+      output += `${ball}볼 `;
     }
     if (strike > 0) {
       output += `${strike}스트라이크`;
@@ -75,9 +75,9 @@ const gameStartOver = async () => {
 
 // TODO: Mission 8: "3스트라이크"이면, 게임 종료 하는 함수 구현
 const isThreeStrike = async (computerList) => {
-  let endpoint = false;
+  let endPoint = false;
 
-  while (!endpoint) {
+  while (!endPoint) {
     const userList = await getUserNumber(computerList);
     const { strikeCount, ballCount } = calculateScore(computerList, userList);
     printScore(strikeCount, ballCount);
@@ -90,8 +90,12 @@ const isThreeStrike = async (computerList) => {
 
 // TODO: Mission 9: 전체 함수들을 실행 시켜주는 메인 함수 구현
 const main = async () => {
-  printMessage('숫자 야구 게임을 시작합니다.');
-  const computer = getComputerNumber();
+  let endPoint = false;
+  while (!endPoint) {
+    printMessage('숫자 야구 게임을 시작합니다.');
+    const computer = getComputerNumber();
+    endPoint = await isThreeStrike(computer);
+  }
 };
 
 class App {
