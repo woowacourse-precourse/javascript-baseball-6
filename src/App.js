@@ -21,8 +21,7 @@ class App {
           isEnd = checkGameStatus(keepOrEndInput);
           if (!isEnd && !isEnd.isError) {
             randomNumber = makeRandomNumber();
-          }
-          else if (isEnd.isError) {
+          } else if (isEnd.isError) {
             throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
           }
         } else {
@@ -48,7 +47,9 @@ const makeRandomNumber = () => {
 };
 
 const checkInputIsValid = (userInput) => {
-  const input = [...userInput].sort().reduce((acc, cur) => acc.includes(cur) ? acc : [...acc, cur], []);
+  const input = [...userInput]
+    .sort()
+    .reduce((acc, cur) => (acc.includes(cur) ? acc : [...acc, cur]), []);
 
   return input.length === 3 ? true : false;
 };
@@ -74,7 +75,6 @@ const calculateScore = (userInput, randomNumber) => {
   return socreBoard;
 };
 
-
 const printScore = (scoreBoard) => {
   let returnString = "낫싱";
   if (scoreBoard.strike != 0 || scoreBoard.ball != 0) {
@@ -90,9 +90,8 @@ const checkGameStatus = (userInput) => {
     return false;
   } else if (userInput === "2") {
     return true;
-  } else {
-    return { isError: true };
   }
+  return { isError: true };
 };
 
 const app = new App();
