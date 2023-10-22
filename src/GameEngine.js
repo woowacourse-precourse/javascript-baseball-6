@@ -23,7 +23,7 @@ export default class GameEngine {
     return { strike, ball };
   }
 
-  static showGameStatus(strike, ball) {
+  static showCountStatus(strike, ball) {
     if (strike === 0 && ball === 0) {
       Console.print(BASEBALL_NOTHING);
     } else {
