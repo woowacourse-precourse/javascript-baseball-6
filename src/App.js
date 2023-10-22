@@ -60,7 +60,9 @@ class App {
   async #checkCorrect(table) {
     if (table.STRIKE_COUNT === CORRECT_NUMBER) {
       OutputView.printCorrect();
-      const retryAnswer = await InputView.readRetryAnswer();
+      const retryAnswer = Validator.validateRetry(
+        await InputView.readRetryAnswer(),
+      );
       if (retryAnswer === ANSWER.RESTART) this.#start();
       if (retryAnswer === ANSWER.FINISH) this.#finish();
     }
