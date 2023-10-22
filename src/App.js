@@ -11,7 +11,6 @@ class App {
   #isGaming;
 
   constructor() {
-    OutputView.printStart();
     this.#start();
   }
 
@@ -21,6 +20,7 @@ class App {
   }
 
   async play() {
+    OutputView.printStart();
     while (this.#isGaming) {
       const input = await this.#getUserInput();
       const table = this.#matchComputerNumber(input);
