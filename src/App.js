@@ -16,9 +16,9 @@ class App {
     while (this.strike < 3) {
       this.ball = 0;
       this.strike = 0;
-      const question = this.giveQuestion();
-      const getUserInput = await question;
-      const giveHint = this.checkInputAndGiveHint(answer, getUserInput.split("").map(Number));
+
+      const getUserInput = await this.giveQuestion("숫자를 입력해 주세요 : ");
+      this.checkInputAndGiveHint(answer, getUserInput);
     }
   }
 
@@ -31,8 +31,8 @@ class App {
     return nums.join("");
   }
 
-  giveQuestion() {
-    return this.console.readLineAsync("숫자를 입력해 주세요 : ");
+  giveQuestion(question) {
+    return this.console.readLineAsync(question);
   }
 
   checkInputAndGiveHint(answer, userInput) {
