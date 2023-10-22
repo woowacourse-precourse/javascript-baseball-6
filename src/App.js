@@ -27,6 +27,16 @@ class App extends GameUtil{
         throw new Error(result);
     }
 
+    countNumberResult(userNumber){
+        const ballCount = super.countBall(this.randomNumber, userNumber);
+        const strikeCount = super.countStrike(this.randomNumber, userNumber);
+
+        if(strikeCount === 3) return this.answerCorrect();
+
+        Console.print(super.showUserResult(ballCount, strikeCount));
+        return this.play();
+    }
+
 }
 
 const app = new App();

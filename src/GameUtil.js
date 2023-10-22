@@ -25,6 +25,30 @@ class GameUtil{
         return 'PASS';
     }
 
+    countBall(randomNumber, userNumber){
+        var balls = 0;
+        for(var index =0; index<3; index++){
+            // 같은 index의 숫자는 다르지만 userNumber[index]가 randomNumber에 포함
+            if(randomNumber[index] !== Number(userNumber[index])
+            && randomNumber.includes(Number(userNumber[index]))){
+                balls+=1;
+            }
+        }
+        return balls;
+    }
+
+    countStrike(randomNumber, userNumber){
+        var strikes = 0;
+        for(var index =0; index<3; index++){
+            // 같은 index의 숫자는 다르지만 userNumber[index]가 randomNumber에 포함
+            if(randomNumber[index] === Number(userNumber[index])){
+                strikes+=1;
+            }
+        }
+        return strikes;
+    }
+
+
 }
 
 export default GameUtil;
