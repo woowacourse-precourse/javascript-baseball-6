@@ -11,7 +11,7 @@ function print(message) {
 /**
  * @description 사용자에게 메세지를 입력받고, 받은 입력을 출력하는 함수
  * @param {string} message
- * @return {Promise<string>}
+ * @returns {Promise<string>}
  */
 function input(message) {
   return Console.readLineAsync(message);
