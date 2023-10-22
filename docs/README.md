@@ -1,5 +1,41 @@
 # 1주차 미션 - 숫자 야구
 
+### 2️⃣🔃 2차 구현 보충
+
+2차 구현을 통해 생성한 클래스와 변수들, 메소드들에 대해 구체적으로 명세한다.
+
+**▪️ Baseball**
+
+세 개의 숫자 쌍을 하나의 Baseball로 생각한다. Baseball은 랜덤한 3개의 숫자 쌍 혹은 문자열을 입력받아 생성한다
+
+- **Feild**
+
+  - `baseball` : 생성된 baseball을 저장한다
+  - `BASEBALL_LENTH` : baseball의 길이를 정의한다
+
+- **Method**
+  - `setRandomBaseball` : 랜덤한 숫자를 가진 baseball을 생성한다
+  - `setStringToBaseball` : 문자를 입력받아 baseball로 변환한다
+  - `isInvalidBaseballString` : 문자의 baseball로의 변환 가능 여부를 판단한다
+  - `compareBaseball` : 두 baseball을 입력받아 strike, ball, out를 판단한다
+
+**▪️ Game**
+
+한 번의 게임을 의미한다. 한 게임이 종료되면 재시작과 종료를 결정한다.
+
+- **Feild**
+
+  - `answerBaseball` : 답이 될 랜덤한 baseball을 저장한다
+  - `guessBaseball` : 사용자가 입력하는 baseball을 저장한다
+  - `gameState` : 게임의 상태를 저장한다. 상태 상수는 `GameState.js`에 존재한다
+
+- **Method**
+  - `runGame` : 한 번의 게임을 실행한다
+  - `runSingleGuess` : 한 번의 사용자 시도와 평가를 진행한다
+  - `getGuess` : 사용자 입력을 받고 그에 따른 baseball을 생성한다
+  - `tellResult` : 두 baseball의 비교 결과를 출력한다
+  - `endGame` : 게임 재시작 및 종료 여부를 입력받고 수행한다
+
 ### 2️⃣ 2차 구현
 
 <aside>
@@ -10,14 +46,10 @@
 
 **▪️ 코드 분리**
 
-- `class Game`
-  - 한번의 게임에 대한 객체이다
-- `class Baseball`
-  - 연속된 3개의 숫자에 대한 객체이다
-- `checkGuess`
-  - 사용자의 입력에 대한 예외를 확인한다
-- `const Messages`
-  - 게임 내에서 사용하는 문구 상수이다
+- `class Game` : 한번의 게임에 대한 객체이다
+- `class Baseball` : 연속된 3개의 숫자에 대한 객체이다
+- `checkGuess` : 사용자의 입력에 대한 예외를 확인한다
+- `const Messages` : 게임 내에서 사용하는 문구 상수이다
 
 **▪️ Class property 줄이기**
 
@@ -28,7 +60,7 @@
 
 1차 구현 중 **미리 계획하지 못한 구현**들과 **테스트를 통과와 비동기 처리를 위해 발생한 수정 사항**에 대해 작성한다.
 
-▪️ ****\*\*\*\*****\*\*\*\*****\*\*\*\*****Class Property****\*\*\*\*****\*\*\*\*****\*\*\*\*****
+▪️ **Class Property**
 
 ```jsx
 constructor() {
@@ -43,7 +75,7 @@ constructor() {
 }
 ```
 
-▪️ **\*\***\*\***\*\***Methods**\*\***\*\***\*\***
+▪️ **Methods**
 
 - `initGame`
   - 랜덤 숫자를 생성한다
@@ -67,7 +99,6 @@ constructor() {
 ### 1️⃣ 1차 구현
 
 <aside>
-
 🎯 `ApplicationTest`의 모든 테스트 성공
 
 </aside>
@@ -111,7 +142,7 @@ JS로는 객체 지향적인 구현을 시도해본 적이 없어, 1차 구현�
 
 ▪️ 사용자가 잘못된 값을 입력한 경우 `throw`문을 사용해 **예외를 발생시킨 후 애플리케이션은 종료**
 
-- **\*\*\*\***입력**\*\*\*\***
+- **입력**
   - 서로 다른 세자리의 수
   - 게임 종료 후 재시작/종료를 구분하는 1과 2
 - **출력**
@@ -162,4 +193,4 @@ app.play();
   }
   ```
 
-- 사용자의 값을 입력 받고 출력하기 위해서는 `Console.readLineAsync`, `Console.print` 를 활용한다.
+- 사용자의 값을 입력 받고 출력하기 위해서는 `Console.readLineAsync` , `Console.print` 를 활용한다.
