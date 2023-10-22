@@ -2,12 +2,12 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
   async play() {
-    console.log("숫자 야구 게임을 시작합니다.");
+    MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
     let restartGame = true;
 
     if (restartGame) {
       restartGame = await this.playGame(); // 게임 재시작 여부를 확인
-    }
+    } else { MissionUtils.Console.print("게임 종료")}
   }
 
   async playGame() {
@@ -34,13 +34,11 @@ class App {
       }
     }
 
-    // 게임 재시작 여부 확인
-    return await this.askForRestart();
+    return await this.askForRestart(); // 게임 재시작 여부 확인
   }
 
   generateRandomNumbers() {
-    // 1에서 9까지 서로 다른 임의의 수 3개 선택
-    const computer = [];
+    const computer = []; // 1에서 9까지 서로 다른 임의의 수 3개 선택
 
     while (computer.length < 3) {
       const number = MissionUtils.Random.pickNumberInRange(1, 9);
@@ -55,9 +53,13 @@ class App {
 
   async getUserInput() {
     // "숫자를 입력해주세요" 출력 후 사용자로부터 3자리 숫자 입력 받기
-    console.log("숫자를 입력해주세요");
+    const input = await MissionUtils.Console.readLineAsync();
 
-    return await MissionUtils.Console.readLineAsync();
+    if (!input || input.length !== 3 || !/^\d+$/.test(input)) {
+      throw new Error("[ERROR]"); // 에러 발생
+    }
+
+    return input;
   }
 
   calculateResult(userGuess, computerNumbers) {
@@ -79,12 +81,11 @@ class App {
   }
 
   printResult(result) {
-    // 결과 출력
-    if (result.strikes === 0 && result.balls === 0) {
-      console.log("낫싱");
-    } else {
-      let message = "";
+    let message = "";
 
+    if (result.strikes === 0 && result.balls === 0) {
+      message = "낫싱";
+    } else {
       if (result.strikes > 0) {
         message += `${result.strikes}스트라이크`;
       }
@@ -95,9 +96,9 @@ class App {
         }
         message += `${result.balls}볼`;
       }
-
-      MissionUtils.Console.print(message);
     }
+
+    MissionUtils.Console.print(message);
   }
 
   async askForRestart() { // 게임을 다시 시작할지 종료할지 선택하는 옵션 제공
