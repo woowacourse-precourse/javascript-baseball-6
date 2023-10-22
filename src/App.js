@@ -24,7 +24,7 @@ class App {
       if (isGameEnded(decision) === true) {
         break;
       }
-    }
+    } 
     return
   }
 }
