@@ -1,19 +1,22 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 
+const RandomBallNumber = () => {
+  const COMPUTER = [];
+  while (COMPUTER.length < 3) {
+    const NUMBER = Random.pickNumberInRange(1, 9);
+    if (!COMPUTER.includes(NUMBER)) {
+      COMPUTER.push(NUMBER);
+    }
+  }
+  return COMPUTER.join('');
+}
+
 class App {
   async play() {
 
     Console.print('\x1b[37m숫자 야구 게임을 시작합니다.');
-    while (1) {
-      const COMPUTER = [];
-      while (COMPUTER.length < 3) {
-        const NUMBER = Random.pickNumberInRange(1, 9);
-        if (!COMPUTER.includes(NUMBER)) {
-          COMPUTER.push(NUMBER);
-        }
-      }
-      const COMPUTER_JOIN = COMPUTER.join('');
-
+    while (true) {
+      const COMPUTER_NUMBER = RandomBallNumber();
 
       while (1) {
         const my_result = await Console.readLineAsync("숫자를 입력해주세요 : ");
@@ -37,21 +40,21 @@ class App {
         let BallCnt = 0;
         let StrikeCnt = 0;
 
-        if (COMPUTER_JOIN[0] == my_result[1] || COMPUTER_JOIN[0] == my_result[2]) {
+        if (COMPUTER_NUMBER[0] == my_result[1] || COMPUTER_NUMBER[0] == my_result[2]) {
           BallCnt++;
         }
-        if (COMPUTER_JOIN[1] == my_result[0] || COMPUTER_JOIN[1] == my_result[2]) {
+        if (COMPUTER_NUMBER[1] == my_result[0] || COMPUTER_NUMBER[1] == my_result[2]) {
           BallCnt++;
-        } if (COMPUTER_JOIN[2] == my_result[0] || COMPUTER_JOIN[2] == my_result[1]) {
+        } if (COMPUTER_NUMBER[2] == my_result[0] || COMPUTER_NUMBER[2] == my_result[1]) {
           BallCnt++;
         }
 
-        if (COMPUTER_JOIN[0] == my_result[0]) {
+        if (COMPUTER_NUMBER[0] == my_result[0]) {
           StrikeCnt++;
         }
-        if (COMPUTER_JOIN[1] == my_result[1]) {
+        if (COMPUTER_NUMBER[1] == my_result[1]) {
           StrikeCnt++;
-        } if (COMPUTER_JOIN[2] == my_result[2]) {
+        } if (COMPUTER_NUMBER[2] == my_result[2]) {
           StrikeCnt++;
         }
 
