@@ -6,7 +6,7 @@ export default class player {
   #_userNumber;
 
   async inputNumber() {
-    const userInput = await Console.readLineAsync(MESSAGE.INPUT);
+    const userInput = await Console.readLineAsync(MESSAGE.input);
     
     if (this.isValidNumber(userInput)) {
       this.#_userNumber = userInput.split('').map((num) => Number(num));
@@ -23,15 +23,15 @@ export default class player {
     const userInputToArray = userInput.split('').map((num) => Number(num));
     
     if (userInputToArray.includes(0)) {
-      throw new Error(MESSAGE.ERROR);
+      throw new Error(MESSAGE.error);
     }
     
     if (userInputToArray.length !== 3) {
-      throw new Error(MESSAGE.ERROR);
+      throw new Error(MESSAGE.error);
     }
     
     if (this.hasDuplicates(userInputToArray)) {
-      throw new Error(MESSAGE.ERROR);
+      throw new Error(MESSAGE.error);
     }
 
     return true;

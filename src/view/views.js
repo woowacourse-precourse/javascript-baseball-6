@@ -3,13 +3,13 @@ import { MESSAGE } from '../constants/constants.js'
 
 export default class views{
   constructor() {
-    Console.print(MESSAGE.START);
+    Console.print(MESSAGE.start);
   }
 
   printResultMessage(result) {
     
     if (result.BALL === 0 && result.STRIKE === 0) {
-      return Console.print(MESSAGE.NOTHING);
+      return Console.print(MESSAGE.nothing);
     }
 
     let resultMessage = '';

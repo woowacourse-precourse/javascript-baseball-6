@@ -1,25 +1,25 @@
 const MESSAGE = {
-	START : "숫자 야구 게임을 시작합니다.",
-	INPUT : "숫자를 입력해주세요 : ",
-	CORRECT : "3스트라이크", 
-	SUCCESS : "3개의 숫자를 모두 맞히셨습니다! 게임 종료",
-	RETRY : "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.",  
-	STRIKE : "스트라이크",
-	BALL : "볼",
-	NOTHING : "낫싱",
-	GAMEOVER : "게임 종료.",
-	ERROR : "[ERROR]",
+	start : "숫자 야구 게임을 시작합니다.",
+	input : "숫자를 입력해주세요 : ",
+	correct : "3스트라이크", 
+	success : "3개의 숫자를 모두 맞히셨습니다! 게임 종료",
+	retry : "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.",  
+	strike : "스트라이크",
+	ball : "볼",
+	nothing : "낫싱",
+	gameover : "게임 종료.",
+	error : "[ERROR]",
 };
 
 const CONSTANT = {
-	RETRY : '1',
-	END : '2',
-	THREESTRIKE : 3,
+	retry : '1',
+	end : '2',
+	threestrike : 3,
 }
 
-const resultObject = {
-	STRIKE: 0,
-	BALL: 0,
-	NOTHING: false,
+const RESULTOBJECT = {
+	strike: 0,
+	ball: 0,
+	nothing: false,
 }
-export {MESSAGE, resultObject, CONSTANT};
+export {MESSAGE, RESULTOBJECT, CONSTANT};

@@ -33,8 +33,8 @@ export default class App{
     const result = this.#_player.getJudgeResultPaper(this.#_opponent);
 
     this.#_view.printResultMessage(result);
-    if (result.STRIKE === CONSTANT.THREESTRIKE) {
-      this.#_view.printMessage(MESSAGE.SUCCESS);
+    if (result.STRIKE === CONSTANT.threestrike) {
+      this.#_view.printMessage(MESSAGE.success);
       return this.restartGame();
     }
     return this.play();
@@ -42,14 +42,14 @@ export default class App{
     
   //정답일 때 게임 재시작 의사를 물음
   async restartGame() {
-    const retryOrEnd = await this.#_view.readInput(MESSAGE.RETRY);
+    const retryOrEnd = await this.#_view.readInput(MESSAGE.retry);
   
-    if (retryOrEnd !== CONSTANT.RETRY && retryOrEnd !== CONSTANT.END) {
-      throw new Error(MESSAGE.ERROR);
+    if (retryOrEnd !== CONSTANT.retry && retryOrEnd !== CONSTANT.end) {
+      throw new Error(MESSAGE.error);
     }
   
-    if (retryOrEnd === CONSTANT.END) {
-      return this.#_view.printMessage(MESSAGE.GAMEOVER);
+    if (retryOrEnd === CONSTANT.end) {
+      return this.#_view.printMessage(MESSAGE.gameover);
     };
 
     return this.init();
