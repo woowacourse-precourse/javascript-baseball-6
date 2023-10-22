@@ -12,3 +12,5 @@ function validationNumbers(inputNumbers) {
     && inputNumbers.length === inputNumbersSet.size
   )
 }
+
+exports.validationNumbers = validationNumbers;
