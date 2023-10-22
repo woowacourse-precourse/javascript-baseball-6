@@ -12,7 +12,7 @@ class App {
 
   async play() {
     this.printMsgIs(this.message("START"));
-    await this.makeStrikeZoneNumber();
+    this.makeStrikeZoneNumber();
     await this.game();
   }
 
@@ -20,7 +20,7 @@ class App {
     MissionUtils.Console.print(message);
   }
 
-  async makeStrikeZoneNumber() {
+  makeStrikeZoneNumber() {
     const computer = [];
     while (computer.length < 3) {
       const number = MissionUtils.Random.pickNumberInRange(1, 9);
@@ -78,7 +78,7 @@ class App {
     const RETRY = this.message("RETRY");
     const retryInput = await MissionUtils.Console.readLineAsync(RETRY);
     if (retryInput === "1") {
-      await this.makeStrikeZoneNumber();
+      this.makeStrikeZoneNumber();
       await this.game();
     }
     return;
