@@ -1,44 +1,48 @@
-import generateRandomNumber from "./randomNumber.js";
-import successCheck from "./successCheck.js";
-import { Console } from "@woowacourse/mission-utils";
-import { userInputValidation, userInput } from "./userInput.js";
+import GameModel from "./model.js";
+import GameView from "./View.js";
+import GameController from "./controller.js";
+
 class App {
+  constructor() {
+    this.model = new GameModel();
+    this.view = new GameView();
+    this.controller = new GameController(this.model);
+  }
+
   async play() {
-    Console.print("숫자 야구 게임을 시작합니다.");
+    this.view.printGameStartMessage();
     try {
-      await this.createComputerNumber();
+      await this.gameStart();
     } catch (error) {
       throw new Error(`[ERROR] ${error}`);
     }
   }
-  async createComputerNumber() {
-    this.computerNumber = generateRandomNumber();
-    await this.userInputCheck();
+
+  async gameStart() {
+    this.controller.updateRandomComputerNumber();
+    await this.userInput();
   }
 
-  async userInputCheck() {
-    this.userNumber = await userInput();
-    const isValidationSuccess = userInputValidation(this.userNumber);
-    if (isValidationSuccess) await this.scoreResult();
-    else throw new Error("숫자가 잘못된 형식입니다.");
+  async userInput() {
+    const userNumber = await this.view.getUserNumberInput();
+    const isValidated = this.controller.inputValidation(userNumber);
+    if (isValidated) this.model.updateUserNumber(userNumber);
+    else if (isValidated === false) throw new Error("숫자가 잘못된 형식입니다.");
+    await this.scoreCheck();
   }
 
-  async scoreResult() {
-    const isSuccess = successCheck(this.computerNumber, this.userNumber);
-    if (isSuccess) this.gameClear();
-    else return this.userInputCheck();
+  async scoreCheck() {
+    const [ball, strike] = this.controller.getScore();
+    const scoreString = this.controller.scoreToString(ball, strike);
+    this.view.printScore(scoreString);
+    if (strike === 3) this.gameClear();
+    else if (strike !== 3) await this.userInput();
   }
 
-  gameClear() {
-    Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-    this.gameRestartCheck();
-  }
-
-  async gameRestartCheck() {
-    Console.print("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
-    const isGameRestart = await Console.readLineAsync("");
-    if (isGameRestart === "1") return this.createComputerNumber();
-    else if (isGameRestart !== "2") return this.gameRestartCheck();
+  async gameClear() {
+    const isRestart = await this.view.getUserRestartInput();
+    if (isRestart === "1") await this.gameStart();
+    else if (isRestart !== "2") await this.gameClear();
   }
 }
 
