@@ -6,6 +6,7 @@ class App {
       input: process.stdin,
       output: process.stdout
     });
+    const strikes = [];
   }
 
   async play() {
@@ -14,7 +15,28 @@ class App {
 
   playGame() {
     console.log("숫자 야구 게임을 시작합니다.");
+    this.strikes = [];
+    this.strikes = this.generateStrikes();
+    console.log(this.strikes);
     this.playRound();
+  }
+
+  generateStrikes() {
+    const numberArray = [];
+    while (numberArray.length < 3) {
+      let rn = this.generateRandomNumber();
+      if (numberArray.includes(rn)) {
+        continue;
+      } else {
+        numberArray.push(rn);
+      }
+    }
+    return numberArray;
+  }
+
+  generateRandomNumber() {
+    const randomNumber = Math.floor(Math.random() * 9) + 1; // 1~9 중 랜덤 숫자
+    return randomNumber;
   }
 
   playRound() {
