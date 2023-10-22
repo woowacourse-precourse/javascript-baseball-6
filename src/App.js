@@ -28,10 +28,31 @@ class App {
       console.log("선택된 서로 다른 수:", computerNumbers);
       console.log("컴퓨터가 선택한 3자리 수:", computerNum);
 
-      const userInput = await Console.readLineAsync("3자리 숫자를 입력하세요 (1~9): ");
-      //Console.readLineAsync 으로 사용자 입력 값 받기
-      userNum = userInput.trim(); //양쪽 끝의 공백을 제거한 새로운 문자열을 반환
-      console.log("사용자가 선택한 3자리 수:", userNum);
+      let isValidInput = false;
+      while (!isValidInput) {
+        const userInput = await Console.readLineAsync("3자리 숫자를 입력하세요 (1~9): ");
+        userNum = userInput.trim();
+
+        console.log("사용자가 선택한 3자리 수:", userNum);
+        if (userNum.length !== numberLength || !/^[1-9]{3}$/.test(userNum)) {
+          // userNum(사용자에게 입력받은 숫자)의 길이가 3이 아니거나
+          // 1에서 9까지의 숫자로 이루어진 3자리 숫자 형식이 아닐 때 오류 발생
+          // /^[1-9]{3}$/는 문자열이 1에서 9까지의 숫자로 이루어진 3자리 문자열인지 검사하는 정규 표현식 패턴
+          // userNum이 이 패턴과 일치하지 않으면 test(userNum)는 false를 반환하게 되고,
+          // !/^[1-9]{3}$/.test(userNum)는 true가 되어 if문의 조건이 참이 되어 에러가 발생
+          throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+        }
+        const userNumbers = userNum.split("");
+        const userNumbersSet = new Set(userNumbers);
+        console.log(userNumbers, numberLength);
+        console.log(userNumbersSet, userNumbersSet.size);
+
+        if (numberLength !== userNumbersSet.size) {
+          //입력한 값이 3자리의 서로 다른 숫자인지 검사
+          console.log("[ERROR] 입력한 숫자는 각 자리에 서로 다른 숫자여야 합니다.");
+        }
+        isValidInput = true;
+      }
     } catch (error) {
       Console.print("에러 발생:", error.message);
     }
