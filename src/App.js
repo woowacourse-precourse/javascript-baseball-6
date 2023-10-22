@@ -1,4 +1,7 @@
 import { Random, Console } from '@woowacourse/mission-utils';
+import GameError from './GameError.js';
+
+const NUMBER_LENGTH = 3;
 
 class App {
   constructor() {
@@ -16,11 +19,26 @@ class App {
     return randomNumbers;
   }
 
+  isInputValid(input) {
+    const NUMBERS = /^[1-9]+$/;
+    if (!NUMBERS.test(input))
+      throw new GameError('숫자만 입력해야 합니다.');
+
+    if (input.length !== NUMBER_LENGTH)
+      throw new GameError(`${NUMBER_LENGTH}개의 숫자를 입력해야 합니다.`);
+
+    if (new Set(input).size !== NUMBER_LENGTH)
+      throw new GameError('숫자가 중복되었습니다.');
+  }
+
   async play() {
-    this.answerNumbers = this.generateRandomNumbers(3);
-    const input = await Console.readLineAsync('input : ');
-    Console.print('ouput : '+ input);
-    console.log(this.answerNumbers);
+    try {
+      const input = await Console.readLineAsync('input : ');
+      this.isInputValid(input)
+      Console.print('ouput : ' + input);
+    } catch (error) {
+      Console.print(error.message);
+    }
   }
 }
 const app = new App();
