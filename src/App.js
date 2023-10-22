@@ -27,6 +27,9 @@ class App {
       // 비교 결과를 출력
       MissionUtils.Console.print(resultText);
     }
+
+    // 게임 종료 시나리오
+    MissionUtils.Console.print('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
   }
 
   compareNumber(userInput) {
