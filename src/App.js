@@ -2,22 +2,22 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
   async play() {
-    let gameOver = true;
+    let isGameOver = true;
 
-    MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
-    while (gameOver) {
+    MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
+    while (isGameOver) {
       const COM_NUMBER = this.createNumber();
 
       while (true) {
         try {
           if (await this.playRound(COM_NUMBER)) {
-            gameOver = await this.restartGameDecision();
+            isGameOver = await this.restartGameDecision();
             break;
           }
         } catch (error) {
           if (
             error.message ===
-            "[ERROR] 문자가 포함된 입력입니다. 애플리케이션을 종료합니다."
+            '[ERROR] 문자가 포함된 입력입니다. 애플리케이션을 종료합니다.'
           ) {
             throw error;
           }
@@ -26,16 +26,16 @@ class App {
     }
   }
 
-  async playRound(comNumber) {
-    const userNumber = await this.requestUserNumber();
-    const { strikes, balls } = this.checkNumber(comNumber, userNumber);
+  async playRound(COM_NUMBER) {
+    const USER_NUMBER = await this.requestUserNumber();
+    const { strikes, balls } = this.checkNumber(COM_NUMBER, USER_NUMBER);
 
     return this.determineGameResult(strikes, balls);
   }
 
   async requestUserNumber() {
     return this.requestInput(
-      "숫자를 입력해주세요 : ",
+      '숫자를 입력해주세요 : ',
       (input) =>
         !isNaN(Number(input)) && input.length === 3 && new Set(input).size === 3
     );
@@ -44,13 +44,13 @@ class App {
   determineGameResult(strikes, balls) {
     if (strikes === 3) {
       MissionUtils.Console.print(
-        "3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료"
+        '3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료'
       );
       return true;
     }
 
     if (strikes === 0 && balls === 0) {
-      MissionUtils.Console.print("낫싱");
+      MissionUtils.Console.print('낫싱');
     } else if (strikes === 0 && balls > 0) {
       MissionUtils.Console.print(`${balls}볼`);
     } else if (strikes > 0 && balls === 0) {
@@ -63,12 +63,12 @@ class App {
   }
 
   async restartGameDecision() {
-    const answer = await this.requestInput(
-      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n",
+    const ANSWER = await this.requestInput(
+      '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n',
       (input) => input === "1" || input === "2"
     );
 
-    return answer === "1";
+    return ANSWER === "1";
   }
 
   createNumber() {
@@ -79,7 +79,7 @@ class App {
         COMPUTER.push(NUMBER);
       }
     }
-    return COMPUTER.join("");
+    return COMPUTER.join('');
   }
 
   async getUserInput(promptMessage) {
@@ -89,12 +89,12 @@ class App {
   isValidInput(input, validation) {
     if (isNaN(Number(input))) {
       throw new Error(
-        "[ERROR] 문자가 포함된 입력입니다. 애플리케이션을 종료합니다."
+        '[ERROR] 문자가 포함된 입력입니다. 애플리케이션을 종료합니다.'
       );
     }
 
     if (!validation(input)) {
-      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+      throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
     }
 
     return true;
@@ -103,7 +103,7 @@ class App {
   printErrorMessage(error) {
     if (
       error.message ===
-      "[ERROR] 문자가 포함된 입력입니다. 애플리케이션을 종료합니다."
+      '[ERROR] 문자가 포함된 입력입니다. 애플리케이션을 종료합니다.'
     ) {
       MissionUtils.Console.print(error.message);
       throw error;
@@ -115,23 +115,23 @@ class App {
   async requestInput(promptMessage, validation) {
     while (true) {
       try {
-        const userInput = await this.getUserInput(promptMessage);
-        this.isValidInput(userInput, validation);
-        return userInput;
+        const USER_INPUT = await this.getUserInput(promptMessage);
+        this.isValidInput(USER_INPUT, validation);
+        return USER_INPUT;
       } catch (error) {
         this.printErrorMessage(error);
       }
     }
   }
 
-  checkNumber(com, user) {
+  checkNumber(COM_NUMBER, USER_NUMBER) {
     let strikes = 0;
     let balls = 0;
 
     for (let i = 0; i < 3; i += 1) {
-      if (com[i] === user[i]) {
+      if (COM_NUMBER[i] === USER_NUMBER[i]) {
         strikes += 1;
-      } else if (com.includes(user[i])) {
+      } else if (COM_NUMBER.includes(USER_NUMBER[i])) {
         balls += 1;
       }
     }
