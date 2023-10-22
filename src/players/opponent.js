@@ -35,12 +35,6 @@ export default class opponent{
       }
     })
 
-    if (result.strike === 0 && result.ball === 0) {
-      result.nothing = true;
-    }
-
-    console.log(result);
-
     return result;
   }
 }

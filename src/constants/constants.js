@@ -20,6 +20,5 @@ const CONSTANT = {
 const RESULTOBJECT = {
 	strike: 0,
 	ball: 0,
-	nothing: false,
 }
 export {MESSAGE, RESULTOBJECT, CONSTANT};

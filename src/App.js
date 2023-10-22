@@ -50,7 +50,7 @@ export default class App{
   
     if (retryOrEnd === CONSTANT.end) {
       return this.#_view.printMessage(MESSAGE.gameover);
-    };
+    }
 
     return this.init();
   }
