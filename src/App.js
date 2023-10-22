@@ -1,32 +1,31 @@
-import { MissionUtils } from '@woowacourse/mission-utils';
-import { Console } from '@woowacourse/mission-utils';
+import { MissionUtils, Console } from '@woowacourse/mission-utils';
 
 class App {
   async play() {
     try {
-      this.StartMessage();
-      let regame = 1;
-      let answer;
+      this.displayGameStartMessage();
+      let playAgain = 1;
+      let answerNumber;
 
-      while (regame === 1) {
-        answer = this.MakeRandomNumbers();
+      while (playAgain === 1) {
+        answerNumber = this.generateRandomNumbers();
 
         while (true) {
-          let userInput = await this.InputPlayerNumbers();
+          let userInput = await this.promptUserInput();
 
           if (userInput.length !== 3 || new Set(userInput).size !== 3) {
             throw new Error('[ERROR] 숫자를 잘 못 입력했습니다.');
           }
 
-          let result = this.JudgeNumber(answer, userInput);
+          let result = this.JudgeNumber(answerNumber, userInput);
           if (result.strike === 3) {
             Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
-            regame = await this.AskRegame();
-            if (regame === 1) {
-              answer = this.MakeRandomNumbers();
+            playAgain = await this.askForAnotherGame();
+            if (playAgain === 1) {
+              answerNumber = this.generateRandomNumbers();
             }
 
-            if (regame === 2) {
+            if (playAgain === 2) {
               break;
             }
           }
@@ -38,44 +37,44 @@ class App {
     }
   }
 
-  StartMessage() {
-    const StartMessage = '숫자 야구 게임을 시작합니다.';
-    Console.print(StartMessage);
+  displayGameStartMessage() {
+    const gameStartMessage = '숫자 야구 게임을 시작합니다.';
+    Console.print(gameStartMessage);
   }
 
-  MakeRandomNumbers() {
-    let computer = [];
-    while (computer.length < 3) {
+  generateRandomNumbers() {
+    let pickNumbers = [];
+    while (pickNumbers.length < 3) {
       let number = MissionUtils.Random.pickNumberInRange(1, 9);
-      if (!computer.includes(number)) {
-        computer.push(number);
+      if (!pickNumbers.includes(number)) {
+        pickNumbers.push(number);
       }
     }
-    return computer;
+    return pickNumbers;
   }
 
-  async InputPlayerNumbers() {
-    let input = await Console.readLineAsync('숫자를 입력해주세요 :');
-    let playerNumber = input.split('').map((number) => parseInt(number));
+  async promptUserInput() {
+    let playerInput = await Console.readLineAsync('숫자를 입력해주세요 :');
+    let playerNumber = playerInput.split('').map((number) => parseInt(number));
 
     return playerNumber;
   }
 
-  JudgeNumber(computerNumber, playerNumber) {
-    let computer = computerNumber;
-    let player = playerNumber;
+  JudgeNumber(answerNumber, playerNumber) {
+    let computerPickNumbers = answerNumber;
+    let playerPickNumbers = playerNumber;
 
     let strike = 0;
     let ball = 0;
     let nothing = '낫싱';
 
     for (let i = 0; i < 3; i++) {
-      if (player[i] === computer[i]) {
+      if (playerPickNumbers[i] === computerPickNumbers[i]) {
         strike++;
       }
       if (
-        player[i] === computer[(i + 1) % 3] ||
-        player[i] === computer[(i + 2) % 3]
+        playerPickNumbers[i] === computerPickNumbers[(i + 1) % 3] ||
+        playerPickNumbers[i] === computerPickNumbers[(i + 2) % 3]
       ) {
         ball++;
       }
@@ -96,15 +95,20 @@ class App {
     return { strike, ball };
   }
 
-  async AskRegame() {
-    let input = await Console.readLineAsync(
+  async askForAnotherGame() {
+    let plyerInputOneorTwo = await Console.readLineAsync(
       '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.'
     );
-    let answer = input.split('').map((number) => parseInt(number));
-    if (answer.length !== 1 || (answer[0] !== 1 && answer[0] !== 2)) {
+    let restartOrEnd = plyerInputOneorTwo
+      .split('')
+      .map((number) => parseInt(number));
+    if (
+      restartOrEnd.length !== 1 ||
+      (restartOrEnd[0] !== 1 && restartOrEnd[0] !== 2)
+    ) {
       throw new Error('[ERROR]');
     }
-    return answer[0]; // 반환값을 숫자로 변경
+    return restartOrEnd[0]; // 반환값을 숫자로 변경
   }
 }
 
