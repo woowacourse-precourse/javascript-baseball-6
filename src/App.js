@@ -5,7 +5,7 @@ class App {
     Console.print('숫자 야구 게임을 시작합니다.');
     let startGameFlag = 1;
     while (startGameFlag === 1) {
-      const computerSelectedNumber = await this.pickRandomNumber();
+      const computerSelectedNumber = this.pickRandomNumber();
       let isThreeStrike = false;
       while (!isThreeStrike) {
         const userSelectedNumber = await this.getUsersInputNumber();
@@ -48,10 +48,10 @@ class App {
     return gameToggle;
   }
 
-  async pickRandomNumber() {
+  pickRandomNumber() {
     let randomNumber = '';
     while (randomNumber.length <= 2) {
-      const newRandomNumber = await Random.pickNumberInRange(1, 9);
+      const newRandomNumber = Random.pickNumberInRange(1, 9);
       if (!randomNumber.includes(newRandomNumber)) {
         randomNumber += newRandomNumber;
       }
