@@ -35,7 +35,13 @@ class GameLogic {
     } else if (strike === 3) {
       gameResult = "3스트라이크";
     } else {
-      gameResult = `${ball}볼 ${strike}스트라이크`;
+      if (strike && ball) {
+        gameResult = `${ball}볼 ${strike}스트라이크`;
+      } else if (strike === 0 && ball) {
+        gameResult = `${ball}볼`;
+      } else if (strike && ball === 0) {
+        gameResult = ` ${strike}스트라이크`;
+      }
     }
     return gameResult;
   }

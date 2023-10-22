@@ -36,6 +36,7 @@ class GameManager {
         if (answer === 1) {
           this.playGame();
         } else if (answer === 2) {
+          return;
         }
       }
     );
