@@ -20,7 +20,6 @@ class App {
   async play() {
     Console.print(GAME_START);
     this.createRandomNum();
-    console.log(this.computerNum);
     await this.guessNum();
   }
 
@@ -62,27 +61,24 @@ class App {
     //결과를 출력하는 함수
     const { strike, ball } = this.calculateStrikeAndBall(inputValue);
 
-    if (strike === 3) {
-      Console.print(`${strike}스트라이크`);
-      Console.print(GAME_SUCCESS);
-      await this.selectPalyAgain();
-      return;
-    }
-
     if (ball === 0 && strike === 0) {
       Console.print("낫싱");
+    } else {
+      Console.print(
+        `${ball > 0 ? ball + "볼 " : ""}${
+          strike > 0 ? strike + "스트라이크" : ""
+        }`
+      );
     }
 
-    if (ball !== 0 && strike !== 0) {
-      Console.print(`${ball}볼 ${strike}스트라이크`);
-    }
+    if (strike === 3) {
+      Console.print(GAME_SUCCESS);
 
-    if (ball == 0 && strike !== 0) {
-      Console.print(`${strike}스트라이크`);
-    }
-
-    if (strike == 0 && ball !== 0) {
-      Console.print(`${ball}볼`);
+      const isPlay = await this.selectPalyAgain();
+      if (isPlay) {
+        this.play();
+      }
+      return;
     }
 
     await this.guessNum();
@@ -93,12 +89,11 @@ class App {
     const inputValue = await Console.readLineAsync(GAME_SELECT_REPLAY);
 
     if (parseInt(inputValue) === 1) {
-      await this.play();
-      return;
+      return true;
     }
     if (parseInt(inputValue) === 2) {
       Console.print(GAME_END);
-      return;
+      return false;
     }
     throw new Error(ERROR_REPLAY_NUMBER);
   }
