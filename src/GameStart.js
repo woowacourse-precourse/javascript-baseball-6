@@ -4,7 +4,6 @@ import {resultOut} from "./ResultOut.js";
 import {wantReStart} from "./WantReStart.js";
 
 export async function gameStart() {
-    MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
     let result;
     const Random_Number = makeRandomNumber();
     while (result !== `3스트라이크`){
@@ -13,6 +12,9 @@ export async function gameStart() {
         MissionUtils.Console.print(result);
     }
     if (result === `3스트라이크`) {
-        return await wantReStart();
+        const WANT_END = await wantReStart();
+        if (WANT_END === false) {
+            gameStart();
+        } else return;
     }
 }
