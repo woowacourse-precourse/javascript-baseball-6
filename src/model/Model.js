@@ -1,6 +1,6 @@
 import { generateRandomThreeDigitNumber } from "./generateRandomThreeDigitNumber.js";
 import { isRoundEndedFromHint } from "./isRoundEndedFromHint.js";
-import { isGameEnded } from "./isGameEnded.js";
+import { isGameContinued } from "./isGameContinued.js";
 import { getHint } from "./getHint.js";
 
 
@@ -34,8 +34,8 @@ export class Model {
         return getHint(userNumber, this.computerNumber)
     }
 
-    isGameEnded(decision) {
-        return isGameEnded(decision)
+    isGameContinued(decision) {
+        return isGameContinued(decision)
     }
 
     isRoundEndedFromHint(hint) {

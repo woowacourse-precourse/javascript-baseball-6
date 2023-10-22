@@ -26,6 +26,6 @@ export class Controller {
                     break;
                 }
             }
-        } while (this.model.isGameEnded(await this.getUserGameDecision()) !== true)
+        } while (this.model.isGameContinued(await this.getUserGameDecision()) === true)
     }
 }
