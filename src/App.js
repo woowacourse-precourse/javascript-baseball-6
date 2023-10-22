@@ -1,12 +1,20 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
+  constructor() {
+    MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
+  }
+
   async play() {
     const answer = this.getRandNum();
-    MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
+    const input = await this.getInput();
+    await this.checkAnswer(input, answer);
+  }
+
+  async getInput() {
     const input = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
     const isValid = this.validateInput(input);
-    if (isValid) this.checkAnswer(input, answer);
+    if (isValid) return input;
     else throw new Error("[ERROR]");
   }
 
@@ -43,23 +51,26 @@ class App {
       if (x !== guessArr[i] && answer.indexOf(guessArr[i]) >= 0) ball++;
     });
 
+    this.printResult(ball, strike);
+
     if (strike === 3) return this.endGame();
-    return this.continueGame(ball, strike, answer);
+    return this.continueGame(answer);
   }
 
-  async continueGame(ball, strike, answer) {
-    const hint = ball > 0 && strike > 0 ? `${ball}볼 ${strike}스트라이크` : ball > 0 ? `${ball}볼` : strike > 0 ? `${strike}스트라이크` : "낫싱";
-    MissionUtils.Console.print(hint);
-    const input = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
-    const isValid = this.validateInput(input);
-    if (isValid) this.checkAnswer(input, answer);
-    else throw new Error("[ERROR]");
+  async continueGame(answer) {
+    const input = await this.getInput();
+    await this.checkAnswer(input, answer);
   }
 
   async endGame() {
     MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
     const input = await MissionUtils.Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n");
-    if (Number(input) === 1) this.play();
+    if (Number(input) === 1) return this.play();
+  }
+
+  printResult(ball, strike) {
+    const result = ball > 0 && strike > 0 ? `${ball}볼 ${strike}스트라이크` : ball > 0 ? `${ball}볼` : strike > 0 ? `${strike}스트라이크` : "낫싱";
+    MissionUtils.Console.print(result);
   }
 }
 
