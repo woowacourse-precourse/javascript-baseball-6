@@ -1,9 +1,9 @@
 import { Console } from "@woowacourse/mission-utils";
-import { GAME_START_MESSAGE } from "../constants/Constants.js";
+import { MESSAGES } from "../constants/Constants.js";
 
 class ConsoleOutput {
   printStartMessage() {
-    Console.print(GAME_START_MESSAGE);
+    Console.print(MESSAGES.GAME_START);
   }
 }
 

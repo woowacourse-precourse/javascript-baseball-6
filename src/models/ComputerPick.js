@@ -1,15 +1,14 @@
 import { Random } from "@woowacourse/mission-utils";
-import {
-  MIN_NUMBER,
-  MAX_NUMBER,
-  LIMIT_LENGTH,
-} from "../constants/Constants.js";
+import { GAME_RULES } from "../constants/Constants.js";
 
 class ComputerPick {
   getAnswer() {
     let answer = [];
-    while (answer.length < LIMIT_LENGTH) {
-      const number = Random.pickNumberInRange(MIN_NUMBER, MAX_NUMBER);
+    while (answer.length < GAME_RULES.LIMIT_LENGTH) {
+      const number = Random.pickNumberInRange(
+        GAME_RULES.MIN_NUMBER,
+        GAME_RULES.MAX_NUMBER
+      );
       if (!answer.includes(number)) {
         answer.push(number);
       }
