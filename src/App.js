@@ -15,6 +15,11 @@ class App {
       this.infoPrint(judgeResult);
     }
     this.infoPrint('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+    const userRestartValue = await this.userInput(
+      `게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n`,
+    );
+    const userRestartValidationResult =
+      this.userRestartValidation(userRestartValue);
   }
 
   infoPrint(message) {
@@ -51,6 +56,14 @@ class App {
     ];
     if (valueArr.length !== 3) return false;
     if (valueArr.length === 3) return true;
+  }
+
+  userRestartValidation(value) {
+    if (value === '1' || value === '2') {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   throwError(message) {
