@@ -23,7 +23,7 @@ describe("스트라이크와 볼 카운트 기능", () => {
     // when
     const [ball, strike] = model.compareNumbers(computerRandomNumbers, userNumberInput);
 
-    //  then
+    // then
     expect(ball).toBe(2);
   });
 });

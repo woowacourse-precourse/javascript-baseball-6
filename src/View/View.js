@@ -22,6 +22,14 @@ class View {
 
     ball === 0 && strike === 0 ? Console.print(`낫싱`) : "";
   }
+
+  printPlayEnd() {
+    Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+  }
+
+  printGameEnd() {
+    Console.print("게임 종료");
+  }
 }
 
 export default View;
