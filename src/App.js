@@ -109,7 +109,7 @@ return COUNT_BALL;
 strike(COM_NUMBER,MY_NUM){
   let COUNT_STRIKE = 0
   for(let i=0; i<COM_NUMBER.length; i++){
-    for(let j=0; j<MY_NUM.length;j++){
+    for(let j=0; j<MY_NUM[j];j++){
       if(COM_NUMBER[i]==MY_NUM[j]){
         if(i==j){
           COUNT_STRIKE++
