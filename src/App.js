@@ -49,7 +49,8 @@ class App {
   }
 
   Exception(string){ // 예외처리
-    if(string.length != 3) throw '[ERROR] 숫자가 잘못된 형식입니다.'; // 숫자가 3글자가 아닐경우
+    const LEG_EXP = /^(?!.*(\d).*\1)[1-9]{3}$/; // 중복방지, 1~9의 숫자만 3자리 숫자
+    if(!LEG_EXP.test(string)) throw '[ERROR] 숫자가 잘못된 형식입니다.';
   }
 
   Hint(answer,userAnswer){ // 힌트 문구 출력
@@ -74,8 +75,6 @@ class App {
   Print(messages){ // 자주 사용되는 메세지를 따로 빼기
     MissionUtils.Console.print(messages);
   }
-
-
 }
 
 const app = new App();
