@@ -9,7 +9,3 @@ export const GAME_CONTROL = {
   START_SCOPE: 1,
   END_SCOPE: 9,
 }
-
-export const NO_BALL = 0;
-export const NO_STRIKE = 0;
-export const NUMBER_REGEX = /^\d+$/;
