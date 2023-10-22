@@ -1,6 +1,34 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 
 class App {
+  /** 게임을 시작하는 메소드 */
+  async play() {
+    Console.print("숫자 야구 게임을 시작합니다.");
+
+    while (true) {
+      const computerNumber = this.generateRandomNumberArray();
+
+      while (true) {
+        const input = await Console.readLineAsync("숫자를 입력해주세요 : ");
+
+        this.validateInput(input);
+
+        const isFinished = this.compareInputWithComputerNumber(
+          input,
+          computerNumber
+        );
+
+        if (isFinished) break;
+      }
+
+      const finishControlInput = await Console.readLineAsync(
+        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+      );
+
+      if (finishControlInput === "2") break;
+    }
+  }
+
   /** 1에서 9까지 서로 다른 임의의 수 3개를 선택하여 3자리 수를 생성하는 메소드 */
   generateRandomNumberArray() {
     const randomNumberArray = [];
@@ -49,10 +77,6 @@ class App {
     if (!isValid) {
       throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
     }
-  }
-
-  async play() {
-    Console.print("숫자 야구 게임을 시작합니다.");
   }
 }
 
