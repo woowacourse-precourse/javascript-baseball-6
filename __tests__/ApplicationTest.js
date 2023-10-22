@@ -108,7 +108,7 @@ describe("숫자 야구 게임", () => {
   test("예외 테스트4 : 재시작 여부 물어볼 때 1 혹은 2가 아닐 경우", async () => {
     // given
     const randoms = [1, 3, 5];
-    const answers = ["135", "3"];
+    const answers = ["135", "3", "1"];
     const logSpy = getLogSpy();
     const messages = ["3스트라이크", "시도 횟수 : 1 회"];
 
