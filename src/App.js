@@ -55,7 +55,12 @@ class App {
       STRIKE_COUNT: 0,
       BALL_COUNT: 0,
     };
-    userInput.forEach((userNum, userNumIndex) => {
+    userInput.forEach(this.#countMatchNumber(table));
+    return table;
+  }
+
+  #countMatchNumber(table) {
+    return (userNum, userNumIndex) => {
       const matchedIndex = this.#computerNumber.findIndex(
         (computerNum) => computerNum === userNum,
       );
@@ -63,8 +68,7 @@ class App {
         if (userNumIndex === matchedIndex) table.STRIKE_COUNT += 1;
         if (userNumIndex !== matchedIndex) table.BALL_COUNT += 1;
       }
-    });
-    return table;
+    };
   }
 }
 
