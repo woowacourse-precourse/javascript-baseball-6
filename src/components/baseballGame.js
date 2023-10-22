@@ -7,7 +7,6 @@ import Messages from "../util/Messages.js";
 class BaseballGame {
   async start() {
     const randomNumber = new CreateNumber().randomNumber;
-    Console.print(randomNumber);
     while (true) {
       // 숫자 입력 받기
       const inputNumber = await this.getUserInput();
@@ -30,7 +29,7 @@ class BaseballGame {
 
   async getUserInput() {
     try {
-      const userNumber = await Console.readLineAsync("숫자를 입력해주세요 : ");
+      const userNumber = await Console.readLineAsync(Messages.INPUT_NUMBER);
       return userNumber;
     } catch (error) {
       throw new Error(Messages.ERROR.REJECTED_READLINE);

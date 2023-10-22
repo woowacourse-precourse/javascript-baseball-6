@@ -1,16 +1,24 @@
 import { Console } from "@woowacourse/mission-utils";
 import BaseballGame from "./components/baseballGame.js";
 import Messages from "./util/Messages.js";
+import Constants from "./util/Constants.js";
 
 class App {
   async play() {
-    const IS_KEEP_GAME = 1;
     Console.print(Messages.START);
-    while (IS_KEEP_GAME === 1) {
-      const game = new BaseballGame();
-      game.start();
-      // Console.readLineAsync(Messages.RESTART_OR_EXIT);
-      break;
+    while (true) {
+      await new BaseballGame().start();
+      const selectNumber = Number(await this.getExitInput());
+      if (selectNumber === Constants.EXIT) break;
+      if (selectNumber !== Constants.RESTART && selectNumber !== Constants.EXIT) throw new Error(Messages.ERROR.INVALID_SELECT_NUMBER);
+    }
+  }
+  async getExitInput() {
+    try {
+      const userNumber = await Console.readLineAsync(Messages.RESTART_OR_EXIT);
+      return userNumber;
+    } catch (error) {
+      throw new Error(Messages.ERROR.REJECTED_READLINE);
     }
   }
 }
