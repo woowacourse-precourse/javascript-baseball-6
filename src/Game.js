@@ -1,7 +1,7 @@
 import { Console } from "@woowacourse/mission-utils";
 import Human from "./Human.js";
 import Computer from "./Computer.js";
-import Hint from "./Hint.js";
+import Referee from "./Refree.js";
 
 export default class Game {
   isAllStrike;
@@ -32,16 +32,19 @@ export default class Game {
     this.isAllStrike = false;
     Console.print("숫자 야구 게임을 시작합니다.");
     const computer = new Computer();
+    const refree = new Referee();
     const human = new Human();
     const compureBalls = computer.throwBalls(computer.ballNumbers);
-    // console.log(compureBalls);
+    console.log(compureBalls);
 
     while (this.isAllStrike === false) {
       const dd = await this.getHumanBallNumbers();
       const humanBalls = human.throwBalls(dd);
-      this.isAllStrike = new Hint().getHint(compureBalls, humanBalls);
-      if (this.isAllStrike)
+      refree.getHint(compureBalls, humanBalls);
+      if (refree.isThreeStrikes()) {
         Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+        this.isAllStrike = true;
+      }
     }
     await this.askRetry();
   };

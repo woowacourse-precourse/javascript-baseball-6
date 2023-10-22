@@ -1,8 +1,6 @@
 import { Console } from "@woowacourse/mission-utils";
 
-// TODOS : Referee 로 수정.
-// 스트라이크를
-export default class Hint {
+export default class Referee {
   strike;
   ball;
   constructor() {
@@ -11,6 +9,8 @@ export default class Hint {
   }
 
   getHint(answer, guess) {
+    this.strike = 0;
+    this.ball = 0;
     for (let i = 0; i < 3; i++) {
       if (answer[i] === guess[i]) {
         this.strike++;
@@ -19,7 +19,7 @@ export default class Hint {
       }
     }
 
-    if (strike === 0 && ball === 0) {
+    if (this.strike === 0 && this.ball === 0) {
       Console.print("낫싱");
     }
     const result = [];
