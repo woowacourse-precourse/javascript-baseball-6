@@ -43,6 +43,31 @@ export class BaseballGame {
 
     //숫자 비교 함수
     compare(answer, userNumber) {
-        
+        let strikeCount = 0;
+        let ballCount = 0;
+        answer.forEach((element1, index1) => {
+            userNumber.forEach((element2, index2) => {
+                if (element1 == element2 && index1 == index2) strikeCount++;
+                else if (element1 == element2) ballCount++;
+            })
+        });
+
+        if (strikeCount != 0 && ballCount != 0) {
+            Console.print(`${ballCount}볼 ${strikeCount}스트라이크`);
+            return false;
+        }
+        else if (strikeCount != 0 && ballCount == 0) {
+            Console.print(`${strikeCount}스트라이크`);
+            if (strikeCount == 3) return true;
+            else return false;
+        }
+        else if (strikeCount == 0 && ballCount != 0) {
+            Console.print(`${ballCount}볼`);
+            return false;
+        }
+        else {
+            Console.print('낫싱');
+            return false;
+        }
     }
 }
