@@ -1,5 +1,4 @@
 import { Console, MissionUtils } from "@woowacourse/mission-utils";
-import { GuildEmojiRoleManager } from "discord.js";
 
 class App {
   //게임시작
@@ -42,7 +41,7 @@ class App {
   score(computer, numbers) {
     let strikes = 0;
     let balls = 0;
-    let answer = 0;
+    let answer = "";
 
     for (let i = 0; i < 3; i++) {
       //같은 수, 같은 자리
@@ -58,17 +57,32 @@ class App {
     if (strikes === 0 && balls === 0) {
       answer = "낫싱";
     } else if (strikes === 0 && balls > 0) {
-      answer = "${balls}";
+      answer = `${balls}볼`;
     } else if (strikes > 0 && balls === 0) {
-      answer = "${strikes}"
+      answer = `${strikes}스트라이크`;
+    } else {
+      answer = `${balls}볼 ${strikes}스트라이크`;
+    }
+    return answer;
+  }
+
+  //판정 결과 출력
+  printAnswer(answer, strikes) {
+    if (strikes === 3) {
+      Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    } else {
+      Console.print(answer);
     }
   }
 
   async play() {
     this.start();
-    const userNumbers = await this.getNumbers();
+    const userNumbers = await this.getNumbers(); //사용자로부터 입력받은 숫자
     try {
       this.exception(userNumbers);
+      const computerNumbers = this.randomNumber();//랜덤으로 생성된 숫자
+      const answer = this.score(computerNumbers, userNumbers);
+      this.printAnswer(answer, strikes);
     } catch (error) {
       Console.print(error.message);
     }
