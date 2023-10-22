@@ -10,8 +10,10 @@ class App {
   async play() {
     // 게임 시작 메세지 출력
     Console.print(GAME_MESSAGE.START);
+    // TODO : 1~9까지 랜덤 숫자를 생성하는 기능
+    this.computerNumber = this.generateComputerNumber();
     // 게임 시작 메서드(BaseballGame) 호출
-    return this.BaseballGame();
+    return this.BaseballGame(this.computerNumber);
   }
 
   generateComputerNumber() {
@@ -26,9 +28,7 @@ class App {
     return computerNumber;
   }
 
-  async BaseballGame() {
-    // TODO : 1~9까지 랜덤 숫자를 생성하는 기능
-    this.computerNumber = this.generateComputerNumber();
+  async BaseballGame(computerNumber) {
     // TODO : 숫자를 입력 받는 기능
     try {
       const userNumber = await Console.readLineAsync(GAME_MESSAGE.INPUT);
@@ -127,7 +127,7 @@ class App {
       }
 
       if (choiceEndOption === END_OPTION.EXIT) {
-        return Console.print(GAME_MESSAGE.END)
+        return Console.print(GAME_MESSAGE.END);
       }
     } catch (error) {
       throw new Error(ERROR_MESSAGE.IS_INVALID);
