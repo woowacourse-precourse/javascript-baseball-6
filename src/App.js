@@ -76,13 +76,11 @@ const calculateScore = (userInput, randomNumber) => {
 
 
 const printScore = (scoreBoard) => {
-  let returnString = "";
+  let returnString = "낫싱";
   if (scoreBoard.strike != 0 || scoreBoard.ball != 0) {
     returnString = `${scoreBoard.ball === 0 ? "" : scoreBoard.ball + "볼"} ${
       scoreBoard.strike === 0 ? "" : scoreBoard.strike + "스트라이크"
     }`.trim();
-  } else {
-    returnString = "낫싱";
   }
   return returnString;
 };
