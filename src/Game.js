@@ -10,13 +10,17 @@ export default class Game {
   }
 
   askRetry = async () => {
-    const answer = await Console.readLineAsync(
-      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
-    );
-    if (answer !== "1" && answer !== "2") {
-      throw new Error("[ERROR] 1 또는 2만 입력할 수 있습니다.");
+    try {
+      const answer = await Console.readLineAsync(
+        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+      );
+      if (answer !== "1" && answer !== "2") {
+        throw new Error("[ERROR] 1 또는 2만 입력할 수 있습니다.");
+      }
+      answer === "1" && this.gameInit(true);
+    } catch {
+      throw new Error("[ERROR] 다시 입력해주세요.");
     }
-    answer === "1" && this.gameInit();
   };
 
   getHumanBallNumbers = async () => {
@@ -28,14 +32,14 @@ export default class Game {
     }
   };
 
-  gameInit = async () => {
+  gameInit = async (isRetry = false) => {
+    !isRetry && Console.print("숫자 야구 게임을 시작합니다.");
     this.isAllStrike = false;
-    Console.print("숫자 야구 게임을 시작합니다.");
     const computer = new Computer();
     const refree = new Referee();
     const human = new Human();
     const compureBalls = computer.throwBalls(computer.ballNumbers);
-    console.log(compureBalls);
+    // console.log(compureBalls);
 
     while (this.isAllStrike === false) {
       const dd = await this.getHumanBallNumbers();

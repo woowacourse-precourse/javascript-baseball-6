@@ -23,8 +23,8 @@ export default class Referee {
       Console.print("낫싱");
     }
     const result = [];
-    this.strike && result.push(`${this.strike}스트라이크`);
     this.ball && result.push(`${this.ball}볼`);
+    this.strike && result.push(`${this.strike}스트라이크`);
     Console.print(result.join(" "));
   }
 

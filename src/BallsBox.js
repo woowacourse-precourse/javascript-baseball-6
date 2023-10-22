@@ -1,19 +1,25 @@
+import { Console } from "@woowacourse/mission-utils";
+
 // TODO : TDD 코드 짜보기
 export default class BallsBox {
-  #BALLS_NUMBERS_SIZE = 3;
+  #BALL_NUMBERS_SIZE = 3;
   ballArray;
 
   constructor(ballString) {
-    this.validationDuplicate(ballString);
-    this.validationRange(ballString);
-    this.validationSize(ballString);
-    this.ballArray = ballString.split("");
+    try {
+      this.validationDuplicate(ballString);
+      this.validationRange(ballString);
+      this.validationSize(ballString);
+      this.ballArray = ballString.split("");
+    } catch (error) {
+      Console.print(error.message);
+    }
   }
 
   validationSize(ballString) {
     if (
       typeof ballString != "string" ||
-      ballString.length !== this.#BALLS_NUMBERS_SIZE
+      ballString.length !== this.#BALL_NUMBERS_SIZE
     ) {
       throw new Error("[ERROR] 숫자는 3개를 입력해야합니다.");
     }
