@@ -36,10 +36,57 @@ class App {
     if (myNum.length !== 3) {
       throw new Error("[ERROR] 숫자가 잘못된 형식입니다");
     }
+    await this.compareResult();
+  }
+
+  async compareResult() {
+    let strike = 0;
+    let ball = 0;
+    let nothing = 0;
+    for (let i = 0; i < 3; i++) {
+      if (
+        this.computer[i] === this.inputNum[i] &&
+        this.computer.includes(this.inputNum[i])
+      ) {
+        strike += 1;
+      } else if (
+        this.computer[i] !== this.inputNum[i] &&
+        this.computer.includes(this.inputNum[i])
+      ) {
+        ball += 1;
+      } else if (!this.computer.includes(this.inputNum[i])) {
+        nothing += 1;
+      }
+    }
+    if (nothing === 3) {
+      Console.print("낫싱");
+    } else {
+      Console.print(`${ball}볼 ${strike}스트라이크`);
+    }
+
+    if (strike === 3) {
+      await this.gameOver();
+    } else if (strike !== 3) {
+      await this.myInputNum();
+    }
+  }
+
+  async gameOver() {
+    const restartOrEnd = await Console.readLineAsync(
+      `3개의 숫자를 모두 맞히셨습니다! 게임 종료
+게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.`
+    );
+    this.gameOverBtn = restartOrEnd
+      .split("")
+      .map((element) => parseInt(element));
+    if (this.gameOverBtn[0] === 1) {
+      this.play();
+    } else if (this.gameOverBtn[0] === 2) {
+      Console.print("게임 종료");
+    }
   }
 }
 
 let app = new App();
 app.play();
-
 export default App;
