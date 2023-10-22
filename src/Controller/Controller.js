@@ -1,7 +1,7 @@
 import OutputView from '../View/OutputView.js';
 import InputView from '../View/InputView.js';
 
-import User from '../Model/User.js';
+import Player from '../Model/Player.js';
 import Computer from '../Model/Computer.js';
 import Hint from '../Model/Hint.js';
 import RandomNumbersCreator from '../Model/RandomNumbersCreator.js';
@@ -12,7 +12,7 @@ import { RETRY_ORDER } from '../constants/constants.js';
 
 class Controller {
   constructor() {
-    this.user = new User();
+    this.user = new Player();
     this.computer = new Computer();
   }
 

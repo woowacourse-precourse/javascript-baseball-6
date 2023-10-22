@@ -1,14 +1,8 @@
-class Computer {
-  constructor() {
-    this.answer = '';
-  }
+import Player from './Player.js';
 
+class Computer extends Player {
   createAnswer(randomNumbersCreator) {
     this.answer = randomNumbersCreator.createRandomNumbers();
-  }
-
-  getAnswer() {
-    return this.answer;
   }
 }
 

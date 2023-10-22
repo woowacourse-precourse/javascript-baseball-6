@@ -1,4 +1,6 @@
-class User {
+class Player {
+  #answer;
+
   constructor() {
     this.answer = '';
   }
@@ -12,4 +14,4 @@ class User {
   }
 }
 
-export default User;
+export default Player;
