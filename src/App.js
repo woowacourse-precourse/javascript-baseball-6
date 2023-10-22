@@ -41,11 +41,11 @@ class App {
           isCorrectAnswer = true;
         }
       }
-      const gameToggler = await gameController();
-      if (gameToggler !== 1 || gameToggler !== 2) {
+      const gameToggler = await this.gameController();
+      if (gameToggler !== '1' && gameToggler !== '2') {
         throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
       }
-      if (gameToggler !== 1) {
+      if (gameToggler !== '1') {
         isStartGame = false;
         break;
       }
@@ -106,8 +106,5 @@ class App {
     return { strikeCounter, ballCounter };
   }
 }
-
-const app = new App();
-app.play();
 
 export default App;
