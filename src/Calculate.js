@@ -11,18 +11,18 @@ export default class Calculate {
 
     while (index < GAME_NUM_LENGTH) {
       if (!answer.includes(player[index])) {
-        index++;
+        index += 1;
         continue;
       }
 
       if (answer[index] === player[index]) {
-        this.strike++;
-        index++;
+        this.strike += 1;
+        index += 1;
         continue;
       }
 
-      this.ball++;
-      index++;
+      this.ball += 1;
+      index += 1;
     }
 
     return this;
