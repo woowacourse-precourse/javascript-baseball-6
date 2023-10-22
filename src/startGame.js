@@ -13,6 +13,17 @@ export default async function startGame() {
       break;
     }
   }
+  const reTryNumber = await Console.readLineAsync(
+    "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+  );
+  if (reTryNumber === "1") {
+    startGame();
+  } else if (reTryNumber === "2") {
+    Console.print("숫자 야구 게임을 종료합니다.");
+    return;
+  } else {
+    throw new Error("Invalid input. Please enter 1 or 2");
+  }
 }
 
 function check(targetNumber, inputNumber) {
