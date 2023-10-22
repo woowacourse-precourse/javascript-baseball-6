@@ -67,6 +67,16 @@ class App {
       throw new Error(MESSAGE.ERROR_GUESS_NUMBER_INPUT_WRONG);
     }
 
+    const isDuplicateNumber = answer
+      .split("")
+      .some(
+        (element, _, array) =>
+          array.indexOf(element) !== array.lastIndexOf(element)
+      );
+    if (isDuplicateNumber) {
+      throw new Error(MESSAGE.ERROR_GUESS_NUMBER_INPUT_WRONG);
+    }
+
     return answer.split("").map((n) => parseInt(n));
   }
 
