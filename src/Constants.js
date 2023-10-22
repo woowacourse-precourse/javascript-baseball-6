@@ -12,3 +12,6 @@ export const GAME_END_INSTRUCTION = '게임을 새로 시작하려면 1, 종료�
 export const BASEBALL_STRIKE = '스트라이크';
 export const BASEBALL_BALL = '볼';
 export const BASEBALL_NOTHING = '낫싱';
+
+export const INVALID_INPUT = '[ERROR] 숫자가 잘못된 형식입니다.';
+export const INVALID_END_INPUT = '[ERROR] 1과 2만 입력할 수 있습니다.';
