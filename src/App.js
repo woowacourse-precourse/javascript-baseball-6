@@ -23,15 +23,16 @@ class App {
   }
 
   async #judgment(input) {
-    const result = this.#computer.judgment(input);
+    this.#computer.judgment(input);
+
     const { strike, ball } = this.#computer.getResult();
     print(GAME.RESULT(strike, ball));
 
-    if (result === GAME.FAIL) {
+    if (strike !== GAME.STRIKE) {
       await this.#input();
     }
 
-    if (result === GAME.PASS) {
+    if (strike === GAME.STRIKE) {
       print(GAME.CLEAR);
       await this.#getOption();
     }

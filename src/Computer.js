@@ -1,5 +1,4 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import { GAME } from './constant.js';
 
 class Computer {
   #numbers;
@@ -55,8 +54,6 @@ class Computer {
     const numbers = Array.from(input, Number);
     this.#strike = this.#getStrike(numbers);
     this.#ball = this.#getBall(numbers);
-
-    return this.#strike === 3 ? GAME.PASS : GAME.FAIL;
   }
 }
 
