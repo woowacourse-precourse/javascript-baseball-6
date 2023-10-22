@@ -16,6 +16,12 @@ class App {
 
   async playGame() {
     const randomNumber = this.createRandomNumber();
+
+    let isCorrect = false;
+
+    while (!isCorrect) {
+      const user = await this.inputUserNumber();
+    }
   }
 
   createRandomNumber() {
@@ -30,6 +36,22 @@ class App {
     }
 
     return computerNumber;
+  }
+
+  async inputUserNumber() {
+    const input = await Console.readLineAsync(MESSAGE.INPUT);
+
+    if (input.length !== 3) {
+      throw new Error(ERROR.INPUT_USER_NUMBER_LENGTH);
+    }
+
+    const numbers = input.split("").map((value) => parseInt(value));
+
+    if (numbers.includes(NaN)) {
+      throw new Error(ERROR.INPUT_DATA_TYPE);
+    }
+
+    return numbers;
   }
 }
 
