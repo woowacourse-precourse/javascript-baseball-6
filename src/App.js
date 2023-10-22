@@ -6,7 +6,7 @@ class App {
 
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
     while (gameOver) {
-      const COM_NUMBER = "123" //this.createNumber();
+      const COM_NUMBER = this.createNumber();
 
       while (true) {
         try {
@@ -19,7 +19,7 @@ class App {
             error.message ===
             "[ERROR] 문자가 포함된 입력입니다. 애플리케이션을 종료합니다."
           ) {
-            return;
+            throw error;
           }
         }
       }
