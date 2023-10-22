@@ -11,8 +11,12 @@ class App {
   }
 
   getRandNum() {
-    const num = MissionUtils.Random.pickUniqueNumbersInRange(1, 9, 3);
-    return num.join("");
+    const numList = [];
+    while (numList.length < 3) {
+      const num = MissionUtils.Random.pickNumberInRange(1, 9);
+      if (numList.indexOf(num) < 0) numList.push(num);
+    }
+    return numList;
   }
 
   validateInput(input) {
