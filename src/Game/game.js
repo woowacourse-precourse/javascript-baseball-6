@@ -7,7 +7,7 @@ export const getUserInputNumber = async (randomNumber) => {
   if (!isValidUserNumber(USER_INPUT_NUMBER)) {
     throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
   }
-  HandleGameProcess(stringToNumberArray(USER_INPUT_NUMBER), randomNumber);
+  HandleGameProcess(randomNumber, stringToNumberArray(USER_INPUT_NUMBER));
 };
 
 //game set
@@ -36,15 +36,17 @@ export const stringToNumberArray = (string) => {
 };
 
 export const CompareNumber = (randomNumber, userInputNumber) => {
-  const result = {
+  let result = {
     ball: 0,
     strike: 0,
   };
 
   userInputNumber.forEach((num, index) => {
-    if (num === randomNumber[index]) result.strike += 1;
-    else if (randomNumber.includes(num)) result.ball += 1;
+    if (randomNumber.includes(num)) {
+      num === randomNumber[index] ? (result.strike += 1) : (result.ball += 1);
+    }
   });
+
   return result;
 };
 
