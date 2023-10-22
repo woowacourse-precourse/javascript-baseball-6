@@ -1,17 +1,21 @@
 import { Console } from "@woowacourse/mission-utils";
 
+// TODOS : Referee 로 수정.
+// 스트라이크를
 export default class Hint {
-  constructor() {}
+  strike;
+  ball;
+  constructor() {
+    this.strike = 0;
+    this.ball = 0;
+  }
 
   getHint(answer, guess) {
-    let strike = 0;
-    let ball = 0;
-
     for (let i = 0; i < 3; i++) {
       if (answer[i] === guess[i]) {
-        strike++;
+        this.strike++;
       } else if (answer.includes(guess[i])) {
-        ball++;
+        this.ball++;
       }
     }
 
@@ -19,11 +23,13 @@ export default class Hint {
       Console.print("낫싱");
     }
     const result = [];
-    strike && result.push(`${strike}스트라이크`);
-    ball && result.push(`${ball}볼`);
+    this.strike && result.push(`${this.strike}스트라이크`);
+    this.ball && result.push(`${this.ball}볼`);
     Console.print(result.join(" "));
+  }
 
-    if (strike === 3) return true;
+  isThreeStrikes() {
+    if (this.strike === 3) return true;
     return false;
   }
 }
