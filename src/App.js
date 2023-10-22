@@ -1,7 +1,7 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import errorTexts from "./baseball_error.js";
 import gameSettings from "./baseball-game-setting.js";
-import randomNumbers from "./RandomNumberGenerator.js";
+import randomNumbers from "./random-number-generator.js";
 import matchNumberPositions from "./match-number-positions.js";
 import InputValidator from "./input-validator.js";
 import checkBaseballResult from "./check-baseball-result.js";
