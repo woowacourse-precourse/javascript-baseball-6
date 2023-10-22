@@ -1,15 +1,15 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-const { checkValidation } = require("./vallidation");
+import { checkValidation } from "./vallidation";
 
 const threeStrike = async () => {
   MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-  const choice = MissionUtils.Console.readLineAsync(
+  const choice = await MissionUtils.Console.readLineAsync(
     "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
   );
 
-  if (choice === 1) {
-    return await gameinit();
-  } else if (choice === 2) {
+  if (choice === "1") {
+    await gameinit();
+  } else if (choice === "2") {
     return false;
   } else {
     throw new Error("[ERROR] 숫자 1 또는 2를 입력해주세요.");
@@ -34,36 +34,44 @@ const compareTwoNums = async (random, user) => {
 
   if (!strike && !ball) {
     MissionUtils.Console.print("낫싱");
-    await gameinit();
+    await getUserNum(random);
   } else if (strike === 3) {
-    MissionUtils.Console.print("낫싱");
+    MissionUtils.Console.print(`${strike}스트라이크`);
     await threeStrike();
   } else if (strike && !ball) {
     MissionUtils.Console.print(`${strike}스트라이크`);
-    await gameinit();
+    await getUserNum(random);
   } else if (!strike && ball) {
     MissionUtils.Console.print(`${ball}볼`);
-    await gameinit();
+    await getUserNum(random);
   } else {
-    MissionUtils.Console.print(`${strike}스트라이크 `, `${ball}볼`);
+    MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
+    await getUserNum(random);
   }
 };
 
 const getUserNum = async (generateNum) => {
-  const userNum = await MissionUtils.Console.readLineAsync(
+  let userNum = await MissionUtils.Console.readLineAsync(
     "숫자를 입력해주세요 : "
   );
 
-  if (checkValidation(userNum)) {
-    await compareTwoNums(generateNum, userNum);
+  const userNumArray = userNum.split("").map(Number);
+  
+  if (!checkValidation(userNumArray)) {
+    throw new Error ("[ERROR]");
   }
+  await compareTwoNums(generateNum, userNumArray);
 };
 
 const createNum = () => {
   const computer = [];
-  const randomNum = MissionUtils.Random.pickUniqueNumbersInRange(1, 9, 3);
-  computer.push(...randomNum);
-  return computer;
+  while (computer.length < 3) {
+    const number = MissionUtils.Random.pickNumberInRange(1, 9);
+    if (!computer.includes(number)) {
+      computer.push(number);
+    }
+  }
+  return computer
 };
 
 const gameinit = async () => {
