@@ -1,15 +1,12 @@
 import { Console } from '@woowacourse/mission-utils';
 import { NOTIFICATION_MESSAGE, STATUS_MESSAGE } from '../constants/Message.js';
 
-export function printGameStart() {
-  return Console.print(NOTIFICATION_MESSAGE.gameStart);
-}
+export const printGameStart = () =>
+  Console.print(NOTIFICATION_MESSAGE.gameStart);
 
-export function printGameEnd() {
-  return Console.print(NOTIFICATION_MESSAGE.gameEnd);
-}
+export const printGameEnd = () => Console.print(NOTIFICATION_MESSAGE.gameEnd);
 
-export function printGameStatus(status) {
+export const printGameStatus = (status) => {
   const message = [];
 
   if (status.ball) {
@@ -21,6 +18,5 @@ export function printGameStatus(status) {
   if (!message.length) {
     message.push(`${STATUS_MESSAGE.nothing}`);
   }
-
   Console.print(message.join(' '));
-}
+};
