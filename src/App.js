@@ -4,6 +4,7 @@ class App {
   #answer;
   #number;
   #hint;
+  #exit;
 
   constructor() {
     this.#answer = [];
@@ -79,6 +80,7 @@ class App {
 
   gameEnd() {
     Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+    this.getGameEnd();
   }
 
   printResult() {
@@ -93,6 +95,17 @@ class App {
       Console.print(`${strike}스트라이크`);
     } else {
       Console.print('낫싱');
+    }
+  }
+
+  async getGameEnd() {
+    try {
+      const number = await Console.readLineAsync(
+        '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'
+      );
+      this.#exit = Number(number);
+    } catch (error) {
+      throw new Error(error);
     }
   }
 
