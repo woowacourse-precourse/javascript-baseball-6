@@ -28,6 +28,7 @@ class App {
       this.isStart = true
     }
 
+    Console.print(LOGS.END);
     return;
   }
 
