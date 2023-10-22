@@ -67,8 +67,7 @@ export default class BaseballGame {
       );
       return parseInt(number, 10);
     } catch (error) {
-      // reject 되는 경우
-      re;
+      return `error`;
     }
   }
 }
