@@ -2,7 +2,7 @@
 
 ## RandomNumberGenerator
 
-- [ ] 3자리 랜덤 숫자를 만든다.
+- [x] 3자리 랜덤 숫자를 만든다.
 
 ## GameEngine
 
