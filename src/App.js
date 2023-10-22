@@ -1,14 +1,19 @@
-import {RANDOM} from './module.js';
-import {game} from './module.js';
-import {start} from './module.js';
+import {Game} from './module.js'
 
+const game = new Game();
 class App {
   async play() {
-    RANDOM.random_create();
-    start();
-    game();
+    game.Start()
+    try{
+      game.SetRandomNumber();
+    }
+    catch(e){
+      throw(e)
+    }
+    game.GetUserInput();
   }
 }
+
 const app = new App();
 app.play();
 
