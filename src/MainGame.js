@@ -6,6 +6,7 @@ class MainGame {
   start = () => {
     this.computer = new Computer();
     this.computerSelectNumber = this.computer.createRandomNumber();
+
     this.printStart();
   };
 
@@ -31,6 +32,23 @@ class MainGame {
   getUserInput = async () => {
     const input = await Console.readLineAsync("숫자를 입력해주세요 : ");
     this.isValidateNumber(input);
+
+    this.userInput = input.split("").map(Number);
+
+    this.getResult();
+  };
+
+  //컴퓨터가 랜덤으로 지정한 값에 대한 나의 값 비교
+  getResult = () => {
+    this.resultArr = [0, 0, 0];
+    const userInputArray = Array.from(this.userInput);
+    const computerSelectNumberArray = Array.from(this.computerSelectNumber);
+
+    userInputArray.forEach((number, index) => {
+      if (number === computerSelectNumberArray[index]) resultArr[0]++;
+      else if (computerSelectNumberArray.includes(number)) resultArr[1]++;
+      else resultArr[2]++;
+    });
   };
 }
 
