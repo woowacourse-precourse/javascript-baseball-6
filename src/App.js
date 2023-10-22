@@ -1,5 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import Computer from "./Computer";
+import Computer from "./Computer.js";
 
 class App {
   constructor() {
@@ -22,5 +22,6 @@ class App {
     }
   }
 };
+
 
 export default App;
