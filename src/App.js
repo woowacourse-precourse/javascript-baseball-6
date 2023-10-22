@@ -42,8 +42,8 @@ class App {
         score.ball++;
       }
     });
-    const { strike, ball } = score;
-    return { strike, ball };
+
+    return score;
   }
 
   async printStrikeAndBall(inputValue) {
@@ -129,11 +129,13 @@ class App {
 
   //예외처리 함수
   isHasZero(inputValue) {
+    //0 이 있는지
     const numArr = inputValue.split("");
     return numArr.some((num) => num === 0);
   }
 
   isDuplicate(inputValue) {
+    //중복 숫자가 있는지
     const numArr = inputValue.split("");
     return numArr.some((x) => numArr.indexOf(x) !== numArr.lastIndexOf(x));
   }
