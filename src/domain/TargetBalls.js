@@ -1,17 +1,17 @@
 import { TargetBall } from './TargetBall';
 
 export class TargetBalls {
-  #numbers;
+  #balls;
 
   constructor(numbers) {
-    this.#numbers = numbers.map(TargetBall.valueOf);
+    this.#balls = numbers.map(TargetBall.valueOf);
   }
 
   static of(numbers) {
     return new TargetBalls(numbers);
   }
 
-  get numbers() {
-    return this.#numbers;
+  get balls() {
+    return this.#balls;
   }
 }
