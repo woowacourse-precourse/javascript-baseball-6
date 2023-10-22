@@ -38,11 +38,11 @@ class App {
     const option = await MissionUtils.Console.readLineAsync(GAME.OPTION);
     App.#validateOption(option);
 
-    if (option === '1') {
+    if (option === GAME.RESTART) {
       this.#start();
     }
 
-    if (option === '2') {
+    if (option === GAME.QUIT) {
       MissionUtils.Console.print(GAME.END);
     }
   }
