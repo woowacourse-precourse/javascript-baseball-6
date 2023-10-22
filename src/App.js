@@ -17,29 +17,27 @@ class App {
     // 게임 진행
     const randomNum = this.createRandom();
     Console.print(randomNum);
-    const userInput = await this.inputNum();
-    Console.print(userInput);
-    this.confirmInput(userInput);
+    this.inputNum();
   }
 
   confirmInput(userInput) {
     if (isNaN(userInput)) {
-      Console.print("숫자가 아님");
+      throw "숫자를 입력하세요";
     } else if (userInput.toString().length !== 3) {
-      Console.print("숫자 3자리 아님");
+      throw "3자리 숫자를 입력하세요";
     } else if (userInput.toString().includes(0)) {
-      Console.print("0은 안 됩니다.");
+      throw "0이 아닌 숫자를 입력하세요";
     }
   }
 
   async inputNum() {
     //사용자로부터 입력 받기
-
     try {
       const input = await Console.readLineAsync("숫자를 입력해주세요 : ");
-      return Number(input);
+      this.confirmInput(Number(input));
     } catch (err) {
       Console.print(err);
+      //this.inputNum(); 종료 기능?
     }
   }
 
