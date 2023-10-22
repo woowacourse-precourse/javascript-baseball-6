@@ -10,16 +10,14 @@ class App {
         this.MIN_VALUE,
         this.MAX_VALUE,
       );
-      let strikeCounts = 0;
-      let ballCounts = 0;
+      let score = [];
       let isInGame = true;
 
       Console.print("숫자 야구 게임을 시작합니다.");
 
       while (isInGame) {
         const answer = await Console.readLineAsync("숫자를 입력해주세요. : ");
-        let score = [];
-
+        
         if (!this.isInteger(answer) || !this.isInRange(answer)) {
           throw new Error("[ERROR] 숫자가 잘못된 형식입니다." + answer);
         }
