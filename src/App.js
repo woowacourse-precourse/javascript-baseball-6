@@ -55,14 +55,14 @@ class App {
             if (COMPUTER_NUM.includes(PLAYER_NUM[i])) ball++;
         }
         // 텍스트 출력
-        this.resultText(strike, ball);
+        await this.resultText(strike, ball);
 
         if (strike !== 3) return this.compare();
         else return this.isEndGame();
     }
 
     // 스트라이크 볼 텍스 출력 함수
-    resultText(strike, ball) {
+    async resultText(strike, ball) {
         if (strike === 0 && ball === 0) MissionUtils.Console.print("낫싱");
         else if (strike !== 0 && ball === 0)
             MissionUtils.Console.print(`${strike}스트라이크`);
