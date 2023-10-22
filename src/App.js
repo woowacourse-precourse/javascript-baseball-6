@@ -1,12 +1,11 @@
 import { Random, Console } from '@woowacourse/mission-utils';
 import Computer from './Computer.js';
 import GameError from './GameError.js';
-import { NUMBER_LENGTH } from './Constants.js';
+import { NUMBER_LENGTH, NUMBER_RANGE_REGEX } from './Constants.js';
 
 class App {
   isAnswerValid(input) {
-    const NUMBERS = /^[1-9]+$/;
-    if (!NUMBERS.test(input))
+    if (!NUMBER_RANGE_REGEX.test(input))
       throw new GameError('숫자(1~9)만 입력해야 합니다.');
 
     if (input.length !== NUMBER_LENGTH)
@@ -16,14 +15,10 @@ class App {
       throw new GameError('숫자가 중복되었습니다.');
   }
 
-  isGameEnd(input) {
-    Console.print(input);
-    return false;
-  }
-
   async gameLoop() {
     const computer = new Computer();
     computer.generateRandomNumbers(NUMBER_LENGTH);
+    console.log(computer.answerNumbers);
 
     while (!computer.isOut) {
       const playerAnswer = await Console.readLineAsync(
@@ -31,7 +26,6 @@ class App {
       );
 
       this.isAnswerValid(playerAnswer);
-
       computer.checkAnswer(playerAnswer);
     }
     Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
@@ -47,10 +41,11 @@ class App {
       );
       if (input === '1') continue;
       else if (input === '2') break;
-      else throw new GameError('1이나 2를 입력해야 합니다. 게임을 종료합니다.');
+      else throw new GameError('1이나 2를 입력해야 합니다.');
     }
   }
 }
-const app = new App();
-app.play();
+
+// const app = new App();
+// app.play();
 export default App;
