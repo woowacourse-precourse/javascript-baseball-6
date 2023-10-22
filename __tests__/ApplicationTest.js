@@ -91,7 +91,7 @@ describe("숫자 야구 게임", () => {
     await expect(app.play()).rejects.toThrow("[ERROR]");
   });
 
-  test("예외 테스트3 : 유저 입력이 자연수가 아닐 경우", async () => {
+  test("예외 테스트3 : 유저 입력이 자연수가 아닌 수가 포함된 경우", async () => {
     // given
     const randoms = [1, 3, 5];
     const answers = ["012"];
