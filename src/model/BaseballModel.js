@@ -12,9 +12,13 @@ export class BaseballModel {
     this.isDone = false;
   }
 
-  create() {
+  settingComputerNumber() {
     this.init();
     this.#computerNumber = this.#generateNumbers();
+    this.checkValidationComputerNumber();
+  }
+
+  checkValidationComputerNumber() {
     this.#checkValidComputerNumber(this.#computerNumber);
     this.#checkComputerNumberLength(this.#computerNumber);
     this.#checkComputerNumberDuplication(this.#computerNumber);
