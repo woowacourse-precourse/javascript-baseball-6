@@ -7,25 +7,21 @@ class App {
   async play() {
     print("숫자 야구 게임을 시작합니다.");
 
-    try {
-      while (true) {
-        await this.startGame();
-        const answer = await readLineAsync(
-          "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+    while (true) {
+      await this.startGame();
+      const answer = await readLineAsync(
+        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+      );
+      if (answer !== "1" && answer !== "2") {
+        throw new Error(
+          "[ERROR] 잘못된 형식의 입력입니다. 1 또는 2를 입력해야합니다."
         );
-        if (answer !== "1" && answer !== "2") {
-          throw new Error(
-            "[ERROR] 잘못된 형식의 입력입니다. 1 또는 2를 입력해야합니다."
-          );
-        }
-        // TODO: 잘못된 입력에 대한 예외처리
-        if (answer === "2") {
-          print("숫자 야구 게임을 종료합니다. 감사합니다.");
-          return;
-        }
       }
-    } catch (error) {
-      print(error.message);
+      // TODO: 잘못된 입력에 대한 예외처리
+      if (answer === "2") {
+        print("숫자 야구 게임을 종료합니다. 감사합니다.");
+        return;
+      }
     }
   }
 
