@@ -5,11 +5,27 @@ const REG_INPUT_NUMBER = /^(?!.*([1-9]).*\1)[1-9]{3}$/;
 class App {
     async play() {
         MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
-        createComputerNumber(3);
+        const computerNumber = createComputerNumber(3);
+        MissionUtils.Console.print('컴퓨터의 숫자는');
+        MissionUtils.Console.print(computerNumber);
+        const userNumber = await inputUserNumber();
+        MissionUtils.Console.print('유저의 숫자는');
+        MissionUtils.Console.print(userNumber);
     }
 }
 
-// 상대방인 컴퓨터의 숫자 3자리를 랜덤으로 뽑는다. (중복 제거)
+async function inputUserNumber() {
+    let inputValue = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
+
+    if (!REG_INPUT_NUMBER.test(inputValue)) {
+        throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+    }
+
+    inputValue = [...inputValue].map(Number);
+
+    return inputValue;
+}
+
 function createComputerNumber(length) {
     const computer = [];
     while (computer.length < length) {
