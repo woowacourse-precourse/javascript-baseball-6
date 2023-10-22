@@ -6,5 +6,4 @@ class App {
     game.start();
   }
 }
-
 export default App;
