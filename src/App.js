@@ -2,16 +2,13 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
 
-  constructor() {
-    this.numbers = this.getRandomNumbers();
-    MissionUtils.Console.print(this.numbers);
-  }
-
   getRandomNumbers() {
     const numbers = new Set();
+    
     while (numbers.size < 3) {
       numbers.add(MissionUtils.Random.pickNumberInRange(1, 9));
     }
+    
     return [...numbers];
   }
 
@@ -74,7 +71,9 @@ class App {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
 
     while(1) {
-      await this.inputNumbers();
+      this.numbers = this.getRandomNumbers(); // 랜덤 숫사 배열 생성
+      
+      await this.inputNumbers(); // 플레이어 숫자 입력
       
       MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
 
@@ -83,16 +82,12 @@ class App {
       if (input !== "1" && input !== "2") {
         throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
       }
-      if (input === "2") {
+
+      if (input === "2") { // 게임 종료
         break;
       }
-
-      this.numbers = this.getRandomNumbers();
     }
   }
 }
 
 export default App;
-
-const app = new App();
-app.play();
