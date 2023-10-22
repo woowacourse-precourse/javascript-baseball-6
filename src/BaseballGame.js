@@ -1,7 +1,7 @@
 import User from './User.js';
 import Computer from './Computer.js';
 import GameDisplay from './GameDisplay.js';
-import StrikeAndBallCalculator from './StrikeAndBallCalculator.js';
+import { calculateStrikeAndBall } from './StrikeAndBallCalculator.js';
 import InputValidator from './utils/InputValidator.js';
 import { RESTART_GAME } from './constants/GameConstants.js';
 
@@ -23,7 +23,7 @@ export default class BaseballGame {
     let isEqual = false;
     while (!isEqual) {
       const userNumbers = await this.user.getInput();
-      const { strike, ball } = StrikeAndBallCalculator.calculate(userNumbers, computerNumbers);
+      const { strike, ball } = calculateStrikeAndBall(userNumbers, computerNumbers);
       this.display.showResult(strike, ball);
       isEqual = (strike === 3);
       if (isEqual) {
