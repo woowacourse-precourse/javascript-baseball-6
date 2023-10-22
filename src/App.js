@@ -6,7 +6,8 @@ import { NUMBER_LENGTH } from './Constants.js';
 class App {
   isAnswerValid(input) {
     const NUMBERS = /^[1-9]+$/;
-    if (!NUMBERS.test(input)) throw new GameError('숫자만 입력해야 합니다.');
+    if (!NUMBERS.test(input))
+      throw new GameError('숫자(1~9)만 입력해야 합니다.');
 
     if (input.length !== NUMBER_LENGTH)
       throw new GameError(`${NUMBER_LENGTH}개의 숫자를 입력해야 합니다.`);
@@ -23,10 +24,8 @@ class App {
   async gameLoop() {
     const computer = new Computer();
     computer.generateRandomNumbers(NUMBER_LENGTH);
-
+    
     while (!computer.isOut) {
-      Console.print('ANSWER : ' + computer.answerNumbers);
-
       const playerAnswer = await Console.readLineAsync(
         '숫자를 입력해주세요 : '
       );
@@ -35,6 +34,7 @@ class App {
 
       computer.checkAnswer(playerAnswer);
     }
+    Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
   }
 
   async play() {
@@ -44,7 +44,7 @@ class App {
         await this.gameLoop();
 
         const input = await Console.readLineAsync(
-          '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.'
+          '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'
         );
         if (input === '1') continue;
         else if (input === '2') break;
