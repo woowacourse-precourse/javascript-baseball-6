@@ -47,6 +47,7 @@ class Computer {
     getStringCounts(ballCounts, strikeCounts) {
         let hint = '';
         if(ballCounts > 0)  hint += `${ballCounts}볼`;
+        if(ballCounts > 0 && strikeCounts > 0)  hint += ' ';
         if(strikeCounts > 0)  hint += `${strikeCounts}스트라이크`;
         if(hint === '')  hint += '낫싱';
 
@@ -60,7 +61,6 @@ class Computer {
         const strikeCounts = this.getStrikeCounts(userInput, correctAnswer);
         const ballCounts = this.getBallCounts(userInput, correctAnswer, strikeCounts);
         
-        MissionUtils.Console.print(this.getStringCounts(ballCounts, strikeCounts));
         return this.getStringCounts(ballCounts, strikeCounts);
     }
 }
