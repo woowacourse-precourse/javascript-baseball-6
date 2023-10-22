@@ -67,11 +67,13 @@ class App {
   }
 
   async judge() {
-    // 스트라이크에 개수에 따라서 삼진과 삼진이 아닌 경우로 나눠서 진행하도록 다음 메서드 호출
+    // 스트라이크에 개수에 따라서 삼진과 삼진이 아닌 경우로 나누고, 진행을 위해 다음 메서드 호출
     const STRIKES = this.compareResult.strikes;
     const BALLS = this.compareResult.balls;
     if (STRIKES === 3) {
       this.printMsgIs(`${STRIKES}스트라이크`);
+      // 축하 메세지 출력
+      this.congratMessagePrint();
       await this.retry();
     } else {
       // 삼진이 아닌 경우 game 메서드 재귀호출
@@ -82,8 +84,6 @@ class App {
 
   async retry() {
     // judge 메서드에서 삼진인 경우 호출
-    this.congratMessagePrint();
-    // 축하 메세지 출력
     const RETRY = this.message("RETRY");
     // 게임 재시도 여부 물어봄
     const retryInput = await MissionUtils.Console.readLineAsync(RETRY);
