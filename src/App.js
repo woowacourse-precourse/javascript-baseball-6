@@ -15,12 +15,19 @@ class App {
 
   constructor() {
     Console.print(this.msg.start);
-    this.createComputer();
+    this.computer = this.createComputer();
   }
 
   async play() {
-    const ANSWER = await Console.readLineAsync('숫자를 입력해주세요 : ');
-    this.validateNumber(ANSWER);
+    const ANSWER1 = await Console.readLineAsync(this.msg.input);
+    const strike = this.validateNumber(ANSWER1);
+    if (strike === 3) {
+      Console.print(this.msg.end);
+      const ANSWER2 = await Console.readLineAsync(this.msg.select);
+      this.endGame(ANSWER2);
+    } else {
+      return this.play();
+    }
   }
 
   createComputer() {
@@ -31,7 +38,7 @@ class App {
         RANDOM.push(NUMBER);
       }
     }
-    this.computer = [...RANDOM];
+    return [...RANDOM];
   }
 
   validateNumber(answer) {
@@ -42,10 +49,9 @@ class App {
       }
     });
     if (!MY_SET.has(0) && MY_SET.size === 3) {
-      this.continueGame([...MY_SET]);
-    } else {
-      throw new Error(this.msg.error);
+      return this.continueGame([...MY_SET]);
     }
+    throw new Error(this.msg.error);
   }
 
   continueGame(numbers) {
@@ -60,12 +66,7 @@ class App {
     });
     const HINT = this.printHint(ball, strike);
     Console.print(HINT);
-    if (strike === 3) {
-      Console.print(this.msg.end);
-      this.endGame();
-    } else {
-      this.play();
-    }
+    return strike;
   }
 
   printHint(ball, strike) {
@@ -82,14 +83,14 @@ class App {
     return hint;
   }
 
-  async endGame() {
-    const ANSWER = await Console.readLineAsync(this.msg.select);
-    if (ANSWER === '1') {
-      this.createComputer();
-      this.play();
-    } else if (ANSWER !== '2') {
-      this.endGame();
+  endGame(answer) {
+    if (answer === '1') {
+      this.computer = this.createComputer();
+      return this.play();
+    } else if (answer !== '2') {
+      throw new Error(this.msg.error);
     }
+    return;
   }
 }
 
