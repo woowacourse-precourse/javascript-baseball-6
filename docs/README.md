@@ -23,6 +23,23 @@
    - `2`: `애플리케이션을 종료합니다.` 출력 + 애플리케이션 종료
    - else: `[ERROR] 잘못된 형식의 입력입니다. 1 또는 2를 입력해야합니다.` 출력 + 애플리케이션 종료
 
+# 라이브러리 사용법
+
+```javascript
+// import
+import { MissionUtils } from "@woowacourse/mission-utils";
+
+// 랜덤 값 추출
+const randomNumber = MissionUtils.Random.pickNumberInRange(1, 9);
+
+// 입력
+const answer = await MissionUtils.Console.readLineAsync("입력 대기: ");
+
+// 출력
+MissionUtils.Console.print(`랜덤 값: ${randomNumber}`);
+MissionUtils.Console.print(`입력한 값: ${answer}`);
+```
+
 # 구현할 기능 목록
 
 - [ ] 출력
