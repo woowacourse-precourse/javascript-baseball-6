@@ -84,3 +84,17 @@ export async function getUserRestartChoice() {
 
   return shouldRestart ? 'RESTART' : 'END';
 }
+
+export async function guessDigitsUntilCorrect(answerDigits) {
+  let isCorrect = false;
+  while (!isCorrect) {
+    const guessDigits = await readGuessDigits();
+    const { strike } = await assessResult(answerDigits, guessDigits);
+
+    // 정답이면 숫자입력을 그만 받는다.
+    if (strike === 3) {
+      isCorrect = true;
+    }
+  }
+  Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+}
