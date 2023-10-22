@@ -8,11 +8,15 @@ export class GameController {
   }
 
   async startGame() {
-    const userInput = await this.user.inputAnswer();
-    const strikeCount = this.getStrikeCount(userInput);
-    const ballCount = this.getBallCount(userInput, strikeCount);
+    let isRunning = true;
+    Console.print("숫자 야구 게임을 시작합니다.");
+    while (isRunning) {
+      const userInput = await this.user.inputAnswer();
+      const strikeCount = this.getStrikeCount(userInput);
+      const ballCount = this.getBallCount(userInput, strikeCount);
 
-    this.checkGameSuccess(strikeCount, ballCount);
+      isRunning = await this.checkGameSuccess(strikeCount, ballCount);
+    }
   }
 
   getStrikeCount(userInput) {
@@ -50,11 +54,16 @@ export class GameController {
       Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
       const userInput = await this.user.inputRetry();
       if (userInput === "1") {
-        // 다시 시작
+        this.restartGame();
       }
       if (userInput === "2") {
-        // 종료
+        return false;
       }
     }
+    return true;
+  }
+
+  restartGame() {
+    this.computer = RandomNumberGenerator.generateRandomNumber();
   }
 }
