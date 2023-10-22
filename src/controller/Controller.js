@@ -17,19 +17,16 @@ export class Controller {
 
     async playGame() {
         while (true) {
-            const computerNumber = this.model.setRandomComputerNumber();
+            this.model.setRandomComputerNumber();
             while (true) {
-                const userNumber = await this.getUserNumberInput()
-                const hint = this.model.getHint(userNumber);
+                const hint = this.model.getHint(await this.getUserNumberInput());
                 this.view.printHintMsg(hint);
                 if (this.model.isRoundEndedFromHint(hint) === true) {
                     this.view.printEndMsg();
                     break;
                 }
             }
-            const decision = await this.getUserGameDecision();
-            if (this.model.isGameEnded(decision) === true) {
-                // break;
+            if (this.model.isGameEnded(await this.getUserGameDecision()) === true) {
                 return;
             }
         }
