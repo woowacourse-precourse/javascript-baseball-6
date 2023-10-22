@@ -51,3 +51,11 @@ MissionUtils.Console.print(`입력한 값: ${answer}`);
 - [x] 입력, 판정, 출력 반복
 - [x] 게임 재시작
 - [x] 애플리케이션 종료
+
+# 객체 구조
+
+- App
+  - BaseballGame
+    - Computer
+    - User
+    - Referee
