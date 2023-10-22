@@ -34,9 +34,8 @@ class App {
     return {STRIKE: strike, BALL: ball};
   }
 
+  //params: 길이가 3인 서로다른 숫자의 배열
   async playGame(COMPUTER){
-    
-    
     //3스트라이크가 나올때 까지 반복
     while(true){
       //2. 3자리 숫자 입력
@@ -63,19 +62,22 @@ class App {
     }
   }
 
-  async play() {
-
-    
-
-    while(true){
-      //1. 컴퓨터 숫자 저장
-      const COMPUTER = [];
+  getComputerNumber(){
+    const COMPUTER = [];
       while (COMPUTER.length < 3) {
         const NUMBER = MissionUtils.Random.pickNumberInRange(1, 9);
         if (!COMPUTER.includes(NUMBER)) {
           COMPUTER.push(NUMBER);
         }
       }
+
+      return COMPUTER;
+  }
+
+  async play() {
+    while(true){
+      //1. 컴퓨터 숫자 저장
+      const COMPUTER = this.getComputerNumber();
 
       //한 게임 시작 및 재시작 SIGNAL return
       const RETRY = await this.playGame(COMPUTER);
@@ -86,6 +88,5 @@ class App {
     
   }
 }
-
 
 export default App;
