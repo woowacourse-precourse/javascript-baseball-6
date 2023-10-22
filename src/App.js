@@ -50,8 +50,31 @@ class App {
         if (numberLength !== userNumbersSet.size) {
           //입력한 값이 3자리의 서로 다른 숫자인지 검사
           console.log("[ERROR] 입력한 숫자는 각 자리에 서로 다른 숫자여야 합니다.");
+        } else {
+          // 숫자 비교 부분 추가
+          let strikes = 0;
+          let balls = 0;
+
+          for (let i = 0; i < numberLength; i++) {
+            const computerDigit = computerNum[i];
+            const userDigit = userNum[i];
+
+            if (computerDigit === userDigit) {
+              strikes++;
+            } else if (computerNum.includes(userDigit)) {
+              balls++;
+            }
+          }
+
+          if (strikes === numberLength) {
+            Console.print("정답을 맞췄습니다. 게임 종료!");
+            isValidInput = true;
+          } else if (strikes > 0 || balls > 0) {
+            Console.print(`${strikes}스트라이크 , ${balls}볼`);
+          } else {
+            Console.print("낫싱");
+          }
         }
-        isValidInput = true;
       }
     } catch (error) {
       Console.print("에러 발생:", error.message);
