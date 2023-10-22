@@ -86,26 +86,26 @@ export class BaseballModel {
 
   #checkValidComputerNumber(generatedNumber) {
     if (!REGEXP.VALID_NUMBER_RANGE.test(generatedNumber)) {
-      throw ERROR_MESSAGE.INVALID_COPUTER_NUMBER;
+      throw ERROR_MESSAGE.INVALID_COMPUTER_NUMBER;
     }
   }
 
   #checkGeneratedNumber(generatedNumber) {
     if (generatedNumber < BASEBALL_RANGE.START || generatedNumber > BASEBALL_RANGE.END) {
-      throw ERROR_MESSAGE.INVALID_COPUTER_RANGE;
+      throw ERROR_MESSAGE.INVALID_COMPUTER_RANGE;
     }
   }
 
   #checkComputerNumberLength(computerNumber) {
     if (computerNumber.length !== BASEBALL_RANGE.LENGTH) {
-      throw ERROR_MESSAGE.INVALID_COPUTER_RANGE;
+      throw ERROR_MESSAGE.INVALID_COMPUTER_RANGE;
     }
   }
 
   #checkComputerNumberDuplication(computerNumber) {
     const uniqueNumbers = new Set(computerNumber.split(''));
     if (uniqueNumbers.size !== BASEBALL_RANGE.LENGTH) {
-      throw ERROR_MESSAGE.INVALID_COPUTER_RANGE;
+      throw ERROR_MESSAGE.INVALID_COMPUTER_RANGE;
     }
   }
 }
