@@ -2,7 +2,6 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 
 export class Game {
   constructor() {
-    this.welcome();
     this.playBall();
   }
 
@@ -19,38 +18,37 @@ export class Game {
     return [...set];
   }
 
-  getUserInput() {
+  getUserInput(string) {
     async function getInputPromise() {
-      try {
-        const inputPromise = await MissionUtils.Console.readLineAsync(
-          "서로 다른 세 자리 숫자를 입력해주세요: "
-        );
-        return inputPromise;
-      } catch (error) {
-        MissionUtils.Console.print("Unexpected Error Has Occured");
-      }
+      const inputPromise = await MissionUtils.Console.readLineAsync(
+        `${Game.prototype.stringList(string)}`
+      );
+      return inputPromise;
     }
-
-    getInputPromise().then((input) => this.validateUserInput(input));
+    if (string === "New") {
+      getInputPromise().then((input) => this.suggestNewGame(input));
+    } else {
+      getInputPromise().then((input) => this.validateUserInput(input));
+    }
   }
 
   validateUserInput(input) {
-    const set = new Set();
-    for (const element of input) {
-      set.add(parseInt(element));
-    }
     try {
+      const set = new Set();
+      for (const element of input) {
+        set.add(parseInt(element));
+      }
       set.forEach((el) => {
         if (isNaN(el)) {
           throw new Error("[ERROR] 숫자를 입력해주세요");
-        }
+        } else if (set.size !== 3)
+          throw new Error("[ERROR] 세 자리 숫자가 아닙니다");
       });
-      if (set.size !== 3) throw new Error("[ERROR] 세 자리 숫자가 아닙니다");
+      console.log(`user: ${[...set]}`);
+      this.compareNumbers([...set]);
     } catch (error) {
-      return 1;
+      console.log(error);
     }
-    console.log(`user: ${[...set]}`);
-    this.compareNumbers([...set]);
   }
 
   compareNumbers(inputArray) {
@@ -60,18 +58,34 @@ export class Game {
       if (this.targetArray[i] === inputArray[i]) strikes++;
       else if (inputArray.includes(this.targetArray[i])) balls++;
     }
-    if (balls === 0 && strikes === 0) MissionUtils.Console.print(`낫싱`);
-    else if (strikes === 3) {
-      MissionUtils.Console.print(`3개의 숫자를 모두 맞히셨습니다!`);
-      return 0;
-    } else MissionUtils.Console.print(`${balls}볼, ${strikes}스트라이크`);
+    if (balls === 0 && strikes === 0) {
+      MissionUtils.Console.print(`낫싱`);
+      this.getUserInput();
+    } else if (strikes === 3) {
+      MissionUtils.Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
+      this.getUserInput("New");
+    } else {
+      MissionUtils.Console.print(`${balls}볼, ${strikes}스트라이크`);
+      this.getUserInput();
+    }
+  }
 
-    this.getUserInput();
+  suggestNewGame(input) {
+    if (input === "1") {
+      this.playBall();
+    }
+  }
+
+  stringList(value) {
+    if (value === "New") {
+      return "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n";
+    } else return "서로 다른 세 자리 숫자를 입력해주세요: ";
   }
 
   playBall() {
+    this.welcome();
     this.targetArray = this.randomGenerator();
-    console.log(`target: ${this.targetArray}`);
+    // console.log(`target: ${this.targetArray}`);
     this.getUserInput();
   }
 }
