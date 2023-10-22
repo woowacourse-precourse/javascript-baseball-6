@@ -67,8 +67,15 @@ class App {
           }
 
           if (strikes === numberLength) {
-            Console.print("정답을 맞췄습니다. 게임 종료!");
-            isValidInput = true;
+            Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료합니다.");
+            const option = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+            if (option === "2") {
+              Console.print("게임이 종료되었습니다.");
+              isValidInput = true;
+            } else {
+              Console.print("숫자 야구 게임을 시작합니다.");
+              isValidInput = false;
+            }
           } else if (strikes > 0 || balls > 0) {
             Console.print(`${strikes}스트라이크 , ${balls}볼`);
           } else {
