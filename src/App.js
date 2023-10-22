@@ -97,7 +97,7 @@ class App {
       const answer = this.score(computerNumbers, userNumbers);
       this.printAnswer(answer);
     } catch (error) {
-      Console.print(error.message);
+      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
       process.exit(1);
     }
   }
