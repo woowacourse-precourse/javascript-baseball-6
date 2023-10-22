@@ -13,8 +13,7 @@ class App {
 // 2. 게임 시작
   async play() {
     Console.print(`숫자 야구 게임을 시작합니다.`)
-    const COM_NUMBER = this.ranNumber();
-    this.gameStart(COM_NUMBER);
+    this.gameStart(this.ranNumber());
   }
 
 //   1. 랜덤 숫자 생성
@@ -39,26 +38,18 @@ return COMPUTER;
 // 컴퓨터 숫자와 내 숫자가 맞는지 
 // 4. 체크한다
 
-gameStart(COM_NUMBER){
-let MY_NUM = this.newNumber();
-this.checkResult(COM_NUMBER,MY_NUM)
+gameStart(RAN){
+  Console.readLine(`숫자를 입력해주세요 : `,(myNum)=>{
+    this.checkResult(RAN,myNum)
+  })  
+    
+  
 }
 
 // 3. 내 숫자 생성
 // 숫자 입력 옆의 숫자를 읽어와서
 // 문자로 변경후 배열로 만들어서 그 배열의 길이가 3이 아니면 에러,
 // 3이면 배열로 숫자 생성
-newNumber(){
-  Console.readLine(`숫자를 입력해주세요 : `,(myNum)=>{
-  let MY_NUMBER_STRING = String(myNum);
-  let MY_NUMBER_ARRAY = Array.from(MY_NUMBER_STRING);
-  if(MY_NUMBER_ARRAY.length != 3){
-    throw new Error("[ERROR] 3자리 숫자를 입력하세요");
-  } else if (MY_NUMBER_ARRAY.length ==3){
-    return MY_NUMBER_ARRAY;
-  }
-})
-}
 
 // 4. 체크한다
 // 5. 볼과 6. 스크라이크를 생성하고
@@ -68,10 +59,38 @@ newNumber(){
 // ㄴ 다른 것들은 글자 표시후 다시 
 // 8. 게임 스타트
 // ㄴ 내 숫자를 정하는 것 부터. 컴퓨터 숫자는 그대로 있어야 함.
-checkResult (COM_NUMBER,MY_NUM){
-const BALLS = this.ball(COM_NUMBER,MY_NUM);
-const STRIKES = this.strike(COM_NUMBER,MY_NUM);
 
+checkResult (RAN, myNum){
+
+  let MY_NUMBER_ARRAY = [];
+  if(myNum.length != 3) {
+    throw new Error("[ERROR] 3자리 숫자를 입력하세요");
+    }
+  for(let i = 2; i >= 0; i--) {
+    if(myNum % 10 === 0) {
+      throw new Error('입력범위_ 0 입력')};
+    MY_NUMBER_ARRAY[i] = myNum % 10;
+    myNum = parseInt(myNum /10); 
+  }
+  let strike = [];
+    let j = -1;
+    for(let i = 0; i < MY_NUMBER_ARRAY.length; i++) {
+      if(MY_NUMBER_ARRAY[i] === RAN[i]){
+        strike[++j] = MY_NUMBER_ARRAY[i];
+      }
+    }
+    let ball = RAN.filter(x => MY_NUMBER_ARRAY.includes(x)).filter(x => !strike.includes(x));
+    this.print(strike.length, ball.length);
+    if(strike.length ==3){
+      Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`)
+      this.gameset();
+    } else if(strike.length !=3){
+      this.gameStart(RAN);
+    }
+  }
+// const BALLS = this.ball(COM_NUMBER,MY_NUM);
+// const STRIKES = this.strike(COM_NUMBER,MY_NUM);
+print(STRIKES,BALLS){
 if(STRIKES==0 && BALLS == 0){
   Console.print(`낫싱`);
 } else if(STRIKES!=0 && BALLS !=0){
@@ -80,12 +99,7 @@ if(STRIKES==0 && BALLS == 0){
   Console.print(`${STRIKES}스트라이크`);
 } else if(STRIKES==0 && BALLS !=0){
   Console.print(`${BALLS}볼`);
-} else if(STRIKES==3){
-  Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`)
-  this.gameset();
-}
-this.gameStart(COM_NUMBER);
-}
+}}
 
 // 5.볼 6. 스크라이크 생성
 // 컴퓨터 숫자의 length(혹은 3만큼)반복시키면서 내 숫자만큼 다시 반복 시키면서 같은 값이 있는지 확인
@@ -93,32 +107,32 @@ this.gameStart(COM_NUMBER);
 // 만약 같은 값이 있있는데 index값이 다르면(else if) 같으면 스트라이크++ 
 // 스트라이크 볼 생성 함수는 위에서 볼과 스트라이크를 만드는데 쓰인다
 
-ball(COM_NUMBER,MY_NUM){
-  let COUNT_BALL = 0
-  for(let i=0; i<COM_NUMBER.length; i++){
-    for(let j=0; j<MY_NUM.length;j++){
-      if(COM_NUMBER[i]==MY_NUM[j]){
-        if(i!=j){
-          COUNT_BALL++
-        }
-      }
-    }
-  }
-return COUNT_BALL;
-}
-strike(COM_NUMBER,MY_NUM){
-  let COUNT_STRIKE = 0
-  for(let i=0; i<COM_NUMBER.length; i++){
-    for(let j=0; j<MY_NUM[j];j++){
-      if(COM_NUMBER[i]==MY_NUM[j]){
-        if(i==j){
-          COUNT_STRIKE++
-        }
-      }
-    }
-  }
-return COUNT_STRIKE;
-}
+// ball(COM_NUMBER,MY_NUM){
+//   let COUNT_BALL = 0
+//   for(let i=0; i<COM_NUMBER.length; i++){
+//     for(let j=0; j<MY_NUM.length;j++){
+//       if(COM_NUMBER[i]==MY_NUM[j]){
+//         if(i!=j){
+//           COUNT_BALL++
+//         }
+//       }
+//     }
+//   }
+// return COUNT_BALL;
+// }
+// strike(COM_NUMBER,MY_NUM){
+//   let COUNT_STRIKE = 0
+//   for(let i=0; i<COM_NUMBER.length; i++){
+//     for(let j=0; j<MY_NUM[j];j++){
+//       if(COM_NUMBER[i]==MY_NUM[j]){
+//         if(i==j){
+//           COUNT_STRIKE++
+//         }
+//       }
+//     }
+//   }
+// return COUNT_STRIKE;
+// }
 
 
 // 7. 게임셋 여부
