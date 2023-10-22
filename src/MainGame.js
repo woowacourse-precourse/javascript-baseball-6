@@ -16,12 +16,12 @@ class MainGame {
   };
 
   //입략값이 1.1-9사이의 숫자인지 2.3자리인지 를 확인해야함
-  isValidateNumber = (number) => {
-    if (!/^[1-9]{3}$/.test(number)) {
+  isValidateNumber = (input) => {
+    if (!/^[1-9]{3}$/.test(input)) {
       throw new Error("[ERROR] 1-9사이의 세자리 숫자가 아닙니다.");
     }
 
-    const numberSet = new Set(number);
+    const numberSet = new Set(input);
     if (numberSet.size !== 3) {
       throw new Error("[ERROR] 중복된 숫자가 존재합니다.");
     }
