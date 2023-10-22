@@ -1,5 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import Messages from "./messages/GameMessages.js";
+import CustomUtils from "./utils/CustomUtils.js";
 
 class App {
   async play() {
@@ -11,6 +12,7 @@ class App {
       }
     }
     MissionUtils.Console.print(Messages.GAME_START);
+    const userNumber = await CustomUtils.getUserNumber();
   }
 }
 
