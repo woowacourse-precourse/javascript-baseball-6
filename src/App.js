@@ -6,17 +6,16 @@ import {
 const NUM_MIN = 1;
 const NUM_MAX = 9;
 const NUM_LEN = 3;
+const ANSWER = [];
 
 class App {
-  constructor() {
-    this.answer = [];
-  }
+  constructor() {}
 
   generateAnswer() {
-    while (this.answer.length < NUM_LEN) {
+    while (ANSWER.length < NUM_LEN) {
       const digit = Random.pickNumberInRange(NUM_MIN, NUM_MAX);
-      if (!this.answer.includes(digit)) {
-        this.answer.push(digit);
+      if (!ANSWER.includes(digit)) {
+        ANSWER.push(digit);
       }
     }
   }
@@ -50,10 +49,10 @@ class App {
     let ball = 0;
 
     for (let i = 0; i < NUM_LEN; i++) {
-      if (inputArray[i] === this.answer[i]) {
+      if (inputArray[i] === ANSWER[i]) {
         strike++;
       }
-      else if (this.answer.includes(inputArray[i])) {
+      else if (ANSWER.includes(inputArray[i])) {
         ball++;
       }
     }
@@ -95,7 +94,7 @@ class App {
   async play() {
     Console.print("숫자 야구 게임을 시작합니다.");
     while (await this.gameController() !== '2') {
-      this.answer = [];
+      ANSWER = [];
     }
     Console.print("애플리케이션을 종료합니다.");
   }
