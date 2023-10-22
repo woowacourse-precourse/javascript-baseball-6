@@ -2,19 +2,14 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 import Messages from "../messages/GameMessages.js";
 
 const getUserNumber = async () => {
-  try {
-    const USER_NUMBER = await MissionUtils.Console.readLineAsync(
-      Messages.GAME_INPUT_NUMBER
-    );
-    if (!isValidInput(USER_NUMBER)) {
-      throw new Error(Messages.INVALID_INPUT_ERROR);
-    }
-    const USER_NUMBER_ARRAY = USER_NUMBER.split("").map(Number);
-    return USER_NUMBER_ARRAY;
-  } catch (error) {
-    MissionUtils.Console.print(error.message);
-    return null;
+  const USER_NUMBER = await MissionUtils.Console.readLineAsync(
+    Messages.GAME_INPUT_NUMBER
+  );
+  if (!isValidInput(USER_NUMBER)) {
+    throw new Error(Messages.INVALID_INPUT_ERROR);
   }
+  const USER_NUMBER_ARRAY = USER_NUMBER.split("").map(Number);
+  return USER_NUMBER_ARRAY;
 };
 
 const isValidInput = (input) => {

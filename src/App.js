@@ -16,9 +16,8 @@ class App {
       let gameContinue = true;
       while (gameContinue) {
         const userNumber = await CustomUtils.getUserNumber();
-        if (!userNumber) return;
         const score = CustomUtils.getScore(computer, userNumber);
-        MissionUtils.Console.print(computer, score);
+        // MissionUtils.Console.print(computer, score);
         gameContinue = CustomUtils.printScore(score);
       }
       if (await CustomUtils.getRestartChoice()) {
@@ -28,6 +27,7 @@ class App {
       }
     } catch (error) {
       MissionUtils.Console.print(error.message);
+      throw error;
     }
   }
 }
