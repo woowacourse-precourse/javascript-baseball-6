@@ -75,7 +75,7 @@ class App {
   }
 
   isValidNumber(num) {
-    const numArray = String(num).split();
+    const numArray = String(num).split('');
     if (numArray.length !== 3) {
       return false;
     }
@@ -97,22 +97,18 @@ class App {
       numberIndex++
     ) {
       const targetNumber = num2AsString[numberIndex];
-      const indexOfTargetNumberInNum1 = num1AsString.indexOf(
-        (num) => num === targetNumber
-      );
-      if (indexOfTargetNumberInNum1 === -1) {
+      const targetIndexInNum1 = num1AsString.indexOf(targetNumber);
+      if (targetIndexInNum1 === -1) {
         continue;
       }
-      if (indexOfTargetNumberInNum1 === numberIndex) {
+      if (targetIndexInNum1 === numberIndex) {
         ++strikeCounter;
+        continue;
       }
       ++ballCounter;
     }
     return { strikeCounter, ballCounter };
   }
 }
-
-const app = new App();
-app.play();
 
 export default App;
