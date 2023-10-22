@@ -5,7 +5,6 @@ class App {
   constructor() {
     this.game = new Game(this);
     this.isPlaying = false;
-    this.userNum = "";
   }
 
   async play() {
@@ -16,14 +15,20 @@ class App {
 
     while (this.isPlaying) {
       data["me"] = await this.game.numberValidChk();
-      data["com"] = await this.game.randomNum();
 
-      result = await this.game.isNumber_Same(data);
-
-      if (result === "FAIL") {
-        data["me"] = await this.game.numberValidChk();
-        result = await this.game.isNumber_Same(data);
+      // 성공, 실패여부에 따른 Computer 숫자변경 분기
+      if (result?.state === "FAIL") {
+        data["com"] = result.com;
+      } else {
+        data["com"] = await this.game.randomNum();
       }
+
+      result = this.game.isNumber_Same(data);
+
+      if (result.state === "FAIL") {
+        this.isPlaying = true;
+      }
+
       if (result === "WIN") {
         await this.game.newGameSwitch();
       }
