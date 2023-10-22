@@ -2,22 +2,23 @@ import { Console, Random } from "@woowacourse/mission-utils";
 
 class App {
   async play() {
+    
     function makeAnswer() {
       const computer = new Set();
       while(computer.size < 3) {
         computer.add(Random.pickNumberInRange(1, 9));
       }
 
-      return [...computer];
+      const computerInput = [...computer];
+      return computerInput;
     }
 
     function getInput() {
       let input = Console.readLineAsync("숫자를 입력해주세요 : ");
-      let user;
       
       input.then((message) => {
-        user = [...message];
-        Console.print(user);
+        const user = [...message];
+        Console.print(typeof(user));
         if(chkUserInput(user)) {
           Console.print("조건 통과함");
           chkValue(user, computer);
@@ -33,12 +34,12 @@ class App {
         Console.print("되겠냐?");
         return false;
       } else {
-        userInput.forEach(element => {
-          if(element < 1 || element > 10 || isNaN(element)) {
-            Console.print("되겠냐고");
+        for(let value of userInput) {
+          if(value < 1 || value > 10 || isNaN(value)) {
+            Console.print("하???");
             return false;
-          } 
-        });
+          }
+        }
       }
 
       return true;
@@ -46,10 +47,19 @@ class App {
 
     function chkValue(userInput, computer) {
       //chkUserInput의 값이 true라면 두 배열을 비교하여 결과를 출력할것.
+      Console.print(`user : ${userInput}, ${typeof(user)}`);
+      Console.print(`computer : ${computer}, ${typeof(computer)}`);
 
+      computer.forEach((element, index) => {
+        if(userInput.indexOf(element) === index) {
+          Console.print("스트라이크");
+        } else if(userInput.includes(element)) {
+          Console.print("볼");
+        }
+      })
     }
 
-    makeAnswer();
+    const computer = makeAnswer();
     Console.print("숫자 야구 게임을 시작합니다.");
     getInput();
   }
