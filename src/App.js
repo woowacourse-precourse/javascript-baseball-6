@@ -1,68 +1,83 @@
 import { Random, Console } from "@woowacourse/mission-utils";
 
+/**
+ * 야구 게임 앱
+ */
 class App {
-  target_length = 0;
-  target = [0, 0, 0];
+  #target_length = 0;
+  #target = [];
 
-  constructor() {
-    this.target_length = 3;
-    this.init_secret_number();
-  }
-
-  init_secret_number() {
-    let secret_numbers = [];
-
-    secret_numbers.push(Random.pickNumberInRange(1, 9));
-    while (secret_numbers.length < this.target_length) {
-      const candidate = Random.pickNumberInRange(1, 9);
-      let is_uniq = true;
-      for (let i = 0; i < secret_numbers.length; i++) {
-        if (candidate === secret_numbers[i]) {
-          is_uniq = false;
-          break;
-        }
-      }
-      if (is_uniq) {
-        secret_numbers.push(candidate);
-      }
-    }
-    Console.print(secret_numbers);
-    this.target = secret_numbers;
+  /**
+   * target_length : 숫자 야구게임 번호 길이 (기본값 : 3)
+   * @param {number} target_length
+   */
+  constructor(target_length = 3) {
+    this.target_length = target_length;
+    this.initializeTargetNumber();
   }
 
   /**
-   * 중복 숫자 존재하는지 확인하는 함수
-   * @param {[number]} numbers
-   * @returns {boolean}
+   * 정답 숫자 초기화
    */
-  isDuplicateNumbers(numbers) {
-    const origin_length = numbers.length;
-    const setNums = new Set(numbers);
-    const set_length = [...setNums].length;
-    return origin_length === set_length ? false : true;
+  initializeTargetNumber() {
+    let targetNumbers = [];
+
+    while (targetNumbers.length < this.target_length) {
+      const candidate = Random.pickNumberInRange(1, 9);
+      if (!targetNumbers.includes(candidate)) {
+        targetNumbers.push(candidate);
+      }
+    }
+    this.target = targetNumbers;
+    // 개발 버전 : 정답 공개 용
+    Console.print(targetNumbers);
   }
 
-  check(input_numbers) {
-    if (
-      !input_numbers ||
-      input_numbers.length !== 3 ||
-      this.isDuplicateNumbers(input_numbers)
-    ) {
-      return 1;
-    }
+  /**
+   * 사용자 입력 값이 유효한지 체크
+   * @param {string} input_numbers
+   * @returns {boolean}
+   */
+  verifyUserInput(input_numbers) {
+    const isUniqString = (numbers) => {
+      const origin_length = numbers.length;
+      const setNums = new Set(numbers);
+      const set_length = [...setNums].length;
+      return origin_length === set_length ? true : false;
+    };
 
-    let answer = [];
-    for (let i = 0; i < input_numbers.length; i++) {
-      const char = input_numbers.charAt(i);
-      if (typeof +char !== "number" || isNaN(+char)) {
-        return 1;
+    const isLengthCorrect = (numbers) => {
+      return !numbers || numbers.length !== this.target_length ? false : true;
+    };
+
+    const isNumberString = (numbers) => {
+      for (let i = 0; i < numbers.length; i++) {
+        const NUM_TO_ASCII = numbers.charCodeAt(i);
+        if (NUM_TO_ASCII > 48 && 57 < NUM_TO_ASCII) {
+          return false;
+        }
       }
-      answer.push(+char);
+      return true;
+    };
+
+    if (
+      isLengthCorrect(input_numbers) &&
+      isUniqString(input_numbers) &&
+      isNumberString(input_numbers)
+    ) {
+      return true;
     }
 
-    // 스트라이크 체크
-    let [strike, ball] = [0, 0];
+    return false;
+  }
 
+  /**
+   * 사용자 입력값을 체크하여 결과를 출력
+   * @param {string} input_numbers
+   */
+  checkUserInput(input_numbers) {
+    const answer = input_numbers.split("").map(Number);
+    let [strike, ball] = [0, 0];
     for (let i = 0; i < this.target.length; i++) {
       if (this.target[i] === answer[i]) {
         strike++;
@@ -81,7 +96,6 @@ class App {
     } else if (ball) {
       Console.print(`${ball}볼`);
     }
-    return 0;
   }
 
   async play() {
@@ -89,10 +103,14 @@ class App {
 
     while (true) {
       const answer = await Console.readLineAsync("숫자를 입력해주세요 : ");
+
       if (answer === "") continue;
-      if (this.check(answer)) {
+      if (!this.verifyUserInput(answer)) {
         throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
       }
+
+      this.checkUserInput(answer);
+
       if (answer === this.target.join("")) {
         Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
         const retry = await Console.readLineAsync(
@@ -100,7 +118,7 @@ class App {
         );
         if (retry === "") continue;
         if (retry === "1") {
-          this.init_secret_number();
+          this.initializeTargetNumber();
         } else if (retry === "2") {
           return;
         } else {
@@ -110,11 +128,4 @@ class App {
     }
   }
 }
-try {
-  const my_app = new App();
-  my_app.play();
-} catch (e) {
-  console.log(e);
-}
-
 export default App;
