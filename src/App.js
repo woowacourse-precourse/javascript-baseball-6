@@ -28,7 +28,7 @@ class App {
       this.isAnswerValid(playerAnswer);
       computer.checkAnswer(playerAnswer);
     }
-    Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+    Console.print(`${NUMBER_LENGTH}개의 숫자를 모두 맞히셨습니다! 게임 종료`);
   }
 
   async play() {
@@ -46,6 +46,6 @@ class App {
   }
 }
 
-// const app = new App();
-// app.play();
+const app = new App();
+app.play();
 export default App;
