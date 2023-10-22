@@ -1,5 +1,12 @@
 /** @format */
 
+import {
+  checkIsDiff,
+  checkIsNumbers,
+  checkLength,
+  checkNumberRange,
+} from "./validation.js";
+
 import { Console, Random } from "@woowacourse/mission-utils";
 
 export default class BaseballGame {
@@ -14,8 +21,13 @@ export default class BaseballGame {
     let correct = false;
 
     while (!correct) {
-      this.userInput = await this.getUserInput();
-      Console.print(this.userInput);
+      try {
+        this.userInput = await this.getUserInput();
+        this.checkUserInput(this.userInput);
+      } catch (error) {
+        Console.print(error.message);
+        return;
+      }
     }
   }
 
@@ -30,9 +42,17 @@ export default class BaseballGame {
     return computer;
   }
 
-  getUserInput() {
-    const userInput = Console.readLineAsync("숫자를 입력해주세요 : ");
+  async getUserInput() {
+    const userInput = await Console.readLineAsync("숫자를 입력해주세요 : ");
     return userInput;
+  }
+
+  checkUserInput(userInput) {
+    if (!checkLength(userInput)) {
+      throw new Error("[ERROR] 3자리 숫자를 입력해주세요.");
+    }
+
+    return true;
   }
 }
 
