@@ -7,11 +7,7 @@ export class BaseballView {
   }
 
   async getInputAsync(message) {
-    try {
-      return Console.readLineAsync(message);
-    } catch (err) {
-      this.printMessage(err);
-    }
+    return Console.readLineAsync(message);
   }
 
   printGameResult({ ball, strike }) {
