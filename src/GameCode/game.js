@@ -19,42 +19,36 @@ const GAME_PLAY = (playerNum, computerNum) => {
 
 //game end
 async function gameEndManager() {
-  try {
-    MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-    const REPLAY_BUTTON = await MissionUtils.Console.readLineAsync(
-      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
-    );
-    if (REPLAY_BUTTON.trim() === "1") {
-      INIT();
-    }
-    if (REPLAY_BUTTON.trim() === "2") {
-      return;
-    }
-    if (REPLAY_BUTTON.trim() !== "1" || REPLAY_BUTTON.trim() !== "2") {
-      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
-    }
-  } catch (error) {
-    MissionUtils.Console.print(error.message);
+  MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+  const REPLAY_BUTTON = await MissionUtils.Console.readLineAsync(
+    "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+  );
+  if (REPLAY_BUTTON.trim() === "1") {
+    INIT();
+  } else if (REPLAY_BUTTON.trim() === "2") {
+    return;
+  } else {
+    throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
   }
 }
 
 //game start
 async function gameStart(computerNum) {
-  try {
-    const PLAYER_NUM = await MissionUtils.Console.readLineAsync(
-      "숫자를 입력해주세요 : "
-    );
-    if (ERROR_OCCURRED(PLAYER_NUM)) {
-      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
-    }
-    await GAME_PLAY(PLAYER_NUM, computerNum);
-  } catch (error) {
-    MissionUtils.Console.print(error.message);
+  const PLAYER_NUM = await MissionUtils.Console.readLineAsync(
+    "숫자를 입력해주세요 : "
+  );
+  if (ERROR_OCCURRED(PLAYER_NUM)) {
+    throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
   }
+  await GAME_PLAY(PLAYER_NUM, computerNum);
 }
 
 //game set
 export const INIT = async () => {
-  const COMPUTER_BALL = COMPUTER_BALL_MAKER();
-  await gameStart(COMPUTER_BALL);
+  try {
+    const COMPUTER_BALL = COMPUTER_BALL_MAKER();
+    await gameStart(COMPUTER_BALL);
+  } catch (error) {
+    throw error;
+  }
 };
