@@ -41,7 +41,8 @@ export const getUserNumberInput = async () => {
                 && isAllNumber(userNumberInput) && hasNoZero(userNumberInput)) {
                 return userNumberInput
             } else {
-                throw new Error('숫자 3자리를 입력해주세요.');
+                throw new Error("[ERROR]");
+                // throw new Error('숫자 3자리를 입력해주세요.');
             }
         })
         .catch(err => {

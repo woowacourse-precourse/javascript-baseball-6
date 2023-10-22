@@ -14,7 +14,8 @@ export const getUserGameDecision = async () => {
             if (isValidDecision(userGameDecision)) {
                 return userGameDecision;
             } else {
-                throw new Error('1과 2 중에서 입력해주세요.')
+                // throw new Error('1과 2 중에서 입력해주세요.')
+                throw new Error("[ERROR]")
             }
         })
         .catch(err => {
