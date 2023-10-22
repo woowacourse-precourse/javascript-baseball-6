@@ -13,8 +13,9 @@ class App {
 
   async play() {
     MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
-    await this.userInput();
     this.settingAnswer();
+    await this.userInput();
+    this.numberBaseball();
   }
 
   // 유저 입력 처리
@@ -29,6 +30,24 @@ class App {
       const number = MissionUtils.Random.pickNumberInRange(1, 9);
       if (!this.answer.includes(number)) {
         this.answer.push(number);
+      }
+    }
+  }
+
+  // 숫자야구게임 로직
+  async numberBaseball() {
+    let correctAnswer = false;
+    while (!correctAnswer) {
+      await this.userInput();
+      let strike = 0;
+      let ball = 0;
+
+      for (let i = 0; i < tmp.length; i++) {
+        if (this.userNum[i] === this.answer[i]) {
+          strike += 1;
+        } else if (this.answer.includes(this.userNum[i])) {
+          ball += 1;
+        }
       }
     }
   }
