@@ -30,7 +30,7 @@ class App {
 
       const action = await this.handleGameRestartOrExit();
 
-      if (action === GAME_STATUS.EXIT) break;
+      if (action === GAME_ACTIONS.EXIT) break;
     }
   }
 
