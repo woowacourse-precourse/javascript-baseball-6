@@ -6,7 +6,8 @@ import {
   STRIKE,
   SUCCESS_MESSAGE,
   BALL,
-  END_MESSAGE
+  END_MESSAGE,
+  END_OR_RESET_MESSAGE,
 } from "./Utills.js";
 class App {
   constructor() {
@@ -15,69 +16,74 @@ class App {
 
   init() {
     Console.print("숫자 야구 게임을 시작합니다.");
+    this.answer = this.makeAnswer();
   }
-
-  async play() {
-    const answer = [];
+  makeAnswer() {
+    let answer = [];
     while (answer.length < 3) {
       const number = MissionUtils.Random.pickNumberInRange(1, 9);
       if (!answer.includes(number)) {
-        answer.push(number)
+        answer.push(number);
       }
     }
-
-  
-    while (true) {
-      let strikeResult = 0
-      let ballResult = 0
-      try {
-        let numberInput = await Console.readLineAsync(
-          "숫자를 입력해주세요 : "
-        );
-        numberInput = numberInput.split("")
-        for (let i = 0; i < answer.length ; i++) {
-          if (answer[i] == numberInput[i]) {
-            strikeResult++
-          }
-          else if (answer.includes(Number(numberInput[i]))) {
-            ballResult++
-          }
-          else {
-
-          }
-        }
-        if (strikeResult==3) {
-          Console.print(strikeResult+STRIKE)
-          break
-        }
-
-        if (strikeResult > 0 && ballResult > 0) {
-          Console.print(ballResult + BALL + " " + strikeResult + STRIKE);
-        } else if (strikeResult == 0 && ballResult > 0) {
-          Console.print(ballResult + BALL);
-        } else if (strikeResult > 0 && ballResult == 0) {
-          Console.print(strikeResult + STRIKE);
+    return answer;
+  }
+  async play() {
+    let strikeResult = 0;
+    let ballResult = 0;
+    try {
+      let numberInput = await Console.readLineAsync("숫자를 입력해주세요 : ");
+      const result = this.validateInput(numberInput);
+      if (result != "통과") throw new Error(result);
+      numberInput = numberInput.split("");
+      for (let i = 0; i < this.answer.length; i++) {
+        if (this.answer[i] == numberInput[i]) {
+          strikeResult++;
+        } else if (this.answer.includes(Number(numberInput[i]))) {
+          ballResult++;
         } else {
-          Console.print(NOTHING);
         }
-      } catch (error) {
-        console.log("error", error);
       }
+      if (strikeResult == 3) {
+        Console.print(strikeResult + STRIKE);
+        return this.endOrReset();
+      }
+
+      if (strikeResult > 0 && ballResult > 0) {
+        Console.print(ballResult + BALL + " " + strikeResult + STRIKE);
+      } else if (strikeResult == 0 && ballResult > 0) {
+        Console.print(ballResult + BALL);
+      } else if (strikeResult > 0 && ballResult == 0) {
+        Console.print(strikeResult + STRIKE);
+      } else {
+        Console.print(NOTHING);
+      }
+    } catch (error) {
+      throw new Error("[ERROR]" + error); //Error를 던지는 것이랑 콘솔의 차이
     }
-  return this.endOrReset()
+    return await this.play()
+  }
+  validateInput(number) {
+    const inputToSet = new Set(number.split("").map(Number));
+    if (number.length !== 3) return "입력값은 세자리 수를 입력해주세요.";
+    if ([...inputToSet].length !== 3) {
+      return "중첩되지 않는 세자리 수를 입력해주세요.";
+    }
+    if (number.includes(" ")) return "공백은 넣지 말아주세요.";
+    if (Number.isNaN(number)) return "숫자만 입력해주세요.";
+
+    return "통과";
   }
 
-
-  async endOrReset () {
-   const endMessage = await Console.readLineAsync(END_MESSAGE)
-   if (endMessage == 1) {
-      this.play()
-   }
-   else {
-      Console.print("게임 종료")
-   }
+  async endOrReset() {
+    const endMessage = await Console.readLineAsync(END_OR_RESET_MESSAGE);
+    if (endMessage == 1) {
+      this.answer = this.makeAnswer()
+      this.play();
+    } else {
+      Console.print("게임 종료");
+    }
   }
-
 }
 
 export default App;
