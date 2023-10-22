@@ -2,8 +2,8 @@ import ERROR from "./baseball_error.js"
 
 function InputValidator(USER_INPUT, gameSettings) {
   const DIGITS = USER_INPUT.split("").map(Number);
-  if (DIGITS.length != gameSettings.ballSize) {
-    throw new Error(ERROR.ballSizeErrorMsg);
+  if (DIGITS.length != gameSettings.ballLength) {
+    throw new Error(ERROR.ballLengthErrorMsg);
   }
   if (DIGITS.some((DIGIT) => DIGIT < gameSettings.ballMinSize || gameSettings.ballMaxSize < DIGIT)) {
     throw new Error(ERROR.ballRangeErrorMsg);
@@ -11,7 +11,7 @@ function InputValidator(USER_INPUT, gameSettings) {
   if (DIGITS.some(isNaN)) {
     throw new Error(ERROR.ballTypeErrorMsg);
   }
-  if (new Set(DIGITS).size != gameSettings.ballSize) {
+  if (new Set(DIGITS).size != gameSettings.ballLength) {
     throw new Error(ERROR.ballDuplicatedErrorMsg);
   }
   return DIGITS;

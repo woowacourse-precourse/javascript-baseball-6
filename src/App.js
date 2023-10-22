@@ -14,13 +14,13 @@ class App {
 
   async play() {
     let loop = true
-    this.Numbers = randomNumbers(gameSettings.ballSize,gameSettings.ballMinSize,gameSettings.ballMaxSize);
+    this.Numbers = randomNumbers(gameSettings.ballLength, gameSettings.ballMinSize, gameSettings.ballMaxSize);
     MissionUtils.Console.print(gameSettings.gameStartMassege);
   
     while (loop) {
       const USER_INPUT = await MissionUtils.Console.readLineAsync(gameSettings.userInput);
       const DIGIT = InputValidator(USER_INPUT, gameSettings);
-      const { BALLS, STRIKES } = matchNumberPositions(this.Numbers, DIGIT, gameSettings.ballSize);
+      const { BALLS, STRIKES } = matchNumberPositions(this.Numbers, DIGIT, gameSettings.ballLength);
       const RESULT = checkBaseballResult(BALLS, STRIKES, gameSettings);
       loop = await GameRestartPrompter(RESULT, gameSettings, this, errorTexts);
     }

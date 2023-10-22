@@ -1,7 +1,7 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 function checkBaseballResult(BALLS, STRIKES, gameSettings) {
-  if (STRIKES == gameSettings.ballSize) {
+  if (STRIKES == gameSettings.ballLength) {
     MissionUtils.Console.print(`${STRIKES}${gameSettings.strikeMessage}`)
     MissionUtils.Console.print(`${gameSettings.gameClear}`)
     return true;

@@ -2,7 +2,7 @@ class BaseballGameSettings {
     constructor() {
         this.gameStartMassege = `숫자 야구 게임을 시작합니다.`
         this.userInput = `숫자를 입력해주세요 : `
-        this.ballSize = 3
+        this.ballLength = 3
         this.ballMinSize = 1
         this.ballMaxSize = 9
         this.reStartGame = 1

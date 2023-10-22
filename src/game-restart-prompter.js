@@ -8,7 +8,7 @@ async function GameRestartPrompter(RESULT, gameSettings, baseball, errorTexts) {
     );
     if (NEW_GAME_OR_STOP == gameSettings.reStartGame) {
       baseball.Numbers = randomNumbers(
-        gameSettings.ballSize,
+        gameSettings.ballLength,
         gameSettings.ballMinSize,
         gameSettings.ballMaxSize
       );
