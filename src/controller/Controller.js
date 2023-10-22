@@ -15,17 +15,19 @@ export class Controller {
         return await getUserNumberInput();
     }
 
+    async playRound() {
+        this.model.setRandomComputerNumber();
+        let hint;
+        do {
+            hint = this.model.getHint(await this.getUserNumberInput());
+            this.view.printHintMsg(hint);
+        } while (this.model.isRoundEndedFromHint(hint) !== true)
+        this.view.printEndMsg(); 
+    }
+
     async playGame() {
         do {
-            this.model.setRandomComputerNumber();
-            while (true) {
-                const hint = this.model.getHint(await this.getUserNumberInput());
-                this.view.printHintMsg(hint);
-                if (this.model.isRoundEndedFromHint(hint) === true) {
-                    this.view.printEndMsg();
-                    break;
-                }
-            }
+            await this.playRound()
         } while (this.model.isGameContinued(await this.getUserGameDecision()) === true)
     }
 }
