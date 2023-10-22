@@ -45,8 +45,9 @@ export default class Game {
 
   compareTwoNumber() {
     const calculate = new Calculate();
-    calculate.compareAnsAndPlayer(this.answer, this.player);
-    [this.ball, this.strike] = calculate.getResult();
+    [this.ball, this.strike] = calculate
+      .compareAnsAndPlayer(this.answer, this.player)
+      .getResult();
   }
 
   async decideGameClear() {
