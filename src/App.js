@@ -42,8 +42,8 @@ class App {
 
     input.split('').forEach((string, index) => {
       const number = Number(string);
-      if (answer[index] === number) strike++;
-      else if (answer.includes(number)) ball++;
+      if (answer[index] === number) strike += 1;
+      else if (answer.includes(number)) ball += 1;
     });
 
     return { strike, ball };
