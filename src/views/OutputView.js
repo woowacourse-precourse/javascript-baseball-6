@@ -7,9 +7,9 @@ const OutputView = {
   },
   
   progressMessage(ball, strike) {
-    let message = "";
+    let message = '';
 
-    if (ball === 0 && strike === 0) message = "낫싱";
+    if (ball === 0 && strike === 0) message = '낫싱';
     if (ball === 0 && strike > 0) message = `${strike}스트라이크`;
     if (ball > 0 && strike === 0) message = `${ball}볼`;
     if (ball > 0 && strike > 0) message = `${ball}볼 ${strike}스트라이크`;

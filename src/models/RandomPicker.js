@@ -25,7 +25,7 @@ class RandomPicker {
 
     const resultArray = [...digitsArray];
 
-    return parseInt(resultArray.join(""));
+    return parseInt(resultArray.join(''));
   }
 }
 
