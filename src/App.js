@@ -2,15 +2,19 @@ import { MissionUtils } from '@woowacourse/mission-utils';
 
 class App {
   async play() {
+    let judgeResult = '';
     this.infoPrint('숫자 야구 게임을 시작합니다.');
     const computerNumber = this.computerPick();
-    const userPickValue = await this.userInput('숫자를 입력해주세요 : ');
-    const userPickValidationResult = this.userPickValidation(userPickValue);
-    if (!userPickValidationResult)
-      this.throwError('[ERROR] 서로 다른 숫자 3개를 입력해주세요.');
-    const userNumber = userPickValue.split('').map((element) => +element);
-    const judgeResult = this.judge(computerNumber, userNumber);
-    this.infoPrint(judgeResult);
+    while (judgeResult !== '3스트라이크') {
+      const userPickValue = await this.userInput('숫자를 입력해주세요 : ');
+      const userPickValidationResult = this.userPickValidation(userPickValue);
+      if (!userPickValidationResult)
+        this.throwError('[ERROR] 서로 다른 숫자 3개를 입력해주세요.');
+      const userNumber = userPickValue.split('').map((element) => +element);
+      judgeResult = this.judge(computerNumber, userNumber);
+      this.infoPrint(judgeResult);
+    }
+    this.infoPrint('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
   }
 
   infoPrint(message) {
