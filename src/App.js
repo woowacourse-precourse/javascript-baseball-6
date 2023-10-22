@@ -24,14 +24,14 @@ class App {
   }
 
   async playRound(comNumber) {
-    let userNumber = await this.requestUserNumber();
-    let { strikes, balls } = this.checkNumber(comNumber, userNumber);
+    const userNumber = await this.requestUserNumber();
+    const { strikes, balls } = this.checkNumber(comNumber, userNumber);
 
     return this.determineGameResult(strikes, balls);
   }
 
   async requestUserNumber() {
-    return await this.requestInput(
+    return this.requestInput(
       "숫자를 입력해주세요 : ",
       (input) =>
         !isNaN(Number(input)) && input.length === 3 && new Set(input).size === 3
@@ -44,7 +44,9 @@ class App {
         "3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료"
       );
       return true;
-    } else if (strikes === 0 && balls === 0) {
+    }
+
+    if (strikes === 0 && balls === 0) {
       MissionUtils.Console.print("낫싱");
     } else if (strikes === 0 && balls > 0) {
       MissionUtils.Console.print(`${balls}볼`);
@@ -53,14 +55,16 @@ class App {
     } else {
       MissionUtils.Console.print(`${balls}볼 ${strikes}스트라이크`);
     }
+
     return false;
   }
 
   async restartGameDecision() {
-    let answer = await this.requestInput(
+    const answer = await this.requestInput(
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n",
       (input) => input === "1" || input === "2"
     );
+
     return answer === "1";
   }
 
@@ -76,7 +80,7 @@ class App {
   }
 
   async getUserInput(promptMessage) {
-    return await MissionUtils.Console.readLineAsync(promptMessage);
+    return MissionUtils.Console.readLineAsync(promptMessage);
   }
 
   isValidInput(input, validation) {
@@ -98,6 +102,7 @@ class App {
       );
       throw error;
     }
+
     MissionUtils.Console.print(error.message);
   }
 
@@ -117,11 +122,11 @@ class App {
     let strikes = 0;
     let balls = 0;
 
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 3; i += 1) {
       if (com[i] === user[i]) {
-        strikes++;
+        strikes += 1;
       } else if (com.includes(user[i])) {
-        balls++;
+        balls += 1;
       }
     }
 
