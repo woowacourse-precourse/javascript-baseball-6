@@ -1,52 +1,50 @@
 import { Console, Random } from '@woowacourse/mission-utils';
 
 class App {
-  #COMPUTER = [];
-  START_MSG = '숫자 야구 게임을 시작합니다.';
-  INPUT_MSG = '숫자를 입력해주세요 : ';
-  ERROR_MSG = '[ERROR] 숫자가 잘못된 형식입니다.';
-  BALL_MSG = '볼';
-  STRIKE_MSG = '스트라이크';
-  NOTHING_MSG = '낫싱';
-  END_MSG = '3개의 숫자를 모두 맞히셨습니다! 게임 종료';
-  SELECT_MSG = '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.';
+  computer = [];
+  msg = {
+    start: '숫자 야구 게임을 시작합니다.',
+    input: '숫자를 입력해주세요 : ',
+    error: '[ERROR] 숫자가 잘못된 형식입니다.',
+    ball: '볼',
+    strike: '스트라이크',
+    nothing: '낫싱',
+    end: '3개의 숫자를 모두 맞히셨습니다! 게임 종료',
+    select: '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.'
+  };
 
   constructor() {
-    Console.print(this.START_MSG);
+    Console.print(this.msg.start);
+    this.createComputer();
   }
 
   async play() {
-    this.createComputer();
-    this.validateNumber();
+    const ANSWER = await Console.readLineAsync('숫자를 입력해주세요 : ');
+    this.validateNumber(ANSWER);
   }
 
   createComputer() {
-    const random = [];
-    while (random.length < 3) {
-      const number = Random.pickNumberInRange(1, 9);
-      if (!random.includes(number)) {
-        random.push(number);
+    const RANDOM = [];
+    while (RANDOM.length < 3) {
+      const NUMBER = Random.pickNumberInRange(1, 9);
+      if (!RANDOM.includes(NUMBER)) {
+        RANDOM.push(NUMBER);
       }
     }
-    this.#COMPUTER = [...random];
+    this.computer = [...RANDOM];
   }
 
-  async validateNumber() {
-    const answer = await Console.readLineAsync(this.INPUT_MSG);
-    let number = Number(answer);
-    if (!number) {
-      throw new Error(this.ERROR_MSG);
+  validateNumber(answer) {
+    const MY_SET = new Set();
+    for (let i = 0; i < answer.length; i += 1) {
+      if (Number(answer[i])) {
+        MY_SET.add(Number(answer[i]));
+      }
     }
-    const set = new Set();
-    while (number > 0) {
-      set.add(number % 10);
-      number = Math.floor(number / 10);
-    }
-    if (!set.has(0) && set.size === 3) {
-      const numbers = [...set].reverse();
-      this.continueGame(numbers);
+    if (!MY_SET.has(0) && MY_SET.size === 3) {
+      this.continueGame([...MY_SET]);
     } else {
-      throw new Error(this.ERROR_MSG);
+      throw new Error(this.msg.error);
     }
   }
 
@@ -54,46 +52,47 @@ class App {
     let ball = 0;
     let strike = 0;
     for (let i = 0; i < numbers.length; i += 1) {
-      if (this.#COMPUTER[i] === numbers[i]) {
+      if (this.computer[i] === numbers[i]) {
         strike += 1;
-      } else if (this.#COMPUTER.includes(numbers[i])) {
+      } else if (this.computer.includes(numbers[i])) {
         ball += 1;
       }
     }
-    this.printHint(ball, strike);
+    const HINT = this.printHint(ball, strike);
+    Console.print(HINT);
+    if (strike === 3) {
+      this.endGame();
+    } else {
+      this.play();
+    }
   }
 
   printHint(ball, strike) {
     let hint = '';
     if (ball && strike) {
-      hint = `${ball}${this.BALL_MSG} ${strike}${this.STRIKE_MSG}`;
+      hint = `${ball}${this.msg.ball} ${strike}${this.msg.strike}`;
     } else if (ball) {
-      hint = `${ball}${this.BALL_MSG}`;
+      hint = `${ball}${this.msg.ball}`;
     } else if (strike) {
-      hint = `${strike}${this.STRIKE_MSG}`;
+      hint = `${strike}${this.msg.strike}`;
     } else {
-      hint = this.NOTHING_MSG;
+      hint = this.msg.nothing;
     }
-    Console.print(hint);
-    if (strike === 3) {
-      Console.print(this.END_MSG);
-      this.endGame();
-    } else {
-      this.validateNumber();
-    }
+    return hint;
   }
 
   async endGame() {
-    const answer = await Console.readLineAsync(this.SELECT_MSG);
-    if (answer === '1') {
+    Console.print(this.msg.end);
+    const ANSWER = await Console.readLineAsync(this.msg.select);
+    if (ANSWER === '1') {
+      this.createComputer();
       this.play();
-    } else if (answer !== '2') {
-      throw new Error(this.ERROR_MSG);
+    } else if (ANSWER === '2') {
+      return;
+    } else {
+      throw new Error(this.msg.error);
     }
   }
 }
-
-const app = new App();
-app.play();
 
 export default App;
