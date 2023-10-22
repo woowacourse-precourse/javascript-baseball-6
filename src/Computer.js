@@ -18,13 +18,13 @@ class Computer {
     }
   }
 
-  checkAnswer(answer) {
+  checkAnswer(playerAnswer) {
     let strike = 0;
     let ball = 0;
 
     for (let i = 0; i < NUMBER_LENGTH; i++) {
-      if (this.answerNumbers[i] === answer[i]) strike++;
-      else if (this.answerNumbers.includes(answer[i])) ball++;
+      if (this.answerNumbers[i] === playerAnswer[i]) strike++;
+      else if (this.answerNumbers.includes(playerAnswer[i])) ball++;
     }
 
     if (strike > 0 && ball > 0) Console.print(`${ball}볼 ${strike}스트라이크`);
