@@ -1,10 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
-  constructor() {
-    this.computerNumber = this.generateRandomNumberArray();
-  }
-
   /** 1에서 9까지 서로 다른 임의의 수 3개를 선택하여 3자리 수를 생성하는 메소드 */
   generateRandomNumberArray() {
     const randomNumberArray = [];
@@ -19,14 +15,14 @@ class App {
   }
 
   /** 입력받은 수와 컴퓨터가 생성한 수를 비교하여 결과를 출력하는 메소드 */
-  compareInputWithComputerNumber(input) {
+  compareInputWithComputerNumber(input, computerNumber) {
     const inputNumberArray = input.toString().split("").map(Number);
     let strike = 0;
     let ball = 0;
 
     for (let i = 0; i < 3; i++) {
-      if (this.computerNumber.includes(inputNumberArray[i])) {
-        if (this.computerNumber[i] === inputNumberArray[i]) {
+      if (computerNumber.includes(inputNumberArray[i])) {
+        if (computerNumber[i] === inputNumberArray[i]) {
           strike++;
         } else {
           ball++;
