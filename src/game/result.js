@@ -46,12 +46,14 @@ const ballCount = (userNumber, computerNumber) => {
 }
 
 async function playRestart(){
-    MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n')
+    MissionUtils.Console.readLineAsync()
     .then((res) => {
+        MissionUtils.Console.print('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.')
+        MissionUtils.Console.print(`${res}`)
         if(res == 1){
             return playGame();
         }else if(res == 2){
-            return MissionUtils.Console.print('게임을 이용해 주셔서 감사드립니다.');
+            return;
         }
     })
     .catch((error) => {
