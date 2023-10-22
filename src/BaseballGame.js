@@ -16,21 +16,20 @@ export class BaseballGame {
             try {
                 const userInput = await Console.readLineAsync('숫자를 입력해주세요: ');
                 if (isNaN(userInput)) {
-                    throw new Error("[ERROR]");
+                    throw new Error("");
                 }
 
                 const userNumber = userInput.split('').map(Number);
                 if (userNumber.length != 3) {
-                    throw new Error("[ERROR]");
+                    throw new Error("");
                 }
                 if (userNumber[0] == userNumber[1] || userNumber[1] == userNumber[2] || userNumber[0] == userNumber[2]) {
-                    throw new Error("[ERROR]");
+                    throw new Error("");
                 }
 
                 pitch = this.compare(answer, userNumber);
 
             } catch (error) {
-                Console.print(error.message);
                 return false;
             }
         }
