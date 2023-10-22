@@ -41,10 +41,20 @@ class App {
 
   async restart() {
     MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+    const input = await this.getRestartInput();
+    if (input !== '1' && input !== '2') {
+      throw new Error('[ERROR] 잘못된 형식입니다.');
+    }
+
+    switch (input) {
+      case '1':
+        this.computer.initialAnswer();
+        await this.getUserInput();
+        break;
+      case '2':
+        break;
+    }
   }
 }
-
-const app = new App();
-app.play();
 
 export default App;
