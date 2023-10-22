@@ -2,12 +2,18 @@ import { print, readLineAsync } from "./utils/console.js";
 import { pickNumberInRange } from "./utils/random.js";
 
 class App {
-  async play() {
-    const t = await readLineAsync("입출력 테스트: ");
-    print(t);
+  #computer = [];
 
-    const number = pickNumberInRange(1, 10);
-    print(number);
+  async play() {
+    this.createComputerNumber();
+  }
+
+  createComputerNumber() {
+    while (this.#computer.length < 3) {
+      const number = pickNumberInRange(1, 9);
+      if (this.#computer.includes(number)) continue;
+      this.#computer.push(number);
+    }
   }
 }
 
