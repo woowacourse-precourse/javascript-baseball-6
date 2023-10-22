@@ -104,11 +104,9 @@ class App {
   async play() {
     MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
     this.setRandomNumber();
-    this.playBaseballGame();
+    await this.playBaseballGame();
   }
 }
 
-const app = new App();
-app.play();
 
 export default App;
