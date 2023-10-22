@@ -9,6 +9,10 @@ function pickRandomNumber(array) {
   }
 }
 
+function initalizeArray(array) {
+  while (array.length !== 0) array.pop();
+}
+
 async function start() {
   Console.print("숫자 야구 게임을 시작합니다.");
   return await Console.readLineAsync("숫자를 입력해주세요 : ");
@@ -17,6 +21,17 @@ async function start() {
 function judgeError(array) {
   if (Number(array) > 999 || Number(array) < 100 || isNaN(array)) {
     throw new Error("[ERROR] 잘못된 값을 입력하였습니다.");
+  }
+}
+
+function dataToArray(data, array) {
+  let count = 2;
+
+  while (array.length < 3) {
+    array.push(Math.floor(data / 10 ** count));
+    data = data % 10 ** count;
+
+    count--;
   }
 }
 
@@ -29,12 +44,16 @@ async function finish() {
 class App {
   async play() {
     let randomArray = [];
+    let inputArray = [];
     let inputData = 0;
     let resetCode = 0;
 
     while (Number(resetCode) !== 2) {
+      initalizeArray(inputArray);
       pickRandomNumber(randomArray);
+
       inputData = await start();
+      dataToArray(inputData, inputArray);
 
       judgeError(inputData);
 
