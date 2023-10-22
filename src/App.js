@@ -1,8 +1,55 @@
 import {MissionUtils} from "@woowacourse/mission-utils";
 
 class App {
+  constructor() {
+    this.computer = new Computer();
+    this.playerInput = new PlayerInput();
+    // 게임이 진행 중인지 여부
+    this.isPlaying = false;
+  }
   async play() {
     MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
+    this.isPlaying = true;
+
+    // 게임이 종료될 때까지 유저 입력받기 반복
+    while (this.isPlaying) {
+      const userInput = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
+
+      // 유저 입력값이 유효한지 검사하고 유효하지 않다면 게임 종료
+      if (!this.playerInput.isValidate(userInput)) {
+        this.endGame();
+        throw new Error('유효하지 않은 입력값입니다.');
+      }
+    }
+  }
+
+  endGame() {
+    this.isPlaying = false;
+  }
+}
+
+class PlayerInput {
+  isValidate(userInput) {
+    // 유저 입력값이 유효한지 검사
+    return this.isLengthValid(userInput) && this.isNumberValid(userInput);
+  }
+
+  isLengthValid(userInput) {
+    // 유저 입력값이 3자리 숫자인지 검사
+    if (userInput.length !== 3) {
+      MissionUtils.Console.print('3자리 숫자를 입력해주세요.');
+      return false;
+    }
+    return true;
+  }
+
+  isNumberValid(userInput) {
+    // 유저 입력값이 숫자인지 검사
+    if (isNaN(userInput)) {
+      MissionUtils.Console.print('숫자를 입력해주세요.');
+      return false;
+    }
+    return true;
   }
 }
 
