@@ -1,5 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-const INIT = require("./GameCode/game");
+import { INIT } from "./GameCode/game";
 
 class App {
   async play() {
@@ -7,5 +7,7 @@ class App {
     INIT();
   }
 }
+const app = new App();
+app.play();
 
 export default App;
