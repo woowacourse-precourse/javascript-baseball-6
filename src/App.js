@@ -1,14 +1,10 @@
-import { playGame } from './components/playGame.js';
-import { get } from './Utils.js';
+import { Console } from "@woowacourse/mission-utils";
 
 class App {
-  async play() {
-    get('.result-state').innerText ='숫자 야구 게임을 시작합니다.'
-    
-    get('form').addEventListener('submit', (e) => {
-      e.preventDefault();
-      playGame(e)
-    })
+  async play() {   
+    Console.readLine('숫자를 입력해주세요.', (answer) => {
+      console.log(`입력한 숫자: ${answer}`);
+    }); 
   }
 }
 

@@ -1,5 +1,6 @@
+import { MissionUtils } from "@woowacourse/mission-utils";
+
 const setNumber = () => {
-  // console.log('setNumber');
   const computer = [];
   while (computer.length < 3) {
     const number = MissionUtils.Random.pickNumberInRange(1, 9);
@@ -7,7 +8,7 @@ const setNumber = () => {
       computer.push(number);
     }
   }
-  return computer.join("");
+  return computer.join('');
 }
  
 export default setNumber

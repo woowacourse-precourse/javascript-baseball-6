@@ -1,5 +1,5 @@
 const restartGame = () => {
-  console.log('restartGame');
+  console.print('restartGame');
 }
  
 export default restartGame
