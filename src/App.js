@@ -98,11 +98,19 @@ class App {
     }
   }
 
+  isOneOrTwo(input) {
+    const pattern = /^[12]$/;
+    if (!pattern.test(input)) {
+      throw '[ERROR] 1 또는 2가 아닙니다.';
+    }
+  }
+
   async getGameEnd() {
     try {
       const number = await Console.readLineAsync(
         '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'
       );
+      this.isOneOrTwo(number);
       this.#exit = Number(number);
     } catch (error) {
       throw new Error(error);
