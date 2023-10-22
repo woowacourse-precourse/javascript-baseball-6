@@ -1,4 +1,4 @@
-import { CustomError } from './Error';
+import { CustomError } from './Error.js';
 
 export class Player {
   #number;

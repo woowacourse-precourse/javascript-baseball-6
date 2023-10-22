@@ -4,4 +4,4 @@ const ERROR = Object.freeze({
   OUT_OF_RANGE: '숫자는 1~9 사이여야 합니다.',
 });
 
-const MESSAGE = Object.freeze({ ERROR });
+export const MESSAGE = Object.freeze({ ERROR });
