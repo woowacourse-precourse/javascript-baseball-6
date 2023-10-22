@@ -1,4 +1,5 @@
 import { Random } from "@woowacourse/mission-utils";
+import Constants from "../util/Constants.js";
 
 export class CreateNumber {
   constructor() {
@@ -7,8 +8,8 @@ export class CreateNumber {
 
   generateRandomNumbers() {
     const numbers = [];
-    while (numbers.length < 3) {
-      const number = Random.pickNumberInRange(1, 9);
+    while (numbers.length < Constants.RANDOM_DIGIT) {
+      const number = Random.pickNumberInRange(Constants.MINIMUM, Constants.MAXIMUM);
       if (!numbers.includes(number)) {
         numbers.push(number);
       }
