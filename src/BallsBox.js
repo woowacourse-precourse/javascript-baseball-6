@@ -6,19 +6,16 @@ export default class BallsBox {
   ballArray;
 
   constructor(ballString) {
-    try {
-      this.validationDuplicate(ballString);
-      this.validationRange(ballString);
-      this.validationSize(ballString);
-      this.ballArray = ballString.split("");
-    } catch (error) {
-      Console.print(error.message);
-    }
+    this.validationSize(ballString);
+    this.validationDuplicate(ballString);
+    this.validationRange(ballString);
+    this.ballArray = ballString.split("");
   }
 
   validationSize(ballString) {
     if (
-      typeof ballString != "string" ||
+      !ballString ||
+      ballString === "" ||
       ballString.length !== this.#BALL_NUMBERS_SIZE
     ) {
       throw new Error("[ERROR] 숫자는 3개를 입력해야합니다.");

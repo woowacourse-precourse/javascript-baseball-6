@@ -8,8 +8,13 @@ export default class Computer extends Player {
     this.ballNumbers = this.generateBallNumbers();
   }
   generateBallNumbers = () => {
-    const numbers = Array.from({ length: 9 }, (_, idx) => idx + 1);
-    const shuffleNumbers = Random.shuffle(numbers);
+    const shuffleNumbers = [];
+    while (shuffleNumbers.length < 3) {
+      const number = Random.pickNumberInRange(1, 9);
+      if (!shuffleNumbers.includes(number)) {
+        shuffleNumbers.push(number);
+      }
+    }
     return shuffleNumbers.slice(0, 3).join("");
   };
 }

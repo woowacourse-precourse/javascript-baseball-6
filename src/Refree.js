@@ -21,15 +21,17 @@ export default class Referee {
 
     if (this.strike === 0 && this.ball === 0) {
       Console.print("낫싱");
+      return;
     }
     const result = [];
     this.ball && result.push(`${this.ball}볼`);
     this.strike && result.push(`${this.strike}스트라이크`);
-    Console.print(result.join(" "));
+
+    const output = result.join(" ");
+    if (output) Console.print(output);
   }
 
   isThreeStrikes() {
-    if (this.strike === 3) return true;
-    return false;
+    return this.strike === 3;
   }
 }
