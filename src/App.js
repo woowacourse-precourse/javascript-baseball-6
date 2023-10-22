@@ -1,25 +1,25 @@
 import { print, readLineAsync } from "./utils/console.js";
 import { pickNumberInRange } from "./utils/random.js";
+import { QUIT, RESTART } from "./constants/input.js";
+import { MESSAGE } from "./constants/message.js";
 
 class App {
   #computerNumberTypeArr = [];
 
   async play() {
-    print("숫자 야구 게임을 시작합니다.");
+    print(MESSAGE.GAME_START);
 
     while (true) {
       await this.startGame();
-      const answer = await readLineAsync(
-        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
-      );
-      if (answer !== "1" && answer !== "2") {
-        throw new Error(
-          "[ERROR] 잘못된 형식의 입력입니다. 1 또는 2를 입력해야합니다."
-        );
+
+      const answer = await readLineAsync(MESSAGE.RESTART_OR_QUIT);
+
+      if (answer !== RESTART && answer !== QUIT) {
+        throw new Error(MESSAGE.ERROR_RESTART_OR_QUIT_INPUT_WRONG);
       }
-      // TODO: 잘못된 입력에 대한 예외처리
-      if (answer === "2") {
-        print("숫자 야구 게임을 종료합니다. 감사합니다.");
+
+      if (answer === QUIT) {
+        print(MESSAGE.APPLICATION_TERMINATED);
         return;
       }
     }
@@ -27,14 +27,14 @@ class App {
 
   async startGame() {
     this.createComputerNumber();
-    print(this.#computerNumberTypeArr); // TODO: WILL DELETE LINE
+
     while (true) {
       const userNumberTypeArr = await this.guessNumber();
       const judgedInfo = this.judge(userNumberTypeArr);
       this.printJudgedInfo(judgedInfo);
 
       if (judgedInfo.strikeCnt === 3) {
-        print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+        print(MESSAGE.GAME_OVER);
         return;
       }
     }
@@ -53,12 +53,10 @@ class App {
   }
 
   async guessNumber() {
-    const answer = await readLineAsync("숫자를 입력해주세요 : ");
+    const answer = await readLineAsync(MESSAGE.GUESS_NUMBER);
 
     if (answer.length !== 3) {
-      throw new Error(
-        "[ERROR] 잘못된 형식의 입력입니다. 1부터 9까지 서로 다른 수 세 자리를 입력해야합니다. (예: 123)"
-      );
+      throw new Error(MESSAGE.ERROR_GUESS_NUMBER_INPUT_WRONG);
     }
 
     const isIncludeNonNumeric = answer
@@ -66,9 +64,7 @@ class App {
       .some((element) => element > "9" || element < "1");
 
     if (isIncludeNonNumeric) {
-      throw new Error(
-        "[ERROR] 잘못된 형식의 입력입니다. 1부터 9까지 서로 다른 수 세 자리를 입력해야합니다. (예: 123)"
-      );
+      throw new Error(MESSAGE.ERROR_GUESS_NUMBER_INPUT_WRONG);
     }
 
     return answer.split("").map((n) => parseInt(n));
@@ -105,12 +101,12 @@ class App {
 
   printJudgedInfo(judgedInfo) {
     if (judgedInfo.strikeCnt === 0 && judgedInfo.ballCnt === 0) {
-      print("낫싱");
+      print(MESSAGE.JUDGE_NOTHING);
       return;
     }
 
-    const ballMessage = `${judgedInfo.ballCnt}볼`;
-    const strikeMessage = `${judgedInfo.strikeCnt}스트라이크`;
+    const ballMessage = `${judgedInfo.ballCnt}${MESSAGE.JUDGE_BALL}`;
+    const strikeMessage = `${judgedInfo.strikeCnt}${MESSAGE.JUDGE_STRIKE}`;
 
     if (judgedInfo.strikeCnt === 0) {
       print(ballMessage);
@@ -122,7 +118,7 @@ class App {
       return;
     }
 
-    print(ballMessage + " " + strikeMessage);
+    print(`${ballMessage} ${strikeMessage}`);
   }
 }
 
