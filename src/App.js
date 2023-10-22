@@ -1,5 +1,10 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 
+const GAME_STATUS = {
+  END: "end",
+  CONTINUE: "continue",
+};
+
 const GAME_ACTIONS = {
   RESTART: "restart",
   EXIT: "exit",
@@ -20,12 +25,12 @@ class App {
 
         this.validateInput(input);
 
-        const isFinished = this.compareInputWithComputerNumber(
+        const status = this.compareInputWithComputerNumber(
           input,
           computerNumber
         );
 
-        if (isFinished) break;
+        if (status === GAME_STATUS.END) break;
       }
 
       const action = await this.handleGameRestartOrExit();
@@ -65,13 +70,16 @@ class App {
 
     if (strike === 3) {
       Console.print("3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-      return true;
-    } else if (!strike && !ball) {
-      Console.print("낫싱");
-    } else {
-      Console.print(`${ball}볼 ${strike}스트라이크`);
+      return GAME_STATUS.END;
     }
-    return false;
+
+    if (!strike && !ball) {
+      Console.print("낫싱");
+      return GAME_STATUS.CONTINUE;
+    }
+
+    Console.print(`${ball}볼 ${strike}스트라이크`);
+    return GAME_STATUS.CONTINUE;
   }
 
   /** 입력 받은 수를 체크해 올바른 값이 아니면 예외 처리하는 메소드 */
