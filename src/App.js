@@ -20,7 +20,35 @@ class App {
         this.endGame();
         throw new Error('유효하지 않은 입력값입니다.');
       }
+
+      // 유저 입력값이 유효하다면 컴퓨터가 생성한 숫자와 비교
+      const resultText = this.compareNumber(userInput);
+
+      // 비교 결과를 출력
+      MissionUtils.Console.print(resultText);
+
     }
+  }
+
+  compareNumber(userInput) {
+    // 컴퓨터가 생성한 숫자와 유저 입력값을 비교하여 결과를 리턴
+    const {strikeCount, ballCount} = this.computer.getStrikeAndBall(userInput);
+    if (strikeCount === 3) {
+      this.endGame();
+      return '3개의 숫자를 모두 맞히셨습니다! 게임 종료';
+    }
+    if (strikeCount === 0 && ballCount === 0) {
+      return '낫싱';
+    }
+    let result = '';
+    if (ballCount > 0) {
+      result += `${ballCount}볼`;
+    }
+    if (strikeCount > 0) {
+      // 볼과 스트라이크가 동시에 있을 때는 띄어쓰기 추가
+      result += `${ballCount > 0 ? ' ': ''}${strikeCount}스트라이크`;
+    }
+    return result;
   }
 
   endGame() {
@@ -74,6 +102,26 @@ class Computer {
     }
     // 배열을 문자열로 변환하여 리턴
     return numbers.join('');
+  }
+
+  getStrikeAndBall(userInput) {
+    const targetNumberList = this.targetNumber.split('');
+    const userInputList = userInput.split('');
+
+    // 컴퓨터가 생성한 숫자와 유저 입력값을 비교하여 스트라이크와 볼의 개수를 리턴
+    let strikeCount = 0;
+    let ballCount = 0;
+
+    for (let i = 0; i < userInput.length; i++) {
+      const userNumber = userInputList[i];
+      const targetNumber = targetNumberList[i];
+      if (userNumber === targetNumber) {
+        strikeCount++;
+      } else if (targetNumberList.includes(userNumber)) {
+        ballCount++;
+      }
+    }
+    return { strikeCount, ballCount };
   }
 }
 
