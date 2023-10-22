@@ -60,7 +60,7 @@ class App {
         this.restart(isRestart);
       }
     } catch (e) {
-      this.isPlaying = false;
+      this.end();
       throwError(`${ERROR_MESSAGE.HEADER} ${e.message}`);
     }
   }
@@ -85,6 +85,14 @@ class App {
     }
 
     this.isPlaying = isRestart;
+  }
+
+  /**
+   * @description 게임을 종료하는 메서드
+   */
+  end() {
+    this.isPlaying = false;
+    this.baseballGame = null;
   }
 
   /**
