@@ -7,7 +7,7 @@ const isNotNumber = (userInput) => {
 };
 
 const isOverMaxLength = (userInput) => {
-  return userInput.length > 3;
+  return userInput.length !== 3;
 };
 
 const isWithZero = (userInput) => {
