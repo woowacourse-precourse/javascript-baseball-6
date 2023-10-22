@@ -1,3 +1,6 @@
+import { ERROR_MESSAGE } from '../constants/error';
+import CustomError from '../exceptions/CustomError';
+import { TargetBall } from './TargetBall';
 import { TargetBalls } from './TargetBalls';
 
 export class AnswerBalls {
@@ -16,10 +19,37 @@ export class AnswerBalls {
   }
 
   contains(ball) {
+    this.#validateContains(ball);
     return this.#targetBalls.balls.includes(ball);
   }
 
+  #validateContains(ball) {
+    if (!(ball instanceof TargetBall)) {
+      throw new CustomError(
+        ERROR_MESSAGE.ANSWER_BALLS.INVALID_CONTAINS_ARGS,
+        this.constructor.name,
+      );
+    }
+  }
+
   match(ball, index) {
+    this.#validateMatch(ball, index);
     return this.#targetBalls.balls[index] === ball;
+  }
+
+  #validateMatch(ball, index) {
+    if (!(ball instanceof TargetBall)) {
+      throw new CustomError(
+        ERROR_MESSAGE.ANSWER_BALLS.INVALID_MATCH_BALL_ARG,
+        this.constructor.name,
+      );
+    }
+
+    if (typeof index !== 'number' || index < 0) {
+      throw new CustomError(
+        ERROR_MESSAGE.ANSWER_BALLS.INVALID_MATCH_INDEX_ARG,
+        this.constructor.name,
+      );
+    }
   }
 }

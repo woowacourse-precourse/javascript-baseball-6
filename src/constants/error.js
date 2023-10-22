@@ -17,4 +17,10 @@ export const ERROR_MESSAGE = Object.freeze({
     NOT_VALID_QUANTITY: '3개의 숫자를 가진 배열을 입력해주세요!',
     IS_DUPLICATED: '중복되지 않는 숫자들로 입력해주세요!',
   }),
+
+  ANSWER_BALLS: Object.freeze({
+    INVALID_CONTAINS_ARGS: 'contains의 인자에 TargetBall을 입력해주세요!',
+    INVALID_MATCH_BALL_ARG: 'match의 첫번째 인자에 TargetBall을 입력해주세요!',
+    INVALID_MATCH_INDEX_ARG: 'match의 두번째 인자에 올바른 index값을 입력해주세요!',
+  }),
 });
