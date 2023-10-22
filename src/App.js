@@ -2,11 +2,15 @@ import {MissionUtils} from "@woowacourse/mission-utils";
 
 class App {
   constructor() {
+    this.initializeGame();
+  }
+
+  initializeGame() {
     this.computer = new Computer();
     this.playerInput = new PlayerInput();
-    // 게임이 진행 중인지 여부
     this.isPlaying = false;
   }
+
   async play() {
     MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
     this.isPlaying = true;
@@ -18,7 +22,7 @@ class App {
       // 유저 입력값이 유효한지 검사하고 유효하지 않다면 게임 종료
       if (!this.playerInput.isValidate(userInput)) {
         this.endGame();
-        throw new Error('유효하지 않은 입력값입니다.');
+        throw new Error('[ERROR] 유저 입력값이 유효하지 않습니다.');
       }
 
       // 유저 입력값이 유효하다면 컴퓨터가 생성한 숫자와 비교
@@ -29,7 +33,13 @@ class App {
     }
 
     // 게임 종료 시나리오
-    MissionUtils.Console.print('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+    const userInput = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
+    if (userInput === '1') {
+      this.initializeGame();
+      this.play();
+    } else if (userInput === '2') {
+      MissionUtils.Console.print('게임을 종료합니다.');
+    }
   }
 
   compareNumber(userInput) {
@@ -37,7 +47,7 @@ class App {
     const {strikeCount, ballCount} = this.computer.getStrikeAndBall(userInput);
     if (strikeCount === 3) {
       this.endGame();
-      return '3개의 숫자를 모두 맞히셨습니다! 게임 종료';
+      return '3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료';
     }
     if (strikeCount === 0 && ballCount === 0) {
       return '낫싱';
