@@ -7,16 +7,25 @@ class App {
   async play() {
     print("숫자 야구 게임을 시작합니다.");
 
-    while (true) {
-      await this.startGame();
-      const answer = await readLineAsync(
-        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
-      );
-      // TODO: 잘못된 입력에 대한 예외처리
-      if (answer === "2") {
-        print("숫자 야구 게임을 종료합니다. 감사합니다.");
-        return;
+    try {
+      while (true) {
+        await this.startGame();
+        const answer = await readLineAsync(
+          "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+        );
+        if (answer !== "1" && answer !== "2") {
+          throw new Error(
+            "[ERROR] 잘못된 형식의 입력입니다. 1 또는 2를 입력해야합니다."
+          );
+        }
+        // TODO: 잘못된 입력에 대한 예외처리
+        if (answer === "2") {
+          print("숫자 야구 게임을 종료합니다. 감사합니다.");
+          return;
+        }
       }
+    } catch (error) {
+      print(error.message);
     }
   }
 
@@ -24,10 +33,8 @@ class App {
     this.createComputerNumber();
     print(this.#computerNumberTypeArr); // TODO: WILL DELETE LINE
     while (true) {
-      const numberTypeStr = await this.guessNumber();
-      const judgedInfo = this.judge(
-        numberTypeStr.split("").map((n) => parseInt(n))
-      );
+      const userNumberTypeArr = await this.guessNumber();
+      const judgedInfo = this.judge(userNumberTypeArr);
       this.printJudgedInfo(judgedInfo);
 
       if (judgedInfo.strikeCnt === 3) {
@@ -50,9 +57,25 @@ class App {
   }
 
   async guessNumber() {
-    const numberTypeStr = await readLineAsync("숫자를 입력해주세요 : ");
-    // TODO: 잘못된 입력에 대한 예외처리
-    return numberTypeStr;
+    const answer = await readLineAsync("숫자를 입력해주세요 : ");
+
+    if (answer.length !== 3) {
+      throw new Error(
+        "[ERROR] 잘못된 형식의 입력입니다. 1부터 9까지 서로 다른 수 세 자리를 입력해야합니다. (예: 123)"
+      );
+    }
+
+    const isIncludeNonNumeric = answer
+      .split("")
+      .some((element) => element > "9" || element < "1");
+
+    if (isIncludeNonNumeric) {
+      throw new Error(
+        "[ERROR] 잘못된 형식의 입력입니다. 1부터 9까지 서로 다른 수 세 자리를 입력해야합니다. (예: 123)"
+      );
+    }
+
+    return answer.split("").map((n) => parseInt(n));
   }
 
   judge(userNumberTypeArr) {
