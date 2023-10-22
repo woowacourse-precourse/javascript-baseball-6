@@ -1,28 +1,27 @@
 class Baseball {
   static announceGameOutcome(random, input) {
-    const numInput = this.changeNumToArr(input);
-    const strikeResult = this.isStrikeCount(random, numInput);
-    const ballResult = this.isBallCount(random, numInput);
+    const numInput = Baseball.changeNumToArr(input);
+    const strikeResult = Baseball.isStrikeCount(random, numInput);
+    const ballResult = Baseball.isBallCount(random, numInput);
 
     if (strikeResult === 0 && ballResult === 0) return '낫싱';
 
     if (strikeResult !== 0 && ballResult !== 0)
-      `${this.isBall(strikeResult)} ${this.isStrike(ballResult)}`;
+      return `${Baseball.isBall(strikeResult)} ${Baseball.isStrike(
+        ballResult
+      )}`;
 
     return strikeResult > ballResult
-      ? `${this.isBall(strikeResult)}`
-      : `${this.isStrike(ballResult)}`;
-  }
-
-  static isStrikeOut(random, input) {
-    if (this.isStrikeCount(random, this.changeNumToArr(input)) === 3)
-      return true;
+      ? `${Baseball.isStrike(strikeResult)}`
+      : `${Baseball.isBall(ballResult)}`;
   }
 
   static changeNumToArr(input) {
-    return String(input)
-      .split('')
-      .map((num) => Number(num));
+    return input.split('').map((num) => Number(num));
+  }
+
+  static isStrikeOut(random, input) {
+    return Baseball.isStrikeCount(random, Baseball.changeNumToArr(input)) === 3;
   }
 
   static isStrikeCount(random, input) {
@@ -36,11 +35,11 @@ class Baseball {
   }
 
   static isStrike(count) {
-    if (count >= 1) return `${count}스트라이크`;
+    return `${count}스트라이크`;
   }
 
   static isBall(count) {
-    if (count >= 1) return `${count}볼`;
+    return `${count}볼`;
   }
 }
 
