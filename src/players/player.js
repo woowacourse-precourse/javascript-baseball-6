@@ -22,21 +22,20 @@ export default class player {
 
   isValidNumber(userInput) {
     const userInputToArray = userInput.split('').map((num) => Number(num));
-    let isValid = true;
     
     if (userInputToArray.includes(0)) {
-      isValid = false;
+      throw new Error(MESSAGE.ERROR);
     }
     
     if (userInputToArray.length !== 3) {
-      isValid = false;
+      throw new Error(MESSAGE.ERROR);
     }
     
     if (this.hasDuplicates(userInputToArray)) {
-      isValid = false;
+      throw new Error(MESSAGE.ERROR);
     }
 
-    return isValid
+    return true;
   }
 
   hasDuplicates(userNumber) {
