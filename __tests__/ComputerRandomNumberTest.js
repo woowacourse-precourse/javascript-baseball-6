@@ -1,5 +1,6 @@
 import Model from "../src/Model/Model";
 import { MissionUtils } from "@woowacourse/mission-utils";
+
 const mockRandoms = numbers => {
   MissionUtils.Random.pickNumberInRange = jest.fn();
   numbers.reduce((acc, number) => {

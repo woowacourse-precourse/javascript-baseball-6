@@ -44,6 +44,7 @@ class Model {
     }
 
     validateInputNumber(userNumbers);
+
     return userNumbers;
   }
 }
