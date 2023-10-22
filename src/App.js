@@ -57,7 +57,31 @@ class App {
     }
   }
   retry(userAnswer, correctAnswer) {
-    console.log(userAnswer, correctAnswer);
+    let ballCount = 0;
+    let strikeCount = 0;
+
+    userAnswer.forEach((userNum, userIndex) => {
+      correctAnswer.forEach((rightNum, rightIndex) => {
+        if (userNum === rightNum) {
+          userIndex === rightIndex ? (strikeCount += 1) : (ballCount += 1);
+        }
+      });
+    });
+
+    const ball = ballCount > 0 ? `${ballCount}볼` : "";
+    const strike = strikeCount > 0 ? `${strikeCount}스트라이크` : "";
+
+    if (ballCount === 0 && strikeCount == 0) {
+      MissionUtils.Console.print("낫싱");
+    } else {
+      if (ballCount === 0) {
+        MissionUtils.Console.print(`${strike}`);
+      } else if (strikeCount === 0) {
+        MissionUtils.Console.print(`${ball}`);
+      } else {
+        MissionUtils.Console.print(`${ball} ${strike}`);
+      }
+    }
   }
   async result() {
     const answer = await MissionUtils.Console.readLineAsync(
