@@ -6,6 +6,7 @@ class App {
   userBaseballNumber = [];
   MatchingNumbers;
   Strike = 0;
+  Balls;
 
   setRandomNumber() {
     const computer = [];
@@ -47,6 +48,9 @@ class App {
     }
   }
 
+  countMatchingBalls() {
+    this.Balls = this.MatchingNumbers - this.Strike;
+  }
 
 
   async play() {
@@ -55,6 +59,7 @@ class App {
     await this.getUserInput();
     this.countMatchingNumbers();
     this.countMatchingStrikes();
+    this.countMatchingBalls();
   }
 
 }
