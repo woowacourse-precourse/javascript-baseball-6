@@ -1,5 +1,7 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 import MSG from "./consts/msg.js";
+import ErrorValidate from "./Error.js";
+import Computer from "./Computer.js";
 
 const { GAME, ERROR, GAME_SELECT_REPLAY } = MSG;
 const { GAME_START, GAME_END, GAME_INPUT, GAME_SUCCESS } = GAME;
@@ -17,9 +19,14 @@ class App {
   inputValue;
   NUMBER_LENGTH = 3;
 
+  constructor() {}
+
   async play() {
     Console.print(GAME_START);
-    this.createRandomNum();
+
+    Computer.createRandomNum(this.NUMBER_LENGTH);
+    this.computerNum = Computer.computerNum;
+
     await this.guessNum();
   }
 
@@ -34,25 +41,6 @@ class App {
     this.inputValue = "";
     this.inputValue = await Console.readLineAsync(GAME_INPUT);
     this.checkInputValidate(this.inputValue);
-  }
-
-  calculateStrikeAndBall(inputValue) {
-    //스트라이크인지 볼인지 계산하는 함수
-    const inputNumArr = inputValue.split("").map(Number);
-
-    const score = { strike: 0, ball: 0 };
-
-    inputNumArr.forEach((num, i) => {
-      if (num === this.computerNum[i]) {
-        score.strike++;
-        return;
-      }
-      if (this.computerNum.includes(num)) {
-        score.ball++;
-      }
-    });
-
-    return score;
   }
 
   async printStrikeAndBall(inputValue) {
@@ -96,16 +84,22 @@ class App {
     throw new Error(ERROR_REPLAY_NUMBER);
   }
 
-  createRandomNum() {
-    this.computerNum = [];
-    while (this.computerNum.length < this.NUMBER_LENGTH) {
-      const randomNum = Random.pickNumberInRange(1, 9); // 랜덤 숫자를 돌린다.
-      const isInclude = this.computerNum.includes(randomNum); // 중복 숫자가 있으면 true, 없으면 false 를 반환한다.
+  calculateStrikeAndBall(inputValue) {
+    //스트라이크인지 볼인지 계산하는 함수
+    const inputNumArr = inputValue.split("").map(Number);
+    const score = { strike: 0, ball: 0 };
 
-      if (!isInclude) {
-        this.computerNum.push(randomNum);
+    inputNumArr.forEach((num, i) => {
+      if (num === this.computerNum[i]) {
+        score.strike++;
+        return;
       }
-    }
+      if (this.computerNum.includes(num)) {
+        score.ball++;
+      }
+    });
+
+    return score;
   }
 
   checkInputValidate(inputValue) {
@@ -117,49 +111,17 @@ class App {
       throw new Error(ERROR_NONE_NUMBER);
     }
 
-    if (this.isHasZero(inputValue)) {
+    if (ErrorValidate.isHasZero(inputValue)) {
       throw new Error(ERROR_ZERO_NUMBER);
     }
 
-    if (this.isDuplicate(inputValue)) {
+    if (ErrorValidate.isDuplicate(inputValue)) {
       throw new Error(ERROR_DUPLICATE_NUMBER);
     }
 
-    if (this.isNotInteger(Number(inputValue))) {
+    if (ErrorValidate.isNotInteger(Number(inputValue))) {
       throw new Error(ERROR_NOT_NUMBER);
     }
-  }
-
-  //예외처리 함수
-  isHasZero(inputValue) {
-    //0 이 있는지
-    const numArr = inputValue.split("");
-    return numArr.some((num) => num === 0);
-  }
-
-  isDuplicate(inputValue) {
-    //중복 숫자가 있는지
-    const numArr = inputValue.split("");
-    return numArr.some((x) => numArr.indexOf(x) !== numArr.lastIndexOf(x));
-  }
-
-  isNotInteger(inputValue) {
-    if (inputValue % 1 !== 0) {
-      //소수점 판별
-      return true;
-    }
-
-    if (inputValue < 0) {
-      //음수 판별
-      return true;
-    }
-
-    if (typeof inputValue !== "number") {
-      //넘버 판별
-      return true;
-    }
-
-    return false;
   }
 }
 
