@@ -1,10 +1,18 @@
-import { BASEBALL_NUMBER } from './constants/gameConfig.js';
+import { answerGenerator } from './utils/answerGenerator.js';
+import { Computer } from './Model/Computer.js';
 
 export class BaseballGame {
-  #digit = BASEBALL_NUMBER.DIGIT;
+  #computer;
+  #user;
 
   constructor() {
+    this.#setConfig();
     this.#initGame();
+  }
+
+  #setConfig() {
+    const answerNumberList = answerGenerator();
+    this.#computer = new Computer(answerNumberList);
   }
 
   #initGame() {}
