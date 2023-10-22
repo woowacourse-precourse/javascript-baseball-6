@@ -50,9 +50,9 @@ const endMessage = (ball, strike) => {
 }
 
 // 도전 시작
-const round = (TARGET_NUMBER, input) => {
-  let [ball, strike] = compare(TARGET_NUMBER, input);
-  console.log(endMessage(ball, strike));
+const round = async (TARGET_NUMBER, input) => {
+  let [ball, strike] = await compare(TARGET_NUMBER, input);
+  console.log(await endMessage(ball, strike));
   return strike === 3 ? 'clear' : 'fail';
 }
 
@@ -60,32 +60,32 @@ const round = (TARGET_NUMBER, input) => {
 const trial = async (TARGET_NUMBER, round) => {
   let trialN = await userInput()
   trialN = trialN.toString().split('');
-  let result = round(TARGET_NUMBER, trialN);
+  let result = await round(TARGET_NUMBER, trialN);
 
   if(result === 'fail'){
-    trial(TARGET_NUMBER, round);
+    await trial(TARGET_NUMBER, round);
   }else if(result === 'clear'){
     console.log('3개의 숫자를 모두 맞히셨습니다! 게임을 새로시작하려면 1을 종료하시려면 2를 입력하세요.') 
-    let restart = userInput();
+    let restart = await userInput();
     return restart;
   }
 }   
 
-class App {
+// 야구 게임 클래스 선언
+class BaseBall {
   async play() {
     console.log('숫자 야구 게임을 시작합니다.')
     const TARGET_NUMBER = randomThree();
+    console.log(TARGET_NUMBER)
     let restart = await trial(TARGET_NUMBER, round);
-    if(restart === '1'){
-      return this.play();
-    }else if(restart === '2'){
+    console.log(restart)
+    if(restart == 1){
+      await this.play();
+    }else if(restart == 2){
       return;
-    }else{
-      throw new Error('에러!')
     }
-  }
+  }  
 }
 
-export default App;
-const app = new App();
-app.play();
+let baseball = new BaseBall();
+baseball.play();

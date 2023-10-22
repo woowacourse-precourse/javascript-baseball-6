@@ -1,6 +1,6 @@
 ## 1. 기능 구현
-### 1.0 우테코 API 이용
-랜덤세자리 만들기
+### 1.0 우테코 API 이용 ✅
+랜덤세자리 만들기 
 ```javascript
 const computer = [];
 while (computer.length < 3) {
@@ -11,38 +11,31 @@ while (computer.length < 3) {
 }
 ```
 
-### 1.1 정답 도달 (?) 
+### 1.1 정답 도달 (?) ✅
 1. 사용자 인풋이랑 랜덤세자리랑 비교하기
 2. 포함(includes)확인 -> 자리(indexOf)확인 -> ball, strike 개수 저장
 3. ball, strike개수에 따라 메세지
 4. 3스트라이크 선별 -> 추가 메세지
 5. 정답 맞힐 때 까지 라운드 반복실행
 
-### 1.2 사용자 상호작용
+### 1.2 사용자 상호작용 ✅
 1. readline 모듈 추가
 > ```javascript
 > // readline 모듈 사용법
-> const readline = require("readline");
-> const rl = readline.createInterface({
->     input: process.stdin,
->     output: process.stdout,
-> });
-> rl.on("line", (line) => {
->     console.log("input: ", line);
->     rl.close();
-> });
-> rl.on('close', () => {
->         process.exit();
-> })
+> import * as readline from 'node:readline/promises';
+> import { stdin as input, stdout as output } from 'node:process';
+> const rl = readline.createInterface({ input, output });
+> const answer = await rl.question('What do you think of Node.js? ');
+> console.log(`Thank you for your valuable feedback: ${answer}`);
+> rl.close();
 > ```
 2. input에 랜덤 세자리 대신 readline을 통해 입력받은 값 넣기
 3. targetNumber를 랜덤 세자리로 설정
 
-### 1.3 게임 종료 및 재시작 기능 추가
-1. 게임이 시작되었음을 나타내는 변수 isStarted = true; 추가
-2. round의 리턴값이 'clear'인 경우 를 isStarted = false 로 변경
-3. isStarted = false 인 경우 입력값이 100 이하여도 오류 x 
-4. 1 -> play() / 2 -> 종료..
+### 1.3 게임 종료 및 재시작 기능 추가 ✅
+1. round의 리턴값이 'clear'인 경우 종료할지 시작할지를 물음
+2. 입력값에 따라 다음 실행
+3. 1 -> play() / 2 -> 종료..
  
 ## 2. 구현 후
 ### 2.1 작동 확인
