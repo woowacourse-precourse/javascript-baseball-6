@@ -24,4 +24,16 @@ function validateComputerNumber(numbers) {
   });
 }
 
-export { validateComputerNumber };
+function validateInputNumber(numbers) {
+  numbers.forEach(number => {
+    if (typeof number !== "number" || numbers.length !== 3) {
+      throw new InvalidNumberError("숫자가 올바른 형식이 아닙니다.");
+    }
+
+    if (number < 1 || number > 9) {
+      throw new InvalidNumberError("숫자는 1부터 9 사이 입니다.");
+    }
+  });
+}
+
+export { validateComputerNumber, validateInputNumber };
