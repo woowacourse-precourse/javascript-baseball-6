@@ -17,9 +17,8 @@ class App {
 					break;
 				}
 			}
-
 			const askRestart = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
-			if (askRestart === 2) break;
+			if (askRestart === '2') break;
 		}
 	}
 	// 컴퓨터 숫자 세팅
@@ -50,7 +49,7 @@ class App {
 			}
 		});
 		if (strike === 0 && ball === 0) return '낫싱';
-		else if (strike === 3) return `${strike}스트라이크`;
+		else if (strike === 3) return '3스트라이크';
 		else if (ball === 3) return `${ball}볼`;
 		else return `${ball}볼 ${strike}스트라이크`;
 	}
