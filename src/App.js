@@ -33,6 +33,23 @@ const getUserNumber = async () => {
 };
 
 // TODO: Mission 5: 스트라이크, 볼 계산 함수 구현
+const calculateScore = (computer, user) => {
+  let strikeCount = 0;
+  let ballCount = 0;
+
+  for (let i = 0; i < computer.length; i++) {
+    for (let j = 0; j < user.length; j++) {
+      if (computer[i] === user[j]) {
+        if (i === j) {
+          strikeCount++;
+        } else {
+          ballCount++;
+        }
+      }
+    }
+  }
+  return { strikeCount, ballCount };
+};
 
 // TODO: Mission 6: 스트라이크, 볼 계산 후 문구 출력하는 함수 구현
 
