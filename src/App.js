@@ -6,15 +6,19 @@ class App {
   }
 
   async startGame() {
-    const userInput = await this.getUserNumber();
-    const { ballCount, strikeCount } = this.compareNumber(
-      userInput,
-      this.randomNumArr
-    );
-    this.printResult(ballCount, strikeCount);
+    while (true) {
+      const userInput = await this.getUserNumber();
+      const { ballCount, strikeCount } = this.compareNumber(
+        userInput,
+        this.randomNumArr
+      );
+      this.printResult(ballCount, strikeCount);
 
-    if (strikeCount === 3) await this.finishGame();
-    else await this.startGame();
+      if (strikeCount === 3) {
+        await this.finishGame();
+        break;
+      }
+    }
   }
 
   createRandomNumber() {
