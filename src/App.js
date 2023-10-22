@@ -13,21 +13,51 @@ class App {
         computer.push(number);
       }
     }
-    Console.print(computer)
+    Console.print(computer) //test용
 
 
-    // //사용자 입력 
-    // async function getGuess() {
-    //   try {
-    //     const guess = await Console.readLineAsync('숫자를 입력해주세요 : ');
-    //   } catch (error) {
-    //     // reject 되는 경우
+    //사용자 입력 
+    async function getGuess() {
+      try {
+        const guess = await Console.readLineAsync('숫자를 입력해주세요 : ');
 
-    //   }
-    // }
+        // 사용자 입력 수와 컴퓨터 임의의 수 비교
+        let strike = 0;
+        let ball = 0;
 
-    // 사용자 입력 수와 컴퓨터 임의의 수 비교
+        for (let i = 0; i < 3; i++) {
+          if (parseInt(guess[i]) === computer[i]) {
+            strike++;
+          }
+          for (let j = 0; j < 3; j++) {
+            if ((i !== j) && (parseInt(guess[i]) === computer[j])) {
+              ball++;
+            }
+          }
+        }
 
+        // 결과 출력
+        if (strike === 3) {
+          Console.print('3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료')
+        } else if (strike !== 0 || ball !== 0) {
+          Console.print(`${ball}볼 ${strike}스트라이크`)
+
+          getGuess();
+
+        } else {
+          Console.print('낫싱')
+          getGuess();
+
+        }
+
+      } catch (error) {
+        // reject 되는 경우
+        Console.print('에러발생');
+      }
+    }
+    getGuess();
+
+    // 게임 종료
 
 
   }
