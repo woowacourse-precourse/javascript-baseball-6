@@ -26,8 +26,7 @@ export default class Game {
 
   createComputerNumber() {
     const computer = new Computer();
-    computer.makeThreeRandomNumber();
-    this.answer = computer.getComputerNumber();
+    this.answer = computer.makeThreeRandomNumber().getComputerNumber();
   }
 
   async proceedGame() {

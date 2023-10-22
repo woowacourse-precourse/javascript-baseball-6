@@ -9,6 +9,7 @@ import {
 export default class Computer {
   constructor() {
     this.randomArray = [];
+    this.makeThreeRandomNumber();
   }
 
   makeThreeRandomNumber() {
@@ -19,6 +20,8 @@ export default class Computer {
         this.randomArray.push(number);
       }
     }
+
+    return this;
   }
 
   getComputerNumber() {
