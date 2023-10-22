@@ -28,7 +28,7 @@ describe("숫자 야구 게임", () => {
     const randoms = [7, 1, 3];
     const answers = ["123", "145", "671", "216", "713", "2"];
     const logSpy = getLogSpy();
-    const messages = ["1볼 1스트라이크", "1볼", "2볼", "1스트라이크", "3스트라이크", , "시도 횟수 : 5 회", "게임 종료"];
+    const messages = ["1볼 1스트라이크", "1볼", "2볼", "1스트라이크", "3스트라이크", "시도 횟수 : 5 회", "게임 종료"];
 
     mockRandoms(randoms);
     mockQuestions(answers);
