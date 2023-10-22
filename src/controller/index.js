@@ -14,6 +14,10 @@ class BaseBallController {
   async run() {
     this.#model.generateGameNumbers();
     await this.#guessNumber();
+    const userAnswer = await this.#view.readGameCommand();
+    if (userAnswer === '1') {
+      this.run();
+    }
   }
 
   // TODO : no-await-in-loop 정리

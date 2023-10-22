@@ -1,4 +1,10 @@
-import { checkString, checkZero, checkDuplication, checkThreeDigitNumber } from './unit.js';
+import {
+  checkString,
+  checkZero,
+  checkDuplication,
+  checkThreeDigitNumber,
+  checkOnlyOneOrTwo,
+} from './unit.js';
 
 const Validators = {
   checkGameNumbers(input) {
@@ -6,6 +12,10 @@ const Validators = {
     checkZero(input);
     checkDuplication(input);
     checkThreeDigitNumber(input);
+  },
+
+  checkGameCommand(input) {
+    checkOnlyOneOrTwo(input);
   },
 };
 

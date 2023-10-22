@@ -41,3 +41,13 @@ export const checkThreeDigitNumber = (inputNumber) => {
     throw new ValidationError(ERROR_MESSAGE.THREE_DIGIT);
   }
 };
+
+/**
+ *  input 값이 1 또는 2가 아니면 에러 발생
+ * @param {string} inputNumber
+ */
+export const checkOnlyOneOrTwo = (inputNumber) => {
+  if (inputNumber !== '1' && inputNumber !== '2') {
+    throw new ValidationError(ERROR_MESSAGE.ONLY_ONE_OR_TWO);
+  }
+};

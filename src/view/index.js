@@ -22,6 +22,12 @@ const View = {
     return userNumbers;
   },
 
+  async readGameCommand() {
+    const userAnswer = await InputView.readLineAsync(OUTPUT_MESSAGES.GAME_COMMAND);
+    Validators.checkGameCommand(userAnswer);
+    return userAnswer;
+  },
+
   printHint({ ball, strike }) {
     if (ball === 0 && strike === 0) {
       OutputView.print('낫싱');
