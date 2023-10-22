@@ -40,9 +40,10 @@ class App {
     let strike = 0;
     let ball = 0;
 
-    input.split('').map((number, index) => {
-      if (answer[index] === Number(number)) strike++;
-      else if (answer.includes(Number(number))) ball++;
+    input.split('').map((string, index) => {
+      const number = Number(string);
+      if (answer[index] === number) strike++;
+      else if (answer.includes(number)) ball++;
     });
 
     return { strike, ball };
