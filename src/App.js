@@ -1,21 +1,22 @@
 import { Console, MissionUtils } from '@woowacourse/mission-utils'
-import { feedbackMessage, messages } from './message.js'
 
+import feedback from './feedback/feedback.js'
 import isError from './validation.js'
+import { messages } from './message.js'
 
 class App {
   constructor() {
     this.computer = []
     this.player = []
-    this.flag = true
   }
   async gameStart() {
+    let flag = true
     await this.createRandomNumber()
     try {
-      while (this.flag) {
+      while (flag) {
         await this.getPlayerNumber()
         await isError(this.player)
-        await this.checkNumber()
+        flag = await feedback(this.computer, this.player)
       }
       await this.gameOver()
     } catch (e) {
@@ -26,32 +27,15 @@ class App {
     await this.reset()
     this.gameStart()
   }
+  async reset() {
+    this.computer = []
+    this.flag = true
+  }
   async gameOver() {
     Console.print(messages.correctNumber)
     let rePlay = await Console.readLineAsync(messages.reStart)
     if (rePlay == 1) await this.reStart()
     else if (rePlay != 2) throw new Error(messages.errorMessage)
-  }
-  async reset() {
-    this.computer = []
-    this.flag = true
-  }
-  async printFeedback(strike, ball, feedback) {
-    if (!ball && !strike) feedback = messages.nothing
-    else feedback = feedbackMessage(ball, strike)
-    if (strike === 3) this.flag = false
-    Console.print(feedback)
-  }
-  async checkNumber() {
-    let strike = 0,
-      ball = 0,
-      feedback = ''
-    for (let [idx, value] of this.computer.entries()) {
-      const playerNum = Number(this.player[idx])
-      if (value === playerNum) strike++
-      else if (this.computer.includes(playerNum)) ball++
-    }
-    this.printFeedback(strike, ball, feedback)
   }
   async getPlayerNumber() {
     this.player = [...(await Console.readLineAsync(messages.inputNumber))]
