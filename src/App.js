@@ -4,8 +4,8 @@ class App {
   async play() {
     Console.print('숫자 야구 게임을 시작합니다.');
     const computerNumber = this.pickRandomNumber();
-    let clearGameFlag = false;
-    while (!clearGameFlag) {
+    let isCorrectAnswer = false;
+    while (!isCorrectAnswer) {
       const userSelectedNumber = await Console.readLineAsync(
         '숫자를 입력해주세요 : '
       );
@@ -34,7 +34,7 @@ class App {
       }
 
       if (strikeCounter === 3) {
-        clearGameFlag = true;
+        isCorrectAnswer = true;
       }
     }
   }
