@@ -12,17 +12,6 @@ const findSameNumber = (base, char, index) => {
   return NOTHING;
 };
 
-const getResultString = (strike, ball) => {
-  if (strike === 0 && ball === 0) {
-    return NOTHING;
-  }
-
-  const ballString = ball > 0 ? `${ball}${BALL} ` : '';
-  const strikeString = strike > 0 ? `${strike}${STRIKE} ` : '';
-
-  return ballString + strikeString;
-};
-
 const compareNumberString = (base, target) => {
   let strike = 0;
   let ball = 0;
@@ -43,8 +32,7 @@ const compareNumberString = (base, target) => {
     resultMapping[findeResult]();
   });
 
-  const resultString = getResultString(strike, ball);
-  return resultString;
+  return { strike, ball };
 };
 
 export default compareNumberString;
