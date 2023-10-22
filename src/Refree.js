@@ -33,7 +33,7 @@ class Refree {
   }
 
   changeUserNumber(inputNumber) {
-    this.#playerNumber = new Player(inputNumber).userNumberArray;
+    this.#playerNumber = new Player(inputNumber).numberArray;
   }
 }
 export default Refree;
