@@ -2,6 +2,7 @@ import { Console } from '@woowacourse/mission-utils';
 
 class User {
   constructor() {
+    /** @type {number[]} */
     this.user = [];
   }
 
@@ -10,6 +11,7 @@ class User {
    * @returns {number[]} 유저가 입력한 숫자 배열
    */
   async getNumber() {
+    /** @type {string} */
     const input = await Console.readLineAsync('숫자를 입력해주세요 : ');
 
     this.user = input.split('').map(Number);

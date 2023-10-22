@@ -2,6 +2,7 @@ import { Random } from '@woowacourse/mission-utils';
 
 class Computer {
   constructor() {
+    /** @type {number[]} */
     this.computer = [];
   }
 

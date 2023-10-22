@@ -5,6 +5,7 @@ import User from './User.js';
 
 class Baseball {
   constructor() {
+    /** @type {{computer: number[], user: number[]}} */
     this.player = {
       computer: [],
       user: [],
@@ -13,6 +14,7 @@ class Baseball {
     Console.print(GAME_MESSAGE.GAME_START);
   }
 
+  /** 숫자 야구 게임 시작 함수 */
   async startGame() {
     const computer = new Computer();
     this.player.computer = computer.getNumber();
