@@ -74,6 +74,7 @@ class App {
       this.printMsgIs(`${STRIKES}스트라이크`);
       await this.retry();
     } else {
+      // 삼진이 아닌 경우 game 메서드 재귀호출
       this.replayMessagePrint(STRIKES, BALLS);
       await this.game();
     }
