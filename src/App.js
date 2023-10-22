@@ -22,6 +22,9 @@ class App {
         this.strike = 0;
   
         const getUserInput = await this.giveQuestion("숫자를 입력해 주세요 : ");
+        
+        this.inputValidation(getUserInput);
+
         this.checkInputAndGiveHint(answer, getUserInput);
       }
 
@@ -61,6 +64,13 @@ class App {
     else if (this.ball === 0 && this.strike > 0 && this.strike < 3) this.console.print(`${this.strike}스트라이크`);
     else if (this.strike === 3) this.console.print(`3스트라이크${"\n"}3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
     else if (this.strike === 0 && this.ball === 0) this.console.print("낫싱");
+  }
+
+  inputValidation(input) {
+    if (!Number(input)) throw new Error("[ERROR]");
+    else if (input.length !== 3) throw new Error("[ERROR]");
+    else if (input.includes(" ")) throw new Error("[ERROR]");
+    else if (input.includes("0")) throw new Error("[ERROR]");
   }
 }
 
