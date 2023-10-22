@@ -1,4 +1,4 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
+import { readInput, printOutput, pickNumberInRange } from "./utils";
 
 class BaseballGame {
   #GAME_NUMBER_LEN = 3;
@@ -8,14 +8,6 @@ class BaseballGame {
 
   /**@type {number[]} */
   #userNumbers;
-
-  async readInput(string) {
-    return await MissionUtils.Console.readLineAsync(string);
-  }
-
-  printOutput(string) {
-    return MissionUtils.Console.print(string);
-  }
 
   async playGame() {
     this.setComputerNumbers();
@@ -37,7 +29,7 @@ class BaseballGame {
     const returnNumbers = [];
 
     while (returnNumbers.length !== this.#GAME_NUMBER_LEN) {
-      const RANDOM_NUMBER = MissionUtils.Random.pickNumberInRange(1, 9);
+      const RANDOM_NUMBER = pickNumberInRange(1, 9);
       if (!returnNumbers.includes(RANDOM_NUMBER))
         returnNumbers.push(RANDOM_NUMBER);
     }
@@ -57,7 +49,7 @@ class BaseballGame {
   }
 
   async handleUserInput() {
-    const USER_INPUT = await this.readInput("숫자를 입력해주세요 : ");
+    const USER_INPUT = await readInput("숫자를 입력해주세요 : ");
     const USER_NUMBERS = USER_INPUT.split("").map(Number);
     this.validUserNumber(USER_NUMBERS);
     this.setUserNumbers(USER_NUMBERS);
@@ -99,14 +91,14 @@ class BaseballGame {
   }
 
   printStrikeAndBall({ strike, ball }) {
-    if (strike === 0 && ball === 0) this.printOutput("낫싱");
-    else if (strike === 0) this.printOutput(`${ball}볼`);
-    else if (ball === 0) this.printOutput(`${strike}스트라이크`);
-    else this.printOutput(`${ball}볼 ${strike}스트라이크`);
+    if (strike === 0 && ball === 0) printOutput("낫싱");
+    else if (strike === 0) printOutput(`${ball}볼`);
+    else if (ball === 0) printOutput(`${strike}스트라이크`);
+    else printOutput(`${ball}볼 ${strike}스트라이크`);
   }
 
   async handleEnd() {
-    const input = await this.readInput(
+    const input = await readInput(
       "3개의 숫자를 모두 맞히셨습니다! 게임 종료 \n게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. \n"
     );
 
@@ -114,7 +106,7 @@ class BaseballGame {
 
     const IS_GAME_RETRY = await this.handleEndResult(input);
     if (IS_GAME_RETRY) await this.playGame();
-    if (!IS_GAME_RETRY) this.printOutput("게임 종료");
+    if (!IS_GAME_RETRY) printOutput("게임 종료");
   }
 
   validGameEndInput(input) {
