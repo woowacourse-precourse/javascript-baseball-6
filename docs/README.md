@@ -20,8 +20,9 @@
 
 ### Methods
 - [x] `getInput()`: 사용자로부터 3개의 숫자를 입력 받는다.
-  - [x] `InputValidator`를 사용하여 입력이 유효한지 검사한다.
-
+  - [x] `readInput()`: 사용자로부터 입력을 받는다.
+  - [x] `validateInput(input)`: 입력값이 유효한지 검사한다.
+  - [x] `convertToNumberArray(input)`: 입력값을 숫자 배열로 변환한다.
 
 ---
 
@@ -32,10 +33,10 @@
 
 ---
 
-## StrikeAndBallCalculator 클래스
+## StrikeAndBallCalculator
 
-### Methods
-- [x] `calculate()`: 스트라이크와 볼의 개수를 카운트한다.
+### Functions
+- [x] `calculateStrikeAndBall()`: 스트라이크와 볼의 개수를 카운트한다.
   - [x] 각 자릿수의 숫자가 일치하는지 확인한다 (스트라이크).
   - [x] 각 자릿수는 일치하지 않지만 같은 숫자가 포함되어 있는지 확인한다 (볼).
 
@@ -57,10 +58,11 @@
 - [x] `validateIsString()`: 입력값이 문자열인지 검사한다.
 - [x] `validateIsThreeDigits()`: 입력값이 3자리 숫자인지 검사한다.
 - [x] `validateNoDuplicateDigits()`: 입력값에 중복된 숫자가 없는지 검사한다.
-- [x] `validateInRange()`: 입력값이 1부터 9까지의 숫자로 이루어져 있는지 검사한다.
+- [x] `validateInRange()`: 입력값이 1부터 9까지의 숫자로 이루어져 있는지 검사한다. (정규식 사용)
 - [x] `validateInput()`: 위의 모든 검사를 종합하여 수행한다.
 - [x] `validateGameEndInput()`: 게임 종료 입력이 유효한지 ('1' 또는 '2') 검사한다.
 
+---
 
 ## constants 폴더
 
@@ -70,7 +72,7 @@
 
 ### MessageConstants.js
 
-- [x] 게임 중 모든 메시지가 담긴 상수를 정의한다.
+- [x] 게임 중 모든 메시지와 검증 에러 메시지가 담긴 상수를 정의한다.
 
 ### NumberConstants.js
 
