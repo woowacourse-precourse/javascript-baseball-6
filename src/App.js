@@ -23,16 +23,16 @@ class App {
     const inputNumArr = inputValue
       .split("")
       .map((numStr) => parseInt(numStr, 10));
-    let strike = 0;
-    let ball = 0;
+
+    const score = { strike: 0, ball: 0 };
     inputNumArr.forEach((num, i) => {
       if (num === this.computerNum[i]) {
-        strike++;
+        score.strike++;
       } else if (this.computerNum.includes(num)) {
-        ball++;
+        score.ball++;
       }
     });
-
+    const { strike, ball } = score;
     return { strike, ball };
   }
 
