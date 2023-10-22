@@ -6,7 +6,11 @@ class App {
 
     const baseballGame = new BaseballGame();
 
-    await baseballGame.playGame();
+    try {
+      await baseballGame.playGame();
+    } catch (error) {
+      throw error;
+    }
   }
 }
 

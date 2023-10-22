@@ -12,9 +12,12 @@ class BaseballGame {
   async playGame() {
     this.handleComputer();
 
-    await this.handleUser();
-
-    await this.handleEnd();
+    try {
+      await this.handleUser();
+      await this.handleEnd();
+    } catch (error) {
+      throw error;
+    }
   }
 
   handleComputer() {
@@ -43,21 +46,28 @@ class BaseballGame {
   }
 
   async handleUser() {
-    await this.handleUserInput();
+    try {
+      await this.handleUserInput();
+      const { strike, ball } = this.getStrikeAndBall();
 
-    const { strike, ball } = this.getStrikeAndBall();
+      this.printStrikeAndBall({ strike, ball });
 
-    this.printStrikeAndBall({ strike, ball });
-
-    const IS_RE_INPUT = strike !== 3;
-    if (IS_RE_INPUT) await this.handleUser();
+      const IS_RE_INPUT = strike !== 3;
+      if (IS_RE_INPUT) await this.handleUser();
+    } catch (error) {
+      throw error;
+    }
   }
 
   async handleUserInput() {
-    const USER_INPUT = await readInput("숫자를 입력해주세요 : ");
-    const USER_NUMBERS = USER_INPUT.split("").map(Number);
-    this.validUserNumber(USER_NUMBERS);
-    this.setUserNumbers(USER_NUMBERS);
+    try {
+      const USER_INPUT = await readInput("숫자를 입력해주세요 : ");
+      const USER_NUMBERS = USER_INPUT.split("").map(Number);
+      this.validUserNumber(USER_NUMBERS);
+      this.setUserNumbers(USER_NUMBERS);
+    } catch (error) {
+      throw error;
+    }
   }
 
   setUserNumbers(numbers) {
@@ -104,15 +114,19 @@ class BaseballGame {
   }
 
   async handleEnd() {
-    const input = await readInput(
-      "3개의 숫자를 모두 맞히셨습니다! 게임 종료 \n게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. \n"
-    );
+    try {
+      const input = await readInput(
+        "3개의 숫자를 모두 맞히셨습니다! 게임 종료 \n게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. \n"
+      );
 
-    this.validGameEndInput(input);
+      this.validGameEndInput(input);
 
-    const IS_GAME_RETRY = await this.handleEndResult(input);
-    if (IS_GAME_RETRY) await this.playGame();
-    if (!IS_GAME_RETRY) printOutput("게임 종료");
+      const IS_GAME_RETRY = this.isGameEnd(input);
+      if (!IS_GAME_RETRY) await this.playGame();
+      if (IS_GAME_RETRY) printOutput("게임 종료");
+    } catch (error) {
+      throw error;
+    }
   }
 
   validGameEndInput(input) {
@@ -125,9 +139,9 @@ class BaseballGame {
    * @param { "1" | "2" } input
    * @returns { boolean }
    */
-  async handleEndResult(input) {
-    if (input === "1") return true;
-    if (input === "2") return false;
+  isGameEnd(input) {
+    if (input === "1") return false;
+    if (input === "2") return true;
   }
 }
 
