@@ -46,8 +46,8 @@ class App {
 
   // 스트라이크와 볼을 확인하는 함수
   checkStrikeOrBall = (userGuess, computerAnswer) => {
-    let strikeCount = 0;
-    let ballCount = 0;
+    let strikeCount = 0,
+      ballCount = 0;
 
     for (let i = 0; i < userGuess.length; i++) {
       if (userGuess[i] === computerAnswer[i]) {
@@ -57,14 +57,33 @@ class App {
       }
     }
 
-    if (strikeCount > 0 && ballCount > 0) {
-      Console.print(`${strikeCount}스트라이크 ${ballCount}`);
-    } else if (strikeCount > 0 && ballCount === 0) {
-      Console.print(`${strikeCount}스트라이크`);
-    } else {
-      Console.print(`${ballCount}볼`);
-    }
+    return { strikeCount, ballCount };
   };
+
+  // 게임 종료 후 재시작 여부를 확인하는 함수
+  async getUserRestartInput() {
+    try {
+      const answer = await new Promise((resolve) => {
+        Console.readLine(
+          '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n',
+          (userRestartInput) => {
+            resolve(userRestartInput);
+          }
+        );
+      });
+
+      if (
+        parseInt(userRestartInput) === 1 ||
+        parseInt(userRestartInput) === 2
+      ) {
+        return parseInt(userRestartInput);
+      } else {
+        throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+      }
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
 }
 
 export default App;
