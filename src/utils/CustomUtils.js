@@ -9,7 +9,8 @@ const getUserNumber = async () => {
     if (!isValidInput(USER_NUMBER)) {
       throw new Error(Messages.INVALID_INPUT_ERROR);
     }
-    return USER_NUMBER;
+    const USER_NUMBER_ARRAY = USER_NUMBER.split("").map(Number);
+    return USER_NUMBER_ARRAY;
   } catch (error) {
     MissionUtils.Console.print(error.message);
   }
