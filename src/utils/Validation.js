@@ -1,14 +1,14 @@
 import { GAME_OPTION, GAME_SETTINGS } from '../constants/GameSettings.js';
 import { ERROR_MESSAGE } from '../constants/Message.js';
 
-function isNumber(input) {
+const isNumber = (input) => {
   const regExp = /^[1-9]+$/;
   if (!regExp.test(input)) {
     throw new Error(ERROR_MESSAGE.notAValidNumber);
   }
-}
+};
 
-function isCorrectLength(input) {
+const isCorrectLength = (input) => {
   const inputArray = input.split('');
   const inputSet = new Set(inputArray);
 
@@ -18,15 +18,15 @@ function isCorrectLength(input) {
   ) {
     throw new Error(ERROR_MESSAGE.notAValidNumberLength);
   }
-}
+};
 
-export function isCorrectPlayerInput(input) {
+export const isCorrectPlayerInput = (input) => {
   isNumber(input);
   isCorrectLength(input);
-}
+};
 
-export function isCorrectRetryInput(input) {
+export const isCorrectRetryInput = (input) => {
   if (input !== GAME_OPTION.retry && input !== GAME_OPTION.exit) {
     throw new Error(ERROR_MESSAGE.notAValidRetryCommand);
   }
-}
+};
