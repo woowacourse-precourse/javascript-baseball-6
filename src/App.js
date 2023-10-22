@@ -1,7 +1,9 @@
-const createComRandomNum = require('../utils/CreateComRandomNum');
+const GameController = require("../controller/GameController");
+
 class App {
+  gameController = new GameController();
   async play() {
-    createComRandomNum();
+    this.gameController.startGame();
   }
 }
 
