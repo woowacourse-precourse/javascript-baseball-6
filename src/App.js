@@ -3,7 +3,7 @@ import { enterNumber } from "./player.js";
 
 class App {
   async play() {
-    // const number = pickRandomNumber();
+    const computerNum = pickRandomNumber();
     // enterNumber(number);
     // judgeNumber(number);
     // endGame();
