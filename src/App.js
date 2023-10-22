@@ -20,10 +20,8 @@ class App {
       this.compareUserComputerNumber();
       this.printCompareResult();
       if (this.gameOver()) {
-        const number = await this.answerKeepGoingOrOver();
-        if (number == "2") {
-          return;
-        }
+        const input = await this.answerKeepGoingOrOver();
+        this.setGameState(input);
       }
       this.user = [];
       this.ballNumber = 0;
@@ -124,19 +122,28 @@ class App {
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
     );
     const number = await MissionUtils.Console.readLineAsync("");
-    if (number === "2") {
-      this.keepPlaying = false;
-      return number;
+    return number;
+  }
+
+  setGameState(number) {
+    switch (number) {
+      case "2":
+        this.keepPlaying = false;
+        break;
+      case "1":
+        this.computer = [];
+        this.initUserAndCount();
+        this.initializeComputerNumber();
+        break;
+      default:
+        throw new Error("[ERROR] 올바르지 않은 입력입니다.");
     }
-    if (number === "1") {
-      this.computer = [];
-      this.user = [];
-      this.strikeNumber = 0;
-      this.ballNumber = 0;
-      this.initializeComputerNumber();
-      return number;
-    }
-    throw new Error("[ERROR] 올바르지 않은 입력 입니다.");
+  }
+
+  initUserAndCount() {
+    this.user = [];
+    this.strikeNumber = 0;
+    this.ballNumber = 0;
   }
 }
 
