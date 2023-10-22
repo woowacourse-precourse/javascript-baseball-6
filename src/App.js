@@ -15,6 +15,7 @@ export default class App {
       const inputNumber = (await input(Message.INPUT_NUMBER)).trim();
       this.validateInput(inputNumber);
       const { strike, ball } = this.checkGuess(inputNumber);
+      this.feedbackMessage(strike, ball);
     } catch (e) {
       console.error(e);
     }
@@ -61,6 +62,25 @@ export default class App {
       }
     }
     return { strike, ball };
+  }
+
+  /**
+   * @description 스트라이크와 볼의 갯수를 판별하여 메세지를 출력하는 함수
+   * @param {number} strike
+   * @param {number} ball
+   */
+  feedbackMessage(strike, ball) {
+    if (ball === 0 && strike === 0) {
+      print(`${Message.NOTHING}`);
+    } else if (strike > 0 && ball > 0) {
+      print(`${ball}${Message.BALL} ${strike}${Message.STRIKE}`);
+    } else if (ball > 0 && strike === 0) {
+      print(`${ball}${Message.BALL}`);
+    } else if (strike === 3) {
+      print(`${strike}${Message.STRIKE}\n${Message.SUCCESS}`);
+    } else {
+      print(`${strike}${Message.STRIKE}`);
+    }
   }
 }
 
