@@ -1,5 +1,3 @@
-import { calculateBalls } from "./calculateBalls.js" 
-import { calculateStrikes } from "./calculateStrikes.js"
 import { getUserNumberInput } from "./getUserNumberInput.js"
 import { generateRandomThreeDigitNumber } from "./generateRandomThreeDigitNumber.js"
 import { MissionUtils } from '@woowacourse/mission-utils'
