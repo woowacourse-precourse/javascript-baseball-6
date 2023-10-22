@@ -1,7 +1,7 @@
 const GameCalculation = (userInput, answer) => {
   let ball = 0;
   let strike = 0;
-  console.log(userInput, answer);
+
   for (let i = 0; i < userInput.length; i++) {
     if (userInput[i] !== answer[i] && userInput.includes(answer[i])) {
       ball += 1;

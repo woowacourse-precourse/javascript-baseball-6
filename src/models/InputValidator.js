@@ -11,7 +11,7 @@ const InputValidator = {
     }
 
     if (
-      [...input].every(
+      [...input].some(
         (value) =>
           Number(value) < GAME_RULES.MIN_NUMBER ||
           Number(value) > GAME_RULES.MAX_NUMBER
