@@ -17,7 +17,7 @@ class App {
     if (restart) {
       if (input !== '1' && input !== '2') {
         throw new Error(
-          '[ERROR] 1 또는 2 외의 값을 입력하여, 게임을 종료합니다!'
+          '[ERROR] 1 또는 2 외의 값을 입력하여, 게임을 종료합니다!',
         );
       } else {
         return;
@@ -54,7 +54,7 @@ class App {
       Console.print('낫싱');
     } else {
       Console.print(
-        `${ball ? `${ball}볼 ` : ''}${strike ? `${strike}스트라이크` : ''}`
+        `${ball ? `${ball}볼 ` : ''}${strike ? `${strike}스트라이크` : ''}`,
       );
       if (strike === 3) {
         Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
@@ -76,7 +76,7 @@ class App {
 
       if (strike === 3) {
         const restart = await Console.readLineAsync(
-          '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'
+          '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n',
         );
         this.isValidInput(restart, true);
 
@@ -87,7 +87,6 @@ class App {
         }
       }
     }
-    return;
   }
 }
 
