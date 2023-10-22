@@ -22,4 +22,27 @@ export async function getUserNumber() {
   }
 }
 
-export function strikeCheck() {}
+export function strikeCheck(RAND_ANSWER, USER_ANSWER) {
+  let STRIKE_CNT = 0;
+  for (var i = 0; i < RAND_ANSWER.length; i++) {
+    if (RAND_ANSWER[i] === USER_ANSWER[i]) {
+      STRIKE_CNT++;
+    }
+  }
+
+  return STRIKE_CNT;
+}
+
+export function ballCheck(RAND_ANSWER, USER_ANSWER) {
+  let BALL_CNT = 0;
+  for (var i = 0; i < RAND_ANSWER.length; i++) {
+    if (
+      RAND_ANSWER[i] !== USER_ANSWER[i] &&
+      RAND_ANSWER.includes(USER_ANSWER[i])
+    ) {
+      BALL_CNT++;
+    }
+  }
+
+  return BALL_CNT;
+}

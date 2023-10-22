@@ -12,6 +12,9 @@ class App {
     let USER_ANSWER = [...(await func.getUserNumber())];
     USER_ANSWER = USER_ANSWER.map(Number);
     MissionUtils.Console.print(USER_ANSWER);
+
+    MissionUtils.Console.print(func.strikeCheck(RAND_ANSWER, USER_ANSWER));
+    MissionUtils.Console.print(func.ballCheck(RAND_ANSWER, USER_ANSWER));
   }
 }
 const app = new App();
