@@ -2,7 +2,7 @@ import Computer from './Computer.js';
 import User from './User.js';
 import { MissionUtils } from '@woowacourse/mission-utils';
 
-export default class BaseBallGame {
+export default class BaseballGame {
   #ballCount;
   #strikeCount;
 
