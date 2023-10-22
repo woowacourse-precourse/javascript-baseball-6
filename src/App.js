@@ -52,6 +52,19 @@ class App {
     this.Balls = this.MatchingNumbers - this.Strike;
   }
 
+  printResult() {
+    if (this.MatchingNumbers === 0)
+      MissionUtils.Console.print('낫싱');
+
+    if (this.Balls > 0 && this.Strike > 0)
+      MissionUtils.Console.print(`${this.Balls}` + '볼' + `${this.Strike}` + ' 스트라이크');
+
+    if (this.Balls > 0 && this.Strike == 0)
+      MissionUtils.Console.print(`${this.Balls}` + '볼');
+
+    if (this.Strike > 0 && this.Balls == 0)
+      MissionUtils.Console.print(`${this.Strike}` + '스트라이크');
+  }
 
   async play() {
     MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
@@ -60,6 +73,7 @@ class App {
     this.countMatchingNumbers();
     this.countMatchingStrikes();
     this.countMatchingBalls();
+    this.printResult();
   }
 
 }
