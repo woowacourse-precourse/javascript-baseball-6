@@ -1,7 +1,6 @@
 import { BaseballView } from './view/BaseballView.js';
 import { BaseballModel } from './model/BaseballModel.js';
 import { BaseballController } from './controller/BaseballController.js';
-import { Console } from '@woowacourse/mission-utils';
 
 class App {
   async play() {
@@ -9,9 +8,9 @@ class App {
       const view = new BaseballView();
       const model = new BaseballModel();
       const controller = new BaseballController(model, view);
-      controller.start();
+      await controller.start();
     } catch (err) {
-      Console.print(err);
+      throw new Error(err);
     }
   }
 }
