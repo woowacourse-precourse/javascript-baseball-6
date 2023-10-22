@@ -13,7 +13,7 @@ const getUserNumber = async () => {
 };
 
 const isValidInput = (input) => {
-  if (!/^\d+$/.test(input)) {
+  if (!/^[1-9]+$/.test(input)) {
     return false;
   }
 
