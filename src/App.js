@@ -4,6 +4,8 @@ import PrintConsole from './PrintConsole.js';
 
 class App {
 	#computerAnswer = [];
+	#userInput = new UserInput();
+	#printConsole = new PrintConsole();
 
 	generateRandomNumber() {
 		const generateNumberResponse = Random.pickUniqueNumbersInRange(1, 9, 3);
@@ -11,7 +13,6 @@ class App {
 	}
 
 	#compareUserAndComputer(inputVal) {
-		const printConsole = new PrintConsole();
 		let strike = 0,
 			ball = 0;
 		const inputDigits = Array.from(inputVal, Number);
@@ -23,12 +24,11 @@ class App {
 			}
 		}
 
-		return printConsole.gameResult(ball, strike);
+		return this.#printConsole.gameResult(ball, strike);
 	}
 
 	async #playGame() {
-		const userInput = new UserInput();
-		const inputVal = await userInput.baseballInput();
+		const inputVal = await this.#userInput.baseballInput();
 		this.#compareUserAndComputer(inputVal);
 	}
 
