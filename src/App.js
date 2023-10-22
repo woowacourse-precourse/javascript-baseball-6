@@ -38,9 +38,7 @@ class App {
 
   calculateStrikeAndBall(inputValue) {
     //스트라이크인지 볼인지 계산하는 함수
-    const inputNumArr = inputValue
-      .split("")
-      .map((numStr) => parseInt(numStr, 10));
+    const inputNumArr = inputValue.split("").map((numStr) => Number(numStr));
 
     const score = { strike: 0, ball: 0 };
 
@@ -88,10 +86,10 @@ class App {
     // 1 과 2 를 입력받아 게임을 시작할지 종료할지 검증하는 함수
     const inputValue = await Console.readLineAsync(GAME_SELECT_REPLAY);
 
-    if (parseInt(inputValue) === 1) {
+    if (Number(inputValue) === 1) {
       return true;
     }
-    if (parseInt(inputValue) === 2) {
+    if (Number(inputValue) === 2) {
       Console.print(GAME_END);
       return false;
     }
@@ -127,7 +125,7 @@ class App {
       throw new Error(ERROR_DUPLICATE_NUMBER);
     }
 
-    if (this.isNotInteger(parseInt(inputValue))) {
+    if (this.isNotInteger(Number(inputValue))) {
       throw new Error(ERROR_NOT_NUMBER);
     }
   }
