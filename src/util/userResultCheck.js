@@ -1,8 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-
-const BALLINDEX = 0;
-const STRIKEINDEX = 1;
-const NOTINGINDEX = 2;
+import numConstant from "../constant/constant";
 
 function scoreCount(resultCount, idx, notingIdx) {
   resultCount[idx] = resultCount[idx] + 1;
@@ -11,7 +8,7 @@ function scoreCount(resultCount, idx, notingIdx) {
   return resultCount;
 }
 
-async function userResultCheck(computer, numSize) {
+async function userResult(computer, numSize) {
   const stringUser = await Console.readLineAsync("숫자를 입력해주세요 : ");
 
   //사용자 데이터 검증 (차후 추가) => 10/21 추가완료
@@ -25,15 +22,23 @@ async function userResultCheck(computer, numSize) {
 
   for (let idx = 0; idx < numSize; idx++) {
     if (Number(stringUser[idx]) === computer[idx]) {
-      resultCount = scoreCount(resultCount, STRIKEINDEX, NOTINGINDEX);
+      resultCount = scoreCount(
+        resultCount,
+        numConstant.STRIKEINDEX,
+        numConstant.NOTINGINDEX
+      );
       continue;
     }
     if (computer.includes(Number(stringUser[idx]))) {
-      resultCount = scoreCount(resultCount, BALLINDEX, NOTINGINDEX);
+      resultCount = scoreCount(
+        resultCount,
+        numConstant.BALLINDEX,
+        numConstant.NOTINGINDEX
+      );
       continue;
     }
   }
   return resultCount;
 }
 
-export default userResultCheck;
+export default userResult;
