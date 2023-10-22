@@ -27,7 +27,7 @@ class App {
     const RANDOM = [];
     while (RANDOM.length < 3) {
       const NUMBER = Random.pickNumberInRange(1, 9);
-      if (!RANDOM.includes(NUMBER)) {
+      if (RANDOM.indexOf(NUMBER) < 0) {
         RANDOM.push(NUMBER);
       }
     }
@@ -36,11 +36,11 @@ class App {
 
   validateNumber(answer) {
     const MY_SET = new Set();
-    for (let i = 0; i < answer.length; i += 1) {
-      if (Number(answer[i])) {
-        MY_SET.add(Number(answer[i]));
+    [...answer].forEach((str) => {
+      if (Number(str)) {
+        MY_SET.add(Number(str));
       }
-    }
+    });
     if (!MY_SET.has(0) && MY_SET.size === 3) {
       this.continueGame([...MY_SET]);
     } else {
@@ -51,16 +51,17 @@ class App {
   continueGame(numbers) {
     let ball = 0;
     let strike = 0;
-    for (let i = 0; i < numbers.length; i += 1) {
-      if (this.computer[i] === numbers[i]) {
+    numbers.forEach((num, idx) => {
+      if (this.computer[idx] === num) {
         strike += 1;
-      } else if (this.computer.includes(numbers[i])) {
+      } else if (this.computer.indexOf(num) >= 0) {
         ball += 1;
       }
-    }
+    });
     const HINT = this.printHint(ball, strike);
     Console.print(HINT);
     if (strike === 3) {
+      Console.print(this.msg.end);
       this.endGame();
     } else {
       this.play();
@@ -69,11 +70,11 @@ class App {
 
   printHint(ball, strike) {
     let hint = '';
-    if (ball && strike) {
+    if (ball > 0 && strike > 0) {
       hint = `${ball}${this.msg.ball} ${strike}${this.msg.strike}`;
-    } else if (ball) {
+    } else if (ball > 0) {
       hint = `${ball}${this.msg.ball}`;
-    } else if (strike) {
+    } else if (strike > 0) {
       hint = `${strike}${this.msg.strike}`;
     } else {
       hint = this.msg.nothing;
@@ -82,17 +83,17 @@ class App {
   }
 
   async endGame() {
-    Console.print(this.msg.end);
     const ANSWER = await Console.readLineAsync(this.msg.select);
     if (ANSWER === '1') {
       this.createComputer();
       this.play();
-    } else if (ANSWER === '2') {
-      return;
-    } else {
-      throw new Error(this.msg.error);
+    } else if (ANSWER !== '2') {
+      this.endGame();
     }
   }
 }
+
+const app = new App();
+app.play();
 
 export default App;
