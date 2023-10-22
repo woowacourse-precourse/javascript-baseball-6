@@ -1,6 +1,10 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
+
+  RESTART = "restart";
+  IN_GAME = "in_game";
+
   constructor() {
     this.random = MissionUtils.Random;
     this.console = MissionUtils.Console;
@@ -23,14 +27,14 @@ class App {
   
         const userInput = await this.giveQuestion("숫자를 입력해 주세요 : ");
         
-        this.inputValidation(userInput);
+        this.validation(userInput, this.IN_GAME);
 
         this.checkInputAndGiveHint(answer, userInput);
       }
 
       const restartInput = await this.giveQuestion(`게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.${"\n"}`);
 
-      this.restartValidation(restartInput);
+      this.validation(restartInput, this.RESTART);
 
       this.restart(restartInput);
     }
@@ -65,12 +69,20 @@ class App {
     else if (this.strike === 0 && this.ball === 0) this.console.print("낫싱");
   }
 
-  inputValidation(input) {
-    if (!Number(input)) throw new Error("[ERROR]");
-    else if (input.length !== 3) throw new Error("[ERROR]");
-    else if (input.includes(" ")) throw new Error("[ERROR]");
-    else if (input.includes("0")) throw new Error("[ERROR]");
-    else if (new Set(input).size !== 3) throw new Error("[ERROR]");
+  validation(input, mode) {
+    if (mode === this.IN_GAME) {
+      if (!Number(input)) throw new Error("[ERROR]");
+      else if (input.length !== 3) throw new Error("[ERROR]");
+      else if (input.includes(" ")) throw new Error("[ERROR]");
+      else if (input.includes("0")) throw new Error("[ERROR]");
+      else if (new Set(input).size !== 3) throw new Error("[ERROR]");
+    }
+
+    if (mode === this.RESTART) {
+      if (input !== "1" && input !== "2") {
+        throw new Error("[ERROR]");
+      }
+    }
   }
 
   restart(input) {
@@ -78,12 +90,6 @@ class App {
     else if (input === "1") {
       this.strike = 0;
       this.ball = 0;
-    }
-  }
-
-  restartValidation(input) {
-    if (input !== "1") {
-      if (input !== "2") throw new Error("[ERROR]");
     }
   }
 }
