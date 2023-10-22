@@ -14,6 +14,13 @@ class Computer {
     return this.#numbers;
   }
 
+  getResult() {
+    return {
+      strike: this.#strike,
+      ball: this.#ball,
+    };
+  }
+
   static #createNumbers() {
     const numbers = [];
 
@@ -48,8 +55,6 @@ class Computer {
     const numbers = Array.from(input, Number);
     this.#strike = this.#getStrike(numbers);
     this.#ball = this.#getBall(numbers);
-
-    MissionUtils.Console.print(GAME.RESULT(this.#strike, this.#ball));
 
     return this.#strike === 3 ? GAME.PASS : GAME.FAIL;
   }

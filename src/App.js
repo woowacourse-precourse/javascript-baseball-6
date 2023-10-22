@@ -1,6 +1,7 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import { GAME, ERROR } from './constant.js';
 import Computer from './Computer.js';
+import printResult from '../src/Print.js';
 
 class App {
   #computer;
@@ -23,6 +24,7 @@ class App {
 
   #judgment(input) {
     const result = this.#computer.judgment(input);
+    printResult(this.#computer.getResult());
 
     if (result === GAME.FAIL) {
       this.#input();
