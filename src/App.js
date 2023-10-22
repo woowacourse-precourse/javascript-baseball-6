@@ -3,15 +3,24 @@ import { calculateStrikes } from "./calculateStrikes.js"
 import { getUserNumberInput } from "./getUserNumberInput.js"
 import { generateRandomThreeDigitNumber } from "./generateRandomThreeDigitNumber.js"
 import { MissionUtils } from '@woowacourse/mission-utils'
+import { getHint } from "./getHint.js"
+import { getUserGameDecision } from "./getUserGameDecision.js"
 
 class App {
   async play() {
-    const computerNumber = generateRandomThreeDigitNumber();
-    const userNumber = await getUserNumberInput()
-    const cntBall = calculateBalls(userNumber, computerNumber)
-    const cntStrike = calculateStrikes(userNumber, computerNumber)
-    console.log(userNumber, computerNumber)
-    console.log(cntStrike, cntBall)
+    MissionUtils.Console.print('숫자 야구 게임을 시작합니다.')
+    while (true) {
+      const computerNumber = generateRandomThreeDigitNumber();
+      const userNumber = await getUserNumberInput()
+      while (true) {
+        const hint = getHint(userNumber, computerNumber);
+        MissionUtils.Console.print(hint);
+        if (isRoundEndedFromHint(hint) === true) {
+          break;
+        }
+      }
+      getUserGameDecision()
+    }
   }
 }
 
