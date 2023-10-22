@@ -7,6 +7,7 @@ class App {
   }
 
   userNumber = [];
+  computerNumber = [];
 
   gameStart = () => {
     Console.print("숫자 야구 게임을 시작합니다.");
@@ -35,7 +36,7 @@ class App {
       if (!this.checkUserNumberValidation(input)) {
         throw new Error("[ERROR] 입력이 잘못된 형식입니다.");
       }
-      this.userNumber = Array.from(input).map((el) => Number(el));
+      return Array.from(input).map((el) => Number(el));
     } catch (err) {
       Console.print(err.message);
     }
@@ -43,8 +44,8 @@ class App {
 
   async play() {
     this.gameStart();
-    this.computer.createRandomNumber();
-    this.getUserNumberInput();
+    this.computerNumber = this.computer.createRandomNumber();
+    this.userNumber = await this.getUserNumberInput();
   }
 }
 
