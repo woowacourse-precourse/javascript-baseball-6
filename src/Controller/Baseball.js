@@ -22,7 +22,6 @@ class Baseball {
 
   async start(randomNumbers) {
     try {
-      console.log(randomNumbers);
       const userNumberInput = await this.view.readLineInput("숫자를 입력해주세요 : ");
       const [ballCount, strikeCount] = this.model.compareNumbers(randomNumbers, userNumberInput);
 

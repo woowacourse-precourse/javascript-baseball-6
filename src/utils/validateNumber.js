@@ -5,7 +5,7 @@ function validateComputerNumber(numbers) {
     throw new InvalidNumberError("숫자 갯수는 3개 입니다.");
   }
 
-  numbers.forEach(number => {
+  numbers.forEach((number) => {
     if (isNaN(number)) {
       throw new InvalidNumberError("숫자이여야 합니다.");
     }
