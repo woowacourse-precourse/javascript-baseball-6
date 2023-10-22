@@ -1,5 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils"
-import { MAX_LENGTH, outputMessage } from "./constants/Message.js";
+import { outputMessage } from "./constants/Message.js";
+import { BALL_CONDITION, END_NUMBER, FROM_ONE_TO_NINE, NUMBER_LENGTH, RESET_COUNT, START_NUMBER, STRIKE_CONDITION } from './constants/Enum.js';
 
 class Computer {
   constructor() {
@@ -9,8 +10,8 @@ class Computer {
   }
 
   createRandomNumber() {
-    while (this._answer.length < MAX_LENGTH) {
-      const number = MissionUtils.Random.pickNumberInRange(1, 9);
+    while (this._answer.length < NUMBER_LENGTH) {
+      const number = MissionUtils.Random.pickNumberInRange(START_NUMBER, END_NUMBER);
       if (!this._answer.includes(number)) {
         this._answer.push(number);
       }
@@ -18,10 +19,10 @@ class Computer {
   }
 
   gradingUserInput(userInput) {
-    this._strikeArray = Array(9).fill(0);
-    this._ballArray  = Array(9).fill(0);
+    this._strikeArray = Array(FROM_ONE_TO_NINE).fill(RESET_COUNT);
+    this._ballArray  = Array(FROM_ONE_TO_NINE).fill(RESET_COUNT);
 
-    for (let i = 0; i < MAX_LENGTH; i++) {
+    for (let i = 0; i < NUMBER_LENGTH; i++) {
       this.#checkStrikeAndBall(userInput, i);
     }
 
@@ -59,24 +60,24 @@ class Computer {
   }
 
   #pushResultToStrikeArray(strikeIndex) {
-    ++this._strikeArray[strikeIndex - 1]
+    ++this._strikeArray[strikeIndex]
   }
 
   #pushResultToBallArray(_answer, userInput) {
-    ++this._ballArray[_answer - 1];
-    ++this._ballArray[userInput - 1];
+    ++this._ballArray[_answer];
+    ++this._ballArray[userInput];
   }
 
   #getTotalBall() {
-    return this.#numOfTargetFromArray(this._ballArray, 2);
+    return this.#numOfTargetFromArray(this._ballArray, BALL_CONDITION);
   }
 
   #getTotalStrike() {
-    return this.#numOfTargetFromArray(this._strikeArray, 1);
+    return this.#numOfTargetFromArray(this._strikeArray, STRIKE_CONDITION);
   }
 
   #numOfTargetFromArray(array, target) {
-    const targetArray = array.filter(element => element === target);
+    const targetArray = array.filter(element => element >= target);
     return targetArray.length;
   }
 

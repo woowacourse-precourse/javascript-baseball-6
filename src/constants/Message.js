@@ -1,8 +1,9 @@
 export const message = {
   START_GAME: '숫자 야구 게임을 시작합니다.',
   INPUT_NUMBER: '숫자를 입력해주세요 : ',
-  END_GAME: '3개의 숫자를 모두 맞히셨습니다! 게임 종료',
+  GAME_WIN: '3개의 숫자를 모두 맞히셨습니다! 게임 종료',
   QUEST_RETRY_GAME: '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n',
+  END_GAME: '게임 종료',
 }
 
 export const outputMessage = {
@@ -18,4 +19,7 @@ export const outputMessage = {
   STRIKE_OUT: '3스트라이크',
 }
 
-export const MAX_LENGTH = 3;
+export const option = {
+  RETRY: 1,
+  QUIT: 2,
+}

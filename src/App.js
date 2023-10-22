@@ -1,6 +1,6 @@
 import User from "./User.js";
 import Game from "./Game.js";
-import { outputMessage } from "./constants/Message.js";
+import { message, option, outputMessage } from "./constants/Message.js";
 import { Console } from "@woowacourse/mission-utils";
 
 class App {
@@ -24,8 +24,8 @@ class App {
 
       const retryOrEnd = await user.inputRetryOrEnd();
   
-      if (retryOrEnd === '2') {
-        Console.print("게임 종료");
+      if (retryOrEnd === option.QUIT) {
+        Console.print(message.END_GAME);
         break;
       }
     }
