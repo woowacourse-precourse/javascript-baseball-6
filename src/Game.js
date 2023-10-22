@@ -66,7 +66,7 @@ class Game {
 
     if (strike === 3) {
       Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-      return;
+      return true;
     }
 
     if (strike === 0 && ball === 0) {
@@ -82,6 +82,10 @@ class Game {
     const userInput = await this.inputUserValue();
     const score = this.compareValues(userInput);
     const result = this.printResult(score);
+
+    if (!result) {
+      this.playGame();
+    }
   }
 }
 
