@@ -30,20 +30,6 @@ class App {
     }
   }
 
-  async #checkCorrect(table) {
-    if (table.STRIKE_COUNT === CORRECT_NUMBER) {
-      OutputView.printCorrect();
-      const retryAnswer = await InputView.readRetryAnswer();
-      if (retryAnswer === ANSWER.RESTART) this.#start();
-      if (retryAnswer === ANSWER.FINISH) this.#finish();
-    }
-  }
-
-  #finish() {
-    OutputView.printFinish();
-    this.#isGaming = false;
-  }
-
   async #getUserInput() {
     const answer = await InputView.readUserInput();
     const input = Validator.validateUserInput(answer);
@@ -69,6 +55,20 @@ class App {
         if (userNumIndex !== matchedIndex) table.BALL_COUNT += 1;
       }
     };
+  }
+
+  async #checkCorrect(table) {
+    if (table.STRIKE_COUNT === CORRECT_NUMBER) {
+      OutputView.printCorrect();
+      const retryAnswer = await InputView.readRetryAnswer();
+      if (retryAnswer === ANSWER.RESTART) this.#start();
+      if (retryAnswer === ANSWER.FINISH) this.#finish();
+    }
+  }
+
+  #finish() {
+    OutputView.printFinish();
+    this.#isGaming = false;
   }
 }
 
