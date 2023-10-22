@@ -24,8 +24,4 @@ export default class GameDisplay {
   async showEndMessage() {
     return await Console.readLineAsync(GAME_END_INSTRUCTION);
   }
-
-  showInvalidInputMessage(errorMessage) {
-    Console.print(`${errorMessage}`);
-  }
 }
