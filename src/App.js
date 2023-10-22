@@ -10,7 +10,7 @@ class App {
   }
 
   handleSubmitInput() {
-    const submitBtn = document.querySelector("#user--submit");
+    // const submitBtn = document.querySelector("#user--submit");
     const userValue = document.querySelector("#user--input");
     const selectUlElement = document.querySelector(".result--table");
 
@@ -22,9 +22,11 @@ class App {
       }
     }
 
-    submitBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-
+    // submitBtn.addEventListener("click", (e) => {
+    //   e.preventDefault();
+    // submitBtn.addEventListener("click", (e) => {
+    //   e.preventDefault();
+    if (computer.length === 3) {
       // user input 배열로 변환
       const userInputValue = userValue.value;
       const playerScores = [...userInputValue].map((el) => Number(el));
@@ -60,7 +62,8 @@ class App {
       }
 
       if (strikesArray.length >= 3) {
-        alert(`🎉 3스트라이크 3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
+        alert(`🎉 3스트라이크 
+        3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
       } else if (strikesArray.length > 0 && ballsArray.length > 0) {
         const strikeAndBallMessage = document.createElement("li");
         strikeAndBallMessage.textContent = ` 볼${ballsArray.length} 스트라이크${strikesArray.length}`;
@@ -77,7 +80,7 @@ class App {
       } else {
         const nothingMsg = document.createElement("li");
         nothingMsg.textContent = `낫싱`;
-        selectUlElement.appendChild(nothingMsg);
+        selectUlElement.appendChild(ballLi);
       }
 
       // const ballLi = document.createElement("li");
@@ -85,7 +88,7 @@ class App {
       // selectUlElement.appendChild(ballLi);
 
       // console.log("ballCount = ", ballsArray.length);
-    });
+    }
   }
 }
 
