@@ -4,7 +4,6 @@ function checkBaseballResult(BALLS, STRIKES, GameValues) {
   if (STRIKES == GameValues.ballSize) {
     MissionUtils.Console.print(`${STRIKES}${GameValues.strikeMessage}`)
     MissionUtils.Console.print(`${GameValues.gameClear}`)
-    MissionUtils.Console.print(`${GameValues.gameWinMsg}`);
     return true;
   } else if (BALLS && STRIKES) {
     MissionUtils.Console.print(
