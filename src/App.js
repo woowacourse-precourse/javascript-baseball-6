@@ -57,16 +57,31 @@ class App {
       const number = await Console.readLineAsync('숫자를 입력해주세요 : ');
       this.#number = [...number];
       this.checkValidNumber(this.#number);
-      Console.print(this.#number);
     } catch (error) {
       throw new Error(error);
     }
   }
 
-  game() {
+  createHint() {
+    for (const index in this.#answer) {
+      if (this.#answer[index] == this.#number[index]) {
+        this.#hint.strike++;
+      } else {
+        for (const num of this.#number) {
+          if (this.#answer[index] == num) {
+            this.#hint.ball++;
+          }
+        }
+      }
+    }
+    Console.print(this.#hint);
+  }
+
+  async game() {
     this.createAnswer();
     Console.print(this.#answer);
-    this.getNumber();
+    await this.getNumber();
+    this.createHint();
   }
 
   async play() {
