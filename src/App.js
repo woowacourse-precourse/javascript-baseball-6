@@ -23,6 +23,14 @@ const getComputerNumber = () => {
 };
 
 // TODO: Mission 4: 사용자(인터페이스)가 입력한 수를 리스트로 출력하는 함수 구현
+const getUserNumber = async () => {
+  const userNumber = await inputMessage('숫자를 입력해주세요 : ');
+  if (userNumber.length !== 3) {
+    throw new Error('[ERROR] 3자리 숫자를 입력해주세요.');
+  }
+  const userNumberList = userNumber.split('').map(Number);
+  return userNumberList;
+};
 
 // TODO: Mission 5: 스트라이크, 볼 계산 함수 구현
 
@@ -34,8 +42,8 @@ const getComputerNumber = () => {
 
 // TODO: Mission 9: 전체 함수들을 실행 시켜주는 메인 함수 구현
 const main = async () => {
-    printMessage('숫자 야구 게임을 시작합니다.');
-    const computer = getComputerNumber();
+  printMessage('숫자 야구 게임을 시작합니다.');
+  const computer = getComputerNumber();
 };
 
 class App {
