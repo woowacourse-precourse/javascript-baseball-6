@@ -27,6 +27,8 @@ class App {
       // 재시작 : this.isStart true로 초기화 하여 initialization 재실행
       this.isStart = true
     }
+
+    return;
   }
 
   initialization () {
