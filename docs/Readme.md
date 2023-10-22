@@ -60,3 +60,4 @@ node src/
 
 ### 주의점
 - static 사용하면 test통과 안댐..
+- `expect(app.play()).rejects.toThrow()` 예외가 발생하지 않아도 테스트가 통과한다??
