@@ -8,16 +8,18 @@ export function createRandomNumber() {
       NUMBERS.push(RANDOMNUM);
     }
   }
-  return NUMBERS.join("");
+  return NUMBERS;
 }
 
-export async function takeUserInput() {
+export async function getUserNumber() {
   try {
     const USERNUM = await MissionUtils.Console.readLineAsync(
       "3자리 숫자를 입력해주세요: "
     );
-    MissionUtils.Console.print(USERNUM);
+    return USERNUM;
   } catch (error) {
     MissionUtils.Console.print("[ERROR]");
   }
 }
+
+export function strikeCheck() {}
