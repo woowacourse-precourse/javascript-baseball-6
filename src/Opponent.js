@@ -1,17 +1,26 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 
 class Opponent {
-  #computerNumbers = [];
+  #opponentNumber;
 
-  makeRandomNumber() {
-    while (this.#computerNumbers.length < 3) {
+  constructor() {
+    this.#opponentNumber = this.generateNumber();
+  }
+
+  generateNumber() {
+    const result = [];
+    while (result.length < 3) {
       const number = MissionUtils.Random.pickNumberInRange(1, 9);
-      if (!this.#computerNumbers.includes(number)) {
-        this.#computerNumbers.push(number);
+      if (!result.includes(number)) {
+        result.push(number);
       }
     }
-    return this.#computerNumbers;
+
+    return result;
+  }
+
+  get opponentNumber() {
+    return this.#opponentNumber;
   }
 }
-
 export default Opponent;
