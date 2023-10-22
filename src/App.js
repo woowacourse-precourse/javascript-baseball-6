@@ -52,7 +52,10 @@ class App {
       if (computer.includes(numbers[i])) {
         balls += 1;
       }
+    }
 
+    if (strikes === 0 && balls === 0) {
+      Console.print("낫싱");
     }
   }
 
