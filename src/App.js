@@ -140,9 +140,10 @@ class MyError extends Error {
 }
 
 class App {
-	async play() {
-		MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
+	async play(isRepeated) {
+		!isRepeated && MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
 		await start();
+		await end();
 	}
 }
 
@@ -204,13 +205,13 @@ const end = async () => {
 		MissionUtils.Console.print('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
 		switch (decision) {
 			case 1:
-				start();
+				await play(true);
 				break;
 			case 2:
-				break;
+				return;
 		}
 	} catch (error) {
-		throw new MyError('[ERROR]',error.message);
+		throw new MyError('[ERROR]', error.message);
 	}
 };
 const start = async () => {
@@ -233,15 +234,14 @@ const start = async () => {
 					const computerArr = getComputerInput();
 					const { strike, ball } = compareUserComputer(userArr, computerArr);
 					getScore(strike, ball);
-					end();
 					return;
 				} else {
 					//같은 애가 있다면
-					throw new MyError('[ERROR]','다 다른 숫자여야 합니다.');
+					throw new MyError('[ERROR]', '다 다른 숫자여야 합니다.');
 				}
 			}
 		}
 	} catch (error) {
-		throw new MyError('[ERROR]',error.message);
+		throw new MyError('[ERROR]', error.message);
 	}
 };
