@@ -10,7 +10,7 @@ class Computer {
     this.#numbers = Computer.#createNumbers();
   }
 
-  get numbers() {
+  getNumbers() {
     return this.#numbers;
   }
 
