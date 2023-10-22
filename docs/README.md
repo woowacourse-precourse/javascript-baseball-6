@@ -29,10 +29,10 @@
 
    - result 객체를 읽고, 다음 메서드를 호출
 
-6. `judge()` 결과가 삼진인 경우 `retry()`
+6. `judge()` 결과가 삼진인 경우 `askRetry()`
 
    - 축하메세지 출력 `congratMessagePrint()`
-   - 재시도 여부 확인 `retry()`
+   - 재시도 여부 확인 `askRetry()`
      - 입력값이 `1`인 경우(재시작)
        - 컴퓨터 숫자(strikeZoneNumber) 생성 `makeStrikeZoneNumber()`
        - 3번 부터 5번까지 재귀호출 `game()`
