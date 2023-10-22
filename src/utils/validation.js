@@ -2,6 +2,8 @@ import { ERROR_MESSAGE } from "../constants/Message";
 
 //유효성 검사
 export const isValidNumber = (string) => {
+  //아무것도 입력하지 않았을 때
+  if (!string) throw new Error(ERROR_MESSAGE.NOT_VALID_NUMBER);
   //3자리를 입력하지 않았을 때
   if (string.length !== 3) throw new Error(ERROR_MESSAGE.NOT_VALID_NUMBER);
 

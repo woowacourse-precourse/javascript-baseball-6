@@ -1,7 +1,11 @@
 import { Console } from "@woowacourse/mission-utils";
-import { makeRandomNumber, checkNumber, makeText } from "../src/utils/gameUtil";
-import { isValidNumber } from "../src/utils/validation";
-import { GAME_MESSAGE, ERROR_MESSAGE } from "../src/constants/Message";
+import {
+  makeRandomNumber,
+  checkNumber,
+  makeText,
+} from "../src/utils/gameUtil.js";
+import { isValidNumber } from "../src/utils/validation.js";
+import { GAME_MESSAGE, ERROR_MESSAGE } from "../src/constants/Message.js";
 
 class App {
   constructor() {
@@ -39,5 +43,8 @@ class App {
     }
   }
 }
+
+const app = new App();
+app.play();
 
 export default App;

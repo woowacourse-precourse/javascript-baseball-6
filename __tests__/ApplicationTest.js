@@ -50,10 +50,58 @@ describe("숫자 야구 게임", () => {
     });
   });
 
+  test("게임 종료", async () => {
+    // given
+    const randoms = [2, 3, 4];
+    const answers = ["235", "234", "2"];
+    const logSpy = getLogSpy();
+    const messages = ["2스트라이크", "3스트라이크", "게임 종료"];
+
+    mockRandoms(randoms);
+    mockQuestions(answers);
+
+    // when
+    const app = new App();
+    await expect(app.play()).resolves.not.toThrow();
+
+    // then
+    messages.forEach((output) => {
+      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(output));
+    });
+  });
+
   test("예외 테스트", async () => {
     // given
     const randoms = [1, 3, 5];
     const answers = ["1234"];
+
+    mockRandoms(randoms);
+    mockQuestions(answers);
+
+    // when & then
+    const app = new App();
+
+    await expect(app.play()).rejects.toThrow("[ERROR]");
+  });
+
+  test("겹치는 숫자 테스트", async () => {
+    // given
+    const randoms = [1, 3, 5];
+    const answers = ["122"];
+
+    mockRandoms(randoms);
+    mockQuestions(answers);
+
+    // when & then
+    const app = new App();
+
+    await expect(app.play()).rejects.toThrow("[ERROR]");
+  });
+
+  test("undefined 테스트", async () => {
+    // given
+    const randoms = [1, 3, 5];
+    const answers = [];
 
     mockRandoms(randoms);
     mockQuestions(answers);

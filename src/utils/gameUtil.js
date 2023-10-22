@@ -26,7 +26,6 @@ export const checkNumber = (computer, user) => {
       result.ball++;
     }
   });
-  makeText(result);
   return result;
 };
 
