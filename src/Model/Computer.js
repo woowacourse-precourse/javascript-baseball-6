@@ -3,8 +3,8 @@ class Computer {
     this.answer = '';
   }
 
-  setAnswer(numbers) {
-    this.answer = numbers;
+  createAnswer(randomNumbersCreator) {
+    this.answer = randomNumbersCreator.createRandomNumbers();
   }
 
   getAnswer() {

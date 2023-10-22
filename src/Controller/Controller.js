@@ -4,7 +4,7 @@ import InputView from '../View/InputView.js';
 import User from '../Model/User.js';
 import Computer from '../Model/Computer.js';
 import HintCounter from '../Model/HintCounter.js';
-import RandomNumbersMaker from '../Model/RandomNumbersMaker.js';
+import RandomNumbersCreator from '../Model/RandomNumbersCreator.js';
 
 import ErrorCatcher from '../ErrorCatcher.js';
 
@@ -14,43 +14,36 @@ class Controller {
   constructor() {
     this.user = new User();
     this.computer = new Computer();
-
-    this.setComputerAnswer();
   }
 
-  setComputerAnswer() {
-    const randomNumbersMaker = new RandomNumbersMaker();
-    this.computer.setAnswer(randomNumbersMaker.makeNumbers());
+  createComputerAnswer() {
+    this.computer.createAnswer(new RandomNumbersCreator());
   }
 
   async init() {
     OutputView.printStartMessage();
+    this.createComputerAnswer();
 
-    await this.readNumbers();
+    await this.createUserAnswer();
   }
 
-  async readNumbers() {
+  async createUserAnswer() {
     const numbers = await InputView.readNumbers();
-
     this.validateNumbers(numbers);
-    await this.setUserAnswer(numbers);
+    this.user.setAnswer(numbers);
+
+    await this.compareUserToComputer();
   }
 
   validateNumbers(numbers) {
     try {
-      ErrorCatcher.validateType(numbers);
       ErrorCatcher.validateLength(numbers);
+      ErrorCatcher.validateType(numbers);
       ErrorCatcher.validateUnique(numbers);
     } catch (error) {
       OutputView.printError(error);
       throw new Error(error);
     }
-  }
-
-  async setUserAnswer(numbers) {
-    this.user.setAnswer(numbers);
-
-    await this.compareUserToComputer();
   }
 
   async compareUserToComputer() {
@@ -68,7 +61,7 @@ class Controller {
       return await this.readRetry();
     }
 
-    await this.readNumbers();
+    await this.createUserAnswer();
   }
 
   async readRetry() {
@@ -91,8 +84,8 @@ class Controller {
   }
 
   async reStart() {
-    this.setComputerAnswer();
-    await this.readNumbers();
+    this.createComputerAnswer();
+    await this.createUserAnswer();
   }
 }
 
