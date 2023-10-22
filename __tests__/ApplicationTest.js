@@ -24,7 +24,7 @@ const getLogSpy = () => {
 };
 
 describe("숫자 야구 게임", () => {
-  test("게임 진행" , async() => {
+  test("게임 종료" , async() => {
     const randoms = [7, 1, 3];
     const answers = ["123", "145", "671", "216", "713", "2"];
     const logSpy = getLogSpy();
