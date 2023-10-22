@@ -32,3 +32,5 @@ export const printScore = (strikeCount, ballCount) => {
 
   MissionUtils.Console.print(result ? result : "낫싱");
 };
+
+export const isThreeStrike = (strikeCount) => strikeCount === 3;
