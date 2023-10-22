@@ -36,6 +36,13 @@ class App {
 
   // 랜덤한 컴퓨터 정답을 생성하는 함수
   createComputerAnswer = () => Random.pickUniqueNumbersInRange(1, 9, 3);
+
+  // 낫싱을 확인하는 함수
+  isNothing = (userGuess, computerAnswer) => {
+    return userGuess.filter((x) => computerAnswer.includes(x)).length === 0
+      ? true
+      : false;
+  };
 }
 
 export default App;
