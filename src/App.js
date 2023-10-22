@@ -1,13 +1,16 @@
 import { MissionUtils, Console } from '@woowacourse/mission-utils';
-import { INPUT_LENGTH, LOGS, MAX_NUMBER, MIN_NUMBER, STRIKE_END_POINTS } from './constants.js';
+import { INPUT_LENGTH, MAX_NUMBER, MIN_NUMBER, STRIKE_END_POINTS } from './lib/constants.js';
+import { INPUT_REGEX1, INPUT_REGEX2 } from './lib/reg.js';
+import { LOGS } from './lib/logs';
 
 class App {
   constructor(){
-    this.isStart = true;
-    this.computer = []; // [number]
-    this.tryCount = 0;
+    this.isStart = true; // 시작 여부 : boolean
+    this.computer = []; // 정답 배열 : [number]
+    this.tryCount = 0; // 유저 시도 횟수 : number
   }
 
+  // 게임 시작 메서드
   async play() {
     Console.print(LOGS.GAME_START);
 
@@ -33,6 +36,7 @@ class App {
     Console.print(LOGS.END);
   }
 
+  // 게임 초기화
   initialization () {
     const computer = [];
     while(computer.length < INPUT_LENGTH){
@@ -45,13 +49,13 @@ class App {
     return ;
   }
 
+  // 유저 입력
   async userInput(){
     const input = await Console.readLineAsync(LOGS.INPUT_PROMPT)
     this.tryCount++;
     // 서로 다른 3자리의 숫자 정규식 정의
-    const REGEX = new RegExp(`^(?!.*(.).*\\1)^[${MIN_NUMBER}-${MAX_NUMBER}]{${INPUT_LENGTH}}$`);
     // 유효성 테스트 통과하면 배열 생성
-    if(REGEX.test(input)) return input.split('').map(item=>parseInt(item))
+    if(INPUT_REGEX1.test(input)) return input.split('').map(item=>parseInt(item))
     // 아니면 에러 발생
     throw new Error(LOGS.INVALID_INPUT1);
   }
@@ -61,9 +65,8 @@ class App {
   async checkRestart() {
     const INPUT = await Console.readLineAsync(LOGS.INPUT_PROMPT2)
     // input이 1 혹은 2 정규식
-    const REGEX = /^[12]$/
     // 유효성 테스트 통과하면 1인지 boolean 반환
-    if(REGEX.test(INPUT)) return INPUT==='1'
+    if(INPUT_REGEX2.test(INPUT)) return INPUT==='1'
     // 아니면 에러 발생
     throw new Error(LOGS.INVALID_INPUT2);
   }
