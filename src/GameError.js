@@ -1,6 +1,6 @@
 class GameError extends Error {
   constructor(message) {
-    super('[Error] ' + message);
+    super('[ERROR]' + message);
     this.name = 'GameError';
   }
 }

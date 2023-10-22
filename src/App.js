@@ -24,7 +24,7 @@ class App {
   async gameLoop() {
     const computer = new Computer();
     computer.generateRandomNumbers(NUMBER_LENGTH);
-    
+
     while (!computer.isOut) {
       const playerAnswer = await Console.readLineAsync(
         '숫자를 입력해주세요 : '
@@ -38,21 +38,16 @@ class App {
   }
 
   async play() {
-    try {
-      Console.print('숫자 야구 게임을 시작합니다.');
-      while (true) {
-        await this.gameLoop();
+    Console.print('숫자 야구 게임을 시작합니다.');
+    while (true) {
+      await this.gameLoop();
 
-        const input = await Console.readLineAsync(
-          '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'
-        );
-        if (input === '1') continue;
-        else if (input === '2') break;
-        else
-          throw new GameError('1이나 2를 입력해야 합니다. 게임을 종료합니다.');
-      }
-    } catch (error) {
-      Console.print(error.message);
+      const input = await Console.readLineAsync(
+        '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'
+      );
+      if (input === '1') continue;
+      else if (input === '2') break;
+      else throw new GameError('1이나 2를 입력해야 합니다. 게임을 종료합니다.');
     }
   }
 }
