@@ -14,14 +14,12 @@ class SetOfBalls {
     return new SetOfBalls(numbers);
   }
 
-  // todo: check if there are more cases to throw error
   static checkNumbers(input) {
-    if (input.length !== 3) throw new Error(Messages.ERROR_INPUT);
-
-    const components = input.split('').map(Number);
-    if (components.some((components) => isNaN(components))) throw new Error(Messages.ERROR_INPUT);
-
-    return (new SetOfBalls(components));
+    if (/^[1-9]{3}$/.test(input) && new Set(input).size === 3) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
 

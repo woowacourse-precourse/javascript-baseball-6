@@ -8,19 +8,30 @@ class Computer {
     Object.freeze(this.targetNumbers);
   }
 
-  compareNumbers(input) {
-    let strike = 0;
+  compareNumbers(userNumbers) {
+    if (!userNumbers) {
+      return null;
+    }
     let ball = 0;
+    let strike = 0;
 
-    for (let i = 0; i < input.balls.length; i++) {
-      if (input.balls[i] === this.targetNumbers.balls[i]) {
+    for (let i = 0; i < userNumbers.balls.length; i++) {
+      if (this.targetNumbers.balls[i] === userNumbers.balls[i]) {
         strike++;
-      } else if (this.targetNumbers.balls.includes(input.balls[i])) {
+      } else if (this.targetNumbers.balls.includes(userNumbers.balls[i])) {
         ball++;
       }
     }
 
-    return { ball, strike };
+    if (strike > 0 && ball > 0) {
+      return `${ball}볼 ${strike}스트라이크`;
+    } else if (strike > 0) {
+      return `${strike}스트라이크`;
+    } else if (ball > 0) {
+      return `${ball}볼`;
+    } else {
+      return "낫싱";
+    }
   }
 }
 

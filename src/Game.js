@@ -8,45 +8,57 @@ class Game {
 
   constructor(computer) {
     this.computer = computer ?? new Computer();
-    Console.print(this.computer.targetNumbers)
+    // Console.print(this.computer.targetNumbers)
     Object.freeze(this.computer);
   }
 
   // todo: make it simpler
   async round() {
     while (true) {
-      try {
-        const input = SetOfBalls.checkNumbers(await Console.readLineAsync(Messages.INPUT_NUMBERS));
-        const { ball, strike } = this.computer.compareNumbers(input);
-        let result = "";
+      const userNumbers = await this.getUserInputAsync();
+      const result = this.computer.compareNumbers(userNumbers);
+      if (result === null) {
+        throw new Error(Messages.ERROR_INPUT);
+      }
 
-        if (ball > 0) {
-          result += `${ball}${Messages.MSG_BALL}`;
-        }
-
-        if (strike > 0) {
-          if (result !== '') {
-            result += ' ';
-          }
-          result += `${strike}${Messages.MSG_STRIKE}`;
-        }
-
-        if (result === '') {
-          result += Messages.MSG_NOTHING;
-        }
-
-        Console.print(result);
-
-        if (strike === 3) {
-          Console.print(Messages.MSG_END);
-          return true;
-        }
-      } catch (error) {
-        Console.print(error);
-        break ;
+      Console.print(result);
+      if (result === "3스트라이크") {
+        Console.print(Messages.MSG_END);
+        return true;
       }
     }
   }
+
+  async menu() {
+    const choosen = await this.getUserMenuAsync();
+    if (choosen === '0') {
+      throw new Error(Messages.ERROR_MENU);
+    }
+
+    if (choosen === '1') {
+      return true;
+    } else if (choosen === '2') {
+      Console.print(Messages.MSG_END);
+      return false;
+    }
+  }
+
+  async getUserInputAsync() {
+    const input = await Console.readLineAsync(Messages.INPUT_NUMBERS);
+    if (!SetOfBalls.checkNumbers(input)) {
+      return null;
+    }
+    return new SetOfBalls(input.split('').map(Number));
+  }
+
+  async getUserMenuAsync() {
+    const input = await Console.readLineAsync(Messages.INPUT_MENU + '\n');
+    if (input !== '1' && input !== '2') {
+      return '0';
+    }
+    return input;
+  }
+
 }
 
 export default Game;
