@@ -11,7 +11,7 @@ class App {
       const userInput = await Console.readLineAsync("");
       const inputIsValid = checkInputIsValid(userInput);
       if (inputIsValid) {
-        const scoreBoard = checkReferee(userInput, randomNumber);
+        const scoreBoard = calculateScore(userInput, randomNumber);
         if (scoreBoard.strike === 3) {
           Console.print(printScore(scoreBoard));
           Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료.");
@@ -53,11 +53,8 @@ const checkInputIsValid = (userInput) => {
   return input.length === 3 ? true : false;
 };
 
-const checkReferee = (userInput, randomNumber) => {
-  const input = [...userInput].map((number) => {
-    return +number;
-  });
-
+const calculateScore = (userInput, randomNumber) => {
+  const input = [...userInput].map((number) => +number);
   const socreBoard = { strike: 0, ball: 0 };
 
   randomNumber.forEach((number, randomIndex) => {
@@ -65,17 +62,18 @@ const checkReferee = (userInput, randomNumber) => {
       return inputNum === number;
     });
 
-    if (userInputIndex != -1 && userInputIndex === randomIndex) {
+    if (userInputIndex === randomIndex) {
       socreBoard.strike += 1;
     } else if (userInputIndex != -1) {
       socreBoard.ball += 1;
-    } else {
-      return;
     }
+
+    return;
   });
 
   return socreBoard;
 };
+
 
 const printScore = (scoreBoard) => {
   let returnString = "";
@@ -98,5 +96,8 @@ const checkGameStatus = (userInput) => {
     return { isError: true };
   }
 };
+
+const app = new App();
+app.play();
 
 export default App;
