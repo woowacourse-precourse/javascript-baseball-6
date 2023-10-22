@@ -266,5 +266,61 @@ describe("숫자 야구 게임", () => {
     await expect(app.play()).rejects.toThrow("[ERROR]");
   });
 
+  test("예외 테스트(USER_NUMBER ERROR) 세자리 같은 숫자 입력", async () => {
+    // given
+    const randoms = [5, 6, 7];
+    const answers = ["111"];
+    
+    mockRandoms(randoms);
+    mockQuestions(answers);
+    
+    // when & then
+    const app = new App();
+    
+    await expect(app.play()).rejects.toThrow("[ERROR]");
+  });
+
+  test("예외 테스트(USER_NUMBER ERROR) 두자리 같은 숫자 입력", async () => {
+    // given
+    const randoms = [5, 6, 7];
+    const answers = ["121"];
+    
+    mockRandoms(randoms);
+    mockQuestions(answers);
+    
+    // when & then
+    const app = new App();
+    
+    await expect(app.play()).rejects.toThrow("[ERROR]");
+  });
+
+  test("예외 테스트(USER_NUMBER ERROR) 두자리 같은 숫자 입력", async () => {
+    // given
+    const randoms = [5, 6, 7];
+    const answers = ["112"];
+    
+    mockRandoms(randoms);
+    mockQuestions(answers);
+    
+    // when & then
+    const app = new App();
+    
+    await expect(app.play()).rejects.toThrow("[ERROR]");
+  });
+
+  test("예외 테스트(USER_NUMBER ERROR) 두자리 같은 숫자 입력", async () => {
+    // given
+    const randoms = [5, 6, 7];
+    const answers = ["211"];
+    
+    mockRandoms(randoms);
+    mockQuestions(answers);
+    
+    // when & then
+    const app = new App();
+    
+    await expect(app.play()).rejects.toThrow("[ERROR]");
+  });
+
   
 });
