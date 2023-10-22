@@ -80,7 +80,13 @@ class App {
       strikeCount = caculateStrike(randomArray, inputArray);
       ballCount = caculateBall(randomArray, inputArray, strikeCount);
 
-      resetCode = await finish();
+      if (strikeCount === 3) {
+        Console.print("3스트라이크");
+      } else if (strikeCount > 0 || ballCount > 0) {
+        Console.print(ballCount + "볼 " + strikeCount + "스트라이크");
+      } else {
+        Console.print("낫싱");
+      }
     }
   }
 }
