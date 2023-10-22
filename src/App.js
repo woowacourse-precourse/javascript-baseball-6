@@ -24,7 +24,7 @@ export default class App{
     
   //게임 시작
   async play() {
-    await this.#_player.inputNumber();
+    await this.#_player.inputNumber(this.#_view);
     return this.judgeResult();
   }
 

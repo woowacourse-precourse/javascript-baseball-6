@@ -5,8 +5,8 @@ export default class player {
 
   #_userNumber;
 
-  async inputNumber() {
-    const userInput = await Console.readLineAsync(MESSAGE.input);
+  async inputNumber(view) {
+    const userInput = await view.readInput(MESSAGE.input);
     
     if (this.isValidNumber(userInput)) {
       this.#_userNumber = userInput.split('').map((num) => Number(num));
