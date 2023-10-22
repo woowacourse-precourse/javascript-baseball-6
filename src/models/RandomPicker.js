@@ -4,15 +4,7 @@ import { GAME_CONTROL } from "../constants/Constants.js";
 class RandomPicker {
 
   constructor () {
-    this.computerNumber = null;
-  }
-
-  getComputerNumber() {
-    if (this.computerNumber === null) { 
-      this.computerNumber = this.pickRandomNumbers();
-    }
-
-    return this.computerNumber;
+    this.computerNumber = this.pickRandomNumbers();
   }
 
   pickRandomNumbers() {
@@ -23,9 +15,11 @@ class RandomPicker {
       digitsArray.add(randomNumber);
     }
 
-    const resultArray = [...digitsArray];
+    return parseInt([...digitsArray].join(''));
+  }
 
-    return parseInt(resultArray.join(''));
+  getComputerNumber() {
+    return this.computerNumber;
   }
 }
 
