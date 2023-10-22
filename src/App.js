@@ -1,8 +1,8 @@
-import { MissionUtils } from '@woowacourse/mission-utils';
+import { Console, Random } from '@woowacourse/mission-utils';
 import BaseballGame from './BaseballGame';
 class App {
   async play() {
-    MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
+    Console.print('숫자 야구 게임을 시작합니다.');
     const game = new BaseballGame();
     let errorflag = 0;
     let flag = 1;

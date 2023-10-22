@@ -1,8 +1,8 @@
-import { MissionUtils } from '@woowacourse/mission-utils';
+import { Console, Random } from '@woowacourse/mission-utils';
 export default class User {
   #threeNummer; // 입력받은 숫자 배열
   constructor() {
-    
+
   }
 
   async setThreeNummber() {
@@ -17,7 +17,7 @@ export default class User {
       !this.checkNonNumber ||
       isNaN(Number(number))
     ) {
-      throw '[ERROR]';
+      throw new Error(`Error`);
     }
   }
   numberToArray(n) {
@@ -41,7 +41,7 @@ export default class User {
 
   async getnumber() {
     try {
-      const number = await MissionUtils.Console.readLineAsync(
+      const number = await Console.readLineAsync(
         '숫자를 입력해주세요 : '
       );
       return number;

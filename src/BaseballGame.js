@@ -1,6 +1,6 @@
-import Computer from './Computer.js';
-import User from './User.js';
-import { MissionUtils } from '@woowacourse/mission-utils';
+import Computer from './Computer';
+import User from './User';
+import { Console, Random } from '@woowacourse/mission-utils';
 
 export default class BaseballGame {
   #ballCount;
@@ -19,7 +19,7 @@ export default class BaseballGame {
 
     while (this.#strikeCount !== 3) {
       if (this.#flage === 1) {
-        throw new `[ERROR]`();
+        throw new Error(`[ERROR]`);
       }
       this.#ballCount = 0;
       this.#strikeCount = 0;
@@ -30,7 +30,7 @@ export default class BaseballGame {
           this.#flage = 1;
         });
     }
-    MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+    Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
   }
 
   comparNumber() {
@@ -49,20 +49,20 @@ export default class BaseballGame {
   }
   printCount() {
     if (this.#ballCount === 0 && this.#strikeCount === 0) {
-      MissionUtils.Console.print(`낫싱`);
+      Console.print(`낫싱`);
     } else if (this.#ballCount !== 0 && this.#strikeCount === 0) {
-      MissionUtils.Console.print(`${this.#ballCount}볼`);
+      Console.print(`${this.#ballCount}볼`);
     } else if (this.#strikeCount !== 0 && this.#ballCount === 0) {
-      MissionUtils.Console.print(`${this.#strikeCount}스트라이크 `);
+      Console.print(`${this.#strikeCount}스트라이크 `);
     } else {
-      MissionUtils.Console.print(
+      Console.print(
         `${this.#ballCount}볼 ${this.#strikeCount}스트라이크`
       );
     }
   }
   async retry() {
     try {
-      const number = await MissionUtils.Console.readLineAsync(
+      const number = await Console.readLineAsync(
         '숫자를 입력해주세요 : '
       );
       return parseInt(number, 10);
