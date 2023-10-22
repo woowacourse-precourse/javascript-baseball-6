@@ -7,7 +7,7 @@ export default class Computer {
     this.generate();
   }
 
-  generate() {
+  generate = () => {
     const generatedNumber = new Set();
 
     while (generatedNumber.size < 3) {
@@ -17,9 +17,7 @@ export default class Computer {
       }
     }
     this.#selectNumber = generatedNumber;
-  }
+  };
 
-  getSelectNumber() {
-    return this.#selectNumber;
-  }
+  getSelectNumber = () => this.#selectNumber;
 }
