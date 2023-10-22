@@ -34,7 +34,7 @@ export default class App{
 
     this.#_view.printResultMessage(result);
     if (result.STRIKE === CONSTANT.THREESTRIKE) {
-      this.#_view.print(MESSAGE.CORRECT);
+      this.#_view.printMessage(MESSAGE.SUCCESS);
       return this.restartGame();
     }
     return this.play();
