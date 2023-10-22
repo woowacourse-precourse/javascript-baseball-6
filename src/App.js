@@ -5,18 +5,20 @@ import { getHint } from "./getHint.js"
 import { getUserGameDecision } from "./getUserGameDecision.js"
 import { isGameEnded } from "./isGameEnded.js"
 import { isRoundEndedFromHint } from "./isRoundEndedFromHint.js"
+import { View } from "./view/View.js"
 
 class App {
   async play() {
-    MissionUtils.Console.print('숫자 야구 게임을 시작합니다.')
+    const view = new View();
+    view.printStartMsg()
     while (true) {
       const computerNumber = generateRandomThreeDigitNumber();
       while (true) {
         const userNumber = await getUserNumberInput()
         const hint = getHint(userNumber, computerNumber);
-        MissionUtils.Console.print(hint);
+        view.printHintMsg(hint);
         if (isRoundEndedFromHint(hint) === true) {
-          MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료')
+          view.printEndMsg();
           break;
         }
       }
