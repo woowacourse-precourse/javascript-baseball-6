@@ -34,14 +34,41 @@ class App {
         throw new Error('[ERROR] 중복 값이 입력되었습니다.');
       }
 
-      [ball, strike] = this.checkStrike(this.randNum, inputNum);
-      Console.print(ball);
-      Console.print(strike);
+      [ball, strike] = await this.checkStrike(this.randNum, inputNum);
+
+      if(ball == 0 && strike == 0) {
+        Console.print('낫싱');
+        continue;
+      }
+
+      if(strike == 3) {
+        Console.print('3스트라이크');
+        Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+        ONOFF = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
+        if(ONOFF == 1) {
+          this.randNum = this.makeRandNum();
+        }
+        continue;
+      }
+
+      if(ball == 0){
+        Console.print(`${strike}스트라이크`);
+        continue;
+      }
+
+      if(strike == 0){
+        Console.print(`${ball}볼`);
+        continue;
+      }
+
+      Console.print(`${ball}볼 ${strike}스트라이크`);
     }
+
+    if(ONOFF == 2) return;
     
   }
 
-  checkStrike(ansNum, inputNum) {
+  async checkStrike(ansNum, inputNum) {
     let ball = 0;
     let strike = 0;
     for(let i = 0; i < inputNum.length; i++){
