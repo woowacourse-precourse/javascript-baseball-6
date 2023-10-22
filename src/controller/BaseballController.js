@@ -1,5 +1,5 @@
 import { RESTART_COMMAND } from '../constants/commands.js';
-import { ERROR_MESSAGE, MESSAGE } from '../constants/messages.js';
+import { DONE_COUNT, ERROR_MESSAGE, MESSAGE } from '../constants/messages.js';
 
 export class BaseballController {
   constructor(model, view) {
@@ -9,42 +9,29 @@ export class BaseballController {
   }
 
   async start() {
-    try {
-      this.model.create();
+    this.model.settingComputerNumber();
 
-      while (!this.model.isDone) {
-        await this.#playGame();
-      }
+    while (!this.model.isDone) {
+      const userNumber = await this.view.getInputAsync(MESSAGE.INPUT);
+      this.model.setUserNumber(userNumber);
 
-      const restartCommand = await this.view.getInputAsync(MESSAGE.RESTART);
-      this.checkRestartCommand(restartCommand);
+      const gameResult = this.model.getGameResult();
+      this.view.printGameResult(gameResult);
 
-      restartCommand === RESTART_COMMAND.NEWGAME ? this.start() : this.quit();
-    } catch (error) {
-      this.view.printMessage(error);
+      if (gameResult.strike === DONE_COUNT) break;
     }
-  }
 
-  async #playGame() {
-    const userNumber = await this.view.getInputAsync(MESSAGE.INPUT);
-    this.#settingUserNumber(userNumber);
+    const restartCommand = await this.view.getInputAsync(MESSAGE.RESTART);
+    this.checkRestartCommand(restartCommand);
 
-    const gameResult = this.model.getGameResult();
-    this.view.printGameResult(gameResult);
-  }
-
-  quit() {
-    return;
-  }
-
-  #settingUserNumber(userNumber) {
-    this.model.setUserNumber(userNumber);
+    if (restartCommand === RESTART_COMMAND.NEWGAME) this.start();
+    else return;
   }
 
   checkRestartCommand(command) {
     const validCommands = [RESTART_COMMAND.NEWGAME, RESTART_COMMAND.QUIT];
     if (!validCommands.includes(command)) {
-      throw ERROR_MESSAGE.INVALID_END_COMMAND;
+      throw new Error(ERROR_MESSAGE.INVALID_END_COMMAND);
     }
   }
 }
