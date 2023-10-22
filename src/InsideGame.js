@@ -11,7 +11,6 @@ class InsideGame {
     }
     return computer;
   }
-
   Check(computerNumber, userNumber){
     let ball = 0;
     let strike = 0;
