@@ -1,3 +1,5 @@
+import { Random, Console } from "@woowacourse/mission-utils";
+
 class App {
   constructor() {
     this.MIN_VALUE = 111;
@@ -9,7 +11,7 @@ class App {
       const randomNumber = this.generateRandomNumber(
         this.MIN_VALUE,
         this.MAX_VALUE,
-      );
+      ).toString();
       let score = [];
       let isInGame = true;
 
@@ -40,7 +42,6 @@ class App {
         }
       }
     } catch (error) {
-      isInGame = false;
       await Promise.reject(error);
     }
   }
@@ -71,23 +72,29 @@ class App {
 
   generateRandomNumber(min, max) {
     let number = Random.pickNumberInRange(this.MIN_VALUE, this.MAX_VALUE);
-    while (!number.toString().includes("0")) {
+    while (number.toString().includes(0)) {
       number = Random.pickNumberInRange(this.MIN_VALUE, this.MAX_VALUE);
     }
     return number;
   }
 
-  restartGame() {
-    const request = await Console.readLineAsync(
-      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n",
-    );
-    if (request === "1") {
-      this.play();
-    } else if (request === "2") {
-      // exit
+  async restartGame() {
+    try {
+      const request = await Console.readLineAsync(
+        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n",
+      );
+      if (request === "1") {
+        this.play();
+      } else if (request !== "2") {
+        throw new Error("[ERROR] 잘못된 형식입니다.\n");
+      }
+    } catch (error) {
+      await Promise.reject(error);
     }
   }
-
 }
+
+const app = new App();
+app.play();
 
 export default App;
