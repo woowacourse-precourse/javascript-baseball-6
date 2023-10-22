@@ -2,9 +2,10 @@ import { MissionUtils, Console } from '@woowacourse/mission-utils';
 import { LOGS } from './logs.js';
 
 class App {
+  #computer;
   constructor(){
     this.start = true;
-    this._computer; // [number]
+    this.#computer = []; // [number]
   }
 
   async play() {
@@ -35,7 +36,7 @@ class App {
       const NUMBER = MissionUtils.Random.pickNumberInRange(1,9)
       if (!computer.includes(NUMBER)) computer.push(NUMBER);
     }
-    this._computer = computer;
+    this.#computer = computer;
     this.start = false;
     return ;
   }
@@ -65,8 +66,8 @@ class App {
   // 입력값 처리
   _checkInput(input){
     const USER_INPUT = input;
-    const SAME = USER_INPUT.filter(item=> this._computer.includes(item)).length;
-    const STRIKE = USER_INPUT.filter((item,idx) => item === this._computer[idx]).length;
+    const SAME = USER_INPUT.filter(item=> this.#computer.includes(item)).length;
+    const STRIKE = USER_INPUT.filter((item,idx) => item === this.#computer[idx]).length;
     // 볼 = 같은 수 - 스트라이크
     const BALL = SAME - STRIKE;
     return [STRIKE,BALL]
