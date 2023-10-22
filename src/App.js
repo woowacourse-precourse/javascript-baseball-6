@@ -1,8 +1,14 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
-  // 게임 시작 전
+  constructor() {
+    // 재시도시 메시지 출력 핸들링
+    this.firstTime = true;
+  }
   async play() {
+    if (this.firstTime) {
+      MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
+    }
     try {
       const computerNumber = this.generateGame();
       await this.game(computerNumber);
@@ -41,7 +47,6 @@ class App {
     }
     return answer;
   }
-
   async game(correctAnswer) {
     while (true) {
       const userAnswer = await this.getUserAnswer();
@@ -84,6 +89,7 @@ class App {
     }
   }
   async result() {
+    this.firstTime = false;
     const answer = await MissionUtils.Console.readLineAsync(
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
     );
