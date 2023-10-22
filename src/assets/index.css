@@ -1,0 +1,52 @@
+.inner{
+  width: 600px;
+  height:100vh;
+  margin: 0 auto;
+  padding-top: 32px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.inner > header{
+  font-size: 32px;
+  text-align: center;
+}
+section {
+  margin-bottom: 20px;
+}
+h3{
+  font-size: 18px;
+  font-weight: bold;
+}
+h3,p, li {
+  margin-bottom: 16px;
+  overflow-wrap: break-word;
+}
+li{
+  margin-left:calc(16px * 1.5);
+}
+.hint li:nth-child(1) {
+  list-style: "🔢";
+}
+.hint li:nth-child(2) {
+  list-style: "👍";
+}
+.hint li:nth-child(3) {
+  list-style: "😁";
+}
+.hint li:nth-child(4) {
+  list-style: "😥";
+}
+.rules li:nth-child(1){
+  list-style: "🌟";
+}
+.rules li:nth-child(2){
+  list-style: "🕹️";
+}
+.rules li:nth-child(3){
+  list-style: "⚠️";
+}
+footer{
+  text-align: center;
+}
