@@ -1,9 +1,6 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 
 class App {
-  constructor() {
-    this.play(); 
-  }
   async play() {
     Console.print("숫자 야구 게임을 시작합니다.");
     const correctNums = this.getCorrectNums();
@@ -15,14 +12,14 @@ class App {
     const [resultStr,isSuccess] = this.compareNums(correctNums, inpuNums);
     Console.print(resultStr);
     if(!isSuccess){
-      this.goSwing(correctNums);
+      await this.goSwing(correctNums);
       return;
     }
     Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
     const reGameYn = await this.getReGameYn();
     if(reGameYn) {
       const correctNums = this.getCorrectNums();
-      this.goSwing(correctNums);
+      await this.goSwing(correctNums);
     }
   }
 
@@ -32,8 +29,29 @@ class App {
   }
 
   async getInputNums() {
-    const inputNums = await Console.readLineAsync("숫자를 입력해주세요 :");
-    return inputNums.split("").map(Number);
+    const inputResult = await Console.readLineAsync("숫자를 입력해주세요 :");
+    const inputNums = inputResult.split("").map(Number);
+
+    this.checkValidate(inputNums);
+
+    return inputNums;
+  }
+
+  checkValidate(inputNums){
+    if(inputNums.length !== 3){
+      throw new Error('[ERROR] 3개의 숫자를 입력해주셔야 합니다.');
+    }
+    inputNums.forEach(num => {
+      if(num === 0){
+        throw new Error('[ERROR] 숫자는 0보다 큰 정수를 입력해 주셔야 합니다.');
+      }
+      if(num > 10){
+        throw new Error('[ERROR] 숫자는 10보다 작은 정수를 입력해 주셔야 합니다.');
+      }
+      if(!Number.isInteger(num)){
+        throw new Error('[ERROR] 숫자는 정수를 입력해 주셔야 합니다.');
+      }
+    })
   }
   
   getCorrectNums() {
@@ -70,6 +88,7 @@ class App {
   }
 }
 
-new App();
+const app = new App();
+app.play();
 
 export default App;
