@@ -4,7 +4,7 @@ import { enterNumber } from "./player.js";
 class App {
   async play() {
     const computerNum = pickRandomNumber();
-    // enterNumber(number);
+    enterNumber();
     // judgeNumber(number);
     // endGame();
   }
