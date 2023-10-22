@@ -22,6 +22,17 @@ export async function getUserNumber() {
   }
 }
 
+export async function getUserChoice() {
+  try {
+    const USERCHOICE = await MissionUtils.Console.readLineAsync(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+    );
+    return USERCHOICE;
+  } catch (error) {
+    MissionUtils.Console.print("[ERROR]");
+  }
+}
+
 export function strikeCheck(RAND_ANSWER, USER_ANSWER) {
   let STRIKE_CNT = 0;
   for (var i = 0; i < RAND_ANSWER.length; i++) {
