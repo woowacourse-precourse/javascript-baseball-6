@@ -6,5 +6,5 @@ const ERROR = Object.freeze({
 
 export const MESSAGE = Object.freeze({
   ERROR,
-  GAME_START: '숫자 야구 게임을 시작합니다.',
+  START_GAME: '숫자 야구 게임을 시작합니다.',
 });
