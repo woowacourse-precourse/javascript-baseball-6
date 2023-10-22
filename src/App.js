@@ -6,10 +6,16 @@ import { WORD } from "./lib/constants/word.js";
 class App {
   async play() {
     this.startGame();
+
+    await this.playGame();
   }
 
   startGame() {
     Console.print(MESSAGE.START);
+  }
+
+  async playGame() {
+    const randomNumber = this.createRandomNumber();
   }
 }
 
