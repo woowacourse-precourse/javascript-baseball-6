@@ -11,6 +11,7 @@ class App {
   }
 
   async play() {
+    // 게임 시작!
     this.printMsgIs(this.message("START"));
     this.makeStrikeZoneNumber();
     await this.game();
@@ -21,6 +22,7 @@ class App {
   }
 
   makeStrikeZoneNumber() {
+    // 컴퓨터 숫자 생성
     const computer = [];
     while (computer.length < 3) {
       const number = MissionUtils.Random.pickNumberInRange(1, 9);
@@ -32,12 +34,14 @@ class App {
   }
 
   async game() {
+    // 입력값 받고, 결과 만들고, 판단해서 출력까지 하나의 루틴
     await this.makePitchingNumber();
     this.makeResult(this.strikeZoneNumber, this.pitchingNumber);
     await this.judge();
   }
 
   async makePitchingNumber() {
+    // 사용자 입력값으로 배열 생성
     const INPUT_MESSAGE = this.message("INPUT");
     const inputNumber = await MissionUtils.Console.readLineAsync(INPUT_MESSAGE);
     // 유효성 테스트 통과 시 배열로 할당
@@ -48,6 +52,7 @@ class App {
   }
 
   makeResult(strikeZoneArray, pitchingArray) {
+    // 컴퓨터 숫자 배열과 사용자 입력값 배열을 비교해서, 스트라이크/볼 개수를 담은 객체(compareResult) 생성
     let strikeCount = 0;
     let ballCount = 0;
     for (let i = 0; i < 3; i++) {
@@ -62,6 +67,7 @@ class App {
   }
 
   async judge() {
+    // 스트라이크에 개수에 따라서 삼진과 삼진이 아닌 경우로 나눠서 진행하도록 다음 메서드 호출
     const STRIKES = this.compareResult.strikes;
     const BALLS = this.compareResult.balls;
     if (STRIKES === 3) {
@@ -74,8 +80,11 @@ class App {
   }
 
   async retry() {
+    // judge 메서드에서 삼진인 경우 호출
     this.congratMessagePrint();
+    // 축하 메세지 출력
     const RETRY = this.message("RETRY");
+    // 게임 재시도 여부 물어봄
     const retryInput = await MissionUtils.Console.readLineAsync(RETRY);
     if (retryInput === "1") {
       this.makeStrikeZoneNumber();
@@ -90,6 +99,8 @@ class App {
   }
 
   replayMessagePrint(strikes, balls) {
+    // judge 메서드에서 삼진이 아닌 경우 호출
+    // compareResult 객체에서 스트라이크, 볼 개수 출력
     const NOTHING = this.message("NOTHING");
     if (strikes === 0 && balls === 0) this.printMsgIs(NOTHING);
     if (strikes !== 0 && balls !== 0)
@@ -112,7 +123,7 @@ class App {
 
   message(NAME) {
     const MESSAGE = {
-      // 상수는 대문자로 짓고, _로 구분한다.
+      // 상수명은 대문자로 짓고, _로 구분한다.
       START: "숫자 야구 게임을 시작합니다.",
       INPUT: "숫자를 입력해주세요 : ",
       RETRY: "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n",
@@ -124,7 +135,7 @@ class App {
 
   errorMessage(NAME) {
     const ERROR_MESSAGE = {
-      // 상수는 대문자로 짓고, _로 구분한다.
+      // 상수명은 대문자로 짓고, _로 구분한다.
       UNDEFINED: "[ERROR] 입력값을 확인해주세요.",
       LENGTH: "[ERROR] 입력값은 3자리 수여야 합니다.",
       NOT_NUMBER: "[ERROR] 입력값은 1-9 사이에 숫자여야 합니다.",
