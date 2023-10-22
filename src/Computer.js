@@ -7,14 +7,14 @@ class Computer {
   #ball = 0;
 
   constructor() {
-    this.#numbers = this.#createNumbers();
+    this.#numbers = Computer.#createNumbers();
   }
 
   get numbers() {
     return this.#numbers;
   }
 
-  #createNumbers() {
+  static #createNumbers() {
     const numbers = [];
 
     while (numbers.length < 3) {
