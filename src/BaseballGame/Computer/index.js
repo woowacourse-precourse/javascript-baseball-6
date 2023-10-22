@@ -1,17 +1,12 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import { NUMS } from '../constants/index.js';
+import { NUMS, MATCH } from '../constants/index.js';
 
 class Computer {
   constructor() {
     this.nums = [];
   }
 
-  clear() {
-    this.nums = [];
-  }
-
   generate() {
-    this.clear();
     const { nums } = this;
     while (nums.length < NUMS.ASNWER_LENGTH) {
       const number = MissionUtils.Random.pickNumberInRange(1, 9);
@@ -21,18 +16,16 @@ class Computer {
     }
   }
 
-  isMatch(scores) {
-    const [strike, _] = scores;
+  isMatch({ strike }) {
     return strike === NUMS.ASNWER_LENGTH;
   }
 
-  makeMatchString(scores) {
-    const [strike, ball] = scores;
-    const strikeString = strike ? `${strike}스트라이크` : '';
-    const ballString = ball ? `${ball}볼` : '';
+  makeMatchString({ strike, ball }) {
+    const strikeString = strike ? `${strike}${MATCH.STRIKE}` : '';
+    const ballString = ball ? `${ball}${MATCH.BALL}` : '';
 
     if (!strike && !ball) {
-      return '낫싱';
+      return MATCH.NOTHING;
     }
     return `${ballString} ${strikeString}`.trim();
   }
@@ -40,13 +33,15 @@ class Computer {
   match(input) {
     const { nums } = this;
     const scores = [...input].map(Number).reduce(
-      ([strike, ball], num, pos) => {
+      ({ strike, ball }, num, pos) => {
         if (!nums.includes(num)) {
-          return [strike, ball];
+          return { strike, ball };
         }
-        return num === nums[pos] ? [strike + 1, ball] : [strike, ball + 1];
+        return num === nums[pos]
+          ? { strike: strike + 1, ball }
+          : { strike, ball: ball + 1 };
       },
-      [0, 0]
+      { strike: 0, ball: 0 }
     );
     return {
       matchString: this.makeMatchString(scores),
