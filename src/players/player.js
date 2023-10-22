@@ -7,13 +7,12 @@ export default class player {
 
   async inputNumber() {
     const userInput = await Console.readLineAsync(MESSAGE.INPUT);
-    const isValid = this.isValidNumber(userInput);
-
-    if (isValid){
+    
+    if (this.isValidNumber(userInput)) {
       this.#_userNumber = userInput.split('').map((num) => Number(num));
     }
 
-    return isValid
+    return;
   }
 
   getJudgeResultPaper(opponent) {
