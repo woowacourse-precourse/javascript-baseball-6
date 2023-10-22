@@ -1,20 +1,20 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
-function checkBaseballResult(BALLS, STRIKES, GameValues) {
-  if (STRIKES == GameValues.ballSize) {
-    MissionUtils.Console.print(`${STRIKES}${GameValues.strikeMessage}`)
-    MissionUtils.Console.print(`${GameValues.gameClear}`)
+function checkBaseballResult(BALLS, STRIKES, gameSettings) {
+  if (STRIKES == gameSettings.ballSize) {
+    MissionUtils.Console.print(`${STRIKES}${gameSettings.strikeMessage}`)
+    MissionUtils.Console.print(`${gameSettings.gameClear}`)
     return true;
   } else if (BALLS && STRIKES) {
     MissionUtils.Console.print(
-      `${BALLS}${GameValues.ballMessage} ${STRIKES}${GameValues.strikeMessage}`
+      `${BALLS}${gameSettings.ballMessage} ${STRIKES}${gameSettings.strikeMessage}`
     );
   } else if (BALLS) {
-    MissionUtils.Console.print(`${BALLS}${GameValues.ballMessage}`);
+    MissionUtils.Console.print(`${BALLS}${gameSettings.ballMessage}`);
   } else if (STRIKES) {
-    MissionUtils.Console.print(`${STRIKES}${GameValues.strikeMessage}`);
+    MissionUtils.Console.print(`${STRIKES}${gameSettings.strikeMessage}`);
   } else {
-    MissionUtils.Console.print(`${GameValues.noStrikeNoBallMsg}`);
+    MissionUtils.Console.print(`${gameSettings.noStrikeNoBallMsg}`);
   }
   return false;
 }
