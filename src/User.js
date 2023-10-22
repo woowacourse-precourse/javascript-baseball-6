@@ -1,5 +1,6 @@
 import { Console } from "@woowacourse/mission-utils";
-import * as m from "./constants/message";
+import * as m from "./constants/message.js";
+import * as c from "./constants/const.js";
 
 export class User {
   async inputAnswer() {
@@ -34,7 +35,8 @@ export class User {
 
   isValidRetryInput(userInput) {
     if (isNaN(userInput)) return false;
-    if (userInput !== "1" && userInput !== "2") return false;
+    if (userInput !== c.RESTART_INPUT && userInput !== c.QUIT_INPUT)
+      return false;
     return true;
   }
 }

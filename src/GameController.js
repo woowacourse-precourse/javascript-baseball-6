@@ -1,6 +1,8 @@
 import { RandomNumberGenerator } from "./utils/RandomNumberGenerator.js";
 import { User } from "./User.js";
 import { Console } from "@woowacourse/mission-utils";
+import * as m from "./constants/message.js";
+import * as c from "./constants/const.js";
 export class GameController {
   constructor() {
     this.computer = RandomNumberGenerator.generateRandomNumber();
@@ -9,7 +11,7 @@ export class GameController {
 
   async startGame() {
     let isRunning = true;
-    Console.print("숫자 야구 게임을 시작합니다.");
+    Console.print(m.START_MESSAGE);
     while (isRunning) {
       const userInput = await this.user.inputAnswer();
       const strikeCount = this.getStrikeCount(userInput);
@@ -41,22 +43,22 @@ export class GameController {
 
   printHint(strikeCount, ballCount) {
     const hint = [];
-    if (ballCount !== 0) hint.push(`${ballCount}볼`);
-    if (strikeCount !== 0) hint.push(`${strikeCount}스트라이크`);
-    if (ballCount === 0 && strikeCount === 0) hint.push(`낫싱`);
+    if (ballCount !== 0) hint.push(`${ballCount}${c.BALL}`);
+    if (strikeCount !== 0) hint.push(`${strikeCount}${c.STRIKE}`);
+    if (ballCount === 0 && strikeCount === 0) hint.push(`${c.NOTHING}`);
 
     Console.print(hint.join(" "));
   }
 
   async checkGameSuccess(strikeCount, ballCount) {
     this.printHint(strikeCount, ballCount);
-    if (strikeCount === 3) {
-      Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    if (strikeCount === c.NUMBER_LENGTH) {
+      Console.print(m.SUCCESS_MESSAGE);
       const userInput = await this.user.inputRetry();
-      if (userInput === "1") {
+      if (userInput === c.RESTART_INPUT) {
         this.restartGame();
       }
-      if (userInput === "2") {
+      if (userInput === c.QUIT_INPUT) {
         return false;
       }
     }
