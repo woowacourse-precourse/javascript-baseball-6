@@ -13,12 +13,12 @@ class Baseball {
     Console.print(GAME_MESSAGE.GAME_START);
   }
 
-  startGame() {
+  async startGame() {
     const computer = new Computer();
     this.player.computer = computer.getNumber();
 
     const user = new User();
-    this.player.user = user.getNumber();
+    this.player.user = await user.getNumber();
   }
 }
 
