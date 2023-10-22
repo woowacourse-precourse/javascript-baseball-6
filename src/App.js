@@ -31,9 +31,9 @@ class App {
   }
 
   checkAllStrike(computerAnswer, answer){
-    if(computerAnswer === answer) {
+    /*if(computerAnswer === answer) {
       MissionUtils.Console.print('3스트라이크');
-    }
+    }*/
 
     let strike = 0;
     let ball = 0;
@@ -47,7 +47,17 @@ class App {
         }
       }
     }
-    MissionUtils.Console.print(`스트라이크: ${strike} 볼: ${ball} `);
+    if(strike > 0 && ball > 0){
+      MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
+  } else if(strike > 0){
+      MissionUtils.Console.print(`${strike}스트라이크`);
+  } else if(ball > 0){
+      MissionUtils.Console.print(`${ball}볼`);
+  } else {
+      MissionUtils.Console.print('낫싱');
+  }
+    
+    
   }
 
 }
