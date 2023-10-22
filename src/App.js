@@ -6,6 +6,9 @@ class App {
     const computerNumber = this.computerPick();
     const userPickValue = await this.userInput('숫자를 입력해주세요 : ');
     const userPickValidationResult = this.userPickValidation(userPickValue);
+    if (!userPickValidationResult)
+      this.throwError('[ERROR] 서로 다른 숫자 3개를 입력해주세요.');
+    const userNumber = this.userInput.split('').map((element) => +element);
   }
 
   infoPrint(message) {
@@ -42,6 +45,10 @@ class App {
     ];
     if (valueArr.length !== 3) return false;
     if (valueArr.length === 3) return true;
+  }
+
+  throwError(message) {
+    throw new Error(message);
   }
 }
 
