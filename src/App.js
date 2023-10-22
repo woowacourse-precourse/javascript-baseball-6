@@ -60,21 +60,20 @@ class App {
       }
 
       if (strikesArray.length >= 3) {
-        console.log(`🎉 3스트라이크
-        3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
+        alert(`🎉 3스트라이크 3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
       } else if (strikesArray.length > 0 && ballsArray.length > 0) {
         const strikeAndBallMessage = document.createElement("li");
         strikeAndBallMessage.textContent = ` 볼${ballsArray.length} 스트라이크${strikesArray.length}`;
         selectUlElement.appendChild(strikeAndBallMessage);
         console.log("strikeCount  = ", strikesArray.length);
-
-        //   const ballLi = document.createElement("li");
-        // ballLi.textContent = `볼${ballsArray.length}`;
-        // selectUlElement.appendChild(ballLi);
-
-        // const strikesLi = document.createElement("li");
-        // strikesLi.textContent = ` 스트라이크 ${strikesArray.length}`;
-        // selectUlElement.appendChild(strikesLi);
+      } else if (strikesArray.length > 0) {
+        const strikesLi = document.createElement("li");
+        strikesLi.textContent = ` 스트라이크 ${strikesArray.length}`;
+        selectUlElement.appendChild(strikesLi);
+      } else if (ballsArray.length > 0) {
+        const ballLi = document.createElement("li");
+        ballLi.textContent = `볼${ballsArray.length}`;
+        selectUlElement.appendChild(ballLi);
       }
 
       // const ballLi = document.createElement("li");
