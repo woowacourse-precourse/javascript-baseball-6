@@ -3,14 +3,18 @@ import { Console, Random } from '@woowacourse/mission-utils';
 class App {
   async play() {
     Console.print('숫자 야구 게임을 시작합니다.');
-    let startGameFlag = 1;
-    while (startGameFlag === 1) {
-      const computerSelectedNumber = this.pickRandomNumber();
-      let isThreeStrike = false;
-      while (!isThreeStrike) {
-        const userSelectedNumber = await this.getUsersInputNumber();
+    const computerNumber = this.pickRandomNumber();
+    let clearGameFlag = false;
+    while (!clearGameFlag) {
+      try {
+        const userSelectedNumber = await Console.readLineAsync(
+          '숫자를 입력해주세요 : '
+        );
+        if (!this.isValidNumber(userSelectedNumber)) {
+          throw new Error('숫자가 잘못된 형식입니다.');
+        }
         const { strikeCounter, ballCounter } = this.compareNumber(
-          computerSelectedNumber,
+          computerNumber,
           userSelectedNumber
         );
 
@@ -31,14 +35,13 @@ class App {
         }
 
         if (strikeCounter === 3) {
-          isThreeStrike = true;
-          startGameFlag = 2;
-          break;
+          clearGameFlag = true;
         }
+      } catch (error) {
+        Console.print('[ERROR] 숫자가 잘못된 형식입니다.');
+        break;
       }
     }
-    Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
-    startGameFlag = await this.gameController();
   }
 
   async gameController() {
@@ -57,20 +60,6 @@ class App {
       }
     }
     return Number(randomNumber);
-  }
-
-  async getUsersInputNumber() {
-    try {
-      const userSelectedNumber = await Console.readLineAsync(
-        '숫자를 입력해주세요 : '
-      );
-      if (!this.isValidNumber(userSelectedNumber)) {
-        throw new Error('숫자가 잘못된 형식입니다.');
-      }
-      return userSelectedNumber;
-    } catch (error) {
-      Console.print('[ERROR] 숫자가 잘못된 형식입니다.');
-    }
   }
 
   isValidNumber(num) {
