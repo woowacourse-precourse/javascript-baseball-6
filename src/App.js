@@ -5,9 +5,7 @@ class App {
     this.gameController = new GameController();
   }
   async play() {
-    this.gameController.startGame();
+    await this.gameController.startGame();
   }
 }
-const app = new App();
-app.play();
 export default App;
