@@ -16,6 +16,7 @@ class App {
         computerArr.push(number);
       }
     }
+    //생성한 숫자 문자열로 변환
     const computer = computerArr.join('');
     return computer;
   }
@@ -38,8 +39,21 @@ class App {
   }
 
   //구 판정
-  ball(){
-    
+  score(computer, numbers) {
+    let strikes = 0;
+    let balls = 0;
+
+    for (let i = 0; i < 3; i++) {
+      //같은 수, 같은 자리
+      if (computer[i] === numbers[i]) {
+        strikes += 1;
+      }
+      //같은 수, 다른 자리
+      if (computer.includes(numbers[i])) {
+        balls += 1;
+      }
+
+    }
   }
 
   async play() {
