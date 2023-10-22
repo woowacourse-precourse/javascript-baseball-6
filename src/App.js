@@ -21,11 +21,16 @@ class App {
 
   //사용자로부터 값 입력받기
   async getNumbers() {
-      const numbers = await Console.readLineAsync('숫자를 입력해주세요: ');
+      const numbers = await Console.readLineAsync('숫자를 입력해주세요 : ');
+      Console.print('');
+      return numbers;
   }
   
+  //값이 유효한지 확인
+
   async play() {
     this.start();
+    this.getNumbers();
   }
 }
 
