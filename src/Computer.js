@@ -12,9 +12,13 @@ class Computer {
   createRandomNumber() {
     while (this._answer.length < NUMBER_LENGTH) {
       const number = MissionUtils.Random.pickNumberInRange(START_NUMBER, END_NUMBER);
-      if (!this._answer.includes(number)) {
-        this._answer.push(number);
-      }
+      this.#checkIsAlreadyExists(number);
+    }
+  }
+
+  #checkIsAlreadyExists(randomNumber) {
+    if (!this._answer.includes(randomNumber)) {
+      this._answer.push(randomNumber);
     }
   }
 
