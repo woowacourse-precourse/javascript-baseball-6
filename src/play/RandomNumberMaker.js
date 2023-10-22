@@ -1,3 +1,5 @@
+import { MissionUtils } from "@woowacourse/mission-utils";
+
 class RandomNumberMaker {
   constructor(randomNumber = '') {
     this.randomNumber = randomNumber;
