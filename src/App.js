@@ -21,6 +21,7 @@ class App {
 
     while (!isCorrect) {
       const user = await this.inputUserNumber();
+      const comparedResult = this.compareNumber(user, randomNumber);
     }
   }
 
@@ -52,6 +53,22 @@ class App {
     }
 
     return numbers;
+  }
+
+  compareNumber(user, random) {
+    const result = { ball: 0, strike: 0 };
+
+    user.forEach((userNumber, index) => {
+      if (random.includes(userNumber)) {
+        if (random.indexOf(userNumber) === index) {
+          result.strike++;
+        } else {
+          result.ball++;
+        }
+      }
+    });
+
+    return result;
   }
 }
 
