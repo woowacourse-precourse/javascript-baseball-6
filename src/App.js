@@ -51,6 +51,9 @@ export default class BaseballGame {
     if (!checkLength(userInput)) {
       throw new Error("[ERROR] 3자리 숫자를 입력해주세요.");
     }
+    if (!checkIsNumbers(userInput)) {
+      throw new Error("[ERROR] 숫자만 입력해주세요.");
+    }
 
     return true;
   }
