@@ -31,21 +31,55 @@ class App {
   };
 
   getUserNumberInput = async () => {
-    try {
-      const input = await Console.readLineAsync("숫자를 입력해주세요 : ");
-      if (!this.checkUserNumberValidation(input)) {
-        throw new Error("[ERROR] 입력이 잘못된 형식입니다.");
-      }
-      return Array.from(input).map((el) => Number(el));
-    } catch (err) {
-      Console.print(err.message);
+    const input = await Console.readLineAsync("숫자를 입력해주세요 : ");
+    if (!this.checkUserNumberValidation(input)) {
+      throw new Error("[ERROR] 입력이 잘못된 형식입니다.");
     }
+    return Array.from(input).map((el) => Number(el));
+  };
+
+  calculateGameResult = async (computer, user) => {
+    const result = { ball: 0, strike: 0 };
+
+    computer.map((el, idx) => {
+      if (user.indexOf(el) > -1) {
+        if (user.indexOf(el) === idx) {
+          result.strike++;
+        } else {
+          result.ball++;
+        }
+      }
+    });
+
+    return result;
   };
 
   async play() {
-    this.gameStart();
-    this.computerNumber = this.computer.createRandomNumber();
-    this.userNumber = await this.getUserNumberInput();
+    try {
+      this.gameStart();
+      this.computerNumber = this.computer.createRandomNumber();
+
+      while (1) {
+        this.userNumber = await this.getUserNumberInput();
+
+        const result = await this.calculateGameResult(
+          this.computerNumber,
+          this.userNumber
+        );
+
+        if (result.ball === 0 && result.strike === 0) {
+          Console.print("낫싱");
+        } else if (result.strike === 3) {
+          Console.print("3스트라이크");
+          Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+        } else {
+          Console.print(`${result.ball}볼 ${result.strike}스트라이크`);
+        }
+      }
+    } catch (err) {
+      Console.print(err.message);
+      return;
+    }
   }
 }
 
