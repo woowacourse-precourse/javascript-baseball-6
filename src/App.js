@@ -1,14 +1,13 @@
-import { Console, Random } from "@woowacourse/mission-utils";
-
+import { MissionUtils } from "@woowacourse/mission-utils";
 class App {
   showStartMessage() {
-    Console.print("숫자 야구 게임을 시작합니다.");
+    MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
   }
 
   setRandomNumber() {
     const randomNumber = [];
     while (randomNumber.length < 3) {
-      let number = Random.pickNumberInRange(1, 9);
+      let number = MissionUtils.Random.pickNumberInRange(1, 9);
       if (!randomNumber.includes(number)) {
         randomNumber.push(number);
       }
@@ -17,18 +16,19 @@ class App {
   }
 
   async setUserInput(randomNumber) {
+    console.log(randomNumber);
     try {
-      const inputNumber = await Console.readLineAsync("숫자를 입력해주세요 : ");
+      const inputNumber = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
       const userInputNumber = this.userInputNumberValidation(inputNumber).split("").map(Number);
       const baseBallCount = this.calcBallStrike(userInputNumber, randomNumber);
       if (baseBallCount.strike === 3) {
-        Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+        MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
         this.gameRestart();
       } else {
         this.setUserInput(randomNumber);
       }
     } catch (error) {
-      Console.print(`[ERROR] 숫자가 잘못된 형식입니다.`);
+      MissionUtils.Console.print(`[ERROR] 숫자가 잘못된 형식입니다.`);
     }
   }
 
@@ -80,15 +80,15 @@ class App {
     });
 
     if (baseBallCount.ball > 0) {
-      Console.print(`${baseBallCount.ball}볼`);
+      MissionUtils.Console.print(`${baseBallCount.ball}볼`);
     }
 
     if (baseBallCount.strike > 0) {
-      Console.print(`${baseBallCount.strike}스트라이크`);
+      MissionUtils.Console.print(`${baseBallCount.strike}스트라이크`);
     }
 
     if (baseBallCount.strike === 0 && baseBallCount.ball === 0) {
-      Console.print(`낫싱`);
+      MissionUtils.Console.print(`낫싱`);
     }
 
     return baseBallCount;
@@ -96,7 +96,7 @@ class App {
 
   async gameRestart() {
     try {
-      const userInput = await Console.readLineAsync(
+      const userInput = await MissionUtils.Console.readLineAsync(
         `게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. \n`,
       );
 
@@ -104,12 +104,12 @@ class App {
         this.setRandomNumber();
         this.setUserInput(this.setRandomNumber());
       } else if (userInput === "2") {
-        Console.print("게임 종료");
+        MissionUtils.Console.print("게임 종료");
       } else {
-        throw new Error(Console.print("[ERROR] 숫자가 잘못된 형식입니다."));
+        throw new Error(MissionUtils.Console.print("[ERROR]"));
       }
     } catch (error) {
-      Console.print(`[ERROR] 숫자가 잘못된 형식입니다.`);
+      MissionUtils.Console.print(`[ERROR] 숫자가 잘못된 형식입니다.`);
     }
   }
 
