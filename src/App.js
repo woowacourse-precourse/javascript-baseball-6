@@ -10,7 +10,7 @@ class App {
       }
     } while (computerNum.length !== 3);
     const computerBall = computerNum.join("");
-    console.log(computerBall);
+
     return computerBall;
   }
 
@@ -58,21 +58,25 @@ class App {
     const user = await MissionUtils.Console.readLineAsync(
       "숫자를 입력해주세요 : "
     );
-    this.inGame(computerBall, user);
+    await this.inGame(computerBall, user);
   }
 
-  errorCase(user) {
-    if (/^[1-9]$/.test(user)) {
-      throw new Error("[ERROR] 잘못된 값을 입력하였습니다");
+  async errorCase(user) {
+    const userLength = Array.from(user);
+    if (/[^1-9]/.test(user)) {
+      throw new Error("[ERROR] 잘못된 값을 입력하였습니다.");
     }
-    if (user[0] === user[1] || user[1] === user[2] || user[0] === user[1]) {
-      throw new Error("[ERROR] 잘못된 값을 입력하였습니다");
+    if (user[0] === user[1] || user[1] === user[2] || user[0] === user[2]) {
+      throw new Error("[ERROR] 중복값을 입력하셨습니다.");
+    }
+    if (userLength.length !== 3) {
+      throw new Error("[ERROR] 세 자리의 숫자를 입력해주세요");
     }
   }
 
   async inGame(computerBall, user) {
+    await this.errorCase(user);
     const gameResult = this.strikeBall(computerBall, user);
-    this.errorCase(user);
     if (computerBall === user) {
       const response = await MissionUtils.Console.readLineAsync(
         "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
@@ -82,19 +86,19 @@ class App {
       } else if (response === "2") {
         return;
       } else {
-        throw new Error("[ERROR] 잘못된 값을 입력하였습니다");
+        throw new Error("[ERROR] 1혹은 2를 입력하세요.");
       }
     } else {
       const nextUser = await MissionUtils.Console.readLineAsync(
         "숫자를 입력해주세요 : "
       );
-      this.inGame(computerBall, nextUser);
+      await this.inGame(computerBall, nextUser);
     }
   }
 
   async play() {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
-    this.start();
+    await this.start();
   }
 }
 
