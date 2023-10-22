@@ -29,11 +29,8 @@ class App {
       }
 
       const restartInput = await this.giveQuestion(`게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.${"\n"}`);
-      if (restartInput === "2") this.isPlay = false;
-      else {
-        this.strike = 0;
-        this.ball = 0;
-      }
+
+      this.restart(restartInput);
     }
   }
 
@@ -72,6 +69,14 @@ class App {
     else if (input.includes(" ")) throw new Error("[ERROR]");
     else if (input.includes("0")) throw new Error("[ERROR]");
     else if (new Set(input).size !== 3) throw new Error("[ERROR]");
+  }
+
+  restart(input) {
+    if (input === "2") this.isPlay = false;
+    else if (input === "1") {
+      this.strike = 0;
+      this.ball = 0;
+    }
   }
 }
 
