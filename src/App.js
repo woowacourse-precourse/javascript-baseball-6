@@ -87,6 +87,15 @@ class App {
     const answer = await MissionUtils.Console.readLineAsync(
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
     );
+    if (answer === "1") {
+      this.play();
+    } else if (answer === "2") {
+      MissionUtils.Console.print("게임 종료");
+    } else {
+      throw new Error(
+        "[ERROR] 잘못된 입력입니다. 재시작은 1번을, 게임 종료는 2번을 입력해 주세요."
+      );
+    }
   }
 }
 
