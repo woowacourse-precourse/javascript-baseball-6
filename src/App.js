@@ -17,6 +17,20 @@ class App {
   async playGame() {
     const randomNumber = this.createRandomNumber();
   }
+
+  createRandomNumber() {
+    const computerNumber = [];
+    while (computerNumber.length < 3) {
+      const number = Random.pickNumberInRange(1, 9);
+      if (!computerNumber.includes(number)) {
+        computerNumber.push(number);
+      } else {
+        throw new Error(ERROR.INPUT_DUPLICATE);
+      }
+    }
+
+    return computerNumber;
+  }
 }
 
 const app = new App();
