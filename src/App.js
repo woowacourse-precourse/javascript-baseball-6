@@ -27,7 +27,7 @@ class App {
         if (score[0] === 3) {
           Console.print("3스트라이크");
           Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-          //this.restartGame();
+          this.restartGame();
           isInGame = false;
         } else if (score[0] === 0 && score[1] === 0) {
           Console.print("낫싱");
@@ -76,6 +76,18 @@ class App {
     }
     return number;
   }
+
+  restartGame() {
+    const request = await Console.readLineAsync(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n",
+    );
+    if (request === "1") {
+      this.play();
+    } else if (request === "2") {
+      // exit
+    }
+  }
+
 }
 
 export default App;
