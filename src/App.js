@@ -11,9 +11,9 @@ class App {
     // 게임 시작 메세지 출력
     Console.print(GAME_MESSAGE.START);
     // TODO : 1~9까지 랜덤 숫자를 생성하는 기능
-    this.compterNumber = this.generateComputerNumber();
+    this.computerNumber = this.generateComputerNumber();
     // 게임 시작 메서드(BaseballGame) 호출
-    return this.BaseballGame(this.compterNumber);
+    return this.BaseballGame(this.computerNumber);
   }
 
   generateComputerNumber() {
@@ -28,7 +28,7 @@ class App {
     return computerNumber;
   }
 
-  async BaseballGame(compterNumber) {
+  async BaseballGame(computerNumber) {
     // TODO : 숫자를 입력 받는 기능
     try {
       const userNumber = await Console.readLineAsync(GAME_MESSAGE.INPUT);
@@ -38,7 +38,7 @@ class App {
       }
       // TODO : 볼과 스트라이크를 계산하는 기능
       const { ball, strike } = this.calculateBallAndStrike(
-        compterNumber,
+        computerNumber,
         this.userNumber
       );
       // TODO : 비교한 결과에 대해 출력하는 기능
@@ -67,13 +67,13 @@ class App {
     return true;
   }
 
-  calculateBallAndStrike(compterNumber, userNumber) {
+  calculateBallAndStrike(computerNumber, userNumber) {
     const userNumberArray = String(userNumber).split("");
     let ball = 0;
     let strike = 0;
 
-    compterNumber.forEach((number, index) => {
-      if (compterNumber.includes(userNumber[index])) {
+    computerNumber.forEach((number, index) => {
+      if (computerNumber.includes(userNumber[index])) {
         ball++;
       }
 
