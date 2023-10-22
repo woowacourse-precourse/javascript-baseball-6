@@ -51,9 +51,9 @@ class App {
         userNumber = await MissionUtils.Console.readLineAsync("서로 다른 3자리의 수를 넣어주세요 ");
         //TODO 타입체크, 길이체크, 중복 체크 , 함수로 빼주고 함수형으로
 
-        if (userNumber === undefined || userNumber === null) throw Error("낫싱");
-        if (userNumber.length !== 3) throw Error("낫싱");
-        if ([...new Set(userNumber.split(""))].length !== 3) throw Error("낫싱");
+        if (userNumber === undefined || userNumber === null) throw Error("[ERROR]");
+        if (userNumber.length !== 3) throw Error("[ERROR]");
+        if ([...new Set(userNumber.split(""))].length !== 3) throw Error("[ERROR]");
 
         //숫자 비교
         let ball = 0;
