@@ -17,7 +17,7 @@ class App {
       let input = Console.readLineAsync("숫자를 입력해주세요 : ");
       
       input.then((message) => {
-        const user = [...message];
+        const user = [...message].map(item => parseInt(item));
         Console.print(typeof(user));
         if(chkUserInput(user)) {
           Console.print("조건 통과함");
@@ -50,13 +50,10 @@ class App {
       Console.print(`user : ${userInput}, ${typeof(user)}`);
       Console.print(`computer : ${computer}, ${typeof(computer)}`);
 
-      computer.forEach((element, index) => {
-        if(userInput.indexOf(element) === index) {
-          Console.print("스트라이크");
-        } else if(userInput.includes(element)) {
-          Console.print("볼");
-        }
-      })
+      userInput.forEach((element, index) => {
+        Console.print(`element: ${element}, index: ${index}, type: ${typeof(element)}`);
+        Console.print(`computer ele: ${computer[index]}, type: ${typeof(computer[index])}`);
+      });
     }
 
     const computer = makeAnswer();
