@@ -8,8 +8,11 @@ class Computer {
 
   generate() {
     const { nums } = this;
-    while (nums.length < NUMS.ASNWER_LENGTH) {
-      const number = MissionUtils.Random.pickNumberInRange(1, 9);
+    while (nums.length < NUMS.THREE) {
+      const number = MissionUtils.Random.pickNumberInRange(
+        NUMS.RANGE_START,
+        NUMS.RANGE_END
+      );
       if (!nums.includes(number)) {
         nums.push(number);
       }
@@ -17,7 +20,7 @@ class Computer {
   }
 
   isMatch({ strike }) {
-    return strike === NUMS.ASNWER_LENGTH;
+    return strike === NUMS.THREE;
   }
 
   makeMatchString({ strike, ball }) {
@@ -38,10 +41,10 @@ class Computer {
           return { strike, ball };
         }
         return num === nums[pos]
-          ? { strike: strike + 1, ball }
-          : { strike, ball: ball + 1 };
+          ? { strike: strike + NUMS.ONE, ball }
+          : { strike, ball: ball + NUMS.ONE };
       },
-      { strike: 0, ball: 0 }
+      { strike: NUMS.ZERO, ball: NUMS.ZERO }
     );
     return {
       matchString: this.makeMatchString(scores),
