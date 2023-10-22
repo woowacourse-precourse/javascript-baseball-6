@@ -5,88 +5,86 @@ class App extends InsideGame {
   constructor() {
     super();
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
-    this.start();
   }
-  // 시작과 동시에 3자리의 숫자 랜덤 생성.
-  start(endAnswer) {
-    this.randoms = super.randomNumber();
-    if(endAnswer === 1){
-      this.play();
-    }
-  }
-
-  // 사용자가 숫자를 입력하는 구간.
-  // 입력 값에 따라 에러가 발생할지 계속 진행할 지 정해짐
-  // 입력값을 inputVaild로 넘긴다.
   async play() {
+    const computerNumber = super.randomNumber();
+    while (true) {
+      try {
+        const userAnswer = await MissionUtils.Console.readLineAsync(
+          "숫자를 입력해주세요 : "
+        );
 
-    try {
-      const answer = await MissionUtils.Console.readLineAsync(
-        "숫자를 입력해주세요 : "
-      );
-      this.inputVaild(answer);
-    } catch (error) {
-      MissionUtils.Console.print(`오류 발생: ${error.message}`);
+        this.isValidAnswer(userAnswer);
+        const isGameEnd = this.ballAndStrike(computerNumber, userAnswer);
+        if (isGameEnd) {
+          this.endAndRestart();
+          break;
+        }
+      } catch (error) {
+        throw error;
+      }
     }
   }
-
-  // 입력값이 제대로 됐는지 확인.
-  // 검증은 자식 클래스로 넘긴다.
-  // 자식 클래스에서 검증이 끝나고 넘어온 값이 Normal Value 일 경우에 정상 진행.
-  inputVaild(answer) {
-    const result = super.vaild(answer);
-
-    if (result === "Normal Value") {
-      this.ballAndStrike(answer);
+  isValidAnswer(answer) {
+    if (answer.includes(" ")) {
+      throw new Error("[ERROR] 공백이 포함되어 있습니다.");
     }
+    if (isNaN(answer)) {
+      throw new Error("[ERROR] 숫자만 입력해주세요.");
+    }
+    const answerArr = answer.split("");
+    if (answerArr.includes("0")) {
+      throw new Error("[ERROR] 0이 포함되어 있습니다.");
+    }
+    if (answerArr.includes("-")) {
+      throw new Error("[ERROR] - 가 포함되어 있습니다.");
+    }
+    if (answer.length !== 3) {
+      throw new Error("[ERROR] 세 자리 숫자를 입력해주세요.");
+    }
+    const answerSet = new Set(answer);
+    if (answerSet.size !== 3) {
+      throw new Error("[ERROR] 중복된 숫자를 입력했습니다.");
+    }
+    return "Normal Value";
   }
-
-  // 볼 스트라이크 확인.
-  // ball과 strike 개수를 자식클래스의 ballCheck, strikeCheck를 통해 확인하고 ball과 strike 변수에 적용함.
-  // 적용된 ball과 strike를 자식 클래스의 outputHint를 통해 낫싱, n개의 볼, n개의 스트라이크로 출력함.
-  // strike가 3개일 경우 endAndRestart로 이동하고, 아닐 경우에는 다시 숫자를 입력하는 play로 이동.
-
-  ballAndStrike(answer) {
-    const ballStrike = super.Check(this.randoms, answer);
-
+  ballAndStrike(computer, user) {
+    // console.log(computer);
+    const ballStrike = super.Check(computer, user);
+    // console.log(ballStrike); // <---- 지워야 함
     MissionUtils.Console.print(super.outputHint(ballStrike[0], ballStrike[1]));
-
-    if (ballStrike[1] === 3) {
-      return this.endAndRestart();
-    } else {
-      this.play();
-    }
+    return ballStrike[1] === 3;
   }
-
-  // 3 스트라이크 일 경우 정답을 맞췄다는 정보 출력.
-  // 게임을 새로 시작할 지 안할 지 선택.
-  // 게임을 새로 시작하면 end로 이동.
   async endAndRestart() {
     MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+
     try {
-      const questionAnswer = await MissionUtils.Console.readLineAsync(
+      const endAnswer = await MissionUtils.Console.readLineAsync(
         "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. \n"
       );
-      this.end(questionAnswer);
+      this.end(endAnswer);
     } catch (error) {
-      MissionUtils.Console.print(`오류 발생: ${error.message}`);
+      throw error;
     }
   }
-
-  // questionAnswer가 1일 경우 다시 3개의 랜덤 숫자를 지정하고 게임을 시작함.
-  // 입력된 값을 자식 클래스의 endInputVaild를 통해 결과를 받아냄.
-  end(questionAnswer) {
-    const endAnswer = super.endInputVaild(questionAnswer);
+  end(restartAndEnd) {
+    const endAnswer = this.endInputValid(restartAndEnd);
 
     if (endAnswer === 1) {
-      this.start(endAnswer);
+      this.play();
     } else {
       this.close();
     }
   }
+  endInputValid(question) {
+    const questionNumber = Number(question);
+    if (questionNumber !== 1 && questionNumber !== 2) {
+      throw new Error("[ERROR] 1과 2만 입력해주세요.");
+    }
+    return questionNumber;
+  }
   close() {
     MissionUtils.Console.print("프로그램을 종료합니다.");
-    return;
   }
 }
 
