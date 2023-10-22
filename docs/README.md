@@ -207,29 +207,32 @@
   - [x] 입력받은 값이 정수가 아닐 경우 에러를 발생시킨다.
   - [x] 입력받은 값이 범위 내 숫자가 아닐 경우 에러를 발생시킨다.
 
-- [ ] TargetBalls
+- [x] TargetBalls
 
-  - [ ] 입력받은 배열에 따라 `balls` 필드에 `TargetBall`로 이루어진 배열을 가진다.
+  - [x] 입력받은 배열에 따라 `balls` 필드에 `TargetBall`로 이루어진 배열을 가진다.
 
-- [ ] TargetBalls 예외 처리
+- [x] TargetBalls 예외 처리
 
-  - [ ] 입력받은 값이 배열이 아닐 경우 에러를 발생시킨다.
-  - [ ] 입력받은 배열의 길이가 유효한 값이 아닐 경우 에러를 발생시킨다.
-  - [ ] 입력받은 배열에 중복이 있을 경우 에러를 발생시킨다.
+  - [x] 입력받은 값이 배열이 아닐 경우 에러를 발생시킨다.
+  - [x] 입력받은 배열의 길이가 유효한 값이 아닐 경우 에러를 발생시킨다.
+  - [x] 입력받은 배열에 중복이 있을 경우 에러를 발생시킨다.
 
 - [ ] AnswerBalls
 
+  - [ ] 입력받은 배열에 따라 `balls` 필드에 `TargetBalls`를 가진다.
   - [ ] `contains` 메서드는 입력받은 `TargetBall`을 `numbers`에 소유하고 있는지 판별한다.
   - [ ] `match` 메서드는 `numbers`에 입력받은 `index`가 입력받은 `TargetBall`과 같은지 판별한다.
 
 - [ ] AnswerBalls 예외 처리
 
+  - [ ] 입력받은 배열에 따라 `balls` 필드에 `TargetBalls`를 가진다.
   - [ ] `contains` 메서드의 인자가 `TargetBall`가 아니라면 에러를 발생시킨다.
   - [ ] `match` 메서드의 `targetBall` 인자가 `TargetBall`이 아니라면 에러를 발생시킨다.
   - [ ] `match` 메서드의 `index` 인자가 정수가 아니라면 에러를 발생시킨다.
 
 - [ ] SubmittedBalls
 
+  - [ ] 입력받은 배열에 따라 `balls` 필드에 `TargetBalls`를 가진다.
   - [ ] `grade` 메서드는 `AnswerBalls`와 비교하여 점수를 계산한다.
 
 - [ ] SubmittedBalls 예외 처리
