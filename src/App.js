@@ -1,12 +1,13 @@
 import { Random, Console } from "@woowacourse/mission-utils";
 
+import Computer from "./Computer";
+
 class App {
   #strike;
   #ball;
   #nothing;
 
   constructor() {
-    this.computer = "";
     this.player = "";
     this.#strike = 0;
     this.#ball = 0;
@@ -14,7 +15,7 @@ class App {
   }
 
   async play() {
-    this.pickComputerNumber();
+    const computer = new Computer();
     Console.print("숫자 야구 게임을 시작합니다.");
 
     while (true) {
