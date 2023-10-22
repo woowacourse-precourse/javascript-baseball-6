@@ -8,8 +8,12 @@ class App {
 	#printConsole = new PrintConsole();
 
 	generateRandomNumber() {
-		const generateNumberResponse = Random.pickUniqueNumbersInRange(1, 9, 3);
-		this.#computerAnswer = generateNumberResponse;
+		this.#computerAnswer = [];
+		while (this.#computerAnswer.length < 3) {
+			const generatedNumber = Random.pickNumberInRange(1, 9);
+			if (!this.#computerAnswer.includes(generatedNumber))
+				this.#computerAnswer.push(generatedNumber);
+		}
 	}
 
 	#compareUserAndComputer(inputVal) {
