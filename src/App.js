@@ -1,12 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
-    // App 객체 생성시 무작위 컴퓨터 숫자 생성
-    constructor() {
-        MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
-        this.createComputerNum();
-    }
-
     // 컴퓨터 숫자 생성 함수
     async createComputerNum() {
         const TMP_ARRAY = [];
@@ -15,6 +9,8 @@ class App {
             if (!TMP_ARRAY.includes(tmp)) TMP_ARRAY.push(tmp);
         }
         this.computerNum = TMP_ARRAY;
+
+        return;
     }
 
     // 플레이어 숫자 입력 함수
@@ -61,8 +57,8 @@ class App {
         // 텍스트 출력
         this.resultText(strike, ball);
 
-        if (strike !== 3) this.play();
-        else this.isEndGame();
+        if (strike !== 3) return this.compare();
+        else return this.isEndGame();
     }
 
     // 스트라이크 볼 텍스 출력 함수
@@ -74,19 +70,21 @@ class App {
             MissionUtils.Console.print(`${ball}볼`);
         else if (strike !== 0 && ball !== 0)
             MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
+
+        return;
     }
 
     // 3스트라이크 이후 게임 종료 여부 함수
     async isEndGame() {
         const END_GAME_INPUT = await MissionUtils.Console.readLineAsync(
-            "3개의 숫자를 모두 맞히셨습니다! 게임 종료\n게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+            "3개의 숫자를 모두 맞히셨습니다! 게임 종료\n게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
         );
         // 예외처리
-        if (END_GAME_INPUT === "1") {
+        if (Number(END_GAME_INPUT) === 1) {
             this.createComputerNum();
-            this.play();
+            return this.compare();
         } //
-        else if (END_GAME_INPUT === "2") {
+        else if (Number(END_GAME_INPUT) === 2) {
             MissionUtils.Console.print("게임 종료");
             return;
         } //
@@ -96,12 +94,10 @@ class App {
     }
 
     async play() {
-        console.log(this.computerNum);
-        this.compare();
+        MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
+        this.createComputerNum();
+        return this.compare();
     }
 }
-
-const play = new App();
-play.play();
 
 export default App;
