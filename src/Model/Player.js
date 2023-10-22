@@ -4,19 +4,19 @@ import { MESSAGE } from '../constants/message.js';
 import { isBaseballNumber } from '../utils/validation.js';
 
 export class Player {
-  numberList;
+  #numberList;
 
   constructor(numberList) {
     this.validateNumber(numberList);
 
-    this.numberList = numberList;
+    this.#numberList = numberList;
   }
 
   validateNumber(numberList) {
     if (numberList.length !== BASEBALL_NUMBER.DIGIT)
       throw new CustomError(MESSAGE.ERROR.INVALID_DIGITS);
 
-    if (numberList.every(Number))
+    if (!numberList.every(Number))
       throw new CustomError(MESSAGE.ERROR.INVALID_TYPE);
 
     if (!numberList.every(isBaseballNumber))
