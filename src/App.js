@@ -1,18 +1,18 @@
 import { MissionUtils, Console } from '@woowacourse/mission-utils';
 import { INPUT_LENGTH, MAX_NUMBER, MIN_NUMBER, STRIKE_END_POINTS } from './lib/constants.js';
 import { INPUT_REGEX1, INPUT_REGEX2 } from './lib/reg.js';
-import { LOGS } from './lib/logs';
+import { LOGS } from './lib/logs.js';
 
 class App {
   constructor(){
     this.isStart = true; // 시작 여부 : boolean
     this.computer = []; // 정답 배열 : [number]
-    this.tryCount = 0; // 유저 시도 횟수 : number
   }
 
   // 게임 시작 메서드
   async play() {
-    Console.print(LOGS.GAME_START);
+    try{
+      Console.print(LOGS.GAME_START);
 
     while(true){
       if(this.isStart) this.initialization();
@@ -23,7 +23,6 @@ class App {
       // 스트라이크가 3이 아니면 continue
       if(STRIKE!==STRIKE_END_POINTS) continue;
       Console.print(LOGS.GAME_END);
-      Console.print(`시도 횟수 : ${this.tryCount} 회`);
       Console.print(LOGS.RESTART_PROMPT)
       // 재시작 여부 묻기
       const IS_RESTART = await this.checkRestart();
@@ -33,7 +32,11 @@ class App {
       this.isStart = true
     }
 
-    Console.print(LOGS.END);
+    // Console.print(LOGS.END);
+    return;
+    } catch (error) {
+      throw error
+    }
   }
 
   // 게임 초기화
@@ -45,14 +48,12 @@ class App {
     }
     this.computer = computer;
     this.isStart = false;
-    this.tryCount = 0;
     return ;
   }
 
   // 유저 입력
   async userInput(){
     const input = await Console.readLineAsync(LOGS.INPUT_PROMPT)
-    this.tryCount++;
     // 서로 다른 3자리의 숫자 정규식 정의
     // 유효성 테스트 통과하면 배열 생성
     if(INPUT_REGEX1.test(input)) return input.split('').map(item=>parseInt(item))
