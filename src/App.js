@@ -1,8 +1,9 @@
 import { Console, MissionUtils } from '@woowacourse/mission-utils';
+import { MESSAGE, ERROR_MESSAGE } from './Message.js';
 
 class App {
   async play() {
-    console.log('숫자 야구 게임을 시작합니다.');
+    Console.print(MESSAGE.PLAY);
     await this.playGame();    
   }
 
@@ -17,13 +18,13 @@ class App {
       if (isEnd) break;
     }
 
-    console.log('3개의 숫자를 모두 맞히셨습니다! 게임 종료');    
+    Console.print(MESSAGE.FINIFH);    
         
     const option = await this.endingOption();
     if (option == 1) {
       await this.playGame();
     } else {
-      Console.print('게임 종료');
+      Console.print(MESSAGE.END);
     }
   }
 
@@ -43,14 +44,14 @@ class App {
   }
 
   async userNumber() {
-    return Console.readLineAsync('숫자를 입력해주세요 : ' );
+    return Console.readLineAsync(MESSAGE.USERNUMBER);
   }
 
   validateInput(value) {
     const regex = /^(?!.*(.).*\1)\d{3}$/;
 
     if (!regex.test(value)) {
-      throw new Error('[ERROR] 잘못된 입력값 입니다.');
+      throw new Error(ERROR_MESSAGE.VALIDATEINPUT_ERROR);
     }
   }
 
@@ -78,19 +79,21 @@ class App {
     } else if (balls == 0) {
       Console.print(`${strikes}스트라이크`);
     } else {
-      Console.print(`${balls}볼 ${strikes}스트라이크 `);
+      Console.print(`${balls}볼 ${strikes}스트라이크`);
     }
     
     return false; 
   }
 
   async endingOption() {
-    const option = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. \n');
+    const option = await Console.readLineAsync(MESSAGE.ENDINGOPTION);
     if (option != 1 && option != 2) {
-      throw new Error('[ERROR] 1,2만 입력할 수 있습니다.');  
+      throw new Error(ERROR_MESSAGE.ENDINGOPTION_ERROR);  
     }
     return option;
   }
+
+
 }
 
 export default App;
