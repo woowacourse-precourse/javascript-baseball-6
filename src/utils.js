@@ -19,3 +19,51 @@ async function readGuessDigits() {
   }
   return guessDigits;
 }
+
+async function assessResult(answerDigits, guessDigits) {
+  let strike = 0;
+  let ball = 0;
+  let result = '';
+
+  // 스트라이크를 구한다.
+  let strikeIndexes = [];
+  for (let i = 0; i < 3; i++) {
+    // 스트라이크면 스트라이크 카운트 하나 증가시킨다.
+    if (answerDigits[i] === guessDigits[i]) {
+      strike++;
+      strikeIndexes.push(i);
+    }
+  }
+
+  // 볼을 구한다.
+  let clonedanswerDigits = [];
+  let clonedguessDigits = [];
+  for (let i = 0; i < 3; i++) {
+    if (!strikeIndexes.includes(i)) {
+      clonedanswerDigits.push(answerDigits[i]);
+      clonedguessDigits.push(guessDigits[i]);
+    }
+  }
+
+  for (let i = 0; i < 3; i++) {
+    if (clonedanswerDigits.includes(clonedguessDigits[i])) {
+      ball++;
+    }
+  }
+
+  // 결과를 출력한다.
+  if (ball > 0) {
+    result += `${ball}볼`;
+  }
+  if (ball > 0 && strike > 0) {
+    result += ' ';
+  }
+  if (strike > 0) {
+    result += `${strike}스트라이크`;
+  }
+  if (ball === 0 && strike === 0) {
+    result += '낫싱';
+  }
+  Console.print(result);
+  return { strike, ball, result };
+}
