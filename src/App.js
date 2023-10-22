@@ -30,7 +30,8 @@ class App {
       set = new Set(inputNum);
       
       if(set.size < 3) {
-        // 중복값이 있으므로 예외처리
+        // 중복값이 있으므로 예외 처리
+        throw new Error('[ERROR] 중복 값이 입력되었습니다.');
       }
 
       [ball, strike] = this.checkStrike(this.randNum, inputNum);
