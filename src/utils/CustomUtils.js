@@ -13,6 +13,7 @@ const getUserNumber = async () => {
     return USER_NUMBER_ARRAY;
   } catch (error) {
     MissionUtils.Console.print(error.message);
+    return null;
   }
 };
 
