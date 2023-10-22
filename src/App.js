@@ -27,10 +27,7 @@ class App {
             throw new Error("[ERROR]");
         } //
         else {
-            const TMP_ARRAY = [];
-            for (let i = 0; i < PLAYER_NUM.length; i++)
-                TMP_ARRAY.push(Number(PLAYER_NUM[i]));
-            return TMP_ARRAY;
+            return Array.from(PLAYER_NUM).map(Number);
         }
     }
 
