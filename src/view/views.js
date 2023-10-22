@@ -15,14 +15,14 @@ export default class views{
     let resultMessage = '';
 
     if (result.BALL !== 0) {
-      resultMesage = resultMesage.concat(String(result.BALL) + Mesage.BALL + ' ');
+      resultMessage = resultMessage.concat(String(result.BALL) + MESSAGE.BALL + ' ');
     }
   
     if (result.STRIKE !== 0) {
-      resultMesage = resultMesage.concat(String(result.STRIKE) + Mesage.STRIKE + ' ');
+      resultMessage = resultMessage.concat(String(result.STRIKE) + MESSAGE.STRIKE + ' ');
     }
 
-    return Console.print(resultMESSAGE);
+    return Console.print(resultMessage);
   }
   
   printMessage(message) {
