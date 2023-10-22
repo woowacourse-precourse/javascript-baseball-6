@@ -30,15 +30,15 @@ const UserInput = {
 
     const isValidNumber = numberArray.every((num) => NUMBER_REGEX.test(num));
     if (!isValidNumber) {
-      throw new Error('유효한 숫자를 입력해야 합니다.');
+      throw new Error('[ERROR]');
     }
 
     if (numberArray.length !== 3) {
-      throw new Error('3개의 숫자를 입력해야 합니다.');
+      throw new Error('[ERROR]');
     }
 
     if (new Set(numberArray).size !== 3) {
-      throw new Error('숫자는 중복되지 않아야 합니다.');
+      throw new Error('[ERROR]');
     }
 
     return true;
