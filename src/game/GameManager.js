@@ -6,12 +6,12 @@ class GameManager {
     this.gameLogic = new GameLogic();
   }
 
-  gameStart() {
+  startGame() {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
-    this.gamePlay();
+    this.playGame();
   }
 
-  gamePlay() {
+  playGame() {
     MissionUtils.Console.readLine("숫자를 입력해주세요 : ", (answer) => {
       this.gameLogic.checkGameResult(answer);
     });

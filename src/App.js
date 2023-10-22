@@ -1,4 +1,3 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
 import GameManager from "./game/GameManager.js";
 
 class App {
@@ -7,7 +6,7 @@ class App {
   }
 
   async play() {
-    this.gameManager.gameStart();
+    this.gameManager.startGame();
   }
 }
 
