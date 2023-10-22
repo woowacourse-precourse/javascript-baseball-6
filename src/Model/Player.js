@@ -1,6 +1,7 @@
 import { CustomError } from './Error.js';
 import { BASEBALL_NUMBER } from '../constants/gameConfig.js';
 import { MESSAGE } from '../constants/message.js';
+import { isBaseballNumber } from '../utils/validation.js';
 
 export class Player {
   numberList;
@@ -22,6 +23,3 @@ export class Player {
       throw new CustomError(MESSAGE.ERROR.OUT_OF_RANGE);
   }
 }
-
-const isBaseballNumber = (number) =>
-  number <= BASEBALL_NUMBER.MAX && number >= BASEBALL_NUMBER.MIN;
