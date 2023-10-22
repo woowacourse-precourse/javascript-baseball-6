@@ -1,5 +1,5 @@
 const { Random } = require('@woowacourse/mission-utils');
-const CONSTANTS = require('./constants/constant');
+const CONSTANTS = require('./constants/Constant');
 
 class Computer {
   generateNumber() {
@@ -10,7 +10,7 @@ class Computer {
         computer.push(number);
       }
     }
-    return computer;
+    return computer.join('');
   }
 }
 

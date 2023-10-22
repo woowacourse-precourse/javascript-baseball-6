@@ -8,10 +8,10 @@ class InputValid {
   }
 
   static validateLength(input) {
-    if (input.length !== 3) {
-      throw new Error(ERROR_MESSAGE.INVALID_LENGTH);
+    if (!input || typeof input !== 'string' || input.length !== 3) {
+      throw new Error(`${ERROR_MESSAGE.INVALID_LENGTH}`);
     }
-  }
+}
 
   static validateNumberInRange(input) {
     for (let char of input) {

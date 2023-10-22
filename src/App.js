@@ -1,45 +1,52 @@
 const { Console } = require('@woowacourse/mission-utils');
-const { GAME_MESSAGE } = require('./constants/Message');
+const { GAME_MESSAGE, ERROR_MESSAGE } = require('./constants/Message');
 const Computer = require('./Computer');
-const Compare = require('./Compare');
-const Control = require('./Control');
+const Control = require('./Control'); 
 const InputValid = require('./InputValid');
 
 class App {
   constructor() {
     this.computer = new Computer();
+    this.isPlaying = true;
   }
 
   async play() {
-    this.printStartMessage();
-    const computerNumber = this.computer.generateNumber().join('');
-
-    let userNumber;
-    let result;
-    do {
-      try {
-        userNumber = await this.getUserInput();
-        InputValid.validate(userNumber);  
-
-        result = Compare.compareAndPrintResult(computerNumber, userNumber);
-
-        if (result.strike === 3) {
-          await Control.askRestart(this.play.bind(this));
+    Console.print(GAME_MESSAGE.GAME_START);
+  
+    while (this.isPlaying) {
+      const computerNumber = this.computer.generateNumber();
+      let result = { strike: 0, ball: 0 };
+  
+      while (result.strike !== 3 && this.isPlaying) {
+        try {
+          const userNumber = await this.getUserInput();
+          InputValid.validate(userNumber);
+  
+          result = Control.compareAndPrintResult(computerNumber, userNumber);
+  
+          if (result.strike === 3) {
+            await Control.askRestart(this);
+          }
+        } catch (error) {
+          Console.print(error.message);
+          this.stopGame(); 
+          throw error;
         }
-      } catch (error) {
-        Console.print(error.message);
       }
-    } while (result.strike !== 3);
+    }
   }
 
-  printStartMessage() {
-    Console.print(GAME_MESSAGE.GAME_START); 
+  stopGame() {
+    this.isPlaying = false;
   }
 
   async getUserInput() {
     const input = await Console.readLineAsync(GAME_MESSAGE.NUMBER_INPUT);
+    if (!input) {
+        throw new Error(ERROR_MESSAGE.INVALID_LENGTH);
+    }
     return input;
   }
 }
 
-export default App;
+module.exports = App;
