@@ -43,7 +43,26 @@ class App {
   }
 
   async game(correctAnswer) {
-    const userAnswer = await this.getUserAnswer();
+    while (true) {
+      const userAnswer = await this.getUserAnswer();
+      if (correctAnswer.join("") === userAnswer) {
+        MissionUtils.Console.print("3스트라이크");
+        MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+        this.result();
+        break;
+      } else {
+        const userAnswerArray = userAnswer.split("").map((num) => Number(num));
+        this.retry(userAnswerArray, correctAnswer);
+      }
+    }
+  }
+  retry(userAnswer, correctAnswer) {
+    console.log(userAnswer, correctAnswer);
+  }
+  async result() {
+    const answer = await MissionUtils.Console.readLineAsync(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+    );
   }
 }
 
