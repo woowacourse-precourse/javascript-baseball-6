@@ -2,10 +2,12 @@ import { Console, Random } from '@woowacourse/mission-utils';
 
 class App {
   #answer;
+  #number;
   #hint;
 
   constructor() {
     this.#answer = [];
+    this.#number = [];
     this.#hint = { strike: 0, ball: 0 };
   }
 
@@ -24,9 +26,20 @@ class App {
     this.#answer = computer;
   }
 
+  async getNumber() {
+    try {
+      const number = await Console.readLineAsync('숫자를 입력해주세요 : ');
+      this.#number = [...number];
+      Console.print(this.#number);
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
   game() {
     this.createAnswer();
     Console.print(this.#answer);
+    this.getNumber();
   }
 
   async play() {
