@@ -42,7 +42,7 @@ class App extends User {
     const computer = new User();
     const user = new User();
     computer.setRandomNumber();
-    user.setInputNumbers();
+    await user.setInputNumbers();
   }
 }
 const app = new App();
