@@ -4,21 +4,33 @@ class App {
   constructor() {
     this.random = MissionUtils.Random;
     this.console = MissionUtils.Console;
+
     this.ball = 0;
     this.strike = 0;
+    this.isPlay = true;
   }
 
   async play() {
     this.console.print("숫자 야구 게임을 시작합니다.");
-    const answer = this.makeRandomNum();
-    this.console.print(answer);
 
-    while (this.strike < 3) {
-      this.ball = 0;
-      this.strike = 0;
+    while (this.isPlay) {
+      const answer = this.makeRandomNum();
+      this.console.print(answer);
+  
+      while (this.strike < 3) {
+        this.ball = 0;
+        this.strike = 0;
+  
+        const getUserInput = await this.giveQuestion("숫자를 입력해 주세요 : ");
+        this.checkInputAndGiveHint(answer, getUserInput);
+      }
 
-      const getUserInput = await this.giveQuestion("숫자를 입력해 주세요 : ");
-      this.checkInputAndGiveHint(answer, getUserInput);
+      const restartInput = await this.giveQuestion(`게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.${"\n"}`);
+      if (restartInput === "2") this.isPlay = false;
+      else {
+        this.strike = 0;
+        this.ball = 0;
+      }
     }
   }
 
