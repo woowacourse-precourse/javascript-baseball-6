@@ -22,5 +22,10 @@ export default class Game{
         this.initGame()
         const player = new Player()
         const computer = new Computer()
+
+        while(!this.isAnswer){
+            player.getInput()
+
+        }
     }
 }
