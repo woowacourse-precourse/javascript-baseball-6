@@ -22,13 +22,20 @@ class NumberBaseballGame {
     Console.print(`${Query.NUMBERS}${playerNumbers.join("")}`);
     const result = this.umpire.umpire(this.#computerNumbers, playerNumbers);
     Console.print(result);
-    if (result === `3${BaseballTerms.STRIKE}`) {
-      Console.print(Message.END);
-      const shouldRestart = await this.#askRestart();
-      if (shouldRestart) this.play();
-    } else {
-      this.play();
-    }
+    if (result === `3${BaseballTerms.STRIKE}`) await this.#strikeOut();
+    else await this.play();
+  }
+
+  async #strikeOut() {
+    Console.print(Message.END);
+    const shouldRestart = await this.#askRestart();
+    if (shouldRestart) this.#restart();
+  }
+
+  async #restart() {
+    this.#computerNumbers = this.#getComputerNumbers();
+    console.log(this.#computerNumbers);
+    await this.play();
   }
 
   #getComputerNumbers() {
