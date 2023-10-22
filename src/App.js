@@ -8,7 +8,9 @@ class App {
     const userPickValidationResult = this.userPickValidation(userPickValue);
     if (!userPickValidationResult)
       this.throwError('[ERROR] 서로 다른 숫자 3개를 입력해주세요.');
-    const userNumber = this.userInput.split('').map((element) => +element);
+    const userNumber = userPickValue.split('').map((element) => +element);
+    const judgeResult = this.judge(computerNumber, userNumber);
+    this.infoPrint(judgeResult);
   }
 
   infoPrint(message) {
@@ -49,6 +51,26 @@ class App {
 
   throwError(message) {
     throw new Error(message);
+  }
+
+  judge(computer, user) {
+    let strike = 0;
+    let ball = 0;
+
+    computer.map((number, index) => {
+      if (number === user[index]) {
+        strike += 1;
+      } else {
+        if (user.includes(number)) {
+          ball += 1;
+        }
+      }
+    });
+
+    if (ball === 0 && strike === 0) return '낫싱';
+    if (ball > 0 && strike === 0) return `${ball}볼`;
+    if (strike > 0 && ball === 0) return `${strike}스트라이크`;
+    if (ball > 0 && strike > 0) return `${ball}볼 ${strike}스트라이크`;
   }
 }
 
