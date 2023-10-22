@@ -25,7 +25,10 @@ class App {
     while(1) {
       const input = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
       
-      if (input.length !== 3 || !numericRegex.test(input)){ // 3자 이내의 숫자를 입력하거나 문자가 포함된 경우 오류 발생
+      if (input.length !== 3){ // 3자 이내의 숫자를 입력한 경우 오류 발생
+        throw new Error("[ERROR] 세 자리의 숫자를 입력해야 합니다.");
+      }
+      if (!numericRegex.test(input)){ // 문자가 포함된 경우 오류 발생
         throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
       }
 
@@ -44,6 +47,10 @@ class App {
     const numbers = inputNumbers.split("");
     let strike = 0;
     let ball = 0;
+
+    if (new Set(numbers).size !== 3){ // 중복된 숫자가 있는 경우
+      throw new Error("[ERROR] 중복된 숫자가 존재합니다.");
+    }
 
     numbers.map((n, index) => {
       const number = parseInt(n);
@@ -92,7 +99,7 @@ class App {
       const input = await MissionUtils.Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
 
       if (input !== "1" && input !== "2") { // 1과 2외의 숫자나 문자르 입력한 경우 오류 발생
-        throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+        throw new Error("[ERROR] 잘못된 입력값입니다.");
       }
 
       if (input === "2") { // 게임 종료
@@ -103,3 +110,6 @@ class App {
 }
 
 export default App;
+
+const app = new App();
+app.play();
