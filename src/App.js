@@ -134,7 +134,7 @@ import { MissionUtils } from '@woowacourse/mission-utils';
 class MyError extends Error {
 	constructor(value, ...params) {
 		super(...params);
-		this.value = value;
+		this.message = value;
 		this.name = '[ERROR]';
 	}
 }
@@ -142,7 +142,7 @@ class MyError extends Error {
 class App {
 	async play() {
 		MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
-		start();
+		await start();
 	}
 }
 
@@ -210,8 +210,7 @@ const end = async () => {
 				break;
 		}
 	} catch (error) {
-		MissionUtils.Console.print(error);
-		throw new MyError(error);
+		throw new MyError('[ERROR]',error.message);
 	}
 };
 const start = async () => {
@@ -220,12 +219,12 @@ const start = async () => {
 		userInput = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 :');
 		MissionUtils.Console.print(`숫자를 입력해주세요 : ${userInput}`);
 		if (userInput.length !== 3) {
-			throw new MyError('세자리를 입력해주세요.');
+			throw new MyError('[ERROR]', '세자리를 입력해주세요.');
 		} else {
 			//userInput.length === 3
 			const userArr = userInput.split('').map((num) => +num);
 			if (userArr.includes(0)) {
-				throw new MyError('1부터 9까지의 자연수만 가능합니다.');
+				throw new MyError('[ERROR]', '1부터 9까지의 자연수만 가능합니다.');
 			} else {
 				// userArr 는 모두 자연수
 				if (userArr[0] !== userArr[1] && userArr[0] !== userArr[2] && userArr[1] !== userArr[2]) {
@@ -238,11 +237,11 @@ const start = async () => {
 					return;
 				} else {
 					//같은 애가 있다면
-					throw new MyError('다 다른 숫자여야 합니다.');
+					throw new MyError('[ERROR]','다 다른 숫자여야 합니다.');
 				}
 			}
 		}
 	} catch (error) {
-		throw new MyError(error);
+		throw new MyError('[ERROR]',error.message);
 	}
 };
