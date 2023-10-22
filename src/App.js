@@ -1,5 +1,12 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 
+const GAME_ACTIONS = {
+  RESTART: "restart",
+  EXIT: "exit",
+};
+
+const ERROR_MESSAGES = "[ERROR] 숫자가 잘못된 형식입니다.";
+
 class App {
   /** 게임을 시작하는 메소드 */
   async play() {
@@ -21,11 +28,9 @@ class App {
         if (isFinished) break;
       }
 
-      const finishControlInput = await Console.readLineAsync(
-        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
-      );
+      const action = await this.handleGameRestartOrExit();
 
-      if (finishControlInput === "2") break;
+      if (action === GAME_STATUS.EXIT) break;
     }
   }
 
@@ -75,8 +80,21 @@ class App {
     const isValid = /^(?!.*(\d).*\1)\d{3}$/.test(input);
 
     if (!isValid) {
-      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+      throw new Error(ERROR_MESSAGES);
     }
+  }
+
+  /** 게임 재시작, 종료 컨트롤 메소드 */
+  async handleGameRestartOrExit() {
+    const finishControlInput = await Console.readLineAsync(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+    );
+
+    if (finishControlInput === "1") return GAME_ACTIONS.RESTART;
+
+    if (finishControlInput === "2") return GAME_ACTIONS.EXIT;
+
+    throw new Error(ERROR_MESSAGES);
   }
 }
 
