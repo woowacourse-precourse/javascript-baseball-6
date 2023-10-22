@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import { GAME_MESSAGE } from '../utils/Constants';
+import { GAME_MESSAGE } from '../utils/Constants.js';
 
 export default class InputView {
   static async readUserInput() {

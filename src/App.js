@@ -1,12 +1,13 @@
-import { ANSWER, CORRECT_NUMBER, NO_MATCH_NUMBER } from '../utils/Constants';
-import Validator from '../utils/Validator';
-import { makeTemplate } from '../utils/makeTemplate';
-import ComputerNumber from './ComputerNumber';
-import InputView from './InputView';
-import OutputView from './OutputView';
+import { ANSWER, CORRECT_NUMBER, NO_MATCH_NUMBER } from '../utils/Constants.js';
+import Validator from '../utils/Validator.js';
+import { makeTemplate } from '../utils/makeTemplate.js';
+import ComputerNumber from './ComputerNumber.js';
+import InputView from './InputView.js';
+import OutputView from './OutputView.js';
 
 class App {
   #computerNumber;
+
   #isGaming;
 
   constructor() {
