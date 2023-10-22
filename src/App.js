@@ -6,8 +6,21 @@ const printMessage = (message) => {
 };
 
 // TODO: Mission 2: 메세지 입력 함수 구현
+const inputMessage = async (message) => {
+  return await MissionUtils.Console.readLineAsync(message);
+};
 
 // TODO: Mission 3: 상대방(컴퓨터)의 3자리 랜덤 숫자 생성 함수 구현
+const getComputerNumber = () => {
+  const computerNumberList = [];
+  while (computerNumberList.length < 3) {
+    const randomNumber = MissionUtils.Random.pickNumberInRange(1, 9);
+    if (!computerNumberList.includes(randomNumber)) {
+      computerNumberList.push(randomNumber);
+    }
+  }
+  return computerNumberList;
+};
 
 // TODO: Mission 4: 사용자(인터페이스)가 입력한 수를 리스트로 출력하는 함수 구현
 
@@ -20,11 +33,9 @@ const printMessage = (message) => {
 // TODO: Mission 8: "3스트라이크"이면, 게임 종료 하는 함수 구현
 
 // TODO: Mission 9: 전체 함수들을 실행 시켜주는 메인 함수 구현
-const main = async() => {
-  let endpoint = false;
-  while (!endpoint) {
+const main = async () => {
     printMessage('숫자 야구 게임을 시작합니다.');
-  }
+    const computer = getComputerNumber();
 };
 
 class App {
