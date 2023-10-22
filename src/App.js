@@ -68,6 +68,10 @@ const printScore = (strike, ball) => {
 };
 
 // TODO: Mission 7: 게임 재시작 또는 종료 처리 함수 구현
+const gameStartOver = async() => {
+  const startOver = Number(await inputMessage(`게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n`));
+  return startOver !== 1;
+};
 
 // TODO: Mission 8: "3스트라이크"이면, 게임 종료 하는 함수 구현
 
