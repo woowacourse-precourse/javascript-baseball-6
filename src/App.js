@@ -80,7 +80,8 @@ class App {
     if (retryInput === "1") {
       await this.makeStrikeZoneNumber();
       await this.game();
-    } else if (retryInput === "2") return;
+    }
+    return;
   }
 
   congratMessagePrint() {
