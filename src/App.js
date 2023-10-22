@@ -52,6 +52,20 @@ const calculateScore = (computer, user) => {
 };
 
 // TODO: Mission 6: 스트라이크, 볼 계산 후 문구 출력하는 함수 구현
+const printScore = (strike, ball) => {
+  if (strike === 0 && ball === 0) {
+    printMessage('낫싱');
+  } else {
+    let output = '';
+    if (ball > 0) {
+      output += `${ball}볼`;
+    }
+    if (strike > 0) {
+      output += `${strike}스트라이크`;
+    }
+    printMessage(output);
+  }
+};
 
 // TODO: Mission 7: 게임 재시작 또는 종료 처리 함수 구현
 
