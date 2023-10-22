@@ -6,7 +6,7 @@ import Computer from '../Model/Computer.js';
 import Hint from '../Model/Hint.js';
 import RandomNumbersCreator from '../Model/RandomNumbersCreator.js';
 
-import ErrorCatcher from '../ErrorCatcher.js';
+import { validateNumbers, validateRetry } from '../Validator.js';
 
 import { RETRY_ORDER } from '../constants/constants.js';
 
@@ -27,23 +27,21 @@ class Controller {
     await this.createUserAnswer();
   }
 
-  async createUserAnswer() {
-    const numbers = await InputView.readNumbers();
-    this.validateNumbers(numbers);
-    this.user.setAnswer(numbers);
-
-    await this.compareUserToComputer();
-  }
-
-  validateNumbers(numbers) {
+  static validate(input, validateFunc) {
     try {
-      ErrorCatcher.validateLength(numbers);
-      ErrorCatcher.validateType(numbers);
-      ErrorCatcher.validateUnique(numbers);
+      validateFunc(input);
     } catch (error) {
       OutputView.print(error);
       throw new Error(error);
     }
+  }
+
+  async createUserAnswer() {
+    const numbers = await InputView.readNumbers();
+    Controller.validate(numbers, validateNumbers);
+    this.user.setAnswer(numbers);
+
+    await this.compareUserToComputer();
   }
 
   async compareUserToComputer() {
@@ -66,18 +64,9 @@ class Controller {
 
   async readRestart() {
     const retryAnswer = await InputView.readRetry();
-    this.validateRetryAnswer(retryAnswer);
+    Controller.validate(retryAnswer, validateRetry);
 
     if (retryAnswer === RETRY_ORDER) await this.reStart();
-  }
-
-  validateRetryAnswer(answer) {
-    try {
-      ErrorCatcher.validateOrder(answer);
-    } catch (error) {
-      OutputView.print(error);
-      throw new Error(error);
-    }
   }
 
   async reStart() {
