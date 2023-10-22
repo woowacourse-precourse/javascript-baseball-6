@@ -4,7 +4,7 @@ class App {
   async play() {
     let randomNumber = makeRandomNumber();
     let isEnd = false;
-    
+
     Console.print("숫자 야구 게임을 시작합니다.");
     while (!isEnd) {
       Console.print("숫자를 입력해주세요 :");
@@ -48,19 +48,9 @@ const makeRandomNumber = () => {
 };
 
 const checkInputIsValid = (userInput) => {
-  const input = [...userInput].sort().reduce((acc, cur) => {
-    if (acc[acc.length] === 0 || acc[acc.length - 1] != cur) {
-      acc += cur;
-    }
+  const input = [...userInput].sort().reduce((acc, cur) => acc.includes(cur) ? acc : [...acc, cur], []);
 
-    return acc;
-  }, "");
-
-  if (input.length === 3) {
-    return true;
-  }
-
-  return false;
+  return input.length === 3 ? true : false;
 };
 
 const checkReferee = (userInput, randomNumber) => {
