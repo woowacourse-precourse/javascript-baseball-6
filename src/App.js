@@ -1,10 +1,11 @@
 import { MissionUtils, Console } from '@woowacourse/mission-utils';
-import { LOGS } from './logs.js';
+import { INPUT_LENGTH, LOGS, MAX_NUMBER, MIN_NUMBER, STRIKE_END_POINTS } from './constants.js';
 
 class App {
   constructor(){
     this.isStart = true;
     this.computer = []; // [number]
+    this.cnt = 0;
   }
 
   async play() {
@@ -17,8 +18,9 @@ class App {
       const SCORE = this.returnScore(STRIKE,BALL)
       Console.print(SCORE);
       // 스트라이크가 3이 아니면 continue
-      if(STRIKE!==3) continue;
+      if(STRIKE!==STRIKE_END_POINTS) continue;
       Console.print(LOGS.GAME_END);
+      Console.print(`시도 횟수 : ${this.cnt} 회`);
       Console.print(LOGS.RESTART_PROMPT)
       // 재시작 여부 묻기
       const IS_RESTART = await this.checkRestart();
@@ -29,24 +31,25 @@ class App {
     }
 
     Console.print(LOGS.END);
-    return;
   }
 
   initialization () {
     const computer = [];
-    while(computer.length < 3){
-      const NUMBER = MissionUtils.Random.pickNumberInRange(1,9)
+    while(computer.length < INPUT_LENGTH){
+      const NUMBER = MissionUtils.Random.pickNumberInRange(MIN_NUMBER,MAX_NUMBER)
       if (!computer.includes(NUMBER)) computer.push(NUMBER);
     }
     this.computer = computer;
     this.isStart = false;
+    this.cnt = 0;
     return ;
   }
 
   async userInput(){
     const input = await Console.readLineAsync(LOGS.INPUT_PROMPT)
-    // 서로 다른 3자리의 숫자 정규식
-    const REGEX = /^(?!.*(.).*\1)^[1-9]{3}$/;
+    this.cnt++;
+    // 서로 다른 3자리의 숫자 정규식 정의
+    const REGEX = new RegExp(`^(?!.*(.).*\\1)^[${MIN_NUMBER}-${MAX_NUMBER}]{${INPUT_LENGTH}}$`);
     // 유효성 테스트 통과하면 배열 생성
     if(REGEX.test(input)) return input.split('').map(item=>parseInt(item))
     // 아니면 에러 발생
