@@ -2,8 +2,9 @@ import { Random, Console } from "@woowacourse/mission-utils";
 
 class App {
   constructor() {
-    this.MIN_VALUE = 111;
-    this.MAX_VALUE = 999;
+    this.MIN_VALUE = 1;
+    this.MAX_VALUE = 9;
+    this.ANSWER_LENGTH = 3;
   }
 
   async play() {
@@ -27,7 +28,7 @@ class App {
           !this.isInRange(answer) ||
           !this.isDigitUnique(answer)
         ) {
-          throw new Error("[ERROR] 숫자가 잘못된 형식입니다." + answer);
+          throw new Error("[ERROR] 숫자가 잘못된 형식입니다. ");
         }
 
         score = this.getScore(randomNumber, answer);
@@ -80,15 +81,18 @@ class App {
   }
 
   isInRange(number) {
-    return number <= this.MAX_VALUE && number >= this.MIN_VALUE;
+    return number.length === this.ANSWER_LENGTH;
   }
 
   generateRandomNumber(min, max) {
-    let number = Random.pickNumberInRange(this.MIN_VALUE, this.MAX_VALUE);
-    while (!this.isDigitUnique(number)) {
-      number = Random.pickNumberInRange(this.MIN_VALUE, this.MAX_VALUE);
+    const numbers = [];
+    while (numbers.length < this.ANSWER_LENGTH) {
+      const number = Random.pickNumberInRange(this.MIN_VALUE, this.MAX_VALUE);
+      if (!numbers.includes(number)) {
+        numbers.push(number);
+      }
     }
-    return number;
+    return numbers.join("");
   }
 
   async restartGame() {
