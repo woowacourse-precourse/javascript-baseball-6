@@ -1,13 +1,23 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 export default class User {
   #threeNummer; // 입력받은 숫자 배열
-  constructor() {}
+  constructor() {
+    
+  }
 
   async setThreeNummber() {
     const number = await this.getnumber();
-    this.numberToArray(number);
-    if (this.#threeNummer.length !== 3) {
-      throw new Error(`[ERROR]`);
+    if (!isNaN(Number(number))) {
+      this.numberToArray(number);
+    }
+
+    if (
+      this.#threeNummer.length !== 3 ||
+      this.checkSameNumber() ||
+      !this.checkNonNumber ||
+      isNaN(Number(number))
+    ) {
+      throw '[ERROR]';
     }
   }
   numberToArray(n) {
@@ -19,6 +29,14 @@ export default class User {
 
   getThreeNummber() {
     return this.#threeNummer;
+  }
+
+  checkSameNumber() {
+    return new Set(this.#threeNummer).size !== 3;
+  }
+
+  checkNonNumber() {
+    return this.#threeNummer.every((value) => value === 'number');
   }
 
   async getnumber() {

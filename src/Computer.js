@@ -2,7 +2,9 @@ import { MissionUtils } from '@woowacourse/mission-utils';
 
 export default class Computer {
   #randomThreeNummber;
-  constructor() {}
+  constructor() {
+    
+  }
 
   setRandomThreeNummber() {
     // 랜덤 3개 수 생성
