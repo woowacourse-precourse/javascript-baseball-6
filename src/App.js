@@ -6,7 +6,7 @@ class App {
 	#computerAnswer = [];
 
 	generateRandomNumber() {
-		const generateNumberResponse = Random.pickUniqueNumbersInRange(1, 10, 3);
+		const generateNumberResponse = Random.pickUniqueNumbersInRange(1, 9, 3);
 		this.#computerAnswer = generateNumberResponse;
 	}
 
