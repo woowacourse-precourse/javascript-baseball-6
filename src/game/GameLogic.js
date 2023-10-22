@@ -1,17 +1,41 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 class GameLogic {
-  constructor() {}
+  constructor() {
+    this.computerNumber = this.generateNewNumber();
+  }
 
   generateNewNumber() {
-    const computer = [];
-    while (computer.length < 3) {
+    let numberArray = [];
+
+    while (numberArray.length < 3) {
       const number = MissionUtils.Random.pickNumberInRange(1, 9);
-      if (!computer.includes(number)) {
-        computer.push(number);
+      if (!numberArray.includes(number)) {
+        numberArray.push(number);
       }
     }
-    return computer;
+    return numberArray.join("");
+  }
+
+  checkGameResult(userNum) {
+    let strike = 0;
+    let ball = 0;
+
+    for (let i = 0; i < 3; i++) {
+      if (this.computerNumber[i] === userNum[i]) {
+        strike++;
+      } else if (this.computerNumber[i].includes(userNum[i])) {
+        ball++;
+      }
+    }
+
+    if (strike === 0 && ball === 0) {
+      return "낫싱";
+    } else if (strike === 3) {
+      return "3스트라이크";
+    } else {
+      return `${ball}볼 ${strike}스트라이크`;
+    }
   }
 }
 
