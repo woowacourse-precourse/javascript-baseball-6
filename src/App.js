@@ -17,7 +17,7 @@ class App {
             throw new Error('[ERROR] 숫자를 잘 못 입력했습니다.');
           }
 
-          let result = this.JudgeNumber(answerNumber, userInput);
+          let result = this.evaluateGameResult(answerNumber, userInput);
           if (result.strike === 3) {
             Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
             playAgain = await this.askForAnotherGame();
@@ -60,7 +60,7 @@ class App {
     return playerNumber;
   }
 
-  JudgeNumber(answerNumber, playerNumber) {
+  evaluateGameResult(answerNumber, playerNumber) {
     let computerPickNumbers = answerNumber;
     let playerPickNumbers = playerNumber;
 
