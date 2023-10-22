@@ -18,7 +18,6 @@ export const ANSWER = {
 export const ERROR = {
   NUMBER_LENGTH: '[ERROR] 3개의 숫자를 입력해주세요.',
   ONLY_NUMBER: '[ERROR] 숫자만 입력해주세요.',
-  ONLY_NUMBER: '[ERROR] 숫자만 입력해주세요.',
   NOT_DUPLICATION: '[ERROR] 중복되지 않는 수를 입력해주세요.',
   UNCORRECT_RETRY_ANSWER: '[ERROR] 1과 2만 입력해주세요.',
 };
