@@ -1,5 +1,5 @@
-import { Console } from "@woowacourse/mission-utils";
 import Model from "../Model/Model.js";
+import { validateEndInputNumber } from "../utils/validateNumber.js";
 import View from "../View/View.js";
 
 class Baseball {
@@ -22,29 +22,36 @@ class Baseball {
 
   async start(randomNumbers) {
     try {
+      console.log(randomNumbers);
       const userNumberInput = await this.view.readLineInput("숫자를 입력해주세요 : ");
       const [ballCount, strikeCount] = this.model.compareNumbers(randomNumbers, userNumberInput);
 
       this.view.printHint(ballCount, strikeCount);
 
-      strikeCount === 3 ? this.quit() : this.start(randomNumbers);
+      strikeCount === 3 ? await this.quit() : this.start(randomNumbers);
     } catch (err) {
       throw err;
     }
   }
 
   async quit() {
-    this.view.printPlayEnd();
+    try {
+      this.view.printPlayEnd();
 
-    const restartStateInput = await this.view.readLineInput("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n");
+      const restartStateInput = await this.view.readLineInput("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n");
 
-    if (restartStateInput === "1") {
-      this.restart = true;
-      this.init();
-    }
-    if (restartStateInput === "2") {
-      this.view.printGameEnd();
-      process.exitCode = 0;
+      validateEndInputNumber(restartStateInput);
+
+      if (restartStateInput === "1") {
+        this.restart = true;
+        this.init();
+      }
+      if (restartStateInput === "2") {
+        this.view.printGameEnd();
+        process.exitCode = 0;
+      }
+    } catch (err) {
+      throw err;
     }
   }
 }

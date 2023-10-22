@@ -36,4 +36,12 @@ function validateInputNumber(numbers) {
   });
 }
 
-export { validateComputerNumber, validateInputNumber };
+function validateEndInputNumber(number) {
+  const possibleState = ["1", "2"];
+
+  if (!possibleState.includes(number)) {
+    throw new InvalidNumberError("숫자가 올바른 형식이 아닙니다.");
+  }
+}
+
+export { validateComputerNumber, validateInputNumber, validateEndInputNumber };
