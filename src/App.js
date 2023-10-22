@@ -36,7 +36,6 @@ class App extends GameUtil{
         Console.print(super.showUserResult(ballCount, strikeCount));
         return this.play();
     }
-
 }
 
 const app = new App();

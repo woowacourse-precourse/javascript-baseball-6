@@ -48,6 +48,15 @@ class GameUtil{
         return strikes;
     }
 
+    showUserResult(ballCount, strikeCount){
+        if(ballCount!==0 && strikeCount!==0) {
+            return `${ballCount}볼 ${strikeCount}스트라이크`;
+        }
+        if(ballCount!==0 && strikeCount===0) return `${ballCount}볼`;
+        if(ballCount===0 && strikeCount!==0) return `${strikeCount}스트라이크`;
+        return '낫싱';
+    }
+
 
 }
 
