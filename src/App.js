@@ -33,7 +33,7 @@ export default class App{
     const result = this.#_player.getJudgeResultPaper(this.#_opponent);
 
     this.#_view.printResultMessage(result);
-    if (result.STRIKE === CONSTANT.threestrike) {
+    if (result.strike === CONSTANT.threestrike) {
       this.#_view.printMessage(MESSAGE.success);
       return this.restartGame();
     }
@@ -55,3 +55,6 @@ export default class App{
     return this.init();
   }
 }
+
+const hi = new App();
+hi.play();

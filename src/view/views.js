@@ -15,11 +15,11 @@ export default class views{
     let resultMessage = '';
 
     if (result.BALL !== 0) {
-      resultMessage = resultMessage.concat(String(result.BALL) + MESSAGE.BALL + ' ');
+      resultMessage = resultMessage.concat(String(result.ball) + MESSAGE.ball + ' ');
     }
   
     if (result.STRIKE !== 0) {
-      resultMessage = resultMessage.concat(String(result.STRIKE) + MESSAGE.STRIKE + ' ');
+      resultMessage = resultMessage.concat(String(result.strike) + MESSAGE.strike + ' ');
     }
 
     return Console.print(resultMessage);

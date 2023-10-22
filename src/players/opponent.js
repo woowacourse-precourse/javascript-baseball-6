@@ -1,5 +1,5 @@
 import { Random } from '@woowacourse/mission-utils';
-import { resultObject } from '../constants/constants.js'
+import { RESULTOBJECT } from '../constants/constants.js'
 
 export default class opponent{
 
@@ -21,23 +21,25 @@ export default class opponent{
   }
 
   judgeResult(userNumber) {
-    const result = {...resultObject};
+    const result = {...RESULTOBJECT};
 
     userNumber.map((num, i) => {
       if(num === this.#_computerNumber[i])
-        result.STRIKE += 1;
+        result.strike += 1;
     });
 
     userNumber.map((num, i) => {
       if ((num !== this.#_computerNumber[i]) &&
       this.#_computerNumber.includes(num)) {
-        result.BALL += 1;
+        result.ball += 1;
       }
     })
 
-    if (result.STRIKE === 0 && result.STRIKE === 0) {
-      result.NOTHING = true;
+    if (result.strike === 0 && result.ball === 0) {
+      result.nothing = true;
     }
+
+    console.log(result);
 
     return result;
   }
