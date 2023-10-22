@@ -8,6 +8,13 @@ const InputView = {
     )
     return await userNumber
   },
+
+  async readRestartNumber() {
+    const restartNumber = await MissionUtils.Console.readLineAsync(
+      InputString.INPUT_RESTART_NUMBER
+    )
+    return await restartNumber
+  },
 }
 
 export default InputView
