@@ -33,6 +33,9 @@ class App {
       throw new Error(error.message);
     }
   }
+
+  // 랜덤한 컴퓨터 정답을 생성하는 함수
+  createComputerAnswer = () => Random.pickUniqueNumbersInRange(1, 9, 3);
 }
 
 export default App;
