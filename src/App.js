@@ -24,17 +24,8 @@ export default class App{
     
   //게임 시작
   async play() {
-    const isValid = await this.#_player.inputNumber();
-
-    // 에러가 발생하면 에러 throw
-    if (!isValid) {
-      throw new Error(MESSAGE.ERROR);
-    }
-    
-    // 에러가 발생하지 않으면 결과를 확인
-    if (isValid) {
-      this.judgeResult();
-    }
+    await this.#_player.inputNumber();
+    return this.judgeResult();
   }
 
   //결과를 판단
