@@ -8,7 +8,7 @@ class App {
       const computerSelectedNumber = await this.pickRandomNumber();
       let isThreeStrike = false;
       while (!isThreeStrike) {
-        const userSelectedNumber = await getUsersInputNumber;
+        const userSelectedNumber = await this.getUsersInputNumber();
         const { strikeCounter, ballCounter } = this.compareNumber(
           computerSelectedNumber,
           userSelectedNumber
@@ -33,6 +33,7 @@ class App {
         if (strikeCounter === 3) {
           isThreeStrike = true;
           startGameFlag = 2;
+          break;
         }
       }
     }
@@ -41,11 +42,8 @@ class App {
   }
 
   async gameController() {
-    const gameToggle = await Console.readLine(
-      '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.',
-      (usersInputNumber) => {
-        return usersInputNumber;
-      }
+    const gameToggle = await Console.readLineAsync(
+      '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.'
     );
     return gameToggle;
   }
@@ -64,15 +62,27 @@ class App {
   async getUsersInputNumber() {
     try {
       const userSelectedNumber = await Console.readLineAsync(
-        '숫자를 입력해주세요 : ',
-        (usersInputNumber) => {
-          return usersInputNumber;
-        }
+        '숫자를 입력해주세요 : '
       );
+      if (this.isValidNumber(userSelectedNumber)) {
+        throw new Error('숫자가 잘못된 형식입니다.');
+      }
       return userSelectedNumber;
     } catch (error) {
       Console.print('[ERROR] 숫자가 잘못된 형식입니다.');
     }
+  }
+
+  isValidNumber(num) {
+    const numArray = String(num).split();
+    if (numArray.length !== 3) {
+      return false;
+    }
+    const numToSet = new Set(numArray);
+    if (numArray.length !== numToSet.size) {
+      return false;
+    }
+    return true;
   }
 
   compareNumber(num1, num2) {
