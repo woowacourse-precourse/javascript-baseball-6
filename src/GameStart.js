@@ -14,15 +14,6 @@ export async function gameStart() {
         MissionUtils.Console.print(result);
     }
     if (result === `3스트라이크`) {
-
-        const RESTART = await wantReStart();
-        if (RESTART === '1') {
-            return false;
-        } else if (RESTART === '2') {
-            return true;
-        }else {
-            throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
-        }
-
+        return await wantReStart();
     }
 }

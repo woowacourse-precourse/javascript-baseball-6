@@ -10,30 +10,25 @@ export function resultOut(random, inputNo) {
         throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
     }
 
-
-
-    let strike = 0;
-    let ball = 0;
-    let result = '';
-    INPUT.forEach((element, indexNumber) => {
-        if (random.includes(element)) {
-            if (random.indexOf(element) === indexNumber) {
-                strike++;
+    let score = new Array(2).fill(0);
+    INPUT.forEach((ELEMENT, INDEX_NUMBER) => {
+        if (random.includes(ELEMENT)) {
+            if (random.indexOf(ELEMENT) === INDEX_NUMBER) {
+                score[1] += 1;
             } else {
-                ball++;
+                score[0] += 1;
             }
         }
     });
-    if (ball !== 0) {
-        result += `${ball}볼`
+    if (score[0] !== 0 && score[1] !== 0) {
+        return `${score[0]}볼 ${score[1]}스트라이크`;
+    }else if (score[0] === 0 && score[1] !== 0) {
+        return `${score[1]}스트라이크`;
+    }else if (score[0] !== 0 && score[1] === 0) {
+        return `${score[0]}볼`;
+    }else if (score[0] === 0 && score[1] === 0) {
+        return `낫싱`;
+    } else {
+        throw new Error('[ERROR]');
     }
-    if (strike !== 0 && result.length !== 0) {
-        result += ` ${strike}스트라이크`;
-    }else if (strike !== 0 && result.length === 0) {
-        result += `${strike}스트라이크`;
-    }
-    if (ball === 0 && strike === 0) {
-        result += `낫싱`;
-    }
-    return result;
 }
