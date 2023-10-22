@@ -22,6 +22,7 @@ class App {
     while (!isCorrect) {
       const user = await this.inputUserNumber();
       const comparedResult = this.compareNumber(user, randomNumber);
+      isCorrect = this.checkComparedResult(comparedResult);
     }
   }
 
@@ -69,6 +70,31 @@ class App {
     });
 
     return result;
+  }
+
+  checkComparedResult(result) {
+    let resultMessage = "";
+
+    if (result.strike === 0 && result.ball === 0) {
+      resultMessage += WORD.NOTHING;
+    }
+
+    if (result.ball > 0) {
+      resultMessage += `${result.ball}${WORD.BALL} `;
+    }
+
+    if (result.strike > 0) {
+      resultMessage += `${result.strike}${WORD.STRIKE}`;
+    }
+
+    Console.print(resultMessage);
+
+    if (result.strike === 3) {
+      Console.print(MESSAGE.FINISH);
+      return true;
+    } else {
+      return false;
+    }
   }
 }
 
