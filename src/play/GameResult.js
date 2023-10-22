@@ -1,4 +1,10 @@
-export const showResult = () => {
+import BetweenNumber from './BetweenNumber';
+
+export const showResult = (computerNumber, playerNumber) => {
+  const game = new BetweenNumber(computerNumber, playerNumber);
+  const computerArray = game.getComputerArray();
+  const playerArray = game.getPlayerArray();
+
   let strike = 0;
   let ball = 0;
 
