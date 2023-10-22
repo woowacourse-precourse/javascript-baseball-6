@@ -9,7 +9,13 @@ class BaseballGame {
   /**@type {number[]} */
   #userNumbers;
 
-  constructor() {}
+  async readInput(string) {
+    return await MissionUtils.Console.readLineAsync(string);
+  }
+
+  printOutput(string) {
+    return MissionUtils.Console.print(string);
+  }
 
   async playGame() {
     this.setComputerNumbers();
@@ -41,12 +47,17 @@ class BaseballGame {
 
   async handleUser() {
     await this.handleUserInput();
-    const IS_REINPUT = this.handleUserResult();
-    if (IS_REINPUT) await this.handleUser();
+
+    const { strike, ball } = this.getStrikeAndBall();
+
+    this.printStrikeAndBall({ strike, ball });
+
+    const IS_RE_INPUT = strike !== 3;
+    if (IS_RE_INPUT) await this.handleUser();
   }
 
   async handleUserInput() {
-    const USER_INPUT = await this.readUserInputNumbers();
+    const USER_INPUT = await this.readInput("숫자를 입력해주세요 : ");
     const USER_NUMBERS = USER_INPUT.split("").map(Number);
     this.validUserNumber(USER_NUMBERS);
     this.setUserNumbers(USER_NUMBERS);
@@ -54,10 +65,6 @@ class BaseballGame {
 
   setUserNumbers(user_numbers) {
     this.#userNumbers = user_numbers;
-  }
-
-  async readUserInputNumbers() {
-    return await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
   }
 
   validUserNumber(input) {
@@ -69,19 +76,6 @@ class BaseballGame {
     }
     if (new Set(input).size !== this.#GAME_NUMBER_LEN)
       throw new Error("[ERROR] 입력한 값에 중복이 있습니다.");
-  }
-
-  /**
-   * FIXME: 재시작 여부를 반환하는 함수를 새로 짜는게 좋을듯
-   * @returns { boolean } 재시작 여부를 반환합니다.
-   */
-  handleUserResult() {
-    const { strike, ball } = this.getStrikeAndBall();
-
-    this.printStrikeAndBall({ strike, ball });
-
-    if (strike === 3) return false;
-    return true;
   }
 
   /**
@@ -105,25 +99,22 @@ class BaseballGame {
   }
 
   printStrikeAndBall({ strike, ball }) {
-    if (strike === 0 && ball === 0) MissionUtils.Console.print("낫싱");
-    else if (strike === 0) MissionUtils.Console.print(`${ball}볼`);
-    else if (ball === 0) MissionUtils.Console.print(`${strike}스트라이크`);
-    else MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
+    if (strike === 0 && ball === 0) this.printOutput("낫싱");
+    else if (strike === 0) this.printOutput(`${ball}볼`);
+    else if (ball === 0) this.printOutput(`${strike}스트라이크`);
+    else this.printOutput(`${ball}볼 ${strike}스트라이크`);
   }
 
   async handleEnd() {
-    const input = await this.readUserInputRetry();
+    const input = await this.readInput(
+      "3개의 숫자를 모두 맞히셨습니다! 게임 종료 \n게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. \n"
+    );
 
     this.validGameEndInput(input);
 
     const IS_GAME_RETRY = await this.handleEndResult(input);
     if (IS_GAME_RETRY) await this.playGame();
-  }
-
-  async readUserInputRetry() {
-    return await MissionUtils.Console.readLineAsync(
-      "3개의 숫자를 모두 맞히셨습니다! 게임 종료 \n게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. \n"
-    );
+    if (!IS_GAME_RETRY) this.printOutput("게임 종료");
   }
 
   validGameEndInput(input) {
@@ -138,10 +129,7 @@ class BaseballGame {
    */
   async handleEndResult(input) {
     if (input === "1") return true;
-    if (input === "2") {
-      MissionUtils.Console.print("게임 종료");
-      return false;
-    }
+    if (input === "2") return false;
   }
 }
 

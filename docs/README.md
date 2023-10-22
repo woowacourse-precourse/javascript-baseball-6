@@ -23,9 +23,9 @@
    1. [x] handleUserInput
       - 에러 출력
       - 정상값 리턴
-   2. [x] handleUserResult
+   2. [ ] handleUser
       - getStrikeAndBall, printStrikeAndBall 볼, 스트라이크 출력
-      - 정상값 리턴
+      - 재시작 여부 확인
 3. [x] handleEnd
    1. 입력 및 검사.
    2. 정상 작동 확인.
