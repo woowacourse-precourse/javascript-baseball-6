@@ -53,11 +53,12 @@ class App {
         } else if (strikes > 0 || balls > 0) {
             return `${balls}볼 ${strikes}스트라이크`;
         } else {
-            return "낫싱";
+            // "낫싱" 대신 에러를 발생시킵니다.
+            throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
         }
     } else {
-        // 숫자가 잘못된 형식일 때 "[ERROR] 숫자가 잘못된 형식입니다."를 반환
-        return "[ERROR] 숫자가 잘못된 형식입니다.";
+        // 숫자가 잘못된 형식일 때 에러를 발생시킵니다.
+        throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
     }
 }
 
