@@ -25,7 +25,13 @@ class Game {
   }
 
   async finishGame() {
-    console.log("피니쉬 체크");
+    ConsoleOutput.printEndMessage();
+    const restartInput = await ConsoleInput.getRestartInput();
+
+    if (restartInput === GAME_RULES.RESTART_GAME) {
+      return this.startGame();
+    }
+
     return;
   }
 }

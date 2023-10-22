@@ -24,6 +24,12 @@ const InputValidator = {
       throw new Error(ERRORS.DUPLICATE_NUMBER);
     }
   },
+
+  validateRestartInput(input) {
+    if (input !== "1" && input !== "2") {
+      throw new Error(ERRORS.INVALID_RESTART_INPUT);
+    }
+  },
 };
 
 export default InputValidator;

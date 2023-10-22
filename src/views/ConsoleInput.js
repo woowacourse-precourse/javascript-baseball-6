@@ -8,6 +8,12 @@ const ConsoleInput = {
     InputValidator.validateInput(input);
     return Array.from(input).map(Number);
   },
+
+  async getRestartInput() {
+    const input = await Console.readLineAsync(MESSAGES.GAME_RESTART);
+    InputValidator.validateRestartInput(input);
+    return parseInt(input);
+  },
 };
 
 export default ConsoleInput;

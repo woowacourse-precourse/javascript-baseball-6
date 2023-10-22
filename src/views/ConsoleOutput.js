@@ -5,6 +5,7 @@ const ConsoleOutput = {
   printStartMessage() {
     Console.print(MESSAGES.GAME_START);
   },
+
   printResultMessage(ball, strike) {
     let message = "";
 
@@ -18,6 +19,10 @@ const ConsoleOutput = {
       message = ball + MESSAGES.BALL + " " + strike + MESSAGES.STRIKE;
     }
     Console.print(message);
+  },
+
+  printEndMessage() {
+    Console.print(MESSAGES.GAME_OVER);
   },
 };
 
