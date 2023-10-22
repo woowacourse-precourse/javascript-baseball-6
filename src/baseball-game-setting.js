@@ -1,6 +1,5 @@
 class BaseballGameSettings {
     constructor() {
-        this.restart = true
         this.gameStartMassege = `숫자 야구 게임을 시작합니다.`
         this.userInput = `숫자를 입력해주세요 : `
         this.ballSize = 3
@@ -13,8 +12,8 @@ class BaseballGameSettings {
         this.noStrikeNoBallMsg = `낫싱`
         this.GameStart = `숫자 야구 게임을 시작합니다.`
         this.restartOrStopMessage = `게임을 새로 시작하려면 ${this.reStartGame}, 종료하려면 ${this.stopGame}를 입력하세요.\n`
-        this.gameClear = "3개의 숫자를 모두 맞히셨습니다!"
-        this.gameWinMsg = `게임 종료게임을 새로 시작하려면 ${this.reStartGame}, 종료하려면 ${this.stopGame}를 입력하세요.\n`
+        this.gameClear = `3개의 숫자를 모두 맞히셨습니다! 게임 종료`
+        this.gameWinMsg = `게임을 새로 시작하려면 ${this.reStartGame}, 종료하려면 ${this.stopGame}를 입력하세요.\n`
     }
 }
 
