@@ -20,7 +20,9 @@ class App {
     const computer = this.pickRandomNumber();
     const isGameRunning = true;
 
-    while (isGameRunning) {}
+    while (isGameRunning) {
+      const user = await Console.readLineAsync("숫자를 입력해주세요: ");
+    }
   }
 }
 
