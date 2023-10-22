@@ -1,4 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
+import Messages from "./messages/GameMessages.js";
 
 class App {
   async play() {
@@ -9,6 +10,7 @@ class App {
         computer.push(number);
       }
     }
+    MissionUtils.Console.print(Messages.GAME_START);
   }
 }
 
