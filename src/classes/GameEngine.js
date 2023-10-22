@@ -1,3 +1,5 @@
+import { Console } from '@woowacourse/mission-utils';
+
 class GameEngine {
   // 입력값을 배열로 변경하는 함수
   static inputToArray(input) {
@@ -33,22 +35,29 @@ class GameEngine {
     });
   }
 
-  // 플레이어 숫자의 점수를 반환하는 함수
-  static countPlayerScore(computerNumber, playerNumber) {
-    let ball = 0;
-    let strike = 0;
+  // 플레이어의 점수를 반환하는 함수
+  countScore(computerNumber, playerNumber) {
+    const score = { ball: 0, strike: 0 };
 
     playerNumber.forEach((x, i) => {
       if (computerNumber[i] === x) {
-        strike += 1;
+        score.strike += 1;
       } else if (computerNumber.includes(x)) {
-        ball += 1;
+        score.ball += 1;
       }
     });
 
+    this.printScore(score);
+    return score.strike === 3;
+  }
+
+  // 플레이어의 점수를 프린트하는 함수
+  printScore({ ball, strike }) {
     if (ball === 0 && strike === 0) {
-      return '낫싱';
+      Console.print('낫싱');
+      return;
     }
+
     let message = '';
     if (ball > 0) {
       message += `${ball}볼 `;
@@ -56,7 +65,8 @@ class GameEngine {
     if (strike > 0) {
       message += `${strike}스트라이크`;
     }
-    return message.trim();
+
+    Console.print(message.trim());
   }
 }
 
