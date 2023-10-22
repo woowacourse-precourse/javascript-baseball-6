@@ -31,7 +31,7 @@ class App {
                 await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n')
             );
             if (answer === 2) return;
-            if (answer !== 1) throw new Error('[ERROR]');
+            if (answer !== 1) throw new Error('[ERROR] 1 또는 2만 입력 하실 수 있습니다.');
         }
     }
 
@@ -52,10 +52,10 @@ class App {
     async userInput() {
         const userInput = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
         // 숫자 검사
-        if (!INPUT_EXP.test(userInput)) throw new Error('[ERROR]');
+        if (!INPUT_EXP.test(userInput)) throw new Error('[ERROR] 3자리의 숫자만 입력 가능합니다.');
         const userNumArr = userInput.split('').map(char => parseInt(char));
         // 중복 검사
-        if (new Set([...userNumArr]).size !== 3) throw new Error('[ERROR]');
+        if (new Set([...userNumArr]).size !== 3) throw new Error('[ERROR] 중복된 숫자는 입력하실 수 없습니다.');
         return userNumArr;
     }
 
