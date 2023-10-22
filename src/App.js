@@ -8,7 +8,7 @@ class App {
             let tmp = MissionUtils.Random.pickNumberInRange(1, 9);
             if (!TMP_ARRAY.includes(tmp)) TMP_ARRAY.push(tmp);
         }
-        this.computerNum = TMP_ARRAY;
+        this.computerNum = [...TMP_ARRAY];
 
         return;
     }
@@ -41,10 +41,10 @@ class App {
         // 스트라이크 계산기
         for (let i = 0; i < PLAYER_NUM.length; i++) {
             if (PLAYER_NUM[i] === COMPUTER_NUM[i]) {
-                strike++;
+                strike += 1;
                 PLAYER_NUM.splice(i, 1);
                 COMPUTER_NUM.splice(i, 1);
-                i--;
+                i -= 1;
             }
         }
         // 볼 계산기
