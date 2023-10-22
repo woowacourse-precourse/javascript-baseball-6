@@ -23,14 +23,34 @@ class App {
     if (new Set(parsedInput).size !== parsedInput.length) {
       throw new Error("[ERROR] 모든 자리 수의 값은 서로 달라야 합니다.");
     }
+
+    const scoredInput = parsedInput
+      .map((number, index) => (number === answer[index] ? "strike" : number))
+      .map((number) => (answer.includes(number) ? "ball" : number));
+
+    const strikeCount = scoredInput.filter((score) => score === "ball").length;
+    const ballCount = scoredInput.filter((score) => score === "strike").length;
+
+    const isNothing = !ballCount && !strikeCount;
+    const hasBallAndStrike = ballCount && strikeCount;
+
+    const hint = isNothing
+      ? "낫싱"
+      : hasBallAndStrike
+      ? `${ballCount}볼 ${strikeCount}스트라이크`
+      : ballCount
+      ? `${ballCount}볼`
+      : `${strikeCount}스트라이크`;
+
+    Console.print(hint);
   }
 
   static #pickRandomThreeNums() {
     const RESULT_SIZE = 3;
     const pickedNumbers = new Array(RESULT_SIZE).fill().map((_) => Random.pickNumberInRange(1, 9));
 
-    const isDuplicate = new Set(pickedNumbers).size !== RESULT_SIZE;
-    return !isDuplicate ? pickedNumbers : App.#pickRandomThreeNums();
+    const isNotDuplicate = new Set(pickedNumbers).size === RESULT_SIZE;
+    return isNotDuplicate ? pickedNumbers : App.#pickRandomThreeNums();
   }
 }
 
