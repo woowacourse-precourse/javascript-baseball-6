@@ -1,14 +1,7 @@
-import {MissionUtils} from "@woowacourse/mission-utils";
 
-const isNumberLengthValid = (number) => {
-    if (number.length !== 3) {
-        return false;
-    }
-    return true;
-}
 
 const isValidNumber = (number) => {
-    if (isNaN(number)) {
+    if (isNaN(Number(number))) {
         return false;
     }
     return true;
@@ -23,10 +16,9 @@ const isDuplicateNumbers = (number) => {
 }
 
 export const isValidBaseballInput = (number) => {
-    const isLengthValid = isNumberLengthValid(number);
     const isNumberValid = isValidNumber(number);
     const hasDuplicates = isDuplicateNumbers(number);
-    if (isLengthValid && isNumberValid && hasDuplicates) {
+    if (isNumberValid && hasDuplicates) {
         return true;
     } else {
         return false;

@@ -1,14 +1,18 @@
-import Game from './game/gameLogic.js';
+import gameLoop from './game/gameLoop.js';
+import {MissionUtils} from "@woowacourse/mission-utils";
+import { GAME_MESSAGES } from './utils/message.js';
 
 class App {
   async play() {
     try {
-      const game = new Game(); 
-    await game.start();
+      MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
+      await gameLoop();
     } catch (error) {
       throw new Error("[ERROR]");
     }
   }
+  
 }
+
 
 export default App;
