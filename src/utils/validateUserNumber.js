@@ -25,12 +25,12 @@ const isDuplicatedNumber = (userInput) => {
 
 export const validateUserNumber = (userInput) => {
   if (isEmptyValue(userInput)) {
-    throw new Error('값을 입력하세요');
+    throw new Error('[ERROR] 값을 입력하세요');
   } else if (isOverMaxLength(userInput)) {
-    throw new Error('3자리 숫자를 입력하세요');
+    throw new Error('[ERROR] 3자리 숫자를 입력하세요');
   } else if (isNotValidNumberRange(userInput)) {
-    throw new Error('1-9 범위의 숫자를 입력하세요');
+    throw new Error('[ERROR] 1-9 범위의 숫자를 입력하세요');
   } else if (isDuplicatedNumber(userInput)) {
-    throw new Error('중복되지 않는 숫자를 입력하세요');
+    throw new Error('[ERROR] 중복되지 않는 숫자를 입력하세요');
   }
 };
