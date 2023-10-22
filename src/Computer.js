@@ -2,11 +2,11 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 
 class Computer {
     constructor() {
-        this.answer = getRandAnswer();
+        this.answer = this.getRandAnswer();
     }
 
     initialAnswer() {
-        this.answer = getRandAnswer();
+        this.answer = this.getRandAnswer();
     }
 
     isLenThree(input) {
@@ -63,18 +63,19 @@ class Computer {
         
         return this.getStringCounts(ballCounts, strikeCounts);
     }
-}
 
-function getRandAnswer() {
-    const answerSet = new Set();
-    
-    while(answerSet.size < 3){
-      let num = MissionUtils.Random.pickNumberInRange(1, 9);
-      if(!answerSet.has(num))
-        answerSet.add(num);
+    getRandAnswer() {
+        const answerSet = new Set();
+        
+        while(answerSet.size < 3){
+        let num = MissionUtils.Random.pickNumberInRange(1, 9);
+        if(!answerSet.has(num))
+            answerSet.add(num);
+        }
+
+        return [...answerSet].join('');
     }
-
-    return [...answerSet].join('');
 }
+
 
 export default Computer;
