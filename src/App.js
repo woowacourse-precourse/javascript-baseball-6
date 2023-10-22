@@ -74,6 +74,10 @@ class App {
         const ballLi = document.createElement("li");
         ballLi.textContent = `볼${ballsArray.length}`;
         selectUlElement.appendChild(ballLi);
+      } else {
+        const nothingMsg = document.createElement("li");
+        nothingMsg.textContent = `낫싱`;
+        selectUlElement.appendChild(nothingMsg);
       }
 
       // const ballLi = document.createElement("li");
