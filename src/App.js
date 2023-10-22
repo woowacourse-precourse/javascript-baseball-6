@@ -1,11 +1,11 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
+import { Console, Random } from "@woowacourse/mission-utils";
 
 class App {
   /** 1에서 9까지 서로 다른 임의의 수 3개를 선택하여 3자리 수를 생성하는 메소드 */
   generateRandomNumberArray() {
     const randomNumberArray = [];
     while (randomNumberArray.length < 3) {
-      const number = MissionUtils.Random.pickNumberInRange(1, 9);
+      const number = Random.pickNumberInRange(1, 9);
       if (!randomNumberArray.includes(number)) {
         randomNumberArray.push(number);
       }
@@ -31,14 +31,12 @@ class App {
     }
 
     if (strike === 3) {
-      MissionUtils.Console.print(
-        "3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료"
-      );
+      Console.print("3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료");
       return true;
     } else if (!strike && !ball) {
-      MissionUtils.Console.print("낫싱");
+      Console.print("낫싱");
     } else {
-      MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
+      Console.print(`${ball}볼 ${strike}스트라이크`);
     }
     return false;
   }
@@ -54,7 +52,7 @@ class App {
   }
 
   async play() {
-    MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
+    Console.print("숫자 야구 게임을 시작합니다.");
   }
 }
 
