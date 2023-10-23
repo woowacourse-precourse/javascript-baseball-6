@@ -9,3 +9,7 @@ export const OutputString = Object.freeze({
   OUTPUT_GAME_START: '숫자 야구 게임을 시작합니다.',
   OUTPUT_GAME_END: '3개의 숫자를 모두 맞히셨습니다! 게임 종료',
 })
+
+export const ErrorString = Object.freeze({
+  ERROR_USER_NUMBER_LENGTH: `[ERRROR] 입력하신 숫자가 ${NUMBER_SIZE}글자가 아닙니다.`,
+})
