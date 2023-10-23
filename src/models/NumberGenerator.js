@@ -14,7 +14,7 @@ class NumberGenerator {
       digitsArray.add(randomNumber);
     }
 
-    return parseInt([...digitsArray].join(''));
+    return parseInt([...digitsArray].join(''), 10);
   }
 
   getComputerNumber() {

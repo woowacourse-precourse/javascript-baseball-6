@@ -11,7 +11,7 @@ const InputValidator = {
   },
 
   commandValidate(input) {
-    const commandInput = parseInt(input);
+    const commandInput = parseInt(input, 10);
     
     return (commandInput === USER_COMMAND.REPLAY) || (commandInput === USER_COMMAND.END);
   },

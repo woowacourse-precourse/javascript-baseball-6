@@ -8,7 +8,7 @@ const InputView = {
     
     if (!InputValidator.numberValidate(userNumber)) throw new Error(MESSAGES.INPUT_ERROR);
 
-    return parseInt(userNumber);
+    return parseInt(userNumber, 10);
   },
 
   async getUserCommand(message) {
@@ -16,7 +16,7 @@ const InputView = {
 
     if (!InputValidator.commandValidate(userCommand)) throw new Error(MESSAGES.INPUT_ERROR);
 
-    return parseInt(userCommand);
+    return parseInt(userCommand, 10);
   },
 }
 
