@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import { GAME_MESSAGE } from '../constants/constants.js';
+import { ERROR_MESSAGE, GAME_MESSAGE } from '../constants/constants.js';
 import Computer from './Computer.js';
 import User from './User.js';
 import { BALL_COUNT } from '../constants/constants.js';
@@ -18,7 +18,7 @@ class Baseball {
       strike: 0,
     };
 
-    Console.print(GAME_MESSAGE.GAME_START);
+    Console.print(GAME_MESSAGE.START_GAME);
   }
 
   /** 숫자 야구 게임 시작 */
@@ -35,11 +35,13 @@ class Baseball {
 
     if (this.count.strike === 3) {
       Console.print(GAME_MESSAGE.END_GAME);
+      this.restart();
     }
   }
 
   /** 컴퓨터와 유저의 숫자 비교 */
   compareNumber() {
+    console.log(this.player);
     const { computer, user } = this.player;
     let ball = 0;
     let strike = 0;
@@ -63,6 +65,13 @@ class Baseball {
     else if (ball !== 0 && strike === 0) Console.print(`${ball}${BALL_COUNT.BALL}`);
     else if (ball === 0 && strike !== 0) Console.print(`${strike}${BALL_COUNT.STRIKE}`);
     else if (ball !== 0 && strike !== 0) Console.print(`${ball}${BALL_COUNT.BALL} ${strike}${BALL_COUNT.STRIKE}`);
+  }
+
+  async restart() {
+    const re = await Console.readLineAsync(GAME_MESSAGE.RE_GAME + '\n');
+
+    if (re !== '1' && re !== '2') throw new Error(ERROR_MESSAGE.INPUT_INVALID);
+    if (re === '1') this.startGame();
   }
 }
 
