@@ -1,5 +1,9 @@
 class App {
-  async play() {}
+	async play() {
+		console.log("hi");
+	}
 }
 
 export default App;
+
+
