@@ -1,27 +1,40 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
-const testNum = MissionUtils.Random.pickNumberInRange(1, 9);
+class Test {
+  constructor() {
+    this.computer = [];
+    this.isPlaying = true;
+  }
+  startNewGame() {
+    // 게임 시작 메시지 출력
+    Console.print("숫자 야구 게임을 시작합니다.");
 
-function randomNum(arr) {
-  let num = null;
-  num = MissionUtils.Random.pickNumberInRange(1, 9);
-  console.log("첫번째 num", num);
-  for (let i = 0; i < arr.length; i++) {
-    console.log(`${i}번째 for구문 arr[i] = ${arr[i]} num = ${num}`);
-    if (arr[i] === num) {
-      console.log("램덤 숫자와 기존숫자가 동일합니다");
-      console.log("새로운 램덤 숫자를 생성합니다.");
-      num = MissionUtils.Random.pickNumberInRange(1, 9);
-      console.log(`새로운 램덤 숫자 = ${num}`);
+    // 컴퓨터가 선택한 서로 다른 3자리 수를 생성
+    while (this.computer.length < 3) {
+      const number = MissionUtils.Random.pickNumberInRange(1, 9);
+      if (!this.computer.includes(number)) {
+        this.computer.push(number);
+      }
+    }
+
+    // 게임 플레이 시작
+    this.playGame();
+  }
+  playGame() {
+    while (this.isPlaying) {
+      const userGuess = this.getUserInput();
+      const result = this.checkGuess(userGuess);
+
+      // 3스트라이크인 경우 게임 종료 및 재시작 여부 확인
+      if (result === "3스트라이크") {
+        Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+        this.askToRestart();
+        break;
+      }
+
+      // 사용자의 추측 결과 출력
+      Console.print(result);
     }
   }
-  console.log("________________________");
-  console.log(`최종 출력 결과 = ${num}`);
-  return num;
+  async play() {}
 }
-
-randomNum([1, 3]);
-console.log(testNum);
-
-// 램덤 수를 하나 뽑아옴
-// 램덤 수가 arr에 포함되어있는 숫자와 겹치면 새로 뽑음
