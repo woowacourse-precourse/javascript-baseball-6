@@ -4,6 +4,7 @@ import OutputView from '../view/OutputView.js';
 import ComputerNumber from '../domain/ComputerNumber.js';
 import UserNumber from '../domain/UserNumber.js';
 import BaseballGameResult from '../domain/BaseballGameResult.js';
+import InputView from '../view/InputView.js';
 
 class BaseballGameController {
   #computerNumber;
@@ -34,6 +35,15 @@ class BaseballGameController {
     ).getResult();
 
     OutputView.printResult(this.#gameResult);
+
+    const strike = this.#gameResult.strike;
+    if (strike < 3) {
+      this.readUserNumberStage();
+    }
+  }
+
+  readUserNumberStage() {
+    InputView.readUserNumbers(this.checkResultStage.bind(this));
   }
 }
 
