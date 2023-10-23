@@ -4,7 +4,7 @@ class App {
   constructor() {
     this.init();
   }
-//비동기를 많이 배웁니다
+  //비동기를 많이 배웁니다
   init() {
     Console.print("숫자 야구 게임을 시작합니다.");
     this.answer = this.makeAnswer();
@@ -23,44 +23,39 @@ class App {
     let numberInput = await Console.readLineAsync("숫자를 입력해주세요 : ");
     const result = this.validateInput(numberInput);
     if (result != "통과") return result;
-    return numberInput.split("")
+    return numberInput.split("");
   }
 
-  async checkAnswer() {
-    
-  }
-  async play() {
+  checkAnswer(numberInput) {
     let strikeResult = 0;
     let ballResult = 0;
-    try {
-      // let numberInput = await Console.readLineAsync("숫자를 입력해주세요 : ");
-      // const result = this.validateInput(numberInput);
-      // if (result != "통과") throw new Error(result);
-      // numberInput = numberInput.split("");
-      let numberInput = await this.getNumberInput();
-      if (!Array.isArray(numberInput)) throw new Error(numberInput)
-      for (let i = 0; i < this.answer.length; i++) {
-        if (this.answer[i] == numberInput[i]) {
-          strikeResult++;
-        } else if (this.answer.includes(Number(numberInput[i]))) {
-          ballResult++;
-        } else {
-        }
+    for (let i = 0; i < this.answer.length; i++) {
+      if (this.answer[i] == numberInput[i]) {
+        strikeResult++;
+      } else if (this.answer.includes(Number(numberInput[i]))) {
+        ballResult++;
+      } else {
       }
+    }
+    return [strikeResult, ballResult];
+  }
+  async play() {
+    try {
+      let numberInput = await this.getNumberInput();
+      if (!Array.isArray(numberInput)) throw new Error(numberInput);
+      const [strikeResult, ballResult] = this.checkAnswer(numberInput);
       if (strikeResult == 3) {
         Console.print(strikeResult + STRIKE);
         return await this.endOrReset();
       }
 
-      if (strikeResult > 0 && ballResult > 0) {
+      if (strikeResult > 0 && ballResult > 0)
         Console.print(ballResult + BALL + " " + strikeResult + STRIKE);
-      } else if (strikeResult == 0 && ballResult > 0) {
+      else if (strikeResult == 0 && ballResult > 0)
         Console.print(ballResult + BALL);
-      } else if (strikeResult > 0 && ballResult == 0) {
+      else if (strikeResult > 0 && ballResult == 0)
         Console.print(strikeResult + STRIKE);
-      } else {
-        Console.print(NOTHING);
-      }
+      else Console.print(NOTHING);
     } catch (error) {
       throw new Error("[ERROR]" + error); //Error를 던지는 것이랑 콘솔의 차이
     }
