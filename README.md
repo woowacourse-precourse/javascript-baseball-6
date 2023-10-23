@@ -1,3 +1,16 @@
+# 구현할 기능 목록
+@woowacourse/mission-utils의 Random 및 Console API를 사용하여 구현해야 한다.
+Random 값 추출은 Random.pickNumberInRange()를 활용한다.
+사용자의 값을 입력 받고 출력하기 위해서는 Console.readLineAsync, Console.print를 활용한다.
+
+. 3자리 랜덤 숫자 생성
+. 예외 판단(숫자만 입력 가능 그외는 throw 처리하여 애플리케이션 종료)
+. 스트라이크 판단 함수
+  - 각 자리수
+. 볼 및 낫싱 판단 함수
+. 게임 재시작 및 종료 판단 함수
+
+
 # 미션 - 숫자 야구
 
 ## 🔍 진행 방식
