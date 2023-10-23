@@ -66,7 +66,11 @@ export class BaseballService {
     );
   }
 
-  validateRetryInput(retry) {}
+  validateRetryInput(retry) {
+    if (retry !== '1' && retry !== '2') {
+      throw new Error('[ERROR] 1 또는 2를 입력하세요.');
+    }
+  }
 
   async baseballQuery() {
     const computer = this.generateRandomNumbers();
