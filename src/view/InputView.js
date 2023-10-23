@@ -32,6 +32,8 @@ const InputView = {
   },
 
   validateRestartNumber(restartNumber) {
+    if (restartNumber.length !== 1)
+      throw new Error(ErrorString.ERROR_RESTART_INPUT_LENGTH)
     if (restartNumber.replace(/[1|2]/g, '') > 0)
       throw new Error(ErrorString.ERROR_RESTART_INVALID_INPUT)
   },
