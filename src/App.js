@@ -3,6 +3,14 @@ import { Console, Random } from '@woowacourse/mission-utils';
 class App {
   async play() {
     Console.print('숫자 야구 게임을 시작합니다.');
+
+    while (true) {
+      await this.gameFlow();
+      const userRestartInput = await this.getUserRestartInput();
+      if (userRestartInput !== 1) {
+        break;
+      }
+    }
   }
   // 게임 실행 흐름을 책임지는 함수
   async gameFlow() {
