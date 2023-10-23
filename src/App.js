@@ -2,6 +2,7 @@ import { Console } from "@woowacourse/mission-utils";
 import { evaluateScore, printScore } from "./score.js";
 import { readAnswerInput, readEndDecisionInput } from "./input.js";
 import { pickRandomThreeNumbers } from "./random.js";
+import { message } from "./constants.js";
 
 class App {
   #answerNumbers;
@@ -13,12 +14,13 @@ class App {
   }
 
   #startGame() {
-    Console.print("숫자 야구 게임을 시작합니다.");
+    Console.print(message.GAME_STARTED);
     this.#setNewAnswer();
   }
 
   #setNewAnswer() {
     this.#answerNumbers = pickRandomThreeNumbers();
+    console.log(this.#answerNumbers);
   }
 
   async #runGameLoop() {
@@ -32,7 +34,7 @@ class App {
   }
 
   async #wrapUpGame() {
-    Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    Console.print(message.GAME_ENDED);
     const endDecisionInput = await readEndDecisionInput();
     if (endDecisionInput === "1") {
       await this.play();

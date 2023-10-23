@@ -1,13 +1,14 @@
 import { Console } from "@woowacourse/mission-utils";
+import { resultCode } from "./constants.js";
 
 const evaluateScore = (numbers, answerNumbers) => {
   const scoredInput = numbers
-    .map((number, index) => (number === answerNumbers[index] ? "strike" : number))
-    .map((number) => (answerNumbers.includes(number) ? "ball" : number));
+    .map((number, index) => (number === answerNumbers[index] ? resultCode.STRIKE : number))
+    .map((number) => (answerNumbers.includes(number) ? resultCode.BALL : number));
 
   return {
-    ballCount: scoredInput.filter((score) => score === "ball").length,
-    strikeCount: scoredInput.filter((score) => score === "strike").length,
+    ballCount: scoredInput.filter((score) => score === resultCode.BALL).length,
+    strikeCount: scoredInput.filter((score) => score === resultCode.STRIKE).length,
   };
 };
 

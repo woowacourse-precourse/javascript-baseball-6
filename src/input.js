@@ -1,8 +1,9 @@
 import { Console } from "@woowacourse/mission-utils";
 import { validateThreeNaturalNumbers, validateEndDecision } from "./validators.js";
+import { message } from "./constants.js";
 
 const readAnswerInput = async () => {
-  const input = await Console.readLineAsync("숫자를 입력해주세요 : ");
+  const input = await Console.readLineAsync(message.ANSWER_QUERY);
   const parsedInput = input.split("").map((char) => parseInt(char, 10));
 
   validateThreeNaturalNumbers(parsedInput);
@@ -10,9 +11,7 @@ const readAnswerInput = async () => {
 };
 
 const readEndDecisionInput = async () => {
-  const input = await Console.readLineAsync(
-    "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
-  );
+  const input = await Console.readLineAsync(message.END_QUERY);
 
   validateEndDecision(input);
   return input;
