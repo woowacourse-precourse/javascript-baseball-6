@@ -1,5 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import GameLogic from "./GameLogic.js";
+import Exception from "../Exception/Exception.js";
 
 class GameManager {
   constructor() {
@@ -21,6 +22,8 @@ class GameManager {
         "숫자를 입력해주세요 : "
       );
 
+      Exception.baseballException(answer);
+
       userNumber = this.gameLogic.checkGameResult(computerNumber, answer);
       MissionUtils.Console.print(userNumber);
 
@@ -40,6 +43,8 @@ class GameManager {
       return this.playGame();
     } else if (answer === "2") {
       return false;
+    } else {
+      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
     }
   }
 }
