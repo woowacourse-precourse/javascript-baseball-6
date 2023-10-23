@@ -2,7 +2,7 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
   constructor() {
-    // 게임 실행 여부
+    // 게임 실행 여부 저장
     this.start = true;
   }
 
@@ -14,11 +14,16 @@ class App {
       // 2. 컴퓨터의 정답 생성
       const computerAnswer = this.makeRandomAnswer();
 
-      // 3. 게임 시작! 정답 맞추기
-      await this.playBaseballGame(computerAnswer);
+      try {
+        // 3. 게임 시작! 정답 맞추기
+        await this.playBaseballGame(computerAnswer);
 
-      // 4. 게임 재시작 여부 확인하기
-      this.start = await this.restart();
+        // 4. 게임 재시작 여부 확인하기
+        this.start = await this.restart();
+      } catch (error) {
+        MissionUtils.Console.print(error.message);
+        this.start = false;
+      }
     }
   }
 
@@ -52,7 +57,7 @@ class App {
       } while (result !== "3스트라이크");
       MissionUtils.Console.print("3의 숫자를 모두 맞히셨습니다! 게임 종료");
     } catch (error) {
-      MissionUtils.Console.print(error.message);
+      throw error;
     }
   }
 
