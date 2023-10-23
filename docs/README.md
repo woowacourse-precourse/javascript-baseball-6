@@ -28,8 +28,8 @@
 
 - [x] `getInput()`: 사용자로부터 3개의 숫자를 입력 받는다.
   - [x] `readInput()`: 사용자로부터 입력을 받는다.
-  - [x] `validateInput(input)`: 입력값이 유효한지 검사한다.
-  - [x] `convertToNumberArray(input)`: 입력값을 숫자 배열로 변환한다.
+  - [x] `validateInput()`: 입력값이 유효한지 검사한다.
+  - [x] `convertToNumberArray()`: 입력값을 숫자 배열로 변환한다.
 
 ---
 
