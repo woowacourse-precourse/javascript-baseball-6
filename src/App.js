@@ -1,37 +1,19 @@
-import { Console, MissionUtils } from "@woowacourse/mission-utils";
+const { Console } = require("@woowacourse/mission-utils");
+const {
+  GAME_MESSAGE,
+  BASEBALL_MESSAGE,
+  END_OPTION,
+  ERROR_MESSAGE,
+} = require("./contants");
+const { Computer } = require("./contants/Computer");
 
 class App {
-  comNumberCreate() {
-    this.comNumberCreate = [];
-
-    while (this.comNumberCreate.length <= 2) {
-      //컴퓨터가 숫자 3개를 고름
-      const num = MissionUtils.Random.pickNumberInRange(1, 9);
-      if (this.comNumberCreate.inCludes(num)) {
-        continue;
-      } else {
-        this.comNumberCreate.push(num);
-      }
-    }
-  }
-
-  inputValidation(userNumber) {
-    userNumber = new set(userNumber);
-
-    if (userNumber.size !== 3) {
-      return false;
-    }
-
-    for (let number of userNumber) {
-      number = parseInt(number, 10);
-
-      if (isNaN(number)) {
-        return false;
-      } else if (number < 1 || 9) {
-        return false;
-      }
-    }
-    return true;
+  async play() {
+    //게임 시작 메세지
+    Console.print(GAME_MESSAGE.START);
+    const computer = new Computer();
+    this.computerNumber = computer.generateComputerNumber();
+    return this.BaseballGame(this.computerNumber);
   }
 }
 
