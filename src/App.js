@@ -72,25 +72,6 @@ class App {
     }
   }
 
-  printResult() {
-    if (this.cntBall === 0 && this.cntStrike === 0) {
-      MissionUtils.Console.print('낫싱');
-      return;
-    }
-
-    if (this.cntBall === 0) {
-      MissionUtils.Console.print(`${this.cntStrike}스트라이크`);
-      return;
-    }
-
-    if (this.cntStrike === 0) {
-      MissionUtils.Console.print(`${this.cntBall}볼`);
-      return;
-    }
-
-    MissionUtils.Console.print(`${this.cntBall}볼 ${this.cntStrike}스트라이크`);
-  }
-
   async decideGameContinuation() {
     const input = await MissionUtils.Console.readLineAsync(
       `게임을 새로 시작하려면 ${CONTINUE}, 종료하려면 ${EXIT}를 입력하세요.\n`,
@@ -117,7 +98,7 @@ class App {
       await this.getUserInput();
       this.countStrike();
       this.countBall();
-      this.printResult();
+      Message.printPlayerGuessResult(this.cntBall, this.cntStrike);
 
       if (this.cntStrike === NUMBER_LENGTH) {
         Message.printGameOver();
