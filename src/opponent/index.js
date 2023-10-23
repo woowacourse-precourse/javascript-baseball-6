@@ -1,7 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import constants from '../../constants/index.js';
-
-const { BALL_COUNTS } = constants.MESSAGES;
+import { BALL_COUNTS } from '../../constants/index.js';
 
 class Opponent {
   /**
