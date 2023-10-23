@@ -105,7 +105,7 @@ class Game {
   // 게임 재시작 여부를 입력받는 메소드
   checkPlayAgain = async () => {
     const input = await Console.readLineAsync(MESSAGE.RESTART_GAME_PROMPT);
-    if (!this.checkPlayAgainInput(input)) {
+    if (!this.isPlayAgainInputValid(input)) {
       throw new Error(MESSAGE.INVALID_INPUT);
     }
     const inputNum = Number(input);
@@ -113,7 +113,7 @@ class Game {
   };
 
   // 게임 재시작 여부의 입력값이 유효한지 검사하는 메소드
-  checkPlayAgainInput = (input) => {
+  isPlayAgainInputValid = (input) => {
     if (input === "1" || input === "2") {
       return true;
     }
