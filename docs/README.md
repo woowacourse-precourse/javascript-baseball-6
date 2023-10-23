@@ -192,4 +192,5 @@
 # 🚀 회고
 
 <a href="https://invented-lantern-19c.notion.site/10-21-f63d253a5da14d5cbcd58892a6f63a87?pvs=4">1️⃣ [숫자 야구] 10월 21일 회고</a>  
-<a href="https://invented-lantern-19c.notion.site/10-22-ad3f0902b3af4987a172ccc7d9f65019?pvs=4">2️⃣ [숫자 야구] 10월 22일 회고</a>
+<a href="https://invented-lantern-19c.notion.site/10-22-ad3f0902b3af4987a172ccc7d9f65019?pvs=4">2️⃣ [숫자 야구] 10월 22일 회고</a>  
+<a href="https://invented-lantern-19c.notion.site/10-23-a632cee0e45046b39b1b3e4d455b7a39?pvs=4">3️⃣ [숫자 야구] 10월 23일 회고</a>
