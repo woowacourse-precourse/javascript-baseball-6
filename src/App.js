@@ -34,14 +34,13 @@ const userInputNum = async (computer) => {
   } catch (error) {
     // reject 되는 경우
   }
-  console.log("userInput", userInput);
   checkNum(userInput, computer);  // 입력값 유효성 체크
 }
 
 const checkNum = (userInput, computer) => {
   let user = userInput.split("");
   if (user.length == 3) {
-    user.map((e, index) => {
+    user.forEach((e, index) => {
       user[index] = parseInt(e);
       if (isNaN(e)) throw new Error("[ERROR] 숫자가 잘못된 형식입니다.")
     })
@@ -49,15 +48,26 @@ const checkNum = (userInput, computer) => {
   else {
     throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
   }
-
-  console.log("user", user);
-  console.log("computer", computer);
   compare(user, computer);  // 입력받은 값이 유효할 경우 숫자 비교
 }
 
 const compare = (user, computer) => {
+  console.log("user, computer", user, computer);
+  let ballCount = 0;
+  let strikeCount = 0;
+  let nothing = false;
+  user.forEach((user, index) => {
+    computer.forEach((computer) => {
+      user === computer ? ballCount++ : null;
+    })
+    user === computer[index] ? strikeCount++ : null;
+  })
+  ballCount === 0 ? nothing=true : null;
+  ballCount -= strikeCount; // 스트라이크카운트(같은수가 같은자리에)는 볼카운에서 제외
 
-
+  console.log("ballCount", ballCount);
+  console.log("strikeCount", strikeCount);
+  console.log("nothing", nothing);
 }
 
 
