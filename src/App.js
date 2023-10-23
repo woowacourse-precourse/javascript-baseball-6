@@ -5,7 +5,8 @@ class App {
 
   async play() {}
 
-  getAnswerNumber() {
+  getRandomNumber() {
+    this.#makeRandomNumber();
     return this.#randomNumber;
   }
   #makeRandomNumber() {
