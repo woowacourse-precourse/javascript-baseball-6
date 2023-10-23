@@ -7,10 +7,12 @@ class App {
   constructor() {
     this.view = new View();
     this.view.showInitialMessage();
+    this.controller = new Controller();
   }
 
   async play() {
     //Controller.js 메서드 호출
+    await this.controller.gameStart();
   }
 
 

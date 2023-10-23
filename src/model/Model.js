@@ -14,7 +14,10 @@ class Model {
             }
         }
     }
+
+    //사용자 입력 유효성 판단 로직
     
+
 }
 
 export default Model;
