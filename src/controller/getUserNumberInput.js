@@ -1,5 +1,10 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 
+const checkBlank = (input) => {
+    const throwBlankError = () => { throw new Error("[ERROR] 3자리의 수를 공백없이 이어서 입력해야 합니다.") }
+    input.split('').forEach(inputElement => { inputElement === ' ' && throwBlankError()});
+}
+
 const checkThreeDigit = (input) => {
     if (input.length !== 3) { throw new Error("[ERROR] 3자리의 숫자가 아닙니다.") }
 }
@@ -20,7 +25,8 @@ const checkNoZero = (input) => {
 
 export const getUserNumberInput = async () => {
     const userNumberInput = await MissionUtils.Console.readLineAsync('숫자를 입력하세요 : ')
-    
+
+    checkBlank(userNumberInput)
     checkThreeDigit(userNumberInput)
     checkAllNumber(userNumberInput)
     checkNotDuplicated(userNumberInput)
