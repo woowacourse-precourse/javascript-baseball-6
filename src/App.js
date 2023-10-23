@@ -53,23 +53,16 @@ class App {
         this.printMsg(`${strike}${BASEBALL.STRIKE}`);
         this.printMsg(NORMAL_MSG.END);
         ONOFF = await Console.readLineAsync(NORMAL_MSG.SELECT);
-        if(ONOFF == 1) {
-          this.randNum = this.makeRandNum();
-        }
-        continue;
+        if(ONOFF == 1) this.randNum = this.makeRandNum();
+        if(ONOFF == 2) return;
       }
 
-      if(ball == 0){
-        this.printMsg(`${strike}${BASEBALL.STRIKE}`);
-        continue;
-      }
+      if(ball == 0) this.printMsg(`${strike}${BASEBALL.STRIKE}`);
 
-      if(strike == 0){
-        this.printMsg(`${ball}${BASEBALL.BALL}`);
-        continue;
-      }
+      if(strike == 0) this.printMsg(`${ball}${BASEBALL.BALL}`);
 
-      this.printMsg(`${ball}${BASEBALL.BALL} ${strike}${BASEBALL.STRIKE}`);
+      if(ball !== 0 && strike !== 0) this.printMsg(`${ball}${BASEBALL.BALL} ${strike}${BASEBALL.STRIKE}`);
+
     }
 
     if(ONOFF == 2) return;
