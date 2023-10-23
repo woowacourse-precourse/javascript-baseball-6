@@ -104,7 +104,7 @@ class App {
     } else {
       pass = /^[1,2]$/.test(this.userText);
     }
-    return pass;
+    if (!pass) throw new Error(this.sentence.error);
   }
 
   // 스트라이크, 볼 판정
@@ -167,22 +167,15 @@ class App {
     }
   }
 
-  async run() {
-    await this.getUserNumbers();
-    console.log('user text', this.userText);
-    const testPass = this.validNumbers();
-    if (testPass) {
-      this.test();
-    } else {
-      // throw new Error(this.sentence.error);
-      this.throwError(this.sentence.error);
-    }
-    if (this.playing) this.run();
-  }
-
   async play() {
     this.startGame();
-    this.run();
+    try {
+      await this.getUserNumbers();
+      this.validNumbers();
+      this.test();
+    } catch (error) {
+      throw new Error(`[Error]:${error}`);
+    }
   }
 }
 export default App;
