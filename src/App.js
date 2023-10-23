@@ -30,7 +30,7 @@ export default class App{
 
   //결과를 판단
   judgeResult() {
-    const result = this.#player.getJudgeResultPaper(this.#computer);
+    const result = this.#player.getJudgeResult(this.#computer);
 
     this.#view.printResultMessage(result);
     if (result.strike === CONSTANT.threestrike) {

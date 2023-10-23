@@ -14,7 +14,7 @@ export default class player {
     return;
   }
 
-  getJudgeResultPaper(computer) {
+  getJudgeResult(computer) {
     const result = computer.judgeResult(this.#playerNumber);
     return result;
   }
