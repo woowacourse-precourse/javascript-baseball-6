@@ -48,6 +48,23 @@ class GameInteraction {
             Console.print(`${ball}볼 ${strike}스트라이크`);
         }
     }
+
+    static async askToRestartGame() {
+        try {
+            const answer = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n");
+            this.validateAnswer(answer);
+            return answer;
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    }
+
+    static validateAnswer(answer) {
+        if (answer !== "1" && answer !== "2") {
+            throw new Error("[ERROR] 1 또는 2를 입력해야 합니다.");
+        }
+        return null;
+    }
 }
 
 export default GameInteraction;
