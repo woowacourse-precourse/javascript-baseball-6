@@ -12,8 +12,6 @@ const MESSAGE = {
 };
 
 class App {
-  #randomNumber;
-
   async play() {
     Console.print(MESSAGE.start);
 
@@ -22,13 +20,11 @@ class App {
     if (this.#isValidInput(input)) {
       throw new Error(MESSAGE.error("입력값이 유효하지 않습니다."));
     }
+
+    this.generateRandomNumber();
   }
 
-  getRandomNumber() {
-    this.#makeRandomNumber();
-    return this.#randomNumber;
-  }
-  #makeRandomNumber() {
+  generateRandomNumber() {
     let result = "";
 
     while (true) {
@@ -37,11 +33,10 @@ class App {
       const random = Random.pickNumberInRange(1, 9);
       if (!result.includes(random)) result += random;
     }
-
-    this.#randomNumber = result;
+    return result;
   }
 
-  #isValidInput(input) {
+  isValidInput(input) {
     const regEx = new RegExp("^(?!.*(\\d).*\\1)[1-9]{3}$");
 
     return !regEx.test(input.trim());
