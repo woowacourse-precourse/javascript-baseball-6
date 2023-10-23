@@ -26,7 +26,7 @@ class App {
   }
 
   throwError(error) {
-    throw new Error(`[ERROR] ${error.message}`);
+    throw new Error(`[ERROR] ${error}`);
   }
 
   async play() {
@@ -48,7 +48,7 @@ class App {
 
       await this.enterValue(random);
     } catch (error) {
-      throw new Error(`[ERROR] ${error.message}`);
+      this.throwError(error);
     }
   }
 
@@ -62,7 +62,7 @@ class App {
       if (ask === COMMAND.RESTART)
         await this.enterValue(RandomNumber.createNumber());
     } catch (error) {
-      throw new Error(`[ERROR] ${error.message}`);
+      this.throwError(error);
     }
   }
 }
