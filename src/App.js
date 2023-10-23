@@ -30,6 +30,7 @@ class App {
           break;
         }
       }
+      this.restartGame();
     } catch (error) {
       Console.print(error);
     }
@@ -77,6 +78,15 @@ class App {
     else if (ball !== 0 && strike === 0) Console.print(`${ball}볼`);
     else if (ball === 0 && strike !== 0) Console.print(`${strike}스트라이크`);
     else Console.print('낫싱');
+  }
+
+  async restartGame() {
+    const gameFlag = await Console.readLineAsync(
+      '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'
+    );
+    if (gameFlag === '1') this.playGame(this.makeNumber());
+    else if (gameFlag === '2') return;
+    else throw new Error('1과 2만 입력이 가능합니다.');
   }
 }
 
