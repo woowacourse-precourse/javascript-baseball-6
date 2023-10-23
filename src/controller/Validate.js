@@ -6,7 +6,7 @@ class Validate {
         if (number.length !== 3) throw new Error(ERROR_MSG.NUMBER_LENGTH_ERROR);
         if (isNaN(number)) throw new Error(ERROR_MSG.IS_NUMBER);
         if (number.includes('0')) throw new Error(ERROR_MSG.IS_ZERO);
-        if (number[0] == number[1] || number[1] == number[2] || number[0] == number[2] ) throw new Error(ERROR_MSG.NUMBER_DIFFRENT_ERROR);
+        if (number[0] === number[1] || number[1] === number[2] || number[0] === number[2] ) throw new Error(ERROR_MSG.NUMBER_DIFFRENT_ERROR);
     }
     reGameValidate(number) {
         if (isNaN(number)) throw new Error(ERROR_MSG.IS_NUMBER);

@@ -31,7 +31,7 @@ class Controller {
 
     checkingStrike(number) {
         CONSTANTS.ANSWER_NUMBER.map((num,idx) => {
-            (number[idx] == num) ? STRIKE_BALL.STRIKE += 1 : this.#checkingBall(number[idx])
+            (parseInt(number[idx]) === num) ? STRIKE_BALL.STRIKE += 1 : this.#checkingBall(number[idx])
         })
     }
 

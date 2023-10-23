@@ -33,7 +33,7 @@ class GamePlay {
 
     async #getUserReGame() {
         await this.CON.endGame();
-        (CONSTANTS.REGAME_CONSTANTS == 1) ? await this.startGame() : this.#gameOver();
+        (parseInt(CONSTANTS.REGAME_CONSTANTS) === 1) ? await this.startGame() : this.#gameOver();
     }
 
     #gameOver() {
