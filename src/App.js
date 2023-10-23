@@ -16,6 +16,7 @@ export default class App {
         this.computerNumber += randomNumber;
       }
     }
+    console.log(this.computerNumber);
   }
 
   async getUserNumber() {
@@ -59,6 +60,18 @@ export default class App {
 
     if (this.strikeCnt === 3) {
       MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+      this.finishGame();
+    }
+  }
+
+  async finishGame() {
+    const isReplay = await MissionUtils.Console.readLineAsync(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+    );
+    if (Number(isReplay) === 1) {
+      // await this.play();
+    }
+    if (Number(isReplay) === 2) {
       return;
     }
   }
