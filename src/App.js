@@ -38,6 +38,11 @@ class App {
     return Array.from(input).map((el) => Number(el));
   };
 
+  getRestartOrEndInput = async () => {
+    const input = await Console.readLineAsync();
+    return input;
+  };
+
   calculateGameResult = async (computer, user) => {
     const result = { ball: 0, strike: 0 };
 
@@ -57,28 +62,39 @@ class App {
   async play() {
     try {
       this.gameStart();
-      this.computerNumber = this.computer.createRandomNumber();
 
-      while (1) {
-        this.userNumber = await this.getUserNumberInput();
+      while (true) {
+        this.computerNumber = this.computer.createRandomNumber();
 
-        const result = await this.calculateGameResult(
-          this.computerNumber,
-          this.userNumber
-        );
+        while (true) {
+          this.userNumber = await this.getUserNumberInput();
 
-        if (result.ball === 0 && result.strike === 0) {
-          Console.print("낫싱");
-        } else if (result.strike === 3) {
-          Console.print("3스트라이크");
-          Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-        } else {
-          Console.print(`${result.ball}볼 ${result.strike}스트라이크`);
+          const result = await this.calculateGameResult(
+            this.computerNumber,
+            this.userNumber
+          );
+
+          if (result.ball === 0 && result.strike === 0) {
+            Console.print("낫싱");
+          } else if (result.strike === 3) {
+            Console.print("3스트라이크");
+            Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+
+            Console.print(
+              "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+            );
+            const input = await this.getRestartOrEndInput();
+            if (input === "1") {
+              break;
+            }
+            return;
+          } else {
+            Console.print(`${result.ball}볼 ${result.strike}스트라이크`);
+          }
         }
       }
     } catch (err) {
       Console.print(err.message);
-      return;
     }
   }
 }
