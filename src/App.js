@@ -1,15 +1,25 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
+  constructor() {
+    // 게임 실행 여부
+    this.start = true;
+  }
+
   async play() {
     // 1. 게임 안내
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
 
-    // 2. 컴퓨터의 정답 생성
-    const computerAnswer = this.makeRandomAnswer();
+    while (this.start) {
+      // 2. 컴퓨터의 정답 생성
+      const computerAnswer = this.makeRandomAnswer();
 
-    // 3. 게임 시작! 정답 맞추기
-    this.playBaseballGame(computerAnswer);
+      // 3. 게임 시작! 정답 맞추기
+      await this.playBaseballGame(computerAnswer);
+
+      // 4. 게임 재시작 여부 확인하기
+      this.start = await this.restart();
+    }
   }
 
   // 랜덤 숫자로 이루어진 배열 만들기
@@ -70,7 +80,6 @@ class App {
         count["strike"]++;
       } else if (computerAnswer.indexOf(userAnswer[i]) !== -1) {
         count["ball"]++;
-        12;
       }
     }
     if (count["strike"] === 0 && count["ball"] === 0) {
@@ -81,6 +90,18 @@ class App {
       answer += count["strike"] > 0 ? `${count["strike"]}스트라이크` : ``;
     }
     return answer;
+  }
+
+  // 재시작 or 종료 확인
+  async restart() {
+    const userChoice = await MissionUtils.Console.readLineAsync(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+    );
+    if (userChoice === "1") {
+      return true;
+    } else if (userChoice === "2") {
+      return false;
+    }
   }
 }
 
