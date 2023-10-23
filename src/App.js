@@ -14,10 +14,14 @@ class App {
   }
 
   async play() {
-    MissionUtils.Console.readLine('숫자를 입력해주세요 : ', (answer) => {
-      
-    });
+    try {
+      this.number = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
+    } catch (error) {
+      // reject 되는 경우
+      console.log('error:', error);
+    }
   }
 }
+
 
 export default App;
