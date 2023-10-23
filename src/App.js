@@ -16,10 +16,12 @@ class App {
     } while (await this.replayGame());
   }
 
+  // startGame : 숫자 야구 게임 시작
   startGame() {
     Console.print(MESSAGE.START);
   }
 
+  // playGame : 숫자 야구 게임 플레이
   async playGame() {
     const randomNumber = this.createRandomNumber();
 
@@ -32,6 +34,7 @@ class App {
     }
   }
 
+  // creatRandomNumber: 컴퓨터가 랜덤한 세 자리 숫자를 생성
   createRandomNumber() {
     const computerNumber = [];
     while (computerNumber.length < 3) {
@@ -44,6 +47,7 @@ class App {
     return computerNumber;
   }
 
+  // inputUserNumber: 사용자의 올바른 입력값 저장
   async inputUserNumber() {
     const input = await Console.readLineAsync(MESSAGE.INPUT);
     this.Error.validateUserInput(input);
@@ -52,6 +56,7 @@ class App {
     return numbers;
   }
 
+  // compareNumber: 컴퓨터 랜덤값과 사용자의 입력값을 비교하여 결과 object 생성
   compareNumber(user, random) {
     const result = { ball: 0, strike: 0 };
 
@@ -68,6 +73,7 @@ class App {
     return result;
   }
 
+  // checkComparedResult : 결과 object에 따라 결과 안내 메시지 출력
   checkComparedResult(result) {
     let resultMessage = "";
 
@@ -93,6 +99,7 @@ class App {
     }
   }
 
+  // replayGame : 사용자가 계속 게임을 이어나갈지, 종료할지 결정
   async replayGame() {
     const input = await Console.readLineAsync(MESSAGE.REPLAY);
 
