@@ -1,11 +1,12 @@
 import { Random } from "@woowacourse/mission-utils";
+import { NUMBER_LENGTH } from "../utils/Constant.js";
 import { validateComputerNumber, validateInputNumber } from "../utils/validateNumber.js";
 
 class Model {
   makeComputerRandomNumber() {
     const computerRandomNumbers = [];
 
-    while (computerRandomNumbers.length < 3) {
+    while (computerRandomNumbers.length < NUMBER_LENGTH) {
       const number = Random.pickNumberInRange(1, 9);
 
       if (!computerRandomNumbers.includes(number)) {
