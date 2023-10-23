@@ -3,8 +3,11 @@ import { evaluateScore, printScore } from "./score.js";
 import { readAnswerInput, readEndDecisionInput } from "./input.js";
 
 class App {
+  #answerNumbers;
+
   async play() {
-    await App.#startGame();
+    this.#startGame();
+    await this.#runGameLoop();
 
     Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
     const endDecisionInput = await readEndDecisionInput();
@@ -13,19 +16,22 @@ class App {
     }
   }
 
-  static async #startGame() {
+  #startGame() {
     Console.print("숫자 야구 게임을 시작합니다.");
-    const answer = App.#pickRandomThreeNums();
-    await App.#runGameLoop(answer);
+    this.#setNewAnswer();
   }
 
-  static async #runGameLoop(answer) {
+  #setNewAnswer() {
+    this.#answerNumbers = App.#pickRandomThreeNums();
+  }
+
+  async #runGameLoop() {
     const answerInput = await readAnswerInput();
-    const score = evaluateScore(answerInput, answer);
+    const score = evaluateScore(answerInput, this.#answerNumbers);
     printScore(score);
 
     if (score.strikeCount !== 3) {
-      await App.#runGameLoop(answer);
+      await this.#runGameLoop();
     }
   }
 
