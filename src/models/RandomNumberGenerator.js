@@ -1,5 +1,5 @@
 import { Random } from "@woowacourse/mission-utils";
-import { GAME_CONTROL } from "../constants/Constants.js";
+import { GAME_CONDITION } from "../constants/conditions.js";
 
 class RandomNumberGenerator {
 
@@ -12,8 +12,8 @@ class RandomNumberGenerator {
   generateRandomNumbers() {
     const digitsArray = new Set();
 
-    while (digitsArray.size < GAME_CONTROL.LIMIT_LENGTH) {
-      const randomNumber = Random.pickNumberInRange(GAME_CONTROL.START_SCOPE, GAME_CONTROL.END_SCOPE);
+    while (digitsArray.size < GAME_CONDITION.maxLength) {
+      const randomNumber = Random.pickNumberInRange(GAME_CONDITION.startScope, GAME_CONDITION.endScope);
       digitsArray.add(randomNumber);
     }
 

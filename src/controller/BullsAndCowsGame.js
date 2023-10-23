@@ -2,19 +2,19 @@ import RandomNumberGenerator from "../models/RandomNumberGenerator.js";
 import GameAnalyzer from "../models/GameAnalyzer.js";
 import OutputView from "../views/OutputView.js";
 import InputView from "../views/InputView.js";
-import { MESSAGES } from "../constants/StringMessages.js";
-import { USER_COMMAND } from "../constants/Constants.js";
+import { MESSAGES } from "../constants/messages.js";
+import { USER_COMMAND } from "../constants/conditions.js";
 
 class BullsAndCowsGame {
   constructor() {
     this.randomNumberGenerator = new RandomNumberGenerator();
 
-    OutputView.printStaticMessage(MESSAGES.START_GUIDE);
+    OutputView.printStaticMessage(MESSAGES.startGuide);
   }
 
   async startGame() {
     const computerNumber = this.randomNumberGenerator.getComputerNumber();
-    const userNumber = await InputView.getUserNumber(MESSAGES.INPUT_GUIDE);
+    const userNumber = await InputView.getUserNumber(MESSAGES.inputGuide);
     const { ball, strike } = GameAnalyzer.getBallAndStrike(userNumber, computerNumber);
 
     OutputView.printGameProgress(ball, strike);
@@ -25,11 +25,11 @@ class BullsAndCowsGame {
   }
 
   async finishGame() {
-    OutputView.printStaticMessage(MESSAGES.END_GUIDE);
+    OutputView.printStaticMessage(MESSAGES.endGuide);
 
-    const userCommand = await InputView.getUserCommand(MESSAGES.REPLAY_GUIDE);
+    const userCommand = await InputView.getUserCommand(MESSAGES.replayGuide);
 
-    if (userCommand === USER_COMMAND.REPLAY) {
+    if (userCommand === USER_COMMAND.replay) {
       this.randomNumberGenerator.initComputerNumber();
       return this.startGame();
     };
