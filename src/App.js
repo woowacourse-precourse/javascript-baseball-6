@@ -101,7 +101,7 @@ class App {
       if (request === "1") {
         this.play();
       } else if (request !== "2") {
-        throw new Error("[ERROR] 잘못된 형식입니다.\n");
+        throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
       }
     } catch (error) {
       await Promise.reject(error);
