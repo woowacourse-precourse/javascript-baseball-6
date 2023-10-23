@@ -1,7 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
-const NUM_ARR = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
-
 export const getRandomNumberArr = () => {
   let randomNumberArr = [];
   while (randomNumberArr.length < 3) {
@@ -13,9 +11,19 @@ export const getRandomNumberArr = () => {
   return randomNumberArr;
 };
 
+const isZero = (value) => {
+  for (let i = 0; i < value.length; i++) {
+    if (value[i] === "0") return true;
+  }
+  return false;
+};
+
 export const getInputValue = async (requestStatement) => {
   let inputValue = await MissionUtils.Console.readLineAsync(requestStatement);
 
+  if (isNaN(Number(inputValue)) || isZero(inputValue)) {
+    throw new Error("[ERROR] 1부터 9까지의 숫자만 입력해주세요.");
+  }
   if (inputValue.length !== 3) {
     throw new Error("[ERROR] 세개의 숫자를 입력해주세요.");
   }
