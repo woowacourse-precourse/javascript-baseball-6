@@ -16,7 +16,22 @@ export class BaseballService {
     return computer;
   }
 
-  validateBaseballQueryInput() {}
+  validateBaseballQueryInput(balls) {
+    if (
+      balls.length !== 3 ||
+      Number.isNaN(Number(balls)) ||
+      balls.indexOf('0') !== -1
+    ) {
+      throw new Error(`[ERROR] 숫자가 잘못된 형식입니다.`);
+    }
+    const selected = [];
+    for (let i = 0; i < 3; ++i) {
+      if (selected.includes(balls[i])) {
+        throw new Error(`[ERROR] 중복된 숫자가 있습니다.`);
+      }
+      selected.push(balls[i]);
+    }
+  }
 
   refree() {}
 
