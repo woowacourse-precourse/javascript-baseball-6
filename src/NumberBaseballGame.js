@@ -51,7 +51,7 @@ class NumberBaseballGame {
     const number = Number(answer);
     if (number === 1) return true;
     if (number === 2) return false;
-    throw new Error();
+    throw new Error(Message.ERROR.RESTART);
   }
 
   async #askPlayerNumbers() {
