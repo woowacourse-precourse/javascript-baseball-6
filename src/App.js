@@ -13,26 +13,38 @@ class App {
     });
   }
 
+
   getUserNumberInput() {
     MissionUtils.Console.readLine('숫자를 입력해주세요 : ', (input) => {
       this.progressGame(input)
     });
   }
   
+
   progressGame(userNumberInput) {
     try {
       Validation.gameInputValidation(userNumberInput);
     } catch (e) {
       throw e
     }
+
+    const arrayOfInput = Array.from(String(userNumberInput),Number);
+    console.log(arrayOfInput)
+    
+
     const computerInputNumber = computerRandom()
     console.log(computerInputNumber)
 
-    const message = playGame(computerInputNumber, userNumberInput)
+
+    const message = playGame(computerInputNumber, arrayOfInput)
     console.log(message)
+
+  
+    }
+    
   } 
 
-}
+
 
 const app = new App();
 app.play();

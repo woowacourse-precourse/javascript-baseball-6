@@ -1,7 +1,5 @@
 import { computerRandom } from "./computer.js";
 
-// computer.js에서  randomValue 사용하고싶음 => 어케 연결하는거지?
-
 export function checkingScore (computerInputNumber, userInputNumbers) {
     let score = [0, 0];
     for (let i = 0; i <3; i++) {
@@ -21,6 +19,7 @@ export function playGame(computerInputNumber, userInputNumbers) {
     let answer = ""
     if (score[0] === 0 && score[1] === 0) {
         answer = "낫싱";
+        '3개의 숫자를 모두 맞히셨습니다! 게임종료'
     }
     else if (score[0] === 0 && score[1] > 0) {
         answer = `${score[1]}볼`
