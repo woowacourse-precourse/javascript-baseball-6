@@ -26,11 +26,11 @@ class Get {
     return size;
   }
 
-  static strikeCount(originList, comparisonList) {
+  static strikeCount(arrayA, arrayB) {
     let count = 0;
-    comparisonList.forEach((number, index) => {
-      if (originList.indexOf(number) == index) count++;
-    });
+    arrayA.forEach((element, index) => {
+      if (element === arrayB[index]) count++;
+    })
     return count;
   }
 }
