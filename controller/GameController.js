@@ -13,10 +13,6 @@ class GameController {
 
     startGame() {
         OutputView.printStartMessage();
-        this.makeComputerNumber();
-    }
-
-    makeComputerNumber() {
         this.inputNumber();
     }
 
@@ -43,7 +39,13 @@ class GameController {
 
     printGameResult() {
         OutputView.printResult(this.ballCount, this.strikeCount);
+        if (this.strikeCount !== 3){
+            this.ballCount = 0;
+            this.strikeCount = 0;
+            this.inputNumber();
+        }
     }
+
 }
 
 export default GameController;
