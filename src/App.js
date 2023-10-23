@@ -27,6 +27,11 @@ class App {
           throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
         }
       }
+
+      // 사용자 입력 숫자 중 숫자 외 값 확인
+      if (Number.isNaN(USER[i])) {
+        throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+      }
     }
   }
 }
