@@ -22,11 +22,7 @@ class BaseballGameController {
   async inputUserNumber() {
     await InputView.readUserNumber((input) => {
       InputValidator.validateUserNumber(input);
-      const inputNumber = input.split("").map(Number);
-      const strikeCount = this.#baseball.getStrikeCount(inputNumber);
-      const ballCount = this.#baseball.getBallCount(inputNumber, strikeCount);
-
-      return this.checkHint(strikeCount, ballCount);
+      this.calculateCount(input);
     });
   }
 
@@ -38,6 +34,14 @@ class BaseballGameController {
       }
       if (input === "2") return;
     });
+  }
+
+  calculateCount(input) {
+    const inputNumber = input.split("").map(Number);
+    const strikeCount = this.#baseball.getStrikeCount(inputNumber);
+    const ballCount = this.#baseball.getBallCount(inputNumber, strikeCount);
+
+    return this.checkHint(strikeCount, ballCount);
   }
 
   checkHint(strikeCount, ballCount) {
