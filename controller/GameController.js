@@ -5,7 +5,7 @@ import createRandomNumber from "../utils/CreateRandomNumber.js";
 
 class GameController {
   startGame() {
-    OutputView.printStartMessage();
+    // OutputView.printStartMessage();
     this.resetCounts()
     this.createComputerNumber();
     this.inputNumber();
