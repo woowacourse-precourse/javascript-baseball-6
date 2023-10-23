@@ -29,9 +29,14 @@ class User {
       throw "[ERROR] 숫자를 입력하지 않았습니다.";
     }
     // #2.3 3자리 숫자를 입력하지 않았을 경우
-    if(number.length!=3){
-      throw "[ERROR] 3자리 숫자를 입력하지 않았습니다."
+    if (number.length != 3) {
+      throw "[ERROR] 3자리 숫자를 입력하지 않았습니다.";
     }
+    // #2.4 1 ~ 9 사이의 숫자를 입력하지 않은 경우 == 0을 입력한 경우
+    if (number.includes("0")) {
+      throw "[ERROR] 1 ~ 9 사이의 숫자를 입력하지 않았습니다.";
+    }
+    
     if (number.length == 3) {
       for (let i = 0; i < number.length; i++) {
         user.push(Number(number[i]));
