@@ -1,4 +1,4 @@
-import { Console } from '@woowacourse/mission-utils';
+import { Console, } from '@woowacourse/mission-utils';
 import { CREATE_RANDOM_NUMBER } from './Input';
 import { 
     COMPARE_NUMBER,
@@ -28,7 +28,6 @@ class App {
         const USER_INPUT = await Console.readLineAsync(LINE_INPUT_MESSAGE);
         if (!IS_VALID_INPUT(USER_INPUT)) {
           PRINT_ERROR_MESSAGE();
-          continue;
         }
         
         const PLAYER_NUMBER = USER_INPUT.split('').map(Number);
@@ -37,10 +36,11 @@ class App {
 
         if (COMPARE_RESULT.strikes === 3) {
           let userRestartChoose;
-          do {
-            userRestartChoose = await Console.readLineAsync(RESTART_MESSAGE);
-          } while (userRestartChoose !== RESTART_GAME && userRestartChoose !== EXIT_GAME);
+          userRestartChoose = await Console.readLineAsync(RESTART_MESSAGE);
 
+          if (userRestartChoose !== RESTART_GAME && userRestartChoose != EXIT_GAME) {
+            PRINT_ERROR_MESSAGE();
+          }
           if (userRestartChoose === EXIT_GAME) {
             playFlag = false;
           }
