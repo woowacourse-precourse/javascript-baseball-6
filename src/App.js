@@ -100,6 +100,23 @@ class App {
     }
     return false;
   }
+
+  // 게임 종료 후 재시작 여부를 확인하는 함수
+  async getUserRestartInput() {
+    try {
+      const answer = await Console.readLineAsync(
+        '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.'
+      );
+
+      if (parseInt(answer) === 1 || parseInt(answer) === 2) {
+        return parseInt(answer);
+      } else {
+        throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+      }
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
 }
 
 export default App;
