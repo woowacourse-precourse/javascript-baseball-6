@@ -37,4 +37,4 @@
 3. 항상 테스트는 통과해야할 것.
 4. Airbnb 스타일 가이드 적용!
 5. [x] MissionUtils 그룹화
-6. [ ] valid 함수 그룹화
+6. [x] valid 함수 그룹화

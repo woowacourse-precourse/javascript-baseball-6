@@ -1,4 +1,9 @@
-import { readInput, printOutput, pickNumberInRange } from "./utils";
+import {
+  readInput,
+  printOutput,
+  pickNumberInRange,
+} from "./utils/MissionUtils";
+import { validLengthOfNumberArray, validGameEndInput } from "./utils/Validate";
 
 class BaseballGame {
   #GAME_NUMBER_LEN = 3;
@@ -24,14 +29,10 @@ class BaseballGame {
   }
 
   setComputerNumbers(numbers) {
-    this.validNumbers(numbers);
+    validLengthOfNumberArray({ arr: numbers, length: this.#GAME_NUMBER_LEN });
     this.#computerNumbers = numbers;
   }
 
-  /**
-   * FIXME: get으로 시작하는 메서드는 게터함수를 표현한 것 같다. 수정이 필요할 듯.
-   * @returns {number[]}
-   */
   getRandomNumbers() {
     const returnNumbers = [];
 
@@ -48,7 +49,6 @@ class BaseballGame {
     try {
       await this.handleUserInput();
     } catch (error) {
-      console.error(error.messgae);
       throw error;
     }
 
@@ -66,7 +66,7 @@ class BaseballGame {
   }
 
   setUserNumbers(numbers) {
-    this.validNumbers(numbers);
+    validLengthOfNumberArray({ arr: numbers, length: this.#GAME_NUMBER_LEN });
     this.#userNumbers = numbers;
   }
 
@@ -101,36 +101,16 @@ class BaseballGame {
     const INPUT = await readInput(
       "3개의 숫자를 모두 맞히셨습니다! 게임 종료 \n게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. \n"
     );
-    this.validGameEndInput(INPUT);
+
     const IS_GAME_RETRY = this.isGameEnd(INPUT);
     if (!IS_GAME_RETRY) await this.playGame();
     if (IS_GAME_RETRY) printOutput("게임 종료");
   }
 
-  validGameEndInput(input) {
-    if (input !== "1" && input !== "2")
-      throw new Error("[ERROR] 잘못 입력 하셨습니다.");
-  }
-
-  /**
-   *
-   * @param { "1" | "2" } input
-   * @returns { boolean }
-   */
   isGameEnd(input) {
+    validGameEndInput(input);
     if (input === "1") return false;
     if (input === "2") return true;
-  }
-
-  validNumbers(input) {
-    if (input.length !== this.#GAME_NUMBER_LEN)
-      throw new Error("[ERROR] 입력한 값은 3자리가 아닙니다.");
-    for (const value of input) {
-      if (isNaN(value))
-        throw new Error("[ERROR] 입력한 값에 숫자가 아닌 값이 있습니다.");
-    }
-    if (new Set(input).size !== this.#GAME_NUMBER_LEN)
-      throw new Error("[ERROR] 입력한 값에 중복이 있습니다.");
   }
 }
 
