@@ -1,4 +1,4 @@
-export const calculateStrikes = function returnStrikeCountByUserNumberAndComputerNumber(userNumber, computerNumber) {
+const calculateStrikes = function returnStrikeCountByUserNumberAndComputerNumber(userNumber, computerNumber) {
     let cntStrike = 0;
     for (let ni = 0; ni < 3; ni++) {
         if (userNumber[ni] === computerNumber[ni]) {
@@ -7,3 +7,5 @@ export const calculateStrikes = function returnStrikeCountByUserNumberAndCompute
     }
     return cntStrike
 }
+
+export default calculateStrikes

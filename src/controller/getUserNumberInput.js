@@ -23,7 +23,7 @@ const checkNoZero = function checkHasNoZeroElseError(input) {
     [...input].forEach((inputElement) => (parseInt(inputElement) === 0 && throwHasZeroError()))
 }
 
-export const getUserNumberInput = async function validateAndReturnInput() {
+const getUserNumberInput = async function validateAndReturnInput() {
     const userNumberInput = await MissionUtils.Console.readLineAsync('숫자를 입력하세요 : ')
 
     checkBlank(userNumberInput)
@@ -34,3 +34,5 @@ export const getUserNumberInput = async function validateAndReturnInput() {
 
     return userNumberInput
 }
+
+export default getUserNumberInput

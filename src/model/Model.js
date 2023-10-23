@@ -1,10 +1,9 @@
-import { generateRandomThreeDigitNumber } from "./generateRandomThreeDigitNumber.js";
-import { isRoundContinuedFromHint } from "./isRoundContinuedFromHint.js";
-import { isGameContinued } from "./isGameContinued.js";
-import { getHint } from "./getHint.js";
+import generateRandomThreeDigitNumber from "./generateRandomThreeDigitNumber.js";
+import isRoundContinuedFromHint from "./isRoundContinuedFromHint.js";
+import isGameContinued from "./isGameContinued.js";
+import getHint from "./getHint.js";
 
-
-export class Model {
+class Model {
     constructor() {
         this._computerNumber;
         this._userNumber;
@@ -43,3 +42,5 @@ export class Model {
     }
 
 }
+
+export default Model

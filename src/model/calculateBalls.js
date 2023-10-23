@@ -1,4 +1,4 @@
-export const calculateBalls = function returnBallCountByUserNumberAndComputerNumber(userNumber, computerNumber) {
+const calculateBalls = function returnBallCountByUserNumberAndComputerNumber(userNumber, computerNumber) {
     let cntBall = 0;
     for (let ni = 0; ni < 3; ni++) {
         const foundIdx = computerNumber.indexOf(userNumber[ni])
@@ -8,3 +8,5 @@ export const calculateBalls = function returnBallCountByUserNumberAndComputerNum
     }
     return cntBall
 }
+
+export default calculateBalls

@@ -1,7 +1,7 @@
-import { getUserGameDecision } from "./getUserGameDecision.js";
-import { getUserNumberInput } from "./getUserNumberInput.js";
+import getUserGameDecision from './getUserGameDecision.js';
+import getUserNumberInput from './getUserNumberInput.js';
 
-export class Controller {
+class Controller {
     constructor(model, view) {
         this.model = model;
         this.view = view;
@@ -31,3 +31,5 @@ export class Controller {
         } while (this.model.isGameContinued(await this.getUserGameDecision()) === true)
     }
 }
+
+export default Controller
