@@ -5,7 +5,7 @@ const OutputView = {
     Console.print(message);
   },
   
-  progressMessage(ball, strike) {
+  printGameProgress(ball, strike) {
     let message = '';
 
     if (ball === 0 && strike === 0) message = '낫싱';

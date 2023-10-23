@@ -6,7 +6,6 @@ import { MESSAGES } from "../constants/StringMessages.js";
 import { USER_COMMAND } from "../constants/Constants.js";
 
 class BullsAndCowsGame {
-
   constructor() {
     this.computerNumber = new NumberGenerator().getComputerNumber();
 
@@ -14,10 +13,10 @@ class BullsAndCowsGame {
   }
 
   async startGame() {
-    const userNumber = await InputView.getUserNumber(MESSAGES.INPUT_GUIDE);    
+    const userNumber = await InputView.getUserNumber(MESSAGES.INPUT_GUIDE);
     const { ball, strike } = GameAnalyzer.getBallAndStrike(userNumber, this.computerNumber);
 
-    OutputView.progressMessage(ball, strike);
+    OutputView.printGameProgress(ball, strike);
 
     if (userNumber === this.computerNumber) return this.finishGame();
 
