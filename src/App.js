@@ -95,10 +95,7 @@ class App {
     return new Set(number).size !== 3;
   }
   isPositive(number) {
-    if (number > 0) {
-      return true;
-    }
-    return false;
+    return number > 0;
   }
 }
 
