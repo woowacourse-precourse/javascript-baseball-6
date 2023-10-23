@@ -6,7 +6,7 @@ class App {
       input: process.stdin,
       output: process.stdout
     });
-    const strikes = [];
+    this.strikes = [];
   }
 
   async play() {
@@ -39,20 +39,24 @@ class App {
     return randomNumber;
   }
 
-  playInning() {
-    this.getGuess();
+  async playInning() {
+    this.getGuess().then(guess => {
+      this.evaluateGuess(guess);
+    });
   }
 
-  getGuess() {
-    this.rl.question("숫자를 입력해주세요 : ", userInput => {
-      try {
-        this.isValidGuess(userInput);
-        this.evaluateGuess(userInput);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        this.rl.close();
-      }
+  async getGuess() {
+    return new Promise((resolve, reject) => {
+      this.rl.question("숫자를 입력해주세요 : ", userInput => {
+        try {
+          this.isValidGuess(userInput);
+          resolve(userInput);
+        } catch (error) {
+          reject(error);
+        } finally {
+          this.rl.close();
+        }
+      });
     });
   }
 
@@ -63,8 +67,22 @@ class App {
     }
   }
 
-  evaluateGuess(inputNumber) {
-    console.log("evaluate", inputNumber);
+  evaluateGuess(guessNumbers) {
+    const numbers = [...guessNumbers].map(str => Number(str));
+    console.log(numbers);
+    let strikeCount = 0;
+    let ballCount = 0;
+    numbers.forEach((number, index) => {
+      if (number == this.strikes[index]) {
+        strikeCount += 1;
+      } else {
+        if (this.strikes.includes(number)) {
+          ballCount += 1;
+        }
+      }
+    });
+    console.log("strikeCount: ", strikeCount);
+    console.log("ballCount: ", ballCount);
   }
 }
 
