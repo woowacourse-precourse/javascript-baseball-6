@@ -3,7 +3,7 @@ import RandomNumberGenerator from "../utils/RandomNumberGenerator.js";
 import InputValidator from "../utils/InputValidator.js";
 import InputView from "../view/InputView.js";
 import OutputView from "../view/OutputView.js";
-import { StaticNumber } from "../constant/Constant.js";
+import { StaticNumber } from "../domain/Constant.js";
 
 class BaseballGameController {
   #baseball;

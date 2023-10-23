@@ -1,5 +1,5 @@
 import BaseballGameController from "./controller/BaseballGameController.js";
-import { StaticNumber } from "./constant/Constant.js";
+import { StaticNumber } from "./domain/Constant.js";
 
 class App {
   #baseballGame = new BaseballGameController(

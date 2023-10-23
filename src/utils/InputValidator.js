@@ -1,5 +1,5 @@
-import { ErrorMessage } from "../constant/Constant.js";
-import { StaticNumber } from "../constant/Constant.js";
+import { ErrorMessage } from "../domain/Constant.js";
+import { StaticNumber } from "../domain/Constant.js";
 
 const InputValidator = {
   validateUserNumber(input) {

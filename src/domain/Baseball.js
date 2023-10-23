@@ -1,5 +1,5 @@
 import RandomNumberGenerator from "../utils/RandomNumberGenerator.js";
-import { StaticNumber } from "../constant/Constant.js";
+import { StaticNumber } from "./Constant.js";
 
 class Baseball {
   #answer;
