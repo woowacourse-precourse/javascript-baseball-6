@@ -1,16 +1,16 @@
 import { Console } from "@woowacourse/mission-utils";
-import { ERROR, Message } from "./Message";
+import { ERROR, MESSAGE } from "./Message";
 
 async function restart(App) {
-    Console.print(Message.FINISH);
-    Console.print(Message.RESTART);
+    Console.print(MESSAGE.FINISH);
+    Console.print(MESSAGE.RESTART);
 
     const input = await Console.readLineAsync('');
     Console.print(input)
     if (input === '1') {
         await App.play()
     } else if (input === '2') {
-        Console.print(Message.END);
+        Console.print(MESSAGE.END);
         App.isPlaying = false;
     } else {
         throw new Error(ERROR.RESTRAT);

@@ -1,8 +1,8 @@
 import { Console } from "@woowacourse/mission-utils"
-import { Message } from "./Message"
+import { MESSAGE } from "./Message"
 
 async function userInput (){
-    const input = await Console.readLineAsync(Message.INPUT)
+    const input = await Console.readLineAsync(MESSAGE.INPUT)
     Console.print(input)
     return input
 }

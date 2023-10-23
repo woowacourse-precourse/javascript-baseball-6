@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import { Message } from './Message';
+import { MESSAGE } from './Message';
 import randomNum from './RandomNum';
 import userInput from './UserInput';
 import valid from './ValidNum';
@@ -8,10 +8,10 @@ import restart from './Restart';
 
 class App {
   async play() {
-    Console.print(Message.START)
+    Console.print(MESSAGE.START)
     const randomNumber = randomNum();
-    Console.print(randomNumber)
-    let isPlaying = true
+    let isPlaying = true;
+    
     while(isPlaying === true){
       const input = await userInput();
       try{

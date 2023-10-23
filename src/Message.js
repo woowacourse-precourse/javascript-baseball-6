@@ -1,4 +1,4 @@
-const Message = {
+const MESSAGE = {
     START: '숫자 야구 게임 시작',
     INPUT: '숫자를 입력해주세요 :',
     FINISH: '3개의 숫자를 맞추셨습니다. 축하합니다!',
@@ -12,4 +12,4 @@ const ERROR = {
     RESTRAT: "[ERROR] 형식이 잘못되었습니다.",
 }
 
-export {Message, ERROR}
+export {MESSAGE, ERROR}
