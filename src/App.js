@@ -54,6 +54,26 @@ class App {
 
       const user = await Console.readLineAsync("숫자를 입력해주세요: ");
 
+      // 숫자가 아닌 문자를 입력한 경우
+      if (Number.isNaN(Number(user))) {
+        throw new Error("[ERROR] 숫자의 형태로 입력해주세요");
+      }
+
+      // 1-9가 아닌 숫자를 입력한 경우
+      if (user.includes("0")) {
+        throw new Error("[ERROR] 1-9 사이의 숫자를 입력해주세요");
+      }
+
+      // 세 자리수가 아닌 숫자를 입력한 경우
+      if (user.length !== 3) {
+        throw new Error("[ERROR] 세 자리로 입력해주세요");
+      }
+
+      // 서로 다른 숫자를 입력하지 않은 경우
+      if (user.length !== new Set(Array.from(user)).size) {
+        throw new Error("[ERROR] 서로 다른 세 자리 수를 입력해주세요");
+      }
+
       user.split("").map((number) => {
         userInput.push(Number(number));
       });
