@@ -1,7 +1,7 @@
-import NumberGenerator from "../src/models/NumberGenerator";
+import RandomNumberGenerator from "../src/models/RandomNumberGenerator";
 
 describe('RandomPicker', () => {
-  const computerNumber = new NumberGenerator().getComputerNumber();
+  const computerNumber = new RandomNumberGenerator().getComputerNumber();
 
   it('생성된 임의의 숫자가 3자리인지 테스트', () => {
     expect(computerNumber.toString().length).toBe(3);
