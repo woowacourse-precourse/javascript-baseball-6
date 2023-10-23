@@ -1,5 +1,7 @@
 import { Console } from "@woowacourse/mission-utils";
 import { generateStrikes } from "./modules/random.js";
+import { getUserInput } from "./modules/input.js";
+import { QUERY, REGEX } from "./modules/constants.js";
 
 class App {
   constructor() {
@@ -14,7 +16,7 @@ class App {
       this.strikes = [];
       this.isWin = false;
       await this.playGame().then(() => {});
-      const answerRestart = await this.askRestart();
+      const answerRestart = await getUserInput(QUERY.restart, REGEX.restart);
       if (answerRestart == "1") {
         restart = true;
       } else if (answerRestart == "2") {
@@ -27,7 +29,7 @@ class App {
     Console.print("숫자 야구 게임을 시작합니다.");
     this.strikes = [];
     this.strikes = generateStrikes();
-    // Console.print(this.strikes); // 테스트 시 활성화
+    Console.print(this.strikes); // 테스트 시 활성화
     while (!this.isWin) {
       await this.playInning().then(message => {
         Console.print(message);
@@ -45,7 +47,7 @@ class App {
   playInning() {
     return new Promise(resolve => {
       // 입력을 받을 때까지 기다리기 위한 프라미스
-      this.getGuess()
+      getUserInput(QUERY.guess, REGEX.guess)
         .then(guess => {
           const [strikeCount, ballCount] = this.evaluateGuess(guess);
           let message = "";
@@ -66,27 +68,6 @@ class App {
     });
   }
 
-  async getGuess() {
-    return new Promise((resolve, reject) => {
-      // 예외처리를 위한 프라미스
-      Console.readLineAsync("숫자를 입력해주세요 : ").then(userInput => {
-        try {
-          this.isValidGuess(userInput);
-          resolve(userInput);
-        } catch (error) {
-          reject(error);
-        }
-      });
-    });
-  }
-
-  isValidGuess(inputNumber) {
-    const regex = /^[1-9]{3}$/;
-    if (!regex.test(inputNumber)) {
-      throw new Error("Invalid guess");
-    }
-  }
-
   evaluateGuess(guessNumbers) {
     const numbers = [...guessNumbers].map(str => Number(str));
     Console.print(numbers);
@@ -102,21 +83,6 @@ class App {
       }
     });
     return [strikeCount, ballCount];
-  }
-
-  async askRestart() {
-    try {
-      const userInput = await Console.readLineAsync(
-        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
-      );
-      const regex = /^[1-2]{1}$/;
-      if (!regex.test(userInput)) {
-        throw new Error("Invalid input");
-      }
-      return userInput;
-    } catch (error) {
-      console.error(error.message);
-    }
   }
 }
 

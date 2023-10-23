@@ -10,6 +10,7 @@ const generateStrikes = () => {
   while (numberArray.length < 3) {
     let rn = generateRandomNumber();
     if (numberArray.includes(rn)) {
+      // 이미 포함된수가 다시 들어갈 경우 push하지 않고 continue
       continue;
     } else {
       numberArray.push(rn);
