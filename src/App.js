@@ -1,37 +1,35 @@
-import { Console } from "@woowacourse/mission-utils";
-import handleUserInput from "./handleAnswer/handleUserInput.js";
-import printHint from "./game/gameHint.js";
-import makeAnswer from "./handleAnswer/makeAnswer.js";
+import GameController from "./controllers/GameController.js";
+import GameModel from "./models/GameModel.js";
+import GameView from "./view/GameView.js";
 
 class App {
+  constructor() {
+    this.model = new GameModel();
+    this.controller = new GameController();
+    this.view = new GameView();
+  }
   async play() {
-    let computerAnswer = makeAnswer();
-
+    let computerAnswer = this.model.getComputerAnswer();
     while (true) {
-      const userInput = await Console.readLineAsync("숫자를 입력해주세요 : ");
-      let userAnswer = handleUserInput(userInput);
+      const userInput = await this.view.readUserInput();
+      let userAnswer = this.controller.handleUserAnswer(userInput);
 
-      //게임 승리 판정
       if (computerAnswer === userAnswer) {
-        Console.print("3스트라이크");
-        Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+        this.model.getHint(computerAnswer, userAnswer);
+        this.view.printGameWin();
 
-        //게임 매니저
-        const replay = await Console.readLineAsync(
-          "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
-        );
+        const replay = await this.view.readReplayInput();
         if (replay === "1") {
-          computerAnswer = makeAnswer();
+          computerAnswer = this.model.getComputerAnswer();
           continue;
         } else if (replay === "2") {
-          Console.print("게임 종료");
+          this.view.printGameOver;
           break;
         } else {
-          throw new Error("[ERROR] 잘못된 입력입니다.");
+          this.view.printError();
         }
       }
-
-      printHint(computerAnswer, userAnswer);
+      this.model.getHint(computerAnswer, userAnswer);
     }
   }
 }

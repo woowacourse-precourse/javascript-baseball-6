@@ -1,4 +1,3 @@
-import { Console } from "@woowacourse/mission-utils";
 import GameModel from "../models/GameModel.js";
 import GameView from "../view/GameView.js";
 
