@@ -37,14 +37,12 @@ class Game {
     this.computerNums = computer;
   };
   getUserNums = async () => {
-    try {
-      const input = await Console.readLineAsync("숫자를 입력해주세요 : ");
-      const userNums = input.split("").map(Number);
-      return userNums;
-    } catch (error) {
-      console.log("[ERROR]", error.message);
-      process.exit(1); // todo: process.exit() 사용하지 않고 프로그램 종료하기
+    const input = await Console.readLineAsync("숫자를 입력해주세요 : ");
+    if (!this.checkUserNumsInput(input)) {
+      throw new Error("올바른 입력이 아닙니다.");
     }
+    const userNums = input.split("").map(Number);
+    return userNums;
   };
   checkUserNumsInput = (input) => {
     let isValid = true;
@@ -85,17 +83,14 @@ class Game {
     }
   };
   checkPlayAgain = async () => {
-    try {
-      const input = await Console.readLineAsync(
-        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
-      );
-
-      const inputNum = Number(input);
-      return inputNum === 1;
-    } catch (error) {
-      Console.print("[ERROR] ", error.message);
-      process.exit(1);
+    const input = await Console.readLineAsync(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+    );
+    if (!this.checkPlayAgainInput(input)) {
+      throw new Error("올바른 입력이 아닙니다.");
     }
+    const inputNum = Number(input);
+    return inputNum === 1;
   };
   checkPlayAgainInput = (input) => {
     if (input === "1" || input === "2") {
