@@ -14,6 +14,18 @@ class App {
     return computer;
   }
 
+  conditionCoverter(result) {
+    if (result.ball === 0 && result.strike === 0) {
+      return "낫싱";
+    } else if (result.ball > 0 && result.strike === 0) {
+      return `${result.ball}볼`;
+    } else if (result.ball === 0 && result.strike > 0) {
+      return `${result.strike}스트라이크`;
+    } else if (result.ball > 0 && result.strike > 0) {
+      return `${result.ball}볼 ${result.strike}스트라이크`;
+    } else return "[ERROR]";
+  }
+
   determineCondition(computer, userInput) {
     const result = { ball: 0, strike: 0 };
 
@@ -47,6 +59,7 @@ class App {
       });
 
       const determinedCondition = this.determineCondition(computer, userInput);
+      Console.print(this.conditionCoverter(determinedCondition));
     }
   }
 }
