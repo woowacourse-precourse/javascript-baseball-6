@@ -33,7 +33,18 @@ export class BaseballService {
     }
   }
 
-  refree() {}
+  refree(computer, baseballQueryInput) {
+    let ball = 0;
+    let strike = 0;
+    for (let i = 0; i < 3; ++i) {
+      if (computer[i] === baseballQueryInput[i]) {
+        strike++;
+      } else if (computer.includes(baseballQueryInput[i])) {
+        ball++;
+      }
+    }
+    return { ball, strike };
+  }
 
   async retry() {}
 
