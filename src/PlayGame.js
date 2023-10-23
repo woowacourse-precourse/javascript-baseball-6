@@ -22,6 +22,7 @@ export default function PlayGame(
       await userInputValue();
       checkValue();
     }
+    await RestartGame();
   };
 
   const userInputValue = async () => {
@@ -61,6 +62,24 @@ export default function PlayGame(
         (strike === 0 ? "" : `${strike}스트라이크 `) +
         (ball === 0 ? "" : `${ball}볼`);
       Console.print(result);
+    }
+  };
+
+  const RestartGame = async () => {
+    try {
+      const InputRestartValue = await Console.readLineAsync(
+        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+      );
+
+      const IntValue = parseInt(InputRestartValue);
+
+      if (IntValue === 1) {
+        this.play();
+      } else if (IntValue === 2) {
+        return;
+      }
+    } catch (error) {
+      throw new Error(error);
     }
   };
 
