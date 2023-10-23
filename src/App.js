@@ -1,19 +1,15 @@
-import {
-  printEndMessage,
-  printResult,
-  printStartMessage,
-  readBaseballNumbers,
-  readRestartNumber,
-} from './View.js';
+import { readBaseballNumbers, readRestartNumber } from './view/View.js';
 import BaseBall from './BaseBall.js';
+import OutputView from './view/OutputView.js';
 
 class App {
-  constructor() {
+  constructor(outputView) {
+    this.outputView = outputView || new OutputView();
     this.baseBall = new BaseBall();
   }
 
   async play() {
-    printStartMessage('숫자 야구 게임을 시작합니다.');
+    this.outputView.printGameStartMessage();
     await this.setting();
   }
 
@@ -37,7 +33,7 @@ class App {
       throw new Error('[ERROR] 3자리 숫자만 입력해주세요');
     }
 
-    printResult(countResult);
+    this.outputView.printBaseBallCountResult(countResult);
 
     if (strike === 3) {
       this.complete();
@@ -47,7 +43,7 @@ class App {
   }
 
   async complete() {
-    printEndMessage('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+    this.outputView.printGameEndMessage();
     await this.requestRestart();
   }
 
@@ -77,7 +73,8 @@ class App {
   }
 }
 
-const app = new App();
+const outputView = new OutputView();
+const app = new App(outputView);
 app.play();
 
 export default App;
