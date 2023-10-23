@@ -81,7 +81,7 @@ describe("기능 단위 테스트", () => {
 
     const app = new App();
     randoms.forEach((inputNumber) =>
-      expect(() => app.userInputNumberValidation(inputNumber)).toThrow("잘못된 값 입력됨"),
+      expect(() => app.userInputNumberValidation(inputNumber)).toThrow("[ERROR]"),
     );
   });
 
