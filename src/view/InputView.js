@@ -19,8 +19,12 @@ const InputView = {
   },
 
   validateUserNumber(userNumber) {
-    if (userNumber !== NUMBER_SIZE)
+    const userNumberArray = userNumber.split('')
+    
+    if (userNumber.length !== NUMBER_SIZE)
       throw new Error(ErrorString.ERROR_USER_NUMBER_LENGTH)
+    if (userNumber.replace(/[1-9]/g, '').length > 0)
+      throw new Error(ErrorString.ERROR_USER_NOT_NUMBER)
   },
 }
 
