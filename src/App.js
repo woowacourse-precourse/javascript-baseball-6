@@ -19,16 +19,21 @@ class App {
 //   1. 랜덤 숫자 생성
 // 아무것도 없는 배열 생성하여 랜덤 숫자 생성하여 같은 숫자가 아니면 push
 // 하여 배열이 3개가 되면 return한다
+
 ranNumber(){
-  const COMPUTER = [];
+  let COMPUTER = [];
 while (COMPUTER.length < 3) {
-  const NUMBER = Random.pickNumberInRange(1, 9);
-  if (!COMPUTER.includes(NUMBER)) {
-    COMPUTER.push(NUMBER);
+  let NUMB = Random.pickNumberInRange(1, 9);
+  if (!COMPUTER.includes(NUMB)) {
+    COMPUTER.push(NUMB);
   }
 }
 return COMPUTER;
 }
+
+
+
+
 
 
 // 2. 게임 시작
@@ -39,13 +44,17 @@ return COMPUTER;
 // 4. 체크한다
 
 gameStart(RAN){
-  Console.readLine(`숫자를 입력해주세요 : `,(myNum)=>{
-    this.checkResult(RAN,myNum)
-  })  
-    
-  
+  let readLine = require('readline')
+  Console.print(`숫자를 입력해주세요 : ${readLine}`);
+  let myNum = Console.readLineAsync(readLine);
+  let MY_NUMBER_ARRAY = [];
+  for(let I = 0; I <myNum.length; I++) {
+    if(myNum[I] == 0) {
+      throw new Error('입력범위_ 0 입력')};
+    MY_NUMBER_ARRAY[I] = myNum[I];
+  }
+this.checkResult(RAN,MY_NUMBER_ARRAY);
 }
-
 // 3. 내 숫자 생성
 // 숫자 입력 옆의 숫자를 읽어와서
 // 문자로 변경후 배열로 만들어서 그 배열의 길이가 3이 아니면 에러,
@@ -62,16 +71,11 @@ gameStart(RAN){
 
 checkResult (RAN, myNum){
 
-  let MY_NUMBER_ARRAY = [];
   if(myNum.length != 3) {
     throw new Error("[ERROR] 3자리 숫자를 입력하세요");
     }
-  for(let i = 2; i >= 0; i--) {
-    if(myNum % 10 === 0) {
-      throw new Error('입력범위_ 0 입력')};
-    MY_NUMBER_ARRAY[i] = myNum % 10;
-    myNum = parseInt(myNum /10); 
-  }
+
+
   let strike = [];
     let j = -1;
     for(let i = 0; i < MY_NUMBER_ARRAY.length; i++) {
