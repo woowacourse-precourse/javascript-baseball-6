@@ -2,9 +2,14 @@ import { Random, Console } from '@woowacourse/mission-utils';
 class App {
   async play() {
     const computer = this.getRandomComputerNumber();
+    console.log(computer);
+    this.playBaseball(computer);
+  }
+
+  async playBaseball(computer) {
     const user = await this.getUserNumber();
-    console.log(computer, user);
-    const result = this.calculator(computer, user);
+    const score = this.calculator(computer, user);
+    const result = this.printResult(score);
     console.log(result);
   }
 
@@ -32,6 +37,8 @@ class App {
     if (array.length > 3 || array.length < 3)
       throw new Error('[ERROR] 세 자리 수여야 합니다.');
     const dupCheck = array.filter((v, i) => user.indexOf(v) === i);
+    if (dupCheck.includes('0'))
+      throw new Error('[ERROR] 각 자리 수는 1~9 사이의 수여야 합니다.');
     if (dupCheck.length < 3)
       throw new Error('[ERROR] 각 자리 수는 모두 다른 수여야 합니다.');
     return dupCheck;
@@ -44,6 +51,16 @@ class App {
       if (v !== user[i] && user.includes(v)) return result.ball++;
     });
     return result;
+  }
+
+  printResult(result) {
+    const { strike, ball } = result;
+    if (strike && ball) Console.print(`${strike}스트라이크 ${ball}볼`);
+    if (strike && !ball) Console.print(`${strike}스트라이크`);
+    if (!strike && ball) Console.print(`${ball}볼`);
+    if (!strike && !ball) Console.print('낫싱');
+    if (strike === 3) return true;
+    else return false;
   }
 }
 
