@@ -1,4 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
+import doValidate from './Validate.js';
 
 class Game {
   start() {
@@ -15,10 +16,14 @@ class Game {
     MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ')
       .then((number) => {
         this.playerNumber = number;
+        this.validatePlayerNumber();
       })
       .catch((err) => {
         MissionUtils.Console.print(err);
       });
+  }
+  validatePlayerNumber() {
+    doValidate(this.playerNumber);
   }
 }
 
