@@ -26,6 +26,7 @@ export default class BaseballGame {
         this.checkUserInput(this.userInput);
 
         const strike = this.checkStrike(this.userInput, this.computerNumbers);
+        const ball = this.checkBall(this.userInput, this.computerNumbers);
       } catch (error) {
         Console.print(error.message);
         return;
@@ -74,6 +75,16 @@ export default class BaseballGame {
       }
     }
     return strike;
+  }
+
+  checkBall(userInput, computerNumbers) {
+    let ball = 0;
+    for (let i = 0; i < userInput.length; i++) {
+      if (computerNumbers.includes(Number(userInput[i]))) {
+        ball++;
+      }
+    }
+    return ball;
   }
 }
 
