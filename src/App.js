@@ -22,10 +22,10 @@ export default class App {
 
         if (strikeCount !== 3) continue;
 
-        if (strikeCount === 3) {
-          //@TODO - 재시작 기능 구현
-          this.#isFinish = true;
-        }
+        const restartNumber = Number(await input(Message.SUGGEST_NEW_GAME));
+        this.validateRestartInput(restartNumber) && restartNumber === 1
+          ? this.init()
+          : (this.#isFinish = true);
       }
     } catch (e) {
       console.error(e);
@@ -34,7 +34,7 @@ export default class App {
 
   init() {
     this.#answerNumbers = generateNumber(1, 9);
-    console.log(this.#answerNumbers);
+    // console.log(this.#answerNumbers);
   }
 
   /**
@@ -102,6 +102,21 @@ export default class App {
       message += `${strike}${Message.STRIKE}`;
     }
     return message.trim() || `${Message.NOTHING}`;
+  }
+
+  /**
+   * @description 재시작 사용현자 입력값 검증 함수
+   * @param {number} input
+   * @returns {boolean}
+   */
+
+  validateRestartInput(input) {
+    if (input !== 1 && input !== 2) {
+      throw new Error(
+        '[ERROR] 재시작 입력값이 잘못되었습니다. 다시 확인해주세요.',
+      );
+    }
+    return true;
   }
 }
 
