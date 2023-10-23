@@ -21,7 +21,7 @@ class App {
 
         // 사용자 입력 숫자의 길이 확인
         if (NUMBER.length !== 3) {
-          throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+          throw new Error("[ERROR] 세자리 숫자만 사용 가능합니다.");
         }
         const USER = NUMBER.split("").map(Number);
 
@@ -29,12 +29,12 @@ class App {
         for (let i = 0; i < USER.length; i++) {
           // 사용자 입력 숫자 중 숫자 외 값 확인
           if (Number.isNaN(USER[i])) {
-            throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+            throw new Error("[ERROR] 숫자만 입력 가능합니다.");
           }
 
           for (let j = i + 1; j < USER.length; j++) {
             if (USER[i] === USER[j]) {
-              throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+              throw new Error("[ERROR] 중복되지 않는 숫자만 입력 가능합니다.");
             }
           }
         }
@@ -74,7 +74,7 @@ class App {
       const WANNA_NEW_GAME = await Console.readLineAsync("");
 
       if (+WANNA_NEW_GAME !== 1 && +WANNA_NEW_GAME !== 2) {
-        throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+        throw new Error("[ERROR] 1,2 이외의 값은 입력 불가합니다.");
       }
 
       if (+WANNA_NEW_GAME === 2) {
