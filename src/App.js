@@ -1,6 +1,7 @@
-import { Console, Random } from "@woowacourse/mission-utils";
+import { Console } from "@woowacourse/mission-utils";
 import { evaluateScore, printScore } from "./score.js";
 import { readAnswerInput, readEndDecisionInput } from "./input.js";
+import { pickRandomThreeNumbers } from "./random.js";
 
 class App {
   #answerNumbers;
@@ -17,7 +18,7 @@ class App {
   }
 
   #setNewAnswer() {
-    this.#answerNumbers = App.#pickRandomThreeNums();
+    this.#answerNumbers = pickRandomThreeNumbers();
   }
 
   async #runGameLoop() {
@@ -36,14 +37,6 @@ class App {
     if (endDecisionInput === "1") {
       await this.play();
     }
-  }
-
-  static #pickRandomThreeNums() {
-    const RESULT_SIZE = 3;
-    const pickedNumbers = new Array(RESULT_SIZE).fill().map((_) => Random.pickNumberInRange(1, 9));
-
-    const isNotDuplicate = new Set(pickedNumbers).size === RESULT_SIZE;
-    return isNotDuplicate ? pickedNumbers : App.#pickRandomThreeNums();
   }
 }
 
