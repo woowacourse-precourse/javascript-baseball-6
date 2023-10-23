@@ -5,7 +5,7 @@ class App {
     printStart();
     const baseballNums = makeRandomNum();
     console.log("컴터숫자", baseballNums);
-    inputNum(baseballNums);
+    await inputNum(baseballNums);
   }
 }
 // 1. 시작문구 출력
@@ -16,19 +16,34 @@ const printStart = () => {
 // 2. 1~9 사이 숫자 랜덤으로 3개 만들기
 
 const makeRandomNum = () => {
-  let numbers = Random.pickUniqueNumbersInRange(1, 9, 3);
+  let numArr = [];
+  while (numArr.length < 3) {
+    let num = Random.pickNumberInRange(1, 9);
+    if (!numArr.includes(num)) {
+      numArr.push(num);
+    }
+  }
 
-  return numbers;
+  return numArr;
 };
 
 // 3. 사용자에게 숫자 입력받기
-const inputNum = (baseballNums) => {
-  Console.readLine("숫자를 입력해주세요 :", (answer) => {
+const inputNum = async (baseballNums) => {
+  try {
+    const answer = await Console.readLineAsync("숫자를 입력해주세요 : ");
     const userNum = answer.split("").map(Number);
     validationNum(userNum);
     const result = checkNum(userNum, baseballNums);
     checkCorrectAnswer(result, baseballNums);
-  });
+  } catch (error) {
+    console.error("[ERROR] 입력값이 잘못되었습니다. 게임을 종료합니다.");
+  }
+  // Console.readLine("숫자를 입력해주세요 :", (answer) => {
+  //   const userNum = answer.split("").map(Number);
+  //   validationNum(userNum);
+  //   const result = checkNum(userNum, baseballNums);
+  //   checkCorrectAnswer(result, baseballNums);
+  // });
 };
 
 // 4. 숫자 유효성검토(숫자인지, 3개의 숫자인지)
@@ -75,7 +90,11 @@ const replayGame = () => {
   Console.readLine(
     "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.",
     (answer) => {
-      if (answer === "1") app.play();
+      if (answer === "1") {
+        app.play();
+      } else if (answer === "2") {
+        console.close;
+      }
       return;
     }
   );
