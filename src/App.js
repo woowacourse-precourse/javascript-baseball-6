@@ -28,7 +28,24 @@ class App {
       const userInputsNumber = userInputs.split('').map((userInput) => parseInt(userInput, 10));
 
       // ball, strike 확인
-      
+      function setAnalysis(gameData, userInputs, randomNumber) {
+        // userInput과 비교해서 randomNumber와 다른 값을 찾음
+        const noStrikeNumbers = userInputs.filter((userInput, i) => 
+          randomNumber[i] !== userInput
+        );
+        // strike가 아닌 값들 중 randomNumber에 포함되어있는 값을 찾음 === ball 개수
+        const ballNumbers = noStrikeNumbers.filter((noStrikeNumber) => 
+          randomNumber.includes(noStrikeNumber)
+        );
+        const strike = 3 - noStrikeNumbers.length;
+        const ball = ballNumbers.length;
+
+        // 값 업데이트
+        gameData.setBall(ball);
+        gameData.setStrike(strike);
+      }
+
+
     }
 
     // Console.print(randomNumber)
