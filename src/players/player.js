@@ -20,22 +20,29 @@ export default class player {
   }
 
   isValidNumber(userInput) {
-    const userInputToArray = userInput.split('').map((num) => Number(num));
-    
-    if (userInputToArray.includes(0)) {
-      throw new Error(MESSAGE.error);
-    }
-    
+    const userInputToArray = userInput.split('');
+  
     if (userInputToArray.length !== 3) {
       throw new Error(MESSAGE.error);
     }
-    
-    if (this.hasDuplicates(userInputToArray)) {
+  
+    if (userInputToArray.some(char => isNaN(Number(char)))) {
       throw new Error(MESSAGE.error);
     }
-
+  
+    const numericInput = userInputToArray.map((num) => Number(num));
+  
+    if (numericInput.includes(0)) {
+      throw new Error(MESSAGE.error);
+    }
+  
+    if (this.hasDuplicates(numericInput)) {
+      throw new Error(MESSAGE.error);
+    }
+  
     return true;
   }
+  
 
   hasDuplicates(userNumber) {
     for (let i = 0; i < userNumber.length; i++) {
