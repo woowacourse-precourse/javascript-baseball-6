@@ -9,9 +9,11 @@ import Validation from './Validation.js';
 class App {
   #refree;
 
-  async play() {
+  constructor() {
     OutputView.printStart();
+  }
 
+  async play() {
     const inputNumber = await InputView.getUserNumber();
     this.checkError(Validation.validateBaseballNumber, inputNumber);
 
