@@ -13,6 +13,7 @@ class App extends InsideGame {
   async play() {
     const computerNumber = super.randomNumber();
     let isGameEnd = false;
+    
     while (!isGameEnd) {
       try {
         const userAnswer = await MissionUtils.Console.readLineAsync(
@@ -103,5 +104,5 @@ class App extends InsideGame {
 
 export default App;
 
-const app = new App();
-app.play();
+// const app = new App();
+// app.play();
