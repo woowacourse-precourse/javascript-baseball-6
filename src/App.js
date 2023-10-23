@@ -14,26 +14,21 @@ class App {
         computer.push(number);
       }
     }
-    Console.print(computer);
     return computer;
   }
 
   async playGame(computerNum) {
-    try {
-      while (true) {
-        const playerNum = await Console.readLineAsync('숫자를 입력해주세요 : ');
-        this.checkplayerNum(playerNum);
-        const score = this.getScore(computerNum, playerNum);
-        this.printScore(score);
-        if (score.strike === 3) {
-          Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
-          break;
-        }
+    while (true) {
+      const playerNum = await Console.readLineAsync('숫자를 입력해주세요 : ');
+      this.checkplayerNum(playerNum);
+      const score = this.getScore(computerNum, playerNum);
+      this.printScore(score);
+      if (score.strike === 3) {
+        Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+        break;
       }
-      this.restartGame();
-    } catch (error) {
-      Console.print(error);
     }
+    this.restartGame();
   }
 
   checkplayerNum(playerNum) {
@@ -89,8 +84,5 @@ class App {
     else throw new Error('1과 2만 입력이 가능합니다.');
   }
 }
-
-const app = new App();
-app.play();
 
 export default App;
