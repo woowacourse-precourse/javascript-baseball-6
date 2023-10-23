@@ -1,8 +1,8 @@
 import { Console } from '@woowacourse/mission-utils';
 
 export const View = {
-  async readLineAsync(message) {
-    return await Console.readLineAsync(message);
+  async readUserNumber() {
+    return await Console.readLineAsync(MESSAGE.READ.USER_NUMBER);
   },
 
   print(message) {
