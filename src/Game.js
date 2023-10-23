@@ -3,10 +3,14 @@ import { Console } from "@woowacourse/mission-utils";
 import { Messages } from "./Messages.js";
 
 class Game {
+  #answerBaseball;
+  #guessBaseball;
+  #result;
+
   constructor() {
-    this.answerBaseball = new Baseball();
-    this.guessBaseball;
-    this.result;
+    this.#answerBaseball = new Baseball();
+    this.#guessBaseball;
+    this.#result;
   }
 
   async runGame() {
@@ -29,21 +33,21 @@ class Game {
   async getGuess() {
     const guess = await Console.readLineAsync(Messages.GET_GUESS);
     try {
-      this.guessBaseball = new Baseball(guess);
+      this.#guessBaseball = new Baseball(guess);
     } catch (e) {
       return true;
     }
   }
 
   makeResult() {
-    this.result = Baseball.compareBaseball(
-      this.guessBaseball,
-      this.answerBaseball
+    this.#result = Baseball.compareBaseball(
+      this.#guessBaseball,
+      this.#answerBaseball
     );
   }
 
   tellResult() {
-    const { strike, ball, out } = { ...this.result };
+    const { strike, ball, out } = { ...this.#result };
 
     let message = "";
     if (out) message = Messages.OUT;
@@ -55,7 +59,7 @@ class Game {
   }
 
   isEndGame() {
-    if (this.result.strike === 3) return true;
+    if (this.#result.strike === 3) return true;
     return false;
   }
 }
