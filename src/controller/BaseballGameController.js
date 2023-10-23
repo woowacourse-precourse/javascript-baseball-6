@@ -2,9 +2,13 @@ import Validator from '../utils/Validator.js';
 import { Console } from '@woowacourse/mission-utils';
 import OutputView from '../view/OutputView.js';
 import ComputerNumber from '../domain/ComputerNumber.js';
+import UserNumber from '../domain/UserNumber.js';
+import BaseballGameResult from '../domain/BaseballGameResult.js';
 
 class BaseballGameController {
   #computerNumber;
+  #userNumber;
+  #gameResult;
 
   start() {
     OutputView.printStart();
@@ -12,6 +16,7 @@ class BaseballGameController {
       (userNumbers) => {
         Validator.validateNumber(userNumbers);
         this.makeComputerNumberStage();
+        this.checkResultStage(userNumbers);
       }
     );
   }
@@ -19,6 +24,16 @@ class BaseballGameController {
   makeComputerNumberStage() {
     this.#computerNumber = new ComputerNumber().getComputerNumbers();
     console.log(this.#computerNumber);
+  }
+
+  checkResultStage(userNumbers) {
+    this.#userNumber = new UserNumber(userNumbers).getUserNumbers();
+    this.#gameResult = new BaseballGameResult(
+      this.#computerNumber,
+      this.#userNumber
+    ).getResult();
+
+    console.log(this.#gameResult);
   }
 }
 
