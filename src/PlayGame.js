@@ -1,5 +1,6 @@
 import { Random, Console } from "@woowacourse/mission-utils";
 import Validation from "./Validation.js";
+import { MESSAGE, CHECK } from "./env/Message.js";
 
 export default function PlayGame(
   initialState = { computer: [], input: [], START_GAME: true }
@@ -19,7 +20,7 @@ export default function PlayGame(
 
   this.play = async () => {
     init();
-    Console.print("숫자 야구 게임을 시작합니다.");
+    Console.print(MESSAGE.START);
     while (this.state.START_GAME) {
       await userInputValue();
       checkValue();
@@ -29,7 +30,7 @@ export default function PlayGame(
 
   const userInputValue = async () => {
     try {
-      const InputValue = await Console.readLineAsync("숫자를 입력해주세요 : ");
+      const InputValue = await Console.readLineAsync(MESSAGE.INPUT);
       validation.InputValueLengthValidation(InputValue);
       validation.InputValueTypeOfValidation(InputValue);
       validation.InputValueDuplicatedValidation(InputValue);
@@ -55,26 +56,26 @@ export default function PlayGame(
   const checkValueResultPrint = (checkValueResult) => {
     const { strike, ball } = checkValueResult;
     if (strike === 3) {
-      Console.print("3스트라이크");
-      Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+      Console.print(`${strike}${CHECK.STRIKE}`);
+      Console.print(MESSAGE.GOOD_GAME);
       this.setState({ ...this.state, START_GAME: false });
       return;
     }
     if (strike === 0 && ball === 0) {
-      Console.print("낫싱");
+      Console.print(CHECK.NOTHING);
     } else {
       const CHECK_RESULT =
-        (strike === 0 ? "" : `${strike}스트라이크 `) +
-        (ball === 0 ? "" : `${ball}볼`);
+        (strike === 0
+          ? ""
+          : `${strike}
+        ${CHECK.STRIKE} `) + (ball === 0 ? "" : `${ball}${CHECK.BALL}`);
       Console.print(CHECK_RESULT);
     }
   };
 
   const restartGame = async () => {
     try {
-      const InputRestartValue = await Console.readLineAsync(
-        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
-      );
+      const InputRestartValue = await Console.readLineAsync(MESSAGE.RESTART);
       validation.InputRestartValueValidation(InputRestartValue);
       const PARSEINT_VALUE = parseInt(InputRestartValue);
 
