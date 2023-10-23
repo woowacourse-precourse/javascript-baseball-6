@@ -19,7 +19,6 @@ class GameLogic {
   checkGameResult(computerNum, userNum) {
     let strike = 0;
     let ball = 0;
-    let gameResult = "";
 
     for (let i = 0; i < 3; i++) {
       if (computerNum[i] === userNum[i]) {
@@ -28,6 +27,11 @@ class GameLogic {
         ball++;
       }
     }
+    return this.printCheckResult(strike, ball);
+  }
+
+  printCheckResult(strike, ball) {
+    let gameResult = "";
 
     if (strike === 0 && ball === 0) {
       gameResult = "낫싱";
