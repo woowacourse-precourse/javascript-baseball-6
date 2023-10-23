@@ -8,7 +8,6 @@ class App {
       console.log("숫자 야구 게임을 시작합니다.");
       restart_game = await this.play_game(); // 게임 재시작 여부를 확인
     }
-
     MissionUtils.Console.print("게임 종료");
   }
 
@@ -94,21 +93,22 @@ class App {
   async ask_for_restart() { // 게임을 다시 시작할지 종료할지 선택하는 옵션 제공
     console.log("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
     
-    async function restart_option() {
-      return new Promise(async (resolve) => {
-        const input = await MissionUtils.Console.readLineAsync();
-        if (input === '1') {
-          resolve(true);
-        } else if (input === '2') {
-          resolve(false);
-        } else {
-          console.log("올바른 옵션을 선택하세요 (1: 재시작, 2: 종료)");
-          resolve(await restart_option());
-        }
+    function restart_option() {
+      return new Promise(resolve => {
+        MissionUtils.Console.readLineAsync().then(input => {
+          if (input === '1') {
+            resolve(true);
+          } else if (input === '2') {
+            resolve(false);
+          } else {
+            console.log("올바른 옵션을 선택하세요 (1: 재시작, 2: 종료)");
+            resolve(restart_option());
+          }
+        });
       });
     }
 
-    return await restart_option();
+    return restart_option();
   }
 }
 
