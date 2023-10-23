@@ -1,4 +1,4 @@
-import { Console, Random } from "@woowacourse/mission-utils";
+import { Console, Random } from '@woowacourse/mission-utils';
 
 class App {
   async play() {
@@ -10,13 +10,13 @@ const playBaseBall = async () => {
   let randomNumber = makeRandomNumber();
   let isEnd = false;
 
-  Console.print("숫자 야구 게임을 시작합니다.");
+  Console.print('숫자 야구 게임을 시작합니다.');
   while (!isEnd) {
     const userInput = await getUserInput();
     const inputIsValid = checkInputIsValid(userInput);
 
     if (inputIsValid === false) {
-      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+      throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
     }
 
     const scoreBoard = calculateScore(userInput, randomNumber);
@@ -25,7 +25,7 @@ const playBaseBall = async () => {
       isEnd = await getUserInputForGameSet(scoreBoard);
 
       if (isEnd.isError) {
-        throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+        throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
       }
 
       if (isEnd) {
@@ -40,9 +40,9 @@ const playBaseBall = async () => {
 
 const getUserInputForGameSet = async (scoreBoard) => {
   Console.print(printScore(scoreBoard));
-  Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료.");
-  Console.print("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
-  const userInput = await Console.readLineAsync("");
+  Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료.');
+  Console.print('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+  const userInput = await Console.readLineAsync('');
 
   return checkGameIsEnd(userInput);
 };
@@ -104,25 +104,26 @@ const calculateScore = (userInput, randomNumber) => {
 
 const printScore = (scoreBoard) => {
   let returnString =
-    (scoreBoard.strike != 0 || scoreBoard.ball != 0
-      ? `${scoreBoard.ball === 0 ? "" : scoreBoard.ball + "볼"} ${scoreBoard.strike === 0 ? "" : scoreBoard.strike + "스트라이크"}`.trim()
-      : "낫싱");
+    scoreBoard.strike != 0 || scoreBoard.ball != 0
+      ? `${scoreBoard.ball === 0 ? '' : scoreBoard.ball + '볼'} ${
+          scoreBoard.strike === 0 ? '' : scoreBoard.strike + '스트라이크'
+        }`.trim()
+      : '낫싱';
 
   return returnString;
 };
 
 const getUserInput = async () => {
-  const userInput = await Console.readLineAsync("숫자를 입력해주세요 : ");
+  const userInput = await Console.readLineAsync('숫자를 입력해주세요 : ');
   const input = Array.from(userInput, (number) => parseInt(number));
-  // const input = [...userInput].map((number) => parseInt(number));
 
   return input;
 };
 
 const checkGameIsEnd = (userInput) => {
-  if (userInput === "1") {
+  if (userInput === '1') {
     return false;
-  } else if (userInput === "2") {
+  } else if (userInput === '2') {
     return true;
   }
 
