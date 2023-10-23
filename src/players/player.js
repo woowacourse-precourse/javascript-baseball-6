@@ -1,21 +1,20 @@
-import { Console } from '@woowacourse/mission-utils';
 import { MESSAGE } from '../constants/constants.js';
 
-export default class player {
+export default class Player {
 
-  #playerNumber;
+  _playerNumber;
 
   async inputNumber(view) {
     const userInput = await view.readInput(MESSAGE.input);
     
     if (this.isValidNumber(userInput)) {
-      this.#playerNumber = userInput.split('').map((num) => parseInt(num));
+      this._playerNumber = userInput.split('').map((num) => parseInt(num));
     }
     return;
   }
 
   getJudgeResult(computer) {
-    const result = computer.judgeResult(this.#playerNumber);
+    const result = computer.judgeResult(this._playerNumber);
     return result;
   }
 

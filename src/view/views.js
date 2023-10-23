@@ -1,13 +1,12 @@
 import { Console } from '@woowacourse/mission-utils';
 import { MESSAGE } from '../constants/constants.js'
 
-export default class views{
+export default class Views {
   constructor() {
     Console.print(MESSAGE.start);
   }
 
   printResultMessage(result) {
-    
     if (result.ball === 0 && result.strike === 0) {
       return Console.print(MESSAGE.nothing);
     }
