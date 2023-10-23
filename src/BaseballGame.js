@@ -24,7 +24,8 @@ class BaseballGame {
   }
 
   async readNumber() {
-    const userNumber = await Console.readLineAsync(MESSAGES.numberQuery).split('').map(Number);
+    const userInput = await Console.readLineAsync(MESSAGES.numberQuery);
+    const userNumber = userInput.split('').map(Number);
     Validator.validateUserNumber(userNumber);
   }
 }
