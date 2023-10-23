@@ -26,6 +26,14 @@ class Validator {
     this.isNotNumberRange(userNumArr);
   }
 
+  checkUserGameOptionValue(userNum) {
+    if (userNum !== this.#RESTART && userNum !== this.#END) {
+      throw new Error('[ERROR] 1 혹은 2를 입력해주세요');
+    }
+
+    return true;
+  }
+
   isNotNumberRange(arr) {
     if (arr.length !== this.#MAXIMUM_NUMBER_LENGTH) {
       throw new Error('[ERROR] 3 자리 수를 입력해주세요');
