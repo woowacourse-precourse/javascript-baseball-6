@@ -9,7 +9,7 @@ class App {
       while(flag===0){
         let result = FAIL;
         //1. start - 랜덤값 설정
-        const computer = this.start();
+        const computer = this.getRandomNumber();
   
         //반복구문 - 2,3
         //2. 숫자입력받기 
@@ -18,41 +18,41 @@ class App {
           //예외 발생 
           //2-1. 1~9 숫자가 아닌 다른 숫자 또는 문자가 입력됐을 때
           //2-2. 플레이어의 입력한 숫자의 길이가 3이 아닐 때(3미만, 3초과)
-          const regex = /[^1-9]/; 
-          if(regex.test(number) || number.length!==3){
+          const regexNum = /[^1-9]/; 
+          if(regexNum.test(number) || number.length!==3){
             //throw new Error("1에서 9까지의 서로 다른 숫자로 이루어진 3자리의 수를 입력하세요");
-            throw new Error("[ERROR]");
+            throw new Error("[ERROR] 1에서 9까지의 서로 다른 숫자로 이루어진 3자리의 수를 입력하세요");
           }
          
-          const input = number.split('');
-          for(let i=0;i<input.length;i++){
-            input[i] = Number(input[i]);
+          const player = number.split('');
+          for(let i=0;i<player.length;i++){
+            player[i] = Number(player[i]);
           }
           //예외 발생
           //2-3. 서로 다른 숫자가 아닌 같은 숫자를 입력했을 때
-          if(input[0]===input[1] || input[1]===input[2] || input[2]===input[1]){
+          if(player[0]===player[1] || player[1]===player[2] || player[2]===player[1]){
             //throw new Error("1에서 9까지의 서로 다른 숫자로 이루어진 3자리의 수를 입력하세요");
-            throw new Error("[ERROR]");
+            throw new Error("[ERROR] 1에서 9까지의 서로 다른 숫자로 이루어진 3자리의 수를 입력하세요");
           }
                 
           //3. 입력받은 숫자 체크 
-          result = this.check(computer, input);  
+          result = this.check(computer, player);  
         }
        
         //4. quit 
         //예외 발생 - 1,2 입력하지 않았을 때, 길이 1 아닐때
-        const regex = /[^1-2]/;
+        const regexQuit = /[^1-2]/;
         const number = await this.quit();
-        if(regex.test(number) || number.length!==1){
+        if(regexQuit.test(number) || number.length!==1){
           //throw new Error("1 또는 2를 입력하세요");
-          throw new Error("[ERROR]");
+          throw new Error("[ERROR] 1 또는 2를 입력하세요");
         }else{
           if(Number(number) ===2) flag =2;
         }
     }
    
   }
-  start(){
+  getRandomNumber(){
     MissionUtils.Console.print("<<<<<<<⚾️123456789⚾️>>>>>>>>");
     const computer = [];
     while (computer.length < 3) {
@@ -82,16 +82,16 @@ class App {
   }
   
 
-  check(computer,input){
+  check(computer,player){
     let ball = 0;
     let strike = 0;
     let output ="";
     //ball, strike 계산
-    for(let i=0;i<input.length;i++){
-      if(computer[i] === input[i]){
+    for(let i=0;i<player.length;i++){
+      if(computer[i] === player[i]){
         strike +=1;
       }
-      else if(computer.includes(input[i])){
+      else if(computer.includes(player[i])){
         ball += 1;   
       }
     }
@@ -114,12 +114,10 @@ class App {
       return FAIL;
     }
   }
-  
-
-  }  
+}  
 
 const app = new App();
-app.play();
+//app.play();
 export default App;
 
 
