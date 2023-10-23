@@ -1,5 +1,6 @@
 /** @format */
 
+import { ERROR_MESSAGE, GAME_MESSAGE } from "./constants.js";
 import {
   checkIsDiff,
   checkIsNumbers,
@@ -11,7 +12,7 @@ import { Console, Random } from "@woowacourse/mission-utils";
 
 export default class BaseballGame {
   async play() {
-    Console.print("숫자 야구 게임을 시작합니다.");
+    Console.print(GAME_MESSAGE.GAME_START);
 
     let playing = true;
 
@@ -25,27 +26,25 @@ export default class BaseballGame {
   async start() {
     this.computerNumbers = this.generateRandomNumbers();
 
-    let correct = false;
+    let isCorrect = false;
 
-    while (!correct) {
+    while (!isCorrect) {
       try {
-        this.userInput = await this.getUserInput();
+        this.userInput = await Console.readLineAsync(GAME_MESSAGE.INPUT_NUMBER);
         this.checkUserInput(this.userInput);
 
-        const strike = this.checkStrike(this.userInput, this.computerNumbers);
+        const strike = this.getStrike(this.userInput, this.computerNumbers);
         const ball =
-          this.checkBall(this.userInput, this.computerNumbers) - strike;
+          this.getBall(this.userInput, this.computerNumbers) - strike;
 
-        correct = this.checkResult(strike, ball);
+        isCorrect = this.checkResult(strike, ball);
       } catch (error) {
         Console.print(error.message);
         throw error;
       }
     }
 
-    const renew = await Console.readLineAsync(
-      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
-    );
+    const renew = await Console.readLineAsync(GAME_MESSAGE.GAME_RESTART);
 
     if (renew === "1") {
       return true;
@@ -65,28 +64,23 @@ export default class BaseballGame {
     return computer;
   }
 
-  async getUserInput() {
-    const userInput = await Console.readLineAsync("숫자를 입력해주세요 : ");
-    return userInput;
-  }
-
   checkUserInput(userInput) {
     if (!checkLength(userInput)) {
-      throw new Error("[ERROR] 3자리 숫자를 입력해주세요.");
+      throw new Error(ERROR_MESSAGE.INVALID_LENGTH);
     }
     if (!checkIsNumbers(userInput)) {
-      throw new Error("[ERROR] 숫자만 입력해주세요.");
+      throw new Error(ERROR_MESSAGE.INVALID_NUMBER);
     }
     if (!checkNumberRange(userInput)) {
-      throw new Error("[ERROR] 1~9 사이의 숫자만 입력해주세요.");
+      throw new Error(ERROR_MESSAGE.INVALID_RANGE);
     }
     if (!checkIsDiff(userInput)) {
-      throw new Error("[ERROR] 중복되지 않은 숫자를 입력해주세요.");
+      throw new Error(ERROR_MESSAGE.INVALID_DUPLICATE);
     }
     return true;
   }
 
-  checkStrike(userInput, computerNumbers) {
+  getStrike(userInput, computerNumbers) {
     let strike = 0;
     for (let i = 0; i < userInput.length; i++) {
       if (Number(userInput[i]) === computerNumbers[i]) {
@@ -96,7 +90,7 @@ export default class BaseballGame {
     return strike;
   }
 
-  checkBall(userInput, computerNumbers) {
+  getBall(userInput, computerNumbers) {
     let ball = 0;
     for (let i = 0; i < userInput.length; i++) {
       if (computerNumbers.includes(Number(userInput[i]))) {
@@ -106,19 +100,19 @@ export default class BaseballGame {
     return ball;
   }
 
-  checkResult(strick, ball) {
-    if (strick === 0 && ball === 0) {
-      Console.print("낫싱");
-    } else if (strick === 3) {
-      Console.print(`${strick}스트라이크`);
-      Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+  checkResult(strike, ball) {
+    if (strike === 3) {
+      Console.print(`${strike}스트라이크`);
+      Console.print(GAME_MESSAGE.GAME_END);
       return true;
-    } else if (strick > 0 && ball > 0) {
-      Console.print(`${ball}볼 ${strick}스트라이크`);
-    } else if (strick > 0 && ball === 0) {
-      Console.print(`${strick}스트라이크`);
-    } else if (strick === 0 && ball > 0) {
-      Console.print(`${ball}볼`);
+    }
+
+    if (strike === 0 && ball === 0) {
+      Console.print("낫싱");
+    } else {
+      const ballResult = ball ? `${ball}볼` : "";
+      const strikeResult = strike ? `${strike}스트라이크` : "";
+      Console.print(`${ballResult} ${strikeResult}`.trim());
     }
 
     return false;
