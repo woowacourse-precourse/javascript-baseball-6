@@ -78,18 +78,22 @@ describe("숫자 야구 게임", () => {
   describe("입력값 테스트", () => {
     test("3자리 숫자인 경우", () => {
       const isValid = app.validateInput("123");
+
       expect(isValid).toBe(true);
     });
     test("3자리 숫자가 아닌 경우", () => {
       const isValid = app.validateInput("1234");
+
       expect(isValid).toBe(false);
     });
     test("1~9 사이의 숫자가 아닌 경우", () => {
       const isValid = app.validateInput("abc");
+
       expect(isValid).toBe(false);
     });
     test("중복된 숫자가 있는 경우", () => {
       const isValid = app.validateInput("112");
+
       expect(isValid).toBe(false);
     });
   });
@@ -167,6 +171,7 @@ describe("숫자 야구 게임", () => {
     describe("스트라이크 & 볼 테스트", () => {
       test("1스트라이크 1볼", () => {
         const input = ["142", "324", "243"];
+
         input.forEach((input) => {
           const { strike, ball } = app.countPitchResult(answer, input);
           expect(strike).toBe(1);
