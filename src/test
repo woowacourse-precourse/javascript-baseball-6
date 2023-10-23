@@ -1,4 +1,10 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
+function input() {
+  return new Promise((resolve) => {
+    MissionUtils.Console.readLine('숫자를 입력해주세요 : ',(inputQuery) => {
+      resolve(inputQuery)
+    })
+  })
+}
 
 
 
@@ -6,7 +12,7 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 class App {
   async play() {
     MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
-    const userInput = await new Promise((resolve, reject) => {
+    const answer = await new Promise((resolve, reject) => {
       try {
         MissionUtils.Console.readLine('숫자를 입력해주세요', (answer) => {
           resolve(answer)
@@ -15,15 +21,8 @@ class App {
         reject(e)
       }
     })
-    const vaildationChecker = userInput
-    Validation.checkUserInput(vaildationChecker);
-
-    }
-
+    console.log(answer)
   }
+}
 
 
-const app = new App();
-app.play();
-
-export default App;
