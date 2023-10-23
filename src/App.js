@@ -55,8 +55,14 @@ class App {
 
   async promptUserInput() {
     let playerInput = await Console.readLineAsync('숫자를 입력해주세요 :');
-    let playerNumber = playerInput.split('').map((number) => parseInt(number));
 
+    return playerInput;
+  }
+
+  makeNumberToString(playerNumber) {
+    this.playerNumber = playerNumber
+      .split('')
+      .map((number) => parseInt(number));
     return playerNumber;
   }
 
