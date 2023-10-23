@@ -19,7 +19,7 @@ class Baseball {
 
   startGame() {
     this.isCorrectAnswer = false;
-    this.computer.createNumberArray();
+    this.computer.setNewNumberArray();
   }
 
   async getUserInputAndCompareToComputer() {

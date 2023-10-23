@@ -6,7 +6,7 @@ class Computer {
     this.numberArray = [];
   }
 
-  createNumberArray() {
+  setNewNumberArray() {
     let newNumberArray = [];
 
     while (newNumberArray.length < NUMBER.LENGTH) {
