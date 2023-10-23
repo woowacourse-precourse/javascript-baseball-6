@@ -3,19 +3,19 @@ export const compare = (COMPUTER, userInput) => {
   let ball = 0;
 
   if (COMPUTER[0] === userInput[0]) {
-    strike++;
+    strike += 1;
   } else if (userInput.includes(COMPUTER[0])) {
-    ball++;
+    ball += 1;
   }
   if (COMPUTER[1] === userInput[1]) {
-    strike++;
+    strike += 1;
   } else if (userInput.includes(COMPUTER[1])) {
-    ball++;
+    ball += 1;
   }
   if (COMPUTER[2] === userInput[2]) {
-    strike++;
+    strike += 1;
   } else if (userInput.includes(COMPUTER[2])) {
-    ball++;
+    ball += 1;
   }
   return [strike, ball];
 };
