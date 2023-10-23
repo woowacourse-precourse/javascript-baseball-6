@@ -25,7 +25,7 @@ class GameController {
    * @private
    * @returns {void}
    */
-  #askPrintStartGame() {
+  #requirePrintStartGame() {
     this.#outputView.printStartGame();
   }
 
@@ -37,7 +37,7 @@ class GameController {
    * @private
    * @returns {void}
    */
-  #askPrintCompareResult({ strike, ball }) {
+  #requirePrintCompareResult({ strike, ball }) {
     this.#outputView.printCompareResult({ strike, ball });
   }
 
@@ -46,7 +46,7 @@ class GameController {
    * @private
    * @returns {void}
    */
-  #askPrintExitGame() {
+  #requirePrintExitGame() {
     this.#outputView.printExitGame();
   }
 
@@ -64,7 +64,7 @@ class GameController {
    * @returns {Promise<string>} - 플레이어가 입력한 숫자.
    * @private
    */
-  #inputPlayerBaseball() {
+  #requireInputPlayerBaseball() {
     return this.#inputView.readPlayerBaseball();
   }
 
@@ -73,7 +73,7 @@ class GameController {
    * @returns {Promise<string>} - 플레이어가 입력한 게임 종료 명령어.
    * @private
    */
-  #inputExitGameCommand() {
+  #requireInputExitGameCommand() {
     return this.#inputView.readExitGameCommand();
   }
 
@@ -82,8 +82,8 @@ class GameController {
    * @returns {number[]} - 유효성 검사를 통과한 플레이어의 야구공
    * @private
    */
-  async #askPlayerBaseball() {
-    const inputPlayerBaseball = await this.#inputPlayerBaseball();
+  async #requirePlayerBaseball() {
+    const inputPlayerBaseball = await this.#requireInputPlayerBaseball();
     BaseballValidator.from(inputPlayerBaseball).validateBaseball();
     return inputPlayerBaseball.split(SYMBOLS.emptyString).map(Number);
   }
@@ -93,8 +93,8 @@ class GameController {
    * @returns {number} - 유효성 검사를 통과한 게임 종료 명령어
    * @private
    */
-  async #askExitGameCommand() {
-    const inputExitGameCommand = await this.#inputExitGameCommand();
+  async #requireExitGameCommand() {
+    const inputExitGameCommand = await this.#requireInputExitGameCommand();
     ExitGameCommandValidator.from(inputExitGameCommand).validateExitGameCommand();
     return Number(inputExitGameCommand);
   }
@@ -105,7 +105,7 @@ class GameController {
    * @returns {Object} - 스트라이크와 볼 수를 포함한 객체.
    * @private
    */
-  #askCompareResult(playerBaseball) {
+  #requireCompareResult(playerBaseball) {
     return this.#computer.comparePlayerBaseball(playerBaseball);
   }
 
@@ -115,14 +115,14 @@ class GameController {
    * @returns {Promise<void>}
    */
   async #processGame() {
-    this.#askPrintStartGame();
+    this.#requirePrintStartGame();
     while (true) {
-      const playerBaseball = await this.#askPlayerBaseball();
-      const { strike, ball } = this.#askCompareResult(playerBaseball);
-      this.#askPrintCompareResult({ strike, ball });
+      const playerBaseball = await this.#requirePlayerBaseball();
+      const { strike, ball } = this.#requireCompareResult(playerBaseball);
+      this.#requirePrintCompareResult({ strike, ball });
       if (strike === GAME_TERMS.baseball.digit) break;
     }
-    this.#askPrintExitGame();
+    this.#requirePrintExitGame();
   }
 
   /**
@@ -140,7 +140,7 @@ class GameController {
    * @returns {Promise<void>}
    */
   async #processExitGameCommand() {
-    const userCommand = await this.#askExitGameCommand();
+    const userCommand = await this.#requireExitGameCommand();
     if (userCommand === GAME_TERMS.exitGameCommand.restart) {
       this.#restartGame();
     }
