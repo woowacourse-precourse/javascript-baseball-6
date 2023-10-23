@@ -1,7 +1,7 @@
 # Big Skectch
 
 - ### ***Baseball.js*** :<br> 
-  볼, 스트라이크, 낫싱 결과값을 계산해서 내보내는 곳
+  볼, 스트라이크, 낫싱 결과값을 계산후 내보내는 곳
 
 <br>
 
@@ -21,7 +21,7 @@
 <br>
 
 - ### ***App.js*** : <br> 
-  프로그램 시작점 ( Baseball.js + Constants.js + RandomNumber.js + Exception.js )
+  Baseball.js + Constants.js + RandomNumber.js + Exception.js 
 
 <br>
 <br>
@@ -39,11 +39,12 @@
 <br>
 
 > Exception.js
-
+ 
 - 하나의 **class Exception** 으로 구현
-- 숫자 1 - 9 이외의 값 
-- 네자리수 이상의 숫자
-- 중복되는 숫자
+- 게임중 입력값 예외 : 숫자 1 - 9 이외의 값 
+- 게임중 입력값 예외 : 네자리수 이상의 숫자
+- 게임중 입력값 예외 : 중복되는 숫자
+- 재시작 및 종료 입력값 예외 : 1, 2 를 제외한 모든 것
 
 <br>
 

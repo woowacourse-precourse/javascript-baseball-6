@@ -4,12 +4,12 @@ import Exception from "./Exception.js";
 import MESSEAGE from "./Constants.js";
 import Baseball from "./Baseball.js";
 
-
-
+//돌아가는 쓰레기 완성
 class App {
   async play() {
     Console.print(MESSEAGE.START_GAME);
     const randomNum = RandomNumber.makeRandomNumber();
+    
     
     while(1){
       const inputNum = await Console.readLineAsync(MESSEAGE.INPUT_NUMBER);
@@ -19,38 +19,43 @@ class App {
       Console.print(baseball.outcome());
       if(baseball.outcome() === MESSEAGE.STRIKEOUT) {
         Console.print(MESSEAGE.CELEBRATE_END);
+        Console.print(MESSEAGE.RESTART_EXIT);
         break;
-
       }
     }
 
-    Console.print(MESSEAGE.RESTART_EXIT); //재시작 하겠습니까?
-    
     const answer = await Console.readLineAsync("");
 
     if(answer === MESSEAGE.RESTART) {
-      const randomNum2 = RandomNumber.makeRandomNumber();
-      while(1){
-        const inputNum2 = await Console.readLineAsync(MESSEAGE.INPUT_NUMBER);
-        if(!Exception.isNonException(inputNum2)) throw new Error("[ERROR]")
 
-        const baseball = new Baseball(inputNum2, randomNum2)
-        Console.print(baseball.outcome());
-        if(baseball.outcome() === MESSEAGE.STRIKEOUT) {
-          Console.print(MESSEAGE.CELEBRATE_END)
-          break;
+      while(1) {
+        const randomNum2 = RandomNumber.makeRandomNumber();
+        
+        while(1){
+          const inputNum2 = await Console.readLineAsync(MESSEAGE.INPUT_NUMBER);
+          if(!Exception.isNonException(inputNum2)) throw new Error("[ERROR]")
+  
+          const baseball = new Baseball(inputNum2, randomNum2)
+          Console.print(baseball.outcome());
+          if(baseball.outcome() === MESSEAGE.STRIKEOUT) {
+            Console.print(MESSEAGE.CELEBRATE_END)
+            Console.print(MESSEAGE.RESTART_EXIT);
+            break;
+          }
         }
+  
+        const answer2 = await Console.readLineAsync("");
+        if(answer2 === MESSEAGE.EXIT) break;
+        else if(answer2 !== MESSEAGE.EXIT && answer2 !== MESSEAGE.RESTART) throw new Error("[ERROR]")
       }
+      this.end();
 
-      Console.print(MESSEAGE.RESTART_EXIT);
-      const answer2 = await Console.readLineAsync("");
-      if(answer2 === MESSEAGE.EXIT){
-        this.end();
-      }
-    }else if(answer === MESSEAGE.EXIT) {
-      this.end()
+    }else if(answer === MESSEAGE.EXIT) this.end()
+    else{
+      throw new Error("[ERROR]")
     }
     
+
   }
 
   end() {
@@ -59,7 +64,54 @@ class App {
 }
 
 
-/* then chain 방식
+
+
+/*awit 순차적으로하려햇으나 힘든듯
+class App {
+
+
+  randomNumber;
+
+  async play() {
+
+    Console.print(MESSEAGE.START_GAME);
+    let randomNum = RandomNumber.makeRandomNumber()
+    try{
+            
+      while(1) {
+
+        const result1 = await this.gaming(randomNum)
+        const newRandomNum = await this.
+        
+        
+      }
+
+      
+    }catch(){
+
+    }finally{
+      return
+    }
+  }
+
+
+  async gaming(random) {
+    try{
+      const user = await Console.readLineAsync(MESSEAGE.INPUT_NUMBER);
+      if(!Exception.isNonException(user)) throw("[ERROR]")
+      const baseball = new Baseball(user, random);
+      const result = baseball.outcome(user, random);
+      return result
+    }catch(err){
+      throw new Error(err);
+    }
+  }
+
+}
+*/
+
+/*
+// then chain 방식 실패
 class App {
   play() {
     Console.print(MESSEAGE.START_GAME)
@@ -120,7 +172,7 @@ class App {
 }
 */
 
-/*
+/*이래도 안되나 ㅠ
 class App {
   async play() {
     Console.print(MESSEAGE.START_GAME);
@@ -225,12 +277,12 @@ class App {
     return
   }
 }
-
 */
 
 
 
-/* 첫 완성 but 실패
+
+/* 첫완성 하지만 테스트 통과 x 근데 예외처리는 통과
 class App {
   async play() {
     Console.print(MESSEAGE.START_GAME);                                                      
@@ -284,10 +336,7 @@ function finish() {
 }
 */
 
-/*
-const app = new App()
-app.play();
-*/
+
 
 
 
