@@ -15,16 +15,16 @@ export const printStartMessage = (message) => {
 };
 
 export const printResult = ({ strike, ball, isNothing }) => {
-  if (!!isNothing) {
-    Console.print('낫싱');
-    return;
-  }
   if (!ball && strike) {
     Console.print(`${strike}스트라이크`);
     return;
   }
   if (ball && !strike) {
     Console.print(`${ball}볼`);
+    return;
+  }
+  if (isNothing) {
+    Console.print('낫싱');
     return;
   }
   Console.print(`${ball}볼 ${strike}스트라이크`);
