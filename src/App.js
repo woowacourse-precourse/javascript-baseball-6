@@ -19,6 +19,10 @@ class App {
       if (inputNumber.length !== 3) {
         throw new Error('3자리의 숫자를 입력해야 합니다.');
       }
+      const deduplicateObj = new Set(parseArr);
+      if (deduplicateObj.size !== inputNumber.length) {
+        throw new Error('서로 다른 숫자를 입력해야 합니다.');
+      }
     } catch (error) {
       console.log('[ERROR]', error.message);
     }
