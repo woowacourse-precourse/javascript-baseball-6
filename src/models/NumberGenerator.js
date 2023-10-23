@@ -2,8 +2,7 @@ import { Random } from "@woowacourse/mission-utils";
 import { GAME_CONTROL } from "../constants/Constants.js";
 
 class NumberGenerator {
-
-  constructor () {
+  constructor() {
     this.computerNumber = this.generateRandomNumbers();
   }
 

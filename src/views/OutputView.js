@@ -1,7 +1,6 @@
 import { Console } from "@woowacourse/mission-utils";
 
 const OutputView = {
-  
   printStaticMessage(message) {
     Console.print(message);
   },
@@ -15,7 +14,7 @@ const OutputView = {
     if (ball > 0 && strike > 0) message = `${ball}볼 ${strike}스트라이크`;
     
     return this.printStaticMessage(message);
-  }
+  },
 }
 
 export default OutputView;

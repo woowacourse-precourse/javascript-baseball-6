@@ -1,7 +1,6 @@
 import InputValidator from "../src/models/InputValidator";
 
 describe('InputValidator', () => {
-
   const testCases = [
     ['123', true],
     ['12a', false],

@@ -1,11 +1,9 @@
 const GameAnalyzer = {
-
-  getBallAndStrike (computerNumber, userNumber) {
-
+  getBallAndStrike(computerNumber, userNumber) {
     return this.calcBallAndStrike(String(computerNumber), String(userNumber));
   },
 
-  calcBallAndStrike (computerString, userString) {
+  calcBallAndStrike(computerString, userString) {
     let ball = 0; 
     let strike = 0;
 

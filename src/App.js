@@ -1,7 +1,6 @@
 import BullsAndCowsGame from "./controller/BullsAndCowsGame.js";
 
 class App {
-
   constructor() {
     this.gameController = new BullsAndCowsGame();
   }
