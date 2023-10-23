@@ -1,30 +1,13 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import { CONTINUE, NUMBER_LENGTH, EXIT } from './Constants.js';
+import Game from './Game.js';
 import Message from './Message.js';
 
+const game = new Game();
 class App {
   gameStatus = CONTINUE;
 
-  answer = [];
-
   userInput = [];
-
-  cntStrike = 0;
-
-  cntBall = 0;
-
-  initAnswer() {
-    this.answer = [];
-  }
-
-  setAnswer() {
-    while (this.answer.length < NUMBER_LENGTH) {
-      const number = MissionUtils.Random.pickNumberInRange(1, 9);
-      if (!this.answer.includes(number)) {
-        this.answer.push(number);
-      }
-    }
-  }
 
   async getUserInput() {
     const userInput = await MissionUtils.Console.readLineAsync(
@@ -44,34 +27,6 @@ class App {
     this.userInput = Array.from(userInput, (char) => Number(char));
   }
 
-  initCntStrike() {
-    this.cntStrike = 0;
-  }
-
-  initCntBall() {
-    this.cntBall = 0;
-  }
-
-  countStrike() {
-    for (let i = 0; i < NUMBER_LENGTH; i += 1) {
-      if (this.answer[i] === this.userInput[i]) {
-        this.cntStrike += 1;
-      }
-    }
-  }
-
-  countBall() {
-    for (let i = 0; i < NUMBER_LENGTH; i += 1) {
-      const targetNumber = this.userInput[i];
-      if (
-        this.answer.includes(targetNumber) &&
-        this.answer[i] !== targetNumber
-      ) {
-        this.cntBall += 1;
-      }
-    }
-  }
-
   async decideGameContinuation() {
     const input = await MissionUtils.Console.readLineAsync(
       `게임을 새로 시작하려면 ${CONTINUE}, 종료하려면 ${EXIT}를 입력하세요.\n`,
@@ -84,30 +39,30 @@ class App {
 
   init() {
     Message.printGameStart();
-    this.setAnswer();
-    this.initCntStrike();
-    this.initCntBall();
+    game.setAnswer();
+    game.initCntStrike();
+    game.initCntBall();
   }
 
   async play() {
     this.init();
 
     while (this.gameStatus !== EXIT) {
-      this.initCntStrike();
-      this.initCntBall();
+      game.initCntStrike();
+      game.initCntBall();
       await this.getUserInput();
-      this.countStrike();
-      this.countBall();
-      Message.printPlayerGuessResult(this.cntBall, this.cntStrike);
+      game.countStrike(this.userInput);
+      game.countBall(this.userInput);
+      Message.printPlayerGuessResult(game.cntBall, game.cntStrike);
 
-      if (this.cntStrike === NUMBER_LENGTH) {
+      if (game.cntStrike === NUMBER_LENGTH) {
         Message.printGameOver();
         this.gameStatus = await this.decideGameContinuation();
         if (this.gameStatus === EXIT) {
           break;
         }
-        this.initAnswer();
-        this.setAnswer();
+        game.initAnswer();
+        game.setAnswer();
       }
     }
   }
