@@ -1,17 +1,7 @@
-import {MissionUtils} from "@woowacourse/mission-utils";
-
-const getUserNumber = async () => {
-    try {
-        return await MissionUtils.Console.readLineAsync("숫자를 입력하세요 : ");
-    } catch (error) {
-        return;
-    }
-}
-
 const isNumeric = (value) => !isNaN(Number(value));
 const isWithinRange = (value) => {
     for (let num = 0; num < value.length; num++) {
-        if (!(Number(num) >= 1 && Number(num) <= 9)) {
+        if (!(Number(value[num]) >= 1 && Number(value[num]) <= 9)) {
             return false;
         }
     }
@@ -35,4 +25,4 @@ const validateUserNumber = (userNumber) => {
     return true;
 }
 
-export {getUserNumber, validateUserNumber};
+export {validateUserNumber};

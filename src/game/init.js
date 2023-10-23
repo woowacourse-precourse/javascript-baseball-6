@@ -1,5 +1,5 @@
 import {generateComputerAnswer, getHint} from "./computer.js";
-import {getUserNumber, validateUserNumber} from "./user.js";
+import {validateUserNumber} from "./validator.js";
 import {MissionUtils} from "@woowacourse/mission-utils";
 
 
@@ -8,7 +8,7 @@ const startGame = async () => {
     let userNumber;
 
     do {
-        userNumber = await getUserNumber();
+        userNumber = await MissionUtils.Console.readLineAsync("숫자를 입력하세요 : ");
         if (validateUserNumber(userNumber)) {
             getHint(computerAnswer, userNumber);
         }
@@ -17,7 +17,7 @@ const startGame = async () => {
     MissionUtils.Console.print("3스트라이크");
     MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
 
-    await restartOrEnd();
+    return await restartOrEnd();
 };
 
 const restartOrEnd = async () => {
@@ -25,7 +25,7 @@ const restartOrEnd = async () => {
     try {
         const userChoice = await MissionUtils.Console.readLineAsync("");
         if (userChoice === "1") {
-            await startGame();
+            return await startGame();
         } else if (userChoice === "2") {
             return;
         } else {
