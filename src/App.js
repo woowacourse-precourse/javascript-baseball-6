@@ -2,46 +2,42 @@ import { MissionUtils, Console } from '@woowacourse/mission-utils';
 
 class App {
   async play() {
-    try {
-      this.displayGameStartMessage();
-      let playAgain = 1;
-      let answerNumber;
+    this.displayGameStartMessage();
+    let playAgain = 1;
+    let answerNumber;
 
-      while (playAgain === 1) {
-        answerNumber = this.generateRandomNumbers();
-        Console.print(answerNumber);
+    while (playAgain === 1) {
+      answerNumber = this.generateRandomNumbers();
+      Console.print(answerNumber);
 
-        while (true) {
-          let userInput = await this.promptUserInput();
+      while (true) {
+        let userInput = await this.promptUserInput();
 
-          if (userInput.length !== 3 || new Set(userInput).size !== 3) {
-            throw new Error('[ERROR] 숫자를 잘 못 입력했습니다.');
+        if (userInput.length !== 3 || new Set(userInput).size !== 3) {
+          throw new Error('[ERROR] 숫자를 잘 못 입력했습니다.');
+        }
+
+        let result = this.evaluateGameResult(answerNumber, userInput);
+
+        Console.print(result);
+
+        if (result.includes(3)) {
+          this.endGameMessage();
+          playAgain = await this.askForAnotherGame();
+          if (playAgain === 1) {
+            answerNumber = this.generateRandomNumbers();
           }
 
-          let result = this.evaluateGameResult(answerNumber, userInput);
-
-          Console.print(result);
-
-          if (result.includes('게임종료')) {
-            playAgain = await this.askForAnotherGame();
-            if (playAgain === 1) {
-              answerNumber = this.generateRandomNumbers();
-            }
-
-            if (playAgain === 2) {
-              break;
-            }
+          if (playAgain === 2) {
+            break;
           }
         }
       }
-    } catch (error) {
-      Console.print(error.message);
-      throw error;
     }
   }
 
   displayGameStartMessage() {
-    const gameStartMessage = '게임을 시작합니다.';
+    const gameStartMessage = '숫자 야구 게임을 시작합니다.';
     Console.print(gameStartMessage);
   }
 
@@ -105,12 +101,16 @@ class App {
     }
 
     if (strike === 3) {
-      return `${strike}스트라이크 게임종료`;
+      return `${strike}스트라이크`;
     }
 
     if (strike !== 0 && ball !== 0) {
       return `${ball}볼 ${strike}스트라이크`;
     }
+  }
+
+  endGameMessage() {
+    Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
   }
 
   async askForAnotherGame() {
