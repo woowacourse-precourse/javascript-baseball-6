@@ -1,4 +1,4 @@
-import { GAME_MESSAGE } from "../Util/Message.js";
+import { GAME_MESSAGE } from '../Util/Message.js';
 import { OutputView } from "../View/OutputView.js";
 import { InputView } from "../View/InputView.js";
 import BaseballGame from "../Model/BaseballGame.js";
