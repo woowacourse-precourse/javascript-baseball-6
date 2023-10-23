@@ -33,7 +33,7 @@ class BaseballGameController {
       this.#userNumber
     ).getResult();
 
-    console.log(this.#gameResult);
+    OutputView.printResult(this.#gameResult);
   }
 }
 
