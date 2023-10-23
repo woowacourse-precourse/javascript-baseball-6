@@ -32,7 +32,6 @@ class GameController {
 
       userNumber = this.gameLogic.checkNumber(computerNumber, userNumberArray);
       MissionUtils.Console.print(userNumber);
-
     }
   }
 }
