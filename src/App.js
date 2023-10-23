@@ -81,9 +81,7 @@ class App {
 
         if (result === '3스트라이크') {
           // MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다!');
-          playAgain = await MissionUtils.Console.readLineAsync(
-            '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.',
-          );
+          playAgain = await MissionUtils.Console.readLineAsync();
           if (playAgain === '2') {
             MissionUtils.Console.print('게임 종료');
             return;
