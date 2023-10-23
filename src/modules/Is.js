@@ -1,7 +1,7 @@
 class Is {
   static gameOverBy({ strike }) {
     if (strike == 3) return true;
-    return false;
+    else return false;
   }
 
   static tryAgainBy(inputString) {
