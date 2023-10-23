@@ -36,7 +36,17 @@ class App {
   }
 
   Check(UserNum){
+    const inputToSet = new Set(UserNum.split('').map(Number));
     if (UserNum.length!=3){
+      throw new Error();
+    }
+    if ([...inputToSet].length !== 3) {
+      throw new Error();
+    }
+    if (UserNum.includes(' ')){
+      throw new Error();
+    }
+    if (Number.isNaN(UserNum)){
       throw new Error();
     }
     else{
