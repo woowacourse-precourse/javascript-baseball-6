@@ -12,4 +12,12 @@ const COMPUTER = {
   STORAGE_LIMIT: 3,
 };
 
-export { COMMAND, COMPUTER };
+const GAME = {
+  STRIKE: '스트라이크',
+  BALL: '볼',
+  NOTHING: '낫싱',
+  STRIKE_OUT: 3,
+  ZERO: 0,
+};
+
+export { COMMAND, COMPUTER, GAME };
