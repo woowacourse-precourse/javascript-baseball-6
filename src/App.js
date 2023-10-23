@@ -54,6 +54,13 @@ class App {
       }
     }
   }
+
+  async getUserInput() {
+    const userInput = await MissionUtils.Console.readLineAsync(
+      USER_INPUT_PROMPT
+    );
+    return userInput.split("").map(Number);
+  }
 }
 
 export default App;
