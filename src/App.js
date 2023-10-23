@@ -1,5 +1,5 @@
-import { Console, Random } from "@woowacourse/mission-utils";
-import { ERROR_TEXT, GAME_TEXT } from "./constants/string.js";
+import { Console, Random } from '@woowacourse/mission-utils';
+import { ERROR_TEXT, GAME_TEXT } from './constants/string.js';
 
 class App {
   async play() {
@@ -8,21 +8,21 @@ class App {
 
     while (true) {
       const player = await this.getNumber();
-      const { strike, ball } = this.getCountArray(computer.join(""), player);
-      let result = "";
+      const { strike, ball } = this.getCountArray(computer.join(''), player);
+      let result = '';
 
       if (ball !== 0) {
         result += `${ball}${GAME_TEXT.BALL}`;
       }
 
       if (strike !== 0) {
-        if (result !== "") {
-          result += " ";
+        if (result !== '') {
+          result += ' ';
         }
         result += `${strike}${GAME_TEXT.STRIKE}`;
       }
 
-      if (result === "") {
+      if (result === '') {
         Console.print(GAME_TEXT.NOTHING);
       } else {
         Console.print(result);
@@ -65,7 +65,7 @@ class App {
       if (!Number.isInteger(Number(number))) {
         throw new Error(ERROR_TEXT.print(ERROR_TEXT.INVALID_NUMBER));
       }
-      if (number.includes("0")) {
+      if (number.includes('0')) {
         throw new Error(ERROR_TEXT.print(ERROR_TEXT.CONTAIN_ZERO_NUMBER));
       }
       if (Number(number) < 0) {
