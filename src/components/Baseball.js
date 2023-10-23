@@ -2,8 +2,8 @@ import { Console } from '@woowacourse/mission-utils';
 import { ERROR_MESSAGE, GAME_MESSAGE } from '../constants/constants.js';
 import Computer from './Computer.js';
 import User from './User.js';
-import { BALL_COUNT } from '../constants/constants.js';
 import counteBall from '../utils/countBall.js';
+import printBallCount from '../utils/printBallCount.js';
 
 class Baseball {
   constructor() {
@@ -27,11 +27,13 @@ class Baseball {
     const computer = new Computer();
     this.player.computer = computer.getNumber();
 
-    while (this.count.strike !== 3) {
+    while (true) {
       const user = new User();
       this.player.user = await user.getNumber();
 
       this.compareNumber();
+
+      if (this.count.strike === 3) break;
     }
 
     if (this.count.strike === 3) {
@@ -44,17 +46,7 @@ class Baseball {
   compareNumber() {
     this.count = counteBall(this.player);
 
-    this.printBallCount();
-  }
-
-  /** 볼 카운트 프린트 */
-  printBallCount() {
-    const { ball, strike } = this.count;
-
-    if (ball === 0 && strike === 0) Console.print(BALL_COUNT.NOTHING);
-    else if (ball !== 0 && strike === 0) Console.print(`${ball}${BALL_COUNT.BALL}`);
-    else if (ball === 0 && strike !== 0) Console.print(`${strike}${BALL_COUNT.STRIKE}`);
-    else if (ball !== 0 && strike !== 0) Console.print(`${ball}${BALL_COUNT.BALL} ${strike}${BALL_COUNT.STRIKE}`);
+    printBallCount(this.count);
   }
 
   async restart() {
