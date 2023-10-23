@@ -29,7 +29,7 @@ class App {
       // 게임 시작
       const gameStart = async () => {
         const USER_INPUT = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
-
+        
         // 세자리수가 아니면
         if (USER_INPUT.length !== 3) {
           exportLibrary('[ERROR] 세자리수를 입력하세요')
@@ -54,12 +54,11 @@ class App {
 
          // 정상적으로 입력했을 때
         if (USER_INPUT.length === 3 && isNaN(USER_INPUT) === false) {
-         
-          // 비교기능   
-          const USER_NUMBER = USER_INPUT.split("").map((a) => parseInt(a)); 
+          const USER_NUMBER = Array.from(USER_INPUT, (a) => parseInt(a));
           let strike = 0;
           let ball = 0;
-
+          
+             
           // 아무것도 없을 때
           if (COMPUTER_NUMBER.filter((i) => USER_NUMBER.includes(i)).length === 0) {
             exportLibrary('낫싱');
@@ -70,7 +69,7 @@ class App {
           if (COMPUTER_NUMBER.filter((i) => USER_NUMBER.includes(i)).length > 0) {            
             COMPUTER_NUMBER.forEach((a, i) => {
              
-              //숫자도 같고 위치도 같을 때
+              // 숫자도 같고 위치도 같을 때
               if (USER_NUMBER.indexOf(a) === i) {
                 return strike += 1;
               };

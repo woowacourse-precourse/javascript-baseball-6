@@ -8,5 +8,8 @@ const radomNumber = (x) => {
       x.push(NUMBER);
     }
   }
+
+  return x;
 };
+
 export default radomNumber;
