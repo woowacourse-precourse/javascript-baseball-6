@@ -1,6 +1,13 @@
+import IOHandler from './IOHandler';
 import Utils from './Utils';
 
 class NumberBaseballGame {
+  #min;
+  #max;
+  #count;
+  #strike;
+  #ball;
+
   static #GAME_MESSAGE = {
     START: '숫자 야구 게임을 시작합니다.',
     USER_INPUT: '숫자를 입력해주세요 : ',
@@ -24,12 +31,12 @@ class NumberBaseballGame {
   constructor(min, max, count) {
     this.#validateArguments(min, max, count);
 
-    this.min = min;
-    this.max = max;
-    this.count = count;
+    this.#min = min;
+    this.#max = max;
+    this.#count = count;
 
-    this.strike = 0;
-    this.ball = 0;
+    this.#strike = 0;
+    this.#ball = 0;
   }
 
   #validateArguments(min, max, count) {
@@ -45,19 +52,19 @@ class NumberBaseballGame {
   }
 
   async play() {
-    Utils.displayMessage(NumberBaseballGame.#GAME_MESSAGE.START);
+    IOHandler.displayMessage(NumberBaseballGame.#GAME_MESSAGE.START);
 
     do {
       const targetNumbers = Utils.getUniqueRandomNumbersInRange(
-        this.min,
-        this.max,
-        this.count
+        this.#min,
+        this.#max,
+        this.#count
       );
 
       do {
         this.#resetStrikeAndBall();
 
-        const inputNumbers = await Utils.getUserInputNumber(
+        const inputNumbers = await IOHandler.getUserInputNumber(
           NumberBaseballGame.#GAME_MESSAGE.USER_INPUT
         );
         this.#validateUserInput(inputNumbers);
@@ -69,12 +76,12 @@ class NumberBaseballGame {
   }
 
   #resetStrikeAndBall() {
-    this.strike = 0;
-    this.ball = 0;
+    this.#strike = 0;
+    this.#ball = 0;
   }
 
   #validateUserInput(input) {
-    if (input.length !== this.count) {
+    if (input.length !== this.#count) {
       throw new Error(
         NumberBaseballGame.#ERROR_MESSAGE.INCORRECT_INPUT_NUMBER_LENGTH
       );
@@ -82,42 +89,42 @@ class NumberBaseballGame {
   }
 
   #calculateStrikeAndBall(targetNumbers, inputNumbers) {
-    for (let i = 0; i < this.count; i++) {
+    for (let i = 0; i < this.#count; i++) {
       if (targetNumbers[i] === Number(inputNumbers[i])) {
-        this.strike++;
+        this.#strike++;
       } else if (targetNumbers.includes(Number(inputNumbers[i]))) {
-        this.ball++;
+        this.#ball++;
       }
     }
   }
 
   #displayGameResult() {
-    if (!this.ball && !this.strike) {
-      Utils.displayMessage(NumberBaseballGame.#GAME_MESSAGE.OUT);
+    if (!this.#ball && !this.#strike) {
+      IOHandler.displayMessage(NumberBaseballGame.#GAME_MESSAGE.OUT);
     } else {
       let message = '';
 
-      if (this.ball && this.strike) {
-        message += this.ball + NumberBaseballGame.#GAME_MESSAGE.BALL;
+      if (this.#ball && this.#strike) {
+        message += this.#ball + NumberBaseballGame.#GAME_MESSAGE.BALL;
         message += ' ';
-        message += this.strike + NumberBaseballGame.#GAME_MESSAGE.STRIKE;
-      } else if (this.ball) {
-        message += this.ball + NumberBaseballGame.#GAME_MESSAGE.BALL;
-      } else if (this.strike) {
-        message += this.strike + NumberBaseballGame.#GAME_MESSAGE.STRIKE;
+        message += this.#strike + NumberBaseballGame.#GAME_MESSAGE.STRIKE;
+      } else if (this.#ball) {
+        message += this.#ball + NumberBaseballGame.#GAME_MESSAGE.BALL;
+      } else if (this.#strike) {
+        message += this.#strike + NumberBaseballGame.#GAME_MESSAGE.STRIKE;
       }
 
-      Utils.displayMessage(message);
+      IOHandler.displayMessage(message);
     }
   }
 
   #isGameWon() {
-    if (this.strike === this.count) {
+    if (this.#strike === this.#count) {
       let message = '';
-      message += this.count;
+      message += this.#count;
       message += NumberBaseballGame.#GAME_MESSAGE.WIN;
 
-      Utils.displayMessage(message);
+      IOHandler.displayMessage(message);
       return true;
     }
 
@@ -125,7 +132,7 @@ class NumberBaseballGame {
   }
 
   async #askPlayAgain() {
-    const input = await Utils.getUserInputNumber(
+    const input = await IOHandler.getUserInputNumber(
       NumberBaseballGame.#GAME_MESSAGE.ASK_PLAY_AGAIN
     );
 

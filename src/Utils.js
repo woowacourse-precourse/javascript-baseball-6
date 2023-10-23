@@ -2,30 +2,12 @@ import { MissionUtils } from '@woowacourse/mission-utils';
 
 class Utils {
   static #ERROR_MESSAGE = {
-    ONLY_NUMBER: '[ERROR] : 숫자만 입력 가능합니다.',
     NOT_TYPE_NUMBER: '[ERROR] : Min, Max, Count는 숫자여야 합니다.',
     NOT_SAFE_NUMBER: '[ERROR] : Min, Max는 안전한 숫자여야 합니다.',
     NOT_SAFE_COUNT: '[ERROR] : Count는 1이상의 안전한 숫자여야 합니다.',
     MIN_MAX: '[ERROR] : 최소값이 최대값보다 큽니다.',
     COUNT: '[ERROR] : 최대값과 최소값의 차이보다 뽑을 갯수가 많습니다.',
   };
-
-  static displayMessage(message) {
-    MissionUtils.Console.print(message);
-  }
-
-  static async getUserInputNumber(message) {
-    const input = await MissionUtils.Console.readLineAsync(message);
-    Utils.#validateUserInputIsNumber(input);
-
-    return input;
-  }
-
-  static #validateUserInputIsNumber(input) {
-    if (isNaN(input)) {
-      throw new Error(Utils.#ERROR_MESSAGE.ONLY_NUMBER);
-    }
-  }
 
   static getUniqueRandomNumbersInRange(min, max, count) {
     Utils.validateGetNumbersRange(min, max, count);
