@@ -1,6 +1,7 @@
 import { BaseballGame } from './BaseballGame.js';
 import { View } from './View/View.js';
 import { MESSAGE } from './constants/message.js';
+import { WINNING_CONDITION } from './constants/gameConfig.js';
 
 class App {
   #game;
@@ -22,7 +23,7 @@ class App {
 
       this.#printResult({ strike, ball });
 
-      if (strike === 3) break;
+      if (strike === WINNING_CONDITION.THREE_STRIKE) break;
     }
   }
 

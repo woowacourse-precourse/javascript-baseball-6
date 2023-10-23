@@ -1,9 +1,10 @@
 import { Computer } from './Model/Computer.js';
+import { answerGenerator } from './utils/answerGenerator.js';
 
 export class BaseballGame {
   #computer;
 
-  initGame() {
+  constructor() {
     this.#setAnswer();
   }
 

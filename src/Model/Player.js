@@ -8,6 +8,7 @@ export class Player {
 
   constructor(numberList) {
     this.validateNumber(numberList);
+    console.log(numberList, typeof numberList);
 
     this.#numberList = numberList;
   }
