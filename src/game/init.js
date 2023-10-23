@@ -5,24 +5,22 @@ import {MissionUtils} from "@woowacourse/mission-utils";
 
 const startGame = async () => {
     const computerAnswer = generateComputerAnswer();
-    let userNumber = await getUserNumber();
+    let userNumber;
 
-    while (computerAnswer !== userNumber) {
+    do {
+        userNumber = await getUserNumber();
         if (validateUserNumber(userNumber)) {
             getHint(computerAnswer, userNumber);
-        } else {
-            throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
-
         }
-        userNumber = await getUserNumber();
-    }
+    } while (computerAnswer !== userNumber);
+
     MissionUtils.Console.print("3스트라이크");
     MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-    await choiceForGame();
 
-}
+    await restartOrEnd();
+};
 
-const choiceForGame = async () => {
+const restartOrEnd = async () => {
     MissionUtils.Console.print("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
     try {
         const userChoice = await MissionUtils.Console.readLineAsync("");
@@ -36,7 +34,6 @@ const choiceForGame = async () => {
     } catch (error) {
         throw new Error("[ERROR] 숫자가 잘못된 형식입니다. 1 혹은 2로 입력해주세요.");
     }
-
 }
 
 
