@@ -15,6 +15,14 @@ class App {
     this.computerNumber = computer.generateComputerNumber();
     return this.BaseballGame(this.computerNumber);
   }
+
+  async BaseballGame(computerNumber) {
+    while(true) {
+      try {
+        const userNumber = await Console.readLineAsync(GAME_MESSAGE.INPUT);
+      }
+    }
+  }
 }
 
 export default App;
