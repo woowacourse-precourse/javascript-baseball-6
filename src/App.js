@@ -2,13 +2,17 @@ import { Console, Random } from '@woowacourse/mission-utils';
 import { ERROR_TEXT, GAME_TEXT } from './constants/string.js';
 
 class App {
+  constructor() {
+    this.computer = this.initComputer();
+    this.player = undefined;
+  }
+
   async play() {
-    let computer = this.initComputer();
     Console.print(GAME_TEXT.START);
 
     while (true) {
-      const player = await this.getNumber();
-      const { strike, ball } = this.getCountArray(computer.join(''), player);
+      this.player = await this.getNumber();
+      const { strike, ball } = this.getCountArray(this.computer.join(''), this.player);
       let result = '';
 
       if (ball !== 0) {
@@ -32,7 +36,7 @@ class App {
         Console.print(GAME_TEXT.WIN);
         const choice = await this.getChoice();
         if (Number(choice) === 1) {
-          computer = this.initComputer();
+          this.computer = this.initComputer();
           continue;
         }
         if (Number(choice) === 2) {
