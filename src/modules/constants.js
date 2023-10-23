@@ -4,7 +4,7 @@ const QUERY = {
 };
 
 const REGEX = {
-  guess: /^[1-9]{3}$/,
+  guess: /^(?!.*(.).*\1)[1-9]{3}$/,
   restart: /^[1-2]{1}$/
 };
 
