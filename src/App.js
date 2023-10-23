@@ -16,12 +16,16 @@ class App {
     Console.print(MESSAGE.start);
 
     const input = await Console.readLineAsync("숫자를 입력해주세요 : ");
-    const isValidInput = this.isValidInput(input);
+
+    const isValidInput = this.validateInput(input);
     if (!isValidInput) {
       throw new Error(MESSAGE.error("입력값이 유효하지 않습니다."));
     }
 
     const answer = this.generateRandomNumber();
+
+    const { strike, ball } = this.countPitchResult(input, answer);
+    const output = this.outputPitchResult(strike, ball);
   }
 
   generateRandomNumber() {
@@ -58,6 +62,15 @@ class App {
     };
   }
 
+  outputPitchResult(strike, ball) {
+    let result = "";
+
+    if (ball > 0) result += MESSAGE.ball(ball);
+    if (strike > 0) result += MESSAGE.strike(strike);
+    if (result.length === 0) result = MESSAGE.nothing;
+
+    return result;
+  }
   validateInput(input) {
     const regEx = new RegExp("^(?!.*(\\d).*\\1)[1-9]{3}$");
 
