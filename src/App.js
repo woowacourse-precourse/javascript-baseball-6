@@ -8,6 +8,21 @@ const USER_INPUT_PROMPT = "숫자를 입력해주세요 : ";
 const RESTART_PROMPT = "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.";
 
 class App {
+  constructor() {
+    this.computerNumbers = [];
+    this.resetComputerNumbers();
+  }
+
+  resetComputerNumbers() {
+    this.computerNumbers = [];
+    while (this.computerNumbers.length < 3) {
+      const number = MissionUtils.Random.pickNumberInRange(1, 9);
+      if (!this.computerNumbers.includes(number)) {
+        this.computerNumbers.push(number);
+      }
+    }
+  }
+
   async play() {}
 }
 
