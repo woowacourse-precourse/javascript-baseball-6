@@ -1,10 +1,10 @@
-import User from './User.js';
-import Computer from './Computer.js';
-import GameDisplay from './GameDisplay.js';
-import { calculateStrikeAndBall } from './StrikeAndBallCalculator.js';
-import InputValidator from './utils/InputValidator.js';
-import { RESTART_GAME } from './constants/GameConstants.js';
-import { WINNING_STRIKE_COUNT } from './constants/NumberConstants.js';
+import User from './User';
+import Computer from './Computer';
+import GameDisplay from './GameDisplay';
+import { calculateStrikeAndBall } from './StrikeAndBallCalculator';
+import InputValidator from './utils/InputValidator';
+import { RESTART_GAME } from './constants/GameConstants';
+import { WINNING_STRIKE_COUNT } from './constants/NumberConstants';
 
 export default class BaseballGame {
   constructor() {
@@ -26,7 +26,7 @@ export default class BaseballGame {
       const userNumbers = await this.user.getInput();
       const { strike, ball } = calculateStrikeAndBall(userNumbers, computerNumbers);
       this.display.showResult(strike, ball);
-      isGameWon = (strike === WINNING_STRIKE_COUNT);
+      isGameWon = strike === WINNING_STRIKE_COUNT;
       if (isGameWon) {
         this.display.showWinMessage();
       }

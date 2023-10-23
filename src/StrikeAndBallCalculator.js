@@ -6,9 +6,9 @@ export function calculateStrikeAndBall(userNumbers, computerNumbers) {
 
   userNumbers.forEach((number, index) => {
     if (number === computerNumbers[index]) {
-      strike++;
+      strike += 1;
     } else if (computerNumberSet.has(number)) {
-      ball++;
+      ball += 1;
     }
   });
 

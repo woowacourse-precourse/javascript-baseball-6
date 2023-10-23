@@ -1,6 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
-import InputValidator from './utils/InputValidator.js';
-import { USER_INPUT_MESSAGE } from './constants/MessageConstants.js';
+import InputValidator from './utils/InputValidator';
+import { USER_INPUT_MESSAGE } from './constants/MessageConstants';
 
 export default class User {
   async getInput() {

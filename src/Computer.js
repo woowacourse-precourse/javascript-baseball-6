@@ -1,5 +1,5 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
-import { MAX_NUMBER, MIN_NUMBER, NUM_DIGITS } from "./constants/NumberConstants.js";
+import { MissionUtils } from '@woowacourse/mission-utils';
+import { MAX_NUMBER, MIN_NUMBER, NUM_DIGITS } from './constants/NumberConstants';
 
 export default class Computer {
   generateNumbers() {

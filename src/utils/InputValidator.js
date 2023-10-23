@@ -1,4 +1,4 @@
-import { VALIDATION_ERRORS } from '../constants/MessageConstants.js'
+import { VALIDATION_ERRORS } from '../constants/MessageConstants';
 
 export default class InputValidator {
   static validateIsString(input) {
