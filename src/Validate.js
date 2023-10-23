@@ -2,6 +2,7 @@ const doValidate = (input) => {
   isInputLengthRight(input);
   isInputNumber(input);
   isInputIncludeZero(input);
+  isInputDifferentNumber(input);
 };
 
 // 입력한 숫자의 자릿수가 세 자리 인지 확인하는 함수
@@ -25,5 +26,13 @@ const isInputIncludeZero = (input) => {
 
 const checkIsZero = (number) => {
   if (number === 0) throw new Error('[ERROR] 0을 포함할 수 없습니다.');
+};
+
+// 입력한 숫자가 모두 다른 숫자인지 확인하는 함수
+const isInputDifferentNumber = (input) => {
+  const check = new Set(input);
+  if (check.size !== input.length) {
+    throw new Error('[ERROR] 서로 다른 숫자를 입력하세요.');
+  }
 };
 export default doValidate;
