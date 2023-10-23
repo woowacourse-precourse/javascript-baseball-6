@@ -1,4 +1,4 @@
-import { CONTINUE, NUMBER_LENGTH, EXIT } from './Constants.js';
+import { CONTINUE, LENGTH_OF_ANSWER, EXIT } from './Constants.js';
 import Game from './Game.js';
 import Message from './Message.js';
 import Player from './Player.js';
@@ -26,7 +26,7 @@ class App {
       game.countBall(player.guessedNumber);
       Message.printPlayerGuessResult(game.cntBall, game.cntStrike);
 
-      if (game.cntStrike === NUMBER_LENGTH) {
+      if (game.cntStrike === LENGTH_OF_ANSWER) {
         Message.printGameOver();
         this.gameStatus = await player.choosePlayAgain();
         if (this.gameStatus === EXIT) {

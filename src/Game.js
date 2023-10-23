@@ -1,5 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import { NUMBER_LENGTH } from './Constants.js';
+import { LENGTH_OF_ANSWER } from './Constants.js';
 
 class Game {
   constructor() {
@@ -13,7 +13,7 @@ class Game {
   }
 
   setAnswer() {
-    while (this.answer.length < NUMBER_LENGTH) {
+    while (this.answer.length < LENGTH_OF_ANSWER) {
       const number = MissionUtils.Random.pickNumberInRange(1, 9);
       if (!this.answer.includes(number)) {
         this.answer.push(number);
@@ -30,7 +30,7 @@ class Game {
   }
 
   countBall(userInput) {
-    for (let i = 0; i < NUMBER_LENGTH; i += 1) {
+    for (let i = 0; i < LENGTH_OF_ANSWER; i += 1) {
       const targetNumber = userInput[i];
       if (
         this.answer.includes(targetNumber) &&
@@ -42,7 +42,7 @@ class Game {
   }
 
   countStrike(userInput) {
-    for (let i = 0; i < NUMBER_LENGTH; i += 1) {
+    for (let i = 0; i < LENGTH_OF_ANSWER; i += 1) {
       if (this.answer[i] === userInput[i]) {
         this.cntStrike += 1;
       }

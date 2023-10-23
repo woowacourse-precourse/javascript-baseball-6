@@ -1,5 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import { CONTINUE, NUMBER_LENGTH, EXIT } from './Constants.js';
+import { CONTINUE, LENGTH_OF_ANSWER, EXIT } from './Constants.js';
 
 class Player {
   constructor() {
@@ -11,7 +11,7 @@ class Player {
       '숫자를 입력해주세요 : ',
     );
 
-    const regexp = new RegExp(`^(?!.*(.).*\\1)[1-9]{${NUMBER_LENGTH}}$`);
+    const regexp = new RegExp(`^(?!.*(.).*\\1)[1-9]{${LENGTH_OF_ANSWER}}$`);
     // ^: 문자열의 시작
     // (?!.*(.).*\1): 중복 비허용
     // [1-9]{n}: 1~9 사이 숫자를 n번 반복

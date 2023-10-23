@@ -1,5 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import { NUMBER_LENGTH } from './Constants.js';
+import { LENGTH_OF_ANSWER } from './Constants.js';
 
 class Message {
   static printGameStart() {
@@ -8,7 +8,7 @@ class Message {
 
   static printGameOver() {
     MissionUtils.Console.print(
-      `${NUMBER_LENGTH}개의 숫자를 모두 맞히셨습니다! 게임 종료`,
+      `${LENGTH_OF_ANSWER}개의 숫자를 모두 맞히셨습니다! 게임 종료`,
     );
   }
 
