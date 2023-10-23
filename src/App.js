@@ -1,14 +1,13 @@
-import { MissionUtils, Console } from "@woowacourse/mission-utils";
+import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
   startMsg() { //시작 메세지 출력
-    Console.print("숫자 야구 게임을 시작합니다.");
+    MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
   }
 
   computerRandomValue() { //서로 다른 세 자리 난수 생성 및 저장
     const randomValueArr = MissionUtils.Random.pickUniqueNumbersInRange(1, 9, 3);
     const computerRandomValue = randomValueArr.join("");
-    console.log(computerRandomValue);
     return computerRandomValue;
   }
 
@@ -36,19 +35,19 @@ class App {
 
   whetherResultRightNot(userValue, computerValue) {
     this.handlingInputExceptions(userValue);
-    Console.print(this.checkValues(userValue, computerValue));
+    MissionUtils.Console.print(this.checkValues(userValue, computerValue));
     if (userValue === computerValue) {
       this.endMsg();
       return;
     }
-    Console.readLine('숫자를 입력해주세요 : ', (userValue) => {
+    MissionUtils.Console.readLine('숫자를 입력해주세요 : ', (userValue) => {
       this.whetherResultRightNot(userValue, computerValue);
     })
   }
   
   endMsg() {
-    Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-    Console.readLine('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.', (res) => {
+    MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    MissionUtils.Console.readLine('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.', (res) => {
       if (res === "1") return this.getUserValue();
       else if (res === "2") return;
       else throw new Error("[ERROR] 잘못된 입력입니다.");
@@ -57,8 +56,7 @@ class App {
 
   getUserValue() {
     const computerValue = this.computerRandomValue();
-    Console.readLine('숫자를 입력해주세요 : ', (userValue) => {
-      console.log(userValue);
+    MissionUtils.Console.readLine('숫자를 입력해주세요 : ', (userValue) => {
       this.whetherResultRightNot(userValue, computerValue);
     });
   }
