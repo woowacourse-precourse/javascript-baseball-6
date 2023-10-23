@@ -9,16 +9,14 @@ class Com {
         comNum.push(number);
       }
     }
-    console.log(comNum);
+    // console.log(comNum);
     this.comNum = comNum;
   }
 }
 class User {
   constructor() {
-    this.userNum;
-    this.getNumber();
+    this.userNum = [];
   }
-
   async getNumber() {
     try {
       let user = [];
@@ -28,8 +26,7 @@ class User {
           user.push(Number(username[i]));
         }
       }
-      console.log(user);
-      MissionUtils.Console.print(user);
+
       this.userNum = user;
     } catch (error) {}
   }
@@ -37,11 +34,10 @@ class User {
 
 class App {
   async play() {
-    let com = new Com();
-    let user = new User();
-  }
+    
+}
 }
 const app = new App();
-app.play();
+// await app.play();
 
 export default App;
