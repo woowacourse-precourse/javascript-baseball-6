@@ -15,7 +15,7 @@ class App {
 
   async play() {
     const inputNumber = await InputView.getUserNumber();
-    this.checkError(Validation.validateBaseballNumber, inputNumber);
+    Validation.validateBaseballNumber(inputNumber);
 
     const playerNumber = new Player(inputNumber).numberArray;
     const opponentNumber = new Opponent().opponentNumber;
@@ -37,7 +37,7 @@ class App {
   async confirmGame() {
     OutputView.printSuccess();
     const inputNumber = await InputView.confirmContinue();
-    this.checkError(Validation.validateConfirmNumber, inputNumber);
+    Validation.validateConfirmNumber(inputNumber);
 
     if (Number(inputNumber) === 1) this.play();
     if (Number(inputNumber) === 2) return;
@@ -45,17 +45,9 @@ class App {
 
   async continueGame() {
     const inputNumber = await InputView.getUserNumber();
-    this.checkError(Validation.validateBaseballNumber, inputNumber);
+    Validation.validateBaseballNumber(inputNumber);
     this.#refree.changePlayerNumber(inputNumber);
     this.startGame();
-  }
-
-  checkError(handler, input) {
-    try {
-      handler(input);
-    } catch (error) {
-      throw new Error(`[ERROR] ${error}`);
-    }
   }
 }
 
