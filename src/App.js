@@ -2,7 +2,7 @@ import { Random, Console } from "@woowacourse/mission-utils";
 
 class App {
   constructor() {
-    this.computer = [];
+    this.computerNumber = [];
   }
 
   async play() {
@@ -16,58 +16,52 @@ class App {
   }
 
   async randomNumber() {
-    while (this.computer.length < 3) {
+    while (this.computerNumber.length < 3) {
       const number = Random.pickNumberInRange(1, 9);
-      if (!this.computer.includes(number)) {
-        this.computer.push(number);
+      if (!this.computerNumber.includes(number)) {
+        this.computerNumber.push(number);
       }
     }
-    return this.computer;
+    return this.computerNumber;
+  }
+
+  validateNumberFormat(checkNumber, checkNumberArray) {
+    const checkNumberSet = new Set(checkNumberArray);
+
+    if (
+      isNaN(+checkNumber) ||
+      checkNumber.length !== 3 ||
+      checkNumberSet.size !== checkNumberArray.length
+    ) {
+      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+    }
   }
 
   async getNumber() {
     try {
       const threeNumber = await Console.readLineAsync("숫자를 입력해주세요 : ");
+      const threeNumberArray = threeNumber.split("");
 
-      const threeNumberSet = new Set(threeNumber.split(""));
+      this.validateNumberFormat(threeNumber, threeNumberArray);
 
-      if (
-        isNaN(+threeNumber) ||
-        threeNumber.length !== 3 ||
-        threeNumberSet.size !== threeNumber.split("").length
-      ) {
-        throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
-      }
-
-      let threeNumberArray = threeNumber.split("");
       const ballCount = { strike: 0, ball: 0 };
 
       threeNumberArray.map((item, index) => {
         if (
-          this.computer.includes(+item) &&
-          this.computer[index] === +threeNumberArray[index]
+          this.computerNumber.includes(+item) &&
+          this.computerNumber[index] === +threeNumberArray[index]
         )
           ballCount.strike++;
         else if (
-          this.computer.includes(+item) ||
-          this.computer[index] === +threeNumberArray[index]
+          this.computerNumber.includes(+item) ||
+          this.computerNumber[index] === +threeNumberArray[index]
         )
           ballCount.ball++;
       });
 
       if (ballCount.strike === 3) {
         Console.print(`3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
-
-        const startCheck = await Console.readLineAsync(
-          "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
-        );
-
-        if (startCheck === "1") {
-          const app = new App();
-          await app.start();
-        } else if (startCheck !== "2") {
-          throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
-        }
+        await this.restart();
         return;
       } else if (ballCount.strike && ballCount.ball)
         Console.print(`${ballCount.ball}볼 ${ballCount.strike}스트라이크`);
@@ -77,6 +71,19 @@ class App {
 
       await this.getNumber();
     } catch (error) {
+      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+    }
+  }
+
+  async restart() {
+    const startCheck = await Console.readLineAsync(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+    );
+
+    if (startCheck === "1") {
+      const app = new App();
+      await app.start();
+    } else if (startCheck !== "2") {
       throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
     }
   }
