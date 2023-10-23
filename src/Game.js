@@ -26,6 +26,8 @@ class Game {
       }
     }
   };
+
+  // 컴퓨터가 임의의 수를 선택하고 저장하는 메소드
   setComputerNums = () => {
     const computer = [];
     while (computer.length < 3) {
@@ -36,6 +38,8 @@ class Game {
     }
     this.computerNums = computer;
   };
+
+  // 사용자의 입력을 받는 메소드
   getUserNums = async () => {
     const input = await Console.readLineAsync("숫자를 입력해주세요 : ");
     if (!this.checkUserNumsInput(input)) {
@@ -44,6 +48,8 @@ class Game {
     const userNums = input.split("").map(Number);
     return userNums;
   };
+
+  // 사용자의 입력이 유효한지 검사하는 메소드
   checkUserNumsInput = (input) => {
     let isValid = true;
     const reg = /^[0-9]{3}$/;
@@ -56,6 +62,8 @@ class Game {
     }
     return isValid;
   };
+
+  // computerNums와 userNums를 비교하여 스트라이크, 볼 개수를 반환하는 메소드
   checkResult = (userNums) => {
     const result = {
       strike: 0,
@@ -71,6 +79,8 @@ class Game {
     });
     return result;
   };
+
+  // 스트라이크, 볼 개수로 구성된 객체를 문자열로 변환하는 메소드
   getResultStr = (result) => {
     if (result.strike === 0 && result.ball === 0) {
       return "낫싱";
@@ -82,6 +92,8 @@ class Game {
       return `${result.ball}볼 ${result.strike}스트라이크`;
     }
   };
+
+  // 게임 재시작 여부를 입력받는 메소드
   checkPlayAgain = async () => {
     const input = await Console.readLineAsync(
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
@@ -92,6 +104,8 @@ class Game {
     const inputNum = Number(input);
     return inputNum === 1;
   };
+
+  // 게임 재시작 여부의 입력값이 유효한지 검사하는 메소드
   checkPlayAgainInput = (input) => {
     if (input === "1" || input === "2") {
       return true;
