@@ -1,8 +1,9 @@
 import { Console } from '@woowacourse/mission-utils';
-import { ERROR_MESSAGE, GAME_MESSAGE } from '../constants/constants.js';
+import { GAME_MESSAGE } from '../constants/constants.js';
 import Computer from './Computer.js';
 import User from './User.js';
 import Hint from './Hint.js';
+import { validateRestart } from '../utils/validate.js';
 
 class Baseball {
   constructor() {
@@ -22,14 +23,18 @@ class Baseball {
   async startGame() {
     this.isClear = false;
 
+    /** 컴퓨터 숫자 */
     this.player.computer = new Computer().getNumber();
 
     while (!this.isClear) {
+      /** 유저 숫자 */
       this.player.user = await new User().getNumber();
 
+      /** 힌트 출력, 게임클리어 여부 */
       this.isClear = new Hint(this.player).checkBaseballWin();
     }
 
+    /** 게임 재시작 */
     if (this.isClear) this.restart();
   }
 
@@ -37,13 +42,9 @@ class Baseball {
   async restart() {
     /** @type {string} */
     const re = await Console.readLineAsync(GAME_MESSAGE.RE_GAME + '\n');
-    this.validateRestart(re);
+    validateRestart(re);
 
     if (re === GAME_MESSAGE.RESTART) this.startGame();
-  }
-
-  validateRestart(re) {
-    if (re !== GAME_MESSAGE.RESTART && re !== GAME_MESSAGE.END) throw new Error(ERROR_MESSAGE.INPUT_INVALID);
   }
 }
 
