@@ -1,6 +1,17 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
+  getComNumbers() {
+    const computer = [];
+    while (computer.length < 3) {
+      const number = MissionUtils.Random.pickNumberInRange(1, 9);
+      if (!computer.includes(number)) {
+        computer.push(number);
+      }
+    }
+    return computer;
+  }
+
   validationInput(userNumbers) {
     MissionUtils.Console.print("userNumbers");
     MissionUtils.Console.print(userNumbers);
@@ -22,6 +33,10 @@ class App {
     );
     let userNumbers = [...userNumberstr].map(Number);
     this.validationInput(userNumbers);
+
+    let comNumbers = this.getComNumbers();
+    MissionUtils.Console.print("comNumbers");
+    MissionUtils.Console.print(comNumbers);
   }
 }
 
