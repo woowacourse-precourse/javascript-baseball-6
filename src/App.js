@@ -2,13 +2,12 @@ import { Console, Random } from "@woowacourse/mission-utils";
 
 class App {
     async play() {
-        let playing = true; // 게임 진행 여부를 확인하는 변수
-
+        let finish = true; // 게임의 끝을 정하는 변수
         Console.print('숫자 야구 게임을 시작합니다.');
-        while (playing) {
+        while (finish) {
             const computer = this.computerNumber();
             await this.userNumber(computer);
-            playing = await this.restart();
+            finish = await this.restart();
         }
     }
 
@@ -25,14 +24,14 @@ class App {
         return computer;
     }
 
-    // 유저의 숫자를 입력 받는다.
+    // 유저의 숫자를 입력 및 게임종료
     async userNumber(ComputerInput) {
         while (true) {
             const input = await Console.readLineAsync('숫자를 입력해주세요 : ');
             const userInput = input.trim().split('').map(Number);
 
             if (userInput.length !== 3 || userInput.some(isNaN)) {
-                throw Error("[ERROR] 올바른 형식이 아닙니다.");
+                throw Error('[ERROR] 숫자가 잘못된 형식입니다.');
             }
 
             const result = this.checkNumber(userInput, ComputerInput);
@@ -83,7 +82,7 @@ class App {
         } else if (input === '2') {
             return false
         } else {
-            throw new Error("[ERROR] 올바른 형식이 아닙니다.");
+            throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
         }
     }
 }
