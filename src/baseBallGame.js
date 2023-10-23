@@ -64,6 +64,28 @@ const BaseBallGame = {
     // 아무 것도 카운트 되지 않은 경우
     printMsg('낫싱');
   },
+
+  checkValidInput(input) {
+    // 문자열이 포함된 경우
+    if (Number.isNaN(Number(input))) {
+      throw new Error('숫자만을 포함하도록 입력해주세요.');
+    }
+
+    // 0이 포함된 경우
+    if (input.includes('0'))
+      throw new Error('[ERROR] 1~9(0 제외)로 이루어진 숫자를 입력해야 합니다.');
+
+    // 길이가 3이 아닌 경우
+    if (input.length !== 3) throw new Error('[ERROR] 길이가 3이여야 합니다.');
+
+    // 중복된 숫자가 포함된 경우
+    [...input].forEach((num) => {
+      if (input.indexOf(num) !== input.lastIndexOf(num))
+        throw new Error('중복된 숫자가 없도록 입력해주세요.');
+    });
+
+    return true;
+  },
 };
 
 export default BaseBallGame;

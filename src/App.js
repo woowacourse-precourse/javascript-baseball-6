@@ -16,9 +16,13 @@ class App {
     // 종료될 때까지 계속 반복
     while (this.isPlaying) {
       const inputNumber = await Console.readLineAsync('숫자를 입력해주세요 : ');
-      this.methods.printHint(
-        this.methods.getBallAndStrikeCount(computer, inputNumber),
-      );
+
+      // 입력이 유효한 경우에만
+      if (this.methods.checkValidInput(inputNumber)) {
+        this.methods.printHint(
+          this.methods.getBallAndStrikeCount(computer, inputNumber),
+        );
+      }
     }
   }
 }
