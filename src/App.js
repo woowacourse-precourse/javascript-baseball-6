@@ -21,7 +21,7 @@ class App {
       throw new Error(MESSAGE.error("입력값이 유효하지 않습니다."));
     }
 
-    this.generateRandomNumber();
+    const answer = this.generateRandomNumber();
   }
 
   generateRandomNumber() {
@@ -34,6 +34,28 @@ class App {
       if (!result.includes(random)) result += random;
     }
     return result;
+  }
+
+  countPitchResult(input, answer) {
+    let strike = 0;
+    let ball = 0;
+
+    if (input === answer) {
+      strike = 3;
+    } else {
+      for (let i = 0; i < input.length; i++) {
+        if (input[i] === answer[i]) {
+          strike++;
+        } else if (answer.includes(input[i])) {
+          ball++;
+        }
+      }
+    }
+
+    return {
+      strike,
+      ball,
+    };
   }
 
   isValidInput(input) {
