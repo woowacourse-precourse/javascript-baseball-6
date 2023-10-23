@@ -27,28 +27,6 @@ return COMPUTER;
 }
 
 
-// 2. 내 숫자 생성
-// 숫자를 입력해주세요를 콘솔에 띄운후 값을 입력받는다
-// 그 값은 string이며 배열로 바꾸고 배열의 길이가 3이거나 입력된 숫자가 0일때
-// 에러를 발생시키고 그렇지 않으면 return한다
-
-// async myNumber(){
-//   let READLINE = require('readline')
-//   Console.print(`숫자를 입력해주세요 : `);
-//   let MY_NUMB = await Console.readLineAsync(READLINE);
-//   MY_NUMB = Array.from(MY_NUMB);
-//   for(let I=0;I<MY_NUMB.length;I++){
-//     if(MY_NUMB[I] == '0') {
-//       throw new Error('입력범위_ 0 입력');
-//     }
-//   }
-//   if(MY_NUMB.length == 3) {
-//     return MY_NUMB;  
-//   } else if(MY_NUMB.length != 3){
-//     throw new Error("[ERROR] 3자리 숫자를 입력하세요");
-//   }
-// }
-
 // 내 숫자 입력 및 스트라이크 볼 체크
 // 2. 내 숫자 입력
 // 부여받은 랜덤값을 갖고와서 게임 스타트
@@ -100,8 +78,6 @@ async gameStart (RAN){
       this.gameStart(RAN);
     }
   }
-// const BALLS = this.ball(COM_NUMBER,MY_NUM);
-// const STRIKES = this.strike(COM_NUMBER,MY_NUM);
 
 // 4.print
 // 받아온 것은 스트라이크 배열의 길이, 즉 스트라이크의 수와 볼의 배열(볼의 수)
@@ -121,40 +97,6 @@ if(STRIKES==0 && BALLS == 0){
 } else if(STRIKES==0 && BALLS !=0){
   Console.print(`${BALLS}볼`);
 }}
-
-// 5.볼 6. 스크라이크 생성
-// 컴퓨터 숫자의 length(혹은 3만큼)반복시키면서 내 숫자만큼 다시 반복 시키면서 같은 값이 있는지 확인
-// 만약 같은 값이 있으면 index값이 같은지 확인하고(for문 썼으니 i==j인지) 다르면 볼++
-// 만약 같은 값이 있있는데 index값이 다르면(else if) 같으면 스트라이크++ 
-// 스트라이크 볼 생성 함수는 위에서 볼과 스트라이크를 만드는데 쓰인다
-
-// ball(COM_NUMBER,MY_NUM){
-//   let COUNT_BALL = 0
-//   for(let i=0; i<COM_NUMBER.length; i++){
-//     for(let j=0; j<MY_NUM.length;j++){
-//       if(COM_NUMBER[i]==MY_NUM[j]){
-//         if(i!=j){
-//           COUNT_BALL++
-//         }
-//       }
-//     }
-//   }
-// return COUNT_BALL;
-// }
-// strike(COM_NUMBER,MY_NUM){
-//   let COUNT_STRIKE = 0
-//   for(let i=0; i<COM_NUMBER.length; i++){
-//     for(let j=0; j<MY_NUM[j];j++){
-//       if(COM_NUMBER[i]==MY_NUM[j]){
-//         if(i==j){
-//           COUNT_STRIKE++
-//         }
-//       }
-//     }
-//   }
-// return COUNT_STRIKE;
-// }
-
 
 // 5. 게임셋 여부
 // 이후 '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.' 표시후 입력값 받음
