@@ -1,4 +1,8 @@
 class Catcher {
+  static CATCH_COUNT = 3;
+  static MIN_COUNT = 1;
+  static MAX_COUNT = 9;
+
   #catcherNumbers;
 
   constructor(catcherNumbers) {
@@ -8,8 +12,8 @@ class Catcher {
 
   static getCatcherNumbers() {
     const catcherNumbers = [];
-    while (catcherNumbers.length < 3) {
-      const catcherNumber = Random.pickNumberInRange(1, 9);
+    while (catcherNumbers.length < CATCH_COUNT) {
+      const catcherNumber = Random.pickNumberInRange(MIN_COUNT, MAX_COUNT);
       if (!catcherNumbers.includes(catcherNumber)) {
         catcherNumbers.push(catcherNumber);
       }
