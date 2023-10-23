@@ -35,8 +35,7 @@ class App {
         throw new Error('서로 다른 숫자를 입력해야 합니다.');
       }
 
-      let handle = true;
-      while (handle) {
+      while (true) {
         // 값 판별
         let ball = 0;
         let strike = 0;
@@ -60,6 +59,7 @@ class App {
             );
             if (regameInput === '1') {
             } else if (regameInput === '2') {
+              return;
             } else {
               throw new Error('1 또는 2를 입력해야 합니다.');
             }
