@@ -41,9 +41,13 @@ class App {
 	}
 
 	async #playGame() {
-		const inputVal = await this.#userInput.baseballInput();
-		if (this.#compareUserAndComputer(inputVal) === 3) return this.#gameEnd();
-		return this.#playGame();
+		try {
+			const inputVal = await this.#userInput.baseballInput();
+			if (this.#compareUserAndComputer(inputVal) === 3) return this.#gameEnd();
+			return this.#playGame();
+		} catch (error) {
+			throw Error(error);
+		}
 	}
 
 	async play() {
