@@ -14,4 +14,8 @@ const ErrorMessage = Object.freeze({
   USER_INCLUDE_ZERO_ERROR: "[ERROR] 입력값에 0은 포함될 수 없습니다.",
 });
 
-export { GuideMessage, ErrorMessage };
+const StaticNumber = Object.freeze({
+  NUMBER_LENGTH: 3,
+});
+
+export { GuideMessage, ErrorMessage, StaticNumber };

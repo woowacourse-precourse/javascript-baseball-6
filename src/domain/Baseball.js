@@ -1,4 +1,5 @@
 import RandomNumberGenerator from "../utils/RandomNumberGenerator.js";
+import { StaticNumber } from "../constant/Constant.js";
 
 class Baseball {
   #answer;
@@ -28,7 +29,9 @@ class Baseball {
   }
 
   resetGame() {
-    this.#answer = RandomNumberGenerator.generateRandomNumber(3);
+    this.#answer = RandomNumberGenerator.generateRandomNumber(
+      StaticNumber.NUMBER_LENGTH
+    );
   }
 }
 

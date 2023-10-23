@@ -3,13 +3,14 @@ import RandomNumberGenerator from "../utils/RandomNumberGenerator.js";
 import InputValidator from "../utils/InputValidator.js";
 import InputView from "../view/InputView.js";
 import OutputView from "../view/OutputView.js";
+import { StaticNumber } from "../constant/Constant.js";
 
 class BaseballGameController {
   #baseball;
 
   constructor() {
     this.#baseball = new Baseball(
-      RandomNumberGenerator.generateRandomNumber(3)
+      RandomNumberGenerator.generateRandomNumber(StaticNumber.NUMBER_LENGTH)
     );
   }
 
@@ -42,7 +43,7 @@ class BaseballGameController {
   checkHint(strikeCount, ballCount) {
     OutputView.printHintMessage(ballCount, strikeCount);
 
-    if (strikeCount === 3) {
+    if (strikeCount === StaticNumber.NUMBER_LENGTH) {
       OutputView.printEndMessage();
       this.inputRestartNumber();
     } else this.inputUserNumber();
