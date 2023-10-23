@@ -17,10 +17,10 @@ class App {
     const inputNumber = await InputView.getUserNumber();
     this.checkError(Validation.validateBaseballNumber, inputNumber);
 
-    const player = new Player(inputNumber);
-    const opponent = new Opponent();
+    const playerNumber = new Player(inputNumber).numberArray;
+    const opponentNumber = new Opponent().opponentNumber;
 
-    this.#refree = new Refree(player.numberArray, opponent.opponentNumber);
+    this.#refree = new Refree(playerNumber, opponentNumber);
     this.startGame();
   }
 
