@@ -37,6 +37,10 @@ class User {
       throw new Error("[ERROR] 1 ~ 9 사이의 숫자를 입력하지 않았습니다.");
     }
     // #2.5 같은 숫자를 입력한 경우
+    if(new Set(number).length!=3){
+      throw new Error("[ERROR] 서로 다른 숫자를 입력하지 않았습니다.");
+
+    }
 
     if (number.length == 3) {
       for (let i = 0; i < number.length; i++) {
@@ -101,6 +105,6 @@ class App {
   }
 }
 const app = new App();
-// await app.play();
+await app.play();
 
 export default App;
