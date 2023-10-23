@@ -65,7 +65,7 @@ class App {
 
   pickRandomNumber() {
     let randomNumber = '';
-    while (randomNumber.length <= 2) {
+    while (randomNumber.length < 3) {
       const newRandomNumber = Random.pickNumberInRange(1, 9);
       if (!randomNumber.includes(newRandomNumber)) {
         randomNumber += newRandomNumber;
