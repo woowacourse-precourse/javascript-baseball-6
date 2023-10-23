@@ -1,4 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
+import { isValidInput } from "./ValidationUtils";
 
 class Computer {
     constructor() {
@@ -9,21 +10,8 @@ class Computer {
         this.answer = this.getRandAnswer();
     }
 
-    isLenThree(input) {
-        return input.length === 3;
-    }
-
-    isMadeByDigit(input) {
-        const numArr = input.split('');
-        return !numArr.some((ele) => ele < '1' || ele > '9');
-    }
-
-    isUnique(input) {
-        return new Set(input).size === input.length;
-    }
-
     checkInputValid(input) {
-        return this.isLenThree(input) && this.isMadeByDigit(input) && this.isUnique(input);
+        return isValidInput(input);
     }
 
     getStrikeCounts(userInput, correctAnswer) {
