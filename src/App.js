@@ -1,5 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
 
+import { COMMAND } from '../core/Constants.js';
+
 import RandomNumber from '../core/RandomNumber.js';
 import Baseball from '../core/Baseball.js';
 import Exception from '../Exception/Root.js';
@@ -20,19 +22,17 @@ class App {
   }
 
   end() {
-    this.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+    this.print(COMMAND.END);
   }
 
   async play() {
-    this.print('숫자 야구 게임을 시작합니다.');
+    this.print(COMMAND.START);
     await this.enterValue(RandomNumber.createNumber());
   }
 
   async enterValue(random) {
     try {
-      const userFeedback = await Console.readLineAsync(
-        '숫자를 입력해주세요 : '
-      );
+      const userFeedback = await Console.readLineAsync(COMMAND.RESTART);
 
       this.#exception.checkAllException(userFeedback);
       this.print(this.#baseball.announceGameOutcome(random, userFeedback));
@@ -51,13 +51,12 @@ class App {
   async askUserOpinion(random) {
     try {
       this.end();
-      const ask = await Console.readLineAsync(
-        '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.'
-      );
+      const ask = await Console.readLineAsync(COMMAND.ASK);
       GameCondition.checkAllError(ask);
       this.print(ask);
 
-      if (ask === '1') await this.enterValue(RandomNumber.createNumber());
+      if (ask === COMMAND.RESTART)
+        await this.enterValue(RandomNumber.createNumber());
     } catch (error) {
       throw new Error(`[ERROR] ${error.message}`);
     }
