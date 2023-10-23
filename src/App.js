@@ -1,6 +1,9 @@
-import { Console } from '@woowacourse/mission-utils';
+import { Console, Random } from '@woowacourse/mission-utils';
 
 class App {
+  strike = 0;
+  ball = 0;
+
   async play() {
     let IS_PLAYING = false;
     Console.print('숫자 야구 게임을 시작합니다');
@@ -15,8 +18,19 @@ class App {
         if (!this.validation(userInput)) {
           throw new Error('[ERROR]');
         }
-        
         this.calculateBallAndStrike(computer, userInput);
+        if (+computer === +userInput) {
+          Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+          let userChoice = await this.getUserChoice();
+          if (userChoice === '1') {
+            computer = this.computerPicksNumber();
+            continue;
+          } else if (userChoice === '2') {
+            IS_PLAYING = false;
+          } else {
+            throw new Error('[ERROR]');
+          }
+        }
       }
     } catch (error) {
       throw new Error('[ERROR]');
@@ -25,6 +39,10 @@ class App {
 
   async getUserInput() {
     return Console.readLineAsync('숫자를 입력해주세요 : ');
+  }
+
+  async getUserChoice() {
+    return Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
   }
 
   computerPicksNumber() {
