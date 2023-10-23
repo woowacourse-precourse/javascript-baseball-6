@@ -59,13 +59,6 @@ const makeRandomNumber = () => {
   return randomNumber;
 };
 
-const getUserInput = async () => {
-  const userInput = await Console.readLineAsync("숫자를 입력해주세요 : ");
-  const input = [...userInput].map((number) => parseInt(number));
-
-  return input;
-};
-
 const checkInputIsValid = (userInput) => {
   const input = [...userInput];
 
@@ -120,6 +113,13 @@ const printScore = (scoreBoard) => {
   return returnString;
 };
 
+const getUserInput = async () => {
+  const userInput = await Console.readLineAsync("숫자를 입력해주세요 : ");
+  const input = [...userInput].map((number) => parseInt(number));
+
+  return input;
+};
+
 const checkGameIsEnd = (userInput) => {
   if (userInput === "1") {
     return false;
@@ -129,8 +129,5 @@ const checkGameIsEnd = (userInput) => {
 
   return { isError: true };
 };
-
-const app = new App();
-app.play();
 
 export default App;
