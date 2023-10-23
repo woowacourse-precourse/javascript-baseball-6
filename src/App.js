@@ -7,6 +7,7 @@ class App {
     while (isStartGame) {
       const computerNumber = this.pickRandomNumber();
       let isCorrectAnswer = false;
+
       while (!isCorrectAnswer) {
         const userSelectedNumber = await Console.readLineAsync(
           '숫자를 입력해주세요 : '
@@ -19,22 +20,21 @@ class App {
           userSelectedNumber
         );
 
-        if (strikeCounter === 0 && ballCounter === 0) {
-          Console.print('낫싱');
-          continue;
-        }
-
-        if (strikeCounter !== 0 && ballCounter !== 0) {
-          Console.print(`${ballCounter}볼 ${strikeCounter}스트라이크`);
-          continue;
-        }
+        let resultString = '';
 
         if (ballCounter !== 0) {
-          Console.print(`${ballCounter}볼`);
-          continue;
+          resultString += `${ballCounter}볼 `;
         }
 
-        Console.print(`${strikeCounter}스트라이크`);
+        if (strikeCounter !== 0) {
+          resultString += `${strikeCounter}스트라이크`;
+        }
+
+        if (resultString.length === 0) {
+          resultString += '낫싱';
+        }
+
+        Console.print(resultString.trim());
 
         if (strikeCounter === 3) {
           Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
@@ -58,12 +58,8 @@ class App {
     const gameController = await Console.readLineAsync(
       '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.'
     );
-    if (gameController === gameOptions.RESTART_GAME) {
-      return true;
-    }
-    if (gameController === gameOptions.END_GAME) {
-      return false;
-    }
+    if (gameController === gameOptions.RESTART_GAME) return true;
+    if (gameController === gameOptions.END_GAME) return false;
     throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
   }
 
@@ -80,13 +76,9 @@ class App {
 
   isValidNumber(num) {
     const numArray = num.split('');
-    if (numArray.length !== 3) {
-      return false;
-    }
     const numToSet = new Set(numArray);
-    if (numArray.length !== numToSet.size) {
-      return false;
-    }
+    if (numArray.length !== 3) return false;
+    if (numArray.length !== numToSet.size) return false;
     return true;
   }
 
@@ -96,14 +88,13 @@ class App {
     for (let numberIndex = 0; numberIndex <= num2.length - 1; numberIndex++) {
       const targetNumber = num2[numberIndex];
       const targetIndexInNum1 = num1.indexOf(targetNumber);
-      if (targetIndexInNum1 === -1) {
-        continue;
-      }
       if (targetIndexInNum1 === numberIndex) {
         ++strikeCounter;
         continue;
       }
-      ++ballCounter;
+      if (targetIndexInNum1 !== -1) {
+        ++ballCounter;
+      }
     }
     return { strikeCounter, ballCounter };
   }
