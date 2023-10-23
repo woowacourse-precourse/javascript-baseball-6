@@ -1,6 +1,7 @@
 import {Console} from '@woowacourse/mission-utils';
 import MESSAGES from './Messages';
 import Computer from './Computer';
+import Validator from '../utils/Validator';
 
 class BaseballGame {
   computer;
@@ -20,6 +21,7 @@ class BaseballGame {
 
   async readNumber() {
     const userNumber = await Console.readLineAsync(MESSAGES.numberQuery);
+    Validator.validateUserNumber(userNumber);
   }
 }
 
