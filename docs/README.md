@@ -20,7 +20,7 @@
 
 ## 설치 및 실행 방법
 
-
+```bash
 # 저장소를 클론
 git clone [repository-url]
 
