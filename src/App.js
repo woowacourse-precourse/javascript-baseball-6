@@ -29,7 +29,7 @@ class App {
       const changeInput = (arg) => Number(arg);
       const compareInput = Array.from(String(userInput), changeInput); //Number type input을 string으로 바꿔서 배열로 전환하고 Number로 재변경
       this.compareNum(compareInput, randomNum);
-      Console.print(compareInput);
+      //Console.print(compareInput);
     }
   }
 
@@ -37,6 +37,7 @@ class App {
     //userInput은 Number
     let ball = 0;
     let strike = 0;
+    let result = "dkdk";
 
     for (let r = 0; r < randomNum.length; r++) {
       // 값 비교
@@ -53,8 +54,28 @@ class App {
         }
       }
     }
-    Console.print(ball);
-    Console.print(strike);
+    // Console.print(ball);
+    //Console.print(strike);
+
+    if (ball == 0 && strike == 0) {
+      result = "낫싱";
+    } else if (ball != 0 && strike != 0) {
+      result = `${ball}볼 ${strike}스트라이크`;
+    } else if (ball != 0 && strike == 0) {
+      result = `${ball}볼`;
+    } else if (ball == 0 && strike != 0) {
+      if (strike == 3) {
+        return this.gameEnd();
+      } else {
+        result = `${strike}스트라이크`;
+      }
+    }
+    Console.print(result);
+  }
+
+  gameEnd() {
+    Console.print("3스트라이크");
+    Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
   }
 
   async inputNum() {
