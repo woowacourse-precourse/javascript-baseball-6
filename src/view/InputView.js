@@ -8,7 +8,7 @@ const InputView = {
     )
     this.validateUserNumber(userNumber)
 
-    return await userNumber
+    return userNumber
   },
 
   async readRestartNumber() {
@@ -17,7 +17,7 @@ const InputView = {
     )
     this.validateRestartNumber(restartNumber)
 
-    return await restartNumber
+    return restartNumber
   },
 
   validateUserNumber(userNumber) {
