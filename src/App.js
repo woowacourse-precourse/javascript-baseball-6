@@ -1,14 +1,28 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 
 class App {
-  async play() {
-    try {
-      const game = new NumberBaseball();
+  constructor() {
+    this.isEnd = false;
+  }
 
-      MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
-      await game.run();
-    } catch (err) {
-      throw err;
+  async play() {
+    MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
+
+    const game = new NumberBaseball();
+
+    while (!this.isEnd) {
+      try {
+        await game.run();
+      } catch (err) {
+        throw err;
+      }
+
+      this.isEnd =
+        (await MissionUtils.Console.readLineAsync(
+          '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'
+        )) === '1'
+          ? false
+          : true;
     }
   }
 }
@@ -20,36 +34,37 @@ class NumberBaseball {
 
   // 게임 시작
   async run() {
-    try {
-      this.init();
+    this.init();
 
-      while (this.strike !== 3) {
-        let strike = null;
-        let ball = null;
+    let strike = null;
+    let ball = null;
 
-        const userInput = await MissionUtils.Console.readLineAsync(
-          '숫자를 입력해주세요 : '
-        );
+    while (strike !== 3) {
+      const userInput = await MissionUtils.Console.readLineAsync(
+        '숫자를 입력해주세요 : '
+      );
+      this.validateInput(userInput);
 
-        [strike, ball] = this.checkStrikeAndBall(userInput);
+      [strike, ball] = this.checkStrikeAndBall(userInput);
 
-        let message = '';
+      let message = '';
 
-        if (ball) {
-          message += `${ball}볼`;
-        }
-
-        if (strike) {
-          message += ` ${strike}스트라이크`;
-        }
-
-        if (!ball && !strike) {
-          message = '낫싱';
-        }
+      if (ball) {
+        message += `${ball}볼`;
       }
-    } catch (err) {
-      console.log(err);
+
+      if (strike) {
+        message += ` ${strike}스트라이크`;
+      }
+
+      if (!ball && !strike) {
+        message = '낫싱';
+      }
+
+      MissionUtils.Console.print(message.trim());
     }
+
+    MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
   }
 
   // 게임 초기화
