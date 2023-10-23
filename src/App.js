@@ -4,17 +4,26 @@ class App {
   constructor() {
     this.userNum = '';
     this.answer = [];
+    this.continueGame = true;
   }
 
   init() {
     this.userNum = '';
     this.answer = [];
+    this.continueGame = true;
   }
 
   async play() {
     MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
-    this.settingAnswer();
-    await this.numberBaseball();
+    while (this.continueGame) {
+      this.init();
+      this.settingAnswer();
+      await this.numberBaseball();
+      this.continueGame = await this.newGame();
+      if (!this.continueGame) {
+        break;
+      }
+    }
   }
 
   // 유저 입력 처리
@@ -42,9 +51,10 @@ class App {
       let ball = 0;
 
       for (let i = 0; i < this.userNum.length; i++) {
-        if (this.userNum[i] === this.answer[i]) {
+        let tmp = this.userNum[i] - '0';
+        if (tmp === this.answer[i]) {
           strike += 1;
-        } else if (this.answer.includes(this.userNum[i])) {
+        } else if (this.answer.includes(tmp)) {
           ball += 1;
         }
       }
@@ -62,6 +72,18 @@ class App {
         message = `${ball}볼`;
       }
       MissionUtils.Console.print(message);
+    }
+  }
+
+  //게임 재시작 처리
+  async newGame() {
+    let playAgain = await MissionUtils.Console.readLineAsync(
+      '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n',
+    );
+    if (playAgain === '1') {
+      return true;
+    } else if (playAgain === '2') {
+      return false;
     }
   }
 }
