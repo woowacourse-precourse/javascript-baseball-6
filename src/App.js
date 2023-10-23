@@ -16,8 +16,8 @@ class App {
     Console.print(MESSAGE.start);
 
     const input = await Console.readLineAsync("숫자를 입력해주세요 : ");
-
-    if (this.isValidInput(input)) {
+    const isValidInput = this.isValidInput(input);
+    if (!isValidInput) {
       throw new Error(MESSAGE.error("입력값이 유효하지 않습니다."));
     }
 
@@ -58,10 +58,10 @@ class App {
     };
   }
 
-  isValidInput(input) {
+  validateInput(input) {
     const regEx = new RegExp("^(?!.*(\\d).*\\1)[1-9]{3}$");
 
-    return !regEx.test(input.trim());
+    return regEx.test(input.trim());
   }
 }
 
