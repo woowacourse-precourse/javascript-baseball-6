@@ -14,7 +14,6 @@ class BaseballGame {
         computer.push(number);
       }
     }
-    console.log(computer);
     return computer;
   }
 
@@ -72,7 +71,7 @@ class BaseballGame {
     const playAgain = await UserInput.playAgainInputAsync();
     if (playAgain === '1') {
       this.reset();
-      await this.play();
+      this.play();
     }
   }
 
