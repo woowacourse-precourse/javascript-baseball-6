@@ -10,14 +10,14 @@ class App {
         computer.push(number);
       }
     }
-    Console.print(computer);
+    // Console.print(computer);
     while (1) {
       const number = await Console.readLineAsync("숫자를 입력해주세요 : ");
       const user = number.split("").map(Number);
       if (user.length !== 3 || number === null || new Set(user).size !== 3) {
         throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
       }
-      Console.print(user);
+      // Console.print(user);
       let strike = 0;
       let ball = 0;
       for (let i = 0; i < computer.length; i++) {
