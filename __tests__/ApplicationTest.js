@@ -60,7 +60,7 @@ describe("숫자 야구 게임", () => {
     test("예외 테스트 - 문자가 포함된 입력", async () => {
         // given
         const randoms = [1, 3, 5];
-        const answers = ["ab1", "1 3 4"];
+        const answers = ["ab1", "1 3 4", "!12"];
 
         mockRandoms(randoms);
         mockQuestions(answers);
@@ -86,7 +86,7 @@ describe("숫자 야구 게임", () => {
     test("예외 테스트 - 중복되는 숫자 입력", async () => {
         // given
         const randoms = [1, 3, 5];
-        const answers = ["333"];
+        const answers = ["333", "112", "323"];
 
         mockRandoms(randoms);
         mockQuestions(answers);
@@ -96,6 +96,24 @@ describe("숫자 야구 게임", () => {
 
         await expect(app.play()).rejects.toThrow("[ERROR]");
     });
-});
+    test("게임 기능 테스트", async () => {
+        // given
+        const randoms = [1, 3, 5, 5, 8, 9];
+        const answers = ["246", "123", "531", "513", "135", "1", "597", "125", "587", "589", "2"];
+        const logSpy = getLogSpy();
+        const messages = ["낫싱", "2볼", "2볼 1스트라이크", "3볼", "3스트라이크", "1볼 1스트라이크", "1볼", "2스트라이크", "3스트라이크", "게임 종료"];
 
+        mockRandoms(randoms);
+        mockQuestions(answers);
+
+        // when
+        const app = new App();
+        await expect(app.play()).resolves.not.toThrow();
+
+        // then
+        messages.forEach((output) => {
+            expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(output));
+        });
+    });
+});
 
