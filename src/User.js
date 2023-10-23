@@ -9,16 +9,26 @@ import {
 import { Console } from "@woowacourse/mission-utils";
 
 class User {
+  #numberArray;
+
   constructor() {
-    this.numberArray = [];
+    this.#numberArray = [];
   }
 
-  async getValidatedNumberArray() {
-    const input = await Console.readLineAsync(MESSAGE.ENTER_NUMBER);
+  get numberArray() {
+    return this.#numberArray;
+  }
 
-    this.numberArray = this.validateUserInput(input)
+  async setValidatedInputArray() {
+    const input = await this.getInputFromUser();
+
+    this.#numberArray = this.validateUserInput(input)
       .split("")
       .map((string) => +string);
+  }
+
+  async getInputFromUser() {
+    return await Console.readLineAsync(MESSAGE.ENTER_NUMBER);
   }
 
   validateUserInput(input) {
