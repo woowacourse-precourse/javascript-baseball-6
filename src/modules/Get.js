@@ -26,7 +26,7 @@ class Get {
     return size;
   }
 
-  static strikeCount(arrayA, arrayB) {
+  static strikeCount(arrayA = [], arrayB = []) {
     let count = 0;
     arrayA.forEach((element, index) => {
       if (element === arrayB[index]) count++;
