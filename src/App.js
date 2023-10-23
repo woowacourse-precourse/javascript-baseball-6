@@ -24,13 +24,14 @@ class App {
         computer.push(number);
       }
     }
-    return computer//.join('');
+    return computer
   }
 
   async getUserNumber() {
     try {
       const input = await Console.readLineAsync('숫자를 입력해주세요 : ');
-      //input 잘못 입력 안했는지 확인해야함
+      if (!/^[1-9]{3}$/.test(input))
+        throw new Error('[error] 숫자가 잘못된 형식입니다.');
       return input.split('');
     } catch (error) {
       throw new Error('reject');
@@ -77,7 +78,7 @@ class App {
       const input = await Console.readLineAsync('');
       return input;
     } catch (error) {
-      throw new Error('reject');
+      throw new Error('[error] reject');
     }
   }
 
@@ -87,12 +88,12 @@ class App {
     } else if (input === '2') {
       return;
     } else {
-      throw new Error('게임 실행 조건을 잘못 입력하셨습니다.');
+      throw new Error('[error] 게임 실행 조건을 잘못 입력하셨습니다.');
     }
   }
 }
 
 const app = new App();
-//app.play();
-app.compareUserAndRamdomNumber(['1','2','3'], ['1', '2', '3']);
+app.play();
+//app.compareUserAndRamdomNumber(['1','2','3'], ['1', '2', '3']);
 export default App;
