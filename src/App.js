@@ -65,7 +65,7 @@ const guess_result = async (random_number, user_input) => {
   const strike_count_text = strike ? `${strike}스트라이크` : "";
   const ball_count_text = ball ? `${ball}볼 ` : "";
 
-  const resuslt_text = ball || strike ? `${ball_count_text} ${strike_count_text}` : "낫싱";
+  const resuslt_text = ball || strike ? `${ball_count_text}${strike_count_text}` : "낫싱";
 
   MissionUtils.Console.print(resuslt_text);
 
