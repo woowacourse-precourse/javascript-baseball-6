@@ -6,6 +6,7 @@ import { validationUtils } from "../utils/validationUtils.js";
 export default class BaseballGameController {
   #inputView;
   #outputView;
+  #baseballGame;
 
   constructor() {
     this.#inputView = new InputView();
@@ -13,13 +14,13 @@ export default class BaseballGameController {
   }
 
   async play() {
-    const baseballGame = new BaseballGame();
+    this.#baseballGame = new BaseballGame();
 
-    while (!baseballGame.isGameEnded()) {
-      if (baseballGame.isInCommandPhase()) {
-        await this.#readCommandInput(baseballGame);
+    while (!this.#baseballGame.isGameEnded()) {
+      if (this.#baseballGame.isInCommandPhase()) {
+        await this.#readCommandInput(this.#baseballGame);
       } else {
-        await this.#readNumbersInput(baseballGame);
+        await this.#readNumbersInput(this.#baseballGame);
       }
     }
   }
