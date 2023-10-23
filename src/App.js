@@ -1,9 +1,13 @@
+import { MissionUtils } from "@woowacourse/mission-utils";
+import Computer from "./Computer.js";
+
+const computer = new Computer();
+
 class App {
 	async play() {
-		console.log("hi");
+		MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
+		computer.guessNum();
 	}
 }
 
 export default App;
-
-
