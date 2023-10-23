@@ -1,21 +1,11 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 
-// 입력받는 숫자 : 0 포함되는 지 확인 / 숫자인지 확인 / 길이가 3인지 확인
-
 class App {
   play() {
-    this.gameStart();
-  }
-
-  gameStart() {
-    // 게임 시작
     Console.print("숫자 야구 게임을 시작합니다.");
-    this.playGame();
-  }
-
-  async playGame() {
-    // 게임 진행
-    this.inputNum();
+    const randomNum = this.createRandom();
+    Console.print(randomNum);
+    this.inputNum(randomNum);
   }
 
   confirmInput(userInput, randomNum) {
@@ -29,7 +19,6 @@ class App {
       const changeInput = (arg) => Number(arg);
       const compareInput = Array.from(String(userInput), changeInput); //Number type input을 string으로 바꿔서 배열로 전환하고 Number로 재변경
       this.compareNum(compareInput, randomNum);
-      //Console.print(compareInput);
     }
   }
 
@@ -37,7 +26,7 @@ class App {
     //userInput은 Number
     let ball = 0;
     let strike = 0;
-    let result = "dkdk";
+    let result = "";
 
     for (let r = 0; r < randomNum.length; r++) {
       // 값 비교
@@ -54,8 +43,6 @@ class App {
         }
       }
     }
-    // Console.print(ball);
-    //Console.print(strike);
 
     if (ball == 0 && strike == 0) {
       result = "낫싱";
@@ -71,24 +58,43 @@ class App {
       }
     }
     Console.print(result);
+    this.inputNum(randomNum); // 모두 맞을 때까지 다시 인풋 받기
   }
 
   gameEnd() {
     Console.print("3스트라이크");
     Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    this.gameRestart();
   }
 
-  async inputNum() {
+  async gameRestart() {
+    //다시 시작 or 종료
+    Console.print("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+    const isRestart = await Console.readLineAsync("");
+
+    try {
+      if (Number(isRestart) == 1) {
+        const randomNum = this.createRandom();
+        Console.print(randomNum);
+        this.inputNum(randomNum);
+      } else if (Number(isRestart) == 2) {
+        return 0;
+      } else {
+        this.gameRestart();
+      }
+    } catch (err) {
+      Console.print(err);
+    }
+  }
+
+  async inputNum(randomNum) {
     //사용자로부터 입력 받기
-    const randomNum = this.createRandom();
-    Console.print(randomNum);
 
     try {
       const input = await Console.readLineAsync("숫자를 입력해주세요 : ");
       this.confirmInput(Number(input), randomNum);
     } catch (err) {
       Console.print(err);
-      //this.inputNum(); 종료 기능?
     }
   }
 
