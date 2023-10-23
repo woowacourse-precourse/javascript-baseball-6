@@ -1,13 +1,13 @@
-import { Random } from "@woowacourse/mission-utils";
 import { isValidInput } from "../ValidationUtils.js";
+import { createRandAnswer } from "./ComputerUtils.js";
 
 class Computer {
     constructor() {
-        this.answer = this.createRandAnswer();
+        this.answer = createRandAnswer();
     }
 
     initAnswer() {
-        this.answer = this.createRandAnswer();
+        this.answer = createRandAnswer();
     }
 
     checkInputValid(input) {
@@ -50,18 +50,6 @@ class Computer {
         const ballCounts = this.getBallCounts(userInput, correctAnswer, strikeCounts);
         
         return this.convertHintToString(ballCounts, strikeCounts);
-    }
-
-    createRandAnswer() {
-        const answerSet = new Set();
-        
-        while(answerSet.size < 3){
-        let num = Random.pickNumberInRange(1, 9);
-        if(!answerSet.has(num))
-            answerSet.add(num);
-        }
-
-        return [...answerSet].join('');
     }
 }
 
