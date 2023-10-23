@@ -3,19 +3,19 @@ import { MESSAGE } from '../constants/constants.js';
 
 export default class player {
 
-  #_userNumber;
+  #userNumber;
 
   async inputNumber(view) {
     const userInput = await view.readInput(MESSAGE.input);
     
     if (this.isValidNumber(userInput)) {
-      this.#_userNumber = userInput.split('').map((num) => Number(num));
+      this.#userNumber = userInput.split('').map((num) => Number(num));
     }
     return;
   }
 
   getJudgeResultPaper(opponent) {
-    const result = opponent.judgeResult(this.#_userNumber);
+    const result = opponent.judgeResult(this.#userNumber);
     return result;
   }
 

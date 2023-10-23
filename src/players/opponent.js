@@ -3,34 +3,34 @@ import { RESULTOBJECT } from '../constants/constants.js'
 
 export default class opponent{
 
-  #_computerNumber;
+  #computerNumber;
   
   constructor() {
     this.makeRandomNumber();
   }
 
   makeRandomNumber() {
-    this.#_computerNumber = [];
-    while (this.#_computerNumber.length < 3) {
+    this.#computerNumber = [];
+    while (this.#computerNumber.length < 3) {
       const number = Random.pickNumberInRange(1, 9);
-      if (!this.#_computerNumber.includes(number)) {
-        this.#_computerNumber.push(number);
+      if (!this.#computerNumber.includes(number)) {
+        this.#computerNumber.push(number);
       }
     }
-    console.log(this.#_computerNumber);
+    console.log(this.#computerNumber);
   }
 
   judgeResult(userNumber) {
     const result = {...RESULTOBJECT};
 
     userNumber.map((num, i) => {
-      if(num === this.#_computerNumber[i])
+      if(num === this.#computerNumber[i])
         result.strike += 1;
     });
 
     userNumber.map((num, i) => {
-      if ((num !== this.#_computerNumber[i]) &&
-      this.#_computerNumber.includes(num)) {
+      if ((num !== this.#computerNumber[i]) &&
+      this.#computerNumber.includes(num)) {
         result.ball += 1;
       }
     })
