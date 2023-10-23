@@ -11,21 +11,26 @@ class App {
       const userGuess = await MissionUtils.Console.readLineAsync();
       MissionUtils.Console.print(userGuess);
 
-      if (this.isValidInput(userGuess)) {
-        const result = this.calculateResult(userGuess, computerNumbers);
-        MissionUtils.Console.print(result);
+      try {
+        if (this.isValidInput(userGuess)) {
+          const result = this.calculateResult(userGuess, computerNumbers);
+          MissionUtils.Console.print(result);
 
-        if (result === "3스트라이크") {
-          MissionUtils.Console.print(
-            `3개의 숫자를 모두 맞히셨습니다! 게임 종료`
-          );
-          MissionUtils.Console.print(
-            "정답 = " + computerNumbers + " 입력 한 값 = " + userGuess
-          );
-          break;
+          if (result === "3스트라이크") {
+            MissionUtils.Console.print(
+              `3개의 숫자를 모두 맞히셨습니다! 게임 종료`
+            );
+            MissionUtils.Console.print(
+              "정답 = " + computerNumbers + " 입력 한 값 = " + userGuess
+            );
+            break;
+          }
+        } else {
+          throw new Error("[ERROR] 유효하지 않은 입력입니다.");
         }
-      } else {
-        throw new Error("[ERROR] 유효하지 않은 입력입니다.");
+      } catch (error) {
+        MissionUtils.Console.print(error.message);
+        process.exit(1); // 예외 발생 시 프로그램 종료
       }
     }
 
