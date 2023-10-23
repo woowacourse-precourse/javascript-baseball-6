@@ -23,7 +23,37 @@ class App {
     }
   }
 
-  async play() {}
+  async play() {
+    MissionUtils.Console.print(GAME_START_MESSAGE);
+
+    while (true) {
+      try {
+        const userNumbers = await this.getUserInput();
+
+        if (userNumbers.length !== 3) {
+          throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+        }
+
+        const result = this.compareNumbers(userNumbers);
+
+        MissionUtils.Console.print(result);
+
+        if (result === THREE_STRIKES) {
+          MissionUtils.Console.print(GAME_OVER_MESSAGE);
+          const continuePlaying = await this.askForRestart();
+          if (continuePlaying === "2") {
+            break;
+          } else if (continuePlaying === "1") {
+            this.resetComputerNumbers();
+            MissionUtils.Console.print(GAME_START_MESSAGE);
+          }
+        }
+      } catch (error) {
+        MissionUtils.Console.print(error.message);
+        throw new Error("[ERROR]");
+      }
+    }
+  }
 }
 
 export default App;
