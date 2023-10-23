@@ -1,4 +1,4 @@
-import * as readline from 'readline';
+import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
   async play() {
@@ -10,59 +10,43 @@ class App {
   }
 }
 
-async function playGame(number) {
-  var number = setNumber();
+async function playGame() {
+  const computer = [];
+  while (computer.length < 3) {
+    const number = MissionUtils.Random.pickNumberInRange(1, 9);
+    if (!computer.includes(number)) {
+      computer.push(number);
+    }
+  }
 
   while (true) {
-    let guess = await readGuess();
-    let result = compareGuess(number, guess);
+    var guess = 0;
+
+    try {
+      guess = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
+    } catch (error) {
+      MissionUtils.Console.print(error);
+      return;
+    }
+    let result = compareGuess(computer, guess);
     let interpretation = interpretResult(result);
-    console.log(interpretation);
+    MissionUtils.Console.print(interpretation);
     if (result[1] == 3) break;
   }
 
-  console.log('게임을 새로 시작하려면 1 종료하려면 2를 입력하세요.');
-  let restart = await readRestart();
+  var restart = 2;
+
+  try {
+      restart = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1 종료하려면 2를 입력하세요.\n');
+    } catch (error) {
+      MissionUtils.Console.print(error);
+      return;
+    }
+
   return restart;
 }
 
-function setNumber() {
-  var number = [0,0,0];
-  var pool = [1,2,3,4,5,6,7,8,9];
-  var temp = rand(9);
-  number[0] = pool[temp];
-  pool.splice(temp, 1);
-
-  temp = rand(8);
-  number[1] = pool[temp];
-  pool.splice(temp, 1);
-
-  temp = rand(7);
-  number[2] = pool[temp];
-
-  return number;
-}
-
-function rand(max) {
-  var temp = Math.random() * max;
-  temp = Math.floor(temp);
-
-  return temp;
-}
-
-function readGuess() {
-  const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-  });
-
-  return new Promise(resolve => rl.question('숫자를 입력해주세요 : ', input => {
-      rl.close();
-      resolve(input);
-    }))
-}
-
-function compareGuess(number, guess) {
+function compareGuess(computer, guess) {
   var strike = 0
   var ball = 0
 
@@ -70,21 +54,21 @@ function compareGuess(number, guess) {
   let second = Math.floor(guess / 10) - 10 * first;
   let third = guess % 10;
 
-  if (number[0] == first) {
+  if (computer[0] == first) {
     strike += 1;
-  } else if(number.includes(first)) {
+  } else if(computer.includes(first)) {
     ball += 1;
   }
 
-  if (number[1] == second) {
+  if (computer[1] == second) {
     strike += 1;
-  } else if (number.includes(second)) {
+  } else if (computer.includes(second)) {
     ball += 1;
   }
 
-  if (number[2] == third) {
+  if (computer[2] == third) {
     strike += 1;
-  } else if (number.includes(third)) {
+  } else if (computer.includes(third)) {
     ball += 1;
   }
 
@@ -108,19 +92,4 @@ function interpretResult(result) {
   return interpretation;
 }
 
-async function readRestart() {
-  const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-  });
-
-  return new Promise(resolve => rl.question('', input => {
-      rl.close();
-      resolve(input);
-    }))
-}
-
 export default App;
-
-const myApp = new App();
-myApp.play();
