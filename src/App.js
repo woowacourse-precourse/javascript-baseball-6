@@ -13,14 +13,14 @@ class App extends InsideGame {
   async play() {
     const computerNumber = super.randomNumber();
     let isGameEnd = false;
-    
+
     while (!isGameEnd) {
       try {
         const userAnswer = await MissionUtils.Console.readLineAsync(
           "숫자를 입력해주세요 : "
         );
 
-        this.isValidAnswer(userAnswer);
+        super.isValidAnswer(userAnswer);
         isGameEnd = this.ballAndStrike(computerNumber, userAnswer);
         if (isGameEnd) {
           await this.endAndRestart();
@@ -32,29 +32,7 @@ class App extends InsideGame {
     }
   }
 
-  // 오류 확인 로직
-  isValidAnswer(answer) {
-    if (answer.includes(" ")) {
-      throw new Error("[ERROR] 공백이 포함되어 있습니다.");
-    }
-    if (isNaN(answer)) {
-      throw new Error("[ERROR] 숫자만 입력해주세요.");
-    }
-    if (answer.split("").includes("0")) {
-      throw new Error("[ERROR] 0이 포함되어 있습니다.");
-    }
-    if (answer.split("").includes("-")) {
-      throw new Error("[ERROR] - 가 포함되어 있습니다.");
-    }
-    if (answer.length !== 3) {
-      throw new Error("[ERROR] 세 자리 숫자를 입력해주세요.");
-    }
-    if (new Set(answer).size !== 3) {
-      throw new Error("[ERROR] 중복된 숫자를 입력했습니다.");
-    }
-    return "Normal Value";
-  }
-   // 볼 스트라이크 확인.
+  // 볼 스트라이크 확인.
   // ball과 strike 개수를 자식클래스의 Check를 통해 확인하고 ballstrike 변수에 적용함.
   // 적용된 ballstrike를 자식 클래스의 outputHint를 통해 낫싱, n개의 볼, n개의 스트라이크로 출력함.
   // strike가 3개일 경우 endAndRestart로 이동하고, 아닐 경우에는 다시 숫자를 입력하는 play로 이동.
@@ -79,19 +57,9 @@ class App extends InsideGame {
     }
   }
 
-  // 1과 2 이외의 값이 생기면 에러를 던짐.
-  endInputValid(question) {
-    const questionNumber = Number(question);
-    if (questionNumber !== 1 && questionNumber !== 2) {
-      throw new Error("[ERROR] 1과 2만 입력해주세요.");
-    }
-    return questionNumber;
-  }
-
   // 1을 입력하면 다시 play()로 이동(1 = true). 2를 입력하면 종료
   end(restartAndEnd) {
-    const endAnswer = this.endInputValid(restartAndEnd);
-
+    const endAnswer = super.endInputValid(restartAndEnd);
     if (endAnswer === 1) {
       this.play();
     } else {
@@ -99,7 +67,6 @@ class App extends InsideGame {
       return;
     }
   }
-
 }
 
 export default App;
