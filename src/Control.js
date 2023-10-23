@@ -4,18 +4,14 @@ import { GAME_MESSAGE, RESULT_MESSAGE, ERROR_MESSAGE } from './constants/Message
 class Control {
   static async askRestart(appInstance) {
     const userAnswer = await Console.readLineAsync(GAME_MESSAGE.GAME_RESTART);
-
     if (userAnswer === '1') {
       appInstance.isPlaying = true;
-      return;
-    } 
-    if (userAnswer === '2') {
+    } else if (userAnswer === '2') {
       Console.print(GAME_MESSAGE.GAME_END);
       appInstance.isPlaying = false;
-      return;
-    } 
-    
-    throw new Error(ERROR_MESSAGE.INVALID_CHOICE);
+    } else {
+      throw new Error(ERROR_MESSAGE.INVALID_CHOICE);
+    }
   }
 
   static compareAndPrintResult(computerNumber, userNumber) {
@@ -31,7 +27,6 @@ class Control {
     }
 
     this.printResult({ ball, strike });
-
     return { ball, strike };
   }
 
