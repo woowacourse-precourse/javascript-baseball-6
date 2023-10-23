@@ -1,3 +1,5 @@
+import { GAME } from './Constants';
+
 class Baseball {
   static announceGameOutcome(random, input) {
     const numInput = Baseball.changeNumToArr(input);
@@ -8,9 +10,10 @@ class Baseball {
   }
 
   static getGameResult(strikeResult, ballResult) {
-    if (strikeResult === 0 && ballResult === 0) return '낫싱';
+    if (strikeResult === GAME.ZERO && ballResult === GAME.ZERO)
+      return GAME.NOTHING;
 
-    if (strikeResult !== 0 && ballResult !== 0)
+    if (strikeResult !== GAME.ZERO && ballResult !== GAME.ZERO)
       return Baseball.isBallAndStrike(strikeResult, ballResult);
 
     return Baseball.getFinalResult(strikeResult, ballResult);
@@ -27,7 +30,10 @@ class Baseball {
   }
 
   static isStrikeOut(random, input) {
-    return Baseball.isStrikeCount(random, Baseball.changeNumToArr(input)) === 3;
+    return (
+      Baseball.isStrikeCount(random, Baseball.changeNumToArr(input)) ===
+      GAME.STRIKE_OUT
+    );
   }
 
   static isStrikeCount(random, input) {
@@ -41,15 +47,15 @@ class Baseball {
   }
 
   static isBallAndStrike(strikeResult, ballResult) {
-    return `${ballResult}볼 ${strikeResult}스트라이크`;
+    return `${ballResult}${GAME.BALL} ${strikeResult}${GAME.STRIKE}`;
   }
 
   static isStrike(count) {
-    return `${count}스트라이크`;
+    return `${count}${GAME.STRIKE}`;
   }
 
   static isBall(count) {
-    return `${count}볼`;
+    return `${count}${GAME.BALL}`;
   }
 }
 
