@@ -1,6 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import { stringToNumberArray } from "./utils/array.js";
-import { validateNumberInput } from "./utils/input.js";
+import { validateProcessStateInput, validateNumberInput } from "./utils/input.js";
 
 const calculateStrikeCount = (computerNums, answerNums) => {
   return answerNums.filter((answerNum, i) => answerNum === computerNums[i])
@@ -66,6 +66,7 @@ export const playAGame = async (computerNumbers) => {
     const processStateInput = await MissionUtils.Console.readLineAsync(
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
     );
+    validateProcessStateInput(processStateInput);
 
     return { isRestart: checkIsRestart(processStateInput) };
   }
