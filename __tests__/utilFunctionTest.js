@@ -1,5 +1,6 @@
 import checkBallCount from "../src/utils/checkBallCount";
 import generateRandomNumber from "../src/utils/generateRandomNumber";
+import printBallCount from "../src/utils/printBallCount";
 import validateInput from "../src/utils/validateInput";
 
 describe("UtilFunctionTest", () => {
@@ -89,12 +90,28 @@ describe("UtilFunctionTest", () => {
 
   describe("볼 카운트 함수 테스트", () => {
     test("볼 카운트 함수 유효성 조건 테스트", () => {
-        expect(checkBallCount("123", "123")).toEqual({ ball: 0, strike: 3 });
-        expect(checkBallCount("123", "456")).toEqual({ ball: 0, strike: 0 });
-        expect(checkBallCount("123", "345")).toEqual({ ball: 1, strike: 0 });
-        expect(checkBallCount("123", "135")).toEqual({ ball: 1, strike: 1 });
-        expect(checkBallCount("568", "586")).toEqual({ ball: 2, strike: 1 });
-        expect(checkBallCount("568", "856")).toEqual({ ball: 3, strike: 0 });
+      expect(checkBallCount("123", "123")).toEqual({ ball: 0, strike: 3 });
+      expect(checkBallCount("123", "456")).toEqual({ ball: 0, strike: 0 });
+      expect(checkBallCount("123", "345")).toEqual({ ball: 1, strike: 0 });
+      expect(checkBallCount("123", "135")).toEqual({ ball: 1, strike: 1 });
+      expect(checkBallCount("568", "586")).toEqual({ ball: 2, strike: 1 });
+      expect(checkBallCount("568", "856")).toEqual({ ball: 3, strike: 0 });
+    });
+  });
+
+  describe("볼 카운트 출력 함수 테스트", () => {
+    test("볼 카운트 출력 테스트", () => {
+      expect(printBallCount({ ball: 0, strike: 1 })).toEqual("1스트라이크");
+      expect(printBallCount({ ball: 0, strike: 2 })).toEqual("2스트라이크");
+      expect(printBallCount({ ball: 0, strike: 3 })).toEqual("3스트라이크");
+      expect(printBallCount({ ball: 0, strike: 0 })).toEqual("낫싱");
+      expect(printBallCount({ ball: 1, strike: 0 })).toEqual("1볼");
+      expect(printBallCount({ ball: 2, strike: 0 })).toEqual("2볼");
+      expect(printBallCount({ ball: 3, strike: 0 })).toEqual("3볼");
+      expect(printBallCount({ ball: 1, strike: 1 })).toEqual("1볼 1스트라이크");
+      expect(printBallCount({ ball: 1, strike: 2 })).toEqual("1볼 2스트라이크");
+      expect(printBallCount({ ball: 2, strike: 1 })).toEqual("2볼 1스트라이크");
+      
     });
   });
 });
