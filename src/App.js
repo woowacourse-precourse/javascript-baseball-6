@@ -4,7 +4,7 @@ const NUMBER_LENGTH = 3;
 
 class App {
   async play() {
-    let playing = true;
+    let playing = true; // 게임 진행 여부를 확인하는 변수
     while(playing) {
       const computer = this.start();
       await this.progress(computer);
@@ -30,7 +30,9 @@ class App {
     while(true) {
       const input = await Console.readLineAsync('숫자를 입력해주세요 : ');
       const user = (input + '').split('').map((num) => parseInt(num));
-      this.validateNumber(user);
+
+      this.validateNumber(user); // 숫자 유효 여부 확인
+
       const gameResult = this.getResult(computer, user);
       Console.print(gameResult);
 
@@ -55,7 +57,7 @@ class App {
 
   // 사용자가 입력한 숫자가 유효한 형식인지 확인하는 함수
   validateNumber(number) {
-    if(number.length !== 3) {
+    if(number.length !== NUMBER_LENGTH) {
       throw Error("[ERROR] 올바른 형식이 아닙니다.");
     } else {
       for(let item in number) {
