@@ -3,55 +3,61 @@ import checkBallCount from "./utils/checkBallCount";
 import makeRandomNumber from "./utils/makeRandomNumber";
 import printBallCount from "./utils/printBallCount";
 
+
 const { Console } = require("@woowacourse/mission-utils");
 
 class App {
+  constructor() {
+    this.answer = "";
+  }
+
   async play() {
     Console.print(PLAY_GAME.start);
     await this.gameTurn();
   }
 
   async gameTurn() {
-    const randomNumber = makeRandomNumber();
-    await this.gameStart(randomNumber);
+    this.answer = makeRandomNumber();
+    await this.gameStart();
   }
 
-  async gameStart(answer) {
-    try {
-      while (true) {
-        const inputNumber = await Console.readLineAsync(PLAY_GAME.input);
-        const score = checkBallCount(inputNumber, answer);
-        Console.print(printBallCount(score));
-
-        if (score.strike === ANSWER_LENGTH) {
-          Console.print(PLAY_GAME.answer);
-          this.checkAnswer();
-          break;
-        }
-      }
-    } catch (error) {
+  async gameStart() {
+    const inputValue = await Console.readLineAsync(PLAY_GAME.input);
+    if (inputValue) {
       //인풋이 올바른지 확인하는 유효성 검사 필요
-      this.errorMessages();
+      const scoreCount = checkBallCount(this.answer, inputValue);
+      const { strike } = scoreCount;
+
+      if (strike === ANSWER_LENGTH) {
+        printBallCount(scoreCount);
+        Console.print(PLAY_GAME.answer);
+        return this.restartGame();
+      }
+
+      const message = printBallCount(scoreCount);
+      Console.print(message);
+    } else {
+      Console.print(ERROR_MESSAGE);
     }
+
+    return this.gameStart();
   }
 
-  async checkAnswer() {
-    Console.print(PLAY_GAME.answer);
-    let input = await Console.readLineAsync(PLAY_GAME.check);
+  async restartGame() {
+    const input = await Console.readLineAsync(PLAY_GAME.check);
+
     if (input === PLAY_GAME.restart) {
-      return this.gameTurn();
-    } else if (input === PLAY_GAME.end) {
-      return Console.print(PLAY_GAME.endMessage);
+      this.answer = makeRandomNumber();
+      return this.gameStart();
     }
-    return this.errorMessages();
-  }
 
-  async errorMessages() {
-    throw new Error(ERROR_MESSAGE);
+    if (input === PLAY_GAME.end) {
+      Console.print(PLAY_GAME.endMessage);
+    } else {
+      Console.print(ERROR_MESSAGE);
+      return this.restartGame();
+    }
   }
 }
-
-const app = new App();
-app.play();
 
 export default App;
