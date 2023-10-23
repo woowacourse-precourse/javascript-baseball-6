@@ -14,27 +14,32 @@ class App {
 
   play() {
     printStartMessage('숫자 야구 게임을 시작합니다.');
+    this.setting();
+  }
+
+  async setting() {
     this.baseBall.init();
-    this.piching();
+    await this.piching();
   }
 
   async piching() {
-    const userInput = await readBaseballNumbers('숫자를 입력해주세요 : ');
-    this.check(Number(userInput));
+    const response = await readBaseballNumbers('숫자를 입력해주세요 : ');
+    const userInput = Number(response);
+
+    await this.check(userInput);
   }
 
-  check(userInput) {
+  async check(userInput) {
     const countResult = this.baseBall.countResult(userInput);
     const { strike } = countResult;
+
     printResult(countResult);
-    if (strike !== 3) {
-      this.piching();
-      return;
-    }
 
     if (strike === 3) {
       this.complete();
+      return;
     }
+    await this.piching();
   }
 
   complete() {
@@ -42,8 +47,25 @@ class App {
     this.requestRestart();
   }
 
-  requestRestart() {
-    const userInput = await readRestartNumber('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.')
+  async requestRestart() {
+    const response = await readRestartNumber(
+      '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.'
+    );
+    const userInput = Number(response);
+
+    if (userInput === 1) {
+      this.restart();
+      return;
+    }
+    this.end();
+  }
+
+  restart() {
+    this.setting();
+  }
+
+  end() {
+    return;
   }
 }
 
