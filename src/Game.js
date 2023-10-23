@@ -46,6 +46,18 @@ class Game {
       process.exit(1); // todo: process.exit() 사용하지 않고 프로그램 종료하기
     }
   };
+  checkUserNumsInput = (input) => {
+    let isValid = true;
+    const reg = /^[0-9]{3}$/;
+    if (!reg.test(input)) {
+      // 입력에 숫자가 아닌 문자가 포함된 경우
+      isValid = false;
+    } else if (new Set(input).size !== 3) {
+      // 입력에 같은 문자가 포함된 경우
+      isValid = false;
+    }
+    return isValid;
+  };
   checkResult = (userNums) => {
     const result = {
       strike: 0,
