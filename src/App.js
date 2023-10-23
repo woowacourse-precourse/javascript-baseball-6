@@ -9,6 +9,7 @@ class App {
     Console.print("숫자 야구 게임을 시작합니다.");
     this.answer = this.makeAnswer();
   }
+
   makeAnswer() {
     let answer = [];
     while (answer.length < 3) {
@@ -19,10 +20,11 @@ class App {
     }
     return answer;
   }
+
   async getNumberInput() {
     let numberInput = await Console.readLineAsync("숫자를 입력해주세요 : ");
     const result = this.validateInput(numberInput);
-    if (result != "통과") return result;
+    if (result != "통과") throw new Error(result);
     return numberInput.split("");
   }
 
@@ -39,28 +41,29 @@ class App {
     }
     return [strikeResult, ballResult];
   }
+
+  makeHint(strikeResult, ballResult) {
+    if (strikeResult > 0 && ballResult > 0)
+      Console.print(ballResult + BALL + " " + strikeResult + STRIKE);
+    else if (strikeResult == 0 && ballResult > 0)
+      Console.print(ballResult + BALL);
+    else if (strikeResult > 0 && ballResult == 0)
+      Console.print(strikeResult + STRIKE);
+    else Console.print(NOTHING);
+  }
+
   async play() {
     try {
       let numberInput = await this.getNumberInput();
-      if (!Array.isArray(numberInput)) throw new Error(numberInput);
       const [strikeResult, ballResult] = this.checkAnswer(numberInput);
-      if (strikeResult == 3) {
-        Console.print(strikeResult + STRIKE);
-        return await this.endOrReset();
-      }
-
-      if (strikeResult > 0 && ballResult > 0)
-        Console.print(ballResult + BALL + " " + strikeResult + STRIKE);
-      else if (strikeResult == 0 && ballResult > 0)
-        Console.print(ballResult + BALL);
-      else if (strikeResult > 0 && ballResult == 0)
-        Console.print(strikeResult + STRIKE);
-      else Console.print(NOTHING);
+      if (strikeResult == 3) return await this.endOrReset();
+      this.makeHint(strikeResult, ballResult);
     } catch (error) {
       throw new Error("[ERROR]" + error); //Error를 던지는 것이랑 콘솔의 차이
     }
     return await this.play();
   }
+
   validateInput(number) {
     const inputToSet = new Set(number.split("").map(Number));
     if (number.length !== 3) return "입력값은 세자리 수를 입력해주세요.";
@@ -74,6 +77,7 @@ class App {
   }
 
   async endOrReset() {
+    Console.print("3스트라이크");
     const endMessage = await Console.readLineAsync(END_OR_RESET_MESSAGE);
     if (endMessage == 1) {
       this.answer = this.makeAnswer();
