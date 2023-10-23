@@ -21,17 +21,25 @@ async function playGame() {
 
   while (true) {
     var guess = 0;
-
     try {
       guess = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
+      guess = parseInt(guess);
     } catch (error) {
       MissionUtils.Console.print(error);
-      return;
+      break;
     }
+
+    if (guess < 100 || guess > 999) {
+      throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+    }
+
     let result = compareGuess(computer, guess);
     let interpretation = interpretResult(result);
     MissionUtils.Console.print(interpretation);
-    if (result[1] == 3) break;
+    if (result[1] == 3) {
+      MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+      break;
+    }
   }
 
   var restart = 2;
@@ -40,7 +48,6 @@ async function playGame() {
       restart = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1 종료하려면 2를 입력하세요.\n');
     } catch (error) {
       MissionUtils.Console.print(error);
-      return;
     }
 
   return restart;
