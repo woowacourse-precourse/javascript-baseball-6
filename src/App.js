@@ -16,15 +16,7 @@ class App {
       if (this.validateInput(number)) {
         const { strike, ball } = this.calculateBaseball(computerNumber, number);
 
-        if (ball !== 0 && strike === 0) {
-          Console.print(`${ball}볼`);
-        } else if (ball === 0 && strike !== 0) {
-          Console.print(`${strike}스트라이크`);
-        } else if (ball !== 0 && strike !== 0) {
-          Console.print(`${ball}볼 ${strike}스트라이크`);
-        } else {
-          Console.print(`낫싱`);
-        }
+        this.printResult(ball, strike);
 
         if (strike === 3) {
           Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
@@ -40,6 +32,18 @@ class App {
         continueGame = false;
         throw new Error("[ERROR] 3자리 숫자를 입력해주세요.");
       }
+    }
+  }
+
+  printResult(ball, strike) {
+    if (ball !== 0 && strike === 0) {
+      Console.print(`${ball}볼`);
+    } else if (ball === 0 && strike !== 0) {
+      Console.print(`${strike}스트라이크`);
+    } else if (ball !== 0 && strike !== 0) {
+      Console.print(`${ball}볼 ${strike}스트라이크`);
+    } else {
+      Console.print(`낫싱`);
     }
   }
 
