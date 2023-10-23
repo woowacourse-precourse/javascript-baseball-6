@@ -1,7 +1,11 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
+export const printStartSentence = () => {
+  MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
+};
+
 export const getRandomNumberArr = () => {
-  const randomNumberArr = [];
+  let randomNumberArr = [];
   while (randomNumberArr.length < 3) {
     const random = MissionUtils.Random.pickNumberInRange(1, 9);
     if (!randomNumberArr.includes(random)) {
@@ -12,10 +16,14 @@ export const getRandomNumberArr = () => {
 };
 
 export const getInputNumberArr = (number) => {
-  const inputNumberArr = [];
-  const strNum = number.toString();
-  for (let i = 0; i < 3; i++) {
-    inputNumberArr.push(Number(strNum[i]));
+  let inputNumberArr = [];
+  if (number !== undefined) {
+    if (number.length !== 3) {
+      throw new Error("[ERROR] 세개의 숫자를 입력해주세요.");
+    }
+    for (let i = 0; i < number.length; i++) {
+      inputNumberArr.push(Number(number.substr(i, 1)));
+    }
   }
 
   return inputNumberArr;
@@ -24,11 +32,13 @@ export const getInputNumberArr = (number) => {
 export const checkArr = (randomArr, inputArr) => {
   let ball = 0,
     strike = 0;
-  for (let i = 0; i < 3; i++) {
-    for (let j = 0; j < 3; j++) {
-      if (inputArr[i] === randomArr[j]) {
-        if (i === j) strike++;
-        else ball++;
+  if (randomArr !== undefined && inputArr !== undefined) {
+    for (let i = 0; i < inputArr.length; i++) {
+      for (let j = 0; j < randomArr.length; j++) {
+        if (inputArr[i] === randomArr[j]) {
+          if (i === j) strike++;
+          else ball++;
+        }
       }
     }
   }
