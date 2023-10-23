@@ -4,49 +4,29 @@ class App {
   
   async play() {
     const randoms = randomNumber();
-    console.log("숫자 야구 게임을 시작합니다.");
+    await Console.print("숫자 야구 게임을 시작합니다.");
     while (true) {
-      // try {
         const answers = await Console.readLineAsync('숫자를 입력해주세요 : ');
-        if(answers.length != randoms.length){
-          Console.print(answers.length);
-          Console.print("[ERROR]");
-          continue;
+        if(answers === undefined|| answers.length != randoms.length){
+          throw new Error("[ERROR]");
         }
         const user = answers.split('').map(Number);
         if(validator(randoms,user) == 0) {
-          Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+          await Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
           break;
         }else{
           continue;
         } 
-      // } catch (error) {
-        // reject 되는 경우
-      // }
     }
-    // Console.readLine('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.', (answer) => {
-    //   // console.log(`닉네임: ${answer}`);
-    //   if(answer == 1){
-    //     Console.print("1입력");
-    //     return app.play(ranNum); 
-    //   } else if (answer == 2){
-    //     Console.print("게임 종료");
-    //   }else{
-    //     Console.print("계속하시려면 1, 종료하시려면 2 를 눌러주세요");
-    //   }
-    // });
-    // try {
       const status = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
       if(status == 1){
-        Console.print("1입력");
-        return app.play();
+        await Console.print("1입력");
+        await app.play();
       }else if(status == 2){
-        Console.print("게임 종료");
+        await Console.print("게임 종료");
       }else{
-        Console.print("[ERROR]")
+        throw new Error("[ERROR]");
       }
-    // } catch (error) {
-    // }
   }
 }
 const randomNumber = ()=> {
