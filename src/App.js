@@ -34,6 +34,17 @@ const get_ball_count = (string_number, target_number) => {
   return count;
 };
 
+// 예측 결과 출력
+const guess_result = async (random_number, user_input) => {
+  const strike = get_strike_count(random_number, user_input);
+  const ball = get_ball_count(random_number, user_input);
+
+  if (ball === 0 && strike === 0) {
+  }
+
+  MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
+};
+
 // 사용자 입력 값에 따른 게임 종료 또는 재시작 ( '1' === 재시작 / '2' === 종료 )
 const game_reset_or_end = async () => {
   MissionUtils.Console.print("3개의 숫자를 모두 맞추셨습니다! 게임 종료");
