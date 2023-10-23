@@ -19,6 +19,15 @@ class App {
       throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
     }
     const USER = NUMBER.split("").map(Number);
+
+    // 사용자 입력 숫자 중 중복된 값 확인
+    for (let i = 0; i < USER.length; i++) {
+      for (let j = i + 1; j < USER.length; j++) {
+        if (USER[i] === USER[j]) {
+          throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+        }
+      }
+    }
   }
 }
 
