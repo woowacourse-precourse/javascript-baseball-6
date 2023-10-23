@@ -52,7 +52,6 @@ class App {
     const result = { ball: 0, strike: 0 };
 
     for (let c of computer) {
-      console.log(userInput, c);
       if (userInput.includes(c)) {
         if (computer.indexOf(c) === userInput.indexOf(c)) {
           result.strike++;
