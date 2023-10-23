@@ -9,7 +9,9 @@ class Controller {
 
     async gameStart() {
         const userInput = await this.view.showUserInput();
-
+        if (!this.model.isValidUserNumber(userInput)) {
+            //에러처리
+        }
     }
 }
 
