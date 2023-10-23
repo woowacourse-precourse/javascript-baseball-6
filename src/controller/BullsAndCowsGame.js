@@ -1,4 +1,4 @@
-import RandomPicker from "../models/RandomPicker.js";
+import NumberGenerator from "../models/NumberGenerator.js";
 import GameAnalyzer from "../models/GameAnalyzer.js";
 import OutputView from "../views/OutputView.js";
 import InputView from "../views/InputView.js";
@@ -8,7 +8,7 @@ import { USER_COMMAND } from "../constants/Constants.js";
 class BullsAndCowsGame {
 
   constructor() {
-    this.computerNumber = new RandomPicker().getComputerNumber();
+    this.computerNumber = new NumberGenerator().getComputerNumber();
 
     OutputView.printStaticMessage(MESSAGES.START_GUIDE);
   }
@@ -30,7 +30,7 @@ class BullsAndCowsGame {
     const userCommand = await InputView.getUserCommand(MESSAGES.REPLAY_GUIDE);
 
     if (userCommand === USER_COMMAND.REPLAY) {
-      this.computerNumber = new RandomPicker().getComputerNumber();
+      this.computerNumber = new NumberGenerator().getComputerNumber();
       return this.startGame();
     };
     
