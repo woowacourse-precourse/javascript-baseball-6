@@ -2,15 +2,15 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 import { judgeNumber } from "./computer.js";
 
 export async function enterNumber(computerNum) {
-    const regex = /[^0-9]/; // 숫자가 아닌 문자를 찾는 정규 표현식
+    const regex = /[^1-9]/; // 숫자 1~9 외의 문자 찾아내는 정규표현식
 
     try {
         let playerNum = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
 
         // 예외사항 처리
         if (regex.test(playerNum)) {
-            MissionUtils.Console.print('[ERROR] 공백 없이 숫자만 입력해주세요.');
-            throw new Error('숫자 외 문자 입력 오류');
+            MissionUtils.Console.print('[ERROR] 1부터 9까지의 숫자만 입력해주세요. (공백 없이)');
+            throw new Error('숫자 1~9 외 문자 입력 오류');
         } else if (playerNum.length != 3) {
             MissionUtils.Console.print('[ERROR] 3개의 숫자만 입력해주세요.');
             throw new Error('숫자 개수 오류');
