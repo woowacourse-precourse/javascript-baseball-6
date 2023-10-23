@@ -1,4 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
+import printMsg from '../utils/printMsg.js';
 
 const BaseBallGame = {
   getRandomArray() {
@@ -32,6 +33,36 @@ const BaseBallGame = {
       }
     });
     return count;
+  },
+
+  printHint(countObject) {
+    if (
+      !Object.hasOwn(countObject, 'ball') ||
+      !Object.hasOwn(countObject, 'strike')
+    ) {
+      throw new Error(
+        "countObject는 'ball'과 'strike' 프로퍼티를 가져야합니다.",
+      );
+    }
+
+    if (countObject.ball) {
+      if (countObject.strike) {
+        // 볼과 스트라이트 둘 다 count된 경우
+        printMsg(`${countObject.ball}볼 ${countObject.strike}스트라이크`);
+        return;
+      }
+      // 볼만 카운트된 경우
+      printMsg(`${countObject.ball}볼`);
+      return;
+    }
+
+    if (countObject.strike) {
+      // 스트라이크만 카운트된 경우
+      printMsg(`${countObject.strike}스트라이크`);
+      return;
+    }
+    // 아무 것도 카운트 되지 않은 경우
+    printMsg('낫싱');
   },
 };
 
