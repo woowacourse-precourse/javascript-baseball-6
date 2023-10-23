@@ -2,14 +2,15 @@ import {MissionUtils} from "@woowacourse/mission-utils";
 import {makeRandomNumber} from "./MakeRandomNumber.js";
 import {resultOut} from "./ResultOut.js";
 import {wantReStart} from "./WantReStart.js";
-
-export async function gameStart() {
+import {inputErrorCheck} from "./InputErrorCheck.js";
+export const gameStart = async () => {
     let result;
-    const Random_Number = makeRandomNumber();
+    const RANDOM_NUMBER = makeRandomNumber();
     //3스트라이크가 나오기 전까지 반복
     while (result !== `3스트라이크`){
-        const Input_Number = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
-        result = resultOut(Random_Number, Input_Number);
+        const INPUT_NUMBER = (await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ')).split('').map(v => parseInt(v));
+        inputErrorCheck(INPUT_NUMBER);
+        result = resultOut(RANDOM_NUMBER, INPUT_NUMBER);
         MissionUtils.Console.print(result);
     }
     if (result === `3스트라이크`) {
