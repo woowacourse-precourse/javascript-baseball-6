@@ -4,13 +4,8 @@ class App {
   async play() {
     printStart();
     const baseballNums = makeRandomNum();
-    console.log("컴터숫자", baseballNums);
-    const userNum = await inputNum();
-    console.log("usernum", userNum);
-    validationNum(userNum);
-
-    let result = checkNum(userNum, baseballNums);
-    checkCorrectAnswer(result);
+    // console.log("컴터숫자", baseballNums);
+    await inputNum(baseballNums);
   }
 }
 // 1. 시작문구 출력
@@ -27,17 +22,19 @@ const makeRandomNum = () => {
 };
 
 // 3. 사용자에게 숫자 입력받기
-const inputNum = () => {
+const inputNum = (baseballNums) => {
   return new Promise((resolve) => {
-    Console.readLine("숫자를 입력해주세요 :", (answer) =>
-      resolve(answer.split(""))
-    );
+    Console.readLine("숫자를 입력해주세요 :", (answer) => {
+      const userNum = answer.split("").map(Number);
+      validationNum(userNum);
+      const result = checkNum(userNum, baseballNums);
+      checkCorrectAnswer(result, baseballNums);
+    });
   });
 };
 
 // 4. 숫자 유효성검토(숫자인지, 3개의 숫자인지)
 const validationNum = (num) => {
-  console.log("유효성검사에서", num.length);
   if (num.length > 3 || num.length < 3 || num.some(isNaN)) {
     throw new Error("[ERROR] 입력값이 잘못되었습니다.게임을 종료합니다.");
   }
@@ -50,7 +47,7 @@ const checkNum = (num, baseballNums) => {
   let ball = 0;
 
   for (let i = 0; i < baseballNums.length; i++) {
-    if (baseballNums[i] == num[i]) {
+    if (baseballNums[i] === num[i]) {
       strike++;
     } else if (baseballNums.includes(num[i])) {
       ball++;
@@ -58,21 +55,20 @@ const checkNum = (num, baseballNums) => {
   }
 
   if (strike === 0 && ball === 0) return Console.print("낫싱");
+  if (ball > 0) answer += `${ball}볼 `;
   if (strike > 0) answer += `${strike}스트라이크`;
-  if (ball > 0) answer += `${ball}볼`;
 
   Console.print(answer);
   return answer;
 };
 
 // 6. 최종정답 확인
-const checkCorrectAnswer = (result) => {
-  console.log("finaly", String(result) === "3스트라이크");
+const checkCorrectAnswer = (result, baseballNums) => {
   if (result === "3스트라이크") {
     Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
     replayGame();
   } else {
-    app.play();
+    inputNum(baseballNums);
   }
 };
 
