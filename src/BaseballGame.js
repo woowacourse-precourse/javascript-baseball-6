@@ -2,6 +2,7 @@ import {Console} from '@woowacourse/mission-utils';
 import MESSAGES from './Messages';
 import Computer from './Computer';
 import Validator from '../utils/Validator';
+import NumberChecker from './NumberChecker';
 
 class BaseballGame {
   computerNumber;
