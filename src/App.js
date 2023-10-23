@@ -13,7 +13,11 @@ class App {
     }
   }
 
-  async play() {}
+  async play() {
+    MissionUtils.Console.readLine('숫자를 입력해주세요 : ', (answer) => {
+      
+    });
+  }
 }
 
 export default App;
