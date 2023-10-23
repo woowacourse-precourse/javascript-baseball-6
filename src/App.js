@@ -4,8 +4,17 @@ import { MESSAGES } from "./messages/messages";
 class App {
   constructor() {
     this.computerAnswers = [];
-    this.userAnswers;
-    this.message;
+  }
+
+  play() {
+    Console.print(MESSAGES.GAME_PROCESS.START);
+
+    return this.initPlay();
+  }
+
+  async initPlay() {
+    this.createComputerAnswers();
+    await this.getUserAnswers();
   }
 
   createComputerAnswers() {
@@ -23,28 +32,28 @@ class App {
     const user = await Console.readLineAsync(
       "1~9 숫자 내에서 중복 없이 임의의 숫자 3자리를 입력하세요."
     );
-
     const userAnswers = user.split("").map(Number);
-
-    if (userAnswers.length !== 3)
+    if (userAnswers.length !== 3 || userAnswers.some(isNaN)) {
       throw new Error(MESSAGES.GAME_ERROR.LENGTH_VALID);
-
-    const CORRECT_USER_NUMBERS_IN_RANGE = (userAnswer) =>
-      1 <= userAnswer && userAnswer < 10;
-    if (!userAnswers.every(CORRECT_USER_NUMBERS_IN_RANGE))
-      throw new Error(MESSAGES.GAME_ERROR.RANGE_VALID);
-
-    const DUPLICATE_USER_NUMBERS_IN_ARRAY = [...new Set(userAnswers)];
-    if (DUPLICATE_USER_NUMBERS_IN_ARRAY.length !== user.length)
-      throw new Error(MESSAGES.GAME_ERROR.DUPLICATE_VALID);
-
-    this.userAnswers = userAnswers;
+    } else {
+      this.playBaseBall(userAnswers);
+    }
   }
 
-  async play() {
-    Console.print(MESSAGES.GAME_PROCESS.START);
-    this.createComputerAnswers();
-    await this.getUserAnswers();
+  playBaseBall(userAnswers) {
+    let strike = 0;
+    let ball = 0;
+
+    this.computerAnswers.forEach((computer, idx) => {
+      if (computer === userAnswers[idx]) {
+        strike += 1;
+        return;
+      }
+      if (userAnswers.includes(computer)) {
+        ball += 1;
+        return;
+      }
+    });
   }
 }
 
