@@ -48,6 +48,24 @@ class App {
         this.ball++;
       }
     }
+
+    this.printResult();
+  }
+
+  printResult() {
+    let result = '';
+
+    if (this.ball > 0) {
+      result += `${this.ball}볼`;
+    }
+    if (this.strike > 0 && this.ball > 0) {
+      result += ' ';
+    }
+    if (this.strike > 0) {
+      result += `${this.strike}스트라이크`;
+    }
+    Console.print(result || '낫싱');
+    this.init();
   }
 }
 
