@@ -1,14 +1,14 @@
 const convertStringToArray = (string) => string.split('');
 
-const countStrike = (userNumber, computerNumber) => {
+const countStrike = (computerNumber, userNumber) => {
   let strikeNumber = 0;
-  const userArray = convertStringToArray(userNumber);
-  const computerArray = convertStringToArray(computerNumber);
+  const computerNumberArray = convertStringToArray(computerNumber);
+  const userNumberArray = convertStringToArray(userNumber);
 
   // TODO: 주석 삭제 필요
   // eslint-disable-next-line no-plusplus
-  for (let i = 0; i < userArray.length; i++) {
-    if (userArray[i] === computerArray[i]) {
+  for (let i = 0; i < computerNumber.length; i++) {
+    if (computerNumberArray[i] === userNumberArray[i]) {
       strikeNumber += 1;
     }
   }
@@ -16,21 +16,12 @@ const countStrike = (userNumber, computerNumber) => {
   return strikeNumber;
 };
 
-const countBall = (userNumber, computerNumber) => {
-  const userArray = convertStringToArray(userNumber);
-  const computerArray = convertStringToArray(computerNumber);
+const countBall = (computerNumber, userNumber, strikeNumber) => {
+  const computerNumberArray = convertStringToArray(computerNumber);
+  const userNumberArray = convertStringToArray(userNumber);
+  const sameNumberArray = computerNumberArray.filter((number) => userNumberArray.includes(number));
 
-  let ballNumber = 0;
-
-  // TODO: 주석 삭제 필요
-  // eslint-disable-next-line no-plusplus
-  for (let i = 0; i < userArray.length; i++) {
-    if (userArray[i] !== computerArray[i] && computerArray.includes(userArray[i])) {
-      ballNumber += 1;
-    }
-  }
-
-  return ballNumber;
+  return sameNumberArray.length - strikeNumber;
 };
 
 const convertNumberToString = (strikeNumber, ballNumber) => {
@@ -44,16 +35,16 @@ const convertNumberToString = (strikeNumber, ballNumber) => {
     hintMessage += `${strikeNumber}스트라이크`;
   }
 
-  if (!ballNumber && !strikeNumber > 0) {
+  if (hintMessage.length === 0) {
     hintMessage += '낫싱';
   }
 
   return hintMessage;
 };
 
-const getHintToUser = (userNumber, computerNumber) => {
-  const strikeNumber = countStrike(userNumber, computerNumber);
-  const ballNumber = countBall(userNumber, computerNumber);
+const getHintToUser = (computerNumber, userNumber) => {
+  const strikeNumber = countStrike(computerNumber, userNumber);
+  const ballNumber = countBall(computerNumber, userNumber, strikeNumber);
   const hintMessage = convertNumberToString(strikeNumber, ballNumber);
 
   return hintMessage;
