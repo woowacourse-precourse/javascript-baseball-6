@@ -12,15 +12,21 @@ async function handleProgress(message) {
       );
 
       if (INPUT === "1" || INPUT === "2") {
-        return INPUT;
+        switch (INPUT) {
+          case "1":
+            return INPUT;
+          case "2":
+            MissionUtils.Console.print("게임 종료");
+            return INPUT;
+        }
       } else {
         const ERROR_MESSAGE =
           "입력값이 1 또는 2에 해당하지 않습니다. 애플리케이션을 종료합니다";
-        throwInvalidInputErrorMessage(ERROR_MESSAGE);
+        throw ERROR_MESSAGE;
       }
     }
   } catch (error) {
-    MissionUtils.Console.print(error);
+    throwInvalidInputErrorMessage(error);
   }
 }
 
