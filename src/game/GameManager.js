@@ -4,6 +4,7 @@ import GameLogic from "./GameLogic.js";
 class GameManager {
   constructor() {
     this.gameLogic = new GameLogic();
+    this.replay = true;
   }
 
   startGame() {
@@ -12,6 +13,7 @@ class GameManager {
   }
 
   async playGame() {
+    let computerNumber = this.gameLogic.generateNewNumber();
     let userNumber = "";
 
     while (true) {
@@ -19,7 +21,7 @@ class GameManager {
         "숫자를 입력해주세요 : "
       );
 
-      userNumber = this.gameLogic.checkGameResult(answer);
+      userNumber = this.gameLogic.checkGameResult(computerNumber, answer);
       MissionUtils.Console.print(userNumber);
 
       if (userNumber === "3스트라이크") {
@@ -29,17 +31,16 @@ class GameManager {
     }
   }
 
-  restartGame() {
-    MissionUtils.Console.readLine(
-      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.",
-      (answer) => {
-        if (answer === 1) {
-          this.playGame();
-        } else if (answer === 2) {
-          return;
-        }
-      }
+  async restartGame() {
+    const answer = await MissionUtils.Console.readLineAsync(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
     );
+
+    if (answer === "1") {
+      return this.playGame();
+    } else if (answer === "2") {
+      return false;
+    }
   }
 }
 

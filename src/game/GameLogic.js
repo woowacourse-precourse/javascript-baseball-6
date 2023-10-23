@@ -1,9 +1,7 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 class GameLogic {
-  constructor() {
-    this.computerNumber = this.generateNewNumber();
-  }
+  constructor() {}
 
   generateNewNumber() {
     let numberArray = [];
@@ -14,18 +12,19 @@ class GameLogic {
         numberArray.push(number);
       }
     }
+    console.log(numberArray);
     return numberArray.join("");
   }
 
-  checkGameResult(userNum) {
+  checkGameResult(computerNum, userNum) {
     let strike = 0;
     let ball = 0;
     let gameResult = "";
 
     for (let i = 0; i < 3; i++) {
-      if (this.computerNumber[i] === userNum[i]) {
+      if (computerNum[i] === userNum[i]) {
         strike++;
-      } else if (this.computerNumber.includes(userNum[i])) {
+      } else if (computerNum.includes(userNum[i])) {
         ball++;
       }
     }
