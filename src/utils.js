@@ -1,7 +1,14 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 export async function readInput(string) {
-  return await MissionUtils.Console.readLineAsync(string);
+  let returnValue;
+  try {
+    returnValue = await MissionUtils.Console.readLineAsync(string);
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+  return returnValue;
 }
 
 export function printOutput(string) {

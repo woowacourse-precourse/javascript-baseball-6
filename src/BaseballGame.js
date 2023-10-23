@@ -24,7 +24,7 @@ class BaseballGame {
   }
 
   setComputerNumbers(numbers) {
-    //TODO: Numbers가 길이가 3인 숫자로 이루어진 배열인지 검사
+    this.validNumbers(numbers);
     this.#computerNumbers = numbers;
   }
 
@@ -51,8 +51,8 @@ class BaseballGame {
       console.error(error.messgae);
       throw error;
     }
-    const { strike, ball } = this.getStrikeAndBall();
 
+    const { strike, ball } = this.getStrikeAndBall();
     this.printStrikeAndBall({ strike, ball });
 
     const IS_RE_INPUT = strike !== 3;
@@ -60,31 +60,14 @@ class BaseballGame {
   }
 
   async handleUserInput() {
-    let userInput;
-    try {
-      userInput = await readInput("숫자를 입력해주세요 : ");
-    } catch (error) {
-      throw error;
-    }
-    const USER_NUMBERS = userInput.split("").map(Number);
-    this.validUserNumber(USER_NUMBERS);
+    const USER_INPUT = await readInput("숫자를 입력해주세요 : ");
+    const USER_NUMBERS = USER_INPUT.split("").map(Number);
     this.setUserNumbers(USER_NUMBERS);
   }
 
   setUserNumbers(numbers) {
-    //TODO: Numbers가 길이가 3인 숫자로 이루어진 배열인지 검사
+    this.validNumbers(numbers);
     this.#userNumbers = numbers;
-  }
-
-  validUserNumber(input) {
-    if (input.length !== this.#GAME_NUMBER_LEN)
-      throw new Error("[ERROR] 입력한 값은 3자리가 아닙니다.");
-    for (const value of input) {
-      if (isNaN(value))
-        throw new Error("[ERROR] 입력한 값에 숫자가 아닌 값이 있습니다.");
-    }
-    if (new Set(input).size !== this.#GAME_NUMBER_LEN)
-      throw new Error("[ERROR] 입력한 값에 중복이 있습니다.");
   }
 
   /**
@@ -115,16 +98,11 @@ class BaseballGame {
   }
 
   async handleEnd() {
-    let input;
-    try {
-      input = await readInput(
-        "3개의 숫자를 모두 맞히셨습니다! 게임 종료 \n게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. \n"
-      );
-    } catch (error) {
-      throw error;
-    }
-    this.validGameEndInput(input);
-    const IS_GAME_RETRY = this.isGameEnd(input);
+    const INPUT = await readInput(
+      "3개의 숫자를 모두 맞히셨습니다! 게임 종료 \n게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. \n"
+    );
+    this.validGameEndInput(INPUT);
+    const IS_GAME_RETRY = this.isGameEnd(INPUT);
     if (!IS_GAME_RETRY) await this.playGame();
     if (IS_GAME_RETRY) printOutput("게임 종료");
   }
@@ -142,6 +120,17 @@ class BaseballGame {
   isGameEnd(input) {
     if (input === "1") return false;
     if (input === "2") return true;
+  }
+
+  validNumbers(input) {
+    if (input.length !== this.#GAME_NUMBER_LEN)
+      throw new Error("[ERROR] 입력한 값은 3자리가 아닙니다.");
+    for (const value of input) {
+      if (isNaN(value))
+        throw new Error("[ERROR] 입력한 값에 숫자가 아닌 값이 있습니다.");
+    }
+    if (new Set(input).size !== this.#GAME_NUMBER_LEN)
+      throw new Error("[ERROR] 입력한 값에 중복이 있습니다.");
   }
 }
 
