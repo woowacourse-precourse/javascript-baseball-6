@@ -64,7 +64,7 @@ const getUserInput = async () => {
   const input = [...userInput].map((number) => parseInt(number));
 
   return input;
-}
+};
 
 const checkInputIsValid = (userInput) => {
   const input = [...userInput];
@@ -79,14 +79,15 @@ const checkIsNumber = (userInput) => {
   const input = userInput.filter((number) => isNaN(number));
 
   return input.length === 0 ? true : false;
-}
+};
 
 const checkIsNonDuplicated = (userInput) => {
-  const input = userInput.sort()
-  .reduce((acc, cur) => (acc.includes(cur) ? acc : [...acc, cur]), []);
+  const input = userInput
+    .sort()
+    .reduce((acc, cur) => (acc.includes(cur) ? acc : [...acc, cur]), []);
 
   return input.length === 3 ? true : false;
-}
+};
 
 const calculateScore = (userInput, randomNumber) => {
   const socreBoard = { strike: 0, ball: 0 };
@@ -108,14 +109,14 @@ const calculateScore = (userInput, randomNumber) => {
   return socreBoard;
 };
 
-
 const printScore = (scoreBoard) => {
-  let returnString = "낫싱";
-  if (scoreBoard.strike != 0 || scoreBoard.ball != 0) {
-    returnString = `${scoreBoard.ball === 0 ? "" : scoreBoard.ball + "볼"} ${
-      scoreBoard.strike === 0 ? "" : scoreBoard.strike + "스트라이크"
-    }`.trim();
-  }
+  let returnString =
+    scoreBoard.strike != 0 || scoreBoard.ball != 0
+      ? `${scoreBoard.ball === 0 ? "" : scoreBoard.ball + "볼"} ${
+          scoreBoard.strike === 0 ? "" : scoreBoard.strike + "스트라이크"
+        }`.trim()
+      : "낫싱";
+
   return returnString;
 };
 
@@ -125,6 +126,7 @@ const checkGameIsEnd = (userInput) => {
   } else if (userInput === "2") {
     return true;
   }
+
   return { isError: true };
 };
 
