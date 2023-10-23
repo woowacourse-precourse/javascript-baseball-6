@@ -44,7 +44,7 @@ class App {
         const guess = await MissionUtils.Console.readLineAsync();
 
         if (!this.isValidInput(guess)) {
-          throw new Error('[ERROR]');
+          throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
         }
 
         const result = this.checkBallsAndStrikes(guess, answer);
