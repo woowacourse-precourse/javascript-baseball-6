@@ -61,6 +61,30 @@ class App {
     );
     return userInput.split("").map(Number);
   }
+
+  compareNumbers(userNumbers) {
+    let strikes = 0;
+    let balls = 0;
+
+    userNumbers.forEach((num, idx) => {
+      if (this.computerNumbers[idx] === num) {
+        strikes++;
+      } else if (this.computerNumbers.includes(num)) {
+        balls++;
+      }
+    });
+
+    if (strikes === 0 && balls === 0) {
+      return NOTHINGS;
+    } else if (strikes === 3) {
+      return THREE_STRIKES;
+    } else {
+      let result = "";
+      if (balls > 0) result += `${balls}볼 `;
+      if (strikes > 0) result += `${strikes}스트라이크`;
+      return result.trim();
+    }
+  }
 }
 
 export default App;
