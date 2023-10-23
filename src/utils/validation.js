@@ -1,5 +1,3 @@
-
-
 const isValidNumber = (number) => {
     if (isNaN(Number(number))) {
         return false;
@@ -15,7 +13,7 @@ const isDuplicateNumbers = (number) => {
     return true;
 }
 
-export const isValidBaseballInput = (number) => {
+const isValidBaseballInput = (number) => {
     const isNumberValid = isValidNumber(number);
     const hasDuplicates = isDuplicateNumbers(number);
     if (isNumberValid && hasDuplicates) {
@@ -25,9 +23,11 @@ export const isValidBaseballInput = (number) => {
     }
 }
 
-export const isValidGameOption = (binary) => {
+const isValidGameOption = (binary) => {
     if (binary !== '1' && binary !== '2') {
         return false;
     }
     return true;
 }
+
+export { isValidBaseballInput, isValidGameOption };
