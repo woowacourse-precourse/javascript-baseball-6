@@ -2,7 +2,7 @@ import { MissionUtils } from '@woowacourse/mission-utils';
 
 class App {
   // 램덤 숫자 생성하는 함수
-  createRamdomNumber() {
+  createRandomNumber() {
     const computer = [];
     while (computer.length < 3) {
       const number = MissionUtils.Random.pickNumberInRange(1, 9);
@@ -10,6 +10,7 @@ class App {
         computer.push(number);
       }
     }
+    return computer; // computer 배열을 반환
   }
 
   // 유효한 숫자인지 확인하는 함수
@@ -31,7 +32,7 @@ class App {
 
     while (playAgain === 1) {
       // 랜덤으로 생성한 정답
-      const answer = this.createRamdomNumber();
+      const answer = this.createRandomNumber();
 
       while (true) {
         // 사용자가 입력해서 추측하는 숫자
@@ -40,6 +41,21 @@ class App {
 
         // guess의 형식 체크
         this.isValidInput(guess);
+
+        const result = this.checkBallsAndStrikes(guess, answer);
+
+        if (result.strikes === 3) {
+          MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다!');
+
+          playAgain = await MissionUtils.Console.readLineAsync(
+            '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.',
+          );
+
+          if (playAgain === 2) {
+            MissionUtils.Console.print('게임 종료');
+            return;
+          }
+        }
       }
     }
   }
