@@ -27,9 +27,9 @@ const get_strike_count = (string_number, target_number) => {
 const get_ball_count = (string_number, target_number) => {
   let count = 0;
 
-  for (let number of target_number.split("")) {
-    if (string_number.includes(number)) count += 1;
-  }
+  string_number.split("").forEach((number, index) => {
+    if (target_number.includes(number) && number !== target_number[index]) count += 1;
+  });
 
   return count;
 };
