@@ -17,6 +17,12 @@ class RandomNumber {
 
     return computer;
   }
+
+  static pushNumberInComputer(computer, number) {
+    if (!computer.includes(number)) {
+      computer.push(number);
+    }
+  }
 }
 
 export default RandomNumber;
