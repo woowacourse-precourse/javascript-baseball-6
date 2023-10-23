@@ -1,21 +1,13 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
-class Computer {
-    getRandomValue() {
-        const computer = [];
-        while (computer.length < 3) {
+moduele.exports = function coumputerRandom() {
+        const randomValue = [];
+        while (randomValue.length < 3) {
             const number = MissionUtils.Random.pickNumberInRange(1, 9);
-            if (!computer.includes(number)) {
-            computer.push(number);
+            if (!randomValue.includes(number)) {
+                randomValue.push(number);
             }
         }
-    console.log(computer)
+    console.log(randomValue)
 
     }
-
-}
-
-const play = new Computer();
-play.getRandomValue();
-
-export default Computer;

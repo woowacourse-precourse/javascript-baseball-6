@@ -1,58 +1,41 @@
-import User from "../Domain/user";
-const input = User.userInputValue.userInput
 
 class Validation {
+    gameInputValidation(gameInput) {
+        try {
+            checkLength(gameInput);
+            checkNumber(gameInput);
+            checkRange(gameInput);
+            checkDuplicate(gameInput);
+        } catch (error) {
+        throw error;
+        }
+        return 0;
+    }
 
-  // 사용자 입력값 유효성 검사
-checkUserInput() {
-    const input = User.userInputValue.userInput
-    if (!this.checkUserInputLength(input)) {
-      return false;
+    checkLength(gameInput) {
+        if (gameInput.length != 3) {
+            throw new Error('[ERROR]숫자 3자리를 입력해주세요.')
+        } return true;
     }
-    if (!this.checkUserInputIsNumbers(input)) {
-      return false;
-    }
-    if (!this.checkUserInputNumberRange(input)) {
-      return false;
-    }
-    if (!this.checkUserInputIsDiff(input)) {
-      return false;
-    }
-    return true;
-    console.log(checkUserInput)
 
-  }
-
-// 숫자 길이 체크 (3자리)
-checkUserInputLength (input) {
-    if (input.length === 3) {
-        return true;
+    checkNumber(gameInput) {
+        if(Number.isInterger(gameInput)) {
+            throw new Error('[ERROR]숫자만 입력 가능합니다.')
+        } return true;
     }
-    return false;
+
+    checkRange(gameInput) {
+        if(gameInput > 9 && gameInput < 0) {
+            throw new Error('[ERROR]1~9 사이의 숫자를 입력해주세요.')
+        } return true;
+    }
+
+    checkDuplicate(gameInput) {
+        let uniqueNumber = new Set(gameInput);
+        if (uniqueNumber.size !== gameInput.length) {
+            throw new Error('[ERROR]서로 다른 숫자를 입력해주세요.')
+        }
+    } 
 }
 
-// 숫자 여부 체크 (숫자)
-checkUserInputNumber(input) {
-    if(Number.isInterger(input)) {
-        return true
-    } return false;
-} 
-
-// 숫자 범위 체크 (1-9)
-checkUserInputRange(input) {
-    if (input >=1 && input <= 9) {
-        return true
-    } return false
-} 
-
-// 숫자 모두 다른 숫자인지 체크
-checkUserInputIsDiff(input) {
-    let uniqueNumber = new Set(input);
-    if (uniqueNumber.size === input.length) {
-      return true;
-    } return false;
-  }
-
-}
-
-export default Validation
+module.exports = Validation
