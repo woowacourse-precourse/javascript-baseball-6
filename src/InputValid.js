@@ -23,6 +23,7 @@ class InputValid {
 
   static ensureNoDuplicateNumber(input) {
     const distinctDigits = new Set(input);
+
     if (distinctDigits.size !== 3) {
       throw new Error(ERROR_MESSAGE.DUPLICATE_NUMBER);
     }

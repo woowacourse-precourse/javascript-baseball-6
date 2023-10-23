@@ -21,7 +21,6 @@ class App {
         try {
           const userNumber = await this.getUserInput();
           InputValid.validate(userNumber);
-
           result = Control.compareAndPrintResult(computerNumber, userNumber);
 
           if (result.strike === 3) {
@@ -42,9 +41,11 @@ class App {
 
   async getUserInput() {
     const input = await Console.readLineAsync(GAME_MESSAGE.NUMBER_INPUT);
+
     if (!input) {
       throw new Error(ERROR_MESSAGE.INVALID_LENGTH);
     }
+
     return input;
   }
 }

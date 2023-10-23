@@ -4,6 +4,7 @@ import { GAME_MESSAGE, RESULT_MESSAGE, ERROR_MESSAGE } from './constants/Message
 class Control {
   static async askRestart(appInstance) {
     const userAnswer = await Console.readLineAsync(GAME_MESSAGE.GAME_RESTART);
+
     if (userAnswer === '1') {
       appInstance.isPlaying = true;
     } else if (userAnswer === '2') {
@@ -36,7 +37,7 @@ class Control {
       Console.print(GAME_MESSAGE.CORRECT_ANSWER);
       return;
     }
-    
+
     if (strike === 0 && ball === 0) {
       Console.print(RESULT_MESSAGE.NOTHING);
     } else if (strike === 0) {
