@@ -6,19 +6,19 @@ describe('BaseballValidator 테스트', () => {
     test.each([
       {
         baseball: '12A',
-        expectedErrorMessage: BaseballValidator.validationTypes.availableNumber.errorMessage,
+        expectedErrorMessage: BaseballValidator.VALIDATION_TYPES.availableNumber.errorMessage,
       },
       {
         baseball: '1256',
-        expectedErrorMessage: BaseballValidator.validationTypes.availableDigit.errorMessage,
+        expectedErrorMessage: BaseballValidator.VALIDATION_TYPES.availableDigit.errorMessage,
       },
       {
         baseball: '091',
-        expectedErrorMessage: BaseballValidator.validationTypes.availableNumberRange.errorMessage,
+        expectedErrorMessage: BaseballValidator.VALIDATION_TYPES.availableNumberRange.errorMessage,
       },
       {
         baseball: '112',
-        expectedErrorMessage: BaseballValidator.validationTypes.existDuplicateNumber.errorMessage,
+        expectedErrorMessage: BaseballValidator.VALIDATION_TYPES.existDuplicateNumber.errorMessage,
       },
     ])(
       'baseball이 "$baseball"일 때 "$expectedErrorMessage" 메시지와 함께 에러가 발생해야 한다.',

@@ -45,7 +45,7 @@ class BaseballValidator {
    * @property {Object} availableNumberDigit - 야구공의 게임 규칙에 명시된 자릿수를 가지고 있는지 검사하기 위한 객체
    * @property {Object} existDuplicateNumber - 야구공의 중복된 숫자 존재 여부를 검사하기 위한 객체
    */
-  static validationTypes = Object.freeze({
+  static VALIDATION_TYPES = Object.freeze({
     availableNumber: Object.freeze({
       errorMessage: '숫자만 입력이 가능합니다.',
       isValid(baseball) {
@@ -83,7 +83,7 @@ class BaseballValidator {
    */
   validateBaseball() {
     this.#commonValidator.validate();
-    Object.values(BaseballValidator.validationTypes).forEach(({ errorMessage, isValid }) => {
+    Object.values(BaseballValidator.VALIDATION_TYPES).forEach(({ errorMessage, isValid }) => {
       if (!isValid(this.#baseball)) throw new AppError(errorMessage);
     });
   }

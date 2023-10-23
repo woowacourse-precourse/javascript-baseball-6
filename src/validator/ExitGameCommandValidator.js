@@ -41,7 +41,7 @@ class ExitGameCommandValidator {
    * @type {Object}
    * @property {Object} availableGameCommand - 게임 종료 명령어가 유효한 값인지 검사하기 위한 객체
    */
-  static validationTypes = Object.freeze({
+  static VALIDATION_TYPES = Object.freeze({
     availableGameCommand: Object.freeze({
       errorMessage: `게임 종료 명령어는 ${GAME_TERMS.exitGameCommand.restart}번 또는 ${GAME_TERMS.exitGameCommand.exit}번만 가능합니다.`,
       isValid(exitGameCommand) {
@@ -58,9 +58,11 @@ class ExitGameCommandValidator {
    */
   validateExitGameCommand() {
     this.#commonValidator.validate();
-    Object.values(ExitGameCommandValidator.validationTypes).forEach(({ errorMessage, isValid }) => {
-      if (!isValid(this.#exitGameCommand)) throw new AppError(errorMessage);
-    });
+    Object.values(ExitGameCommandValidator.VALIDATION_TYPES).forEach(
+      ({ errorMessage, isValid }) => {
+        if (!isValid(this.#exitGameCommand)) throw new AppError(errorMessage);
+      },
+    );
   }
 }
 

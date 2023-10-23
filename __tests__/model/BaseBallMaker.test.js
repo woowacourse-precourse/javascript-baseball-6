@@ -4,7 +4,7 @@ import { BaseballValidator } from '../../src/validator';
 
 describe('BaseBallMaker 테스트', () => {
   const { availableNumber, availableNumberRange, availableDigit, existDuplicateNumber } =
-    BaseballValidator.validationTypes;
+    BaseballValidator.VALIDATION_TYPES;
 
   const baseBallMaker = new BaseballMaker(
     GAME_TERMS.baseball.minNumber,

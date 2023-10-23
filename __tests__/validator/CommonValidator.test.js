@@ -6,11 +6,11 @@ describe('CommonValidator 테스트', () => {
     test.each([
       {
         inputValue: '',
-        expectedErrorMessage: CommonValidator.validationTypes.emptyValues.errorMessage,
+        expectedErrorMessage: CommonValidator.VALIDATION_TYPES.emptyValues.errorMessage,
       },
       {
         inputValue: 'Some text with space',
-        expectedErrorMessage: CommonValidator.validationTypes.existSpaces.errorMessage,
+        expectedErrorMessage: CommonValidator.VALIDATION_TYPES.existSpaces.errorMessage,
       },
     ])(
       '입력값이 "$inputValue"일 때 "$expectedErrorMessage" 메시지와 함께 에러가 발생해야 한다.',

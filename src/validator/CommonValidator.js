@@ -23,7 +23,7 @@ class CommonValidator {
    * @property {Object} emptyValues - 입력값이 비어있는지 검사하기 위한 객체
    * @property {Object} existSpaces - 입력값 내에 공백이 존재하는지 검사하기 위한 객체
    */
-  static validationTypes = Object.freeze({
+  static VALIDATION_TYPES = Object.freeze({
     emptyValues: Object.freeze({
       errorMessage: '아무것도 입력하지 않았으므로 다시 입력해주세요.',
       isValid(inputValue) {
@@ -44,7 +44,7 @@ class CommonValidator {
    * @returns {void}
    */
   validate() {
-    Object.values(CommonValidator.validationTypes).forEach(({ errorMessage, isValid }) => {
+    Object.values(CommonValidator.VALIDATION_TYPES).forEach(({ errorMessage, isValid }) => {
       if (!isValid(this.#inputValue)) throw new AppError(errorMessage);
     });
   }

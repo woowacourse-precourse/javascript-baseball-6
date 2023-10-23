@@ -8,12 +8,12 @@ describe('ExitGameCommandValidator 테스트', () => {
       {
         exitGameCommand: '3',
         expectedErrorMessage:
-          ExitGameCommandValidator.validationTypes.availableGameCommand.errorMessage,
+          ExitGameCommandValidator.VALIDATION_TYPES.availableGameCommand.errorMessage,
       },
       {
         exitGameCommand: 'a',
         expectedErrorMessage:
-          ExitGameCommandValidator.validationTypes.availableGameCommand.errorMessage,
+          ExitGameCommandValidator.VALIDATION_TYPES.availableGameCommand.errorMessage,
       },
     ])(
       '입력된 종료 명령어가 "$exitGameCommand"일 때 "$expectedErrorMessage" 메시지와 함께 에러가 발생해야 한다.',
