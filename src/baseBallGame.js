@@ -1,6 +1,6 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 
-class BaseBallGame {
+const BaseBallGame = {
   getRandomArray() {
     const random = [];
     while (random.length < 3) {
@@ -10,7 +10,7 @@ class BaseBallGame {
       }
     }
     return random;
-  }
-}
+  },
+};
 
 export default BaseBallGame;

@@ -4,7 +4,7 @@ import BaseBallGame from './baseBallGame.js';
 
 class App {
   constructor() {
-    this.methods = new BaseBallGame();
+    this.methods = BaseBallGame;
     this.isPlaying = false;
   }
 
