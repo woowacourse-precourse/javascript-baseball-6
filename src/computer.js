@@ -48,22 +48,15 @@ export function judgeNumber(computerNum, playerNum) {
 export async function endGame() {
   const REGEX = /[^1-2]/; // 숫자 1~2 외의 문자 찾아내는 정규표현식
 
-  try {
-    const gameStatus = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
+  const gameStatus = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
 
-    // 예외사항 처리
-    if (REGEX.test(gameStatus)) {
-      MissionUtils.Console.print('[ERROR] 숫자 1 또는 2만 입력해주세요. (공백 없이)');
-      throw new Error('숫자 1,2 외 문자 입력 오류');
-    } else if (gameStatus.length != 1) {
-      MissionUtils.Console.print('[ERROR] 1개의 숫자만 입력해주세요.');
-      throw new Error('숫자 개수 오류');
-    }
+  if (REGEX.test(gameStatus)) {
+    throw new Error('[ERROR] 숫자 1 또는 2만 입력해주세요. (공백 없이)');
+  } else if (gameStatus.length != 1) {
+    throw new Error('[ERROR] 1개의 숫자만 입력해주세요.');
+  }
 
-    if (gameStatus == 1) {
-      pickRandomNumber();
-    } 
-  } catch (error) {
-    MissionUtils.Console.print(error);
+  if (gameStatus == 1) {
+    pickRandomNumber();
   }
 }
