@@ -102,9 +102,9 @@ class App {
     this.gameOverBtn = restartOrEnd
       .split("")
       .map((element) => parseInt(element));
-    if (this.gameOverBtn[0] === 1) {
+    if (this.gameOverBtn[0] === 1 && this.gameOverBtn.length === 1) {
       this.play();
-    } else if (this.gameOverBtn[0] === 2) {
+    } else if (this.gameOverBtn[0] === 2 && this.gameOverBtn.length === 1) {
       Console.print("게임 종료");
     }
   }
