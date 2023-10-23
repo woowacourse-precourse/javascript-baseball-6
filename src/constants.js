@@ -1,5 +1,11 @@
 import App from "./App.js";
 
+export const RESULT = {
+  BALL: "볼",
+  STRIKE: "스트라이크",
+  NOTHING: "낫싱",
+};
+
 export const TEXT = {
   INITIAL: "숫자 야구 게임을 시작합니다.",
   INPUT_GUESS_NUMBER: "숫자를 입력해주세요 : ",
