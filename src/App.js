@@ -35,7 +35,7 @@ class App {
   }
 
   async confirmGame() {
-    OutputView.printDone();
+    OutputView.printSuccess();
     const inputNumber = await InputView.confirmContinue();
     this.checkError(Validation.validateConfirmNumber, inputNumber);
 
