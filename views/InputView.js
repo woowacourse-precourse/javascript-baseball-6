@@ -1,14 +1,14 @@
-const MissionUtils = require("@woowacourse/mission-utils");
+import { MissionUtils } from "@woowacourse/mission-utils";
 
 const InputView = {
-    async inputUserNumber() {
+    inputUserNumber: async () => {
         return new Promise(async (resolve, reject) => {
-            await MissionUtils.Console.readLine("숫자를 입력해주세요 : ", (input) => {
-                MissionUtils.Console.print(`사용자의 숫자: ${input}`)
+            MissionUtils.Console.readLine("숫자를 입력해주세요 : ", async (input) => {
+                MissionUtils.Console.print(`사용자의 숫자: ${input}`);
                 resolve(input);
             });
-        })
+        });
     }
 }
 
-module.exports = InputView;
+export default InputView;

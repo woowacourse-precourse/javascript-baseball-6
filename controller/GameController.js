@@ -1,7 +1,7 @@
-const MissionUtils = require("@woowacourse/mission-utils");
-const InputView = require("../views/InputView");
-const OutputView = require("../views/OutputView");
-const createRandomNumber = require("../utils/CreateRandomNumber");
+import { MissionUtils } from "@woowacourse/mission-utils";
+import InputView from "../views/InputView.js";
+import OutputView from "../views/OutputView.js";
+import createRandomNumber from "../utils/CreateRandomNumber.js";
 
 class GameController {
     startGame() {
@@ -15,4 +15,4 @@ class GameController {
     }
 }
 
-module.exports = GameController;
+export default GameController;

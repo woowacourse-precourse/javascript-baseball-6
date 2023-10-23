@@ -1,4 +1,4 @@
-const GameController = require("../controller/GameController");
+import GameController from '../controller/GameController.js'
 
 class App {
   gameController = new GameController();
@@ -8,3 +8,6 @@ class App {
 }
 
 export default App;
+
+const app = new App();
+app.play();

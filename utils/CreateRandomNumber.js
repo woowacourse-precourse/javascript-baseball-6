@@ -10,4 +10,4 @@ const createRandomNumber = () => {
   MissionUtils.Console.print("컴퓨터의 숫자: ", computerNumber);
 }
 
-module.exports = createRandomNumber;
+export default createRandomNumber;
