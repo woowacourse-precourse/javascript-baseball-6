@@ -1,6 +1,7 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
+import { enterNumber } from "./player.js";
 
-export function pickRandomNumber() {
+export async function pickRandomNumber() {
   const computer = [];
   while (computer.length < 3) {
     const number = MissionUtils.Random.pickNumberInRange(1, 9);
@@ -8,8 +9,8 @@ export function pickRandomNumber() {
       computer.push(number);
     }
   }
-
-  return computer;
+  console.log(computer+ 'computerNum')
+  await enterNumber(computer);
 }
 
 export function judgeNumber(computerNum, playerNum) {
@@ -32,12 +33,14 @@ export function judgeNumber(computerNum, playerNum) {
  
   if (strike == 0 && ball == 0) {
     MissionUtils.Console.print('낫싱');
+    enterNumber(computerNum);
   } else if (strike == 3) {
     MissionUtils.Console.print('3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+    endGame();
   } else {
     MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
+    enterNumber(computerNum);
   }
-
 }
 
 export async function endGame() {
@@ -56,9 +59,9 @@ export async function endGame() {
     }
 
     if (gameStatus == 1) {
-      return true;
+      pickRandomNumber();
     } else if (gameStatus == 2) {
-      return false;
+      return;
     } else {
       MissionUtils.Console.print('[ERROR] 1 또는 2만 입력해주세요.');
       throw new Error('선택지 숫자 오류');

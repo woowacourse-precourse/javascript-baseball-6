@@ -1,12 +1,11 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import { judgeNumber } from "./computer.js";
 
-export async function enterNumber() {
+export async function enterNumber(computerNum) {
     const regex = /[^0-9]/; // 숫자가 아닌 문자를 찾는 정규 표현식
 
     try {
         let playerNum = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
-        console.log(playerNum);
 
         // 예외사항 처리
         if (regex.test(playerNum)) {
@@ -19,11 +18,11 @@ export async function enterNumber() {
             MissionUtils.Console.print('[ERROR] 중복된 숫자가 동일합니다. 서로 다른 숫자를 입력해주세요.');
             throw new Error('숫자 중복 오류');
         }
-        let playerNumArray = playerNum.split();
-        console.log(playerNumArray);
-
+        let playerNumArray = playerNum.split('');
+        judgeNumber(computerNum, playerNumArray)
     } catch (error) {
         MissionUtils.Console.print(error);
+        return false;
     }
 }
 
