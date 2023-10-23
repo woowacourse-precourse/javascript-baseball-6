@@ -1,11 +1,12 @@
-import BullsAndCowsGame from "./controller/BullsAndCowsGame.js";
+import BullsAndCowsGameController from "./controller/BullsAndCowsGameController.js";
+import ComputerNumberGenerator from "./models/ComputerNumberGenerator.js";
 
 class App {
 
   #gameController;
 
   constructor() {
-    this.#gameController = new BullsAndCowsGame();
+    this.#gameController = new BullsAndCowsGameController(new ComputerNumberGenerator());
   }
 
   async play() {

@@ -1,7 +1,7 @@
 import { Random } from "@woowacourse/mission-utils";
 import { GAME_CONDITION } from "../constants/conditions.js";
 
-class RandomNumberGenerator {
+class ComputerNumberGenerator {
 
   #computerNumber;
 
@@ -29,4 +29,4 @@ class RandomNumberGenerator {
   }
 }
 
-export default RandomNumberGenerator;
+export default ComputerNumberGenerator;

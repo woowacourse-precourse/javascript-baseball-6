@@ -1,19 +1,21 @@
-import RandomNumberGenerator from "../models/RandomNumberGenerator.js";
 import GameAnalyzer from "../models/GameAnalyzer.js";
 import OutputView from "../views/OutputView.js";
 import InputView from "../views/InputView.js";
 import { MESSAGES } from "../constants/messages.js";
 import { USER_COMMAND } from "../constants/conditions.js";
 
-class BullsAndCowsGame {
-  constructor() {
-    this.randomNumberGenerator = new RandomNumberGenerator();
+class BullsAndCowsGameController {
+
+  #computer;
+
+  constructor(computerNumberGenerator) {
+    this.#computer = computerNumberGenerator;
 
     OutputView.printStaticMessage(MESSAGES.startGuide);
   }
 
   async startGame() {
-    const computerNumber = this.randomNumberGenerator.getComputerNumber();
+    const computerNumber = this.#computer.getComputerNumber();
     const userNumber = await InputView.getUserNumber(MESSAGES.inputGuide);
     const { ball, strike } = GameAnalyzer.getBallAndStrike(userNumber, computerNumber);
 
@@ -30,7 +32,7 @@ class BullsAndCowsGame {
     const userCommand = await InputView.getUserCommand(MESSAGES.replayGuide);
 
     if (userCommand === USER_COMMAND.replay) {
-      this.randomNumberGenerator.initComputerNumber();
+      this.#computer.initComputerNumber();
       return this.startGame();
     };
     
@@ -38,4 +40,4 @@ class BullsAndCowsGame {
   }
 }
 
-export default BullsAndCowsGame;
+export default BullsAndCowsGameController;
