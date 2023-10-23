@@ -2,29 +2,25 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
   async play() {
-    console.log("숫자 야구 게임을 시작합니다.");
     let restart_game = true;
 
-    if (restart_game) {
+    while (restart_game) {
+      console.log("숫자 야구 게임을 시작합니다.");
       restart_game = await this.play_game(); // 게임 재시작 여부를 확인
-    } else { MissionUtils.Console.print("게임 종료")}
+    }
+
+    MissionUtils.Console.print("게임 종료");
   }
+
 
   async play_game() {
     // 컴퓨터가 선택한 임의의 숫자 3개 생성
     const computer_numbers = this.random_numbers();
-
     let game_end = false;
 
     while (!game_end) {
-      if (game_end) {
-        break; // 게임 종료 조건 충족 시 게임 종료
-      }
-      // 사용자로부터 3자리 숫자 입력 받기
-      const user_enter = await this.user_input();
-
-      // 입력한 숫자에 대한 스트라이크, 볼, 낫싱 결과 계산
-      const result = this.calculate_result(user_enter, computer_numbers);
+      const user_enter = await this.user_input(); // 사용자로부터 3자리 숫자 입력 받기
+      const result = this.calculate_result(user_enter, computer_numbers); // 입력한 숫자에 대한 스트라이크, 볼, 낫싱 결과 계산
 
       this.print_result(result); // 결과 출력
 
@@ -33,7 +29,6 @@ class App {
         game_end = true;
       }
     }
-
     return await this.ask_for_restart(); // 게임 재시작 여부 확인
   }
 
@@ -47,7 +42,6 @@ class App {
         computer.push(number);
       }
     }
-
     return computer;
   }
 
@@ -58,7 +52,6 @@ class App {
     if (!input || input.length !== 3 || !/^\d+$/.test(input)) {
       throw new Error("[ERROR]"); // 에러 발생
     }
-
     return input;
   }
 
@@ -71,9 +64,9 @@ class App {
     let balls = 0;
 
     for (let i = 0; i < 3; i++) {
-      if (user_digits[i] === computer_digits[i]) {
+      if (user_digits[i] === computer_digits[i]) { // 같은 숫자가 같은 자릿수에 있다면
         strikes++; // 스트라이크인 경우
-      } else if (computer_digits.includes(user_digits[i])) {
+      } else if (computer_digits.includes(user_digits[i])) { // 선택한 숫자 중에 포함되어 있는지 확인
         balls++; // 볼인 경우
       }
     }
@@ -82,14 +75,12 @@ class App {
 
   print_result(result) {
     let message = "";
-
     if (result.strikes === 0 && result.balls === 0) {
       message = "낫싱";
     } else {
       if (result.strikes > 0) {
         message += `${result.strikes}스트라이크`;
       }
-
       if (result.balls > 0) {
         if (message !== "") {
           message += " ";
@@ -97,7 +88,6 @@ class App {
         message += `${result.balls}볼`;
       }
     }
-
     MissionUtils.Console.print(message);
   }
 
