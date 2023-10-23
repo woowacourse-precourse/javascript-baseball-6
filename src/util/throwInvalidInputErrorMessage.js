@@ -1,5 +1,5 @@
-function throwInvalidInputErrorMessage(errorMessage) {
-  const ERROR_TEXT = `[ERROR] ${errorMessage}.`;
+function throwInvalidInputErrorMessage(error) {
+  const ERROR_TEXT = `${error}.`;
   throw ERROR_TEXT;
 }
 
