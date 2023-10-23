@@ -1,0 +1,3 @@
+- makeRandomNumber(): 랜덤 숫자 생성
+- calc(randomNum, input): 사용자 입력 숫자와 랜덤 숫자 비교
+- isCorrect(inputNum): 사용자가 입력한 숫자가 올바른 형식인지 검사
