@@ -12,6 +12,10 @@ class App {
       while (IS_PLAYING) {
         let userInput = await this.getUserInput();
 
+        if (!this.validation(userInput)) {
+          throw new Error('[ERROR]');
+        }
+        
         this.calculateBallAndStrike(computer, userInput);
       }
     } catch (error) {
@@ -71,6 +75,22 @@ class App {
   init() {
     this.ball = 0;
     this.strike = 0;
+  }
+
+  validation(input) {
+    if (input.length !== 3) {
+      return false;
+    }
+    if (new Set(input).size !== 3) {
+      return false;
+    }
+    if (Number.isNaN(Number(input))) {
+      return false;
+    }
+    if (input.includes(0)) {
+      return false;
+    }
+    return true;
   }
 }
 
