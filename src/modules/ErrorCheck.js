@@ -36,6 +36,13 @@ class ErrorCheck {
     });
   }
 
+  static stringRangeByCharCode(string, lower, maximum) {
+    [...string].forEach((element) => {
+      if (element.charCodeAt(0) < lower || maximum < element.charCodeAt(0))
+        throw new Error('[ERROR] Out of Character Range');
+    });
+  }
+
   static otherErrorFormat(error) {
     error.message = `[ERROR] ${error.message}`
     throw new Error(error);
