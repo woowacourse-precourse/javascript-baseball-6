@@ -1,5 +1,6 @@
 import App from "../src/App.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
+import BaseballGame from '../src/BaseballGame.js';
 
 const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
@@ -56,5 +57,22 @@ describe("숫자 야구 게임", () => {
     const app = new App();
 
     await expect(app.play()).rejects.toThrow("[ERROR]");
+  });
+
+  test("App.getResultMessage 테스트", () => {
+    const app = new App();
+  
+    expect(app.getResultMessage(2, 0)).toBe("2볼");
+    expect(app.getResultMessage(0, 2)).toBe("2스트라이크");
+    expect(app.getResultMessage(1, 2)).toBe("1볼 2스트라이크");
+    expect(app.getResultMessage(0, 0)).toBe("낫싱");
+  });
+
+  test("BaseballGame.getRandomNumber 테스트", () => {
+    const randoms = [1, 2, 3, 3, 3, 8, 3, 8, 5];
+    mockRandoms(randoms);
+  
+    expect(BaseballGame.getRandomNumber()).toEqual([1, 2, 3]);
+    expect(BaseballGame.getRandomNumber()).toEqual([3, 8, 5]);
   });
 });
