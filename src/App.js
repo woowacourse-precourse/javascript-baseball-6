@@ -13,8 +13,11 @@ class App {
       for (let num of parseArr) {
         let valid = RANGE_NUMBERS.includes(Number(num));
         if (!valid) {
-          throw new Error('1~9 사이의 숫자를 입력해야합니다.');
+          throw new Error('1~9 사이의 숫자를 입력해야 합니다.');
         }
+      }
+      if (inputNumber.length !== 3) {
+        throw new Error('3자리의 숫자를 입력해야 합니다.');
       }
     } catch (error) {
       console.log('[ERROR]', error.message);
