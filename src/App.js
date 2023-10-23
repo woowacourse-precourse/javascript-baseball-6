@@ -123,6 +123,8 @@ class App {
       this.systemRestartOrQuitProcess(restartOrQuitNum);
     } catch (e) {
       throw e;
+    } finally {
+      this.console.close();
     }
   }
 }
