@@ -37,7 +37,8 @@ __*입력값이 재시작 여부인 경우*__
     - isUnique: 다시 한번 Set을 이용하여 중복된 숫자가 있는지 확인
     - isLenThree: 사용자가 입력한 값이 세자리가 맞는지 확인
     - checkInputValid: 위 세 함수가 모두 true를 반환하는지 확인
-
+    - 재사용 가능하도록 별도의 함수에서 관리
+    
 3. 입력값 유효성 테스트
     - ==MissionUtills.Random.readLineAsync()==를 이용하여 입력 받는 함수 작성
     - duringGameInput: 게임 진행 중일 때 입력을 처리하는 함수, 입력한 값의 유효여부를 판단하는 checkInputValid에 입력한 값을 넘겨준다. 만약 false를 반환 받으면 throw 예외처리
