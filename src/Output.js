@@ -24,4 +24,4 @@ export const PRINT_RESULT_MESSAGE = ({ strikes, balls }) => {
     } else {
       Console.print(`${balls}${BALL} ${strikes}${STRIKE}`);
     }
-  };
+};
