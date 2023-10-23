@@ -11,6 +11,8 @@ class App {
         COMPUTER.push(NUMBER);
       }
     }
+
+    const NUMBER = await Console.readLineAsync("숫자를 입력해주세요 : ");
   }
 }
 
