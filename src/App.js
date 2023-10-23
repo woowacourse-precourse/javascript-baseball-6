@@ -1,5 +1,6 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 import { validateThreeNaturalNumbers, validateEndDecision } from "./validators.js";
+import { evaluateScore, printScore } from "./score.js";
 
 class App {
   async play() {
@@ -14,30 +15,12 @@ class App {
       const answerInput = await Console.readLineAsync("숫자를 입력해주세요 : ");
       const parsedInput = answerInput.split("").map((char) => parseInt(char, 10));
 
-      // 유효성 검사
       validateThreeNaturalNumbers(parsedInput);
 
-      const scoredInput = parsedInput
-        .map((number, index) => (number === answer[index] ? "strike" : number))
-        .map((number) => (answer.includes(number) ? "ball" : number));
+      const score = evaluateScore(parsedInput, answer);
+      printScore(score);
 
-      const ballCount = scoredInput.filter((score) => score === "ball").length;
-      const strikeCount = scoredInput.filter((score) => score === "strike").length;
-
-      const isNothing = !ballCount && !strikeCount;
-      const hasBallAndStrike = ballCount && strikeCount;
-
-      const hint = isNothing
-        ? "낫싱"
-        : hasBallAndStrike
-        ? `${ballCount}볼 ${strikeCount}스트라이크`
-        : ballCount
-        ? `${ballCount}볼`
-        : `${strikeCount}스트라이크`;
-
-      Console.print(hint);
-
-      if (strikeCount === 3) {
+      if (score.strikeCount === 3) {
         break;
       }
     }
