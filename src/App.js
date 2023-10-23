@@ -54,7 +54,13 @@ export default class App {
     if (this.strikeCnt > 0) {
       this.result += `${this.strikeCnt}스트라이크`;
     }
+
     MissionUtils.Console.print(this.result);
+
+    if (this.strikeCnt === 3) {
+      MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+      return;
+    }
   }
 
   // 게임 진행 함수
