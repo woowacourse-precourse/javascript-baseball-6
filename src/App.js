@@ -10,6 +10,15 @@ class App {
     while (true) {
       const pitcherNumbers = await this.getPitcherNumbers();
       const judgmentResult = this.getResultOfJudgment(pitcherNumbers);
+
+      if (judgmentResult === '3스트라이크') {
+        Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+        if (await this.decideToContinueGame()) {
+          this.catcherNumbers = this.getCatcherNumbers();
+        } else {
+          return;
+        }
+      }
     }
   }
 
