@@ -39,12 +39,12 @@ class App {
     try {
       const userNum = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
       if(this.isValidUserNum(userNum)) {
-        console.log('00');
+      console.log('00');
       }else{
-        throw new Error('서로 다른 숫자 3개를 입력해주세요.');
+        throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
       }
     }catch(e) {
-      console.log(e)
+      console.log(e.message);
     }
   }
   
