@@ -11,6 +11,17 @@ class App {
   }
 }
 
+function createAnswerNumber() {
+  const answerNumArray = [];
+  while (answerNumArray.length < 3) {
+    const number = MissionUtils.Random.pickNumberInRange(1, 9);
+    if (!answerNumArray.includes(number)) {
+      answerNumArray.push(number);
+    }
+  }
+  return answerNumArray;
+}
+
 async function createInputNumber() {
   let input = await MissionUtils.Console.readLineAsync(
     "숫자를 입력해주세요 : "
@@ -51,8 +62,12 @@ async function compareNumber(answerArray, inputArray) {
   } else if (ball === 0) {
     MissionUtils.Console.print(`${strike}스트라이크`);
   }
-  inputArray = await createInputNumber();
-  await compareNumber(answerArray, inputArray);
+  try {
+    inputArray = await createInputNumber();
+    await compareNumber(answerArray, inputArray);
+  } catch (error) {
+    MissionUtils.Console.print(error.message);
+  }
 }
 
 async function restartQuestion() {
@@ -67,21 +82,12 @@ async function restartQuestion() {
       compareNumber(answerArray, inputArray);
     } else if (restart === "2") {
       return;
+    } else {
+      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
     }
   } catch (error) {
     MissionUtils.Console.print(error.message);
   }
-}
-
-function createAnswerNumber() {
-  const answerNumArray = [];
-  while (answerNumArray.length < 3) {
-    const number = MissionUtils.Random.pickNumberInRange(1, 9);
-    if (!answerNumArray.includes(number)) {
-      answerNumArray.push(number);
-    }
-  }
-  return answerNumArray;
 }
 
 const app = new App();
