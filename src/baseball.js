@@ -21,8 +21,14 @@ function checkDuplicate(usernum) {
 
 function validateUsernum(usernum) {
   const parsedUsernum = parseInt(usernum);
-  if (isNaN(parsedUsernum) || usernum.includes('0') || usernum.length !== 3 || checkDuplicate(usernum)) {
-    throw new Error("[ERROR]");
+  if (isNaN(parsedUsernum)) {
+    throw new Error('[ERROR]유효한 숫자를 입력하세요.');
+  } else if (usernum.includes('0')) {
+    throw new Error('[ERROR]숫자 1~9 를 입력하세요.');
+  } else if (usernum.length !== 3) {
+    throw new Error('[ERROR]세자리 숫자를 입력하세요.');
+  } else if (checkDuplicate(usernum)) {
+    throw new Error('[ERROR]중복되지 않은 수로 입력하세요.');
   }
 }
 
