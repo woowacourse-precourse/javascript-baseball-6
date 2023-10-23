@@ -77,6 +77,7 @@ class App {
       answer = "낫싱";
     } else {
       answer += count["ball"] > 0 ? `${count["ball"]}볼` : ``;
+      answer += count["ball"] > 0 && count["strike"] > 0 ? ` ` : ``;
       answer += count["strike"] > 0 ? `${count["strike"]}스트라이크` : ``;
     }
     return answer;
