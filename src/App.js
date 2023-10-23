@@ -14,18 +14,29 @@ const MESSAGE = {
 class App {
   async play() {
     Console.print(MESSAGE.start);
-
-    const input = await Console.readLineAsync("숫자를 입력해주세요 : ");
-
-    const isValidInput = this.validateInput(input);
-    if (!isValidInput) {
-      throw new Error(MESSAGE.error("입력값이 유효하지 않습니다."));
-    }
-
     const answer = this.generateRandomNumber();
 
-    const { strike, ball } = this.countPitchResult(input, answer);
-    const output = this.outputPitchResult(strike, ball);
+    await this.game(answer);
+  }
+
+  async game(answer) {
+    while (true) {
+      const input = await Console.readLineAsync("숫자를 입력해주세요 : ");
+
+      const isValidInput = this.validateInput(input);
+      if (!isValidInput) {
+        throw new Error(MESSAGE.error("입력값이 유효하지 않습니다."));
+      }
+
+      const { strike, ball } = this.countPitchResult(input, answer);
+      const output = this.outputPitchResult(strike, ball);
+      Console.print(output);
+
+      if (strike === 3) {
+        Console.print(MESSAGE.end);
+        break;
+      }
+    }
   }
 
   generateRandomNumber() {
