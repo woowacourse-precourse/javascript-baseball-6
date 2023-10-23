@@ -13,7 +13,7 @@ class App {
       await this.printGameResult(strike, ball);
 
       if (strike === 3) {
-        userAnswer = this.getInputContinueNumber();
+        userAnswer = await this.getInputContinueNumber();
 
         if (userAnswer === 1) {
           computerNumber = await this.getComputerNumber();
