@@ -1,30 +1,20 @@
-import { Console } from "@woowacourse/mission-utils";
-import GameManager from "./GameManager.js";
+import GameProcess from "./GameProcess.js";
 
 class App {
-	/**
-	 * @private {number} - 몇 자리의 수를 정답으로 생성할 것인지 결정
-	 */
-	#answerSize = 3;
-
 	constructor() {
-		this.gameManager = new GameManager();
+		this.gameProcess = new GameProcess();
 	}
 
 	async play() {
-		Console.print("숫자 야구 게임을 시작합니다.");
-
-		this.gameManager.setGameState(this.#answerSize);
-		const gameResult = await this.gameManager.proceed();
+		this.gameProcess.initalizeGame();
+		const midTermResult = await this.gameProcess.progressGame();
+		await this.gameProcess.midTermResultEvaluation(midTermResult);
+		const gameResult = await this.gameProcess.endTheGame();
 
 		if (gameResult === "Restart") {
-			return await this.play();
+			await this.play();
 		}
-		return Console.print(gameResult);
 	}
 }
 
 export default App;
-
-const app = new App();
-app.play();

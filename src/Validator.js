@@ -1,22 +1,41 @@
+const ASCII_NUMERIC_MIN = 48;
+const ASCII_NUMERIC_MAX = 57;
+
 class Validator {
-	/**
-	 * 사용자의 입력 값의 적절성 판단
-	 * @param {{ input: string, answer: number[]}} values
-	 * @returns {Error | void} - 사용자의 입력 값이 적절하지 않을 경우 에러를  반환
-	 */
-	evalutae(values) {
-		const { input, answer } = values;
-		const validLength = answer.length;
+	#VALID_LENGTH = 3;
 
-		if (!input || input.length !== validLength) {
-			throw new Error(`[ERROR] ${validLength} 자리의 숫자를 입력하세요.`);
+	checkExpectedAnswerValue(expectedAnswerValue) {
+		if (
+			!this.isValidInput(expectedAnswerValue) ||
+			!this.isNumericWord(expectedAnswerValue)
+		) {
+			this.throwError();
 		}
+	}
 
-		for (const value of input) {
-			if (value.charCodeAt(0) < 48 || value.charCodeAt(0) > 57) {
-				throw new Error(`[ERROR] 숫자만 입력하세요.`);
+	isValidInput(value) {
+		if (!value || value.length !== this.#VALID_LENGTH) {
+			return false;
+		}
+		return true;
+	}
+
+	isNumericWord(value) {
+		for (const str of value.split("")) {
+			const ascii = str.charCodeAt(0);
+			if (ascii < ASCII_NUMERIC_MIN || ascii > ASCII_NUMERIC_MAX) {
+				return false;
 			}
 		}
+		return true;
+	}
+
+	throwError() {
+		throw "[ERROR]";
+	}
+
+	checkCommand(command) {
+		if (command !== "1" && command !== "2") return this.throwError();
 	}
 }
 
