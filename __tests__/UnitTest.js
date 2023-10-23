@@ -73,26 +73,26 @@ describe("메서드 유닛 테스트", () => {
     });
   });
 
-  test.skip("handleUserResult 메서드 출력", () => {
-    const randoms = [1, 2, 3, 4, 5, 6, 9, 5, 1, 9, 5, 1];
-    const userNumbers = [
-      [1, 2, 3],
-      [4, 6, 5],
-      [9, 5, 1],
-      [2, 4, 6],
+  test("handleUser 메서드 테스트", async () => {
+    const testGame = new BaseballGame();
+
+    testGame.setComputerNumbers([1, 2, 3]);
+
+    const userInput = ["124", "134", "524", "123"];
+    const messages = [
+      "2스트라이크",
+      "1볼 1스트라이크",
+      "1스트라이크",
+      "3스트라이크",
     ];
-    const messages = ["3스트라이크", "2볼 1스트라이크", "3스트라이크", "낫싱"];
-    mockRandoms(randoms);
-    mockQuestions(messages);
     const logSpy = getPrintLogSpy();
 
-    messages.forEach((message, index) => {
-      game.setComputerNumbers();
-      game.setUserNumbers(userNumbers[index]);
-      const result = game.handleUserResult();
+    mockQuestions(userInput);
+
+    await testGame.handleUser();
+
+    messages.forEach((message) => {
       expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(message));
-      if (index % 2 === 0) expect(result).toBeFalsy();
-      if (index % 2 === 1) expect(result).toBeTruthy();
     });
   });
 
