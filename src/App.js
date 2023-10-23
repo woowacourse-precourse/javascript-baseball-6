@@ -1,6 +1,4 @@
 import {MissionUtils} from '@woowacourse/mission-utils';
-
-// 숫자 입력 예외 처리하기 
 class App {
   constructor() {
     this.init();
@@ -94,7 +92,7 @@ class App {
   }
   
   async play() {
-    this.numCorrect();
+        this.numCorrect();
   }
 }
 
