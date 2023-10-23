@@ -11,6 +11,8 @@ class App {
 
       while (IS_PLAYING) {
         let userInput = await this.getUserInput();
+
+        this.calculateBallAndStrike(computer, userInput);
       }
     } catch (error) {
       throw new Error('[ERROR]');
@@ -33,6 +35,19 @@ class App {
 
     const computerPick = computerPickArr.join('');
     return computerPick;
+  }
+
+  calculateBallAndStrike(computer, userInput) {
+    const computerDigits = computer.split('');
+    const userDigits = userInput.split('');
+
+    for (let i = 0; i < 3; i++) {
+      if (computerDigits[i] === userDigits[i]) {
+        this.strike++;
+      } else if (computer.includes(userDigits[i])) {
+        this.ball++;
+      }
+    }
   }
 }
 
