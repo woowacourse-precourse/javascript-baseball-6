@@ -8,7 +8,7 @@ class BaseballGame {
         this.computer = [];
     }
 
-    generateRandomNumbers() {
+    createComputerNumbers() {
         while (this.computer.length < 3) {
             const number = MissionUtils.Random.pickNumberInRange(1, 9);
             if (!this.computer.includes(number)) {
