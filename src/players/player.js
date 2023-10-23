@@ -43,13 +43,8 @@ export default class player {
     return true;
   }
   
-
   hasDuplicates(userNumber) {
-    for (let i = 0; i < userNumber.length; i++) {
-      if (userNumber.includes(userNumber[i], i + 1)) {
-        return true;
-      }
-    }
-    return false;
+    const uniqueNumbers = new Set(userNumber);
+    return uniqueNumbers.size !== userNumber.length;
   }
 }
