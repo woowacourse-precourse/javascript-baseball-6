@@ -15,7 +15,7 @@ export default class BaseballGameController {
 
   async play() {
     this.#baseballGame = new BaseballGame();
-
+    this.#outputView.printStart();
     while (!this.#baseballGame.isGameEnded()) {
       if (this.#baseballGame.isInCommandPhase()) {
         await this.#readCommandInput(this.#baseballGame);
