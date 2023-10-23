@@ -1,19 +1,19 @@
 class UmpireIndicator {
-  #strikeCount = 0;
-  #ballCount = 0;
+  #strike = 0;
+  #ball = 0;
 
-  get strikeCount() {
-    return this.#strikeCount;
+  get strike() {
+    return this.#strike;
   }
-  set strikeCount(number) {
-    this.#strikeCount = number;
+  set strike(number) {
+    this.#strike = number;
   }
 
-  get ballCount() {
-    return this.#ballCount;
+  get ball() {
+    return this.#ball;
   }
-  set ballCount(number) {
-    this.#ballCount = number;
+  set ball(number) {
+    this.#ball = number;
   }
 }
 
