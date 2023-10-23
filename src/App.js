@@ -1,10 +1,10 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
+import { Console, Random } from "@woowacourse/mission-utils";
 import { GAME_TEXT } from "./constants/string.js";
 
 class App {
   async play() {
     let computer = this.initComputer();
-    MissionUtils.Console.print(GAME_TEXT.START);
+    Console.print(GAME_TEXT.START);
 
     while (true) {
       const player = await this.getNumber();
@@ -23,13 +23,13 @@ class App {
       }
 
       if (result === "") {
-        MissionUtils.Console.print(GAME_TEXT.NOTHING);
+        Console.print(GAME_TEXT.NOTHING);
       } else {
-        MissionUtils.Console.print(result);
+        Console.print(result);
       }
 
       if (strike === 3) {
-        MissionUtils.Console.print(GAME_TEXT.WIN);
+        Console.print(GAME_TEXT.WIN);
         const choice = await this.getChoice();
         if (Number(choice) === 1) {
           computer = this.initComputer();
@@ -46,7 +46,7 @@ class App {
     const computer = [];
 
     while (computer.length < 3) {
-      const number = MissionUtils.Random.pickNumberInRange(1, 9);
+      const number = Random.pickNumberInRange(1, 9);
       if (!computer.includes(number)) {
         computer.push(number);
       }
@@ -57,7 +57,7 @@ class App {
 
   async getNumber() {
     try {
-      const number = await MissionUtils.Console.readLineAsync(GAME_TEXT.INPUT);
+      const number = await Console.readLineAsync(GAME_TEXT.INPUT);
 
       if (number.length !== 3) {
         throw new Error(GAME_TEXT.ERROR(GAME_TEXT.NOT_MATCH_LENGTH));
@@ -112,7 +112,7 @@ class App {
 
   async getChoice() {
     try {
-      const choice = await MissionUtils.Console.readLineAsync(GAME_TEXT.CHOICE);
+      const choice = await Console.readLineAsync(GAME_TEXT.CHOICE);
 
       if (Number(choice) !== 1 && Number(choice) !== 2) {
         throw new Error(GAME_TEXT.ERROR(GAME_TEXT.NOT_MATCH_CHOICE));
