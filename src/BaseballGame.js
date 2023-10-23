@@ -21,16 +21,33 @@ export default class BaseballGame {
   }
 
   async playGame(computerNumbers) {
-    let isGameWon = false;
-    while (!isGameWon) {
-      const userNumbers = await this.user.getInput();
-      const { strike, ball } = calculateStrikeAndBall(userNumbers, computerNumbers);
-      this.display.showResult(strike, ball);
-      isGameWon = strike === WINNING_STRIKE_COUNT;
-      if (isGameWon) {
-        this.display.showWinMessage();
-      }
+    let isGameRunning = true;
+    while (isGameRunning) {
+      const userNumbers = await this.getUserInput();
+      const { strike, ball } = this.calculateResult(userNumbers, computerNumbers);
+      this.showGameResult(strike, ball);
+      isGameRunning = !this.isGameWon(strike);
     }
+  }
+
+  async getUserInput() {
+    return await this.user.getInput();
+  }
+
+  calculateResult(userNumbers, computerNumbers) {
+    return calculateStrikeAndBall(userNumbers, computerNumbers);
+  }
+
+  showGameResult(strike, ball) {
+    this.display.showResult(strike, ball);
+  }
+
+  isGameWon(strike) {
+    const isWon = strike === WINNING_STRIKE_COUNT;
+    if (isWon) {
+      this.display.showWinMessage();
+    }
+    return isWon;
   }
 
   async showGameEnd() {
