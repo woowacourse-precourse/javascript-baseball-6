@@ -1,4 +1,4 @@
-import NumberBaseballGameController from './Controller/NumberBaseballGameController.js'
+import NumberBaseballGameController from './controller/NumberBaseballGameController.js'
 
 class App {
   #numberBaseballGameController = new NumberBaseballGameController()
