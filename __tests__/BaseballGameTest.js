@@ -1,63 +1,91 @@
-import App from "../src/App.js";
-import { MissionUtils } from "@woowacourse/mission-utils";
+import BaseballGame from '../src/BaseballGame';
+import Computer from '../src/Computer';
+import User from '../src/User';
+import GameDisplay from '../src/GameDisplay';
+import { calculateStrikeAndBall } from '../src/StrikeAndBallCalculator';
+import InputValidator from '../src/utils/InputValidator';
+import { RESTART_GAME, END_GAME } from '../src/constants/GameConstants';
+import { WINNING_STRIKE_COUNT } from '../src/constants/NumberConstants';
 
-const mockQuestions = (inputs) => {
-  MissionUtils.Console.readLineAsync = jest.fn();
+jest.mock('../src/Computer');
+jest.mock('../src/User');
+jest.mock('../src/GameDisplay');
+jest.mock('../src/StrikeAndBallCalculator');
+jest.mock('../src/utils/InputValidator');
 
-  MissionUtils.Console.readLineAsync.mockImplementation(() => {
-    const input = inputs.shift();
-    return Promise.resolve(input);
+describe('BaseballGame 클래스의', () => {
+  let baseballGame;
+
+  beforeEach(() => {
+    baseballGame = new BaseballGame();
   });
-};
+  describe('start 메소드는', () => {
+    it('게임을 시작하고 종료까지 관리한다', async () => {
+      const mockComputerNumbers = [1, 2, 3];
+      const mockGameEnd = false;
 
-const mockRandoms = (numbers) => {
-  MissionUtils.Random.pickNumberInRange = jest.fn();
-  numbers.reduce((acc, number) => {
-    return acc.mockReturnValueOnce(number);
-  }, MissionUtils.Random.pickNumberInRange);
-};
+      Computer.prototype.generateNumbers.mockReturnValue(mockComputerNumbers);
+      const mockPlayGame = jest.spyOn(baseballGame, 'playGame');
+      mockPlayGame.mockResolvedValue(null);
+      const mockShowGameEnd = jest.spyOn(baseballGame, 'showGameEnd');
+      mockShowGameEnd.mockResolvedValue(mockGameEnd);
 
-const getLogSpy = () => {
-  const logSpy = jest.spyOn(MissionUtils.Console, "print");
-  logSpy.mockClear();
-  return logSpy;
-};
+      await baseballGame.start();
 
-describe("숫자 야구 게임", () => {
-    test("중복된 숫자 입력 예외 테스트", async () => {
-        mockRandoms([1, 3, 5]);
-        mockQuestions(['113']);
-      
-        const app = new App();
-        await expect(app.play()).rejects.toThrow("[ERROR]");
-      });
-      
-      
-      test("범위를 벗어난 숫자 입력 예외 테스트", async () => {
-        mockRandoms([1, 3, 5]);
-        mockQuestions(['7890']);
-      
-        const app = new App();
-        await expect(app.play()).rejects.toThrow("[ERROR]");
-      });
-      
-      
-      test("문자나 특수 문자 입력 예외 테스트", async () => {
-        mockRandoms([1, 3, 5]);
-        mockQuestions(['0x$']);
-      
-        const app = new App();
-        await expect(app.play()).rejects.toThrow("[ERROR]");
-      });
-      
-      
-      test("게임 종료 선택 예외 테스트", async () => {
-        mockRandoms([1, 3, 5]);
-        const answers = ["135", "3"];
-        mockQuestions(answers);
-      
-        const app = new App();
-        await expect(app.play()).rejects.toThrow("[ERROR]");
-      });
+      expect(Computer.prototype.generateNumbers).toHaveBeenCalled();
+      expect(GameDisplay.prototype.showStartMessage).toHaveBeenCalled();
+      expect(mockPlayGame).toHaveBeenCalledWith(mockComputerNumbers);
+      expect(mockShowGameEnd).toHaveBeenCalled();
+    });
   });
-  
+
+  describe('playGame 메소드는', () => {
+    it('사용자가 이기지 않으면 게임이 계속되고, 이기면 게임이 끝난다', async () => {
+      const mockComputerNumbers = [1, 2, 3];
+      const mockUserNumbersNotWinning = [1, 2, 4];
+      const mockUserNumbersWinning = [1, 2, 3];
+      const mockStrikeAndBallNotWinning = { strike: 2, ball: 1 };
+      const mockStrikeAndBallWinning = { strike: WINNING_STRIKE_COUNT, ball: 0 };
+
+      User.prototype.getInput
+        .mockResolvedValueOnce(mockUserNumbersNotWinning)
+        .mockResolvedValueOnce(mockUserNumbersWinning);
+
+      calculateStrikeAndBall
+        .mockReturnValueOnce(mockStrikeAndBallNotWinning)
+        .mockReturnValueOnce(mockStrikeAndBallWinning);
+
+      await baseballGame.playGame(mockComputerNumbers);
+
+      expect(GameDisplay.prototype.showResult).toHaveBeenCalledWith(2, 1);
+      expect(GameDisplay.prototype.showWinMessage).toHaveBeenCalled();
+    });
+  });
+  describe('showGameEnd 메소드는', () => {
+    it('게임 종료 메시지를 보여주고 사용자 입력을 검증한다', async () => {
+      const mockGameEndChoice = END_GAME;
+
+      GameDisplay.prototype.showEndMessage.mockResolvedValue(mockGameEndChoice);
+
+      const result = await baseballGame.showGameEnd();
+
+      expect(GameDisplay.prototype.showEndMessage).toHaveBeenCalled();
+      expect(InputValidator.validateGameEndInput).toHaveBeenCalledWith(mockGameEndChoice);
+      expect(result).toBe(false);
+    });
+
+    it('사용자가 게임을 다시 시작하면 start 메소드를 호출한다', async () => {
+      const mockGameEndChoice = RESTART_GAME;
+
+      GameDisplay.prototype.showEndMessage.mockResolvedValue(mockGameEndChoice);
+      const mockStart = jest.spyOn(baseballGame, 'start');
+      mockStart.mockResolvedValue(null);
+
+      await baseballGame.showGameEnd();
+
+      expect(GameDisplay.prototype.showEndMessage).toHaveBeenCalled();
+      expect(InputValidator.validateGameEndInput).toHaveBeenCalledWith(mockGameEndChoice);
+      expect(mockStart).toHaveBeenCalled();
+    });
+  });
+});
