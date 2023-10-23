@@ -73,9 +73,9 @@ class App {
     if (showMessage) this.printMessage(this.sentence.end);
   }
 
-  throwError(error) {
+  throwError(errorMessage) {
     this.endGame(false);
-    this.printMessage(error);
+    throw new Error(errorMessage);
   }
 
   // input 내용
@@ -137,7 +137,7 @@ class App {
 
   // 판정
   test() {
-    if (this.win === true) {
+    if (this.win) {
       const isRestart = this.userNumbers[0] === 1;
       if (isRestart) {
         this.restart();
@@ -152,14 +152,14 @@ class App {
 
   async play() {
     this.startGame();
-    while (this.playing === true) {
+    while (this.playing) {
       try {
         // eslint-disable-next-line
         await this.getUserNumbers();
         this.validNumbers();
         this.test();
       } catch (error) {
-        throw new Error(`[Error]:${error}`);
+        this.throwError(`[Error]:${error}`);
       }
     }
   }
