@@ -1,9 +1,14 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 
 class App {
+  #answerNumber;
+
   async play() {}
 
-  #makeRandomNumber() {
+  getAnswerNumber() {
+    return this.#answerNumber;
+  }
+  makeRandomNumber() {
     let result = "";
 
     while (true) {
@@ -13,7 +18,7 @@ class App {
       if (!result.includes(random)) result += random;
     }
 
-    return result;
+    this.#answerNumber = result;
   }
 }
 
