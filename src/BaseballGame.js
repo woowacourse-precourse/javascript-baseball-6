@@ -19,7 +19,7 @@ class BaseballGame {
       this.isGameStarted = true;
     }
 
-    this.getUserInputNumbers();
+    await this.getUserInputNumbers();
   }
 
   // 숫자 입력 받기

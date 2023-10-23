@@ -11,9 +11,9 @@ const restartGame = async () => {
   }
   // 제대로 입력하였을때 1 -> 게임 재시작 2 -> 게임 종료
   if (input === "1") {
-    let a = new BaseballGame();
-    a.isGameStarted = true;
-    a.startGame();
+    let game = new BaseballGame();
+    game.isGameStarted = true;
+    await game.startGame();
   }
   if (input === "2") Console.print(Messages.FINISH_GAME_MESSAGE);
 };
