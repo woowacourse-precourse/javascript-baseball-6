@@ -26,7 +26,10 @@ export default class BaseballGame {
         this.checkUserInput(this.userInput);
 
         const strike = this.checkStrike(this.userInput, this.computerNumbers);
-        const ball = this.checkBall(this.userInput, this.computerNumbers);
+        const ball =
+          this.checkBall(this.userInput, this.computerNumbers) - strike;
+
+        correct = this.checkResult(strike, ball);
       } catch (error) {
         Console.print(error.message);
         return;
@@ -85,6 +88,20 @@ export default class BaseballGame {
       }
     }
     return ball;
+  }
+
+  checkResult(strick, ball) {
+    if (strick === 0 && ball === 0) {
+      Console.print("낫싱");
+    } else if (strick === 3) {
+      Console.print(`${strick} 스트라이크`);
+      Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+      return true;
+    } else {
+      Console.print(`${strick} 스트라이크 ${ball} 볼`);
+    }
+
+    return false;
   }
 }
 
