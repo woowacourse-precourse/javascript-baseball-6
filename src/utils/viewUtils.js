@@ -2,22 +2,22 @@ import { GAME_CONSTANTS, GAME_MESSAGES } from "./constants";
 
 export function getResultString([ball, strike]) {
   if (!ball && !strike) {
-    return GAME_RESULTS.NO_MATCH;
+    return GAME_RESULTS.noMatch;
   }
-  const text = [GAME_RESULTS.BALL, GAME_RESULTS.STRIKE];
+  const text = [GAME_RESULTS.ball, GAME_RESULTS.strike];
   const parsedResults = [ball, strike].map((item, idx) => {
     if (!item) return;
     return item.toString() + text[idx];
   });
   const resultString = parsedResults.join(" ");
-  if (strike === GAME_CONSTANTS.STRIKE_OUT_COUNT) {
-    return `${resultString}\n${GAME_MESSAGES.FINISH}`.trim();
+  if (strike === GAME_CONSTANTS.strikeOutCount) {
+    return `${resultString}\n${GAME_MESSAGES.finish}`.trim();
   }
   return resultString;
 }
 
 const GAME_RESULTS = {
-  BALL: "볼",
-  STRIKE: "스트라이크",
-  NO_MATCH: "낫싱",
+  ball: "볼",
+  strike: "스트라이크",
+  noMatch: "낫싱",
 };

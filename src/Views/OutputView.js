@@ -4,7 +4,7 @@ import { getResultString } from "../utils/viewUtils.js";
 
 export default class OutputView {
   printStart() {
-    MissionUtils.Console.print(GAME_MESSAGES.START);
+    MissionUtils.Console.print(GAME_MESSAGES.start);
   }
 
   printMatchResult(matchResult) {

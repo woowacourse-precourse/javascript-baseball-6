@@ -15,19 +15,15 @@ export default class BaseballGame {
 
   #startNewGame() {
     this.#setNewAnswer();
-    this.#setGameState(PLAYING);
+    this.#setGameState(playing);
   }
 
   #quitGame() {
-    this.#setGameState(QUIT);
+    this.#setGameState(quit);
   }
 
   #setNewAnswer() {
-    this.#answer = gameUtils.generateAnswer(
-      MIN_NUMBER,
-      MAX_NUMBER,
-      ANSWER_LENGTH
-    );
+    this.#answer = gameUtils.generateAnswer(minNumber, maxNumber, answerLength);
   }
 
   handleUserPitches(userInput) {
@@ -42,36 +38,35 @@ export default class BaseballGame {
 
   handleUserCommand(input) {
     switch (input) {
-      case USER_COMMANDS.RESTART:
+      case USER_COMMANDS.restart:
         this.#startNewGame();
         break;
-      case USER_COMMANDS.QUIT:
+      case USER_COMMANDS.quit:
         this.#quitGame();
         break;
     }
   }
 
   #updateGameStateAfterPitch(strike) {
-    if (strike === STRIKE_OUT_COUNT) {
-      this.#setGameState(COMMAND);
+    if (strike === strikeOutCount) {
+      this.#setGameState(command);
     }
   }
 
   isInCommandPhase() {
-    return this.#gameState === COMMAND;
+    return this.#gameState === command;
   }
 
   isGameEnded() {
-    return this.#gameState === QUIT;
+    return this.#gameState === quit;
   }
 }
 
 const GAME_STATES = {
-  PLAYING: "PLAYING",
-  COMMAND: "COMMAND",
-  QUIT: "QUIT",
+  playing: "PLAYING",
+  command: "COMMAND",
+  quit: "QUIT",
 };
 
-const { PLAYING, COMMAND, QUIT } = GAME_STATES;
-const { MIN_NUMBER, MAX_NUMBER, ANSWER_LENGTH, STRIKE_OUT_COUNT } =
-  GAME_CONSTANTS;
+const { playing, command, quit } = GAME_STATES;
+const { minNumber, maxNumber, answerLength, strikeOutCount } = GAME_CONSTANTS;
