@@ -12,5 +12,6 @@ const randomNum = () => {
   return computer;
 };
 
-randomNum();
 console.log(randomNum());
+
+export default randomNum;
