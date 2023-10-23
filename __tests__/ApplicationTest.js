@@ -101,14 +101,14 @@ describe("숫자 야구 게임", () => {
 
   describe("랜덤값 테스트", () => {
     test("자리수가 3자리인지 확인", async () => {
-      const randomNumber = app.getRandomNumber();
+      const randomNumber = app.generateRandomNumber();
 
       expect(randomNumber.length).toBe(3);
     });
 
     test("중복값 확인", async () => {
       for (let i = 0; i < 50; i++) {
-        const randomNumber = app.getRandomNumber();
+        const randomNumber = app.generateRandomNumber();
 
         const regEx = /(\d).*\1/;
         expect(regEx.test(randomNumber)).toBe(false);
