@@ -40,6 +40,10 @@ class App {
   }
 
   playInning() {
+    this.getGuess();
+  }
+
+  getGuess() {
     this.rl.question("숫자를 입력해주세요 : ", userInput => {
       try {
         this.isValidGuess(userInput);
