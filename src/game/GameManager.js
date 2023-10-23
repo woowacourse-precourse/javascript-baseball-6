@@ -27,10 +27,14 @@ class GameManager {
       MissionUtils.Console.print(userNumber);
 
       if (userNumber === "3스트라이크") {
-        MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-        return this.restartGame();
+        return this.strike();
       }
     }
+  }
+
+  strike() {
+    MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    return this.restartGame();
   }
 
   async restartGame() {
