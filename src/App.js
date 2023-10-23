@@ -1,6 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import exportLibrary from "./exportLibrary.js";
-import radomNumber from "./randomNumber.js";
+import exportLibrary from "./exportLibrary";
+import radomNumber from "./randomNumber";
 
 class App {
   async play() {
@@ -13,18 +13,18 @@ class App {
       // 임의의 수 3가지를 설정하는 기능
       radomNumber(COMPUTER_NUMBER);
 
-        // 게임을 새로 시작하는 기능
-        const restart = async () => {
-          const CHOICE = await MissionUtils.Console.readLineAsync('');
-          if (CHOICE === '1') {
-            await start(); 
-          } else if (CHOICE === '2') {
-            return
-          } else {
-            exportLibrary('[ERROR] 1과 2중 하나를 입력하세요')
-            throw new Error('[ERROR] 1과 2중 하나를 입력하세요');
-          }
-        };
+      // 게임을 새로 시작하는 기능
+      const restart = async () => {
+        const CHOICE = await MissionUtils.Console.readLineAsync('');
+        if (CHOICE === '1') {
+          await start(); 
+        } else if (CHOICE === '2') {
+          return
+        } else {
+          exportLibrary('[ERROR] 1과 2중 하나를 입력하세요')
+          throw new Error('[ERROR] 1과 2중 하나를 입력하세요');
+        }
+      };
       
       // 게임 시작
       const gameStart = async () => {
