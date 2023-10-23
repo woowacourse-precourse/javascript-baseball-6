@@ -35,7 +35,7 @@ class App {
       if (strike === 3) {
         Console.print(`${strike}${BASEBALL_MESSAGE.STRIKE}`)
         Console.print(GAME_MESSAGE.SUCCESS);
-        return;
+        return this.reStart();
       }
     } catch (error) {
       throw new Error(ERROR_MESSAGE.IS_INVALID);
