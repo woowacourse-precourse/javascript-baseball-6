@@ -2,6 +2,7 @@ import { OUTPUT_MESSAGES } from '../constants/Messages.js';
 import OutputView from './OutputView.js';
 import Validators from '../../utils/validator/index.js';
 import InputView from './InputView.js';
+import { HINT } from '../constants/System.js';
 
 const View = {
   print(message) {
@@ -30,10 +31,10 @@ const View = {
 
   printHint({ ball, strike }) {
     if (ball === 0 && strike === 0) {
-      OutputView.print('낫싱');
+      OutputView.print(HINT.nothing);
     } else {
-      const message = `${ball}볼 ${strike}스트라이크`;
-      const hint = message.replace(/0볼|0스트라이크/g, '').trim();
+      const message = HINT.message(ball, strike);
+      const hint = message.replace(HINT.clear, '').trim();
       OutputView.print(hint);
     }
   },
