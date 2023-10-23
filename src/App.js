@@ -2,7 +2,7 @@ import { Console } from "@woowacourse/mission-utils";
 
 class App {
   constructor() {
-    this.secretNumber = null;
+    this.secretNumber = [null, null, null];
   }
 
   static printGreeting() {
