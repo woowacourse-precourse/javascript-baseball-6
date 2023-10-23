@@ -70,8 +70,8 @@
 ## 프로그래밍 요구 사항 확인 목록
 
 - [ ] Node.js 18.17.1 버전에 실행 가능해야 함
-- [ ] 프로그램 실행 시작점은 App.js의 play 메서드
-- [ ] 아래와 같이 프로그램을 실행 시킬 수 있어야 함
+- [x] 프로그램 실행 시작점은 App.js의 play 메서드
+- [x] 아래와 같이 프로그램을 실행 시킬 수 있어야 함
   ```
   const app = new App();
   app.play();
@@ -80,6 +80,6 @@
 - [ ] JavaScript 코드 컨벤션을 지키면서 프로그래밍
 - [ ] 프로그램 종료 시 `process.exit()`를 호출하지 않음
 - [ ] 프로그래밍 요구 사항에서 달리 명시하지 않는 한 파일, 패키지 이름 수정 및 이동 금지
-- [ ] `@woowacourse/mission-utils`의 `Random` `Console` API를 사용해서 구현
-- [ ] 사용자 값 입력을 위해 `Console.readLineAsync` 활용
-- [ ] 출력을 위해 `Console.print` 활용
+- [x] `@woowacourse/mission-utils`의 `Random` `Console` API를 사용해서 구현
+- [x] 사용자 값 입력을 위해 `Console.readLineAsync` 활용
+- [x] 출력을 위해 `Console.print` 활용
