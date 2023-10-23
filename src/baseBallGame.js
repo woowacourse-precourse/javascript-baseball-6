@@ -20,7 +20,7 @@ const BaseBallGame = {
       throw new Error('targetArray는 [1, 2, 3]과 같은 형태여야 합니다.');
     }
 
-    const numberArray = [...String(number)].map(Number);
+    const numberArray = Array.from(number, Number);
     numberArray.forEach((num, index) => {
       if (targetArray.includes(num)) {
         if (targetArray.indexOf(num) === index) {
