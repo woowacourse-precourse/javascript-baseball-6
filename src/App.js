@@ -1,4 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
+import { exceptionUserNum, exceptionReplayAnswer } from "./validation.js";
 
 class App {
   constructor() {
@@ -7,46 +8,19 @@ class App {
     this.randomNum = [];
   }
 
-  exceptionUserNum(str) {
-    if (str.length != 3) {
-      throw Error("[ERROR]");
-    }
-    if (isNaN(str)) {
-      throw Error("[ERROR]");
-    }
-    if (Number(str[0]) == 0 || Number(str[1]) == 0 || Number(str[2]) == 0) {
-      throw Error("[ERROR]");
-    }
-    if (
-      Number(str[0]) == Number(str[1]) ||
-      Number(str[0]) == Number(str[2]) ||
-      Number(str[1]) == Number(str[2])
-    ) {
-      throw Error("[ERROR]");
-    }
-  }
-
-  exceptionReplayAnswer(str) {
-    if (str != "1" && str != "2") {
-      throw Error("[ERROR]");
-    }
-  }
   // 서로 다른 숫자 3자리 랜덤 생성하기
   makeRandomNum() {
     const random_num = [];
     while (random_num.length < 3) {
-      if (random_num.length == 0) {
-        random_num.push(MissionUtils.Random.pickNumberInRange(1, 9));
-      } else {
-        const num = MissionUtils.Random.pickNumberInRange(1, 9);
-        if (random_num.indexOf(num) < 0) {
-          random_num.push(num);
-        }
+      const num = MissionUtils.Random.pickNumberInRange(1, 9);
+      if (random_num.indexOf(num) < 0) {
+        random_num.push(num);
       }
     }
     console.log(random_num);
     return random_num;
   }
+
   // 사용자 입력 값 판단하는 함수
   judgeNum(strike, ball) {
     let result = "";
@@ -68,7 +42,7 @@ class App {
   countUserAnswer(user_num) {
     let strike = 0;
     let ball = 0;
-    this.exceptionUserNum(user_num);
+    exceptionUserNum(user_num);
     for (let i = 0; i < 3; i++) {
       if (this.randomNum[i] == Number(user_num[i])) {
         strike += 1;
@@ -90,7 +64,7 @@ class App {
     const finalAnswer = await MissionUtils.Console.readLineAsync(
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
     );
-    this.exceptionReplayAnswer(finalAnswer);
+    exceptionReplayAnswer(finalAnswer);
     if (finalAnswer == "1") {
       this.replay = true;
       this.isCorret = false;
