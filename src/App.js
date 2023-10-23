@@ -30,7 +30,38 @@ class App {
         for(let i=0; i<3; i++){      //문자열->숫자
           user[i]=Number(user[i]);
         }
-        MissionUtils.Console.print(user); //테스트
+
+
+        let strike = 0
+        let ball = 0
+
+        //비교(user와 computer)
+        for(let i=0; i<3; i++){
+          if(computer.includes(user[i])==true){
+            let xindex = 5
+            xindex = computer.indexOf(user[i])
+            if(xindex==i){
+              strike=strike+1
+            }
+            else{
+              ball=ball+1
+            }
+          }
+        }
+        //strike, ball 결과 출력
+        if(strike==0 && ball==0){
+          MissionUtils.Console.print("낫싱");
+        }
+        else if(strike==0){
+          MissionUtils.Console.print(ball+"볼");
+        }
+        else if(ball==0){
+          MissionUtils.Console.print(strike+"스트라이크");
+        }
+        else{
+          MissionUtils.Console.print(ball+"볼"+strike+"스트라이크");
+        }
+
 
       } catch (error) {
         MissionUtils.Console.print(error);
