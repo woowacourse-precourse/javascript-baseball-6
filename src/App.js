@@ -1,5 +1,17 @@
 class App {
-  async play() {}
+  constructor() {
+    this.catcherNumbers = this.getCatcherNumbers();
+    this.pitcherNumbers = [];
+  }
+
+  async play() {
+    Console.print('숫자 야구 게임을 시작합니다.');
+
+    while (true) {
+      const pitcherNumbers = await this.getPitcherNumbers();
+      const judgmentResult = this.getResultOfJudgment(pitcherNumbers);
+    }
+  }
 
   getCatcherNumbers() {
     const catcherNumbers = [];
