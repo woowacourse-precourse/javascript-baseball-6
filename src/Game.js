@@ -1,5 +1,6 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 import MESSAGE from "./message.js";
+import ERROR from "./error.js";
 
 class Game {
   computerNums = [];
@@ -45,7 +46,7 @@ class Game {
   getUserNums = async () => {
     const input = await Console.readLineAsync(MESSAGE.PROMPT.USER_NUMS);
     if (!this.isUserNumsInputValid(input)) {
-      throw new Error(MESSAGE.ERROR.INVALID_INPUT);
+      throw new Error(ERROR.MESSAGE.INVALID_INPUT);
     }
     const userNums = input.split("").map(Number);
     return userNums;
@@ -99,7 +100,7 @@ class Game {
   checkPlayAgain = async () => {
     const input = await Console.readLineAsync(MESSAGE.PROMPT.RESTART_GAME);
     if (!this.isPlayAgainInputValid(input)) {
-      throw new Error(MESSAGE.ERROR.INVALID_INPUT);
+      throw new Error(ERROR.MESSAGE.INVALID_INPUT);
     }
     const inputNum = Number(input);
     return inputNum === 1;
