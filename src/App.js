@@ -3,8 +3,9 @@ import MSG from "./consts/msg.js";
 import ErrorValidate from "./Error.js";
 import Computer from "./Computer.js";
 
-const { GAME, ERROR, GAME_SELECT_REPLAY } = MSG;
-const { GAME_START, GAME_END, GAME_INPUT, GAME_SUCCESS } = GAME;
+const { GAME, ERROR } = MSG;
+const { GAME_START, GAME_END, GAME_INPUT, GAME_SUCCESS, GAME_SELECT_REPLAY } =
+  GAME;
 const {
   ERROR_LENGTH_NUMBER,
   ERROR_REPLAY_NUMBER,
@@ -17,6 +18,7 @@ const {
 class App {
   computerNum;
   inputValue;
+  gameResult;
   NUMBER_LENGTH = 3;
 
   constructor() {}
@@ -26,6 +28,7 @@ class App {
 
     Computer.createRandomNum(this.NUMBER_LENGTH);
     this.computerNum = Computer.computerNum;
+    console.log(this.computerNum);
 
     await this.guessNum();
   }
@@ -33,19 +36,20 @@ class App {
   async guessNum() {
     //숫자 맞히기 시작 함수
     await this.getInputNum();
-    await this.printStrikeAndBall(this.inputValue);
+    this.calculateStrikeAndBall();
+    await this.printStrikeAndBall();
   }
 
   async getInputNum() {
     //숫자를 입력받는 함수
     this.inputValue = "";
     this.inputValue = await Console.readLineAsync(GAME_INPUT);
-    this.checkInputValidate(this.inputValue);
+    this.checkInputValidate();
   }
 
-  async printStrikeAndBall(inputValue) {
+  async printStrikeAndBall() {
     //결과를 출력하는 함수
-    const { strike, ball } = this.calculateStrikeAndBall(inputValue);
+    const { strike, ball } = this.gameResult;
 
     if (ball === 0 && strike === 0) {
       Console.print("낫싱");
@@ -58,12 +62,7 @@ class App {
     }
 
     if (strike === 3) {
-      Console.print(GAME_SUCCESS);
-
-      const isPlay = await this.selectPalyAgain();
-      if (isPlay) {
-        this.play();
-      }
+      await this.selectPalyAgain();
       return;
     }
 
@@ -72,21 +71,23 @@ class App {
 
   async selectPalyAgain() {
     // 1 과 2 를 입력받아 게임을 시작할지 종료할지 검증하는 함수
+    Console.print(GAME_SUCCESS);
     const inputValue = await Console.readLineAsync(GAME_SELECT_REPLAY);
 
     if (Number(inputValue) === 1) {
-      return true;
+      await this.play();
+      return;
     }
     if (Number(inputValue) === 2) {
       Console.print(GAME_END);
-      return false;
+      return;
     }
     throw new Error(ERROR_REPLAY_NUMBER);
   }
 
-  calculateStrikeAndBall(inputValue) {
+  calculateStrikeAndBall() {
     //스트라이크인지 볼인지 계산하는 함수
-    const inputNumArr = inputValue.split("").map(Number);
+    const inputNumArr = this.inputValue.split("").map(Number);
     const score = { strike: 0, ball: 0 };
 
     inputNumArr.forEach((num, i) => {
@@ -99,27 +100,27 @@ class App {
       }
     });
 
-    return score;
+    this.gameResult = score;
   }
 
-  checkInputValidate(inputValue) {
-    if (!/^\d{3}$/.test(inputValue)) {
+  checkInputValidate() {
+    if (!/^\d{3}$/.test(this.inputValue)) {
       throw new Error(ERROR_LENGTH_NUMBER);
     }
 
-    if (inputValue === "") {
+    if (this.inputValue === "") {
       throw new Error(ERROR_NONE_NUMBER);
     }
 
-    if (ErrorValidate.isHasZero(inputValue)) {
+    if (ErrorValidate.isHasZero(this.inputValue)) {
       throw new Error(ERROR_ZERO_NUMBER);
     }
 
-    if (ErrorValidate.isDuplicate(inputValue)) {
+    if (ErrorValidate.isDuplicate(this.inputValue)) {
       throw new Error(ERROR_DUPLICATE_NUMBER);
     }
 
-    if (ErrorValidate.isNotInteger(Number(inputValue))) {
+    if (ErrorValidate.isNotInteger(Number(this.inputValue))) {
       throw new Error(ERROR_NOT_NUMBER);
     }
   }
