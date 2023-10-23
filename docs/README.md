@@ -20,7 +20,7 @@
 
 ## 설치 및 실행 방법
 
-```bash
+
 # 저장소를 클론
 git clone [repository-url]
 
@@ -33,3 +33,6 @@ npm install
 # 게임 실행
 npm start
 
+# 주의사항 
+1. Node.js 18.17.1 버전에서 실행 가능해야 함
+2. 네이밍 컨벤션 상수는 SNAKE_CASE, 클래스 & 메서드 등의 이름에는 특수문자 사용 금지
