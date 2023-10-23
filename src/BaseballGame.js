@@ -7,6 +7,7 @@ class BaseballGame {
 
   async play() {
     this.printStart();
+    this.generateComputer();
     await this.readNumber();
   }
 
