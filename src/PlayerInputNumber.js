@@ -16,6 +16,9 @@ export default async function PlayerInputNumber() {
 		if (!Number.isInteger(Number(answer))) {
 			throw new Exception('NotAnInteger', '정수를 입력하지 않았습니다.');
 		}
+		if (Number(answer) < 0) {
+			throw new Exception('NotPositiveNumber', '양수를 입력하지 않았습니다.');
+		}
 		if (answer.length !== 3) {
 			throw new Exception('LengthNotMath', '3자리를 입력하지 않았습니다.');
 		}
