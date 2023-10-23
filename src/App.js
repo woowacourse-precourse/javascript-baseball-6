@@ -69,7 +69,7 @@ const checkInputIsValid = (userInput) => {
 };
 
 const checkIsNumber = (userInput) => {
-  const input = userInput.filter((number) => isNaN(number));
+  const input = userInput.filter((number) => Number.isNaN(number));
 
   return input.length === 0 ? true : false;
 };
@@ -86,9 +86,9 @@ const calculateScore = (userInput, randomNumber) => {
   const socreBoard = { strike: 0, ball: 0 };
 
   randomNumber.forEach((number, randomIndex) => {
-    const userInputIndex = userInput.findIndex((inputNum) => {
-      return inputNum === number;
-    });
+    const userInputIndex = userInput.findIndex(
+      (inputNum) => inputNum === number
+    );
 
     if (userInputIndex === randomIndex) {
       socreBoard.strike += 1;
@@ -104,18 +104,17 @@ const calculateScore = (userInput, randomNumber) => {
 
 const printScore = (scoreBoard) => {
   let returnString =
-    scoreBoard.strike != 0 || scoreBoard.ball != 0
-      ? `${scoreBoard.ball === 0 ? "" : scoreBoard.ball + "볼"} ${
-          scoreBoard.strike === 0 ? "" : scoreBoard.strike + "스트라이크"
-        }`.trim()
-      : "낫싱";
+    (scoreBoard.strike != 0 || scoreBoard.ball != 0
+      ? `${scoreBoard.ball === 0 ? "" : scoreBoard.ball + "볼"} ${scoreBoard.strike === 0 ? "" : scoreBoard.strike + "스트라이크"}`.trim()
+      : "낫싱");
 
   return returnString;
 };
 
 const getUserInput = async () => {
   const userInput = await Console.readLineAsync("숫자를 입력해주세요 : ");
-  const input = [...userInput].map((number) => parseInt(number));
+  const input = Array.from(userInput, (number) => parseInt(number));
+  // const input = [...userInput].map((number) => parseInt(number));
 
   return input;
 };
