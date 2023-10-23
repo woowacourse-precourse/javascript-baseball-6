@@ -1,16 +1,17 @@
 import { USER_COMMAND, GAME_CONTROL } from "../constants/Constants.js";
 
 const InputValidator = {
-  numberValidate(input) {
+  hasValidNumber(input) {
     const numberRegExp = /^\d+$/;
-    const typeValidate = numberRegExp.test(input);
-    const digitsValidate = (new Set(input).size === GAME_CONTROL.LIMIT_LENGTH) && (input.length === GAME_CONTROL.LIMIT_LENGTH);
-    const rangeValidate = !input.includes(GAME_CONTROL.LIMIT_NUMBER);
+    const isValidNumberType = numberRegExp.test(input);
+    const isValidLength = input.length === GAME_CONTROL.LIMIT_LENGTH;
+    const isValidUnique = new Set(input).size === GAME_CONTROL.LIMIT_LENGTH;
+    const isValidRange = !input.includes(GAME_CONTROL.LIMIT_NUMBER);
 
-    return typeValidate && digitsValidate && rangeValidate;
+    return isValidNumberType && isValidLength && isValidUnique && isValidRange;
   },
 
-  commandValidate(input) {
+  hasValidCommand(input) {
     const commandInput = parseInt(input, 10);
     
     return (commandInput === USER_COMMAND.REPLAY) || (commandInput === USER_COMMAND.END);

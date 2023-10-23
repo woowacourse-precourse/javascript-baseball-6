@@ -14,7 +14,7 @@ describe('InputValidator', () => {
   ];
 
   test.each(testCases) ('입력값 유효성 테스트', (input, expected) => {
-    const result = InputValidator.numberValidate(input);
+    const result = InputValidator.hasValidNumber(input);
     expect(result).toBe(expected);
   });
 });
