@@ -25,11 +25,6 @@ class BaseballGame {
   // 숫자 입력 받기
   async getUserInputNumbers() {
     let input = await Console.readLineAsync(Messages.ENTER_MESSAGE);
-    input = input.trim();
-    if (!input) {
-      this.getUserInputNumbers();
-      return;
-    }
 
     const validate = new ValidateUserInput(input);
     if (!validate.validateUserInput()) {
