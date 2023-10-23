@@ -2,7 +2,7 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 
 let userInputs = [];
 
-const compareUserNum = async () => {
+const userInputNumNum = async () => {
   try {
     const input = await MissionUtils.Console.readLineAsync(
       "숫자를 입력해주세요 : "
@@ -16,4 +16,4 @@ const compareUserNum = async () => {
   }
 };
 
-export default compareUserNum;
+export default userInputNumNum;

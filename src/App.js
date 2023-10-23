@@ -1,11 +1,11 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import randomNum from "./randomNum.js";
-import compareUserNum from "./compareUserNum.js";
+import userInputNumNum from "./userInputNum.js";
 
 class App {
   async play() {
     await randomNum();
-    await compareUserNum();
+    await userInputNumNum();
   }
 }
 
