@@ -1,6 +1,7 @@
 import { Console } from "@woowacourse/mission-utils";
+import { Random } from "@woowacourse/mission-utils";
 
-class App {
+export class App {
   async play() {
     this.init();
     try {
@@ -8,6 +9,9 @@ class App {
     } catch (error) {
       Console.print(error);
     }
+
+    const computer = new Computer();
+    console.log(computer.getComputerNumber());
   }
 
   init() {
@@ -23,7 +27,30 @@ class App {
   }
 }
 
+// 컴퓨터가 랜덤한 숫자를 생성한다.
+export class Computer {
+  #computerNumber;
+
+  constructor() {
+    this.createRandomNumber();
+  }
+
+  createRandomNumber() {
+    const randomNumber = new Set();
+
+    while (randomNumber.size < 3) {
+      const number = Random.pickNumberInRange(1, 9);
+      if (!randomNumber.has(number)) {
+        randomNumber.add(number);
+      }
+    }
+    this.#computerNumber = [...randomNumber];
+  }
+
+  getComputerNumber() {
+    return this.#computerNumber;
+  }
+}
+
 const app = new App();
 app.play();
-
-export default App;
