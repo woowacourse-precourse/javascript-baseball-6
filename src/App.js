@@ -75,14 +75,16 @@ class App {
             );
             return;
         }
+        if (!strike && !ball) {
+            Console.print("낫싱");
+            return;
+        }
         if (strike && ball) {
             Console.print(`${ball}볼 ${strike}스트라이크`);
         } else if (strike && !ball) {
             Console.print(`${strike}스트라이크`);
         } else if (!strike && ball) {
             Console.print(`${ball}볼`);
-        } else if (!strike && !ball) {
-            Console.print("낫싱");
         }
     }
 
