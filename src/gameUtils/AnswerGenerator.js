@@ -7,7 +7,7 @@ class AnswerGenerator {
     while (setAnswer.size != 3) {
       setAnswer.add(MissionUtils.Random.pickNumberInRange(1, 9));
     }
-    return Number([...setAnswer].join(""));
+    return [...setAnswer].join("");
   }
 }
 
