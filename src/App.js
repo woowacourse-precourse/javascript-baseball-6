@@ -1,6 +1,6 @@
-import View from './view/View.js'
-import Model from './model/Model.js'
-import Controller from './controller/Controller.js'
+import View from './view/View'
+import Model from './model/Model'
+import Controller from './controller/Controller'
 
 class App {
   async play() {

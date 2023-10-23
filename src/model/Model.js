@@ -1,7 +1,7 @@
-import generateRandomThreeDigitNumber from './generateRandomThreeDigitNumber.js';
-import isRoundContinuedFromHint from './isRoundContinuedFromHint.js';
-import isGameContinued from './isGameContinued.js';
-import getHint from './getHint.js';
+import generateRandomThreeDigitNumber from './generateRandomThreeDigitNumber';
+import isRoundContinuedFromHint from './isRoundContinuedFromHint';
+import isGameContinued from './isGameContinued';
+import getHint from './getHint';
 
 class Model {
     constructor() {

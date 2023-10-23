@@ -1,5 +1,5 @@
-import getUserGameDecision from './getUserGameDecision.js';
-import getUserNumberInput from './getUserNumberInput.js';
+import getUserGameDecision from './getUserGameDecision';
+import getUserNumberInput from './getUserNumberInput';
 
 class Controller {
     constructor(model, view) {
