@@ -1,5 +1,6 @@
 import { Console } from "@woowacourse/mission-utils";
-import { Random } from "@woowacourse/mission-utils";
+import Player from "./model/Player.js";
+import Computer from "./model/Computer.js";
 
 export class App {
   #player;
@@ -21,6 +22,7 @@ export class App {
       const getPlayerInput = await this.playerInput();
       this.#player.setPlayerNumber(getPlayerInput);
       this.test();
+      console.log(this.compare());
     } catch (error) {
       Console.print("에러:", error);
     }
@@ -34,47 +36,30 @@ export class App {
     }
   }
 
+  compare() {
+    const playerNumberArray = [...this.#player.getPlayerNumber()].map((v) => Number(v));
+    const computerNumberArray = this.#computer.getComputerNumber();
+
+    const state = {
+      strike: 0,
+      ball: 0,
+    };
+
+    playerNumberArray.forEach((value, idx) => {
+      if (computerNumberArray.includes(value) && computerNumberArray[idx] === value) {
+        state.strike += 1;
+      }
+      if (computerNumberArray.includes(value) && computerNumberArray[idx] !== value) {
+        state.ball += 1;
+      }
+    });
+
+    return state;
+  }
+
   test() {
     console.log("player: ", this.#player.getPlayerNumber());
     console.log("computer: ", this.#computer.getComputerNumber());
-  }
-}
-
-// [저장] 컴퓨터 랜덤숫자
-export class Computer {
-  #computerNumber;
-
-  constructor() {
-    this.createRandomNumber();
-  }
-
-  createRandomNumber() {
-    const randomNumber = new Set();
-
-    while (randomNumber.size < 3) {
-      const number = Random.pickNumberInRange(1, 9);
-      if (!randomNumber.has(number)) {
-        randomNumber.add(number);
-      }
-    }
-    this.#computerNumber = [...randomNumber];
-  }
-
-  getComputerNumber() {
-    return this.#computerNumber;
-  }
-}
-
-// [저장] 플레이어 입력
-export class Player {
-  #playerNumber;
-
-  getPlayerNumber() {
-    return this.#playerNumber;
-  }
-
-  setPlayerNumber(playerNumber) {
-    this.#playerNumber = playerNumber;
   }
 }
 
