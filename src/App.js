@@ -13,7 +13,9 @@ class App {
 // 2. 게임 시작
   async play() {
     Console.print(`숫자 야구 게임을 시작합니다.`)
-    this.gameStart(this.ranNumber());
+    let RAN = this.ranNumber();
+    let MY_NUM = this.myNumber();
+    this.gameStart(RAN,MY_NUM);
   }
 
 //   1. 랜덤 숫자 생성
@@ -32,10 +34,6 @@ return COMPUTER;
 }
 
 
-
-
-
-
 // 2. 게임 시작
 // 숫자를 입력해주세요 표시후 
 // 3. 내 숫자 생성하여 숫자를 받음
@@ -43,17 +41,21 @@ return COMPUTER;
 // 컴퓨터 숫자와 내 숫자가 맞는지 
 // 4. 체크한다
 
-gameStart(RAN){
-  let readLine = require('readline')
-  Console.print(`숫자를 입력해주세요 : ${readLine}`);
-  let myNum = Console.readLineAsync(readLine);
-  let MY_NUMBER_ARRAY = [];
-  for(let I = 0; I <myNum.length; I++) {
-    if(myNum[I] == 0) {
-      throw new Error('입력범위_ 0 입력')};
-    MY_NUMBER_ARRAY[I] = myNum[I];
+async myNumber(){
+  let READLINE = require('readline')
+  Console.print(`숫자를 입력해주세요 : `);
+  let MY_NUMB = await Console.readLineAsync(READLINE);
+  MY_NUMB = Array.from(MY_NUMB);
+  for(let I=0;I<MY_NUMB.length;I++){
+    if(MY_NUMB[I] == '0') {
+      throw new Error('입력범위_ 0 입력');
+    }
   }
-this.checkResult(RAN,MY_NUMBER_ARRAY);
+  if(MY_NUMB.length == 3) {
+    return MY_NUMB;  
+  } else if(MY_NUMB.length != 3){
+    throw new Error("[ERROR] 3자리 숫자를 입력하세요");
+  }
 }
 // 3. 내 숫자 생성
 // 숫자 입력 옆의 숫자를 읽어와서
@@ -69,21 +71,16 @@ this.checkResult(RAN,MY_NUMBER_ARRAY);
 // 8. 게임 스타트
 // ㄴ 내 숫자를 정하는 것 부터. 컴퓨터 숫자는 그대로 있어야 함.
 
-checkResult (RAN, myNum){
-
-  if(myNum.length != 3) {
-    throw new Error("[ERROR] 3자리 숫자를 입력하세요");
-    }
-
+gameStart (RAN, MY_NUM){
 
   let strike = [];
     let j = -1;
-    for(let i = 0; i < MY_NUMBER_ARRAY.length; i++) {
-      if(MY_NUMBER_ARRAY[i] === RAN[i]){
-        strike[++j] = MY_NUMBER_ARRAY[i];
+    for(let i = 0; i < MY_NUM.length; i++) {
+      if(MY_NUM[i] === RAN[i]){
+        strike[++j] = MY_NUM[i];
       }
     }
-    let ball = RAN.filter(x => MY_NUMBER_ARRAY.includes(x)).filter(x => !strike.includes(x));
+    let ball = RAN.filter(x => MY_NUM.includes(x)).filter(x => !strike.includes(x));
     this.print(strike.length, ball.length);
     if(strike.length ==3){
       Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`)
@@ -145,17 +142,19 @@ if(STRIKES==0 && BALLS == 0){
 // 입력값이 2이면 게임끝
 // 둘다 아니면 에러 메세지 띄우고 종료
 
-gameset(){
-  Console.readLine('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.',(setNum)=>{
-    if(setNum==1){
-      this.gameStart(this.ranNumber());
+async gameset(){
+  let READLINE = require('readline')
+  Console.print(`게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.`)
+  let setNum = await Console.readLineAsync(READLINE);
+    if(setNum=='1'){
+      this.gameStart(this.ranNumber(),await this.myNumber());
     } else if(setNum==2){
       return 
     } else if(setNum !=1 && setNum!=2){
-      throw Console.print('[ERROR]1 또는 2를 입력하세요')
+      throw new Error('[ERROR]1 또는 2를 입력하세요')
     }
-  })
+  }
 } 
-}
+
 
 export default App;
