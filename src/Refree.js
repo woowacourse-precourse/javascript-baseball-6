@@ -1,40 +1,45 @@
-import Player from './Player.js';
+import { MissionUtils } from '@woowacourse/mission-utils';
 
 class Refree {
-  #playerNumber;
   #opponentNumber;
 
-  constructor(playerNumber, opponentNumber) {
-    this.#playerNumber = playerNumber;
-    this.#opponentNumber = opponentNumber;
-    console.log(playerNumber, opponentNumber);
+  constructor() {
+    this.#opponentNumber = this.generateNumber();
   }
 
-  playGame() {
-    const ball = this.countBall();
-    const strike = this.countStrike();
+  generateNumber() {
+    const result = [];
+    while (result.length < 3) {
+      const number = MissionUtils.Random.pickNumberInRange(1, 9);
+      if (!result.includes(number)) {
+        result.push(number);
+      }
+    }
 
+    return result;
+  }
+
+  judgeBallOrStrike(playerNumber) {
+    const ball = this.countBall(playerNumber);
+    const strike = this.countStrike(playerNumber);
+    console.log(ball, strike);
     return { ball, strike };
   }
 
-  countBall() {
-    return this.#playerNumber.reduce((count, target, index) => {
+  countBall(playerNumber) {
+    return playerNumber.reduce((count, target, index) => {
       return this.#opponentNumber.includes(target) && this.#opponentNumber[index] !== target
         ? count + 1
         : count;
     }, 0);
   }
 
-  countStrike() {
-    return this.#playerNumber.reduce((count, target, index) => {
+  countStrike(playerNumber) {
+    return playerNumber.reduce((count, target, index) => {
       return this.#opponentNumber.includes(target) && this.#opponentNumber[index] === target
         ? count + 1
         : count;
     }, 0);
-  }
-
-  changePlayerNumber(inputNumber) {
-    this.#playerNumber = new Player(inputNumber).numberArray;
   }
 }
 export default Refree;
