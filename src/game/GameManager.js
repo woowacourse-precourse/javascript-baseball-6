@@ -5,7 +5,6 @@ import Exception from "../Exception/Exception.js";
 class GameManager {
   constructor() {
     this.gameLogic = new GameLogic();
-    this.replay = true;
   }
 
   startGame() {

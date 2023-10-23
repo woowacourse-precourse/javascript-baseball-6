@@ -4,7 +4,7 @@ class GameLogic {
   constructor() {}
 
   generateNewNumber() {
-    let numberArray = [];
+    const numberArray = [];
 
     while (numberArray.length < 3) {
       const number = MissionUtils.Random.pickNumberInRange(1, 9);
