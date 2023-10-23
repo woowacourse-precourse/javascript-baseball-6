@@ -12,7 +12,7 @@ class App {
       try {
         inputedNumbers = await Console.readLineAsync('숫자를 입력해주세요 : ');
         const countedResult = this._countStrikeAndBall(this.#answer, inputedNumbers);
-        Console.print(countedResult.cntBall + '볼 ' + countedResult.cntStrike + '스트라이크');
+        Console.print(this._trimString(countedResult));
         if (this._checkAnswer(countedResult.cntStrike)) {
           Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
           const pickedType = await Console.readLineAsync(`게임을 새로 시작하려면 ${GameType.RESTART}, 종료하려면 ${GameType.END}를 입력하세요.`);
@@ -26,6 +26,16 @@ class App {
         Console.print('Error: ' + error.message);
       }
     }
+  }
+
+  _trimString({ cntStrike, cntBall }) {
+    if (cntStrike === 0 && cntBall === 0)
+      return '낫싱';
+    if (cntStrike === 0)
+      return `${cntBall}볼`;
+    if (cntBall === 0)
+      return `${cntStrike}스트라이크`;
+    return `${cntBall}볼 ${cntStrike}스트라이크`;
   }
 
   _checkAnswer(cntStrike) {
@@ -57,8 +67,5 @@ class App {
     this.#answer = computer.join('');
   }
 }
-
-// const app = new App();
-// app.play();
 
 export default App;
