@@ -8,12 +8,7 @@ class App {
   async play() {
     this.#startGame();
     await this.#runGameLoop();
-
-    Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-    const endDecisionInput = await readEndDecisionInput();
-    if (endDecisionInput === "1") {
-      await this.play();
-    }
+    await this.#wrapUpGame();
   }
 
   #startGame() {
@@ -32,6 +27,14 @@ class App {
 
     if (score.strikeCount !== 3) {
       await this.#runGameLoop();
+    }
+  }
+
+  async #wrapUpGame() {
+    Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    const endDecisionInput = await readEndDecisionInput();
+    if (endDecisionInput === "1") {
+      await this.play();
     }
   }
 
