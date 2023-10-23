@@ -1,6 +1,7 @@
 import GameModel from "./models/GameModel.js";
 import GameView from "./view/GameView.js";
 import GameController from "./controllers/GameController.js";
+import { Console } from "@woowacourse/mission-utils";
 
 class App {
   constructor() {
@@ -8,8 +9,11 @@ class App {
     this.view = new GameView();
     this.controller = new GameController();
   }
+
   async play() {
+    this.view.printGameStart();
     let computerAnswer = this.model.getComputerAnswer();
+    
     while (true) {
       const userInput = await this.view.readUserInput();
       let userAnswer = this.controller.handleUserAnswer(userInput);
@@ -22,7 +26,7 @@ class App {
           computerAnswer = this.model.getComputerAnswer();
           continue;
         } else if (replay === "2") {
-          this.view.printGameOver;
+          this.view.printGameOver();
           break;
         } else {
           this.view.printError();
