@@ -2,49 +2,35 @@ import { Console } from '@woowacourse/mission-utils';
 import { ERROR_MESSAGE, GAME_MESSAGE } from '../constants/constants.js';
 import Computer from './Computer.js';
 import User from './User.js';
-import printBallCount from '../utils/printBallCount.js';
-import countBall from '../utils/countBall.js';
+import Hint from './Hint.js';
 
 class Baseball {
   constructor() {
-    Console.print(GAME_MESSAGE.START_GAME);
-  }
-
-  setup() {
     /** @type {{computer: number[], user: number[]}} */
     this.player = {
       computer: [],
       user: [],
     };
 
-    /** @type {{ball: number, strike: number}} */
-    this.count = {
-      ball: 0,
-      strike: 0,
-    };
+    /** @type {boolean} */
+    this.isClear;
+
+    Console.print(GAME_MESSAGE.START_GAME);
   }
 
   /** 숫자 야구 게임 시작 */
   async startGame() {
-    this.setup();
+    this.isClear = false;
+
     this.player.computer = new Computer().getNumber();
 
-    while (this.count.strike !== 3) {
+    while (!this.isClear) {
       this.player.user = await new User().getNumber();
-      this.compareNumber();
+
+      this.isClear = new Hint(this.player);
     }
 
-    if (this.count.strike === 3) {
-      Console.print(GAME_MESSAGE.END_GAME);
-      this.restart();
-    }
-  }
-
-  /** 컴퓨터와 유저의 숫자 비교 */
-  compareNumber() {
-    console.log(this);
-    this.count = countBall(this.player);
-    printBallCount(this.count);
+    if (this.isClear) this.restart();
   }
 
   /** 게임 재시작 */
