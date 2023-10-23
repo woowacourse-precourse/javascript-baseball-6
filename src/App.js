@@ -1,7 +1,6 @@
 import BaseballGame from './BaseballGame.js';
 import { Console } from '@woowacourse/mission-utils';
-import { CONSTANT, ERROR, MESSAGE, RESULT } from './Constant.js';
-import Validator from './Validator.js';
+import { MESSAGE } from './Constant.js';
 
 class App {
   #game;
@@ -12,11 +11,11 @@ class App {
 
   async play() {
     Console.print(MESSAGE.START_GAME);
-    await this.#gameLoop();
+    await this.#game.gameLoop();
   }
 }
 
-const app = new App();
-app.play();
+// const app = new App();
+// app.play();
 
 export default App;
