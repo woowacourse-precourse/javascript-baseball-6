@@ -2,8 +2,8 @@ import { Console } from '@woowacourse/mission-utils';
 import { ERROR_MESSAGE, GAME_MESSAGE } from '../constants/constants.js';
 import Computer from './Computer.js';
 import User from './User.js';
-import counteBall from '../utils/countBall.js';
 import printBallCount from '../utils/printBallCount.js';
+import countBall from '../utils/countBall.js';
 
 class Baseball {
   constructor() {
@@ -27,14 +27,10 @@ class Baseball {
   /** 숫자 야구 게임 시작 */
   async startGame() {
     this.setup();
-
-    const computer = new Computer();
-    this.player.computer = computer.getNumber();
+    this.player.computer = new Computer().getNumber();
 
     while (this.count.strike !== 3) {
-      const user = new User();
-      this.player.user = await user.getNumber();
-
+      this.player.user = await new User().getNumber();
       this.compareNumber();
     }
 
@@ -46,16 +42,22 @@ class Baseball {
 
   /** 컴퓨터와 유저의 숫자 비교 */
   compareNumber() {
-    this.count = counteBall(this.player);
-
+    console.log(this);
+    this.count = countBall(this.player);
     printBallCount(this.count);
   }
 
+  /** 게임 재시작 */
   async restart() {
+    /** @type {string} */
     const re = await Console.readLineAsync(GAME_MESSAGE.RE_GAME + '\n');
+    this.validateRestart(re);
 
-    if (re !== '1' && re !== '2') throw new Error(ERROR_MESSAGE.INPUT_INVALID);
-    if (re === '1') this.startGame();
+    if (re === GAME_MESSAGE.RESTART) this.startGame();
+  }
+
+  validateRestart(re) {
+    if (re !== GAME_MESSAGE.RESTART && re !== GAME_MESSAGE.END) throw new Error(ERROR_MESSAGE.INPUT_INVALID);
   }
 }
 
