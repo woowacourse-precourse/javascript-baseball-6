@@ -1,4 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
+import getUserGameDecision from "./getUserGameDecision";
+import getUserNumberInput from "./getUserNumberInput";
 
 class View {
     printStartMsg() {
@@ -9,6 +11,12 @@ class View {
     }
     printHintMsg(hint) {
         MissionUtils.Console.print(hint);
+    }
+    async getUserGameDecision() {
+        return await getUserGameDecision();
+    }
+    async getUserNumberInput() {
+        return await getUserNumberInput();
     }
 }
 
