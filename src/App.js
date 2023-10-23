@@ -46,7 +46,7 @@ class App {
 			if (this.#compareUserAndComputer(inputVal) === 3) return this.#gameEnd();
 			return this.#playGame();
 		} catch (error) {
-			throw Error(error);
+			throw new Error(error);
 		}
 	}
 
