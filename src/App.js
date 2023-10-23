@@ -4,8 +4,9 @@ import createRandomNumber from "./function/createRandomNumber.js";
 
 class App {
   async play() {
-    const computerValue = createRandomNumber();
     Console.print("숫자 야구 게임을 시작합니다.");
+    const computerValue = createRandomNumber();
+
     return baseBallGame(computerValue);
   }
 }
