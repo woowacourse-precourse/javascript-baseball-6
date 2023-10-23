@@ -33,6 +33,10 @@ class App {
     const countResult = this.baseBall.countResult(userInput);
     const { strike } = countResult;
 
+    if ([...String(userInput)].length !== 3) {
+      throw new Error('[ERROR] 3자리 숫자만 입력해주세요');
+    }
+
     printResult(countResult);
 
     if (strike === 3) {
@@ -52,6 +56,10 @@ class App {
       '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.'
     );
     const userInput = Number(response);
+
+    if (![1, 2].includes(userInput)) {
+      throw new Error('[ERROR]');
+    }
 
     if (userInput === 1) {
       this.restart();
