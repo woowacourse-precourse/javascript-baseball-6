@@ -1,4 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
+import throwInvalidInputErrorMessage from "./throwInvalidInputErrorMessage.js";
 
 async function handleInput() {
   // 입력값 유효성 검증 기능
@@ -10,8 +11,8 @@ async function handleInput() {
         const SPLITED_TEXT = inputText.split("").map((item) => parseInt(item));
         return SPLITED_TEXT;
       } else {
-        const ERROR_TEXT = "[ERROR] 숫자가 잘못된 형식입니다.";
-        throw ERROR_TEXT;
+        const ERROR_MESSAGE = "입력값이 3자리의 숫자가 아닙니다";
+        throwInvalidInputErrorMessage(ERROR_MESSAGE);
       }
     } catch (error) {
       if (error) {
@@ -29,8 +30,8 @@ async function handleInput() {
         checkIndex++, compareIndex++
       ) {
         if (validInput[checkIndex] === validInput[compareIndex]) {
-          const ERROR_TEXT = "[ERROR] 숫자가 잘못된 형식입니다.";
-          throw ERROR_TEXT;
+          const ERROR_MESSAGE = "입력값에 중복된 숫자가 존재합니다";
+          throwInvalidInputErrorMessage(ERROR_MESSAGE);
         }
       }
       return validInput;
@@ -50,7 +51,6 @@ async function handleInput() {
     return VALID_INPUT;
   } catch (error) {
     MissionUtils.Console.print(error);
-    process.exit();
   }
 }
 
