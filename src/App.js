@@ -5,6 +5,8 @@ class App {
   #computer_number = []; // 컴퓨터가 생성한 값 - Array<int>
   user_answer = ""; // 사용자가 입력한 정답
   is_continue = true; // 게임 진행 여부
+  strikes = 0; // 현재 진행중인 게임의 스트라이크 수
+  balls = 0; // 현재 진행중인 게임의 볼 수
 
   async play() {
     // * 1. 시작 문구 출력
@@ -19,26 +21,27 @@ class App {
       this.user_answer = await MissionUtils.Console.readLineAsync();
 
       // * 3-1. 사용자 입력 값 검증
-      // 사용자 입력 값이 올바르지 않은 경우에는 게임을 종료한다.
       this.#verifyUserAnswerNumber();
 
       // * 4. 스트라이크 / 볼 판단
-      let strikes = this.#getStrikes();
-      let balls = this.#getBalls();
+      this.#setStrikes();
+      this.#setBalls();
 
       // * 5. 결과 판별 및 문구 출력
-      this.#printResult(strikes, balls);
+      this.#printResult();
 
       // * 6. 게임이 종료된 경우 처리
-      if (strikes === 3) {
-        // * 7. 사용자 입력
+      if (this.strikes === 3) {
         MissionUtils.Console.print(
           "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
         );
-        let user_continue = await MissionUtils.Console.readLineAsync();
-        // 사용자 입력 값이 올바르지 않은 경우에는 게임을 종료한다.
-        if (!this.#verifyUserContinue(user_continue)) return;
-        this.is_continue = user_continue === "1";
+        // * 7. 사용자 입력
+        let user_continue_input = await MissionUtils.Console.readLineAsync();
+
+        // * 7-1. 사용자 입력 값 검증
+        this.#verifyUserContinue(user_continue_input);
+
+        this.is_continue = user_continue_input === "1";
         // 게임을 새로 시작하는 경우, 랜덤 숫자를 재설정
         if (this.is_continue) {
           this.#setRandomNumber();
@@ -65,20 +68,20 @@ class App {
    * 사용자가 입력한 값을 통해 스트라이크가 몇 번인지 계산하여 반환한다.
    * @returns {int} strikes
    */
-  #getStrikes() {
+  #setStrikes() {
     let strikes = 0;
-    // ? 컴퓨터가 설정한 값의 각 자릿수 값와 위치(index)가 모두 일치하는지 확인
+    // 컴퓨터가 설정한 값의 각 자릿수 값와 위치(index)가 모두 일치하는지 확인
     this.#computer_number.forEach((num, index) => {
       if (num == this.user_answer.charAt(index)) strikes++;
     });
-    return strikes;
+    this.strikes = strikes;
   }
 
   /**
    * 사용자가 입력한 값을 통해 볼이 몇 번인지 계산하여 반환한다.
    * @returns {int} balls
    */
-  #getBalls() {
+  #setBalls() {
     let balls = 0;
 
     this.#computer_number.forEach((num, index) => {
@@ -90,13 +93,13 @@ class App {
         balls++;
     });
 
-    return balls;
+    this.balls = balls;
   }
 
   /**
    * 사용자가 입력한 값이 조건에 맞는 값인지 검증한다.
    *
-   * 만약 조건에 맞지 않는 값이라면 오류를 발생시킨다.
+   * 만약 조건에 맞지 않는 값이라면 오류를 발생시키고 프로그램을 종료한다.
    */
   #verifyUserAnswerNumber() {
     try {
@@ -124,15 +127,14 @@ class App {
 
   /**
    * 사용자가 입력한 값이 CONTINUE_TYPES 에 포함된 값인지 검증한다.
+   * 만약 검증에 실패한다면 오류를 발생시키고 프로그램을 종료한다.
    * @param {string} inputString
-   * @returns {boolean} isValid
    */
   #verifyUserContinue(inputString) {
     try {
       if (!inputString || this.#CONTINUE_TYPES.indexOf(inputString) < 0) {
         throw new Error("1 혹은 2만 입력할 수 있습니다.");
       }
-      return true;
     } catch (error) {
       throw new Error(`[ERROR] ${error.message}`);
     }
@@ -140,16 +142,14 @@ class App {
 
   /**
    * 스트라이크, 볼 횟수에 따라 콘솔 결과를 출력하는 메서드
-   * @param {int} strikes
-   * @param {int} balls
    */
-  #printResult(strikes, balls) {
-    if (strikes === 0 && balls === 0) {
+  #printResult() {
+    if (this.strikes === 0 && this.balls === 0) {
       MissionUtils.Console.print("낫싱");
       return;
     }
 
-    if (strikes === 3) {
+    if (this.strikes === 3) {
       MissionUtils.Console.print(
         "3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료\n"
       );
@@ -157,7 +157,7 @@ class App {
       return;
     }
 
-    MissionUtils.Console.print(`${balls}볼 ${strikes}스트라이크\n`);
+    MissionUtils.Console.print(`${this.balls}볼 ${this.strikes}스트라이크\n`);
   }
 }
 
