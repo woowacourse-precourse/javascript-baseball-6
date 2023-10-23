@@ -8,3 +8,5 @@ export const BALL = '볼';
 export const CLOSE_MESSAGE = '3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료';
 export const RESTART_GAME = '1';
 export const EXIT_GAME = '2';
+export const DIGIT_MIN = '1';
+export const DIGIT_MAX = '9';
