@@ -1,3 +1,5 @@
+import CONSTANTS from './constants';
+
 const score = (guesser, answer) => ({
   get strikes() {
     return guesser.filter((num, index) => answer[index] === num).length;
@@ -14,12 +16,17 @@ const score = (guesser, answer) => ({
   },
 
   toString() {
-    let result = '';
     if (this.nothing) return '낫싱';
+
+    let result = '';
     if (this.balls > 0) result += `${this.balls}볼`;
-    if (this.strikes > 0 && this.balls > 0) result += ' ';
+    if (this.strikes > 0 && this.balls > 0) result += CONSTANTS.SPACE;
     if (this.strikes > 0) result += `${this.strikes}스트라이크`;
     return result;
+  },
+
+  get win() {
+    return this.strikes === 3;
   },
 });
 

@@ -15,7 +15,7 @@ class Game {
 
     Console.print(scores.toString());
 
-    if (scores.strikes === 3) {
+    if (scores.win) {
       Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
       return;
     }
