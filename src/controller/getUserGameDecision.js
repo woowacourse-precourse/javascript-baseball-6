@@ -2,7 +2,9 @@ import { MissionUtils } from '@woowacourse/mission-utils';
 
 const checkValidDecision = function checkDecisionIsOneOrTwo(input) {
     const validValueList = ['1', '2'];
-    if (!validValueList.includes(input)) { throw new Error('[ERROR] 1과 2 중에서 입력해주세요.') }
+    if (!validValueList.includes(input)) {
+        throw new Error('[ERROR] 1과 2 중에서 입력해주세요.')
+    }
 }
 
 const getUserGameDecision = async function getUserGameDecisionFromUserInput() {
