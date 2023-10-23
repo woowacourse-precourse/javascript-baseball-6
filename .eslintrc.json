@@ -1,0 +1,4 @@
+{
+  "extends": "airbnb-base",
+  "ignorePatterns": ["__tests__/ApplicationTest.js"]
+}

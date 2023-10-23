@@ -1,0 +1,6 @@
+{
+  "deno.enable": false,
+  "[javascript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  }
+}
