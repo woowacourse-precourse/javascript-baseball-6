@@ -5,18 +5,6 @@ export const GAME_CONSTANTS = {
   STRIKE_OUT_COUNT: 3,
 };
 
-export const GAME_STATES = {
-  PLAYING: "PLAYING",
-  COMMAND: "COMMAND",
-  QUIT: "QUIT",
-};
-
-export const GAME_RESULTS = {
-  BALL: "볼",
-  STRIKE: "스트라이크",
-  NO_MATCH: "낫싱",
-};
-
 export const USER_COMMANDS = {
   RESTART: "1",
   QUIT: "2",
@@ -27,14 +15,4 @@ export const GAME_MESSAGES = {
   FINISH: `${GAME_CONSTANTS.ANSWER_LENGTH}개의 숫자를 모두 맞히셨습니다! 게임 종료`,
   INPUT_NUMBERS: "숫자를 입력해주세요 : ",
   INPUT_COMMAND: `게임을 새로 시작하려면 ${USER_COMMANDS.RESTART}, 종료하려면 ${USER_COMMANDS.QUIT}를 입력하세요.\n`,
-};
-
-export const ERROR_MESSAGES = {
-  INVALID_NUMBERS: {
-    LENGTH: `[ERROR] 입력값은 ${GAME_CONSTANTS.ANSWER_LENGTH}개의 숫자여야 합니다.`,
-    DUPLICATE: `[ERROR] 입력값에 중복된 숫자가 있습니다.`,
-    INTEGER: `[ERROR] 입력값은 숫자만 허용됩니다.`,
-    RANGE: `입력값은 ${GAME_CONSTANTS.MIN_NUMBER} ~ ${GAME_CONSTANTS.MAX_NUMBER} 범위 내의 숫자여야 합니다.`,
-  },
-  INVALID_COMMAND: `[ERROR] 명령어는 ${USER_COMMANDS.RESTART}이나 ${USER_COMMANDS.QUIT}만 입력할 수 있습니다.`,
 };

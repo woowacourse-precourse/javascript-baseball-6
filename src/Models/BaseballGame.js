@@ -1,12 +1,5 @@
-import {
-  GAME_CONSTANTS,
-  GAME_STATES,
-  USER_COMMANDS,
-} from "../utils/constants.js";
+import { GAME_CONSTANTS, USER_COMMANDS } from "../utils/constants.js";
 import { gameUtils } from "../utils/gameUtils.js";
-
-const { MIN_NUMBER, MAX_NUMBER, ANSWER_LENGTH } = GAME_CONSTANTS;
-const { PLAYING, COMMAND, QUIT } = GAME_STATES;
 
 export default class BaseballGame {
   #answer;
@@ -59,7 +52,7 @@ export default class BaseballGame {
   }
 
   #updateGameStateAfterPitch(strike) {
-    if (strike === GAME_CONSTANTS.STRIKE_OUT_COUNT) {
+    if (strike === STRIKE_OUT_COUNT) {
       this.#setGameState(COMMAND);
     }
   }
@@ -72,3 +65,13 @@ export default class BaseballGame {
     return this.#gameState === QUIT;
   }
 }
+
+const GAME_STATES = {
+  PLAYING: "PLAYING",
+  COMMAND: "COMMAND",
+  QUIT: "QUIT",
+};
+
+const { PLAYING, COMMAND, QUIT } = GAME_STATES;
+const { MIN_NUMBER, MAX_NUMBER, ANSWER_LENGTH, STRIKE_OUT_COUNT } =
+  GAME_CONSTANTS;

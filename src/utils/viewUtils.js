@@ -1,4 +1,4 @@
-import { GAME_CONSTANTS, GAME_MESSAGES, GAME_RESULTS } from "./constants";
+import { GAME_CONSTANTS, GAME_MESSAGES } from "./constants";
 
 export function getResultString([ball, strike]) {
   if (!ball && !strike) {
@@ -15,3 +15,9 @@ export function getResultString([ball, strike]) {
   }
   return resultString;
 }
+
+const GAME_RESULTS = {
+  BALL: "볼",
+  STRIKE: "스트라이크",
+  NO_MATCH: "낫싱",
+};
