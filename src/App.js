@@ -33,6 +33,20 @@ class App {
         throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
       }
     }
+
+    let ballCount = 0;
+    let strikeCount = 0;
+
+    // 상대방 입력 숫자와 사용자 입력 숫자 비교
+    for (let i = 0; i < USER.length; i++) {
+      for (let j = 0; j < COMPUTER.length; j++) {
+        if (i === j && USER[i] === COMPUTER[j]) {
+          strikeCount++;
+        } else if (USER[i] === COMPUTER[j]) {
+          ballCount++;
+        }
+      }
+    }
   }
 }
 
