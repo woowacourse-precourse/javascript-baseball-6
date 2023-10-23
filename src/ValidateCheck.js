@@ -5,7 +5,7 @@ class ValidateCheck {
     const IS_UNIQUE = (new Set(numbers)).size;
 
     if (!numbers.match(/[1-9]{3}/) || IS_UNIQUE !== 3) {
-      throw ERROR.invalidInput;
+      throw new Error (ERROR.invalidInput);
     };
 
     return numbers.split('').map(Number);
@@ -19,8 +19,8 @@ class ValidateCheck {
   };
 
   retryCheck(retry) {
-    if (retry !== '1' && retry !== '2') {
-      throw ERROR.retryInput;
+    if (retry !== "1" && retry !== "2") {
+      throw new Error (ERROR.retryInput);
     };
 
     return retry;
