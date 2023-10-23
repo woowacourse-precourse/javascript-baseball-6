@@ -5,6 +5,11 @@ const MESSAGE = {
     USER_NUMS: "숫자를 입력해주세요 : ",
     RESTART_GAME: "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n",
   },
+  RESULT: {
+    NOTHING: "낫싱",
+    BALL: "볼",
+    STRIKE: "스트라이크",
+  },
 };
 
 export default MESSAGE;

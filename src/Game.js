@@ -86,13 +86,13 @@ class Game {
   // 스트라이크, 볼 개수로 구성된 객체를 문자열로 변환하는 메소드
   getResultStr = (result) => {
     if (result.strike === 0 && result.ball === 0) {
-      return "낫싱";
+      return MESSAGE.RESULT.NOTHING;
     } else if (result.strike === 0) {
-      return `${result.ball}볼`;
+      return `${result.ball}${MESSAGE.RESULT.BALL}`;
     } else if (result.ball === 0) {
-      return `${result.strike}스트라이크`;
+      return `${result.strike}${MESSAGE.RESULT.STRIKE}`;
     } else {
-      return `${result.ball}볼 ${result.strike}스트라이크`;
+      return `${result.ball}${MESSAGE.RESULT.BALL} ${result.strike}${MESSAGE.RESULT.STRIKE}`;
     }
   };
 
