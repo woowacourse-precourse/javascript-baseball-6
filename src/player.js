@@ -14,7 +14,7 @@ export async function enterNumber(computerNum) {
         } else if (playerNum.length != 3) {
             MissionUtils.Console.print('[ERROR] 3개의 숫자만 입력해주세요.');
             throw new Error('숫자 개수 오류');
-        } else if (hasUniqueDigits(playerNum) == false) {
+        } else if (hasDuplicateNumber(playerNum) == true) {
             MissionUtils.Console.print('[ERROR] 서로 다른 숫자를 입력해주세요.');
             throw new Error('숫자 중복 오류');
         }
@@ -26,7 +26,7 @@ export async function enterNumber(computerNum) {
     }
 }
 
-function hasUniqueDigits(number) { // 숫자가 모두 유일한지 확인
-    const digitSet = new Set(number);
-    return digitSet.size == 3;
+function hasDuplicateNumber(number) {
+    const numberSet = new Set(number);
+    return numberSet.size != 3;
 }
