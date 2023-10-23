@@ -12,16 +12,13 @@ class App {
   async play() {
     let computerAnswer = this.model.getComputerAnswer();
     while (true) {
-      Console.print(computerAnswer);
       const userInput = await this.view.readUserInput();
       let userAnswer = this.controller.handleUserAnswer(userInput);
 
-      //게임 승리 판정
       if (computerAnswer === userAnswer) {
         this.model.getHint(computerAnswer, userAnswer);
         this.view.printGameWin();
 
-        //게임 매니저
         const replay = await this.view.readReplayInput();
         if (replay === "1") {
           computerAnswer = this.model.getComputerAnswer();
@@ -30,8 +27,7 @@ class App {
           this.view.printGameOver;
           break;
         } else {
-          //   throw new Error("[ERROR] 잘못된 입력입니다.");
-          throw new Error("[ERROR] 잘못된 입력입니다.");
+          this.view.printError();
         }
       }
       this.model.getHint(computerAnswer, userAnswer);
