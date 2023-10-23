@@ -1,5 +1,4 @@
-import { Random, Console } from '@woowacourse/mission-utils';
-
+import { Random, Console } from "@woowacourse/mission-utils";
 
 class App {
   // 답 생성
@@ -11,13 +10,21 @@ class App {
         randomNumber.push(number);
       }
     }
-    
+
     Console.print(randomNumber); // 확인
   }
 
+  static async getUserNumber() {
+    const userInputNumber = await Console.readLineAsync(
+      "숫자를 입력해주세요 : "
+    );
+    Console.print(userInputNumber);
+  }
+
   static play() {
-    Console.print('숫자 야구 게임을 시작합니다')
+    Console.print("숫자 야구 게임을 시작합니다.");
     this.setRandomNumber();
+    this.getUserNumber();
   }
 }
 
