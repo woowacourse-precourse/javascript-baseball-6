@@ -1,6 +1,7 @@
-import generateNumber from './utils/Number.js';
+import generateNumber from './utils/RandomNumber.js';
 import { print, input } from './view/View.js';
-import { MESSAGE, SETTING, ERROR } from './utils/Constants.js';
+import { MESSAGE, SETTING } from './Constants.js';
+import { validateInput, validateRestartInput } from './utils/Validator.js';
 
 export default class App {
   #answerNumbers;
@@ -15,7 +16,7 @@ export default class App {
       while (!this.#isFinish) {
         print(MESSAGE.GAME_START);
         const inputNumber = (await input(MESSAGE.INPUT_NUMBER)).trim();
-        this.validateInput(inputNumber);
+        validateInput(inputNumber);
         const { ballCount, strikeCount } = this.checkGuess(inputNumber);
         const message = this.feedbackMessage(ballCount, strikeCount);
         print(message);
@@ -23,7 +24,7 @@ export default class App {
         if (strikeCount !== SETTING.MAX_STRIKE_COUNT) continue;
 
         const restartNumber = Number(await input(MESSAGE.SUGGEST_NEW_GAME));
-        this.validateRestartInput(restartNumber) && restartNumber === 1
+        validateRestartInput(restartNumber) && restartNumber === 1
           ? this.init()
           : (this.#isFinish = true);
       }
@@ -35,29 +36,6 @@ export default class App {
   init() {
     this.#answerNumbers = generateNumber(SETTING.MIN, SETTING.MAX);
     // console.log(this.#answerNumbers);
-  }
-
-  /**
-   * @description 사용자 입력값 검증 함수
-   * 1.숫자가 아닌 다른 값의 유무 판단(공백포함) / 2.입력값의 길이 판단
-   * 3.서로 다른 3개의 숫자 판단 / 4. 0을 지니고 있는지 판단
-   * 5.서로 다른 3가지 숫자를 중복으로 입력받는 경우
-   * @param {string} input
-   * @returns {boolean} 유효성 검사 결과 반환
-   *
-   */
-
-  validateInput(input) {
-    const set = new Set(input.split(''));
-    if (
-      isNaN(Number(input)) ||
-      input.length > SETTING.MAX_INPUT_LENGTH ||
-      set.size !== SETTING.MAX_INPUT_LENGTH ||
-      set.has('0')
-    ) {
-      throw new Error(`${ERROR.HEADER}${ERROR.INPUT}`);
-    }
-    return true;
   }
 
   /**
@@ -73,7 +51,9 @@ export default class App {
     for (let i = 0; i < SETTING.MAX_INPUT_LENGTH; i++) {
       if (input[i] === randomNumber[i]) {
         strikeCount++;
-      } else if (randomNumber.includes(input[i])) {
+        continue;
+      }
+      if (randomNumber.includes(input[i])) {
         ballCount++;
       }
     }
@@ -99,19 +79,6 @@ export default class App {
       message += `${strike}${MESSAGE.STRIKE}`;
     }
     return message.trim() || `${MESSAGE.NOTHING}`;
-  }
-
-  /**
-   * @description 재시작 사용자 입력값 검증 함수
-   * @param {number} input
-   * @returns {boolean}
-   */
-
-  validateRestartInput(input) {
-    if (input !== SETTING.RESTART && input !== SETTING.END) {
-      throw new Error(`${ERROR.RESTART}${ERROR.RESTART}`);
-    }
-    return true;
   }
 }
 
