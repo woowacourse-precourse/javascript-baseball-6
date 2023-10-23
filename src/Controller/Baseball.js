@@ -11,11 +11,11 @@ class Baseball {
 
   async init() {
     try {
-      !this.restart ? this.view.printGameStart() : "";
+      !this.restart ? this.view.printMessage("숫자 야구 게임을 시작합니다") : "";
 
       await this.start(this.model.makeComputerRandomNumber());
     } catch (err) {
-      this.view.printErrorMessage(err.message);
+      this.view.printMessage(err.message);
       throw err;
     }
   }
@@ -35,7 +35,7 @@ class Baseball {
 
   async quit() {
     try {
-      this.view.printPlayEnd();
+      this.view.printMessage("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
 
       const restartStateInput = await this.view.readLineInput("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n");
 
@@ -46,7 +46,7 @@ class Baseball {
         this.init();
       }
       if (restartStateInput === "2") {
-        this.view.printGameEnd();
+        this.view.printMessage("게임 종료");
         process.exitCode = 0;
       }
     } catch (err) {
