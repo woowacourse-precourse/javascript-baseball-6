@@ -12,6 +12,9 @@ class Controller {
         if (!this.model.isValidUserNumber(userInput)) {
             //에러처리
         }
+        
+
+
     }
 }
 

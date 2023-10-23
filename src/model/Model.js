@@ -30,8 +30,10 @@ class Model {
             strike: 0,
             ball: 0,
         };
+
+        const userInputArray = Array.from(String(userInput), Number);
     
-        userInput.forEach((number, index) => {
+        userInputArray.forEach((number, index) => {
             if (number === this.computer[index]) {
                 compareResult.strike += 1;
             }
