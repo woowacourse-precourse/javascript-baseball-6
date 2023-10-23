@@ -4,26 +4,7 @@ import { evaluateScore, printScore } from "./score.js";
 
 class App {
   async play() {
-    Console.print("숫자 야구 게임을 시작합니다.");
-    await App.#startTrial();
-  }
-
-  static async #startTrial() {
-    const answer = App.#pickRandomThreeNums();
-
-    while (true) {
-      const answerInput = await Console.readLineAsync("숫자를 입력해주세요 : ");
-      const parsedInput = answerInput.split("").map((char) => parseInt(char, 10));
-
-      validateThreeNaturalNumbers(parsedInput);
-
-      const score = evaluateScore(parsedInput, answer);
-      printScore(score);
-
-      if (score.strikeCount === 3) {
-        break;
-      }
-    }
+    await App.#startGame();
 
     Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
     const endDecisionInput = await Console.readLineAsync(
@@ -33,7 +14,27 @@ class App {
     validateEndDecision(endDecisionInput);
 
     if (endDecisionInput === "1") {
-      App.#startTrial();
+      await this.play();
+    }
+  }
+
+  static async #startGame() {
+    Console.print("숫자 야구 게임을 시작합니다.");
+    const answer = App.#pickRandomThreeNums();
+    await App.#runGameLoop(answer);
+  }
+
+  static async #runGameLoop(answer) {
+    const answerInput = await Console.readLineAsync("숫자를 입력해주세요 : ");
+    const parsedInput = answerInput.split("").map((char) => parseInt(char, 10));
+
+    validateThreeNaturalNumbers(parsedInput);
+
+    const score = evaluateScore(parsedInput, answer);
+    printScore(score);
+
+    if (score.strikeCount !== 3) {
+      await App.#runGameLoop(answer);
     }
   }
 
