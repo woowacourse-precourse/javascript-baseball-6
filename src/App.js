@@ -12,6 +12,17 @@ class App {
     }
   }
 
+  // 유효한 숫자인지 확인
+  isValidInput(guess) {
+    if (/^\d{3}$/.test(guess)) {
+      const uniqueDigits = new Set(guess);
+      if (uniqueDigits.size === 3) {
+        return true;
+      }
+    }
+    throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+  }
+
   async play() {}
 }
 
