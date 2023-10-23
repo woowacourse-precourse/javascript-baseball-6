@@ -40,7 +40,7 @@ export function judgeNumber(computerNum, playerNum) {
     enterNumber(computerNum);
   } else {
     const ballComment = ball == 0 ? '' : `${ball}볼 `
-    const strikeComment= strike == 0 ? '' : `${strike}스트라이크`;
+    const strikeComment = strike == 0 ? '' : `${strike}스트라이크`;
     MissionUtils.Console.print(`${ballComment}${strikeComment}`);
 
     enterNumber(computerNum);
@@ -48,13 +48,13 @@ export function judgeNumber(computerNum, playerNum) {
 }
 
 export async function endGame() {
-  const regex = /[^1-2]/; // 숫자 1~2 외의 문자 찾아내는 정규표현식
+  const REGEX = /[^1-2]/; // 숫자 1~2 외의 문자 찾아내는 정규표현식
 
   try {
-    let gameStatus = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
+    const gameStatus = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
 
     // 예외사항 처리
-    if (regex.test(gameStatus)) {
+    if (REGEX.test(gameStatus)) {
       MissionUtils.Console.print('[ERROR] 숫자 1 또는 2만 입력해주세요. (공백 없이)');
       throw new Error('숫자 1,2 외 문자 입력 오류');
     } else if (gameStatus.length != 1) {
