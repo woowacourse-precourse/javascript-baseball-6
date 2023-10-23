@@ -7,18 +7,10 @@ class App {
     try {
       const computer = CustomUtils.getGenerateComputerNumbers();
       await CustomUtils.playGame(computer);
-      await this.restartGame();
+      await CustomUtils.getRestartChoice(() => this.play());
     } catch (error) {
       MissionUtils.Console.print(error.message);
       throw error;
-    }
-  }
-
-  async restartGame() {
-    if (await CustomUtils.getRestartChoice()) {
-      this.play();
-    } else {
-      MissionUtils.Console.print(Messages.GAME_EXIT);
     }
   }
 }

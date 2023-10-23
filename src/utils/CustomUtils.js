@@ -61,12 +61,13 @@ const printScore = (score) => {
   return true;
 };
 
-const getRestartChoice = async () => {
+const getRestartChoice = async (restartCallback) => {
   const RESTART_CHOICE = await MissionUtils.Console.readLineAsync(
     Messages.GAME_RESTART
   );
-  if (RESTART_CHOICE === "1") return true;
-  if (RESTART_CHOICE === "2") return false;
+  if (RESTART_CHOICE === "1") return restartCallback();
+  if (RESTART_CHOICE === "2")
+    return MissionUtils.Console.print(Messages.GAME_EXIT);
   throw new Error(Messages.INVALID_INPUT_RESTART_ERROR);
 };
 
