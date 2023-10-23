@@ -38,6 +38,36 @@ class App {
 
     return ballsToNumbers;
   }
+
+  getResultOfJudgment(inputPitcherNumbers) {
+    let strike = 0;
+    let ball = 0;
+
+    for (let i = 0; i < 3; i++) {
+      if (inputPitcherNumbers[i] === this.catcherNumbers[i]) {
+        strike += 1;
+      }
+      if (this.pitcherNumbers.includes(inputPitcherNumbers[i])) {
+        ball += 1;
+      }
+    }
+    let result = '';
+
+    if (ball > 0) {
+      result = `${ball}볼 `;
+    }
+
+    if (strike > 0) {
+      result += `${strike}스트라이크`;
+    }
+
+    if (result === '') {
+      result = '낫싱';
+    }
+
+    Console.print(result);
+    return result;
+  }
 }
 
 export default App;
