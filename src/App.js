@@ -33,11 +33,22 @@ class App {
         if (score.get(STRIKE) === SIZE) {
           printMessage(CORRECT);
           const input = await readLineAsync(RETRY);
-          this.isRetry(input);
+          this.retry(input);
         }
       }
     } catch (error) {
       this.end(error);
+    }
+  }
+
+  retry(input) {
+    input = Number(input);
+    if (input === RESTART_NUMBER) {
+      this.start();
+    } else if (input === EXIT_NUMBER) {
+      this.end();
+    } else {
+      throw new Error(ERROR_MESSAGE.NOT_RETRY_NUMBER);
     }
   }
 
@@ -83,17 +94,6 @@ class App {
     }
     
     return message.join(' ');
-  }
-
-  isRetry(input) {
-    input = Number(input);
-    if (input === RESTART_NUMBER) {
-      this.start();
-    } else if (input === EXIT_NUMBER) {
-      this.end();
-    } else {
-      throw new Error(ERROR_MESSAGE.NOT_RETRY_NUMBER);
-    }
   }
 }
 
