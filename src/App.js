@@ -1,7 +1,11 @@
 import { Console, MissionUtils } from '@woowacourse/mission-utils';
 
 class App {
-  generateRandomNumber() {
+  constructor() {
+    this.computerRandom = [];
+  }
+
+  static generateRandomNumber() {
     const computer = [];
     while (computer.length < 3) {
       const number = MissionUtils.Random.pickNumberInRange(1, 9);
@@ -12,7 +16,7 @@ class App {
     return computer;
   }
 
-  isValidInput(input, restart = false) {
+  static isValidInput(input, restart = false) {
     // 게임 재시작 여부에 대한 입력값 검증
     if (restart) {
       if (input !== '1' && input !== '2') {
@@ -36,7 +40,7 @@ class App {
     }
   }
 
-  calculateResult(answer, input) {
+  static calculateResult(answer, input) {
     let strike = 0;
     let ball = 0;
 
@@ -49,7 +53,7 @@ class App {
     return { strike, ball };
   }
 
-  printResult(strike, ball) {
+  static printResult(strike, ball) {
     if (strike === 0 && ball === 0) {
       Console.print('낫싱');
     } else {
@@ -63,27 +67,30 @@ class App {
   }
 
   async play() {
-    let computerRandom = this.generateRandomNumber();
-    let continueFlag = true;
+    this.computerRandom = App.generateRandomNumber();
+    const continueFlag = true;
 
     Console.print('숫자 야구 게임을 시작합니다.');
     while (continueFlag) {
       const userRandom = await Console.readLineAsync('숫자를 입력해주세요 : ');
-      this.isValidInput(userRandom);
+      App.isValidInput(userRandom);
 
-      const { strike, ball } = this.calculateResult(computerRandom, userRandom);
-      this.printResult(strike, ball);
+      const { strike, ball } = App.calculateResult(
+        this.computerRandom,
+        userRandom,
+      );
+      App.printResult(strike, ball);
 
       if (strike === 3) {
         const restart = await Console.readLineAsync(
           '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n',
         );
-        this.isValidInput(restart, true);
+        App.isValidInput(restart, true);
 
         if (restart === '1') {
-          computerRandom = this.generateRandomNumber();
+          this.computerRandom = App.generateRandomNumber();
         } else {
-          continueFlag = false;
+          break;
         }
       }
     }
