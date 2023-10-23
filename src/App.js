@@ -3,18 +3,23 @@ import { MissionUtils, Console } from "@woowacourse/mission-utils";
 class App {
   constructor() {
     this.strikes = [];
+    this.isWin = false;
   }
 
   async play() {
     this.playGame();
   }
 
-  playGame() {
+  async playGame() {
     Console.print("숫자 야구 게임을 시작합니다.");
     this.strikes = [];
     this.strikes = this.generateStrikes();
     Console.print(this.strikes);
-    this.playInning();
+    while (!this.isWin) {
+      await this.playInning().then(message => {
+        Console.print(message);
+      });
+    }
   }
 
   generateStrikes() {
@@ -35,29 +40,33 @@ class App {
     return randomNumber;
   }
 
-  async playInning() {
-    this.getGuess()
-      .then(guess => {
-        const [strikeCount, ballCount] = this.evaluateGuess(guess);
-        let message = "";
-        if (ballCount > 0) {
-          message += `${ballCount}볼`;
-        }
-        if (strikeCount > 0) {
-          message += `${message ? " " : ""}${strikeCount}스트라이크`;
-        }
-        if (!message) {
-          message = "낫싱";
-        }
-        Console.print(message);
-      })
-      .catch(error => {
-        console.error(error.message);
-      });
+  playInning() {
+    return new Promise(resolve => {
+      // 입력을 받을 때까지 기다리기 위한 프라미스
+      this.getGuess()
+        .then(guess => {
+          const [strikeCount, ballCount] = this.evaluateGuess(guess);
+          let message = "";
+          if (ballCount > 0) {
+            message += `${ballCount}볼`;
+          }
+          if (strikeCount > 0) {
+            message += `${message ? " " : ""}${strikeCount}스트라이크`;
+          }
+          if (!message) {
+            message = "낫싱";
+          }
+          resolve(message);
+        })
+        .catch(error => {
+          console.error(error.message);
+        });
+    });
   }
 
   async getGuess() {
     return new Promise((resolve, reject) => {
+      // 예외처리를 위한 프라미스
       Console.readLineAsync("숫자를 입력해주세요 : ").then(userInput => {
         try {
           this.isValidGuess(userInput);
@@ -90,6 +99,7 @@ class App {
         }
       }
     });
+    if (strikeCount == 3) this.isWin = true;
     return [strikeCount, ballCount];
   }
 }
