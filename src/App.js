@@ -9,7 +9,7 @@ class App {
 
   win = false;
 
-  userText = '';
+  userNumbers = [];
 
   computerNumbers = [];
 
@@ -23,11 +23,6 @@ class App {
     win: '3개의 숫자를 모두 맞히셨습니다! 게임 종료',
     restart: '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.',
     error: '[ERROR] 숫자가 잘못된 형식입니다.',
-  };
-
-  message = {
-    type: '',
-    text: '',
   };
 
   setComputerNumbers() {
@@ -63,7 +58,8 @@ class App {
   }
 
   restart() {
-    this.userText = '';
+    this.playing = true;
+    this.userNumbers = [];
     this.win = false;
     this.resetStrikeAndBall();
     this.setComputerNumbers();
@@ -72,7 +68,7 @@ class App {
   endGame(showMessage) {
     this.playing = false;
     this.win = false;
-    this.userText = '';
+    this.userNumbers = [];
     this.resetStrikeAndBall();
     if (showMessage) this.printMessage(this.sentence.end);
   }
@@ -80,7 +76,6 @@ class App {
   throwError(error) {
     this.endGame(false);
     this.printMessage(error);
-    // return Promise.reject(new Error(error));
   }
 
   // input 내용
@@ -89,7 +84,10 @@ class App {
       if (!this.strike === 3) this.printMessage('숫자를 입력해주세요.');
       const text =
         await MissionUtils.Console.readLineAsync('숫자를 입력해주세요.');
-      this.userText = Number(text.replaceAll(' ', ''));
+      this.userNumbers = text
+        .replaceAll(' ', '')
+        .split('')
+        .map(v => Number(v));
     } catch (error) {
       this.throwError(error);
     }
@@ -97,25 +95,22 @@ class App {
 
   // 유효성 검사
   validNumbers() {
+    const text = this.userNumbers.join('');
     let pass;
     if (!this.win) {
-      pass = /^[1-9]{3}$/.test(this.userText);
+      pass = /^[1-9]{3}$/.test(text);
     } else {
-      pass = /^[1,2]$/.test(this.userText);
+      pass = /^[1,2]$/.test(text);
     }
     if (!pass) throw new Error(this.sentence.error);
   }
 
   // 스트라이크, 볼 판정
   compareNumbers() {
-    const userNumbers = String(this.userText)
-      .split('')
-      .map(v => Number(v));
-
     this.computerNumbers.forEach((v, i) => {
-      if (v === userNumbers[i]) {
+      if (v === this.userNumbers[i]) {
         this.strike += 1;
-      } else if (userNumbers.includes(v)) {
+      } else if (this.userNumbers.includes(v)) {
         this.ball += 1;
       }
     });
@@ -143,7 +138,7 @@ class App {
   // 판정
   test() {
     if (this.win === true) {
-      const isRestart = this.userText === 1;
+      const isRestart = this.userNumbers[0] === 1;
       if (isRestart) {
         this.restart();
       } else {
