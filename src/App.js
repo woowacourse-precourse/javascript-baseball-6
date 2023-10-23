@@ -1,5 +1,5 @@
 // App.js
-import Game from "./Game.js";
+import Game from "./Game/Game.js";
 
 class App {
   constructor() {
