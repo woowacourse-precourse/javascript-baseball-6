@@ -131,6 +131,18 @@ ex) const FIREFOX = 1; const IS_LEFT = true;
 
 > 🤔 생각해볼 점: 네이밍컨벤션 외에도 https://github.com/airbnb/javascript 에 기재된 다른 항목들을 참고하면 리팩토링시에 도움을 받을 것 같다.
 
+```
+// bad - unnecessarily uppercases key while adding no semantic value
+export const MAPPING = {
+  KEY: 'value'
+};
+
+// good - 상수를 객체로 묶을시, 키는 소문자로 작성한다.
+export const MAPPING = {
+  key: 'value',
+};
+```
+
 [✅] 프로그램 종료 시 `process.exit()`를 **호출하지 않는다.**
 
 > 🤔 생각해볼 점: 예외를 발생 또는 애플리케이션이 종료되어야 하는 경우 `process.exit()`를 호출하지 않고 프로그램을 종료시킬 수 있는 다른 방법을 찾아야 한다.
