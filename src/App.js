@@ -28,15 +28,19 @@ class App {
     function chkUserInput(userInput) {
       //파라미터로 들어오는 배열의 값을 체크할것.
       //true / false 반환할것
-      if (userInput.length < 3 || userInput.length > 3) {
-        throw new Error("[ERROR]");
-      } else {
-        for (let value of userInput) {
-          if (value < 1 || value > 10 || isNaN(value)) {
+
+      //1. 서로 다른 세 자리의 자연수로 이루어져 있을 것.
+      //2. 1 ~ 9 사이의 수로 이루어져 있을 것.
+      if(new Set(userInput).size === userInput.length && userInput.length === 3) {
+        userInput.forEach((element) => {
+          if(element < 1 || element > 9 || isNaN(element)) {
             throw new Error("[ERROR]");
           }
-        }
+        })
+      } else {
+        throw new Error("[ERROR]");
       }
+      
       return true;
     }
 
