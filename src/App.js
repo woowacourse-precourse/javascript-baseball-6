@@ -11,7 +11,6 @@ class App {
     MissionUtils.Console.print("게임 종료");
   }
 
-
   async play_game() {
     // 컴퓨터가 선택한 임의의 숫자 3개 생성
     const computer_numbers = this.random_numbers();
