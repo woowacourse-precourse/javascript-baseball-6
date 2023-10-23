@@ -3,12 +3,16 @@ import Validation from "./Validation.js";
 
 class Game {
   constructor() {
-    this.computerNumber = this.generateComputerNumber();
+    this.computerNumber = null;
+  }
+  printStartMessage() {
+    Console.print("숫자 야구 게임을 시작합니다.");
+    this.startGame();
   }
 
   startGame() {
-    Console.print("숫자 야구 게임을 시작합니다.");
-    console.log(this.computerNumber);
+    this.computerNumber = this.generateComputerNumber();
+    Console.print(this.computerNumber);
     return this.playGame();
   }
 
@@ -38,6 +42,12 @@ class Game {
     Validation.validateType(userInput);
     Validation.validateLength(userInput);
     Validation.validateUnique(userInput);
+
+    return userInput;
+  }
+
+  vaildateUserCommand(userInput) {
+    Validation.isCommand(userInput);
 
     return userInput;
   }
@@ -81,14 +91,32 @@ class Game {
     return false;
   }
 
-  async playGame() {
-    const userInput = await this.inputUserValue();
-    const score = this.compareValues(userInput);
-    const result = this.printResult(score);
+  async RestartOrEndGame() {
+    try {
+      const userInput = await Console.readLineAsync(
+        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+      );
 
-    if (!result) {
-      this.playGame();
+      const command = parseInt(this.vaildateUserCommand(userInput));
+      if (command === 1) {
+        this.startGame();
+      } else if (command === 2) {
+        return;
+      }
+    } catch (error) {
+      Console.print(error);
+      throw new Error(error);
     }
+  }
+
+  async playGame() {
+    let result = false;
+    while (!result) {
+      const userInput = await this.inputUserValue();
+      const score = this.compareValues(userInput);
+      result = this.printResult(score);
+    }
+    await this.RestartOrEndGame();
   }
 }
 

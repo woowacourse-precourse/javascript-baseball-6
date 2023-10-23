@@ -16,6 +16,12 @@ const Validation = {
       throw new Error("[ERROR] 중복되지 않는 숫자를 입력해 주세요.");
     }
   },
+
+  isCommand(value) {
+    if (isNaN(value) || (value !== "1" && value !== "2")) {
+      throw new Error("[ERROR] 1 또는 2를 입력해 주세요.");
+    }
+  },
 };
 
 export default Validation;
