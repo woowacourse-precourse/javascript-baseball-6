@@ -40,7 +40,10 @@
 - [X] : 'play'메소드로 실행 가능하다.
 - [X] : 외부 라이브러리 사용 안 한다.
 - [X] : 순수 바닐라 JS로만 작성한다.
-- [X] : [JavaScript 코드 컨벤션](https://github.com/woowacourse/woowacourse-docs/tree/main/styleguide/javascript)을 지키면서 프로그래밍
+- [X] : [JavaScript 코드 컨벤션](https://github.com/woowacourse/woowacourse-docs/tree/main/styleguide/javascript)을 지키면서 개발
+  - [X] : 소스의 변수명, 클래스명 등에는 영문 이외의 언어를 사용하지 않습니다.
+  - [X] : 클래스, 메서드 등의 이름에는 특수 문자를 사용하지 않습니다.
+  - [X] : 상수명은 SNAKE_CASE로 작성합니다.
 - [X] : 프로그램 종료 시 `process.exit()`를 호출하지 않는다.
 - [X] : 모든 테스트가 성공한다.
 - [X] : 파일, 패키지 이름을 수정하거나 이동하지 않는다.
