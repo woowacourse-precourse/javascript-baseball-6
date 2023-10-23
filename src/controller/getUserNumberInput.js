@@ -15,12 +15,12 @@ const checkNotDuplicated = (input) => {
 
 const checkAllNumber = (input) => {
     const throwNotNumberError = () => { throw new Error("[ERROR] 입력에는 숫자만 포함되어야 합니다.") }
-    input.split('').reduce((idx, inputElement) => isNaN(parseInt(inputElement)) && throwNotNumberError())
+    input.split('').forEach(inputElement => isNaN(parseInt(inputElement)) && throwNotNumberError())
 }
 
 const checkNoZero = (input) => {
     const throwHasZeroError = () => { throw new Error("[ERROR] 입력에는 0이 포함되지 않아야 합니다.") }
-    input.split('').reduce((idx, inputElement) => parseInt(inputElement) === 0 && throwHasZeroError())
+    input.split('').forEach(inputElement => parseInt(inputElement) === 0 && throwHasZeroError())
 }
 
 export const getUserNumberInput = async () => {
