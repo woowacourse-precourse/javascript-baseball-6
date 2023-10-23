@@ -70,7 +70,8 @@ class App {
         // }
 
         if (!this.isValidInput(guess)) {
-          MissionUtils.Console.print('[ERROR]올바른 숫자를 입력하세요.');
+          throw new Error('[ERROR]');
+          // MissionUtils.Console.print('[ERROR]');
           return;
         }
 
@@ -122,7 +123,7 @@ class App {
     if (strikes === 3) {
       result = '3스트라이크';
     } else if (strikes > 0 && balls > 0) {
-      result = `${strikes}스트라이크 ${balls}볼`;
+      result = `${balls}볼 ${strikes}스트라이크`;
     } else if (strikes > 0) {
       result = `${strikes}스트라이크`;
     } else if (balls > 0) {
