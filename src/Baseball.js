@@ -1,6 +1,6 @@
+import { Console } from "@woowacourse/mission-utils";
 import { MESSAGE } from "./constant/MESSAGE.js";
 import NUMBER from "./constant/NUMBER.js";
-import { Console } from "@woowacourse/mission-utils";
 
 class Baseball {
   constructor(computer, user) {
