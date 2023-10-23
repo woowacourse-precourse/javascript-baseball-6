@@ -39,7 +39,7 @@ class BaseballGameController {
   }
 
   calculateCount(input) {
-    const inputNumber = input.split("").map(Number);
+    const inputNumber = Array.from(input, Number);
     const strikeCount = this.#baseball.getStrikeCount(inputNumber);
     const ballCount = this.#baseball.getBallCount(inputNumber, strikeCount);
 
