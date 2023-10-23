@@ -1,6 +1,4 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
 import throwInvalidInputErrorMessage from "./throwInvalidInputErrorMessage.js";
-import handleError from "./handleError.js";
 
 // 입력값 유효성 검증 기능
 async function checkInputIsNumber(inputText) {
@@ -12,15 +10,15 @@ async function checkInputIsNumber(inputText) {
     } else {
       if (inputText.includes("0")) {
         const ZERO_IN_INPUT = "0은 입력할 수 없습니다";
-        throwInvalidInputErrorMessage(ZERO_IN_INPUT);
+        throw ZERO_IN_INPUT;
       } else {
         const DEFAULT_ERROR_MESSAGE = "입력값이 3자리의 숫자가 아닙니다";
-        throwInvalidInputErrorMessage(DEFAULT_ERROR_MESSAGE);
+        throw DEFAULT_ERROR_MESSAGE;
       }
-      return false;
     }
   } catch (error) {
-    throw error;
+    throwInvalidInputErrorMessage(error);
+    return false;
   }
 }
 
@@ -30,15 +28,13 @@ async function checkInputHasDuplicate(validArray) {
     const INPUT_SET = new Set(validArray);
     if (INPUT_SET.size !== validArray.length) {
       const ERROR_MESSAGE = "입력값에 중복된 숫자가 존재합니다";
-      throwInvalidInputErrorMessage(ERROR_MESSAGE);
-      return false;
+      throw ERROR_MESSAGE;
     } else {
       return true;
     }
   } catch (error) {
-    if (error) {
-      throw error;
-    }
+    throwInvalidInputErrorMessage(error);
+    return false;
   }
 }
 
@@ -52,14 +48,13 @@ async function CheckInputValidation(input) {
       );
       const IS_INPUT_VALID = IS_INPUT_HAS_NO_DUPLICATED_NUMBER;
       return IS_INPUT_VALID;
+    } else {
+      const VALID_ERROR = "유효성 검사 중에 의도치 않은 에러가 발생했습니다";
+      throw VALID_ERROR;
     }
   } catch (error) {
-    if (!error) {
-      const VALID_ERROR = "유효성 검사 중에 의도치 않은 에러가 발생했습니다";
-      handleError(VALID_ERROR);
-    } else {
-      handleError(error);
-    }
+    throwInvalidInputErrorMessage(error);
+    return;
   }
 }
 

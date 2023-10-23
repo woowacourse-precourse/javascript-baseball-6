@@ -1,7 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import throwInvalidInputErrorMessage from "./throwInvalidInputErrorMessage.js";
 import CheckInputValidation from "./checkInputValidation.js";
-import handleError from "./handleError.js";
 
 async function parseInputToArray() {
   try {
@@ -14,11 +13,12 @@ async function parseInputToArray() {
     if (IS_INPUT_VALID) {
       const VALID_INPUT_ARRAY = INPUT.split("").map((item) => parseInt(item));
       return VALID_INPUT_ARRAY;
+    } else {
+      const FAIL_TO_PARSE_INPUT = "입력 값이 유효성 검사를 통과하지 못했습니다";
+      throw FAIL_TO_PARSE_INPUT;
     }
   } catch (error) {
-    if (error) {
-      handleError(error);
-    }
+    throwInvalidInputErrorMessage(error);
   }
 }
 

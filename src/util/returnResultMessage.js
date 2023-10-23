@@ -36,10 +36,10 @@ async function returnResultMessage(result) {
       return resultMessage;
     } else {
       const ERROR_MESSAGE = `[ERROR] 입력에 대한 결과를 출력할 수 없습니다`;
-      throwInvalidInputErrorMessage(ERROR_MESSAGE);
+      throw ERROR_MESSAGE;
     }
   } catch (error) {
-    MissionUtils.Console.print(error);
+    throwInvalidInputErrorMessage(error);
   }
 }
 
