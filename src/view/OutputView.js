@@ -1,5 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils'
-import { OutputString } from '../constants'
+import { OutputString } from '../constants/index.js'
 
 const OutputView = {
   printStartString() {

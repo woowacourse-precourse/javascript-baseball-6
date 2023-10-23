@@ -1,5 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils'
-import { InputString } from '../constants'
+import { InputString } from '../constants/index.js'
 
 const InputView = {
   async readUserNumber() {
