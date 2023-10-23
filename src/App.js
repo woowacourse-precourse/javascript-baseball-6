@@ -1,11 +1,11 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import { GameSet } from './Game/game.js';
+import { gameSet } from './Game/game.js';
 import { TEXT } from './Constants/constant.js';
 
 class App {
   async play() {
     MissionUtils.Console.print(TEXT.INITIAL);
-    await GameSet();
+    await gameSet();
   }
 }
 const app = new App();

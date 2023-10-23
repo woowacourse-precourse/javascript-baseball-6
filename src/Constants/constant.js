@@ -4,7 +4,7 @@ export const ANSWER = {
   LENGTH: 3,
 };
 
-export const RESULT = {
+export const RESULT_MESSAGE = {
   NOTHING: '낫싱',
   BALL: '볼',
   STRIKE: '스트라이크',
@@ -23,6 +23,6 @@ export const TEXT = {
 };
 
 export const ERROR = {
-  INVALID_USER_NUMBER: '잘못된 값을 입력하였습니다.',
-  INVALID_RETRY: '1이나 2가 아닌 값을 잘못 입력하였습니다.',
+  INVALID_USER_NUMBER: '[ERROR] 잘못된 값을 입력하였습니다.',
+  INVALID_RETRY: '[ERROR] 1이나 2가 아닌 값을 잘못 입력하였습니다.',
 };

@@ -1,8 +1,7 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import { ANSWER } from '../Constants/constant.js';
 
-//computer random ball
-export const MakeRandomNumber = () => {
+export const makeRandomNumber = () => {
   const RANDOM_NUMBER_ARRAY = [];
   while (RANDOM_NUMBER_ARRAY.length < ANSWER.LENGTH) {
     const NUMBER = MissionUtils.Random.pickNumberInRange(ANSWER.MIN, ANSWER.MAX);
