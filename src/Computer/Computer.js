@@ -5,10 +5,14 @@ class Computer {
 
   constructor() {
     this.#numbers = [];
-    this.createNumber();
+  }
+
+  init() {
+    this.#numbers = [];
   }
 
   createNumber() {
+    this.init();
     while (this.#numbers.length < 3) {
       const number = MissionUtils.Random.pickNumberInRange(1, 9);
       if (!this.#numbers.includes(number)) {
