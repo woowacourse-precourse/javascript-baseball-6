@@ -68,10 +68,10 @@ class App {
 
   async play() {
     this.computerRandom = App.generateRandomNumber();
-    const continueFlag = true;
+    const CONTINUE_FLAG = true;
 
     Console.print('숫자 야구 게임을 시작합니다.');
-    while (continueFlag) {
+    while (CONTINUE_FLAG) {
       const userRandom = await Console.readLineAsync('숫자를 입력해주세요 : ');
       App.isValidInput(userRandom);
 
