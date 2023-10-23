@@ -13,6 +13,19 @@ class App {
         Console.print(computerNum);
         const result = compareNum(computerNum, userNum);
         Console.print(result);
+        if(result.strike === 3){
+          Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+          const restart = await Console.readLineAsync(
+            "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+          );
+
+          if(restart === "2"){
+            break;
+          }else{
+            computerNum = getComputerNumber();
+          }
+        }
+
       }catch (error){
         throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
       }

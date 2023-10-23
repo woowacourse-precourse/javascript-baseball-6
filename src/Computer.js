@@ -26,5 +26,4 @@ export const compareNum = (computer, user) =>{
 }
 
 
-
 // export default computer;
