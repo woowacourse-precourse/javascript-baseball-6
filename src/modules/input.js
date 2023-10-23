@@ -7,7 +7,8 @@ const getUserInput = async (query, regex) => {
     if (!regularExpression.test(userInput)) {
       throw new Error("[ERROR] Invalid input");
     }
-    return userInput;
+    const numbers = [...userInput].map(str => Number(str));
+    return numbers;
   } catch (error) {
     Console.print(error.message);
   }

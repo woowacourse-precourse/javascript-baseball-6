@@ -46,7 +46,7 @@ class App {
 
   async playInning() {
     const guess = await getUserInput(QUERY.guess, REGEX.guess);
-    const [strikeCount, ballCount] = this.evaluateGuess(guess, this.strikes);
+    const [strikeCount, ballCount] = this.getScore(guess, this.strikes);
     let message = "";
     if (ballCount == 0 && strikeCount == 0) {
       message = "낫싱";
@@ -60,12 +60,11 @@ class App {
     return message;
   }
 
-  evaluateGuess(guessNumbers, strikeNumbers) {
-    const numbers = [...guessNumbers].map(str => Number(str));
-    Console.print(numbers);
+  getScore(guessNumbers, strikeNumbers) {
+    // Console.print(guessNumbers); // 코드 작성 시 활성화하여 작업
     let strikeCount = 0;
     let ballCount = 0;
-    numbers.forEach((number, index) => {
+    guessNumbers.forEach((number, index) => {
       if (number == strikeNumbers[index]) {
         strikeCount += 1;
       } else {
