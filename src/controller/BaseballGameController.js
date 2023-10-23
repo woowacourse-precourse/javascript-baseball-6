@@ -51,8 +51,9 @@ class BaseballGameController {
 
     if (strikeCount === StaticNumber.BASEBALL_NUMBER_LENGTH) {
       OutputView.printEndMessage();
-      this.inputRestartNumber();
-    } else this.inputUserNumber();
+      return this.inputRestartNumber();
+    }
+    this.inputUserNumber();
   }
 
   async resetGame() {
