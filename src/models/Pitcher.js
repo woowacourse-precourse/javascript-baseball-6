@@ -14,13 +14,13 @@ class Pitcher {
     if (balls.length !== Pitcher.PITCH_COUNT) throw new Error(GameMessages.PITCHBALL_CHECKER);
     if (!/^[1-9]{3}$/.test(balls)) throw new Error(GameMessages.PITCHBALL_CHECKER2);
 
-    const ballsToNumbers = balls.split('').map(Number);
+    const pitcherNumbers = balls.split('').map(Number);
 
     if (new Set(ballsToNumbers).size !== 3) {
       throw new Error(GameMessages.PITCHBALL_CHECKER);
     }
 
-    return new Pitcher(ballsToNumbers);
+    return new Pitcher(pitcherNumbers);
   }
 }
 export default Pitcher;

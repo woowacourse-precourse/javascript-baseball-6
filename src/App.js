@@ -39,8 +39,8 @@ class App {
   }
 
   async getPitcherNumbers() {
-    const throwBalls = await Console.readLineAsync('숫자를 입력해주세요: ');
-    Pitcher.parsePitchBalls(throwBalls);
+    const inputBalls = await Console.readLineAsync('숫자를 입력해주세요: ');
+    Pitcher.parsePitchBalls(inputBalls);
   }
 
   getResultOfJudgment(inputPitcherNumbers) {
