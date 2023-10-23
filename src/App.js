@@ -17,7 +17,7 @@ class App {
 
             // 사용자가 잘못된 값을 입력한 경우
             if (checkUserInput === false) {
-                throw new Error("[ERROR] 잘못된 입력입니다.");
+                throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
             }
 
             // 사용자가 정상적인 값을 입력한 경우
