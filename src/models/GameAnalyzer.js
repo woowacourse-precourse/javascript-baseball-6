@@ -1,11 +1,11 @@
 const GameAnalyzer = {
 
-  getBullsAndCows (computerNumber, userNumber) {
+  getBallAndStrike (computerNumber, userNumber) {
 
-    return this.calcBallAndStrik(String(computerNumber), String(userNumber));
+    return this.calcBallAndStrike(String(computerNumber), String(userNumber));
   },
 
-  calcBallAndStrik (computerString, userString) {
+  calcBallAndStrike (computerString, userString) {
     let ball = 0; 
     let strike = 0;
 
@@ -15,7 +15,7 @@ const GameAnalyzer = {
     });
     
     return { ball, strike };
-  }
+  },
 }
 
 export default GameAnalyzer;

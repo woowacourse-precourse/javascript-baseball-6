@@ -9,7 +9,7 @@ describe('GameAnalyzer', () => {
   ];
 
   test.each(testCases)('볼과 스트라이크 유효성 테스트', ({ computerNumber, userNumber, expected }) => {
-    const result = GameAnalyzer.getBullsAndCows(computerNumber, userNumber);
+    const result = GameAnalyzer.getBallAndStrike(computerNumber, userNumber);
     expect(result).toEqual(expected);
   });
 });
