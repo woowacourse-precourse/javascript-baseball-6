@@ -159,6 +159,7 @@ class App {
     this.startGame();
     while (this.playing === true) {
       try {
+        // eslint-disable-next-line
         await this.getUserNumbers();
         this.validNumbers();
         this.test();
