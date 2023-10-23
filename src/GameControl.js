@@ -5,105 +5,143 @@ class Game {
     this.app = App;
   }
 
-  async randomNum() {
-    const Computer = [];
+  randomNum() {
+    const COMPUTER_NUM = [];
 
-    for (let i = 0; i < 3; i++) {
-      let Numbers = await MissionUtils.Random.pickNumberInRange(1, 9);
-      Computer.push(Numbers);
+    while (COMPUTER_NUM.length < 3) {
+      const Numbers = MissionUtils.Random.pickNumberInRange(1, 9);
+      if (!COMPUTER_NUM.includes(Numbers)) COMPUTER_NUM.push(Numbers);
     }
 
-    return Computer;
+    return COMPUTER_NUM;
+  }
+
+  userNumber(message) {
+    let Number;
+
+    try {
+      Number = MissionUtils.Console.readLineAsync(message);
+    } catch (e) {
+      throw Error(e.message);
+    }
+
+    return Number;
   }
 
   async numberValidChk() {
-    const regex = /^[1-9]+$/;
-    let userNum;
+    const USER_NUMBER = await this.userNumber(`숫자를 입력해주세요 : `);
+    const IS_NUMBER = /^[1-9]+$/.test(USER_NUMBER);
 
     try {
-      userNum = await Console.readLineAsync(`숫자를 입력해주세요 : `);
-
-      console.log(`번호 ${userNum}`);
-
-      const isNumber = regex.test(userNum);
-      const isError = !isNumber || userNum === undefined;
-
-      if (userNum === "1") {
-        return;
-      }
-
-      if (isError || userNum.length !== 3) {
-        throw new Error();
+      if (!IS_NUMBER || USER_NUMBER.length !== 3) {
+        throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
       }
     } catch (e) {
       this.app.isPlaying = false;
-      throw Error("[ERROR] 숫자가 잘못된 형식입니다.");
+      throw Error(e.message);
     }
 
-    const userArr = userNum.split("");
-    const User = userArr.map(Number);
+    const USER = Array.from(USER_NUMBER).map(Number);
 
-    return User;
+    return USER;
   }
 
-  isNumber_Same(data) {
+  getComparisonBall(data) {
     let strike = 0;
     let ball = 0;
-    let Com = data["com"];
 
-    console.log(data);
+    const obj = {};
+    const { me, com } = data;
 
-    Com.forEach((el, idx) => {
-      if (el === data["me"][idx]) strike++;
-      else if (data["me"].includes(el)) ball++;
+    com.forEach((el, idx) => {
+      if (el === me[idx]) strike++;
+      else if (me.includes(el)) ball++;
     });
 
-    if (strike + ball === 0) {
-      Console.print("낫싱");
-      return { state: "FAIL", com: data["com"] };
-    }
-    if (strike === 0 && ball !== 0) {
-      Console.print(`${ball}볼`);
-      return { state: "FAIL", com: data["com"] };
-    }
+    if (ball > 0) obj["ball"] = ball;
+    if (strike > 0) obj["strike"] = strike;
+    obj["com"] = com;
 
-    if (strike !== 0 && strike !== 3 && ball !== 0) {
-      Console.print(`${ball}볼 ${strike}스트라이크`);
-      return { state: "FAIL", com: data["com"] };
-    }
+    const RESULT = this.isNumberSame(obj);
 
-    if (strike !== 0 && strike !== 3 && ball === 0) {
-      Console.print(`${strike}스트라이크`);
-      return { state: "FAIL", com: data["com"] };
-    }
-
-    if (strike === 3) {
-      Console.print("3스트라이크");
-      return "WIN";
-    }
+    return RESULT;
   }
 
-  async newGameSwitch() {
+  isNumberSame(data) {
+    const answer = [];
+    const { strike, ball, com } = data;
+
+    // if (strike + ball === 0) {
+    //   Console.print("낫싱");
+
+    //   return { state: "FAIL", com };
+    // }
+
+    // if (strike !== 3) {
+    //   if (ball === 0) {
+    //     Console.print(`${strike}스트라이크`);
+
+    //     return { state: "FAIL", com };
+    //   }
+
+    //   if (strike === 0) {
+    //     Console.print(`${ball}볼`);
+
+    //     return { state: "FAIL", com };
+    //   }
+
+    //   Console.print(`${ball}볼 ${strike}스트라이크`);
+
+    //   return { state: "FAIL", com };
+    // }
+
+    // if (strike === 3) {
+    //   Console.print("3스트라이크");
+
+    //   return "WIN";
+    // }
+
+    if (!ball && !strike) {
+      Console.print("낫싱");
+      return { state: "FAIL", com };
+    }
+
+    if (ball) answer.push(`${ball}볼 `);
+    if (strike && strike === 3) {
+      Console.print(`${strike}스트라이크`);
+      return "WIN";
+    }
+    if (strike && strike !== 3) answer.push(`${strike}스트라이크`);
+
+    const ANSWER = Array.from(answer).join("");
+    Console.print(ANSWER);
+    return;
+  }
+
+  async handleGameStatus() {
     Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-    Console.print("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+
     try {
-      const userNum = await Console.readLineAsync(`숫자를 입력해주세요 : `);
+      const USER_NUM = await this.userNumber(
+        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+      );
 
-      console.log(`게임종료 or 재시작 ${userNum}`);
-
-      if (userNum === "2") {
+      if (USER_NUM === "2") {
         Console.print("게임 종료");
         this.app.isPlaying = false;
+
         return;
       }
-      if (userNum === "1") {
-        this.app.isPlaying = "reStart";
+      if (USER_NUM === "1") {
+        this.app.isPlaying = true;
+        this.app.Computer = this.randomNum();
+
         return;
-      } else {
-        throw new Error();
       }
+
+      throw new Error("[ERROR] 1 또는 2를 입력해주세요.");
     } catch (error) {
-      throw Error("[ERROR] 숫자가 잘못된 형식입니다.");
+      throw Error(error.message);
     }
   }
 }
