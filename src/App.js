@@ -30,6 +30,28 @@ class App {
     const validDigits = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     return digits.every((digit) => validDigits.includes(digit));
   }
+
+  calculateResult(userGuess, computerNumbers) {
+    let strike = 0;
+    let ball = 0;
+    for (let i = 0; i < userGuess.length; i++) {
+      if (userGuess[i] === computerNumbers[i]) {
+        strike++;
+      } else if (computerNumbers.includes(userGuess[i])) {
+        ball++;
+      }
+    }
+
+    if (strike === 3) {
+      return "3스트라이크";
+    } else if (strike > 0 || ball > 0) {
+      return `${ball > 0 ? `${ball}볼 ` : ""}${
+        strike > 0 ? `${strike}스트라이크` : ""
+      }`;
+    } else {
+      return "낫싱";
+    }
+  }
 }
 
 export default App;
