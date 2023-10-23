@@ -1,7 +1,7 @@
 import { calculateBalls } from "./calculateBalls.js"
 import { calculateStrikes } from "./calculateStrikes.js"
 
-export const getHint = (userNumber, computerNumber) => {
+export const getHint = function returnHintByUserNumberAndComputerNumber(userNumber, computerNumber) {
     const cntBall = calculateBalls(userNumber, computerNumber)
     const cntStrike = calculateStrikes(userNumber, computerNumber)
     

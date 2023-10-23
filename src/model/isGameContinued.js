@@ -1,4 +1,4 @@
-export const isGameContinued = (decision) => {
+export const isGameContinued = function returnBooleanByUserGameDecision(decision) {
     if (decision === '1') {
         return true
     } else if (decision === '2') {

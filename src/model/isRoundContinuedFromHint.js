@@ -1,4 +1,4 @@
-export const isRoundContinuedFromHint = (hint) => {
+export const isRoundContinuedFromHint = function returnBooleanByHint(hint) {
     if (hint === '3스트라이크') {
         return false
     } else {

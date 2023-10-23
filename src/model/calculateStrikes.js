@@ -1,4 +1,4 @@
-export const calculateStrikes = (userNumber, computerNumber) => {
+export const calculateStrikes = function returnStrikeCountByUserNumberAndComputerNumber(userNumber, computerNumber) {
     let cntStrike = 0;
     for (let ni = 0; ni < 3; ni++) {
         if (userNumber[ni] === computerNumber[ni]) {

@@ -1,4 +1,4 @@
-export const calculateBalls = (userNumber, computerNumber) => {
+export const calculateBalls = function returnBallCountByUserNumberAndComputerNumber(userNumber, computerNumber) {
     let cntBall = 0;
     for (let ni = 0; ni < 3; ni++) {
         const foundIdx = computerNumber.indexOf(userNumber[ni])
