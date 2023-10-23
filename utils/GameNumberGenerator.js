@@ -1,5 +1,5 @@
 import { Random } from '@woowacourse/mission-utils';
-import SYSTEM from '../src/constants/System.js';
+import { SYSTEM } from '../src/constants/System.js';
 
 /**
  * 랜덤한 서로 다른 3자리의 수를 생성하는 함수
