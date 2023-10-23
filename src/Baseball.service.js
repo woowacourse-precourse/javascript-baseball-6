@@ -48,7 +48,15 @@ export class BaseballService {
 
   async retry() {}
 
-  printResult() {}
+  printResult(ball, strike) {
+    if (!ball && !strike) {
+      Console.print('낫싱');
+      return;
+    }
+    Console.print(
+      (ball ? `${ball}볼 ` : '') + (strike ? `${strike}스트라이크` : '')
+    );
+  }
 
   validateRetryInput(retry) {}
 
