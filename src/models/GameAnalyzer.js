@@ -9,11 +9,10 @@ const GameAnalyzer = {
   calcBallAndStrik (computerString, userString) {
     let ball = 0, strike = 0;
 
-    for (let index = 0; index < computerString.length; index++) {
-      const strikeCondition = computerString[index] === userString[index];
-      if (strikeCondition) strike++;
-      if (!strikeCondition && userString.includes(computerString[index])) ball++;
-    };
+    [...computerString].forEach((char, index) => {
+      if (userString[index] === char) strike++;
+      else if (userString.includes(char)) ball++;
+    });
     
     return { ball, strike };
   }
