@@ -93,10 +93,8 @@ class NumberBaseball {
     const validInput = new Set([...input].map(Number).filter((n) => n));
 
     if (input.length !== 3 || validInput.size !== 3) {
-      return false;
+      throw new Error('[ERROR]');
     }
-
-    return true;
   }
 
   // 스트라이크, 볼 개수 확인
