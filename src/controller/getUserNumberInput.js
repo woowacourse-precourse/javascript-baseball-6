@@ -45,4 +45,4 @@ const getUserNumberInput = async function validateAndReturnInput() {
     return userNumberInput
 }
 
-export default getUserNumberInput
+export default getUserNumberInput;

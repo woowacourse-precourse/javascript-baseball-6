@@ -32,4 +32,4 @@ class Controller {
     }
 }
 
-export default Controller
+export default Controller;

@@ -3,10 +3,10 @@ import Model from './model/Model'
 import Controller from './controller/Controller'
 
 class App {
-  async play() {
-    const controller = new Controller(new Model(), new View());
-    await controller.playGame();
-  }
+    async play() {
+        const controller = new Controller(new Model(), new View());
+        await controller.playGame();
+    }
 }
 
 const app = new App();

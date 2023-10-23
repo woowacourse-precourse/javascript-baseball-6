@@ -6,4 +6,4 @@ const isGameContinued = function returnBooleanByUserGameDecision(decision) {
     }
 }
 
-export default isGameContinued
+export default isGameContinued;

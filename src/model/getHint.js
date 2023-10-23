@@ -21,4 +21,4 @@ const getHint = function returnHintByUserNumberAndComputerNumber(userNumber, com
     return hintMsgList.join(' ')
 }
 
-export default getHint
+export default getHint;

@@ -13,4 +13,4 @@ const generateRandomThreeDigitNumber = function returnThreeDigitNumberByRandom()
     return randomNumbersList.join('')
 }
 
-export default generateRandomThreeDigitNumber
+export default generateRandomThreeDigitNumber;

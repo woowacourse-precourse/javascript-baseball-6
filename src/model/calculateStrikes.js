@@ -11,4 +11,4 @@ const calculateStrikes = function returnStrikeCountByUserNumberAndComputerNumber
     }, 0)
 }
 
-export default calculateStrikes
+export default calculateStrikes;

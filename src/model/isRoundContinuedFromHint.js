@@ -5,4 +5,4 @@ const isRoundContinuedFromHint = function returnBooleanByHint(hint) {
     return true
 }
 
-export default isRoundContinuedFromHint
+export default isRoundContinuedFromHint;

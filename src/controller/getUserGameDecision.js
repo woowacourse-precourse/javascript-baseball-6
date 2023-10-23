@@ -15,4 +15,4 @@ const getUserGameDecision = async function getUserGameDecisionFromUserInput() {
     return userGameDecision
 }
 
-export default getUserGameDecision
+export default getUserGameDecision;

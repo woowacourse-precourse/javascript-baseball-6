@@ -11,4 +11,4 @@ const calculateBalls = function returnBallCountByUserNumberAndComputerNumber(use
     }, 0)
 }
 
-export default calculateBalls
+export default calculateBalls;
