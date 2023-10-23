@@ -65,6 +65,7 @@ Get.randomList();
 // ex) [5,2,8]
 ```
 
+
 ### countsFrom(originList, comparisonList)
 
 숫자야구에 사용하는 리스트 두 개를 받아 숫자야구 카운트가 담긴 객체를 반환
@@ -87,6 +88,7 @@ Get.countsFrom([5,8,9],[5,9,7]);
 // { ball : 1, strike : 1 }
 ```
 
+
 ### intersectionSize(arrayA, arrayB)
 
 두 배열을 받아 두 배열에 공통된 요소의 개수를 반환
@@ -107,6 +109,7 @@ arrayA나 arrayB가 입력되지 않았다면 0을 반환
 Get.interSectionSize([0,2,4],[2,3,4]);// 2
 Get.interSectionSize([1],[2,3,4]);// 0
 ```
+
 
 ### strikeCount(arrayA, arrayB)
 
@@ -159,6 +162,7 @@ ConvertInputTo.list();
 // 해당 값에 맞는 값을 반환
 ```
 
+
 ### async tryAgain()
 
 콘솔 창을 통해 사용자로부터 1이나 2를 입력받아
@@ -188,6 +192,7 @@ ConvertInputTo.tryAgain();
 
 `@woowacourse/mission-utils`에서 `import`한 `MissionUtils.Console.print()`를 통해 콘솔창으로 출력하는 함수들
 
+
 ### resultFrom({ball,strike})
 
 ball과 strike에 따른 값을 출력
@@ -205,9 +210,11 @@ Print.resultsFrom({ ball:3, strike:0 })// 3볼
 Print.resultsFrom({ ball:, strike:0 })// 낫싱
 ```
 
+
 ### playStartMessage()
 
 App.play가 시작될 때 나오는 문구가 출력
+
 
 ### runEndMessage()
 
@@ -218,6 +225,7 @@ Run.play가 끝났을 때 나오는 문구가 출력
 
 
 매개변수를 통해 Boolean(true, false)값을 반환하는 함수들
+
 
 ### gameOverBy({strike})
 
@@ -235,6 +243,7 @@ strike에 따라 true 혹은 false
 Is.gameOverBy({ball:0,strike:3}); // true
 Is.gameOverBy({ball:1,strike:0}); // false
 ```
+
 
 ### tryAgainBy(inputString)
 
