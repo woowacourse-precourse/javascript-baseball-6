@@ -5,51 +5,28 @@ export default class User {
   }
 
   validationState(state) {
-    if (typeof state !== "object") {
-      throw new Error("State must be an object");
+    if (this.state === undefined && state === "") {
+      return;
     }
 
-    if (state.hasOwnProperty("replay")) {
-      if (typeof state.replay !== "boolean") {
-        throw new Error("'replay' must be a boolean");
-      }
+    const inputString = String(state);
+
+    if (inputString.length !== 3) {
+      throw new Error("[ERROR] User input must be exactly three digits.");
     }
 
-    if (state.hasOwnProperty("userInput")) {
-      if (this.state === undefined && state.userInput === "") {
-        return;
-      }
+    const uniqueDigits = [...new Set(inputString.split(""))];
 
-      const inputString = String(state.userInput);
-
-      if (inputString.length !== 3) {
-        throw new Error("User input must be exactly three digits.");
-      }
-
-      const uniqueDigits = [...new Set(inputString.split(""))];
-
-      if (uniqueDigits.length !== inputString.length) {
-        throw new Error("All digits in the user input must be unique.");
-      }
-
-      for (const digit of state.userInput) {
-        if (typeof digit !== "number") {
-          throw new Error("User input should contain only numbers.");
-        }
-      }
+    if (uniqueDigits.length !== inputString.length) {
+      console.error("All digits in the user input must be unique.");
+      throw new Error("[ERROR]");
     }
   }
 
   setState(nextState) {
     this.validationState(nextState);
-
-    if (nextState.hasOwnProperty("userInput")) {
-      nextState.userInput = this.stringToNumberArray(
-        String(nextState.userInput)
-      );
-    }
-
-    this.state = { ...this.state, ...nextState };
+    nextState = this.stringToNumberArray(nextState);
+    this.state = [...nextState];
   }
 
   stringToNumberArray(nextState) {

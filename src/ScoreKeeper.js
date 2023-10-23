@@ -12,7 +12,8 @@ export default class ScoreKeeper {
 
   validationState(state) {
     if (typeof state !== "object") {
-      throw new Error("Input must be an object");
+      console.error("Input must be an object");
+      throw new Error("[ERROR]");
     }
 
     if (
@@ -20,7 +21,8 @@ export default class ScoreKeeper {
       typeof state.strikes !== "number" ||
       state.strikes < 0
     ) {
-      throw new Error("'strikes' must be a non-negative number");
+      console.error("'strikes' must be a non-negative number");
+      throw new Error("[ERROR]");
     }
 
     if (
@@ -28,7 +30,8 @@ export default class ScoreKeeper {
       typeof state.balls !== "number" ||
       state.balls < 0
     ) {
-      throw new Error("'balls' must be a non-negative number");
+      console.error("'balls' must be a non-negative number");
+      throw new Error("[ERROR]");
     }
   }
 
@@ -63,22 +66,25 @@ export default class ScoreKeeper {
       }
     }
 
-    return { strikes, balls };
+    this.setState({ strikes, balls });
   }
 
   calculateValidation(AValue, BValue) {
-    [AValue, BValue].forEach((value) => {
+    [(AValue, BValue)].forEach((value) => {
       if (!Array.isArray(value)) {
-        throw new Error("value must be an array");
+        console.error("value must be an array");
+        throw new Error("[ERROR]");
       }
 
       if (value.length !== 3) {
-        throw new Error("value must have exactly three items");
+        console.error("value must have exactly three items");
+        throw new Error("[ERROR]");
       }
 
       for (const item of value) {
         if (typeof item !== "number" || item < 1 || item > 9) {
-          throw new Error("All items in value must be numbers between 1 and 9");
+          console.error("All items in value must be numbers between 1 and 9");
+          throw new Error("[ERROR]");
         }
       }
     });

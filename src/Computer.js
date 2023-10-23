@@ -13,7 +13,8 @@ export default class Computer {
 
   validationState(state) {
     if (!Array.isArray(state)) {
-      throw new Error("state must be an array");
+      console.error("state must be an array");
+      throw new Error("[ERROR]");
     }
 
     if (this.state === undefined && state.length === 0) {
@@ -21,18 +22,26 @@ export default class Computer {
     }
 
     if (state.length !== 3) {
-      throw new Error("state must have exactly three items");
+      console.error("state must have exactly three items");
+      throw new Error("[ERROR]");
     }
 
     for (const item of state) {
       if (typeof item !== "number" || item < 1 || item > 9) {
-        throw new Error("All items in state must be numbers between 1 and 9");
+        console.error("All items in state must be numbers between 1 and 9");
+        throw new Error("[ERROR]");
       }
     }
   }
 
   chooseRandomly() {
-    const randomArray = Random.pickUniqueNumbersInRange(1, 9, 3);
-    this.setState([...randomArray]);
+    const numberArr = [];
+
+    while (numberArr.length < 3) {
+      const number = Random.pickNumberInRange(1, 9);
+      if (!numberArr.includes(number)) numberArr.push(number);
+    }
+
+    this.setState([...numberArr]);
   }
 }
