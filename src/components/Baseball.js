@@ -3,6 +3,7 @@ import { ERROR_MESSAGE, GAME_MESSAGE } from '../constants/constants.js';
 import Computer from './Computer.js';
 import User from './User.js';
 import { BALL_COUNT } from '../constants/constants.js';
+import counteBall from '../utils/countBall.js';
 
 class Baseball {
   constructor() {
@@ -41,18 +42,7 @@ class Baseball {
 
   /** 컴퓨터와 유저의 숫자 비교 */
   compareNumber() {
-    console.log(this.player);
-    const { computer, user } = this.player;
-    let ball = 0;
-    let strike = 0;
-
-    user.forEach((num, idx) => {
-      const exist = computer.indexOf(num);
-      if (exist === idx) strike++;
-      else if (exist !== idx && exist !== -1) ball++;
-    });
-
-    this.count = { ball, strike };
+    this.count = counteBall(this.player);
 
     this.printBallCount();
   }
