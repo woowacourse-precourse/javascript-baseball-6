@@ -86,3 +86,8 @@ Test Suites: 1passed, 1 total
 Test: 2passed, 2total
 Snapshots: 0 total
 Time: 1.055 s, estimated 2 s
+
+# 중점적으로 생각한 부분
+
+1. commit 주기
+2. 클린코드 작성
