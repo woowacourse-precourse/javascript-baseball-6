@@ -1,5 +1,6 @@
 export const ERRORMSG = Object.freeze({
   invalid_not_num: "[ERROR] 숫자만 입력할 수 있습니다.",
+  invalid_has_dot: "[ERROR] 숫자만 입력할 수 있습니다.",
   invalid_length: "[ERROR] 입력된 숫자의 자리수를 확인하세요",
   invalid_has_zero: "[ERROR] 0은 입력할 수 없습니다.",
   invalid_negative_num: "[ERROR] 음수는 입력할 수 없습니다.",

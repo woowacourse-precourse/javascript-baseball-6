@@ -39,6 +39,7 @@ class BaseballGame {
     const uniqueInput = new Set(input);
     if (parseInt(input) !== Number(input))
       throw new Error(ERRORMSG.invalid_not_num);
+    if (input.includes(".")) throw new Error(ERRORMSG.invalid_has_dot);
     if (input.length !== 3) throw new Error(ERRORMSG.invalid_length);
     if (input.includes(0)) throw new Error(ERRORMSG.invalid_has_zero);
     if (Number(input) < 0) throw new Error(ERRORMSG.invalid_negative_num);
