@@ -1,10 +1,9 @@
 import { Console, MissionUtils } from "@woowacourse/mission-utils";
-
+import { errorThrow } from "./errorThrow.js";
 let userInput = "";
 let strike = 0;
 let ball = 0;
 let stop = false;
-let error = false;
 
 // 정답 값과 입력 값 비교하기
 const compare = (COMPUTER, userInput) => {
@@ -40,21 +39,6 @@ const reStart = async () => {
     stop = true;
   }
 };
-// 잘못된 값 입력 시 예외 처리하기
-const errorThrow = (userInput) => {
-  if (userInput === null) {
-    error = true;
-    throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
-  }
-  if (userInput.length !== 3) {
-    error = true;
-    Console.print("[ERROR] 숫자가 잘못된 형식입니다.");
-    throw new Error("[ERROR]");
-  } else if (/^[1-9][1-9][1-9]$/.test(userInput) === false) {
-    error = true;
-    throw new Error("[ERROR] 숫자가 잘못된 형식입니다..");
-  }
-};
 // 결과 메세지 출력하기
 const printMessage = (strike, ball) => {
   if (strike === 0 && ball === 0) {
@@ -75,7 +59,7 @@ const printMessage = (strike, ball) => {
 class App {
   async play() {
     stop = false;
-    error = false;
+    let error = false;
 
     while (stop === false && error === false) {
       Console.print("숫자 야구 게임을 시작합니다.");
@@ -91,7 +75,7 @@ class App {
       while (strike < 3) {
         // 유저 입력 값 받기
         userInput = await Console.readLineAsync("숫자를 입력해주세요 : ");
-        errorThrow(userInput);
+        error = errorThrow(userInput);
         compare(COMPUTER, userInput);
         printMessage(strike, ball);
       }
