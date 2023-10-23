@@ -9,6 +9,10 @@ class ComputerNumberGenerator {
     this.#computerNumber = this.generateRandomNumbers();
   }
 
+  /**
+   * 컴퓨터의 중복되지 않는 랜덤한 세자리 숫자를 만들어낸다.
+   * @returns {number} 중복되지 않는 랜덤한 세자리 숫자
+   */
   generateRandomNumbers() {
     const digitsArray = new Set();
 
