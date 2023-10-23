@@ -29,11 +29,22 @@ class App {
     });
   }
 
+  async play() {
+    Console.print(MESSAGE.START);
+
+    let replay = true;
+
+    while (replay) {
+      await this.playTurn();
+      const restartInput = await Console.readLineAsync(MESSAGE.RESTART);
+      replay = restartInput === "1";
+    }
+  }
+
   async playTurn() {
     const { computer, user, scoreKeepre } = this;
 
-    computer.chooseRandomly();
-    console.log(computer.state);
+    computer.generateAndSetRandomNumbers();
     while (scoreKeepre.state.strikes !== 3) {
       const userInput = await Console.readLineAsync(MESSAGE.INPUT);
 
@@ -45,18 +56,6 @@ class App {
 
     Console.print(MESSAGE.FINISH);
     this.initComponent();
-  }
-
-  async play() {
-    Console.print(MESSAGE.START);
-
-    let replay = true;
-
-    while (replay) {
-      await this.playTurn();
-      replay =
-        (await Console.readLineAsync(MESSAGE.RESTART)) === "1" ? true : false;
-    }
   }
 }
 

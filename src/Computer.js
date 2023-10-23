@@ -43,7 +43,7 @@ export default class Computer {
     }
   }
 
-  chooseRandomly() {
+  generateAndSetRandomNumbers() {
     const numberArr = [];
 
     while (numberArr.length < 3) {

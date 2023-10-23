@@ -4,9 +4,9 @@ const SCOREKEEPER_ERROR_MESSAGE = {
   OBJECT: "[ERROR] 입력값은 객체여야 합니다.",
   PROPERTY_STRIKES: "[ERROR] 'strikes'는 음수가 아닌 숫자여야 합니다.",
   PROPERTY_BALLS: "[ERROR] 'balls'는 음수가 아닌 숫자여야 합니다.",
-  ARRAY: "[ERROR] 값은 배열이어야 합니다.",
-  LENGTH: "[ERROR] 값은 정확히 세 개의 요소를 가져야 합니다.",
-  RANGE: "[ERROR] 값의 모든 요소는 1과 9 사이의 숫자여야 합니다.",
+  ARRAY: "[ERROR] state는 배열이어야 합니다.",
+  LENGTH: "[ERROR] 세 자리 숫자만 입력 가능 합니다.",
+  RANGE: "[ERROR] state의 모든 요소는 1과 9 사이의 숫자여야 합니다.",
 };
 
 const SCOREKEEPER_PRINT_MESSAGE = {
@@ -65,37 +65,53 @@ export default class ScoreKeeper {
     }
   }
 
-  calculate(AValue, BValue) {
-    this.calculateValidation([...AValue], [...BValue]);
-    let strikes = 0;
-    let balls = 0;
+  calculate(userInput, computerInput) {
+    this.validateInputs(userInput, computerInput);
 
-    for (let i = 0; i < 3; i++) {
-      if (AValue[i] === BValue[i]) {
-        strikes++;
-      } else if (BValue.includes(AValue[i])) {
-        balls++;
-      }
-    }
+    const { strikes, balls } = this.calculateStrikesAndBalls(
+      userInput,
+      computerInput
+    );
 
     this.setState({ strikes, balls });
   }
 
-  calculateValidation(AValue, BValue) {
-    [(AValue, BValue)].forEach((value) => {
-      if (!Array.isArray(value)) {
+  validateInputs(userInput, computerInput) {
+    [userInput, computerInput].forEach((input) => {
+      if (!Array.isArray(input)) {
         throw new Error(SCOREKEEPER_ERROR_MESSAGE.ARRAY);
       }
 
-      if (value.length !== 3) {
+      if (input.length !== 3) {
         throw new Error(SCOREKEEPER_ERROR_MESSAGE.LENGTH);
       }
 
-      for (const item of value) {
+      input.forEach((item) => {
         if (typeof item !== "number" || item < 1 || item > 9) {
           throw new Error(SCOREKEEPER_ERROR_MESSAGE.RANGE);
         }
+      });
+
+      const uniqueDigits = [...new Set(input)];
+
+      if (uniqueDigits.length !== input.length) {
+        throw new Error(SCOREKEEPER_ERROR_MESSAGE.UNIQUE);
       }
     });
+  }
+
+  calculateStrikesAndBalls(userInput, computerInput) {
+    let strikes = 0;
+    let balls = 0;
+
+    for (let i = 0; i < 3; i++) {
+      if (userInput[i] === computerInput[i]) {
+        strikes++;
+      } else if (computerInput.includes(userInput[i])) {
+        balls++;
+      }
+    }
+
+    return { strikes, balls };
   }
 }
