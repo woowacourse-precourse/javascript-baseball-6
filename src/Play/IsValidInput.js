@@ -1,4 +1,4 @@
-const isValidInput = (inputNumber) => {
+const isValidInput = async(inputNumber) => {
     let digits = inputNumber.toString().split('');
 
     //1. null일경우
@@ -11,7 +11,7 @@ const isValidInput = (inputNumber) => {
         return false;
     }
 
-    //3. 글자가 아닌 경우
+    //3. 3글자가 아닌 경우
     if( inputNumber.toString().length !== 3 ) {
         return false;
     }
