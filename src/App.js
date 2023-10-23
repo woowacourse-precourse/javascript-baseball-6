@@ -1,5 +1,6 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import { CONTINUE, NUMBER_LENGTH, EXIT } from './Constants.js';
+import Message from './Message.js';
 
 class App {
   gameStatus = CONTINUE;
@@ -90,16 +91,6 @@ class App {
     MissionUtils.Console.print(`${this.cntBall}볼 ${this.cntStrike}스트라이크`);
   }
 
-  printStartMessage() {
-    MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
-  }
-
-  printGameOverMessage() {
-    MissionUtils.Console.print(
-      `${NUMBER_LENGTH}개의 숫자를 모두 맞히셨습니다! 게임 종료`,
-    );
-  }
-
   async decideGameContinuation() {
     const input = await MissionUtils.Console.readLineAsync(
       `게임을 새로 시작하려면 ${CONTINUE}, 종료하려면 ${EXIT}를 입력하세요.\n`,
@@ -111,7 +102,7 @@ class App {
   }
 
   init() {
-    this.printStartMessage();
+    Message.printGameStart();
     this.setAnswer();
     this.initCntStrike();
     this.initCntBall();
@@ -129,7 +120,7 @@ class App {
       this.printResult();
 
       if (this.cntStrike === NUMBER_LENGTH) {
-        this.printGameOverMessage();
+        Message.printGameOver();
         this.gameStatus = await this.decideGameContinuation();
         if (this.gameStatus === EXIT) {
           break;
