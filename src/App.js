@@ -1,11 +1,11 @@
 import { Console } from '@woowacourse/mission-utils';
 
-import { COMMAND } from '../core/Constants.js';
+import { COMMAND } from '../core/Constants';
 
-import RandomNumber from '../core/RandomNumber.js';
-import Baseball from '../core/Baseball.js';
-import Exception from '../Exception/Root.js';
-import GameCondition from '../Exception/GameCondition.js';
+import RandomNumber from '../core/RandomNumber';
+import Baseball from '../core/Baseball';
+import Exception from '../Exception/Root';
+import GameCondition from '../Exception/GameCondition';
 
 class App {
   #baseball;
