@@ -13,24 +13,8 @@ class App {
     while (true) {
       this.player = await this.getNumber();
       const { strike, ball } = this.getCountArray(this.computer.join(''), this.player);
-      let result = '';
 
-      if (ball !== 0) {
-        result += `${ball}${GAME_TEXT.BALL}`;
-      }
-
-      if (strike !== 0) {
-        if (result !== '') {
-          result += ' ';
-        }
-        result += `${strike}${GAME_TEXT.STRIKE}`;
-      }
-
-      if (result === '') {
-        Console.print(GAME_TEXT.NOTHING);
-      } else {
-        Console.print(result);
-      }
+      Console.print(this.printResult(strike, ball));
 
       if (strike === 3) {
         Console.print(GAME_TEXT.WIN);
@@ -129,6 +113,27 @@ class App {
     } catch (error) {
       throw new Error(error);
     }
+  }
+
+  printResult(strike, ball) {
+    let result = '';
+
+    if (ball !== 0) {
+      result += `${ball}${GAME_TEXT.BALL}`;
+    }
+
+    if (strike !== 0) {
+      if (result !== '') {
+        result += ' ';
+      }
+      result += `${strike}${GAME_TEXT.STRIKE}`;
+    }
+
+    if (result === '') {
+      result = GAME_TEXT.NOTHING;
+    }
+
+    return result;
   }
 }
 
