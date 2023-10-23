@@ -1,3 +1,5 @@
+import { ERROR_MESSAGES } from '../constants/errorMessages.js';
+
 class AppError extends Error {
   /**
    * @type {string}
@@ -10,8 +12,13 @@ class AppError extends Error {
    */
   name;
 
+  /**
+   *
+   * @param {string} errorMessage
+   */
+
   constructor(errorMessage) {
-    const message = `${AppError.PREFIX} ${errorMessage || '알 수 없는 에러가 발생했어요!'}`;
+    const message = `${AppError.PREFIX} ${errorMessage || ERROR_MESSAGES.ETC}`;
     super(message);
     this.name = this.constructor.name;
   }
