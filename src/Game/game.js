@@ -1,11 +1,12 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import { MakeRandomNumber, isValidUserNumber } from './ball.js';
+import { ANSWER, RESULT, GAME_END, TEXT, ERROR } from '../Constants/constant.js';
 
 //game start
 export const getUserInputNumber = async (randomNumber) => {
-  const USER_INPUT_NUMBER = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
+  const USER_INPUT_NUMBER = await MissionUtils.Console.readLineAsync(TEXT.GET_USER_NUMBER);
   if (!isValidUserNumber(USER_INPUT_NUMBER)) {
-    throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+    throw new Error(`[ERROR] ${ERROR.INVALID_USER_NUMBER}`);
   }
   HandleGameProcess(randomNumber, stringToNumberArray(USER_INPUT_NUMBER));
 };
@@ -53,45 +54,36 @@ export const CompareNumber = (randomNumber, userInputNumber) => {
 export const PrintResult = (result) => {
   const { strike, ball } = result;
   if (strike === 0 && ball === 0) {
-    MissionUtils.Console.print('낫싱');
+    MissionUtils.Console.print(RESULT.NOTHING);
     return;
   }
 
   const resultText = [];
-  if (ball > 0) resultText.push(ball + '볼');
-  if (strike > 0) resultText.push(strike + '스트라이크');
+  if (ball > 0) resultText.push(ball + RESULT.BALL);
+  if (strike > 0) resultText.push(strike + RESULT.STRIKE);
   MissionUtils.Console.print(resultText.join(' '));
 };
 
 export const isCorrectAnswer = (result) => {
   if (result.strike === 3) {
-    MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+    MissionUtils.Console.print(TEXT.CORRECT_ANSWER);
     return true;
   }
   return false;
 };
 
 export const askRetry = async () => {
-  // MissionUtils.Console.readLine(
-  //   '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n',
-  //   (answer) => {
-  //     retryOrExit(answer);
-  //   },
-  // );
-
-  const RETRY_MESSAGE = await MissionUtils.Console.readLineAsync(
-    '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n',
-  );
+  const RETRY_MESSAGE = await MissionUtils.Console.readLineAsync(TEXT.RETRY);
   await retryOrExit(RETRY_MESSAGE);
 };
 
 export const retryOrExit = (answer) => {
-  if (answer === '1') {
+  if (answer === GAME_END.RETRY) {
     GameSet();
     return;
   }
-  if (answer === '2') {
+  if (answer === GAME_END.EXIT) {
     return;
   }
-  throw new Error('1이나 2가 아닌 값을 잘못 입력하였습니다.');
+  throw new Error(`[ERROR] ${ERROR.INVALID_RETRY}`);
 };
