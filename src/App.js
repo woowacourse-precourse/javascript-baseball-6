@@ -1,6 +1,7 @@
+const readline = require('readline');
 const { MissionUtils } = require('@woowacourse/mission-utils');
 
-module.exports = class App {
+class App {
   constructor() {
     this.secretNumber = this.generateRandomNumber();
     this.attempts = 0;
@@ -18,8 +19,16 @@ module.exports = class App {
   }
 
   async getInput() {
-    const input = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
-    return input;
+    return new Promise((resolve) => {
+      const rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout,
+      });
+      rl.question('숫자를 입력해주세요 : ', (answer) => {
+        resolve(answer);
+        rl.close();
+      });
+    });
   }
 
   isValidInput(input) {
@@ -52,12 +61,12 @@ module.exports = class App {
   }
 
   async play() {
-    console.log("숫자 야구 게임을 시작합니다.");
+    console.log('숫자 야구 게임을 시작합니다.');
 
     while (true) {
       const input = await this.getInput();
       if (input === '2') {
-        console.log("게임을 종료합니다.");
+        console.log('게임을 종료합니다.');
         break;
       }
 
@@ -66,12 +75,16 @@ module.exports = class App {
         console.log(result);
 
         if (result === '3스트라이크') {
-          console.log("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+          console.log('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
           break;
         }
       } else {
-        console.log("[ERROR] 숫자가 잘못된 형식입니다.");
+        console.log('[ERROR] 숫자가 잘못된 형식입니다.');
       }
     }
   }
 }
+
+const app = new App();
+app.play();
+module.exports = App;
