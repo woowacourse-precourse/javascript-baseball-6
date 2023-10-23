@@ -10,6 +10,13 @@ const mockQuestions = (inputs) => {
   });
 };
 
+const mockQuestion = (input) => {
+  MissionUtils.Console.readLineAsync = jest.fn();
+  MissionUtils.Console.readLineAsync.mockImplementation(() => {
+    return Promise.resolve(input);
+  });
+};
+
 const mockRandoms = (numbers) => {
   MissionUtils.Random.pickNumberInRange = jest.fn();
   numbers.reduce((acc, number) => {
@@ -24,6 +31,10 @@ const getLogSpy = () => {
 };
 
 describe("숫자 야구 게임", () => {
+  let app;
+  beforeEach(() => {
+    app = new App();
+  });
   // test("게임 종료 후 재시작", async () => {
   //   // given
   //   const randoms = [1, 3, 5, 5, 8, 9];
@@ -50,25 +61,45 @@ describe("숫자 야구 게임", () => {
   //   });
   // });
   //
-  // test("예외 테스트", async () => {
-  //   // given
-  //   const randoms = [1, 3, 5];
-  //   const answers = ["1234"];
-  //
-  //   mockRandoms(randoms);
-  //   mockQuestions(answers);
-  //
-  //   // when & then
-  //   const app = new App();
-  //
-  //   await expect(app.play()).rejects.toThrow("[ERROR]");
-  // });
+  test("예외 테스트", async () => {
+    // given
+    const randoms = [1, 3, 5];
+    const answers = ["1234"];
+
+    mockRandoms(randoms);
+    mockQuestions(answers);
+
+    // when & then
+    const app = new App();
+
+    await expect(app.play()).rejects.toThrow("[ERROR]");
+  });
+
+  describe("입력값 테스트", () => {
+    test("3자리 숫자인 경우", async () => {
+      mockQuestion("123");
+
+      expect(app.play()).resolves.not.toThrow();
+    });
+    test("3자리 숫자가 아닌 경우", async () => {
+      mockQuestions(["1234"]);
+
+      await expect(app.play()).rejects.toThrow("[ERROR]");
+    });
+    test("1~9 사이의 숫자가 아닌 경우", async () => {
+      mockQuestions(["abc"]);
+
+      await expect(app.play()).rejects.toThrow("[ERROR]");
+    });
+    test("중복된 숫자가 있는 경우", async () => {
+      mockQuestion("112");
+      await expect(app.play()).rejects.toThrow(
+        "[ERROR] 입력값이 유효하지 않습니다.",
+      );
+    });
+  });
 
   describe("랜덤값 테스트", () => {
-    let app;
-    beforeEach(() => {
-      app = new App();
-    });
     test("자리수가 3자리인지 확인", async () => {
       const randomNumber = app.getRandomNumber();
 
