@@ -57,45 +57,7 @@ describe("숫자 야구 게임", () => {
 
         await expect(app.play()).rejects.toThrow("[ERROR]");
     });
-    test("예외 테스트 - 문자가 포함된 입력", async () => {
-        // given
-        const randoms = [1, 3, 5];
-        const answers = ["ab1", "1 3 4", "!12"];
 
-        mockRandoms(randoms);
-        mockQuestions(answers);
-
-        // when & then
-        const app = new App();
-
-        await expect(app.play()).rejects.toThrow("[ERROR]");
-    });
-    test("예외 테스트 - 범위 외 숫자 입력", async () => {
-        // given
-        const randoms = [1, 3, 5];
-        const answers = ["013"];
-
-        mockRandoms(randoms);
-        mockQuestions(answers);
-
-        // when & then
-        const app = new App();
-
-        await expect(app.play()).rejects.toThrow("[ERROR]");
-    });
-    test("예외 테스트 - 중복되는 숫자 입력", async () => {
-        // given
-        const randoms = [1, 3, 5];
-        const answers = ["333", "112", "323"];
-
-        mockRandoms(randoms);
-        mockQuestions(answers);
-
-        // when & then
-        const app = new App();
-
-        await expect(app.play()).rejects.toThrow("[ERROR]");
-    });
     test("게임 기능 테스트", async () => {
         // given
         const randoms = [1, 3, 5, 5, 8, 9];
@@ -114,6 +76,62 @@ describe("숫자 야구 게임", () => {
         messages.forEach((output) => {
             expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(output));
         });
+    });
+
+    test("예외 테스트 - 문자가 포함된 입력", async () => {
+        // given
+        const randoms = [1, 3, 5];
+        const answers = ["ab1", "1 3 4", "!12"];
+
+        mockRandoms(randoms);
+        mockQuestions(answers);
+
+        // when & then
+        const app = new App();
+
+        await expect(app.play()).rejects.toThrow("[ERROR]");
+    });
+
+    test("예외 테스트 - 범위 외 숫자 입력", async () => {
+        // given
+        const randoms = [1, 3, 5];
+        const answers = ["013", "12"];
+
+        mockRandoms(randoms);
+        mockQuestions(answers);
+
+        // when & then
+        const app = new App();
+
+        await expect(app.play()).rejects.toThrow("[ERROR]");
+    });
+
+    test("예외 테스트 - 중복되는 숫자 입력", async () => {
+        // given
+        const randoms = [1, 3, 5];
+        const answers = ["333", "112", "323"];
+
+        mockRandoms(randoms);
+        mockQuestions(answers);
+
+        // when & then
+        const app = new App();
+
+        await expect(app.play()).rejects.toThrow("[ERROR]");
+    });
+
+    test("예외 테스트 - 게임 종료 후 범위 외 숫자 입력", async () => {
+        // given
+        const randoms = [1, 3, 5, 5, 8, 9];
+        const answers = ["135", "3"];
+
+        mockRandoms(randoms);
+        mockQuestions(answers);
+
+        // when & then
+        const app = new App();
+
+        await expect(app.play()).rejects.toThrow("[ERROR]");
     });
 });
 
