@@ -20,7 +20,32 @@ class App {
   async playGame(computerNum) {
     try {
       const playerNum = await Console.readLineAsync('숫자를 입력해주세요 : ');
-    } catch (error) {}
+      this.checkplayerNum(playerNum);
+    } catch (error) {
+      Console.print(error);
+    }
+  }
+
+  checkplayerNum(playerNum) {
+    const setNum = new Set(playerNum);
+
+    if (playerNum.length !== 3) {
+      throw new Error('3자리 숫자를 입력하셔야합니다.');
+    }
+
+    if (setNum.size !== 3) {
+      throw new Error('숫자는 중복되어선 안됩니다.');
+    }
+
+    setNum.forEach((element) => {
+      if (isNaN(element)) {
+        throw new Error('숫자만 입력해주세요.');
+      }
+
+      if (element === '0') {
+        throw new Error('입력가능한 숫자의 범위는 1~9입니다.');
+      }
+    });
   }
 }
 
