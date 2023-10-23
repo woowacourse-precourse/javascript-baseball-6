@@ -7,7 +7,7 @@ class App {
   }
 }
 
-const app = new App();
-app.play();
+// const app = new App(); // 개발용
+// app.play(); // 개발용
 
 export default App;
