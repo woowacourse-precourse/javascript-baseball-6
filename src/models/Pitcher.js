@@ -1,4 +1,4 @@
-import ErrorMessages from '../ErrorMessages';
+import {GameMessages} from '../GameMessages.js';
 
 class Pitcher {
   static PITCH_COUNT = 3;
@@ -11,13 +11,13 @@ class Pitcher {
   }
 
   static parsePitchBalls(balls) {
-    if (balls.length !== Pitcher.PITCH_COUNT) throw new Error(ErrorMessages.PITCHBALL_CHECKER);
-    if (!/^[1-9]{3}$/.test(balls)) throw new Error(ErrorMessages.PITCHBALL_CHECKER2);
+    if (balls.length !== Pitcher.PITCH_COUNT) throw new Error(GameMessages.PITCHBALL_CHECKER);
+    if (!/^[1-9]{3}$/.test(balls)) throw new Error(GameMessages.PITCHBALL_CHECKER2);
 
-    const ballsToNumbers = throwBalls.split('').map(Number);
+    const ballsToNumbers = balls.split('').map(Number);
 
     if (new Set(ballsToNumbers).size !== 3) {
-      throw new Error(ErrorMessages.PITCHBALL_CHECKER);
+      throw new Error(GameMessages.PITCHBALL_CHECKER);
     }
 
     return new Pitcher(ballsToNumbers);

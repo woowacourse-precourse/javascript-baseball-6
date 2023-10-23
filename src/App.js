@@ -1,5 +1,6 @@
 import {Random, Console} from '@woowacourse/mission-utils';
-import Pitcher from './models/Pitcher';
+import {GameMessages} from './GameMessages.js';
+import Pitcher from './models/Pitcher.js';
 
 class App {
   constructor() {
@@ -8,7 +9,7 @@ class App {
   }
 
   async play() {
-    Console.print('숫자 야구 게임을 시작합니다.');
+    Console.print(GameMessages.GAME_START);
 
     while (true) {
       this.pitcherNumbers = await this.getPitcherNumbers();

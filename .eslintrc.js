@@ -1,13 +1,13 @@
 export default {
   env: {
     node: true,
-    commonjs: true,
+    es6: true,
     jest: true,
   },
   parserOptions: {
-    ecmaVersion: 6,
+    ecmaVersion: 2021,
     sourceType: 'module',
   },
-  extends: ['airbnb', 'plugin:prettier/recommended'],
+  extends: ['airbnb-base', 'plugin:prettier/recommended'],
 };
 
