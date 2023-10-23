@@ -6,9 +6,9 @@ class App {
 // 1. 랜덤 숫자 생성하고 그 랜덤 숫자를 받아서 gameStart 
   async play() {
     Console.print(`숫자 야구 게임을 시작합니다.`)
-    let RAN = this.ranNumber();
+    const RAN = this.ranNumber();
     // let MY_NUM = this.myNumber();
-    this.gameStart(RAN);
+    await this.myNumber(RAN);
   }
 
 //   1. 랜덤 숫자 생성
@@ -46,36 +46,50 @@ return COMPUTER;
 // 만약 스트라이크 배열이 3이 아니면 부여받은 랜덤값으로 gameStart 재실행
 // 재실행되면 내 숫자 재생성하고 스트라이크와 볼 판별함
 
-async gameStart (RAN){
-    let READLINE = require('readline')
-    Console.print(`숫자를 입력해주세요 : `);
-    let MY_NUMB = await Console.readLineAsync(READLINE);
-    MY_NUMB = Array.from(MY_NUMB);
-    for(let I=0;I<MY_NUMB.length;I++){
-      if(MY_NUMB[I] == '0') {
+async myNumber (RAN){
+  // let READLINE = require('readline')
+  // Console.print(`숫자를 입력해주세요 : `);
+  let MY_NUM = await Console.readLineAsync('숫자를 입력해주세요 :');
+  await this.gameStart(RAN,MY_NUM.split('').map(Number));
+}
+
+async gameStart(RAN,MY_NUM){
+    MY_NUM = Array.from(MY_NUM);
+    for(let I=0;I<MY_NUM.length;I++){
+      if(MY_NUM[I] === '0') {
         throw new Error('입력범위_ 0 입력');
       }
     }
-    if(MY_NUMB.length == 3) {
-      return MY_NUMB;  
-    } else if(MY_NUMB.length != 3){
+    if(MY_NUM.length != 3){
       throw new Error("[ERROR] 3자리 숫자를 입력하세요");
     }
   
+  // let strike = [];
+  //   let j = -1;
+  //   for(let i = 0; i < MY_NUM.length; i++) {
+  //     if(MY_NUM[i] === RAN[i]){
+  //       strike[++j] = MY_NUM[i];
+  //     }
+  //   }
+  //   let ball = RAN.filter(x => MY_NUM.includes(x)).filter(x => !strike.includes(x));
+  //   this.printCheck(strike.length, ball.length);
+
   let strike = [];
-    let j = -1;
-    for(let i = 0; i < MY_NUMB.length; i++) {
-      if(MY_NUMB[i] === RAN[i]){
-        strike[++j] = MY_NUMB[i];
-      }
+  let ball = [];
+  for (let i = 0; i < MY_NUM.length; i++) {
+    if (MY_NUM[i] === RAN[i]) {
+      strike.push(MY_NUM[i]);
+    } else if (RAN.includes(MY_NUM[i])) {
+      ball.push(MY_NUM[i]);
     }
-    let ball = RAN.filter(x => MY_NUMB.includes(x)).filter(x => !strike.includes(x));
-    this.print(strike.length, ball.length);
+  }
+  this.printCheck(strike.length,ball.length);
+
     if(strike.length ==3){
       Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`)
-      this.gameset();
+      await this.gameset();
     } else if(strike.length !=3){
-      this.gameStart(RAN);
+      await this.myNumber(RAN);
     }
   }
 
@@ -87,14 +101,14 @@ async gameStart (RAN){
 // 스트라이크==0 도 아니고 볼 !=0 이면 볼 표시
 
 
-print(STRIKES,BALLS){
-if(STRIKES==0 && BALLS == 0){
+printCheck(STRIKES,BALLS){
+if(STRIKES===0 && BALLS === 0){
   Console.print(`낫싱`);
-} else if(STRIKES!=0 && BALLS !=0){
+} else if(STRIKES!==0 && BALLS !==0){
   Console.print(`${BALLS}볼 ${STRIKES}스트라이크`);
-} else if(STRIKES!=0 && BALLS ==0){
+} else if(STRIKES!==0 && BALLS ===0){
   Console.print(`${STRIKES}스트라이크`);
-} else if(STRIKES==0 && BALLS !=0){
+} else if(STRIKES===0 && BALLS !==0){
   Console.print(`${BALLS}볼`);
 }}
 
@@ -105,13 +119,13 @@ if(STRIKES==0 && BALLS == 0){
 // 둘다 아니면 에러 메세지 띄우고 종료
 
 async gameset(){
-  let READLINE = require('readline')
-  Console.print(`게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.`)
-  let setNum = await Console.readLineAsync(READLINE);
-    if(setNum=='1'){
-      this.gameStart(this.ranNumber(),await this.myNumber());
-    } else if(setNum==2){
-      return 
+  // let READLINE = require('readline')
+  // Console.print(`게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.`)
+  let setNum = await Console.readLineAsync(`게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.`);
+    if(setNum==='1'){
+      await this.play();
+    } else if(setNum===2){
+      return;
     } else if(setNum !=1 && setNum!=2){
       throw new Error('[ERROR]1 또는 2를 입력하세요')
     }
