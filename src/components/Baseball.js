@@ -27,7 +27,7 @@ class Baseball {
     while (!this.isClear) {
       this.player.user = await new User().getNumber();
 
-      this.isClear = new Hint(this.player);
+      this.isClear = new Hint(this.player).checkBaseballWin();
     }
 
     if (this.isClear) this.restart();
