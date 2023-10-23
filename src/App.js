@@ -1,6 +1,6 @@
 import generateNumber from './utils/Number.js';
 import { print, input } from './view/View.js';
-import Message from './utils/Message.js';
+import { MESSAGE, SETTING, ERROR } from './utils/Constants.js';
 
 export default class App {
   #answerNumbers;
@@ -13,27 +13,27 @@ export default class App {
   async play() {
     try {
       while (!this.#isFinish) {
-        print(Message.GAME_START);
-        const inputNumber = (await input(Message.INPUT_NUMBER)).trim();
+        print(MESSAGE.GAME_START);
+        const inputNumber = (await input(MESSAGE.INPUT_NUMBER)).trim();
         this.validateInput(inputNumber);
         const { ballCount, strikeCount } = this.checkGuess(inputNumber);
         const message = this.feedbackMessage(ballCount, strikeCount);
         print(message);
 
-        if (strikeCount !== 3) continue;
+        if (strikeCount !== SETTING.MAX_STRIKE_COUNT) continue;
 
-        const restartNumber = Number(await input(Message.SUGGEST_NEW_GAME));
+        const restartNumber = Number(await input(MESSAGE.SUGGEST_NEW_GAME));
         this.validateRestartInput(restartNumber) && restartNumber === 1
           ? this.init()
           : (this.#isFinish = true);
       }
     } catch (e) {
-      throw new Error(e);
+      throw new Error(e.message);
     }
   }
 
   init() {
-    this.#answerNumbers = generateNumber(1, 9);
+    this.#answerNumbers = generateNumber(SETTING.MIN, SETTING.MAX);
     // console.log(this.#answerNumbers);
   }
 
@@ -45,20 +45,17 @@ export default class App {
    * @param {string} input
    * @returns {boolean} 유효성 검사 결과 반환
    *
-   * @TODO - 에러 메세지 세분화
    */
 
   validateInput(input) {
     const set = new Set(input.split(''));
     if (
       isNaN(Number(input)) ||
-      input.length > 3 ||
-      set.size !== 3 ||
+      input.length > SETTING.MAX_INPUT_LENGTH ||
+      set.size !== SETTING.MAX_INPUT_LENGTH ||
       set.has('0')
     ) {
-      throw new Error(
-        '[ERROR] 사용자 입력값이 잘못되었습니다. 다시 확인해주세요.',
-      );
+      throw new Error(`${ERROR.HEADER}${ERROR.INPUT}`);
     }
     return true;
   }
@@ -73,7 +70,7 @@ export default class App {
     let strikeCount = 0;
     let ballCount = 0;
 
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < SETTING.MAX_INPUT_LENGTH; i++) {
       if (input[i] === randomNumber[i]) {
         strikeCount++;
       } else if (randomNumber.includes(input[i])) {
@@ -92,29 +89,27 @@ export default class App {
   feedbackMessage(ball, strike) {
     let message = '';
 
-    if (strike === 3) {
-      return `${strike}${Message.STRIKE}\n${Message.SUCCESS}`;
+    if (strike === SETTING.MAX_STRIKE_COUNT) {
+      return `${strike}${MESSAGE.STRIKE}\n${MESSAGE.SUCCESS}`;
     }
     if (ball > 0) {
-      message += `${ball}${Message.BALL} `;
+      message += `${ball}${MESSAGE.BALL} `;
     }
     if (strike > 0) {
-      message += `${strike}${Message.STRIKE}`;
+      message += `${strike}${MESSAGE.STRIKE}`;
     }
-    return message.trim() || `${Message.NOTHING}`;
+    return message.trim() || `${MESSAGE.NOTHING}`;
   }
 
   /**
-   * @description 재시작 사용현자 입력값 검증 함수
+   * @description 재시작 사용자 입력값 검증 함수
    * @param {number} input
    * @returns {boolean}
    */
 
   validateRestartInput(input) {
-    if (input !== 1 && input !== 2) {
-      throw new Error(
-        '[ERROR] 재시작 입력값이 잘못되었습니다. 다시 확인해주세요.',
-      );
+    if (input !== SETTING.RESTART && input !== SETTING.END) {
+      throw new Error(`${ERROR.RESTART}${ERROR.RESTART}`);
     }
     return true;
   }
