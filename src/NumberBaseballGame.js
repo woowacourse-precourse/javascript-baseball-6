@@ -3,7 +3,6 @@ import BaseballTerms from "./BaseballTerms.js";
 import Message from "./Message.js";
 import Player from "./Player.js";
 import Query from "./Query.js";
-import Restarter from "./Restarter.js";
 import Umpire from "./Umpire.js";
 import Validator from "./Validator.js";
 
@@ -49,9 +48,9 @@ class NumberBaseballGame {
   async #askRestart() {
     const answer = await this.player.answer(Query.RESTART);
     const number = Number(answer);
-    Restarter.validate(number);
     if (number === 1) return true;
     if (number === 2) return false;
+    throw new Error();
   }
 
   async #askPlayerNumbers() {
