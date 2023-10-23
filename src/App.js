@@ -4,10 +4,14 @@ import PlayerInputNumber from './PlayerInputNumber.js';
 class App {
 	async play() {
 		this.gameStart();
+		const COMPUTER = this.randomNumber();
 		const PLAYER = await PlayerInputNumber();
 	}
 	gameStart() {
 		Console.print('숫자 야구 게임을 시작합니다.');
+	}
+	randomNumber() {
+		return Random.pickUniqueNumbersInRange(1, 10, 3).join('');
 	}
 }
 
