@@ -43,7 +43,7 @@ class App {
         //strikeCnt==3일때까지 무한반복
         let strikeCnt = 0;
         let ballCnt = 0;
-        
+        let answer="";
         let user = new User();
         await user.getNumber();
         for (let i = 0; i < com.comNum.length; i++) {
@@ -53,11 +53,23 @@ class App {
             ballCnt+=1;
           }
         }
-        
+        if(ballCnt){
+          answer+=`${ballCnt}볼`
+        }
+        if(strikeCnt){
+          if(ballCnt){
+            answer+=" "
+          }
+          answer+=`${strikeCnt}스트라이크`
+        }
+        if(!(ballCnt||strikeCnt)){
+          answer+="낫싱"
+        }
         if (strikeCnt == 3) {
           MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
           break;
         }
+        MissionUtils.Console.print(answer)
       }
 
       newGame = await MissionUtils.Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
