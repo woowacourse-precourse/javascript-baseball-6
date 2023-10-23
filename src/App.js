@@ -1,22 +1,21 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 
 class App {
+  constructor() {
+    this.numberLength = 3;
+    this.computerNum = this.generateComputerNumber(this.numberLength);
+  }
+
   async play() {
     Console.print("\n숫자 야구 게임을 시작합니다.");
-    const numberLength = 3;
 
     while (true) {
       try {
-        const computerNum = this.generateComputerNumber(numberLength);
-        // console.log("Computer: ", computerNum);
+        const userNum = await this.getUserNumber(); // 사용자 숫자
+        const { strikes, balls } = this.compareNumbers(userNum); // 두 숫자 비교해서 strike와 ball 개수 세기
 
-        const userNum = await this.getUserNumber(numberLength); // 사용자 숫자
-        // console.log("User: ", userNum);
-
-        const { strikes, balls } = this.compareNumbers(numberLength, computerNum, userNum); // 두 숫자 비교해서 strike와 ball 개수 세기
-
-        if (await this.checkResult(numberLength, strikes, balls)) {
-          // console.log("진짜 종료?");
+        if (await this.checkResult(strikes, balls)) {
+          // 비교 결과 확인후 출력, 이때 게임 종료 옵션(2)을 선택했다면 종료
           break;
         }
       } catch (error) {
@@ -45,7 +44,7 @@ class App {
     }
   }
 
-  async getUserNumber(numberLength) {
+  async getUserNumber() {
     let isValidInput = false;
     let userNum;
 
@@ -55,7 +54,11 @@ class App {
       const userNumbers = userNum.split("");
       const userNumbersSet = new Set(userNumbers);
 
-      if (userNum.length !== numberLength || !/^[1-9]{3}$/.test(userNum) || numberLength !== userNumbersSet.size) {
+      if (
+        userNum.length !== this.numberLength ||
+        !/^[1-9]{3}$/.test(userNum) ||
+        this.numberLength !== userNumbersSet.size
+      ) {
         throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
       } else {
         isValidInput = true;
@@ -65,17 +68,17 @@ class App {
     }
   }
 
-  compareNumbers(numberLength, computerNum, userNum) {
+  compareNumbers(userNum) {
     let strikes = 0;
     let balls = 0;
 
-    for (let i = 0; i < numberLength; i++) {
-      const computerDigit = computerNum[i];
+    for (let i = 0; i < this.numberLength; i++) {
+      const computerDigit = this.computerNum[i];
       const userDigit = userNum[i];
 
       if (computerDigit === userDigit) {
         strikes++;
-      } else if (computerNum.includes(userDigit)) {
+      } else if (this.computerNum.includes(userDigit)) {
         balls++;
       }
     }
@@ -83,8 +86,8 @@ class App {
     return { strikes, balls };
   }
 
-  async checkResult(numberLength, strikes, balls) {
-    if (strikes === numberLength) {
+  async checkResult(strikes, balls) {
+    if (strikes === this.numberLength) {
       Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료합니다.");
       const option = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
 
@@ -92,6 +95,7 @@ class App {
         Console.print("게임이 종료되었습니다.");
         return true;
       } else {
+        this.computerNum = this.generateComputerNumber(this.numberLength);
         Console.print("\n숫자 야구 게임을 시작합니다.");
         return false;
       }
