@@ -3,7 +3,7 @@ import {
   printOutput,
   pickNumberInRange,
 } from "./utils/MissionUtils";
-import { validLengthOfNumberArray, validGameEndInput } from "./utils/Validate";
+import { validNumbers, validGameEndInput } from "./utils/Validate";
 
 class BaseballGame {
   #GAME_NUMBER_LEN = 3;
@@ -29,7 +29,7 @@ class BaseballGame {
   }
 
   setComputerNumbers(numbers) {
-    validLengthOfNumberArray({ arr: numbers, length: this.#GAME_NUMBER_LEN });
+    validNumbers(numbers, { length: this.#GAME_NUMBER_LEN });
     this.#computerNumbers = numbers;
   }
 
@@ -66,7 +66,7 @@ class BaseballGame {
   }
 
   setUserNumbers(numbers) {
-    validLengthOfNumberArray({ arr: numbers, length: this.#GAME_NUMBER_LEN });
+    validNumbers(numbers, { length: this.#GAME_NUMBER_LEN });
     this.#userNumbers = numbers;
   }
 

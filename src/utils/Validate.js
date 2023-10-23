@@ -1,8 +1,8 @@
 /**
  *
- * @param {{ arr: number[], length: number }} param0
+ * @param { arr: number[], { length: number }}
  */
-export function validLengthOfNumberArray({ arr, length }) {
+export function validNumbers(arr, { length }) {
   if (arr.length !== length)
     throw new Error(`[ERROR] 입력한 값은 ${length}자리가 아닙니다.`);
   for (const value of arr) {
