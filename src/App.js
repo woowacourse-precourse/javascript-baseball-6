@@ -21,11 +21,17 @@ class App {
           "숫자를 입력해주세요 : "
         );
       }
-      
+
       userAnswer = await MissionUtils.Console.readLineAsync(
         `3개의 숫자를 모두 맞히셨습니다! 게임 종료 
 게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. : `
       );
+      if (userAnswer > 2 || userAnswer < 1) {
+        throw new Error("[ERROR]");
+      }
+      if (userAnswer == 2) {
+        MissionUtils.Console.print("게임 종료");
+      }
     }
   }
 }
