@@ -77,6 +77,22 @@ class App {
     Console.print(result);
     return result;
   }
+
+  async decideToContinueGame() {
+    const choice = parseInt(
+      await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'),
+    );
+
+    if (choice === 1) {
+      return true;
+    }
+
+    if (choice === 2) {
+      return false;
+    }
+
+    throw new Error('1 또는 2를 입력해주세요');
+  }
 }
 
 export default App;
