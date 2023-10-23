@@ -85,6 +85,12 @@ class Game {
       process.exit(1);
     }
   };
+  checkPlayAgainInput = (input) => {
+    if (input === "1" || input === "2") {
+      return true;
+    }
+    return false;
+  };
 }
 
 export default Game;
