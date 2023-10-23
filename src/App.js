@@ -35,11 +35,56 @@ class App {
     return true
   }
 
+  countStrike(computerPickNum, userPickNum) {
+    let strikes = 0;
+    for(let i = 0; i < computerPickNum.length; i ++) {
+      if(computerPickNum[i] === userPickNum[i]) {
+        strikes++
+        
+      }
+    }
+    return strikes;
+  }
+
+  countBall(computerPickNum, userPickNum) {
+    let balls = 0;
+    for(let i = 0; i < computerPickNum.length; i ++) {
+      if((computerPickNum[i] !== userPickNum[i]) && (userPickNum.includes(computerPickNum[i]))) {
+        balls++
+      }
+    } 
+    return balls;
+  }
+
+  checkStrikeBall(computerPickNum, userPickNum) {
+    const strike = this.countStrike(computerPickNum, userPickNum);
+    const ball = this.countBall(computerPickNum, userPickNum);
+
+    return this.printResult(strike, ball);
+  }
+
+  printResult(strike, ball) {
+    if(strike === 0 && ball === 0) {
+      MissionUtils.Console.print('낫싱');
+    }else if(strike === 0 && ball !== 0) {
+      MissionUtils.Console.print(`${ball}볼`);
+    }else if(strike !== 0 && ball === 0){
+      MissionUtils.Console.print(`${strike}스트라이크`);
+    }else if(strike !== 0 && ball !== 0){
+      MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
+    }
+
+    return this.play();
+  }
+
   async numCorrect() {
     try {
       const userNum = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
       if(this.isValidUserNum(userNum)) {
-      console.log('00');
+        const userPickNum = userNum.split('');
+        const computerPickNum = this.computerNum.join('').split('');
+        this.checkStrikeBall(computerPickNum, userPickNum);
+
       }else{
         throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
       }
