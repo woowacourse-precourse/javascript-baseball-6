@@ -1,4 +1,4 @@
-class InputValidator {
+class ValidatorUtil {
   static validateLength(input, length) {
     if (input.length !== length) {
       throw new Error(`[ERROR] 입력의 길이가 ${length}이 아닙니다.`);
@@ -18,4 +18,4 @@ class InputValidator {
   }
 }
 
-export default InputValidator;
+export default ValidatorUtil;
