@@ -10,9 +10,7 @@ class RandomNumber {
         COMPUTER.START_NUMBER,
         COMPUTER.END_NUMBER
       );
-      if (!computer.includes(getPerNumber)) {
-        computer.push(getPerNumber);
-      }
+      RandomNumber.pushNumberInComputer(computer, getPerNumber);
     }
 
     return computer;
