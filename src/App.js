@@ -22,19 +22,19 @@ class User {
     let number = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
     // #2.1 아무것도 입력하지 않은경우
     if (number.length == 0) {
-      throw "[ERROR] 아무것도 입력하지 않았습니다.";
+      throw new Error("[ERROR] 아무것도 입력하지 않았습니다.");
     }
     // #2.2 숫자가 아닌 값을 입력한경우
     if (isNaN(Number(number))) {
-      throw "[ERROR] 숫자를 입력하지 않았습니다.";
+      throw new Error("[ERROR] 숫자를 입력하지 않았습니다.");
     }
     // #2.3 3자리 숫자를 입력하지 않았을 경우
     if (number.length != 3) {
-      throw "[ERROR] 3자리 숫자를 입력하지 않았습니다.";
+      throw new Error("[ERROR] 3자리 숫자를 입력하지 않았습니다.");
     }
     // #2.4 1 ~ 9 사이의 숫자를 입력하지 않은 경우 == 0을 입력한 경우
     if (number.includes("0")) {
-      throw "[ERROR] 1 ~ 9 사이의 숫자를 입력하지 않았습니다.";
+      throw new Error("[ERROR] 1 ~ 9 사이의 숫자를 입력하지 않았습니다.");
     }
     // #2.5 같은 숫자를 입력한 경우
 
@@ -45,6 +45,7 @@ class User {
     }
 
     this.userNum = user;
+    return Promise.resolve();
   }
 }
 
@@ -61,12 +62,12 @@ class App {
         let ballCnt = 0;
         let answer = "";
         let user = new User();
-        try {
+        // try {
           await user.getNumber();
-        } catch (e) {
-          MissionUtils.Console.print(e);
-          return;
-        }
+        // } catch (e) {
+        //   MissionUtils.Console.print(e);
+        //   return;
+        // }
 
         for (let i = 0; i < com.comNum.length; i++) {
           if (com.comNum[i] == user.userNum[i]) {
