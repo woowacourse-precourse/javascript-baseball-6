@@ -1,25 +1,25 @@
 import { Player } from './Player.js';
 
 export class Computer extends Player {
-  compareNumberList(userNumberList) {
-    this.validateNumber(userNumberList);
+  compareNumber(userNumber) {
+    this.validateNumber(userNumber);
 
-    const strike = this.#checkStrike(this._numberList, userNumberList);
-    const ball = this.#checkBall(this._numberList, userNumberList);
+    const strike = this.#checkStrike(this._number, userNumber);
+    const ball = this.#checkBall(this._number, userNumber);
 
     return { strike, ball };
   }
 
-  #checkStrike(answerList, userNumberList) {
-    const strike = answerList.filter(
-      (number, index) => number === userNumberList[index]
+  #checkStrike(answer, userNumber) {
+    const strike = answer.filter(
+      (number, index) => number === userNumber[index]
     );
 
     return strike.length;
   }
 
-  #checkBall(answerList, userNumberList) {
-    const ball = answerList.filter((number) => userNumberList.includes(number));
+  #checkBall(answer, userNumber) {
+    const ball = answer.filter((number) => userNumber.includes(number));
 
     return ball.length;
   }
