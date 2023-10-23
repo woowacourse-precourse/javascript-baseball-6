@@ -12,31 +12,31 @@ class App {
 
   async play() {
     Console.print(MESSAGE.START_GAME);
-    await this.gameLoop();
+    await this.#gameLoop();
   }
 
-  async gameLoop() {
+  async #gameLoop() {
     while (true) {
-      const userNumbers = await this.getUserGuessInput();
-      const hint = this.getHint(userNumbers);
-      const isAnswer = this.checkIsAnswer(hint);
+      const userNumbers = await this.#getUserGuessInput();
+      const hint = this.#getHint(userNumbers);
+      const isAnswer = this.#checkIsAnswer(hint);
       if (isAnswer === true) break;
     }
-    await this.guessRestart();
+    await this.#guessRestart();
   }
 
-  async getUserGuessInput() {
+  async #getUserGuessInput() {
     const inputNumbers = await Console.readLineAsync(MESSAGE.ENTER_NUMBERS);
-    const splitNumbers = this.splitUserInput(inputNumbers);
-    this.validateUserInput(splitNumbers);
+    const splitNumbers = this.#splitUserInput(inputNumbers);
+    this.#validateUserInput(splitNumbers);
     return splitNumbers;
   }
 
-  splitUserInput(input) {
+  #splitUserInput(input) {
     return input.split('').map(Number);
   }
 
-  validateUserInput(userNumbers) {
+  #validateUserInput(userNumbers) {
     if (!Validator.checkIsNumber(userNumbers)) {
       throw new Error(ERROR.NOT_A_NUMBER);
     }
@@ -51,13 +51,13 @@ class App {
     }
   }
 
-  getHint(userNumbers) {
+  #getHint(userNumbers) {
     const hint = this.#game.compareUserNumbersWithAnswer(userNumbers);
     Console.print(hint);
     return hint;
   }
 
-  checkIsAnswer(hint) {
+  #checkIsAnswer(hint) {
     if (hint === RESULT.THREE_STRIKE) {
       Console.print(MESSAGE.CORRECT_ANSWER);
       return true;
@@ -65,22 +65,22 @@ class App {
     return false;
   }
 
-  async guessRestart() {
+  async #guessRestart() {
     const input = await Console.readLineAsync(MESSAGE.WANT_RESTART);
     const numberInput = Number(input);
-    this.validateRestartInput(numberInput);
-    if (numberInput === CONSTANT.RESTART_GAME) await this.restart();
+    this.#validateRestartInput(numberInput);
+    if (numberInput === CONSTANT.RESTART_GAME) await this.#restart();
   }
 
-  validateRestartInput(input) {
+  #validateRestartInput(input) {
     if (!Validator.checkIsOneOrTwo(input)) {
       throw new Error(ERROR.NOT_ONE_OR_TWO);
     }
   }
 
-  async restart() {
+  async #restart() {
     this.#game = new BaseballGame();
-    await this.gameLoop();
+    await this.#gameLoop();
   }
 }
 
