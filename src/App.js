@@ -9,6 +9,7 @@ class App {
 
       while (playAgain === 1) {
         answerNumber = this.generateRandomNumbers();
+        Console.print(answerNumber);
 
         while (true) {
           let userInput = await this.promptUserInput();
@@ -18,8 +19,10 @@ class App {
           }
 
           let result = this.evaluateGameResult(answerNumber, userInput);
-          if (result.strike === 3) {
-            Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+
+          Console.print(result);
+
+          if (result.includes('게임종료')) {
             playAgain = await this.askForAnotherGame();
             if (playAgain === 1) {
               answerNumber = this.generateRandomNumbers();
@@ -38,7 +41,7 @@ class App {
   }
 
   displayGameStartMessage() {
-    const gameStartMessage = 'test';
+    const gameStartMessage = '게임을 시작합니다.';
     Console.print(gameStartMessage);
   }
 
@@ -55,14 +58,7 @@ class App {
 
   async promptUserInput() {
     let playerInput = await Console.readLineAsync('숫자를 입력해주세요 :');
-
-    return playerInput;
-  }
-
-  makeNumberToString(playerNumber) {
-    this.playerNumber = playerNumber
-      .split('')
-      .map((number) => parseInt(number));
+    let playerNumber = playerInput.split('').map((number) => parseInt(number));
     return playerNumber;
   }
 
@@ -78,7 +74,7 @@ class App {
   ball = (a, b) => {
     let ball = 0;
     for (let i = 0; i < a.length; i++) {
-      if (a.includes(b[i]) && a[i] !== guess[i]) {
+      if (a.includes(b[i]) && a[i] !== b[i]) {
         ball++;
       }
     }
@@ -100,15 +96,21 @@ class App {
       return nothing;
     }
 
-    if (strike === 0 || ball !== 0) {
+    if (strike === 0 && ball !== 0) {
       return `${ball}볼`;
     }
 
-    if (ball === 0 || strike !== 0) {
+    if (ball === 0 && strike < 3) {
       return `${strike}스트라이크`;
     }
 
-    return `${ball}볼 ${strike}스트라이크`;
+    if (strike === 3) {
+      return `${strike}스트라이크 게임종료`;
+    }
+
+    if (strike !== 0 && ball !== 0) {
+      return `${ball}볼 ${strike}스트라이크`;
+    }
   }
 
   async askForAnotherGame() {
