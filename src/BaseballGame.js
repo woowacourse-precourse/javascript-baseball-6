@@ -8,14 +8,17 @@ import strikeBallCount from "./controller/strikeBallCount.js";
 class BaseballGame {
   constructor() {
     this.inputValue;
-    this.computerNumber;
+    this.computerNumber = new ComputerNumber().computerNumber;
+    this.isGameStarted = false;
   }
 
   // 게임 시작하기
   async startGame() {
-    this.computerNumber = new ComputerNumber().computerNumber;
-    Console.print(Messages.START_MESSAGE);
-    console.log(this.computerNumber);
+    if (!this.isGameStarted) {
+      Console.print(Messages.START_MESSAGE);
+      this.isGameStarted = true;
+    }
+
     this.getUserInputNumbers();
   }
 

@@ -29,7 +29,13 @@ describe("숫자 야구 게임", () => {
     const randoms = [1, 3, 5, 5, 8, 9];
     const answers = ["246", "135", "1", "597", "589", "2"];
     const logSpy = getLogSpy();
-    const messages = ["낫싱", "3스트라이크", "1볼 1스트라이크", "3스트라이크", "게임 종료"];
+    const messages = [
+      "낫싱",
+      "3스트라이크",
+      "1볼 1스트라이크",
+      "3스트라이크",
+      "게임을 종료합니다.",
+    ];
 
     mockRandoms(randoms);
     mockQuestions(answers);
@@ -42,6 +48,7 @@ describe("숫자 야구 게임", () => {
     messages.forEach((output) => {
       expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(output));
     });
+    ㅣ;
   });
 
   test("예외 테스트", async () => {
@@ -55,6 +62,8 @@ describe("숫자 야구 게임", () => {
     // when & then
     const app = new App();
 
-    await expect(app.play()).rejects.toThrow("[ERROR]");
+    await expect(app.play()).rejects.toThrow(
+      "[ERROR] 1-9사이의 서로 다른 3자리의 숫자를 입력해주세요."
+    );
   });
 });
