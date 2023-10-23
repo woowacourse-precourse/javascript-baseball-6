@@ -8,7 +8,8 @@ class Controller {
     }
 
     async gameStart() {
-        
+        const userInput = await this.view.showUserInput();
+
     }
 }
 

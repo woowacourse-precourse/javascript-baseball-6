@@ -8,7 +8,7 @@ class View {
     }
     
     showUserInput() {
-        MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
+        return MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
     }
 }
 
