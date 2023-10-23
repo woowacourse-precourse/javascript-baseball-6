@@ -1,4 +1,4 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
+import { Random } from "@woowacourse/mission-utils";
 import { isValidInput } from "./ValidationUtils";
 
 class Computer {
@@ -56,7 +56,7 @@ class Computer {
         const answerSet = new Set();
         
         while(answerSet.size < 3){
-        let num = MissionUtils.Random.pickNumberInRange(1, 9);
+        let num = Random.pickNumberInRange(1, 9);
         if(!answerSet.has(num))
             answerSet.add(num);
         }
