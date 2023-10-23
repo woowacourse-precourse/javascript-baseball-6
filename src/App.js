@@ -44,6 +44,11 @@ class App {
       throw new Error("중복되지 않은 숫자를 입력해주세요.");
   }
 
+  reStartAnswerCheck(answer) {
+    if (answer !== "1" && answer !== "2")
+      throw new Error("잘못된 값을 입력하였습니다.");
+  }
+
   calculateScore(computer, answer) {
     const strikeNumber = computer.filter(
       (number, index) => number === answer[index]
@@ -54,11 +59,10 @@ class App {
       .filter((number) => !strikeNumber.includes(number));
 
     this.scoreDisplay(strikeNumber.length, ballNumber.length);
-    if (strikeNumber.length == 3)
-      return MissionUtils.Console.print(
-        "3개의 숫자를 모두 맞히셨습니다! 게임 종료"
-      );
-    return this.gameStart();
+    if (strikeNumber.length === 3) {
+      MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+      this.reStart();
+    } else this.gameStart();
   }
 
   scoreDisplay(strike, ball) {
@@ -68,6 +72,16 @@ class App {
       return MissionUtils.Console.print(`${strike}스트라이크`);
     if (strike === 0 && ball === 0) return MissionUtils.Console.print("낫싱");
     return MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
+  }
+
+  reStart() {
+    MissionUtils.Console.readLineAsync(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요 : "
+    ).then((answer) => {
+      this.reStartAnswerCheck(answer);
+      if (answer === "1") this.gameStart();
+      else process.exitCode = 1;
+    });
   }
 }
 
