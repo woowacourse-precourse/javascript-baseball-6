@@ -19,8 +19,8 @@ const readLineAsync = async (message) => {
 }
 
 /**
- * @description 1(MIN_NUMBER) ~ 9(MAX_NUMBER) 사이의 랜덤한 숫자를 반환하는 함수
- * @returns {number} computer: 길이가 3(SIZE)인 랜덤 숫자
+ * @description 1(MIN_NUMBER) ~ 9(MAX_NUMBER) 사이의 랜덤한 숫자 배열을 반환하는 함수
+ * @returns {Array<number>} computer: 길이가 3(SIZE)인 랜덤 숫자 배열
  */
 const generateRandomNumber = () => {
   const computer = [];
