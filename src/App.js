@@ -31,7 +31,12 @@ class App {
         this.userNumber
       );
       // TODO : 비교한 결과에 대해 출력하는 기능
-      return this.printResult(ball, strike);
+      this.printResult(ball, strike);
+      if (strike === 3) {
+        Console.print(`${strike}${BASEBALL_MESSAGE.STRIKE}`)
+        Console.print(GAME_MESSAGE.SUCCESS);
+        return;
+      }
     } catch (error) {
       throw new Error(ERROR_MESSAGE.IS_INVALID);
     }
@@ -72,34 +77,23 @@ class App {
   }
 
   printResult(ball, strike) {
-    this.ball = ball;
-    this.strike = strike;
-
-    if (this.ball === 0 && this.strike === 0) {
-      Console.print(BASEBALL_MESSAGE.NOTHING);
-      return this.BaseballGame();
-    }
-
-    if (this.strike > 0 && this.strike < 3) {
-      Console.print(`${this.strike}${BASEBALL_MESSAGE.STRIKE}`);
-      return this.BaseballGame();
-    }
-
-    if (this.ball > 0) {
-      Console.print(`${this.ball}${BASEBALL_MESSAGE.BALL}`);
-      return this.BaseballGame();
-    }
-
-    if (this.ball > 0 && this.strike > 0 && this.strike < 3) {
+    if (ball > 0 && strike > 0 && strike < 3) {
       Console.print(
-        `${this.ball}${BASEBALL_MESSAGE.BALL} ${this.strike}${BASEBALL_MESSAGE.STRIKE}`
+        `${ball}${BASEBALL_MESSAGE.BALL} ${strike}${BASEBALL_MESSAGE.STRIKE}`
       );
-      return this.BaseballGame();
     }
 
-    if (this.strike === 3) {
-      Console.print(`${this.strike}\n${GAME_MESSAGE.SUCCESS}`);
-      return this.reStart();
+    else if (strike > 0 && strike < 3) {
+      Console.print(`${strike}${BASEBALL_MESSAGE.STRIKE}`);
+    }
+
+    else if (ball > 0) {
+      Console.print(`${ball}${BASEBALL_MESSAGE.BALL}`);
+    }
+
+
+    if (ball === 0 && strike === 0) {
+      Console.print(BASEBALL_MESSAGE.NOTHING);
     }
   }
 
