@@ -5,7 +5,7 @@ import { COMMANDS } from "./constants.js";
 class GameLifecycleManager {
   constructor() {
     this.ioManager = new IOManager();
-    this.isGameEnded = false;
+    this.isEntireGameComplete = false;
   }
 
   startGame() {
@@ -21,14 +21,14 @@ class GameLifecycleManager {
     const userInput = await this.ioManager.getEndCommandInput();
 
     if (userInput === COMMANDS.EXIT) {
-      this.isGameEnded = true;
+      this.isEntireGameComplete = true;
       this.ioManager.printGameExitMessage();
     }
   }
 
   async manageGameLifecycle() {
     this.startGame();
-    while (!this.isGameEnded) {
+    while (!this.isEntireGameComplete) {
       await this.playGame();
       await this.handleNewGameOrExit();
     }

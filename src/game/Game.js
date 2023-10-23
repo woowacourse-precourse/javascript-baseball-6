@@ -6,19 +6,20 @@ class Game {
   constructor() {
     this.ioManager = new IOManager();
     this.answer = this.createRandomNumbers();
+    this.isGameEnded = false;
   }
 
   async play() {
-    while (true) {
+    while (!this.isGameEnded) {
       const userInput = await this.ioManager.getThreeNumberInput();
       const { strike, ball } = this.compareNumbers(this.answer, userInput);
       this.ioManager.printGameStatus(strike, ball);
 
       if (strike === ANSWER_LENGTH) {
-        this.ioManager.printGameEndMessage();
-        break;
+        this.isGameEnded = true;
       }
     }
+    this.ioManager.printGameEndMessage();
   }
 
   createRandomNumbers() {
