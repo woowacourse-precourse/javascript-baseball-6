@@ -1,4 +1,5 @@
-import { MissionUtils, Console } from "@woowacourse/mission-utils";
+import { Console } from "@woowacourse/mission-utils";
+import { generateStrikes } from "./modules/random.js";
 
 class App {
   constructor() {
@@ -25,8 +26,8 @@ class App {
   async playGame() {
     Console.print("숫자 야구 게임을 시작합니다.");
     this.strikes = [];
-    this.strikes = this.generateStrikes();
-    Console.print(this.strikes);
+    this.strikes = generateStrikes();
+    // Console.print(this.strikes); // 테스트 시 활성화
     while (!this.isWin) {
       await this.playInning().then(message => {
         Console.print(message);
@@ -39,24 +40,6 @@ class App {
         }
       });
     }
-  }
-
-  generateStrikes() {
-    const numberArray = [];
-    while (numberArray.length < 3) {
-      let rn = this.generateRandomNumber();
-      if (numberArray.includes(rn)) {
-        continue;
-      } else {
-        numberArray.push(rn);
-      }
-    }
-    return numberArray;
-  }
-
-  generateRandomNumber() {
-    const randomNumber = MissionUtils.Random.pickNumberInRange(1, 9); // 1~9 중 랜덤 숫자
-    return randomNumber;
   }
 
   playInning() {
