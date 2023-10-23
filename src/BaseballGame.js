@@ -19,7 +19,7 @@ export default class BaseballGame {
 
     while (this.#strikeCount !== 3) {
       if (this.#flage === 1) {
-        throw new Error(`[ERROR]`);
+        throw new Error('[ERROR]');
       }
       this.#ballCount = 0;
       this.#strikeCount = 0;
@@ -49,25 +49,23 @@ export default class BaseballGame {
   }
   printCount() {
     if (this.#ballCount === 0 && this.#strikeCount === 0) {
-      Console.print(`낫싱`);
+      Console.print('낫싱');
     } else if (this.#ballCount !== 0 && this.#strikeCount === 0) {
       Console.print(`${this.#ballCount}볼`);
     } else if (this.#strikeCount !== 0 && this.#ballCount === 0) {
       Console.print(`${this.#strikeCount}스트라이크 `);
-    } else {
-      Console.print(
-        `${this.#ballCount}볼 ${this.#strikeCount}스트라이크`
-      );
     }
+    Console.print(`${this.#ballCount}볼 ${this.#strikeCount}스트라이크`);
+    
   }
   async retry() {
     try {
       const number = await Console.readLineAsync(
-        '숫자를 입력해주세요 : '
+        '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.'
       );
-      return parseInt(number, 10);
+      return number;
     } catch (error) {
-      return `error`;
+      return 'error';
     }
   }
 }

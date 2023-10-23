@@ -17,7 +17,7 @@ export default class User {
       !this.checkNonNumber ||
       isNaN(Number(number))
     ) {
-      throw new Error(`Error`);
+      throw new Error('Error');
     }
   }
   numberToArray(n) {
@@ -46,7 +46,7 @@ export default class User {
       );
       return number;
     } catch (error) {
-      return `nertwork err`;
+      return 'nertwork err';
     }
   }
 }
