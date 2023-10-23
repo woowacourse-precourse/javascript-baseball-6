@@ -6,21 +6,11 @@ class App {
   async play() {
     try {
       const computer = CustomUtils.getGenerateComputerNumbers();
-      await this.playGame(computer);
+      await CustomUtils.playGame(computer);
       await this.restartGame();
     } catch (error) {
       MissionUtils.Console.print(error.message);
       throw error;
-    }
-  }
-
-  async playGame(computer) {
-    MissionUtils.Console.print(Messages.GAME_START);
-    let gameContinue = true;
-    while (gameContinue) {
-      const userNumber = await CustomUtils.getUserNumber();
-      const score = CustomUtils.getScore(computer, userNumber);
-      gameContinue = CustomUtils.printScore(score);
     }
   }
 

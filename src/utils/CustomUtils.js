@@ -81,10 +81,21 @@ const getGenerateComputerNumbers = () => {
   return computer;
 };
 
+const playGame = async (computer) => {
+  MissionUtils.Console.print(Messages.GAME_START);
+  let gameContinue = true;
+  while (gameContinue) {
+    const userNumber = await getUserNumber();
+    const score = getScore(computer, userNumber);
+    gameContinue = printScore(score);
+  }
+};
+
 export default {
   getUserNumber,
   getScore,
   printScore,
   getRestartChoice,
   getGenerateComputerNumbers,
+  playGame,
 };
