@@ -33,6 +33,7 @@ class App {
       }
       // Console.print(`스트라이크 : ${strike}, 볼: ${ball}`);
       if (strike === 3) {
+        Console.print("3스트라이크");
         Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
         break;
       }
