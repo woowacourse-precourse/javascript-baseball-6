@@ -1,13 +1,12 @@
-import { MissionUtils } from '@woowacourse/mission-utils';
+import { Console } from '@woowacourse/mission-utils';
+import { GUIDE_MESSAGES } from '../constants/index.js';
 import Player from './player/index.js';
-
-const { Console } = MissionUtils;
 
 class App {
   #player = new Player();
 
   async play() {
-    Console.print('숫자 야구 게임을 시작합니다.');
+    Console.print(GUIDE_MESSAGES.START);
     await this.#player.startGame();
   }
 }
