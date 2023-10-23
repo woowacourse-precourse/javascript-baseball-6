@@ -42,9 +42,14 @@ class App {
   async playInning() {
     this.getGuess().then(guess => {
       const [strikeCount, ballCount] = this.evaluateGuess(guess);
-      const ballMessage = ballCount ? `${ballCount}볼` : "";
-      const strikeMessage = strikeCount ? `${strikeCount}스트라이크` : "";
-      console.log(ballMessage, strikeMessage);
+      let message = "";
+      if (ballCount > 0) {
+        message += `${ballCount}볼`;
+      }
+      if (strikeCount > 0) {
+        message += `${message ? " " : ""}${strikeCount}스트라이크`;
+      }
+      console.log(message);
     });
   }
 
