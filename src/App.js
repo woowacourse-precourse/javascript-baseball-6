@@ -34,15 +34,37 @@ const get_ball_count = (string_number, target_number) => {
   return count;
 };
 
+// 사용자 예측 값 입력받기
+const get_user_guess = async () => {
+  while (true) {
+    // 예외 처리 ( 입력 값에 0이 포함된 경우, 중복된 값이 입력된 경우 )
+    const user_input = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
+    const user_input_split = user_input.split("");
+    const is_includes_zero = user_input.includes("0");
+    const is_all_different_number = user_input_split.every(
+      (number) => user_input_split.indexOf(number) === user_input_split.lastIndexOf(number),
+    );
+
+    if (!is_includes_zero && is_all_different_number) return user_input;
+
+    if (is_includes_zero) {
+      MissionUtils.Console.print("[Error] 입력 값에 0이 포함되어 있습니다.");
+    } else if (!is_all_different_number) {
+      MissionUtils.Console.print("[Error] 입력 값에 중복된 값이 있습니다.");
+    } else {
+      MissionUtils.Console.print("[Error] 올바른 형식이 아닙니다.");
+    }
+  }
+};
+
 // 예측 결과 출력
 const guess_result = async (random_number, user_input) => {
   const strike = get_strike_count(random_number, user_input);
   const ball = get_ball_count(random_number, user_input);
 
-  if (ball === 0 && strike === 0) {
-  }
-
   MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
+
+  return strike;
 };
 
 // 사용자 입력 값에 따른 게임 종료 또는 재시작 ( '1' === 재시작 / '2' === 종료 )
