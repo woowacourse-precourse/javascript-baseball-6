@@ -1,4 +1,4 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
+import { Console, MissionUtils } from "@woowacourse/mission-utils";
 
 
 export const getComputerNumber = () =>{
@@ -25,5 +25,15 @@ export const compareNum = (computer, user) =>{
   return { strike, ball };
 }
 
-
-// export default computer;
+export const printHint = (strike, ball) => {
+  
+  if (strike === 0 && ball === 0) {
+    Console.print("낫싱");
+  } else if (strike === 3) {
+    Console.print(`${strike}스트라이크`);
+  } else if (ball === 3) {
+    Console.print(`${ball}볼`);
+  } else {
+    Console.print(`${ball}볼 ${strike}스트라이크`);
+  }
+}
