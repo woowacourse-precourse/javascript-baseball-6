@@ -11,12 +11,11 @@ class Game {
     this.inputValidator(input);
   }
 
-  inputValidator = (input) => {
+  inputController = (input) => {
     if (input.length !== 3)
       throw new Error("[ERROR] 잘못된 값을 입력하셨습니다.");
     if (!/^[1-9]{3}$/.test(input))
       throw new Error("[ERROR] 잘못된 값을 입력하셨습니다.");
-    //test
     this.getInput();
   };
 }
