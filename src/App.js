@@ -36,7 +36,8 @@ class User {
     if (number.includes("0")) {
       throw "[ERROR] 1 ~ 9 사이의 숫자를 입력하지 않았습니다.";
     }
-    
+    // #2.5 같은 숫자를 입력한 경우
+
     if (number.length == 3) {
       for (let i = 0; i < number.length; i++) {
         user.push(Number(number[i]));
@@ -86,11 +87,12 @@ class App {
         if (!(ballCnt || strikeCnt)) {
           answer += "낫싱";
         }
+
+        MissionUtils.Console.print(answer);
         if (strikeCnt == 3) {
           MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
           break;
         }
-        MissionUtils.Console.print(answer);
       }
 
       newGame = await MissionUtils.Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
@@ -98,6 +100,6 @@ class App {
   }
 }
 const app = new App();
-await app.play();
+// await app.play();
 
 export default App;
