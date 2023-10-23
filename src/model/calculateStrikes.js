@@ -1,11 +1,14 @@
+const isStrike = function checkNumberElementIsStrike(numberElement, computerNumber, idx) {
+    return numberElement === computerNumber[idx]
+}
+
 const calculateStrikes = function returnStrikeCountByUserNumberAndComputerNumber(userNumber, computerNumber) {
-    let cntStrike = 0;
-    for (let ni = 0; ni < 3; ni++) {
-        if (userNumber[ni] === computerNumber[ni]) {
+    return [...userNumber].reduce((cntStrike, numberElement, idx) => {
+        if (isStrike(numberElement, computerNumber, idx)) {
             cntStrike += 1;
         }
-    }
-    return cntStrike
+        return cntStrike
+    }, 0)
 }
 
 export default calculateStrikes
