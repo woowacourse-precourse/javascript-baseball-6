@@ -3,10 +3,14 @@ import { Game } from "./game.js";
 
 class App {
   async play() {
-    // let isGameEnded = false;
-    const newGame = new Game();
-    await newGame.playBall();
-    this.suggestNewGame();
+    try {
+      const newGame = new Game();
+      await newGame.playBall();
+      this.suggestNewGame();
+    } catch (e) {
+      MissionUtils.Console.print(e);
+      throw e;
+    }
   }
 
   async suggestNewGame() {

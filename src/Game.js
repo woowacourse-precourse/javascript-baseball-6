@@ -1,10 +1,7 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 export class Game {
-  constructor() {
-    this.gameEnded = false;
-    // this.playBall();
-  }
+  constructor() {}
 
   welcome() {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
@@ -27,7 +24,7 @@ export class Game {
       this.validateUserInput(input);
       return this.compareNumbers(input);
     } catch (e) {
-      MissionUtils.Console.print(e);
+      throw e;
     }
   }
 
@@ -61,21 +58,12 @@ export class Game {
     } else if (strikes === 3) {
       MissionUtils.Console.print(`${strikes}스트라이크`);
       MissionUtils.Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
-      // this.returnGameState(strikes);
       return;
     } else {
       MissionUtils.Console.print(`${balls}볼 ${strikes}스트라이크`);
     }
     return this.getUserInput();
   }
-
-  // returnGameState(strikes) {
-  //   return new Promise((resolve) => {
-  //     MissionUtils.Console.print(`${strikes}스트라이크`);
-  //     MissionUtils.Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
-  //     resolve(true);
-  //   });
-  // }
 
   async playBall() {
     this.welcome();
