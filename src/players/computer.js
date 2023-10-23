@@ -1,7 +1,7 @@
 import { Random } from '@woowacourse/mission-utils';
 import { RESULTOBJECT } from '../constants/constants.js'
 
-export default class opponent{
+export default class computer{
 
   #computerNumber;
   
