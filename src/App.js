@@ -19,15 +19,16 @@ class App {
 
   async getUserNumber() {
     const user = await Console.readLineAsync('숫자를 입력해주세요 : ');
-    if (isNaN(user)) throw new Error('[ERROR] 숫자만 입력 가능합니다.');
-    const checkedNum = this.checkDifferentThreeDigits(user);
+    const checkedNum = this.checkDifferentThreeDigits(user.trim());
     const parsedNum = checkedNum.map((v) => parseInt(v));
     return parsedNum;
   }
 
   checkDifferentThreeDigits(user) {
+    if (isNaN(user)) throw new Error('[ERROR] 숫자만 입력 가능합니다.');
     const array = user.split('');
-    if (array.length > 3) throw new Error('[ERROR] 세 자리 수여야 합니다.');
+    if (array.length > 3 || array.length < 3)
+      throw new Error('[ERROR] 세 자리 수여야 합니다.');
     const dupCheck = array.filter((v, i) => user.indexOf(v) === i);
     if (dupCheck.length < 3)
       throw new Error('[ERROR] 각 자리 수는 모두 다른 수여야 합니다.');
