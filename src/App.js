@@ -12,7 +12,7 @@ class App {
 
     while (true) {
       this.player = await this.getNumber();
-      const { strike, ball } = this.getCountArray(this.computer.join(''), this.player);
+      const { strike, ball } = this.getCountObj(this.computer.join(''), this.player);
 
       Console.print(this.printResult(strike, ball));
 
@@ -81,7 +81,7 @@ class App {
     return false;
   }
 
-  getCountArray(computer, player) {
+  getCountObj(computer, player) {
     const result = { strike: 0, ball: 0 };
 
     for (let index = 0; index < 3; index++) {
