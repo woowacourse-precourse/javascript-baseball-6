@@ -1,4 +1,4 @@
-import { Console } from "@woowacourse/mission-utils";
+import { Random, Console } from "@woowacourse/mission-utils";
 
 class App {
   constructor() {
@@ -9,7 +9,18 @@ class App {
     Console.print("숫자 야구 게임을 시작합니다.");
   }
 
-  static playBaseBall() {}
+  generateSecretNumber() {
+    while (this.secretNumber.length < 3) {
+      const number = Random.pickNumberInRange(1, 9);
+      if (!this.secretNumber.includes(number)) {
+        this.secretNumber.push(number);
+      }
+    }
+  }
+
+  playBaseBall() {
+    this.generateSecretNumber();
+  }
 
   async play() {
     printGreeting();
