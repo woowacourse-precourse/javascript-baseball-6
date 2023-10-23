@@ -8,7 +8,8 @@ const InputView = {
                 resolve(input);
             });
         });
-    }
+    },
+    
 }
 
 export default InputView;
