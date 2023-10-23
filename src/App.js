@@ -75,8 +75,8 @@ class App {
 
     //게임 재시작 여부 확인 및 재시작
     async restart() {
-        Console.print('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.')
-        const input = await Console.readLineAsync()
+        Console.print('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+        const input = await Console.readLineAsync(" 숫자 입력 : ");
         if (input === '1') {
             return true
         } else if (input === '2') {
@@ -84,7 +84,9 @@ class App {
         } else {
             throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
         }
+        
     }
+    
 }
 
 export default App;
