@@ -24,7 +24,7 @@ class GameController {
       isNumeric(userInput) ||
       isDuplicate(userInput)
     ) {
-      throw new Error("[ERROR] 잘못된 입력입니다.");
+      this.view.printError();
     }
 
     return userInput;
