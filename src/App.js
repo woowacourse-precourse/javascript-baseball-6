@@ -28,21 +28,21 @@ class App {
     }
   }
   async play() {
-    MissionUtils.Console.print("숫자 야구 게임을 시작합니다!");
-    let finish = false;
-    let gameOver = false;
-    while (!gameOver) {
-      let computer = [];
-      let me = [];
+    try {
+      MissionUtils.Console.print("숫자 야구 게임을 시작합니다!");
+      let finish = false;
+      let gameOver = false;
+      while (!gameOver) {
+        let computer = [];
+        let me = [];
 
-      while (computer.length < 3) {
-        const number = MissionUtils.Random.pickNumberInRange(1, 9);
-        if (!computer.includes(number)) {
-          computer.push(number);
+        while (computer.length < 3) {
+          const number = MissionUtils.Random.pickNumberInRange(1, 9);
+          if (!computer.includes(number)) {
+            computer.push(number);
+          }
         }
-      }
-      while (!finish) {
-        try {
+        while (!finish) {
           let userInput =
             await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 :");
 
@@ -59,19 +59,15 @@ class App {
               finish = true;
             }
           }
-        } catch (error) {
-          MissionUtils.Console.print(error.message);
-          throw error;
-        }
-        if (finish === true) {
-          MissionUtils.Console.print(
-            "3개의 숫자를 모두 맞히셨습니다! 게임 종료"
-          );
-          MissionUtils.Console.print(
-            "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
-          );
 
-          try {
+          if (finish === true) {
+            MissionUtils.Console.print(
+              "3개의 숫자를 모두 맞히셨습니다! 게임 종료"
+            );
+            MissionUtils.Console.print(
+              "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+            );
+
             const next = await MissionUtils.Console.readLineAsync("");
 
             if (next === "1") {
@@ -84,18 +80,16 @@ class App {
             } else {
               throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
             }
-          } catch (error) {
-            MissionUtils.Console.print(error.message);
-            throw error;
           }
-        }
 
-        me = [];
+          me = [];
+        }
       }
+    } catch (error) {
+      MissionUtils.Console.print(error.message);
+      throw error;
     }
   }
 }
-const app = new App();
-app.play();
 
 export default App;
