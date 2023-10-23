@@ -10,14 +10,13 @@ class App {
   async play() {
     await this.gameStartText();
     await this.generateRandomNumber();
-    console.log("컴퓨터 정답값", this.randomNumber);
     await this.getUserInput();
     await this.checkValidInput(this.input);
     await this.checkStrikeBall(this.input, this.randomNumber);
     this.countResult = this.checkStrikeBall(this.input, this.randomNumber);
     await this.printHintMessage(this.countResult);
 
-    if (this.countResult.strike !== 3) {
+    while (this.countResult.strike !== 3) {
       await this.retry();
     } 
 
@@ -25,12 +24,10 @@ class App {
       await this.printGameWinMessage();
       await this.replay();
     }
-    
   }
 
   // 왜 while로 안하면 2번에 끊기는지 이해하기 
   async retry() {
-    while (this.countResult.strike !== 3) {
       this.input = '';
       await this.getUserInput();
       await this.checkValidInput(this.input);
@@ -38,7 +35,6 @@ class App {
       this.countResult = this.checkStrikeBall(this.input, this.randomNumber);
       await this.printHintMessage(this.countResult);
     }
-  }
 
   async replay(){
     const userResponse =  await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
@@ -48,10 +44,7 @@ class App {
       this.play();
     }
     if (Number(userResponse) === 2){
-      process.exit();
-    }
-    if (Number(userResponse) !== (1 || 2)){
-      throw new Error("올바른 값을 입력해주세요");
+      return 
     }
   }
 
@@ -92,7 +85,7 @@ class App {
 
   checkValidInput(input) {
     if (!this.isThreeNumber(input)) {
-      throw new Error("Is Not a Number");
+      throw new Error("[ERROR]");
     }
     if (!this.isSameNumber(input)) {
       throw new Error("Is Duplicate Input");
@@ -156,5 +149,5 @@ class App {
 
 export default App;
 
-const start = new App();
-start.play();
+// const start = new App();
+// start.play();
