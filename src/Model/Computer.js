@@ -2,7 +2,7 @@ import { Player } from './Player.js';
 
 export class Computer extends Player {
   compareNumber(userNumber) {
-    this.validateNumber(userNumber);
+    this.validation(userNumber);
 
     const strike = this.#checkStrike(this._number, userNumber);
     const ball = this.#checkBall(this._number, userNumber);
