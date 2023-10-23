@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import BaseballGame from "./BaseballGame.js";
+import BaseballGame from "./baseballGame.js";
 
 export default class App {
   constructor() {
@@ -7,6 +7,8 @@ export default class App {
   }
 
   async play() {
+    Console.print("숫자 야구 게임을 시작합니다.");
+
     while (true) {
       await this.baseballGame.startGame();
 
@@ -30,4 +32,27 @@ export default class App {
         throw new Error("[ERROR] 올바른 입력이 아닙니다.");
     }
   }
+
+  async getUserChoiceToRestart() {
+    try {
+      const userInput = await Console.readLineAsync(
+        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+      );
+
+      switch (userInput) {
+        case "1":
+          return true;
+        case "2":
+          return false;
+        default:
+          throw new Error("[ERROR] 올바른 입력이 아닙니다.");
+      }
+    } catch (error) {
+      Console.print(error.message);
+      throw error;
+    }
+  }
 }
+
+const app = new App();
+app.play();

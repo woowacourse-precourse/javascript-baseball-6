@@ -1,27 +1,30 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 
+const RANDOM_MIN = 1;
+const RANDOM_MAX = 9;
+
 export default class BaseballGame {
   constructor() {
     this.computer = [];
     this.correct = false;
-    this.gameEnd = false;
   }
 
   async startGame() {
-    Console.print("숫자 야구 게임을 시작합니다.");
     this.computer = this.generateRandomNumbers();
 
-    while (!this.correct) await this.getUserInput();
+    while (!this.correct) {
+      await this.getUserInput();
+    }
+
     if (this.correct) {
       Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-      this.gameEnd = true;
     }
   }
 
   generateRandomNumbers() {
     const numbers = new Set();
     while (numbers.size < 3) {
-      numbers.add(Random.pickNumberInRange(1, 9));
+      numbers.add(Random.pickNumberInRange(RANDOM_MIN, RANDOM_MAX));
     }
     return [...numbers];
   }
@@ -32,6 +35,7 @@ export default class BaseballGame {
       this.validateGuess(guess);
       this.getHint(guess);
     } catch (error) {
+      Console.print(error.message);
       throw error;
     }
   }
