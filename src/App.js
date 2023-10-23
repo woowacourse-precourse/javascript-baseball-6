@@ -1,6 +1,5 @@
 import { Console, Random } from '@woowacourse/mission-utils';
 import { ERROR, MESSAGE } from './constants.js';
-import userInput from './UserInput.js';
 
 class App {
   computerNumber;
@@ -8,11 +7,11 @@ class App {
 
   constructor() {
     Console.print(MESSAGE.startMessage);
-  }
+  };
 
   async play() {
     this.computerNumber = this.randomGenerator();
-    Console.print(this.computerNumber);
+    // Console.print(this.computerNumber);
     return this.start()
   };
 
@@ -23,28 +22,31 @@ class App {
 
   //랜덤 수 생성
   randomGenerator() {
-    const computer = [];
-    while (computer.length < 3) {
-      const number = Random.pickNumberInRange(1, 9);
-      if (!computer.includes(number)) {
-        computer.push(number);
-      }
-    }
-    return computer;
+    const COMPUTER = [];
+
+    while (COMPUTER.length < 3) {
+      const COMPUTER_NUMBER = Random.pickNumberInRange(1, 9);
+
+      if (!COMPUTER.includes(COMPUTER_NUMBER)) {
+        COMPUTER.push(COMPUTER_NUMBER);
+      };
+    };
+
+    return COMPUTER;
   };
 
   // 사용자 수 입력받기
   async getUserNumber() {
     try {
-      const numbers = await Console.readLineAsync(MESSAGE.inputUserNumber);
-      return numbers;
+      const NUMBERS = await Console.readLineAsync(MESSAGE.inputUserNumber);
+      return NUMBERS;
     } catch (error) {
       Console.print(error);
-    }
+    };
   };
 
   // 입력받은 수 유효성 검사
-  checkInputValidate () {
+  checkInputValidate() {
     const IS_UNIQUE = (new Set(this.userNumber)).size;
     const RE = new RegExp(/[1-9]{3}/g);
 
@@ -60,7 +62,6 @@ class App {
   countStrike() {
     const STRIKE = [...this.computerNumber].filter((x, idx) => this.userNumber[idx] === x).length;
     const BALL = [...this.computerNumber].filter(x => this.userNumber.includes(x)).length - STRIKE;
-    
     return this.strikeBall(STRIKE,BALL);
   };
 
@@ -75,7 +76,7 @@ class App {
     
     if (strike !== 3) {
       return this.start();
-    }
+    };
 
     const RETRY = await this.chooseRetry();
     return this.checkRetry(RETRY);
@@ -84,24 +85,23 @@ class App {
   async chooseRetry() {
     try {
       Console.print(MESSAGE.allStrike);
-      let retry = await Console.readLineAsync(MESSAGE.askRetry);
-
-      return retry;
+      const RETRY_INPUT_NUMBER = await Console.readLineAsync(MESSAGE.askRetry);
+      return RETRY_INPUT_NUMBER;
     } catch (error) {
       Console.print(error);
     };
   };
 
-  checkRetry(retry) {
-    if (retry !== "1" && retry !== "2") {
+  checkRetry(retryNumber) {
+    if (retryNumber !== "1" && retryNumber !== "2") {
       throw new Error (ERROR.retryInput);
     };
 
-    return this.retryOrExit(retry);
+    return this.retryOrExit(retryNumber);
   };
 
-  retryOrExit(retry) {
-    if (retry === '1') {
+  retryOrExit(retryNumber) {
+    if (retryNumber === '1') {
       this.play();
     } else {
       Console.print(MESSAGE.gameOver);
