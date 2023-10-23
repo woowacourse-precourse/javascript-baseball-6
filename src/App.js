@@ -1,4 +1,5 @@
 import {MissionUtils} from '@woowacourse/mission-utils';
+
 class App {
   constructor() {
     this.init();
@@ -46,6 +47,7 @@ class App {
 
   countBall(computerPickNum, userPickNum) {
     let balls = 0;
+
     for(let i = 0; i < computerPickNum.length; i ++) {
       if((computerPickNum[i] !== userPickNum[i]) && (userPickNum.includes(computerPickNum[i]))) {
         balls++
@@ -62,18 +64,42 @@ class App {
   }
 
   printResult(strike, ball) {
-    if(strike === 0 && ball === 0) {
-      MissionUtils.Console.print('낫싱');
-    }else if(strike === 0 && ball !== 0) {
-      MissionUtils.Console.print(`${ball}볼`);
-    }else if(strike !== 0 && ball === 0){
-      MissionUtils.Console.print(`${strike}스트라이크`);
-    }else if(strike !== 0 && ball !== 0){
-      MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
-    }
+    if(strike === 3) {
+      MissionUtils.Console.print('3스트라이크');
+      MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+      this.startOrEnd();
+    }else{
 
-    return this.play();
+      if(strike === 0 && ball === 0) {
+        MissionUtils.Console.print('낫싱');
+      }else if(strike === 0 && ball !== 0) {
+        MissionUtils.Console.print(`${ball}볼`);
+      }else if(strike !== 0 && ball === 0){
+        MissionUtils.Console.print(`${strike}스트라이크`);
+      }else if(strike !== 0 && ball !== 0){
+        MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
+      }
+      return this.play();
   }
+
+    
+  }
+
+  async startOrEnd() {
+    try{
+      const answer = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. \n');
+      if(answer === '1') {
+        this.computerNum = this.randomPickNum();
+        return this.play();
+      }else if(answer === '2') {
+        MissionUtils.Console.print('게임 종료');
+        return null;
+      }
+    }catch(e) {
+      console.log(e.message);
+    }
+  }
+
 
   async numCorrect() {
     try {
@@ -92,7 +118,7 @@ class App {
   }
   
   async play() {
-        this.numCorrect();
+    this.numCorrect();
   }
 }
 
