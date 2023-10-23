@@ -67,11 +67,11 @@ class App {
         randomNumber += newRandomNumber;
       }
     }
-    return Number(randomNumber);
+    return randomNumber;
   }
 
   isValidNumber(num) {
-    const numArray = String(num).split('');
+    const numArray = num.split('');
     if (numArray.length !== 3) {
       return false;
     }
@@ -83,17 +83,11 @@ class App {
   }
 
   compareNumber(num1, num2) {
-    const num1AsString = String(num1);
-    const num2AsString = String(num2);
     let strikeCounter = 0;
     let ballCounter = 0;
-    for (
-      let numberIndex = 0;
-      numberIndex <= num2AsString.length - 1;
-      numberIndex++
-    ) {
-      const targetNumber = num2AsString[numberIndex];
-      const targetIndexInNum1 = num1AsString.indexOf(targetNumber);
+    for (let numberIndex = 0; numberIndex <= num2.length - 1; numberIndex++) {
+      const targetNumber = num2[numberIndex];
+      const targetIndexInNum1 = num1.indexOf(targetNumber);
       if (targetIndexInNum1 === -1) {
         continue;
       }
