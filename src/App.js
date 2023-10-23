@@ -9,9 +9,9 @@ class App {
 
       MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
 
-      const { isContinue } = await playAGame(computerNumbers);
+      const { isRestart } = await playAGame(computerNumbers);
       
-      if (!isContinue) return;
+      if (!isRestart) return;
     }
   }
 }

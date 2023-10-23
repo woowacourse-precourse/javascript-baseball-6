@@ -37,12 +37,12 @@ const printScore = (strikeCount, ballCount) => {
 
 const isThreeStrike = (strikeCount) => strikeCount === 3;
 
-const checkIsContinue = (continueInput) => {
-  const CONTINUE_GAME = "1";
+const checkIsRestart = (processStateInput) => {
+  const RESTART_GAME = "1";
   const END_GAME = "2";
 
-  if (continueInput === CONTINUE_GAME) return true;
-  if (continueInput === END_GAME) return false;
+  if (processStateInput === RESTART_GAME) return true;
+  if (processStateInput === END_GAME) return false;
 };
 
 export const playAGame = async (computerNumbers) => {
@@ -63,10 +63,10 @@ export const playAGame = async (computerNumbers) => {
 
     MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
 
-    const continueInput = await MissionUtils.Console.readLineAsync(
+    const processStateInput = await MissionUtils.Console.readLineAsync(
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
     );
 
-    return { isContinue: checkIsContinue(continueInput) };
+    return { isRestart: checkIsRestart(processStateInput) };
   }
 };
