@@ -15,6 +15,10 @@ const OutputView = {
 
     MissionUtils.Console.print(result.join(' '))
   },
+
+  printEndString() {
+    MissionUtils.Console.print(OutputString.OUTPUT_GAME_END)
+  },
 }
 
 export default OutputView
