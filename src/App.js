@@ -22,9 +22,9 @@ class App {
     if (strikeCount === 0 && ballCount === 0) {
       return "낫싱";
     } else if (strikeCount === 3) {
-      return "3 스트라이크";
+      return "3스트라이크";
     } else {
-      return `${ballCount} 볼 ${strikeCount} 스트라이크`;
+      return `${ballCount}볼 ${strikeCount}스트라이크`;
     }
   }
   async play() {
@@ -41,7 +41,28 @@ class App {
           computer.push(number);
         }
       }
-      while (true) {
+      while (!finish) {
+        try {
+          let userInput =
+            await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 :");
+
+          if (this.isValid(userInput) === true) {
+            userInput = Number(userInput);
+            for (let i = 0; i < 3; i++) {
+              me.push(Math.floor(userInput / 10 ** (2 - i)));
+              userInput = userInput % 10 ** (2 - i);
+            }
+            const result = this.rusultCheck(me, computer);
+            MissionUtils.Console.print(result);
+
+            if (result === "3스트라이크") {
+              finish = true;
+            }
+          }
+        } catch (error) {
+          MissionUtils.Console.print(error.message);
+          throw error;
+        }
         if (finish === true) {
           MissionUtils.Console.print(
             "3개의 숫자를 모두 맞히셨습니다! 게임 종료"
@@ -65,31 +86,8 @@ class App {
             }
           } catch (error) {
             MissionUtils.Console.print(error.message);
-            gameOver = true;
-            break;
+            throw error;
           }
-        }
-        try {
-          let userInput =
-            await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 :");
-
-          if (this.isValid(userInput) === true) {
-            userInput = Number(userInput);
-            for (let i = 0; i < 3; i++) {
-              me.push(Math.floor(userInput / 10 ** (2 - i)));
-              userInput = userInput % 10 ** (2 - i);
-            }
-            const result = this.rusultCheck(me, computer);
-            MissionUtils.Console.print(result);
-            MissionUtils.Console.print(computer);
-            if (result === "3 스트라이크") {
-              finish = true;
-            }
-          }
-        } catch (error) {
-          MissionUtils.Console.print(error.message);
-          gameOver = true;
-          break;
         }
 
         me = [];
