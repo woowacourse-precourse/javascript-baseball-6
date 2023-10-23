@@ -4,7 +4,6 @@ ver 1.0
 
 # App
 
----
 
 ### async play()
 
@@ -21,15 +20,11 @@ await App.run();
 
 2.다시 진행할 지 확인 후 1번으로 돌아가거나, 함수를 종료
 
----
-
 # modules
 
----
 
 ## Run
 
----
 
 게임을 실행시키는 함수들
 
@@ -57,7 +52,6 @@ await Run.baseball();
 
 ## Get
 
----
 
 특정한 자료를 가져오는 함수들
 
@@ -137,7 +131,7 @@ Get.strikeCount([1],[2,3,4]);// 0
 
 ## ConvertInputTo
 
----
+
 
 사용자로부터 입력을 받아 특정한 값으로 반환하는 함수들
 
@@ -190,7 +184,7 @@ ConvertInputTo.tryAgain();
 
 ## Print
 
----
+
 
 `@woowacourse/mission-utils`에서 `import`한 `MissionUtils.Console.print()`를 통해 콘솔창으로 출력하는 함수들
 
@@ -221,7 +215,7 @@ Run.play가 끝났을 때 나오는 문구가 출력
 
 ## Is
 
----
+
 
 매개변수를 통해 Boolean(true, false)값을 반환하는 함수들
 
