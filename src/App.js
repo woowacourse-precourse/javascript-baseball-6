@@ -46,31 +46,30 @@ class App {
 
   async playInning() {
     const guess = await getUserInput(QUERY.guess, REGEX.guess);
-    const [strikeCount, ballCount] = this.evaluateGuess(guess);
+    const [strikeCount, ballCount] = this.evaluateGuess(guess, this.strikes);
     let message = "";
-    if (ballCount > 0) {
-      message += `${ballCount}볼`;
-    }
-    if (strikeCount > 0) {
-      message += `${message ? " " : ""}${strikeCount}스트라이크`;
-    }
-    if (!message) {
+    if (ballCount == 0 && strikeCount == 0) {
       message = "낫싱";
+    } else if (strikeCount == 0) {
+      message += `${ballCount}볼`;
+    } else if (ballCount == 0) {
+      message += `${strikeCount}스트라이크`;
+    } else {
+      message += `${ballCount}볼 ${strikeCount}스트라이크`;
     }
     return message;
   }
 
-  evaluateGuess(guessNumbers) {
-    console.log(guessNumbers);
+  evaluateGuess(guessNumbers, strikeNumbers) {
     const numbers = [...guessNumbers].map(str => Number(str));
     Console.print(numbers);
     let strikeCount = 0;
     let ballCount = 0;
     numbers.forEach((number, index) => {
-      if (number == this.strikes[index]) {
+      if (number == strikeNumbers[index]) {
         strikeCount += 1;
       } else {
-        if (this.strikes.includes(number)) {
+        if (strikeNumbers.includes(number)) {
           ballCount += 1;
         }
       }
