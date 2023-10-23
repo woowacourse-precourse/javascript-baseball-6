@@ -1,6 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import { stringToNumberArray } from "./utils/array.js";
-import { validateProcessStateInput, validateNumberInput } from "./utils/input.js";
+import { validateProcessStateInput, validateNumberInput } from "./validate-input.js";
 
 const calculateStrikeCount = (computerNums, answerNums) => {
   return answerNums.filter((answerNum, i) => answerNum === computerNums[i])

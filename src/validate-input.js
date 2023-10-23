@@ -1,4 +1,4 @@
-import { InputError } from "../errors.js";
+import { InputError } from "./errors.js";
 
 const isThreeNumbers = (str) => {
   return /^[1-9]{3}$/.test(str);
