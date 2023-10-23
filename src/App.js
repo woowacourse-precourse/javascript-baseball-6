@@ -2,7 +2,7 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
   constructor() {
-    this.gameOver = false;
+    this.game_over = false;
     this.computer = [];
   }
 
@@ -23,17 +23,19 @@ class App {
     );
 
     // 인풋의 형식이 숫자 3개가 아닌경우 에러 출력 및 애플리케이션 종료
-    if (!/^\d{3}$/.test(user_input) || !this.hasUniqueDigits(user_input)) {
-      throw new Error("[ERROR] 잘못된 입력 형식입니다");
+    if (!/^\d{3}$/.test(user_input) || !this.has_unique_digits(user_input)) {
+      this.game_over = true;
+      return;
+    } else {
+      // 유저 인풋을 arr형식으로 반환
+      return user_input.split("").map(Number);
     }
-    // 유저 인풋을 arr형식으로 반환
-    return user_input.split("").map(Number);
   }
 
   // 3자리 숫자에 중복된 숫자가 있는지 확인
-  hasUniqueDigits(input) {
-    const uniqueDigits = new Set(input);
-    return uniqueDigits.size === 3;
+  has_unique_digits(input) {
+    const unique_digits = new Set(input);
+    return unique_digits.size === 3;
   }
 
   // 받아온 숫자 확인
@@ -44,34 +46,15 @@ class App {
     // 스트라이크 & 볼 갯수 확인
     for (let i = 0; i < 3; i++) {
       if (random_number[i] === player_number[i]) {
-        strike++;
+        strike += 1;
       } else if (random_number.includes(player_number[i])) {
-        ball++;
+        ball += 1;
       }
     }
 
     // 결과 초기값 설정
     let result = "";
 
-    // 모두 스트라이크인 경우
-    // if (strike === 3) {
-    //   this.gameOver = true;
-    //   result = "3개의 숫자를 모두 맞히셨습니다! 게임 종료";
-    // } else {
-    // 볼 & 스트라이크 결과 생성
-    // result = `${ball > 0 ? ball + "볼" : ""} ${
-    //   strike > 0 ? strike + "스트라이크" : ""
-    // }`;
-
-    // 겹치는 숫자가 없는 경우
-    //   if (strike === 0 && ball === 0) {
-    //     result = "낫싱";
-    //   }
-    // }
-
-    // 3스트라이크도 출력
-
-    // 볼 & 스트라이크 결과 생성
     // 볼 & 스트라이크 결과 생성
     result = `${ball > 0 ? ball + "볼" : ""} ${
       strike > 0 ? strike + "스트라이크" : ""
@@ -79,14 +62,11 @@ class App {
 
     // 3스트라이크인 경우
     if (strike === 3) {
-      result = "3스트라이크";
+      this.game_over = true;
     }
 
     // 게임 종료 여부 확인
-    if (strike === 3) {
-      this.gameOver = true;
-      result += " 3개의 숫자를 모두 맞히셨습니다! 게임 종료";
-    } else if (strike === 0 && ball === 0) {
+    if (strike === 0 && ball === 0) {
       result = "낫싱";
     }
 
@@ -99,39 +79,44 @@ class App {
     const user_restart = await MissionUtils.Console.readLineAsync(
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
     );
+    if (user_restart !== "1" && user_restart !== "2") {
+      await MissionUtils.Console.print(
+        "[ERROR] 잘못된 입력 형식입니다. 게임을 종료합니다"
+      );
+      return;
+    }
     return user_restart === "1";
   }
 
   async play() {
-    await MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
+    try {
+      await MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
 
-    // true상태이면 계속해서 게임 실행
-    while (true) {
-      this.gameOver = false;
-      this.computer = [];
-      this.random_number_pick();
-      // await MissionUtils.Console.print(
-      //   `랜덤으로 선택된 숫자 ${this.computer.join("")}`
-      // );
+      while (true) {
+        this.game_over = false;
+        this.computer = [];
+        this.random_number_pick();
 
-      // 3스트라이크가 나올때까지 실행
-      while (!this.gameOver) {
-        let user_input_arr;
-        try {
-          user_input_arr = await this.get_player_input();
+        while (!this.game_over) {
+          const user_input = await this.get_player_input();
           await MissionUtils.Console.print(
-            "사용자가 입력한 숫자:" + user_input_arr.join("")
+            "사용자가 입력한 숫자:" + user_input.join("")
           );
-        } catch (error) {
-          await MissionUtils.Console.print(error.message);
+          const result = this.compare_numbers(this.computer, user_input);
+          MissionUtils.Console.print(result);
+          if (this.game_over === true) {
+            MissionUtils.Console.print(
+              "3개의 숫자를 모두 맞히셨습니다! 게임 종료"
+            );
+          }
         }
-        await MissionUtils.Console.print(
-          this.compare_numbers(this.computer, user_input_arr)
-        );
+
+        if (!(await this.restart_game())) {
+          return;
+        }
       }
-      if (!(await this.restart_game())) {
-        return;
-      }
+    } catch (error) {
+      throw new Error("[ERROR] 잘못된 입력 형식입니다. 게임을 종료합니다");
     }
   }
 }
