@@ -21,10 +21,13 @@ class User {
     let user = [];
     let number = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
     // #2.1 아무것도 입력하지 않은경우
-    if(number.length==0){ 
-      throw("[ERROR] 아무것도 입력하지 않았습니다.")
+    if (number.length == 0) {
+      throw "[ERROR] 아무것도 입력하지 않았습니다.";
     }
-    
+    // #2.2 숫자가 아닌 값을 입력한경우
+    if (isNaN(Number(number))) {
+      throw "[ERROR] 숫자를 입력하지 않았습니다.";
+    }
     if (number.length == 3) {
       for (let i = 0; i < number.length; i++) {
         user.push(Number(number[i]));
@@ -48,13 +51,13 @@ class App {
         let ballCnt = 0;
         let answer = "";
         let user = new User();
-        try{
+        try {
           await user.getNumber();
-        }catch(e){
+        } catch (e) {
           MissionUtils.Console.print(e);
           return;
         }
-        
+
         for (let i = 0; i < com.comNum.length; i++) {
           if (com.comNum[i] == user.userNum[i]) {
             strikeCnt += 1;
