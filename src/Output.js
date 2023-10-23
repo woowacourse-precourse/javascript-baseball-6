@@ -2,9 +2,10 @@ import { Console } from '@woowacourse/mission-utils';
 import { 
     START_MESSAGE,
     ERROR_MESSAGE,
+    CLOSE_MESSAGE,
     NOTHING,
-    START_MESSAGE,
     STRIKE,
+    BALL,
 } from './Define';
 
 export const PRINT_START_MESSAGE = () => {
