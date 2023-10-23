@@ -38,6 +38,10 @@ class Baseball {
     ).length;
   }
 
+  static isBallAndStrike(strikeResult, ballResult) {
+    return `${ballResult}볼 ${strikeResult}스트라이크`;
+  }
+
   static isStrike(count) {
     return `${count}스트라이크`;
   }
