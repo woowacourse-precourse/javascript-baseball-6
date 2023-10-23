@@ -29,7 +29,7 @@ class App {
         this.setUserInput(randomNumber);
       }
     } catch (error) {
-      MissionUtils.Console.print(`[ERROR] 숫자가 잘못된 형식입니다.`);
+      throw new Error("[ERROR]");
     }
   }
 
@@ -53,8 +53,9 @@ class App {
       this.lengthValidation(inputNumber) ||
       this.rangeValidation(inputNumber) ||
       this.duplicateValidation(inputNumber)
-    )
-      throw new Error("잘못된 값 입력됨");
+    ) {
+      throw new Error("[ERROR]");
+    }
     return inputNumber;
   }
 
@@ -103,11 +104,9 @@ class App {
         this.setUserInput(this.setRandomNumber());
       } else if (userInput === "2") {
         MissionUtils.Console.print("게임 종료");
-      } else {
-        throw new Error();
       }
     } catch (error) {
-      MissionUtils.Console.print(`[ERROR] 숫자가 잘못된 형식입니다.`);
+      throw new Error("[ERROR]");
     }
   }
 
