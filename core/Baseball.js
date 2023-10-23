@@ -13,9 +13,7 @@ class Baseball {
     if (strikeResult !== 0 && ballResult !== 0)
       return Baseball.isBallAndStrike(strikeResult, ballResult);
 
-    return strikeResult > ballResult
-      ? `${Baseball.isStrike(strikeResult)}`
-      : `${Baseball.isBall(ballResult)}`;
+    return Baseball.getFinalResult(strikeResult, ballResult);
   }
 
   static getFinalResult(strikeResult, ballResult) {
