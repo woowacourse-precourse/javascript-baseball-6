@@ -34,9 +34,6 @@ class NumberBaseballGame {
     this.#min = min;
     this.#max = max;
     this.#count = count;
-
-    this.#strike = 0;
-    this.#ball = 0;
   }
 
   #validateArguments(min, max, count) {
@@ -54,25 +51,29 @@ class NumberBaseballGame {
   async play() {
     IOHandler.displayMessage(NumberBaseballGame.#GAME_MESSAGE.START);
 
-    do {
-      const targetNumbers = Utils.getUniqueRandomNumbersInRange(
-        this.#min,
-        this.#max,
-        this.#count
-      );
-
+    try {
       do {
-        this.#resetStrikeAndBall();
-
-        const inputNumbers = await IOHandler.getUserInputNumber(
-          NumberBaseballGame.#GAME_MESSAGE.USER_INPUT
+        const targetNumbers = Utils.getUniqueRandomNumbersInRange(
+          this.#min,
+          this.#max,
+          this.#count
         );
-        this.#validateUserInput(inputNumbers);
 
-        this.#calculateStrikeAndBall(targetNumbers, inputNumbers);
-        this.#displayGameResult();
-      } while (!this.#isGameWon());
-    } while (await this.#askPlayAgain());
+        do {
+          this.#resetStrikeAndBall();
+
+          const inputNumbers = await IOHandler.getUserInputNumber(
+            NumberBaseballGame.#GAME_MESSAGE.USER_INPUT
+          );
+          this.#validateUserInput(inputNumbers);
+
+          this.#calculateStrikeAndBall(targetNumbers, inputNumbers);
+          this.#displayGameResult();
+        } while (!this.#isGameWon());
+      } while (await this.#askPlayAgain());
+    } catch (error) {
+      throw new Error(error.message);
+    }
   }
 
   #resetStrikeAndBall() {
