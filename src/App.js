@@ -1,8 +1,6 @@
-module.exports = App;
+const { MissionUtils } = require('@woowacourse/mission-utils');
 
-import { MissionUtils } from '@woowacourse/mission-utils';
-
-export default class App {
+module.exports = class App {
   constructor() {
     this.secretNumber = this.generateRandomNumber();
     this.attempts = 0;
@@ -77,6 +75,3 @@ export default class App {
     }
   }
 }
-
-const app = new App();
-app.play();
