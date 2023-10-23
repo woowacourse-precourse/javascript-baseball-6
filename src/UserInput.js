@@ -2,19 +2,20 @@ import { Console } from '@woowacourse/mission-utils';
 
 class UserInput {
 	checkBaseballInputIsValid(userInput) {
-		if (userInput.length !== 3) throw Error('세 자리 수를 입력해주세요.');
+		if (userInput.length !== 3) throw Error('[ERROR] 세 자리 수를 입력해주세요.');
 
-		if (userInput.includes('0')) throw Error('범위 내 숫자를 입력해주세요');
+		if (userInput.includes('0')) throw Error('[ERROR] 범위 내 숫자를 입력해주세요');
 
 		const userInputNumber = Number(userInput);
-		if (isNaN(userInputNumber)) throw Error('숫자를 입력해주세요.');
+		if (isNaN(userInputNumber)) throw Error('[ERROR] 숫자를 입력해주세요.');
 
 		const userInputSet = new Set(userInput.split(''));
-		if (userInput.length !== userInputSet.size) throw Error('서로 다른 숫자를 입력해주세요');
+		if (userInput.length !== userInputSet.size)
+			throw Error('[ERROR] 서로 다른 숫자를 입력해주세요');
 	}
 
 	checkGameEndInputIsValid(userInput) {
-		if (userInput !== '1' && userInput !== '2') throw Error('1 또는 2를 입력해주세요.');
+		if (userInput !== '1' && userInput !== '2') throw Error('[ERROR] 1 또는 2를 입력해주세요.');
 	}
 
 	async baseballInput(question = '숫자를 입력해주세요 : ') {
@@ -23,7 +24,7 @@ class UserInput {
 			this.checkBaseballInputIsValid(userInput);
 			return userInput;
 		} catch (err) {
-			console.error(err);
+			throw Error(err);
 		}
 	}
 
@@ -33,7 +34,7 @@ class UserInput {
 			this.checkGameEndInputIsValid(userInput);
 			return userInput;
 		} catch (err) {
-			console.error(err);
+			throw Error(err);
 		}
 	}
 }
