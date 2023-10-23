@@ -1,4 +1,7 @@
 class App {
+  constructor() {
+    this.secretNumber = null;
+  }
   async play() {}
 }
 
