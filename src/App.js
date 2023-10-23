@@ -33,6 +33,7 @@ class App {
   getUserNumberInput = async () => {
     const input = await Console.readLineAsync("숫자를 입력해주세요 : ");
     if (!this.checkUserNumberValidation(input)) {
+      Console.print("[ERROR] 입력이 잘못된 형식입니다.");
       throw new Error("[ERROR] 입력이 잘못된 형식입니다.");
     }
     return Array.from(input).map((el) => Number(el));
@@ -46,6 +47,7 @@ class App {
   getRestartOrEndInput = async () => {
     const input = await Console.readLineAsync();
     if (!this.checkRestartOrEndValidation(input)) {
+      Console.print("[ERROR] 입력이 잘못된 형식입니다.");
       throw new Error("[ERROR] 입력이 잘못된 형식입니다.");
     }
     return input;
@@ -68,41 +70,35 @@ class App {
   };
 
   async play() {
-    try {
-      this.gameStart();
+    this.gameStart();
+
+    while (true) {
+      this.computerNumber = this.computer.createRandomNumber();
 
       while (true) {
-        this.computerNumber = this.computer.createRandomNumber();
+        this.userNumber = await this.getUserNumberInput();
 
-        while (true) {
-          this.userNumber = await this.getUserNumberInput();
+        const result = await this.calculateGameResult(
+          this.computerNumber,
+          this.userNumber
+        );
 
-          const result = await this.calculateGameResult(
-            this.computerNumber,
-            this.userNumber
-          );
+        if (result.ball === 0 && result.strike === 0) {
+          Console.print("낫싱");
+        } else if (result.strike === 3) {
+          Console.print("3스트라이크");
+          Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
 
-          if (result.ball === 0 && result.strike === 0) {
-            Console.print("낫싱");
-          } else if (result.strike === 3) {
-            Console.print("3스트라이크");
-            Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-
-            Console.print(
-              "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
-            );
-            const input = await this.getRestartOrEndInput();
-            if (input === "1") {
-              break;
-            }
-            return;
-          } else {
-            Console.print(`${result.ball}볼 ${result.strike}스트라이크`);
+          Console.print("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+          const input = await this.getRestartOrEndInput();
+          if (input === "1") {
+            break;
           }
+          return;
+        } else {
+          Console.print(`${result.ball}볼 ${result.strike}스트라이크`);
         }
       }
-    } catch (err) {
-      Console.print(err.message);
     }
   }
 }
