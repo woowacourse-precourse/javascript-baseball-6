@@ -19,12 +19,12 @@ class App {
   }
 
   async play() {
-    const ANSWER1 = await Console.readLineAsync(this.msg.input);
-    const strike = this.validateNumber(ANSWER1);
-    if (strike === 3) {
+    const GUESS_ANS = await Console.readLineAsync(this.msg.input);
+    const STRIKE = this.validateNumber(GUESS_ANS);
+    if (STRIKE === 3) {
       Console.print(this.msg.end);
-      const ANSWER2 = await Console.readLineAsync(this.msg.select);
-      this.endGame(ANSWER2);
+      const END_ANS = await Console.readLineAsync(this.msg.select);
+      this.endGame(END_ANS);
     } else {
       return this.play();
     }
@@ -38,7 +38,7 @@ class App {
         RANDOM.push(NUMBER);
       }
     }
-    return [...RANDOM];
+    return RANDOM;
   }
 
   validateNumber(answer) {
@@ -49,12 +49,12 @@ class App {
       }
     });
     if (!MY_SET.has(0) && MY_SET.size === 3) {
-      return this.continueGame([...MY_SET]);
+      return this.getStrike([...MY_SET]);
     }
     throw new Error(this.msg.error);
   }
 
-  continueGame(numbers) {
+  getStrike(numbers) {
     let ball = 0;
     let strike = 0;
     numbers.forEach((num, idx) => {
@@ -70,17 +70,14 @@ class App {
   }
 
   printHint(ball, strike) {
-    let hint = '';
     if (ball > 0 && strike > 0) {
-      hint = `${ball}${this.msg.ball} ${strike}${this.msg.strike}`;
+      return `${ball}${this.msg.ball} ${strike}${this.msg.strike}`;
     } else if (ball > 0) {
-      hint = `${ball}${this.msg.ball}`;
+      return `${ball}${this.msg.ball}`;
     } else if (strike > 0) {
-      hint = `${strike}${this.msg.strike}`;
-    } else {
-      hint = this.msg.nothing;
+      return `${strike}${this.msg.strike}`;
     }
-    return hint;
+    return this.msg.nothing;
   }
 
   endGame(answer) {
@@ -94,7 +91,7 @@ class App {
   }
 }
 
-const app = new App();
-app.play();
+const APP = new App();
+APP.play();
 
 export default App;
