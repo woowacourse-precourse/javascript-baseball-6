@@ -1,7 +1,9 @@
+import { ERROR } from '../core/Constants';
+
 class GameCondition {
   static checkAllError(num) {
     if (!(GameCondition.checkOneOrTwo(num) && GameCondition.checkLength(num))) {
-      throw '숫자가 잘못된 형식입니다.';
+      throw ERROR.INVALID_NUMBER;
     }
   }
 
