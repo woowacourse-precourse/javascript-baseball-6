@@ -10,13 +10,14 @@ export default class opponent{
   }
 
   makeRandomNumber() {
-    this.#computerNumber = [];
-    while (this.#computerNumber.length < 3) {
+    const computerNumber = new Set();
+  
+    while (computerNumber.size < 3) {
       const number = Random.pickNumberInRange(1, 9);
-      if (!this.#computerNumber.includes(number)) {
-        this.#computerNumber.push(number);
-      }
+      computerNumber.add(number);
     }
+  
+    this.#computerNumber = Array.from(computerNumber);
     console.log(this.#computerNumber);
   }
 
