@@ -10,11 +10,13 @@ class Baseball {
   }
 
   static getGameResult(strikeResult, ballResult) {
-    if (strikeResult === GAME.ZERO && ballResult === GAME.ZERO)
+    if (strikeResult === GAME.ZERO && ballResult === GAME.ZERO) {
       return GAME.NOTHING;
+    }
 
-    if (strikeResult !== GAME.ZERO && ballResult !== GAME.ZERO)
+    if (strikeResult !== GAME.ZERO && ballResult !== GAME.ZERO) {
       return Baseball.isBallAndStrike(strikeResult, ballResult);
+    }
 
     return Baseball.getFinalResult(strikeResult, ballResult);
   }

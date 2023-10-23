@@ -59,8 +59,9 @@ class App {
       GameCondition.checkAllError(ask);
       this.print(ask);
 
-      if (ask === COMMAND.RESTART)
+      if (ask === COMMAND.RESTART) {
         await this.enterValue(RandomNumber.createNumber());
+      }
     } catch (error) {
       this.throwError(error);
     }
