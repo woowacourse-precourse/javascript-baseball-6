@@ -29,7 +29,7 @@ class App {
         this.setUserInput(randomNumber);
       }
     } catch (error) {
-      throw new Error("[ERROR]");
+      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
     }
   }
 
@@ -104,9 +104,11 @@ class App {
         this.setUserInput(this.setRandomNumber());
       } else if (userInput === "2") {
         MissionUtils.Console.print("게임 종료");
+      } else {
+        throw error();
       }
     } catch (error) {
-      throw new Error("[ERROR]");
+      throw error("[ERROR] 숫자가 잘못된 형식입니다.");
     }
   }
 
