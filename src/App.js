@@ -16,15 +16,14 @@ class App {
 
   // 1-2. 정답 설정
   setAnswer() {
-    let ans = [];
-    while (ans.length < 3) {
+    while (this.answer.length < 3) {
       const num = Random.pickNumberInRange(1, 9);
-      if (!ans.includes(num)) {
-        ans.push(num);
+      if (!this.answer.includes(num)) {
+        this.answer.push(num);
       }
     }
 
-    Console.print(ans);
+    Console.print("answer : " + this.answer);
   }
 
   // 2. 입력값 받기
@@ -64,10 +63,35 @@ class App {
     });
   }
 
+  // 3. 정답 비교
+  async checkAns() {
+    let isCorrect = false;
+    // while(!isCorrect){
+    await this.userInput();
+
+    Console.print("userNum " + typeof this.userNum);
+    Console.print("answer " + typeof this.answer[0]);
+
+    let inputArr = this.userNum.split("");
+    let strike = 0;
+    let ball = 0;
+
+    // 1) 스트라이크 계산
+    for (let i = 0; i < 3; i++) {
+      if (+inputArr[i] === this.answer[i]) {
+        strike++;
+      }
+    }
+    Console.print("strike " + strike);
+
+    // }
+  }
+
   async play() {
     this.init();
     this.setAnswer();
-    await this.userInput();
+
+    await this.checkAns();
   }
 }
 
