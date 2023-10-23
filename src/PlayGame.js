@@ -1,6 +1,8 @@
 import { Random, Console } from "@woowacourse/mission-utils";
 
-export default function PlayGame(initialState = { comuter: [] }) {
+export default function PlayGame(
+  initialState = { computer: [], input: [], START_GAME: true }
+) {
   this.state = initialState;
 
   this.setState = (nextState) => {
@@ -12,9 +14,54 @@ export default function PlayGame(initialState = { comuter: [] }) {
     this.setState({ ...this.state, computer: RANDOM_NUMBER });
   };
 
-  this.play = () => {
+  this.play = async () => {
     init();
+
     Console.print("숫자 야구 게임을 시작합니다.");
+    while (this.state.START_GAME) {
+      await userInputValue();
+      checkValue();
+    }
+  };
+
+  const userInputValue = async () => {
+    try {
+      const InputValue = await Console.readLineAsync("숫자를 입력해주세요 : ");
+      this.setState({ ...this.state, input: InputValue.split("").map(Number) });
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
+
+  const checkValue = () => {
+    const { input, computer } = this.state;
+    const checkValueResult = { strike: 0, ball: 0 };
+    input.map((num, idx) => {
+      if (num === computer[idx]) {
+        checkValueResult.strike++;
+      } else if (computer.indexOf(num) !== -1) {
+        checkValueResult.ball++;
+      }
+    });
+    checkValueResultPrint(checkValueResult);
+  };
+
+  const checkValueResultPrint = (checkValueResult) => {
+    const { strike, ball } = checkValueResult;
+    if (strike === 3) {
+      Console.print("3스트라이크");
+      Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+      this.setState({ ...this.state, START_GAME: false });
+      return;
+    }
+    if (strike === 0 && ball === 0) {
+      Console.print("낫싱");
+    } else {
+      const result =
+        (strike === 0 ? "" : `${strike}스트라이크 `) +
+        (ball === 0 ? "" : `${ball}볼`);
+      Console.print(result);
+    }
   };
 
   const RandomNumber = () => {

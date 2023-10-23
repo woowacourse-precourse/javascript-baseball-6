@@ -1,7 +1,7 @@
 import PlayGame from "./PlayGame.js";
 
 export default function App() {
-  this.play = async () => {
+  this.play = () => {
     const playGame = new PlayGame();
     playGame.play();
   };
