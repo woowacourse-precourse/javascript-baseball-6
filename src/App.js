@@ -1,12 +1,12 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 
 // TODO: Mission 1: 메세지 출력 함수 구현
-function printMessage(message) {
+function printMessage(message = {}) {
   MissionUtils.Console.print(message);
 }
 
 // TODO: Mission 2: 메세지 입력 함수 구현
-async function inputMessage(message) {
+async function inputMessage(message = {}) {
   return await MissionUtils.Console.readLineAsync(message);
 }
 
@@ -33,34 +33,33 @@ async function getUserNumber() {
 }
 
 // TODO: Mission 5: 스트라이크, 볼 계산 함수 구현
-function calculateScore(computer, user) {
+function calculateScore(computer = {}, user = {}) {
   let strikeCount = 0;
   let ballCount = 0;
-
-  for (let i = 0; i < computer.length; i++) {
-    for (let j = 0; j < user.length; j++) {
-      if (computer[i] === user[j]) {
-        if (i === j) {
+  computer.map((computerItems, computerIndex) => {
+    user.map((userItems, userIndex) => {
+      if (computerItems === userItems) {
+        if (computerIndex === userIndex) {
           strikeCount++;
         } else {
           ballCount++;
         }
       }
-    }
-  }
+    });
+  });
   return { strikeCount, ballCount };
 }
 
 // TODO: Mission 6: 스트라이크, 볼 계산 후 문구 출력하는 함수 구현
 function printScore(strike = {}, ball = {}) {
-  if (strike === 0 && ball === 0) {
+  if (!strike && !ball) {
     printMessage("낫싱");
   } else {
     let output = "";
-    if (ball > 0) {
+    if (ball) {
       output += `${ball}볼 `;
     }
-    if (strike > 0) {
+    if (strike) {
       output += `${strike}스트라이크`;
     }
     printMessage(output);
@@ -76,9 +75,8 @@ async function gameStartOver() {
 }
 
 // TODO: Mission 8: "3스트라이크"이면, 게임 종료 하는 함수 구현
-async function isThreeStrike(computerList) {
+async function isThreeStrike(computerList = {}) {
   let endPoint = false;
-
   while (!endPoint) {
     const userList = await getUserNumber(computerList);
     const { strikeCount, ballCount } = calculateScore(computerList, userList);
