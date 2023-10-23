@@ -18,7 +18,7 @@ class Computer {
     return randomNumbers;
   }
 
-  compareUserNumbersWithAnswer(userNumbers) {
+  compareUserNumbersWithRandomNumber(userNumbers) {
     const numsOfStrike = this.#countStrike(userNumbers);
     const numsOfBall = this.#countBall(userNumbers);
     return this.#makeResultString(numsOfStrike, numsOfBall);
