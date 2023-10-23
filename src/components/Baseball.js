@@ -7,6 +7,10 @@ import printBallCount from '../utils/printBallCount.js';
 
 class Baseball {
   constructor() {
+    Console.print(GAME_MESSAGE.START_GAME);
+  }
+
+  setup() {
     /** @type {{computer: number[], user: number[]}} */
     this.player = {
       computer: [],
@@ -18,22 +22,20 @@ class Baseball {
       ball: 0,
       strike: 0,
     };
-
-    Console.print(GAME_MESSAGE.START_GAME);
   }
 
   /** 숫자 야구 게임 시작 */
   async startGame() {
+    this.setup();
+
     const computer = new Computer();
     this.player.computer = computer.getNumber();
 
-    while (true) {
+    while (this.count.strike !== 3) {
       const user = new User();
       this.player.user = await user.getNumber();
 
       this.compareNumber();
-
-      if (this.count.strike === 3) break;
     }
 
     if (this.count.strike === 3) {
