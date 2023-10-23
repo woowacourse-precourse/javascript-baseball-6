@@ -2,9 +2,13 @@ import { Console } from "@woowacourse/mission-utils";
 import { validateThreeNaturalNumbers, validateEndDecision } from "./validators.js";
 import { message } from "./constants.js";
 
+const splitStringIntoNumbers = (numberString) => {
+  return numberString.split("").map((char) => parseInt(char, 10));
+};
+
 const readAnswerInput = async () => {
   const input = await Console.readLineAsync(message.ANSWER_QUERY);
-  const parsedInput = input.split("").map((char) => parseInt(char, 10));
+  const parsedInput = splitStringIntoNumbers(input);
 
   validateThreeNaturalNumbers(parsedInput);
   return parsedInput;

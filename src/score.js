@@ -12,19 +12,22 @@ const evaluateScore = (numbers, answerNumbers) => {
   };
 };
 
-const printScore = ({ ballCount, strikeCount }) => {
+const getScore = ({ ballCount, strikeCount }) => {
   const isNothing = !ballCount && !strikeCount;
   const hasBallAndStrike = ballCount && strikeCount;
 
-  const hint = isNothing
+  return isNothing
     ? "낫싱"
     : hasBallAndStrike
     ? `${ballCount}볼 ${strikeCount}스트라이크`
     : ballCount
     ? `${ballCount}볼`
     : `${strikeCount}스트라이크`;
+};
 
-  Console.print(hint);
+const printScore = ({ ballCount, strikeCount }) => {
+  const score = getScore({ ballCount, strikeCount });
+  Console.print(score);
 };
 
 export { evaluateScore, printScore };
