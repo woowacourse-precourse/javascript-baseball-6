@@ -28,7 +28,7 @@ export default class App {
           : (this.#isFinish = true);
       }
     } catch (e) {
-      console.error(e);
+      throw new Error(e);
     }
   }
 
