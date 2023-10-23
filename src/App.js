@@ -12,7 +12,8 @@ const MESSAGE = {
 const ERROR_MESSAGE = {
   LENGTH: "[ERROR] 입력한 문자의 길이는 3이어야 합니다.",
   NUMBER: "[ERROR] 1~9 사이의 양수만 입력 가능합니다.",
-  IS_RESTART : "[ERROR] 게임의 재시작 종료를 위해서는 1 혹은 2만 입력해주세요",
+  IS_RESTART : "[ERROR] 게임의 재시작 종료를 위해서는 1 혹은 2만 입력해주세요.",
+  DUPLICATE : "[ERROR] 중복된 수를 입력했습니다. 각기 다른 수를 입력해주세요.",
 }
 
 
@@ -53,19 +54,14 @@ class App {
   checkStrikeAndBall(output){
     const check = {
       ball : 0,
-      strike: 0
+      strike: 0,
     }
-
     for(let i=0; i<output.length; i++ ){
       const num = Number(output[i]);
       const index = this.computerNumber.indexOf(num);
       if(index === -1) continue
-      else if(index > -1) {
-        if(index === i) check.strike+=1;
-        else check.ball+=1;
-      }
+      if(index > -1) index === i ? check.strike+=1 : check.ball+=1;
     }
-    
     return check;
   }
 
@@ -79,24 +75,24 @@ class App {
   async restart(){
     Console.print(MESSAGE.END);
     Console.print(MESSAGE.RESTART); 
-    const isRestart = Number(await Console.readLineAsync(""));
-    if(isRestart !== 1 && isRestart !==2) throw new Error(ERROR_MESSAGE.IS_RESTART);
-    if(isRestart === 1){
+    const isRestart = (await Console.readLineAsync(""));
+    if(isRestart !== "1" && isRestart !=="2") throw new Error(ERROR_MESSAGE.IS_RESTART);
+    if(isRestart === "1"){
       this.computerNumber = this.makeRandomComputerNumber();
        await this.playUser()
     }
-    else {
-      Console.print("게임 종료")
-    };
   }
 
   checkOutputError(str){
     if(str.length<3 || str.length >3) throw new Error(ERROR_MESSAGE.LENGTH);
     if(REGEXP.test(str)) throw new Error(ERROR_MESSAGE.NUMBER);
+    const checkdouble = str.split("")
+    const set = new Set(checkdouble)
+    if(set.size !== 3) throw new Error(ERROR_MESSAGE.DUPLICATE)
   }
 }
 
 const app = new App();
-app.play();
+//app.play();
 
 export default App;
