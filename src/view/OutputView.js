@@ -6,7 +6,15 @@ const OutputView = {
     MissionUtils.Console.print(OutputString.OUTPUT_GAME_START)
   },
 
-  printResult
+  printResultString(ballCount, strikeCount) {
+    const result = []
+
+    if (ballCount !== 0) result.push(`${ballCount}볼`)
+    if (strikeCount !== 0) result.push(`${strikeCount}스트라이크`)
+    if (ballCount === 0 && strikeCount === 0) result.push('낫싱')
+
+    MissionUtils.Console.print(result.join(' '))
+  },
 }
 
 export default OutputView
