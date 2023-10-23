@@ -11,7 +11,7 @@ class NumberBaseballGame {
   #computerNumbers = this.#getComputerNumbers();
 
   constructor() {
-    console.log(this.#computerNumbers);
+    // console.log(this.#computerNumbers); // 개발용
     this.player = new Player();
     this.umpire = new Umpire();
     Console.print(Message.START);
@@ -19,7 +19,6 @@ class NumberBaseballGame {
 
   async play() {
     const playerNumbers = await this.#askPlayerNumbers();
-    Console.print(`${Query.NUMBERS}${playerNumbers.join("")}`);
     const result = this.umpire.umpire(this.#computerNumbers, playerNumbers);
     Console.print(result);
     if (result === `3${BaseballTerms.STRIKE}`) await this.#strikeOut();
@@ -34,7 +33,7 @@ class NumberBaseballGame {
 
   async #restart() {
     this.#computerNumbers = this.#getComputerNumbers();
-    console.log(this.#computerNumbers);
+    // console.log(this.#computerNumbers); // 개발용
     await this.play();
   }
 
