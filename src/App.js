@@ -86,7 +86,25 @@ const game_reset_or_end = async () => {
 };
 
 class App {
-  async play() {}
+  async play() {
+    MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
+
+    // 숫자 야구 게임 시작
+    while (true) {
+      const random_number = create_random_number();
+
+      while (true) {
+        const user_input = await get_user_guess();
+        const strike_result = await guess_result(random_number, user_input);
+
+        if (strike_result === 3) break;
+      }
+
+      const end_game = await game_reset_or_end();
+
+      if (end_game) break;
+    }
+  }
 }
 
 export default App;
