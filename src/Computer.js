@@ -1,5 +1,11 @@
 import { Random } from "@woowacourse/mission-utils";
 
+const COMPUTER_ERROR_MESSAGE = {
+  ARRAY: "[ERROR] state는 배열이어야 합니다.",
+  LENGTH: "[ERROR] 세 자리 숫자만 입력 가능 합니다.",
+  RANGE: "[ERROR] state의 모든 요소는 1과 9 사이의 숫자여야 합니다.",
+  UNIQUE: "[ERROR] state의 각 숫자는 서로 달라야합니다.",
+};
 export default class Computer {
   constructor({ initialState }) {
     this.validationState(initialState);
@@ -13,8 +19,7 @@ export default class Computer {
 
   validationState(state) {
     if (!Array.isArray(state)) {
-      console.error("state must be an array");
-      throw new Error("[ERROR]");
+      throw new Error(COMPUTER_ERROR_MESSAGE.ARRAY);
     }
 
     if (this.state === undefined && state.length === 0) {
@@ -22,14 +27,18 @@ export default class Computer {
     }
 
     if (state.length !== 3) {
-      console.error("state must have exactly three items");
-      throw new Error("[ERROR]");
+      throw new Error(COMPUTER_ERROR_MESSAGE.LENGTH);
     }
 
     for (const item of state) {
       if (typeof item !== "number" || item < 1 || item > 9) {
-        console.error("All items in state must be numbers between 1 and 9");
-        throw new Error("[ERROR]");
+        throw new Error(COMPUTER_ERROR_MESSAGE.RANGE);
+      }
+
+      const uniqueDigits = [...new Set(state)];
+
+      if (uniqueDigits.length !== state.length) {
+        throw new Error(COMPUTER_ERROR_MESSAGE.UNIQUE);
       }
     }
   }

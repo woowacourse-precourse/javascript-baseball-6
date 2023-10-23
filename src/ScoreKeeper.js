@@ -1,4 +1,19 @@
 import { Console } from "@woowacourse/mission-utils";
+
+const SCOREKEEPER_ERROR_MESSAGE = {
+  OBJECT: "[ERROR] 입력값은 객체여야 합니다.",
+  PROPERTY_STRIKES: "[ERROR] 'strikes'는 음수가 아닌 숫자여야 합니다.",
+  PROPERTY_BALLS: "[ERROR] 'balls'는 음수가 아닌 숫자여야 합니다.",
+  ARRAY: "[ERROR] 값은 배열이어야 합니다.",
+  LENGTH: "[ERROR] 값은 정확히 세 개의 요소를 가져야 합니다.",
+  RANGE: "[ERROR] 값의 모든 요소는 1과 9 사이의 숫자여야 합니다.",
+};
+
+const SCOREKEEPER_PRINT_MESSAGE = {
+  NOTHING: "낫싱",
+  BALLS: (balls) => `${balls}볼`,
+  STRIKES: (strikes) => `${strikes}스트라이크`,
+};
 export default class ScoreKeeper {
   constructor({ initialState }) {
     this.validationState(initialState);
@@ -12,8 +27,7 @@ export default class ScoreKeeper {
 
   validationState(state) {
     if (typeof state !== "object") {
-      console.error("Input must be an object");
-      throw new Error("[ERROR]");
+      throw new Error(SCOREKEEPER_ERROR_MESSAGE.OBJECT);
     }
 
     if (
@@ -21,8 +35,7 @@ export default class ScoreKeeper {
       typeof state.strikes !== "number" ||
       state.strikes < 0
     ) {
-      console.error("'strikes' must be a non-negative number");
-      throw new Error("[ERROR]");
+      throw new Error(SCOREKEEPER_ERROR_MESSAGE.PROPERTY_STRIKES);
     }
 
     if (
@@ -30,8 +43,7 @@ export default class ScoreKeeper {
       typeof state.balls !== "number" ||
       state.balls < 0
     ) {
-      console.error("'balls' must be a non-negative number");
-      throw new Error("[ERROR]");
+      throw new Error(SCOREKEEPER_ERROR_MESSAGE.PROPERTY_BALLS);
     }
   }
 
@@ -39,15 +51,15 @@ export default class ScoreKeeper {
     const { strikes, balls } = this.state;
 
     if (strikes === 0 && balls === 0) {
-      Console.print("낫싱");
+      Console.print(SCOREKEEPER_PRINT_MESSAGE.NOTHING);
     } else {
       let result = "";
       if (balls > 0) {
-        result += `${balls}볼`;
+        result += SCOREKEEPER_PRINT_MESSAGE.BALLS(balls);
       }
       if (strikes > 0) {
         if (result.length > 0) result += " ";
-        result += `${strikes}스트라이크`;
+        result += SCOREKEEPER_PRINT_MESSAGE.STRIKES(strikes);
       }
       Console.print(result);
     }
@@ -72,19 +84,16 @@ export default class ScoreKeeper {
   calculateValidation(AValue, BValue) {
     [(AValue, BValue)].forEach((value) => {
       if (!Array.isArray(value)) {
-        console.error("value must be an array");
-        throw new Error("[ERROR]");
+        throw new Error(SCOREKEEPER_ERROR_MESSAGE.ARRAY);
       }
 
       if (value.length !== 3) {
-        console.error("value must have exactly three items");
-        throw new Error("[ERROR]");
+        throw new Error(SCOREKEEPER_ERROR_MESSAGE.LENGTH);
       }
 
       for (const item of value) {
         if (typeof item !== "number" || item < 1 || item > 9) {
-          console.error("All items in value must be numbers between 1 and 9");
-          throw new Error("[ERROR]");
+          throw new Error(SCOREKEEPER_ERROR_MESSAGE.RANGE);
         }
       }
     });

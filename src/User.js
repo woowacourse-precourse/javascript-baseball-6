@@ -1,3 +1,7 @@
+const USER_ERROR_MESSAGE = {
+  LENGTH: "[ERROR] 세 자리 숫자만 입력 가능 합니다.",
+  UNIQUE: "[ERROR] state의 각 숫자는 서로 달라야합니다.",
+};
 export default class User {
   constructor({ initialState }) {
     this.validationState(initialState);
@@ -12,14 +16,13 @@ export default class User {
     const inputString = String(state);
 
     if (inputString.length !== 3) {
-      throw new Error("[ERROR] User input must be exactly three digits.");
+      throw new Error(USER_ERROR_MESSAGE.LENGTH);
     }
 
     const uniqueDigits = [...new Set(inputString.split(""))];
 
     if (uniqueDigits.length !== inputString.length) {
-      console.error("All digits in the user input must be unique.");
-      throw new Error("[ERROR]");
+      throw new Error(USER_ERROR_MESSAGE.UNIQUE);
     }
   }
 
