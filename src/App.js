@@ -37,8 +37,8 @@ class App {
     let stop = false;
     let error = false;
 
+    Console.print("숫자 야구 게임을 시작합니다.");
     while (stop === false && error === false) {
-      Console.print("숫자 야구 게임을 시작합니다.");
       // 정답 값 랜덤으로 생성하기
       const COMPUTER = [];
 
