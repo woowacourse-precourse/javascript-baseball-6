@@ -44,31 +44,24 @@ class App {
     }
   }
 
-  playInning() {
-    return new Promise(resolve => {
-      // 입력을 받을 때까지 기다리기 위한 프라미스
-      getUserInput(QUERY.guess, REGEX.guess)
-        .then(guess => {
-          const [strikeCount, ballCount] = this.evaluateGuess(guess);
-          let message = "";
-          if (ballCount > 0) {
-            message += `${ballCount}볼`;
-          }
-          if (strikeCount > 0) {
-            message += `${message ? " " : ""}${strikeCount}스트라이크`;
-          }
-          if (!message) {
-            message = "낫싱";
-          }
-          resolve(message);
-        })
-        .catch(error => {
-          Console.print(error.message);
-        });
-    });
+  async playInning() {
+    const guess = await getUserInput(QUERY.guess, REGEX.guess);
+    const [strikeCount, ballCount] = this.evaluateGuess(guess);
+    let message = "";
+    if (ballCount > 0) {
+      message += `${ballCount}볼`;
+    }
+    if (strikeCount > 0) {
+      message += `${message ? " " : ""}${strikeCount}스트라이크`;
+    }
+    if (!message) {
+      message = "낫싱";
+    }
+    return message;
   }
 
   evaluateGuess(guessNumbers) {
+    console.log(guessNumbers);
     const numbers = [...guessNumbers].map(str => Number(str));
     Console.print(numbers);
     let strikeCount = 0;
