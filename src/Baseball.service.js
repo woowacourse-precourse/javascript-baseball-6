@@ -46,7 +46,15 @@ export class BaseballService {
     return { ball, strike };
   }
 
-  async retry() {}
+  async retry() {
+    Console.print('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+    const baseballRetryInput = await Console.readLineAsync(this.query);
+    this.validateRetryInput(baseballRetryInput);
+    if (baseballRetryInput === '2') {
+      return;
+    }
+    this.baseballQuery();
+  }
 
   printResult(ball, strike) {
     if (!ball && !strike) {
