@@ -30,34 +30,33 @@ class App {
 class NumberBaseball {
   constructor() {
     this.computer = null;
+    this.strike = null;
+    this.ball = null;
   }
 
   // 게임 시작
   async run() {
     this.init();
 
-    let strike = null;
-    let ball = null;
-
-    while (strike !== 3) {
+    while (this.strike !== 3) {
       const userInput = await MissionUtils.Console.readLineAsync(
         '숫자를 입력해주세요 : '
       );
-      this.validateInput(userInput);
 
-      [strike, ball] = this.checkStrikeAndBall(userInput);
+      this.validateInput(userInput);
+      this.checkStrikeAndBall(userInput);
 
       let message = '';
 
-      if (ball) {
-        message += `${ball}볼`;
+      if (this.ball) {
+        message += `${this.ball}볼`;
       }
 
-      if (strike) {
-        message += ` ${strike}스트라이크`;
+      if (this.strike) {
+        message += ` ${this.strike}스트라이크`;
       }
 
-      if (!ball && !strike) {
+      if (!this.ball && !this.strike) {
         message = '낫싱';
       }
 
@@ -70,6 +69,8 @@ class NumberBaseball {
   // 게임 초기화
   init() {
     this.computer = this.getRandomAnswer();
+    this.strike = null;
+    this.ball = null;
   }
 
   // 컴퓨터 정답 랜덤하게 생성
@@ -110,7 +111,8 @@ class NumberBaseball {
       }
     }
 
-    return [strike, ball];
+    this.strike = strike;
+    this.ball = ball;
   }
 }
 
