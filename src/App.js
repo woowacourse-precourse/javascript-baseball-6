@@ -1,11 +1,11 @@
-import NumberBaseballGameController from './controller/NumberBaseballGameController.js'
+import NumberBaseballGameController from './controller/NumberBaseballGameController.js';
 
 class App {
-  #numberBaseballGameController = new NumberBaseballGameController()
+  #numberBaseballGameController = new NumberBaseballGameController();
 
   async play() {
-    await this.#numberBaseballGameController.gameStart()
+    await this.#numberBaseballGameController.gameStart();
   }
 }
 
-export default App
+export default App;

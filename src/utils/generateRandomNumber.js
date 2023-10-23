@@ -1,17 +1,17 @@
-import { MissionUtils } from '@woowacourse/mission-utils'
-import { NUMBER_SIZE } from '../constants/index.js'
+import { MissionUtils } from '@woowacourse/mission-utils';
+import { NUMBER_SIZE } from '../constants/index.js';
 
 const generateRandomNumber = () => {
-  const randomNumber = []
+  const randomNumber = [];
 
   while (randomNumber.length < NUMBER_SIZE) {
-    const number = MissionUtils.Random.pickNumberInRange(1, 9)
+    const number = MissionUtils.Random.pickNumberInRange(1, 9);
     if (!randomNumber.includes(number)) {
-      randomNumber.push(number)
+      randomNumber.push(number);
     }
   }
 
-  return randomNumber
-}
+  return randomNumber;
+};
 
-export default generateRandomNumber
+export default generateRandomNumber;
