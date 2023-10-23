@@ -10,7 +10,7 @@ export function resultOut(random, inputNo) {
         }
     });
     // 입력 값의 길이가 3인지 확인, 중복이 있는지 확인
-    if (new Set([...INPUT]).size !== 3 || new Set([...INPUT]).size !== INPUT) {
+    if (new Set([...INPUT]).size !== 3 || new Set([...INPUT]).size !== INPUT.length) {
         throw new Error('[ERROR] 서로 다른 숫자 3개를 입력해주세요');
     }
     //[ball, strike]

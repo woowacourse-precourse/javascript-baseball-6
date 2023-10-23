@@ -17,7 +17,7 @@ export async function gameStart() {
         const WANT_END = await wantReStart();
         //재시작 원할 경우 재귀를 이용하여 게임 재시작
         if (WANT_END === false) {
-            gameStart();
+            await gameStart();
         } else return;
     }
 }
