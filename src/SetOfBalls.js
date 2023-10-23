@@ -1,5 +1,4 @@
 import { Random, Console } from '@woowacourse/mission-utils'
-import Messages from './Messages.js'
 
 class SetOfBalls {
   balls;
@@ -10,8 +9,10 @@ class SetOfBalls {
   }
 
   static create() {
-    const numbers = Random.pickUniqueNumbersInRange(1, 9, 3);
-    return new SetOfBalls(numbers);
+    const ballOne = Random.pickNumberInRange(1, 9);
+    const ballTwo = Random.pickNumberInRange(1, 9);
+    const ballThree = Random.pickNumberInRange(1, 9);
+    return new SetOfBalls([ballOne, ballTwo, ballThree]);
   }
 
   static checkNumbers(input) {

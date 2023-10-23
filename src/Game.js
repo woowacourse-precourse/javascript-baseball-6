@@ -8,43 +8,44 @@ class Game {
 
   constructor(computer) {
     this.computer = computer ?? new Computer();
-    // Console.print(this.computer.targetNumbers)
     Object.freeze(this.computer);
   }
 
-  // todo: make it simpler
   async round() {
     while (true) {
-      const userNumbers = await this.getUserInputAsync();
-      const result = this.computer.compareNumbers(userNumbers);
-      if (result === null) {
-        throw new Error(Messages.ERROR_INPUT);
-      }
-
-      Console.print(result);
-      if (result === "3스트라이크") {
-        Console.print(Messages.MSG_END);
-        return true;
+      try {
+        const userNumbers = await this.getUserInputAsync();
+        if (userNumbers === null) {
+          return false;
+        }
+        const result = this.computer.compareNumbers(userNumbers);
+        if (result === null) {
+          return false;
+        }
+        Console.print(result);
+        if (result === "3스트라이크") {
+          Console.print(Messages.MSG_END);
+          return true;
+        }
+      } catch (e) {
+        Console.print(e.message);
       }
     }
   }
 
   async menu() {
-    const choosen = await this.getUserMenuAsync();
-    if (choosen === '0') {
-      throw new Error(Messages.ERROR_MENU);
-    }
-
-    if (choosen === '1') {
-      return true;
-    } else if (choosen === '2') {
-      Console.print(Messages.MSG_END);
-      return false;
+    try {
+      const choosen = await this.getUserMenuAsync();
+      Console.print(choosen);
+      return Number(choosen);
+    } catch (e) {
+      return 0;
     }
   }
 
   async getUserInputAsync() {
     const input = await Console.readLineAsync(Messages.INPUT_NUMBERS);
+    Console.print(input);
     if (!SetOfBalls.checkNumbers(input)) {
       return null;
     }
@@ -52,13 +53,16 @@ class Game {
   }
 
   async getUserMenuAsync() {
-    const input = await Console.readLineAsync(Messages.INPUT_MENU + '\n');
-    if (input !== '1' && input !== '2') {
-      return '0';
+    try {
+      const input = await Console.readLineAsync(Messages.INPUT_MENU + '\n');
+      if (input !== '1' && input !== '2') {
+        throw new Error(Messages.ERROR_MENU);
+      }
+      return input;
+    } catch (e) {
+      throw new Error(Messages.ERROR_MENU);
     }
-    return input;
   }
-
 }
 
 export default Game;
