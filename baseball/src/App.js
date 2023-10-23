@@ -4,8 +4,8 @@ class App {
   async play() {
     printStart();
     const baseballNums = makeRandomNum();
-    // console.log("컴터숫자", baseballNums);
-    await inputNum(baseballNums);
+    console.log("컴터숫자", baseballNums);
+    inputNum(baseballNums);
   }
 }
 // 1. 시작문구 출력
@@ -23,20 +23,18 @@ const makeRandomNum = () => {
 
 // 3. 사용자에게 숫자 입력받기
 const inputNum = (baseballNums) => {
-  return new Promise((resolve) => {
-    Console.readLine("숫자를 입력해주세요 :", (answer) => {
-      const userNum = answer.split("").map(Number);
-      validationNum(userNum);
-      const result = checkNum(userNum, baseballNums);
-      checkCorrectAnswer(result, baseballNums);
-    });
+  Console.readLine("숫자를 입력해주세요 :", (answer) => {
+    const userNum = answer.split("").map(Number);
+    validationNum(userNum);
+    const result = checkNum(userNum, baseballNums);
+    checkCorrectAnswer(result, baseballNums);
   });
 };
 
 // 4. 숫자 유효성검토(숫자인지, 3개의 숫자인지)
 const validationNum = (num) => {
   if (num.length > 3 || num.length < 3 || num.some(isNaN)) {
-    throw new Error("[ERROR] 입력값이 잘못되었습니다.게임을 종료합니다.");
+    throw new Error("[ERROR] 입력값이 잘못되었습니다. 게임을 종료합니다.");
   }
 };
 
