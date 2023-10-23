@@ -11,7 +11,8 @@ const MESSAGE = {
 
 const ERROR_MESSAGE = {
   LENGTH: '[ERROR] 세 자리 숫자만 입력해야합니다.',
-  INT: "[ERROR] 정수만 입력해야합니다.",
+  INT: '[ERROR] 정수만 입력해야합니다.',
+  NEGATIVE: '[ERROR] 양수만 입력해야합니다.',
   RESTART: '[ERROR] 숫자가 잘못된 형식입니다.',
 }
 
@@ -30,7 +31,7 @@ class App {
   
   generateRandomNumber(){
     this.randomNumber = [];
-    const { randomNumber } = this;
+    const { randomNumber } = this;  
     
     while(randomNumber.length < 3){
       const number = Random.pickNumberInRange(1, 9);
@@ -54,6 +55,7 @@ class App {
   validateInput(input){
     if(input.length !== 3) throw new Error(ERROR_MESSAGE.LENGTH);
     if(!Number.isInteger(+input)) throw new Error(ERROR_MESSAGE.INT);
+    if(Math.sign(input) !== 1) throw new Error(ERROR_MESSAGE.NEGATIVE);
   }
 
   getResult(){
@@ -73,18 +75,19 @@ class App {
     const { strike, ball } = this.gameResults;
     
     if(ball === 0 && strike ===0) Console.print(`낫싱`);
-    else if(ball > 0 && strike > 0) Console.print(`${ball}볼 ${strike}스트라이크`);
-    else if(ball > 0) Console.print(`${ball}볼`);
-    else Console.print(`${strike}스트라이크`);
+    if(ball > 0 && strike > 0) Console.print(`${ball}볼 ${strike}스트라이크`);
+    if(ball > 0 && strike === 0) Console.print(`${ball}볼`);
+    if(strike > 0 && ball === 0) Console.print(`${strike}스트라이크`);
   }
 
   async restart(){
     Console.print(MESSAGE.FINISH);
     Console.print(MESSAGE.RESTART);
     const input = await Console.readLineAsync('');
+
     if(input === '1') await this.play();
-    else if(input === '2') Console.print(MESSAGE.END);
-    else throw new Error(ERROR_MESSAGE.RESTART);
+    if(input === '2') Console.print(MESSAGE.END);
+    if(input !== '1' && input !== '2') throw new Error(ERROR_MESSAGE.RESTART);
   }
 }
 
