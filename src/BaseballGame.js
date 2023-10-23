@@ -5,9 +5,9 @@ import Computer from './Computer';
 class BaseballGame {
   computer;
 
-  play() {
+  async play() {
     this.printStart();
-    this.readNumber();
+    await this.readNumber();
   }
 
   printStart() {

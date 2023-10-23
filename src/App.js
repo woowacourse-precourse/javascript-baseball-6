@@ -2,7 +2,7 @@ import BaseballGame from './BaseballGame';
 
 class App {
   async play() {
-    new BaseballGame().play();
+    await new BaseballGame().play();
   }
 }
 
