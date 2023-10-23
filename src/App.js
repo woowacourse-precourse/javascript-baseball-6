@@ -1,43 +1,58 @@
 import { Console, MissionUtils } from "@woowacourse/mission-utils";
-// Console.readLineAsync
-// Console.print
 
 class App {
-  async play(computer) {
-    // const computerScore = computer;
-    Console.print("숫자 야구 게임을 시작합니다.");
-    while (1) {
-      try {
-        const userScore = await Console.readLineAsync('숫자를 입력해주세요 : ');
-        const user = userScore.split('').map(Number);
-        if(validator(computer,user) == 0) {
+  
+  async play() {
+    const randoms = randomNumber();
+    console.log("숫자 야구 게임을 시작합니다.");
+    while (true) {
+      // try {
+        const answers = await Console.readLineAsync('숫자를 입력해주세요 : ');
+        if(answers.length != randoms.length){
+          Console.print(answers.length);
+          Console.print("[ERROR]");
+          continue;
+        }
+        const user = answers.split('').map(Number);
+        if(validator(randoms,user) == 0) {
           Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
           break;
         }else{
           continue;
-        }
-      } catch (error) {
+        } 
+      // } catch (error) {
         // reject 되는 경우
-      }
-      // Console.print("숫자를 입력해주세요 : "+user.join(''));
+      // }
     }
-    try {
+    // Console.readLine('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.', (answer) => {
+    //   // console.log(`닉네임: ${answer}`);
+    //   if(answer == 1){
+    //     Console.print("1입력");
+    //     return app.play(ranNum); 
+    //   } else if (answer == 2){
+    //     Console.print("게임 종료");
+    //   }else{
+    //     Console.print("계속하시려면 1, 종료하시려면 2 를 눌러주세요");
+    //   }
+    // });
+    // try {
       const status = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
       if(status == 1){
         Console.print("1입력");
-        return app.play(ranNum);
+        return app.play();
       }else if(status == 2){
-        Console.print("리얼 종료");
-      }  
-    } catch (error) {
-      
-    }
+        Console.print("게임 종료");
+      }else{
+        Console.print("[ERROR]")
+      }
+    // } catch (error) {
+    // }
   }
 }
 const randomNumber = ()=> {
   const computer = [];
   while (computer.length < 3) {
-    const number = MissionUtils.Random.pickNumberInRange(1, 9);
+    let number = MissionUtils.Random.pickNumberInRange(1, 9);
     if (!computer.includes(number)) {
       computer.push(number);
     }
@@ -46,8 +61,6 @@ const randomNumber = ()=> {
 }
 
 const validator = (computer, user) => {
-  // Console.print(computer);
-  // Console.print(user);
   let score = [0,0];
   for(let i=0;i<3;i++){
     if(computer[i]===user[i]){
@@ -56,7 +69,6 @@ const validator = (computer, user) => {
       score[1]+=1;
     }
   }
-  // Console.print(score);
   if(score[0]==0 && score[1]==0){
     Console.print("낫싱");
   }else if(score[0]==3){
@@ -72,7 +84,6 @@ const validator = (computer, user) => {
   }
 }
 
-const ranNum = randomNumber();
 const app = new App();
-app.play(ranNum);
+app.play();
 export default App;
