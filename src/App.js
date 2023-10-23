@@ -43,7 +43,7 @@ class App {
     const input = await Console.readLineAsync(GAME_MESSAGE.NUMBER_INPUT);
 
     if (!input) {
-      throw new Error(ERROR_MESSAGE.INVALID_LENGTH);
+      throw new Error(ERROR_MESSAGE.WRONG_INPUT);
     }
 
     return input;
