@@ -1,11 +1,7 @@
-import readline from "readline";
+import { MissionUtils, Console } from "@woowacourse/mission-utils";
 
 class App {
   constructor() {
-    this.rl = readline.createInterface({
-      input: process.stdin,
-      output: process.stdout
-    });
     this.strikes = [];
   }
 
@@ -14,10 +10,10 @@ class App {
   }
 
   playGame() {
-    console.log("숫자 야구 게임을 시작합니다.");
+    Console.print("숫자 야구 게임을 시작합니다.");
     this.strikes = [];
     this.strikes = this.generateStrikes();
-    console.log(this.strikes);
+    Console.print(this.strikes);
     this.playInning();
   }
 
@@ -35,34 +31,36 @@ class App {
   }
 
   generateRandomNumber() {
-    const randomNumber = Math.floor(Math.random() * 9) + 1; // 1~9 중 랜덤 숫자
+    const randomNumber = MissionUtils.Random.pickNumberInRange(1, 9); // 1~9 중 랜덤 숫자
     return randomNumber;
   }
 
   async playInning() {
-    this.getGuess().then(guess => {
-      const [strikeCount, ballCount] = this.evaluateGuess(guess);
-      let message = "";
-      if (ballCount > 0) {
-        message += `${ballCount}볼`;
-      }
-      if (strikeCount > 0) {
-        message += `${message ? " " : ""}${strikeCount}스트라이크`;
-      }
-      console.log(message);
-    });
+    this.getGuess()
+      .then(guess => {
+        const [strikeCount, ballCount] = this.evaluateGuess(guess);
+        let message = "";
+        if (ballCount > 0) {
+          message += `${ballCount}볼`;
+        }
+        if (strikeCount > 0) {
+          message += `${message ? " " : ""}${strikeCount}스트라이크`;
+        }
+        Console.print(message);
+      })
+      .catch(error => {
+        console.error(error.message);
+      });
   }
 
   async getGuess() {
     return new Promise((resolve, reject) => {
-      this.rl.question("숫자를 입력해주세요 : ", userInput => {
+      Console.readLineAsync("숫자를 입력해주세요 : ").then(userInput => {
         try {
           this.isValidGuess(userInput);
           resolve(userInput);
         } catch (error) {
           reject(error);
-        } finally {
-          this.rl.close();
         }
       });
     });
@@ -77,7 +75,7 @@ class App {
 
   evaluateGuess(guessNumbers) {
     const numbers = [...guessNumbers].map(str => Number(str));
-    console.log(numbers);
+    Console.print(numbers);
     let strikeCount = 0;
     let ballCount = 0;
     numbers.forEach((number, index) => {
