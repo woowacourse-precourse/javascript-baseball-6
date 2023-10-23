@@ -17,4 +17,10 @@
 
 ![image](https://github.com/FastSubTeam/front/assets/83483378/ff19833a-d243-4f16-b21f-e2c34733e35b)
 
-##
+## 리팩토링 진행 목록
+
+- [ ] `input`과 `output`에 대해 각각 단일 책임을 갖는 input class와 output class 분리
+- [ ] `opponent`, `player` 클래스 내에서 정의하는 메소드는 utils의 범주로 분리
+- [ ] 모든 파일 내 상수화 가능한 요소 추가 상수화
+- [ ] JSDoc을 통한 코드 구조와 선언한 변수의 역할 상세화
+- [ ] `Jest did not exit one second after the test run has completed` Jest 경고 수정
