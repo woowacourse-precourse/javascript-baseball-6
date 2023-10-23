@@ -10,13 +10,13 @@ class App {
     this.player = []
   }
   async gameStart() {
-    let flag = true
+    let correct = true
     await this.createRandomNumber()
     try {
-      while (flag) {
+      while (correct) {
         await this.getPlayerNumber()
         await isError(this.player)
-        flag = await feedback(this.computer, this.player)
+        correct = await feedback(this.computer, this.player)
       }
       await this.gameOver()
     } catch (e) {
@@ -24,17 +24,13 @@ class App {
     }
   }
   async reStart() {
-    await this.reset()
-    this.gameStart()
-  }
-  async reset() {
     this.computer = []
-    this.flag = true
+    this.gameStart()
   }
   async gameOver() {
     Console.print(messages.correctNumber)
     let rePlay = await Console.readLineAsync(messages.reStart)
-    if (rePlay == 1) await this.reStart()
+    if (rePlay == 1) this.reStart()
     else if (rePlay != 2) throw new Error(messages.errorMessage)
   }
   async getPlayerNumber() {
