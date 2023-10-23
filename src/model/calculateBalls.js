@@ -1,12 +1,15 @@
+const isUniqueNumber = function checkNumberElementIsUnique(numberElement, computerNumber, idx) {
+    return computerNumber.indexOf(numberElement) !== -1 && computerNumber.indexOf(numberElement) !== idx
+}
+
+
 const calculateBalls = function returnBallCountByUserNumberAndComputerNumber(userNumber, computerNumber) {
-    let cntBall = 0;
-    for (let ni = 0; ni < 3; ni++) {
-        const foundIdx = computerNumber.indexOf(userNumber[ni])
-        if (foundIdx !== -1 && ni !== foundIdx) {
+    return [...userNumber].reduce((cntBall, numberElement, idx) => {
+        if (isUniqueNumber(numberElement, computerNumber, idx)) {
             cntBall += 1;
         }
-    }
-    return cntBall
+        return cntBall
+    }, 0)
 }
 
 export default calculateBalls
