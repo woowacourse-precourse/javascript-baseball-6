@@ -10,38 +10,47 @@ class App {
         computer.push(number);
       }
     }
-    // Console.print(computer);
-    const number = await Console.readLineAsync("숫자를 입력해주세요 : ");
-    const user = number.split("").map(Number);
-    if (user.length !== 3 || number === null || new Set(user).size !== 3) {
-      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
-    }
-    // Console.print(user);
-    let strike = 0;
-    let ball = 0;
-    for (let i = 0; i < computer.length; i++) {
-      const index = user.indexOf(computer[i]);
-      if (index > -1) {
-        // 같은 숫자가 존재하는 경우
-        if (index === i) {
-          strike++; // 자리까지 동일한 경우
-        } else {
-          ball++;
+    Console.print(computer);
+    while (1) {
+      const number = await Console.readLineAsync("숫자를 입력해주세요 : ");
+      const user = number.split("").map(Number);
+      if (user.length !== 3 || number === null || new Set(user).size !== 3) {
+        throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+      }
+      Console.print(user);
+      let strike = 0;
+      let ball = 0;
+      for (let i = 0; i < computer.length; i++) {
+        const index = user.indexOf(computer[i]);
+        if (index > -1) {
+          // 같은 숫자가 존재하는 경우
+          if (index === i) {
+            strike++; // 자리까지 동일한 경우
+          } else {
+            ball++;
+          }
         }
       }
+      // Console.print(`스트라이크 : ${strike}, 볼: ${ball}`);
+      if (strike === 3) {
+        Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+        break;
+      }
+      if (strike === 0 && ball === 0) {
+        Console.print("낫싱");
+      } else if (ball > 0 && strike === 0) {
+        Console.print(`${ball}볼`);
+      } else if (strike > 0 && ball === 0) {
+        Console.print(`${strike}스트라이크`);
+      } else {
+        Console.print(`${ball}볼 ${strike}스트라이크`);
+      }
     }
-    // Console.print(`스트라이크 : ${strike}, 볼: ${ball}`);
-    if (strike === 3) {
-      Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-    }
-    if (strike === 0 && ball === 0) {
-      Console.print("낫싱");
-    } else if (ball > 0 && strike === 0) {
-      Console.print(`${ball}볼`);
-    } else if (strike > 0 && ball === 0) {
-      Console.print(`${strike}스트라이크`);
-    } else {
-      Console.print(`${ball}볼 ${strike}스트라이크`);
+    const replay = await Console.readLineAsync(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+    );
+    if (replay === "1") {
+      app.play();
     }
   }
 }
