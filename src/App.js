@@ -7,11 +7,7 @@ class App {
     try {
       const computer = this.generateComputerNumbers();
       await this.playGame(computer);
-      if (await CustomUtils.getRestartChoice()) {
-        this.play();
-      } else {
-        MissionUtils.Console.print(Messages.GAME_EXIT);
-      }
+      await this.restartGame();
     } catch (error) {
       MissionUtils.Console.print(error.message);
       throw error;
@@ -36,6 +32,14 @@ class App {
       const userNumber = await CustomUtils.getUserNumber();
       const score = CustomUtils.getScore(computer, userNumber);
       gameContinue = CustomUtils.printScore(score);
+    }
+  }
+
+  async restartGame() {
+    if (await CustomUtils.getRestartChoice()) {
+      this.play();
+    } else {
+      MissionUtils.Console.print(Messages.GAME_EXIT);
     }
   }
 }
