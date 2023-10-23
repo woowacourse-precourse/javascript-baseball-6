@@ -7,8 +7,8 @@ class App {
   }
 
   async GameStart() {
-    const computerNumber = this.getComputerRandomNumber();
-    Console.print(computerNumber);
+    const computerNumber = await this.getComputerRandomNumber();
+
     let continueGame = true;
     while (continueGame) {
       const number = await Console.readLineAsync("숫자를 입력해주세요 : ");
@@ -38,7 +38,7 @@ class App {
         }
       } else {
         continueGame = false;
-        throw new Error("[ERROR]");
+        throw new Error("[ERROR] 3자리 숫자를 입력해주세요.");
       }
     }
   }
@@ -61,7 +61,7 @@ class App {
     return score;
   }
 
-  getComputerRandomNumber() {
+  async getComputerRandomNumber() {
     const computer = [];
     while (computer.length < 3) {
       const number = MissionUtils.Random.pickNumberInRange(1, 9);
