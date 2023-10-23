@@ -21,17 +21,17 @@ class App {
     const opponentNumber = new Opponent().opponentNumber;
 
     this.#refree = new Refree(playerNumber, opponentNumber);
-    this.startGame();
+    await this.startGame();
   }
 
-  startGame() {
+  async startGame() {
     const { ball, strike } = this.#refree.playGame();
     OutputView.printResult(ball, strike);
-    this.checkSuccess(strike);
+    await this.checkSuccess(strike);
   }
 
-  checkSuccess(strike) {
-    strike === 3 ? this.confirmGame() : this.continueGame();
+  async checkSuccess(strike) {
+    strike === 3 ? this.confirmGame() : await this.continueGame();
   }
 
   async confirmGame() {
