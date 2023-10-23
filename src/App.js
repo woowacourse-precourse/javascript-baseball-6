@@ -63,13 +63,13 @@ class App {
   }
 
   outputPitchResult(strike, ball) {
-    let result = "";
+    let result = [];
 
-    if (ball > 0) result += MESSAGE.ball(ball);
-    if (strike > 0) result += MESSAGE.strike(strike);
-    if (result.length === 0) result = MESSAGE.nothing;
+    if (ball > 0) result.push(MESSAGE.ball(ball));
+    if (strike > 0) result.push(MESSAGE.strike(strike));
+    if (result.length === 0) result.push(MESSAGE.nothing);
 
-    return result;
+    return result.join(" ");
   }
   validateInput(input) {
     const regEx = new RegExp("^(?!.*(\\d).*\\1)[1-9]{3}$");
