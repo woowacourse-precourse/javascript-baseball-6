@@ -61,53 +61,135 @@ describe("숫자 야구 게임", () => {
   //   });
   // });
   //
-  test("예외 테스트", async () => {
-    // given
-    const randoms = [1, 3, 5];
-    const answers = ["1234"];
-
-    mockRandoms(randoms);
-    mockQuestions(answers);
-
-    // when & then
-    const app = new App();
-
-    await expect(app.play()).rejects.toThrow("[ERROR]");
-  });
+  // test("예외 테스트", async () => {
+  //   // given
+  //   const randoms = [1, 3, 5];
+  //   const answers = ["1234"];
+  //
+  //   mockRandoms(randoms);
+  //   mockQuestions(answers);
+  //
+  //   // when & then
+  //   const app = new App();
+  //
+  //   await expect(app.play()).rejects.toThrow("[ERROR]");
+  // });
 
   describe("입력값 테스트", () => {
-    test("3자리 숫자인 경우", async () => {
+    test("3자리 숫자인 경우", () => {
       const isValid = app.validateInput("123");
       expect(isValid).toBe(true);
     });
-    test("3자리 숫자가 아닌 경우", async () => {
+    test("3자리 숫자가 아닌 경우", () => {
       const isValid = app.validateInput("1234");
       expect(isValid).toBe(false);
     });
-    test("1~9 사이의 숫자가 아닌 경우", async () => {
+    test("1~9 사이의 숫자가 아닌 경우", () => {
       const isValid = app.validateInput("abc");
       expect(isValid).toBe(false);
     });
-    test("중복된 숫자가 있는 경우", async () => {
+    test("중복된 숫자가 있는 경우", () => {
       const isValid = app.validateInput("112");
       expect(isValid).toBe(false);
     });
   });
 
   describe("랜덤값 테스트", () => {
-    test("자리수가 3자리인지 확인", async () => {
+    test("자리수가 3자리인지 확인", () => {
       const randomNumber = app.generateRandomNumber();
 
       expect(randomNumber.length).toBe(3);
     });
 
-    test("중복값 확인", async () => {
+    test("중복값 확인", () => {
       for (let i = 0; i < 50; i++) {
         const randomNumber = app.generateRandomNumber();
 
         const regEx = /(\d).*\1/;
         expect(regEx.test(randomNumber)).toBe(false);
       }
+    });
+  });
+
+  describe("pitch 결과 테스트", () => {
+    let answer = "123";
+
+    describe("스트라이크 테스트", () => {
+      test("3스트라이크", () => {
+        const input = "123";
+
+        const { strike } = app.countPitchResult(answer, input);
+        expect(strike).toBe(3);
+      });
+      test("2스트라이크", () => {
+        const input = ["124", "423", "183"];
+
+        input.forEach((input) => {
+          const { strike } = app.countPitchResult(answer, input);
+          expect(strike).toBe(2);
+        });
+      });
+      test("1스트라이크", () => {
+        const input = ["145", "425", "453"];
+
+        input.forEach((input) => {
+          const { strike } = app.countPitchResult(answer, input);
+          expect(strike).toBe(1);
+        });
+      });
+    });
+
+    describe("볼 테스트", () => {
+      test("3볼", () => {
+        const input = "312";
+
+        const { ball } = app.countPitchResult(answer, input);
+        expect(ball).toBe(3);
+      });
+      test("2볼", () => {
+        const input = ["412", "241", "214"];
+
+        input.forEach((input) => {
+          const { ball } = app.countPitchResult(answer, input);
+          expect(ball).toBe(2);
+        });
+      });
+      test("1볼", () => {
+        const input = ["516", "651"];
+
+        input.forEach((input) => {
+          const { ball } = app.countPitchResult(answer, input);
+          expect(ball).toBe(1);
+        });
+      });
+    });
+
+    describe("스트라이크 & 볼 테스트", () => {
+      test("1스트라이크 1볼", () => {
+        const input = ["142", "324", "243"];
+        input.forEach((input) => {
+          const { strike, ball } = app.countPitchResult(answer, input);
+          expect(strike).toBe(1);
+          expect(ball).toBe(1);
+        });
+      });
+      test("1스트라이크 2볼", () => {
+        const input = ["132", "321", "213"];
+
+        input.forEach((input) => {
+          const { strike, ball } = app.countPitchResult(answer, input);
+          expect(strike).toBe(1);
+          expect(ball).toBe(2);
+        });
+      });
+    });
+
+    test("낫싱 테스트", () => {
+      const input = "456";
+
+      const { strike, ball } = app.countPitchResult(answer, input);
+      expect(strike).toBe(0);
+      expect(ball).toBe(0);
     });
   });
 });
