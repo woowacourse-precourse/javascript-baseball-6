@@ -3,11 +3,11 @@ import { isValidInput } from "./ValidationUtils.js";
 
 class Computer {
     constructor() {
-        this.answer = this.getRandAnswer();
+        this.answer = this.createRandAnswer();
     }
 
-    initialAnswer() {
-        this.answer = this.getRandAnswer();
+    initAnswer() {
+        this.answer = this.createRandAnswer();
     }
 
     checkInputValid(input) {
@@ -32,7 +32,7 @@ class Computer {
         return cnt - strikeCounts;
     }
 
-    getStringCounts(ballCounts, strikeCounts) {
+    convertHintToString(ballCounts, strikeCounts) {
         let hint = '';
         if(ballCounts > 0)  hint += `${ballCounts}볼`;
         if(ballCounts > 0 && strikeCounts > 0)  hint += ' ';
@@ -42,17 +42,17 @@ class Computer {
         return hint;
     }
 
-    setHint(input) {
+    createHint(input) {
         const userInput = input.split('');
         const correctAnswer = this.answer.split('');
         
         const strikeCounts = this.getStrikeCounts(userInput, correctAnswer);
         const ballCounts = this.getBallCounts(userInput, correctAnswer, strikeCounts);
         
-        return this.getStringCounts(ballCounts, strikeCounts);
+        return this.convertHintToString(ballCounts, strikeCounts);
     }
 
-    getRandAnswer() {
+    createRandAnswer() {
         const answerSet = new Set();
         
         while(answerSet.size < 3){
