@@ -23,9 +23,12 @@ class App {
         );
         input = new Set(input); // 중복 제거
         input = [...input];
-        input.map((item) =>
-          item < 1 || item > 9 ? "[ERROR]" : userInput.push(Number(item))
-        );
+        input.map((item) => {
+          if (item < 1 || item > 9 || isNaN(item)) {
+            throw new Error("[ERROR]");
+          }
+          userInput.push(Number(item));
+        });
         if (userInput.length < 3) {
           throw new Error("[ERROR]");
         }
