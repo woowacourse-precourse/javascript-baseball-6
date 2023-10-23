@@ -1,6 +1,15 @@
 import { MissionUtils } from "@woowacourse/mission-utils"
 import { outputMessage } from "./constants/Message.js";
-import { BALL_CONDITION, END_NUMBER, FROM_ONE_TO_NINE, NUMBER_LENGTH, RESET_COUNT, START_NUMBER, STRIKE_CONDITION, WIN_CONDITION } from './constants/Enum.js';
+import { 
+  BALL_CONDITION,
+  COUNT_ONE_DIGIT,
+  END_NUMBER,
+  INIT_COUNT_NUMBER,
+  NUMBER_LENGTH,
+  START_NUMBER,
+  STRIKE_CONDITION,
+  WIN_CONDITION 
+} from './constants/Enum.js';
 
 class Computer {
   constructor() {
@@ -23,8 +32,8 @@ class Computer {
   }
 
   gradingUserInput(userInput) {
-    this._strikeArray = Array(FROM_ONE_TO_NINE).fill(RESET_COUNT);
-    this._ballArray  = Array(FROM_ONE_TO_NINE).fill(RESET_COUNT);
+    this._strikeArray = Array(COUNT_ONE_DIGIT).fill(INIT_COUNT_NUMBER);
+    this._ballArray  = Array(COUNT_ONE_DIGIT).fill(INIT_COUNT_NUMBER);
 
     for (let i = 0; i < NUMBER_LENGTH; i++) {
       this.#checkStrikeAndBall(userInput, i);
