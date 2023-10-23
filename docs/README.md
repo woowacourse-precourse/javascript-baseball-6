@@ -51,12 +51,6 @@ Console.readLineAsync
 
 ### 3. 컴퓨터와 유저의 입력값 비교
 
-- @woowacourse/mission-utils의 Console API를 사용
-
-```
-Console.print
-```
-
 - 볼: 다른 자리에 같은 숫자가 있는 경우
 - 스트라이크: 같은 자리에 같은 숫자가 있는 경우
 - 낫싱: 볼이나 스트라이크가 하나도 없는 경우
