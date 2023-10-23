@@ -1,8 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-
-const NUMBER_LENGTH = 3;
-const CONTINUE = '1';
-const EXIT = '2';
+import { CONTINUE, NUMBER_LENGTH, EXIT } from './Constants.js';
 
 class App {
   gameStatus = CONTINUE;
