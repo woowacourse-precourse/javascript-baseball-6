@@ -1,4 +1,4 @@
-export default function ball(input, computer) {
+export default function ball(input, computer, ending_word = "") {
   const input_array = input.split("");
   let ball_count = 0;
   computer.forEach((computer_item, i) => {
@@ -8,5 +8,5 @@ export default function ball(input, computer) {
       }
     });
   });
-  return ball_count == 0 ? "" : `${ball_count}볼 `;
+  return ball_count == 0 ? "" : `${ball_count}${ending_word} `;
 }

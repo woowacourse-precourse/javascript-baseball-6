@@ -17,8 +17,8 @@ class App {
         throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
       }
 
-      const ball_count = ball(user_input, computer);
-      const strike_count = strike(user_input, computer);
+      const ball_count = ball(user_input, computer, "볼");
+      const strike_count = strike(user_input, computer, "스트라이크");
       let message = ball_count + strike_count;
 
       if (message == "") {
