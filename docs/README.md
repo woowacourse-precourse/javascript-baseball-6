@@ -56,3 +56,7 @@
       └ print.js             ------ 문자열 출력을 담당하는 함수
       └ readLine.js          ------ 문자열 입력을 담당하는 함수
 ```
+
+## - 클래스 구조도 
+![1주차 클래스 순서도](https://github.com/brgndyy/javascript-baseball-6/assets/109535991/42f02396-a4d1-4427-93e3-af357af800ff)
+
