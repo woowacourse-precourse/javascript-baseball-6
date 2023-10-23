@@ -1,4 +1,4 @@
-const { MissionUtils } = require("@woowacourse/mission-utils");
+const { MissionUtils } = require('@woowacourse/mission-utils');
 
 class App {
   constructor() {
@@ -7,14 +7,14 @@ class App {
   }
 
   generateRandomNumber() {
-    const digits = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-    const secretNumber = [];
-    for (let i = 0; i < 3; i++) {
-      const randomIndex = Math.floor(Math.random() * digits.length);
-      secretNumber.push(digits[randomIndex]);
-      digits.splice(randomIndex, 1);
+    const computer = [];
+    while (computer.length < 3) {
+      const number = MissionUtils.Random.pickNumberInRange(1, 9);
+      if (!computer.includes(number)) {
+        computer.push(number);
+      }
     }
-    return secretNumber.join('');
+    return computer.join('');
   }
 
   async getInput() {
@@ -23,38 +23,31 @@ class App {
   }
 
   isValidInput(input) {
-    if (typeof input === 'string' && /^\d{3}$/.test(input)) {
-      const guess = input.split('').map(Number);
-      const uniqueDigits = new Set(guess);
+    if (/^\d{3}$/.test(input)) {
+      const uniqueDigits = new Set(input.split(''));
       return uniqueDigits.size === 3;
     }
     return false;
   }
 
   checkGuess(guess) {
-    if (this.isValidInput(guess)) {
-      const guessArray = guess.split('').map(Number);
+    let strikes = 0;
+    let balls = 0;
 
-      let strikes = 0;
-      let balls = 0;
-
-      for (let i = 0; i < 3; i++) {
-        if (guessArray[i] === this.secretNumber[i]) {
-          strikes++;
-        } else if (this.secretNumber.includes(guessArray[i])) {
-          balls++;
-        }
+    for (let i = 0; i < 3; i++) {
+      if (guess[i] === this.secretNumber[i]) {
+        strikes++;
+      } else if (this.secretNumber.includes(guess[i])) {
+        balls++;
       }
+    }
 
-      if (strikes === 3) {
-        return "3스트라이크";
-      } else if (strikes > 0 || balls > 0) {
-        return `${balls}볼 ${strikes}스트라이크`;
-      } else {
-        throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
-      }
+    if (strikes === 3) {
+      return '3스트라이크';
+    } else if (strikes > 0 || balls > 0) {
+      return `${balls}볼 ${strikes}스트라이크`;
     } else {
-      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+      return '낫싱';
     }
   }
 
@@ -63,7 +56,7 @@ class App {
 
     while (true) {
       const input = await this.getInput();
-      if (input === "2") {
+      if (input === '2') {
         console.log("게임을 종료합니다.");
         break;
       }
@@ -72,7 +65,7 @@ class App {
         const result = this.checkGuess(input);
         console.log(result);
 
-        if (result === "3스트라이크") {
+        if (result === '3스트라이크') {
           console.log("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
           break;
         }
@@ -83,4 +76,5 @@ class App {
   }
 }
 
-module.exports = App;
+const app = new App();
+app.play();
