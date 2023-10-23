@@ -1,9 +1,16 @@
-import { Console } from '@woowacourse/mission-utils';
+import { Console, Random } from '@woowacourse/mission-utils';
 
 const RANGE_NUMBERS = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 class App {
   async play() {
+    const computer = [];
+    while (computer.length < 3) {
+      const randomNumber = Random.pickNumberInRange(1, 9);
+      if (!computer.includes(randomNumber)) {
+        computer.push(randomNumber);
+      }
+    }
     Console.print('숫자 야구 게임을 시작합니다.');
     try {
       const inputNumber = await Console.readLineAsync(
