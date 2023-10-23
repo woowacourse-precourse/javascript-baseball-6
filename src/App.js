@@ -22,10 +22,14 @@ class App {
       "숫자 3개를 입력하세요 (예: 123) :"
     );
 
-    // 인풋의 형식이 숫자 3개가 아닌경우 에러 출력 및 애플리케이션 종료
-    if (!/^\d{3}$/.test(user_input) || !this.has_unique_digits(user_input)) {
+    // 3글자가 아니거나 숫자가 아닌 경우 에러 반환
+    if (!/^\d{3}$/.test(user_input)) {
       this.game_over = true;
-      return;
+      throw new Error("[ERROR]3개의 숫자만 입력할수있습니다.");
+    } else if (!this.has_unique_digits(user_input)) {
+      // 중복된 숫자가 입력된 경우 에러 반환
+      this.game_over = true;
+      throw new Error("[ERROR]중복된 숫자는 입력할수 없습니다.");
     } else {
       // 유저 인풋을 arr형식으로 반환
       return user_input.split("").map(Number);
@@ -116,7 +120,7 @@ class App {
         }
       }
     } catch (error) {
-      throw new Error("[ERROR] 잘못된 입력 형식입니다. 게임을 종료합니다");
+      throw Error(error.message);
     }
   }
 }
