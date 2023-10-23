@@ -17,9 +17,27 @@ class App {
 
       while (userInput.join("") != computer.join("")) {
         userInput = [];
+        const result = [0, 0]; // [볼, 스트라이크]
         let input = await MissionUtils.Console.readLineAsync(
           "숫자를 입력해주세요 : "
         );
+        input = new Set(input); // 중복 제거
+        input = [...input];
+        input.map((item) =>
+          item < 1 || item > 9 ? "[ERROR]" : userInput.push(Number(item))
+        );
+        if (userInput.length < 3) {
+          throw new Error("[ERROR]");
+        }
+        if (userInput.indexOf(0) != -1) {
+          throw new Error("[ERROR]");
+        }
+
+        userInput.map((item, index) => {
+          if (computer.indexOf(item) != -1) {
+            computer.indexOf(item) === index ? result[1]++ : result[0]++;
+          }
+        });
       }
 
       userAnswer = await MissionUtils.Console.readLineAsync(
