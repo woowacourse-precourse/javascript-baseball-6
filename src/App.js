@@ -20,31 +20,31 @@ class App {
         }
       }
 
-      MissionUtils.Console.print(this.computer.join(''));
-
       playAgain = await this.userPlay();
     }
   }
 
   async userPlay() {
+    const ALL_STRIKE = 3;
+
     while (true) {
-      let user;
+      let user = "";
 
       try {
         user = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
 
-        if (!/^\d{3}$/.test(user)) {
-          throw new Error("세 자리 숫자만 입력하실 수 있습니다.");
-        }
+        if (!/^[1-9]{3}$/.test(user)) {
+          throw new Error("[ERROR] 1부터 9까지의 세 자리 숫자만 입력하실 수 있습니다.");
+        }        
 
         if (/(.).*?\1/.test(user)) {
-          throw new Error("중복된 숫자는 입력하실 수 없습니다.");
+          throw new Error("[ERROR] 중복된 숫자는 입력하실 수 없습니다.");
         }
 
         let ball = 0;
         let strike = 0;
 
-        const userNumbers = user.split("").map(num => Number(num));
+        const userNumbers = user.split("").map((num) => Number(num));
 
         for (let i = 0; i < this.DIGIT; i++) {
           if (userNumbers[i] === this.computer[i]) {
@@ -68,24 +68,19 @@ class App {
 
         MissionUtils.Console.print(result);
 
-        if (strike === 3) {
+        if (strike === ALL_STRIKE) {
           MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
 
           const restart = await MissionUtils.Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. \n");
 
           if (restart !== "1" && restart !== "2") {
-            throw new Error("숫자가 잘못된 형식입니다.");
+            throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
           }
 
-          if (restart === "1") {
-            return true;
-          } else {
-            return false;
-          }
+          return restart === "1" ? true : false;
         }
       } catch (error) {
-        MissionUtils.Console.print(`[ERROR] ${error.message}`);
-        return false;
+        return Promise.reject(error);
       }
     }
   }
