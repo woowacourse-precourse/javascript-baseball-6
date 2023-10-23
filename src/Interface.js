@@ -1,14 +1,14 @@
-import { Console } from "@woowacourse/mission-utils";
+import { Console } from '@woowacourse/mission-utils';
 
 class Interface {
-	requestValuForContent(content) {
-		const inputValue = Console.readLineAsync(content);
-		return inputValue;
-	}
+  static requestValuForContent(content) {
+    const INPUT_VALUE = Console.readLineAsync(content);
+    return INPUT_VALUE;
+  }
 
-	printMessage(message) {
-		Console.print(message);
-	}
+  static printMessage(message) {
+    return Console.print(message);
+  }
 }
 
 export default Interface;

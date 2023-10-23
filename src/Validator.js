@@ -2,41 +2,40 @@ const ASCII_NUMERIC_MIN = 48;
 const ASCII_NUMERIC_MAX = 57;
 
 class Validator {
-	#VALID_LENGTH = 3;
+  #VALID_LENGTH = 3;
 
-	checkExpectedAnswerValue(expectedAnswerValue) {
-		if (
-			!this.isValidInput(expectedAnswerValue) ||
-			!this.isNumericWord(expectedAnswerValue)
-		) {
-			this.throwError();
-		}
-	}
+  #ERROR = '[ERROR]';
 
-	isValidInput(value) {
-		if (!value || value.length !== this.#VALID_LENGTH) {
-			return false;
-		}
-		return true;
-	}
+  checkExpectedAnswerValue(expectedAnswerValue) {
+    if (
+      !this.isValidInput(expectedAnswerValue) || !Validator.isNumericWord
+    ) {
+      this.throwError();
+    }
+  }
 
-	isNumericWord(value) {
-		for (const str of value.split("")) {
-			const ascii = str.charCodeAt(0);
-			if (ascii < ASCII_NUMERIC_MIN || ascii > ASCII_NUMERIC_MAX) {
-				return false;
-			}
-		}
-		return true;
-	}
+  isValidInput(value) {
+    return value && value.length === this.#VALID_LENGTH;
+  }
 
-	throwError() {
-		throw "[ERROR]";
-	}
+  static isNumericWord(value) {
+    let result = true;
+    value.split('').forEach((STR) => {
+      const ASCII = STR.charCodeAt(0);
+      if (ASCII < ASCII_NUMERIC_MIN || ASCII > ASCII_NUMERIC_MAX) {
+        result = false;
+      }
+    });
+    return result;
+  }
 
-	checkCommand(command) {
-		if (command !== "1" && command !== "2") return this.throwError();
-	}
+  throwError() {
+    throw this.#ERROR;
+  }
+
+  checkCommand(command) {
+    if (command !== '1' && command !== '2') throw this.#ERROR;
+  }
 }
 
 export default Validator;
