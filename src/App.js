@@ -14,6 +14,23 @@ class App {
     return computer;
   }
 
+  determineCondition(computer, userInput) {
+    const result = { ball: 0, strike: 0 };
+
+    for (let c of computer) {
+      console.log(userInput, c);
+      if (userInput.includes(c)) {
+        if (computer.indexOf(c) === userInput.indexOf(c)) {
+          result.strike++;
+        } else {
+          result.ball++;
+        }
+      }
+    }
+
+    return result;
+  }
+
   async play() {
     Console.print("숫자 야구 게임을 시작합니다.");
 
@@ -22,6 +39,11 @@ class App {
 
     while (isGameRunning) {
       const user = await Console.readLineAsync("숫자를 입력해주세요: ");
+      user.split("").map((number) => {
+        userInput.push(Number(number));
+      });
+
+      const determinedCondition = this.determineCondition(computer, userInput);
     }
   }
 }
