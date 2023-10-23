@@ -3,7 +3,7 @@ import throwInvalidInputErrorMessage from "./throwInvalidInputErrorMessage.js";
 import CheckInputValidation from "./checkInputValidation.js";
 import handleError from "./handleError.js";
 
-async function handleInput() {
+async function parseInputToArray() {
   try {
     const INPUT = await MissionUtils.Console.readLineAsync(
       "숫자를 입력해주세요 : "
@@ -22,4 +22,4 @@ async function handleInput() {
   }
 }
 
-export default handleInput;
+export default parseInputToArray;
