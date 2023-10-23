@@ -3,7 +3,7 @@ import {
   checkString,
   checkThreeDigitNumber,
   checkZero,
-} from '../../utils/validator/unit.js';
+} from '../../src/utils/validator/unit.js';
 
 describe('checkString()', () => {
   test('숫자를 입력하였을 때 예외를 발생시키지 않는다.', () => {

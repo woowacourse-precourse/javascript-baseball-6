@@ -1,6 +1,6 @@
 import GameNumberGenerator from './GameNumberGenerator.js';
-import GameNumberGeneratorError from '../../utils/error/GameNumberGeneratorError.js';
-import Validators from '../../utils/validator/index.js';
+import GameNumberGeneratorError from '../utils/error/GameNumberGeneratorError.js';
+import Validators from '../utils/validator/index.js';
 import { ERROR_MESSAGE } from '../constants/Messages.js';
 
 class BaseballModel {

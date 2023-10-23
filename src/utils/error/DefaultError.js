@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from '../../src/constants/Messages.js';
+import { ERROR_MESSAGE } from '../../constants/Messages.js';
 
 class DefaultError extends Error {
   /**
