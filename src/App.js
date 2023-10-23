@@ -36,24 +36,34 @@ const get_ball_count = (string_number, target_number) => {
 
 // 사용자 예측 값 입력받기
 const get_user_guess = async () => {
-  while (true) {
-    // 예외 처리 ( 입력 값에 0이 포함된 경우, 중복된 값이 입력된 경우 )
-    const user_input = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
-    const user_input_split = user_input.split("");
-    const is_includes_zero = user_input.includes("0");
-    const is_all_different_number = user_input_split.every(
-      (number) => user_input_split.indexOf(number) === user_input_split.lastIndexOf(number),
-    );
+  try {
+    while (true) {
+      const user_input = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
 
-    if (!is_includes_zero && is_all_different_number) return user_input;
+      // 예외 처리 ( 입력한 자리 수가 3자리 수 보다 짧은 경우, 숫자 외에 다른 문자가 입력된 경우 )
+      if (user_input.length < 3 || Number.isNaN(user_input)) {
+        throw new Error("[ERROR] 잘못된 입력입니다.");
+      }
 
-    if (is_includes_zero) {
-      MissionUtils.Console.print("[Error] 입력 값에 0이 포함되어 있습니다.");
-    } else if (!is_all_different_number) {
-      MissionUtils.Console.print("[Error] 입력 값에 중복된 값이 있습니다.");
-    } else {
-      MissionUtils.Console.print("[Error] 올바른 형식이 아닙니다.");
+      // 예외 처리 ( 입력 값에 0이 포함된 경우, 중복된 값이 입력된 경우 )
+      const user_input_split = user_input.split("");
+      const is_includes_zero = user_input.includes("0");
+      const is_all_different_number = user_input_split.every(
+        (number) => user_input_split.indexOf(number) === user_input_split.lastIndexOf(number),
+      );
+
+      if (!is_includes_zero && is_all_different_number) return user_input;
+
+      if (is_includes_zero) {
+        throw new Error("[ERROR] 입력 값에 0이 포함되어 있습니다.");
+      } else if (!is_all_different_number) {
+        throw new Error("[ERROR] 입력 값에 중복된 값이 있습니다.");
+      } else {
+        throw new Error("[ERROR] 올바른 형식이 아닙니다.");
+      }
     }
+  } catch (error) {
+    throw new Error("[ERROR] 잘못된 입력입니다.");
   }
 };
 
@@ -85,7 +95,7 @@ const game_reset_or_end = async () => {
     } else if (user_input === "2") {
       return true;
     } else {
-      MissionUtils.Console.print("[ERROR] 잘못된 형식입니다.");
+      throw new Error("[ERROR] 잘못된 형식입니다.");
     }
   }
 };
@@ -97,6 +107,8 @@ class App {
     // 숫자 야구 게임 시작
     while (true) {
       const random_number = create_random_number();
+
+      // MissionUtils.Console.print(random_number);
 
       while (true) {
         const user_input = await get_user_guess();
@@ -113,3 +125,7 @@ class App {
 }
 
 export default App;
+
+const app = new App();
+
+app.play();
