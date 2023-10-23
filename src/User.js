@@ -6,15 +6,15 @@ import {
   isNotEmpty,
   isValidNumber,
 } from "./utils/inputValidator.js";
+import { Console } from "@woowacourse/mission-utils";
 
 class User {
-  constructor(consoleUtils) {
+  constructor() {
     this.numberArray = [];
-    this.consoleUtils = consoleUtils;
   }
 
   async getValidatedNumberArray() {
-    const input = await this.consoleUtils.readLineAsync(MESSAGE.ENTER_NUMBER);
+    const input = await Console.readLineAsync(MESSAGE.ENTER_NUMBER);
 
     this.numberArray = this.validateUserInput(input)
       .split("")

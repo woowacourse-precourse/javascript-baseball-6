@@ -1,11 +1,11 @@
 import MESSAGE from "./constant/MESSAGE.js";
 import NUMBER from "./constant/NUMBER.js";
+import { Console } from "@woowacourse/mission-utils";
 
 class Baseball {
-  constructor(computer, user, consoleUtils) {
+  constructor(computer, user) {
     this.computer = computer;
     this.user = user;
-    this.consoleUtils = consoleUtils;
     this.isCorrectAnswer = false;
   }
 
@@ -59,23 +59,19 @@ class Baseball {
 
   createJudgeMessage({ strikeCount, ballCount }) {
     if (strikeCount === 0 && ballCount === 0)
-      return this.consoleUtils.print(MESSAGE.NO_STRIKE_BALL);
+      return Console.print(MESSAGE.NO_STRIKE_BALL);
 
-    if (strikeCount === 0)
-      return this.consoleUtils.print(MESSAGE.ONLY_BALL(ballCount));
+    if (strikeCount === 0) return Console.print(MESSAGE.ONLY_BALL(ballCount));
 
-    if (ballCount === 0)
-      return this.consoleUtils.print(MESSAGE.ONLY_STRIKE(strikeCount));
+    if (ballCount === 0) return Console.print(MESSAGE.ONLY_STRIKE(strikeCount));
 
-    return this.consoleUtils.print(
-      MESSAGE.STRIKE_AND_BALL({ ballCount, strikeCount })
-    );
+    return Console.print(MESSAGE.STRIKE_AND_BALL({ ballCount, strikeCount }));
   }
 
   isGameFinished(strikeCount) {
     if (strikeCount !== NUMBER.LENGTH) return false;
 
-    this.consoleUtils.print(MESSAGE.FINISH_GAME);
+    Console.print(MESSAGE.FINISH_GAME);
     return true;
   }
 }

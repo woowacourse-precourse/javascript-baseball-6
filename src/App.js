@@ -1,13 +1,12 @@
 import Baseball from "./Baseball.js";
 import Computer from "./Computer.js";
-import ConsoleUtils from "./ConsoleUtils.js";
 import User from "./User.js";
 import MESSAGE from "./constant/MESSAGE.js";
 import ERROR from "./constant/ERROR.js";
+import { Console } from "@woowacourse/mission-utils";
 
 class App {
   constructor() {
-    this.consoleUtils = new ConsoleUtils();
     this.computer = new Computer();
     this.user = new User(this.consoleUtils);
     this.game = new Baseball(this.computer, this.user, this.consoleUtils);
@@ -23,7 +22,7 @@ class App {
   }
 
   startApp() {
-    this.consoleUtils.print(MESSAGE.START_GAME);
+    Console.print(MESSAGE.START_GAME);
   }
 
   async replayGame() {
@@ -35,9 +34,7 @@ class App {
   }
 
   async askGameRestartOrExit() {
-    const answer = await this.consoleUtils.readLineAsync(
-      MESSAGE.ASK_GAME_RESTART
-    );
+    const answer = await Console.readLineAsync(MESSAGE.ASK_GAME_RESTART);
 
     if (answer === MESSAGE.FINISH_APP) return false;
     if (answer === MESSAGE.RESTART_GAME) return true;
