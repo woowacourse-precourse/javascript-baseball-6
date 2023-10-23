@@ -20,4 +20,8 @@ const GAME = {
   ZERO: 0,
 };
 
-export { COMMAND, COMPUTER, GAME };
+const ERROR = {
+  INVALID_NUMBER: '숫자가 잘못된 형식입니다.',
+};
+
+export { COMMAND, COMPUTER, GAME, ERROR };
