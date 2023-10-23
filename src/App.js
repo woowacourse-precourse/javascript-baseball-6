@@ -4,11 +4,15 @@ class App {
     this.computer = [];
     this.inputNum = [];
     this.gameOverBtn = [];
+    this.strike = 0;
+    this.ball = 0;
+    this.nothing = 0;
   }
 
   async play() {
     Console.print("숫자 야구 게임을 시작합니다.");
     this.computer = [];
+
     await this.createRandomNum();
   }
 
@@ -19,22 +23,24 @@ class App {
         this.computer.push(number);
       }
     }
+    console.log(this.computer);
     await this.myInputNum();
   }
 
   async myInputNum() {
     const myNum = await this.getUserInput();
-    this.validateInput(myNum);
+    this.isExistError(myNum);
     await this.compareResult();
   }
 
   async getUserInput() {
     const myNum = await Console.readLineAsync("숫자를 입력해주세요 : ");
     this.inputNum = myNum.split("").map((element) => parseInt(element));
+
     return this.inputNum;
   }
 
-  validateInput(myNum) {
+  isExistError(myNum) {
     if (!this.isValidFormat(myNum) || !this.isDuplicateNumbers(myNum)) {
       throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
     }
@@ -49,33 +55,43 @@ class App {
   }
 
   async compareResult() {
-    let strike = 0;
-    let ball = 0;
-    let nothing = 0;
+    this.strike = 0;
+    this.ball = 0;
+    this.nothing = 0;
     for (let i = 0; i < 3; i++) {
       if (
         this.computer[i] === this.inputNum[i] &&
         this.computer.includes(this.inputNum[i])
       ) {
-        strike += 1;
+        this.strike += 1;
       } else if (
         this.computer[i] !== this.inputNum[i] &&
         this.computer.includes(this.inputNum[i])
       ) {
-        ball += 1;
+        this.ball += 1;
       } else if (!this.computer.includes(this.inputNum[i])) {
-        nothing += 1;
+        this.nothing += 1;
       }
     }
-    if (nothing === 3) {
+    await this.result();
+  }
+  async result() {
+    if (this.nothing === 3) {
       Console.print("낫싱");
+    } else if (this.ball === 0 && this.strike !== 0) {
+      Console.print(`${this.strike}스트라이크`);
+    } else if (this.ball !== 0 && this.strike === 0) {
+      Console.print(`${this.ball}볼`);
     } else {
-      Console.print(`${ball}볼 ${strike}스트라이크`);
+      Console.print(`${this.ball}볼 ${this.strike}스트라이크`);
     }
+    await this.isThreeStrike();
+  }
 
-    if (strike === 3) {
+  async isThreeStrike() {
+    if (this.strike === 3) {
       await this.gameOver();
-    } else if (strike !== 3) {
+    } else {
       await this.myInputNum();
     }
   }
@@ -96,4 +112,6 @@ class App {
   }
 }
 
+const app = new App();
+app.play();
 export default App;
