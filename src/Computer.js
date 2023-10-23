@@ -2,8 +2,14 @@ import { Random } from "@woowacourse/mission-utils";
 import NUMBER from "./constant/NUMBER.js";
 
 class Computer {
+  #numberArray;
+
   constructor() {
-    this.numberArray = [];
+    this.#numberArray = [];
+  }
+
+  get numberArray() {
+    return this.#numberArray;
   }
 
   setNewNumberArray() {
@@ -15,7 +21,7 @@ class Computer {
       newNumberArray.push(randomNumber);
     }
 
-    this.numberArray = newNumberArray;
+    this.#numberArray = newNumberArray;
   }
 
   generateSingleDigitNaturalNumber() {
