@@ -13,18 +13,23 @@ class App {
 
   computerNumbers = [];
 
-  sentence = {
-    start: '숫자 야구 게임을 시작합니다.',
-    end: '게임종료',
-    strike: '스트라이크',
-    threeStrike: '3스트라이크',
-    ball: '볼',
-    nothing: '낫싱',
-    win: '3개의 숫자를 모두 맞히셨습니다! 게임 종료',
-    restart: '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.',
-    error: '[ERROR] 숫자가 잘못된 형식입니다.',
+  // 분리, 상수로
+  SENTENCE = {
+    START: '숫자 야구 게임을 시작합니다.',
+    END: '게임종료',
+    INPUT_NUMBER: '숫자를 입력해주세요.',
+    STRIKE: '스트라이크',
+    THREE_STRIKE: '3스트라이크',
+    BALL: '볼',
+    NOTHING: '낫싱',
+    WIN: '3개의 숫자를 모두 맞히셨습니다! 게임 종료',
+    RESTART: '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.',
+    ERROR: '[ERROR] 숫자가 잘못된 형식입니다.',
   };
 
+  /**
+   * computerNumbers 값 설정 : 1-9까지의 서로 다른 3가지 숫자로 이루어진 배열
+   */
   setComputerNumbers() {
     let array = [];
     while (array.length < 3) {
@@ -39,51 +44,75 @@ class App {
     }
     this.computerNumbers = array;
   }
-
-  // 스트라이크, 볼 초기화
-  resetStrikeAndBall() {
-    this.strike = 0;
-    this.ball = 0;
-  }
-
-  // 메세지 출력
+  // [message] 메세지 출력
   // eslint-disable-next-line
   printMessage(message) {
     MissionUtils.Console.print(message);
   }
 
-  startGame() {
-    this.setComputerNumbers();
-    this.printMessage(this.sentence.start);
-  }
-
-  restart() {
-    this.playing = true;
-    this.userNumbers = [];
-    this.win = false;
-    this.resetStrikeAndBall();
-    this.setComputerNumbers();
-  }
-
-  endGame(showMessage) {
-    this.playing = false;
-    this.win = false;
-    this.userNumbers = [];
-    this.resetStrikeAndBall();
-    if (showMessage) this.printMessage(this.sentence.end);
-  }
-
+  /**
+   * 오류 시, 오류문을 throw하고 게임을 종료
+   * @param {*} errorMessage
+   */
   throwError(errorMessage) {
-    this.endGame(false);
+    this.gameOver(false);
     throw new Error(errorMessage);
   }
 
-  // input 내용
+  /**
+   * strike, ball 초기화
+   */
+  resetStrikeAndBall() {
+    this.strike = 0;
+    this.ball = 0;
+  }
+
+  /**
+   * 속성들 값 재설정
+   * @param {*} playing :  this.playing의 값
+   * @param {*} resetComputerNumbers  : this.computerNumber 의 값을 재설정 여부
+   */
+  resetSetting(playing, resetComputerNumbers) {
+    this.playing = playing;
+    this.userNumbers = [];
+    this.win = false;
+    this.resetStrikeAndBall();
+    if (resetComputerNumbers) this.setComputerNumbers();
+  }
+
+  /**
+   * 게임 시작
+   */
+  startGame() {
+    this.resetSetting(true, true);
+    this.printMessage(this.SENTENCE.start);
+  }
+
+  /**
+   * 게임 다시 시작
+   */
+  restartGame() {
+    this.resetSetting(true, true);
+  }
+
+  /**
+   * 게임 종료
+   * @param {*} showMessage  : 게임종료 시, 이에 대한 메세지 표시 여부
+   */
+  gameOver(showMessage) {
+    this.resetSetting(false, false);
+    if (showMessage) this.printMessage(this.SENTENCE.end);
+  }
+
+  /**
+   * 사용자가 입력한 글자를 가져와 userNumbers 의 값을 변경
+   */
   async getUserNumbers() {
     try {
-      if (!this.strike === 3) this.printMessage('숫자를 입력해주세요.');
-      const text =
-        await MissionUtils.Console.readLineAsync('숫자를 입력해주세요.');
+      if (!this.strike === 3) this.printMessage(this.SENTENCE.INPUT_NUMBER);
+      const text = await MissionUtils.Console.readLineAsync(
+        this.SENTENCE.INPUT_NUMBER,
+      );
       this.userNumbers = text
         .replaceAll(' ', '')
         .split('')
@@ -93,7 +122,9 @@ class App {
     }
   }
 
-  // 유효성 검사
+  /**
+   * 입력한 글자에 대한 유효성 검사
+   */
   validNumbers() {
     const text = this.userNumbers.join('');
     let pass;
@@ -102,10 +133,12 @@ class App {
     } else {
       pass = /^[1,2]$/.test(text);
     }
-    if (!pass) throw new Error(this.sentence.error);
+    if (!pass) throw new Error(this.SENTENCE.ERROR);
   }
 
-  // 스트라이크, 볼 판정
+  /**
+   * 입력한 숫자에 대한 스트라이크,볼 판단
+   */
   compareNumbers() {
     this.computerNumbers.forEach((v, i) => {
       if (v === this.userNumbers[i]) {
@@ -116,37 +149,41 @@ class App {
     });
   }
 
-  // 판정 결과 표시
-  showJudgment() {
+  /**
+   * 스트라이클, 볼, 낫싱 판단에 따른 결과를 표시
+   */
+  showGameResult() {
     const isNothing = !this.strike && !this.ball;
     if (this.strike === 3) {
       this.win = true;
-      this.printMessage(this.sentence.threeStrike);
-      this.printMessage(this.sentence.win);
-      this.printMessage(this.sentence.restart);
+      this.printMessage(this.SENTENCE.THREE_STRIKE);
+      this.printMessage(this.SENTENCE.WIN);
+      this.printMessage(this.SENTENCE.RESTART);
     } else if (isNothing) {
-      this.printMessage(this.sentence.nothing);
+      this.printMessage(this.SENTENCE.NOTHING);
     } else {
       const strikeAndBall = `${
-        this.ball ? this.ball + this.sentence.ball : ''
-      } ${this.strike ? this.strike + this.sentence.strike : ''}`;
+        this.ball ? this.ball + this.SENTENCE.BALL : ''
+      } ${this.strike ? this.strike + this.SENTENCE.STRIKE : ''}`;
       this.printMessage(strikeAndBall);
     }
     this.resetStrikeAndBall();
   }
 
-  // 판정
-  test() {
+  /**
+   * 상황별, 입력한 숫자에 따른 게임 판정
+   */
+  judgeGame() {
     if (this.win) {
       const isRestart = this.userNumbers[0] === 1;
       if (isRestart) {
-        this.restart();
+        this.restartGame();
       } else {
-        this.endGame(true);
+        this.gameOver(true);
       }
     } else {
       this.compareNumbers();
-      this.showJudgment();
+      this.showGameResult();
     }
   }
 
@@ -157,7 +194,7 @@ class App {
         // eslint-disable-next-line
         await this.getUserNumbers();
         this.validNumbers();
-        this.test();
+        this.judgeGame();
       } catch (error) {
         this.throwError(`[Error]:${error}`);
       }
