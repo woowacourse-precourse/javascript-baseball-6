@@ -1,4 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
+import { GAME_MESSAGE, ERROR_MESSAGE } from "./Messages.js";
 
 class App {
   constructor() {
@@ -6,7 +7,7 @@ class App {
   }
 
   async play() {
-    MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
+    MissionUtils.Console.print(GAME_MESSAGE.GAME_START);
     await this.playNumberGame();
   }
 
@@ -15,23 +16,23 @@ class App {
     let printResult;
     while (printResult !== "3스트라이크") {
       const userInput = await MissionUtils.Console.readLineAsync(
-        "숫자를 입력해 주세요 : "
+        GAME_MESSAGE.INPUT_NUMBER
       );
       if (userInput.length !== 3) {
-        throw new Error("[ERROR] 3자리 숫자만 입력하세요");
+        throw new Error(ERROR_MESSAGE.INVALID_NUMBER_LENGTH);
       }
 
       if (Number.isNaN(Number(userInput))) {
-        throw new Error("[ERROR] 숫자만 입력하세요");
+        throw new Error(ERROR_MESSAGE.NOT_ONLY_NUMBER);
       }
 
       if (new Set(userInput).size !== 3) {
-        throw new Error("[ERROR] 중복된 숫자가 입력되었습니다.");
+        throw new Error(ERROR_MESSAGE.DUPLICATE_NUMBER);
       }
       printResult = this.numberBaseballResult(userInput);
       MissionUtils.Console.print(printResult);
     }
-    MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    MissionUtils.Console.print(GAME_MESSAGE.GAME_FINISH);
     await this.restartInput();
   }
 
@@ -74,7 +75,7 @@ class App {
 
   async restartInput() {
     const restart = await MissionUtils.Console.readLineAsync(
-      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+      GAME_MESSAGE.GAME_RESTART
     );
     if (restart === "1") {
       await this.playNumberGame();
