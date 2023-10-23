@@ -51,7 +51,7 @@ class Game {
   // 사용자의 입력을 받는 메소드
   getUserNums = async () => {
     const input = await Console.readLineAsync(MESSAGE.USER_NUMS_PROMPT);
-    if (!this.checkUserNumsInput(input)) {
+    if (!this.isUserNumsInputValid(input)) {
       throw new Error(MESSAGE.INVALID_INPUT);
     }
     const userNums = input.split("").map(Number);
@@ -59,7 +59,7 @@ class Game {
   };
 
   // 사용자의 입력이 유효한지 검사하는 메소드
-  checkUserNumsInput = (input) => {
+  isUserNumsInputValid = (input) => {
     let isValid = true;
     const reg = /^[0-9]{3}$/;
     if (!reg.test(input)) {
