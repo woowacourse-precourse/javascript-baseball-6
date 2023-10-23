@@ -22,6 +22,7 @@ export default async function PlayerInputNumber() {
 		if (answer.includes('0')) {
 			throw new Exception('ContainsZero', '입력한 값에 0이 포함되어 있습니다.');
 		}
+		return answer;
 	} catch (error) {
 		console.log(`[ERROR] ${error.message}`);
 	}

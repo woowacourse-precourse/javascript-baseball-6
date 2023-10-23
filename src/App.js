@@ -4,7 +4,7 @@ import PlayerInputNumber from './PlayerInputNumber.js';
 class App {
 	async play() {
 		this.gameStart();
-		PlayerInputNumber();
+		const PLAYER = await PlayerInputNumber();
 	}
 	gameStart() {
 		Console.print('숫자 야구 게임을 시작합니다.');
