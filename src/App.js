@@ -14,6 +14,7 @@ async function playGame(number) {
   var number = setNumber();
   while (true) {
     let guess = await readGuess();
+    let result = compareGuess(number, guess);
   }
 }
 
@@ -51,6 +52,36 @@ function readGuess() {
       rl.close();
       resolve(input);
     }))
+}
+
+function compareGuess(number, guess) {
+  var strike = 0
+  var ball = 0
+
+  let first = Math.floor(guess / 100);
+  let second = Math.floor(guess / 10) - 10 * first;
+  let third = guess % 10;
+
+  if (number[0] == first) {
+    strike += 1;
+  } else if(number.includes(first)) {
+    ball += 1;
+  }
+
+  if (number[1] == second) {
+    strike += 1;
+  } else if (number.includes(second)) {
+    ball += 1;
+  }
+
+  if (number[2] == third) {
+    strike += 1;
+  } else if (number.includes(third)) {
+    ball += 1;
+  }
+
+  let result = [ball, strike];
+  return result;
 }
 
 export default App;
