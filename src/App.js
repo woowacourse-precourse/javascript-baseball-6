@@ -35,6 +35,7 @@ class App {
     }
   }
 
+  //입력값이 서로 다른 3자리 수인지 체크
   validateInput(guessNumber) {
     const regExp = /^(?!.*(.).*\1)[1-9]{3}$/;
     return regExp.test(guessNumber);
