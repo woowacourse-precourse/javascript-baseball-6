@@ -157,8 +157,6 @@ flowchart TD
 - 전체 과정을 종합하면 아래와 같다.
 - 그림이 긴 관계로 글을 접어두었다. 펼치기를 통해서 보면 된다.
 
-<details>
-<summary>전체 종합 도식도</summary>
 
 ```mermaid
 ---
@@ -170,9 +168,6 @@ flowchart TD
     start --> generateRandom;
     waiting(["2. 게임 동작 루틴"]);
     generateRandom --> waiting;
-
-
-
 
     index{{"index = 0,
     볼 = 0,
@@ -213,6 +208,7 @@ flowchart TD
     waiting --> index;
     index --> userInput1;
     userInput1 --> error;
+
     error --> |"YES"|condition1;
     error --> |"NO"|error2;
     condition1 --> |"YES"|condition2;
@@ -229,18 +225,15 @@ flowchart TD
     condition5 --> |"YES"|start_a;
     condition5 --> |"NO"|print1;
     print1 --> index;
-
     start_a(["3. 게임 종료 루틴 시작"]);
     input_a[/"유저의 입력 받기"/];
     condition_a{"게임을 재시작
      하려는가?"};
     moveStart_a(["'1. 게임 시작 직후'의 '게임 시작'으로 이동"]);
     finish_a(["게임 종료"]);
-
     start_a --> input_a --> condition_a
     condition_a --> |YES|moveStart_a --> start;
     condition_a --> |NO|finish_a;
 
 ```
-</details>
 
