@@ -3,11 +3,11 @@ import { BALL_COUNT } from "../Constants";
 
 const printBallCount = (scoreCount) => {
   const { strike, ball } = scoreCount;
+  let message = "";
 
   if (strike === 0 && ball === 0) {
-    Console.print(BALL_COUNT.nothing);
+    message = BALL_COUNT.nothing;
   } else {
-    let message = "";
     if (ball !== 0) {
       message += `${ball}${BALL_COUNT.ball}`;
     }
@@ -17,8 +17,9 @@ const printBallCount = (scoreCount) => {
       }
       message += `${strike}${BALL_COUNT.strike}`;
     }
-    Console.print(message);
   }
+  Console.print(message);
+  return message;
 };
 
 export default printBallCount;

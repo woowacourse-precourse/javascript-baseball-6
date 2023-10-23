@@ -25,15 +25,12 @@ class App {
     if (validateInput(inputValue)) {
       const scoreCount = checkBallCount(this.answer, inputValue);
       const { strike } = scoreCount;
+      printBallCount(scoreCount);
 
       if (strike === ANSWER_LENGTH) {
-        printBallCount(scoreCount);
         Console.print(PLAY_GAME.answer);
         return this.restartGame();
       }
-
-      const message = printBallCount(scoreCount);
-      Console.print(message);
     } else {
       Console.print(ERROR_MESSAGE);
     }
