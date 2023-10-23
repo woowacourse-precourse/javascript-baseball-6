@@ -17,7 +17,7 @@ class App {
         if (!this.gameManager.validatePlayerNumber(USER_NUMBER)) throw new Error('[ERROR] : 유효하지 않은 입력입니다.');
         this.player.setNumber(USER_NUMBER);
         
-        const { STRIKE, BALL } = this.gameManager.evaluatePlayerInput(this.player.number, this.computer.number);
+        const { STRIKE, BALL } = this.gameManager.evaluatePlayerInput(this.player.number, this.computer.getThreeDigits());
         MissionUtils.Console.print(this.gameManager.printResultMessage(STRIKE, BALL));
 
         if (STRIKE === CORRECT_NUMBER) {
@@ -46,7 +46,11 @@ class App {
 }
 
 class Computer {
-  number;
+  #number;
+
+  getThreeDigits() {
+    return this.#number;
+  }
 
   generateThreeDigits() {
     let stringThreeDigits = '';
@@ -58,7 +62,7 @@ class Computer {
       }
     }
 
-    this.number = Number(stringThreeDigits);
+    this.#number = Number(stringThreeDigits);
   }
 }
 class Player {
