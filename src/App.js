@@ -38,7 +38,10 @@ class App {
     const isGameRunning = true;
 
     while (isGameRunning) {
+      const userInput = [];
+
       const user = await Console.readLineAsync("숫자를 입력해주세요: ");
+
       user.split("").map((number) => {
         userInput.push(Number(number));
       });
