@@ -10,26 +10,24 @@ class App {
   }
 
   async play() {
-    let restart = true;
-    while (restart) {
-      restart = false;
-      this.strikes = [];
-      this.isWin = false;
-      await this.playGame().then(() => {});
+    let restartFlag = true;
+    do {
+      await this.playGame();
       const answerRestart = await getUserInput(QUERY.restart, REGEX.restart);
-      if (answerRestart == "1") {
-        restart = true;
-      } else if (answerRestart == "2") {
-        break;
+      if (answerRestart[0] == 1) {
+        restartFlag = true;
+      } else if (answerRestart[0] == 2) {
+        restartFlag = false;
       }
-    }
+    } while (restartFlag);
   }
 
   async playGame() {
-    Console.print("숫자 야구 게임을 시작합니다.");
     this.strikes = [];
+    this.isWin = false;
+    Console.print("숫자 야구 게임을 시작합니다.");
     this.strikes = generateStrikes();
-    Console.print(this.strikes); // 테스트 시 활성화
+    Console.print(this.strikes); // 코드 작성 시 활성화하여 작업
     while (!this.isWin) {
       await this.playInning().then(message => {
         Console.print(message);
@@ -61,7 +59,6 @@ class App {
   }
 
   getScore(guessNumbers, strikeNumbers) {
-    // Console.print(guessNumbers); // 코드 작성 시 활성화하여 작업
     let strikeCount = 0;
     let ballCount = 0;
     guessNumbers.forEach((number, index) => {
