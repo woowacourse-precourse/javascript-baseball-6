@@ -25,7 +25,6 @@ const getHint = (computerAnswer, userNumber) => {
     } else {
         MissionUtils.Console.print(`${ballCount}볼 ${strikeCount}스트라이크`);
     }
-
 }
 
 const getBallCount = (computerAnswer, userNumber) => {
