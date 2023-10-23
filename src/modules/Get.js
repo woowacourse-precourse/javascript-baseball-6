@@ -18,19 +18,19 @@ class Get {
     return counts;
   }
 
-  static intersectionSize(originList, comparisonList) {
+  static intersectionSize(arrayA = [], arrayB = []) {
     let size = 0;
-    comparisonList.forEach((number) =>
-      originList.includes(number) ? size++ : 0
-    );
+    arrayB.forEach((number) => {
+      if (arrayA.includes(number)) size++;
+    });
     return size;
   }
 
   static strikeCount(originList, comparisonList) {
     let count = 0;
-    comparisonList.forEach((number, index) =>
-      (originList.indexOf(number) == index) ? count++ : 0
-    );
+    comparisonList.forEach((number, index) => {
+      if (originList.indexOf(number) == index) count++;
+    });
     return count;
   }
 }
