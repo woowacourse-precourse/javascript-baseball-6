@@ -14,6 +14,7 @@ class App {
         computer.push(number);
       }
     }
+    Console.print(computer);
     return computer;
   }
 
@@ -21,6 +22,8 @@ class App {
     try {
       const playerNum = await Console.readLineAsync('숫자를 입력해주세요 : ');
       this.checkplayerNum(playerNum);
+      const score = this.getScore(computerNum, playerNum);
+      Console.print(score);
     } catch (error) {
       Console.print(error);
     }
@@ -46,6 +49,19 @@ class App {
         throw new Error('입력가능한 숫자의 범위는 1~9입니다.');
       }
     });
+  }
+
+  getScore(computerNum, playerNum) {
+    let ball = 0;
+    let strike = 0;
+
+    for (let index = 0; index < 3; index++) {
+      if (Number(computerNum[index]) === Number(playerNum[index])) strike += 1;
+      else if (computerNum.includes(Number(playerNum[index]))) ball += 1;
+      else Console.print('*');
+    }
+
+    return { ball, strike };
   }
 }
 
