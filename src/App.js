@@ -20,6 +20,8 @@ class App {
     );
     const userRestartValidationResult =
       this.userRestartValidation(userRestartValue);
+    if (!userRestartValidationResult)
+      this.throwError('[ERROR] 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
   }
 
   infoPrint(message) {
