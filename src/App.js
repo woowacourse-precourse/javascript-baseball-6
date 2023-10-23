@@ -20,9 +20,11 @@ class User {
   async getNumber() {
     let user = [];
     let number = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
-    if(number.length==0){
-      throw("[ERROR] 숫자를 입력하지 않았습니다.")
+    // #2.1 아무것도 입력하지 않은경우
+    if(number.length==0){ 
+      throw("[ERROR] 아무것도 입력하지 않았습니다.")
     }
+    
     if (number.length == 3) {
       for (let i = 0; i < number.length; i++) {
         user.push(Number(number[i]));
