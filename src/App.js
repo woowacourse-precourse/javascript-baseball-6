@@ -19,6 +19,7 @@ const ERROR_MESSAGE = {
 class App {
   constructor(){
     this.randomNumber = [];
+    this.userStringInput = '';
     this.userInput = [];
     this.gameResults = {};
   }
@@ -30,18 +31,20 @@ class App {
   }
   
   generateRandomNumber(){
-    this.randomNumber = [];
-    const { randomNumber } = this;  
+    const numberArr = [];
     
-    while(randomNumber.length < 3){
+    while(numberArr.length < 3){
       const number = Random.pickNumberInRange(1, 9);
-      if(!randomNumber.includes(number)) randomNumber.push(number);
+      if(!numberArr.includes(number)) numberArr.push(number);
     }
+
+    this.randomNumber = [...numberArr];
   }
 
   async getUserInput(){
     const input = await Console.readLineAsync(MESSAGE.INPUT);
-    this.validateInput(input);
+    this.userStringInput = input;
+    this.validateInput();
     this.userInput = [...input].map(Number);
 
     this.getResult();
@@ -52,10 +55,12 @@ class App {
     else this.getUserInput();
   }
 
-  validateInput(input){
-    if(input.length !== 3) throw new Error(ERROR_MESSAGE.LENGTH);
-    if(!Number.isInteger(+input)) throw new Error(ERROR_MESSAGE.INT);
-    if(Math.sign(input) !== 1) throw new Error(ERROR_MESSAGE.NEGATIVE);
+  validateInput(){
+    const { userStringInput } = this;
+
+    if(userStringInput.length !== 3) throw new Error(ERROR_MESSAGE.LENGTH);
+    if(!Number.isInteger(+userStringInput)) throw new Error(ERROR_MESSAGE.INT);
+    if(Math.sign(userStringInput) !== 1) throw new Error(ERROR_MESSAGE.NEGATIVE);
   }
 
   getResult(){
@@ -65,7 +70,7 @@ class App {
 
     userInput.forEach((num, idx)=> {
       if(randomNumber[idx] === num) result.strike += 1;
-      if(randomNumber[idx] !== num && randomNumber.includes(num)) result.ball +=1 ;
+      if(randomNumber[idx] !== num && randomNumber.includes(num)) result.ball += 1;
     })
   
     this.gameResults = result;
@@ -74,7 +79,7 @@ class App {
   printResult(){
     const { strike, ball } = this.gameResults;
     
-    if(ball === 0 && strike ===0) Console.print(`낫싱`);
+    if(ball === 0 && strike === 0) Console.print(`낫싱`);
     if(ball > 0 && strike > 0) Console.print(`${ball}볼 ${strike}스트라이크`);
     if(ball > 0 && strike === 0) Console.print(`${ball}볼`);
     if(strike > 0 && ball === 0) Console.print(`${strike}스트라이크`);
