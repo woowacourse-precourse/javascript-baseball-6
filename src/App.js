@@ -1,16 +1,10 @@
 import * as MissionUtils from "@woowacourse/mission-utils";
+import RandomStart from "../src/components/RandomStart.js";
 
 class App {
   async play() {
-    console.log("시작");
-
-    const computer = [];
-    while (computer.length < 3) {
-      const number = MissionUtils.Random.pickNumberInRange(1, 9);
-      if (!computer.includes(number)) {
-        computer.push(number);
-      }
-    }
+    const computerNumbers = RandomStart(); // RandomStart 함수 사용
+    console.log(computerNumbers);
   }
 }
 
