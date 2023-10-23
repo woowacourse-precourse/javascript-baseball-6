@@ -63,10 +63,10 @@ class App {
         Console.print("낫싱");
       }
     }
-    await this.result();
+    await this.getResultMessage();
   }
 
-  async result() {
+  async getResultMessage() {
     if (this.ball === 0 && this.strike !== 0) {
       Console.print(`${this.strike}스트라이크`);
     } else if (this.ball !== 0 && this.strike === 0) {
@@ -74,10 +74,10 @@ class App {
     } else {
       Console.print(`${this.ball}볼 ${this.strike}스트라이크`);
     }
-    await this.isThreeStrike();
+    await this.checkStrikeResult();
   }
 
-  async isThreeStrike() {
+  async checkStrikeResult() {
     if (this.strike === 3) {
       await this.gameOver();
     } else {
