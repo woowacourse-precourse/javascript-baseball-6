@@ -1,3 +1,5 @@
+import {Random, Console} from '@woowacourse/mission-utils';
+
 class App {
   constructor() {
     this.catcherNumbers = this.getCatcherNumbers();
@@ -8,8 +10,8 @@ class App {
     Console.print('숫자 야구 게임을 시작합니다.');
 
     while (true) {
-      const pitcherNumbers = await this.getPitcherNumbers();
-      const judgmentResult = this.getResultOfJudgment(pitcherNumbers);
+      this.pitcherNumbers = await this.getPitcherNumbers();
+      const judgmentResult = this.getResultOfJudgment(this.pitcherNumbers);
 
       if (judgmentResult === '3스트라이크') {
         Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
@@ -24,12 +26,13 @@ class App {
 
   getCatcherNumbers() {
     const catcherNumbers = [];
-    while (catcherNumbers < 3) {
+    while (catcherNumbers.length < 3) {
       const catcherNumber = Random.pickNumberInRange(1, 9);
       if (!catcherNumbers.includes(catcherNumber)) {
         catcherNumbers.push(catcherNumber);
       }
     }
+    console.log(catcherNumbers);
     return catcherNumbers;
   }
 
@@ -55,8 +58,7 @@ class App {
     for (let i = 0; i < 3; i++) {
       if (inputPitcherNumbers[i] === this.catcherNumbers[i]) {
         strike += 1;
-      }
-      if (this.pitcherNumbers.includes(inputPitcherNumbers[i])) {
+      } else if (this.catcherNumbers.includes(inputPitcherNumbers[i])) {
         ball += 1;
       }
     }
@@ -94,6 +96,9 @@ class App {
     throw new Error('1 또는 2를 입력해주세요');
   }
 }
+
+const app = new App();
+app.play();
 
 export default App;
 
