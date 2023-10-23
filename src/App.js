@@ -17,7 +17,7 @@ class App {
 
     const input = await Console.readLineAsync("숫자를 입력해주세요 : ");
 
-    if (this.#isValidInput(input)) {
+    if (this.isValidInput(input)) {
       throw new Error(MESSAGE.error("입력값이 유효하지 않습니다."));
     }
 
