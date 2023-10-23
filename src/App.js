@@ -38,6 +38,12 @@ class App {
             computer.indexOf(item) === index ? result[1]++ : result[0]++;
           }
         });
+
+        MissionUtils.Console.print(
+          `${result[0] + result[1] == 0 ? "낫싱" : ""}${
+            result[0] > 0 ? result[0] + `볼 ` : ""
+          }${result[1] > 0 ? result[1] + `스트라이크` : ""}`
+        );
       }
 
       userAnswer = await MissionUtils.Console.readLineAsync(
