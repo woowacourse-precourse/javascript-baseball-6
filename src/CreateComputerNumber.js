@@ -7,7 +7,7 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 function CreateComputerNumber() {
   const computerNumber = [];
   while (computerNumber.length < 3) {
-    const RandomNumber = MissionUtils.Random.pickNumberInRange(1, 9);
+    const RandomNumber = String(MissionUtils.Random.pickNumberInRange(1, 9));
     if (!computerNumber.includes(RandomNumber)) {
       computerNumber.push(RandomNumber);
     }
