@@ -7,6 +7,8 @@ import {
 import { INPUT_ERROR_MESSAGE } from "../constants/message.js";
 import { MAGIC_NUM } from "../constants/magicNum.js";
 
+import { Console } from "@woowacourse/mission-utils";
+
 export const validateUserInput = (value) => {
   try {
     if (!validateIsNum(Number(value))) {
@@ -23,7 +25,8 @@ export const validateUserInput = (value) => {
 
     return true;
   } catch (err) {
-    throw err;
+    Console.print(err.message);
+    throw new Error(err.message);
   }
 };
 
@@ -42,6 +45,7 @@ export const validationRestartInput = (value) => {
       throw new Error(INPUT_ERROR_MESSAGE.INCLUDE_NUMS_ERR);
     }
   } catch (err) {
-    throw new Error(err);
+    Console.print(err.message);
+    throw new Error(err.message);
   }
 };

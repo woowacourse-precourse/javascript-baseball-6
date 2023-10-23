@@ -5,8 +5,13 @@ import { Console } from "@woowacourse/mission-utils";
 
 class App {
   async play() {
-    Console.print(INFO_MESSAGE.START_MESSAGE);
-    this.baseballGame = new BaseballGame();
+    try {
+      Console.print(INFO_MESSAGE.START_MESSAGE);
+      this.baseballGame = new BaseballGame();
+    } catch (err) {
+      Console.print(err.message);
+      throw new Error(err.message);
+    }
   }
 }
 

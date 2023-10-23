@@ -11,12 +11,12 @@ export default class BaseballGenRandomNum {
   genRandomNum() {
     const computer = [];
     while (computer.length < 3) {
-      const num = Random.pickNumberInRange(1, 9);
+      const num = Random.pickNumberInRange(1, 9, 3);
       if (!computer.includes(num)) {
         computer.push(num);
       }
     }
-    console.log(computer);
+
     this.changeComputerState(computer);
   }
 }

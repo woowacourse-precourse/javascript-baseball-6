@@ -14,15 +14,18 @@ export default class BaseballInput {
     this.getUserInput();
   }
 
+  async getInput() {}
+
   async getUserInput() {
     try {
       const userInput = await Console.readLineAsync("숫자를 입력해 주세요 : ");
       validateUserInput(userInput);
       this.changeUserState(userInput);
     } catch (err) {
-      console.log(`check`);
-      throw err;
+      Console.print(err.message);
+      throw new Error(err.message);
     }
+    return;
   }
 
   async getRestartInput() {
@@ -37,7 +40,8 @@ export default class BaseballInput {
       const restartInput = await Console.readLineAsync("");
       await this.restartGame(restartInput);
     } catch (err) {
-      Console.print(err);
+      Console.print(err.message);
+      throw new Error(err.message);
     }
   }
 }
