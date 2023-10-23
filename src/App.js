@@ -59,22 +59,20 @@ class App {
     this.ball = 0;
     this.nothing = 0;
     for (let i = 0; i < 3; i++) {
-      if (
-        this.computer[i] === this.inputNum[i] &&
-        this.computer.includes(this.inputNum[i])
-      ) {
+      if (this.computer[i] === this.inputNum[i]) {
         this.strike += 1;
       } else if (
         this.computer[i] !== this.inputNum[i] &&
         this.computer.includes(this.inputNum[i])
       ) {
         this.ball += 1;
-      } else if (!this.computer.includes(this.inputNum[i])) {
+      } else {
         this.nothing += 1;
       }
     }
     await this.result();
   }
+
   async result() {
     if (this.nothing === 3) {
       Console.print("낫싱");
