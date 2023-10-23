@@ -5,6 +5,7 @@
   <title>숫자야구</title>
   <link rel="stylesheet" href="./src/assets/reset.css">
   <link rel="stylesheet" href="./src/assets/index.css">
+  <script type="module"  defer src="./src/App.js" ></script>
 </head>
 <body>
     <div class="inner">
@@ -37,8 +38,8 @@
           </section>
         </article>
         <section class="game-state">
-          <button class="game-state__btn-start" title="game start">Game Start</button>
-          <div class="game-state__playing on">Game Playing...🎮</div>
+          <button class="game-state__btn-start on" title="game start">Game Start</button>
+          <div class="game-state__playing">Game Playing...🎮</div>
         </section>
         <section class="input-container">
           <input type="text" placeholder="숫자를 입력해주세요."/>
@@ -49,7 +50,6 @@
           <div class="message"></div>
         </section>
       </main>
-      <footer> ⓒ 2023 by badahertz52</footer>
     </div>
 </body>
 </html>
