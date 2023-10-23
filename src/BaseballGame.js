@@ -1,9 +1,8 @@
-import {
-  readInput,
-  printOutput,
-  pickNumberInRange,
-} from "./utils/MissionUtils";
-import { validNumbers, validGameEndInput } from "./utils/Validate";
+import { readInput } from "./utils/MissionUtils";
+import handleComputer from "./utils/handleComputer";
+import handleUser from "./utils/handleUser";
+import handleEnd from "./utils/handleEnd";
+import { validNumbers } from "./utils/Validate";
 
 class BaseballGame {
   #GAME_NUMBER_LEN = 3;
@@ -25,7 +24,9 @@ class BaseballGame {
   }
 
   handleComputer() {
-    this.setComputerNumbers(this.getRandomNumbers());
+    this.setComputerNumbers(
+      handleComputer.getRandomNumbers(1, 9, { length: this.#GAME_NUMBER_LEN })
+    );
   }
 
   setComputerNumbers(numbers) {
@@ -33,30 +34,10 @@ class BaseballGame {
     this.#computerNumbers = numbers;
   }
 
-  getRandomNumbers() {
-    const returnNumbers = [];
-
-    while (returnNumbers.length !== this.#GAME_NUMBER_LEN) {
-      const RANDOM_NUMBER = pickNumberInRange(1, 9);
-      if (!returnNumbers.includes(RANDOM_NUMBER))
-        returnNumbers.push(RANDOM_NUMBER);
-    }
-
-    return returnNumbers;
-  }
-
   async handleUser() {
-    try {
-      await this.handleUserInput();
-    } catch (error) {
-      throw error;
-    }
+    await this.handleUserInput();
 
-    const { strike, ball } = this.getStrikeAndBall();
-    this.printStrikeAndBall({ strike, ball });
-
-    const IS_RE_INPUT = strike !== 3;
-    if (IS_RE_INPUT) await this.handleUser();
+    await this.handleUserResult();
   }
 
   async handleUserInput() {
@@ -70,31 +51,15 @@ class BaseballGame {
     this.#userNumbers = numbers;
   }
 
-  /**
-   *
-   * @returns {{strike : number, ball : number}}
-   */
-  getStrikeAndBall() {
-    let strike = 0;
-    let ball = 0;
+  async handleUserResult() {
+    const { strike, ball } = handleUser.getStrikeAndBall({
+      computerNumbers: this.#computerNumbers,
+      userNumbers: this.#userNumbers,
+    });
+    handleUser.printStrikeAndBall({ strike, ball });
 
-    for (let i = 0; i < this.#GAME_NUMBER_LEN; i++) {
-      const COMPUTER_NUM = this.#computerNumbers[i];
-      for (let j = 0; j < this.#GAME_NUMBER_LEN; j++) {
-        const USER_NUM = this.#userNumbers[j];
-        if (i === j && COMPUTER_NUM === USER_NUM) strike += 1;
-        if (i !== j && COMPUTER_NUM === USER_NUM) ball += 1;
-      }
-    }
-
-    return { strike, ball };
-  }
-
-  printStrikeAndBall({ strike, ball }) {
-    if (strike === 0 && ball === 0) printOutput("낫싱");
-    else if (strike === 0) printOutput(`${ball}볼`);
-    else if (ball === 0) printOutput(`${strike}스트라이크`);
-    else printOutput(`${ball}볼 ${strike}스트라이크`);
+    const IS_RE_INPUT = strike !== 3;
+    if (IS_RE_INPUT) await this.handleUser();
   }
 
   async handleEnd() {
@@ -102,15 +67,9 @@ class BaseballGame {
       "3개의 숫자를 모두 맞히셨습니다! 게임 종료 \n게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. \n"
     );
 
-    const IS_GAME_RETRY = this.isGameEnd(INPUT);
+    const IS_GAME_RETRY = handleEnd.isGameEnd(INPUT);
     if (!IS_GAME_RETRY) await this.playGame();
-    if (IS_GAME_RETRY) printOutput("게임 종료");
-  }
-
-  isGameEnd(input) {
-    validGameEndInput(input);
-    if (input === "1") return false;
-    if (input === "2") return true;
+    if (IS_GAME_RETRY) handleEnd.printGameEnd();
   }
 }
 

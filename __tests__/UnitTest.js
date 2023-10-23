@@ -19,14 +19,6 @@ const getPrintLogSpy = () => {
 describe("메서드 유닛 테스트", () => {
   const game = new BaseballGame();
 
-  test("getRandomNumbers 메서드", () => {
-    for (let i = 0; i < 100; i++) {
-      const numbers = game.getRandomNumbers();
-      const numbersSet = new Set(numbers);
-      expect(numbersSet.size === numbers.length).toBeTruthy();
-    }
-  });
-
   test("handleUserInput 메서드 에러", async () => {
     const answers = [
       "1234",

@@ -39,4 +39,4 @@
 4. Airbnb 스타일 가이드 적용!
 5. [x] MissionUtils 그룹화
 6. [x] valid 함수 그룹화
-7. [ ] handle.Computer, handleUser, handleEnd 내부 메서드 분리.
+7. [x] handle.Computer, handleUser, handleEnd 내부 메서드 분리.
