@@ -39,21 +39,23 @@ class App {
     while (newGame % 2) {
       //1일때 실행, 2일때 종료
       let com = new Com();
-      while (1) { //strikeCnt==3일때까지 무한반복
-        let ballCnt =0;
-        let strikeCnt=0;
+      while (1) {
+        //strikeCnt==3일때까지 무한반복
+        let strikeCnt = 0;
+        let ballCnt = 0;
+        
         let user = new User();
         await user.getNumber();
-        for(let i = 0; i<com.comNum.length;i++){
-          if(com.comNum[i]==user.userNum[i]){
-            strikeCnt+=1
-          }
-          else if(com.comNum.includes(user.userNum[i])){
-            ballCnt
+        for (let i = 0; i < com.comNum.length; i++) {
+          if (com.comNum[i] == user.userNum[i]) {
+            strikeCnt += 1;
+          } else if (com.comNum.includes(user.userNum[i])) {
+            ballCnt+=1;
           }
         }
-        if(strikeCnt==3){
-          MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료")
+        
+        if (strikeCnt == 3) {
+          MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
           break;
         }
       }
