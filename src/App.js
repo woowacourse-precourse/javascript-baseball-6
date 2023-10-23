@@ -20,7 +20,7 @@ class App {
         '0을 제외한 서로 다른 숫자를 3자리 입력해주세요: '
       );
       // 예외 구문
-      const parseArr = inputNumber.split('');
+      let parseArr = inputNumber.split('');
       for (let num of parseArr) {
         let valid = RANGE_NUMBERS.includes(Number(num));
         if (!valid) {
@@ -69,7 +69,22 @@ class App {
         } else {
           Console.print(`${ball}볼 ${strike}스트라이크`);
         }
-        inputNumber = await Console.readLineAsync('숫자를 입력해주세요 :');
+        // 틀렸을 시, 반복
+        inputNumber = await Console.readLineAsync('숫자를 입력해주세요 : ');
+        parseArr = inputNumber.split('');
+        for (let num of parseArr) {
+          let valid = RANGE_NUMBERS.includes(Number(num));
+          if (!valid) {
+            throw new Error('1~9 사이의 숫자를 입력해야 합니다.');
+          }
+        }
+        if (inputNumber.length !== 3) {
+          throw new Error('3자리의 숫자를 입력해야 합니다.');
+        }
+        const deduplicateObj = new Set(parseArr);
+        if (deduplicateObj.size !== inputNumber.length) {
+          throw new Error('서로 다른 숫자를 입력해야 합니다.');
+        }
         continue;
       }
     } catch (error) {
