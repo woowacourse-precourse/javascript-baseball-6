@@ -8,6 +8,14 @@ const InputView = {
       callback(userNumbers);
     });
   },
+  readEndCommand(callback) {
+    Console.readLineAsync(
+      '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요\n'
+    ).then((userCommand) => {
+      Validator.validateCommand(userCommand);
+      callback(userCommand);
+    });
+  },
 };
 
 export default InputView;

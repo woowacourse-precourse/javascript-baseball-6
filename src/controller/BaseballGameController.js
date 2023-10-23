@@ -37,13 +37,27 @@ class BaseballGameController {
     OutputView.printResult(this.#gameResult);
 
     const strike = this.#gameResult.strike;
-    if (strike < 3) {
+    if (strike === 3) {
+      this.readEndCommandStage();
+    } else {
       this.readUserNumberStage();
     }
   }
 
   readUserNumberStage() {
     InputView.readUserNumbers(this.checkResultStage.bind(this));
+  }
+
+  readEndCommandStage() {
+    InputView.readEndCommand(this.replayStage.bind(this));
+  }
+
+  replayStage(userCommand) {
+    if (userCommand === '1') {
+      this.start();
+      return;
+    }
+    return;
   }
 }
 

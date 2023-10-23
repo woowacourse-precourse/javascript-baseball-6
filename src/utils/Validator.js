@@ -16,6 +16,12 @@ class Validator {
       throw new Error('[ERROR] 중복된 숫자를 입력해서는 안됩니다.');
     }
   }
+
+  static validateCommand(userCommand) {
+    if (userCommand !== '1' && userCommand !== '2') {
+      throw new Error('[ERROR] 1(재시작) 또는 2(종료)를 입력해야 합니다.');
+    }
+  }
 }
 
 export default Validator;
