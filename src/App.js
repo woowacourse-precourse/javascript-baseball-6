@@ -17,7 +17,7 @@ class App {
   }
 
   async play() {
-    Console.print('숫자 야구 게임을 시작합니다.');
+    this.printMsg('숫자 야구 게임을 시작합니다.');
     let ONOFF = 1;
     let userInput = '';
     let ball = 0;
@@ -45,13 +45,13 @@ class App {
       [ball, strike] = await this.checkStrike(this.randNum, inputNum);
 
       if(ball == 0 && strike == 0) {
-        Console.print('낫싱');
+        this.printMsg('낫싱');
         continue;
       }
 
       if(strike == 3) {
-        Console.print('3스트라이크');
-        Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+        this.printMsg('3스트라이크');
+        this.printMsg('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
         ONOFF = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
         if(ONOFF == 1) {
           this.randNum = this.makeRandNum();
@@ -60,16 +60,16 @@ class App {
       }
 
       if(ball == 0){
-        Console.print(`${strike}스트라이크`);
+        this.printMsg(`${strike}스트라이크`);
         continue;
       }
 
       if(strike == 0){
-        Console.print(`${ball}볼`);
+        this.printMsg(`${ball}볼`);
         continue;
       }
 
-      Console.print(`${ball}볼 ${strike}스트라이크`);
+      this.printMsg(`${ball}볼 ${strike}스트라이크`);
     }
 
     if(ONOFF == 2) return;
@@ -102,6 +102,11 @@ class App {
 
   isValidLen(userInput) {
     return userInput.length == 3;
+  }
+
+  printMsg(str){
+    Console.print(str);
+    return;
   }
 }
 
