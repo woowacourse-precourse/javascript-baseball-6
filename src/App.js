@@ -2,37 +2,44 @@ import { Console, Random } from "@woowacourse/mission-utils";
 
 class App {
   async play() {
-    let randomNumber = makeRandomNumber();
-    let isEnd = false;
-
-    Console.print("숫자 야구 게임을 시작합니다.");
-    while (!isEnd) {
-      Console.print("숫자를 입력해주세요 :");
-      const userInput = await Console.readLineAsync("");
-      const inputIsValid = checkInputIsValid(userInput);
-      if (inputIsValid) {
-        const scoreBoard = calculateScore(userInput, randomNumber);
-        if (scoreBoard.strike === 3) {
-          Console.print(printScore(scoreBoard));
-          Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료.");
-          Console.print("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
-
-          const keepOrEndInput = await Console.readLineAsync("");
-          isEnd = checkGameStatus(keepOrEndInput);
-          if (!isEnd && !isEnd.isError) {
-            randomNumber = makeRandomNumber();
-          } else if (isEnd.isError) {
-            throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
-          }
-        } else {
-          Console.print(printScore(scoreBoard));
-        }
-      } else if (!inputIsValid) {
-        throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
-      }
-    }
+    await playBaseBall();
   }
 }
+
+const playBaseBall = async () => {
+  let randomNumber = makeRandomNumber();
+  let isEnd = false;
+
+  Console.print("숫자 야구 게임을 시작합니다.");
+  while (!isEnd) {
+    const userInput = await Console.readLineAsync("숫자를 입력해주세요 : ");
+    const inputIsValid = checkInputIsValid(userInput);
+    if (inputIsValid) {
+      const scoreBoard = calculateScore(userInput, randomNumber);
+      if (scoreBoard.strike === 3) {
+        const keepOrEndInput = await getUserInputForGameSet(scoreBoard);
+        isEnd = checkGameIsEnd(keepOrEndInput);
+        if (!isEnd && !isEnd.isError) {
+          randomNumber = makeRandomNumber();
+        } else if (isEnd.isError) {
+          throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+        }
+      } else {
+        Console.print(printScore(scoreBoard));
+      }
+    } else if (!inputIsValid) {
+      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+    }
+  }
+};
+
+const getUserInputForGameSet = async (scoreBoard) => {
+  Console.print(printScore(scoreBoard));
+  Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료.");
+  Console.print("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+
+  return await Console.readLineAsync("");
+};
 
 const makeRandomNumber = () => {
   const randomNumber = [];
@@ -85,7 +92,7 @@ const printScore = (scoreBoard) => {
   return returnString;
 };
 
-const checkGameStatus = (userInput) => {
+const checkGameIsEnd = (userInput) => {
   if (userInput === "1") {
     return false;
   } else if (userInput === "2") {
