@@ -7,4 +7,9 @@ export const GAME_MESSAGES = {
   EXIT: "게임을 종료합니다.",
 };
 
+export const COMMANDS = {
+  RESTART: "1",
+  EXIT: "2",
+};
+
 export const ANSWER_LENGTH = 3;

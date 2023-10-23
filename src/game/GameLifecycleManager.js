@@ -1,7 +1,7 @@
 import { Console } from "@woowacourse/mission-utils";
 import Game from "./Game.js";
 import Validation from "./Validation.js";
-import { GAME_MESSAGES } from "./constants.js";
+import { GAME_MESSAGES, COMMANDS } from "./constants.js";
 
 class GameLifecycleManager {
   constructor() {
@@ -24,7 +24,7 @@ class GameLifecycleManager {
     userResponse = userResponse.trim();
     Validation.validateGameTerminationInput(userResponse);
 
-    if (userResponse === "2") {
+    if (userResponse === COMMANDS.EXIT) {
       Console.print(GAME_MESSAGES.EXIT);
       this.isGameEnded = true;
     }
