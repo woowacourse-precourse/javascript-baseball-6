@@ -9,7 +9,7 @@ class Com {
         comNum.push(number);
       }
     }
-    // console.log(comNum);
+    console.log(comNum);
     this.comNum = comNum;
   }
 }
@@ -37,10 +37,8 @@ class User {
       throw new Error("[ERROR] 1 ~ 9 사이의 숫자를 입력하지 않았습니다.");
     }
     // #2.5 같은 숫자를 입력한 경우
-    if([...new Set(number)].length!=3){
-      
+    if([...new Set(number)].length != 3) {
       throw new Error("[ERROR] 서로 다른 숫자를 입력하지 않았습니다.");
-
     }
 
     if (number.length == 3) {
@@ -55,6 +53,7 @@ class User {
 }
 
 class App {
+  
   async play() {
     console.log("숫자 야구 게임을 시작합니다.");
     let newGame = 1;
@@ -68,7 +67,7 @@ class App {
         let answer = "";
         let user = new User();
         // try {
-          await user.getNumber();
+        await user.getNumber();
         // } catch (e) {
         //   MissionUtils.Console.print(e);
         //   return;
@@ -100,10 +99,10 @@ class App {
           break;
         }
       }
-
+      
       newGame = await MissionUtils.Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
-      if(newGame=='1'||newGame=='2'){
-        throw new Error("1 또는 2 를 입력해주세요")
+      if (newGame != "1" && newGame != "2") {
+        throw new Error("1 또는 2 를 입력해주세요");
       }
     }
   }
