@@ -1,6 +1,5 @@
 const { MissionUtils } = require("@woowacourse/mission-utils");
 
-
 class App {
   constructor() {
     this.secretNumber = this.generateRandomNumber();
@@ -34,49 +33,45 @@ class App {
 
   checkGuess(guess) {
     if (this.isValidInput(guess)) {
-        // 입력값을 문자열에서 숫자 배열로 변환
-        const guessArray = guess.split('').map(Number);
+      const guessArray = guess.split('').map(Number);
 
-        let strikes = 0;
-        let balls = 0;
+      let strikes = 0;
+      let balls = 0;
 
-        for (let i = 0; i < 3; i++) {
-            if (guessArray[i] === this.secretNumber[i]) {
-                strikes++;
-            } else if (this.secretNumber.includes(guessArray[i])) {
-                balls++;
-            }
+      for (let i = 0; i < 3; i++) {
+        if (guessArray[i] === this.secretNumber[i]) {
+          strikes++;
+        } else if (this.secretNumber.includes(guessArray[i])) {
+          balls++;
         }
+      }
 
-        if (strikes === 3) {
-            return "3스트라이크";
-        } else if (strikes > 0 || balls > 0) {
-            return `${balls}볼 ${strikes}스트라이크`;
-        } else {
-            // "낫싱" 대신 에러를 발생시킵니다.
-            throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
-        }
-    } else {
-        // 숫자가 잘못된 형식일 때 에러를 발생시킵니다.
+      if (strikes === 3) {
+        return "3스트라이크";
+      } else if (strikes > 0 || balls > 0) {
+        return `${balls}볼 ${strikes}스트라이크`;
+      } else {
         throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+      }
+    } else {
+      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
     }
-}
-
+  }
 
   async play() {
     console.log("숫자 야구 게임을 시작합니다.");
-  
+
     while (true) {
       const input = await this.getInput();
       if (input === "2") {
         console.log("게임을 종료합니다.");
         break;
       }
-  
+
       if (this.isValidInput(input)) {
         const result = this.checkGuess(input);
         console.log(result);
-  
+
         if (result === "3스트라이크") {
           console.log("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
           break;
@@ -86,5 +81,6 @@ class App {
       }
     }
   }
-}  
+}
+
 module.exports = App;
