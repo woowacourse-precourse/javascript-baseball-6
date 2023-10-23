@@ -46,6 +46,9 @@ class App {
         if (strikeCount > 0) {
           message += `${message ? " " : ""}${strikeCount}스트라이크`;
         }
+        if (!message) {
+          message = "낫싱";
+        }
         Console.print(message);
       })
       .catch(error => {
