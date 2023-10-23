@@ -7,7 +7,7 @@ class App {
 
   ball = 0;
 
-  success = false;
+  win = false;
 
   userText = '';
 
@@ -17,6 +17,7 @@ class App {
     start: '숫자 야구 게임을 시작합니다.',
     end: '게임종료',
     strike: '스트라이크',
+    threeStrike: '3스트라이크',
     ball: '볼',
     nothing: '낫싱',
     win: '3개의 숫자를 모두 맞히셨습니다! 게임 종료',
@@ -53,8 +54,8 @@ class App {
   // 상태 초기화
   resetState() {
     this.playing = true;
-    this.success = false;
     this.userText = '';
+    this.win = false;
     this.resetStrikeAndBall();
     this.setComputerNumbers();
   }
@@ -69,20 +70,24 @@ class App {
     this.printMessage(this.sentence.start);
   }
 
-  endGame() {
+  endGame(showMessage) {
     this.playing = false;
-    this.printMessage(this.sentence.end);
+    this.win = false;
+    this.userText = '';
+    this.resetStrikeAndBall();
+    if (showMessage) this.printMessage(this.sentence.end);
   }
 
   throwError(error) {
-    this.playing = false;
-    throw new Error(error);
+    this.endGame(false);
+    this.printMessage(error);
+    // return Promise.reject(new Error(error));
   }
 
   // input 내용
   async getUserNumbers() {
     try {
-      if (!this.success) this.printMessage('숫자를 입력해주세요.');
+      if (!this.strike === 3) this.printMessage('숫자를 입력해주세요.');
       const text =
         await MissionUtils.Console.readLineAsync('숫자를 입력해주세요.');
       this.userText = Number(text.replaceAll(' ', ''));
@@ -93,14 +98,17 @@ class App {
 
   // 유효성 검사
   validNumbers() {
-    if (this.strike !== 3) {
-      return /^[1-9]{3}$/.test(this.userText);
+    let pass;
+    if (!this.win) {
+      pass = /^[1-9]{3}$/.test(this.userText);
+    } else {
+      pass = /^[1,2]$/.test(this.userText);
     }
-    return /^[1,2]$/.test(this.userText);
+    return pass;
   }
 
   // 스트라이크, 볼 판정
-  testStrikeAndBall() {
+  compareNumbers() {
     const userNumbers = String(this.userText)
       .split('')
       .map(v => Number(v));
@@ -112,14 +120,11 @@ class App {
         this.ball += 1;
       }
     });
-    const isNothing = !this.strike && !this.ball;
-    const isThreeStrike = this.strike === 3;
-    const strikeAndBall = isThreeStrike
-      ? '3스트라이크'
-      : `${this.strike ? this.strike + this.sentence.strike : ''} ${
-          this.ball ? this.ball + this.sentence.ball : ''
-        }`;
-    console.log(
+  }
+
+  // 판정 결과 표시
+  showJudgment() {
+    MissionUtils.Console.print(
       'user',
       this.userText,
       'com',
@@ -129,39 +134,50 @@ class App {
       'b',
       this.ball,
     );
-    return isNothing ? this.sentence.nothing : strikeAndBall;
+    const isNothing = !this.strike && !this.ball;
+    if (this.strike === 3) {
+      this.win = true;
+      this.printMessage(this.sentence.threeStrike);
+      this.printMessage(this.sentence.win);
+      this.printMessage(this.sentence.restart);
+    } else if (isNothing) {
+      this.printMessage(this.sentence.nothing);
+    } else {
+      const strikeAndBall = `${
+        this.strike ? this.strike + this.sentence.strike : ''
+      } ${this.ball ? this.ball + this.sentence.ball : ''}`;
+      this.printMessage(strikeAndBall.replaceAll(' ', ''));
+    }
+    this.resetStrikeAndBall();
   }
 
-  // 판정 결과
+  // 판정
   test() {
-    if (this.success) {
+    console.log('win', this.win);
+    if (this.win === true) {
       const isRestart = this.userText === 1;
-      console.log('usetext', this.userText);
       if (isRestart) {
         this.resetState();
       } else {
-        this.endGame();
+        this.endGame(true);
       }
     } else {
-      const result = this.testStrikeAndBall();
-      this.printMessage(result);
-      if (this.strike === 3) {
-        this.printMessage(this.sentence.restart);
-        this.success = true;
-      }
-      this.resetStrikeAndBall();
+      this.compareNumbers();
+      this.showJudgment();
     }
   }
 
   async run() {
     await this.getUserNumbers();
+    console.log('user text', this.userText);
     const testPass = this.validNumbers();
     if (testPass) {
       this.test();
-      if (this.playing) this.run();
     } else {
+      // throw new Error(this.sentence.error);
       this.throwError(this.sentence.error);
     }
+    if (this.playing) this.run();
   }
 
   async play() {
