@@ -6,7 +6,7 @@ class App {
   }
 
   async play() {
-    await this.baseballGame.play();
+    await this.baseballGame.startGame();
   }
 }
 
