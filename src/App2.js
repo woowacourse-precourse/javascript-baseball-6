@@ -63,7 +63,7 @@ const trial = async (TARGET_NUMBER, round) => {
   let result = await round(TARGET_NUMBER, trialN);
 
   if(result === 'fail'){
-    await trial(TARGET_NUMBER, round);
+    return await trial(TARGET_NUMBER, round);
   }else if(result === 'clear'){
     console.log('3개의 숫자를 모두 맞히셨습니다! 게임을 새로시작하려면 1을 종료하시려면 2를 입력하세요.') 
     let restart = await userInput();
