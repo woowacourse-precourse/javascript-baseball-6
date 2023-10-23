@@ -2,11 +2,6 @@ import { Console } from '@woowacourse/mission-utils';
 import { GAME_MESSAGE, ERROR_MESSAGE } from '../constants/constants.js';
 
 class User {
-  constructor() {
-    /** @type {number[]} */
-    this.user = [];
-  }
-
   /**
    * 입력받은 숫자를 배열 형태로 리턴
    * @returns {number[]} 유저가 입력한 숫자 배열
@@ -16,8 +11,7 @@ class User {
     const input = await Console.readLineAsync(GAME_MESSAGE.INPUT_MESSAGE);
     this.validateInput(input);
 
-    this.user = input.split('').map(Number);
-    return this.user;
+    return input.split('').map(Number);
   }
 
   /**
