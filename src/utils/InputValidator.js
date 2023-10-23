@@ -1,4 +1,5 @@
 import { VALIDATION_ERRORS } from '../constants/MessageConstants';
+import { RESTART_GAME, END_GAME } from '../constants/GameConstants';
 
 export default class InputValidator {
   static validateIsString(input) {
@@ -34,7 +35,7 @@ export default class InputValidator {
   }
 
   static validateGameEndInput(input) {
-    if (input !== '1' && input !== '2') {
+    if (input !== RESTART_GAME && input !== END_GAME) {
       throw new Error(VALIDATION_ERRORS.INVALID_END_INPUT);
     }
   }
