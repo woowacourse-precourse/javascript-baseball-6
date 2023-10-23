@@ -3,7 +3,9 @@ class Baseball {
     const numInput = Baseball.changeNumToArr(input);
     const strikeResult = Baseball.isStrikeCount(random, numInput);
     const ballResult = Baseball.isBallCount(random, numInput);
+  }
 
+  static getGameResult(strikeResult, ballResult) {
     if (strikeResult === 0 && ballResult === 0) return '낫싱';
 
     if (strikeResult !== 0 && ballResult !== 0)
