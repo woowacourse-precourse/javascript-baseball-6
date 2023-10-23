@@ -4,6 +4,7 @@ import OutputView from './View/OutputView.js';
 import Opponent from './Opponent.js';
 import Player from './Player.js';
 import Refree from './Refree.js';
+import Validation from './Validation.js';
 
 class App {
   #refree;
@@ -12,6 +13,8 @@ class App {
     OutputView.printStart();
 
     const inputNumber = await InputView.getUserNumber();
+    this.checkError(Validation.validateBaseballNumber, inputNumber);
+
     const player = new Player(inputNumber);
     const opponent = new Opponent();
 
@@ -31,17 +34,26 @@ class App {
 
   async confirmGame() {
     OutputView.printDone();
-    const input = await InputView.confirmContinue();
+    const inputNumber = await InputView.confirmContinue();
+    this.checkError(Validation.validateConfirmNumber, inputNumber);
 
-    if (Number(input) === 1) this.play();
-    else if (Number(input) === 2) return;
-    else throw Error('1 또는 2를 입력해주세요.');
+    if (Number(inputNumber) === 1) this.play();
+    if (Number(inputNumber) === 2) return;
   }
 
   async continueGame() {
     const inputNumber = await InputView.getUserNumber();
+    this.checkError(Validation.validateBaseballNumber, inputNumber);
     this.#refree.changePlayerNumber(inputNumber);
     this.startGame();
+  }
+
+  checkError(handler, input) {
+    try {
+      handler(input);
+    } catch (error) {
+      throw new Error(`[ERROR] ${error}`);
+    }
   }
 }
 
