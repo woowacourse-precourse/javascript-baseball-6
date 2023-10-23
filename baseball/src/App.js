@@ -1,8 +1,91 @@
+import { Console, Random } from "@woowacourse/mission-utils";
+
 class App {
   async play() {
-    console.log("숫자 야구 게임을 시작합니다.");
+    printStart();
+    const baseballNums = makeRandomNum();
+    console.log("컴터숫자", baseballNums);
+    const userNum = await inputNum();
+    console.log("usernum", userNum);
+    validationNum(userNum);
+
+    let result = checkNum(userNum, baseballNums);
+    checkCorrectAnswer(result);
   }
 }
+// 1. 시작문구 출력
+const printStart = () => {
+  Console.print("숫자 야구 게임을 시작합니다.");
+};
+
+// 2. 1~9 사이 숫자 랜덤으로 3개 만들기
+
+const makeRandomNum = () => {
+  let numbers = Random.pickUniqueNumbersInRange(1, 9, 3);
+
+  return numbers;
+};
+
+// 3. 사용자에게 숫자 입력받기
+const inputNum = () => {
+  return new Promise((resolve) => {
+    Console.readLine("숫자를 입력해주세요 :", (answer) =>
+      resolve(answer.split(""))
+    );
+  });
+};
+
+// 4. 숫자 유효성검토(숫자인지, 3개의 숫자인지)
+const validationNum = (num) => {
+  console.log("유효성검사에서", num.length);
+  if (num.length > 3 || num.length < 3 || num.some(isNaN)) {
+    throw new Error("[ERROR] 입력값이 잘못되었습니다.게임을 종료합니다.");
+  }
+};
+
+// 5. 정답유무 확인
+const checkNum = (num, baseballNums) => {
+  let answer = "";
+  let strike = 0;
+  let ball = 0;
+
+  for (let i = 0; i < baseballNums.length; i++) {
+    if (baseballNums[i] == num[i]) {
+      strike++;
+    } else if (baseballNums.includes(num[i])) {
+      ball++;
+    }
+  }
+
+  if (strike === 0 && ball === 0) return Console.print("낫싱");
+  if (strike > 0) answer += `${strike}스트라이크`;
+  if (ball > 0) answer += `${ball}볼`;
+
+  Console.print(answer);
+  return answer;
+};
+
+// 6. 최종정답 확인
+const checkCorrectAnswer = (result) => {
+  console.log("finaly", String(result) === "3스트라이크");
+  if (result === "3스트라이크") {
+    Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    replayGame();
+  } else {
+    app.play();
+  }
+};
+
+// 7. 게임 계속할지 물어보기
+const replayGame = () => {
+  Console.readLine(
+    "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.",
+    (answer) => {
+      if (answer === "1") app.play();
+      return;
+    }
+  );
+};
 
 const app = new App();
 app.play();
