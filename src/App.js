@@ -43,13 +43,35 @@ const compareUserComputer = (userArr, computerArr) => {
 	};
 };
 
+const validateUserInput = (USERINPUT) => {
+	if (USERINPUT.length === 3) {
+		const USERARR = USERINPUT.split('').map((num) => +num);
+		if (USERARR.includes(0)) {
+			throw new MyError('[ERROR]', '1부터 9까지의 자연수만 가능합니다.');
+		} else {
+			// USERARR 는 모두 자연수
+			if (USERARR[0] !== USERARR[1] && USERARR[0] !== USERARR[2] && USERARR[1] !== USERARR[2]) {
+				//값이 전부 다르면
+				//드디어 사용자 숫자와 비교 시작 가능
+				const COMPUTERARR = getComputerInput();
+				const { strike, ball } = compareUserComputer(USERARR, COMPUTERARR);
+				return {strike, ball}
+			}
+			// else {
+			// 	//같은 애가 있다면
+			// 	throw new MyError('다 다른 숫자여야 합니다.');
+			// }
+		}
+	}
+};
+
 const getScore = (STRIKE, BALL) => {
 	if (STRIKE === 3) {
 		MissionUtils.Console.print('3스트라이크');
 		MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
 		return;
 	}
-	if (STRIKE === 0 && ball === 0) {
+	if (STRIKE === 0 && BALL === 0) {
 		MissionUtils.Console.print('낫싱');
 		return;
 	}
@@ -72,45 +94,26 @@ const end = async () => {
 		switch (DECISION) {
 			case '1':
 				MissionUtils.Console.print('재시작');
-				start();
+				await start();
 				break;
 			case '2':
 				MissionUtils.Console.print('게임 종료');
 				break;
 			default:
-				throw new MyError('[ERROR]','유효한 입력값이 아닙니다. 1, 2 중에서 입력해주세요.')
+				throw new MyError('[ERROR]', '유효한 입력값이 아닙니다.','1, 2 중에서 입력해주세요.');
 		}
 	} catch (error) {
-		throw new MyError('[ERROR]', error);
+		throw new MyError('[ERROR]','유효한 입력값이 아닙니다.','1, 2 중에서 입력해주세요.');
 	}
 };
 const start = async () => {
 	try {
 		const USERINPUT = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 :');
 		MissionUtils.Console.print(`숫자를 입력해주세요 : ${USERINPUT}`);
-		if (USERINPUT.length === 3) {
-			const userArr = USERINPUT.split('').map((num) => +num);
-			if (userArr.includes(0)) {
-				throw new MyError('[ERROR]', '1부터 9까지의 자연수만 가능합니다.');
-			} else {
-				// userArr 는 모두 자연수
-				if (userArr[0] !== userArr[1] && userArr[0] !== userArr[2] && userArr[1] !== userArr[2]) {
-					//값이 전부 다르면
-					//드디어 사용자 숫자와 비교 시작 가능
-					const computerArr = getComputerInput();
-					const { strike, ball } = compareUserComputer(userArr, computerArr);
-					getScore(strike, ball);
-					await end();
-				}
-				// else {
-				// 	//같은 애가 있다면
-				// 	throw new MyError('다 다른 숫자여야 합니다.');
-				// }
-			}
-		}
-		if (userInput.length !== 3) {
-			throw new MyError('[ERROR]', '세자리를 입력해주세요.');
-		}
+		const { strike, ball } = validateUserInput(USERINPUT);
+		getScore(strike, ball);
+		end();
+		
 	} catch (e) {
 		throw new MyError('[ERROR]', '유효한 입력값이 아닙니다.');
 	}
