@@ -57,6 +57,8 @@ class App {
           if (playAgain === '2') {
             MissionUtils.Console.print('게임 종료');
             return;
+          } else if (playAgain === '1') {
+            answer = this.createRandomNumber();
           }
         }
       }
