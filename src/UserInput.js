@@ -25,7 +25,7 @@ const UserInput = {
     }
   },
 
-  isValidInput(userInput) {
+  isValidInputForBaseballGame(userInput) {
     const numberArray = userInput.split('').map(Number);
 
     const isValidNumber = numberArray.every((num) => NUMBER_REGEX.test(num));
