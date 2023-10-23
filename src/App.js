@@ -19,24 +19,33 @@ class App {
         this.computer.push(number);
       }
     }
-    console.log(this.computer);
     await this.myInputNum();
   }
 
   async myInputNum() {
+    const myNum = await this.getUserInput();
+    this.validateInput(myNum);
+    await this.compareResult();
+  }
+
+  async getUserInput() {
     const myNum = await Console.readLineAsync("숫자를 입력해주세요 : ");
     this.inputNum = myNum.split("").map((element) => parseInt(element));
+    return this.inputNum;
+  }
 
-    if (myNum.includes("0")) {
-      throw new Error("[ERROR] 숫자가 잘못된 형식입니다");
+  validateInput(myNum) {
+    if (!this.isValidFormat(myNum) || !this.isDuplicateNumbers(myNum)) {
+      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
     }
-    if (this.computer.length !== new Set(this.inputNum).size) {
-      throw new Error("[ERROR] 숫자가 잘못된 형식입니다");
-    }
-    if (myNum.length !== 3) {
-      throw new Error("[ERROR] 숫자가 잘못된 형식입니다");
-    }
-    await this.compareResult();
+  }
+
+  isValidFormat(myNum) {
+    return /^[1-9]{3}$/.test(myNum.join(""));
+  }
+
+  isDuplicateNumbers(myNum) {
+    return this.computer.length === new Set(myNum).size;
   }
 
   async compareResult() {
@@ -87,6 +96,4 @@ class App {
   }
 }
 
-let app = new App();
-app.play();
 export default App;
