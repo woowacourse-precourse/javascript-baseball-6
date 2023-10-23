@@ -1,4 +1,4 @@
-module.exports = App;
+export default App;
 
 const { MissionUtils } = require('@woowacourse/mission-utils');
 
