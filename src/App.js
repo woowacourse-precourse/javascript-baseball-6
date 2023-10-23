@@ -18,17 +18,18 @@ class User {
     this.userNum = [];
   }
   async getNumber() {
-    try {
-      let user = [];
-      let number = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
-      if (number.length == 3) {
-        for (let i = 0; i < number.length; i++) {
-          user.push(Number(number[i]));
-        }
+    let user = [];
+    let number = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
+    if(number.length==0){
+      throw("[ERROR] 숫자를 입력하지 않았습니다.")
+    }
+    if (number.length == 3) {
+      for (let i = 0; i < number.length; i++) {
+        user.push(Number(number[i]));
       }
+    }
 
-      this.userNum = user;
-    } catch (error) {}
+    this.userNum = user;
   }
 }
 
@@ -43,33 +44,39 @@ class App {
         //strikeCnt==3일때까지 무한반복
         let strikeCnt = 0;
         let ballCnt = 0;
-        let answer="";
+        let answer = "";
         let user = new User();
-        await user.getNumber();
+        try{
+          await user.getNumber();
+        }catch(e){
+          MissionUtils.Console.print(e);
+          return;
+        }
+        
         for (let i = 0; i < com.comNum.length; i++) {
           if (com.comNum[i] == user.userNum[i]) {
             strikeCnt += 1;
           } else if (com.comNum.includes(user.userNum[i])) {
-            ballCnt+=1;
+            ballCnt += 1;
           }
         }
-        if(ballCnt){
-          answer+=`${ballCnt}볼`
+        if (ballCnt) {
+          answer += `${ballCnt}볼`;
         }
-        if(strikeCnt){
-          if(ballCnt){
-            answer+=" "
+        if (strikeCnt) {
+          if (ballCnt) {
+            answer += " ";
           }
-          answer+=`${strikeCnt}스트라이크`
+          answer += `${strikeCnt}스트라이크`;
         }
-        if(!(ballCnt||strikeCnt)){
-          answer+="낫싱"
+        if (!(ballCnt || strikeCnt)) {
+          answer += "낫싱";
         }
         if (strikeCnt == 3) {
           MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
           break;
         }
-        MissionUtils.Console.print(answer)
+        MissionUtils.Console.print(answer);
       }
 
       newGame = await MissionUtils.Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
