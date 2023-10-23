@@ -154,3 +154,14 @@ while (computer.length < 3) {
 - 미션은 [javascript-baseball](https://github.com/woowacourse-precourse/javascript-baseball-6/) 저장소를 Fork & Clone해 시작한다.
 - **기능을 구현하기 전 `docs/README.md`에 구현할 기능 목록을 정리**해 추가한다.
 - 과제 진행 및 제출 방법은 [프리코스 과제 제출](https://github.com/woowacourse/woowacourse-docs/tree/master/precourse) 문서를 참고한다.
+
+
+## 커밋메세지 
+
+- feat: 새로운 기능 추가
+  fix: 버그 수정
+  docs: 문서 수정
+  style: 코드 스타일 수정
+  refactor: 코드 구조 개선
+  test: 테스트 추가 또는 수정
+  chore: 기타 변경 사항
