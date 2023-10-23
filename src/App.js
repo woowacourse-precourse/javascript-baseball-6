@@ -41,22 +41,30 @@ class App {
           isCorrectAnswer = true;
         }
       }
-      const gameToggler = await this.gameController();
-      if (gameToggler !== '1' && gameToggler !== '2') {
-        throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
-      }
-      if (gameToggler !== '1') {
+
+      const isGameRestarting = await this.restartGame();
+
+      if (!isGameRestarting) {
         isStartGame = false;
-        break;
       }
     }
   }
 
-  async gameController() {
-    const gameToggle = await Console.readLineAsync(
+  async restartGame() {
+    const gameOptions = {
+      RESTART_GAME: '1',
+      END_GAME: '2',
+    };
+    const gameController = await Console.readLineAsync(
       '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.'
     );
-    return gameToggle;
+    if (gameController === gameOptions.RESTART_GAME) {
+      return true;
+    }
+    if (gameController === gameOptions.END_GAME) {
+      return false;
+    }
+    throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
   }
 
   pickRandomNumber() {
