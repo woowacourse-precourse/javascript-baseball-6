@@ -13,6 +13,23 @@ class GameData {
   getRandomNumbers() {
     return this.randomNumbers;
   }
+
+  getBall() {
+    return this.ball;
+  }
+
+  getStrike() {
+    return this.strike;
+  }
+
+  // ball 값 업데이트
+  setBall(ball) {
+    this.ball = ball;
+  }
+  // strike 값 업데이트
+  setStrike(strike) {
+    this.strike = strike;
+  }
 }
 
 module.exports = GameData;
