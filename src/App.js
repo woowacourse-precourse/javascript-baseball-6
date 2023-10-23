@@ -41,7 +41,10 @@ class App {
 
   async playInning() {
     this.getGuess().then(guess => {
-      this.evaluateGuess(guess);
+      const [strikeCount, ballCount] = this.evaluateGuess(guess);
+      const ballMessage = ballCount ? `${ballCount}볼` : "";
+      const strikeMessage = strikeCount ? `${strikeCount}스트라이크` : "";
+      console.log(ballMessage, strikeMessage);
     });
   }
 
@@ -81,8 +84,7 @@ class App {
         }
       }
     });
-    console.log("strikeCount: ", strikeCount);
-    console.log("ballCount: ", ballCount);
+    return [strikeCount, ballCount];
   }
 }
 
