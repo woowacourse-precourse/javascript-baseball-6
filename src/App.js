@@ -1,9 +1,13 @@
 import { Console, Random } from "@woowacourse/mission-utils";
-import { ERROR } from "./lib/constants/error.js";
-import { MESSAGE } from "./lib/constants/message.js";
-import { WORD } from "./lib/constants/word.js";
+const InputError = require("./lib/utils/error.js");
+const { MESSAGE } = require("./lib/constants/message.js");
+const { WORD } = require("./lib/constants/word.js");
 
 class App {
+  constructor() {
+    this.Error = new InputError();
+  }
+
   async play() {
     this.startGame();
 
@@ -34,8 +38,6 @@ class App {
       const number = Random.pickNumberInRange(1, 9);
       if (!computerNumber.includes(number)) {
         computerNumber.push(number);
-      } else {
-        throw new Error(ERROR.INPUT_DUPLICATE);
       }
     }
 
@@ -44,16 +46,8 @@ class App {
 
   async inputUserNumber() {
     const input = await Console.readLineAsync(MESSAGE.INPUT);
-
-    if (input.length !== 3) {
-      throw new Error(ERROR.INPUT_USER_NUMBER_LENGTH);
-    }
-
-    const numbers = input.split("").map((value) => parseInt(value));
-
-    if (numbers.includes(NaN)) {
-      throw new Error(ERROR.INPUT_DATA_TYPE);
-    }
+    this.Error.validateUserInput(input);
+    const numbers = input.split("").map((value) => Number(value));
 
     return numbers;
   }
@@ -108,7 +102,7 @@ class App {
       case WORD.EXIT:
         return false;
       default:
-        throw new Error(ERROR.INPUT_REPLAY_TYPE);
+        this.Error.validateUserInput(input);
     }
   }
 }
