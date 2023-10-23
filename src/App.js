@@ -19,26 +19,26 @@ class App {
   }
 
   async BaseballGame(computerNumber) {
-    // TODO : 숫자를 입력 받는 기능
-    try {
-      const userNumber = await Console.readLineAsync(GAME_MESSAGE.INPUT);
-      // TODO : 사용자가 입력한 숫자에 대해 유효한 값인지 확인하는 기능
-      if (!this.inValidNumber(userNumber))
+    while (true) {
+      // TODO : 숫자를 입력 받는 기능
+      try {
+        const userNumber = await Console.readLineAsync(GAME_MESSAGE.INPUT);
+        // TODO : 사용자가 입력한 숫자에 대해 유효한 값인지 확인하는 기능
+        this.inValidNumber(userNumber);
+        // TODO : 볼과 스트라이크를 계산하는 기능
+        const { ball, strike } = this.calculateBallAndStrike(
+          computerNumber,
+          this.userNumber
+        );
+        // TODO : 비교한 결과에 대해 출력하는 기능
+        const result = this.printResult(ball, strike);
+
+        if (result) {
+          return this.reStart();
+        }
+      } catch (error) {
         throw new Error(ERROR_MESSAGE.IS_INVALID);
-      // TODO : 볼과 스트라이크를 계산하는 기능
-      const { ball, strike } = this.calculateBallAndStrike(
-        computerNumber,
-        this.userNumber
-      );
-      // TODO : 비교한 결과에 대해 출력하는 기능
-      this.printResult(ball, strike);
-      if (strike === 3) {
-        Console.print(`${strike}${BASEBALL_MESSAGE.STRIKE}`)
-        Console.print(GAME_MESSAGE.SUCCESS);
-        return this.reStart();
       }
-    } catch (error) {
-      throw new Error(ERROR_MESSAGE.IS_INVALID);
     }
   }
 
@@ -46,12 +46,16 @@ class App {
     const userNumberArray = String(userNumber).split("");
     const setUserNumberArray = new Set(userNumberArray);
 
-    if (isNaN(userNumber) || userNumberArray.length !== 3) {
-      return false;
+    if (isNaN(userNumber)) {
+      throw new Error(ERROR_MESSAGE.IS_NUMBER);
     }
 
     if (setUserNumberArray.size !== 3) {
-      return false;
+      throw new Error(ERROR_MESSAGE.IS_DUPLICATION);
+    }
+
+    if (userNumberArray.length !== 3) {
+      throw new Error(ERROR_MESSAGE.IS_DIGIT);
     }
 
     return true;
@@ -81,19 +85,23 @@ class App {
       Console.print(
         `${ball}${BASEBALL_MESSAGE.BALL} ${strike}${BASEBALL_MESSAGE.STRIKE}`
       );
-    }
-
-    else if (strike > 0 && strike < 3) {
+    } else if (strike > 0 && strike < 3) {
       Console.print(`${strike}${BASEBALL_MESSAGE.STRIKE}`);
-    }
-
-    else if (ball > 0) {
+      return false;
+    } else if (ball > 0) {
       Console.print(`${ball}${BASEBALL_MESSAGE.BALL}`);
+      return false;
     }
-
 
     if (ball === 0 && strike === 0) {
       Console.print(BASEBALL_MESSAGE.NOTHING);
+      return false;
+    }
+
+    if (strike === 3) {
+      Console.print(`${strike}${BASEBALL_MESSAGE.STRIKE}`);
+      Console.print(GAME_MESSAGE.SUCCESS);
+      return true;
     }
   }
 
@@ -101,10 +109,10 @@ class App {
   async reStart() {
     try {
       const choiceEndOption = await Console.readLineAsync(GAME_MESSAGE.RESTART);
-      if (choiceEndOption === END_OPTION.NEW_GAME) {
+      if (choiceEndOption === GAME_MESSAGE.RESTART) {
         return this.play();
-      } else if (choiceEndOption === END_OPTION.EXIT) {
-        Console.print(GAME_MESSAGE.END)
+      } else if (choiceEndOption == GAME_MESSAGE.END) {
+        Console.print(GAME_MESSAGE.END);
       }
     } catch (error) {
       throw new Error(ERROR_MESSAGE.IS_INVALID);
@@ -112,7 +120,7 @@ class App {
   }
 }
 
-const app = new App();
-app.play();
+// const app = new App();
+// app.play();
 
 export default App;
