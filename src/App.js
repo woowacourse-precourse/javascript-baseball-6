@@ -27,8 +27,12 @@ class App {
     while(ONOFF == 1) {
       userInput =  await Console.readLineAsync('숫자를 입력해 주세요 : ');
       let inputNum = userInput.split('').map(el => Number(el));
-      set = new Set(inputNum);
+
+      if(!this.isNumber(userInput)) {
+        throw new Error('[ERROR] 숫자가 아닌 값이 입력되었습니다.');
+      }
       
+      set = new Set(inputNum);
       if(set.size < 3) {
         // 중복값이 있으므로 예외 처리
         throw new Error('[ERROR] 중복 값이 입력되었습니다.');
@@ -84,6 +88,12 @@ class App {
     }
 
     return [ball, strike];
+  }
+
+  isNumber(userInput) {
+    const regEx = /[^\d1-9]/;
+    const isNum = userInput.match(regEx);
+    return !isNum;
   }
 }
 
