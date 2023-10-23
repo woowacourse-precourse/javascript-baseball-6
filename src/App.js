@@ -12,6 +12,7 @@ const MESSAGE = {
 const ERROR_MESSAGE = {
   LENGTH: '[ERROR] 세 자리 숫자만 입력해야합니다.',
   INT: '[ERROR] 1부터 9사이의 숫자만 입력해야합니다.',
+  UNIQUE: '[ERROR] 1부터 9사이의 숫자가 하나씩 있어야합니다.',
   NEGATIVE: '[ERROR] 양수만 입력해야합니다.',
   RESTART: '[ERROR] 숫자가 잘못된 형식입니다.',
 }
@@ -59,9 +60,11 @@ class App {
 
   validateInput(){
     const { userStringInput } = this;
+    const uniqueArr = [...new Set([...userStringInput])];
 
     if(userStringInput.length !== 3) throw new Error(ERROR_MESSAGE.LENGTH);
     if(!REGEX.test(userStringInput)) throw new Error(ERROR_MESSAGE.INT);
+    if(userStringInput.length !== uniqueArr.length) throw new Error(ERROR_MESSAGE.UNIQUE);
     if(Math.sign(userStringInput) !== 1) throw new Error(ERROR_MESSAGE.NEGATIVE);
   }
 
