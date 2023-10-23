@@ -16,7 +16,7 @@ class NumberBaseballGameController {
 
     return this.inputUserNumber()
   }
-  
+
   async inputUserNumber() {
     const userNumber = await InputView.readUserNumber()
     const userNumberArray = userNumber.split('').map(str => Number(str))
@@ -43,6 +43,10 @@ class NumberBaseballGameController {
       return this.inputRestartNumber()
     }
     return this.inputUserNumber()
+  }
+
+  gameReset() {
+    this.#computer.reset()
   }
 }
 

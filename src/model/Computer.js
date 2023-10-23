@@ -1,3 +1,6 @@
+import { NUMBER_SIZE } from '../constants/index.js'
+import generateRandomNumber from '../utils/generateRandomNumber.js'
+
 class Computer {
   #randomNumber
 
@@ -23,6 +26,10 @@ class Computer {
     }
 
     return count - strikeCount
+  }
+
+  reset() {
+    this.#randomNumber = generateRandomNumber(NUMBER_SIZE)
   }
 }
 
