@@ -18,10 +18,25 @@ class App {
     return computer
   }
 
+  validLen(str) {
+    if(str.length !== 3) throw new Error("[ERROR]");
+  }
+
+  async getUserInput() {
+    let input;
+    while(true) {
+      input = await Console.readLineAsync("숫자를 입력해주세요 : ");
+      this.validLen(input);
+      this.player.fill(input);
+      break;
+    }
+  }
+
   async play() {
     Console.print("숫자야구 게임을 시작합니다.");
     while(true) {
       this.enemy.fill(this.setRandomNumber());
+      await this.getUserInput();
       break;
     }
   }
