@@ -11,6 +11,12 @@ class App {
       }
     }
     Console.print(computer);
+    const number = await Console.readLineAsync("숫자를 입력해주세요 : ");
+    const user = number.split("").map(Number);
+    if (user.length !== 3 || number === null || new Set(user).size !== 3) {
+      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+    }
+    Console.print(user);
   }
 }
 
