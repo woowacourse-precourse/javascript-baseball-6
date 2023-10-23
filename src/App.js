@@ -57,7 +57,6 @@ class App {
   async compareResult() {
     this.strike = 0;
     this.ball = 0;
-    this.nothing = 0;
     for (let i = 0; i < 3; i++) {
       if (this.computer[i] === this.inputNum[i]) {
         this.strike += 1;
@@ -67,16 +66,14 @@ class App {
       ) {
         this.ball += 1;
       } else {
-        this.nothing += 1;
+        Console.print("낫싱");
       }
     }
     await this.result();
   }
 
   async result() {
-    if (this.nothing === 3) {
-      Console.print("낫싱");
-    } else if (this.ball === 0 && this.strike !== 0) {
+    if (this.ball === 0 && this.strike !== 0) {
       Console.print(`${this.strike}스트라이크`);
     } else if (this.ball !== 0 && this.strike === 0) {
       Console.print(`${this.ball}볼`);
