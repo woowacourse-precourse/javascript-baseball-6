@@ -2,6 +2,7 @@ import { Console } from '@woowacourse/mission-utils';
 import { GAME_MESSAGE } from '../constants/constants.js';
 import Computer from './Computer.js';
 import User from './User.js';
+import { BALL_COUNT } from '../constants/constants.js';
 
 class Baseball {
   constructor() {
@@ -40,6 +41,18 @@ class Baseball {
       if (exist === idx) this.count.strike++;
       else if (exist !== idx && exist !== -1) this.count.ball++;
     });
+
+    this.printBallCount();
+  }
+
+  /** 볼 카운트 프린트 */
+  printBallCount() {
+    const { ball, strike } = this.count;
+
+    if (ball === 0 && strike === 0) Console.print(BALL_COUNT.NOTHING);
+    else if (ball !== 0 && strike === 0) Console.print(`${ball}${BALL_COUNT.BALL}`);
+    else if (ball === 0 && strike !== 0) Console.print(`${strike}${BALL_COUNT.STRIKE}`);
+    else if (ball !== 0 && strike !== 0) Console.print(`${ball}${BALL_COUNT.BALL} ${strike}${BALL_COUNT.STRIKE}`);
   }
 }
 
