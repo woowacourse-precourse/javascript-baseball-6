@@ -1,7 +1,7 @@
 class Exception {
   static checkAllException(num) {
     if (!(Exception.checkLength(num) && Exception.checkInteger(num))) {
-      throw new Error('숫자가 잘못된 형식입니다.');
+      throw '숫자가 잘못된 형식입니다.';
     }
   }
 
