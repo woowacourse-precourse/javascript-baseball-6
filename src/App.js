@@ -21,7 +21,7 @@ class App {
         // 4. 게임 재시작 여부 확인하기
         this.start = await this.restart();
       } catch (error) {
-        MissionUtils.Console.print(error.message);
+        throw error;
         this.start = false;
       }
     }
