@@ -1,5 +1,11 @@
+import GamePlayer from './classes/GamePlayer';
+
+const gamePlayer = new GamePlayer();
+
 class App {
-  async play() {}
+  async play() {
+    await gamePlayer.startGame();
+  }
 }
 
 export default App;
