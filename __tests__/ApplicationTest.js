@@ -122,23 +122,29 @@ describe("숫자 야구 게임", () => {
       test("3스트라이크", () => {
         const input = "123";
 
-        const { strike } = app.countPitchResult(answer, input);
-        expect(strike).toBe(3);
+        const { strike, ball } = app.countPitchResult(answer, input);
+        const output = app.outputPitchResult(strike, ball);
+
+        expect(output).toBe("3스트라이크");
       });
       test("2스트라이크", () => {
         const input = ["124", "423", "183"];
 
         input.forEach((input) => {
-          const { strike } = app.countPitchResult(answer, input);
-          expect(strike).toBe(2);
+          const { strike, ball } = app.countPitchResult(answer, input);
+          const output = app.outputPitchResult(strike, ball);
+
+          expect(output).toBe("2스트라이크");
         });
       });
       test("1스트라이크", () => {
         const input = ["145", "425", "453"];
 
         input.forEach((input) => {
-          const { strike } = app.countPitchResult(answer, input);
-          expect(strike).toBe(1);
+          const { strike, ball } = app.countPitchResult(answer, input);
+          const output = app.outputPitchResult(strike, ball);
+
+          expect(output).toBe("1스트라이크");
         });
       });
     });
@@ -147,44 +153,52 @@ describe("숫자 야구 게임", () => {
       test("3볼", () => {
         const input = "312";
 
-        const { ball } = app.countPitchResult(answer, input);
-        expect(ball).toBe(3);
+        const { strike, ball } = app.countPitchResult(answer, input);
+        const output = app.outputPitchResult(strike, ball);
+
+        expect(output).toBe("3볼");
       });
       test("2볼", () => {
         const input = ["412", "241", "214"];
 
         input.forEach((input) => {
-          const { ball } = app.countPitchResult(answer, input);
-          expect(ball).toBe(2);
+          const { strike, ball } = app.countPitchResult(answer, input);
+          const output = app.outputPitchResult(strike, ball);
+
+          expect(output).toBe("2볼");
         });
       });
       test("1볼", () => {
         const input = ["516", "651"];
 
         input.forEach((input) => {
-          const { ball } = app.countPitchResult(answer, input);
-          expect(ball).toBe(1);
+          const { strike, ball } = app.countPitchResult(answer, input);
+          const output = app.outputPitchResult(strike, ball);
+
+          expect(output).toBe("1볼");
         });
       });
     });
 
     describe("스트라이크 & 볼 테스트", () => {
-      test("1스트라이크 1볼", () => {
+      test("1볼 1스트라이크 ", () => {
         const input = ["142", "324", "243"];
 
         input.forEach((input) => {
           const { strike, ball } = app.countPitchResult(answer, input);
-          expect(strike).toBe(1);
-          expect(ball).toBe(1);
+          const output = app.outputPitchResult(strike, ball);
+
+          expect(output).toBe("1볼 1스트라이크");
         });
       });
-      test("1스트라이크 2볼", () => {
+      test("2볼 1스트라이크 ", () => {
         const input = ["132", "321", "213"];
 
         input.forEach((input) => {
           const { strike, ball } = app.countPitchResult(answer, input);
-          expect(strike).toBe(1);
-          expect(ball).toBe(2);
+          const output = app.outputPitchResult(strike, ball);
+
+          expect(output).toBe("2볼 1스트라이크");
         });
       });
     });
@@ -193,8 +207,9 @@ describe("숫자 야구 게임", () => {
       const input = "456";
 
       const { strike, ball } = app.countPitchResult(answer, input);
-      expect(strike).toBe(0);
-      expect(ball).toBe(0);
+      const output = app.outputPitchResult(strike, ball);
+
+      expect(output).toBe("낫싱");
     });
   });
 });
