@@ -1,25 +1,24 @@
+import { Console } from "@woowacourse/mission-utils";
 import { BALL_COUNT } from "../Constants";
 
-const { Console } = require("@woowacourse/mission-utils");
-
 const printBallCount = (scoreCount) => {
-  let resultMessage = "";
+  const { strike, ball } = scoreCount;
 
-  if (scoreCount.strike === 0 && scoreCount.ball === 0) {
-    resultMessage = BALL_COUNT.nothing;
+  if (strike === 0 && ball === 0) {
+    Console.print(BALL_COUNT.nothing);
+  } else {
+    let message = "";
+    if (ball !== 0) {
+      message += `${ball}${BALL_COUNT.ball}`;
+    }
+    if (strike !== 0) {
+      if (message !== "") {
+        message += " ";
+      }
+      message += `${strike}${BALL_COUNT.strike}`;
+    }
+    Console.print(message);
   }
-  if (scoreCount.strike === 0 && scoreCount.ball !== 0) {
-    resultMessage = `${scoreCount.ball}${BALL_COUNT.ball}`;
-  }
-  if (scoreCount.strike !== 0 && scoreCount.ball === 0) {
-    resultMessage = `${scoreCount.strike}${BALL_COUNT.strike}`;
-  }
-  if (scoreCount.strike !== 0 && scoreCount.ball !== 0) {
-    resultMessage = ` ${scoreCount.ball}${BALL_COUNT.ball}${scoreCount.strike}${BALL_COUNT.strike}`;
-  }
-
-  Console.print(resultMessage);
-  return resultMessage;
 };
 
 export default printBallCount;
