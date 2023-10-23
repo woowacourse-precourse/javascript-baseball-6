@@ -15,6 +15,7 @@ async function playGame(number) {
   while (true) {
     let guess = await readGuess();
     let result = compareGuess(number, guess);
+    let interpretation = interpretResult(result);
   }
 }
 
@@ -82,6 +83,22 @@ function compareGuess(number, guess) {
 
   let result = [ball, strike];
   return result;
+}
+
+function interpretResult(result) {
+  var interpretation = '';
+  if (result[0] != 0) {
+    interpretation += result[0].toString() + '볼 '
+  }
+  if (result[1] != 0) {
+    interpretation += result[1].toString() + '스트라이크'
+  }
+  
+  if (result[0] == 0 && result[1] == 0) {
+    interpretation = '낫싱';
+  }
+
+  return interpretation;
 }
 
 export default App;
