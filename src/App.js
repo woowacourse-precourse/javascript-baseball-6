@@ -1,4 +1,4 @@
-import BaseballGame from "./BaseballGame.js";
+import BaseballGame from "./BaseballGame/BaseballGame.js";
 
 class App {
   constructor() {

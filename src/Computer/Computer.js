@@ -1,5 +1,5 @@
 import { Random } from "@woowacourse/mission-utils";
-import { isValidInput } from "./ValidationUtils.js";
+import { isValidInput } from "../ValidationUtils.js";
 
 class Computer {
     constructor() {

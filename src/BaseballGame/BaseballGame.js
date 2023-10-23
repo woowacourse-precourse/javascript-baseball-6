@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import Computer from "./Computer.js";
+import Computer from "../Computer/Computer.js";
 
 class BaseballGame {
   constructor() {
