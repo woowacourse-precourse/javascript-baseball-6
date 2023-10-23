@@ -1,15 +1,16 @@
 import { NUMS, ERROR } from '../constants/index.js';
+import ValidateError from './ValidateError/index.js';
 
 class Validator {
   static guessNumber(input) {
     if (/[^1-9]/g.test(input) || new Set(input).size !== NUMS.THREE) {
-      throw Error(`[ERROR] ${ERROR.INVALID_LENGTH}`);
+      throw new ValidateError(ERROR.INVALID_LENGTH);
     }
   }
 
   static controlNumber(input) {
     if (![NUMS.REPLAY, NUMS.END].includes(input)) {
-      throw Error(`[ERROR] ${ERROR.INVALID_CONTROL_NUM}`);
+      throw new ValidateError(ERROR.INVALID_CONTROL_NUM);
     }
   }
 }

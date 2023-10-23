@@ -3,6 +3,7 @@ import { NUMS } from './number.js';
 export const ERROR = {
   INVALID_CONTROL_NUM: `${NUMS.REPLAY}, ${NUMS.END} 중 1개를 입력하세요.`,
   INVALID_LENGTH: `서로 다른 숫자 ${NUMS.THREE}개를 입력하세요.`,
+  PREFIX: '[ERROR]',
 };
 
 export const COMMAND = {
