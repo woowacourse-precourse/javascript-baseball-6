@@ -13,8 +13,7 @@ class App {
       await this.printGameResult(strike, ball);
 
       if (strike === 3) {
-        await MissionUtils.Console.print('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
-        userAnswer = await MissionUtils.Console.readLineAsync();
+        userAnswer = this.getInputContinueNumber();
 
         if (userAnswer === 1) {
           computerNumber = await this.getComputerNumber();
@@ -48,6 +47,17 @@ class App {
     }
 
     return inputNumber;
+  }
+
+  async getInputContinueNumber() {
+    await MissionUtils.Console.print('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+    const inputNumber = await MissionUtils.Console.readLineAsync();
+
+    if (inputNumber === '1' || inputNumber === '2') {
+      return Number(inputNumber);
+    }
+
+    throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
   }
 
   getGameResult(computerNumber, inputNumber) {
