@@ -20,10 +20,10 @@ class User {
   async getNumber() {
     try {
       let user = [];
-      let username = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
-      if (username.length == 3) {
-        for (let i = 0; i < username.length; i++) {
-          user.push(Number(username[i]));
+      let number = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
+      if (number.length == 3) {
+        for (let i = 0; i < number.length; i++) {
+          user.push(Number(number[i]));
         }
       }
 
