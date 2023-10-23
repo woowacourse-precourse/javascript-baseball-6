@@ -8,6 +8,8 @@ const InputValidator = {
       throw new Error(ErrorMessage.USER_NUMBER_ERROR);
     if (inputNumbers.length !== new Set(inputNumbers).size)
       throw new Error(ErrorMessage.USER_DUPLICATE_ERROR);
+    if (inputNumbers.includes("0"))
+      throw new Error(ErrorMessage.USER_INCLUDE_ZERO_ERROR);
   },
 
   validateRestartNumber(input) {
