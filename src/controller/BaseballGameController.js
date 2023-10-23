@@ -24,7 +24,6 @@ class BaseballGameController {
 
   makeComputerNumberStage() {
     this.#computerNumber = new ComputerNumber().getComputerNumbers();
-    console.log(this.#computerNumber);
   }
 
   checkResultStage(userNumbers) {
@@ -38,6 +37,7 @@ class BaseballGameController {
 
     const strike = this.#gameResult.strike;
     if (strike === 3) {
+      OutputView.printEndMessage();
       this.readEndCommandStage();
     } else {
       this.readUserNumberStage();
