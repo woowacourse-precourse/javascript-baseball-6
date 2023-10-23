@@ -3,5 +3,7 @@ export const COMMAND = {
 };
 
 export const GAME = {
+	PLAYING: 'PLAYING',
+	FINISH: 'FINISH',
 	NUMBER_LENGTH: 3,
 };
