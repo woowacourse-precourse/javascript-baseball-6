@@ -85,6 +85,10 @@ class App {
       return result.trim();
     }
   }
+
+  async askForRestart() {
+    return await MissionUtils.Console.readLineAsync(RESTART_PROMPT);
+  }
 }
 
 export default App;
