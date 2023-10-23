@@ -1,3 +1,4 @@
+import checkBallCount from "../src/utils/checkBallCount";
 import generateRandomNumber from "../src/utils/generateRandomNumber";
 import validateInput from "../src/utils/validateInput";
 
@@ -86,5 +87,14 @@ describe("UtilFunctionTest", () => {
     });
   });
 
-
+  describe("볼 카운트 함수 테스트", () => {
+    test("볼 카운트 함수 유효성 조건 테스트", () => {
+        expect(checkBallCount("123", "123")).toEqual({ ball: 0, strike: 3 });
+        expect(checkBallCount("123", "456")).toEqual({ ball: 0, strike: 0 });
+        expect(checkBallCount("123", "345")).toEqual({ ball: 1, strike: 0 });
+        expect(checkBallCount("123", "135")).toEqual({ ball: 1, strike: 1 });
+        expect(checkBallCount("568", "586")).toEqual({ ball: 2, strike: 1 });
+        expect(checkBallCount("568", "856")).toEqual({ ball: 3, strike: 0 });
+    });
+  });
 });
