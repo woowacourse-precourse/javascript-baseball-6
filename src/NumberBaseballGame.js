@@ -7,21 +7,22 @@ import Umpire from "./Umpire.js";
 import Validator from "./Validator.js";
 
 class NumberBaseballGame {
+  #player = new Player();
+  #umpire = new Umpire();
   #computerNumbers = this.#getComputerNumbers();
 
-  constructor() {
+  async start() {
     // console.log(this.#computerNumbers); // 개발용
-    this.player = new Player();
-    this.umpire = new Umpire();
     Console.print(Message.START);
+    await this.#play();
   }
 
-  async play() {
+  async #play() {
     const playerNumbers = await this.#askPlayerNumbers();
-    const result = this.umpire.umpire(this.#computerNumbers, playerNumbers);
+    const result = this.#umpire.umpire(this.#computerNumbers, playerNumbers);
     Console.print(result);
     if (result === `3${BaseballTerms.STRIKE}`) await this.#end();
-    else await this.play();
+    else await this.#play();
   }
 
   async #end() {
@@ -33,7 +34,7 @@ class NumberBaseballGame {
   async #restart() {
     this.#computerNumbers = this.#getComputerNumbers();
     // console.log(this.#computerNumbers); // 개발용
-    await this.play();
+    await this.#play();
   }
 
   #getComputerNumbers() {
@@ -46,7 +47,7 @@ class NumberBaseballGame {
   }
 
   async #askRestart() {
-    const answer = await this.player.answer(Query.RESTART);
+    const answer = await this.#player.answer(Query.RESTART);
     const number = Number(answer);
     if (number === 1) return true;
     if (number === 2) return false;
@@ -54,7 +55,7 @@ class NumberBaseballGame {
   }
 
   async #askPlayerNumbers() {
-    const answer = await this.player.answer(Query.NUMBERS);
+    const answer = await this.#player.answer(Query.NUMBERS);
     const array = [...answer].map(Number);
     NumberBaseballGame.validate(array);
     return array;
