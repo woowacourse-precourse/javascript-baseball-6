@@ -13,11 +13,10 @@ class App {
     while (true) {
       const userInput = await this.view.readUserInput();
       let userAnswer = this.controller.handleUserAnswer(userInput);
+      this.view.printHint(computerAnswer, userAnswer);
 
       if (computerAnswer === userAnswer) {
-        this.view.printHint(computerAnswer, userAnswer);
         this.view.printGameWin();
-
         const replay = await this.view.readReplayInput();
         if (replay === "1") {
           computerAnswer = this.model.getComputerAnswer();
@@ -29,7 +28,6 @@ class App {
           this.view.printError();
         }
       }
-      this.view.printHint(computerAnswer, userAnswer);
     }
   }
 }
