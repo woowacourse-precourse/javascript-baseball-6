@@ -1,6 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
-moduele.exports = function coumputerRandom() {
+export function computerRandom() {
         const randomValue = [];
         while (randomValue.length < 3) {
             const number = MissionUtils.Random.pickNumberInRange(1, 9);
@@ -8,6 +8,6 @@ moduele.exports = function coumputerRandom() {
                 randomValue.push(number);
             }
         }
-    console.log(randomValue)
+        return randomValue
 
     }
