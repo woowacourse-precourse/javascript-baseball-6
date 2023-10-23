@@ -15,7 +15,6 @@ class App {
 
       if (this.validateInput(number)) {
         const { strike, ball } = this.calculateBaseball(computerNumber, number);
-
         this.printResult(ball, strike);
 
         if (strike === 3) {
@@ -93,9 +92,7 @@ class App {
     return numStr.length === 3 && !isNaN(number);
   }
   isDuplicate(number) {
-    const numStr = String(number);
-    const setNumber = new Set(number);
-    return numStr.length !== setNumber.size;
+    return new Set(number).size !== 3;
   }
   isPositive(number) {
     if (number > 0) {
