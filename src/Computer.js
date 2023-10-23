@@ -2,8 +2,8 @@ import { Random } from "@woowacourse/mission-utils";
 
 export default class Computer {
   constructor({ initialState }) {
+    this.validationState(initialState);
     this.state = initialState;
-    this.chooseRandomly();
   }
 
   setState(nextState) {
@@ -14,6 +14,10 @@ export default class Computer {
   validationState(state) {
     if (!Array.isArray(state)) {
       throw new Error("state must be an array");
+    }
+
+    if (this.state === undefined && state.length === 0) {
+      return;
     }
 
     if (state.length !== 3) {
