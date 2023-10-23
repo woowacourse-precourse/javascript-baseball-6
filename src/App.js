@@ -2,7 +2,7 @@ import BaseballGameController from './controller/BaseballGameController.js';
 
 class App {
   async play() {
-    new BaseballGameController().start();
+    return new BaseballGameController().start();
   }
 }
 
