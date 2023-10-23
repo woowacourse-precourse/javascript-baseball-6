@@ -1,9 +1,9 @@
 import {MissionUtils} from "@woowacourse/mission-utils";
 
-
+const BASEBALL_NUMBER_LENGTH = 3;
 const generateComputerAnswer = () => {
     const computerAnswer = []
-    while (computerAnswer.length < 3) {
+    while (computerAnswer.length < BASEBALL_NUMBER_LENGTH) {
         const number = MissionUtils.Random.pickNumberInRange(1, 9)
         if (!computerAnswer.includes(number))
             computerAnswer.push(number)
@@ -30,7 +30,7 @@ const getHint = (computerAnswer, userNumber) => {
 
 const getBallCount = (computerAnswer, userNumber) => {
     let ballCount = 0;
-    for (let idx = 0; idx < 3; idx++) {
+    for (let idx = 0; idx < BASEBALL_NUMBER_LENGTH; idx++) {
         if (computerAnswer.includes(userNumber[idx]) && computerAnswer[idx] !== userNumber[idx]) {
             ballCount++;
         }
@@ -40,7 +40,7 @@ const getBallCount = (computerAnswer, userNumber) => {
 
 const getStrikeCount = (computerAnswer, userNumber) => {
     let strikeCount = 0;
-    for (let idx = 0; idx < 3; idx++) {
+    for (let idx = 0; idx < BASEBALL_NUMBER_LENGTH; idx++) {
         if (computerAnswer[idx] === userNumber[idx]) {
             strikeCount++;
         }
