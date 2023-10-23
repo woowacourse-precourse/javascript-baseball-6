@@ -18,6 +18,17 @@ class Controller {
         const result = this.model.compareNumbers(userInput);
         this.view.showResult(result);
 
+        if (this.isCorrectNumber(result)) {
+            this.view.showEndMessage(); 
+        }
+
+    }
+
+    isCorrectNumber(result) {
+        if (result.strike === 3) {
+            return true;
+        }
+        return false;
     }
 }
 
