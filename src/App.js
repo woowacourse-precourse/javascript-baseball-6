@@ -1,18 +1,13 @@
 import { Console, Random } from "@woowacourse/mission-utils";
-import { validateThreeNaturalNumbers, validateEndDecision } from "./validators.js";
 import { evaluateScore, printScore } from "./score.js";
+import { readAnswerInput, readEndDecisionInput } from "./input.js";
 
 class App {
   async play() {
     await App.#startGame();
 
     Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-    const endDecisionInput = await Console.readLineAsync(
-      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
-    );
-
-    validateEndDecision(endDecisionInput);
-
+    const endDecisionInput = await readEndDecisionInput();
     if (endDecisionInput === "1") {
       await this.play();
     }
@@ -25,12 +20,8 @@ class App {
   }
 
   static async #runGameLoop(answer) {
-    const answerInput = await Console.readLineAsync("숫자를 입력해주세요 : ");
-    const parsedInput = answerInput.split("").map((char) => parseInt(char, 10));
-
-    validateThreeNaturalNumbers(parsedInput);
-
-    const score = evaluateScore(parsedInput, answer);
+    const answerInput = await readAnswerInput();
+    const score = evaluateScore(answerInput, answer);
     printScore(score);
 
     if (score.strikeCount !== 3) {
