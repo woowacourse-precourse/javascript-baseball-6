@@ -37,7 +37,7 @@
        - 컴퓨터 숫자(strikeZoneNumber) 생성 `makeStrikeZoneNumber()`
        - 3번 부터 5번까지 재귀호출 `game()`
      - 입력값이 `1` 이 아닌 이외에 경우(2를 입력했을 때 포함)
-       - 게임 종료 `Console.close()`
+       - 게임 종료 `return`
 
 7. `judge()` 결과가 삼진이 아닌 경우 `resultMessagePrint()`
 
