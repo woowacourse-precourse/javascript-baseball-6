@@ -9,7 +9,7 @@ class Pitcher {
         while (this.ballCountNumbers.length < 3) {
             const number = MissionUtils.Random.pickNumberInRange(1, 9);
             if (!this.ballCountNumbers.includes(number)) {
-                this.ballCountNumbers.puss(number);
+                this.ballCountNumbers.push(number);
             }
         }
     }
