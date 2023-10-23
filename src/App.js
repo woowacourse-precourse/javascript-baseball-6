@@ -101,13 +101,10 @@ class App {
   async reStart() {
     try {
       const choiceEndOption = await Console.readLineAsync(GAME_MESSAGE.RESTART);
-
       if (choiceEndOption === END_OPTION.NEW_GAME) {
         return this.play();
-      }
-
-      if (choiceEndOption === END_OPTION.EXIT) {
-        return Console.print(GAME_MESSAGE.END);
+      } else if (choiceEndOption === END_OPTION.EXIT) {
+        Console.print(GAME_MESSAGE.END)
       }
     } catch (error) {
       throw new Error(ERROR_MESSAGE.IS_INVALID);
