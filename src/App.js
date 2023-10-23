@@ -48,7 +48,7 @@ class App {
 
 	async play() {
 		this.generateRandomNumber();
-		this.#playGame();
+		await this.#playGame();
 	}
 }
 
