@@ -24,6 +24,25 @@ class Model {
         return true;
     }
 
+    //랜덤 숫자와 사용자 입력 숫자 비교 로직
+    compareNumbers(userInput) {
+        const compareResult = {
+            strike: 0,
+            ball: 0,
+        };
+    
+        userInput.forEach((number, index) => {
+            if (number === this.computer[index]) {
+                compareResult.strike += 1;
+            }
+            else if (this.computer.includes(number)) {
+                compareResult.ball += 1;
+            }
+        });
+
+        return compareResult;
+    }
+
 }
 
 export default Model;
