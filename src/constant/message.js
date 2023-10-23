@@ -1,4 +1,4 @@
-import { GAME_NUM_LENGTH, RESTART_NUM, QUIT_NUM } from "./rule.js";
+import { GAME_NUM_LENGTH, RESTART_NUM, QUIT_NUM } from "./rule";
 
 export const START_MESSAGE = "숫자 야구 게임을 시작합니다.";
 export const MESSAGE_TO_GET_PLAYER_NUM = "숫자를 입력해주세요 : ";

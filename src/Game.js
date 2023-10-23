@@ -1,6 +1,6 @@
-import Print from "./Print.js";
-import Computer from "./Computer.js";
-import Calculate from "./Calculate.js";
+import Print from "./Print";
+import Computer from "./Computer";
+import Calculate from "./Calculate";
 
 export default class Game {
   constructor() {

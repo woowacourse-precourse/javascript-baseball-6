@@ -1,5 +1,5 @@
-import { GAME_NUM_LENGTH, RESTART_NUM, QUIT_NUM } from "./constant/rule.js";
-import { ONLY_NUMBER_1_TO_9_REGEX } from "./constant/validation.js";
+import { GAME_NUM_LENGTH, RESTART_NUM, QUIT_NUM } from "./constant/rule";
+import { ONLY_NUMBER_1_TO_9_REGEX } from "./constant/validation";
 
 export default class Validate {
   static isValidPlayerNumber(playerNum) {

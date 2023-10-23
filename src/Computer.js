@@ -4,7 +4,7 @@ import {
   GAME_NUM_LENGTH,
   GAME_START_RANGE,
   GAME_END_RANGE,
-} from "./constant/rule.js";
+} from "./constant/rule";
 
 export default class Computer {
   constructor() {

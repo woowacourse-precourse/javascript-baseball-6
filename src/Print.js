@@ -11,8 +11,8 @@ import {
   WIN_MESSAGE,
   RESTART_MESSAGE,
   ERROR_MESSAGE_FOR_RESTART,
-} from "./constant/message.js";
-import Validate from "./Validate.js";
+} from "./constant/message";
+import Validate from "./Validate";
 
 export default class Print {
   static startMessage() {

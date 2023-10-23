@@ -1,4 +1,4 @@
-import { GAME_NUM_LENGTH, NUM_TO_WIN, RESTART_NUM } from "./constant/rule.js";
+import { GAME_NUM_LENGTH, NUM_TO_WIN, RESTART_NUM } from "./constant/rule";
 
 export default class Calculate {
   constructor() {
