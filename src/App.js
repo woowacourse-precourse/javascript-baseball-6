@@ -4,9 +4,9 @@ import * as MissionUtils from "@woowacourse/mission-utils";
 const create_random_number = () => {
   let number_list = "";
   while (number_list.length < 3) {
-    const number = MissionUtils.Random.pickNumberInRange(1, 9);
+    const number = MissionUtils.Random.pickNumberInRange(1, 9).toString();
 
-    number_list += number.toString();
+    if (!number_list.includes(number)) number_list += number;
   }
 
   return number_list;
