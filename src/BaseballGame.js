@@ -32,6 +32,10 @@ class BaseballGame {
         }
         return { ball: ballCount, strike: strikeCount };
     }
+
+    resetComputerNumbers() {
+        this.computer = [];
+    }
 }
 
 export default BaseballGame;
