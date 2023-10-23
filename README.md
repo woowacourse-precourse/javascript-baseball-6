@@ -11,7 +11,8 @@
   - [X] : 점수 : 1볼 1스트라이크, 낫싱, 3스트라이크 등
   - [X] : 3스트라이크 시 종료 멘트 : 3개의 숫자를 모두 맞히셨습니다! 게임 종료
   - [X] : 점수 출력 후 종료 멘트 : 게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.
-  
+- [X] : 낫싱이 나오면 다시 사용자가 다시 숫자 입력하기(게임 종료 아님)
+
 #### 실행 결과 예시
 
 ```
@@ -37,7 +38,7 @@
 ---
 ## 🎯프로그래밍 요구 사항 
 - [X] : Node.js 18.17.1 버전에서 실행 가능하다.
-- [X] : 'play'메소드로 실행 가능하다.
+- [X] : `play`메소드로 실행 가능하다.
 - [X] : 외부 라이브러리 사용 안 한다.
 - [X] : 순수 바닐라 JS로만 작성한다.
 - [X] : [JavaScript 코드 컨벤션](https://github.com/woowacourse/woowacourse-docs/tree/main/styleguide/javascript)을 지키면서 개발
@@ -50,6 +51,6 @@
 
   
 ## ✏️ 과제 진행 요구 사항
-- [ ] : 미션은 [javascript-baseball](https://github.com/woowacourse-precourse/javascript-baseball-6/) 저장소를 Fork & Clone해 시작한다.
-- [ ] : **기능을 구현하기 전 `docs/README.md`에 구현할 기능 목록을 정리**해 추가한다.
-- [ ] : 과제 진행 및 제출 방법은 [프리코스 과제 제출](https://github.com/woowacourse/woowacourse-docs/tree/master/precourse) 문서를 참고한다.
+- [X] : 미션은 [javascript-baseball](https://github.com/woowacourse-precourse/javascript-baseball-6/) 저장소를 Fork & Clone해 시작한다.
+- [X] : **기능을 구현하기 전 `docs/README.md`에 구현할 기능 목록을 정리**해 추가한다.
+- [X] : 과제 진행 및 제출 방법은 [프리코스 과제 제출](https://github.com/woowacourse/woowacourse-docs/tree/master/precourse) 문서를 참고한다.
