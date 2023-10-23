@@ -2,22 +2,23 @@ import { Console, Random } from '@woowacourse/mission-utils';
 
 class App {
   async play() {
-    // 여기서 부터 시작
     Console.print('숫자 야구 게임을 시작합니다.');
-    let userGuess = await this.getUserInput();
-    console.log(userGuess);
+  }
+  // 게임 실행 흐름을 책임지는 함수
+  async gameFlow() {
     const computerAnswer = this.createComputerAnswer();
-    console.log(computerAnswer);
+    let isUserWon = false;
+
+    while (!isUserWon) {
+      isUserWon = await this.checkUserGuess(computerAnswer);
+    }
+    return;
   }
 
   // 사용자 입력을 받는 getUserInput
   async getUserInput() {
     try {
-      const answer = await new Promise((resolve) => {
-        Console.readLine('숫자를 입력해주세요 : ', (userInput) => {
-          resolve(userInput);
-        });
-      });
+      const answer = await Console.readLineAsync('숫자를 입력해주세요 : ');
 
       const userInput = answer.split('');
 
@@ -35,7 +36,17 @@ class App {
   }
 
   // 랜덤한 컴퓨터 정답을 생성하는 함수
-  createComputerAnswer = () => Random.pickUniqueNumbersInRange(1, 9, 3);
+  createComputerAnswer = () => {
+    let computerAnswer = [];
+    while (computerAnswer.length < 3) {
+      let randomNum = Random.pickNumberInRange(1, 9);
+
+      if (!computerAnswer.includes(randomNum)) {
+        computerAnswer.push(randomNum);
+      }
+    }
+    return computerAnswer;
+  };
 
   // 낫싱을 확인하는 함수
   isNothing = (userGuess, computerAnswer) => {
@@ -60,30 +71,19 @@ class App {
     return { strikeCount, ballCount };
   };
 
-  // 게임 종료 후 재시작 여부를 확인하는 함수
-  async getUserRestartInput() {
-    try {
-      const answer = await new Promise((resolve) => {
-        Console.readLine(
-          '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n',
-          (userRestartInput) => {
-            resolve(userRestartInput);
-          }
-        );
-      });
-
-      if (
-        parseInt(userRestartInput) === 1 ||
-        parseInt(userRestartInput) === 2
-      ) {
-        return parseInt(userRestartInput);
-      } else {
-        throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
-      }
-    } catch (error) {
-      throw new Error(error.message);
-    }
-  }
+  // 사용자의 추측을 출력하는 함수
+  printGuessResult = (guessResult) => {
+    if (guessResult.strikeCount === 3) {
+      Console.print('3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+    } else if (guessResult.strikeCount === 0) {
+      Console.print(`${guessResult.ballCount}볼`);
+    } else if (guessResult.ballCount === 0) {
+      Console.print(`${guessResult.strikeCount}스트라이크`);
+    } else
+      Console.print(
+        `${guessResult.ballCount}볼 ${guessResult.strikeCount}스트라이크`
+      );
+  };
 }
 
 export default App;
