@@ -1,30 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 
-// const exitApplication = () => {
-// 	process.on('SIGUSR1', () => {
-// 		MissionUtils.Console.print('어플리케이션을 종료합니다.');
-// 	});
-// };
-
-class MyError extends Error {
-	constructor(value, ...params) {
-		super(...params);
-		this.message = [...params];
-		this.name = value;
-	}
-}
-
-class App {
-	async play() {
-		MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
-		await start(); //await 있어야 유효성 검사 통과
-		// exitApplication();
-		process.on('SIGUSR1', () => {
-			MissionUtils.Console.print('어플리케이션을 종료합니다.');
-		});
-	}
-}
-
 const getComputerInput = () => {
 	try {
 		const COMPUTERARR = [];
@@ -81,13 +56,14 @@ const validateUserInput = (USERINPUT) => {
 	}
 };
 
-const getScore = (STRIKE, BALL) => {
+const getScore = (STRIKE, BALL, COMPUTERARR) => {
 	if (STRIKE === 3) {
 		MissionUtils.Console.print('3스트라이크');
 		MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
 		return;
 	} else if (STRIKE === 0 && BALL === 0) {
 		MissionUtils.Console.print('낫싱');
+		process(COMPUTERARR);
 		return;
 	} else if (STRIKE === 0) {
 		MissionUtils.Console.print(`${BALL}볼`);
@@ -100,36 +76,37 @@ const getScore = (STRIKE, BALL) => {
 	}
 };
 
-const end = async () => {
-	MissionUtils.Console.print('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
-	try {
-		const DECISION = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
-		switch (DECISION) {
-			case '1':
-				MissionUtils.Console.print('재시작');
-				await start();
-				break;
-			case '2':
-				exitApplication();
-				break;
-			default:
-				throw new MyError('[ERROR]', '유효한 입력값이 아닙니다. 1, 2 중에서 입력해주세요.');
-		}
-	} catch (error) {}
-};
 const start = async () => {
+	const COMPUTERARR = getComputerInput();
+	await process(COMPUTERARR);
+	// try {
+	// 	const USERINPUT = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 :');
+	// 	MissionUtils.Console.print(`숫자를 입력해주세요 : ${USERINPUT}`);
+	// 	// 사용자이 입력값이 유효한지 확인 / boolean 반환
+	// 	const USERARR = validateUserInput(USERINPUT);
+	// 	//console.log('user:', USERARR);
+	// 	if (USERARR) {
+	// 		//console.log('computer:', COMPUTERARR);
+	// 		const { strike, ball } = compareUserComputer(USERARR, COMPUTERARR);
+	// 		getScore(strike, ball);
+	// 	} else {
+	// 		throw new MyError('[ERROR]', '유효한 입력값이 아닙니다.');
+	// 	}
+	// } catch (error) {
+	// 	throw new MyError('[ERROR]', error);
+	// }
+};
+const process = async (COMPUTERARR) => {
 	try {
 		const USERINPUT = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 :');
 		MissionUtils.Console.print(`숫자를 입력해주세요 : ${USERINPUT}`);
 		// 사용자이 입력값이 유효한지 확인 / boolean 반환
 		const USERARR = validateUserInput(USERINPUT);
-		console.log('user:', USERARR);
+		//console.log('user:', USERARR);
 		if (USERARR) {
-			const COMPUTERARR = getComputerInput();
-			console.log('computer:', COMPUTERARR);
+			//console.log('computer:', COMPUTERARR);
 			const { strike, ball } = compareUserComputer(USERARR, COMPUTERARR);
-			getScore(strike, ball);
-			end();
+			getScore(strike, ball, COMPUTERARR);
 		} else {
 			throw new MyError('[ERROR]', '유효한 입력값이 아닙니다.');
 		}
@@ -137,5 +114,39 @@ const start = async () => {
 		throw new MyError('[ERROR]', error);
 	}
 };
+const end = async () => {
+	MissionUtils.Console.print('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+	try {
+		const DECISION = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+		switch (DECISION) {
+			case '1':
+				await start();
+				break;
+			case '2':
+				return;
+			default:
+				throw new MyError('[ERROR]', '유효한 입력값이 아닙니다. 1, 2 중에서 입력해주세요.');
+		}
+	} catch (error) {}
+};
+
+
+class MyError extends Error {
+	constructor(value, ...params) {
+		super(...params);
+		this.message = [...params];
+		this.name = value;
+	}
+}
+
+class App {
+	async play() {
+		MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
+		await start(); //await 있어야 유효성 검사 통과
+		await end();	
+		return;
+
+	}
+}
 
 export default App;
