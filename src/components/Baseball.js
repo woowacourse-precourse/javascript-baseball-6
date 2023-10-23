@@ -26,21 +26,27 @@ class Baseball {
     const computer = new Computer();
     this.player.computer = computer.getNumber();
 
-    const user = new User();
-    this.player.user = await user.getNumber();
+    while (this.count.strike !== 3) {
+      const user = new User();
+      this.player.user = await user.getNumber();
 
-    this.compareNumber();
+      this.compareNumber();
+    }
   }
 
   /** 컴퓨터와 유저의 숫자 비교 */
   compareNumber() {
     const { computer, user } = this.player;
+    let ball = 0;
+    let strike = 0;
 
     user.forEach((num, idx) => {
       const exist = computer.indexOf(num);
-      if (exist === idx) this.count.strike++;
-      else if (exist !== idx && exist !== -1) this.count.ball++;
+      if (exist === idx) strike++;
+      else if (exist !== idx && exist !== -1) ball++;
     });
+
+    this.count = { ball, strike };
 
     this.printBallCount();
   }
