@@ -26,10 +26,38 @@ class App {
     }
   }
 
+  //중복 수 확인
+  checkDuplicate() {
+    let check = [];
+    for (let i = 0; i < this.userNum.length; i++) {
+      if (check.includes(this.userNum[i])) {
+        return true;
+      } else {
+        check.push(this.userNum[i]);
+      }
+    }
+    return false;
+  }
+
+  //잘못된 입력 에러처리
+  wrongInput() {
+    if (
+      isNaN(Number(this.userNum)) ||
+      this.userNum.length !== 3 ||
+      this.checkDuplicate() ||
+      this.userNum.indexOf('0') !== -1
+    ) {
+      MissionUtils.Console.print('[ERROR] 숫자가 잘못된 형식 입니다.');
+      throw new Error('[ERROR] 숫자가 잘못된 형식 입니다.');
+    }
+  }
+
   // 유저 입력 처리
   async userInput() {
     this.userNum =
       await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
+
+    this.wrongInput();
   }
 
   // 정답 셋팅
