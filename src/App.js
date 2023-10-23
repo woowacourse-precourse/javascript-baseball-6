@@ -1,35 +1,11 @@
 import { Console, MissionUtils } from "@woowacourse/mission-utils";
 import { errorThrow } from "./errorThrow.js";
+import { compare } from "./compare.js";
 let userInput = "";
-let strike = 0;
-let ball = 0;
 let stop = false;
 
-// 정답 값과 입력 값 비교하기
-const compare = (COMPUTER, userInput) => {
-  strike = 0;
-  ball = 0;
-
-  if (COMPUTER[0] === userInput[0]) {
-    strike++;
-  } else if (userInput.includes(COMPUTER[0])) {
-    ball++;
-  }
-  if (COMPUTER[1] === userInput[1]) {
-    strike++;
-  } else if (userInput.includes(COMPUTER[1])) {
-    ball++;
-  }
-  if (COMPUTER[2] === userInput[2]) {
-    strike++;
-  } else if (userInput.includes(COMPUTER[2])) {
-    ball++;
-  }
-};
 // 게임 종료 시 다시 시작 or 종료 처리하기
 const reStart = async () => {
-  strike = 0;
-  ball = 0;
   const START = await Console.readLineAsync(
     "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
   );
@@ -49,8 +25,9 @@ const printMessage = (strike, ball) => {
     if (strike === 3) {
       Console.print("3스트라이크");
       Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    } else {
+      Console.print(`${strike}스트라이크`);
     }
-    Console.print(`${strike}스트라이크`);
   } else {
     Console.print(`${ball}볼 ${strike}스트라이크`);
   }
@@ -72,11 +49,12 @@ class App {
           COMPUTER.push(NUMBER);
         }
       }
+      let strike = 0;
+      let ball = 0;
       while (strike < 3) {
-        // 유저 입력 값 받기
         userInput = await Console.readLineAsync("숫자를 입력해주세요 : ");
         error = errorThrow(userInput);
-        compare(COMPUTER, userInput);
+        [strike, ball] = compare(COMPUTER, userInput);
         printMessage(strike, ball);
       }
       await reStart();
