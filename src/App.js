@@ -4,13 +4,14 @@ class App {
   constructor() {
     this.homeRunNumber = null;
     this.userNumber = null;
-    this.startInfo = "숫자 야구 게임을 시작합니다.";
     this.constants = {
       BALL: "볼",
       STRIKE: "스트라이크",
       NOTHING: "낫싱",
       HOMERUN: "3개의 숫자를 모두 맞히셨습니다! 게임 종료",
+      START_INFO: "숫자 야구 게임을 시작합니다.",
       RESTART_INFO: "게임을 새로 시작하려면 1, 종료하려면 2를 입력해주세요.",
+      ERROR: "[ERROR] 입력하신 숫자는 잘못된 형식입니다.",
     };
   }
 
@@ -72,46 +73,45 @@ class App {
   validateUserNumber = (number) => {
     const setNumbers = new Set(number);
 
-    if (number.length !== setNumbers.size) {
-      throw new Error("[ERROR] 숫자를 중복 입력하셨습니다.");
+    if (number.length !== setNumbers.size || number.length !== 3) {
+      return this.constants.ERROR;
     }
 
-    if (number.length !== 3) {
-      throw new Error("[ERROR] 입력하신 숫자는 잘못된 형식입니다.");
-    }
-
-    return number;
+    return null;
   };
 
   async play(restartNumber) {
     await this.initializeGame(restartNumber);
-    let strike, ball;
 
     return new Promise(async (resolve, reject) => {
       try {
         while (true) {
           await this.getUserNumber();
 
-          strike = this.getStrikeCount(this.homeRunNumber, this.userNumber);
-          ball = this.getBallCount(this.homeRunNumber, this.userNumber);
+          const strike = this.getStrikeCount(
+            this.homeRunNumber,
+            this.userNumber
+          );
+          const ball = this.getBallCount(this.homeRunNumber, this.userNumber);
           this.getResultText(strike, ball);
 
           if (strike === 3) {
             await this.restartGame();
             resolve();
-            break;
+
+            return;
           }
         }
       } catch (error) {
-        MissionUtils.Console.print(error.message);
         reject(error);
+        MissionUtils.Console.print(error.message);
       }
     });
   }
 
   async initializeGame(restartNumber) {
     if (!restartNumber) {
-      MissionUtils.Console.print(this.startInfo);
+      MissionUtils.Console.print(this.constants.START_INFO);
     }
 
     this.getRandomNumbers();
@@ -122,7 +122,11 @@ class App {
     const inputNumber = await MissionUtils.Console.readLineAsync(
       "숫자를 입력해 주세요 : "
     );
-    this.userNumber = this.validateUserNumber(inputNumber);
+
+    const errorMessage = this.validateUserNumber(inputNumber);
+    if (errorMessage) throw new Error(errorMessage);
+
+    this.userNumber = inputNumber;
   }
 
   async getRestartNumber() {
@@ -137,13 +141,15 @@ class App {
       throw new Error("[ERROR] 입력하신 숫자는 잘못된 형식입니다.");
     }
 
+    if (restartNumber === "2") return;
+
     if (restartNumber === "1") {
       await this.play(restartNumber);
     }
   }
 }
 
+export default App;
+
 const myApp = new App();
 myApp.play();
-
-export default App;
