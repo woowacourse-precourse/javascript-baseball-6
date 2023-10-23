@@ -1,5 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import { TEXT, ERROR, RESTART, ACTION } from "./constants.js";
+import { RESULT, TEXT, ERROR, RESTART, ACTION } from "./constants.js";
 
 class App {
   constructor() {
@@ -80,9 +80,10 @@ class App {
   }
 
   gameResultMessage(ball, strike) {
-    const ballMessage = ball > 0 ? `${ball}볼 ` : "";
-    const strikeMessage = strike > 0 ? `${strike}스트라이크` : "";
-    const result = ballMessage + strikeMessage || "낫싱";
+    const result =
+      (ball > 0 ? `${ball}${RESULT.BALL} ` : "") +
+        (strike > 0 ? `${strike}${RESULT.STRIKE}` : "") || RESULT.NOTHING;
+
     MissionUtils.Console.print(result);
     this.inputGuessNumber();
     return;
