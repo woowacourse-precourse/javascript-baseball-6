@@ -4,32 +4,35 @@ import doValidate from './Validate.js';
 class Game {
   async start() {
     MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
-    this.getComputerNumber();
-    await this.getPlayerNumber();
+    this.computerNumber = this.getComputerNumber();
+    await this.playGame();
   }
 
   getComputerNumber() {
-    this.computerNumber = MissionUtils.Random.pickUniqueNumbersInRange(1, 9, 3);
+    return MissionUtils.Random.pickUniqueNumbersInRange(1, 9, 3);
+  }
+
+  async playGame() {
+    try {
+      this.playerNumber = await this.getPlayerNumber();
+      this.validatePlayerNumber();
+      this.result = this.calculateResult();
+      MissionUtils.Console.print(this.result);
+    } catch (err) {
+      throw new Error(`[ERROR] ${err}`);
+    }
   }
 
   async getPlayerNumber() {
-    MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ')
-      .then((number) => {
-        this.playerNumber = number;
-        this.validatePlayerNumber();
-        this.result = this.getResult();
-        MissionUtils.Console.print(this.result);
-      })
-      .catch((err) => {
-        MissionUtils.Console.print(err);
-      });
+    const number = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
+    return number;
   }
 
   validatePlayerNumber() {
     doValidate(this.playerNumber);
   }
 
-  getResult() {
+  calculateResult() {
     let strike = 0;
     let ball = 0;
     for (let i = 0; i < 3; i += 1) {
