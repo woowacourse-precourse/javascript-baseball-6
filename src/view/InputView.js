@@ -15,6 +15,8 @@ const InputView = {
     const restartNumber = await MissionUtils.Console.readLineAsync(
       InputString.INPUT_RESTART_NUMBER
     )
+    this.validateRestartNumber(restartNumber)
+
     return await restartNumber
   },
 
@@ -27,6 +29,11 @@ const InputView = {
       throw new Error(ErrorString.ERROR_USER_NOT_NUMBER)
     if (userNumber.length !== new Set(userNumberArray).size)
       throw new Error(ErrorString.ERROR_USER_DUPLICATED_NUMBER)
+  },
+
+  validateRestartNumber(restartNumber) {
+    if (restartNumber.replace(/[1|2]/g, '') > 0)
+      throw new Error(ErrorString.ERROR_RESTART_INVALID_INPUT)
   },
 }
 
