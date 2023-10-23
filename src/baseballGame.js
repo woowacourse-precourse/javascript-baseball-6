@@ -8,7 +8,7 @@ export default async function baseballGame() {
 }
 
 const gameStart = async () => {
-  const targetNumber = getRandomNumber(3);
+  const targetNumber = await getRandomNumber(3);
   while (true) {
     const validInputNumber = await userInputNumber(3);
     const { ball, strike } = getCheckedGameData(targetNumber, validInputNumber);
