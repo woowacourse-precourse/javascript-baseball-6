@@ -21,8 +21,6 @@ class App {
       while (isInGame) {
         const answer = await Console.readLineAsync("숫자를 입력해주세요. : ");
 
-        Console.print(answer);
-
         if (
           !this.isInteger(answer) ||
           !this.isInRange(answer) ||
