@@ -1,9 +1,18 @@
 import { Console, Random } from "@woowacourse/mission-utils";
+
+const MESSAGE = {
+  GAME_START: "숫자 야구 게임을 시작합니다.",
+  SUCCESS: "3개의 숫자를 모두 맞히셨습니다! 게임 종료",
+  USER_NUMS_PROMPT: "숫자를 입력해주세요 : ",
+  RESTART_GAME_PROMPT: "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n",
+  INVALID_INPUT: "올바른 입력이 아닙니다.",
+};
+
 class Game {
   computerNums = [];
 
   start = async () => {
-    Console.print("숫자 야구 게임을 시작합니다.");
+    Console.print(MESSAGE.GAME_START);
     do {
       await this.playRound();
     } while (await this.checkPlayAgain());
@@ -21,7 +30,7 @@ class Game {
       Console.print(resultStr);
 
       if (result.strike === 3) {
-        Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+        Console.print(MESSAGE.SUCCESS);
         break;
       }
     }
@@ -41,9 +50,9 @@ class Game {
 
   // 사용자의 입력을 받는 메소드
   getUserNums = async () => {
-    const input = await Console.readLineAsync("숫자를 입력해주세요 : ");
+    const input = await Console.readLineAsync(MESSAGE.USER_NUMS_PROMPT);
     if (!this.checkUserNumsInput(input)) {
-      throw new Error("올바른 입력이 아닙니다.");
+      throw new Error(MESSAGE.INVALID_INPUT);
     }
     const userNums = input.split("").map(Number);
     return userNums;
@@ -95,11 +104,9 @@ class Game {
 
   // 게임 재시작 여부를 입력받는 메소드
   checkPlayAgain = async () => {
-    const input = await Console.readLineAsync(
-      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
-    );
+    const input = await Console.readLineAsync(MESSAGE.RESTART_GAME_PROMPT);
     if (!this.checkPlayAgainInput(input)) {
-      throw new Error("올바른 입력이 아닙니다.");
+      throw new Error(MESSAGE.INVALID_INPUT);
     }
     const inputNum = Number(input);
     return inputNum === 1;
