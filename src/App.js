@@ -12,6 +12,9 @@ class App {
 
 async function playGame(number) {
   var number = setNumber();
+  while (true) {
+    let guess = await readGuess();
+  }
 }
 
 function setNumber() {
@@ -36,6 +39,18 @@ function rand(max) {
   temp = Math.floor(temp);
 
   return temp;
+}
+
+function readGuess() {
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+  });
+
+  return new Promise(resolve => rl.question('숫자를 입력해주세요 : ', input => {
+      rl.close();
+      resolve(input);
+    }))
 }
 
 export default App;
