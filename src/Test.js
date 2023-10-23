@@ -16,11 +16,11 @@ class App {
   }
 
   getRandomNumber() {
-    while (this.RANDOM_NUMBER.length < 3) {
-      const number = Random.pickNumberInRange(1, 9);
-      if (!this.isDuplicated(number)) this.RANDOM_NUMBER.push(number);
-    }
-    // this.RANDOM_NUMBER = [1, 3, 5];
+    // while (this.RANDOM_NUMBER.length < 3) {
+    //   const number = Random.pickNumberInRange(1, 9);
+    //   if (!this.isDuplicated(number)) this.RANDOM_NUMBER.push(number);
+    // }
+    this.RANDOM_NUMBER = [1, 3, 5];
   }
 
   numberOfHits() {
@@ -55,7 +55,7 @@ class App {
       this.ANSWER = false;
       return;
     } else {
-      Console.print(`${BALL}볼 ${STRIKE}스트라이크`);
+      Console.print(`${STRIKE}스트라이크 ${BALL}볼`);
       this.ANSWER = false;
       return;
     }
@@ -106,7 +106,7 @@ class App {
         this.USER_NUMBER = "";
         this.play();
       } else if (answer === "2") {
-        // Console.print("게임 종료");
+        //Console.print("게임 종료");
         // Console.close();
         return;
       } else {
@@ -148,7 +148,7 @@ class App {
     }
   }
 }
-// const app = new App();
-// app.play();
+const app = new App();
+app.play();
 
-module.exports = App;
+// module.exports = App;
