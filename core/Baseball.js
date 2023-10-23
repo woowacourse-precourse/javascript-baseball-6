@@ -18,6 +18,12 @@ class Baseball {
       : `${Baseball.isBall(ballResult)}`;
   }
 
+  static getFinalResult(strikeResult, ballResult) {
+    return strikeResult > ballResult
+      ? `${Baseball.isStrike(strikeResult)}`
+      : `${Baseball.isBall(ballResult)}`;
+  }
+
   static changeNumToArr(input) {
     return input.split('').map((num) => Number(num));
   }
