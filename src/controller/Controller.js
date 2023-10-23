@@ -22,7 +22,7 @@ export class Controller {
             hint = this.model.getHint(await this.getUserNumberInput());
             this.view.printHintMsg(hint);
         } while (this.model.isRoundContinuedFromHint(hint) === true)
-        this.view.printEndMsg(); 
+        this.view.printEndMsg();
     }
 
     async playGame() {
