@@ -21,8 +21,8 @@ class App {
   }
 
   async startGameRound(playerNumber) {
-    const { ball, strike } = this.#refree.judgeBallOrStrike(playerNumber);
-    OutputView.printResult(ball, strike);
+    const { strike, result } = this.#refree.judgeBallOrStrike(playerNumber);
+    OutputView.printResult(result);
     await this.checkSuccess(strike);
   }
 
