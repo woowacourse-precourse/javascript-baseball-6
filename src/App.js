@@ -7,7 +7,19 @@ class App {
   }
 
   async play() {
-    this.playGame();
+    let restart = true;
+    while (restart) {
+      restart = false;
+      this.strikes = [];
+      this.isWin = false;
+      await this.playGame().then(() => {});
+      const answerRestart = await this.askRestart();
+      if (answerRestart == "1") {
+        restart = true;
+      } else if (answerRestart == "2") {
+        break;
+      }
+    }
   }
 
   async playGame() {
@@ -18,6 +30,13 @@ class App {
     while (!this.isWin) {
       await this.playInning().then(message => {
         Console.print(message);
+        if (message == "3스트라이크") {
+          this.isWin = true;
+          Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+          return new Promise(resolve => {
+            resolve();
+          });
+        }
       });
     }
   }
@@ -59,7 +78,7 @@ class App {
           resolve(message);
         })
         .catch(error => {
-          console.error(error.message);
+          Console.print(error.message);
         });
     });
   }
@@ -99,8 +118,22 @@ class App {
         }
       }
     });
-    if (strikeCount == 3) this.isWin = true;
     return [strikeCount, ballCount];
+  }
+
+  async askRestart() {
+    try {
+      const userInput = await Console.readLineAsync(
+        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+      );
+      const regex = /^[1-2]{1}$/;
+      if (!regex.test(userInput)) {
+        throw new Error("Invalid input");
+      }
+      return userInput;
+    } catch (error) {
+      console.error(error.message);
+    }
   }
 }
 
