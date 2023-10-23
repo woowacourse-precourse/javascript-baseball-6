@@ -12,10 +12,10 @@ class App {
             while (userWillRetry) {
                 const inputNumberList = await this.makeInputList();
 
-                const { strike, ball } = this.calculateScore({
+                const { strike, ball } = this.calculateScore(
                     answer,
-                    inputNumberList,
-                });
+                    inputNumberList
+                );
 
                 this.printResult(strike, ball);
 
@@ -52,7 +52,7 @@ class App {
         return inputNumberList;
     }
 
-    calculateScore({ answer, inputNumberList }) {
+    calculateScore(answer, inputNumberList) {
         let strike = 0;
         let ball = 0;
         for (let i = 0; i < 3; i++) {
