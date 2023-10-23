@@ -1,22 +1,21 @@
-import { MissionUtils, Console } from "@woowacourse/mission-utils";
-import Validation from "./Validation.js";
-import { GAME_MESSAGES, ANSWER_LENGTH } from "./constants.js";
+import { MissionUtils } from "@woowacourse/mission-utils";
+import IOManager from "./IOManager.js";
+import { ANSWER_LENGTH } from "./constants.js";
 
 class Game {
   constructor() {
+    this.ioManager = new IOManager();
     this.answer = this.createRandomNumbers();
   }
 
   async play() {
     while (true) {
-      const userResponse = await this.promptUserForNumbers();
-
-      const { strike, ball } = this.compareNumbers(this.answer, userResponse);
-
-      this.displayGameStatus(strike, ball);
+      const userInput = await this.ioManager.getThreeNumberInput();
+      const { strike, ball } = this.compareNumbers(this.answer, userInput);
+      this.ioManager.printGameStatus(strike, ball);
 
       if (strike === ANSWER_LENGTH) {
-        Console.print(GAME_MESSAGES.END);
+        this.ioManager.printGameEndMessage();
         break;
       }
     }
@@ -47,33 +46,6 @@ class Game {
       }
     }
     return { strike, ball };
-  }
-
-  displayGameStatus(strike, ball) {
-    let message = "";
-
-    if (ball !== 0) {
-      message += `${ball}볼 `;
-    }
-
-    if (strike !== 0) {
-      message += `${strike}스트라이크`;
-    }
-
-    if (!message) {
-      message = "낫싱";
-    }
-
-    Console.print(message.trim());
-  }
-
-  async promptUserForNumbers() {
-    let userResponse = await Console.readLineAsync(GAME_MESSAGES.ENTER_NUMBERS);
-    userResponse = userResponse.trim();
-
-    Validation.validateUserNumbersInput(userResponse);
-
-    return userResponse;
   }
 }
 

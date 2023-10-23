@@ -25,7 +25,7 @@
 # 코드 다듬기(리펙토링)
 
 - [x] 로직을 객체로 분리할 수 있는가?
-  - Game, GameLifecycleManager, Validation
+  - Game, GameLifecycleManager, Validation, IOManager
 - [ ] 변수명이 직관적인가?
 - [x] 상수로 분리할 수 있는 요소가 있는가?
 - [ ] 중복되는 로직을 함수로 줄일 수 있는가?

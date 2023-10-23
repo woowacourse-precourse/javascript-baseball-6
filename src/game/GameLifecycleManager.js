@@ -1,15 +1,15 @@
-import { Console } from "@woowacourse/mission-utils";
 import Game from "./Game.js";
-import Validation from "./Validation.js";
-import { GAME_MESSAGES, COMMANDS } from "./constants.js";
+import IOManager from "./IOManager.js";
+import { COMMANDS } from "./constants.js";
 
 class GameLifecycleManager {
   constructor() {
+    this.ioManager = new IOManager();
     this.isGameEnded = false;
   }
 
   startGame() {
-    Console.print(GAME_MESSAGES.START);
+    this.ioManager.printGameStartMessage();
   }
 
   async playGame() {
@@ -17,25 +17,20 @@ class GameLifecycleManager {
     await game.play();
   }
 
-  async promptNewGameOrExit() {
-    let userResponse = await Console.readLineAsync(
-      GAME_MESSAGES.ENTER_RESTART_OR_QUIT
-    );
-    userResponse = userResponse.trim();
-    Validation.validateGameTerminationInput(userResponse);
+  async handleNewGameOrExit() {
+    const userInput = await this.ioManager.getEndCommandInput();
 
-    if (userResponse === COMMANDS.EXIT) {
-      Console.print(GAME_MESSAGES.EXIT);
+    if (userInput === COMMANDS.EXIT) {
       this.isGameEnded = true;
+      this.ioManager.printGameExitMessage();
     }
   }
 
   async manageGameLifecycle() {
     this.startGame();
-
     while (!this.isGameEnded) {
       await this.playGame();
-      await this.promptNewGameOrExit();
+      await this.handleNewGameOrExit();
     }
   }
 }
