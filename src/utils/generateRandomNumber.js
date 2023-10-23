@@ -1,8 +1,7 @@
 import { ANSWER_LENGTH } from "../Constants";
+import { Random } from "@woowacourse/mission-utils";
 
-const { Random } = require("@woowacourse/mission-utils");
-
-const makeRandomNumber = () => {
+const generateRandomNumber = () => {
   const answer = [];
 
   while (answer.length < ANSWER_LENGTH) {
@@ -14,4 +13,4 @@ const makeRandomNumber = () => {
   return answer.join("");
 };
 
-export default makeRandomNumber;
+export default generateRandomNumber;

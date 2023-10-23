@@ -1,10 +1,9 @@
+import { Console } from "@woowacourse/mission-utils";
 import { ANSWER_LENGTH, ERROR_MESSAGE, PLAY_GAME } from "./Constants";
 import checkBallCount from "./utils/checkBallCount";
-import makeRandomNumber from "./utils/makeRandomNumber";
 import printBallCount from "./utils/printBallCount";
-import inputvalidCheck from "./utils/inputvalidCheck";
-
-const { Console } = require("@woowacourse/mission-utils");
+import validateInput from "./utils/validateInput";
+import generateRandomNumber from "./utils/generateRandomNumber";
 
 class App {
   constructor() {
@@ -17,13 +16,13 @@ class App {
   }
 
   async gameTurn() {
-    this.answer = makeRandomNumber();
+    this.answer = generateRandomNumber();
     await this.gameStart();
   }
 
   async gameStart() {
     const inputValue = await Console.readLineAsync(PLAY_GAME.input);
-    if (inputvalidCheck(inputValue)) {
+    if (validateInput(inputValue)) {
       const scoreCount = checkBallCount(this.answer, inputValue);
       const { strike } = scoreCount;
 
@@ -46,7 +45,7 @@ class App {
     const input = await Console.readLineAsync(PLAY_GAME.check);
 
     if (input === PLAY_GAME.restart) {
-      this.answer = makeRandomNumber();
+      this.answer = generateRandomNumber();
       return this.gameStart();
     }
 
