@@ -20,10 +20,16 @@ class App {
 
   async playGame(computerNum) {
     try {
-      const playerNum = await Console.readLineAsync('숫자를 입력해주세요 : ');
-      this.checkplayerNum(playerNum);
-      const score = this.getScore(computerNum, playerNum);
-      Console.print(score);
+      while (true) {
+        const playerNum = await Console.readLineAsync('숫자를 입력해주세요 : ');
+        this.checkplayerNum(playerNum);
+        const score = this.getScore(computerNum, playerNum);
+        this.printScore(score);
+        if (score.strike === 3) {
+          Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+          break;
+        }
+      }
     } catch (error) {
       Console.print(error);
     }
@@ -58,10 +64,19 @@ class App {
     for (let index = 0; index < 3; index++) {
       if (Number(computerNum[index]) === Number(playerNum[index])) strike += 1;
       else if (computerNum.includes(Number(playerNum[index]))) ball += 1;
-      else Console.print('*');
     }
 
     return { ball, strike };
+  }
+
+  printScore(score) {
+    const ball = score.ball;
+    const strike = score.strike;
+
+    if (ball !== 0 && strike !== 0) Console.print(`${ball}볼 ${strike}스트라이크`);
+    else if (ball !== 0 && strike === 0) Console.print(`${ball}볼`);
+    else if (ball === 0 && strike !== 0) Console.print(`${strike}스트라이크`);
+    else Console.print('낫싱');
   }
 }
 
