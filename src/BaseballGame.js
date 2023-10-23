@@ -1,9 +1,16 @@
 import { Console } from '@woowacourse/mission-utils';
 import { CONSTANT, ERROR, MESSAGE, RESULT } from './Constant.js';
 import Validator from './Validator.js';
+import Computer from './Computer.js';
 
 class BaseballGame {
-  async #gameLoop() {
+  #answer;
+
+  constructor() {
+    this.#answer = new Computer();
+  }
+
+  async gameLoop() {
     while (true) {
       const userNumbers = await this.#getUserGuessInput();
       const hint = this.#getHint(userNumbers);
@@ -40,7 +47,7 @@ class BaseballGame {
   }
 
   #getHint(userNumbers) {
-    const hint = this.#game.compareUserNumbersWithAnswer(userNumbers);
+    const hint = this.#answer.compareUserNumbersWithRandomNumber(userNumbers);
     Console.print(hint);
     return hint;
   }
@@ -67,8 +74,8 @@ class BaseballGame {
   }
 
   async #restart() {
-    this.#game = new BaseballGame();
-    await this.#gameLoop();
+    this.#answer = new Computer();
+    await this.gameLoop();
   }
 }
 
