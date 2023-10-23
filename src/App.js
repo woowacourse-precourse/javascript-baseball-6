@@ -113,7 +113,7 @@ class App {
 
   async play() {
     this.showStartMessage();
-    this.setUserInput(this.setRandomNumber());
+    await this.setUserInput(this.setRandomNumber());
   }
 }
 
