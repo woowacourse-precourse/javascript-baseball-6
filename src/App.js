@@ -15,75 +15,90 @@ class App {
           computer.push(number);
         }
       }
-      MissionUtils.Console.print(computer) //테스트
-
-        
-      //입력 받기
-      try {
-        let user = await Console.readLineAsync("숫자를 입력해주세요 : ");
-
-        if (user<100 || user>999){   //3자리 숫자가 아닐 경우 에러
-        throw "[ERROR] 숫자가 잘못된 형식입니다.";
-        }
-
-        user=user.split("");         //배열
-        for(let i=0; i<3; i++){      //문자열->숫자
-          user[i]=Number(user[i]);
-        }
+      // MissionUtils.Console.print(computer) //테스트
 
 
-        let strike = 0
-        let ball = 0
+      while(true){
+        try {   //입력 받기
+          let user = await Console.readLineAsync("숫자를 입력해주세요 : ");
 
-        //비교(user와 computer)
-        for(let i=0; i<3; i++){
-          if(computer.includes(user[i])==true){
-            let xindex = 5
-            xindex = computer.indexOf(user[i])
-            if(xindex==i){
-              strike=strike+1
-            }
-            else{
-              ball=ball+1
+          //3자리 수 아닌 입력값 에외 처리
+          if (user<100 || user>999){
+            throw "[ERROR] 숫자가 잘못된 형식입니다.";
+          }
+  
+          //입력값 배열로
+          user=user.split("");         //배열
+          for(let i=0; i<3; i++){      //문자열->숫자
+            user[i]=Number(user[i]);
+          }
+
+
+          let strike = 0;
+          let ball = 0;
+
+          //비교(user와 computer)
+          for(let i=0; i<3; i++){
+            if(computer.includes(user[i])==true){
+              let xindex = 5
+              xindex = computer.indexOf(user[i])
+              if(xindex==i){
+                strike=strike+1
+              }
+              else{
+                ball=ball+1
+              }
             }
           }
-        }
-        //strike, ball 결과 출력
-        if(strike==0 && ball==0){
-          MissionUtils.Console.print("낫싱");
-        }
-        else if(strike==0){
-          MissionUtils.Console.print(ball+"볼");
-        }
-        else if(ball==0){
-          MissionUtils.Console.print(strike+"스트라이크");
-        }
-        else{
-          MissionUtils.Console.print(ball+"볼"+strike+"스트라이크");
-        }
 
-        if(strike==3){
-          MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다 ! 게임 종료");
-          let again = await Console.readLineAsync("개임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
-          if(again==1){
-            app.play();
+          //strike, ball 결과 출력
+          if(strike==0 && ball==0){
+            MissionUtils.Console.print("낫싱");
           }
-          else if(again==2){}
+          else if(strike==0){
+            MissionUtils.Console.print(ball+"볼");
+          }
+          else if(ball==0){
+            MissionUtils.Console.print(strike+"스트라이크");
+          }
+          else{
+            MissionUtils.Console.print(ball+"볼"+strike+"스트라이크");
+          }
+
+          //정답
+          if(strike==3){
+            break;
+          }
+            
+  
+        } catch (error) {
+          MissionUtils.Console.print(error);
+          }
+      }
+
+
+      let again;
+      MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다 ! 게임 종료");
+      while(true){   //재시작 or 종료
+        try{
+          again = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+          if (again==1 || again==2){
+            break;
+          }
           else{
             throw "[ERROR] 숫자가 잘못된 형식입니다.";
           }
         }
-
-
-      } catch (error) {
-        MissionUtils.Console.print(error);
-      }  
-
-        
+        catch(error){
+          MissionUtils.Console.print(error);
+        }
+      }
+      if (again==1){
+        app.play();
+      }
     }
-  }
-
-  export default App;
+}
+export default App;
 
 const app = new App();
 app.play();
