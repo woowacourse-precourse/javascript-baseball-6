@@ -5,12 +5,12 @@ const getUserInput = async (query, regex) => {
     const userInput = await Console.readLineAsync(query);
     const regularExpression = regex;
     if (!regularExpression.test(userInput)) {
-      throw new Error("[ERROR] Invalid input");
+      throw new Error("[ERROR]");
     }
     const numbers = [...userInput].map(str => Number(str));
     return numbers;
   } catch (error) {
-    Console.print(error.message);
+    throw error;
   }
 };
 
