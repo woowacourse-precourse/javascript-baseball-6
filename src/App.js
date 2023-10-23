@@ -1,4 +1,5 @@
 import {Random, Console} from '@woowacourse/mission-utils';
+import Pitcher from './models/Pitcher';
 
 class App {
   constructor() {
@@ -38,38 +39,28 @@ class App {
 
   async getPitcherNumbers() {
     const throwBalls = await Console.readLineAsync('숫자를 입력해주세요: ');
-    if (throwBalls.length !== 3) throw new Error('[ERROR] 서로 다른 3개의 숫자를 입력해야합니다.');
-    if (!/^[1-9]{3}$/.test(throwBalls))
-      throw new Error('[ERROR] 0을 제외한 서로 다른 3개의 숫자를 입력해야합니다.');
-
-    const ballsToNumbers = throwBalls.split('').map(Number);
-
-    if (new Set(ballsToNumbers).size !== 3) {
-      throw new Error('[ERROR] 서로 다른 3개의 숫자를 입력해야합니다.');
-    }
-
-    return ballsToNumbers;
+    Pitcher.parsePitchBalls(throwBalls);
   }
 
   getResultOfJudgment(inputPitcherNumbers) {
-    let strike = 0;
-    let ball = 0;
+    let strikes = 0;
+    let balls = 0;
 
     for (let i = 0; i < 3; i++) {
       if (inputPitcherNumbers[i] === this.catcherNumbers[i]) {
-        strike += 1;
+        strikes += 1;
       } else if (this.catcherNumbers.includes(inputPitcherNumbers[i])) {
-        ball += 1;
+        balls += 1;
       }
     }
     let result = '';
 
-    if (ball > 0) {
-      result = `${ball}볼 `;
+    if (balls > 0) {
+      result = `${balls}볼 `;
     }
 
-    if (strike > 0) {
-      result += `${strike}스트라이크`;
+    if (strikes > 0) {
+      result += `${strikes}스트라이크`;
     }
 
     if (result === '') {
