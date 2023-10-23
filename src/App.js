@@ -24,6 +24,8 @@ export default class BaseballGame {
       try {
         this.userInput = await this.getUserInput();
         this.checkUserInput(this.userInput);
+
+        const strike = this.checkStrike(this.userInput, this.computerNumbers);
       } catch (error) {
         Console.print(error.message);
         return;
@@ -60,8 +62,18 @@ export default class BaseballGame {
     if (!checkIsDiff(userInput)) {
       throw new Error("[ERROR] 중복되지 않은 숫자를 입력해주세요.");
     }
-
     return true;
+  }
+
+  checkStrike(userInput, computerNumbers) {
+    let strike = 0;
+    for (let i = 0; i < userInput.length; i++) {
+      console.log(userInput[i], computerNumbers[i]);
+      if (Number(userInput[i]) === computerNumbers[i]) {
+        strike++;
+      }
+    }
+    return strike;
   }
 }
 
