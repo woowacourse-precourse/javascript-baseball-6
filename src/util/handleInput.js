@@ -19,6 +19,27 @@ async function handleInput() {
       }
     }
   }
+
+  // 입력값 내 중복 값 검증 기능
+  async function checkInputHasDuplicate(validInput) {
+    try {
+      for (
+        let checkIndex = 0, compareIndex = 1;
+        checkIndex < validInput.length;
+        checkIndex++, compareIndex++
+      ) {
+        if (validInput[checkIndex] === validInput[compareIndex]) {
+          const ERROR_TEXT = "[ERROR] 숫자가 잘못된 형식입니다.";
+          throw ERROR_TEXT;
+        }
+      }
+      return validInput;
+    } catch (error) {
+      if (error) {
+        throw error;
+      }
+    }
+  }
 }
 
 export default handleInput;
