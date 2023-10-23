@@ -75,6 +75,15 @@ class App {
       this.getUserAnswers();
     }
   }
+
+  async resetBaseBall() {
+    const RESET = await Console.readLineAsync(MESSAGES.GAME_PROCESS.RESTART);
+    if (RESET === "1") this.initPlay();
+    if (RESET === "2") {
+      Console.print(MESSAGES.GAME_PROCESS.EXIT);
+    }
+  }
+  return;
 }
 
 const app = new App();
