@@ -51,14 +51,6 @@ class App {
     this.ball = 0;
   }
 
-  // 상태 초기화
-  resetState() {
-    this.playing = true;
-    this.userText = '';
-    this.win = false;
-    this.resetStrikeAndBall();
-    this.setComputerNumbers();
-  }
   // 메세지 출력
   // eslint-disable-next-line
   printMessage(message) {
@@ -66,8 +58,15 @@ class App {
   }
 
   startGame() {
-    this.resetState();
+    this.setComputerNumbers();
     this.printMessage(this.sentence.start);
+  }
+
+  restart() {
+    this.userText = '';
+    this.win = false;
+    this.resetStrikeAndBall();
+    this.setComputerNumbers();
   }
 
   endGame(showMessage) {
@@ -124,16 +123,6 @@ class App {
 
   // 판정 결과 표시
   showJudgment() {
-    MissionUtils.Console.print(
-      'user',
-      this.userText,
-      'com',
-      this.computerNumbers,
-      's',
-      this.strike,
-      'b',
-      this.ball,
-    );
     const isNothing = !this.strike && !this.ball;
     if (this.strike === 3) {
       this.win = true;
@@ -144,20 +133,19 @@ class App {
       this.printMessage(this.sentence.nothing);
     } else {
       const strikeAndBall = `${
-        this.strike ? this.strike + this.sentence.strike : ''
-      } ${this.ball ? this.ball + this.sentence.ball : ''}`;
-      this.printMessage(strikeAndBall.replaceAll(' ', ''));
+        this.ball ? this.ball + this.sentence.ball : ''
+      } ${this.strike ? this.strike + this.sentence.strike : ''}`;
+      this.printMessage(strikeAndBall);
     }
     this.resetStrikeAndBall();
   }
 
   // 판정
   test() {
-    console.log('win', this.win);
     if (this.win === true) {
       const isRestart = this.userText === 1;
       if (isRestart) {
-        this.resetState();
+        this.restart();
       } else {
         this.endGame(true);
       }
@@ -169,12 +157,14 @@ class App {
 
   async play() {
     this.startGame();
-    try {
-      await this.getUserNumbers();
-      this.validNumbers();
-      this.test();
-    } catch (error) {
-      throw new Error(`[Error]:${error}`);
+    while (this.playing === true) {
+      try {
+        await this.getUserNumbers();
+        this.validNumbers();
+        this.test();
+      } catch (error) {
+        throw new Error(`[Error]:${error}`);
+      }
     }
   }
 }
