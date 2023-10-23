@@ -61,6 +61,7 @@ class App {
             if (regameInput === '1') {
             } else if (regameInput === '2') {
             } else {
+              throw new Error('1 또는 2를 입력해야 합니다.');
             }
           }
         } else if (strike === 0) {
