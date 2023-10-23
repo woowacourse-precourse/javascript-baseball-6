@@ -1,14 +1,23 @@
-import { Console } from "@woowacourse/mission-utils";
+import { Console } from '@woowacourse/mission-utils';
+
+const RANGE_NUMBERS = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 class App {
   async play() {
-    Console.print("숫자 야구 게임을 시작합니다.");
+    Console.print('숫자 야구 게임을 시작합니다.');
     try {
       const inputNumber = await Console.readLineAsync(
-        "0을 제외한 서로 다른 숫자를 3자리 입력해주세요: "
+        '0을 제외한 서로 다른 숫자를 3자리 입력해주세요: '
       );
+      const parseArr = inputNumber.split('');
+      for (let num of parseArr) {
+        let valid = RANGE_NUMBERS.includes(Number(num));
+        if (!valid) {
+          throw new Error('1~9 사이의 숫자를 입력해야합니다.');
+        }
+      }
     } catch (error) {
-      console.log("[ERROR]", error.message);
+      console.log('[ERROR]', error.message);
     }
   }
 }
