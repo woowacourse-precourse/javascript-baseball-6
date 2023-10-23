@@ -11,7 +11,6 @@ class BaseballGame {
 
   async playGame() {
     this.handleComputer();
-
     try {
       await this.handleUser();
       await this.handleEnd();
@@ -48,26 +47,28 @@ class BaseballGame {
   async handleUser() {
     try {
       await this.handleUserInput();
-      const { strike, ball } = this.getStrikeAndBall();
-
-      this.printStrikeAndBall({ strike, ball });
-
-      const IS_RE_INPUT = strike !== 3;
-      if (IS_RE_INPUT) await this.handleUser();
     } catch (error) {
+      console.error(error.messgae);
       throw error;
     }
+    const { strike, ball } = this.getStrikeAndBall();
+
+    this.printStrikeAndBall({ strike, ball });
+
+    const IS_RE_INPUT = strike !== 3;
+    if (IS_RE_INPUT) await this.handleUser();
   }
 
   async handleUserInput() {
+    let userInput;
     try {
-      const USER_INPUT = await readInput("숫자를 입력해주세요 : ");
-      const USER_NUMBERS = USER_INPUT.split("").map(Number);
-      this.validUserNumber(USER_NUMBERS);
-      this.setUserNumbers(USER_NUMBERS);
+      userInput = await readInput("숫자를 입력해주세요 : ");
     } catch (error) {
       throw error;
     }
+    const USER_NUMBERS = userInput.split("").map(Number);
+    this.validUserNumber(USER_NUMBERS);
+    this.setUserNumbers(USER_NUMBERS);
   }
 
   setUserNumbers(numbers) {
@@ -98,8 +99,8 @@ class BaseballGame {
       const COMPUTER_NUM = this.#computerNumbers[i];
       for (let j = 0; j < this.#GAME_NUMBER_LEN; j++) {
         const USER_NUM = this.#userNumbers[j];
-        if (i === j && COMPUTER_NUM === USER_NUM) strike++;
-        if (i !== j && COMPUTER_NUM === USER_NUM) ball++;
+        if (i === j && COMPUTER_NUM === USER_NUM) strike += 1;
+        if (i !== j && COMPUTER_NUM === USER_NUM) ball += 1;
       }
     }
 
@@ -114,19 +115,18 @@ class BaseballGame {
   }
 
   async handleEnd() {
+    let input;
     try {
-      const input = await readInput(
+      input = await readInput(
         "3개의 숫자를 모두 맞히셨습니다! 게임 종료 \n게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. \n"
       );
-
-      this.validGameEndInput(input);
-
-      const IS_GAME_RETRY = this.isGameEnd(input);
-      if (!IS_GAME_RETRY) await this.playGame();
-      if (IS_GAME_RETRY) printOutput("게임 종료");
     } catch (error) {
       throw error;
     }
+    this.validGameEndInput(input);
+    const IS_GAME_RETRY = this.isGameEnd(input);
+    if (!IS_GAME_RETRY) await this.playGame();
+    if (IS_GAME_RETRY) printOutput("게임 종료");
   }
 
   validGameEndInput(input) {
