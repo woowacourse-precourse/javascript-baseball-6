@@ -15,10 +15,23 @@ class App {
 
       while(true) {
         const number = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
+        if(isNaN(number)) {
+          throw new Error("[ERROR] 세자리 숫자를 입력해주세요.");
+        }
+        if(number.length != 3) {
+          throw new Error("[ERROR] 세자리 숫자를 입력해주세요.");
+        }
         const first = Math.floor(number / 100);
         const second = Math.floor(number % 100 / 10);
         const third = number % 100 % 10;
-
+        
+        const check = new Set();
+        check.add(first);
+        check.add(second);
+        check.add(third);
+        if(check.size != 3) {
+          throw new Error("[ERROR] 서로 다른 세자리 숫자를 입력해주세요.")
+        }
         let strike = 0;
         let ball = 0;
         let nothing = 0;
@@ -60,6 +73,12 @@ class App {
       }
 
       const sign = await MissionUtils.Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n");
+      if(isNaN(sign)) {
+        throw new Error("[ERROR] 재시작 또는 종료를 위해 1 또는 2를 입력해주세요");
+      }
+      if(sign != 1 && sign != 2) {
+        throw new Error("[ERROR] 재시작 또는 종료를 위해 1 또는 2를 입력해주세요.")
+      }
       if(sign == 1) {
         continue;
       }else if(sign == 2) {
