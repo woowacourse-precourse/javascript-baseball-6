@@ -1,5 +1,5 @@
-import calculateBalls from "./calculateBalls.js"
-import calculateStrikes from "./calculateStrikes.js"
+import calculateBalls from './calculateBalls.js'
+import calculateStrikes from './calculateStrikes.js'
 
 const getHint = function returnHintByUserNumberAndComputerNumber(userNumber, computerNumber) {
     const cntBall = calculateBalls(userNumber, computerNumber)
