@@ -1,12 +1,12 @@
-import GameController from "./controllers/GameController.js";
 import GameModel from "./models/GameModel.js";
 import GameView from "./view/GameView.js";
+import GameController from "./controllers/GameController.js";
 
 class App {
   constructor() {
     this.model = new GameModel();
-    this.controller = new GameController();
     this.view = new GameView();
+    this.controller = new GameController();
   }
   async play() {
     let computerAnswer = this.model.getComputerAnswer();
@@ -15,7 +15,7 @@ class App {
       let userAnswer = this.controller.handleUserAnswer(userInput);
 
       if (computerAnswer === userAnswer) {
-        this.model.getHint(computerAnswer, userAnswer);
+        this.view.printHint(computerAnswer, userAnswer);
         this.view.printGameWin();
 
         const replay = await this.view.readReplayInput();
@@ -29,7 +29,7 @@ class App {
           this.view.printError();
         }
       }
-      this.model.getHint(computerAnswer, userAnswer);
+      this.view.printHint(computerAnswer, userAnswer);
     }
   }
 }

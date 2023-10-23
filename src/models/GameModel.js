@@ -1,4 +1,4 @@
-import { Random, Console } from "@woowacourse/mission-utils";
+import { Random } from "@woowacourse/mission-utils";
 
 class GameModel {
   getComputerAnswer() {
@@ -28,21 +28,6 @@ class GameModel {
       if (userAnswer.includes(num)) ball++;
     });
     return ball;
-  }
-
-  getHint(computerAnswer, userAnswer) {
-    const strike = this.getStrike(computerAnswer, userAnswer);
-    const ball = this.getBall(computerAnswer, userAnswer) - strike;
-
-    if (strike + ball === 0) {
-      Console.print(`낫싱`);
-    } else if (strike === 0) {
-      Console.print(`${ball}볼`);
-    } else if (ball === 0) {
-      Console.print(`${strike}스트라이크`);
-    } else {
-      Console.print(`${ball}볼 ${strike}스트라이크`);
-    }
   }
 }
 
