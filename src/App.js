@@ -12,25 +12,26 @@ class App {
     let isPlaying = true;
     try {
       while (isPlaying) {
-        const USER_INPUT = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
+        const USER_NUMBER = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
 
-        if (!this.gameManager.validatePlayerInput(USER_INPUT)) throw new Error('[ERROR] : 유효하지 않은 입력입니다.');
-        this.player.setNumber(USER_INPUT);
-
+        if (!this.gameManager.validatePlayerNumber(USER_NUMBER)) throw new Error('[ERROR] : 유효하지 않은 입력입니다.');
+        this.player.setNumber(USER_NUMBER);
+        
         const { STRIKE, BALL } = this.gameManager.evaluatePlayerInput(this.player.number, this.computer.number);
         MissionUtils.Console.print(this.gameManager.printResultMessage(STRIKE, BALL));
 
         if (STRIKE === CORRECT_NUMBER) {
-          const INPUT = await MissionUtils.Console.readLineAsync('3개의 숫자를 모두 맞히셨습니다! 게임 종료\n게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+          const CHOICE = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+          
+          if (this.gameManager.validatePlayerChoice(CHOICE)) throw new Error('1 또는 2가 입력되지 않았습니다.');
+          this.player.setChoice(CHOICE)
 
-          if (!/^[12]$/.test(INPUT)) throw new Error('1또는 2가 입력되지 않았습니다.');
-
-          if (INPUT === '1') {
+          if (this.player.choice === '1') {
             this.computer.generateThreeDigits();
             continue;
           }
 
-          if (INPUT === '2') {
+          if (this.player.choice === '2') {
             isPlaying = false;
             MissionUtils.Console.print('게임 종료');
           }
@@ -60,17 +61,25 @@ class Computer {
     this.number = Number(stringThreeDigits);
   }
 }
-
 class Player {
+  choice;
   number;
 
   setNumber(num) {
     this.number = num;
   }
+
+  setChoice(choice) {
+    this.choice = choice;
+  }
 }
 
 class GameManager {
-  validatePlayerInput(input) {
+  validatePlayerChoice(input) {
+    return !/^[12]$/.test(input)
+  }
+
+  validatePlayerNumber(input) {
     const STR_USER_INPUT = String(input);
     const SET_USER_INPUT = new Set([...STR_USER_INPUT]);
 
@@ -94,7 +103,7 @@ class GameManager {
     let str = '';
 
     if (strike === CORRECT_NUMBER) {
-      str = '3스트라이크';
+      str = '3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료';
     } else if (strike === 0 && ball === 0) {
       str = '낫싱';
     } else if (strike > 0 || ball > 0) {
