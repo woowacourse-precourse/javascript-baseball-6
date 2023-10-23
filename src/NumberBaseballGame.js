@@ -20,11 +20,11 @@ class NumberBaseballGame {
     const playerNumbers = await this.#askPlayerNumbers();
     const result = this.umpire.umpire(this.#computerNumbers, playerNumbers);
     Console.print(result);
-    if (result === `3${BaseballTerms.STRIKE}`) await this.#strikeOut();
+    if (result === `3${BaseballTerms.STRIKE}`) await this.#end();
     else await this.play();
   }
 
-  async #strikeOut() {
+  async #end() {
     Console.print(Message.END);
     const shouldRestart = await this.#askRestart();
     if (shouldRestart) this.#restart();
