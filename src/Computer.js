@@ -5,18 +5,22 @@ class Computer {
     this.computerNumber = this.generateRandomNumber();
   }
 
+  generateNewRandomNumber() {
+    this.computerNumber = this.generateRandomNumber();
+  }
+
   generateRandomNumber() {
-    const computer = [];
+    const computerArray = [];
 
-    while (computer.length < 3) {
-      const computerNumber = Random.pickNumberInRange(1, 9);
+    while (computerArray.length < 3) {
+      const newComputerNumber = Random.pickNumberInRange(1, 9);
 
-      if (!computer.includes(computerNumber)) {
-        computer.push(computerNumber);
+      if (!computerArray.includes(newComputerNumber)) {
+        computerArray.push(newComputerNumber);
       }
     }
 
-    return computer.join('');
+    return computerArray.join('');
   }
 }
 
