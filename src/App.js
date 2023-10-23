@@ -35,7 +35,7 @@ class App extends InsideGame {
   // 볼 스트라이크 확인.
   // ball과 strike 개수를 자식클래스의 Check를 통해 확인하고 ballstrike 변수에 적용함.
   // 적용된 ballstrike를 자식 클래스의 outputHint를 통해 낫싱, n개의 볼, n개의 스트라이크로 출력함.
-  // strike가 3개일 경우 endAndRestart로 이동하고, 아닐 경우에는 다시 숫자를 입력하는 play로 이동.
+  // strike가 3개일 경우 endAndRestart로 이동하고, 아닐 경우에는 다시 숫자를 입력하는 play 진행.
 
   ballAndStrike(computer, user) {
     const ballStrike = super.Check(computer, user);
@@ -57,10 +57,9 @@ class App extends InsideGame {
     }
   }
 
-  // 1을 입력하면 다시 play()로 이동(1 = true). 2를 입력하면 종료
+  // 1을 입력하면 다시 play()로 이동. 2를 입력하면 종료
   end(restartAndEnd) {
-    const endAnswer = super.endInputValid(restartAndEnd);
-    if (endAnswer === 1) {
+    if (super.endInputValid(restartAndEnd) === "1") {
       this.play();
     } else {
       MissionUtils.Console.print("프로그램을 종료합니다.");

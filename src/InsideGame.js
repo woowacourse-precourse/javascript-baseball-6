@@ -69,11 +69,10 @@ class InsideGame {
 
   // 1과 2 이외의 값이 생기면 에러를 던짐.
   endInputValid(question) {
-    const questionNumber = Number(question);
-    if (questionNumber !== 1 && questionNumber !== 2) {
+    if (question !== "1" && question !== "2") {
       throw new Error("[ERROR] 1과 2만 입력해주세요.");
     }
-    return questionNumber;
+    return question;
   }
 }
 export default InsideGame;
