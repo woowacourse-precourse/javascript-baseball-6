@@ -3,7 +3,7 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
   async play() {
-gameStart();
+    gameStart();
   }
 }
 export default App;
@@ -29,26 +29,24 @@ const computerNum = () => {
 
 const userInputNum = async (computer) => {
   let userInput;
-    try {
-      userInput = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');      
-    } catch (error) {
-      // reject 되는 경우
-    }
-    console.log("userInput", userInput);
-    checkNum(userInput, computer);  // 입력값 유효성 체크
+  try {
+    userInput = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
+  } catch (error) {
+    // reject 되는 경우
+  }
+  console.log("userInput", userInput);
+  checkNum(userInput, computer);  // 입력값 유효성 체크
 }
 
 const checkNum = (userInput, computer) => {
   let user = userInput.split("");
-  if(user.length==3){
-    for(let i = 0; i<3; i++){
-      user[i] = parseInt(user[i]);
-      if(isNaN(user[i])){
-        throw new Error("[ERROR] 숫자가 잘못된 형식입니다.")
-      }
-    }
+  if (user.length == 3) {
+    user.map((e, index) => {
+      user[index] = parseInt(e);
+      if (isNaN(e)) throw new Error("[ERROR] 숫자가 잘못된 형식입니다.")
+    })
   }
-  else{
+  else {
     throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
   }
 
@@ -57,7 +55,7 @@ const checkNum = (userInput, computer) => {
   compare(user, computer);  // 입력받은 값이 유효할 경우 숫자 비교
 }
 
-const compare=(user, computer)=>{
+const compare = (user, computer) => {
 
 
 }
