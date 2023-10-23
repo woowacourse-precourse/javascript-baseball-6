@@ -18,7 +18,6 @@ class App {
   async gameLoop() {
     const computer = new Computer();
     computer.generateRandomNumbers(NUMBER_LENGTH);
-    console.log(computer.answerNumbers);
 
     while (!computer.isOut) {
       const playerAnswer = await Console.readLineAsync(
