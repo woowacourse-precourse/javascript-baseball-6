@@ -28,6 +28,10 @@ class User {
     if (isNaN(Number(number))) {
       throw "[ERROR] 숫자를 입력하지 않았습니다.";
     }
+    // #2.3 3자리 숫자를 입력하지 않았을 경우
+    if(number.length!=3){
+      throw "[ERROR] 3자리 숫자를 입력하지 않았습니다."
+    }
     if (number.length == 3) {
       for (let i = 0; i < number.length; i++) {
         user.push(Number(number[i]));
