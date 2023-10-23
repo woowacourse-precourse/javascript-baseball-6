@@ -100,7 +100,7 @@ class BaseballGame {
   async retryOpt() {
     try {
       let input = await Console.readLineAsync("");
-      if (Number(input) !== 1 && Number(input) !== 2)
+      if (input !== "1" && input !== "2")
         throw new Error(ERRORMSG.invalid_command);
       if (input === "1") {
         this.computerNum = this.getComputerNum();
