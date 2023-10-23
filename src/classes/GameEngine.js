@@ -2,19 +2,18 @@ import { Console } from '@woowacourse/mission-utils';
 
 class GameEngine {
   // 입력값을 배열로 변경하는 함수
-  static inputToArray(input) {
-    const playerNumber = input.toString().split('');
-    if (playerNumber.length !== 3) {
+  inputToArray(input) {
+    if (input.length !== 3) {
       throw new Error('[ERROR] 3자리 값이 아닙니다.');
     }
-    this.stringToNumber(playerNumber);
+    const playerNumber = this.stringToNumber(input.split(''));
     this.playerNumberValidity(playerNumber);
     return playerNumber;
   }
 
   // 문자배열을 숫자배열로 변경하는 함수
-  static stringToNumber(playerNumber) {
-    playerNumber.map((x) => {
+  stringToNumber(playerNumber) {
+    return playerNumber.map((x) => {
       const num = Number(x);
       if (Number.isNaN(num)) {
         throw new Error('[ERROR] 숫자가 아닙니다.');
@@ -24,7 +23,7 @@ class GameEngine {
   }
 
   // 플레이어 숫자가 유효한지 판별하는 함수
-  static playerNumberValidity(playerNumber) {
+  playerNumberValidity(playerNumber) {
     playerNumber.forEach((x) => {
       if (x < 1 || x > 9) {
         throw new Error('[ERROR] 숫자는 1부터 9까지여야 합니다.');
