@@ -43,10 +43,6 @@ const validateUserInput = (USERINPUT) => {
 				} else {
 					return false;
 				}
-				// else {
-				// 	//같은 애가 있다면
-				// 	throw new MyError('다 다른 숫자여야 합니다.');
-				// }
 			}
 		} else {
 			throw new MyError('[ERROR]', '유효한 입력값이 아닙니다.');
@@ -79,32 +75,15 @@ const getScore = (STRIKE, BALL, COMPUTERARR) => {
 const start = async () => {
 	const COMPUTERARR = getComputerInput();
 	await process(COMPUTERARR);
-	// try {
-	// 	const USERINPUT = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 :');
-	// 	MissionUtils.Console.print(`숫자를 입력해주세요 : ${USERINPUT}`);
-	// 	// 사용자이 입력값이 유효한지 확인 / boolean 반환
-	// 	const USERARR = validateUserInput(USERINPUT);
-	// 	//console.log('user:', USERARR);
-	// 	if (USERARR) {
-	// 		//console.log('computer:', COMPUTERARR);
-	// 		const { strike, ball } = compareUserComputer(USERARR, COMPUTERARR);
-	// 		getScore(strike, ball);
-	// 	} else {
-	// 		throw new MyError('[ERROR]', '유효한 입력값이 아닙니다.');
-	// 	}
-	// } catch (error) {
-	// 	throw new MyError('[ERROR]', error);
-	// }
 };
+
 const process = async (COMPUTERARR) => {
 	try {
 		const USERINPUT = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 :');
 		MissionUtils.Console.print(`숫자를 입력해주세요 : ${USERINPUT}`);
 		// 사용자이 입력값이 유효한지 확인 / boolean 반환
 		const USERARR = validateUserInput(USERINPUT);
-		//console.log('user:', USERARR);
 		if (USERARR) {
-			//console.log('computer:', COMPUTERARR);
 			const { strike, ball } = compareUserComputer(USERARR, COMPUTERARR);
 			getScore(strike, ball, COMPUTERARR);
 		} else {
@@ -130,7 +109,6 @@ const end = async () => {
 	} catch (error) {}
 };
 
-
 class MyError extends Error {
 	constructor(value, ...params) {
 		super(...params);
@@ -143,9 +121,8 @@ class App {
 	async play() {
 		MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
 		await start(); //await 있어야 유효성 검사 통과
-		await end();	
+		await end();
 		return;
-
 	}
 }
 
