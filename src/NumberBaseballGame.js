@@ -9,7 +9,7 @@ import Validator from "./Validator.js";
 class NumberBaseballGame {
   #player = new Player();
   #umpire = new Umpire();
-  #computerNumbers = this.#getComputerNumbers();
+  #computerNumbers = this.#createComputerNumbers();
 
   async start() {
     // console.log(this.#computerNumbers); // 개발용
@@ -32,12 +32,12 @@ class NumberBaseballGame {
   }
 
   async #restart() {
-    this.#computerNumbers = this.#getComputerNumbers();
+    this.#computerNumbers = this.#createComputerNumbers();
     // console.log(this.#computerNumbers); // 개발용
     await this.#play();
   }
 
-  #getComputerNumbers() {
+  #createComputerNumbers() {
     const array = [];
     while (array.length < 3) {
       const number = Random.pickNumberInRange(1, 9);
