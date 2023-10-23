@@ -17,11 +17,11 @@ class GameView {
   }
 
   printGameWin() {
-    return Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
   }
 
   printGameOver() {
-    return Console.print("게임 종료");
+    Console.print("게임 종료");
   }
 
   printError() {
