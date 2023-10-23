@@ -9,7 +9,7 @@ export default class player {
     const userInput = await view.readInput(MESSAGE.input);
     
     if (this.isValidNumber(userInput)) {
-      this.#playerNumber = userInput.split('').map((num) => Number(num));
+      this.#playerNumber = userInput.split('').map((num) => parseInt(num));
     }
     return;
   }
@@ -26,11 +26,11 @@ export default class player {
       throw new Error(MESSAGE.error);
     }
   
-    if (userInputToArray.some(char => isNaN(Number(char)))) {
+    if (userInputToArray.some(char => isNaN(parseInt(char)))) {
       throw new Error(MESSAGE.error);
     }
   
-    const numericInput = userInputToArray.map((num) => Number(num));
+    const numericInput = userInputToArray.map((num) => parseInt(num));
   
     if (numericInput.includes(0)) {
       throw new Error(MESSAGE.error);
