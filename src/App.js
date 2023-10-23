@@ -50,7 +50,7 @@ class App {
         }
       } catch (error) {
         MissionUtils.Console.print(error.message);
-        throw new Error("[ERROR]");
+        throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
       }
     }
   }
