@@ -13,21 +13,7 @@ const MESSEAGE = Object.freeze({
 
 export default MESSEAGE  
 
-/*
-import { Console } from "@woowacourse/mission-utils";
 
 
-async function show(){
-    while(1){
-        const answer = await Console.readLineAsync(MESSEAGE.INPUT_NUMBER)
-        if(answer === "5147") return answer 
-    }
-}
 
-async function play(){
-    const result = await show();
-    console.log(result)
-}
 
-play();
-*/

@@ -4,7 +4,72 @@ import Exception from "./Exception.js";
 import MESSEAGE from "./Constants.js";
 import Baseball from "./Baseball.js";
 
-//돌아가는 쓰레기 완성
+
+
+class App {
+
+  async play() {
+    Console.print(MESSEAGE.START_GAME);
+    const result1 = await this.start(RandomNumber.makeRandomNumber())
+    const result2 = await this.choice(result1);
+    return result2       
+  }
+  
+  //숫자를 입력받고 baseball 결과를 리턴(promise) ex 1볼 1스트라이크 //입력받는 에러 처리함
+  async numberAsking(random) {
+    try {
+      const answer = await Console.readLineAsync(MESSEAGE.INPUT_NUMBER);
+      if(!Exception.isNonException(answer)) throw("[ERROR] 숫자가 잘못된 형식입니다.")
+      const baseball = new Baseball(answer, random)
+      const result = baseball.outcome()
+      Console.print(result);
+      return result;
+    } catch(error) {
+      throw new Error(error)
+    }
+  }
+//재시작 또는 종료를 입력받고 입력받은 결과를 리턴(promise) ex 1 , 2 //입력받는 에러 처리함
+  async choiceAsking() {
+    try {
+      const answer = await Console.readLineAsync("");
+      if(answer !== MESSEAGE.EXIT && answer !== MESSEAGE.RESTART) throw("[ERROR] 숫자가 잘못된 형식입니다.")
+      return answer;
+    } catch(error) {
+      throw new Error(error)
+    }
+  }
+
+  async start(random) {
+
+    const result = await this.numberAsking(random)
+    if(result === MESSEAGE.STRIKEOUT) return result
+    if(result !== MESSEAGE.STRIKEOUT) {
+      const result2 = await this.start(random);
+    }
+  }
+
+  async choice(success) {
+    
+    Console.print(MESSEAGE.CELEBRATE_END);
+    Console.print(MESSEAGE.RESTART_EXIT);
+    const result = await this.choiceAsking();
+    if(result === MESSEAGE.EXIT) return 1
+    
+    this.replay();
+  }
+
+  async replay() {
+    const result1 = await this.start(RandomNumber.makeRandomNumber());
+    const result2 = await this.choice(result1); 
+  }
+  
+  
+}
+
+
+
+
+/*돌아가는 쓰레기 완성
 class App {
   async play() {
     Console.print(MESSEAGE.START_GAME);
@@ -62,6 +127,7 @@ class App {
     return
   }
 }
+*/
 
 
 
