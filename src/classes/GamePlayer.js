@@ -2,9 +2,21 @@ import { Console } from '@woowacourse/mission-utils';
 import NumberGenerator from './NumberGenerator';
 import GameEngine from './GameEngine';
 
+const numberGenerator = new NumberGenerator();
 const gameEngine = new GameEngine();
 
 class GamePlayer {
+  // 게임을 시작하는 함수
+  async startGame() {
+    Console.print('숫자 야구 게임을 시작합니다.');
+    let isRestart = false;
+    while (!isRestart) {
+      const computerNumber = numberGenerator.createRandomNumbers();
+      await this.receiveNumber(computerNumber);
+      isRestart = await this.isRestart();
+    }
+  }
+
   // 숫자를 입력받는 함수
   async receiveNumber(computerNumber) {
     let isThreeStrike = false;
