@@ -70,7 +70,7 @@ describe("숫자 야구 게임", () => {
     //     const app = new App();
     //     const answer = [1, 2, 3];
     //     const inputNumberList = [2, 3, 4];
-    //     await expect(app.scoreCalculator({ answer, inputNumberList })).toEqual({
+    //     await expect(app.calculateScore({ answer, inputNumberList })).toEqual({
     //         strike: 0,
     //         ball: 2,
     //     });
