@@ -6,7 +6,6 @@ class App {
     this.gameOverBtn = [];
     this.strike = 0;
     this.ball = 0;
-    this.nothing = 0;
   }
 
   async play() {
@@ -29,7 +28,7 @@ class App {
 
   async myInputNum() {
     const myNum = await this.getUserInput();
-    this.isExistError(myNum);
+    this.checkNumberValidity(myNum);
     await this.compareResult();
   }
 
@@ -40,7 +39,7 @@ class App {
     return this.inputNum;
   }
 
-  isExistError(myNum) {
+  checkNumberValidity(myNum) {
     if (!this.isValidFormat(myNum) || !this.isDuplicateNumbers(myNum)) {
       throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
     }
