@@ -1,11 +1,10 @@
-import constants from '../../constants/index.js';
-
-const { THREE_DIGIT_PATTERN } = constants;
+import { PATTERN, ERROR_MESSAGES } from '../../constants/index.js';
 
 // P-1 입력한 숫자에 대한 유효성 검사
 class InputValidator {
   static isValidNumberSet = (input) => {
-    return THREE_DIGIT_PATTERN.test(input);
+    if (!PATTERN.THREE_DIGIT_PATTERN.test(input))
+      throw new Error(ERROR_MESSAGES.INVALID_COUNT_NUMBER);
   };
 }
 
