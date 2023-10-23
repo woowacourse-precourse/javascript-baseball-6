@@ -21,7 +21,7 @@ class Controller {
         do {
             hint = this.model.getHint(await this.getUserNumberInput());
             this.view.printHintMsg(hint);
-        } while (this.model.isRoundContinuedFromHint(hint) === true)
+        } while (this.model.isRoundContinuedFromHint(hint))
         this.view.printEndMsg();
     }
 
