@@ -72,7 +72,7 @@ class App {
     for (let i = 0; i < 3; i++) {
       if (userInput[i] === this.computerNumbers[i]) {
         strikes++;
-      } else if (this.computerNumbers.includes(userInput[i])) {
+      } else if (this.computerNumbers.includes(userInput[i])) { 
         balls++;
       }
     }
