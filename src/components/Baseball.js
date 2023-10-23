@@ -32,6 +32,10 @@ class Baseball {
 
       this.compareNumber();
     }
+
+    if (this.count.strike === 3) {
+      Console.print(GAME_MESSAGE.END_GAME);
+    }
   }
 
   /** 컴퓨터와 유저의 숫자 비교 */
