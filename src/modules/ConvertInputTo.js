@@ -6,9 +6,8 @@ class ConvertInputTo {
   static async list() {
     const inputString = await Console.readLineAsync('숫자를 입력해주세요 : ')
       .catch(ErrorCheck.otherErrorFormat);
-    const inputList = inputString.split('').map(Number);
-    ErrorCheck.list(inputList);
-    return inputList;
+    ErrorCheck.listString(inputString);
+    return [...inputString].map(Number);
   }
 
   static async tryAgain() {

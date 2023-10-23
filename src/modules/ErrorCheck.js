@@ -1,10 +1,10 @@
 class ErrorCheck {
-  static list(listArray) {
+  static listString(string) {
     // ascii code ('1':49 '9':57)
     try {
-      ErrorCheck.arrayLikeLength(listArray, 3);
-      ErrorCheck.sameElementInArray(listArray);
-      ErrorCheck.stringRangeByCharCode(listArray.join(''), 49, 57);
+      ErrorCheck.arrayLikeLength(string, 3);
+      ErrorCheck.sameElementInArray([...string]);
+      ErrorCheck.stringRangeByCharCode(string, 49, 57);
     } catch (error) {
       throw new Error('[ERROR] Wrong List');
     }
