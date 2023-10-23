@@ -1,6 +1,12 @@
 import MESSAGE from "./constant/MESSAGE.js";
 import ERROR from "./constant/ERROR.js";
 
+import {
+  areDigitsUnique,
+  isNotEmpty,
+  isValidNumber,
+} from "./utils/inputValidator.js";
+
 class User {
   constructor(consoleUtils) {
     this.numberArray = [];
@@ -16,24 +22,11 @@ class User {
   }
 
   validateUserInput(input) {
-    if (!this.isNotEmpty(input)) throw new Error(ERROR.EMPTY_INPUT);
-    if (!this.isValidNumber(input)) throw new Error(ERROR.INVALID_NUMBER);
-    if (!this.areDigitsUnique(input)) throw new Error(ERROR.NON_UNIQUE_DIGITS);
+    if (!isNotEmpty(input)) throw new Error(ERROR.EMPTY_INPUT);
+    if (!isValidNumber(input)) throw new Error(ERROR.INVALID_NUMBER);
+    if (!areDigitsUnique(input)) throw new Error(ERROR.NON_UNIQUE_DIGITS);
 
     return input;
-  }
-
-  isNotEmpty(input) {
-    return input !== null && input.trim() !== "";
-  }
-
-  isValidNumber(input) {
-    return /^[1-9]{3}$/.test(input);
-  }
-
-  areDigitsUnique(input) {
-    const uniqueDigits = [...new Set(input)];
-    return uniqueDigits.length === input.length;
   }
 }
 
