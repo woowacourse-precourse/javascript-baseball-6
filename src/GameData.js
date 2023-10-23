@@ -30,6 +30,16 @@ class GameData {
   setStrike(strike) {
     this.strike = strike;
   }
+
+  // 삼진 확인
+  getThreeStrike() {
+    return this.threeStrike;
+  }
+
+  // 삼진 업데이트
+  setThreeStrike(threeStrike) {
+    this.threeStrike = threeStrike;
+  }
 }
 
 module.exports = GameData;
