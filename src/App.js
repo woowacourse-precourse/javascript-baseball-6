@@ -1,20 +1,24 @@
-import { Console, MissionUtils, Random } from "@woowacourse/mission-utils";
+import { Console, Random } from "@woowacourse/mission-utils";
 import GameData from "./GameData";
 import { validationNumbers } from "./Validation";
 
 class App {
   async play() {
+    Console.print('숫자 야구 게임을 시작합니다.');
     const gameData = new GameData();
 
+    // 랜덤 숫자
+    const randomNumbers = Random.pickUniqueNumbersInRange(1, 9, 3);
+
     // ball, strike 확인하는 함수
-    function setAnalysis(gameData, userInputs, randomNumber) {
-      // userInput과 비교해서 randomNumber와 다른 값을 찾음
+    function setAnalysis(gameData, userInputs, randomNumbers) {
+      // userInput과 비교해서 randomNumbers와 다른 값을 찾음
       const noStrikeNumbers = userInputs.filter((userInput, i) => 
-        randomNumber[i] !== userInput
+        randomNumbers[i] !== userInput
       );
-      // strike가 아닌 값들 중 randomNumber에 포함되어있는 값을 찾음 === ball 개수
+      // strike가 아닌 값들 중 randomNumbers에 포함되어있는 값을 찾음 === ball 개수
       const ballNumbers = noStrikeNumbers.filter((noStrikeNumber) => 
-        randomNumber.includes(noStrikeNumber)
+        randomNumbers.includes(noStrikeNumber)
       );
       const strike = 3 - noStrikeNumbers.length;
       const ball = ballNumbers.length;
@@ -69,9 +73,6 @@ class App {
 
     // state가 true일 때 반복
     while (gameData.getState()) {
-      // 랜덤 숫자
-      const randomNumber = Random.pickUniqueNumbersInRange(1, 9, 3);
-
       // 사용자에게 값 받기
       // 프로미스 방식 -> 성공 : resolve, 실패 : reject
       const userInputs = await new Promise((resolve) => {
@@ -87,7 +88,7 @@ class App {
       // 제대로 된 값을 입력했다면 숫자로 변환
       const userInputsNumber = userInputs.split('').map((userInput) => parseInt(userInput, 10));
 
-      setAnalysis(gameData, userInputsNumber, randomNumber);
+      setAnalysis(gameData, userInputsNumber, randomNumbers);
       printResult(gameData);
 
       if (gameData.getThreeStrike()) {
@@ -96,7 +97,7 @@ class App {
       
     }
 
-    // Console.print(randomNumber)
+    // Console.print(randomNumbers)
     // let BALL = 0;
     // let STRIKE = 0;
     
