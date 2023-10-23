@@ -6,4 +6,10 @@ const COMMAND = {
   RESTART: '1',
 };
 
-export { COMMAND };
+const COMPUTER = {
+  START_NUMBER: 1,
+  END_NUMBER: 9,
+  STORAGE_LIMIT: 3,
+};
+
+export { COMMAND, COMPUTER };
