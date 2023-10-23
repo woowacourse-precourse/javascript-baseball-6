@@ -1,12 +1,12 @@
-import { Random, Console } from "@woowacourse/mission-utils";
+import BaseballInput from "./BaseballInput"; // 모듈의 상대 경로를 사용
 
 class App {
-  async play() {
-    Console.print("숫자 야구 게임을 시작합니다.");
+  play() {
+    const baseballInput = new BaseballInput();
 
-    // 컴퓨터가 생각하고 있는 랜덤값
-    const computer = Random.pickUniqueNumbersInRange(1, 9, 3);
-    const RandomNum = Number(computer.join(""));
+    baseballInput.startString();
+    let random = baseballInput.makeComputerNum();
+    baseballInput.makeUserInput(random);
   }
 }
 
