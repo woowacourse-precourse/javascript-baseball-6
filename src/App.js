@@ -12,11 +12,18 @@ class App {
 
 async function playGame(number) {
   var number = setNumber();
+
   while (true) {
     let guess = await readGuess();
     let result = compareGuess(number, guess);
     let interpretation = interpretResult(result);
+    console.log(interpretation);
+    if (result[1] == 3) break;
   }
+
+  console.log('게임을 새로 시작하려면 1 종료하려면 2를 입력하세요.');
+  let restart = await readRestart();
+  return restart;
 }
 
 function setNumber() {
@@ -101,4 +108,19 @@ function interpretResult(result) {
   return interpretation;
 }
 
+async function readRestart() {
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+  });
+
+  return new Promise(resolve => rl.question('', input => {
+      rl.close();
+      resolve(input);
+    }))
+}
+
 export default App;
+
+const myApp = new App();
+myApp.play();
