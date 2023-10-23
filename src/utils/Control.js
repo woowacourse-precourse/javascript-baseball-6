@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import { GAME_MESSAGE, RESULT_MESSAGE, ERROR_MESSAGE } from './constants/Message';
+import { GAME_MESSAGE, RESULT_MESSAGE, ERROR_MESSAGE } from '../constants/Message';
 
 class Control {
   static async askRestart(appInstance) {

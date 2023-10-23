@@ -1,5 +1,5 @@
 import { Random } from '@woowacourse/mission-utils';
-import { CONSTANTS } from './constants/constant';
+import { CONSTANTS } from '../constants/constant';
 
 class Computer {
   generateNumber() {
