@@ -1,8 +1,6 @@
 import { Console, MissionUtils } from "@woowacourse/mission-utils";
 import { errorThrow } from "./errorThrow.js";
 import { compare } from "./compare.js";
-let userInput = "";
-let stop = false;
 
 // 게임 종료 시 다시 시작 or 종료 처리하기
 const reStart = async () => {
@@ -10,9 +8,10 @@ const reStart = async () => {
     "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
   );
   if (START === "1") {
+    return false;
   } else if (START === "2") {
     Console.print("게임을 종료합니다.");
-    stop = true;
+    return true;
   }
 };
 // 결과 메세지 출력하기
@@ -35,7 +34,7 @@ const printMessage = (strike, ball) => {
 
 class App {
   async play() {
-    stop = false;
+    let stop = false;
     let error = false;
 
     while (stop === false && error === false) {
@@ -51,13 +50,14 @@ class App {
       }
       let strike = 0;
       let ball = 0;
+      let userInput = "";
       while (strike < 3) {
         userInput = await Console.readLineAsync("숫자를 입력해주세요 : ");
         error = errorThrow(userInput);
         [strike, ball] = compare(COMPUTER, userInput);
         printMessage(strike, ball);
       }
-      await reStart();
+      stop = await reStart();
     }
   }
 }
