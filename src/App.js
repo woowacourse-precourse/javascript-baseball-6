@@ -1,16 +1,21 @@
 import { Random, Console } from '@woowacourse/mission-utils';
 class App {
+  computer;
   async play() {
-    const computer = this.getRandomComputerNumber();
-    console.log(computer);
-    this.playBaseball(computer);
+    this.init();
+    console.log(this.computer);
+    this.playBaseball(this.computer);
+  }
+
+  init() {
+    this.computer = this.getRandomComputerNumber();
   }
 
   async playBaseball(computer) {
     const user = await this.getUserNumber();
-    const score = this.calculator(computer, user);
+    const score = this.getScore(computer, user);
     const result = this.printResult(score);
-    console.log(result);
+    this.restartGame(result);
   }
 
   getRandomComputerNumber() {
@@ -44,7 +49,7 @@ class App {
     return dupCheck;
   }
 
-  calculator(computer, user) {
+  getScore(computer, user) {
     const result = { strike: 0, ball: 0 };
     computer.forEach((v, i) => {
       if (v === user[i]) return result.strike++;
@@ -53,14 +58,41 @@ class App {
     return result;
   }
 
-  printResult(result) {
-    const { strike, ball } = result;
+  printResult(score) {
+    const { strike, ball } = score;
     if (strike && ball) Console.print(`${strike}스트라이크 ${ball}볼`);
     if (strike && !ball) Console.print(`${strike}스트라이크`);
     if (!strike && ball) Console.print(`${ball}볼`);
     if (!strike && !ball) Console.print('낫싱');
     if (strike === 3) return true;
     else return false;
+  }
+
+  restartGame(result) {
+    if (result) {
+      Console.print('3개의 숫자를 모두 맞히셨습니다! 게임종료');
+      this.endGame();
+    } else {
+      this.playBaseball(this.computer);
+    }
+  }
+
+  async endGame() {
+    const num = await Console.readLineAsync(
+      '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'
+    );
+    this.checkEndNum(num);
+  }
+
+  checkEndNum(num) {
+    const result = parseInt(num);
+    if (result === 1) {
+      this.play();
+    } else if (result === 2) {
+      return;
+    } else {
+      throw new Error('[ERROR] 1 또는 2만 입력 가능합니다.');
+    }
   }
 }
 
