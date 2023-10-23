@@ -31,6 +31,10 @@ class App {
       if(!this.isNumber(userInput)) {
         throw new Error('[ERROR] 숫자가 아닌 값이 입력되었습니다.');
       }
+
+      if(!this.isValidLen(userInput)){
+        throw new Error('[ERROR] 유효하지 않은 길이입니다.');
+      }
       
       set = new Set(inputNum);
       if(set.size < 3) {
@@ -94,6 +98,10 @@ class App {
     const regEx = /[^\d1-9]/;
     const isNum = userInput.match(regEx);
     return !isNum;
+  }
+
+  isValidLen(userInput) {
+    return userInput.length == 3;
   }
 }
 
