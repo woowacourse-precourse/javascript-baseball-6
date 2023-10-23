@@ -4,7 +4,7 @@ import Computer from './Computer';
 import Validator from '../utils/Validator';
 
 class BaseballGame {
-  computer;
+  computerNumber;
 
   async play() {
     this.printStart();
@@ -16,7 +16,7 @@ class BaseballGame {
     Console.print(MESSAGES.start);
   }
   generateComputer() {
-    this.computer = Computer.generateNumber();
+    this.computerNumber = Computer.generateNumber();
   }
 
   async readNumber() {
