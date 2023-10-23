@@ -75,7 +75,7 @@ const end = () => {
 			MissionUtils.Console.print('게임 종료');
 			break;
 		default:
-			throw new MyError('숫자가 유효하지 않습니다.');
+			throw new MyError('[ERROR]','숫자가 유효하지 않습니다.');
 	}
 };
 const start = async () => {
@@ -85,7 +85,7 @@ const start = async () => {
 		if (userInput.length === 3) {
 			const userArr = userInput.split('').map((num) => +num);
 			if (userArr.includes(0)) {
-				throw new MyError('1부터 9까지의 자연수만 가능합니다.');
+				throw new MyError('[ERROR]','1부터 9까지의 자연수만 가능합니다.');
 			} else {
 				// userArr 는 모두 자연수
 				if (userArr[0] !== userArr[1] && userArr[0] !== userArr[2] && userArr[1] !== userArr[2]) {
@@ -98,17 +98,27 @@ const start = async () => {
 					const decision = await MissionUtils.Console.readLineAsync(
 						'게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.'
 					);
-					end(decision);
+					switch (decision) {
+						case '1':
+							MissionUtils.Console.print('재시작');
+							start();
+							break;
+						case '2':
+							MissionUtils.Console.print('게임 종료');
+							break;
+						default:
+							throw new MyError('[ERROR]','숫자가 유효하지 않습니다.');
+					}
 	
 				} 
-				// else {
-				// 	//같은 애가 있다면
-				// 	throw new MyError('다 다른 숫자여야 합니다.');
-				// }
+				else {
+					//같은 애가 있다면
+					throw new MyError('다 다른 숫자여야 합니다.');
+				}
 			}
 		}
 		if (userInput.length !== 3) {
-			throw new MyError('세자리를 입력해주세요.');
+			throw new MyError('[ERROR]','세자리를 입력해주세요.');
 		}
 	} catch (e) {
 		throw new MyError('[ERROR]','유효한 입력값이 아닙니다.');
