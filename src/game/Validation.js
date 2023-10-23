@@ -1,5 +1,5 @@
 import ValidatorUtil from "../utils/ValidatorUtil.js";
-import { ANSWER_LENGTH, COMMANDS } from "./constants.js";
+import { ANSWER_LENGTH, COMMANDS, ERROR_MESSAGES } from "./constants.js";
 
 class Validation {
   static validateUserNumbersInput(userResponse) {
@@ -12,7 +12,7 @@ class Validation {
     ValidatorUtil.validateLength(userResponse, 1);
     ValidatorUtil.validateIsNumber(userResponse);
     if (userResponse !== COMMANDS.RESTART && userResponse !== COMMANDS.EXIT) {
-      throw new Error("[ERROR] 입력값이 1 또는 2가 아닙니다.");
+      throw new Error(ERROR_MESSAGES.INVALID_END_COMMAND);
     }
   }
 }

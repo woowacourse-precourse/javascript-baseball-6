@@ -7,6 +7,10 @@ export const GAME_MESSAGES = {
   EXIT: "게임을 종료합니다.",
 };
 
+export const ERROR_MESSAGES = {
+  INVALID_END_COMMAND: "[ERROR] 입력값이 1 또는 2가 아닙니다.",
+};
+
 export const COMMANDS = {
   RESTART: "1",
   EXIT: "2",
