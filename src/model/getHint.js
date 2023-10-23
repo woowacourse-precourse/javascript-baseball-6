@@ -17,9 +17,8 @@ const getHint = function returnHintByUserNumberAndComputerNumber(userNumber, com
 
     if (hintMsgList.length === 0) {
         return '낫싱'
-    } else {
-        return hintMsgList.join(' ')
     }
+    return hintMsgList.join(' ')
 }
 
 export default getHint
