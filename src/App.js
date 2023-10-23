@@ -84,6 +84,22 @@ class App {
         `${guessResult.ballCount}볼 ${guessResult.strikeCount}스트라이크`
       );
   };
+
+  // 사용자의 입력을 받고 체크하는 과정의 함수
+  async checkUserGuess(computerAnswer) {
+    let userGuess = await this.getUserInput();
+    if (this.isNothing(userGuess, computerAnswer)) {
+      Console.print('낫싱');
+      return false;
+    } else {
+      let guessResult = this.checkStrikeOrBall(userGuess, computerAnswer);
+      this.printGuessResult(guessResult);
+      if (guessResult.strikeCount === 3) {
+        return true;
+      }
+    }
+    return false;
+  }
 }
 
 export default App;
