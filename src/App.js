@@ -108,6 +108,7 @@ class App {
   }
 }
 const app = new App();
-await app.play();
+// await app.play();
+// test completed🎉
 
 export default App;
