@@ -1,7 +1,7 @@
 import Baseball from "./Baseball.js";
 import Computer from "./Computer.js";
 import User from "./User.js";
-import MESSAGE from "./constant/MESSAGE.js";
+import { MESSAGE, INPUT } from "./constant/MESSAGE.js";
 import ERROR from "./constant/ERROR.js";
 import { Console } from "@woowacourse/mission-utils";
 
@@ -36,8 +36,8 @@ class App {
   async askGameRestartOrExit() {
     const answer = await Console.readLineAsync(MESSAGE.ASK_GAME_RESTART);
 
-    if (answer === MESSAGE.FINISH_APP) return false;
-    if (answer === MESSAGE.RESTART_GAME) return true;
+    if (answer === INPUT.FINISH_APP) return false;
+    if (answer === INPUT.RESTART_GAME) return true;
 
     throw new Error(ERROR.VALID_RESTART_INPUT);
   }

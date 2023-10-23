@@ -1,4 +1,4 @@
-import MESSAGE from "./constant/MESSAGE.js";
+import { MESSAGE } from "./constant/MESSAGE.js";
 import ERROR from "./constant/ERROR.js";
 
 import {

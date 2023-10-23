@@ -1,4 +1,4 @@
-import MESSAGE from "./constant/MESSAGE.js";
+import { MESSAGE } from "./constant/MESSAGE.js";
 import NUMBER from "./constant/NUMBER.js";
 import { Console } from "@woowacourse/mission-utils";
 
