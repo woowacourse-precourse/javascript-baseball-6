@@ -31,15 +31,18 @@ export function judgeNumber(computerNum, playerNum) {
       }
     }
   }
- 
-  if (strike == 0 && ball == 0) {
-    MissionUtils.Console.print('낫싱');
-    enterNumber(computerNum);
-  } else if (strike == 3) {
+
+  if (strike == 3) {
     MissionUtils.Console.print('3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료');
     endGame();
+  } else if (strike == 0 && ball == 0) {
+    MissionUtils.Console.print('낫싱');
+    enterNumber(computerNum);
   } else {
-    MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
+    const ballComment = ball == 0 ? '' : `${ball}볼 `
+    const strikeComment= strike == 0 ? '' : `${strike}스트라이크`;
+    MissionUtils.Console.print(`${ballComment}${strikeComment}`);
+
     enterNumber(computerNum);
   }
 }
