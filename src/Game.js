@@ -20,7 +20,7 @@ class Game {
       const userNums = await this.getUserNums();
 
       const result = this.checkResult(userNums);
-      const resultStr = this.getResultStr(result);
+      const resultStr = this.getResultStr(result.ball, result.strike);
       Console.print(resultStr);
 
       if (result.strike === 3) {
@@ -83,16 +83,21 @@ class Game {
     return result;
   };
 
-  // 스트라이크, 볼 개수로 구성된 객체를 문자열로 변환하는 메소드
-  getResultStr = (result) => {
-    if (result.strike === 0 && result.ball === 0) {
+  /**
+   * 스트라이크, 볼 개수를 입력받아 문자열로 변환하는 메소드
+   * @param {number} ballCnt - 볼 개수
+   * @param {number} strikeCnt - 스트라이크 개수
+   * @returns {string} - 변환된 문자열
+   */
+  getResultStr = (ballCnt, strikeCnt) => {
+    if (strikeCnt === 0 && ballCnt === 0) {
       return MESSAGE.RESULT.NOTHING;
-    } else if (result.strike === 0) {
-      return `${result.ball}${MESSAGE.RESULT.BALL}`;
-    } else if (result.ball === 0) {
-      return `${result.strike}${MESSAGE.RESULT.STRIKE}`;
+    } else if (strikeCnt === 0) {
+      return `${ballCnt}${MESSAGE.RESULT.BALL}`;
+    } else if (ballCnt === 0) {
+      return `${strikeCnt}${MESSAGE.RESULT.STRIKE}`;
     } else {
-      return `${result.ball}${MESSAGE.RESULT.BALL} ${result.strike}${MESSAGE.RESULT.STRIKE}`;
+      return `${ballCnt}${MESSAGE.RESULT.BALL} ${strikeCnt}${MESSAGE.RESULT.STRIKE}`;
     }
   };
 
