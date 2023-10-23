@@ -16,7 +16,6 @@ class App {
         // 게임을 새로 시작하는 기능
         const restart = async () => {
           const CHOICE = await MissionUtils.Console.readLineAsync('');
-          
           if (CHOICE === '1') {
             await start(); 
           } else if (CHOICE === '2') {
@@ -80,6 +79,7 @@ class App {
               if (USER_NUMBER.indexOf(a) !== -1 && USER_NUMBER.indexOf(a) !== i) {
                 return ball += 1;
               };
+
             });
 
             // 힌트 출력 기능
