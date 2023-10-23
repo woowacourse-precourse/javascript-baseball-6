@@ -15,21 +15,6 @@ class App {
 
   // 유효한 숫자인지 확인하는 함수
   isValidInput(guess) {
-    // if (/^\d{3}$/.test(guess)) {
-    //   const uniqueDigits = new Set(guess);
-    //   if (!uniqueDigits.size === 3) {
-    //     throw '[error]';
-    //   }
-    // }
-    // // MissionUtils.Console.print('[ERROR]');
-    // // throw '[error]';
-    // return true;
-    // if (!/^\d+$/.test(guess) || new Set(guess).size !== 3) {
-    //   MissionUtils.Console.print('[ERROR] 숫자가 잘못된 형식입니다.');
-    //   // throw 'Invalid Input';
-    //   throw new Error('error');
-    // }
-
     if (guess.length !== 3) {
       return false;
     }
@@ -55,24 +40,11 @@ class App {
       let answer = this.createRandomNumber();
 
       while (true) {
-        // const guess =
-        //   await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
-
         // MissionUtils.Console.print('숫자를 입력해주세요:'); // 사용자 입력 안내 메시지
         const guess = await MissionUtils.Console.readLineAsync();
-        // MissionUtils.Console.print(`${guess} ${answer}`); // 사용자가 입력한 숫자 출력
-
-        // try {
-        //   this.isValidInput(guess);
-        // } catch (error) {
-        //   // return;
-        //   throw new Error('[ERROR]');
-        // }
 
         if (!this.isValidInput(guess)) {
           throw new Error('[ERROR]');
-          // MissionUtils.Console.print('[ERROR]');
-          return;
         }
 
         const result = this.checkBallsAndStrikes(guess, answer);
@@ -89,17 +61,6 @@ class App {
             answer = this.createRandomNumber();
           }
         }
-
-        // if (result.strikes === 3) {
-        //   MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다!');
-        //   playAgain = await MissionUtils.Console.readLineAsync(
-        //     '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.',
-        //   );
-        //   if (playAgain === '2') {
-        //     MissionUtils.Console.print('게임 종료');
-        //     return;
-        //   }
-        // }
       }
     }
   }
