@@ -6,10 +6,18 @@ import { REGEXP } from '../constants/regexp.js';
 export class BaseballModel {
   #computerNumber;
   #userNumber;
-  isDone = false;
+  #isFinished = false;
 
   init() {
-    this.isDone = false;
+    this.#isFinished = false;
+  }
+
+  getIsFinished() {
+    return this.#isFinished;
+  }
+
+  setIsFinished() {
+    this.#isFinished = true;
   }
 
   settingComputerNumber() {
@@ -40,7 +48,6 @@ export class BaseballModel {
 
   countGameResult(computerNumber, userNumber) {
     if (computerNumber === userNumber) {
-      this.isDone = true;
       return { ball: 0, strike: 3 };
     }
 

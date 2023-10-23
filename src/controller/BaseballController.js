@@ -11,7 +11,7 @@ export class BaseballController {
   async start() {
     this.model.settingComputerNumber();
 
-    while (!this.model.isDone) {
+    while (!this.model.getIsFinished()) {
       const userNumber = await this.view.getInputAsync(MESSAGE.INPUT);
       this.model.setUserNumber(userNumber);
 
@@ -23,9 +23,7 @@ export class BaseballController {
 
     const restartCommand = await this.view.getInputAsync(MESSAGE.RESTART);
     this.checkRestartCommand(restartCommand);
-
     if (restartCommand === RESTART_COMMAND.NEWGAME) this.start();
-    else return;
   }
 
   checkRestartCommand(command) {
