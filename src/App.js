@@ -3,27 +3,27 @@ import { Random, Console } from "@woowacourse/mission-utils";
 class App {
     async play() {
         let willBeRestarted = true;
-        console.log("숫자 야구 게임을 시작합니다.");
+        Console.print("숫자 야구 게임을 시작합니다.");
         while (willBeRestarted) {
             const answer = this.makeAnswer();
-            console.log(`play안에있는 ${answer}`); //테스트 확인용 코드
+
             let userWillRetry = true;
+
             while (userWillRetry) {
                 const inputNumberList = await this.makeInputList();
 
-                const { strike, ball } = this.scoreCalculator({
+                const { strike, ball } = this.calculateScore({
                     answer,
                     inputNumberList,
                 });
 
-                console.log(`strike : ${strike} ball :${ball}`);
+                this.printResult(strike, ball);
 
-                this.scoreScriptor(strike, ball);
                 if (strike === 3) {
                     userWillRetry = false;
                 }
             }
-            willBeRestarted = await this.userWantToRestart();
+            willBeRestarted = await this.isUserWillingToRestart();
         }
     }
     makeAnswer() {
@@ -46,14 +46,13 @@ class App {
             throw new Error(`[ERROR] 숫자가 잘못된 형식입니다.`);
         }
 
-        console.log(`입력된 숫자 : ${inputNumber}`);
-
-        let inputNumberList =
+        const inputNumberList =
             inputNumber && inputNumber.split("").map((i) => i / 1); //문자형인 배열에서 숫자형인 배열로 변환
+        Console.print(`입력한 값 : ${inputNumber}`);
         return inputNumberList;
     }
 
-    scoreCalculator({ answer, inputNumberList }) {
+    calculateScore({ answer, inputNumberList }) {
         let strike = 0;
         let ball = 0;
         for (let i = 0; i < 3; i++) {
@@ -63,11 +62,10 @@ class App {
                 ball += 1;
             }
         }
-        console.log(`함수 리턴 직전 strike : ${strike} ball :${ball}`);
         return { strike, ball };
     }
 
-    scoreScriptor(strike, ball) {
+    printResult(strike, ball) {
         if (strike === 3) {
             Console.print(
                 `${strike}스트라이크입니다\n3개의 숫자를 모두 맞히셨습니다! 게임 종료`
@@ -88,7 +86,7 @@ class App {
         }
     }
 
-    async userWantToRestart() {
+    async isUserWillingToRestart() {
         let restart = await Console.readLineAsync().then((value) => value);
         if (restart === "1") {
             Console.print("1번을 눌렀습니다. 게임을 재시작합니다.");
