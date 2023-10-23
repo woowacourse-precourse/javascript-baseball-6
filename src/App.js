@@ -94,9 +94,11 @@ class App {
       }else if(answer === '2') {
         MissionUtils.Console.print('게임 종료');
         return null;
+      }else{
+        return this.startOrEnd();
       }
     }catch(e) {
-      console.log(e.message);
+      MissionUtils.Console.print(e.message);
     }
   }
 
@@ -108,12 +110,11 @@ class App {
         const userPickNum = userNum.split('');
         const computerPickNum = this.computerNum.join('').split('');
         this.checkStrikeBall(computerPickNum, userPickNum);
-
       }else{
         throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
       }
     }catch(e) {
-      console.log(e.message);
+      MissionUtils.Console.print(e.message);
     }
   }
   
