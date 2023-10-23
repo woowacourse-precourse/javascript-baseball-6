@@ -7,6 +7,10 @@ const STRIKE_TEXT = "스트라이크";
 const BALL_TEXT = "볼";
 const SUCCESS_SENTENCE = "3개의 숫자를 모두 맞히셨습니다! 게임 종료";
 const REPLAY_QUESTION_SENTENCE = "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n";
+const INVALID_CHARATER_ERROR_MESSAGE = "[ERROR] 1부터 9 사이의 숫자 이외의 값을 입력했습니다.";
+const INVALID_INPUT_LENGTH_ERROR_MESSAGE = "[ERROR] 입력값의 길이가 잘못됐습니다.";
+const DUPLICATED_NUMBER_ERROR_MESSAGE = "[ERROR] 중복된 숫자를 입력했습니다.";
+const REPLAY_INPUT_ERROR_MESSAGE = "[ERROR] 1 또는 2 이외의 값을 입력했습니다.";
 
 const NUMBER_LENGTH = 3;
 const MIN_NUMBER = 1;
@@ -62,11 +66,11 @@ class App {
     const text = await MissionUtils.Console.readLineAsync(INPUT_NUMBERS_SENTENCE);
 
     if (!this.checkValidCharacters(text)) {
-      throw new Error("[ERROR]");
+      throw new Error(INVALID_CHARATER_ERROR_MESSAGE);
     } else if (!this.checkValidLength(text)) {
-      throw new Error("[ERROR]");
+      throw new Error(INVALID_INPUT_LENGTH_ERROR_MESSAGE);
     } else if (!this.checkAllNumbersUnique(text)) {
-      throw new Error("[ERROR]");
+      throw new Error(DUPLICATED_NUMBER_ERROR_MESSAGE);
     }
 
     const numbers = this.toUniqueNumbers(text);
@@ -163,7 +167,7 @@ class App {
     const text = await MissionUtils.Console.readLineAsync(REPLAY_QUESTION_SENTENCE);
 
     if (!this.validateReplay(text)) {
-      throw new Error("[ERROR]");
+      throw new Error(REPLAY_INPUT_ERROR_MESSAGE);
     }
 
     this.isPlaying = text === REPLAY;
