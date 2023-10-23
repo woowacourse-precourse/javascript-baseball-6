@@ -1,10 +1,10 @@
-import { ERROR } from '../../constants';
+import { ERROR } from '../../constants/index.js';
 
-class ValidateError extends Error {
+class ValidationError extends Error {
   constructor(message) {
     super(`${ERROR.PREFIX} ${message}`);
     this.name = this.constructor.name;
   }
 }
 
-export default ValidateError;
+export default ValidationError;
