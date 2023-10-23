@@ -32,10 +32,23 @@ class App {
       }
     } catch (error) {
       //인풋이 올바른지 확인하는 유효성 검사 필요
+      Console.print("입력이 올바르지 않습니다.");
     }
   }
 
-  checkAnswer() {}
+  async checkAnswer() {
+    Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    let input = await Console.readLineAsync(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+    );
+    if (input === "1") {
+      this.gameTurn();
+    } else if (input === "2") {
+      Console.print("게임을 종료합니다.");
+    } else {
+      throw new Error("잘못된 입력입니다.");
+    }
+  }
 }
 
 const app = new App();
