@@ -27,9 +27,10 @@ class ErrorCheck {
   static sameElementInArray(array) {
     // if first index and last index are different
     // same element is in the ArrayLike
+
     array.forEach((element) => {
       if (array.indexOf(element) !== stringArray.lastIndexOf(element))
-        throw new Error('[ERROR] Same character in String');
+        throw new Error('[ERROR] Same element in Array');
     });
   }
 
