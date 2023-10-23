@@ -1,10 +1,12 @@
 import { ErrorMessage } from "../constant/Constant.js";
+import { StaticNumber } from "../constant/Constant.js";
 
 const InputValidator = {
   validateUserNumber(input) {
     const inputNumbers = input.split("");
-    if (input.length !== 3) throw new Error(ErrorMessage.USER_LENGTH_ERROR);
-    if (input.replace(/[1-9]/g, "").length > 0)
+    if (input.length !== StaticNumber.BASEBALL_NUMBER_LENGTH)
+      throw new Error(ErrorMessage.USER_LENGTH_ERROR);
+    if (input.replace(StaticNumber.POSSIBLE_BASEBALL_NUMBER, "").length > 0)
       throw new Error(ErrorMessage.USER_NUMBER_ERROR);
     if (inputNumbers.length !== new Set(inputNumbers).size)
       throw new Error(ErrorMessage.USER_DUPLICATE_ERROR);
@@ -13,8 +15,9 @@ const InputValidator = {
   },
 
   validateRestartNumber(input) {
-    if (input.length !== 1) throw new Error(ErrorMessage.RESTART_COUNT_ERROR);
-    if (input.replace(/1|2/g, "").length > 0)
+    if (input.length !== StaticNumber.RESTART_NUMBER_LENGTH)
+      throw new Error(ErrorMessage.RESTART_COUNT_ERROR);
+    if (input.replace(StaticNumber.POSSIBLE_END_OR_NOT_NUMBER, "").length > 0)
       throw new Error(ErrorMessage.RESTART_NUMBER_ERROR);
   },
 };

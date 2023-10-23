@@ -10,7 +10,9 @@ class BaseballGameController {
 
   constructor() {
     this.#baseball = new Baseball(
-      RandomNumberGenerator.generateRandomNumber(StaticNumber.NUMBER_LENGTH)
+      RandomNumberGenerator.generateRandomNumber(
+        StaticNumber.BASEBALL_NUMBER_LENGTH
+      )
     );
   }
 
@@ -29,10 +31,10 @@ class BaseballGameController {
   async inputRestartNumber() {
     await InputView.readRestartNumber((input) => {
       InputValidator.validateRestartNumber(input);
-      if (input === "1") {
+      if (input === StaticNumber.INPUT_RESTART_NUMBER) {
         this.resetGame();
       }
-      if (input === "2") return;
+      if (input === StaticNumber.INPUT_END_NUMBER) return;
     });
   }
 
@@ -47,7 +49,7 @@ class BaseballGameController {
   checkHint(strikeCount, ballCount) {
     OutputView.printHintMessage(ballCount, strikeCount);
 
-    if (strikeCount === StaticNumber.NUMBER_LENGTH) {
+    if (strikeCount === StaticNumber.BASEBALL_NUMBER_LENGTH) {
       OutputView.printEndMessage();
       this.inputRestartNumber();
     } else this.inputUserNumber();

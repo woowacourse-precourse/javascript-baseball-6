@@ -30,7 +30,7 @@ class Baseball {
 
   getReset() {
     this.#answer = RandomNumberGenerator.generateRandomNumber(
-      StaticNumber.NUMBER_LENGTH
+      StaticNumber.BASEBALL_NUMBER_LENGTH
     );
   }
 }

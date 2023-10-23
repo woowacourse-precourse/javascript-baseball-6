@@ -15,7 +15,12 @@ const ErrorMessage = Object.freeze({
 });
 
 const StaticNumber = Object.freeze({
-  NUMBER_LENGTH: 3,
+  INPUT_RESTART_NUMBER: "1",
+  INPUT_END_NUMBER: "2",
+  BASEBALL_NUMBER_LENGTH: 3,
+  RESTART_NUMBER_LENGTH: 1,
+  POSSIBLE_BASEBALL_NUMBER: /[1-9]/g,
+  POSSIBLE_END_OR_NOT_NUMBER: /1|2/g,
 });
 
 export { GuideMessage, ErrorMessage, StaticNumber };
