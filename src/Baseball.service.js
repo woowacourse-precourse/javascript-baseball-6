@@ -3,7 +3,18 @@ import { Random, Console } from '@woowacourse/mission-utils';
 export class BaseballService {
   query = '';
 
-  generateRandomNumbers() {}
+  generateRandomNumbers() {
+    const computer = [];
+    const selected = new Array(10).fill(false);
+    while (computer.length < 3) {
+      const number = Random.pickNumberInRange(1, 9);
+      if (!selected[number]) {
+        selected[number] = true;
+        computer.push(number.toString());
+      }
+    }
+    return computer;
+  }
 
   validateBaseballQueryInput() {}
 
