@@ -4,10 +4,6 @@ class App {
 	constructor() {
 		this.mode = GAME.PLAYING;
 	}
-	async play() {
-		this.showStartMessage();
-		this.gameStart();
-	}
 	showStartMessage() {
 		Console.print(COMMAND.START);
 	}
@@ -64,30 +60,31 @@ class App {
 		const ball = this.countBall(answer, userInput);
 		const strike = this.countStrike(answer, userInput);
 		let message;
-		Console.print(ball);
-		Console.print(strike);
 		if (strike === 3) {
 			message = '3스트라이크';
 			this.mode = GAME.FINISH;
 		} else if (strike > 0 || ball > 0) {
 			message =
-				(strike > 0 ? `${strike}스트라이크` : '') +
-				(strike > 0 && ball > 0 ? ', ' : '') +
-				(ball > 0 ? `${ball}볼` : '');
+				(ball > 0 ? `${ball}볼` : '') +
+				(ball > 0 && strike > 0 ? ' ' : '') +
+				(strike > 0 ? `${strike}스트라이크` : '');
 		} else {
-			message = '낫띵';
+			message = '낫싱';
 		}
 		Console.print(message);
 	}
 	async userSelectRestart() {
 		Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
-		Console.print('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
-		const userSelectMenu = await Console.readLineAsync('');
+		const userSelectMenu = await Console.readLineAsync(
+			'게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'
+		);
 		if (userSelectMenu === '1') {
 			this.mode = GAME.PLAYING;
 			this.gameStart();
-		} else if (userSelectMenu === '2') return;
-		else throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+		} else if (userSelectMenu === '2') {
+			this.mode = GAME.FINISH;
+			return;
+		} else throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
 	}
 	async gameStart() {
 		const answer = this.generateRandomNumber();
@@ -98,7 +95,11 @@ class App {
 		}
 		this.userSelectRestart();
 	}
+	async play() {
+		this.showStartMessage();
+		await this.gameStart();
+	}
 }
-const app = new App();
-app.play();
+// const app = new App();
+// app.play();
 export default App;
