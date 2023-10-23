@@ -20,9 +20,10 @@ const SCORE = {
 }
 
 const ERROR_MESSAGE = {
-  NOT_NUMBER: '[ERROR] 숫자가 잘못된 형식입니다.',
-  NOT_UNIQUE: '[ERROR] 중복된 숫자가 있습니다.',
+  NOT_NUMBER: '[ERROR] 숫자가 아닙니다.',
   NOT_SIZE: `[ERROR] 숫자 ${SETTING.SIZE}자리를 입력하세요.`,
+  NOT_UNIQUE: '[ERROR] 중복된 숫자가 있습니다.',
+  NOT_RANGE: `[ERROR] ${SETTING.MIN_NUMBER}부터 ${SETTING.MAX_NUMBER}까지의 숫자만 입력하세요.`,
   NOT_RETRY_NUMBER: `[ERROR] ${SETTING.RESTART_NUMBER} 또는 ${SETTING.EXIT_NUMBER}를 입력하세요.`,
 }
 
