@@ -11,3 +11,12 @@ const BASEBALL_MESSAGE = {
   STRIKE: "스트라이크",
   NOTHING: "낫싱",
 };
+
+const END_OPTION = {
+  NEW_GAME: 1,
+  EXIT: 2,
+};
+
+const ERROR_MESSAGE = {
+  IS_INVALID: "",
+};
