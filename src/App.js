@@ -12,7 +12,7 @@ const playBaseBall = async () => {
 
   Console.print("숫자 야구 게임을 시작합니다.");
   while (!isEnd) {
-    const userInput = await Console.readLineAsync("숫자를 입력해주세요 : ");
+    const userInput = await getUserInput();
     const inputIsValid = checkInputIsValid(userInput);
 
     if (inputIsValid === false) {
@@ -59,20 +59,40 @@ const makeRandomNumber = () => {
   return randomNumber;
 };
 
-const checkInputIsValid = (userInput) => {
-  const input = [...userInput]
-    .sort()
-    .reduce((acc, cur) => (acc.includes(cur) ? acc : [...acc, cur]), []);
+const getUserInput = async () => {
+  const userInput = await Console.readLineAsync("숫자를 입력해주세요 : ");
+  const input = [...userInput].map((number) => parseInt(number));
 
-  return input.length === 3 ? true : false;
+  return input;
+}
+
+const checkInputIsValid = (userInput) => {
+  const input = [...userInput];
+
+  const isNumber = checkIsNumber(input);
+  const isNonDuplicated = checkIsNonDuplicated(input);
+
+  return isNumber && isNonDuplicated ? true : false;
 };
 
+const checkIsNumber = (userInput) => {
+  const input = userInput.filter((number) => isNaN(number));
+
+  return input.length === 0 ? true : false;
+}
+
+const checkIsNonDuplicated = (userInput) => {
+  const input = userInput.sort()
+  .reduce((acc, cur) => (acc.includes(cur) ? acc : [...acc, cur]), []);
+
+  return input.length === 3 ? true : false;
+}
+
 const calculateScore = (userInput, randomNumber) => {
-  const input = [...userInput].map((number) => +number);
   const socreBoard = { strike: 0, ball: 0 };
 
   randomNumber.forEach((number, randomIndex) => {
-    const userInputIndex = input.findIndex((inputNum) => {
+    const userInputIndex = userInput.findIndex((inputNum) => {
       return inputNum === number;
     });
 
@@ -87,6 +107,7 @@ const calculateScore = (userInput, randomNumber) => {
 
   return socreBoard;
 };
+
 
 const printScore = (scoreBoard) => {
   let returnString = "낫싱";
