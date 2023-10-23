@@ -48,7 +48,9 @@ class App {
           if(com.comNum[i]==user.userNum[i]){
             strikeCnt+=1
           }
-         
+          else if(com.comNum.includes(user.userNum[i])){
+            ballCnt
+          }
         }
         if(strikeCnt==3){
           MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료")
