@@ -59,6 +59,11 @@ const BaseBallGame = {
     if (countObject.strike) {
       // 스트라이크만 카운트된 경우
       printMsg(`${countObject.strike}스트라이크`);
+
+      // 3스트라이크일 경우
+      if (countObject.strike === 3) {
+        printMsg('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+      }
       return;
     }
     // 아무 것도 카운트 되지 않은 경우
