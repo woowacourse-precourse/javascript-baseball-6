@@ -1,5 +1,4 @@
 export const RESTART = 1;
-export const GAME_OVER = 2;
 export const INPUT_LENGTH = 3;
 export const MESSAGE = {
 	start: '숫자 야구 게임을 시작합니다.',

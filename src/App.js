@@ -4,7 +4,7 @@ import { checkIsPitch, checkIsReplay } from './utils/CheckInput';
 class App {
 	create(message = null) {
 		Console.print(message ? message : null);
-		this.start(this.getRandomNumbers);
+		this.pitching(this.getRandomNumbers());
 	}
 
 	getRandomNumbers() {
@@ -23,15 +23,48 @@ class App {
 		let strikeCount = 0;
 
 		computerNumber.forEach((element, index) => {
-			if (userNumber.indexOf(element) === index) strikeCount += 1;
-			if (![-1, index].includes(USER.indexOf(element))) ballCount += 1;
+			if (userNumber.indexOf(String(element)) === index) strikeCount += 1;
+			if (![-1, index].includes(USER.indexOf(String(element)))) ballCount += 1;
 		});
 
-		this.printCount(ballCount, strikeCount);
+		return { ballCount, strikeCount };
 	}
 
 	printCount(ballCount, strikeCount) {
-		
+		if (ballCount !== 0 && strikeCount !== 0) {
+			Console.print(`${ballCount}볼 ${strikeCount}스트라이크`);
+			return;
+		}
+		if (ballCount !== 0) {
+			Console.print(`${ballCount}볼`);
+			return;
+		}
+		if (strikeCount !== 0) {
+			Console.print(`${strikeCount}스트라이크`);
+			return;
+		}
+		if (ballCount === 0 && strikeCount === 0) {
+			Console.print('낫싱');
+			return;
+		}
+	}
+
+	async pitching(computerNumber) {
+		try {
+			const userNumber = await Console.readLineAsync(MESSAGE.pitch);
+			console.log(userNumber);
+			checkIsPitch(userNumber);
+			const { ballCount, strikeCount } = this.judgement(
+				computerNumber,
+				userNumber
+			);
+			this.printCount(ballCount, strikeCount);
+			return strikeCount === INPUT_LENGTH
+				? this.gameOver()
+				: this.pitching(computerNumber);
+		} catch (error) {
+			return error;
+		}
 	}
 
 	gameOver() {
@@ -49,61 +82,9 @@ class App {
 		return input === RESTART ? this.create() : null;
 	}
 
-	async start(computerNumber) {
-		while (true) {
-			const userNumber = [];
-
-			try {
-				const input = await Console.readLineAsync('숫자를 입력해주세요 : ');
-				input.split('').forEach((element) => {
-					const convertedNumber = parseInt(element);
-					if (!isNaN(convertedNumber) && !userNumber.includes(convertedNumber))
-						userNumber.push(parseInt(element));
-				});
-
-				if (userNumber.length !== INPUT_LENGTH) {
-					throw new Error('[ERROR]');
-				}
-			} catch (error) {
-				return error;
-			}
-
-			const { ballCount, strikeCount } = this.judgement(
-				computerNumber,
-				userNumber
-			);
-			if (ballCount > 0 && strikeCount > 0) {
-				Console.print(`${ballCount}볼 ${strikeCount}스트라이크`);
-				continue;
-			}
-			if (ballCount > 0 && strikeCount === 0) {
-				Console.print(`${ballCount}볼`);
-				continue;
-			}
-			if (ballCount === 0 && strikeCount > 0) {
-				Console.print(`${strikeCount}스트라이크`);
-				Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
-				const RESTART = await Console.readLineAsync(
-					'게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'
-				);
-				if (RESTART === 1) {
-					console.log('restart');
-					continue;
-				}
-				if (RESTART === 2) return;
-			}
-			if (BALL === 0 && STRIKE === 0) {
-				Console.print('낫싱');
-				continue;
-			}
-		}
-	}
-
 	async play() {
 		this.create(MESSAGE.start);
 	}
 }
-const app = new App();
-app.play();
 
 export default App;

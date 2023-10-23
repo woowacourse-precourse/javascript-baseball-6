@@ -10,15 +10,15 @@ export const checkIsPitch = (input) => {
 		throw new Error(`[ERROR] 입력가능한 길이는 ${INPUT_LENGTH}입니다.`);
 	}
 
-	const inputArray = [];
-	input.split('').forEach((element) => {
-		const convertedNumber = parseInt(element);
-		if (isNaN(convertedNumber)) {
-			throw new Error('[ERROR] 숫자만 입력가능합니다.');
-		}
-		if (inputArray.includes(convertedNumber)) {
-			throw new Error('[ERROR] 중복된 숫자가 입력되었습니다.');
-		}
-		inputArray.push(convertedNumber);
-	});
+	const inputArray = input.split().forEach((element) => parseInt(element));
+	if (inputArray.includes(NaN)) {
+		throw new Error('[ERROR] 숫자만 입력가능합니다.');
+	}
+	// if (inputArray!==[//]) {
+	// 	throw new Error('[ERROR] 중복된 숫자가 입력되었습니다.');
+	// }
+	// input.split('').forEach((element) => {
+	// 	const convertedNumber = parseInt(element);
+	// 	inputArray.push(convertedNumber);
+	// });
 };
