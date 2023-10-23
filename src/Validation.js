@@ -1,28 +1,22 @@
-const { Console } = require('@woowacourse/mission-utils');
+const isNumeric = (userInputValue) => /^[1-9]+$/.test(userInputValue);
 
-const isNumeric = (userNumber) => /^[1-9]+$/.test(userNumber);
-
-const hasUniqueDigits = (userNumber) => {
-  const uniqueDigits = new Set(userNumber.split(''));
+const hasUniqueDigits = (userInputValue) => {
+  const uniqueDigits = new Set(userInputValue.split(''));
   return uniqueDigits === 3;
 };
 
-const isValidNumber = (userNumber) => {
-  if (userNumber.length === 3) return false;
-  if (!hasUniqueDigits(userNumber)) return false;
-  if (!isNumeric(userNumber)) return false;
+let isValidNumber = (userInputValue) => {
+  if (userInputValue.length === 3) return false;
+  if (!hasUniqueDigits(userInputValue)) return false;
+  if (!isNumeric(userInputValue)) return false;
   return true;
 };
 
-const endGame = () => {
-  Console.close();
-};
-
-const checkValidNumberDuringGame = (userNumber) => {
-  if (!isValidNumber(userNumber)) {
-    throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+const checkValidNumber = (userInputValue) => {
+  if (!isValidNumber(userInputValue)) {
+    isValidNumber = false;
   }
-  endGame();
+  return isValidNumber;
 };
 
-module.exports = { checkValidNumberDuringGame };
+module.exports = { checkValidNumber };
