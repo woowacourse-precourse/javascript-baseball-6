@@ -1,5 +1,11 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 
+// const exitApplication = () => {
+// 	process.on('SIGUSR1', () => {
+// 		MissionUtils.Console.print('어플리케이션을 종료합니다.');
+// 	});
+// };
+
 class MyError extends Error {
 	constructor(value, ...params) {
 		super(...params);
@@ -12,31 +18,37 @@ class App {
 	async play() {
 		MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
 		await start(); //await 있어야 유효성 검사 통과
+		// exitApplication();
+		process.on('SIGUSR1', () => {
+			MissionUtils.Console.print('어플리케이션을 종료합니다.');
+		});
 	}
 }
 
 const getComputerInput = () => {
-	const computer = [];
-	while (computer.length < 3) {
-		const number = MissionUtils.Random.pickNumberInRange(1, 9);
-		if (!computer.includes(number)) {
-			computer.push(number);
+	try {
+		const COMPUTERARR = [];
+		while (COMPUTERARR.length < 3) {
+			const number = MissionUtils.Random.pickNumberInRange(1, 9);
+			if (!COMPUTERARR.includes(number)) {
+				COMPUTERARR.push(number);
+			}
 		}
-	}
-	return computer;
+		return COMPUTERARR;
+	} catch (error) {}
 };
 
-const compareUserComputer = (userArr, computerArr) => {
+const compareUserComputer = (USERARR, COMPUTERARR) => {
 	let STRIKE = 0;
 	let BALL = 0;
 	//strike 계산
 	for (let i = 0; i < 3; i++) {
-		if (userArr[i] === computerArr[i]) {
-			strike++;
+		if (USERARR[i] === COMPUTERARR[i]) {
+			STRIKE++;
 		}
 	}
-	const ballArr = userArr.filter((item) => computerArr.includes(item));
-	BALL = ballArr.length - STRIKE;
+	const BALLARR = USERARR.filter((item) => COMPUTERARR.includes(item));
+	BALL = BALLARR.length - STRIKE;
 	return {
 		strike: STRIKE,
 		ball: BALL,
@@ -44,24 +56,28 @@ const compareUserComputer = (userArr, computerArr) => {
 };
 
 const validateUserInput = (USERINPUT) => {
-	if (USERINPUT.length === 3) {
-		const USERARR = USERINPUT.split('').map((num) => +num);
-		if (USERARR.includes(0)) {
-			throw new MyError('[ERROR]', '1부터 9까지의 자연수만 가능합니다.');
-		} else {
-			// USERARR 는 모두 자연수
-			if (USERARR[0] !== USERARR[1] && USERARR[0] !== USERARR[2] && USERARR[1] !== USERARR[2]) {
-				//값이 전부 다르면
-				//드디어 사용자 숫자와 비교 시작 가능
-				const COMPUTERARR = getComputerInput();
-				const { strike, ball } = compareUserComputer(USERARR, COMPUTERARR);
-				return {strike, ball}
+	try {
+		if (USERINPUT.length === 3) {
+			const USERARR = USERINPUT.split('').map((num) => +num);
+			if (USERARR.includes(0)) {
+				throw new MyError('[ERROR]', '1부터 9까지의 자연수만 가능합니다.');
+			} else {
+				// USERARR 는 모두 자연수
+				if (USERARR[0] !== USERARR[1] && USERARR[0] !== USERARR[2] && USERARR[1] !== USERARR[2]) {
+					return USERARR;
+				} else {
+					return false;
+				}
+				// else {
+				// 	//같은 애가 있다면
+				// 	throw new MyError('다 다른 숫자여야 합니다.');
+				// }
 			}
-			// else {
-			// 	//같은 애가 있다면
-			// 	throw new MyError('다 다른 숫자여야 합니다.');
-			// }
+		} else {
+			throw new MyError('[ERROR]', '유효한 입력값이 아닙니다.');
 		}
+	} catch (error) {
+		throw new MyError('[ERROR]', error);
 	}
 };
 
@@ -70,21 +86,18 @@ const getScore = (STRIKE, BALL) => {
 		MissionUtils.Console.print('3스트라이크');
 		MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
 		return;
-	}
-	if (STRIKE === 0 && BALL === 0) {
+	} else if (STRIKE === 0 && BALL === 0) {
 		MissionUtils.Console.print('낫싱');
 		return;
-	}
-	if (STRIKE === 0) {
+	} else if (STRIKE === 0) {
 		MissionUtils.Console.print(`${BALL}볼`);
 		return;
-	}
-	if (BALL === 0) {
+	} else if (BALL === 0) {
 		MissionUtils.Console.print(`${STRIKE}스트라이크`);
 		return;
+	} else {
+		MissionUtils.Console.print(`${BALL}볼 ${STRIKE}스트라이크`);
 	}
-	MissionUtils.Console.print(`${BALL}볼 ${STRIKE}스트라이크`);
-	return;
 };
 
 const end = async () => {
@@ -97,25 +110,31 @@ const end = async () => {
 				await start();
 				break;
 			case '2':
-				MissionUtils.Console.print('게임 종료');
+				exitApplication();
 				break;
 			default:
-				throw new MyError('[ERROR]', '유효한 입력값이 아닙니다.','1, 2 중에서 입력해주세요.');
+				throw new MyError('[ERROR]', '유효한 입력값이 아닙니다. 1, 2 중에서 입력해주세요.');
 		}
-	} catch (error) {
-		throw new MyError('[ERROR]','유효한 입력값이 아닙니다.','1, 2 중에서 입력해주세요.');
-	}
+	} catch (error) {}
 };
 const start = async () => {
 	try {
 		const USERINPUT = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 :');
 		MissionUtils.Console.print(`숫자를 입력해주세요 : ${USERINPUT}`);
-		const { strike, ball } = validateUserInput(USERINPUT);
-		getScore(strike, ball);
-		end();
-		
-	} catch (e) {
-		throw new MyError('[ERROR]', '유효한 입력값이 아닙니다.');
+		// 사용자이 입력값이 유효한지 확인 / boolean 반환
+		const USERARR = validateUserInput(USERINPUT);
+		console.log('user:', USERARR);
+		if (USERARR) {
+			const COMPUTERARR = getComputerInput();
+			console.log('computer:', COMPUTERARR);
+			const { strike, ball } = compareUserComputer(USERARR, COMPUTERARR);
+			getScore(strike, ball);
+			end();
+		} else {
+			throw new MyError('[ERROR]', '유효한 입력값이 아닙니다.');
+		}
+	} catch (error) {
+		throw new MyError('[ERROR]', error);
 	}
 };
 
