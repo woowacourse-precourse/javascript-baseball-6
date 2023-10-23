@@ -44,17 +44,28 @@ export default class App {
 
   async checkAnswer(playerInput, computerInput) {
     // console.log(userInputArray);
-    const strikeCount = 0;
-    const ballCount = 0;
+    let strikeCount = 0;
+    let ballCount = 0;
     const strikeArray = [];
     const ballArray = [];
 
-    // const computer = this.getUserInput();
     MissionUtils.Console.print(playerInput);
     MissionUtils.Console.print(computerInput);
     // const userInputArray = [...getPlayerData].map((el) => Number(el));
 
-    // for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 3; i++) {
+      if (playerInput[i] === computerInput[i]) {
+        strikeCount += 1;
+        strikeArray.push(strikeCount);
+
+        // MissionUtils.Console.print(strikeArray.length);
+        //   }
+      } else if (computerInput.includes(playerInput[i])) {
+        ballCount += 1;
+        ballArray.push(ballCount);
+        // MissionUtils.Console.print(ballArray.length);
+      }
+    }
     //   // playerScore index가 computer index와 일치하는 경우
     //   if (userInputArray[i] === computerInput[i]) {
     //     strikeCount += 1;
