@@ -2,7 +2,7 @@ import { MissionUtils } from '@woowacourse/mission-utils';
 
 const checkBlank = function checkHasNotBlankElseError(input) {
     const throwBlankError = function throwErrorWhenHasBlank() { throw new Error('[ERROR] 3자리의 수를 공백없이 이어서 입력해야 합니다.') };
-    [...input].forEach(inputElement => { inputElement === ' ' && throwBlankError() });
+    [...input].forEach((inputElement) => (inputElement === ' ' && throwBlankError()));
 }
 
 const checkThreeDigit = function checkIsThreeDigitElseError(input) {
@@ -15,12 +15,12 @@ const checkNotDuplicated = function checkContainsUniqueNumberElseError(input) {
 
 const checkAllNumber = function checkContainsOnlyNumberElseError(input) {
     const throwNotNumberError = function throwErrorWhenHasNotNumber() { throw new Error('[ERROR] 입력에는 숫자만 포함되어야 합니다.') };
-    [...input].forEach(inputElement => isNaN(parseInt(inputElement)) && throwNotNumberError())
+    [...input].forEach((inputElement) => (isNaN(parseInt(inputElement)) && throwNotNumberError()))
 }
 
 const checkNoZero = function checkHasNoZeroElseError(input) {
     const throwHasZeroError = function throwErrorWhenHasZero() { throw new Error('[ERROR] 입력에는 0이 포함되지 않아야 합니다.') };
-    [...input].forEach(inputElement => parseInt(inputElement) === 0 && throwHasZeroError())
+    [...input].forEach((inputElement) => (parseInt(inputElement) === 0 && throwHasZeroError()))
 }
 
 export const getUserNumberInput = async function validateAndReturnInput() {
