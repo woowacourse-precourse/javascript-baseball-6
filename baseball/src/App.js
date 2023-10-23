@@ -37,13 +37,8 @@ const inputNum = async (baseballNums) => {
     checkCorrectAnswer(result, baseballNums);
   } catch (error) {
     console.error("[ERROR] 입력값이 잘못되었습니다. 게임을 종료합니다.");
+    throw error;
   }
-  // Console.readLine("숫자를 입력해주세요 :", (answer) => {
-  //   const userNum = answer.split("").map(Number);
-  //   validationNum(userNum);
-  //   const result = checkNum(userNum, baseballNums);
-  //   checkCorrectAnswer(result, baseballNums);
-  // });
 };
 
 // 4. 숫자 유효성검토(숫자인지, 3개의 숫자인지)
@@ -86,18 +81,22 @@ const checkCorrectAnswer = (result, baseballNums) => {
 };
 
 // 7. 게임 계속할지 물어보기
-const replayGame = () => {
-  Console.readLine(
-    "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.",
-    (answer) => {
-      if (answer === "1") {
-        app.play();
-      } else if (answer === "2") {
-        console.close;
-      }
+const replayGame = async () => {
+  try {
+    const answer = await Console.readLineAsync(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+    );
+    if (answer === "1") {
+      app.play();
+    } else if (answer === "2") {
       return;
+    } else {
+      throw new Error("[ERROR] 잘못된 입력값입니다.");
     }
-  );
+  } catch (error) {
+    console.error("[ERROR] 잘못된 입력값입니다.");
+    throw error;
+  }
 };
 
 const app = new App();
