@@ -1,4 +1,4 @@
-import { GAME_CONSTANTS, GAME_MESSAGES } from "./constants";
+import { GAME_CONSTANTS, GAME_MESSAGES } from "./constants.js";
 
 export function getResultString([ball, strike]) {
   if (!ball && !strike) {
