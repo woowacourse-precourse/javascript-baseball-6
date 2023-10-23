@@ -27,7 +27,7 @@ class App {
       // 제대로 된 값을 입력했다면 숫자로 변환
       const userInputsNumber = userInputs.split('').map((userInput) => parseInt(userInput, 10));
 
-      // ball, strike 확인
+      // ball, strike 확인하는 함수
       function setAnalysis(gameData, userInputs, randomNumber) {
         // userInput과 비교해서 randomNumber와 다른 값을 찾음
         const noStrikeNumbers = userInputs.filter((userInput, i) => 
@@ -45,7 +45,29 @@ class App {
         gameData.setStrike(strike);
       }
 
+      // 결과 출력하는 함수
+      function printResult(gameData) {
+        const ball = gameData.getBall();
+        const strike = gameData.getStrike();
 
+        // 0볼 0스트라이크
+        if (ball === 0 && strike === 0) {
+          Console.print('낫싱');
+          return
+        } else if (ball === 0) { // 0볼 n스트라이크
+          Console.print(`${strike}스트라이크`);
+          if (strike === 3) {
+            Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+            gameData.setThreeStrike(true); // 삼진 = true
+          }
+          return
+        } else if (strike === 0) { // n볼 0스트라이크
+          Console.print(`${ball}볼`);
+          return
+        }
+        // n볼 n스트라이크
+        Console.print(`${ball}볼 ${strike}스트라이크`);
+      }
     }
 
     // Console.print(randomNumber)
