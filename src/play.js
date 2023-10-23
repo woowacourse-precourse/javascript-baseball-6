@@ -1,6 +1,8 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import { checkValidation } from "./vallidation";
 
+const COUNT = 3;
+
 const threeStrike = async () => {
   MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
   const choice = await MissionUtils.Console.readLineAsync(
@@ -23,8 +25,8 @@ const compareTwoNums = async (random, user) => {
   let strike = 0;
   let ball = 0;
 
-  for (let i = 0; i < 3; i++) {
-    for (let j = 0; j < 3; j++) {
+  for (let i = 0; i < COUNT; i++) {
+    for (let j = 0; j < COUNT; j++) {
       if (computerNumber[i] === userNumber[j]) {
         if (i === j) strike++;
         if (i !== j) ball++;
@@ -57,7 +59,7 @@ const getUserNum = async (generateNum) => {
 
   const userNumArray = userNum.split("").map(Number);
 
-  if (!checkValidation(userNumArray)) {
+  if (!checkValidation(userNumArray, COUNT)) {
     throw new Error("[ERROR]");
   }
   await compareTwoNums(generateNum, userNumArray);
@@ -65,7 +67,7 @@ const getUserNum = async (generateNum) => {
 
 const createNum = () => {
   const computer = [];
-  while (computer.length < 3) {
+  while (computer.length < COUNT) {
     const number = MissionUtils.Random.pickNumberInRange(1, 9);
     if (!computer.includes(number)) {
       computer.push(number);

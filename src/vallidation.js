@@ -1,14 +1,14 @@
-const checkValidation = (user) => {
+const checkValidation = (user, count) => {
   if (!Array.isArray(user)) {
     return false;
   }
 
-  if (user.length !== 3) {
+  if (user.length !== count) {
     return false;
   }
 
   if (user) {
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < count; i++) {
       if (isNaN(user[i]) || user[i] === 0) {
         return false;
       }
