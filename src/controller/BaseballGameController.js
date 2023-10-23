@@ -50,7 +50,7 @@ class BaseballGameController {
   }
 
   async resetGame() {
-    this.#baseball.resetGame();
+    this.#baseball.getReset();
     await this.inputUserNumber();
   }
 }
