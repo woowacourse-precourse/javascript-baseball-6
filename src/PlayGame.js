@@ -24,7 +24,7 @@ export default function PlayGame(
       await userInputValue();
       checkValue();
     }
-    await RestartGame();
+    await restartGame();
   };
 
   const userInputValue = async () => {
@@ -41,15 +41,15 @@ export default function PlayGame(
 
   const checkValue = () => {
     const { input, computer } = this.state;
-    const checkValueResult = { strike: 0, ball: 0 };
+    let CHECK_VALUE_RESULT = { strike: 0, ball: 0 };
     input.map((num, idx) => {
       if (num === computer[idx]) {
-        checkValueResult.strike++;
+        CHECK_VALUE_RESULT.strike++;
       } else if (computer.indexOf(num) !== -1) {
-        checkValueResult.ball++;
+        CHECK_VALUE_RESULT.ball++;
       }
     });
-    checkValueResultPrint(checkValueResult);
+    checkValueResultPrint(CHECK_VALUE_RESULT);
   };
 
   const checkValueResultPrint = (checkValueResult) => {
@@ -63,24 +63,24 @@ export default function PlayGame(
     if (strike === 0 && ball === 0) {
       Console.print("낫싱");
     } else {
-      const result =
+      const CHECK_RESULT =
         (strike === 0 ? "" : `${strike}스트라이크 `) +
         (ball === 0 ? "" : `${ball}볼`);
-      Console.print(result);
+      Console.print(CHECK_RESULT);
     }
   };
 
-  const RestartGame = async () => {
+  const restartGame = async () => {
     try {
       const InputRestartValue = await Console.readLineAsync(
         "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
       );
       validation.InputRestartValueValidation(InputRestartValue);
-      const IntValue = parseInt(InputRestartValue);
+      const PARSEINT_VALUE = parseInt(InputRestartValue);
 
-      if (IntValue === 1) {
+      if (PARSEINT_VALUE === 1) {
         this.play();
-      } else if (IntValue === 2) {
+      } else if (PARSEINT_VALUE === 2) {
         return;
       }
     } catch (error) {
