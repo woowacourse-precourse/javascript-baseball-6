@@ -8,10 +8,12 @@ class Game {
     await this.playGame();
   }
 
+  //컴퓨터의 임의의 3자리 숫자 생성 함수
   getComputerNumber() {
     return MissionUtils.Random.pickUniqueNumbersInRange(1, 9, 3);
   }
 
+  //게임 진행 함수
   async playGame() {
     try {
       this.playerNumber = await this.getPlayerNumber();
@@ -23,15 +25,18 @@ class Game {
     }
   }
 
+  //사용자의 3자리 숫자를 입력받는 함수
   async getPlayerNumber() {
     const number = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
     return number;
   }
 
+  //사용자가 입력한 숫자가 적절한지 검사하는 함수
   validatePlayerNumber() {
     doValidate(this.playerNumber);
   }
 
+  //게임 결과값을 계산하는 함수
   calculateResult() {
     let strike = 0;
     let ball = 0;
