@@ -31,7 +31,7 @@
    2. 정상 작동 확인.
 4. [x] 최종, Integration Test! 케이스 5개이상 만들어보기!
 
-### Refacotring
+### Refactoring
 
 1. SOLID 법칙! 적용
 2. try catch문 적용
@@ -39,3 +39,4 @@
 4. Airbnb 스타일 가이드 적용!
 5. [x] MissionUtils 그룹화
 6. [x] valid 함수 그룹화
+7. [ ] handle.Computer, handleUser, handleEnd 내부 메서드 분리.
