@@ -1,5 +1,5 @@
 const ANSWER_LENGTH = 3;
-const ERROR_MESSAGE = "입력이 올바르지 않습니다. 게임을 종료합니다.";
+const ERROR_MESSAGE = "[ERROR] 입력이 올바르지 않습니다. 게임을 종료합니다.";
 
 const BALL_COUNT = {
   ball: "볼",
