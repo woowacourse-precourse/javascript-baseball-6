@@ -31,7 +31,7 @@ class App {
         ) {
           throw new Error("[ERROR] 잘못된 값을 입력하였습니다.");
         }
-        result = this.checkTarget(input, answer); // checkTarget 메소드는 판정결과를 return한다 ex) "3스트라이크"
+        result = this.checkAnswer(input, answer); // checkTarget 메소드는 판정결과를 return한다 ex) "3스트라이크"
         MissionUtils.Console.print(result);
       }
 
@@ -65,7 +65,7 @@ class App {
     return [...answer];
   }
 
-  checkTarget(target, answer) {
+  checkAnswer(target, answer) {
     //스트라이크, 볼, 낫싱 판정 메소드, 판정결과를 return해야 한다. ex) "3스트라이크"
     let balls = 0;
     let strikes = 0;
