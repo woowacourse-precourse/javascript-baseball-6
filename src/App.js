@@ -5,24 +5,13 @@ import CustomUtils from "./utils/CustomUtils.js";
 class App {
   async play() {
     try {
-      const computer = this.generateComputerNumbers();
+      const computer = CustomUtils.getGenerateComputerNumbers();
       await this.playGame(computer);
       await this.restartGame();
     } catch (error) {
       MissionUtils.Console.print(error.message);
       throw error;
     }
-  }
-
-  generateComputerNumbers() {
-    const computer = [];
-    while (computer.length < 3) {
-      const number = MissionUtils.Random.pickNumberInRange(1, 9);
-      if (!computer.includes(number)) {
-        computer.push(number);
-      }
-    }
-    return computer;
   }
 
   async playGame(computer) {
