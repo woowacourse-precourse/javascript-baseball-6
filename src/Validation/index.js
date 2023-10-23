@@ -19,7 +19,7 @@ export default class Validation {
     }
 
     static checkNumber(gameInput) {
-        if(Number.isInteger(gameInput)) {
+        if(isNaN(Number(gameInput))) {
             throw new Error('[ERROR]숫자만 입력 가능합니다.')
         } return true
         

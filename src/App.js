@@ -37,7 +37,6 @@ class App {
         console.log()
 
         // 스트라이크 갯수 체크해야함
-        const strike 
         if (strike === 3) {
           userWillRetry = false;
         }
