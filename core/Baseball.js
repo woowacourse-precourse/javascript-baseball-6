@@ -15,7 +15,7 @@ class Baseball {
     }
 
     if (strikeResult !== GAME.ZERO && ballResult !== GAME.ZERO) {
-      return Baseball.isBallAndStrike(strikeResult, ballResult);
+      return Baseball.tellBallAndStrike(strikeResult, ballResult);
     }
 
     return Baseball.getFinalResult(strikeResult, ballResult);
@@ -23,8 +23,20 @@ class Baseball {
 
   static getFinalResult(strikeResult, ballResult) {
     return strikeResult > ballResult
-      ? `${Baseball.isStrike(strikeResult)}`
-      : `${Baseball.isBall(ballResult)}`;
+      ? `${Baseball.tellStrike(strikeResult)}`
+      : `${Baseball.tellBall(ballResult)}`;
+  }
+
+  static tellBallAndStrike(strikeResult, ballResult) {
+    return `${ballResult}${GAME.BALL} ${strikeResult}${GAME.STRIKE}`;
+  }
+
+  static tellStrike(count) {
+    return `${count}${GAME.STRIKE}`;
+  }
+
+  static tellBall(count) {
+    return `${count}${GAME.BALL}`;
   }
 
   static changeNumToArr(input) {
@@ -46,18 +58,6 @@ class Baseball {
     return random.filter(
       (num, idx) => input.includes(num) && input[idx] !== num
     ).length;
-  }
-
-  static isBallAndStrike(strikeResult, ballResult) {
-    return `${ballResult}${GAME.BALL} ${strikeResult}${GAME.STRIKE}`;
-  }
-
-  static isStrike(count) {
-    return `${count}${GAME.STRIKE}`;
-  }
-
-  static isBall(count) {
-    return `${count}${GAME.BALL}`;
   }
 }
 
