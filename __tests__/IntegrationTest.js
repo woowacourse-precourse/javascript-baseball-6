@@ -23,44 +23,94 @@ const getLogSpy = () => {
   return logSpy;
 };
 
-describe("숫자 야구 게임", () => {
-  test("게임 종료 후 재시작", async () => {
-    // given
-    const randoms = [1, 3, 5, 5, 8, 9];
-    const answers = ["246", "135", "1", "597", "589", "2"];
+describe("숫자 야구 게임 통합 테스트", () => {
+  async function passTest({ randoms, answers, messages }) {
     const logSpy = getLogSpy();
+    mockRandoms(randoms);
+    mockQuestions(answers);
+
+    const app = new App();
+    await expect(app.play()).resolves.not.toThrow();
+
+    messages.forEach((output) => {
+      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(output));
+    });
+  }
+
+  async function errorTest({ randoms, answers }) {
+    mockRandoms(randoms);
+    mockQuestions(answers);
+
+    const app = new App();
+    await expect(app.play()).rejects.toThrow("[ERROR]");
+  }
+
+  test("통합 테스트 통과1", async () => {
+    const randoms = [5, 9, 9, 4];
+    const answers = ["594", "2"];
+    const messages = ["3스트라이크", "게임 종료"];
+    passTest({ randoms, answers, messages });
+  });
+
+  test("통합 테스트 통과2", async () => {
+    const randoms = [5, 2, 3, 1, 9, 1, 4];
+    const answers = [
+      "524",
+      "124",
+      "521",
+      "523",
+      "1",
+      "123",
+      "124",
+      "924",
+      "194",
+      "2",
+    ];
     const messages = [
-      "낫싱",
+      "2스트라이크",
+      "1스트라이크",
+      "2스트라이크",
       "3스트라이크",
+      "1스트라이크",
+      "2스트라이크",
       "1볼 1스트라이크",
       "3스트라이크",
       "게임 종료",
     ];
-
-    mockRandoms(randoms);
-    mockQuestions(answers);
-
-    // when
-    const app = new App();
-    await expect(app.play()).resolves.not.toThrow();
-
-    // then
-    messages.forEach((output) => {
-      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(output));
-    });
+    passTest({ randoms, answers, messages });
+  });
+  test("통합 테스트 통과3", async () => {
+    const randoms = [1, 2, 4, 9, 9, 9, 8, 7];
+    const answers = ["123", "124", "1", "123", "456", "789", "897", "987", "2"];
+    const messages = [
+      "2스트라이크",
+      "3스트라이크",
+      "낫싱",
+      "낫싱",
+      "2볼 1스트라이크",
+      "2볼 1스트라이크",
+      "3스트라이크",
+      "게임 종료",
+    ];
+    passTest({ randoms, answers, messages });
   });
 
-  test("예외 테스트", async () => {
-    // given
-    const randoms = [1, 3, 5];
-    const answers = ["1234"];
+  test("통합 테스트 에러1", async () => {
+    const randoms = [5, 9, 4];
+    const answers = ["599"];
 
-    mockRandoms(randoms);
-    mockQuestions(answers);
+    await errorTest({ randoms, answers });
+  });
+  test("통합 테스트 에러2", async () => {
+    const randoms = [1, 2, 3];
+    const answers = ["123", "q"];
 
-    // when & then
-    const app = new App();
+    await errorTest({ randoms, answers });
+  });
+  test("통합 테스트 에러3", async () => {
+    const randoms = [1, 2, 3];
+    const answers = ["1245"];
 
-    await expect(app.play()).rejects.toThrow("[ERROR]");
+    await errorTest({ randoms, answers });
   });
 });

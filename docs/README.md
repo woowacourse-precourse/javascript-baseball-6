@@ -27,11 +27,9 @@
       - getStrikeAndBall, printStrikeAndBall 볼, 스트라이크 출력
       - 재시작 여부 확인
 3. [x] handleEnd
-
    1. 입력 및 검사.
    2. 정상 작동 확인.
-
-4. [ ] 최종, Integration Test! 케이스 10개이상 만들어보기!
+4. [x] 최종, Integration Test! 케이스 5개이상 만들어보기!
 
 ### Refacotring
 
