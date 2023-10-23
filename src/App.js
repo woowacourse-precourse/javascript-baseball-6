@@ -25,6 +25,10 @@ class App {
     this.print(COMMAND.END);
   }
 
+  throwError(error) {
+    throw new Error(`[ERROR] ${error.message}`);
+  }
+
   async play() {
     this.print(COMMAND.START);
     await this.enterValue(RandomNumber.createNumber());
