@@ -6,7 +6,7 @@ class GameConsole {
   }
   
   static async readLineAsync(text) {
-    return await Console.readLineAsync(text);
+    return Console.readLineAsync(text);
   }
 }
 
