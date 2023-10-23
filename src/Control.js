@@ -1,18 +1,21 @@
-const { Console } = require('@woowacourse/mission-utils');
-const { GAME_MESSAGE, RESULT_MESSAGE, ERROR_MESSAGE } = require('./constants/Message');
+import { Console } from '@woowacourse/mission-utils';
+import { GAME_MESSAGE, RESULT_MESSAGE, ERROR_MESSAGE } from './constants/Message';
 
 class Control {
   static async askRestart(appInstance) {
     const userAnswer = await Console.readLineAsync(GAME_MESSAGE.GAME_RESTART);
 
-    if (userAnswer === "1") {
+    if (userAnswer === '1') {
       appInstance.isPlaying = true;
-    } else if (userAnswer === "2") {
+      return;
+    } 
+    if (userAnswer === '2') {
       Console.print(GAME_MESSAGE.GAME_END);
       appInstance.isPlaying = false;
-    } else {
-      throw new Error(ERROR_MESSAGE.INVALID_CHOICE);
-    }
+      return;
+    } 
+    
+    throw new Error(ERROR_MESSAGE.INVALID_CHOICE);
   }
 
   static compareAndPrintResult(computerNumber, userNumber) {
@@ -32,9 +35,7 @@ class Control {
     return { ball, strike };
   }
 
-  static printResult(result) {
-    const { ball, strike } = result;
-
+  static printResult({ ball, strike }) {
     if (strike === 3) {
       Console.print(`${strike}${RESULT_MESSAGE.STRIKE}`);
       Console.print(GAME_MESSAGE.CORRECT_ANSWER);
@@ -43,9 +44,9 @@ class Control {
     
     if (strike === 0 && ball === 0) {
       Console.print(RESULT_MESSAGE.NOTHING);
-    } else if (strike === 0 && ball !== 0) {
+    } else if (strike === 0) {
       Console.print(`${ball} ${RESULT_MESSAGE.BALL}`);
-    } else if (strike !== 0 && ball === 0) {
+    } else if (ball === 0) {
       Console.print(`${strike} ${RESULT_MESSAGE.STRIKE}`);
     } else {
       Console.print(`${ball}${RESULT_MESSAGE.BALL} ${strike}${RESULT_MESSAGE.STRIKE}`);
@@ -53,4 +54,4 @@ class Control {
   }
 }
 
-module.exports = Control;
+export default Control;

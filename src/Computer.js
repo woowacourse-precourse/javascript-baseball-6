@@ -1,5 +1,5 @@
-const { Random } = require('@woowacourse/mission-utils');
-const CONSTANTS = require('./constants/Constant');
+import { Random } from '@woowacourse/mission-utils';
+import { CONSTANTS } from './constants/constant';
 
 class Computer {
   generateNumber() {
@@ -14,4 +14,4 @@ class Computer {
   }
 }
 
-module.exports = Computer;
+export default Computer;

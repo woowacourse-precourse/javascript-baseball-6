@@ -1,8 +1,8 @@
-const { Console } = require('@woowacourse/mission-utils');
-const { GAME_MESSAGE, ERROR_MESSAGE } = require('./constants/Message');
-const Computer = require('./Computer');
-const Control = require('./Control'); 
-const InputValid = require('./InputValid');
+import { Console } from '@woowacourse/mission-utils';
+import { GAME_MESSAGE, ERROR_MESSAGE } from './constants/Message';
+import Computer from './Computer';
+import Control from './Control';
+import InputValid from './InputValid';
 
 class App {
   constructor() {
@@ -12,24 +12,24 @@ class App {
 
   async play() {
     Console.print(GAME_MESSAGE.GAME_START);
-  
+
     while (this.isPlaying) {
       const computerNumber = this.computer.generateNumber();
       let result = { strike: 0, ball: 0 };
-  
+
       while (result.strike !== 3 && this.isPlaying) {
         try {
           const userNumber = await this.getUserInput();
           InputValid.validate(userNumber);
-  
+
           result = Control.compareAndPrintResult(computerNumber, userNumber);
-  
+
           if (result.strike === 3) {
             await Control.askRestart(this);
           }
         } catch (error) {
           Console.print(error.message);
-          this.stopGame(); 
+          this.stopGame();
           throw error;
         }
       }
@@ -43,10 +43,10 @@ class App {
   async getUserInput() {
     const input = await Console.readLineAsync(GAME_MESSAGE.NUMBER_INPUT);
     if (!input) {
-        throw new Error(ERROR_MESSAGE.INVALID_LENGTH);
+      throw new Error(ERROR_MESSAGE.INVALID_LENGTH);
     }
     return input;
   }
 }
 
-module.exports = App;
+export default App;

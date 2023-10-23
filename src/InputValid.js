@@ -1,4 +1,4 @@
-const { ERROR_MESSAGE } = require('./constants/Message');
+import { ERROR_MESSAGE } from './constants/Message';
 
 class InputValid {
   static validate(input) {
@@ -11,7 +11,7 @@ class InputValid {
     if (!input || typeof input !== 'string' || input.length !== 3) {
       throw new Error(`${ERROR_MESSAGE.INVALID_LENGTH}`);
     }
-}
+  }
 
   static validateNumberInRange(input) {
     for (let char of input) {
@@ -29,4 +29,4 @@ class InputValid {
   }
 }
 
-module.exports = InputValid;
+export default InputValid;
