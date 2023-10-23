@@ -66,39 +66,41 @@ class App {
     return playerNumber;
   }
 
-  evaluateGameResult(answerNumber, playerNumber) {
-    let computerPickNumbers = answerNumber;
-    let playerPickNumbers = playerNumber;
-
-    let strike = 0;
-    let ball = 0;
-    let nothing = '낫싱';
-
-    for (let i = 0; i < 3; i++) {
-      if (playerPickNumbers[i] === computerPickNumbers[i]) {
-        strike++;
+  strike = (a, b) => {
+    let howManyStrike = 0;
+    for (let i = 0; i < a.length; i++) {
+      if (a[i] === b[i]) {
+        howManyStrike++;
       }
-      if (
-        playerPickNumbers[i] === computerPickNumbers[(i + 1) % 3] ||
-        playerPickNumbers[i] === computerPickNumbers[(i + 2) % 3]
-      ) {
+    }
+    return howManyStrike;
+  };
+  ball = (a, b) => {
+    let ball = 0;
+    for (let i = 0; i < a.length; i++) {
+      if (a.includes(b[i]) && a[i] !== guess[i]) {
         ball++;
       }
     }
+    return ball;
+  };
+
+  nothing = (a, b) => {
+    if (a.every((val, index) => val !== b[index])) {
+      return '낫싱';
+    }
+  };
+
+  evaluateGameResult(answerNumber, playerNumber) {
+    let strike = this.strike(answerNumber, playerNumber);
+    let ball = this.ball(answerNumber, playerNumber);
+    let nothing = this.nothing(answerNumber, playerNumber);
 
     if (strike === 0 && ball === 0) {
-      Console.print(nothing);
-    } else if (strike > 0 && ball > 0) {
-      Console.print(`${ball}볼 ${strike}스트라이크`);
-    } else if (strike === 0 && ball > 0) {
-      Console.print(`${ball}볼`);
-    } else if (strike > 0 && ball === 0) {
-      Console.print(`${strike}스트라이크`);
-    } else {
-      Console.print('3개의 숫자를 모두 맞히셨습니다! 게임종료');
+      return nothing;
     }
 
-    return { strike, ball };
+    return `${ball}볼 ${strike}스트라이크`;
   }
 
   async askForAnotherGame() {
