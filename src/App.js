@@ -1,5 +1,5 @@
 import { Console, Random } from '@woowacourse/mission-utils';
-import { COMMAND, GAME } from './Constant.js';
+import { COMMAND, GAME, ERROR } from './Constant.js';
 class App {
 	constructor() {
 		this.mode = GAME.PLAYING;
@@ -17,22 +17,21 @@ class App {
 		return randomNumberList.sort();
 	}
 	validUserInput(userInput) {
-		if (userInput.length === 0)
-			throw new Error('[ERROR] 입력이 되지 않았습니다.');
+		if (userInput.length === 0) throw new Error(ERROR.NOT_INPUT);
 		userInput.split('').forEach((number, index) => {
 			if (isNaN(number)) {
-				throw new Error('[ERROR] 숫자가 아닙니다.');
+				throw new Error(ERROR.NOT_A_NUMBER);
 			}
 			if (userInput.includes(number) && userInput.indexOf(number) !== index) {
-				throw new Error('[ERROR] 중복된 숫자가 있습니다.');
+				throw new Error(ERROR.DUPLICATED_NUMBER);
 			}
 
 			if (number < 1 || number > 9) {
-				throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+				throw new Error(ERROR.INVALID_NUMBER);
 			}
 
-			if (userInput.length !== 3 || userInput.length === 0) {
-				throw new Error('[ERROR] 세 글자 숫자가 아닙니다.');
+			if (userInput.length !== 3) {
+				throw new Error(ERROR.NOT_INVALID_LENGTH);
 			}
 		});
 		userInput = userInput.split('').map((number) => parseInt(number));
@@ -74,22 +73,20 @@ class App {
 		Console.print(message);
 	}
 	async userSelectRestart() {
-		Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
-		const userSelectMenu = await Console.readLineAsync(
-			'게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'
-		);
+		Console.print(COMMAND.END);
+		const userSelectMenu = await Console.readLineAsync(COMMAND.RESTART);
 		if (userSelectMenu === '1') {
 			this.mode = GAME.PLAYING;
 			this.gameStart();
 		} else if (userSelectMenu === '2') {
 			this.mode = GAME.FINISH;
 			return;
-		} else throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+		} else throw new Error(ERROR.INVALID_NUMBER);
 	}
 	async gameStart() {
 		const answer = this.generateRandomNumber();
 		while (this.mode !== GAME.FINISH) {
-			let userInput = await Console.readLineAsync('숫자를 입력해주세요 : ');
+			let userInput = await Console.readLineAsync(COMMAND.INPUT);
 			userInput = this.validUserInput(userInput);
 			this.checkGameStatus(answer, userInput);
 		}
