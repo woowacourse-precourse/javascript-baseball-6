@@ -1,19 +1,10 @@
 import { Console, MissionUtils } from "@woowacourse/mission-utils";
-import {
-  NOTHING,
-  QUESTION_MESSAGE,
-  START_MESSAGE,
-  STRIKE,
-  SUCCESS_MESSAGE,
-  BALL,
-  END_MESSAGE,
-  END_OR_RESET_MESSAGE,
-} from "./Utills.js";
+import { NOTHING, STRIKE, BALL, END_OR_RESET_MESSAGE } from "./Utills.js";
 class App {
   constructor() {
     this.init();
   }
-
+//비동기를 많이 배웁니다
   init() {
     Console.print("숫자 야구 게임을 시작합니다.");
     this.answer = this.makeAnswer();
@@ -28,14 +19,26 @@ class App {
     }
     return answer;
   }
+  async getNumberInput() {
+    let numberInput = await Console.readLineAsync("숫자를 입력해주세요 : ");
+    const result = this.validateInput(numberInput);
+    if (result != "통과") return result;
+    return numberInput.split("")
+  }
+
+  async checkAnswer() {
+    
+  }
   async play() {
     let strikeResult = 0;
     let ballResult = 0;
     try {
-      let numberInput = await Console.readLineAsync("숫자를 입력해주세요 : ");
-      const result = this.validateInput(numberInput);
-      if (result != "통과") throw new Error(result);
-      numberInput = numberInput.split("");
+      // let numberInput = await Console.readLineAsync("숫자를 입력해주세요 : ");
+      // const result = this.validateInput(numberInput);
+      // if (result != "통과") throw new Error(result);
+      // numberInput = numberInput.split("");
+      let numberInput = await this.getNumberInput();
+      if (!Array.isArray(numberInput)) throw new Error(numberInput)
       for (let i = 0; i < this.answer.length; i++) {
         if (this.answer[i] == numberInput[i]) {
           strikeResult++;
@@ -46,7 +49,7 @@ class App {
       }
       if (strikeResult == 3) {
         Console.print(strikeResult + STRIKE);
-        return this.endOrReset();
+        return await this.endOrReset();
       }
 
       if (strikeResult > 0 && ballResult > 0) {
@@ -61,7 +64,7 @@ class App {
     } catch (error) {
       throw new Error("[ERROR]" + error); //Error를 던지는 것이랑 콘솔의 차이
     }
-    return await this.play()
+    return await this.play();
   }
   validateInput(number) {
     const inputToSet = new Set(number.split("").map(Number));
@@ -78,12 +81,11 @@ class App {
   async endOrReset() {
     const endMessage = await Console.readLineAsync(END_OR_RESET_MESSAGE);
     if (endMessage == 1) {
-      this.answer = this.makeAnswer()
-      this.play();
+      this.answer = this.makeAnswer();
+      await this.play();
     } else {
       Console.print("게임 종료");
     }
   }
 }
-
 export default App;
