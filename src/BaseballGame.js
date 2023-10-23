@@ -8,13 +8,17 @@ class BaseballGame {
 
   async play() {
     this.printStart();
-    this.generateComputer();
-    await this.readNumber();
+    await this.startGame();
   }
 
   printStart() {
     Console.print(MESSAGES.start);
   }
+  async startGame() {
+    this.generateComputer();
+    await this.readNumber();
+  }
+
   generateComputer() {
     this.computerNumber = Computer.generateNumber();
   }
