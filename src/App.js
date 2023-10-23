@@ -93,7 +93,7 @@ class NumberBaseball {
     const validInput = new Set([...input].map(Number).filter((n) => n));
 
     if (input.length !== 3 || validInput.size !== 3) {
-      throw new Error('[ERROR]');
+      throw new Error('[ERROR] 잘못된 입력값입니다.');
     }
   }
 
