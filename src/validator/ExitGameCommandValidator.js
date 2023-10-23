@@ -7,14 +7,12 @@ import CommonValidator from './CommonValidator';
  */
 class ExitGameCommandValidator {
   /**
-   * 유효성 검사를 수행할 게임 종료 명령어
    * @private
    * @type {number}
    */
   #exitGameCommand;
 
   /**
-   * 일반적인 검사를 수행할 Validator
    * @private
    * @type {CommonValidator}
    */
@@ -36,10 +34,10 @@ class ExitGameCommandValidator {
   }
 
   /**
-   * 게임 종료 명령어 검사 유형에 대한 에러 메시지와 유효성 검사 함수를 정의한 객체
    * @static
-   * @type {Object}
-   * @property {Object} availableGameCommand - 게임 종료 명령어가 유효한 값인지 검사하기 위한 객체
+   * @public
+   * @constant
+   * @type {import('../utils/jsDoc.js').ExitGameValidationTypes}
    */
   static VALIDATION_TYPES = Object.freeze({
     availableGameCommand: Object.freeze({
@@ -52,7 +50,7 @@ class ExitGameCommandValidator {
   });
 
   /**
-   * 제공된 게임 종료 명령어에 대해 유효성 검사를 수행하는 메서드
+   * @public
    * @throws {AppError} 유효성을 만족하지 않을 경우 에러 발생
    * @returns {void}
    */

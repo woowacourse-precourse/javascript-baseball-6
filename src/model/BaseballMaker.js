@@ -1,19 +1,14 @@
 import { GAME_TERMS } from '../constants/gameTerms';
 import { pickRandomNumberInRange } from '../utils/random';
 
-/**
- * '야구공 생성'의 역할을 수행
- */
 class BaseballMaker {
   /**
-   * 야구공 내 존재하는 숫자의 최소 값
    * @private
    * @type {number}
    */
   #minNumber;
 
   /**
-   * 야구공 내 존재하는 숫자의 최대 값
    * @private
    * @type {number}
    */
@@ -27,6 +22,7 @@ class BaseballMaker {
   /**
    * BaseballMaker 클래스의 정적 팩토리 메서드
    * @static
+   * @public
    * @returns {BaseballMaker} BaseballMaker의 인스턴스
    */
   static create() {
@@ -34,7 +30,7 @@ class BaseballMaker {
   }
 
   /**
-   * 정해진 범위 내의 숫자들로 야구공을 생성하여 반환하는 메서드
+   * @public
    * @returns {number[]} 야구공
    */
   createBaseball() {

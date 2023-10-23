@@ -3,19 +3,14 @@ import { SYMBOLS } from '../constants/symbols';
 import AppError from '../errors/AppError';
 import CommonValidator from './CommonValidator';
 
-/**
- * '야구공 유효성 검사'의 역할을 수행
- */
 class BaseballValidator {
   /**
-   * 검사할 야구공
    * @private
    * @type {number[]}
    */
   #baseball;
 
   /**
-   * 일반적인 검사를 수행할 Validator
    * @private
    * @type {CommonValidator}
    */
@@ -29,6 +24,7 @@ class BaseballValidator {
   /**
    * BaseballValidator 클래스의 정적 팩토리 메서드
    * @static
+   * @public
    * @param {string} baseball - 검사할 야구공 문자열
    * @returns {BaseballValidator} BaseballValidator의 인스턴스
    */
@@ -37,13 +33,10 @@ class BaseballValidator {
   }
 
   /**
-   * 야구공 검사 유형에 대한 에러 메시지와 유효성 검사 함수를 정의한 객체
    * @static
-   * @type {Object}
-   * @property {Object} availableNumber - 야구공의 숫자 여부를 검사하기 위한 객체
-   * @property {Object} availableNumberRange - 야구공의 게임 규칙에 명시된 숫자 범위를 가지고 있는지 있는지 검사하기 위한 객체
-   * @property {Object} availableNumberDigit - 야구공의 게임 규칙에 명시된 자릿수를 가지고 있는지 검사하기 위한 객체
-   * @property {Object} existDuplicateNumber - 야구공의 중복된 숫자 존재 여부를 검사하기 위한 객체
+   * @public
+   * @constant
+   * @type {import('../utils/jsDoc.js').BaseballValidationTypes}
    */
   static VALIDATION_TYPES = Object.freeze({
     availableNumber: Object.freeze({
@@ -77,7 +70,7 @@ class BaseballValidator {
   });
 
   /**
-   * 제공된 야구공에 대해 유효성 검사를 수행하는 메서드
+   * @public
    * @throws {AppError} 유효성을 만족하지 않을 경우 에러 발생
    * @returns {void}
    */
