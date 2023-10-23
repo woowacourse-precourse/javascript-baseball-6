@@ -15,7 +15,7 @@ class App {
 
     // 종료될 때까지 계속 반복
     while (this.isPlaying) {
-      await Console.readLineAsync('숫자를 입력해주세요 : ');
+      const inputNumber = await Console.readLineAsync('숫자를 입력해주세요 : ');
     }
   }
 }
