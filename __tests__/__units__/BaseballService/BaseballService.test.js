@@ -37,8 +37,7 @@ describe('BaseballService 테스트', () => {
       mockRandoms(random);
 
       const service = new BaseballService();
-      const submittedBalls = SubmittedBalls.of(submit);
-      expect(service.computeScore(submittedBalls)).toEqual(result);
+      expect(service.computeScore(submit)).toEqual(result);
     },
   );
 
@@ -52,10 +51,9 @@ describe('BaseballService 테스트', () => {
       mockRandoms(random);
 
       const service = new BaseballService();
-      const submittedBalls = SubmittedBalls.of(submit);
-      service.computeScore(submittedBalls);
+      service.computeScore(submit);
 
-      expect(service.submittedCorrectly).toBe(result ? submittedBalls : null);
+      expect(service.submittedCorrectly).toEqual(result ? SubmittedBalls.of(submit) : null);
       expect(service.isEnd()).toBe(result);
     },
   );

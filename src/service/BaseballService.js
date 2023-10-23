@@ -1,5 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import { AnswerBalls, TargetBall, TargetBalls } from '../domain';
+import { AnswerBalls, SubmittedBalls, TargetBall, TargetBalls } from '../domain';
 
 export class BaseballService {
   #answer;
@@ -30,17 +30,18 @@ export class BaseballService {
   }
 
   computeScore(submit) {
-    submit.targetBalls.balls.forEach((ball, index) => {
+    const submittedBalls = SubmittedBalls.of(submit);
+    submittedBalls.targetBalls.balls.forEach((ball, index) => {
       if (this.#answer.match(ball, index)) {
-        submit.increaseStrike();
+        submittedBalls.increaseStrike();
         return;
       }
       if (this.#answer.contains(ball)) {
-        submit.increaseBall();
+        submittedBalls.increaseBall();
       }
     });
-    this.#setSubmittedCorrectly(submit);
-    return submit.score;
+    this.#setSubmittedCorrectly(submittedBalls);
+    return submittedBalls.score;
   }
 
   #setSubmittedCorrectly(submit) {
