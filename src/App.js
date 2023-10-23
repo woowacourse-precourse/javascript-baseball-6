@@ -40,17 +40,12 @@ class App {
   }
 
   checkNumberValidity(myNum) {
-    if (!this.isValidFormat(myNum) || !this.isDuplicateNumbers(myNum)) {
+    if (
+      !/^[1-9]{3}$/.test(myNum.join("")) ||
+      !this.computer.length === new Set(myNum).size
+    ) {
       throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
     }
-  }
-
-  isValidFormat(myNum) {
-    return /^[1-9]{3}$/.test(myNum.join(""));
-  }
-
-  isDuplicateNumbers(myNum) {
-    return this.computer.length === new Set(myNum).size;
   }
 
   async compareResult() {
