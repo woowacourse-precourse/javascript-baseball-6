@@ -1,128 +1,51 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 import MSG from "./consts/msg.js";
-import ErrorValidate from "./Error.js";
-import Computer from "./Computer.js";
+import BaseBallGame from "./BaseBallGame.js";
 
-const { GAME, ERROR } = MSG;
-const { GAME_START, GAME_END, GAME_INPUT, GAME_SUCCESS, GAME_SELECT_REPLAY } =
-  GAME;
-const {
-  ERROR_LENGTH_NUMBER,
-  ERROR_REPLAY_NUMBER,
-  ERROR_NONE_NUMBER,
-  ERROR_ZERO_NUMBER,
-  ERROR_DUPLICATE_NUMBER,
-  ERROR_NOT_NUMBER,
-} = ERROR;
+const { GAME } = MSG;
+const { GAME_START } = GAME;
 
 class App {
-  computerNum;
   inputValue;
-  gameResult;
-  NUMBER_LENGTH = 3;
+  computerNum;
 
-  constructor() {}
+  constructor() {
+    this.game = new BaseBallGame();
+  }
 
   async play() {
     Console.print(GAME_START);
-
-    Computer.createRandomNum(this.NUMBER_LENGTH);
-    this.computerNum = Computer.computerNum;
-    console.log(this.computerNum);
-
-    await this.guessNum();
+    this.createRandomNum();
+    await this.gameStart();
   }
 
-  async guessNum() {
+  createRandomNum() {
+    this.computerNum = [];
+    while (this.computerNum.length < 3) {
+      const randomNum = Random.pickNumberInRange(1, 9); // 랜덤 숫자를 돌린다.
+      const isInclude = this.computerNum.includes(randomNum); // 중복 숫자가 있으면 true, 없으면 false 를 반환한다.
+
+      if (!isInclude) {
+        this.computerNum.push(randomNum);
+      }
+    }
+  }
+
+  async gameStart() {
     //숫자 맞히기 시작 함수
-    await this.getInputNum();
-    this.calculateStrikeAndBall();
-    await this.printStrikeAndBall();
-  }
 
-  async getInputNum() {
-    //숫자를 입력받는 함수
-    this.inputValue = "";
-    this.inputValue = await Console.readLineAsync(GAME_INPUT);
-    this.checkInputValidate();
-  }
+    await this.game.getInputNum();
+    this.game.calculateStrikeAndBall(this.computerNum);
+    const strike = await this.game.printStrikeAndBall();
 
-  async printStrikeAndBall() {
-    //결과를 출력하는 함수
-    const { strike, ball } = this.gameResult;
-
-    if (ball === 0 && strike === 0) {
-      Console.print("낫싱");
-    } else {
-      Console.print(
-        `${ball > 0 ? ball + "볼 " : ""}${
-          strike > 0 ? strike + "스트라이크" : ""
-        }`
-      );
-    }
-
-    if (strike === 3) {
-      await this.selectPalyAgain();
+    if (strike !== 3) {
+      await this.gameStart();
       return;
     }
 
-    await this.guessNum();
-  }
-
-  async selectPalyAgain() {
-    // 1 과 2 를 입력받아 게임을 시작할지 종료할지 검증하는 함수
-    Console.print(GAME_SUCCESS);
-    const inputValue = await Console.readLineAsync(GAME_SELECT_REPLAY);
-
-    if (Number(inputValue) === 1) {
-      await this.play();
-      return;
-    }
-    if (Number(inputValue) === 2) {
-      Console.print(GAME_END);
-      return;
-    }
-    throw new Error(ERROR_REPLAY_NUMBER);
-  }
-
-  calculateStrikeAndBall() {
-    //스트라이크인지 볼인지 계산하는 함수
-    const inputNumArr = this.inputValue.split("").map(Number);
-    const score = { strike: 0, ball: 0 };
-
-    inputNumArr.forEach((num, i) => {
-      if (num === this.computerNum[i]) {
-        score.strike++;
-        return;
-      }
-      if (this.computerNum.includes(num)) {
-        score.ball++;
-      }
-    });
-
-    this.gameResult = score;
-  }
-
-  checkInputValidate() {
-    if (!/^\d{3}$/.test(this.inputValue)) {
-      throw new Error(ERROR_LENGTH_NUMBER);
-    }
-
-    if (this.inputValue === "") {
-      throw new Error(ERROR_NONE_NUMBER);
-    }
-
-    if (ErrorValidate.isHasZero(this.inputValue)) {
-      throw new Error(ERROR_ZERO_NUMBER);
-    }
-
-    if (ErrorValidate.isDuplicate(this.inputValue)) {
-      throw new Error(ERROR_DUPLICATE_NUMBER);
-    }
-
-    if (ErrorValidate.isNotInteger(Number(this.inputValue))) {
-      throw new Error(ERROR_NOT_NUMBER);
-    }
+    const isPlay = await this.game.selectPalyAgain();
+    if (isPlay) this.play();
+    return;
   }
 }
 
