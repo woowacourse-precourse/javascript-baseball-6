@@ -17,8 +17,13 @@ class App {
   }
 
   computerNumberSet() {
-    const randomNumber = Random.pickUniqueNumbersInRange(1, 9, 3);
-    this.computerNumber = randomNumber;
+    this.computerNumber = [];
+    while (this.computerNumber.length < 3) {
+      const number = Random.pickNumberInRange(1, 9);
+      if (!this.computerNumber.includes(number)) {
+        this.computerNumber.push(number);
+      }
+    }
   }
 
   async userNumberSet() {
@@ -30,6 +35,7 @@ class App {
         throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
       }
     } catch (error) {
+      Console.print(error.message);
       throw error;
     }
     for (let i = 0; i < 3; i++) {
@@ -61,17 +67,14 @@ class App {
     }
   }
 
-  end() {
-    if (this.STRIKE == 3) {
-      Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
-    }
-  }
-
   async restart() {
-    if (this.STRIKE == 3) {
-      const mode = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+    if (this.STRIKE === 3) {
+      Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
+      const mode = await Console.readLineAsync(
+        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+      );
       this.GAMEMODE = +mode;
-      if(this.GAMEMODE === 1) {
+      if (this.GAMEMODE === 1) {
         this.computerNumberSet();
       }
     }
@@ -80,15 +83,9 @@ class App {
     this.startText();
     this.computerNumberSet();
     while (this.GAMEMODE === 1) {
-      try {
-        await this.userNumberSet();
-      } catch (error) {
-        Console.print(error.message);
-        return;
-      }
+      await this.userNumberSet();
       this.numberCompare();
       this.result();
-      this.end();
       await this.restart();
     }
   }
