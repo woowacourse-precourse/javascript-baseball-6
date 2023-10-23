@@ -65,6 +65,9 @@ class App {
       if (!Number.isInteger(Number(number))) {
         throw new Error(GAME_TEXT.ERROR(GAME_TEXT.INVALID_NUMBER));
       }
+      if (number.includes("0")) {
+        throw new Error(GAME_TEXT.ERROR(GAME_TEXT.CONTAIN_ZERO_NUMBER));
+      }
       if (Number(number) < 0) {
         throw new Error(GAME_TEXT.ERROR(GAME_TEXT.IS_NEGATIVE_NUMBER));
       }

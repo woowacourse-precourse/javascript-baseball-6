@@ -8,6 +8,7 @@ export const GAME_TEXT = Object.freeze({
   INVALID_NUMBER: "숫자가 잘못된 형식입니다.",
   DUPLICATE_NUMBER: "중복된 수가 있습니다.",
   IS_NEGATIVE_NUMBER: "음수는 입력할 수 없습니다.",
+  CONTAIN_ZERO_NUMBER: "0은 포함될 수 없습니다.",
   BALL: "볼",
   STRIKE: "스트라이크",
   NOTHING: "낫싱",
