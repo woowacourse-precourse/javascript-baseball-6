@@ -40,6 +40,18 @@ async function handleInput() {
       }
     }
   }
+
+  try {
+    const INPUT = await MissionUtils.Console.readLineAsync(
+      "숫자를 입력해주세요 : "
+    );
+    const NUMBER_INPUT = await checkInputIsNumber(INPUT);
+    const VALID_INPUT = await checkInputHasDuplicate(NUMBER_INPUT);
+    return VALID_INPUT;
+  } catch (error) {
+    MissionUtils.Console.print(error);
+    process.exit();
+  }
 }
 
 export default handleInput;
