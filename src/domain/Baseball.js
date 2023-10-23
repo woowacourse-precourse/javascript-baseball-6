@@ -28,7 +28,7 @@ class Baseball {
     return count - strikeCount;
   }
 
-  getReset() {
+  getResetNumber() {
     this.#answer = RandomNumberGenerator.generateRandomNumber(
       StaticNumber.BASEBALL_NUMBER_LENGTH
     );
