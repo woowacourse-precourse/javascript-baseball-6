@@ -1,4 +1,4 @@
-import { ANSWER, ERROR, NUMBER_LENGTH } from './Constants.js';
+import { ANSWER, ERROR, NUMBER_LENGTH } from './Constants';
 
 export default class Validator {
   static validateUserInput(answer) {

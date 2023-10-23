@@ -1,9 +1,9 @@
-import { ANSWER, CORRECT_NUMBER, NO_MATCH_NUMBER } from '../utils/Constants.js';
-import Validator from '../utils/Validator.js';
-import { makeTemplate } from '../utils/makeTemplate.js';
-import ComputerNumber from './ComputerNumber.js';
-import InputView from './InputView.js';
-import OutputView from './OutputView.js';
+import { ANSWER, CORRECT_NUMBER, NO_MATCH_NUMBER } from '../utils/Constants';
+import Validator from '../utils/Validator';
+import makeTemplate from '../utils/makeTemplate';
+import ComputerNumber from './ComputerNumber';
+import InputView from './InputView';
+import OutputView from './OutputView';
 
 class App {
   #computerNumber;
@@ -33,7 +33,7 @@ class App {
   async #getUserInput() {
     const answer = await InputView.readUserInput();
     const input = Validator.validateUserInput(answer);
-    return [...input].map((e) => Number(e));
+    return Array.from(input, (e) => Number(e));
   }
 
   #matchComputerNumber(userInput) {
