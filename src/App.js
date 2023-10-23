@@ -2,7 +2,6 @@ import { Console } from "@woowacourse/mission-utils";
 import { Random } from "@woowacourse/mission-utils";
 
 const computers = [];
-const USER = [];
 let ball = 0;
 let strike = 0;
 
