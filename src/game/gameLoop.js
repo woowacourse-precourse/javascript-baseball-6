@@ -5,19 +5,18 @@ import generateRandomNumber from "./generateRandomNumber.js";
 import gameStart from "./gameLogic.js";
 
 const gameLoop = async () => {
-  while (true) {
-    try {
+  try {
+    while (true) {
       const computerNumber = await generateRandomNumber();
       await gameStart(computerNumber);
       const input = await askStartOrQuit();
-
       if (input === "2") {
         exitGame();
         break;
       }
-    } catch (error) {
-      throw new Error("[ERROR]");
     }
+  } catch (error) {
+    throw new Error("[ERROR]");
   }
 };
 
