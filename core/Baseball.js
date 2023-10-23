@@ -11,9 +11,7 @@ class Baseball {
     if (strikeResult === 0 && ballResult === 0) return '낫싱';
 
     if (strikeResult !== 0 && ballResult !== 0)
-      return `${Baseball.isBall(strikeResult)} ${Baseball.isStrike(
-        ballResult
-      )}`;
+      return Baseball.isBallAndStrike(strikeResult, ballResult);
 
     return strikeResult > ballResult
       ? `${Baseball.isStrike(strikeResult)}`
