@@ -1,20 +1,20 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 
 class App {
-  play() {
+  async play() {
     Console.print("숫자 야구 게임을 시작합니다.");
     const randomNum = this.createRandom();
     Console.print(randomNum);
-    this.inputNum(randomNum);
+    await this.inputNum(randomNum);
   }
 
-  confirmInput(userInput, randomNum) {
+  async confirmInput(userInput, randomNum) {
     if (isNaN(userInput)) {
-      throw "숫자를 입력하세요";
+      throw new Error("[ERROR] 숫자를 입력하세요");
     } else if (userInput.toString().length !== 3) {
-      throw "3자리 숫자를 입력하세요";
+      throw new Error(" [ERROR] 3자리 숫자를 입력하세요");
     } else if (userInput.toString().includes(0)) {
-      throw "0이 아닌 숫자를 입력하세요";
+      throw new Error("[ERROR] 0이 아닌 숫자를 입력하세요");
     } else {
       const changeInput = (arg) => Number(arg);
       const compareInput = Array.from(String(userInput), changeInput); //Number type input을 string으로 바꿔서 배열로 전환하고 Number로 재변경
@@ -72,30 +72,30 @@ class App {
     Console.print("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
     const isRestart = await Console.readLineAsync("");
 
-    try {
-      if (Number(isRestart) == 1) {
-        const randomNum = this.createRandom();
-        Console.print(randomNum);
-        this.inputNum(randomNum);
-      } else if (Number(isRestart) == 2) {
-        return 0;
-      } else {
-        this.gameRestart();
-      }
-    } catch (err) {
-      Console.print(err);
+    //try {
+    if (Number(isRestart) == 1) {
+      const randomNum = this.createRandom();
+      Console.print(randomNum);
+      this.inputNum(randomNum);
+    } else if (Number(isRestart) == 2) {
+      return 0;
+    } else {
+      this.gameRestart();
     }
+    //} catch (err) {
+    //Console.print(err);
+    //}
   }
 
   async inputNum(randomNum) {
     //사용자로부터 입력 받기
 
-    try {
-      const input = await Console.readLineAsync("숫자를 입력해주세요 : ");
-      this.confirmInput(Number(input), randomNum);
-    } catch (err) {
-      Console.print(err);
-    }
+    //try {
+    const input = await Console.readLineAsync("숫자를 입력해주세요 : ");
+    await this.confirmInput(Number(input), randomNum);
+    //} catch (err) {
+    //await Console.print(err);
+    //
   }
 
   createRandom() {
