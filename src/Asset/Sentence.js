@@ -6,9 +6,12 @@ export const GUIDE_MESSAGE = {
 };
 
 export const ERROR = {
-  INPUT_ZERO_ERROR: "입력 숫자는 0을 포함하면 안된다.",
-  INPUT_TYPE_ERROR: "숫자가 아닌 다른 타입을 입력받지 않는다.",
-  INPUT_SAMENUM_ERROR: "같은 수를 포함하지 않는다.",
-  INPUT_RESTARTNUM_ERROR: "게임 재 시작 시 1, 2가 아닌 다른 수 입력 불가",
-  INPUT_NUMSIZE_ERROR: "3자리로만 입력 받아야 한다.",
+  INPUT_ZERO_ERROR: "[ERROR] 입력 숫자는 0을 포함하면 안된다.",
+  INPUT_TYPE_ERROR: "[ERROR] 숫자가 아닌 다른 타입을 입력받지 않는다.",
+  INPUT_SAMENUM_ERROR: "[ERROR] 같은 수를 포함하지 않는다.",
+  INPUT_NUMSIZE_ERROR: "[ERROR] 3자리로만 입력 받아야 한다.",
+
+  INPUT_RESTARTNUM_ERROR:
+    "[ERROR] 게임 재 시작 시 1, 2가 아닌 다른 수 입력 불가",
+  INPUT_RESTARTNUM_LEN_ERROR: "[ERROR] 게임 재 시작 시 1자리의 수만 입력 가능",
 };

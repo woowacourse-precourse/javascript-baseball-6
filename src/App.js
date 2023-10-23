@@ -1,9 +1,15 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
+import BaseballController from "./Controller/BaseballController";
 
 class App {
-  async play() {}
+  #BASEBALL_GAME = new BaseballController();
+
+  get Game() {
+    return this.#BASEBALL_GAME;
+  }
+
+  async play() {
+    await this.Game.startGame();
+  }
 }
-
-
 
 export default App;
