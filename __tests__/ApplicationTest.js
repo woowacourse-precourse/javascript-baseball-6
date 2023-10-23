@@ -119,4 +119,60 @@ describe('숫자 야구 게임', () => {
 
     await expect(app.play()).rejects.toThrow('[ERROR]');
   });
+
+  test('예외 테스트2 - 문자열이 숫자만으로 이루어지지 않은 경우', async () => {
+    // given
+    const randoms = [1, 3, 5];
+    const answers = ['12a'];
+
+    mockRandoms(randoms);
+    mockQuestions(answers);
+
+    // when & then
+    const app = new App();
+
+    await expect(app.play()).rejects.toThrow('[ERROR]');
+  });
+
+  test('예외 테스트3 - 문자열에 0이 포함된 경우', async () => {
+    // given
+    const randoms = [1, 3, 5];
+    const answers = ['120'];
+
+    mockRandoms(randoms);
+    mockQuestions(answers);
+
+    // when & then
+    const app = new App();
+
+    await expect(app.play()).rejects.toThrow('[ERROR]');
+  });
+
+  test('예외 테스트3 - 문자열에 중복된 숫자가 포함된 경우', async () => {
+    // given
+    const randoms = [1, 3, 5];
+    const answers = ['121'];
+
+    mockRandoms(randoms);
+    mockQuestions(answers);
+
+    // when & then
+    const app = new App();
+
+    await expect(app.play()).rejects.toThrow('[ERROR]');
+  });
+
+  test('예외 테스트3 - 종료시 1 또는 2를 입력하지 않은 경우', async () => {
+    // given
+    const randoms = [1, 3, 5];
+    const answers = ['135', '8'];
+
+    mockRandoms(randoms);
+    mockQuestions(answers);
+
+    // when & then
+    const app = new App();
+
+    await expect(app.play()).rejects.toThrow('[ERROR]');
+  });
 });
