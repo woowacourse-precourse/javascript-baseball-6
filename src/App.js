@@ -11,10 +11,12 @@ const MESSAGE = {
 
 const ERROR_MESSAGE = {
   LENGTH: '[ERROR] 세 자리 숫자만 입력해야합니다.',
-  INT: '[ERROR] 정수만 입력해야합니다.',
+  INT: '[ERROR] 1부터 9사이의 숫자만 입력해야합니다.',
   NEGATIVE: '[ERROR] 양수만 입력해야합니다.',
   RESTART: '[ERROR] 숫자가 잘못된 형식입니다.',
 }
+
+const REGEX = /^[1-9]+$/;
 
 class App {
   constructor(){
@@ -59,7 +61,7 @@ class App {
     const { userStringInput } = this;
 
     if(userStringInput.length !== 3) throw new Error(ERROR_MESSAGE.LENGTH);
-    if(!Number.isInteger(+userStringInput)) throw new Error(ERROR_MESSAGE.INT);
+    if(!REGEX.test(userStringInput)) throw new Error(ERROR_MESSAGE.INT);
     if(Math.sign(userStringInput) !== 1) throw new Error(ERROR_MESSAGE.NEGATIVE);
   }
 
