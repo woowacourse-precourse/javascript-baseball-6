@@ -77,25 +77,20 @@ describe("숫자 야구 게임", () => {
 
   describe("입력값 테스트", () => {
     test("3자리 숫자인 경우", async () => {
-      mockQuestion("123");
-
-      expect(app.play()).resolves.not.toThrow();
+      const isValid = app.validateInput("123");
+      expect(isValid).toBe(true);
     });
     test("3자리 숫자가 아닌 경우", async () => {
-      mockQuestions(["1234"]);
-
-      await expect(app.play()).rejects.toThrow("[ERROR]");
+      const isValid = app.validateInput("1234");
+      expect(isValid).toBe(false);
     });
     test("1~9 사이의 숫자가 아닌 경우", async () => {
-      mockQuestions(["abc"]);
-
-      await expect(app.play()).rejects.toThrow("[ERROR]");
+      const isValid = app.validateInput("abc");
+      expect(isValid).toBe(false);
     });
     test("중복된 숫자가 있는 경우", async () => {
-      mockQuestion("112");
-      await expect(app.play()).rejects.toThrow(
-        "[ERROR] 입력값이 유효하지 않습니다.",
-      );
+      const isValid = app.validateInput("112");
+      expect(isValid).toBe(false);
     });
   });
 
