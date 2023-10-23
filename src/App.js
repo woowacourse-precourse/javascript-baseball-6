@@ -38,8 +38,16 @@ class App {
     return Array.from(input).map((el) => Number(el));
   };
 
+  checkRestartOrEndValidation = (input) => {
+    const validRegex = /^[12]$/;
+    return validRegex.test(input) ? true : false;
+  };
+
   getRestartOrEndInput = async () => {
     const input = await Console.readLineAsync();
+    if (!this.checkRestartOrEndValidation(input)) {
+      throw new Error("[ERROR] 입력이 잘못된 형식입니다.");
+    }
     return input;
   };
 
