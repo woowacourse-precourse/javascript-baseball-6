@@ -15,6 +15,10 @@ const BaseBallGame = {
   getBallAndStrikeCount(targetArray, number) {
     const count = { ball: 0, strike: 0 };
 
+    if (!Array.isArray(targetArray)) {
+      throw new Error('targetArray는 [1, 2, 3]과 같은 형태여야 합니다.');
+    }
+
     const numberArray = [...String(number)].map(Number);
     numberArray.forEach((num, index) => {
       if (targetArray.includes(num)) {
