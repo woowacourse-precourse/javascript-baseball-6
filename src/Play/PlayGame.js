@@ -5,26 +5,26 @@ import isValidInput from "./IsValidInput.js";
 //게임 시작 - 랜덤 숫자 생성, 숫자를 입력받기 위한 함수 호출
 const start = async() => {
     MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
-    let answerNumber = await randomNum();
+    let answerNumber = randomNum();
     let isSame = false;
     while(!isSame){
         let inputNumber = await inputNum();
-        isSame = await checkNum(inputNumber, answerNumber);
+        isSame = checkNum(inputNumber, answerNumber);
     }
-    await replay();
+    replay();
 }
 
 //사용자에게 숫자 입력받기
 const inputNum = async() => {
     let inputNumber = await MissionUtils.Console.readLineAsync("숫자를 입력해 주세요 : ");
-    if (!await isValidInput(inputNumber)) {
+    if (!isValidInput(inputNumber)) {
         throw new Error("[ERROR] 올바른 숫자를 입력해주세요.");
     }
     return inputNumber;
 }
 
 //힌트 출력하기
-const checkNum =  async(inputNumber, answerNumber) => {
+const checkNum = (inputNumber, answerNumber) => {
     let userNumber = inputNumber.toString().split('').map(Number);
 
     let strike = 0;
@@ -69,9 +69,9 @@ const checkNum =  async(inputNumber, answerNumber) => {
 const replay = async() => {
     const replay = await MissionUtils.Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
     if (replay === '1') {
-        await start();
+        start();
     } else if (replay === '2') {
-        //end
+        //gmae end
     } else {
         throw new Error("[ERROR] 올바른 숫자를 입력해주세요.");
     }

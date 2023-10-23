@@ -1,4 +1,4 @@
-const isValidInput = async(inputNumber) => {
+const isValidInput = (inputNumber) => {
     let digits = inputNumber.toString().split('');
 
     //1. null일경우
