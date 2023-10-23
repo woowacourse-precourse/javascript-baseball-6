@@ -4,6 +4,8 @@ class App {
     const computer = this.getRandomComputerNumber();
     const user = await this.getUserNumber();
     console.log(computer, user);
+    const result = this.calculator(computer, user);
+    console.log(result);
   }
 
   getRandomComputerNumber() {
@@ -33,6 +35,15 @@ class App {
     if (dupCheck.length < 3)
       throw new Error('[ERROR] 각 자리 수는 모두 다른 수여야 합니다.');
     return dupCheck;
+  }
+
+  calculator(computer, user) {
+    const result = { strike: 0, ball: 0 };
+    computer.forEach((v, i) => {
+      if (v === user[i]) return result.strike++;
+      if (v !== user[i] && user.includes(v)) return result.ball++;
+    });
+    return result;
   }
 }
 
