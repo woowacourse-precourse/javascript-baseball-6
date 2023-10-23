@@ -1,6 +1,3 @@
-const readline = require('readline');
-const { MissionUtils } = require('@woowacourse/mission-utils');
-
 class App {
   constructor() {
     this.secretNumber = this.generateRandomNumber();
@@ -10,7 +7,7 @@ class App {
   generateRandomNumber() {
     const computer = [];
     while (computer.length < 3) {
-      const number = MissionUtils.Random.pickNumberInRange(1, 9);
+      const number = this.getRandomNumber(1, 9);
       if (!computer.includes(number)) {
         computer.push(number);
       }
@@ -18,15 +15,45 @@ class App {
     return computer.join('');
   }
 
+  getRandomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  async play() {
+    console.log("숫자 야구 게임을 시작합니다.");
+
+    while (true) {
+      const input = await this.getInput();
+      if (input === '2') {
+        console.log("게임을 종료합니다.");
+        break;
+      }
+
+      if (this.isValidInput(input)) {
+        const result = this.checkGuess(input);
+        console.log(result);
+
+        if (result === '3스트라이크') {
+          console.log("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+          break;
+        }
+      } else {
+        console.log("[ERROR] 숫자가 잘못된 형식입니다.");
+      }
+    }
+  }
+
   async getInput() {
+    const readline = require('readline');
+    const rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout
+    });
+
     return new Promise((resolve) => {
-      const rl = readline.createInterface({
-        input: process.stdin,
-        output: process.stdout,
-      });
-      rl.question('숫자를 입력해주세요 : ', (answer) => {
-        resolve(answer);
+      rl.question("숫자를 입력해주세요 : ", (answer) => {
         rl.close();
+        resolve(answer);
       });
     });
   }
@@ -59,32 +86,8 @@ class App {
       return '낫싱';
     }
   }
-
-  async play() {
-    console.log('숫자 야구 게임을 시작합니다.');
-
-    while (true) {
-      const input = await this.getInput();
-      if (input === '2') {
-        console.log('게임을 종료합니다.');
-        break;
-      }
-
-      if (this.isValidInput(input)) {
-        const result = this.checkGuess(input);
-        console.log(result);
-
-        if (result === '3스트라이크') {
-          console.log('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
-          break;
-        }
-      } else {
-        console.log('[ERROR] 숫자가 잘못된 형식입니다.');
-      }
-    }
-  }
 }
 
 const app = new App();
 app.play();
-module.exports = App;
+
