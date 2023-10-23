@@ -11,3 +11,5 @@ class App {
 }
 
 export default App;
+
+new App().play();

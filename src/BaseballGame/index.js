@@ -1,7 +1,6 @@
-import Input from './View/Input.js';
-import Output from './View/Output.js';
 import Computer from './Computer/index.js';
 import Validator from './Validator/index.js';
+import { Input, Output } from './View/index.js';
 import { COMMAND, NUMS } from './constants/index.js';
 
 class BaseballGame {
