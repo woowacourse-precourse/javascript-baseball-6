@@ -3,6 +3,8 @@ class Baseball {
     const numInput = Baseball.changeNumToArr(input);
     const strikeResult = Baseball.isStrikeCount(random, numInput);
     const ballResult = Baseball.isBallCount(random, numInput);
+
+    return Baseball.getGameResult(strikeResult, ballResult);
   }
 
   static getGameResult(strikeResult, ballResult) {
