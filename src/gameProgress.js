@@ -1,19 +1,19 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import {
   getRandomNumberArr,
-  getInputNumberArr,
+  setInputValueArr,
   checkArr,
   printResult,
+  getInputValue,
 } from "./utils.js";
 
 const gameProgress = async () => {
   let randomArr = getRandomNumberArr();
 
   while (1) {
-    let inputNum = await MissionUtils.Console.readLineAsync(
-      "숫자를 입력해주세요 : "
-    );
-    let inputArr = getInputNumberArr(inputNum);
+    let inputValue = await getInputValue("숫자를 입력해주세요 : ");
+    let inputArr = setInputValueArr(inputValue);
+
     let { strike, ball } = checkArr(randomArr, inputArr);
 
     printResult(ball, strike);

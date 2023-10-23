@@ -1,8 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
-export const printStartSentence = () => {
-  MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
-};
+const NUM_ARR = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
 export const getRandomNumberArr = () => {
   let randomNumberArr = [];
@@ -15,18 +13,24 @@ export const getRandomNumberArr = () => {
   return randomNumberArr;
 };
 
-export const getInputNumberArr = (number) => {
-  let inputNumberArr = [];
-  if (number !== undefined) {
-    if (number.length !== 3) {
-      throw new Error("[ERROR] 세개의 숫자를 입력해주세요.");
-    }
-    for (let i = 0; i < number.length; i++) {
-      inputNumberArr.push(Number(number.substr(i, 1)));
-    }
+export const getInputValue = async (requestStatement) => {
+  let inputValue = await MissionUtils.Console.readLineAsync(requestStatement);
+
+  if (inputValue.length !== 3) {
+    throw new Error("[ERROR] 세개의 숫자를 입력해주세요.");
   }
 
-  return inputNumberArr;
+  return inputValue;
+};
+
+export const setInputValueArr = (value) => {
+  let inputValueArr = [];
+  if (value !== undefined) {
+    for (let i = 0; i < value.length; i++) {
+      inputValueArr.push(Number(value.substr(i, 1)));
+    }
+  }
+  return inputValueArr;
 };
 
 export const checkArr = (randomArr, inputArr) => {
