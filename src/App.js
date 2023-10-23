@@ -7,7 +7,7 @@ class App {
     MissionUtils.Console.print(GAME_TEXT.START);
 
     while (true) {
-      const player = await this.getUserInput();
+      const player = await this.getNumber();
       const { strike, ball } = this.getCountArray(computer.join(""), player);
       let result = "";
 
@@ -55,7 +55,7 @@ class App {
     return computer;
   }
 
-  async getUserInput() {
+  async getNumber() {
     try {
       const number = await MissionUtils.Console.readLineAsync(GAME_TEXT.INPUT);
 
