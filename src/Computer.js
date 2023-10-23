@@ -2,9 +2,9 @@ import { CONSTANT, RESULT } from './Constant.js';
 import { Random } from '@woowacourse/mission-utils';
 
 class Computer {
-  #answer;
+  #randomNumber;
   constructor() {
-    this.#answer = this.#setRandomNumbers();
+    this.#randomNumber = this.#setRandomNumbers();
   }
 
   #setRandomNumbers() {
@@ -26,14 +26,14 @@ class Computer {
 
   #countStrike(userNumbers) {
     return userNumbers.reduce((acc, cur, i) => {
-      if (cur === this.#answer[i]) return acc + 1;
+      if (cur === this.#randomNumber[i]) return acc + 1;
       return acc;
     }, 0);
   }
 
   #countBall(userNumbers) {
     return userNumbers.reduce((acc, cur, i) => {
-      const index = this.#answer.indexOf(cur);
+      const index = this.#randomNumber.indexOf(cur);
       if (index !== i && index >= 0) {
         return acc + 1;
       }
