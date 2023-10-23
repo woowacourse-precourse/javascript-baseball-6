@@ -17,7 +17,7 @@ class Computer {
     }
   }
 
-  getComputerBaseballNum() {
+  generateComputerBaseballNum() {
     return this.#numbers.join('');
   }
 }
