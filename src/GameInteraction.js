@@ -1,9 +1,10 @@
 import { Console } from "@woowacourse/mission-utils";
+import MESSAGES from "./Messages.js";
 
 class GameInteraction {
     static async inputUserNumbers() {
         try {
-            const userNumbers = await Console.readLineAsync("숫자를 입력해주세요 : ");
+            const userNumbers = await Console.readLineAsync(MESSAGES.INPUT_NUM);
             this.validateUserNumbers(userNumbers);
             return userNumbers;
         } catch (error) {
@@ -15,20 +16,20 @@ class GameInteraction {
         const userNumbersArray = Array.from(input).map(Number);
 
         if (userNumbersArray.some(isNaN)) {
-            throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+            throw new Error(MESSAGES.ERR_INVALID_NUM);
         }
 
         if (userNumbersArray.length !== 3) {
-            throw new Error("[ERROR] 3개의 숫자를 입력해야 합니다.");
+            throw new Error(MESSAGES.ERR_NOT_THREE_NUM);
         }
 
         if (userNumbersArray.some(number => number < 1 || number > 9)) {
-            throw new Error("[ERROR] 1~9 사이의 숫자를 입력해야 합니다.");
+            throw new Error(MESSAGES.ERR_OUT_OF_RANGE_NUM);
         }
 
         const uniqueNumbers = new Set(userNumbersArray);
         if (uniqueNumbers.size !== 3) {
-            throw new Error("[ERROR] 중복되지 않은 3개의 숫자를 입력해야 합니다.");
+            throw new Error(MESSAGES.ERR_DUPLICATE_NUM);
         }
 
         return null;
@@ -39,19 +40,19 @@ class GameInteraction {
         const { ball, strike } = result;
 
         if (ball === 0 && strike === 0) {
-            Console.print("낫싱");
+            Console.print(MESSAGES.MSG_NOTHING);
         } else if (strike > 0 && ball === 0) {
-            Console.print(`${strike}스트라이크`);
+            Console.print(strike + MESSAGES.MSG_STRIKE);
         } else if (strike === 0) {
-            Console.print(`${ball}볼`);
+            Console.print(ball + MESSAGES.MSG_BALL);
         } else {
-            Console.print(`${ball}볼 ${strike}스트라이크`);
+            Console.print(ball + MESSAGES.MSG_BALL + " " + strike + MESSAGES.MSG_STRIKE);
         }
     }
 
     static async askToRestartGame() {
         try {
-            const answer = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n");
+            const answer = await Console.readLineAsync(MESSAGES.INPUT_MENU + "\n");
             this.validateAnswer(answer);
             return answer;
         } catch (error) {
@@ -61,7 +62,7 @@ class GameInteraction {
 
     static validateAnswer(answer) {
         if (answer !== "1" && answer !== "2") {
-            throw new Error("[ERROR] 1 또는 2를 입력해야 합니다.");
+            throw new Error(MESSAGES.ERR_INVALID_MENU);
         }
         return null;
     }
