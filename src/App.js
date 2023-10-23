@@ -77,14 +77,11 @@ class App {
     if (result.strikes === 0 && result.balls === 0) {
       message = "낫싱";
     } else {
+      if (result.balls > 0) {
+        message += `${result.balls}볼 `;
+      }
       if (result.strikes > 0) {
         message += `${result.strikes}스트라이크`;
-      }
-      if (result.balls > 0) {
-        if (message !== "") {
-          message += " ";
-        }
-        message += `${result.balls}볼`;
       }
     }
     MissionUtils.Console.print(message);
