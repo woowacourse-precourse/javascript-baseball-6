@@ -1,4 +1,4 @@
-import GameNumberGenerator from '../../utils/GameNumberGenerator.js';
+import GameNumberGenerator from '../../src/model/GameNumberGenerator.js';
 import Validators from '../../utils/validator/index.js';
 
 describe('GameNumberGenerator', () => {
