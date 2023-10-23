@@ -35,12 +35,12 @@ const compareTwoNums = async (random, user) => {
   if (!strike && !ball) {
     MissionUtils.Console.print("낫싱");
     await getUserNum(random);
-  } else if (strike === 3) {
-    MissionUtils.Console.print(`${strike}스트라이크`);
-    await threeStrike();
   } else if (strike && !ball) {
     MissionUtils.Console.print(`${strike}스트라이크`);
-    await getUserNum(random);
+    if (strike !== 3) {
+      await getUserNum(random);
+    }
+    await threeStrike();
   } else if (!strike && ball) {
     MissionUtils.Console.print(`${ball}볼`);
     await getUserNum(random);
@@ -56,9 +56,9 @@ const getUserNum = async (generateNum) => {
   );
 
   const userNumArray = userNum.split("").map(Number);
-  
+
   if (!checkValidation(userNumArray)) {
-    throw new Error ("[ERROR]");
+    throw new Error("[ERROR]");
   }
   await compareTwoNums(generateNum, userNumArray);
 };
@@ -71,7 +71,7 @@ const createNum = () => {
       computer.push(number);
     }
   }
-  return computer
+  return computer;
 };
 
 const gameinit = async () => {
