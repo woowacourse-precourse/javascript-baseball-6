@@ -67,6 +67,11 @@ class App {
     Console.print(result || '낫싱');
     this.init();
   }
+
+  init() {
+    this.ball = 0;
+    this.strike = 0;
+  }
 }
 
 const app = new App();
