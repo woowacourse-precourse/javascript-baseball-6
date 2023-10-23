@@ -54,6 +54,26 @@ class App {
         return;
       }
     });
+    this.resultBaseBall(ball, strike);
+  }
+
+  resultBaseBall(ball, strike) {
+    if (strike === 3) {
+      Console.print("3스트라이크");
+      Console.print(MESSAGES.GAME_PROCESS.END);
+      this.resetBaseBall();
+    } else {
+      if (strike === 0 && ball === 0) {
+        Console.print("낫싱");
+      } else if (strike === 0 && ball !== 0) {
+        Console.print(`${ball}볼`);
+      } else if (strike !== 0 && ball === 0) {
+        Console.print(`${strike}스트라이크`);
+      } else {
+        Console.print(`${ball}볼 ${strike}스트라이크`);
+      }
+      this.getUserAnswers();
+    }
   }
 }
 
