@@ -15,8 +15,6 @@ export async function pickRandomNumber() {
 }
 
 export function judgeNumber(computerNum, playerNum) {
-  // 입력한 숫자에 대한 결과 출력
-
   let strike = 0;
   let ball = 0;
   for (var i = 0; i < 3; i++) {
