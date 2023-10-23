@@ -10,7 +10,6 @@ class Validator {
     if (isNaN(input)) throw new Error("[ERROR] 숫자만 입력 가능합니다.");
 
     const uniqueDigits = [...new Set(input.split(""))];
-
     if (uniqueDigits.length !== input.length)
       throw new Error("[ERROR] 세 개의 서로 다른 숫자를 입력해야 합니다.");
 
