@@ -1,21 +1,22 @@
-import * as MissionUtils from "@woowacourse/mission-utils";
+import { MissionUtils } from "@woowacourse/mission-utils";
 
 export default class App {
-  async play() {
-    try {
-      MissionUtils.Console.print("게임 시작");
-      // this.getComputerInput();
-      // await this.getUserInput();
-      // this.checkAnswer();
-      // MissionUtils.Console.print(result);
-      const computerInput = this.getComputerInput();
-      const playerInput = await this.getUserInput();
-      const playerInputArray = [...playerInput].map((el) => Number(el));
-      this.checkAnswer(playerInputArray, computerInput);
-    } catch (err) {
-      MissionUtils.Console.print(err);
-    }
+  constructor() {
+    this.strikeCount = 0;
+    this.ballCount = 0;
+    this.strikesCountArray = [];
+    this.ballsCountArray = [];
   }
+
+  async play() {
+    MissionUtils.Console.print("게임 시작");
+
+    const computerInput = this.getComputerInput();
+    const playerInput = await this.getPlayerInput();
+
+    this.checkInput(playerInput, computerInput);
+  }
+
   // 컴퓨터 랜덤 생성
   getComputerInput() {
     const computer = [];
@@ -29,57 +30,98 @@ export default class App {
     // MissionUtils.Console.print(computer);
   }
 
-  async getUserInput() {
-    const userInput = await MissionUtils.Console.readLineAsync(
-      "1~9까지의 수로 이루어진 3자리의 중복없는 숫자를 입력해 주세요."
-    );
-
-    if (userInput.length !== 3) {
-      throw new Error(
+  // player 랜덤 입력 숫자
+  async getPlayerInput() {
+    while (this.strikeCount < 3) {
+      const userInput = await MissionUtils.Console.readLineAsync(
         "1~9까지의 수로 이루어진 3자리의 중복없는 숫자를 입력해 주세요."
       );
-    }
-    return userInput;
-  }
 
-  async checkAnswer(playerInput, computerInput) {
-    // console.log(userInputArray);
-    let strikeCount = 0;
-    let ballCount = 0;
-    const strikeArray = [];
-    const ballArray = [];
-
-    MissionUtils.Console.print(playerInput);
-    MissionUtils.Console.print(computerInput);
-    // const userInputArray = [...getPlayerData].map((el) => Number(el));
-
-    for (let i = 0; i < 3; i++) {
-      if (playerInput[i] === computerInput[i]) {
-        strikeCount += 1;
-        strikeArray.push(strikeCount);
-
-        // MissionUtils.Console.print(strikeArray.length);
-        //   }
-      } else if (computerInput.includes(playerInput[i])) {
-        ballCount += 1;
-        ballArray.push(ballCount);
-        // MissionUtils.Console.print(ballArray.length);
+      if (userInput.length !== 3) {
+        throw new Error("[ERROR]");
+      } else {
+        return [...userInput].map((el) => Number(el));
       }
     }
-    //   // playerScore index가 computer index와 일치하는 경우
-    //   if (userInputArray[i] === computerInput[i]) {
-    //     strikeCount += 1;
-    //     strikeArray.push(strikeCount);
-    //     MissionUtils.Console.print(strikeArray);
-    //   } else if (this.getComputerInput.includes(userInputArray[i])) {
-    //     this.ballCount += 1;
-    //     // ballsArray.push(this.ballCount);
+  }
 
-    //     // console.log("ballCount = ", ballsArray.length);
-    //   }
+  async checkInput(playerInput, computerInput) {
+    // console.log(userInputArray);
+
+    const PLAYER_INPUT = await this.getPlayerInput();
+    const COMPUTER_INPUT = this.getComputerInput();
+
+    // 스트라이크 카운터
+    for (let i = 0; i < PLAYER_INPUT.length; i++) {
+      if (PLAYER_INPUT[i] === COMPUTER_INPUT[i]) {
+        this.strikeCount++;
+        this.strikesCountArray.push(this.strikeCount);
+        //볼 카운터
+      } else if (computerInput.includes(playerInput[i])) {
+        this.ballCount += 1;
+        this.ballsCountArray.push(this.ballCount);
+      }
+    }
+    await this.outputMessage(
+      this.strikesCountArray.length,
+      this.ballsCountArray.length
+    );
+
+    if (this.strikesCountArray.length !== this.ballsCountArray.length) {
+      return this.checkInput();
+    }
+  }
+
+  async outputMessage(strike, ball) {
+    let message = "";
+
+    switch (true) {
+      case strike >= 3:
+        message = "🎉 3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료";
+        break;
+      case strike > 0 && ball > 0:
+        message = `볼${ball} 스트라이크${strike}`;
+        break;
+      case strike > 0:
+        message = `스트라이크${strike}`;
+        break;
+      case ball > 0:
+        message = `볼${ball}`;
+        break;
+      default:
+        message = "낫싱";
+    }
+
+    MissionUtils.Console.print(message);
+    // if (strike >= 3) {
+    //   const winMessage = `🎉 3스트라이크
+    //   3개의 숫자를 모두 맞히셨습니다! 게임 종료`;
+    //   MissionUtils.Console.print(winMessage);
+    // } else if (strike > 0 && ball > 0) {
+    //   const strikeAndBallMsg = `볼${ball} 스트라이크${strike}`;
+    //   MissionUtils.Console.print(strikeAndBallMsg);
+    // } else if (strike > 0) {
+    //   const strikeMessage = ` 스트라이크${strike}`;
+    //   MissionUtils.Console.print(strikeMessage);
+    // } else if (ball > 0) {
+    //   const ballMessage = ` 볼${ball}`;
+    //   MissionUtils.Console.print(ballMessage);
+    // } else {
+    //   MissionUtils.Console.print(`낫싱`);
     // }
   }
-}
 
-const app = new App();
-app.play();
+  async gameOver() {
+    const endGameMessage = await MissionUtils.Console
+      .readLineAsync(`3개의 숫자를 모두 맞히셨습니다! 게임 종료
+    게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.`);
+
+    if (endGameMessage === "1") {
+      return this.getComputerInput();
+    } else if (endGameMessage === "2") {
+      return MissionUtils.Console.print("게임 종료");
+    } else {
+      throw new Error("[ERROR]");
+    }
+  }
+}
