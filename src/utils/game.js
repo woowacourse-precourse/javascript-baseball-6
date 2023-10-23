@@ -1,10 +1,14 @@
 import { NUM_OF_BALLS } from '../constants/index.js';
+import {
+  validateIsArray,
+  validateEqualLengthArrays,
+  validateStrikeTableObject,
+} from './validation.js';
 
 export function compare(arr1, arr2) {
-  if (!Array.isArray(arr1) || !Array.isArray(arr2))
-    throw new Error('입력값이 배열이 아닙니다.');
-
-  if (arr1.length !== arr2.length) throw new Error('배열의 길이가 다릅니다.');
+  validateIsArray(arr1);
+  validateIsArray(arr2);
+  validateEqualLengthArrays(arr1, arr2);
 
   const strikeTable = Array(NUM_OF_BALLS).fill(false);
   let strike = 0;
@@ -24,12 +28,7 @@ export function compare(arr1, arr2) {
 }
 
 export function generateResultString(result) {
-  if (
-    typeof result !== 'object' ||
-    !result.hasOwnProperty('strike') ||
-    !result.hasOwnProperty('ball')
-  )
-    throw new Error('result의 형식이 잘못되었습니다.');
+  validateStrikeTableObject(result);
 
   if (result.strike && result.ball)
     return `${result.ball}볼 ${result.strike}스트라이크`;

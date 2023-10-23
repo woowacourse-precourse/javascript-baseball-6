@@ -12,9 +12,9 @@ class App {
     while (true) {
       try {
         const userInputArr = await getNumber();
-
         const resultObj = compare(userInputArr, this._computerValue);
         const result = generateResultString(resultObj);
+
         Console.print(result);
 
         if (resultObj.strike === NUM_OF_BALLS) {
