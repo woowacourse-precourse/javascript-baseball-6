@@ -5,6 +5,9 @@ import ERROR from "./error.js";
 class Game {
   computerNums = [];
 
+  /**
+   * 숫자 야구 게임을 시작하는 메소드
+   */
   start = async () => {
     Console.print(MESSAGE.GAME_START);
     do {
@@ -12,6 +15,9 @@ class Game {
     } while (await this.checkPlayAgain());
   };
 
+  /**
+   * 한 번의 라운드를 실행하는 메소드
+   */
   playRound = async () => {
     this.setComputerNums();
     //console.log("computer: ", this.computerNums);
@@ -30,7 +36,9 @@ class Game {
     }
   };
 
-  // 컴퓨터가 임의의 수를 선택하고 저장하는 메소드
+  /**
+   * 컴퓨터가 임의의 수를 선택하고 저장하는 메소드
+   */
   setComputerNums = () => {
     const computer = [];
     while (computer.length < 3) {
@@ -42,7 +50,11 @@ class Game {
     this.computerNums = computer;
   };
 
-  // 사용자의 입력을 받는 메소드
+  /**
+   * 사용자의 입력을 받는 메소드
+   * @returns {Promise<number[]>} - 사용자가 입력한 유효한 숫자 배열
+   * @throws {Error} - 유효하지 않은 입력인 경우 에러를 던집니다.
+   */
   getUserNums = async () => {
     const input = await Console.readLineAsync(MESSAGE.PROMPT.USER_NUMS);
     if (!this.isUserNumsInputValid(input)) {
@@ -52,7 +64,11 @@ class Game {
     return userNums;
   };
 
-  // 사용자의 입력이 유효한지 검사하는 메소드
+  /**
+   * 사용자의 입력이 유효한지 검사하는 메소드
+   * @param {string} input - 사용자가 입력한 문자열
+   * @returns {boolean} - 입력이 유효한 경우 true, 그렇지 않은 경우 false 반환
+   */
   isUserNumsInputValid = (input) => {
     let isValid = true;
     const reg = /^[0-9]{3}$/;
@@ -66,7 +82,11 @@ class Game {
     return isValid;
   };
 
-  // computerNums와 userNums를 비교하여 스트라이크, 볼 개수를 반환하는 메소드
+  /**
+   * computerNums와 userNums를 비교하여 스트라이크, 볼 개수를 반환하는 메소드
+   * @param {[number, number, number]} userNums - 사용자가 입력한 숫자의 배열
+   * @returns {{strike: number, ball: number}} - 스트라이크와 볼 개수로 이루어진 객체
+   */
   checkResult = (userNums) => {
     const result = {
       strike: 0,
@@ -101,7 +121,11 @@ class Game {
     }
   };
 
-  // 게임 재시작 여부를 입력받는 메소드
+  /**
+   * 게임 재시작 여부를 입력받는 메소드
+   * @returns {Promise<boolean>} - 게임을 재시작할 경우 true, 종료할 경우 false
+   * @throws {Error} - 유효하지 않은 입력인 경우 에러를 던집니다.
+   */
   checkPlayAgain = async () => {
     const input = await Console.readLineAsync(MESSAGE.PROMPT.RESTART_GAME);
     if (!this.isPlayAgainInputValid(input)) {
@@ -111,7 +135,11 @@ class Game {
     return inputNum === 1;
   };
 
-  // 게임 재시작 여부의 입력값이 유효한지 검사하는 메소드
+  /**
+   * 게임 재시작 여부의 입력값이 유효한지 검사하는 메소드
+   * @param {string} input - 사용자가 입력한 값
+   * @returns {boolean} - 유효한 입력인 경우 true, 그렇지 않은 경우 false
+   */
   isPlayAgainInputValid = (input) => {
     if (input === "1" || input === "2") {
       return true;
