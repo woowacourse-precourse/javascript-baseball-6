@@ -65,6 +65,21 @@ describe('숫자 야구 게임', () => {
     expect(ball).toBe(0);
   });
 
+  test('print a result', () => {
+    const baseballService = new BaseballService();
+    const logSpy = getLogSpy();
+    baseballService.printResult(0, 0);
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('낫싱'));
+    baseballService.printResult(1, 0);
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('1볼'));
+    baseballService.printResult(1, 1);
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining('1볼 1스트라이크')
+    );
+    baseballService.printResult(0, 1);
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('1스트라이크'));
+  });
+
   test('게임 종료 후 재시작', async () => {
     // given
     const randoms = [1, 3, 5, 5, 8, 9];
