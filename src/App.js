@@ -1,5 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import { messageAllStrike, messageGameStart, messageInputNumber, messageRestartInputNumber } from "./constant/allPrintMessage";
+import { messageAllStrike, messageGameEnd, messageGameStart, messageInputNumber, messageRestartInputNumber } from "./constant/allPrintMessage";
 import { messageIsOverlap, messageNotNumber, messageNotOneToNine, messageNotRestartNumber, messageNotThreeDigits } from "./error/allErrorMessage";
 
 class App {
@@ -8,28 +8,31 @@ class App {
 
     while (true) {
       const computer = this.generateRandomNumbers();
-      let tries = 0;
+      const gameResult = await this.playGame(computer);
 
-      while (true) {
-        const userGuess = await this.getUserGuess();
-        const result = this.checkGuess(computer, userGuess);
-
-        MissionUtils.Console.print(result);
-
-        if (result === "3스트라이크") {
-          MissionUtils.Console.print(messageAllStrike);
-          break;
-        }
-
-        tries++;
-      }
-
-      const replay = await this.askForReplay();
-      this.checkForReplay(replay);
-      if (replay === "2") {
+      if (gameResult === "2") {
+        MissionUtils.Console.print(messageGameEnd);
         break;
       }
     }
+  }
+
+  async playGame(computer) {
+    while (true) {
+      const userGuess = await this.getUserGuess();
+      const result = this.checkGuess(computer, userGuess);
+
+      MissionUtils.Console.print(result);
+
+      if (result === "3스트라이크") {
+        MissionUtils.Console.print(messageAllStrike);
+        break;
+      }
+    }
+
+    const replay = await this.askForReplay();
+    this.checkForReplay(replay);
+    return replay;
   }
 
   generateRandomNumbers() {
