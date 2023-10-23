@@ -1,5 +1,5 @@
 import { Console, Random } from "@woowacourse/mission-utils";
-import { GAME_TEXT } from "./constants/string.js";
+import { ERROR_TEXT, GAME_TEXT } from "./constants/string.js";
 
 class App {
   async play() {
@@ -60,19 +60,19 @@ class App {
       const number = await Console.readLineAsync(GAME_TEXT.INPUT);
 
       if (number.length !== 3) {
-        throw new Error(GAME_TEXT.ERROR(GAME_TEXT.NOT_MATCH_LENGTH));
+        throw new Error(ERROR_TEXT.print(ERROR_TEXT.NOT_MATCH_LENGTH));
       }
       if (!Number.isInteger(Number(number))) {
-        throw new Error(GAME_TEXT.ERROR(GAME_TEXT.INVALID_NUMBER));
+        throw new Error(ERROR_TEXT.print(ERROR_TEXT.INVALID_NUMBER));
       }
       if (number.includes("0")) {
-        throw new Error(GAME_TEXT.ERROR(GAME_TEXT.CONTAIN_ZERO_NUMBER));
+        throw new Error(ERROR_TEXT.print(ERROR_TEXT.CONTAIN_ZERO_NUMBER));
       }
       if (Number(number) < 0) {
-        throw new Error(GAME_TEXT.ERROR(GAME_TEXT.IS_NEGATIVE_NUMBER));
+        throw new Error(ERROR_TEXT.print(ERROR_TEXT.IS_NEGATIVE_NUMBER));
       }
       if (this.checkDuplicateNumber(number)) {
-        throw new Error(GAME_TEXT.ERROR(GAME_TEXT.DUPLICATE_NUMBER));
+        throw new Error(ERROR_TEXT.print(ERROR_TEXT.DUPLICATE_NUMBER));
       }
 
       return number;
@@ -118,7 +118,7 @@ class App {
       const choice = await Console.readLineAsync(GAME_TEXT.CHOICE);
 
       if (Number(choice) !== 1 && Number(choice) !== 2) {
-        throw new Error(GAME_TEXT.ERROR(GAME_TEXT.NOT_MATCH_CHOICE));
+        throw new Error(ERROR_TEXT.print(ERROR_TEXT.NOT_MATCH_CHOICE));
       }
 
       return Number(choice);
