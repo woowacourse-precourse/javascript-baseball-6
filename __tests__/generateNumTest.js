@@ -1,7 +1,7 @@
-import {createNum} from '../src/play'
+import { createNum } from '../src/play'
 
 describe("createNum", () => {
-  test("세자리 숫자가 잘 만들어져요", () => {
+  test("세 자리 숫자가 잘 만들어져요", () => {
     const result = createNum()
 
     expect(result.length).toBe(3)

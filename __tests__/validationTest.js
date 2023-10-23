@@ -1,7 +1,7 @@
-const { checkValidation } = require("../src/vallidation");
+import { checkValidation } from "../src/vallidation"
 
 describe("checkValidation", () => {
-  test("3자리의 숫자가 아닌 경우, 예외 발생", () => {
+  test("세 자리의 숫자가 아닌 경우, 예외 발생", () => {
     // given
     const userNumbers = [[1, 2], [1], [2, 4, 6, 7], []];
 
@@ -53,7 +53,7 @@ describe("checkValidation", () => {
     expect(checkValidation(number)).toBeFalsy();
   });
 
-  test("3자리 숫자를, 중복없이 입력할 경우, 예외가 발생하지 않아요", () => {
+  test("세 자리 숫자를, 중복없이 입력할 경우, 예외가 발생하지 않아요", () => {
     // given
     const numbers = [
       [1, 2, 3],
