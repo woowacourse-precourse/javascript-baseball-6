@@ -10,13 +10,9 @@ export default function countStrike(answer, userInput) {
 
   for (let i = 0; i < answer.length; i++) {
     if (answer[i] === userInput[i]) {
-      strikeCount++;
+      strikeCount += 1;
     }
   }
 
   return strikeCount;
 }
-
-// console.log(countStrike("123", "421"));
-// console.log(countStrike("123", "123"));
-// console.log(countStrike("123", "456"));

@@ -16,7 +16,6 @@ export default async function baseballGame() {
   while (repeatsRestart) {
     const answer = makeAnswer();
     let isAnswerCorrect = false;
-    // console.log(`answer: ${answer}`);
 
     while (!isAnswerCorrect) {
       // userInput validation
@@ -36,5 +35,3 @@ export default async function baseballGame() {
     }
   }
 }
-
-// baseballGame();

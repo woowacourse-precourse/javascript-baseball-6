@@ -23,7 +23,7 @@ User input과 정답을 비교한다.
 게임을 다시 시작하거나 완전히 종료할 수 있다.
 재시작할 경우 기능 1로 이동, 종료할 경우 어플리케이션을 종료한다.
 - 입력받은 수 1과 2로 재시작/종료를 구분한다.
-  - 1과 2 이외의 input에 대해 예외처리한다.
+  - 1과 2 이외의 input에 대해 기능2의 `throw`문과 같이 예외처리한다.
 
 # **프로그래밍 요구사항 목록**
 
@@ -31,5 +31,5 @@ User input과 정답을 비교한다.
 App.js의 play 메서드로 프로그램을 실행시켜야 한다.
 - 자체 테스트 케이스를 작성하여 추가 검증한다.
 
-## [ ] Convention
+## [✅] Convention
 [JavaScript 코드 컨벤션](https://github.com/ParkSB/javascript-style-guide#%EB%B3%80%EC%88%98-variables)을 지키면서 프로그래밍한다.

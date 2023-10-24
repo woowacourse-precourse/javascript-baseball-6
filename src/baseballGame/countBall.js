@@ -12,16 +12,9 @@ export default function countBall(answer, userInput) {
 
   for (let i = 0; i < answerList.length; i++) {
     if (userInput.includes(answerList[i])) {
-      ballCount++;
+      ballCount += 1;
     }
   }
   
   return ballCount;
 }
-
-/*
-  console.log(countBall("123", "312")); // 3
-  console.log(countBall("123", "234")); // 2
-  console.log(countBall("123", "542")); // 1
-  console.log(countBall("123", "456")); // 0
-*/
