@@ -6,9 +6,9 @@ import { userInputValid } from "../vaildation";
 export function getComputerNum() {
   const COMPUTER = [];
   while (COMPUTER.length < 3) {
-    const random = MissionUtils.Random.pickNumberInRange(1, 9);
-    if (!COMPUTER.includes(random)) {
-      COMPUTER.push(random);
+    const RANDOM_NUM = MissionUtils.Random.pickNumberInRange(1, 9);
+    if (!COMPUTER.includes(RANDOM_NUM)) {
+      COMPUTER.push(RANDOM_NUM);
     }
   }
   return COMPUTER;
