@@ -92,6 +92,24 @@ class App {
     MissionUtils.Console.print(`${score[0]}볼 ${score[1]}스트라이크`);
     return false;
   }
+  // 정답 후 재시작 or 종료를 선택
+  async gameOver() {
+    try {
+      const userInput = await MissionUtils.Console.readLineAsync(
+        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+      );
+      if (userInput === "1") {
+        const answer = this.pickRandNumber();
+        return answer;
+      } else if (userInput === "2") {
+        return false;
+      }
+      throw new Error("[ERROR] 알맞은 형식의 입력이 아닙니다.");
+    } catch (error) {
+      console.error(error.message);
+      throw new Error("[ERROR]");
+    }
+  }
 }
 
 const app = new App();
