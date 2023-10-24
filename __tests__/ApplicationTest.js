@@ -1,6 +1,13 @@
 import App from '../src/App.js';
 import { MissionUtils } from '@woowacourse/mission-utils';
 
+import {
+  ANSWER_LENGTH,
+  START_ORDER,
+  QUIT_ORDER,
+  NOT_IN_RANGE_NUMBER,
+} from '../src/constants/constants.js';
+
 const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
 
@@ -114,7 +121,7 @@ describe('숫자 야구 게임', () => {
     const app = new App();
 
     await expect(app.play()).rejects.toThrow(
-      '[ERROR] 숫자가 아닌 값은 입력할 수 없습니다.'
+      '[ERROR] 부호/기호/문자 없이 숫자만 입력해야 합니다.'
     );
 
     messages.forEach((output) => {
@@ -122,7 +129,7 @@ describe('숫자 야구 게임', () => {
     });
   });
 
-  test('예외테스트 - 정수가 아닌 숫자 입력한 경우', async () => {
+  test('예외테스트 - 소수점 입력', async () => {
     const randoms = [1, 3, 5];
     const answers = ['1.5'];
 
@@ -132,11 +139,53 @@ describe('숫자 야구 게임', () => {
     const app = new App();
 
     await expect(app.play()).rejects.toThrow(
-      '[ERROR] 정수가 아닌 숫자를 입력할 수 없습니다.'
+      '[ERROR] 부호/기호/문자 없이 숫자만 입력해야 합니다.'
     );
   });
 
-  test('예외테스트 - 서로 다른 숫자가 아닌 경우', async () => {
+  test('예외테스트 - 음수 입력', async () => {
+    const randoms = [1, 3, 5];
+    const answers = ['-35'];
+
+    mockRandoms(randoms);
+    mockQuestions(answers);
+
+    const app = new App();
+
+    await expect(app.play()).rejects.toThrow(
+      '[ERROR] 부호/기호/문자 없이 숫자만 입력해야 합니다.'
+    );
+  });
+
+  test('예외테스트 - 양수 입력', async () => {
+    const randoms = [1, 3, 5];
+    const answers = ['+91'];
+
+    mockRandoms(randoms);
+    mockQuestions(answers);
+
+    const app = new App();
+
+    await expect(app.play()).rejects.toThrow(
+      `[ERROR] ${ANSWER_LENGTH}개의 숫자를 입력해야 합니다.`
+    );
+  });
+
+  test('예외테스트 - 범위에 해당하지 않는 숫자 포함', async () => {
+    const randoms = [1, 3, 5];
+    const answers = ['109'];
+
+    mockRandoms(randoms);
+    mockQuestions(answers);
+
+    const app = new App();
+
+    await expect(app.play()).rejects.toThrow(
+      `[ERROR] ${NOT_IN_RANGE_NUMBER}을 제외한 숫자만 입력해야 합니다.`
+    );
+  });
+
+  test('예외테스트 - 숫자를 중복하여 입력', async () => {
     const randoms = [1, 3, 5];
     const answers = ['121'];
 
@@ -150,7 +199,21 @@ describe('숫자 야구 게임', () => {
     );
   });
 
-  test('예외테스트 - 게임 종료 후 재시작 여부 입력값이 1 또는 2가 아닌 경우', async () => {
+  test('예외테스트 - 주어진 개수 초과하여 숫자 입력', async () => {
+    const randoms = [1, 3, 5];
+    const answers = ['9123'];
+
+    mockRandoms(randoms);
+    mockQuestions(answers);
+
+    const app = new App();
+
+    await expect(app.play()).rejects.toThrow(
+      `[ERROR] ${ANSWER_LENGTH}개의 숫자를 입력해야 합니다.`
+    );
+  });
+
+  test('예외테스트 - 게임 종료 후 잘못된 명령값 입력', async () => {
     const randoms = [1, 3, 5];
     const answers = ['123', '135', '3'];
     const logSpy = getLogSpy();
@@ -161,7 +224,7 @@ describe('숫자 야구 게임', () => {
 
     const app = new App();
     await expect(app.play()).rejects.toThrow(
-      '[ERROR] 1 또는 2 중 하나만 입력할 수 있습니다.'
+      `[ERROR] ${START_ORDER} 또는 ${QUIT_ORDER} 중 하나만 입력할 수 있습니다.`
     );
 
     messages.forEach((output) => {
