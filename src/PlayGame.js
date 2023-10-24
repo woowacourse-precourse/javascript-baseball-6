@@ -30,15 +30,11 @@ export default function PlayGame(
   };
 
   const userInputValue = async () => {
-    try {
-      const InputValue = await Console.readLineAsync(MESSAGE.INPUT);
-      validation.InputValueLengthValidation(InputValue);
-      validation.InputValueTypeOfValidation(InputValue);
-      validation.InputValueDuplicatedValidation(InputValue);
-      this.setState({ ...this.state, input: InputValue.split("").map(Number) });
-    } catch (error) {
-      throw new Error(error);
-    }
+    const InputValue = await Console.readLineAsync(MESSAGE.INPUT);
+    validation.InputValueLengthValidation(InputValue);
+    validation.InputValueTypeOfValidation(InputValue);
+    validation.InputValueDuplicatedValidation(InputValue);
+    this.setState({ ...this.state, input: InputValue.split("").map(Number) });
   };
 
   const checkValue = () => {
@@ -75,18 +71,14 @@ export default function PlayGame(
   };
 
   const restartGame = async () => {
-    try {
-      const InputRestartValue = await Console.readLineAsync(MESSAGE.RESTART);
-      validation.InputRestartValueValidation(InputRestartValue);
-      const PARSEINT_VALUE = parseInt(InputRestartValue);
+    const InputRestartValue = await Console.readLineAsync(MESSAGE.RESTART);
+    validation.InputRestartValueValidation(InputRestartValue);
+    const PARSEINT_VALUE = parseInt(InputRestartValue);
 
-      if (PARSEINT_VALUE === 1) {
-        this.play();
-      } else if (PARSEINT_VALUE === 2) {
-        return;
-      }
-    } catch (error) {
-      throw new Error(error);
+    if (PARSEINT_VALUE === 1) {
+      this.play();
+    } else if (PARSEINT_VALUE === 2) {
+      return;
     }
   };
 

@@ -7,10 +7,10 @@ export const MESSAGE = Object.freeze({
 });
 
 export const ERROR = Object.freeze({
-  INVALID_LENGTH: "3자리 숫자로 입력해주세요..",
-  INVALID_DUPLICATE: "중복된 숫자가 입력되었습니다.",
-  INVALID_INPUT: "정수로 입력해주세요.",
-  INVALID_RESTART: "'1' 또는 '2'를 입력해주세요.",
+  INVALID_LENGTH: "[ERROR] 3자리 숫자로 입력해주세요.",
+  INVALID_DUPLICATE: "[ERROR] 중복된 숫자가 입력되었습니다.",
+  INVALID_INPUT: "[ERROR] 정수로 입력해주세요.",
+  INVALID_RESTART: "[ERROR] '1' 또는 '2'를 입력해주세요.",
 });
 
 export const CHECK = Object.freeze({
