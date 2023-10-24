@@ -1,6 +1,6 @@
 import { Console, Random } from '@woowacourse/mission-utils';
+import Score from './score';
 import CONSTANTS from './assets/constants';
-import { score } from './utils';
 import { input } from './functions/input';
 
 /** * 게임을 관리하는 클래스
@@ -20,12 +20,14 @@ class Game {
    */
   async guess() {
     const guesser = await input();
-    const scores = score(guesser, this.#answer);
+    const scores = new Score(guesser, this.#answer);
 
     Console.print(scores.toString());
 
-    if (scores.win) {
-      Console.print(`${CONSTANTS.NUM_LENGTH}개의 숫자를 모두 맞히셨습니다! 게임 종료`);
+    if (scores.win()) {
+      Console.print(
+        `${CONSTANTS.NUM_LENGTH}개의 숫자를 모두 맞히셨습니다! 게임 종료`,
+      );
       return;
     }
 

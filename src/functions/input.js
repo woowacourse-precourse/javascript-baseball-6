@@ -1,6 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 import InputError from '../errors/input-error';
-import { validate } from '../utils';
+import validate from '../utils/validator';
 
 /** 숫자 입력을 받아서 반환하는 함수 */
 export async function input() {
