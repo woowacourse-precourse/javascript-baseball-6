@@ -3,15 +3,22 @@ import { Console } from "@woowacourse/mission-utils";
 class App {
   computer;
   userNumber;
+  strike;
+  ball;
+  nothing;
 
   constructor() {
     Console.print("숫자 야구 게임을 시작합니다.");
     this.computer = [];
     this.userNumber = [];
+    this.strike = 0;
+    this.ball = 0;
+    this.nothing = 0;
   }
 
   async play() {
     this.getRandomNumber();
+    ㄴ;
     await this.getUserInput();
   }
 
@@ -45,6 +52,18 @@ class App {
     } else {
       throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
     }
+  }
+
+  compareNumber(computerNum, inputNum) {
+    computerNum.map((num, i, array) => {
+      if (num === Number(inputNum[i])) {
+        this.strike += 1;
+      } else if (array.includes(Number(inputNum[i]))) {
+        this.ball += 1;
+      } else {
+        this.nothing += 1;
+      }
+    });
   }
 }
 
