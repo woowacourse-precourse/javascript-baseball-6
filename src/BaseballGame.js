@@ -79,6 +79,7 @@ class BaseballGame {
       Console.print(
         `${ball}${BASEBALL_MESSAGE.BALL} ${strike}${BASEBALL_MESSAGE.STRIKE}`
       );
+      return false;
     } else if (strike > 0 && strike < 3) {
       Console.print(`${strike}${BASEBALL_MESSAGE.STRIKE}`);
       return false;
