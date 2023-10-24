@@ -11,7 +11,6 @@ const NOTHING_TEXT = "낫싱";
 const STRIKE_TEXT = "스트라이크";
 const BALL_TEXT = "볼";
 const SUCCESS_MESSAGE = "3개의 숫자를 모두 맞히셨습니다! 게임 종료";
-const REPLAY_QUESTION_MESSAGE = "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n";
 
 const toUniqueNumbers = (answer) => {
   const numbers = [
@@ -106,7 +105,7 @@ class Computer {
 
   static printResultMessage({ strike, ball }) {
     if (strike === 0 && ball === 0) {
-      MissionUtils.Consol.print(NOTHING_TEXT);
+      MissionUtils.Console.print(NOTHING_TEXT);
       return;
     }
 
