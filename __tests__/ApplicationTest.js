@@ -56,5 +56,8 @@ describe("숫자 야구 게임", () => {
     const app = new App();
     app.play();
 
+      // await expect(app.play()).rejects.toThrow("[ERROR]");
+    
+
   });
 });
