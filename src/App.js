@@ -17,7 +17,6 @@ class App {
   async play() {
     while (true) {
       this.initializeComputerNumbers();
-      Console.print(`Computer: ${this.computerNumbers}`);
 
       while (true) {
         try {
@@ -36,7 +35,7 @@ class App {
       }
     }
   }
-  
+
   async getInput(prompt) {
     const input = await Console.readLineAsync(prompt);
     if (!/^\d{3}$/.test(input) || !input.trim()) {
