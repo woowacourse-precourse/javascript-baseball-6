@@ -18,14 +18,14 @@ export const showResult = (computerNumber, playerNumber) => {
     }
   }
 
-  const result = [];
-  if (strike > 0) result.push(`${strike} ${Constants.STRIKE}`);
-  if (ball > 0) result.push(`${ball} ${Constants.BALL}`);
-
-  if (result.length === 0) {
+  if (ball === 0 && strike === 0) {
     Console.print(Constants.NOTHING);
     return;
   }
+
+  const result = [];
+  if (ball > 0) result.push(`${ball}${Constants.BALL}`);
+  if (strike > 0) result.push(`${strike}${Constants.STRIKE}`);
 
   Console.print(result.join(' '));
 }
