@@ -3,6 +3,17 @@ import { Random, Console } from "@woowacourse/mission-utils";
 // 비교 할 수의 총 갯수를 지정하는 상수
 const INPUT_LENGTH = 3;
 
+// 출력 할 때 사용할 메시지를 지정하는 상수
+const MESSAGE = {
+  START: "숫자 야구 게임을 시작합니다.",
+  INPUT: "숫자를 입력해주세요 : ",
+  RESTART: "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n",
+  SUCCESS: "개의 숫자를 모두 맞히셨습니다! 게임 종료",
+  STRIKE: "스트라이크",
+  BALL: "볼",
+  NOTHING: "낫싱",
+};
+
 // 컴퓨터가 3개의 난수 배열을 생성하는 함수
 const getComputerNumber = () => {
   const computer = [];
@@ -19,14 +30,14 @@ const getComputerNumber = () => {
 const readFromPlayer = async () => {
   let answer = "";
   try {
-    answer = await Console.readLineAsync("숫자를 입력해주세요 : ");
+    answer = await Console.readLineAsync(MESSAGE.INPUT);
   } catch (e) {
     Console.print(e.message);
   }
   if (isValid(answer)) {
     return readToList(answer);
   } else {
-    throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+    throw Error("[ERROR] 숫자가 잘못된 형식입니다.");
   }
 };
 
@@ -70,9 +81,7 @@ const compareNumber = (computerList, humanList) => {
 const readRestart = async () => {
   let answer = "";
   try {
-    answer = await Console.readLineAsync(
-      `게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n`
-    );
+    answer = await Console.readLineAsync(MESSAGE.RESTART);
   } catch (e) {
     Console.print(e.message);
   }
@@ -86,12 +95,12 @@ const readRestart = async () => {
 // 결과를 출력하는 함수
 const printResult = (strikeCnt, ballCnt) => {
   if (strikeCnt === INPUT_LENGTH) {
-    Console.print(`${strikeCnt}스트라이크`);
-    Console.print(`${strikeCnt}개의 숫자를 모두 맞히셨습니다! 게임 종료`);
+    Console.print(`${strikeCnt}${MESSAGE.STRIKE}`);
+    Console.print(`${strikeCnt}${MESSAGE.SUCCESS}`);
     return true;
   } else {
-    const ballText = ballCnt > 0 ? `${ballCnt}볼` : "";
-    const strikeText = strikeCnt > 0 ? `${strikeCnt}스트라이크` : "";
+    const ballText = ballCnt > 0 ? `${ballCnt}${MESSAGE.BALL}` : "";
+    const strikeText = strikeCnt > 0 ? `${strikeCnt}${MESSAGE.STRIKE}` : "";
     Console.print(
       ballText && strikeText
         ? `${ballText} ${strikeText}`
@@ -99,7 +108,7 @@ const printResult = (strikeCnt, ballCnt) => {
         ? `${ballText}`
         : strikeText
         ? `${strikeText}`
-        : "낫싱"
+        : MESSAGE.NOTHING
     );
     return false;
   }
@@ -109,7 +118,7 @@ class App {
   async play() {
     let success = false;
 
-    Console.print("숫자 야구 게임을 시작합니다.");
+    Console.print(MESSAGE.START);
 
     do {
       const computerList = getComputerNumber();
@@ -125,6 +134,8 @@ class App {
         const { strikeCnt, ballCnt } = compareNumber(computerList, humanList);
         success = printResult(strikeCnt, ballCnt);
       }
+
+      // 플레이어의 입력에 따라 재시작하거나 종료한다.
       try {
         const restart = await readRestart();
         if (restart === "1") {
