@@ -16,10 +16,14 @@ class App {
       for (let i = 0; i < 3; i++) {
         if (computer_random_number.toString()[i] == human_input[i]) {
           strike_number++;
-        }
-
-        if (human_input.includes(computer_random_number.toString()[i])) {
-          ball_number++;
+        } else {
+          if (
+            computer_random_number
+              .toString()
+              .includes(human_input.toString()[i])
+          ) {
+            ball_number++;
+          }
         }
       }
 
@@ -73,9 +77,9 @@ class App {
 
           // MissionUtils.Console.print(error);
         } else {
-          // MissionUtils.Console.print(
-          //   "컴퓨터에서 생성한 넘버" + computer_random_number
-          // );
+          MissionUtils.Console.print(
+            "컴퓨터에서 생성한 넘버" + computer_random_number
+          );
           compareNumbers(computer_random_number, user_input);
           if (computer_random_number == user_input) {
             const restartOrExit = await MissionUtils.Console.readLineAsync(
