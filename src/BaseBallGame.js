@@ -1,14 +1,22 @@
 import { Console } from '@woowacourse/mission-utils';
 import Computer from './Computer.js';
+import User from './User.js';
+import { MESSAGES } from './messages.js';
 
 class BaseBallGame {
   constructor() {
-    Console.print('숫자 야구 게임을 시작합니다.');
+    Console.print(MESSAGES.START);
     this.computer = new Computer();
+    this.user = new User();
   }
 
   async start() {
     this.computer.createRandomNumber();
+    await this.playBaseBallGame();
+  }
+
+  async playBaseBallGame() {
+    await this.user.getUserNumber();
   }
 }
 
