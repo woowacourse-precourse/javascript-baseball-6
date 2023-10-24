@@ -14,6 +14,14 @@ class App {
       }
     }
   }
+
+  async getInput(prompt) {
+    const input = await Console.readLineAsync(prompt);
+    if (!/^\d{3}$/.test(input) || !input.trim()) {
+      throw new Error("[ERROR] 숫자가 잘못된 형식입니다");
+    }
+    return input;
+  }
   
   async play() {}
 }
