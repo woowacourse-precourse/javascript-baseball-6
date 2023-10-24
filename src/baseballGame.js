@@ -16,7 +16,11 @@ class BaseballGame {
     await this.getUserNumber();
     this.showCountResult();
     if (isGameFinish(this.getNumberOfStrikes())) {
-      this.getRestartNumber();
+      await this.getRestartNumber();
+      if (this.restartNumber === 1) {
+        this.createComputerNumber();
+        this.playBaseball();
+      }
     } else {
       this.playBaseball();
     }
