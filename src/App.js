@@ -59,8 +59,6 @@ class App {
         this.computer.includes(this.inputNum[i])
       ) {
         this.ball += 1;
-      } else {
-        Console.print("낫싱");
       }
     }
     await this.getResultMessage();
@@ -71,6 +69,8 @@ class App {
       Console.print(`${this.strike}스트라이크`);
     } else if (this.ball !== 0 && this.strike === 0) {
       Console.print(`${this.ball}볼`);
+    } else if (this.ball === 0 && this.strike === 0) {
+      Console.print("낫싱");
     } else {
       Console.print(`${this.ball}볼 ${this.strike}스트라이크`);
     }
