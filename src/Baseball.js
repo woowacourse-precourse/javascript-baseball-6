@@ -18,7 +18,7 @@ class Baseball {
   }
 
   static setBaseballLength(length) {
-    if (length > 9) throw new Error(ErrorMessages.Invalid_Baseball_Length);
+    if (length > 9) throw new Error(ErrorMessages.INVALID_BASEBALL_LENGTH);
     this.#BASEBALL_LENGTH = length;
   }
 
@@ -27,27 +27,29 @@ class Baseball {
   }
 
   setRandomBaseball() {
+    let randomNumber;
     while (this.#baseball.length < Baseball.#BASEBALL_LENGTH) {
-      let randomNumber = Random.pickNumberInRange(1, 9);
+      randomNumber = Random.pickNumberInRange(1, 9);
       if (!this.#baseball.includes(randomNumber))
         this.#baseball.push(randomNumber);
     }
   }
 
   setStringToBaseball(baseballString) {
+    let number;
     for (let i = 0; i < Baseball.#BASEBALL_LENGTH; i++) {
-      let number = parseInt(baseballString[i]);
+      number = parseInt(baseballString[i]);
       this.#baseball.push(number);
     }
   }
 
   validateBaseballString(baseballString) {
     if (baseballString.length > Baseball.#BASEBALL_LENGTH)
-      throw new Error(ErrorMessages.Invalid_Length);
+      throw new Error(ErrorMessages.INVALID_LENGTH);
     if (baseballString.match(/[^0-9]/g))
-      throw new Error(ErrorMessages.Invalid_String);
+      throw new Error(ErrorMessages.INVALID_STRING);
     if (baseballString.length !== new Set(baseballString).size)
-      throw new Error(ErrorMessages.Invalid_Number);
+      throw new Error(ErrorMessages.INVALID_NUMBER);
   }
 
   static compareBaseball(guessBall, answerBall) {
