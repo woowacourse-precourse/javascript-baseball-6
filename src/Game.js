@@ -1,5 +1,5 @@
-import generateNumber from './utils/RandomNumber.js';
-import { SETTING } from './Constants.js';
+import generateNumber from './utils/RandomNumber';
+import { SETTING } from './Constants';
 
 const { MAX, MIN, MAX_INPUT_LENGTH } = SETTING;
 

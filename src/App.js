@@ -1,7 +1,7 @@
-import Game from './Game.js';
-import View from './view/View.js';
-import { MESSAGE, SETTING } from './Constants.js';
-import { validateInput, validateRestartInput } from './utils/Validator.js';
+import Game from './Game';
+import View from './view/View';
+import { MESSAGE, SETTING } from './Constants';
+import { validateInput, validateRestartInput } from './utils/Validator';
 
 const {
   GAME_START,
