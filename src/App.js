@@ -1,10 +1,12 @@
 import { readBaseballNumbers, readRestartNumber } from './view/View.js';
 import BaseBall from './BaseBall.js';
 import OutputView from './view/OutputView.js';
+import InputReader from './view/InputReader.js';
 
 class App {
-  constructor(outputView) {
+  constructor(outputView, inputReader) {
     this.outputView = outputView || new OutputView();
+    this.inputReader = inputReader || new InputReader();
     this.baseBall = new BaseBall();
   }
 
@@ -19,7 +21,7 @@ class App {
   }
 
   async piching() {
-    const response = await readBaseballNumbers('숫자를 입력해주세요 : ');
+    const response = await this.inputReader.baseBallNumbers();
     const userInput = Number(response);
 
     await this.check(userInput);
@@ -48,9 +50,7 @@ class App {
   }
 
   async requestRestart() {
-    const response = await readRestartNumber(
-      '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.'
-    );
+    const response = await this.inputReader.restartNumber();
     const userInput = Number(response);
 
     if (![1, 2].includes(userInput)) {
@@ -74,7 +74,8 @@ class App {
 }
 
 const outputView = new OutputView();
-const app = new App(outputView);
+const inputReader = new InputReader();
+const app = new App(outputView, inputReader);
 app.play();
 
 export default App;
