@@ -10,7 +10,7 @@ export default function CheckBaseball(player, computer) {
 		}
 		return true;
 	} catch (error) {
-		console.log(error);
+		Console.print(error);
 	}
 }
 
@@ -37,12 +37,12 @@ function PrintResult(ball, strike) {
 	if (!ball) {
 		Console.print(`낫싱`);
 	} else if (!strike) {
-		console.log(`${ball}볼`);
+		Console.print(`${ball}볼`);
 	} else if (ball === 3 && strike === 3) {
-		console.log(`${strike}스트라이크`);
+		Console.print(`${strike}스트라이크`);
 	} else if (!(ball - strike)) {
-		console.log(`${strike}스트라이크`);
+		Console.print(`${strike}스트라이크`);
 	} else {
-		console.log(`${ball - strike}볼 ${strike}스트라이크`);
+		Console.print(`${ball - strike}볼 ${strike}스트라이크`);
 	}
 }

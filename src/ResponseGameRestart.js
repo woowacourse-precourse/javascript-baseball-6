@@ -5,8 +5,8 @@ export default async function ResponseGameRestart() {
 		if (answer !== '1' && answer !== '2') {
 			throw { name: 'InputValueError', message: '1과 2외의 다른 값을 입력했습니다.' };
 		}
-		return Number(answer);
+		return answer;
 	} catch (error) {
-		console.log(`[ERROR] ${error.message}`);
+		Console.print(`[ERROR] ${error.message}`);
 	}
 }
