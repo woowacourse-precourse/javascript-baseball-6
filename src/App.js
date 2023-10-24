@@ -7,30 +7,32 @@ const { Console } = require("@woowacourse/mission-utils");
 class App {
   async play() {
     Console.print("숫자 야구 게임을 시작합니다.");
-    this.gameTurn();
+    await this.gameTurn();
   }
 
-  gameTurn() {
+  async gameTurn() {
     const randomNumber = generateRandomNumber();
-    this.gameStart(randomNumber);
+    await this.gameStart(randomNumber);
   }
 
-  gameStart(answer) {
-    let score;
-    Console.readLineAsync("숫자를 입력해주세요 : ")
-      .then((inputNumber) => {
-        score = checkBallCount(inputNumber, answer);
+  async gameStart(answer) {
+    try {
+      while (true) {
+        const inputNumber = await Console.readLineAsync(
+          "숫자를 입력해주세요 : "
+        );
+        const score = checkBallCount(inputNumber, answer);
         Console.print(printBallCount(score));
+
         if (score.strike === 3) {
           Console.print("3스트라이크");
           this.checkAnswer();
-        } else {
-          this.gameStart(answer);
+          break;
         }
-      })
-      .catch((error) => {
-        //인풋이 올바른지 확인하는 유효성 검사가 필요
-      });
+      }
+    } catch (error) {
+      //인풋이 올바른지 확인하는 유효성 검사 필요
+    }
   }
 
   checkAnswer() {}
