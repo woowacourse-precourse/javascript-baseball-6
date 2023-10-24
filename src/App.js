@@ -52,7 +52,7 @@ class App {
 
   compareNumber(computer, user) {
     let result = { strike: 0, ball: 0 };
-    for (let i = 0; i <= 2; i++) {
+    for (let i = 0; i <= NUMBER_COUNT - 1; i++) {
       if (computer.includes(user[i])) {
         result.ball++;
       }
