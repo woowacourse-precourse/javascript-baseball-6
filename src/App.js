@@ -25,22 +25,13 @@ class App {
   }
 
   async gameProcess() {
-    while (true) {
+    let isEnd = true;
+    while (isEnd) {
       await this.inputNumber();
       const score = this.checkScore(this.computer, this.input);
       this.answerScore(score);
       if (score[1] === 3) {
-        Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
-        const newInput = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요: ');
-        if (newInput === '1') {
-          this.input = [];
-          this.computerRandomNumber();
-        } else if (newInput === '2') {
-          Console.print('게임 종료');
-          break;
-        } else {
-          throw Error('[ERROR] 숫자가 잘못된 형식입니다.');
-        }
+        isEnd = await this.handleGame();
       }
     }
   }
@@ -73,6 +64,21 @@ class App {
     if (score[1] > 0) ans += `${score[1]}스트라이크`;
   
     Console.print(ans);
+  }
+
+  async handleGame() {
+    Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+      const newInput = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요: ');
+      if (newInput === '1') {
+        this.input = [];
+        this.computerRandomNumber();
+        return true;
+      } else if (newInput === '2') {
+        Console.print('게임 종료');
+        return false;
+      } else {
+        throw Error('[ERROR] 숫자가 잘못된 형식입니다.');
+      }
   }
 }
 
