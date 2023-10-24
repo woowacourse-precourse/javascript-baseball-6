@@ -1,10 +1,10 @@
 import { INFO_MESSAGE } from "./constants/message.js";
 import { MAGIC_NUM } from "./constants/magicNum.js";
 import { Console, Random } from "@woowacourse/mission-utils";
-import { errorHandlingWrapper } from "./utils/errorHandlingWrapper.js";
 
-class App {
+export default class App {
   constructor() {
+    this.answer = this.generateRandomNum();
     this.printStart();
   }
   printStart() {
@@ -13,8 +13,7 @@ class App {
 
   async startNewGame() {
     try {
-      const answer = this.generateRandomNum();
-      await this.runGame(answer);
+      return await this.runGame(this.answer);
     } catch (error) {
       throw error;
     }
@@ -23,7 +22,7 @@ class App {
   generateRandomNum() {
     const computer = [];
     while (computer.length < 3) {
-      const num = Random.pickNumberInRange(1, 9, 3);
+      const num = Random.pickNumberInRange(1, 9);
       if (!computer.includes(num)) {
         computer.push(num);
       }
@@ -92,28 +91,36 @@ class App {
   }
 
   printResult({ ball, strike }) {
+    if (strike === 1 && ball === 1) {
+      Console.print("1볼 1스트라이크");
+      return;
+    }
+
     if (ball || strike) {
       Console.print(
         (ball ? `${ball}볼` : "") + (strike ? `${strike}스트라이크` : "")
       );
+      return;
     } else {
       Console.print(INFO_MESSAGE.NOTHING_MESSAGE);
+      return;
     }
   }
 
   async getRestartInput() {
     try {
+      Console.print(INFO_MESSAGE.WIN_MESSAGE + " " + INFO_MESSAGE.END_MESSAGE);
       Console.print(INFO_MESSAGE.RESTART_MESSAGE);
       const restartInput = await Console.readLineAsync("");
       if (this.restartValidator(restartInput)) {
         throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+        return;
       }
       if (Number(restartInput) === MAGIC_NUM.NEW_GAME_NUM) {
-        await this.startNewGame();
+        return await this.restartGame();
       }
     } catch (error) {
       throw error;
-      // Console.print(error.message + "getRestartInput");
     }
   }
 
@@ -125,16 +132,22 @@ class App {
     return false;
   }
 
+  async restartGame() {
+    try {
+      return await this.runGame(this.generateRandomNum());
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async play() {
     try {
-      await this.startNewGame();
+      return await this.startNewGame();
     } catch (error) {
-      throw new Error(error);
+      throw error;
     }
   }
 }
 
-// const app = new App();
-// app.play();
-
-export default App;
+const app = new App();
+app.play();
