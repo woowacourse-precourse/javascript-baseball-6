@@ -43,7 +43,14 @@ class App {
       }
 
       if (result.strikes === 3) {
-        Console.print('3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료');                            
+        Console.print('3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+        const input = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
+        if (input !== '1' && input !== '2') {      
+          throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+        } else if (input === '1'){
+          this.computerNumber = this.generateComputerNumber();
+          this.play();            
+        }                    
         break; 
       } else {
           if (result.strikes === 0 && result.balls > 0) {
