@@ -1,9 +1,6 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 
-const RANDOM_MIN = 1;
-const RANDOM_MAX = 9;
-
-export default class BaseballGame {
+class BaseballGame {
   constructor() {
     this.computer = [];
     this.correct = false;
@@ -13,7 +10,15 @@ export default class BaseballGame {
     this.computer = this.generateRandomNumbers();
 
     while (!this.correct) {
-      await this.getUserInput();
+      const guess = await this.getUserGuess();
+
+      try {
+        this.validateGuess(guess);
+      } catch (error) {
+        throw new Error(error.message);
+      }
+
+      this.getHint(guess);
     }
 
     if (this.correct) {
@@ -22,6 +27,9 @@ export default class BaseballGame {
   }
 
   generateRandomNumbers() {
+    const RANDOM_MIN = 1;
+    const RANDOM_MAX = 9;
+
     const numbers = [];
     while (numbers.length < 3) {
       const randomNumber = Random.pickNumberInRange(RANDOM_MIN, RANDOM_MAX);
@@ -32,13 +40,27 @@ export default class BaseballGame {
     return [...numbers];
   }
 
-  async getUserInput() {
-    try {
-      const guess = await Console.readLineAsync("숫자를 입력해주세요 : ");
-      this.validateGuess(guess);
-      this.getHint(guess);
-    } catch (error) {
-      throw new Error(error.message);
+  async getUserGuess() {
+    const guess = await Console.readLineAsync("숫자를 입력해주세요 : ");
+
+    return guess;
+  }
+
+  validateGuess(guess) {
+    const threeDigitsPattern = /^\d{3}$/;
+    const oneToNinePattern = /^[1-9]+$/;
+    const hasDuplicatePattern = /(.)\1/;
+
+    if (!threeDigitsPattern.test(guess)) {
+      throw new Error("[ERROR] 세 자리 수를 입력하세요.");
+    }
+
+    if (!oneToNinePattern.test(guess)) {
+      throw new Error("[ERROR] 1에서 9 사이의 숫자만 입력하세요.");
+    }
+
+    if (hasDuplicatePattern.test(guess)) {
+      throw new Error("[ERROR] 중복된 숫자는 사용할 수 없습니다.");
     }
   }
 
@@ -59,22 +81,6 @@ export default class BaseballGame {
 
     strikes === 3 ? (this.correct = true) : null;
   }
-
-  validateGuess(guess) {
-    const threeDigitsPattern = /^\d{3}$/;
-    const oneToNinePattern = /^[1-9]+$/;
-    const hasDuplicatePattern = /(.)\1/;
-
-    if (!threeDigitsPattern.test(guess)) {
-      throw new Error("[ERROR] 세 자리 수를 입력하세요.");
-    }
-
-    if (!oneToNinePattern.test(guess)) {
-      throw new Error("[ERROR] 1에서 9 사이의 숫자만 입력하세요.");
-    }
-
-    if (hasDuplicatePattern.test(guess)) {
-      throw new Error("[ERROR] 중복된 숫자는 사용할 수 없습니다.");
-    }
-  }
 }
+
+export default BaseballGame;
