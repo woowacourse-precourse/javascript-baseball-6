@@ -5,5 +5,3 @@ export const ERROR = {
 }
 
 export const OUT_OF_NUMBER_RANGE = /^[1-9]+$/;
-
-export const NUMBER_LENGTH = "3";
