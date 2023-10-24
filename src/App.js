@@ -17,7 +17,7 @@ async function getUserNumber() {
 }
 
 const isValidInput = (userNumbers) => {
-  if(userNumbers.length !== 3) {
+  if(userNumbers.length !== COMPUTER_ANSWER_LENGTH) {
     return false;
   }
 
@@ -64,9 +64,11 @@ class App {
   }
 }
 
+const COMPUTER_ANSWER_LENGTH = 3;
+
 const generateComputerAnswer = () => {
   const computerAnswer = [];
-  while (computerAnswer.length < 3) {
+  while (computerAnswer.length < COMPUTER_ANSWER_LENGTH) {
     const number = MissionUtils.Random.pickNumberInRange(1, 9);
     if (!computerAnswer.includes(number)) {
       computerAnswer.push(number);
