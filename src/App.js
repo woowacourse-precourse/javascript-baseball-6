@@ -50,11 +50,14 @@ class App {
     return { strike, ball };
   }
 
-  printResult(strike, ball) {
-    if (strike == 3) {
-      Console.print('3스트라이크');
-      return true;
-    } else if (!strike && !ball) {
+  async correctAnswer() {
+    Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+    this.option = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
+    return this.option;
+  }
+
+  async printResult(strike, ball) {
+    if (!strike && !ball) {
       Console.print('낫싱');
     } else if (!strike && ball) {
       Console.print(`${ball}볼`);
@@ -68,7 +71,7 @@ class App {
 
   async play() {
     Console.print('숫자 야구 게임을 시작합니다.');
-    const computerNum = this.getComputerNum();
+    let computerNum = this.getComputerNum();
     console.log(computerNum)
 
     while (true) {
@@ -76,11 +79,20 @@ class App {
     
       const { strike, ball } = this.compareNum(userInput, computerNum);
 
-      if (this.printResult(strike, ball)) {
-        break;
+      if (strike == 3) {
+        Console.print('3스트라이크');
+        const option = await this.correctAnswer();
+        if (option == 1) {
+          computerNum = this.getComputerNum();
+        } else if (option == 2) {
+          break;
+        } else {
+          throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+        }
+      } else {
+        this.printResult(strike, ball)
       }
     }
-    
   }
 }
 
