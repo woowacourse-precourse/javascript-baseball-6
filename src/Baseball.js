@@ -7,6 +7,11 @@ const ERROR_MSG_INPUT_NUMBER = '[ERROR] 숫자가 잘못된 형식입니다.';
 const VALUE_RESTART_GAME = '1';
 const VALUE_END_GAME = '2';
 const VALUE_MAX_GAME_INPUT_DIGIT = 3;
+const RANDOM_NUMBER_RANGE_FROM = 1;
+const RANDOM_NUMBER_RANGE_TO = 9;
+const USER_INPUT_RANGE_FROM = '1';
+const USER_INPUT_RANGE_TO = '9';
+
 class Baseball {
   #computerRandomNumber;
 
@@ -18,14 +23,14 @@ class Baseball {
   async gameStart() {
     let isPlaying = true;
     while (isPlaying) {
-      const userinputNumber = await this.getUserinputNumber(false);
-      const strikeBallCount = this.calcStrikeBallCount(userinputNumber);
+      const userInput = await this.getUserInput(false);
+      const strikeBallCount = this.calcStrikeBallCount(userInput);
       MissionUtils.Console.print(this.makeGameResultString(strikeBallCount));
       if (strikeBallCount.strikeCount === VALUE_MAX_GAME_INPUT_DIGIT) {
         MissionUtils.Console.print(MSG_GAME_OVER);
         MissionUtils.Console.print(MSG_GAME_RESTART);
-        const userinputNumber = await this.getUserinputNumber(true);
-        if (userinputNumber === 1) {
+        const userInput = await this.getUserInput(true);
+        if (userInput === VALUE_RESTART_GAME) {
           this.makeRandomNumber();
         } else {
           isPlaying = false;
@@ -33,19 +38,19 @@ class Baseball {
       }
     }
   }
-  async getUserinputNumber(gameOver) {
+  async getUserInput(gameOver) {
     try {
       const userinput = await MissionUtils.Console.readLineAsync(
         MSG_ENTER_THE_NUMBER
       );
       if (!gameOver) {
         if (this.checkInputGamePlaying(userinput)) {
-          return Number(userinput);
+          return userinput;
         }
         throw new Error(ERROR_MSG_INPUT_NUMBER);
       } else {
         if (this.checkInputGameOver(userinput)) {
-          return Number(userinput);
+          return userinput;
         }
         throw new Error(ERROR_MSG_INPUT_NUMBER);
       }
@@ -61,7 +66,7 @@ class Baseball {
     }
     const set = new Set();
     for (let c of userinput) {
-      if ('0' <= c && c <= '9') {
+      if (USER_INPUT_RANGE_FROM <= c && c <= USER_INPUT_RANGE_TO) {
         set.add(c);
       }
     }
@@ -81,25 +86,25 @@ class Baseball {
   makeRandomNumber() {
     const computer = [];
     while (computer.length < VALUE_MAX_GAME_INPUT_DIGIT) {
-      const number = MissionUtils.Random.pickNumberInRange(1, 9);
+      const number = MissionUtils.Random.pickNumberInRange(
+        RANDOM_NUMBER_RANGE_FROM,
+        RANDOM_NUMBER_RANGE_TO
+      );
       if (!computer.includes(number)) {
         computer.push(number);
       }
     }
-    this.#computerRandomNumber = [...computer];
+    this.#computerRandomNumber = [...computer].join('');
   }
 
-  calcStrikeBallCount(userinputNumber) {
-    const userinputNumberArray = Array.from(String(userinputNumber), Number);
+  calcStrikeBallCount(userInput) {
     let strikeCount = 0;
     let ballCount = 0;
 
     for (let i = 0; i < this.#computerRandomNumber.length; i++) {
-      if (this.#computerRandomNumber.at(i) === userinputNumberArray.at(i)) {
+      if (this.#computerRandomNumber.charAt(i) === userInput.charAt(i)) {
         strikeCount += 1;
-      } else if (
-        this.#computerRandomNumber.includes(userinputNumberArray.at(i))
-      ) {
+      } else if (this.#computerRandomNumber.includes(userInput.charAt(i))) {
         ballCount += 1;
       }
     }
