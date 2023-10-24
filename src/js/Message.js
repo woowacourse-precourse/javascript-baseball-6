@@ -1,7 +1,7 @@
 const MESSAGE = {
   GAME_START: '숫자 야구 게임을 시작합니다.',
   GAME_OVER: '게임종료',
-  INPUT: '숫자를 입력해주세요.',
+  INPUT: '숫자를 입력해주세요.:',
   STRIKE: '스트라이크',
   THREE_STRIKE: '3스트라이크',
   BALL: '볼',
