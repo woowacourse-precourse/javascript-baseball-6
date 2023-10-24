@@ -38,7 +38,7 @@ export default class App {
           console.log("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
           gameFinished = true;
         }
-      } else {
+      } else if (!gameOver) {
         console.log("[ERROR] 숫자가 잘못된 형식입니다.");
       }
     }
