@@ -1,7 +1,7 @@
 import { Console } from "@woowacourse/mission-utils";
 import BaseballGame from "./baseballGame.js";
 
-export default class App {
+class App {
   constructor() {
     this.baseballGame = new BaseballGame();
   }
@@ -38,3 +38,5 @@ export default class App {
     }
   }
 }
+
+export default App;
