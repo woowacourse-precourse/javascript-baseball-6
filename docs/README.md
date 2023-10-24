@@ -1,3 +1,7 @@
+# 파일 구조
+
+<img width="312" alt="스크린샷 2023-10-24 오후 2 53 48" src="https://github.com/laon2019/javascript-baseball-6/assets/117624370/9c0fa2cf-108e-406a-8079-5abb5bff30e1">
+ 
 # 기능 요구 사항
 
 1. 게임 시작
