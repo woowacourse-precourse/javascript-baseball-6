@@ -54,8 +54,5 @@ node src/
 
     `src/lib/constants.js`
 
-### 추가 사항
-- 프로그램 종료시 '게임을 종료합니다' 문구 출력
-
-### 주의점
+### 질문
 - `expect(app.play()).rejects.toThrow()` 예외가 발생하지 않아도 테스트가 통과한다??

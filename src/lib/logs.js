@@ -7,5 +7,4 @@ export const LOGS = {
     NOTHING: '낫싱',
     INVALID_INPUT1: `[ERROR] : 서로 다른 세자리 자연수를 입력해야합니다.`,
     INVALID_INPUT2: `[ERROR] : 1 혹은 2를 입력해야합니다.`,
-    END: '게임을 종료합니다.',
 }

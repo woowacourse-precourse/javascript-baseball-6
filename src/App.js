@@ -28,7 +28,6 @@ class App {
       if(!IS_RESTART) break;
       // 재시작 : this.isStart true로 초기화 하여 initialization 재실행
       this.isStart = true
-      Console.print(LOGS.END) 
     }
   }
 
