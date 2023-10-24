@@ -48,8 +48,7 @@ class Gong {
   }
 
   static fromString(gongString) {
-    const trimmedGongString = gongString.replace(/\s+/g, '');
-    const gongs = trimmedGongString.split('').map((str) => Number(str));
+    const gongs = gongString.split('').map((str) => parseInt(str, 10));
     return new Gong(gongs);
   }
 
