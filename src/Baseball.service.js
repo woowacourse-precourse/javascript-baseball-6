@@ -3,12 +3,10 @@ import { Random, Console } from '@woowacourse/mission-utils';
 export class BaseballService {
   generateRandomNumbers() {
     const computer = [];
-    const selected = new Array(10).fill(false);
     while (computer.length < 3) {
-      const number = Random.pickNumberInRange(1, 9);
-      if (!selected[number]) {
-        selected[number] = true;
-        computer.push(number.toString());
+      const NUM = Random.pickNumberInRange(1, 9);
+      if (!computer.includes(NUM)) {
+        computer.push(NUM.toString());
       }
     }
     return computer;
@@ -45,11 +43,11 @@ export class BaseballService {
   }
 
   async retry() {
-    const baseballRetryInput = await Console.readLineAsync(
+    const BASEBALL_RETRY_INPUT = await Console.readLineAsync(
       '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.'
     );
-    this.validateRetryInput(baseballRetryInput);
-    if (baseballRetryInput === '2') {
+    this.validateRetryInput(BASEBALL_RETRY_INPUT);
+    if (BASEBALL_RETRY_INPUT === '2') {
       return;
     }
     this.baseballQuery();
@@ -72,13 +70,13 @@ export class BaseballService {
   }
 
   async baseballQuery() {
-    const computer = this.generateRandomNumbers();
+    const COMPUTER = this.generateRandomNumbers();
     while (true) {
-      const baseballQueryInput = await Console.readLineAsync(
+      const BASEBALL_QUERY_INPUT = await Console.readLineAsync(
         '숫자를 입력해주세요 : '
       );
-      this.validateBaseballQueryInput(baseballQueryInput);
-      const { ball, strike } = this.refree(computer, baseballQueryInput);
+      this.validateBaseballQueryInput(BASEBALL_QUERY_INPUT);
+      const { ball, strike } = this.refree(COMPUTER, BASEBALL_QUERY_INPUT);
       this.printResult(ball, strike);
       if (strike === 3) {
         Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
