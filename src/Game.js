@@ -18,10 +18,6 @@ class Game {
     this.inputController(input);
   }
 
-  /**
-   *
-   * @param {string} input
-   */
   inputController(input) {
     if (input.length !== 3) throw Error("[ERROR]");
     if (!/^[1-9]{3}$/.test(input)) throw Error("[ERROR]");
@@ -34,6 +30,7 @@ class Game {
 
   getOutput(result) {
     if (result.strike == 3) {
+      Console.print("3스트라이크");
       Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
       return this.gameSelector();
     }
@@ -48,7 +45,7 @@ class Game {
   }
   async gameSelector() {
     const isStart = await Console.readLineAsync(
-      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
     );
     if (isStart == 2) return;
     if (isStart == 1) this.gameStart();
