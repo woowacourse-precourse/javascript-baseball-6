@@ -9,8 +9,37 @@ class App {
       throw new Error(`[ERROR] ${error}`);
     }
   }
+
   async gameStart() {
     this.computerNumber = this.generateRandomNumber();
+    while (true) {
+      this.userNumber = await Console.readLineAsync("숫자를 입력해주세요 : ");
+      const isValid = this.inputValidation(this.userNumber);
+      if (!isValid) throw new Error("숫자가 잘못된 형식입니다.");
+    }
+  }
+
+  inputValidation(numbers) {
+    const isLengthValidate = this.inputLengthCheck(numbers);
+    const isUniqueValidate = this.inputUniqueCheck(numbers);
+    const isNumberValidate = this.inputNumberCheck(numbers);
+    return isLengthValidate && isUniqueValidate && isNumberValidate;
+  }
+
+  inputLengthCheck(numbers) {
+    return numbers.length === 3;
+  }
+
+  inputUniqueCheck(numbers) {
+    const setNumber = new Set(numbers);
+    return setNumber.size === 3;
+  }
+
+  inputNumberCheck(input) {
+    for (let i = 0; i < input.length; i++) {
+      if (isNaN(+input[i])) return false;
+    }
+    return true;
   }
 
   generateRandomNumber() {
