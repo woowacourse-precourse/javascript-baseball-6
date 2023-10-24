@@ -50,7 +50,7 @@ const isValidateNumber = (playerNum) => {
   return true;
 };
 
-// 컴퓨터수와 플레이어수 비교해서 볼, 스트라이크 카운트
+// 컴퓨터수와 플레이어수 비교해서 볼, 스트라이크 카운트 함수
 const compareNumber = (computerNumber, playerNumber) => {
   const compareResult = {
     ball: 0,
@@ -61,6 +61,19 @@ const compareNumber = (computerNumber, playerNumber) => {
     else if (computerNumber.includes(num)) compareResult.ball += 1;
   });
   return compareResult;
+};
+
+// 비교 결과 출력 함수
+const printResult = (compareResult) => {
+  const { strike, ball } = compareResult;
+  if (!strike && !ball) {
+    print(MESSAGE.NOTHING);
+  } else {
+    let result = "";
+    if (ball > 0) result += `${ball}${MESSAGE.BALL} `;
+    if (strike > 0) result += `${strike}${MESSAGE.STRIKE}`;
+    print(result);
+  }
 };
 
 export default App;
