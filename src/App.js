@@ -17,6 +17,15 @@ const generateRandomNumber = () => {
   return computer.join('');
 }
 
+const playGame = async (computerNumber) => {
+  const userNumber = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
+  if (!validateInput(userNumber)) {
+    await playGame(computerNumber);
+  } else {
+    await gameProcess(computerNumber, userNumber);
+  }
+}
+
 const validateInput = (userInput) => {
   if (userInput.length !== 3) {
     throw new Error('[ERROR] 3자리의 숫자를 입력해주세요.');
