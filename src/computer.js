@@ -1,8 +1,9 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import { enterNumber } from "./player.js";
+import { ERROR_MESSAGES, OUTPUT_MESSAGES } from "./constant/constant.js";
 
 export async function pickRandomNumber() {
-  MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
+  MissionUtils.Console.print(OUTPUT_MESSAGES.START_GAME);
 
   const computer = [];
   while (computer.length < 3) {
@@ -31,14 +32,14 @@ export async function judgeNumber(computerNum, playerNum) {
   }
 
   if (strike == 3) {
-    MissionUtils.Console.print('3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+    MissionUtils.Console.print(`${strike}${OUTPUT_MESSAGES.STRIKE}\n${OUTPUT_MESSAGES.END_GAME}`);
     await endGame();
   } else if (strike == 0 && ball == 0) {
-    MissionUtils.Console.print('낫싱');
+    MissionUtils.Console.print(OUTPUT_MESSAGES.NOTHING);
     await enterNumber(computerNum);
   } else {
-    const ballComment = ball == 0 ? '' : `${ball}볼 `
-    const strikeComment = strike == 0 ? '' : `${strike}스트라이크`;
+    const ballComment = ball == 0 ? '' : `${ball}${OUTPUT_MESSAGES.BALL} `
+    const strikeComment = strike == 0 ? '' : `${strike}${OUTPUT_MESSAGES.STRIKE}`;
     MissionUtils.Console.print(`${ballComment}${strikeComment}`);
     await enterNumber(computerNum);
   }
@@ -47,12 +48,12 @@ export async function judgeNumber(computerNum, playerNum) {
 export async function endGame() {
   const REGEX = /[^1-2]/; // 숫자 1~2 외의 문자 찾아내는 정규표현식
 
-  const gameStatus = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
+  const gameStatus = await MissionUtils.Console.readLineAsync(`${OUTPUT_MESSAGES.END_GAME}\n`);
 
   if (REGEX.test(gameStatus)) {
-    throw new Error('[ERROR] 숫자 1 또는 2만 입력해주세요. (공백 없이)');
+    throw new Error(ERROR_MESSAGES.OUT_OF_RANGE_1_TO_2);
   } else if (gameStatus.length != 1) {
-    throw new Error('[ERROR] 1개의 숫자만 입력해주세요.');
+    throw new Error(ERROR_MESSAGES.INCORRECT_INPUT_COUNT_1);
   }
 
   if (gameStatus == 1) {
