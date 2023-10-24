@@ -36,13 +36,19 @@ class App {
 
     if (STRIKE === 0 && BALL === 0) {
       Console.print("낫싱");
-    } else if (STRIKE === 3) {
-      Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    } else if (STRIKE === 0) {
+      Console.print(`${BALL}볼`);
+    } else if (BALL === 0) {
+      Console.print(`${STRIKE}스트라이크`);
     } else {
       Console.print(`${BALL}볼 ${STRIKE}스트라이크`);
     }
 
     return STRIKE;
+  }
+
+  replay() {
+    Console.print("");
   }
 
   async play() {
@@ -54,6 +60,7 @@ class App {
       const USER_NUMBER = await this.inputNumber();
       const STRIKE = await this.calculateScore(USER_NUMBER, RANDOM_NUMBER);
       if (STRIKE === 3) {
+        Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
         CORRECT = true;
       }
     }
