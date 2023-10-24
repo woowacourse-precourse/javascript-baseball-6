@@ -1,5 +1,6 @@
 import { Random, Console } from "@woowacourse/mission-utils";
 
+// App 클래스를 사용자가 숫자 야구 게임을 할 수 있는 컴퓨터라고 생각하고 구현
 class App {
   constructor() {
     this.secretNumber = [null, null, null];
@@ -25,9 +26,22 @@ class App {
     return userInputArray;
   }
 
+  compareNumber(guessNumber) {
+    let strike = 0;
+    let ball = 0;
+    for (let i = 0; i < 3; i++) {
+      if (guessNumber[i] === this.secretNumber[i]) {
+        strike += 1;
+        continue;
+      }
+      if (this.secretNumber.includes(guessNumber[i])) ball += 1;
+    }
+  }
+
   playBaseBall() {
     this.generateSecretNumber();
     const guessNumber = App.inputGuessNumber();
+    this.compareNumber(guessNumber);
   }
 
   play() {
