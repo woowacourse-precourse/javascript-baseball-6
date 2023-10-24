@@ -47,8 +47,10 @@ title: "1. 게임 시작 직후 루틴"
 ---
 flowchart LR
     start(["게임 시작"]);
+    print[/"'숫자 야구 게임을 시작합니다.' 출력"/];
     generateRandom["컴퓨터가 3자리 수를 생성"];
-    start --> generateRandom;
+    start --> print;
+    print --> generateRandom;
     waiting(["2. 게임 동작 루틴"]);
     generateRandom --> waiting;
 ```
@@ -167,8 +169,10 @@ title: 4. 전체 종합
 ---
 flowchart TD
     start(["게임 시작"]);
+    print[/"'숫자 야구 게임을 시작합니다.' 출력"/];
     generateRandom["컴퓨터가 3자리 수를 생성"];
-    start --> generateRandom;
+    start --> print;
+    print --> generateRandom;
     waiting(["2. 게임 동작 루틴"]);
     generateRandom --> waiting;
 
