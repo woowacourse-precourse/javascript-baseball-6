@@ -9,23 +9,44 @@ const retryAnswer = Object.freeze({
 });
 
 export default class Game {
-  isAllStrike;
-
   constructor() {
-    this.isAllStrike = false;
+    this.isGameFinished = false;
   }
 
-  askRetry = async () => {
+  start = async (isRetry = false) => {
+    !isRetry && this.printGameStartMessage();
+    await this.playGame();
+  };
+
+  playGame = async () => {
+    const [computer, refree, player] = this.initializeGame();
+    const computerBalls = computer.throwBalls(computer.ballNumbers);
+
+    while (!this.isGameFinished) {
+      const playerBallsInput = await this.promptPlayerBalls();
+      const playerBalls = player.throwBalls(playerBallsInput);
+      const result = refree.compareBalls(computerBalls, playerBalls);
+      this.processResult(result);
+    }
+    this.promptRetry();
+  };
+
+  initializeGame = () => {
+    this.isGameFinished = false;
+    return [new Computer(), new Referee(), new Player()];
+  };
+
+  promptRetry = async () => {
     const answer = await Console.readLineAsync(
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
     );
     if (answer !== retryAnswer[1] && answer !== retryAnswer[2]) {
       throw new Error("[ERROR] 1 또는 2만 입력할 수 있습니다.");
     }
-    answer === retryAnswer[1] && this.initGame(true);
+    answer === retryAnswer[1] && this.start(true);
   };
 
-  getPlayerBallNumbers = async () => {
+  promptPlayerBalls = async () => {
     try {
       const answer = await Console.readLineAsync("숫자를 입력해주세요 : ");
       return answer;
@@ -34,31 +55,15 @@ export default class Game {
     }
   };
 
-  resetGame = () => {
-    this.isAllStrike = false;
-    const computer = new Computer();
-    const refree = new Referee();
-    const player = new Player();
-    return [computer, refree, player];
+  processResult = (result) => {
+    Console.print(result);
+    if (result.includes("3스트라이크")) {
+      Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+      this.isGameFinished = true;
+    }
   };
 
-  initGame = async (isRetry = false) => {
-    !isRetry && Console.print("숫자 야구 게임을 시작합니다.");
-    const [computer, refree, player] = this.resetGame();
-
-    const computerBalls = computer.throwBalls(computer.ballNumbers);
-
-    while (this.isAllStrike === false) {
-      const playerBallNumbers = await this.getPlayerBallNumbers();
-      const playerBalls = player.throwBalls(playerBallNumbers);
-      console.log("playerBalls : ", playerBalls);
-
-      refree.getHint(computerBalls, playerBalls);
-      if (refree.isThreeStrikes()) {
-        Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-        this.isAllStrike = true;
-      }
-    }
-    this.askRetry();
+  printGameStartMessage = () => {
+    Console.print("숫자 야구 게임을 시작합니다.");
   };
 }

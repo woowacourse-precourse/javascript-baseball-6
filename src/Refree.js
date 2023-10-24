@@ -18,10 +18,9 @@ export default class Referee {
     });
   }
 
-  #printResult() {
+  #getResult() {
     if (this.#strike === 0 && this.#ball === 0) {
-      Console.print("낫싱");
-      return;
+      return "낫싱";
     }
 
     const result = [];
@@ -29,18 +28,14 @@ export default class Referee {
     this.#strike && result.push(`${this.#strike}스트라이크`);
 
     const output = result.join(" ");
-    if (output) Console.print(output);
+    if (output) return output;
   }
 
-  getHint(answer, guess) {
+  compareBalls(answer, guess) {
     this.#strike = 0;
     this.#ball = 0;
 
     this.#calculateScore(answer, guess);
-    this.#printResult();
-  }
-
-  isThreeStrikes() {
-    return this.#strike === 3;
+    return this.#getResult();
   }
 }
