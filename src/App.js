@@ -15,31 +15,23 @@ class App {
   async play() {
     Console.print(MESSAGE.start);
     let isKeepPlaying = true;
-    while (isKeepPlaying) {
-      const answer = this.generateRandomNumber();
-      await this.game(answer);
 
-      while (true) {
-        const input = (await Console.readLineAsync(MESSAGE.continue)).trim();
-        if (input === "1") break;
-        if (input === "2") {
-          isKeepPlaying = false;
-          break;
-        }
-      }
+    while (isKeepPlaying) {
+      const targetNumber = this.generateRandomNumber();
+      await this.game(targetNumber);
+      isKeepPlaying = await this.askForGameRestart();
     }
   }
 
-  async game(answer) {
+  async game(targetNumber) {
     while (true) {
       const input = await Console.readLineAsync("숫자를 입력해주세요 : ");
-
       const isValidInput = this.validateInput(input);
       if (!isValidInput) {
         throw new Error(MESSAGE.error("입력값이 유효하지 않습니다."));
       }
 
-      const { strike, ball } = this.countPitchResult(input, answer);
+      const { strike, ball } = this.countPitchResult(input, targetNumber);
       const output = this.outputPitchResult(strike, ball);
       Console.print(output);
 
@@ -47,6 +39,14 @@ class App {
         Console.print(MESSAGE.end);
         break;
       }
+    }
+  }
+
+  async askForGameRestart() {
+    while (true) {
+      const input = await Console.readLineAsync(MESSAGE.continue);
+      if (input === "1") return true;
+      if (input === "2") return false;
     }
   }
 
@@ -62,17 +62,17 @@ class App {
     return result;
   }
 
-  countPitchResult(input, answer) {
+  countPitchResult(input, targetNumber) {
     let strike = 0;
     let ball = 0;
 
-    if (input === answer) {
+    if (input === targetNumber) {
       strike = 3;
     } else {
       for (let i = 0; i < input.length; i++) {
-        if (input[i] === answer[i]) {
+        if (input[i] === targetNumber[i]) {
           strike++;
-        } else if (answer.includes(input[i])) {
+        } else if (targetNumber.includes(input[i])) {
           ball++;
         }
       }
