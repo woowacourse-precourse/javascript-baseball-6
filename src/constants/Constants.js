@@ -9,3 +9,9 @@ export const MESSAGES = {
   RESTART_OR_END: "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.",
   ERROR: "[ERROR] 입력이 잘못된 형식입니다.",
 };
+
+export const STATUS = {
+  NOTHING: 0,
+  CONTINUE: 1,
+  OVER: 2,
+};

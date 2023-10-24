@@ -1,7 +1,6 @@
 import { Console } from "@woowacourse/mission-utils";
 import Computer from "./Computer";
-import { MESSAGES } from "./constants/Messages";
-import { STATUS } from "./constants/Status";
+import { MESSAGES, STATUS } from "./constants/Constants";
 
 class App {
   constructor() {
@@ -75,17 +74,19 @@ class App {
     return result;
   };
 
-  printGameResult = (result) => {
-    if (result.ball === 0 && result.strike === 0) {
-      Console.print(MESSAGES.RESULT.NOTHING);
-    } else if (result.strike === 3) {
-      Console.print(MESSAGES.RESULT.ALL_STRIKE);
-      Console.print(MESSAGES.GAME_OVER);
-      return STATUS.OVER;
-    } else {
-      Console.print(`${result.ball}볼 ${result.strike}스트라이크`);
+  printGameResult = (status, result) => {
+    switch (status) {
+      case STATUS.NOTHING:
+        Console.print(MESSAGES.RESULT.NOTHING);
+        return;
+      case STATUS.CONTINUE:
+        Console.print(`${result.ball}볼 ${result.strike}스트라이크`);
+        return;
+      case STATUS.OVER:
+        Console.print(MESSAGES.RESULT.ALL_STRIKE);
+        Console.print(MESSAGES.GAME_OVER);
+        return;
     }
-    return STATUS.CONTINUE;
   };
 
   gameReady = async () => {
@@ -102,16 +103,18 @@ class App {
         this.userNumber
       );
 
-      const resultStatus = this.printGameResult(result);
-
-      if (resultStatus === STATUS.OVER) {
+      if (result.ball === 0 && result.strike === 0) {
+        this.printGameResult(STATUS.NOTHING, result);
+      } else if (result.strike === 3) {
+        this.printGameResult(STATUS.OVER, result);
         this.printRestartOrEnd();
         const input = await this.getRestartOrEndInput();
         if (input === "1") {
           await this.gameReady();
         }
-
         return;
+      } else {
+        this.printGameResult(STATUS.CONTINUE, result);
       }
     }
   };
@@ -119,7 +122,6 @@ class App {
   async play() {
     this.printGameStart();
     await this.gameReady();
-
     return;
   }
 }
