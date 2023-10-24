@@ -10,14 +10,8 @@ class ErrorCheck {
     }
   }
 
-  static tryAgain(string) {
-    // ascii code ('1':49 '2':50)
-    try {
-      ErrorCheck.arrayLikeLength(string, 1);
-      ErrorCheck.stringRangeByCharCode(string, 49, 50);
-    } catch (error) {
-      throw new Error('[ERROR] Wrong Retry');
-    }
+  static string1or2(string) {
+    if (string !== '1' && string !== '2') throw new Error('[ERROR] Not \'1\' or \'2\'');
   }
 
   static arrayLikeLength(arrayLike, length) {
