@@ -14,7 +14,7 @@ export async function enterNumber(computerNum) {
         throw new Error("[ERROR] 서로 다른 숫자를 입력해주세요.");
     }
     const playerNumArray = playerNum.split('');
-    judgeNumber(computerNum, playerNumArray)
+    await judgeNumber(computerNum, playerNumArray)
 }
 
 function hasDuplicateNumber(number) {

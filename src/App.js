@@ -2,7 +2,7 @@ import { pickRandomNumber } from "./computer.js";
 
 class App {
   async play() {
-    pickRandomNumber();
+    await pickRandomNumber();
   }
 }
 

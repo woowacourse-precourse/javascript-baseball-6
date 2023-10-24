@@ -14,7 +14,7 @@ export async function pickRandomNumber() {
   await enterNumber(computer);
 }
 
-export function judgeNumber(computerNum, playerNum) {
+export async function judgeNumber(computerNum, playerNum) {
   let strike = 0;
   let ball = 0;
   for (var i = 0; i < 3; i++) {
@@ -32,16 +32,15 @@ export function judgeNumber(computerNum, playerNum) {
 
   if (strike == 3) {
     MissionUtils.Console.print('3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료');
-    endGame();
+    await endGame();
   } else if (strike == 0 && ball == 0) {
     MissionUtils.Console.print('낫싱');
-    enterNumber(computerNum);
+    await enterNumber(computerNum);
   } else {
     const ballComment = ball == 0 ? '' : `${ball}볼 `
     const strikeComment = strike == 0 ? '' : `${strike}스트라이크`;
     MissionUtils.Console.print(`${ballComment}${strikeComment}`);
-
-    enterNumber(computerNum);
+    await enterNumber(computerNum);
   }
 }
 
@@ -57,6 +56,6 @@ export async function endGame() {
   }
 
   if (gameStatus == 1) {
-    pickRandomNumber();
+    await pickRandomNumber();
   }
 }
