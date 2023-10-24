@@ -52,8 +52,8 @@ class App {
   }
 
   async checkResult(computerNum, userNum){
-    let strike=countStrike(computerNum, userNum);
-    let ball=countBall(computerNum, userNum);
+    let strike=this.countStrike(computerNum, userNum);
+    let ball=this.countBall(computerNum, userNum);
     if(strike===3){
       MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
       return;
