@@ -1,6 +1,6 @@
 import { Console } from "@woowacourse/mission-utils";
-import baseBallGame from "./baseBallGame.js";
-import createRandomNumber from "./function/createRandomNumber.js";
+import baseBallGame from "./baseBallGame";
+import createRandomNumber from "./function/createRandomNumber";
 
 class App {
   async play() {

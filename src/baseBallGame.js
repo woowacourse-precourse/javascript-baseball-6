@@ -1,8 +1,8 @@
 import { Console } from "@woowacourse/mission-utils";
-import createRandomNumber from "./function/createRandomNumber.js";
-import userInput from "./function/userInput.js";
-import gameResultPrint from "./function/gameResultPrint.js";
-import restartChecked from "./function/restartChecked.js";
+import createRandomNumber from "./function/createRandomNumber";
+import userInput from "./function/userInput";
+import gameResultPrint from "./function/gameResultPrint";
+import restartChecked from "./function/restartChecked";
 
 const baseBallGame = async (computerValue) => {
   const userValue = await userInput();
