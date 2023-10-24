@@ -1,6 +1,13 @@
 const MESSAGES = {
   START: '숫자 야구 게임을 시작합니다.',
   INPUT_NUMBER: '숫자를 입력해주세요 : ',
+  CORRECT_NUMBER: '3개의 숫자를 모두 맞히셨습니다! 게임 종료',
+  RESTART_OR_DONE: '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n',
+  END: '숫자 야구 게임을 종료합니다.',
+
+  STRIKE: '스트라이크',
+  BALL: '볼',
+  NOTHING: '낫싱',
 
   ERROR: {
     TYPE_ERROR: '[ERROR] 숫자가 아닌 값이 들어왔습니다',

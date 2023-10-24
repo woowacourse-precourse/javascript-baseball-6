@@ -22,6 +22,8 @@ class BaseBallGame {
       this.computer.computerNum,
       this.user.userNum,
     );
+
+    await this.getResult(ballCnt, strikeCnt);
   }
 
   getBallAndStrikeCnt(computerNum, userNum) {
@@ -37,6 +39,45 @@ class BaseBallGame {
     });
 
     return [ballCnt, strikeCnt];
+  }
+
+  async getResult(ballCnt, strikeCnt) {
+    let resultMessage = '';
+
+    if (ballCnt > 0) {
+      resultMessage += `${ballCnt}${MESSAGES.BALL} `;
+    }
+
+    if (strikeCnt > 0) {
+      resultMessage += `${strikeCnt}${MESSAGES.STRIKE}`;
+    }
+
+    if (this.#isNothing(ballCnt, strikeCnt)) {
+      resultMessage += MESSAGES.NOTHING;
+    }
+
+    Console.print(resultMessage);
+
+    if (strikeCnt === 3) {
+      await this.getRestartNumber();
+    } else {
+      await this.playBaseBallGame();
+    }
+  }
+
+  #isNothing(ballCnt, strikeCnt) {
+    return ballCnt === 0 && strikeCnt === 0;
+  }
+
+  async getRestartNumber() {
+    Console.print(MESSAGES.CORRECT_NUMBER);
+    await Console.readLineAsync(MESSAGES.RESTART_OR_DONE).then((restartNum) => {
+      if (restartNum === '1') {
+        this.start();
+      } else if (restartNum === '2') {
+        Console.print(MESSAGES.END);
+      }
+    });
   }
 }
 
