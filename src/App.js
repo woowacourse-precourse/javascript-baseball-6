@@ -56,17 +56,19 @@ class App {
     return this.option;
   }
 
-  async printResult(strike, ball) {
-    if (!strike && !ball) {
-      Console.print('낫싱');
-    } else if (!strike && ball) {
-      Console.print(`${ball}볼`);
-    } else if (strike && !ball) {
-      Console.print(`${strike}스트라이크`);
-    } else if (strike && ball) {
-      Console.print(`${ball}볼 ${strike}스트라이크`);
+  printResult(strike, ball) {
+    let resultMessage = ''
+    
+    if (ball !== 0) {
+      resultMessage += `${ball}볼 `;
     }
-    return false;
+    if (strike !== 0) {
+      resultMessage += `${strike}스트라이크`;
+    }
+    if (resultMessage === '') {
+      resultMessage += '낫싱';
+    }
+    return resultMessage;
   }
 
   async play() {
@@ -90,7 +92,7 @@ class App {
           throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
         }
       } else {
-        this.printResult(strike, ball)
+        Console.print(this.printResult(strike, ball));
       }
     }
   }
