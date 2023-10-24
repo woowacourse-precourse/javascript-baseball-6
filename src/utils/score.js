@@ -26,7 +26,7 @@ const score = (guesser, answer) => ({
   },
 
   get win() {
-    return this.strikes === 3;
+    return this.strikes === CONSTANTS.NUM_LENGTH;
   },
 });
 

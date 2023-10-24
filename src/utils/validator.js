@@ -18,7 +18,7 @@ export default function validate(numbers) {
     );
   }
   if (!isThreeWordLong(numbers)) {
-    throw new InputError('3자리 숫자를 입력해주세요.');
+    throw new InputError(`${CONSTANTS.NUM_LENGTH}자리 숫자를 입력해주세요.`);
   }
   if (!isUnique(numbers)) {
     throw new InputError('중복되지 않는 숫자를 입력해주세요.');
