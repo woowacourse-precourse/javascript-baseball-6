@@ -13,8 +13,8 @@ async function start() {
   return Console.readLineAsync("숫자를 입력해주세요 : ");
 }
 
-function validate(array) {
-  if (Number(array) > 999 || Number(array) < 100 || isNaN(array)) {
+function validate(data) {
+  if (data.length > 3 || data.length < 3 || isNaN(data)) {
     throw new Error("[ERROR] 잘못된 값을 입력하였습니다.");
   }
 }
@@ -54,15 +54,15 @@ class App {
   async play() {
     let randomArray = [];
     let inputArray = [];
-    let inputData = 0;
-    let resetCode = 0;
+    let inputData = "";
+    let resetCode = "";
 
     let strikeCount = 0;
     let ballCount = 0;
 
     Console.print("숫자 야구 게임을 시작합니다.");
 
-    while (Number(resetCode) !== 2) {
+    while (resetCode !== "2") {
       inputArray = [];
       pickRandomNumber(randomArray);
 
