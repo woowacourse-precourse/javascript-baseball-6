@@ -73,10 +73,10 @@ class App {
     Console.print("answer " + typeof this.answer[0]);
 
     let inputArr = this.userNum.split("");
-    let strike = 0;
-    let ball = 0;
 
     // 1) 스트라이크 계산
+    let strike = 0;
+
     for (let i = 0; i < 3; i++) {
       if (+inputArr[i] === this.answer[i]) {
         strike++;
@@ -84,7 +84,19 @@ class App {
     }
     Console.print("strike " + strike);
 
-    // }
+    // 2) 볼 계산
+    let ball = 0;
+
+    for (let i = 0; i < 3; i++) {
+      if (
+        this.answer.includes(+inputArr[i]) &&
+        +inputArr[i] !== this.answer[i]
+      ) {
+        ball++;
+      }
+    }
+
+    Console.print("ball" + ball);
   }
 
   async play() {
