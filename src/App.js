@@ -6,13 +6,13 @@ async function getUserNumber() {
     const userNumbers = userInput.split('').map(Number);
 
     if(!isValidInput(userNumbers)) {
-      throw (new Error('[ERROR] 숫자가 잘못된 형식입니다.'));
+      throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
     }
 
     return userNumbers;
   } catch (error) {
     console.error(error.message);
-    return null;
+    return Promise.reject(error);
   }
 }
 
@@ -43,10 +43,6 @@ class App {
 
     while (true) {
       const userGuess = await getUserNumber();
-
-      if(userGuess === null) {
-        break;
-      }
 
       const { strike, ball, message } = calculateResult(computerAnswer, userGuess);
 
