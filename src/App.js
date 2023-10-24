@@ -23,24 +23,12 @@ class App {
     let userInput = '';
     let ball = 0;
     let strike = 0;
-    let set = new Set();
 
     while(ONOFF == 1) {
       userInput =  await Console.readLineAsync(NORMAL_MSG.INPUT);
       let inputNum = userInput.split('').map(el => Number(el));
 
-      if(!this.isNumber(userInput)) {
-        throw new Error(this.makeErrorMsg(ERROR_MSG.NOT_A_NUMBER));
-      }
-
-      if(!this.isValidLen(userInput)){
-        throw new Error(this.makeErrorMsg(ERROR_MSG.INVALID_LENGTH));
-      }
-      
-      set = new Set(inputNum);
-      if(set.size < 3) {
-        throw new Error(this.makeErrorMsg(ERROR_MSG.DUPLICATE));
-      }
+      this.checkValidation(userInput, inputNum);
 
       [ball, strike] = await this.checkStrike(this.randNum, inputNum);
 
@@ -85,6 +73,24 @@ class App {
     }
 
     return [ball, strike];
+  }
+
+  checkValidation(userInput, inputNum) {
+    let set = new Set(inputNum);
+
+    if(!this.isNumber(userInput)) {
+      throw new Error(this.makeErrorMsg(ERROR_MSG.NOT_A_NUMBER));
+    }
+
+    if(!this.isValidLen(userInput)){
+      throw new Error(this.makeErrorMsg(ERROR_MSG.INVALID_LENGTH));
+    }
+    
+    if(set.size < 3) {
+      throw new Error(this.makeErrorMsg(ERROR_MSG.DUPLICATE));
+    }
+
+    return;
   }
 
   isNumber(userInput) {
