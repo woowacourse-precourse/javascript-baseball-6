@@ -5,31 +5,33 @@ const ERROR_MESSAGE = '[ERROR] 숫자를 잘 못 입력했습니다.';
 const WINNING_MASSAGE = '3개의 숫자를 모두 맞히셨습니다! 게임 종료';
 const AKS_RESTART_MASSAGE =
   '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.';
+const GAME_RESTART = 1;
+const GAME_END = 2;
 
 class App {
   async play() {
     this.displayGameStartMessage();
-    let playAgain = 1;
+    let gameRestartOrEnd = GAME_RESTART;
     let answerNumber;
 
-    while (playAgain === 1) {
+    while (gameRestartOrEnd === GAME_RESTART) {
       answerNumber = this.generateRandomNumbers();
       Console.print(answerNumber);
 
       while (true) {
         let userInput = await this.promptUserInput();
 
-        let result = this.evaluateGameResult(answerNumber, userInput);
+        let gameResult = this.evaluateGameResult(answerNumber, userInput);
 
-        Console.print(result);
+        Console.print(gameResult);
 
-        if (result.includes(3 + '스트라이크')) {
+        if (gameResult.includes(3 + '스트라이크')) {
           this.endGameMessage();
-          playAgain = await this.askForAnotherGame();
-          if (playAgain === 1) {
+          gameRestartOrEnd = await this.askForGameEndOrRestart();
+          if (gameRestartOrEnd === GAME_RESTART) {
             answerNumber = this.generateRandomNumbers();
           }
-          if (playAgain === 2) {
+          if (gameRestartOrEnd === GAME_END) {
             break;
           }
         }
@@ -128,7 +130,7 @@ class App {
     Console.print(WINNING_MASSAGE);
   }
 
-  async askForAnotherGame() {
+  async askForGameEndOrRestart() {
     const playerInput = await Console.readLineAsync(AKS_RESTART_MASSAGE);
     const playerAnswer = this.parseInputToNumber(playerInput);
     if (!this.isValidRestartInput(playerAnswer)) {
