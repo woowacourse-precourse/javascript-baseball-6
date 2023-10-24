@@ -30,13 +30,15 @@ class App {
       }
 
       if (ball_number == 0 && strike_number == 0) {
-        console.log("낫싱");
+        MissionUtils.Console.print("낫싱");
       } else if (ball_number == 0 && strike_number < 3) {
-        console.log(strike_number + "스트라이크");
+        MissionUtils.Console.print(strike_number + "스트라이크");
       } else if (strike_number == 3) {
-        console.log("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+        MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
       } else {
-        console.log(ball_number + "볼 " + strike_number + "스트라이크");
+        MissionUtils.Console.print(
+          ball_number + "볼 " + strike_number + "스트라이크"
+        );
       }
     }
 
@@ -62,14 +64,18 @@ class App {
             "숫자를 입력해주세요:"
           );
         } catch (error) {
-          console.log(error);
+          MissionUtils.Console.print(error);
         }
         const error = checkInput(user_input);
         if (error) {
           // test 돌릴때 요거 자꾸 이상함.
-          console.log(error);
+          throw new Error(error);
+
+          // MissionUtils.Console.print(error);
         } else {
-          // console.log("컴퓨터에서 생성한 넘버" + computer_random_number);
+          // MissionUtils.Console.print(
+          //   "컴퓨터에서 생성한 넘버" + computer_random_number
+          // );
           compareNumbers(computer_random_number, user_input);
           if (computer_random_number == user_input) {
             const restartOrExit = await MissionUtils.Console.readLineAsync(
