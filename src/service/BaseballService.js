@@ -38,10 +38,9 @@ export class BaseballService {
   }
 
   #getGameResult({ strike, ball }) {
-    if (strike || ball) {
-      return MESSAGE.score(strike, ball);
-    }
-    return MESSAGE.nothing;
+    const isNothing = strike || ball;
+    const result = isNothing ? MESSAGE.score(strike, ball) : MESSAGE.nothing;
+    return result;
   }
 
   computeScore(submit) {
@@ -66,9 +65,6 @@ export class BaseballService {
   }
 
   isEnd() {
-    if (this.#submittedCorrectly === null) {
-      return false;
-    }
-    return true;
+    return this.#submittedCorrectly !== null;
   }
 }
