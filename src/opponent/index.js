@@ -4,7 +4,7 @@ import randomNumSetGenerator from '../utils/RandomNumSetGenerator.js';
 class Opponent {
   /**
    * 랜덤하게 결정된 서로 다른 3자리 수를 담은 정답 배열
-   * @type {[number, number, number]}
+   * @type {number[]}
    */
   #randomNumberSet = [];
 
@@ -31,7 +31,7 @@ class Opponent {
       else ballCounts[2] += 1;
     });
 
-    return this.printBallCount(ballCounts);
+    return this.#formatBallCountMessage(ballCounts);
   };
 
   /**
@@ -39,7 +39,7 @@ class Opponent {
    * @param {[number, number, number]} param0
    * @returns
    */
-  printBallCount = ([strike, ball, out]) => {
+  #formatBallCountMessage = ([strike, ball, out]) => {
     let ballCountMessage = '';
 
     if (ball > 0) ballCountMessage += `${ball}${BALL_COUNTS.BALL} `;
