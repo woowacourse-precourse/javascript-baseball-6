@@ -8,7 +8,7 @@ class View {
 
   async ending() {
     Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
-    await this.input('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+    await this.input('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
     return this;
   }
 
@@ -30,7 +30,7 @@ class View {
       string += `${ball}볼`;
     }
     if (strike > 0) {
-      string += `${strike}스트라이크 `;
+      string += ` ${strike}스트라이크`;
     }
     if (strike === 0 && ball === 0) {
       string += '낫싱';

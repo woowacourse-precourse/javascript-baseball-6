@@ -2,6 +2,7 @@ import View from "./View.js";
 import Model from "./Model.js";
 import Controller from "./Controller.js";
 import Error from "./Error.js";
+import { Console } from "@woowacourse/mission-utils";
 
 class App {
   async play() {
@@ -12,19 +13,18 @@ class App {
     controller.opening();
     let isRestart = true;
     while (isRestart) {
-      let correct = false;
-      try {
-        correct = (await controller.handleInput()).isCorrect;
-      } catch (e) {
-        Error.handle(e);
-        throw e;
-      }
+      const correct = (await controller.handleInput()).isCorrect;
       if (correct) {
-        isRestart = false;
+        isRestart = (await controller.ending()).isRestart;
+        if (isRestart) {
+          controller.initGame();
+        }
       }
     }
     return this;
   }
 }
+
+// new App().play();
 
 export default App;

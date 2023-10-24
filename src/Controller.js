@@ -18,7 +18,7 @@ class Controller {
     }
 
     this.model.update(input);
-    return this;
+    return { isRestart: this.model.getRestart().isRestart };
   }
 
   async handleInput() {

@@ -34,6 +34,10 @@ class Model {
     return { strike, ball, isCorrect: strike === 3 };
   }
 
+  getRestart() {
+    return { isRestart: this.inputNumber === '1' ? true : false };
+  }
+
   update(input) {
     this.inputNumber = input;
     return this;
