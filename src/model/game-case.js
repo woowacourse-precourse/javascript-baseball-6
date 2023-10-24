@@ -1,33 +1,49 @@
 
 import { MissionUtils } from "@woowacourse/mission-utils";
+import {setAnswerNum, answerNum, userInputNum, correct} from "./data.js";
 
-const gameCase = function gameCase(gameState){
+const gameCase = async function gameCase(gameState){
+    
     switch (gameState) {
         //시작 문구 출력
         case 1 : {
-            caseNum1();
-            break;
+            return await caseNum1();
         }
         //숫자 입력 요청 문구 출력
         case 2 : {
+            return await caseNum2();
+        }
+
+        case 3 : {
+            // 입력한 값에 대한 정답 반환
+            return await caseNum3();
         }
     }
 }
 export default gameCase;
 
-var answerNum;
-const caseNum1 = function caseNum1(){
-    //랜덤 숫자 생성 -> 정답
-    answerNum = MissionUtils.Random.pickNumberInRanger(1,9);
+
+const caseNum1 = async function caseNum1(){
+    setAnswerNum(MissionUtils.Random.pickNumberInRange(111,999));
     return 1;
 }
-
 
 const caseNum2 = function caseNum2(){
     return 2;
 }
 
-var userInputNum;
-const caseNum3 = function caseNum3(){
-    //인풋 받는 메서드 소환
+const caseNum3 = async function caseNum3(){
+    if(answerNum == userInputNum){
+        console.log(answerNum);
+        console.log(userInputNum);
+        //게임 종료
+        return 3;
+    }
+   
+    var answerArr = [ answerNum%10, parseInt((answerNum/10)%10),parseInt((answerNum/100)%10)];
+    var userArr = [userInputNum%10, parseInt(userInputNum/10%10), parseInt(userInputNum/100%10)];
+
+    console.log(answerArr);
+    console.log(userArr);
+    return 2;
 }
