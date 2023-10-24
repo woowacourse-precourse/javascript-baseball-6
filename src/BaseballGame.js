@@ -38,8 +38,7 @@ export default class BaseballGame {
       this.validateGuess(guess);
       this.getHint(guess);
     } catch (error) {
-      Console.print(error.message);
-      throw error;
+      throw new Error(error.message);
     }
   }
 

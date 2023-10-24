@@ -33,8 +33,7 @@ class App {
           throw new Error("[ERROR] 올바른 입력이 아닙니다.");
       }
     } catch (error) {
-      Console.print(error.message);
-      throw error;
+      throw new Error(error.message);
     }
   }
 }
