@@ -117,7 +117,7 @@ class App {
   async getUserInput() {
     let number = await Console.readLineAsync("숫자를 입력해주세요 :");
 
-    if (!(await this.testNumber(number))) {
+    if (!(await this.testUserNumber(number))) {
       this.ERROR = true;
     } else {
       await (this.USER_NUMBER = number.split("").map(Number));
