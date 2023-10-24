@@ -46,17 +46,37 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 
 
 class App {
-  async play() {
-    }
+  async play() {}
+  async play(){
+    while(true){
+      MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
+      const TRUE_ANSWER = generateNumber();
 
+      while(true){
+        const USER_INPUT = await getInput(TRUE_ANSWER);
+        const {BALL,STRIKE} = isCorrect(USER_INPUT,TRUE_ANSWER);
+        win(BALL,STRIKE);
+
+        let restart = await MissionUtils.Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+        if (!(restart == 1 || restart == 2)){
+          throw new Error("[ERROR] 입력이 잘못되었습니다.")
+        }
+
+        if (restart == 2){
+          return;
+        }
+      }
+    }
   }
+}
+
 
 //함수
 
 //세자리수 생성
 function generateNumber(){
   const COMPUTER = [];
-  while(COMPUTER.lentgh < 3){
+  while(COMPUTER.length < 3){
     const NUMBER = MissionUtils.Random.pickNumberInRange(1, 9);
     if (!COMPUTER.includes(NUMBER)){
       COMPUTER.push(NUMBER);
@@ -67,7 +87,7 @@ function generateNumber(){
 //입력값 받기
 async function getInput(){
   let answer = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
-  if(answer.lentgh == 3){
+  if(answer.length == 3){
     const DISTINCT = new Set(answer);
     if (DISTINCT.size == 3){
       return answer;
@@ -80,7 +100,7 @@ async function getInput(){
 function isCorrect(COMPUTER, answer){
   let ball;
   let strike;
-  for (let i = 0; i < COMPUTER.lentgh; i++){
+  for (let i = 0; i < COMPUTER.length; i++){
     if(COMPUTER.includes(answer[i])){
       if(COMPUTER.indexOf(answer[i]) == i){
         strike++;
