@@ -13,4 +13,5 @@ function validationNumbers(inputNumbers) {
   )
 }
 
+// export default validationNumbers;
 exports.validationNumbers = validationNumbers;
