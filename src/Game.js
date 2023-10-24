@@ -10,6 +10,7 @@ const retryAnswer = Object.freeze({
 
 export default class Game {
   isAllStrike;
+
   constructor() {
     this.isAllStrike = false;
   }
@@ -24,7 +25,7 @@ export default class Game {
     answer === retryAnswer[1] && this.initGame(true);
   };
 
-  getHumanBallNumbers = async () => {
+  getPlayerBallNumbers = async () => {
     try {
       const answer = await Console.readLineAsync("숫자를 입력해주세요 : ");
       return answer;
@@ -33,20 +34,26 @@ export default class Game {
     }
   };
 
-  // TODOS : gameInit -> initGame으로 수정. 메서드 분리
-  initGame = async (isRetry = false) => {
-    !isRetry && Console.print("숫자 야구 게임을 시작합니다.");
+  resetGame = () => {
     this.isAllStrike = false;
     const computer = new Computer();
     const refree = new Referee();
-    const human = new Player();
+    const player = new Player();
+    return [computer, refree, player];
+  };
+
+  initGame = async (isRetry = false) => {
+    !isRetry && Console.print("숫자 야구 게임을 시작합니다.");
+    const [computer, refree, player] = this.resetGame();
+
     const computerBalls = computer.throwBalls(computer.ballNumbers);
 
     while (this.isAllStrike === false) {
-      const humanBallNumbers = await this.getHumanBallNumbers();
-      const humanBalls = human.throwBalls(humanBallNumbers);
+      const playerBallNumbers = await this.getPlayerBallNumbers();
+      const playerBalls = player.throwBalls(playerBallNumbers);
+      console.log("playerBalls : ", playerBalls);
 
-      refree.getHint(computerBalls, humanBalls);
+      refree.getHint(computerBalls, playerBalls);
       if (refree.isThreeStrikes()) {
         Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
         this.isAllStrike = true;
