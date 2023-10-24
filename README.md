@@ -1,156 +1,196 @@
-# 미션 - 숫자 야구
+# ⚾ 숫자 야구
 
-## 🔍 진행 방식
+#### <a src="#introduce">Introduce</a>
 
-- 미션은 **기능 요구 사항, 프로그래밍 요구 사항, 과제 진행 요구 사항** 세 가지로 구성되어 있다.
-- 세 개의 요구 사항을 만족하기 위해 노력한다. 특히 기능을 구현하기 전에 기능 목록을 만든다.
-- 기능 요구 사항에 기재되지 않은 내용은 스스로 판단하여 구현한다.
+### <a src="#install">Install and Test</a>
 
-## 📮 미션 제출 방법
+### <a src="#study">Study</a>
 
-- 미션 구현을 완료한 후 GitHub을 통해 제출해야 한다.
-  - GitHub을 활용한 제출 방법은 [프리코스 과제 제출](https://github.com/woowacourse/woowacourse-docs/tree/master/precourse) 문서를 참고해
-    제출한다.
-- GitHub에 미션을 제출한 후 [우아한테크코스 지원](https://apply.techcourse.co.kr) 사이트에 접속하여 프리코스 과제를 제출한다.
-  - 자세한 방법은 [제출 가이드](https://github.com/woowacourse/woowacourse-docs/tree/master/precourse#제출-가이드) 참고
-  - **Pull Request만 보내고 지원 플랫폼에서 과제를 제출하지 않으면 최종 제출하지 않은 것으로 처리되니 주의한다.**
+## <div id="introduce">Introduce</div>
 
-## 🚨 과제 제출 전 체크 리스트 - 0점 방지
+["2024 우아한 테크코스의 1주차 숫자야구"](https://github.com/woowacourse-precourse/javascript-baseball-6) 미션에 대한 과제입니다.
 
-- 기능 구현을 모두 정상적으로 했더라도 **요구 사항에 명시된 출력값 형식을 지키지 않을 경우 0점으로 처리**한다.
-- 기능 구현을 완료한 뒤 아래 가이드에 따라 테스트를 실행했을 때 모든 테스트가 성공하는지 확인한다.
-- **테스트가 실패할 경우 0점으로 처리**되므로, 반드시 확인 후 제출한다.
+테스트를 통과 할 수 있도록 게임 진행 순서대로 구현한 후, 프로퍼티와 메서드를 각자의 특성에 따라 다른 JS파일로 리팩토링 했습니다.
 
-### 테스트 실행 가이드
+| js | 기능 |
+| --- | --- |
+| Game | <ul><li>게임시작,재시작 및 종료</li> <li>랜덤 숫자 생성</li> <li>스트라이크,볼,낫싱 판정</li></ul> |
+| Message | <ul><li>출력하는 메세지 관리</li></ul> |
+| Output | <ul><li>메세지 출력</li></ul> |
+| Player | <ul><li>플레이어 입력값 가져와 숫자배열 상태로 관리</li> </ul> |
+| ValidTest | <ul><li>입력값에 대한 유효성 검사</li></ul> |
 
-- 테스트 패키지 설치를 위해 `Node.js` 버전 `18.17.1` 이상이 필요하다.
-- 다음 명령어를 입력해 패키지를 설치한다.
+MVC패턴을 적용해보려고 노력했습니다. MVC롤 분명하게 나눌 수는 없지만, 게임관련 상태들은 Game 클래스에서 관리하고 화면의 출력은 Output 클래스를 통해 진행하며 사용자의 입력값을 가져오는 것은 Player클래스에서 이루어지도록 했습니다.
 
-```bash
-npm install
-```
+출력 메세지는 변경이 없기 때문에 상수로 처리했고 입력값의 유효성 검사는 ValidTest 클래스에서 진행하도록 했습니다.
 
-- 설치가 완료되었다면, 다음 명령어를 입력해 테스트를 실행한다.
+## <div id="install">Install and Test</div>
 
-```bash
-npm test
-```
-
----
-
-## 🚀 기능 요구 사항
-
-기본적으로 1부터 9까지 서로 다른 수로 이루어진 3자리의 수를 맞추는 게임이다.
-
-- 같은 수가 같은 자리에 있으면 스트라이크, 다른 자리에 있으면 볼, 같은 수가 전혀 없으면 낫싱이란 힌트를 얻고, 그 힌트를 이용해서 먼저 상대방(컴퓨터)의 수를 맞추면 승리한다.
-  - 예) 상대방(컴퓨터)의 수가 425일 때
-    - 123을 제시한 경우 : 1스트라이크
-    - 456을 제시한 경우 : 1볼 1스트라이크
-    - 789를 제시한 경우 : 낫싱
-- 위 숫자 야구 게임에서 상대방의 역할을 컴퓨터가 한다. 컴퓨터는 1에서 9까지 서로 다른 임의의 수 3개를 선택한다. 게임 플레이어는 컴퓨터가 생각하고 있는 서로 다른 3개의 숫자를 입력하고, 컴퓨터는 입력한 숫자에 대한
-  결과를 출력한다.
-- 이 같은 과정을 반복해 컴퓨터가 선택한 3개의 숫자를 모두 맞히면 게임이 종료된다.
-- 게임을 종료한 후 게임을 다시 시작하거나 완전히 종료할 수 있다.
-- 사용자가 잘못된 값을 입력한 경우 `throw`문을 사용해 예외를 발생시킨후 애플리케이션은 종료되어야 한다.
-
-### 입출력 요구 사항
-
-#### 입력
-
-- 서로 다른 3자리의 수
-- 게임이 끝난 경우 재시작/종료를 구분하는 1과 2 중 하나의 수
-
-#### 출력
-
-- 입력한 수에 대한 결과를 볼, 스트라이크 개수로 표시
+### Install
 
 ```
-1볼 1스트라이크
+npm i
 ```
 
-- 하나도 없는 경우
+#### 💡저장된 Eslint,Prettier 설정 파일들을 적용시키려면 별도의 패키지 설치가 필요합니다.
+
+사용한 패키지
+
+- eslint: "^8.52.0",
+- eslint-config-airbnb: "^19.0.4",
+- eslint-config-prettier: "^9.0.0",
+- eslint-plugin-prettier: "^5.0.1",
+- prettier: "^3.0.3"
+
+### Test
 
 ```
-낫싱
+npm run test
 ```
 
-- 3개의 숫자를 모두 맞힐 경우
+## <div id="study">Study</div>
 
-```
-3스트라이크
-3개의 숫자를 모두 맞히셨습니다! 게임 종료
-```
+### 1. 모듈과 브라우저 호환성
 
-- 게임 시작 문구 출력
+처음에는 html파일을 만들어서 js파일을 연결해 과제를 진행했었습니다. 라이브 서버로 파일을 열었을때 "@woowacourse/mission-utils" 패키지에 대한 파일 경로 오류가 났습니다.
 
-```
-숫자 야구 게임을 시작합니다.
-```
+#### App.js
 
-#### 실행 결과 예시
-
-```
-숫자 야구 게임을 시작합니다.
-숫자를 입력해주세요 : 123
-1볼 1스트라이크
-숫자를 입력해주세요 : 145
-1볼
-숫자를 입력해주세요 : 671
-2볼
-숫자를 입력해주세요 : 216
-1스트라이크
-숫자를 입력해주세요 : 713
-3스트라이크
-3개의 숫자를 모두 맞히셨습니다! 게임 종료
-게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.
-1
-숫자를 입력해주세요 : 123
-1볼
-...
+```ja
+  import { MissionUtils } from '@woowacourse/mission-utils';
 ```
 
----
+#### index.html
 
-## 🎯 프로그래밍 요구 사항
-
-- Node.js 18.17.1 버전에서 실행 가능해야 한다. **Node.js 18.17.1에서 정상적으로 동작하지 않을 경우 0점 처리한다.**
-- 프로그램 실행의 시작점은 `App.js`의 `play` 메서드이다. 아래와 같이 프로그램을 실행시킬 수 있어야 한다.
-
-**예시**
-
-```javascript
-const app = new App();
-app.play();
+```html
+<script type="module" defer src="./src/App.js"></script>
 ```
 
-- `package.json`을 변경할 수 없고 외부 라이브러리(jQuery, Lodash 등)를 사용하지 않는다. 순수 Vanilla JS로만 구현한다.
-- [JavaScript 코드 컨벤션](https://github.com/woowacourse/woowacourse-docs/tree/main/styleguide/javascript)을 지키면서 프로그래밍 한다
-- 프로그램 종료 시 `process.exit()`를 호출하지 않는다.
-- 프로그램 구현이 완료되면 `ApplicationTest`의 모든 테스트가 성공해야 한다. **테스트가 실패할 경우 0점 처리한다.**
-- 프로그래밍 요구 사항에서 달리 명시하지 않는 한 파일, 패키지 이름을 수정하거나 이동하지 않는다.
+#### 오류
 
-### 라이브러리
+```
+Uncaught TypeError: Failed to resolve module specifier " @woowacourse/mission-utils". Relative references must start with either "/", "./", or "../".
+```
 
-- `@woowacourse/mission-utils`의 `Random` 및 `Console` API를 사용하여 구현해야 한다.
-  - Random 값 추출은 `Random.pickNumberInRange()`를 활용한다.
-  - 사용자의 값을 입력 받고 출력하기 위해서는 `Console.readLineAsync`, `Console.print`를 활용한다.
+import 시 경로 오류에 대한 해결책들인 CDN울 사용해보거나 @woowacourse/mission-utils의 js파일로 경로를 변경하거나 importmap을 사용해 보기도 했지만 오류를 여전했습니다.
 
-#### 사용 예시
+해당 오류가 나는 이유는 파일 경로 때문이 아니라 브라우저와 es6모듈의 호환성의 문제가 아닐까 추측합니다. 해당 프로젝트에서는 웹팩같은 패키지로 번들링을 진행하지 않았기 때문에 브라우저에서 모듈의 경로를 읽지 못하는 것 같습니다.
 
-```javascript
-const computer = [];
-while (computer.length < 3) {
-  const number = MissionUtils.Random.pickNumberInRange(1, 9);
-  if (!computer.includes(number)) {
-    computer.push(number);
-  }
+과제에서는 다른 패키지 사용을 금지했기 때문에 html에 js를 연결하지 않고 js만으로 과제를 진행하는게 맞다고 생각해 이러한 방향을 과제를 했습니다.
+
+### 2. Eslint,Prettier
+
+과제에서 제시한 코드 컨벤션은 [Airbnb 자바스크립트 스타일 가이드](https://github.com/airbnb/javascript)을 기준을 하기 때문에 개발 시에 Eslint아 Prettier을 사용했습니다.(개발 완료 후 해당 패키지들은 삭제했습니다.)
+
+### 1) Eslint 설치 및 설정
+
+### A. 설치
+
+```
+npm init @eslint/config
+```
+
+Eslint를 다운로드 후 필요한 설정을 할 수도 있고 필요한 Eslint를 설정해주는 명령어를 이용할 수 도 있습니다.
+
+터미널에 위의 명령어를 입력하고 질문에 답하면 기본적인 Eslint 설정과 필요한 패키지가 다운로드 되고 .eslintrc.js(또는 json,cjs 확장자)파일이 생성됩니다.
+
+저는 'airbnb-base' 대신 보다 덜 엄격한 airbnb 패키지를 사용했습니다.
+
+### B. Prettier와 충돌 방지를 위한 추가 설정
+
+Prettier와 같이 사용 할 경우 충돌을 방지하기 위해 eslintrc에 다음의 내용을 추가해야합니다.
+
+```
+extends: ['airbnb', 'prettier']
+```
+
+### 2)Prettier 설치 및 설정
+
+### A. 설치
+
+```
+npm i -D prettier eslint-config-prettier
+```
+
+- eslint-config-prettier : Prettier와 충돌하는 Eslint 규칙을을 꺼줌
+
+### B. 설정
+
+.prettierrc.js 또는 .prettierrc.json 파일을 생성해 옵션을 적어주면 됩니다.
+
+- [Prettier 옵션들 보러가기](https://prettier.io/docs/en/options.html)
+
+### 3) VSCode
+
+VSCode에서 ESLint와 Prettier을 사용하려면 다음의 것들이 필요합니다.
+
+- ESLint 와 Prettier 확정 프로그램을 설치
+- setting.json
+
+setting.json 파일을 생성해 아래의 내용을 작성해주면 됩니다.
+
+```
+{
+"editor.codeActionsOnSave": { "source.fixAll.eslint": true },
+"editor.defaultFormatter": "esbenp.prettier-vscode",
+"editor.formatOnSave": true,
 }
 ```
 
+### 3. try catch 와 throw Error
+
+비동기로 진행 할 때 try catch문을 자주 사용했지만 try catch의 작동순서에 대해는 확실히 알지 못했습니다. 비동기 진행에 오류가 생길 경우 catch문이 실행되는 것인 줄 알았는데, 비동기 뿐만아니라 try의 모든 진행에 대해 작동해 하나의 과정에서라로 오류가 발생하면 catch 문이 실행되는 것을 알게 되었습니다.
+
+throw문으로 Error를 다루면서, throw문에서 Error를 던지면 메서드의 진행이 종료된다는 것은 놓치고 지나갔다라는 것도 알게되었습니다.
+
+### 4. 클래스
+
+이번 과제를 클래스 위주로 진행하면서 클래스 문법에 대해 많이 소홀했다는 것을 느꼈고 다음의 것들을 배웠습니다.
+
+### 1) 클래스 인스턴스는 소문자로
+
+클래스를 기반으로 생성된 객체인 클래스 인스턴스는 **소문자**로 시작해야 클래스의 속성과 메서드를 사용할 수 있습니다.
+
+ex)
+
+```js
+import Car from './Car.js';
+
+class App {
+  //...
+
+  cat = new Car();
+}
+```
+
+### 2) 클래스 필드와 constructor 차이
+
+클래스의 속성은 constructor 뿐만아니라 ECMAScript 2019에서 도입된 클래스 필드를 이용해 설정할 수 있습니다.
+
+constructor에서 속성을 설정하는 것과 클래스 필드에서 속성을 설정하는 것에는 차이가 있습니다. 바로 속성이 생성되고 설정되는 시기입니다.클래스 필드는 최상위의 위치에서 속성을 생성한다면 constructor는 클래스 인스턴스를 생성할때 호출되기 때문에 클래스 인스턴스가 생성되기 전에 constructor에서 생성한 속성을 호출하면 오류가 납니다.
+
+```js
+class A {
+  this.year ="2023";
+  constructor() {
+    this.name = 'a';
+  }
+  printYear(){
+    console.log(this.year);
+  }
+  printName() {
+    console.log(this.name);
+  }
+}
+A.printYear(); // 2023;
+A.printName(); // Uncaught TypeError: A.print is not a function
+
+const a = new A();
+a.printName(); // a
+```
+
 ---
 
-## ✏️ 과제 진행 요구 사항
+### 자료
 
-- 미션은 [javascript-baseball](https://github.com/woowacourse-precourse/javascript-baseball-6/) 저장소를 Fork & Clone해 시작한다.
-- **기능을 구현하기 전 `docs/README.md`에 구현할 기능 목록을 정리**해 추가한다.
-- 과제 진행 및 제출 방법은 [프리코스 과제 제출](https://github.com/woowacourse/woowacourse-docs/tree/master/precourse) 문서를 참고한다.
+[알아두면 쓸데있는 ESLint & Prettier 설정 방법 (feat.우아한테크코스)](https://velog.io/@2wndrhs/%EC%95%8C%EC%95%84%EB%91%90%EB%A9%B4-%EC%93%B8%EB%8D%B0%EC%9E%88%EB%8A%94-ESLint-Prettier-%EC%84%A4%EC%A0%95-%EB%B0%A9%EB%B2%95)
