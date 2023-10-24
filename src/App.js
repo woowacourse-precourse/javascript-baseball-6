@@ -6,22 +6,24 @@ class App {
     this.input;
     this.countResult;
     this.randomNumber;
+    this.gameCount = 0;
   }
   async play() {
-    await this.gameStartText();
-    await this.generateRandomNumber();
+    
+    this.gameStartText();
+    this.generateRandomNumber();
+
     await this.getUserInput();
-    await this.checkValidInput(this.input);
-    await this.checkStrikeBall(this.input, this.randomNumber);
+    this.checkValidInput(this.input);
     this.countResult = this.checkStrikeBall(this.input, this.randomNumber);
-    await this.printHintMessage(this.countResult);
+    this.printHintMessage(this.countResult);
 
     while (this.countResult.strike !== 3) {
       await this.retry();
     } 
 
     if (this.countResult.strike === 3) {
-      await this.printGameWinMessage();
+      this.printGameWinMessage();
       await this.replay();
     }
   }
@@ -30,10 +32,10 @@ class App {
   async retry() {
       this.input = '';
       await this.getUserInput();
-      await this.checkValidInput(this.input);
-      await this.checkStrikeBall(this.input, this.randomNumber);
+      this.checkValidInput(this.input);
+      this.checkStrikeBall(this.input, this.randomNumber);
       this.countResult = this.checkStrikeBall(this.input, this.randomNumber);
-      await this.printHintMessage(this.countResult);
+      this.printHintMessage(this.countResult);
     }
 
   async replay(){
@@ -46,6 +48,9 @@ class App {
     if (Number(userResponse) === 2){
       return 
     }
+
+    // 재도전 여부를 잘못 입력시 다시 한번 물어보는 코드 
+    
   }
 
   printGameWinMessage(){
@@ -59,7 +64,7 @@ class App {
     }
 
     if ((input.strike !== 0) && input.ball !== 0){
-      MissionUtils.Console.print(`${this.countResult.ball}볼 ${this.countResult.strike}스트라이크`);
+      MissionUtils.Console.print(`${input.ball}볼 ${input.strike}스트라이크`);
     }
 
     if ((input.strike !== 0) && input.ball === 0){
@@ -72,15 +77,12 @@ class App {
   }
 
   // 게임 시작 알리는 문구
-  async gameStartText() {
-    return MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
+  gameStartText() {
+      MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
   }
 
-  // 사용자의 입력값이 유효한 값인지 체크 - 숫자인지, 3자리인지, 중복됬는지
   async getUserInput() {
-    const userInput = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
-    this.input = userInput;
-    return this.input;
+    return MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
   }
 
   checkValidInput(input) {
@@ -88,7 +90,7 @@ class App {
       throw new Error("[ERROR]");
     }
     if (!this.isSameNumber(input)) {
-      throw new Error("Is Duplicate Input");
+      throw new Error("[ERROR]:Is Duplicate Input");
     }
     this.input = input.split('').map(Number);
     return this.input;
