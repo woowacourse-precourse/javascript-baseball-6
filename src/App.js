@@ -1,55 +1,50 @@
-import {Random, Console} from '@woowacourse/mission-utils';
+import {Console} from '@woowacourse/mission-utils';
 import {GameMessages} from './GameMessages.js';
 import Pitcher from './models/Pitcher.js';
+import Catcher from './models/Catcher.js';
+import Umpire from './models/Umpire.js';
+import {GameOptions, choiceOptions} from './GameOptions.js';
 
 class App {
   constructor() {
-    this.catcherNumbers = this.getCatcherNumbers();
+    this.catcherNumbers = Catcher.getCatcherNumbers();
     this.pitcherNumbers = [];
   }
 
-  async play() {
-    Console.print(GameMessages.GAME_START);
+  async play(isInitialGame = true) {
+    if (isInitialGame) {
+      Console.print(GameMessages.GAME_START);
+    }
 
+    const umpire = new Umpire();
     while (true) {
-      this.pitcherNumbers = await this.getPitcherNumbers();
-      const judgmentResult = this.getResultOfJudgment(this.pitcherNumbers);
-
-      if (judgmentResult === '3스트라이크') {
-        Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
-        if (await this.decideToContinueGame()) {
-          this.catcherNumbers = this.getCatcherNumbers();
-        } else {
-          return;
-        }
-      }
+      this.pitcherNumbers = await this.#getPitcherNumbers();
+      const judgmentResult = umpire.getGameResult(this.pitcherNumbers, this.catcherNumbers);
+      if (judgmentResult) break;
     }
+
+    Console.print(GameMessages.GAME_SELECT);
+    const gameSelect = await this.#decideToContinueGame();
+
+    // 게임 종료
+    if (gameSelect === GameOptions.EXIT) {
+      return;
+    }
+
+    // 새로운 포수 번호 삽입 후, 게임 재시작
+    this.catcherNumbers = Catcher.getCatcherNumbers();
+    this.play(false);
   }
 
-  async getPitcherNumbers() {
-    const inputBalls = await Console.readLineAsync('숫자를 입력해주세요: ');
-    Pitcher.parsePitchBalls(inputBalls);
+  async #getPitcherNumbers() {
+    const inputBalls = await Console.readLineAsync('숫자를 입력해주세요 : ');
+    return Pitcher.parsePitchBalls(inputBalls);
   }
 
-  async decideToContinueGame() {
-    const choice = parseInt(
-      await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'),
-    );
-
-    if (choice === 1) {
-      return true;
-    }
-
-    if (choice === 2) {
-      return false;
-    }
-
-    throw new Error('1 또는 2를 입력해주세요');
+  async #decideToContinueGame() {
+    const choice = await Console.readLineAsync('');
+    return choiceOptions(choice);
   }
 }
-
-const app = new App();
-app.play();
-
 export default App;
 

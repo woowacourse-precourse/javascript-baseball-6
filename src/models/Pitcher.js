@@ -1,7 +1,7 @@
 import {GameMessages} from '../GameMessages.js';
 
 class Pitcher {
-  static PITCH_COUNT = 3;
+  static BALL_COUNT = 3;
 
   #pitcherNumbers;
 
@@ -11,16 +11,16 @@ class Pitcher {
   }
 
   static parsePitchBalls(balls) {
-    if (balls.length !== Pitcher.PITCH_COUNT) throw new Error(GameMessages.PITCHBALL_CHECKER);
-    if (!/^[1-9]{3}$/.test(balls)) throw new Error(GameMessages.PITCHBALL_CHECKER2);
+    if (balls.length !== Pitcher.BALL_COUNT) throw new Error(GameMessages.PITCHBALL_ERROR1);
+    if (!/^[1-9]{3}$/.test(balls)) throw new Error(GameMessages.PITCHBALL_ERROR2);
 
     const pitcherNumbers = balls.split('').map(Number);
 
-    if (new Set(ballsToNumbers).size !== 3) {
-      throw new Error(GameMessages.PITCHBALL_CHECKER);
+    if (new Set(pitcherNumbers).size !== 3) {
+      throw new Error(GameMessages.PITCHBALL_ERROR1);
     }
 
-    return new Pitcher(pitcherNumbers);
+    return pitcherNumbers;
   }
 }
 export default Pitcher;

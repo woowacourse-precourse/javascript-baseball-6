@@ -1,24 +1,25 @@
+import Pitcher from './Pitcher.js';
+import {Random} from '@woowacourse/mission-utils';
 class Catcher {
-  static CATCH_COUNT = 3;
   static MIN_COUNT = 1;
   static MAX_COUNT = 9;
 
   #catcherNumbers;
 
-  constructor(catcherNumbers) {
-    this.#catcherNumbers = catcherNumbers;
-    Object.freeze(this);
-  }
+  //   constructor() {
+  //     this.#catcherNumbers = this.getCatcherNumbers();
+  //     Object.freeze(this);
+  //   }
 
   static getCatcherNumbers() {
     const catcherNumbers = [];
-    while (catcherNumbers.length < CATCH_COUNT) {
-      const catcherNumber = Random.pickNumberInRange(MIN_COUNT, MAX_COUNT);
+    while (catcherNumbers.length < Pitcher.BALL_COUNT) {
+      const catcherNumber = Random.pickNumberInRange(this.MIN_COUNT, this.MAX_COUNT);
       if (!catcherNumbers.includes(catcherNumber)) {
         catcherNumbers.push(catcherNumber);
       }
     }
-    return new Catcher(catcherNumbers);
+    return catcherNumbers;
   }
 }
 

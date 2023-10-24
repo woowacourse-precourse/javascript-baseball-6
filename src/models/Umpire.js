@@ -1,34 +1,46 @@
 import Pitcher from './Pitcher.js';
 import Catcher from './Catcher.js';
+import {GameMessages} from '../GameMessages.js';
+import {Console} from '@woowacourse/mission-utils';
 
 class Umpire {
-  getResultOfJudgment(inputPitcherNumbers) {
-    let strikes = 0;
-    let balls = 0;
+  getGameResult(inputPitcherNumbers, inputCatcherNumbers) {
+    const {ball, strike} = this.getResultOfJudgment(inputPitcherNumbers, inputCatcherNumbers);
+    const countResult =
+      [
+        [ball, GameMessages.GAME_RESULT_BALL],
+        [strike, GameMessages.GAME_RESULT_STRIKE],
+      ]
+        .filter(([count]) => count > 0)
+        .map(([count, message]) => `${count}${message}`)
+        .join(' ') || GameMessages.GAME_RESULT_NOTHING;
 
-    for (let i = 0; i < 3; i++) {
-      if (inputPitcherNumbers[i] === this.catcherNumbers[i]) {
-        strikes += 1;
-      } else if (this.catcherNumbers.includes(inputPitcherNumbers[i])) {
-        balls += 1;
-      }
+    Console.print(countResult);
+
+    if (strike === Pitcher.BALL_COUNT) {
+      Console.print(GameMessages.GAME_RESULT_EXIT);
+      return true;
     }
-    let result = '';
+    return false;
+  }
 
-    if (balls > 0) {
-      result = `${balls}볼 `;
-    }
+  getResultOfJudgment(inputPitcherNumbers, inputCatcherNumbers) {
+    return {
+      strike: this.countStrike(inputPitcherNumbers, inputCatcherNumbers),
+      ball: this.countBall(inputPitcherNumbers, inputCatcherNumbers),
+    };
+  }
 
-    if (strikes > 0) {
-      result += `${strikes}스트라이크`;
-    }
+  countStrike(pitcher, catcher) {
+    return pitcher.reduce((count, number, index) => count + (catcher[index] === number ? 1 : 0), 0);
+  }
 
-    if (result === '') {
-      result = '낫싱';
-    }
-
-    Console.print(result);
-    return result;
+  countBall(pitcher, catcher) {
+    return pitcher.reduce(
+      (count, number, index) =>
+        count + (catcher[index] !== number && catcher.includes(number) ? 1 : 0),
+      0,
+    );
   }
 }
 
