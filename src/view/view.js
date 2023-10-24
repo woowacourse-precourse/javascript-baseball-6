@@ -1,43 +1,19 @@
 import { Console } from '@woowacourse/mission-utils';
-import validation from '../validation/validation.js';
+import MainValidation from '../validation/MainValidation.js';
+import RestartValidation from '../validation/RestartValidation.js';
 import MESSAGE from '../constant/MESSAGE.js';
-
-const {
-  checkCorrectMainNumber,
-  checkCorrectMainNumbersize,
-  checkCorrectMainNumberRange,
-  checkDuplicationMainNumber,
-  checkOneOrTwo,
-} = validation;
 
 const view = {
   async readPlayerNum() {
     const input = await Console.readLineAsync(MESSAGE.num_input);
-    try {
-      view.mainNumberValidation(input.split('').map(Number));
-      return input;
-    } catch (e) {
-      view.errorHandler(e);
-      return 0;
-    }
-  },
-
-  mainNumberValidation(input) {
-    checkCorrectMainNumber(input);
-    checkCorrectMainNumbersize(input);
-    checkCorrectMainNumberRange(input);
-    checkDuplicationMainNumber(input);
+    new MainValidation(input.split('').map(Number));
+    return input;
   },
 
   async readRestartEnd() {
     const input = await Console.readLineAsync(MESSAGE.restart);
-    try {
-      checkOneOrTwo(input);
-      return input;
-    } catch (e) {
-      view.errorHandler(e);
-      return 0;
-    }
+    new RestartValidation(input);
+    return input;
   },
 
   printGameStart() {
@@ -63,10 +39,6 @@ const view = {
   printThreeStrike() {
     Console.print(`3${MESSAGE.strike}`);
     Console.print(MESSAGE.gameEnd);
-  },
-
-  errorHandler(e) {
-    Console.print(e.message);
   },
 
   exit() {

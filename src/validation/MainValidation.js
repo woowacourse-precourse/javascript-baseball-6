@@ -1,19 +1,26 @@
 import ERROR from '../constant/ERROR.js';
 
-const validation = {
+export default class MainValidation {
+  constructor(input) {
+    this.checkCorrectMainNumber(input);
+    this.checkCorrectMainNumberRange(input);
+    this.checkCorrectMainNumbersize(input);
+    this.checkDuplicationMainNumber(input);
+  }
+
   checkCorrectMainNumber(input) {
     input.forEach(number => {
       if (Number.isNaN(number)) {
         throw new Error(ERROR.invalid_type);
       }
     });
-  },
+  }
 
   checkCorrectMainNumbersize(input) {
     if (input.length !== 3) {
       throw new Error(ERROR.invalid_size);
     }
-  },
+  }
 
   checkCorrectMainNumberRange(input) {
     input.forEach(number => {
@@ -21,20 +28,12 @@ const validation = {
         throw new Error(ERROR.invalid_range);
       }
     });
-  },
+  }
 
   checkDuplicationMainNumber(input) {
     const setInput = new Set(input);
     if (setInput.size !== 3) {
       throw new Error(ERROR.invalid_duplication);
     }
-  },
-
-  checkOneOrTwo(input) {
-    if (!(input === '1' || input === '2')) {
-      throw new Error(ERROR.invalid_one_or_two);
-    }
-  },
-};
-
-export default validation;
+  }
+}
