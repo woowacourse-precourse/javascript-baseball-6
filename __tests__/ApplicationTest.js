@@ -27,9 +27,9 @@ describe("숫자 야구 게임", () => {
   test("게임 종료 후 재시작", async () => {
     // given
     const randoms = [1, 3, 5, 5, 8, 9];
-    const answers = ["246", "135", "1", "597", "589", "2"];
+    const answers = ["246", "315", "135" ,"1", "597", "589", "2"];
     const logSpy = getLogSpy();
-    const messages = ["낫싱", "3스트라이크", "1볼 1스트라이크", "3스트라이크", "게임 종료"];
+    const messages = ["낫싱", "2볼 1스트라이크", "3스트라이크", "1볼 1스트라이크", "3스트라이크", "게임 종료"];
 
     mockRandoms(randoms);
     mockQuestions(answers);
