@@ -2,19 +2,11 @@ import { Computer } from "./Computer.js";
 import { Console } from "@woowacourse/mission-utils";
 
 class MainGame {
-  //랜덤숫자 선택 후 시작 문구 프린트
-  start = () => {
+  //컴퓨터(상대방)이 랜덤한 3개의 숫자 선택
+  constructor() {
     this.computer = new Computer();
     this.computerSelectNumber = this.computer.createRandomNumber();
-
-    this.printStart();
-  };
-
-  //시작 문구 출력
-  printStart = () => {
-    Console.print("숫자 야구 게임을 시작합니다.");
-    this.getUserInput();
-  };
+  }
 
   //입략값이 1.1-9사이의 숫자인지 2.3자리인지 를 확인해야함
   isValidateNumber = (input) => {
@@ -42,6 +34,7 @@ class MainGame {
   getResult = () => {
     this.resultArr = [0, 0, 0];
     const userInputArray = Array.from(this.userInput);
+    ㄴ;
     const computerSelectNumberArray = Array.from(this.computerSelectNumber);
 
     userInputArray.forEach((number, index) => {
