@@ -6,7 +6,7 @@ async function getUserNumber() {
     const userNumbers = userInput.split('').map(Number);
 
     if(!isValidInput(userNumbers)) {
-      throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+      throw new Error(`[ERROR] 사용자가 입력한 ${userInput}는 숫자가 잘못된 형식입니다.`);
     }
 
     return userNumbers;
