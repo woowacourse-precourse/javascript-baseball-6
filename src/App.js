@@ -7,7 +7,6 @@ import * as CONSTANT from "./constants.js";
   [x] 상배당 숫자와, 플레이어 숫자를 비교 했을때, 같은 수가 같은 자리에 있다면 strike, 다른 자리에 있다면 ball, 같은 수가 전혀 없다면 낫싱이다. 
   [x] 게임은 3 strike가 나올때까지 반복, 3 strike이면 플레이어의 승리, 다시 시작 또는 게임종료를 선택하도록 한다. 
   [x] 사용자 입력이 잘못되었을때 throw 롤 에러 던지고 애플리케이션 종료   
-  []
  */
 
 class App {
