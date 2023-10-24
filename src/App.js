@@ -1,6 +1,7 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 class App {
   async play() {
+    //input 예외처리 함수
     async function checkInput(isPlaying, userInput) {
       const arrInput = [...userInput].map(Number);
       //게임 중
@@ -18,13 +19,11 @@ class App {
         }
       }
     }
-    //user 입력값 지정 함수
+    //input 입력값 지정 함수
     async function getUserInput(isPlaying) {
       const input = await MissionUtils.Console.readLineAsync(
         "숫자를 입력해주세요 : "
       );
-      //resolve 되는 경우 입력값 출력
-      MissionUtils.Console.print(input);
       //check input
       await checkInput(isPlaying, input);
       return input;
@@ -39,6 +38,26 @@ class App {
         }
       }
       return computer;
+    }
+    //output 처리 함수
+    function checkOutput(strike, ball) {
+      const strikeOutput = `${strike}스트라이크`;
+      const ballOutput = `${ball}볼`;
+      let output = "낫싱";
+
+      if (strike > 0 || ball > 0) {
+        //3스트라이크
+        if (strike === 3)
+          output = strikeOutput.concat(
+            "\n3개의 숫자를 모두 맞히셨습니다! 게임 종료"
+          );
+        //볼or스트라이크만
+        else if (ball === 0) output = strikeOutput;
+        else if (strike === 0) output = ballOutput;
+        //볼, 스트라이크 둘 다
+        else output = ballOutput.concat(" ", strikeOutput);
+      }
+      MissionUtils.Console.print(output);
     }
 
     //Start game
@@ -63,28 +82,28 @@ class App {
             }
           }
         }
+        //출력
+        checkOutput(strike, ball);
         if (strike === 3) {
           break;
         }
-        //출력
-        MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
         strike = 0;
         ball = 0;
         continue;
       }
       playing = !playing;
       //3strike (while문 빠져나옴)
-      MissionUtils.Console.print("3스트라이크, 빠져나왔다");
+      MissionUtils.Console.print(
+        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+      );
       let user = await getUserInput(playing);
 
       //재귀
       if (Number(user) === 1) {
-        MissionUtils.Console.print("다시 들어감요");
         gameStart();
       }
       //함수 종료
       else if (Number(user) === 2) {
-        MissionUtils.Console.print("나감요");
         return 0;
       }
     }
@@ -92,4 +111,7 @@ class App {
     gameStart();
   }
 }
+// //테스트 코드
+// const app = new App();
+// app.play();
 export default App;

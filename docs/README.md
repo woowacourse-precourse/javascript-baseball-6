@@ -92,8 +92,38 @@ if (input.length !== 3 || input.includes(0) || isDup)
 
 - input ===1 && ===2
 
+## checkOutput(): 출력 멘트 처리
+
+- strike, ball 둘 중 하나 존재
+  - strike === 3
+  - ball === 0
+  - strike === 0
+  - else // {strike}스트라이크, {ball}볼
+- else // 낫싱
+
+### 구상?
+
+```jsx
+function checkOutput(strike, ball){
+//변수에 멘트 넣어주고 합치거나 해보자
+const strikeOutput = `${strike}스트라이크`;
+const ballOutput = `${ball}볼`;
+
+if(strike > 0 || ball > 0) {
+//3스트라이크
+	if(strike === 3) //print strikeOutput
+//볼or스트라이크만
+	else if(ball===0) //print strikeOutput
+	else if (strike === 0) //print ballOutput
+//볼, 스트라이크 둘 다
+	else //print (ballOutput, strikeOutput)
+}
+else //print `낫싱`;
+}
+```
+
 ### 할 일
 
-- [o] 인풋 예외 처리 생각해보기
-- [ ] 아웃풋 구조 정리
+- [ ] 코드 수정
+- [ ] 풀리퀘
 - [ ] 리드미 더 보기 좋게 바꿔보기
