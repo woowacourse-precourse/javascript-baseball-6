@@ -1,11 +1,11 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 
-const SCORE = {
+const SCORE = Object.seal({
   ball: 0, //상수가 아니니 대문자로 쓰는게 아니지 않나?
   strike: 0,
   success: false,
-};
-const MESSAGE = {
+});
+const MESSAGE = Object.freeze({
   START: "숫자 야구 게임을 시작합니다.", //속성 네이밍도 대문자로 해야하나?
   INPUTREQUEST: "숫자를 입력해주세요 :",
   RESTART: "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n",
@@ -14,7 +14,7 @@ const MESSAGE = {
   STRIKE: "스트라이크",
   NOTHING: "낫싱",
   SUCCESS: "3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료",
-};
+});
 function makeRandom() {
   //makeRandom 함수도 비동기로 처리해야 병렬로 getUserInput 처리 되지 않나?
   const answer = [];
