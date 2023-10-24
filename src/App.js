@@ -7,41 +7,17 @@ export default class App {
 	async play() {
 		// 시작 문구 출력
 		this.gameStart();
-		// 랜덤으로 값 설정
-		const COMPUTER = this.randomNumber();
-		// 추후 지울 것
-		console.log('com', COMPUTER);
-		// Console.print(`test ${this.randomNumber()}`);
 
-		// 정답일때까지 반복문 실행
-		let CHECKBASEBALL = true;
-		while (CHECKBASEBALL) {
-			try {
-				// 입력값 받기
-				// console.log(await PlayerInputNumber());
-				const PLAYER = await PlayerInputNumber();
-				CHECKBASEBALL = CheckBaseball(PLAYER, COMPUTER);
-				if (!PLAYER) {
-					throw { name: 'PlayerError', message: 'PLAYER 입력 값이 옳지 않습니다.' };
-				}
-			} catch (error) {
-				// console.log(error);
-				break;
-			}
-		}
-
-		if (!CHECKBASEBALL) {
-			// 정답 문구 출력
-			Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+		while (true) {
+			await this.gamePlay();
 			const CHECKRESTART = await ResponseGameRestart();
-			if (CHECKRESTART === '1') {
-				app.play();
+			if (CHECKRESTART !== '1') {
+				break;
 			}
 		}
 	}
 	gameStart() {
 		Console.print('숫자 야구 게임을 시작합니다.');
-		// console.log('숫자 야구 게임을 시작합니다.');
 	}
 	randomNumber() {
 		const RANDOMNUMBERLIST = [];
@@ -53,6 +29,15 @@ export default class App {
 		}
 		return RANDOMNUMBERLIST.join('');
 		// return [1, 3, 5].join('');
+	}
+	async gamePlay() {
+		const COMPUTER = this.randomNumber();
+		let CHECKBASEBALL = true;
+		while (CHECKBASEBALL) {
+			const PLAYER = await PlayerInputNumber();
+			CHECKBASEBALL = CheckBaseball(PLAYER, COMPUTER);
+		}
+		return;
 	}
 }
 

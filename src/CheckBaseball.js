@@ -40,6 +40,7 @@ function PrintResult(ball, strike) {
 		Console.print(`${ball}볼`);
 	} else if (ball === 3 && strike === 3) {
 		Console.print(`${strike}스트라이크`);
+		Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
 	} else if (!(ball - strike)) {
 		Console.print(`${strike}스트라이크`);
 	} else {

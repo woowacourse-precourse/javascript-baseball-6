@@ -1,39 +1,26 @@
 import { Console } from '@woowacourse/mission-utils';
 
-function Exception(name, message) {
-	this.name = name;
-	this.message = message;
-}
-
 export default async function PlayerInputNumber() {
 	try {
 		const answer = await Console.readLineAsync('숫자를 입력해주세요 : ');
 
 		if (answer.includes('0')) {
-			throw new Exception('ContainsZero', '입력한 값에 0이 포함되어 있습니다.');
-			// throw {'입력한 값에 0이 포함되어 있습니다.'};
+			throw new Error('[ERROR] : 입력한 값에 0이 포함되어 있습니다.');
+		} else if (!Boolean(Number(answer))) {
+			throw new Error('[ERROR] : 숫자를 입력하지 않았습니다.');
+		} else if (!Number.isInteger(Number(answer))) {
+			throw new Error('[ERROR] : 정수를 입력하지 않았습니다.');
+		} else if (Number(answer) < 0) {
+			throw new Error('[ERROR] : 양수를 입력하지 않았습니다.');
+		} else if (answer.length !== 3) {
+			throw new Error('[ERROR] : 3자리를 입력하지 않았습니다.');
+		} else if (answer[0] === answer[1] || answer[0] === answer[2] || answer[1] === answer[2]) {
+			throw new Error('[ERROR] : 중복된 숫자를 입력했습니다.');
+		} else {
+			return answer;
 		}
-		if (!Boolean(Number(answer))) {
-			// throw { name: 'NotANumber', message: '숫자를 입력하지 않았습니다.' };
-			throw new Exception('NotANumber', '숫자를 입력하지 않았습니다.');
-			// throw {'숫자를 입력하지 않았습니다.'};
-		}
-		if (!Number.isInteger(Number(answer))) {
-			throw new Exception('NotAnInteger', '정수를 입력하지 않았습니다.');
-			// throw {'정수를 입력하지 않았습니다.'};
-		}
-		if (Number(answer) < 0) {
-			throw new Exception('NotPositiveNumber', '양수를 입력하지 않았습니다.');
-			// throw {'양수를 입력하지 않았습니다.'};
-		}
-		if (answer.length !== 3) {
-			throw new Exception('LengthNotMath', '3자리를 입력하지 않았습니다.');
-			// throw {'3자리를 입력하지 않았습니다.'};
-		}
-		// console.log(answer);
-		return answer;
 	} catch (error) {
-		Console.print(`[ERROR] ${error.message}`);
+		Console.print(`${error.message}`);
 		throw error;
 	}
 }
