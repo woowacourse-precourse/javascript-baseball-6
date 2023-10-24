@@ -80,7 +80,7 @@ class App {
 
   // 정답이 아닐시 제공할 힌트
   async giveHint(strike, ball){
-    
+
     if(strike === 0 && ball === 0){
       Console.print("낫싱");
     }else if(strike !== 0 && ball === 0){
@@ -92,6 +92,17 @@ class App {
     }
   }
 
+  // 게임 종료시 재시작 또는 종료 선택
+  async restartOrEnd(){
+    Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    const SELETED = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+    Console.print(SELETED);
+    if(SELETED === '1'){
+      await this.gameStart();
+    }else if(SELETED === '2'){
+      return;
+    }
+  }
 }
 
 export default App;
