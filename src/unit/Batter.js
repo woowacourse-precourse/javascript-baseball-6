@@ -10,11 +10,11 @@ class Batter {
         try {
             const batterInput = await Console.readLineAsync("숫자를 입력해주세요 : ");
             this.ballCountNumbers = batterInput.split("").map(Number);
-            inputValidation(this.ballCountNumbers)
+            inputValidation(this.ballCountNumbers);
         } catch (error) {
-            throw new Error(error)
+            throw new Error(error);
         }
     }
 }
 
-export default Batter
+export default Batter;

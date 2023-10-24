@@ -6,9 +6,9 @@ const checkRestartStatus = async () => {
     try {
         Console.print("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
         const restartStatus = await Console.readLineAsync("");
-        return restartStatus
+        return restartStatus;
     } catch (error) {
-        throw new Error(error)
+        throw new Error(error);
     }
 }
 

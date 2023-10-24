@@ -1,19 +1,39 @@
 import {Console} from "@woowacourse/mission-utils";
 import printGameResult from "./message/result/printGameResult.js";
-import checkBatterResult from "./evaluation/checkBatterResult.js";
-import checkRestartStatus from "./message/restaart/checkRestartStatus.js";
+
 
 class App {
-    constructor(pitcher, batter, winCondition) {
+    constructor(startToken, pitcher, batter, winCondition) {
+        this.startToken = startToken
         this.batter = batter;
         this.pitcher = pitcher;
         this.winCondition = winCondition
-        this.strikeCount = 0;
-        this.ballCount = 0;
+    }
+
+    checkBatterResult (pitcherBallNumbers, batterBallNumbers) {
+        let strikeCount = 0;
+        let ballCount = 0;
+
+        for (let i = 0; i < pitcherBallNumbers.length; i++) {
+            pitcherBallNumbers.map((pitcherBall, index) => {
+                if (pitcherBall === batterBallNumbers[i] && i === index) {
+                    strikeCount++;
+                }
+
+                if (pitcherBall === batterBallNumbers[i] && i !== index) {
+                    ballCount++;
+                }
+            });
+        }
+
+        return {
+            strikeCount,
+            ballCount,
+        }
     }
 
     async play(){
-        const { winCondition, pitcher, batter } = this;
+        const { winCondition, pitcher, batter, checkBatterResult } = this;
 
         pitcher.setRandomBallCount();
         const pitcherBallNumbers = pitcher.ballCountNumbers;
@@ -25,14 +45,10 @@ class App {
             await batter.setThreeBatNumbers();
             const batterBallNumbers = batter.ballCountNumbers;
 
-            const [ strikeCountResult, ballCountResult ] = checkBatterResult(pitcherBallNumbers, batterBallNumbers, this.strikeCount, this.ballCount);
-            this.strikeCount = strikeCountResult;
-            this.ballCount = ballCountResult;
+            const { strikeCount, ballCount} = checkBatterResult(pitcherBallNumbers, batterBallNumbers);
 
-            printGameResult(this.strikeCount, this.ballCount, winCondition);
+            printGameResult(strikeCount, ballCount, winCondition);
         }
-
-        return await checkRestartStatus();
     }
 }
 

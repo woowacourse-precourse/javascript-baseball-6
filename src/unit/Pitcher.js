@@ -15,4 +15,4 @@ class Pitcher {
     }
 }
 
-export default Pitcher
+export default Pitcher;
