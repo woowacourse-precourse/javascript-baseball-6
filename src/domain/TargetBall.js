@@ -8,7 +8,6 @@ export class TargetBall {
 	#number;
 
 	constructor(number) {
-		this.#validate(number);
 		this.#number = number;
 	}
 
@@ -20,16 +19,13 @@ export class TargetBall {
 		Array.from({ length: TargetBall.MAX }, (_, i) => [i + 1, new TargetBall(i + 1)])
 	);
 
-	static valueOf(value) {
-		const targetBall = TargetBall.#TARGET_NUMBERS[value];
+	static valueOf(number) {
+		TargetBall.#validate(number);
+		const targetBall = TargetBall.#TARGET_NUMBERS[number];
 		return targetBall;
 	}
 
-	getNumber() {
-		return this.#number;
-	}
-
-	#validate(number) {
+	static #validate(number) {
 		if (typeof number !== 'number') {
 			throw new CustomError(ERROR_MESSAGE.common.notNumber);
 		}
@@ -39,5 +35,9 @@ export class TargetBall {
 		if (isOutOfRange(number, TargetBall.MIN, TargetBall.MAX)) {
 			throw new CustomError(ERROR_MESSAGE.common.outOfRange(TargetBall.MIN, TargetBall.MAX));
 		}
+	}
+
+	getNumber() {
+		return this.#number;
 	}
 }
