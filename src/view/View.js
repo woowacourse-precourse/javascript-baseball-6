@@ -1,35 +1,36 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
+import {BALL_RESULT_TEXT, GAME_PROGRESS_TEXT} from "../constant/constant.js";
 
 class View {
     constructor() {}
 
     showInitialMessage() {
-        MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
+        MissionUtils.Console.print(GAME_PROGRESS_TEXT.GAME_START_MESSAGE);
     }
     
     showUserInput() {
-        return MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
+        return MissionUtils.Console.readLineAsync(GAME_PROGRESS_TEXT.GAME_USER_INPUT_MESSAGE);
     }
 
     showResult(result) {
         const { strike, ball } = result;
         if (strike === 0 && ball === 0) {
-            MissionUtils.Console.print('낫싱');
+            MissionUtils.Console.print(BALL_RESULT_TEXT.NOTHING);
             return;
         }
 
         const userInputResult = [];
         if (ball > 0) {
-            userInputResult.push(ball + '볼');
+            userInputResult.push(ball + `${BALL_RESULT_TEXT.BALL}`);
         }
         if (strike > 0) {
-            userInputResult.push(strike + '스트라이크');
+            userInputResult.push(strike + `${BALL_RESULT_TEXT.STRIKE}`);
         }
         MissionUtils.Console.print(userInputResult.join(' '));
     }
 
     showEndMessage() {
-        MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+        MissionUtils.Console.print(GAME_PROGRESS_TEXT.GAME_ANSWER_MESSAGE);
     }
 }
 
