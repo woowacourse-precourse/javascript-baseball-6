@@ -4,8 +4,12 @@ const { playGame } = require("./modules/playGame");
 
 class App {
   play() {
-    startGame();
-    playGame();
+    try {
+      startGame();
+      playGame();
+    } catch (error) {
+      throw "[ERROR]";
+    }
   }
 }
 
