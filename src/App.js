@@ -2,36 +2,38 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
   async play() {
-    // 시작
-    MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
-    let answerArray = createAnswerNumber();
-    //console.log(answerArray);
-    let inputArray = await createInputNumber();
-    await compareNumber(answerArray, inputArray);
+    await start();
   }
 }
 
-function createAnswerNumber() {
-  const answerNumArray = [];
-  while (answerNumArray.length < 3) {
-    const number = MissionUtils.Random.pickNumberInRange(1, 9);
-    if (!answerNumArray.includes(number)) {
-      answerNumArray.push(number);
+async function start() {
+  MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
+  const ANSWER_ARRAY = createAnsArray();
+  let inputArray = await createNumArray();
+  await compareNumber(ANSWER_ARRAY, inputArray);
+}
+
+function createAnsArray() {
+  const ANSWER_NUM_ARRAY = [];
+  while (ANSWER_NUM_ARRAY.length < 3) {
+    const NUBMER = MissionUtils.Random.pickNumberInRange(1, 9);
+    if (!ANSWER_NUM_ARRAY.includes(NUBMER)) {
+      ANSWER_NUM_ARRAY.push(NUBMER);
     }
   }
-  return answerNumArray;
+  return ANSWER_NUM_ARRAY;
 }
 
-async function createInputNumber() {
-  let input = await MissionUtils.Console.readLineAsync(
+async function createNumArray() {
+  const INPUT = await MissionUtils.Console.readLineAsync(
     "숫자를 입력해주세요 : "
   );
-  let inputArray = input.split("").map(Number);
-  let inputSet = new Set(inputArray);
+  let inputArray = INPUT.split("").map(Number);
+  const INPUT_SET = new Set(inputArray);
   if (
-    inputArray.length !== inputSet.size ||
+    inputArray.length !== INPUT_SET.size ||
     inputArray.length !== 3 ||
-    Number.isNaN(parseInt(input))
+    Number.isNaN(parseInt(INPUT))
   ) {
     throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
   } else {
@@ -39,13 +41,13 @@ async function createInputNumber() {
   }
 }
 
-async function compareNumber(answerArray, inputArray) {
+async function compareNumber(ANSWER_ARRAY, inputArray) {
   let strike = 0;
   let ball = 0;
   for (let i = 0; i < 3; i++) {
-    if (answerArray[i] === inputArray[i]) {
+    if (ANSWER_ARRAY[i] === inputArray[i]) {
       strike++;
-    } else if (answerArray.includes(inputArray[i])) {
+    } else if (ANSWER_ARRAY.includes(inputArray[i])) {
       ball++;
     }
   }
@@ -62,31 +64,21 @@ async function compareNumber(answerArray, inputArray) {
   } else if (ball === 0) {
     MissionUtils.Console.print(`${strike}스트라이크`);
   }
-  try {
-    inputArray = await createInputNumber();
-    await compareNumber(answerArray, inputArray);
-  } catch (error) {
-    MissionUtils.Console.print(error.message);
-  }
+  inputArray = await createNumArray();
+  await compareNumber(ANSWER_ARRAY, inputArray);
 }
 
 async function restartQuestion() {
   MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-  try {
-    let restart = await MissionUtils.Console.readLineAsync(
-      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
-    );
-    if (restart === "1") {
-      let answerArray = createAnswerNumber();
-      let inputArray = await createInputNumber();
-      compareNumber(answerArray, inputArray);
-    } else if (restart === "2") {
-      return;
-    } else {
-      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
-    }
-  } catch (error) {
-    MissionUtils.Console.print(error.message);
+  const RESTART = await MissionUtils.Console.readLineAsync(
+    "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+  );
+  if (RESTART === "1") {
+    start();
+  } else if (RESTART === "2") {
+    return;
+  } else {
+    throw new Error("[ERROR] 1 또는 2만 입력해 주세요.");
   }
 }
 
