@@ -83,8 +83,6 @@ function numArrayCompareEvent() {
     }
 }
 
-
-
 // '3스트라이크'가 아닐 경우 추가기능 구현
 function addTry() {
     const newTry = document.createElement('div');
