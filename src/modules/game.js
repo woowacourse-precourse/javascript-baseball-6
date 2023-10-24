@@ -21,7 +21,5 @@ async function baseballGame() {
   await compareNumber(computerNum);
   retryGame();
 }
-baseballGame();
-// retryGame();
 
 export { gameStartMessage, baseballGame };
