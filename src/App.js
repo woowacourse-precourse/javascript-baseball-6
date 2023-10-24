@@ -64,7 +64,7 @@ function isRestartValid(number) {
 
 function calculateScore(answer, number) {
   for (let i = 0; i < answer.length; i++) {
-    let index = answer.findIndex((el) => el === number[i]);
+    let index = answer.findIndex(number[i]);
 
     if (index === i) {
       SCORE.strike++;
@@ -80,9 +80,6 @@ function resetScore() {
   SCORE.strike = 0;
 }
 function printResult() {
-  // console.log(SCORE);
-  //해당 SCORE 에 여러 조건에 따라 출력문이 달라지는 거니 해당 조건에대해 출력조건을 작성하는 로직을 분리하고
-  // 그 출력조건에 따라 출력을 달리하는 식으로 switch 문을 써서 가독성을 높인다.
   if (SCORE.ball === 0 && SCORE.strike === 0) {
     Console.print(MESSAGE.NOTHING);
     return;
@@ -93,12 +90,10 @@ function printResult() {
     return;
   }
   if (SCORE.ball && SCORE.strike) {
-    // console.log("ball과 strike");
     let text = `${SCORE.ball}${MESSAGE.BALL} ${SCORE.strike}${MESSAGE.STRIKE}`;
     Console.print(text);
     return;
   }
-  // "ball또는strike" 출력
   let text = SCORE.ball
     ? SCORE.ball + MESSAGE.BALL
     : SCORE.strike + MESSAGE.STRIKE;
