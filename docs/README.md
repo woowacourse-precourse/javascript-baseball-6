@@ -27,9 +27,10 @@ User input과 정답을 비교한다.
 
 # **프로그래밍 요구사항 목록**
 
-## [ ] Test: 테스트 케이스 실행
+## [✅] Test: 테스트 케이스 실행
 App.js의 play 메서드로 프로그램을 실행시켜야 한다.
 - 자체 테스트 케이스를 작성하여 추가 검증한다.
+  - 예외 테스트: 게임 종료 후 잘못된 문자 입력
 
 ## [✅] Convention
 [JavaScript 코드 컨벤션](https://github.com/ParkSB/javascript-style-guide#%EB%B3%80%EC%88%98-variables)을 지키면서 프로그래밍한다.

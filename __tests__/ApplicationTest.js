@@ -44,6 +44,22 @@ describe("숫자 야구 게임", () => {
     });
   });
 
+  test("예외 테스트: 게임 종료 후 잘못된 문자 입력", async() => {
+    //given
+    const randoms = [1, 3, 5]
+    const answers = ["246", "135", "3"];
+    const logSpy = getLogSpy();
+    const messages = ["낫싱", "3스트라이크"];
+
+    mockRandoms(randoms);
+    mockQuestions(answers);
+
+    // when & then
+    const app = new App();
+
+    await expect(app.play()).rejects.toThrow("[ERROR]");
+  });
+
   test("예외 테스트", async () => {
     // given
     const randoms = [1, 3, 5];
