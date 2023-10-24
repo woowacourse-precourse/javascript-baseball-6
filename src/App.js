@@ -63,22 +63,19 @@ class App {
   }
 
   countPitchResult(input, targetNumber) {
+    if (input === targetNumber) return { strike: 3, ball: 0 };
+
     let strike = 0;
     let ball = 0;
 
-    if (input === targetNumber) {
-      strike = 3;
-    } else {
-      const inputArray = input.split("");
-
-      inputArray.forEach((inputNumber, index) => {
-        if (inputNumber === targetNumber[index]) {
-          strike++;
-        } else if (targetNumber.includes(inputNumber)) {
-          ball++;
-        }
-      });
-    }
+    const inputArray = input.split("");
+    inputArray.forEach((inputNumber, index) => {
+      if (inputNumber === targetNumber.at(index)) {
+        strike++;
+      } else if (targetNumber.includes(inputNumber)) {
+        ball++;
+      }
+    });
 
     return {
       strike,
