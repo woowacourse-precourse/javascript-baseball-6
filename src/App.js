@@ -26,9 +26,9 @@ const handleGame = async (computerNumber) => {
   // 사용자 입력, 비교, 출력, 재시작 반복
   while (!gamePlay) {
     const playerNumber = await getPlayerNumber(computerNumber);
-    const compareResult = compareNumber(computerNumber, playerNumber);
-    const result = printResult(compareResult);
-    if (isCorrect(result)) return askReplay();
+    const { ball, strike } = compareNumber(computerNumber, playerNumber);
+    printResult(ball, strike);
+    if (isCorrect(strike)) return askReplay();
   }
 };
 
@@ -67,20 +67,18 @@ const isValidateNumber = (playerNum) => {
 
 // 컴퓨터수와 플레이어수 비교해서 볼, 스트라이크 카운트 함수
 const compareNumber = (computerNumber, playerNumber) => {
-  const compareResult = {
-    ball: 0,
-    strike: 0,
-  };
+  let ball = 0;
+  let strike = 0;
   playerNumber.forEach((num, idx) => {
-    if (num === computerNumber[idx]) compareResult.strike += 1;
-    else if (computerNumber.includes(num)) compareResult.ball += 1;
+    if (num === computerNumber[idx]) {
+      strike++;
+    } else if (computerNumber.includes(num)) ball++;
   });
-  return compareResult;
+  return { ball, strike };
 };
 
 // 비교 결과 출력 함수
-const printResult = (compareResult) => {
-  const { strike, ball } = compareResult;
+const printResult = (ball, strike) => {
   if (!strike && !ball) {
     print(MESSAGE.NOTHING);
   } else {
@@ -92,8 +90,8 @@ const printResult = (compareResult) => {
 };
 
 // 정답 확인해서 정답이면 게임 종료 메시지 출력하는 함수
-const isCorrect = (compareResult) => {
-  if (compareResult.strike === 3) {
+const isCorrect = (strike) => {
+  if (strike === 3) {
     print(MESSAGE.RESULT_SUCCESS);
     return true;
   }
