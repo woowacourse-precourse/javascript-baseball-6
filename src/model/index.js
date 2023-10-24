@@ -2,6 +2,7 @@ import GameNumberGenerator from './GameNumberGenerator.js';
 import GameNumberGeneratorError from '../utils/error/GameNumberGeneratorError.js';
 import Validators from '../utils/validator/index.js';
 import { ERROR_MESSAGE } from '../constants/Messages.js';
+import { SYSTEM } from '../constants/System.js';
 
 class BaseballModel {
   #computerNumbers;
@@ -16,7 +17,13 @@ class BaseballModel {
       Validators.checkGameNumbers(randomGameNumbers.join(''));
       this.saveComputerNumbers(randomGameNumbers);
     } catch (error) {
-      throw new GameNumberGeneratorError(ERROR_MESSAGE.game_number_generator);
+      throw new GameNumberGeneratorError(
+        ERROR_MESSAGE.game_number_generator(
+          SYSTEM.game_number_range_start,
+          SYSTEM.game_number_range_end,
+          SYSTEM.game_number_count,
+        ),
+      );
     }
   }
 

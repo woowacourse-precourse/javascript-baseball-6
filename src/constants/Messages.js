@@ -8,11 +8,19 @@ export const OUTPUT_MESSAGES = Object.freeze({
 export const ERROR_MESSAGE = Object.freeze({
   prefix: '[ERROR]',
   number: '숫자만 입력 가능합니다.',
-  zero: '0 은 포함될 수 없습니다. 1~9 사이의 숫자만 입력해 주세요',
+  exclude(number) {
+    return `${number} 은 포함될 수 없습니다.`;
+  },
   duplication: '서로 다른 숫자를 입력해야 합니다.',
-  three_digit: '3자리 숫자만 가능합니다.',
-  game_number_generator: '생선된 결과 값은 1~9 사이의 서로 다른 3자리 숫자가 아닙니다.',
-  only_one_or_two: '1~2 사이의 숫자만 입력할 수 있습니다.',
+  length(number) {
+    return `${number}자리 숫자만 가능합니다.`;
+  },
+  game_number_generator(start, end, digit) {
+    return `생성된 결과 값은 ${start} ~ ${end} 사이의 서로 다른 ${digit}자리 숫자가 아닙니다.`;
+  },
+  game_command(restart, end) {
+    return `숫자 ${restart} or ${end} 만 입력할 수 있습니다. `;
+  },
 });
 
 export const HINT = Object.freeze({
