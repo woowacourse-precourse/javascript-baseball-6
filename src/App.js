@@ -31,6 +31,32 @@ class App {
       return userValue;
     };
 
+    const getHint = (userValue) => {
+      let strikeCount = 0;
+      let ballCount = 0;
+
+      for (let i = 0; i < userValue.length; i++) {
+        if (userValue[i] === computerValue[i]) {
+          strikeCount++;
+        } else if (computerValue.includes(userValue[i])) {
+          ballCount++;
+        }
+      }
+
+      if (strikeCount === 3) {
+        Console.print("3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+        return true;
+      } else if (ballCount && strikeCount) {
+        Console.print(`${ballCount}볼 ${strikeCount}스트라이크`);
+      } else if (strikeCount) {
+        Console.print(`${strikeCount}스트라이크`);
+      } else if (ballCount) {
+        Console.print(`${ballCount}볼`);
+      } else {
+        Console.print("낫싱");
+      }
+    };
+
     let playGame = true;
     while (playGame) {
       const userValue = await getUserValue();
