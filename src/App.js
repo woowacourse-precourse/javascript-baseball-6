@@ -7,6 +7,4 @@ class App {
   }
 }
 
-const APP = new App();
-APP.play();
 export default App;
