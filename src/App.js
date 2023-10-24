@@ -10,6 +10,7 @@ class App {
       while (true) {
         const user_input = await Console.readLineAsync('숫자를 입력해주세요 : ');
         if (!validate(user_input)) throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+
         const { hint_msg, isCorrect } = check(answer, user_input);
         Console.print(hint_msg);
         if (isCorrect) break;
@@ -20,46 +21,47 @@ class App {
       if (replay === '2') break;
     }
   }
+  generateRandomNumber() {
+    const computer = [];
+    while (computer.length < 3) {
+      const number = Random.pickNumberInRange(1, 9);
+      if (!computer.includes(number)) {
+        computer.push(number);
+      }
+    }
+    return computer;
+  }
+
+  checkValidateInput(input) {
+    if (input.length !== 3) return false;
+
+    const regex = /^[1-9]\d{2}$/;
+    return regex.test(input);
+  }
+
+  checkAnswer(answer, input) {
+    let ball = 0;
+    let strike = 0;
+
+    answer.forEach((num, idx) => {
+      if (num == input[idx]) {
+        strike += 1;
+      } else if (input.includes(num)) {
+        ball += 1;
+      }
+    });
+
+    let hint_msg = '';
+
+    if (!ball && !strike) hint_msg = '낫싱';
+    else if (!ball) hint_msg = `${strike}스트라이크 `;
+    else if (!strike) hint_msg = `${ball}볼`;
+    else {
+      hint_msg = `${ball}볼 ${strike}스트라이크`;
+    }
+
+    return { hint_msg, isCorrect: strike === 3 };
+  }
 }
-
-const genNum = function generateRandomNumber() {
-  const computer = [];
-  while (computer.length < 3) {
-    const number = Random.pickNumberInRange(1, 9);
-    if (!computer.includes(number)) {
-      computer.push(number);
-    }
-  }
-  return computer;
-};
-
-const validate = function checkValidateInput(input) {
-  if (input.length !== 3) return false;
-  const regex = /^[1-9]\d{2}$/;
-  return regex.test(input);
-};
-
-const check = function checkAnswer(answer, input) {
-  let ball = 0;
-  let strike = 0;
-
-  answer.forEach((num, idx) => {
-    if (num == input[idx]) {
-      strike++;
-    } else if (input.includes(num)) {
-      ball++;
-    }
-  });
-
-  let hint_msg = '';
-  if (!ball && !strike) hint_msg = '낫싱';
-  else if (!ball) hint_msg = `${strike}스트라이크 `;
-  else if (!strike) hint_msg = `${ball}볼`;
-  else {
-    hint_msg = `${ball}볼 ${strike}스트라이크`;
-  }
-
-  return { hint_msg, isCorrect: strike === 3 };
-};
 
 export default App;
