@@ -1,6 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
-// to-do: 예외 테스트 케이스 때 result 출력 안되고 throw error하게 처리해야함
 // to-do: playAgain is undefined
 
 class App {
@@ -71,11 +70,16 @@ class App {
 				"숫자를 입력해주세요 : "
 			);
 
+			if (userNumber.length !== 3) {
+				await MissionUtils.Console.print(userNumber);
+				throw new Error("[ERROR]");
+			}
+
 			// 배열로 담는 이유는 computerNumber 배열과 하나씩 비교하기 위함
 			const userNumberArr = [...userNumber].map((x) => Number(x));
 			return userNumberArr;
 		} catch (error) {
-			MissionUtils.Console.print("[ERROR]");
+			throw error;
 		}
 	}
 
