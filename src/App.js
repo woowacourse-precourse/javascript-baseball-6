@@ -90,13 +90,17 @@ class App {
       `3개의 숫자를 모두 맞히셨습니다! 게임 종료
 게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.`
     );
+
     this.gameOverBtn = restartOrEnd
       .split("")
       .map((element) => parseInt(element));
+
     if (this.gameOverBtn[0] === 1 && this.gameOverBtn.length === 1) {
       this.play();
     } else if (this.gameOverBtn[0] === 2 && this.gameOverBtn.length === 1) {
       Console.print("게임 종료");
+    } else {
+      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
     }
   }
 }
