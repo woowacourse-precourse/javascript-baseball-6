@@ -20,6 +20,8 @@ class BaseballGame {
       if (this.restartNumber === 1) {
         this.createComputerNumber();
         this.playBaseball();
+      } else {
+        return;
       }
     } else {
       this.playBaseball();
@@ -32,7 +34,6 @@ class BaseballGame {
 
   createComputerNumber() {
     this.computerNumber = getUniqueNumbersInRange(1, 9, 3);
-    Console.print(this.computerNumber);
   }
 
   async getUserNumber() {
