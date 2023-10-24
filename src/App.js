@@ -3,11 +3,14 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 // to-do: playAgain is undefined
 
 class App {
+	constructor() {
+		this.playAgain = true; // playAgain 변수를 클래스 레벨에서 정의
+	}
+
 	async play() {
 		MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
-		let playAgain = true;
 
-		while (playAgain) {
+		while (this.playAgain) {
 			await this.playGame();
 		}
 	}
@@ -23,7 +26,7 @@ class App {
 
 		if (userInput == "2") {
 			MissionUtils.Console.print("게임을 종료합니다.");
-			playAgain = false;
+			this.playAgain = false;
 		} else if (userInput == "1") {
 			await this.play();
 		}
@@ -36,10 +39,6 @@ class App {
 		let userNumberArr;
 		let getResult;
 		let result;
-
-		await MissionUtils.Console.print(
-			"컴퓨터 입력값: " + computerNumber.join("")
-		); // 컴퓨터 입력값 출력
 
 		do {
 			userNumberArr = await this.getUserNumber();
@@ -91,7 +90,6 @@ class App {
 				computerNumber.push(number);
 			}
 		}
-		// console.log("컴퓨터 입력값 : ", computerNumber.join(""));
 		return computerNumber;
 	}
 
@@ -112,7 +110,6 @@ class App {
 				}
 			}
 		}
-		// console.log("strike : ", strike, "nothing : ", nothing, "ball : ", ball);
 		return { strike, nothing, ball };
 	}
 
