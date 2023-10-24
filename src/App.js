@@ -6,7 +6,6 @@ class App {
     await this.startGame();
   }
 
-  // 게임 시작
   async startGame() {
     const computerAnswer = this.createAnswerNumber();
     let matchAnswer = false;
@@ -14,11 +13,9 @@ class App {
       const playerAnswer = await this.getPlayerAnswer();
       matchAnswer = this.compareAnswer(computerAnswer, playerAnswer);
     } while (!matchAnswer);
-
     await this.askRestart();
   }
 
-  // 랜덤한 숫자 3개를 생성
   createAnswerNumber() {
     const computerNumbers = [];
     while (computerNumbers.length < 3) {
@@ -30,7 +27,6 @@ class App {
     return computerNumbers;
   }
 
-  // player 숫자 입력
   async getPlayerAnswer() {
     const playerAnswer = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 :');
     if (playerAnswer.length === 0) throw new Error('[ERROR] 입력값이 없습니다.');
@@ -39,10 +35,9 @@ class App {
       return verifiedPlayerAnswer;
     }
   }
-  // player 숫자 validation
+
   validatePlayerAnswer(playerAnswer) {
     const playerAnswerArr = [...new Set(playerAnswer.split(''))].map(Number);
-
     if (playerAnswerArr.some((num) => Number.isNaN(num))) throw new Error('[ERROR] 숫자가 아닙니다.');
     if (playerAnswer.length !== 3) throw new Error('[ERROR] 3자리 숫자가 아닙니다.');
     if (playerAnswerArr.length !== 3) throw new Error('[ERROR] 중복된 숫자가 있습니다.');
@@ -51,7 +46,6 @@ class App {
     return playerAnswerArr;
   }
 
-  // 숫자 비교, 결과 출력
   compareAnswer(computer, player) {
     if (player.join('') === computer.join('')) {
       MissionUtils.Console.print('3스트라이크 \n 3개의 숫자를 모두 맞히셨습니다! 게임 종료');
@@ -59,16 +53,14 @@ class App {
     } else {
       const ballCount = this.ball(computer, player);
       const strikeCount = this.strike(computer, player);
-
       if (ballCount === 0 && strikeCount === 0) MissionUtils.Console.print('낫싱');
       else if (ballCount > 0 && strikeCount === 0) MissionUtils.Console.print(`${ballCount}볼`);
       else if (strikeCount > 0 && ballCount === 0) MissionUtils.Console.print(`${strikeCount}스트라이크`);
       else if (strikeCount > 0 && ballCount > 0) MissionUtils.Console.print(`${ballCount}볼 ${strikeCount}스트라이크`);
-
       return false;
     }
   }
-  // ballCount
+
   ball(computer, player) {
     let ballCount = 0;
     for (const i in player) {
@@ -76,7 +68,7 @@ class App {
     }
     return ballCount;
   }
-  // strikeCount
+
   strike(computer, player) {
     let strikeCount = 0;
     for (const i in player) {
@@ -85,13 +77,11 @@ class App {
     return strikeCount;
   }
 
-  // 재시작/종료
   async askRestart() {
-    const restartReq = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
-
-    if (Number(restartReq) === 1) {
+    const restart = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+    if (restart === '1') {
       await this.startGame();
-    } else if (Number(restartReq) === 2) {
+    } else if (restart === '2') {
       MissionUtils.Console.print('게임 종료');
     } else {
       throw new Error('[ERROR] 숫자 1이나 2만 입력 가능합니다.');
