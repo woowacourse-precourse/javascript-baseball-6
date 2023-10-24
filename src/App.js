@@ -65,6 +65,24 @@ class App {
       }
     });
   }
+
+  async getGameResult(computerNum, inputNum) {
+    this.compareNumber(computerNum, inputNum);
+
+    if (this.strike === 3) {
+      Console.print(`${this.strike}스트라이크`);
+      Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    } else {
+      Console.print(
+        `${this.ball === 0 ? "" : this.ball + "볼"} ${
+          this.strike === 0 ? "" : this.strike + "스트라이크"
+        } ${this.nothing === 3 ? "낫싱" : ""}`.trim()
+      );
+
+      await this.getUserInput();
+      await this.getGameResult(computerNum, this.userNumber);
+    }
+  }
 }
 
 export default App;
