@@ -14,6 +14,6 @@ class RandomGenerator {
 
     return COMPUTER;
   };
-}
+};
 
 export default RandomGenerator;

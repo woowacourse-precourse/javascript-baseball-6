@@ -1,36 +1,29 @@
 import { Console } from '@woowacourse/mission-utils';
 import { ERROR, MESSAGE } from './constants.js';
 import RandomGenerator from './RandomGenerator.js';
+import UserInput from './UserInput.js';
 
 class App {
+  userInput;
   randomGenerator;
   computerNumber;
   userNumber;
 
   constructor() {
     this.randomGenerator = new RandomGenerator();
+    this.userInput = new UserInput();
     Console.print(MESSAGE.startMessage);
   };
 
   async play() {
     this.computerNumber = this.randomGenerator.randomNumberr();
-    return this.start()
+    return this.start();
   };
 
   async start() {
-    this.userNumber = await this.getUserNumber();
+    this.userNumber = await this.userInput.getUserNumber();
     return this.checkInputValidate();
   }
-
-  // 사용자 수 입력받기
-  async getUserNumber() {
-    try {
-      const NUMBERS = await Console.readLineAsync(MESSAGE.inputUserNumber);
-      return NUMBERS;
-    } catch (error) {
-      Console.print(error);
-    };
-  };
 
   // 입력받은 수 유효성 검사
   checkInputValidate() {
@@ -65,18 +58,8 @@ class App {
       return this.start();
     };
 
-    const RETRY = await this.chooseRetry();
+    const RETRY = await this.userInput.chooseRetry();
     return this.checkRetry(RETRY);
-  };
-
-  async chooseRetry() {
-    try {
-      Console.print(MESSAGE.allStrike);
-      const RETRY_INPUT_NUMBER = await Console.readLineAsync(MESSAGE.askRetry);
-      return RETRY_INPUT_NUMBER;
-    } catch (error) {
-      Console.print(error);
-    };
   };
 
   checkRetry(retryNumber) {
