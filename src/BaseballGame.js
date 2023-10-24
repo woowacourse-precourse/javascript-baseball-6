@@ -5,7 +5,7 @@ import { GAME_MSG, ERROR_MSG } from "./Messages";
 const gameStart = async () => {
   MissionUtils.Console.print(GAME_MSG.START);
   const COMPUTER_NUM = getComputerNum();
-  const USER_NUM = getUserNum();
+  compareNum(COMPUTER_NUM);
 };
 
 // 1. 컴퓨터의 랜덤 숫자
@@ -33,4 +33,40 @@ const getUserNum = async () => {
   }
 };
 
+const compareNum = async (COMPUTER_NUM) => {
+  try {
+    while (true) {
+      let strike = 0;
+      let ball = 0;
+      const USER_NUM = await getUserNum();
+      MissionUtils.Console.print(GAME_MSG.INPUT + USER_NUM);
+
+      for (let i = 0; i < 3; i++) {
+        if (COMPUTER_NUM[i] === USER_NUM[i]) {
+          strike++;
+        } else if (COMPUTER_NUM.includes(USER_NUM[i])) {
+          ball++;
+        }
+      }
+
+      if (ball === 0 && strike === 0) {
+        MissionUtils.Console.print(GAME_MSG.NOTHING);
+      } else if (ball > 0 && strike === 0) {
+        MissionUtils.Console.print(ball + GAME_MSG.BALL);
+      } else if (ball === 0 && strike > 0) {
+        MissionUtils.Console.print(strike + GAME_MSG.STRIKE);
+      } else {
+        MissionUtils.Console.print(
+          ball + GAME_MSG.BALL + " " + strike + GAME_MSG.STRIKE
+        );
+      }
+
+      if (strike === 3) {
+        break;
+      }
+    }
+  } catch (error) {
+    throw new Error("[ERROR]");
+  }
+};
 export { gameStart };
