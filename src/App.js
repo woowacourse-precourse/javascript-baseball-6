@@ -10,7 +10,7 @@ class App {
 
     const computer = get3DigitRandom();
     let baseball = { ball: 0, strike: 0 };
-    do {
+    while (baseball['strike'] < 3) {
       let user = await MissionUtils.Console.readLineAsync(PROMPT.INPUT_NUMBER);
       user = user.toString();
       const LEN = user.length;
@@ -18,7 +18,7 @@ class App {
       validateInput(user, LEN);
       baseball = getBallsAndStrikes(computer, user, baseball);
       printResult(baseball['ball'], baseball['strike']);
-    } while (baseball['strike'] < 3);
+    }
   }
 }
 
