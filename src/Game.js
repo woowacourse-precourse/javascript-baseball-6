@@ -1,7 +1,12 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 export class Game {
-  constructor() {}
+  async playBall() {
+    this.welcome();
+    this.targetArray = this.randomGenerator();
+    // console.log(`target: ${this.targetArray}`); // 정답 확인용
+    await this.getUserInput();
+  }
 
   welcome() {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
@@ -18,10 +23,10 @@ export class Game {
 
   async getUserInput() {
     const input = await MissionUtils.Console.readLineAsync(
-      `서로 다른 세 자리 숫자를 입력해주세요: `
+      "서로 다른 세 자리 숫자를 입력해주세요: "
     );
     this.validateUserInput(input);
-    return this.compareNumbers(input);
+    return this.compareNumbers(input); // Promise 재귀
   }
 
   validateUserInput(input) {
@@ -50,21 +55,14 @@ export class Game {
       else if (inputArray.includes(this.targetArray[i])) balls++;
     }
     if (balls === 0 && strikes === 0) {
-      MissionUtils.Console.print(`낫싱`);
+      MissionUtils.Console.print("낫싱");
     } else if (strikes === 3) {
       MissionUtils.Console.print(`${strikes}스트라이크`);
-      MissionUtils.Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
+      MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
       return;
     } else {
       MissionUtils.Console.print(`${balls}볼 ${strikes}스트라이크`);
     }
-    return this.getUserInput();
-  }
-
-  async playBall() {
-    this.welcome();
-    this.targetArray = this.randomGenerator();
-    // console.log(`target: ${this.targetArray}`);
-    await this.getUserInput();
+    return this.getUserInput(); // Promise 재귀
   }
 }

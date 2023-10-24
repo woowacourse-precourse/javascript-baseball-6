@@ -1,5 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import { Game } from "./Game.js";
+import { Game } from "./Game.js"; // 코드 작성 도중 파일명 대문자 변경 후 버그성 에러 검출
 
 class App {
   async play() {
@@ -17,7 +17,7 @@ class App {
     let input;
     do {
       input = await MissionUtils.Console.readLineAsync(
-        `게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.`
+        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
       );
       if (input === "1") {
         await this.play();
