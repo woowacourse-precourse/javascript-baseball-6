@@ -1,36 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import { GAME_MSG, ERROR_MSG } from "./Messages";
-
-// 1. 컴퓨터의 랜덤 숫자
-function getComputerNum() {
-  const COMPUTER = [];
-  while (COMPUTER.length < 3) {
-    const random = MissionUtils.Random.pickNumberInRange(1, 9);
-    if (!COMPUTER.includes(random)) {
-      COMPUTER.push(random);
-    }
-  }
-  return COMPUTER;
-}
-
-// 2. 유저의 숫자 입력
-async function getUserNum() {
-  let USER_INPUT = await MissionUtils.Console.readLineAsync(GAME_MSG.INPUT);
-  let isDuple = new Set(USER_INPUT).size;
-
-  if (USER_INPUT.length !== 3) {
-    throw new Error(ERROR_MSG.INPUT_ERROR_LEN);
-  } else if (isDuple !== 3) {
-    throw new Error(ERROR_MSG.INPUT_ERROR_DUPLE);
-  } else if (Number.isInteger(parseInt(USER_INPUT)) == false) {
-    throw new Error(ERROR_MSG.INPUT_ERROR_NOT_NUM);
-  }
-  try {
-    return USER_INPUT;
-  } catch (error) {
-    throw new Error("[ERROR]");
-  }
-}
+import { GAME_MSG, ERROR_MSG } from "../Messages";
+import { getComputerNum, getUserNum } from "./getValue";
 
 // 3. 컴퓨터와 유저의 숫자 비교
 export async function compareNum() {
