@@ -23,8 +23,8 @@ export class BaseballGame {
                 if (userNumber.length != 3) {
                     throw new Error("[ERROR] 3자리 숫자가 아닙니다");
                 }
-                if (userNumber[0] == userNumber[1] || userNumber[1] == userNumber[2] || userNumber[0] == userNumber[2]) {
-                    throw new Error("[ERROR] 숫자가 잘못된 형식입니다");
+                if (new Set(userNumber).size != 3) {
+                    throw new Error("[ERROR] 중복된 숫자가 있습니다");
                 }
 
                 pitch = this.compare(answer, userNumber);
@@ -47,27 +47,27 @@ export class BaseballGame {
         let ballCount = 0;
         answer.forEach((element1, index1) => {
             userNumber.forEach((element2, index2) => {
-                if (element1 == element2 && index1 == index2) strikeCount++;
-                else if (element1 == element2) ballCount++;
+                if(element1 != element2) return;
+                if (index1 == index2) {
+                    strikeCount++;
+                }
+                else {
+                    ballCount++;
+                }
             })
         });
 
-        if (strikeCount != 0 && ballCount != 0) {
-            Console.print(`${ballCount}볼 ${strikeCount}스트라이크`);
-            return false;
+        let result = "";
+        if (ballCount > 0) {
+            result += ballCount + "볼 ";
         }
-        else if (strikeCount != 0 && ballCount == 0) {
-            Console.print(`${strikeCount}스트라이크`);
-            if (strikeCount == 3) return true;
-            else return false;
+        if (strikeCount > 0) {
+            result += strikeCount + "스트라이크";
         }
-        else if (strikeCount == 0 && ballCount != 0) {
-            Console.print(`${ballCount}볼`);
-            return false;
+        if (strikeCount + ballCount == 0) {
+            result = "낫싱"
         }
-        else {
-            Console.print('낫싱');
-            return false;
-        }
+        Console.print(result.trim());
+        return strikeCount == 3
     }
 }
