@@ -3,7 +3,7 @@ import doValidate from './Validate.js';
 
 class Game {
   async start() {
-    MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
+    await MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
     this.computerNumber = this.getComputerNumber();
     await this.playGame();
   }
@@ -23,11 +23,11 @@ class Game {
     this.playerNumber = await this.getPlayerNumber();
     this.validatePlayerNumber();
     this.result = this.calculateResult();
-    MissionUtils.Console.print(this.result);
+    await MissionUtils.Console.print(this.result);
     if (this.result === '3스트라이크') {
-      MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
-      this.askForRestart();
-    } else if (this.result !== '3스트라이크') this.playGame();
+      await MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+      await this.askForRestart();
+    } else if (this.result !== '3스트라이크') await this.playGame();
   }
 
   //사용자의 3자리 숫자를 입력받는 함수
@@ -66,7 +66,7 @@ class Game {
       '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'
     );
     if (checkRestart === '1') {
-      this.playNewGame();
+      await this.playNewGame();
     } else if (checkRestart !== '2') {
       throw new Error('[ERROR] 1 혹은 2를 입력하세요.');
     }
