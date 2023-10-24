@@ -3,6 +3,17 @@ import { input, print } from './view/View.js';
 import { MESSAGE, SETTING } from './Constants.js';
 import { validateInput, validateRestartInput } from './utils/Validator.js';
 
+const {
+  GAME_START,
+  INPUT_NUMBER,
+  SUGGEST_NEW_GAME,
+  STRIKE,
+  SUCCESS,
+  BALL,
+  NOTHING,
+} = MESSAGE;
+const { MAX_STRIKE_COUNT } = SETTING;
+
 export default class App {
   #game;
 
@@ -15,23 +26,23 @@ export default class App {
       let isGameFinished = false;
 
       while (!isGameFinished) {
-        print(MESSAGE.GAME_START);
+        print(GAME_START);
 
-        const inputNumber = (await input(MESSAGE.INPUT_NUMBER)).trim();
+        const inputNumber = (await input(INPUT_NUMBER)).trim();
         validateInput(inputNumber);
 
         const { ballCount, strikeCount } = this.#game.checkGuess(inputNumber);
         const message = this.feedbackMessage(ballCount, strikeCount);
         print(message);
 
-        if (strikeCount === SETTING.MAX_STRIKE_COUNT) {
-          const restartNumber = Number(await input(MESSAGE.SUGGEST_NEW_GAME));
-          isGameFinished = !(
-            validateRestartInput(restartNumber) && restartNumber === 1
-          );
-          if (!isGameFinished) {
-            this.#game.init();
-          }
+        if (strikeCount !== MAX_STRIKE_COUNT) continue;
+        const restartNumber = Number(await input(SUGGEST_NEW_GAME));
+        isGameFinished = !(
+          validateRestartInput(restartNumber) && restartNumber === 1
+        );
+
+        if (!isGameFinished) {
+          this.#game.init();
         }
       }
     } catch (e) {
@@ -48,16 +59,16 @@ export default class App {
   feedbackMessage(ball, strike) {
     let message = '';
 
-    if (strike === SETTING.MAX_STRIKE_COUNT) {
-      return `${strike}${MESSAGE.STRIKE}\n${MESSAGE.SUCCESS}`;
+    if (strike === MAX_STRIKE_COUNT) {
+      return `${strike}${STRIKE}\n${SUCCESS}`;
     }
     if (ball > 0) {
-      message += `${ball}${MESSAGE.BALL} `;
+      message += `${ball}${BALL} `;
     }
     if (strike > 0) {
-      message += `${strike}${MESSAGE.STRIKE}`;
+      message += `${strike}${STRIKE}`;
     }
-    return message.trim() || `${MESSAGE.NOTHING}`;
+    return message.trim() || `${NOTHING}`;
   }
 }
 

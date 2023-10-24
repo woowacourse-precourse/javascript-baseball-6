@@ -1,7 +1,7 @@
 import generateNumber from './utils/RandomNumber.js';
 import { SETTING } from './Constants.js';
 
-// @TODO: airbnb style guide 맞추기
+const { MAX, MIN, MAX_INPUT_LENGTH } = SETTING;
 class Game {
   #answerNumbers;
 
@@ -10,7 +10,7 @@ class Game {
   }
 
   init() {
-    this.#answerNumbers = generateNumber(SETTING.MIN, SETTING.MAX);
+    this.#answerNumbers = generateNumber(MIN, MAX);
   }
 
   /**
@@ -23,7 +23,7 @@ class Game {
     let strikeCount = 0;
     let ballCount = 0;
 
-    for (let i = 0; i < SETTING.MAX_INPUT_LENGTH; i++) {
+    for (let i = 0; i < MAX_INPUT_LENGTH; i++) {
       if (input[i] === randomNumber[i]) {
         strikeCount++;
         continue;
