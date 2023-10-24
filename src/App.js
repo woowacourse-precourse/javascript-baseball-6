@@ -23,14 +23,18 @@ class App {
 
   async play() {
     this.setupNewGame();
+    await this.startGame();
+  }
+
+  async startGame() {
     try {
       while (this.gameState !== 'ended') {
         await this.getUserInput();
       }
     } catch (error) {
-      Console.print(error.message);
+      Console.print(Constants.GAME_OVER);
       this.endGame();
-      return Promise.reject(error); // 오류가 발생하면 함수를 즉시 종료
+      return Promise.reject(error);
     }
   }
 
@@ -39,11 +43,9 @@ class App {
     if (!correctNumber(userNumber)) {
       throw new Error("[ERROR]");
     }
-
     this.reader.setUserNumber(userNumber);
     const userAnswer = this.reader.getUserNumber();
     Console.print(`${Constants.NOTICE_INPUT} : ${userAnswer}`);
-
     this.userAnswer = userAnswer;
     this.checkAnswer();
   }
@@ -65,7 +67,6 @@ class App {
       this.play();
     } else {
       this.endGame();
-      //Console.print(Constants.GAME_OVER);
     }
   }
 
@@ -77,5 +78,8 @@ class App {
     this.gameState = 'ended';
   }
 }
+
+const app = new App();
+app.play();
 
 export default App;
