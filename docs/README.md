@@ -18,7 +18,6 @@
 - 도메인별 단위 테스트 우선 작성하기
 - 메서드별 뎁스 최소화 (2 이하, 1 권장)
 - `else` 지양하기
-- `Controller` 에서 통합된 에러 핸들링하기
 
 # 구조 설계
 
@@ -51,7 +50,6 @@
 - 프로그램의 전체 진행과 종료를 담당한다.
 - 유저의 입력을 담당한다.
 - Service 레이어와 View를 중개한다.
-- 에러 핸들링을 담당한다.
 
 ## Domain
 
@@ -177,7 +175,7 @@
   </tr>
   <tr>
     <td>submittedCorrectly</td>
-    <td>정답을 맞춘 <code>SubmittedBalls</code>이 있는지 기록됩니다.</td>
+    <td>정답을 맞춘 <code>SubmittedBalls</code>가 있는지 기록됩니다.</td>
   </tr>
 </table>
 
@@ -191,12 +189,16 @@
     <td>랜덤한 <code>TargetBall</code> 3개로 이루어진 <code>AnswerBalls</code>를 <code>answer</code> 필드에 설정합니다.</td>
   </tr>
   <tr>
-    <td>calculateScore(<i>inputArray</i>)</td>
+    <td>computeScore(<i>inputArray</i>)</td>
     <td>입력받은 값을 숫자 배열로 변환하여 <code>SubmittedBalls</code>를 생성하고, <code>answer</code>와 비교하여 결과를 반환합니다.</td>
   </tr>
   <tr>
     <td>isEnd()</td>
     <td><code>submittedCorrectly</code>가 존재하여 게임의 종료 여부를 반환합니다.</td>
+  </tr>
+  <tr>
+    <td>init()</td>
+    <td>필드를 초기화합니다.</td>
   </tr>
 </table>
 
@@ -247,43 +249,35 @@
   - [x] `match` 메서드의 `ball` 인자가 `TargetBall`이 아니라면 에러를 발생시킨다.
   - [x] `match` 메서드의 `index` 인자가 올바른 index값이 아니라면 에러를 발생시킨다.
 
-- [ ] SubmittedBalls
+- [x] SubmittedBalls
 
-  - [ ] `score` 필드에 strike와 ball로 이루어진 객체를 가진다.
-  - [ ] 입력받은 배열에 따라 `targetBalls` 필드에 `TargetBalls`를 가진다.
-  - [ ] `increaseStrike` 메서드는 `score`의 `strike`를 `1` 증가시킨다.
-  - [ ] `increaseBall` 메서드는 `score`의 `ball`을 `1` 증가시킨다.
-
-- [ ] SubmittedBalls 예외 처리
-
-  - [ ] `grade` 메서드의 인자가 `AnswerBalls`가 아니라면 에러를 발생시킨다.
+  - [x] `score` 필드에 strike와 ball로 이루어진 객체를 가진다.
+  - [x] 입력받은 배열에 따라 `targetBalls` 필드에 `TargetBalls`를 가진다.
+  - [x] `increaseStrike` 메서드는 `score`의 `strike`를 `1` 증가시킨다.
+  - [x] `increaseBall` 메서드는 `score`의 `ball`을 `1` 증가시킨다.
 
 ## Service 구현
 
-- [ ] BaseballService
+- [x] BaseballService
 
-  - [ ] 필드값으로 랜덤한 `TargetBall`로 이루어진 `answer`와 `submittedCorrectly`를 보유한다.
-  - [ ] `setRandomAnswer`는 `answer` 를 재설정한다.
-  - [ ] `calculateScore`는 입력받은 값을 숫자인 배열로 변환해 `SubmittedBalls`를 생성후 `answer`와 비교하여 결과를 반환한다.
-  - [ ] `isEnd`는 `submittedCorrectly`가 존재하여 게임의 종료 여부를 반환한다.
-
-- [ ] BaseballService 예외 처리
-
-  - [ ] `computeScore` 메서드의 인자가 숫자로 이루어진 배열이 아니라면 에러를 발생시킨다.
+  - [x] 필드값으로 랜덤한 `TargetBall`로 이루어진 `answer`와 `submittedCorrectly`를 보유한다.
+  - [x] `setRandomAnswer`는 `answer`를 재설정한다.
+  - [x] `computeScore`는 입력받은 값을 숫자인 배열로 변환해 `SubmittedBalls`를 생성후 `answer`와 비교하여 결과를 반환한다.
+  - [x] `isEnd`는 `submittedCorrectly`가 존재하는지 판별하여 게임의 종료 여부를 반환한다.
+  - [x] `init`은 필드를 초기화한다.
 
 ## Controller 연결
 
-- [ ] `Controller`에 `Service`와 `View`를 연결한다.
-- [ ] `Controller`에 에러 핸들링 로직을 구성한다.
+- [x] `Controller`에 `Service`와 `View`를 연결한다.
+- [x] `Controller`에 에러 핸들링 로직을 구성한다.
 
 # 최종 체크포인트
 
-- [ ] `ApplicationTest`를 통과하는가?
-- [ ] 모든 단위 테스트가 통과하는가?
-- [ ] 뎁스가 과도하게 깊은 메서드는 존재하지 않는가?
-- [ ] `else`가 존재하는가?
-- [ ] 에러 핸들링을 `Controller`에서 일괄적으로 처리하는가?
-- [ ] 컨벤션에 맞게 코드가 작성되었는가?
-- [ ] Node.js 18.17.1 버전에서 실행 가능한가?
-- [ ] `package.json`에 변경사항이 존재하는가?
-- [ ] `process.exit()`를 호출하는 코드가 존재하는가?
+- [x] `ApplicationTest`를 통과하는가?
+- [x] 모든 단위 테스트가 통과하는가?
+- [x] 뎁스가 과도하게 깊은 메서드는 존재하지 않는가?
+- [x] `else`가 존재하지 않는가?
+- [x] 컨벤션에 맞게 코드가 작성되었는가?
+- [x] Node.js 18.17.1 버전에서 실행 가능한가?
+- [x] `package.json`에 변경사항이 존재하지 않는가?
+- [x] `process.exit()`를 호출하는 코드가 존재하지 않는가?
