@@ -23,10 +23,12 @@ function numArrayCompareEvent() {
     console.log(userNumbersArray);
 
     // 2. userNumbersArray의 유효성 검사
-    // 값이 세 자리가 아니라면?
+
+    // 2-1. 값이 세 자리가 아니라면?
     if (userNumbersArray.length!==3) {
         alert("[ERROR] 세 자리 숫자가 아닙니다.");
     } else {
+        // 2-2. 중복된 숫자가 있다면?
         let isValid = true;
         let uniqueUserNumbersArray = new Set(userNumbersArray);
         // console.log(uniqueUserNumbersArray);
@@ -36,6 +38,7 @@ function numArrayCompareEvent() {
             alert("[ERROR] 중복된 값이 존재합니다.")
             isValid = false;
         }
+        // 2-3. 지정된 숫자 범위를 넘어간다면?
         for (let i=0; i<3; i++) {
             if (userNumbersArray[i] < 1 || userNumbersArray[i] > 9) {
                 alert("[ERROR] 1에서 9 사이의 범위를 벗어나는 숫자가 있습니다.");
@@ -43,11 +46,28 @@ function numArrayCompareEvent() {
                 break;
             }
         }
+        // 유효하다면!
         if (isValid) {
-            console.log('이제 시작이다')
-
             // 3. computerNumbersArray와 userNumbersArray 비교  
+            let strike = 0;
+            let ball = 0;
 
+            for (let i = 0; i < userNumbersArray.length; i++) {
+                if (computerNumbersArray[i] === userNumbersArray[i]) {
+                    strike++;
+                } else if (computerNumbersArray.includes(userNumbersArray[i])) {
+                    ball++;
+                } 
+            }
+            if (strike === 0 && ball === 0) {
+                result.innerHTML = "낫싱";
+            } else if (strike === 3) {
+                result.innerHTML = `3스트라이크
+                3개의 숫자를 모두 맞히셨습니다! 게임 종료
+                게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.`
+            } else {
+                result.innerHTML = `${strike}스트라이크 ${ball}볼`;
+            }
         }
     }
 }
