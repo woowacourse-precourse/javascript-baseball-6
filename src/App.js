@@ -1,5 +1,9 @@
+import { randomNumber } from "./utils/randomNumber.js";
 class App {
-  async play() {}
+  async play() {
+    randomNumber()
+  }
+  
 }
 
 export default App;
