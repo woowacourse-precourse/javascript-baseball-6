@@ -44,8 +44,7 @@ class BaseballGame {
     .split("")
     .map(n => parseInt(n, 10));
 
-    const computerNumberArray = String(computerNumber)
-    .split("")
+    const computerNumberArray = computerNumber
     .map(n => parseInt(n, 10));
 
     // 게임 결과를 담을 변수
@@ -72,6 +71,8 @@ class BaseballGame {
     if (ball === 0 && strike === 0) {
       gameResult = '낫싱';
     }
+
+    return gameResult;
   }
 };
 
