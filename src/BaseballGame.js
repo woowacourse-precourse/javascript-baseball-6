@@ -36,6 +36,13 @@ const getUserNum = async () => {
     if (USER_NUM.length !== 3) {
       throw new Error(ERROR_MSG.INPUT_ERROR_LEN);
     }
+    const checkDup = new Set(USER_NUM.split(""));
+    if (checkDup.length !== 3) {
+      throw new Error(ERROR_MSG.INPUT_ERROR_SAME);
+    }
+    if (isNaN(Number(USER_NUM))) {
+      throw new Error(ERROR_MSG.INPUT_ERROR_NOT_NUM);
+    }
     return USER_NUM;
   } catch (error) {
     throw new Error("[ERROR]");
