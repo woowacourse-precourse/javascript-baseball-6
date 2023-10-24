@@ -91,8 +91,8 @@ class App {
         ball = 0;
         continue;
       }
-      playing = !playing;
       //3strike (while문 빠져나옴)
+      playing = !playing;
       MissionUtils.Console.print(
         "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
       );
@@ -108,10 +108,9 @@ class App {
       }
     }
 
+    //게임 실행
     gameStart();
   }
 }
-// //테스트 코드
-// const app = new App();
-// app.play();
+
 export default App;
