@@ -4,10 +4,10 @@ class Refree {
   #opponentNumber;
 
   constructor() {
-    this.#opponentNumber = this.generateNumber();
+    this.#opponentNumber = this.#generateNumber();
   }
 
-  generateNumber() {
+  #generateNumber() {
     const result = [];
     while (result.length < 3) {
       const number = MissionUtils.Random.pickNumberInRange(1, 9);
@@ -20,13 +20,13 @@ class Refree {
   }
 
   judgeBallOrStrike(playerNumber) {
-    const ball = this.countBall(playerNumber);
-    const strike = this.countStrike(playerNumber);
+    const ball = this.#countBall(playerNumber);
+    const strike = this.#countStrike(playerNumber);
 
     return { ball, strike };
   }
 
-  countBall(playerNumber) {
+  #countBall(playerNumber) {
     return playerNumber.reduce((count, target, index) => {
       return this.#opponentNumber.includes(target) && this.#opponentNumber[index] !== target
         ? count + 1
@@ -34,7 +34,7 @@ class Refree {
     }, 0);
   }
 
-  countStrike(playerNumber) {
+  #countStrike(playerNumber) {
     return playerNumber.reduce((count, target, index) => {
       return this.#opponentNumber.includes(target) && this.#opponentNumber[index] === target
         ? count + 1

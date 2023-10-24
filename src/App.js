@@ -17,20 +17,20 @@ class App {
     Validation.validateBaseballNumber(input);
     this.#refree = new Refree();
 
-    await this.startGameRound(new Player(input).playerNumber);
+    await this.#startGameRound(new Player(input).playerNumber);
   }
 
-  async startGameRound(playerNumber) {
+  async #startGameRound(playerNumber) {
     const { ball, strike } = this.#refree.judgeBallOrStrike(playerNumber);
     OutputView.printResult(ball, strike);
-    await this.checkSuccess(strike);
+    await this.#checkSuccess(strike);
   }
 
-  async checkSuccess(strike) {
-    strike === 3 ? await this.confirmGame() : await this.continueGame();
+  async #checkSuccess(strike) {
+    strike === 3 ? await this.#confirmGame() : await this.#continueGame();
   }
 
-  async confirmGame() {
+  async #confirmGame() {
     OutputView.printSuccess();
     const input = await InputView.confirmContinue();
     Validation.validateConfirmNumber(input);
@@ -39,11 +39,11 @@ class App {
     if (Number(input) === 2) return;
   }
 
-  async continueGame() {
+  async #continueGame() {
     const input = await InputView.getUserNumber();
     Validation.validateBaseballNumber(input);
 
-    await this.startGameRound(new Player(input).playerNumber);
+    await this.#startGameRound(new Player(input).playerNumber);
   }
 }
 
