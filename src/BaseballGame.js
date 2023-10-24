@@ -2,6 +2,11 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 import Messages from "./Messages.js";
 
 class BaseballGame {
+  constructor({ min, max, numberLength }) {
+    this.min = min;
+    this.max = max;
+    this.numberLength = numberLength;
+  }
   async start() {
     try {
       this.answerNumber = this.setAnswerNumber();
@@ -14,7 +19,7 @@ class BaseballGame {
 
   setAnswerNumber() {
     const answerNumber = [];
-    while (answerNumber.length < 3) {
+    while (answerNumber.length < this.numberLength) {
       const number = MissionUtils.Random.pickNumberInRange(1, 9);
       if (!answerNumber.includes(number)) {
         answerNumber.push(number);
@@ -41,8 +46,8 @@ class BaseballGame {
   async printScore(number) {
     const score = this.checkScore(number);
     MissionUtils.Console.print(score);
-    if (score === "3스트라이크") {
-      MissionUtils.Console.print(Messages.THREE_STRIKE);
+    if (score === `${this.numberLength}스트라이크`) {
+      MissionUtils.Console.print(Messages.ALL_STRIKE);
       await this.chooseRestartOrExit();
     } else {
       await this.getInputNumber();
@@ -104,10 +109,10 @@ class BaseballGame {
     if (!/^[0-9]+$/.test(number)) {
       return [false, Messages.ERROR.INVALID_INPUT];
     }
-    if (number.length !== 3) {
+    if (number.length !== this.numberLength) {
       return [false, Messages.ERROR.INVALID_LENGTH];
     }
-    if (new Set([...number]).size < 3) {
+    if (new Set([...number]).size < this.numberLength) {
       return [false, Messages.ERROR.INVALID_ENTER_DUPLICATE];
     }
     return [true, ""];
