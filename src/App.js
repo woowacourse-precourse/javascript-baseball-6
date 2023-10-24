@@ -5,38 +5,38 @@ import { pickRandomThreeNumbers } from "./random.js";
 import { MESSAGE, END_DECISION } from "./constants.js";
 
 class App {
-  answerNumbers;
+  #answerNumbers;
 
   async play() {
-    this.startGame();
-    await this.runGameLoop();
-    await this.wrapUpGame();
-  }
-
-  startGame() {
     Console.print(MESSAGE.GAME_STARTED);
-    this.setNewAnswer();
+    await this.#processGame();
   }
 
-  setNewAnswer() {
-    this.answerNumbers = pickRandomThreeNumbers();
+  async #processGame() {
+    this.#setNewAnswer();
+    await this.#runGameLoop();
+    await this.#wrapUpGame();
   }
 
-  async runGameLoop() {
+  #setNewAnswer() {
+    this.#answerNumbers = pickRandomThreeNumbers();
+  }
+
+  async #runGameLoop() {
     const answerInput = await readAnswerInput();
-    const score = evaluateScore(answerInput, this.answerNumbers);
+    const score = evaluateScore(answerInput, this.#answerNumbers);
     printScore(score);
 
     if (score.strikeCount !== 3) {
-      await this.runGameLoop();
+      await this.#runGameLoop();
     }
   }
 
-  async wrapUpGame() {
+  async #wrapUpGame() {
     Console.print(MESSAGE.GAME_ENDED);
     const endDecisionInput = await readEndDecisionInput();
     if (endDecisionInput === END_DECISION.RESTART) {
-      await this.play();
+      await this.#processGame();
     }
   }
 }
