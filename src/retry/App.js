@@ -1,7 +1,7 @@
 const Game = require('./controller/Game');
 
 class App {
-    play() {
+    async play() {
         new Game().start();
     }
 }

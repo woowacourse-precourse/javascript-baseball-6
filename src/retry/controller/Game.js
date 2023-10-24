@@ -38,6 +38,7 @@ class Game {
         });
         this.compare();
     };
+
     compare() {
         const result = new Referee().compare(this.#computer, this.#user);
         let message = [];
@@ -45,7 +46,7 @@ class Game {
         if (result.ball !== VALUE.NOTHING) message.push(MESSAGE.BALL(result.ball));
         if (result.strike !== VALUE.NOTHING) message.push(MESSAGE.STRIKE(result.strike));
         OutputView.printResult(message);
-
+    
         this.progress(result);
     }
 
@@ -55,6 +56,7 @@ class Game {
         }
         InputView.getOptions(this.handleOptions);
     }
+    
     handleOptions = (option) => {
         OptionValidation.validateOption(option);
         if (option === VALUE.OPTION_RESTART) return this.getNumbers();

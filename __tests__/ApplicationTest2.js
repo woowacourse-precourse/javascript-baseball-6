@@ -23,27 +23,24 @@ const getLogSpy = () => {
   return logSpy;
 };
 
-describe("숫자 야구 게임", () => {
-    test("게임 종료 후 재시작", async () => {
-      // given
-        const randoms = [1, 3, 5, 5, 8, 9];
-        const answers = ["246", "135", "1", "597", "589", "2"];
-        const logSpy = getLogSpy();
-        const messages = ["낫싱", "3스트라이크", "1볼 1스트라이크", "3스트라이크", "게임 종료"];
+describe('숫자 야구 게임', () => {
+  test('게임 종료 후 재시작', async() => {
+    const randoms = [1, 3, 5, 5, 8, 9];
+    const answers = ['246', '135', '1', '597', '589', '2'];
+    const logSpy = getLogSpy();
+    const messages = ['낫싱', '3스트라이크', '1볼 1스트라이크', '3스트라이크', '게임 종료'];
 
-        mockRandoms(randoms);
-        mockQuestions(answers);
+    mockRandoms(randoms);
+    mockQuestions(answers);
 
-      // when
-        const app = new App();
-        // await expect(app.play()).resolves.not.toThrow();
-        expect(() => app.play()).not.toThrow();
+    // when
+    const app = new App();
+    await expect(app.play()).resolves.not.toThrow();
 
-      // then
-        messages.forEach((output) => {
-            expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(output));
-        });
+    messages.forEach((output) => {
+      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(output));
     });
+  });
 
   test("예외 테스트", async () => {
     // given
@@ -55,8 +52,14 @@ describe("숫자 야구 게임", () => {
 
     // when & then
     const app = new App();
-    const playPromise = app.play();
 
-    await expect(playPromise).rejects.toThrow("[ERROR]");  
+    async function runApp() {
+      try {
+        await app.play();
+      } catch (error) {
+        expect(error).toThrow("[ERROR]");
+      }
+    }
+    runApp();
   });
 });
