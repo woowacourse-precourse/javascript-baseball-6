@@ -1,9 +1,9 @@
-import Game from './components/Game.js';
+import BaseballGame from './components/BaseballGame.js';
 
 class App {
   async play() {
-    const GAME = new Game();
-    await GAME.start();
+    const BASEBALL_GAME = new BaseballGame();
+    await BASEBALL_GAME.gameStart();
   }
 }
 
