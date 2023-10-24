@@ -19,7 +19,7 @@ export default class Game {
    * @param {string} input
    * @returns {object} {strikeCount: number, ballCount: number}
    */
-  checkGuess(input) {
+  compareNumbers(input) {
     const randomNumber = this.#answerNumbers.join('');
     let strikeCount = 0;
     let ballCount = 0;

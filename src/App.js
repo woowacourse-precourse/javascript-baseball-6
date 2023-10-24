@@ -29,18 +29,16 @@ export default class App {
   async play() {
     try {
       while (this.#inProgress) {
-        this.#view.print(GAME_START);
+        const inputNumber = await this.getUserNumber();
 
-        const inputNumber = (await this.#view.input(INPUT_NUMBER)).trim();
-        validateInput(inputNumber);
-
-        const { ballCount, strikeCount } = this.#game.checkGuess(inputNumber);
+        const { ballCount, strikeCount } =
+          this.#game.compareNumbers(inputNumber);
         const message = this.feedbackMessage(ballCount, strikeCount);
         this.#view.print(message);
 
         if (strikeCount !== MAX_STRIKE_COUNT) continue;
 
-        const restartNumber = await this.askForRestart();
+        const restartNumber = await this.getUserRestartChoice();
         this.restart(restartNumber);
       }
     } catch (e) {
@@ -49,11 +47,20 @@ export default class App {
     }
   }
 
-  async askForRestart() {
+  async getUserNumber() {
+    this.#view.print(GAME_START);
+    const inputNumber = (await this.#view.input(INPUT_NUMBER)).trim();
+    validateInput(inputNumber);
+
+    return inputNumber;
+  }
+
+  async getUserRestartChoice() {
     const restartNumber = Number(await this.#view.input(SUGGEST_NEW_GAME));
     if (validateRestartInput(restartNumber)) {
       return restartNumber;
     }
+    return null;
   }
 
   /**
