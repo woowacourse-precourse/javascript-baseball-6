@@ -5,7 +5,7 @@ import { GAME_COMMAND, GAME_NUMBER } from '../../constants/System.js';
 
 const Validators = {
   checkGameNumbers(input) {
-    if (!isNumber(input)) throw new ValidationError(ERROR_MESSAGE.string);
+    if (!isNumber(input)) throw new ValidationError(ERROR_MESSAGE.number);
     if (isParticularNumber(input, GAME_NUMBER.without_number)) {
       throw new ValidationError(ERROR_MESSAGE.zero);
     }

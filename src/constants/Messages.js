@@ -4,10 +4,10 @@ export const OUTPUT_MESSAGES = Object.freeze({
   game_number: '숫자를 입력해주세요 : ',
   game_command: '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n',
 });
-// TODO : 수정 error -> prefix / string -> number
+
 export const ERROR_MESSAGE = Object.freeze({
-  error: '[ERROR]',
-  string: '숫자만 입력 가능합니다.',
+  prefix: '[ERROR]',
+  number: '숫자만 입력 가능합니다.',
   zero: '0 은 포함될 수 없습니다. 1~9 사이의 숫자만 입력해 주세요',
   duplication: '서로 다른 숫자를 입력해야 합니다.',
   three_digit: '3자리 숫자만 가능합니다.',
