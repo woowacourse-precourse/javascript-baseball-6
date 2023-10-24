@@ -60,6 +60,20 @@ const countScore = (computerNumber, userNumber) => {
   return result;
 }
 
+const printScore = (ball, strike) => {
+  const textArray = [];
+
+  if (ball > 0) {
+    textArray.push(`${ball}볼`);
+  }
+  if (strike > 0) {
+    textArray.push(`${strike}스트라이크`);
+  }
+  if (textArray.length === 0)
+    return '낫싱';
+  return textArray.join(' ');
+}
+
 const gameProcess = async (computerNumber, userNumber) => {
   if (computerNumber === userNumber) {
     MissionUtils.Console.print('3스트라이크');
