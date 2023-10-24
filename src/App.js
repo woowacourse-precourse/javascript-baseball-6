@@ -8,7 +8,7 @@ class App {
     while (true) {
         const answers = await Console.readLineAsync('숫자를 입력해주세요 : ');
         if(answers === undefined|| answers.length != randoms.length){
-          throw new Error("[ERROR]");
+          throw Error("[ERROR] 규칙에 맞는 수를 입력하세요.");
         }
         const user = answers.split('').map(Number);
         if(validator(randoms,user) == 0) {
@@ -25,7 +25,7 @@ class App {
       }else if(status == 2){
         await Console.print("게임 종료");
       }else{
-        throw new Error("[ERROR]");
+        throw Error("[ERROR] 1과 2중 하나를 입력하세요.");
       }
   }
 }
