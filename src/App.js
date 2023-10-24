@@ -25,11 +25,26 @@ class App {
       } else if (numSet.size < 3) {
         throw new Error(Messages.ERROR.DUPLICATE_NUMBER);
       } else {
+        //힌트 구하기
+        const checkCount = [0, 0, 0];
+        const splitedNumbers = number.split('').map(Number);
+        splitedNumbers.forEach((splitedNumber, index) => {
+          if (computer[index] === splitedNumber) checkCount[0]++;
+          else if (computer.includes(splitedNumber)) checkCount[1]++;
+          else checkCount[2]++;
+        });
 
+        let result = '';
+        const [strike, ball, out] = checkCount;
+        if (ball > 0) result += `${ball}볼`;
+        if (strike > 0) result += `${strike}스트라이크`;
+        if (out === 3) result += `낫싱`;
+        MissionUtils.Console.print(result);
       }
     });
   }
 }
-let app = new App();
+const app = new App();
 app.play();
 
+module.exports= App;
