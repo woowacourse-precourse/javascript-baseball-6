@@ -27,7 +27,7 @@ class App {
   }
 
   async check(userInput) {
-    if (typeof userInput !== 'number') {
+    if (typeof userInput !== 'number' || Number.isNaN(userInput)) {
       throw new Error(
         `invalid userInput type userInput : ${userInput}, type of input : ${typeof userInput}`
       );
