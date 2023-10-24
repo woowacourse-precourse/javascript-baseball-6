@@ -1,4 +1,4 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
+import { MissionUtils } from '@woowacourse/mission-utils';
 
 const getRandomNumber = () => {
   const computer = [];
@@ -15,71 +15,78 @@ const getRandomNumber = () => {
 };
 
 const getUserInput = async (text) => {
-  let str = "";
+  let str = '';
 
   await MissionUtils.Console.readLineAsync(text)
     .then((input) => {
       str = input;
     })
     .catch((err) => {;
-      throw new Error("[ERROR] : " + err);
+      throw new Error('[ERROR] : ' + err);
     })
 
   return str;
 }
 
 const isNum = (str) => {
-  for(let i = 0; i < str.length; i++) {
-    if(str[i] < '0' || str[i] > '9') {
-      return false;
-    }
-  }
+  const charArr = [...str];
+  let numFlag = true;
 
-  return true;
+  charArr.forEach((value, index) => {
+    if(!numFlag) return;
+    if(value < '0' || value > '9') numFlag = false;
+  });
+
+  return numFlag;
 }
 
-const isDuplicated = (arr) => {
-  let visited = [];
+const isDuplicated = (str) => {
+  const visited = [];
 
-  for(let i = 0; i < 9; i++) {
-    visited[i] = false;
+  while(visited.length < 10) {
+    visited.push(false);
   }
 
-  for(let i = 0; i < 3; i++) {
-    if(!visited[arr[i]]) {
-      visited[arr[i]] = true;
+  const numArr = strToNumArr(str);
+  let duplicatedFlag = false;
+
+  numArr.forEach((value, index) => {
+    if(duplicatedFlag) return;
+
+    if(!visited[value]) {
+      visited[value] = true;
     } else {
+      duplicatedFlag = true;
       return true;
     }
-  }
+  });
 
-  return false;
+  return duplicatedFlag;
 }
 
 const isValidNumber = (str) => {
-  if(str.length != 3) throw new Error("[ERROR] : invalid input length");
-  if(!isNum(str)) throw new Error("[ERROR] : input is not a number");
-  if(isDuplicated(str)) throw new Error("[ERROR] : duplivated input value");
+  if(str.length != 3) throw new Error('[ERROR] : invalid input length');
+  if(!isNum(str)) throw new Error('[ERROR] : input is not a number');
+  if(str.includes('0')) throw new Error('[ERROR] : input cannot include 0');
+  if(isDuplicated(str)) throw new Error('[ERROR] : duplicated input value');
 
   return true;
 }
 
 const isValidContinueValue = (str) => {
-  if(str.length != 1) throw new Error("[ERROR] : invalid input length");
-  if(!isNum(str)) throw new Error("[ERROR] : input is not a number");
-  if(str == '1' || str == '2') {
-    return true
+  if(str.length != 1) throw new Error('[ERROR] : invalid input length');
+  if(!isNum(str)) throw new Error('[ERROR] : input is not a number');
+  if(str === '1' || str === '2') {
+    return true;
   } else {
-    throw new Error("[ERROR] : not expected input");
+    throw new Error('[ERROR] : unexpected input');
   } 
 }
 
 const strToNumArr = (str) => {
   let num = [];
 
-  for(let i = 0; i < str.length; i++) {
-    num[i] = str[i] - '0';
-  }
+  [...str].forEach((value) => num.push(value - '0'));
 
   return num;
 }
@@ -87,11 +94,9 @@ const strToNumArr = (str) => {
 const getStrike = (inputNumArr, computerNumArr) => {
   let strike = 0;
 
-  for(let i = 0; i < inputNumArr.length; i++) {
-    if(inputNumArr[i] == computerNumArr[i]) {
-      strike++;
-    }
-  }
+  inputNumArr.forEach((value, index) => {
+    if(value == computerNumArr[index]) strike++;
+  });
 
   return strike;
 }
@@ -99,23 +104,21 @@ const getStrike = (inputNumArr, computerNumArr) => {
 const getBall = (inputNumArr, computerNumArr) => {
   let ball = 0;
 
-  for(let i = 0; i < inputNumArr.length; i++) {
-    if(inputNumArr[i] == computerNumArr[i]) {
-      continue;
-    }
+  inputNumArr.forEach((value, index) => {
+    if(value == computerNumArr[index]) return;
 
-    if(computerNumArr.includes(inputNumArr[i])) {
+    if(computerNumArr.includes(value)) {
       ball++;
     }
-  }
+  });
 
   return ball;
 }
 
 const getScore = (inputNumArr, computerNumArr) => {
-  let ball = getBall(inputNumArr, computerNumArr);
-  let strike = getStrike(inputNumArr, computerNumArr);
-  let score = {
+  const ball = getBall(inputNumArr, computerNumArr);
+  const strike = getStrike(inputNumArr, computerNumArr);
+  const score = {
     ball,
     strike,
   }
@@ -124,18 +127,18 @@ const getScore = (inputNumArr, computerNumArr) => {
 }
 
 const printScore = (score) => {
-  let referee = "";
-  let ball = score.ball;
-  let strike = score.strike;
+  let referee = '';
+  const ball = score.ball;
+  const strike = score.strike;
 
   if(ball + strike == 0) {
-    referee = "낫싱";
+    referee = '낫싱';
   } else if(ball == 0) {
-    referee = strike + "스트라이크";
+    referee = `${strike}스트라이크`;
   } else if(strike == 0) {
-    referee = ball + "볼";
+    referee = `${ball}볼`;
   } else {
-    referee = ball + "볼 " + strike + "스트라이크";
+    referee = `${ball}볼 ${strike}스트라이크`;
   }
 
   MissionUtils.Console.print(referee);
@@ -143,63 +146,47 @@ const printScore = (score) => {
 
 class App {
   async play() {
-    MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
+    MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
 
-    let continueValue = 1;
-
-    while(continueValue == 1) {
+    while(1) {
       const randomNumArr = getRandomNumber();
-      // const randomNumArr = [1,2,3];
 
       while(1) {
-        let str = "";
-        let numArr = [];
-
         try {
-          str = await getUserInput("숫자를 입력해주세요 : ");
-          isValidNumber(str);
+          const userInput = await getUserInput('숫자를 입력해주세요 : ');
+
+          isValidNumber(userInput);
+
+          const numArr = strToNumArr(userInput);
+          const score = getScore(numArr, randomNumArr);
+
+          printScore(score);
+
+          if(score.strike == 3) break;
         } catch(err) {
           return Promise.reject(err);
-        }
-        
-        numArr = strToNumArr(str);
-        let score = getScore(numArr, randomNumArr);
-
-        printScore(score);
-
-        if(score.strike == 3) {
-          break;
-        }
+        } 
       }
 
-      MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료\n게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
-
-      let str = "";
+      MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료\n게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
 
       try {
-        str = await getUserInput("");
-        isValidContinueValue(str);
+        const userInput = await getUserInput('');
+
+        isValidContinueValue(userInput);
+
+        const continueValue = strToNumArr(userInput)[0];
+
+        if(continueValue == 2) break;
       } catch(err) {
         return Promise.reject(err);
       }
-
-      let num = strToNumArr(str)[0];
-      continueValue = num;
     }
 
-    MissionUtils.Console.print("게임 종료");
+    MissionUtils.Console.print('게임 종료');
 
-    return Promise.resolve("success");
+    return Promise.resolve();
   }
 }
-
-// let app = new App();
-// app.play()
-//   .then((text) => {
-//     console.log(text);
-//   })
-//   .catch((err) => {
-//     console.log(err.message);
-//   })
 
 export default App;
