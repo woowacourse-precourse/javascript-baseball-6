@@ -42,38 +42,31 @@ class App {
     return true;
   }
 
-  checkAllStrike(computerAnswer, answer){
-    /*if(computerAnswer === answer) {
-      MissionUtils.Console.print('3스트라이크');
-    }*/
-
+  checkAllStrike(computerAnswer, answer) {
     let strike = 0;
     let ball = 0;
-    for(let i = 0; i < computerAnswer.length; i++) {
+    for (let i = 0; i < computerAnswer.length; i++) {
       const index = answer.indexOf(computerAnswer[i]);
-      if(index > -1){
-        if(index === i){
+      if (index > -1) {
+        if (index === i) {
           strike += 1;
         } else {
           ball += 1;
         }
       }
     }
-    if(strike > 0 && ball > 0){
+    if (strike > 0 && ball > 0) {
       MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
-  } else if(strike > 0){
+    } else if (strike > 0) {
       MissionUtils.Console.print(`${strike}스트라이크`);
-  } else if(ball > 0){
+    } else if (ball > 0) {
       MissionUtils.Console.print(`${ball}볼`);
-  } else {
+    } else {
       MissionUtils.Console.print('낫싱');
-  }
-    if (strike == 3) {
-      return true;
     }
-    else false;
-    
+    return strike === 3; // 수정된 부분
   }
+  
 
 }
 
