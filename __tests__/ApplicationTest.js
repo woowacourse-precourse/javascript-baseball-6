@@ -14,7 +14,6 @@ const mockRandoms = (numbers) => {
   }, MissionUtils.Random.pickNumberInRange);
 };
 
-
 const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
 
@@ -23,7 +22,9 @@ const mockQuestions = (inputs) => {
     return Promise.resolve(input);
   });
 };
+
 describe("숫자 야구 게임", () => {
+  // 아래의 코드는 타임아웃을 설정할 필요가 없습니다.
   test("게임 종료 후 재시작", async () => {
     // given
     const randoms = [1, 3, 5, 5, 8, 9];
@@ -42,8 +43,9 @@ describe("숫자 야구 게임", () => {
     messages.forEach((output) => {
       expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(output));
     });
-  }, 10000); // 타임아웃 10,000ms(10초)
+  });
 
+  // 아래의 코드 역시 타임아웃을 설정할 필요가 없습니다.
   test("예외 테스트", async () => {
     // given
     const randoms = [1, 3, 5];
@@ -56,5 +58,5 @@ describe("숫자 야구 게임", () => {
     const app = new App();
 
     await expect(app.play()).rejects.toThrow("[ERROR]");
-  },  50000); // 타임아웃 10,000ms(10초)
+  });
 });

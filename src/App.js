@@ -1,6 +1,6 @@
-import readline from 'readline';
+const readline = require('readline');
 
-class App {
+export default class App {
   constructor() {
     this.secretNumber = this.generateRandomNumber();
     this.exitRequested = false;
