@@ -1,6 +1,10 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
+  
+  constructor() {
+    this.numbers = [];
+  }
 
   /**
    * 1-9의 서로 다른 3자리 수 배열 반환한다.
