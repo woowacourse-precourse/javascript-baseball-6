@@ -1,9 +1,9 @@
 import { Console } from "@woowacourse/mission-utils";
-import { ERRORMESSAGE } from "../constants/Message";
+import { GAMEMESSAGE, ERRORMESSAGE } from "../constants/Message";
 
 export default class User {
   async getNumber() {
-    Console.print("숫자를 입력해주세요 : ");
+    Console.print(GAMEMESSAGE.inputNumberPrompt);
     const playerInput = await Console.readLineAsync("");
 
     this.checkInputValidation(playerInput);
