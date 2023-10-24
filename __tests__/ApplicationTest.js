@@ -89,19 +89,7 @@ describe('숫자 야구 게임', () => {
 
     const app = new App();
 
-    await expect(app.play()).rejects.toThrow('[ERROR]');
-  });
-
-  test('예외 테스트: 입력값이 세자리 숫자가 아님', async () => {
-    const randoms = [1, 3, 5];
-    const answers = ['1234'];
-
-    mockRandoms(randoms);
-    mockQuestions(answers);
-
-    const app = new App();
-
-    await expect(app.play()).rejects.toThrow('[ERROR]');
+    await expect(app.play()).rejects.toThrow('[ERROR] 입력값이 숫자가 아닙니다.');
   });
 
   test('예외 테스트: 입력값이 정수가 아님', async () => {
@@ -113,7 +101,19 @@ describe('숫자 야구 게임', () => {
 
     const app = new App();
 
-    await expect(app.play()).rejects.toThrow('[ERROR]');
+    await expect(app.play()).rejects.toThrow('[ERROR] 입력한 숫자값이 정수가 아닙니다.');
+  });
+
+  test('예외 테스트: 입력값이 세자리 숫자가 아님', async () => {
+    const randoms = [1, 3, 5];
+    const answers = ['1234'];
+
+    mockRandoms(randoms);
+    mockQuestions(answers);
+
+    const app = new App();
+
+    await expect(app.play()).rejects.toThrow('[ERROR] 입력값이 세자리 숫자가 아닙니다.');
   });
 
   test('예외 테스트: 입력값이 서로 다른 숫자가 아님', async () => {
@@ -125,7 +125,7 @@ describe('숫자 야구 게임', () => {
 
     const app = new App();
 
-    await expect(app.play()).rejects.toThrow('[ERROR]');
+    await expect(app.play()).rejects.toThrow('[ERROR] 입력값이 서로 다른 숫자가 아닙니다.');
   });
 
   test('예외 테스트: 게임 종료 후 재시작에 대한 질문에 입력값이 1이나 2가 아님', async () => {
@@ -138,6 +138,6 @@ describe('숫자 야구 게임', () => {
     mockQuestions(answers);
 
     const app = new App();
-    await expect(app.restartGame()).rejects.toThrow('[ERROR]');
+    await expect(app.restartGame()).rejects.toThrow('[ERROR] 입력값이 1이나 2가 아닙니다.');
   });
 });

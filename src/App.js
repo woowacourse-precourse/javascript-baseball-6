@@ -21,12 +21,17 @@ class App {
       while (isInGame) {
         const answer = await Console.readLineAsync("숫자를 입력해주세요. : ");
 
-        if (
-          !this.isInteger(answer) ||
-          !this.isInRange(answer) ||
-          !this.isDigitUnique(answer)
-        ) {
-          throw new Error("[ERROR] 숫자가 잘못된 형식입니다. ");
+        if ( isNaN(Number(answer)) ) {
+          throw new Error("[ERROR] 입력값이 숫자가 아닙니다.");
+        }
+        if ( !this.isInteger(answer) ) {
+          throw new Error("[ERROR] 입력한 숫자값이 정수가 아닙니다.");
+        }
+        if ( !this.isInRange(answer) ) {
+          throw new Error("[ERROR] 입력값이 세자리 숫자가 아닙니다.");
+        }
+        if ( !this.isDigitUnique(answer) ) {
+          throw new Error("[ERROR] 입력값이 서로 다른 숫자가 아닙니다.");
         }
 
         score = this.getScore(randomNumber, answer);
@@ -101,7 +106,7 @@ class App {
       if (request === "1") {
         this.play();
       } else if (request !== "2") {
-        throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+        throw new Error("[ERROR] 입력값이 1이나 2가 아닙니다.");
       }
     } catch (error) {
       await Promise.reject(error);
