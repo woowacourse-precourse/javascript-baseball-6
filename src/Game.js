@@ -21,15 +21,12 @@ export default class Game {
   };
 
   #playGame = async () => {
-    // const [computer, refree, player] = this.#initializeGame();
-    // const [computer, player] = this.#initializeGame();
     const [computer, player] = this.#initializeGame();
     const computerBalls = computer.throwBalls(computer.ballNumbers);
 
     while (!this.#isGameFinished) {
       const playerBallsInput = await this.#promptPlayerBalls();
       const playerBalls = player.throwBalls(playerBallsInput);
-      // const result = this.compareBalls(computerBalls, playerBalls);
       const result = this.refree.compareBalls(computerBalls, playerBalls);
       this.#processResult(result);
     }
@@ -38,7 +35,6 @@ export default class Game {
 
   #initializeGame = () => {
     this.#isGameFinished = false;
-    // return [new Computer(), new Referee(), new Player()];
     return [new Computer(), new Player()];
   };
 
