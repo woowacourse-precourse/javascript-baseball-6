@@ -1,7 +1,7 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
+/* 결과를 출력하는 기능 */
 export default function printResult(data) {
-  // 볼과 스트라이크가 같이 있을 때
   if (data.ball !== 0 || data.strike !== 0) {
     if (data.strike === 3) {
       MissionUtils.Console.print(
