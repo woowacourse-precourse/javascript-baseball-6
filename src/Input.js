@@ -8,16 +8,18 @@ async function Input() {
 	answerArr = [Number(answer[0]), Number(answer[1]), Number(answer[2])];
 
 	if (answer.length !== 3) {
-		throw new Error('[ERROR]'); 
-	} else if (answerArr[0] === answerArr[1] || answerArr[0] === answerArr[2] || answerArr[1] === answerArr[2]) {
-		throw new Error('[ERROR]'); 
-	} else if (!Number.isInteger(answerArr[0]) || !Number.isInteger(answerArr[1]) || !Number.isInteger(answerArr[2])) {
 		throw new Error('[ERROR]');
-	} else if (answerArr.includes(0)) {
-		throw new Error('[ERROR]');
-	} else {
-		return answerArr;
 	}
+	if (answerArr[0] === answerArr[1] || answerArr[0] === answerArr[2] || answerArr[1] === answerArr[2]) {
+		throw new Error('[ERROR]');
+	}
+	if (!Number.isInteger(answerArr[0]) || !Number.isInteger(answerArr[1]) || !Number.isInteger(answerArr[2])) {
+		throw new Error('[ERROR]');
+	}
+	if (answerArr.includes(0)) {
+		throw new Error('[ERROR]');
+	}
+	return answerArr;
 }
 
 export default Input;
