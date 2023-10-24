@@ -16,7 +16,10 @@ export const START_MESSAGE = {
 };
 
 export const ERROR_MESSAGE = {
-  inputError: "[ERROR] 숫자가 잘못된 형식입니다.",
+  numberError: "[ERROR] 숫자를 제외한 다른 문자가 있습니다.",
+  rangeError: "[ERROR] 숫자가 잘못된 형식입니다.",
+  dupError: "[ERROR] 중복되는 숫자가 있습니다.",
+  oneTwoError: "[ERROR] '1','2'를 제외한 다른 입력이 있습니다.",
 };
 
 export const END_MESSAGE = {

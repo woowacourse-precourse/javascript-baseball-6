@@ -16,7 +16,8 @@ const GAME_PLAY = (playerNum, computerNum) => {
   //3스트라이크
   if (playerNum === computerNum) {
     MissionUtils.Console.print(END_MESSAGE.perfect);
-    return gameEndManager();
+
+    return gameEnd();
   }
   //아닐 때, 볼 판정 후 다시 사용자 입력 받기
   const PLAY_TEXT = BALL_MANAGER(playerNum, computerNum);
@@ -25,7 +26,7 @@ const GAME_PLAY = (playerNum, computerNum) => {
 };
 
 //game end
-async function gameEndManager() {
+async function gameEnd() {
   MissionUtils.Console.print(END_MESSAGE.ending);
 
   const REPLAY_BUTTON = await MissionUtils.Console.readLineAsync(
@@ -39,7 +40,7 @@ async function gameEndManager() {
     return; //종료
   }
   // 1과 2 입력 아닐 때, throw
-  throw new Error(ERROR_MESSAGE.inputError);
+  throw new Error(ERROR_MESSAGE.oneTwoError);
 }
 
 //game start
@@ -48,10 +49,10 @@ async function gameStart(computerNum) {
   const PLAYER_NUM = await MissionUtils.Console.readLineAsync(
     START_MESSAGE.input
   );
+
   //숫자 형식이 안 맞을 때, throw
-  if (ERROR_OCCURRED(PLAYER_NUM)) {
-    throw new Error(ERROR_MESSAGE.inputError);
-  }
+  ERROR_OCCURRED(PLAYER_NUM);
+
   //게임 진행
   await GAME_PLAY(PLAYER_NUM, computerNum);
 }

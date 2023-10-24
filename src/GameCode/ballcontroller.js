@@ -1,5 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import { getResultMessage } from "../Text/message";
+import { getResultMessage, ERROR_MESSAGE } from "../Text/message";
 
 //ball judge
 export const BALL_MANAGER = (player, computer) => {
@@ -18,11 +18,11 @@ export const BALL_MANAGER = (player, computer) => {
 export const ERROR_OCCURRED = (playerNum) => {
   //입력이 숫자인지 판별
   if (isNaN(Number(playerNum))) {
-    return true;
+    throw new Error(ERROR_MESSAGE.numberError);
   }
-  //1-9 범위인지 판별
+  //입력 범위 판별
   if (!/^[1-9]{3}$/.test(playerNum)) {
-    return true;
+    throw new Error(ERROR_MESSAGE.rangeError);
   }
   //중복 되는지 판별
   if (
@@ -30,10 +30,10 @@ export const ERROR_OCCURRED = (playerNum) => {
     playerNum[1] === playerNum[2] ||
     playerNum[0] === playerNum[2]
   ) {
-    return true;
+    throw new Error(ERROR_MESSAGE.dupError);
   }
 
-  return false;
+  return;
 };
 
 //computer random ball
@@ -45,5 +45,6 @@ export const COMPUTER_BALL_MAKER = () => {
       COMPUTER_NUM_ARRAY.push(NUM);
     }
   }
+
   return COMPUTER_NUM_ARRAY.join("");
 };
