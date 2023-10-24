@@ -1,8 +1,10 @@
 import { Console } from '@woowacourse/mission-utils';
 import Computer from './Computer.js';
-import { checkValidNumberDuringGame } from './validation.js';
-import { getHintToUser } from './hint.js';
-import { LOG_MESSAGE, HINT_MESSAGE, GAME_SELECT, ERROR_MESSAGE } from './constants.js';
+import { checkValidNumberDuringGame } from './checkValid.js';
+import { getHintToUser } from './hintMaker.js';
+import {
+  LOG_MESSAGE, HINT_MESSAGE, GAME_SELECT, ERROR_MESSAGE,
+} from './constants.js';
 
 class BaseballGame {
   constructor() {
