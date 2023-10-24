@@ -114,24 +114,30 @@ const printResult = (strikeCnt, ballCnt) => {
   }
 };
 
-const playGame = async () => {
+// 게임을 시작하는 함수
+const initGame = async () => {
   Console.print(MESSAGE.START);
   let restart = "1";
   while (restart === "1") {
     const computerList = getComputerNumber();
-    let isEnd = false;
-    while (!isEnd) {
-      const humanList = await readFromPlayer();
-      const { strikeCnt, ballCnt } = compareNumber(computerList, humanList);
-      isEnd = printResult(strikeCnt, ballCnt);
-    }
+    await playGame(computerList);
     restart = await readRestart();
+  }
+};
+
+// 게임을 진행하는 함수
+const playGame = async (computerList) => {
+  let isEnd = false;
+  while (!isEnd) {
+    const humanList = await readFromPlayer();
+    const { strikeCnt, ballCnt } = compareNumber(computerList, humanList);
+    isEnd = printResult(strikeCnt, ballCnt);
   }
 };
 
 class App {
   async play() {
-    await playGame();
+    await initGame();
   }
 }
 
