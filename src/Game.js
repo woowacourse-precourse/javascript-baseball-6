@@ -1,7 +1,7 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import { GAME_STATUS, SCORE, SETTING } from './constants';
 
-const { SIZE } = SETTING;
+const { SIZE, MIN_NUMBER, MAX_NUMBER } = SETTING;
 const { BALL, STRIKE, NOTHING } = SCORE;
 
 export class Game {
@@ -12,8 +12,8 @@ export class Game {
 
   generateRandomNumber() {
     const computer = [];
-    while (computer.length < SETTING.SIZE) {
-      const number = MissionUtils.Random.pickNumberInRange(SETTING.MIN_NUMBER, SETTING.MAX_NUMBER);
+    while (computer.length < SIZE) {
+      const number = MissionUtils.Random.pickNumberInRange(MIN_NUMBER, MAX_NUMBER);
       if (!computer.includes(number)) {
         computer.push(number);
       }
