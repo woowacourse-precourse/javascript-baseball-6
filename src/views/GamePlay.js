@@ -2,8 +2,6 @@ const CONTROL = require('../controller/Controller');
 const OUT_VIEW = require('../views/OutputView');
 const MissionUtils = require('@woowacourse/mission-utils');
 const { OUTPUT_MSG } = require('../models/OutputMsg');
-
-// CONSTANTS
 const { CONSTANTS , STRIKE_BALL } = require('../models/Constants');
 
 
