@@ -29,7 +29,7 @@ export default class Controller {
   async sendPlayerNum() {
     const input = await readPlayerNum();
     if (input === 0){
-      return ("[ERROR]");
+      throw new Error('[ERROR]');
       }
     return this.ballCountController(input);
   }
@@ -67,7 +67,7 @@ export default class Controller {
   async endController() {
     const input = await readRestartEnd();
     if (input === 0){
-      return ("[ERROR]");
+      throw new Error('[ERROR]');
       }
     return this.gameEnd(input);
   }
