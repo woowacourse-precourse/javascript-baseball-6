@@ -6,6 +6,7 @@ class App {
       MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
       await compareNumber();
     } catch (error) {
+      MissionUtils.Console.print(error.message);
       throw error;
     }
   }
@@ -47,17 +48,13 @@ async function compareNumber() {
 
     ball = 0;
     strike = 0;
-    try {
-      for (let num = 0; num < 3; num++) {
-        if (computer[num] === user[num]) {
-          strike++;
-        } else if (user.includes(computer[num])) {
-          ball++;
-        }
+
+    for (let num = 0; num < 3; num++) {
+      if (computer[num] === user[num]) {
+        strike++;
+      } else if (user.includes(computer[num])) {
+        ball++;
       }
-    } catch (error) {
-      MissionUtils.Console.print("[ERROR] 숫자가 잘못된 형식입니다.");
-      return;
     }
 
     let printBall = ball !== 0 ? `${ball}볼 ` : "";
@@ -85,6 +82,7 @@ async function chooseReplay() {
     throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
   }
 }
+
 const app = new App();
 app.play();
 
