@@ -1,6 +1,6 @@
 
 import { MissionUtils } from "@woowacourse/mission-utils";
-import {setAnswerNum, answerNum, userInputNum, correct} from "./data.js";
+import {setBallStrike, setAnswerNum, answerNum, userInputNum, correct, strikeCnt} from "./data.js";
 
 const gameCase = async function gameCase(gameState){
     
@@ -23,11 +23,12 @@ const gameCase = async function gameCase(gameState){
 export default gameCase;
 
 
-const caseNum1 = async function caseNum1(){
-    setAnswerNum(MissionUtils.Random.pickNumberInRange(1, 9)
-    +10*MissionUtils.Random.pickNumberInRange(1, 9)
-    +100*MissionUtils.Random.pickNumberInRange(1, 9)
-    );
+const caseNum1 = async function caseNum1() {
+    
+    while (answerNum.length < 3) {
+        setAnswerNum(MissionUtils.Random.pickNumberInRange(1, 9));
+    }
+
     return 1;
 }
 
@@ -35,18 +36,34 @@ const caseNum2 = function caseNum2(){
     return 2;
 }
 
-const caseNum3 = async function caseNum3(){
-    if(answerNum == userInputNum){
-        console.log(answerNum);
-        console.log(userInputNum);
-        //게임 종료
+const caseNum3 = async function caseNum3() {
+    console.log(answerNum);
+    console.log(userInputNum);
+    for (let idx = 0; idx < 3; idx += 1){
+        
+        if (answerNum[idx] === userInputNum[idx]) {
+            setBallStrike(1);
+            continue;
+        }
+        for (let compare = 0; compare < 3; compare += 1) {
+            if (idx === compare) {
+                continue;
+            }
+            if (answerNum[idx] === userInputNum[compare]) {
+                setBallStrike(0);
+                break;
+            }
+        }
+
+
+    }
+    console.log(answerNum);
+    console.log(userInputNum);
+
+    if (strikeCnt == 3) {
+   
+    
         return 3;
     }
-   
-    var answerArr = [ answerNum%10, parseInt((answerNum/10)%10),parseInt((answerNum/100)%10)];
-    var userArr = [userInputNum%10, parseInt(userInputNum/10%10), parseInt(userInputNum/100%10)];
-
-    console.log(answerArr);
-    console.log(userArr);
     return 2;
 }
