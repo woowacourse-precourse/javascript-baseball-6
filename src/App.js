@@ -28,7 +28,8 @@ class App {
           } else if (input === MENU.EXIT) break;
         }
       } catch (error) {
-        throw new Error('[ERROR] ' + error.message);
+        Console.print(`[ERROR] ${error.message}`);
+        throw new Error(`[ERROR] ${error.message}`);
       }
     }
   }
