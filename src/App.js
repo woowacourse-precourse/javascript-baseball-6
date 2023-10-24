@@ -40,4 +40,14 @@ const getPlayerNumber = async () => {
   return playerNumber;
 };
 
+// 플레이어로부터 입력받은 수 유효성 검사 함수
+const isValidateNumber = (playerNum) => {
+  if (playerNum.length !== 3) return false;
+  if (!/^[1-9]{3}$/.test(playerNum)) return false;
+  const playerNumber = [...playerNum].map(Number);
+  if (new Set(playerNumber).size !== 3) return false;
+
+  return true;
+};
+
 export default App;
