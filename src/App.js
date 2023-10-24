@@ -13,8 +13,24 @@ class App {
     this.userNum = await Console.readLineAsync(CONSTANTS.MESSAGES.INPUT);
     this.isValidate();
   }
-  // 입력값 유효성 검사 (타입, 길이, 0~9, 중복여부)
-  isValidate() {}
+  // 입력값 유효성 검사 (타입, 길이, 0, 중복여부)
+  isValidate() {
+    // (1) 숫자가 아니라면
+    if (isNaN(this.userNum)) {
+      throw new Error(CONSTANTS.ERROR.TYPE_VALID);
+    }
+    // (2) 3자리수가 아니라면
+    if (this.userNum.split("").length !== 3) {
+      throw new Error(CONSTANTS.ERROR.LENGTH_VALID);
+    }
+    // (3) 입력된 수들 중 하나라도 0이라면
+    this.userNum.split("").forEach((n) => {
+      if (n == 0) {
+        throw new Error(CONSTANTS.ERROR.ZERO_VALID);
+      }
+    });
+    // (4) 중복된 값이라면 -> ✅ 보류
+  }
   // 입력값을 컴퓨터 값과 비교해 결과 출력
   async showResult() {}
   // 게임 종료 -> 재시작 여부 결정

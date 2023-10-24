@@ -9,7 +9,7 @@ export const CONSTANTS = {
   ERROR: {
     TYPE_VALID: "[ERROR] 숫자를 입력해주세요.",
     LENGTH_VALID: "[ERROR] 숫자 3자리를 입력해주세요.",
-    RANGE_VALID: "[ERROR] 1~9까지의 숫자를 입력해주세요.",
+    ZERO_VALID: "[ERROR] 0을 제외한 1~9까지의 숫자를 입력해주세요.",
     DUPLICATE_VALID: "[ERROR] 중복되지 않은 숫자를 입력해주세요.",
   },
 };
