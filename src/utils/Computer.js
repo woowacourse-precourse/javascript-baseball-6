@@ -2,7 +2,7 @@ import { Random } from '@woowacourse/mission-utils';
 import { SIZE } from '../constant';
 
 export default class Computer {
-  getComputerChoice() {
+  getRandomNumber() {
     let three_numbers = '';
 
     while (three_numbers.length < SIZE) {
