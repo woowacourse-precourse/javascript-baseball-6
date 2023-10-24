@@ -76,4 +76,13 @@ const printResult = (compareResult) => {
   }
 };
 
+// 정답 확인해서 정답이면 게임 종료 메시지 출력하는 함수
+const isCorrect = (compareResult) => {
+  if (compareResult.strike === 3) {
+    print(MESSAGE.RESULT_SUCCESS);
+    return true;
+  }
+  return false;
+};
+
 export default App;
