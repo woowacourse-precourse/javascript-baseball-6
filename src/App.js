@@ -106,6 +106,12 @@ export default class App {
     return message.trim() || `${NOTHING}`;
   }
 
+  /**
+   * @description 사용자 입력 검증 함수
+   * 숫자 및 0이 들어갔는지에 대한 유무, 세 자리에 대한 유무, 중복값에 대한 유무
+   * @param input
+   * @returns {boolean}
+   */
   validateInput(input) {
     this.#view.throwError(`${HEADER}${NUMBER}`, validator.isNumber(input));
     this.#view.throwError(
@@ -120,6 +126,11 @@ export default class App {
     return true;
   }
 
+  /**
+   * @description 사용자 재시작 입력 검증 함수
+   * @param input
+   * @returns {boolean}
+   */
   validateRestartInput(input) {
     this.#view.throwError(
       `${HEADER}${RESTART_NUMBER}`,
