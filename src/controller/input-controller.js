@@ -1,43 +1,57 @@
 
 import { MissionUtils } from "@woowacourse/mission-utils";
 import {viewError} from "../view/text-case.js";
-
+import { setUserInputNum } from "../model/data.js";
+import {error} from "../model/data.js";
 
 const gameContinueInputController = async function continueController(viewInput){
     while(true){
         var stop = await MissionUtils.Console.readLineAsync(viewInput);
-        if(parseInt(stop) === 1){
-            return true;
+        try{
+            if(parseInt(stop) === 1){
+                return true;
+            }
+            if(parseInt(stop) === 2){
+                return false;
+            }
+            error = false;
+            throw new Error('[ERROR] 잘못된 입력입니다.');
+        }catch(err){
+            error = false;
+            throw new Error('[ERROR] 잘못된 입력입니다.');
         }
-        if(parseInt(stop) === 2){
-            return false;
-        }
-        MissionUtils.Console.print(viewError);
+
     }       
 }
 
-const inputController = async function inputController(caseNum, viewState){
+const inputController = async function inputController(caseNum, viewText){
 
-    if(caseNum === 1)return;
+    if(caseNum === 1){
+        MissionUtils.Console.print(viewText);
+        return;
+    }
 
     if(caseNum === 2){
-        //숫자 입력
-       await getInputNum(caseNum, viewState);
+        try{
+            await getInputNum(viewText);
+        }catch(err){
+            throw err;
+        }
+
     }
 
 }
 
 
-const getInputNum = async function getInputNum(caseNum, viewInput){
-    var answer = await MissionUtils.Console.readLineAsync(viewInput);
-    console.log(answer.status);
-    if(answer<100|| answer>999){
-        answer = 0;
-        MissionUtils.Console.print(answer);
-        return "error";
+const getInputNum = async function getInputNum(viewText){
+    var answer = await MissionUtils.Console.readLineAsync(viewText);
+    try{
+        setUserInputNum(await answer);
+    }catch(e){
+        throw e;
     }
-    MissionUtils.Console.print(answer);
-    return answer;
+        
+
     
 }
 
