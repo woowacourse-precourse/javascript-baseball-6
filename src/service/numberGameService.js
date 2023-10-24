@@ -4,6 +4,7 @@ import compareInputWithAnswer from "../util/compareInputWithAnswer.js";
 import returnResultMessage from "../util/returnResultMessage.js";
 import handleProgress from "../util/handleProgress.js";
 import logErrorMessageAndReturnPromiseReject from "../util/logErrorMessageAndReturnPromiseReject.js";
+import { MissionUtils } from "@woowacourse/mission-utils";
 
 async function numberGameService() {
   let answerLog = [];
@@ -15,6 +16,7 @@ async function numberGameService() {
       let threeStrike = false;
       let ballsAndStrike;
       let message;
+      MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
 
       while (!threeStrike) {
         input = await parseInputToArray();
