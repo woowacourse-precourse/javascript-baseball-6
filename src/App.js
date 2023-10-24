@@ -21,6 +21,13 @@ class App {
     console.log('computer : ', this.computer);
   }
 
+  print(){
+    if (this.ball > 0 && this.strike === 0) MissionUtils.Console.print(`${this.ball}볼`);
+    else if (this.ball > 0 && this.strike > 0) MissionUtils.Console.print(`${this.ball}볼 ${this.strike}스트라이크`);
+    else if (this.ball === 0 && this.strike > 0) MissionUtils.Console.print(`${this.strike}스트라이크`);
+    else MissionUtils.Console.print(`낫싱`);
+  }
+
   async play() {
     let gameNum = 0;
     let isEnd = false;
@@ -35,7 +42,7 @@ class App {
 
       try {
         const number = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
-
+        console.log(number);
         // 컴퓨터는 사용자가 입력한 수에 대한 결과를 낫싱과, 볼, 스트라이크 개수로 표시한다.
         this.num_list = [...number].map(v => +v);
   
@@ -50,20 +57,18 @@ class App {
           }
         })
   
-        // 출력문 정리
+        // 출력
+        this.print();
         if (this.strike === 3) {
           MissionUtils.Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
           gameNum = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+          console.log(gameNum);
           if (gameNum == 1) isEnd = false;
           else if(gameNum == 2) isEnd = true;
           // 컴퓨터 번호 다시 세팅
           this.setComputerNum();
         }
-        else if (this.ball > 0 && this.strike === 0) MissionUtils.Console.print(`${this.ball}볼`);
-        else if (this.ball > 0 && this.strike > 0) MissionUtils.Console.print(`${this.ball}볼 ${this.strike}스트라이크`);
-        else if (this.ball === 0 && this.strike > 0) MissionUtils.Console.print(`${this.strike}스트라이크`);
-        else MissionUtils.Console.print(`낫싱`);
-        
+
       } catch (error) {
         // reject 되는 경우
         console.log('error:', error);
@@ -73,7 +78,7 @@ class App {
   }
 }
 
-const app = new App();
-app.play();
+// const app = new App();
+// app.play();
 
 export default App;
