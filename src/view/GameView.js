@@ -36,15 +36,13 @@ class GameView {
     const strike = this.model.getStrike(computerAnswer, userAnswer);
     const ball = this.model.getBall(computerAnswer, userAnswer) - strike;
 
-    if (strike + ball === 0) {
-      Console.print(`낫싱`);
-    } else if (strike === 0) {
-      Console.print(`${ball}볼`);
-    } else if (ball === 0) {
-      Console.print(`${strike}스트라이크`);
-    } else {
-      Console.print(`${ball}볼 ${strike}스트라이크`);
-    }
+    strike + ball === 0
+      ? Console.print(`낫싱`)
+      : strike === 0
+      ? Console.print(`${ball}볼`)
+      : ball === 0
+      ? Console.print(`${strike}스트라이크`)
+      : Console.print(`${ball}볼 ${strike}스트라이크`);
   }
 }
 
