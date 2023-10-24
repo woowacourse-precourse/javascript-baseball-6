@@ -27,17 +27,17 @@
 
 게임의 참가자인 유저와 컴퓨를 추상화 하여 opponent와 player로 만들었다.
 
-user는 상대방 값에 접근할 수 없고, 내가 예상한 숫자를 
+player는 상대방 값에 접근할 수 없고, 내가 예상한 숫자를 
 
-파라미터로 메소드를 호출하여 opponent 객체로부터 메세지를 돌려받는다.
+파라미터로 하는 judgeResult 메소드를 호출하여 computer로부터 결과 메세지를 돌려받는다.
 
-마찬가지로 opponent 객체는 상대방 값을 받아서, 
+마찬가지로 computer 객체는 상대방 값을 받아서, 
 
 strike, ball, nothing의 정보가 적힌 객체(메세지)를 돌려준다.
 
-게임을 진행시키는 '심판'과 같은 역할을 수행한다.
+App.js는 게임을 진행시키는 '심판'과 같은 역할을 수행한다.
 
-심판 또한 각자 객체 값에 접근할 수 없다.
+심판 또한 각자 객체의 값에 직접 접근할 수 없다.
 
 
 ## 구조
@@ -70,53 +70,53 @@ input과 output을 컨트롤 하는 view
 - Validation을 체크하여 Exception이 생기면 throw를 통해 예외를 발생시키고 프로그램 종료한다
 
 
-** getJudgeResult(opponent) **
+**getJudgeResult(opponent)**
 
 - opponent 객체에게 playerNumber를 보낸 후 결과값을 리턴 받는다
 
 
-** isValidNumber(playerNumber) **
+**isValidNumber(playerNumber)**
 
 - playerNumber의 유효성을 검사한다
-	- [ ] [Exception] 숫자가 아닌 다른 문자를 입력한 경우
-	- [ ] [Exception] 숫자의 중복이 존재할 경우
-	- [ ] [Exception] 3개 이상의 숫자를 입력한 경우
+	- [x] [Exception] 숫자가 아닌 다른 문자를 입력한 경우
+	- [x] [Exception] 숫자의 중복이 존재할 경우
+	- [x] [Exception] 3개 이상의 숫자를 입력한 경우
 
 
-** hasDuplicates(playerNumber) **
+**hasDuplicates(playerNumber)**
 
 - isValidNumber에 필요한 중복 검사 메소드
 
 
 ### computer
 
-** constructor() **
+**constructor()**
 
 - makeRandomNumber() 를 호출하여 랜덤한 번호를 생성
 
 
-** makeRandomNumber() **
+**makeRandomNumber()**
 
 - 3자리의 정수를 생성한다
-	- [ ] Random.pickNumberInRange()를 사용한다
+	- [x] Random.pickNumberInRange()를 사용한다
 
 
-** judgeResult(playerNumber) **
+**judgeResult(playerNumber)**
 
 - playerNumber를 인자로 받아 strike, ball, nothing의 결과값을 반환한다
 
 
 ### view
 
-** printMessage(message) **
+**printMessage(message)**
 
 - 메세지를 인자로 받아 출력한다
-	- [ ] Console.print를 사용한다
+	- [x] Console.print를 사용한다
 
-** readInput() **
+**readInput()**
 
 - 입력을 받아서 값을 반환한다
-	- [ ] Console.readLineAsync를 사용한다
+	- [x] Console.readLineAsync를 사용한다
 
 
 ### 구조를 바꾸게 된 이유

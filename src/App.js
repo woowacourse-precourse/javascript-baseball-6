@@ -8,6 +8,7 @@ export default class App {
   constructor() {
     this._computer = new Computer();
     this._player = new Player();
+    View.printMessage(MESSAGE.start);
   }
 
   // 상대방이 숫자를 다시 고름
@@ -49,3 +50,6 @@ export default class App {
     return this.init();
   }
 }
+
+const hi = new App();
+hi.play();
