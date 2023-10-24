@@ -8,7 +8,6 @@ class App {
   async play() {
     Console.print(`숫자 야구 게임을 시작합니다.`)
     const RAN = this.ranNumber();
-    // let MY_NUM = this.myNumber();
     await this.myNumber(RAN);
   }
 
@@ -16,16 +15,16 @@ class App {
 // 아무것도 없는 배열 생성하여 랜덤 숫자 생성하여 같은 숫자가 아니면 push
 // 하여 배열이 3개가 되면 return한다
 
-ranNumber(){
-  let COMPUTER = [];
-while (COMPUTER.length < 3) {
-  let NUMB = Random.pickNumberInRange(1, 9);
-  if (!COMPUTER.includes(NUMB)) {
-    COMPUTER.push(NUMB);
+  ranNumber(){
+    let COMPUTER = [];
+    while (COMPUTER.length < 3) {
+      let NUMB = Random.pickNumberInRange(1, 9);
+      if (!COMPUTER.includes(NUMB)) {
+        COMPUTER.push(NUMB);
+      }
+    }
+    return COMPUTER;
   }
-}
-return COMPUTER;
-}
 
 
 // 2. 내 숫자 생성
@@ -36,17 +35,17 @@ return COMPUTER;
 // 생성한 내 값과 받아온 랜덤값을 3. 게임시작함수(gameStart)로 넘겨 시작한다
 // 입력값을 받아오는 것을 기다려야 하므로 async/await 사용
 
-async myNumber (RAN){
-  let MY_NUM = await Console.readLineAsync('숫자를 입력해주세요 :');
-  await this.gameStart(RAN,MY_NUM.split('').map(Number));
-}
+  async myNumber (RAN){
+    let MY_NUM = await Console.readLineAsync('숫자를 입력해주세요 :');
+    await this.gameStart(RAN,MY_NUM.split('').map(Number));
+  }
 
 // 3. 게임시작 
 // -1 내 입력값이 ERROR인지 먼저 체크
 // 스트라이크와 볼 체크 전에 내 입력값이 ERROR인지 확인한다
 // 내 값의 배열에 0이 들어가 있거나 배열의 길이가 3이 아니면 throw [ERROR]
 
-async gameStart(RAN,MY_NUM){
+  async gameStart(RAN,MY_NUM){
     for(let I=0;I<MY_NUM.length;I++){
       if(MY_NUM[I] === 0) {
         throw new Error('[ERROR] 입력범위_ 0 입력');
@@ -101,16 +100,16 @@ async gameStart(RAN,MY_NUM){
 // 스트라이크==0 도 아니고 볼 !=0 이면 볼 표시
 
 
-printCheck(STRIKES,BALLS){
-if(STRIKES===0 && BALLS === 0){
-  Console.print(`낫싱`);
-} else if(STRIKES!==0 && BALLS !==0){
-  Console.print(`${BALLS}볼 ${STRIKES}스트라이크`);
-} else if(STRIKES!==0 && BALLS ===0){
-  Console.print(`${STRIKES}스트라이크`);
-} else if(STRIKES===0 && BALLS !==0){
-  Console.print(`${BALLS}볼`);
-}}
+  printCheck(STRIKES,BALLS){
+    if(STRIKES===0 && BALLS === 0){
+      Console.print(`낫싱`);
+    } else if(STRIKES!==0 && BALLS !==0){
+      Console.print(`${BALLS}볼 ${STRIKES}스트라이크`);
+    } else if(STRIKES!==0 && BALLS ===0){
+      Console.print(`${STRIKES}스트라이크`);
+    } else if(STRIKES===0 && BALLS !==0){
+      Console.print(`${BALLS}볼`);
+    }}
 
 // 5. 게임셋 여부
 // 이후 '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.' 표시후 입력값 받음
@@ -121,8 +120,8 @@ if(STRIKES===0 && BALLS === 0){
 // 입력값이 2이면 게임끝
 // 둘다 아니면 에러 메세지 띄우고 종료
 
-async gameset(){
-  let SET_NUM = await Console.readLineAsync(`게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.`);
+  async gameset(){
+    let SET_NUM = await Console.readLineAsync(`게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.`);
     if(SET_NUM==='1'){
       await this.play();
     } else if(SET_NUM==='2'){
@@ -132,6 +131,5 @@ async gameset(){
     }
   }
 } 
-
 
 export default App;
