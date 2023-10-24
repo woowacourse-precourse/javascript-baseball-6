@@ -1,7 +1,7 @@
 import { BaseballGame } from './BaseballGame.js';
 import { View } from './View/View.js';
 import { MESSAGE } from './constants/message.js';
-import { WINNING_CONDITION } from './constants/baseballGame.js';
+import { GAME_RESULT, WINNING_CONDITION } from './constants/baseballGame.js';
 
 class App {
   #game;
@@ -17,18 +17,25 @@ class App {
   }
 
   async #guessNumber() {
-    while (true) {
-      const userNumber = await this.#view.readUserNumber();
-      const { strike, ball } = this.#game.compareNumber(userNumber);
+    const userNumber = await this.#view.readUserNumber();
+    const { strike, ball } = this.#game.compareNumber(userNumber);
 
-      this.#printResult({ strike, ball });
+    this.#printResult({ strike, ball });
 
-      if (strike === WINNING_CONDITION.THREE_STRIKE) break;
-    }
+    if (strike !== WINNING_CONDITION.THREE_STRIKE) return this.#guessNumber();
+
+    this.#view.print(GAME_RESULT.WIN(strike));
+    this.#readRestart();
   }
 
   #printResult({ strike, ball }) {
     this.#view.printGameResult({ strike, ball });
+  }
+
+  async #readRestart() {
+    const restart = await this.#view.readRestart();
+
+    if (restart) return this.play();
   }
 }
 
