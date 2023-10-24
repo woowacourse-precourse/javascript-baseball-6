@@ -12,7 +12,7 @@ class BaseballGame {
     while (numbers.size < 3) {
       const randomNumber = MissionUtils.Random.pickNumberInRange(1, 9);
       if (!numbers.has(randomNumber)) {
-        numbers = add(randomNumber);
+        numbers.add(randomNumber);
       }
     }
     return [...numbers];
