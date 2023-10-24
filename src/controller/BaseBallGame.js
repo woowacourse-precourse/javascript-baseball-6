@@ -1,19 +1,20 @@
-import GameConsole from '../Model/GameConsole.js';
 import GAME from '../constants/Game.js';
 import Io from '../io/Io.js';
 
 class BaseBallGame {
-	#model;
+	#gameConsole;
+	#gameSw;
 
-	constructor(model) {
-		this.#model = model;
+	constructor(gameSoftware, gameConsole) {
+		this.#gameSw = gameSoftware;
+		this.#gameConsole = gameConsole;
 
 		Io.printStart();
 	}
 
 	// 게임 시작
 	async start() {
-		this.#model.setAnswerNumber();
+		this.#gameSw.setAnswerNumber();
 		await this.#getTryNumber();
 	}
 
@@ -21,13 +22,13 @@ class BaseBallGame {
 	async #getTryNumber() {
 		const tryNumber = await Io.getTryNumber();
 
-		this.#model.setTryNumber(tryNumber);
+		this.#gameSw.setTryNumber(tryNumber);
 		await this.#printResult();
 	}
 
 	// 시도 넘버의 결과 출력하기
 	async #printResult() {
-		const [ballCount, strikeCount] = this.#model.getResult();
+		const [ballCount, strikeCount] = this.#gameSw.getResult();
 
 		Io.printResult([ballCount, strikeCount]);
 
@@ -36,7 +37,7 @@ class BaseBallGame {
 
 	// 클리어 여부 확인하기
 	async #checkClear() {
-		if (this.#model.isClear()) await this.#clear();
+		if (this.#gameSw.isClear()) await this.#clear();
 		else await this.#getTryNumber();
 	}
 
@@ -49,12 +50,11 @@ class BaseBallGame {
 
 	// 재시도 여부 확인하기
 	async #checkRestart() {
-		let command = await Io.getRestart();
+		const command = await Io.getRestart();
+		this.#gameConsole.setRestartCommand(command);
 
-		command = GameConsole.isValidRestartCommand(command);
-
-		if (command === GAME.restart) await this.start();
-		else if (command === GAME.exit) this.#exit();
+		if (this.#gameConsole.currentCommand === GAME.restart) await this.start();
+		else if (this.#gameConsole.currentCommand === GAME.exit) this.#exit();
 	}
 
 	#exit() {
