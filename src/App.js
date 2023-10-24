@@ -13,7 +13,7 @@ async function start() {
   return Console.readLineAsync("숫자를 입력해주세요 : ");
 }
 
-function judgeError(array) {
+function validate(array) {
   if (Number(array) > 999 || Number(array) < 100 || isNaN(array)) {
     throw new Error("[ERROR] 잘못된 값을 입력하였습니다.");
   }
@@ -67,7 +67,7 @@ class App {
       pickRandomNumber(randomArray);
 
       inputData = await start();
-      judgeError(inputData);
+      validate(inputData);
 
       dataToArray(inputData, inputArray);
 
