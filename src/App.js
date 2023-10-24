@@ -1,21 +1,10 @@
 import { Console, Random } from "@woowacourse/mission-utils";
+import constant from "./constant";
 
-const NUMBER_ERROR_MESSAGE = "[ERROR] 숫자만 입력하시오.";
-const RANGE_ERROR_MESSAGE = "[ERROR] 세 자리의 수를 입력하시오.";
-const RESTART_ERROR_MESSAGE = "[ERROR] 1 또는 2를 입력하시오.";
-const DUPLICATE_ERROR_MESSAGE = "[ERROR] 서로 다른 세 자리의 수를 입력하시오.";
-const START_MESSAGE = "숫자 야구 게임 시작을 시작합니다.";
-const USER_MESSAGE = "숫자를 입력해주세요 : ";
-const SUCCESS_MESSAGE = "3개의 숫자를 모두 맞히셨습니다! 게임 종료";
-const RESTART_MESSAGE = "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.";
-const NUMBER_LENGTH = 3;
-const RANGE_START = 1;
-const RANGE_END = 9;
-
-function computer_start() {
+export function computer_start() {
   const computer = [];
-  while (computer.length < NUMBER_LENGTH) {
-    const number = Random.pickNumberInRange(RANGE_START, RANGE_END);
+  while (computer.length < constant.NUMBER_LENGTH) {
+    const number = Random.pickNumberInRange(constant.RANGE_START, constant.RANGE_END);
     if (!computer.includes(number)) {
       computer.push(number);
     }
@@ -24,26 +13,26 @@ function computer_start() {
 }
 
 async function finish() {
-  Console.print(RESTART_MESSAGE)
+  Console.print(constant.RESTART_MESSAGE)
   const input = await Console.readLineAsync("")
   if (input === "1") return true
   else if (input === "2") return false
   else {
-    throw Error(RESTART_ERROR_MESSAGE);
+    throw Error(constant.RESTART_ERROR_MESSAGE);
   }
 }
 
 async function player(computer_number) {
   while (true) {
     let userNum = [];
-    const input = await Console.readLineAsync(USER_MESSAGE);
+    const input = await Console.readLineAsync(constant.USER_MESSAGE);
     const user = (input + '').split('').map((num) => parseInt(num));
     user.map((item) => userNum.push(item));
     validation(userNum);
     const result = compare(computer_number, userNum);
     Console.print(result);
     if (result === '3스트라이크') {
-      Console.print(SUCCESS_MESSAGE);
+      Console.print(constant.SUCCESS_MESSAGE);
       break;
     }
   }
@@ -51,14 +40,14 @@ async function player(computer_number) {
 }
 
 function validation(number) {
-  if (number.length !== NUMBER_LENGTH) {
-    throw new Error(RANGE_ERROR_MESSAGE);
+  if (number.length !== constant.NUMBER_LENGTH) {
+    throw new Error(constant.RANGE_ERROR_MESSAGE);
   } else if (number.length != new Set(number).size) {
-    throw new Error(DUPLICATE_ERROR_MESSAGE);
+    throw new Error(constant.DUPLICATE_ERROR_MESSAGE);
   } else {
     for (let i in number) {
       if (i === NaN) {
-        throw new Error(NUMBER_ERROR_MESSAGE);
+        throw new Error(constant.NUMBER_ERROR_MESSAGE);
       }
     }
   }
@@ -94,7 +83,7 @@ function compare(computer_number, player_number) {
 class App {
   async play() {
     let restart = true;
-    Console.print(START_MESSAGE);
+    Console.print(constant.START_MESSAGE);
     while (restart) {
       const computer_number = computer_start();
       await player(computer_number);
