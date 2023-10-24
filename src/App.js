@@ -21,13 +21,28 @@ class App {
 
   async play() {
     Console.print('숫자 야구 게임을 시작합니다.');
-    this.gameProcess();
+    await this.gameProcess();
   }
 
-  gameProcess() {
-    this.inputNumber();
-    const score = this.checkScore(this.computer, this.input);
-    this.answerScore(score);
+  async gameProcess() {
+    while (true) {
+      await this.inputNumber();
+      const score = this.checkScore(this.computer, this.input);
+      this.answerScore(score);
+      if (score[1] === 3) {
+        Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+        const newInput = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요: ');
+        if (newInput === '1') {
+          this.input = [];
+          this.computerRandomNumber();
+        } else if (newInput === '2') {
+          Console.print('게임 종료');
+          break;
+        } else {
+          throw Error('[ERROR] 숫자가 잘못된 형식입니다.');
+        }
+      }
+    }
   }
 
   async inputNumber() {
