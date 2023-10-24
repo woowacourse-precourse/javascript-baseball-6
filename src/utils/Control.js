@@ -13,10 +13,10 @@ export default class Control {
   }
 
   assignComputerNumber() {
-    this.app.computerNumber = this.computer.getComputerChoice();
+    this.app.computerNumber = this.computer.getRandomNumber();
   }
 
-  compareNumbers(userInput) {
+  compareComputerAndUser(userInput) {
     const COMPUTER = this.app.computerNumber;
     const USER_ARR = String(userInput).split("");
     const COM_ARR = String(COMPUTER).split("");
@@ -24,12 +24,10 @@ export default class Control {
     const BALL = COM_ARR.filter(
       (b, i) => b !== USER_ARR[i] && USER_ARR.includes(b)
     ).length;
-    return { STRIKE, BALL };
+    return this.getResultMessage(STRIKE, BALL)
   }
 
-  hasThreeStrikes(userInput) {
-    const { STRIKE, BALL } = this.compareNumbers(userInput);
-
+  getResultMessage(STRIKE, BALL) {
     if (STRIKE === SIZE) {
       Console.print("3스트라이크");
       Console.print(GuideText.CORRECT_ANSWER);
