@@ -38,14 +38,14 @@ class BaseballGame {
   }
   printResult({ball, strike}) {
     let result = '';
-    if (ball > 0) result += ball + MESSAGES.ball;
-    if (strike > 0) result += strike + MESSAGES.strike;
-    if (ball === 0 && strike === 0) result = MESSAGES.nothing;
+    if (ball > CONSTANTS.nothing) result += ball + MESSAGES.ball;
+    if (strike > CONSTANTS.nothing) result += strike + MESSAGES.strike;
+    if (ball === CONSTANTS.nothing && strike === CONSTANTS.nothing) result = MESSAGES.nothing;
     if (strike === CONSTANTS.winningStrike) result += MESSAGES.correct;
     Console.print(result.trim());
   }
   async handleResult({_, strike}) {
-    if (strike < 3) return this.readNumber();
+    if (strike < CONSTANTS.winningStrike) return this.readNumber();
     await this.readRetry();
   }
 
@@ -55,7 +55,7 @@ class BaseballGame {
   }
   async handleRetry(userInput) {
     Validator.validateRetry(userInput);
-    if (userInput === 1) return await this.startGame();
+    if (userInput === CONSTANTS.restartValue) return await this.startGame();
   }
 }
 
