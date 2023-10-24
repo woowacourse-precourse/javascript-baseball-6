@@ -12,7 +12,7 @@ class App {
 
   initializeAnswerNumbers() {
     this.answerNumbers = [];
-    while (this.answerNumbers.length < 3) {
+    while (this.answerNumbers.length < NUMBER_COUNT) {
       const number = Random.pickNumberInRange(1, 9);
       if (!this.answerNumbers.includes(number)) {
         this.answerNumbers.push(number);
