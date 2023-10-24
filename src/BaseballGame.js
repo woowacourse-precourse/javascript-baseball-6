@@ -30,11 +30,11 @@ class BaseballGame {
     const userNumber = await InputView.readNumber();
     await this.handleNumber(userNumber);
   }
-  async handleNumber(userNumber) {
+  handleNumber(userNumber) {
     Validator.validateUserNumber(userNumber);
     const result = NumberChecker.getResult(userNumber, this.computerNumber);
     this.printResult(result);
-    await this.handleResult(result);
+    this.handleResult(result);
   }
   printResult({ball, strike}) {
     let result = '';
@@ -44,18 +44,18 @@ class BaseballGame {
     if (strike === CONSTANTS.winningStrike) result += MESSAGES.correct;
     Console.print(result.trim());
   }
-  async handleResult({_, strike}) {
+  handleResult({_, strike}) {
     if (strike < CONSTANTS.winningStrike) return this.readNumber();
-    await this.readRetry();
+    this.readRetry();
   }
 
   async readRetry() {
     const userInput = await InputView.readRetry();
-    await this.handleRetry(userInput);
+    this.handleRetry(userInput);
   }
-  async handleRetry(userInput) {
+  handleRetry(userInput) {
     Validator.validateRetry(userInput);
-    if (userInput === CONSTANTS.restartValue) return await this.startGame();
+    if (userInput === CONSTANTS.restartValue) return this.startGame();
   }
 }
 
