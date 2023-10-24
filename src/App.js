@@ -32,15 +32,39 @@ class App {
   }
 
   async getUserNumberInput() {
-    try {
-      const userNumberInput = await MissionUtils.Console.readLineAsync(
-        "숫자를 입력해주세요 : "
-      );
-      const numberArray = Array.from(userNumberInput).map(Number);
-      return numberArray;
-    } catch (error) {
-      console.log(error);
+    let numberArray = [];
+    let inputValidity = false;
+    while (inputValidity === false) {
+      try {
+        const userNumberInput = await MissionUtils.Console.readLineAsync(
+          "숫자를 입력해주세요 : "
+        );
+        numberArray = Array.from(userNumberInput).map(Number);
+        inputValidity = this.checkInputValidity(numberArray);
+      } catch (error) {
+        console.log(error);
+      }
     }
+    return numberArray;
+  }
+
+  checkInputValidity(numberArray) {
+    const numberCount = new Array(9).fill(0);
+    if (numberArray.length !== 3) {
+      // 길이 검사
+      return false;
+    }
+    for (const num of numberArray) {
+      // 중복 수 검사 & 숫자인지 검사
+      if (isNaN(num)) {
+        return false;
+      }
+      numberCount[num]++;
+      if (numberCount[num] === 2) {
+        return false;
+      }
+    }
+    return true;
   }
 
   async getUserExitInput() {
