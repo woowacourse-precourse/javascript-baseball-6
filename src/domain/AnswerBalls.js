@@ -1,7 +1,7 @@
-import { ERROR_MESSAGE } from '../constants/error';
-import CustomError from '../exceptions/CustomError';
-import { TargetBall } from './TargetBall';
-import { TargetBalls } from './TargetBalls';
+import { ERROR_MESSAGE } from '../constants/error.js';
+import CustomError from '../exceptions/CustomError.js';
+import { TargetBall } from './TargetBall.js';
+import { TargetBalls } from './TargetBalls.js';
 
 export class AnswerBalls {
   #targetBalls;

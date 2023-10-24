@@ -30,12 +30,10 @@ export class BaseballService {
 
   setRandomAnswer() {
     const randomNumbers = new Set();
-
     while (randomNumbers.size < TargetBalls.BALL_QUANTITY) {
       const randomNumber = MissionUtils.Random.pickNumberInRange(TargetBall.MIN, TargetBall.MAX);
       randomNumbers.add(randomNumber);
     }
-
     this.#answer = AnswerBalls.of([...randomNumbers]);
   }
 

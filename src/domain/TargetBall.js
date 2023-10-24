@@ -1,6 +1,6 @@
-import { ERROR_MESSAGE } from '../constants/error';
-import CustomError from '../exceptions/CustomError';
-import { isOutOfRange } from '../utils/validator';
+import { ERROR_MESSAGE } from '../constants/error.js';
+import CustomError from '../exceptions/CustomError.js';
+import { isOutOfRange } from '../utils/validator.js';
 
 export class TargetBall {
   #number;

@@ -1,4 +1,4 @@
-import { TargetBalls } from './TargetBalls';
+import { TargetBalls } from './TargetBalls.js';
 
 export class SubmittedBalls {
   #score = {
