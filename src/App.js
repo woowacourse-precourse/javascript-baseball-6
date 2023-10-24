@@ -56,14 +56,14 @@ class App {
     );
 
     if (inputAnswer === "") throw new Error("[ERROR] 입력된 값이 없습니다");
+
     if (inputAnswer && inputAnswer.length !== 3)
       throw new Error("[ERROR] 3자리의 숫자를 입력해주세요");
-    if (inputAnswer && inputAnswer.includes(NaN))
+
+    inputAnswer = inputAnswer.split("").map(Number);
+
+    if (inputAnswer && inputAnswer.some(isNaN))
       throw new Error("[ERROR] 숫자를 입력해주세요");
-
-    if (inputAnswer !== undefined)
-      inputAnswer = inputAnswer.split("").map(Number);
-
     return inputAnswer;
   }
 
