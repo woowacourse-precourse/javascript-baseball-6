@@ -15,11 +15,11 @@ const MESSAGE = Object.freeze({
   NOTHING: "낫싱",
   SUCCESS: "3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료",
 });
+const numberCount = 3;
+
 async function makeRandom() {
-  //makeRandom 함수도 비동기로 처리해야 병렬로 getUserInput 처리 되지 않나?
   const answer = [];
-  while (answer.length < 3) {
-    //숫자 3도 상수니까 변수로 사용해야하나?
+  while (answer.length < numberCount) {
     const number = Random.pickNumberInRange(1, 9);
     if (!answer.includes(number + "")) {
       answer.push(number + "");
@@ -47,7 +47,7 @@ function checkError(number) {
   }
 
   let set = new Set([...number]); //변수를 뭐라 지을지 모르겠음. 중복없앤숫자?
-  if (set.size !== 3 || number.length !== 3) {
+  if (set.size !== numberCount || number.length !== numberCount) {
     return false;
   }
 
@@ -86,7 +86,7 @@ function printResult() {
     Console.print(MESSAGE.NOTHING);
     return;
   }
-  if (SCORE.strike === 3) {
+  if (SCORE.strike === numberCount) {
     Console.print(MESSAGE.SUCCESS);
     SCORE.success = true;
     return;
