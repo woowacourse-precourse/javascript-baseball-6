@@ -25,6 +25,10 @@ class App {
       }
     }
 
+    // 전역변수로 선언
+    var user = [];
+
+
     // 사용자에게서 숫자를 받아오는 함수
     async function getUsernumber(user) {
       while( user.length < 3 ) {
@@ -43,21 +47,24 @@ class App {
           }
           
           user.push(number);
+
         } catch (error) {
-          MissionUtils.Console.print('[ERROR] 에러가 발생했습니다.');
+          MissionUtils.Console.print('[ERROR] 에러가 발생했습니다');
         }
       }
-        return user;
     }
 
-    // 정답 난수와 유저 숫자를 비교하고, 콘솔에 결과 출력
+
+    //전역변수 선언
+    var ball = 0;
+    var strike = 0;
+
+
+    // 정답 난수와 유저 숫자를 비교
     async function compareResult (answer, user) {
       if ( answer.length != 3 || user.length != 3) {
         MissionUtils.Console.print('[ERROR] 에러가 발생했습니다.');
       }
-
-      var ball = 0;
-      var strike = 0;
 
       for ( answer_num in answer ) {
         for ( user_num in user ) {
@@ -71,7 +78,11 @@ class App {
           }
         }
       }
+    }
+    
 
+    // 비교한 결과 출력
+    function printResult ( ball, strike ) {
       if ( ball == 0 ) {
         if ( strike == 0 ) {
           MissionUtils.Console.print('낫싱');
@@ -95,21 +106,29 @@ class App {
     }
 
 
+    function isEnd ( strike ) {
+      var userwant = 0;
+      userwant = MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+      if ( userwant == 1 ) {
+        return 1;
+      }
+      else if ( userwant == 2 ) {
+        return 0;
+      }
+    }
 
-      // get isEnd () {
-      //   return (
-      //     await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.')
-          
-      //     )
-      // 
 
-    Console.print('숫자 야구 게임을 시작합니다.')
-    let answer = new Computer();
-    let user = [];
-    //숫자 입력
-    user = getUsernumber(user);
-    compareResult(answer, user);
-    
+    do {
+      Console.print('숫자 야구 게임을 시작합니다.')
+      let answer = new Computer();
+      //숫자 입력 -- 이것도 변수할당이랑 분리해야된다!!!!18:52
+      user = getUsernumber(user);
+      compareResult(answer, user);
+      printResult(ball, strike);
+      if ( strike == 3) {
+        isEnd( strike );
+      }
+    } while ( isEnd == 1 );
   }
 }
 
