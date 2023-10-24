@@ -25,6 +25,14 @@ class App {
     } else {
       let strike = 0;
       let ball = 0;
+
+      for (let i = 0; i < input.length; i++) {
+        if (correctAnswer[i] == input[i]) {
+          strike++
+        } else if (correctAnswer.includes(input[i])) {
+          ball++
+        }
+      }
     }
   }
 }
