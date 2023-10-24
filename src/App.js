@@ -14,6 +14,9 @@ class App {
     Console.print(START_MENT);
     await this.startMatching();
     Console.print(END_MENT);
+    await this.replay();
+  }
+
   makeComputerNumber() {
     const computer = [];
     while (computer.length < 3) {
@@ -68,6 +71,11 @@ class App {
       strike = 0;
       ball = 0;
     }
+  }
+  async replay() {
+    const userReplayInput = await Console.readLineAsync(REPLAY_MENT);
+    if (userReplayInput === "1") return this.play();
+    else return;
   }
 }
 
