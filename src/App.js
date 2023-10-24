@@ -57,6 +57,26 @@ class App {
   }
 
   async play() {}
+
+  compareNumber() {
+    const computerNumber = this.computer.computerNumber;
+    const playerNumber = this.player.playerNumber;
+    let ball = 0;
+    let strike = 0;
+    for (let i = 0; i < computerNumber.length; i++) {
+      if (computerNumber[i] === playerNumber[i]) {
+        strike += 1;
+      }
+      if (
+        computerNumber[i] !== playerNumber[i] &&
+        computerNumber.includes(playerNumber[i])
+      ) {
+        ball += 1;
+      }
+    }
+
+    return [ball, strike];
+  }
 }
 
 export default App;
