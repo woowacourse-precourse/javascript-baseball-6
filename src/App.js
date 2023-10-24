@@ -40,6 +40,7 @@ async function getUserInput(message) {
 
 function checkError(number) {
   for (let i = 0; i < number.length; i++) {
+    //지수형태의 숫자열을 막기위해 한글자씩 비교
     if (isNaN(number[i])) {
       return false;
     }
