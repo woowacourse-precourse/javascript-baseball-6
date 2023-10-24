@@ -1,4 +1,4 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
+import { Random } from "@woowacourse/mission-utils";
 
 /**
  * 컴퓨터의 숫자를 만드는 함수
@@ -7,7 +7,7 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 function CreateComputerNumber() {
   const computerNumber = [];
   while (computerNumber.length < 3) {
-    const RandomNumber = String(MissionUtils.Random.pickNumberInRange(1, 9));
+    const RandomNumber = String(Random.pickNumberInRange(1, 9));
     if (!computerNumber.includes(RandomNumber)) {
       computerNumber.push(RandomNumber);
     }
