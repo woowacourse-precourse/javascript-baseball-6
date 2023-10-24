@@ -15,7 +15,7 @@ const MESSAGE = Object.freeze({
   NOTHING: "낫싱",
   SUCCESS: "3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료",
 });
-function makeRandom() {
+async function makeRandom() {
   //makeRandom 함수도 비동기로 처리해야 병렬로 getUserInput 처리 되지 않나?
   const answer = [];
   while (answer.length < 3) {
@@ -25,7 +25,7 @@ function makeRandom() {
       answer.push(number + "");
     }
   }
-  //console.log(answer);
+  console.log(answer);
   return answer;
 }
 
@@ -97,7 +97,7 @@ function printResult() {
     Console.print(text);
     return;
   }
-  // console.log("ball또는strike");
+  // "ball또는strike" 출력
   let text = SCORE.ball
     ? SCORE.ball + MESSAGE.BALL
     : SCORE.strike + MESSAGE.STRIKE;
@@ -108,7 +108,7 @@ function printResult() {
 class App {
   async play() {
     Console.print(MESSAGE.START);
-    const ANSWER = makeRandom();
+    const ANSWER = await makeRandom();
 
     while (!SCORE.success) {
       let num = await getUserInput(MESSAGE.INPUTREQUEST);
