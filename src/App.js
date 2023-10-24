@@ -3,6 +3,7 @@ import { MissionUtils } from '@woowacourse/mission-utils';
 class App {
   async play() {
     MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
+    await initGame();
   }
 }
 
@@ -43,6 +44,21 @@ const validateInput = (userInput) => {
   }
   return true;
 };
+
+const countScore = (computerNumber, userNumber) => {
+  const result = {
+    ball: 0,
+    strike: 0,
+  };
+  const userNumberArray = userNumber.split('');
+  userNumberArray.forEach((num, index) => {
+    if (num === computerNumber[index]) {
+      result.strike += 1;
+    }
+    else if (computerNumber.includes(num)) result.ball += 1;
+  });
+  return result;
+}
 
 const gameProcess = async (computerNumber, userNumber) => {
   if (computerNumber === userNumber) {
