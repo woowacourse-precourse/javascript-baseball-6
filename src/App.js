@@ -66,7 +66,7 @@ class App {
       return userInput;
     } catch (error) {
       //todo Console.print사용 고려
-      console.error(error.message);
+      MissionUtils.Console.print(error.message);
       throw new Error("[ERROR]");
     }
   }
@@ -110,7 +110,7 @@ class App {
       }
       throw new Error("[ERROR] 알맞은 형식의 입력이 아닙니다.");
     } catch (error) {
-      console.error(error.message);
+      MissionUtils.Console.print(error.message);
       throw new Error("[ERROR]");
     }
   }
