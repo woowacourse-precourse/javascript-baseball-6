@@ -1,4 +1,4 @@
-import { Console, Random } from "@woowacourse/mission-utils"
+import { MissionUtils } from "@woowacourse/mission-utils"
 
 class App {
     async play() {
@@ -7,8 +7,8 @@ class App {
 
     startGame() {
         // 주어진 util사용하여 중복하지 않는 랜덤 숫자 생성
-        const randomNumber = Random.pickUniqueNumbersInRange(1, 9, 3)
-        console.log("숫자 야구 게임을 시작합니다.")
+        const randomNumber = MissionUtils.Random.pickUniqueNumbersInRange(1, 9, 3)
+        MissionUtils.Console.print("숫자 야구 게임을 시작합니다.")
         this.playGame(randomNumber)
     }
 
@@ -19,7 +19,7 @@ class App {
         while (!VALID_NUMBER) {
             try {
                 // 입력값
-                predictNumber = await Console.readLineAsync("숫자를 입력해주세요: ")
+                predictNumber = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요: ")
 
                 // 입력값 공백 제거
                 predictNumber = predictNumber.replace(/\s/g, "")
@@ -39,7 +39,7 @@ class App {
                 // 유효한 입력값이 확인되면 루프 종료
                 VALID_NUMBER = true
             } catch (error) {
-                Console.print(error.message)
+                MissionUtils.Console.print(error.message)
             }
         }
 
@@ -73,13 +73,13 @@ class App {
         const strikeMessage = `3스트라이크 \n3개의 숫자를 모두 맞히셨습니다! 게임 종료`
 
         if (strike === 3) {
-            Console.print(strikeMessage)
+            MissionUtils.Console.print(strikeMessage)
             this.replayGame()
         } else if ((ball === 0) & (strike === 0)) {
-            Console.print(nothingMessage)
+            MissionUtils.Console.print(nothingMessage)
             this.playGame(randomNumber)
         } else {
-            Console.print(resultMessage)
+            MissionUtils.Console.print(resultMessage)
             this.playGame(randomNumber)
         }
     }
@@ -92,7 +92,9 @@ class App {
         while (!VALID_NUMBER) {
             try {
                 // 입력값
-                replay = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.")
+                replay = await MissionUtils.Console.readLineAsync(
+                    "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+                )
 
                 // 입력값 숫자 확인
                 if (isNaN(replay)) {
@@ -119,10 +121,10 @@ class App {
                 // 유효한 입력값이 확인되면 루프 종료
                 VALID_NUMBER = true
             } catch (error) {
-                Console.print(error.message)
+                MissionUtils.Console.print(error.message)
             }
         }
     }
 }
 
-module.exports = App
+export default App
