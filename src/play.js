@@ -18,9 +18,6 @@ const threeStrike = async () => {
 };
 
 const compareTwoNums = async (random, user) => {
-  const userNumber = user;
-  const computerNumber = random;
-
   let strike = 0;
   let ball = 0;
 
