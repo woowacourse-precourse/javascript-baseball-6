@@ -3,7 +3,7 @@ import * as MissionUtils from "@woowacourse/mission-utils";
 /* 사용자로부터 값을 입력받는 기능 */
 export default async function inputUserNumber() {
   const userInput = await MissionUtils.Console.readLineAsync(
-    "숫자를 입력해주세요: "
+    "숫자를 입력해주세요 : "
   );
 
   if (isNaN(userInput)) {
