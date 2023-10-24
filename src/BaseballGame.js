@@ -29,18 +29,27 @@ class BaseballGame {
   };
 
   //스트라이크와 볼 개수 출력
-  async printStrikeBall(strike, ball) {
+  printStrikeBall(strike, ball) {
     let answer = '';
     
     if (ball > 0) answer += `${ball}볼 `;
     if (strike > 0) answer += `${strike}스트라이크`;
     if (ball + strike === 0) answer = `낫싱`;
     Console.print(answer)
-    
+
+    return this.isStrike(strike);
+  };
+
+  isStrike(strike) {
     if (strike !== 3) {
       return this.getNumber();
     };
 
+    return this.allStrike();
+  };
+
+  // 스트라이크일 경우
+  async allStrike() {
     const RETRY = await this.userInput.chooseRetry();
     this.validateCheck.checkRetry(RETRY);
     return this.retryOrExit(RETRY);
