@@ -40,8 +40,7 @@ describe('Computer 클래스 테스트', () => {
     const inputs = '123';
     const nums = [1, 2, 3];
     const logSpy = getMatchSpy(computer, 'match');
-    const matchString = '3스트라이크';
-    const isMatch = true;
+    const matchResult = { matchString: '3스트라이크', isMatch: true };
 
     mockRandom(nums);
     mockQuestion([inputs]);
@@ -51,7 +50,7 @@ describe('Computer 클래스 테스트', () => {
 
     expect(logSpy).toHaveBeenCalledWith(inputs);
     expect(logSpy).toHaveReturned();
-    expect(computer.match(inputs)).toStrictEqual({ matchString, isMatch });
+    expect(computer.match(inputs)).toStrictEqual(matchResult);
   });
 
   test('컴퓨터의 난수와 유저의 입력을 비교하여 매치 문자열을 생성한다', () => {
@@ -63,7 +62,6 @@ describe('Computer 클래스 테스트', () => {
       { strike: 0, ball: 0 },
       { strike: 3, ball: 0 },
     ];
-    // const randoms = [3, 5, 1];
     const matchStrings = [
       '2볼 1스트라이크',
       '2볼',
