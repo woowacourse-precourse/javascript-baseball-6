@@ -63,17 +63,15 @@ class App {
     while (1) {
       const answer = this.makeAnswerNum();
 
-      let r, input, ret;
-
       while (1) {
-        input = await this.getInput("숫자를 입력해주세요 :");
-        this.isRightBaseBallNum(input);
-        ret = this.isAnswerNum(input, answer);
-        MissionUtils.Console.print(ret);
-        if (ret === "3스트라이크") break;
+        const baseballNum = await this.getInput("숫자를 입력해주세요 :");
+        this.isRightBaseBallNum(baseballNum);
+        const retStr = this.isAnswerNum(baseballNum, answer);
+        MissionUtils.Console.print(retStr);
+        if (retStr === "3스트라이크") break;
       }
 
-      input = await this.getInput(
+      const input = await this.getInput(
         "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
       );
       this.isRightInputGameStart(input);
