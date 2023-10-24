@@ -2,12 +2,20 @@ import { Random, Console } from "@woowacourse/mission-utils";
 
 class App {
   async play() {
+    const RANDOM_VALUE = this.getRandomNumber();
+    let isSuccess =  false;
+    
+    while (!isSuccess) {
+      isSuccess = await this.playOneInput(RANDOM_VALUE);
+    }
+  }
+
+  async playOneInput(RANDOM_VALUE) {
     const RESULT = {
       strike: 0,
       ball: 0,
       nothing: 0
     };
-    const RANDOM_VALUE = this.getRandomNumber();
     const INPUT_VALUE = await this.getInputNumber();
     const INPUT_VALUE_ARR = [...INPUT_VALUE];
 
@@ -19,7 +27,7 @@ class App {
       else if (!RANDOM_VALUE.includes(num)) RESULT.nothing++;
     })
 
-    this.printResult(RESULT);
+    return this.printResult(RESULT);
   }
 
   getRandomNumber() {
@@ -59,15 +67,16 @@ class App {
     if (result.strike === 3) {
       Console.print('3스트라이크');
       Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
-      return;
+      return true;
     }
     if (result.nothing === 3) {
       Console.print('낫싱');
-      return;
+      return false;
     }
     const BALL = result.ball !== 0 ? `${result.ball}볼 ` : '';
     const STRIKE = result.strike !== 0 ? `${result.strike}스트라이크 ` : '';
     Console.print(`${BALL}${STRIKE}`);
+    return false;
   }
 }
 
