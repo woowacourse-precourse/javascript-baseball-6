@@ -10,9 +10,7 @@ export default class Player{
     }
 
     convertToArray = (input) => {
-        const playerStr = String(input)
-        const playerArr = Array.from(playerStr)
-
-        this.number = [...playerArr]
+        const inputArr = input.split('').map(Number)
+        this.number = [...inputArr]
     }
 }
