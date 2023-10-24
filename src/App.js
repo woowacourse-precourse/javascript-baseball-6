@@ -59,8 +59,6 @@ class App {
   }
 
   async startGame(){
-    MissionUtils.Console.print('숫자 야구 게임을 시작합니다.\n');
-
     const computerAnswer = this.getRandomNumber();
     let gameResult = false;
 
@@ -84,6 +82,7 @@ class App {
 
 
   async play() {
+    MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
     await this.startGame();
   }
 }
