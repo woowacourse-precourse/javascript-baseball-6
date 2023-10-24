@@ -16,6 +16,18 @@ class App {
     return answer;
   }
 
+  validateInput(userInput) {
+    if (Number.isNaN(Number(userInput))) {
+      throw new Error("[ERROR] 숫자 형식이 잘못되었습니다.");
+    } else if (userInput.length !== 3) {
+      throw new Error("[ERROR] 숫자 길이가 잘못되었습니다.");
+    } else if (userInput.includes(0)) {
+      throw new Error("[ERROR] 0을 포함하고 있습니다.");
+    } else {
+      return true;
+    }
+  }
+
   async play() {}
 }
 
