@@ -1,7 +1,7 @@
 import { BaseballGame } from './BaseballGame.js';
 import { View } from './View/View.js';
 import { MESSAGE } from './constants/message.js';
-import { WINNING_CONDITION } from './constants/gameConfig.js';
+import { WINNING_CONDITION } from './constants/baseballGame.js';
 
 class App {
   #game;

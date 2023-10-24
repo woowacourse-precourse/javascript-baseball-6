@@ -1,5 +1,5 @@
 import { CustomError } from '../Model/Error.js';
-import { BASEBALL_NUMBER } from '../constants/gameConfig.js';
+import { BASEBALL_NUMBER } from '../constants/baseballGame.js';
 import { MESSAGE } from '../constants/message.js';
 
 const isBaseballNumber = (number) =>

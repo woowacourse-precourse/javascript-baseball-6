@@ -1,5 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import { BASEBALL_NUMBER } from '../constants/gameConfig.js';
+import { BASEBALL_NUMBER } from '../constants/baseballGame.js';
 
 export const answerGenerator = () => {
   const numberSet = new Set();

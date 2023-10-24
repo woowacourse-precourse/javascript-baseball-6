@@ -1,6 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
 import { MESSAGE } from '../constants/message.js';
 import { validateBaseballNumber } from '../utils/validation.js';
+import { WINNING_CONDITION, GAME_RESULT } from '../constants/baseballGame.js';
 
 export const View = {
   async readUserNumber() {
@@ -22,11 +23,13 @@ export const View = {
 };
 
 const getResultMessage = ({ strike, ball }) => {
-  if (strike === 3)
-    return '3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료';
-  if (strike === 0 && ball === 0) return '낫싱';
+  if (strike === WINNING_CONDITION.THREE_STRIKE) {
+    return GAME_RESULT.WIN(strike);
+  }
 
-  return [ball && `${ball}볼`, strike && `${strike}스트라이크`]
+  if (strike === 0 && ball === 0) return GAME_RESULT.NOTHING;
+
+  return [ball && GAME_RESULT.BALL(ball), strike && GAME_RESULT.STRIKE(strike)]
     .filter(Boolean)
     .join(' ');
 };
