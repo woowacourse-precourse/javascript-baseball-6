@@ -28,7 +28,7 @@ const readLineAsync = async (message) => {
  * @returns {boolean} 입력 값이 유효할 때 true 반환
  * @throws {Error} 입력 값이 유효하지 않을 때
  */
-const isValidInput = (input) => {
+const isValidAnswerInput = (input) => {
   input = input.trim();
   const set = new Set(input);
   const splittedInput = input.split('').map(Number);
@@ -54,4 +54,23 @@ const isValidInput = (input) => {
   return true;
 }
 
-export { printMessage, readLineAsync, isValidInput };
+/**
+ * @param {string} input: 사용자가 입력한 값
+ * @description 사용자가 입력한 값이 유효한 값인지 검사하는 함수
+ * - NOT_RETRY_NUMBER: 1(RESTART_NUMBER) 또는 2(EXIT_NUMBER)를 입력하지 않음
+ * @returns {boolean} 입력 값이 유효할 때 true 반환
+ * @throws {Error} 입력 값이 유효하지 않을 때
+ */
+const isValidRetryInput = (input) => {
+  input = Number(input.trim());
+  const { RESTART_NUMBER, EXIT_NUMBER } = SETTING;
+  const { NOT_RETRY_NUMBER } = ERROR_MESSAGE;
+
+  if (input !== RESTART_NUMBER && input !== EXIT_NUMBER) {
+    throw new Error(`${NOT_RETRY_NUMBER}`);
+  }
+
+  return true;
+}
+
+export { printMessage, readLineAsync, isValidAnswerInput, isValidRetryInput };
