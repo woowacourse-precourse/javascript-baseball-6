@@ -8,13 +8,15 @@ async function checkInputIsNumber(inputText) {
     if (INPUT_IS_VALID) {
       return true;
     } else {
+      let ERROR_MESSAGE = ``;
       if (inputText.includes("0")) {
         const ZERO_IN_INPUT = "0은 입력할 수 없습니다";
-        throw ZERO_IN_INPUT;
+        ERROR_MESSAGE += ZERO_IN_INPUT;
       } else {
         const DEFAULT_ERROR_MESSAGE = "입력값이 3자리의 숫자가 아닙니다";
-        throw DEFAULT_ERROR_MESSAGE;
+        ERROR_MESSAGE += DEFAULT_ERROR_MESSAGE;
       }
+      return ERROR_MESSAGE;
     }
   } catch (error) {
     throwInvalidInputErrorMessage(error);
@@ -38,10 +40,10 @@ async function checkInputHasDuplicate(validArray) {
   }
 }
 
-async function CheckInputValidation(input) {
+async function checkInputValidation(input) {
   try {
     const IS_INPUT_NUMBER_AND_LENGTH_IS_THREE = await checkInputIsNumber(input);
-    if (IS_INPUT_NUMBER_AND_LENGTH_IS_THREE) {
+    if (IS_INPUT_NUMBER_AND_LENGTH_IS_THREE === true) {
       const INPUT_ARRAY = input.split("").map((item) => parseInt(item));
       const IS_INPUT_HAS_NO_DUPLICATED_NUMBER = await checkInputHasDuplicate(
         INPUT_ARRAY
@@ -49,13 +51,12 @@ async function CheckInputValidation(input) {
       const IS_INPUT_VALID = IS_INPUT_HAS_NO_DUPLICATED_NUMBER;
       return IS_INPUT_VALID;
     } else {
-      const VALID_ERROR = "유효성 검사 중에 의도치 않은 에러가 발생했습니다";
+      const VALID_ERROR = IS_INPUT_NUMBER_AND_LENGTH_IS_THREE;
       throw VALID_ERROR;
     }
   } catch (error) {
     throwInvalidInputErrorMessage(error);
-    return;
   }
 }
 
-export default CheckInputValidation;
+export default checkInputValidation;
