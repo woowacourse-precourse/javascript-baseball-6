@@ -1,6 +1,5 @@
 import { Random, Console } from "@woowacourse/mission-utils";
 
-const VALID_INPUT_LENGTH = 3;
 const ERROR_HEADER = "[ERROR]";
 
 export const Replay = Object.freeze({
@@ -41,7 +40,6 @@ export default class App {
     if (!userNumber) {
       throw new Error(`${ERROR_HEADER} 빈 입력값입니다.`);
     }
-    // 입력한 값이 모두 숫자인지 확인
     if (!this.isUniqueThreeDigitNumber(userNumber)) {
       throw new Error(
         `${ERROR_HEADER} 입력값은 서로 다른 세자리 숫자여야 합니다.`
@@ -49,10 +47,20 @@ export default class App {
     }
   }
 
+  addStrikeCnt() {
+    this.strikeCnt++;
+  }
+  addBallCnt() {
+    this.ballCnt++;
+  }
+
   compareToComputerNumber(userNumber) {
     userNumber.split("").forEach((num, idx) => {
-      if (this.computerNumber.indexOf(num) === idx) this.strikeCnt++;
-      else if (this.computerNumber.split("").includes(num)) this.ballCnt++;
+      if (this.computerNumber.indexOf(num) === idx) {
+        this.addStrikeCnt();
+      } else if (this.computerNumber.split("").includes(num)) {
+        this.addBallCnt();
+      }
     });
   }
 
