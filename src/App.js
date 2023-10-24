@@ -1,5 +1,10 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
+
+/**
+ * Generate random number array of size 3. Array doesn't accept duplicate number.
+ * @returns int array
+ */
 const getRandomNumber = () => {
   const computer = [];
 
@@ -14,6 +19,11 @@ const getRandomNumber = () => {
   return computer;
 };
 
+/**
+ * Check weather str is a number.
+ * @param {*} string array 
+ * @returns boolean
+ */
 const isNum = (str) => {
   for(let i = 0; i < str.length; i++) {
     if(str[i] < '0' || str[i] > '9') {
@@ -24,6 +34,11 @@ const isNum = (str) => {
   return true;
 }
 
+/**
+ * 
+ * @param {Array} arr
+ * @returns {boolean}
+ */
 const isDuplicated = (arr) => {
   let visited = [];
 
@@ -42,6 +57,11 @@ const isDuplicated = (arr) => {
   return false;
 }
 
+/**
+ * 
+ * @param {string} str 
+ * @returns 
+ */
 const strToNumArr = (str) => {
   let num = [];
 
@@ -53,10 +73,11 @@ const strToNumArr = (str) => {
 }
 
 /**
- * get number of strikes
- * @param {*} inputNumArr 
- * @param {*} computerNumArr 
- * @returns {*}
+ * Get number of strikes.
+ * @param {int[]} inputNumArr 
+ * @param {int[]} computerNumArr 
+ * @returns {int} If return is -1, lengths of the parameters are different. 
+ * Otherwise it returns number of strikes.
  */
 const getStrike = (inputNumArr, computerNumArr) => {
   if(inputNumArr.length != computerNumArr.length) {
@@ -73,6 +94,13 @@ const getStrike = (inputNumArr, computerNumArr) => {
   return strike;
 }
 
+/**
+ * get number of balls.
+ * @param {int[]} inputNumArr 
+ * @param {int[]} computerNumArr 
+ * @returns {int} if return is -1, lengths of the parameters are different. 
+ * Otherwise it returns number of balls.
+ */
 const getBall = (inputNumArr, computerNumArr) => {
   if(inputNumArr.length != computerNumArr.length) {
     return -1;
@@ -98,17 +126,18 @@ class App {
   async play() {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
 
-    let gameStarter = 1;
     const REJECT = (str) => {
       return Promise.reject(new Error("[ERROR] : " + str));
     }
+
+    let gameStarter = 1;
 
     while(gameStarter == 1) {
       const randomNumArr = getRandomNumber();
 
       let strike = 0;
 
-      while(strike != 3) {
+      while(strike < 3) {
         let str = "";
         let numArr = [];
 
@@ -118,7 +147,7 @@ class App {
           })
           .catch((e) => {
             MissionUtils.Console.print(e);
-            return;
+            return e;
           })
       
         try {
@@ -167,30 +196,38 @@ class App {
         MissionUtils.Console.print(referee);
       }
 
-
       MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료\n게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+
+      let str = "";
 
       await MissionUtils.Console.readLineAsync("")
         .then((input) => {
-          if(input.length != 1) {
-            throw REJECT("INVALID INPUT (invalid input length)");
-          }
-
-          if(!isNum(input)) {
-            throw REJECT("INVALID INPUT (input is not a number)");
-          }
-
-          let num = strToNumArr(input)[0];
-
-          if(num == 1 || num == 2) {
-            gameStarter = num;
-          } else {
-            throw REJECT("INVALID INPUT (unexpected input)");
-          }
+          str = input;
         })
         .catch((e) => {
           return e;
         })
+
+        try {
+          if(str.length != 1) {
+            throw REJECT("INVALID INPUT (invalid input length)");
+          }
+  
+          if(!isNum(str)) {
+            throw REJECT("INVALID INPUT (input is not a number)");
+          }
+  
+          let num = strToNumArr(str)[0];
+  
+          if(num == 1 || num == 2) {
+            gameStarter = num;
+          } else {
+            throw REJECT("INVALID INPUT (unexpected input value)");
+          }
+        } catch(e) {
+          return e;
+        }
+        
     }
 
     MissionUtils.Console.print("게임 종료");
