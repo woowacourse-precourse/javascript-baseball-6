@@ -97,7 +97,7 @@ export async function playGame() {
   }
   getComnum();
   let gameEnd = false;
-  //console.log(COM_NUM);
+
   do {
     const usernum = await getUsernum();
     validateUsernum(usernum);
@@ -110,5 +110,3 @@ export async function playGame() {
 }
 
 playGame();
-
-//default playGame;
