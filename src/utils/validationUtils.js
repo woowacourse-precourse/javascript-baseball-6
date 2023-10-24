@@ -1,4 +1,4 @@
-import { GAME_CONSTANTS, USER_COMMANDS } from "./constants.js";
+import { GAME_CONSTANTS, USER_COMMANDS } from './constants.js';
 
 const ERROR_MESSAGES = {
   invalidNumbers: {
@@ -13,7 +13,7 @@ const { invalidNumbers, invalidCommand } = ERROR_MESSAGES;
 
 export const validationUtils = {
   validateNumbers(input) {
-    const numbers = input.split("");
+    const numbers = input.split('');
     for (const validation of validations) {
       if (!validation.isValid(numbers)) {
         throw new Error(validation.error);

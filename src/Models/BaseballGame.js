@@ -1,5 +1,5 @@
-import { GAME_CONSTANTS, USER_COMMANDS } from "../utils/constants.js";
-import { gameUtils } from "../utils/gameUtils.js";
+import { GAME_CONSTANTS, USER_COMMANDS } from '../utils/constants.js';
+import { gameUtils } from '../utils/gameUtils.js';
 
 export default class BaseballGame {
   #answer;
@@ -27,7 +27,7 @@ export default class BaseballGame {
   }
 
   handleUserPitches(userInput) {
-    const pitchedBallNumbers = userInput.split("").map(Number);
+    const pitchedBallNumbers = userInput.split('').map(Number);
     const [ball, strike] = gameUtils.calculateBallStrikeScore(
       this.#answer,
       pitchedBallNumbers
@@ -63,9 +63,9 @@ export default class BaseballGame {
 }
 
 const GAME_STATES = {
-  playing: "PLAYING",
-  command: "COMMAND",
-  quit: "QUIT",
+  playing: 'PLAYING',
+  command: 'COMMAND',
+  quit: 'QUIT',
 };
 
 const { playing, command, quit } = GAME_STATES;

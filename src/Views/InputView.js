@@ -1,5 +1,5 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
-import { GAME_MESSAGES } from "../utils/constants.js";
+import { MissionUtils } from '@woowacourse/mission-utils';
+import { GAME_MESSAGES } from '../utils/constants.js';
 
 export default class InputView {
   async readUserInputNumbers() {

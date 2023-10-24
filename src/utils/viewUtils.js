@@ -1,4 +1,4 @@
-import { GAME_CONSTANTS, GAME_MESSAGES } from "./constants.js";
+import { GAME_CONSTANTS, GAME_MESSAGES } from './constants.js';
 
 export function getResultString([ball, strike]) {
   if (!ball && !strike) {
@@ -9,7 +9,7 @@ export function getResultString([ball, strike]) {
     if (!item) return;
     return item.toString() + text[idx];
   });
-  const resultString = parsedResults.join(" ");
+  const resultString = parsedResults.join(' ');
   if (strike === GAME_CONSTANTS.strikeOutCount) {
     return `${resultString}\n${GAME_MESSAGES.finish}`.trim();
   }
@@ -17,7 +17,7 @@ export function getResultString([ball, strike]) {
 }
 
 const GAME_RESULTS = {
-  ball: "볼",
-  strike: "스트라이크",
-  noMatch: "낫싱",
+  ball: '볼',
+  strike: '스트라이크',
+  noMatch: '낫싱',
 };
