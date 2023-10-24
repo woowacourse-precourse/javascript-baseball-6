@@ -21,43 +21,32 @@ class App {
         if(number.length != 3) {
           throw new Error("[ERROR] 세자리 숫자를 입력해주세요.");
         }
-        const first = Math.floor(number / 100);
-        const second = Math.floor(number % 100 / 10);
-        const third = number % 100 % 10;
-        
+
+        const player = [];
+        player[0] = Math.floor(number / 100);
+        player[1] = Math.floor(number % 100 / 10);
+        player[2] = number % 100 % 10;
+  
         const check = new Set();
-        check.add(first);
-        check.add(second);
-        check.add(third);
+        check.add(player[0]);
+        check.add(player[1]);
+        check.add(player[2])
         if(check.size != 3) {
           throw new Error("[ERROR] 서로 다른 세자리 숫자를 입력해주세요.")
         }
+  
         let strike = 0;
         let ball = 0;
         let nothing = 0;
-
-        if(computer.indexOf(first) == 0) {
-          strike++;
-        }else if(computer.indexOf(first) != -1) {
-          ball++;
-        }else{
-          nothing++;
-        }
-
-        if(computer.indexOf(second) == 1) {
-          strike++;
-        }else if(computer.indexOf(second) != -1) {
-          ball++;
-        }else{
-          nothing++;
-        }
-
-        if(computer.indexOf(third) == 2) {
-          strike++;
-        }else if(computer.indexOf(third) != -1) {
-          ball++;
-        }else{
-          nothing++;
+  
+        for(var i = 0; i < player.length; i++) {
+          if(computer.indexOf(player[i]) == i) {
+            strike++;
+          }else if(computer.indexOf(player[i]) != -1) {
+            ball++;
+          }else{
+            nothing++;
+          }
         }
 
         if(strike == 3) {
