@@ -3,8 +3,6 @@ import { Console, Random } from "@woowacourse/mission-utils";
 class App {
   constructor() {
     this.answer = [];
-    this.strike = 0;
-    this.ball = 0;
   }
   async play() {
     Console.print('숫자 야구 게임을 시작합니다.');
@@ -13,20 +11,15 @@ class App {
     while (true) {
       const userInput = await Console.readLineAsync('숫자를 입력해주세요 :');
       this.checkUserInput(userInput);
-      this.calculateGameResult(this.answer, userInput);
+      const { strike, ball } = this.calculateGameResult(this.answer, userInput);
 
-      Console.print(this.printGameResult(this.strike, this.ball));
+      Console.print(this.printGameResult(strike, ball));
 
-      if (this.strike !== 3) {
-        this.ball = 0;
-        this.strike = 0;
-      } else {
+      if (strike === 3) {
         Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
         const userAnswer = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
         if (userAnswer === '1') {
           this.answer = this.randomNumbersArray();
-          this.strike = 0;
-          this.ball = 0;
           continue;
         } else if (userAnswer === '2') {
           break;
@@ -53,21 +46,24 @@ class App {
   }
 
   calculateGameResult(answer, userInput) {
+    let strike = 0;
+    let ball = 0;
     if (answer.join('') === userInput) {
-      this.strike = 3;
+      strike = 3;
     } else {
       answer.forEach((answerElement, index) => {
         if (answerElement === Number(userInput[index])) {
-          this.strike += 1;
+          strike++;
         } else {
           [...userInput].forEach((inputElement) => {
             if (answerElement === Number(inputElement)) {
-              this.ball += 1;
+              ball++;
             }
           })
         }
       })
     }
+    return { strike, ball };
   }
 
   printGameResult(strike, ball) {
