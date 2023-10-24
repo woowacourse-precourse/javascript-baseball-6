@@ -38,26 +38,25 @@ class App {
       return arrayOfInput;
     } 
 
-    async playGame(strike, ball) {
-       
-  if (strike === 3) {
-      MissionUtils.Console.print(
-         `${strike}스트라이크입니다\n3개의 숫자를 모두 맞히셨습니다! 게임 종료`
-     );
-     return;
- }
- if (!strike && !ball) {
-      MissionUtils.Console.print("낫싱");
-     return;
- }
- if (strike && ball) {
-      MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
- } else if (strike && !ball) {
-      MissionUtils.Console.print(`${strike}스트라이크`);
- } else if (!strike && ball) {
-      MissionUtils.Console.print(`${ball}볼`);
- }
-}
+    async playGame(strike, ball) {  
+      if (strike === 3) {
+        MissionUtils.Console.print(
+          `${strike}스트라이크입니다\n3개의 숫자를 모두 맞히셨습니다! 게임 종료`
+        );
+        return;
+      }
+      if (!strike && !ball) {
+        MissionUtils.Console.print("낫싱");
+        return;
+      }
+      if (strike && ball) {
+        MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
+      } else if (strike && !ball) {
+          MissionUtils.Console.print(`${strike}스트라이크`);
+      } else if (!strike && ball) {
+          MissionUtils.Console.print(`${ball}볼`);
+      }
+  }
 
     async isUserWillingToRestart() {
       let restart = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.')
