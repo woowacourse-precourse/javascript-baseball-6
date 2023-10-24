@@ -15,3 +15,33 @@ export function checkInputValidity(input){
     // 1&2번 조건 모두 통과시 return true
     return true
 }
+
+// 정답 일치 여부 확인
+export function checkAnswer(player, computer){
+    if(player.length !== computer.length) return false
+
+    player.forEach((num, i)=>{
+        if(num !== computer[i]) return false
+    })
+
+    return true
+}
+
+// 스트라이크 개수 확인
+export function checkStrike(player, computer){
+    let strikeCount = 0
+    player.forEach((num, i) => {
+        if(num === computer[i]) strikeCount += 1
+    })
+    return strikeCount
+}
+
+// 볼 개수 확인
+export function checkBall(player, computer, strikeCount){
+    let ballCount = 0
+    player.forEach((num) => {
+        if(computer.includes(num)) ballCount += 1
+    })
+
+    return ballCount - strikeCount
+}

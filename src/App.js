@@ -4,7 +4,7 @@ class App {
   async play() {
     const game = new Game()
     game.welcomeMsg()
-
+    
     while(true){
         game.playGame()
     }
