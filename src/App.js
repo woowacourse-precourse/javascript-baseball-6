@@ -1,6 +1,7 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import randomComputeNum from "./components/randomComputeNum.js"
 import validateNum from "./components/validateNum.js"
+import compareNumbers from "./components/compareNum.js"
 
 async function inputNum() {
   const userNum = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요: ');
@@ -18,6 +19,8 @@ class App {
     if(!validateNum(userNum)){
       throw new Error("[ERROR] 잘못된 숫자 형식입니다.");
     }
+
+    compareNumbers(computerNum, userNum);
   }
 }
 
