@@ -13,6 +13,34 @@ class App {
     return computer;
   }
 
+  validateThreeDigitNumber = (input) => {
+    if(isNaN(input)) {
+      throw new Error("[ERROR] 세자리 숫자를 입력해주세요.");
+    }
+    if(input.length != 3) {
+      throw new Error("[ERROR] 세자리 숫자를 입력해주세요.");
+    }
+  }
+
+  validateDuplicatedNumber = (player) => {
+    const check = new Set();
+    check.add(player[0]);
+    check.add(player[1]);
+    check.add(player[2])
+    if(check.size != 3) {
+      throw new Error("[ERROR] 서로 다른 세자리 숫자를 입력해주세요.")
+    }
+  }
+
+  validateFinishSign = (sign) => {
+    if(isNaN(sign)) {
+      throw new Error("[ERROR] 재시작 또는 종료를 위해 1 또는 2를 입력해주세요");
+    }
+    if(sign != 1 && sign != 2) {
+      throw new Error("[ERROR] 재시작 또는 종료를 위해 1 또는 2를 입력해주세요.")
+    }
+  }
+
   async play() {
     while(true) {
       const computer = this.createComputerNumbers(3);
@@ -21,25 +49,13 @@ class App {
 
       while(true) {
         const number = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
-        if(isNaN(number)) {
-          throw new Error("[ERROR] 세자리 숫자를 입력해주세요.");
-        }
-        if(number.length != 3) {
-          throw new Error("[ERROR] 세자리 숫자를 입력해주세요.");
-        }
+        this.validateThreeDigitNumber(number);
 
         const player = [];
         player[0] = Math.floor(number / 100);
         player[1] = Math.floor(number % 100 / 10);
         player[2] = number % 100 % 10;
-  
-        const check = new Set();
-        check.add(player[0]);
-        check.add(player[1]);
-        check.add(player[2])
-        if(check.size != 3) {
-          throw new Error("[ERROR] 서로 다른 세자리 숫자를 입력해주세요.")
-        }
+        this.validateDuplicatedNumber(player);
   
         let strike = 0;
         let ball = 0;
@@ -68,12 +84,7 @@ class App {
       }
 
       const sign = await MissionUtils.Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n");
-      if(isNaN(sign)) {
-        throw new Error("[ERROR] 재시작 또는 종료를 위해 1 또는 2를 입력해주세요");
-      }
-      if(sign != 1 && sign != 2) {
-        throw new Error("[ERROR] 재시작 또는 종료를 위해 1 또는 2를 입력해주세요.")
-      }
+      this.validateFinishSign(sign);
       if(sign == 1) {
         continue;
       }else if(sign == 2) {
