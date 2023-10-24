@@ -5,10 +5,10 @@ const messages = Object.freeze({
   reStart: '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n',
   nothing: '낫싱',
   errorMessage: '[ERROR] 숫자가 잘못된 형식입니다.',
-})
+});
 
 const feedbackMessage = (ball, strike) => {
-  return `${ball ? `${ball}볼 ` : ''}${strike ? `${strike}스트라이크` : ''}`
-}
+  return `${ball ? `${ball}볼 ` : ''}${strike ? `${strike}스트라이크` : ''}`;
+};
 
-export { messages, feedbackMessage }
+export { messages, feedbackMessage };
