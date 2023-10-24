@@ -73,6 +73,7 @@ class App {
     if (this.strike === 3) {
       Console.print(`${this.strike}스트라이크`);
       Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+      this.playRestart();
     } else {
       Console.print(
         `${this.ball === 0 ? "" : this.ball + "볼"} ${
@@ -89,6 +90,20 @@ class App {
     this.strike = 0;
     this.ball = 0;
     this.nothing = 0;
+  }
+
+  async playRestart() {
+    const inputValue = await Console.readLineAsync(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+    );
+
+    if (inputValue === "1") {
+      this.play();
+    } else if (inputValue === "2") {
+      return;
+    } else {
+      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+    }
   }
 }
 
