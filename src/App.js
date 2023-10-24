@@ -8,6 +8,7 @@ class App {
   #view = View;
 
   constructor() {
+    //TODO: View에서 추상화
     this.#view.print(MESSAGE.START_GAME);
   }
 
@@ -20,16 +21,12 @@ class App {
     const userNumber = await this.#view.readUserNumber();
     const { strike, ball } = this.#game.compareNumber(userNumber);
 
-    this.#printResult({ strike, ball });
+    this.#view.printGameResult({ strike, ball });
 
     if (strike !== WINNING_CONDITION.THREE_STRIKE) return this.#guessNumber();
 
     this.#view.print(GAME_RESULT.WIN(strike));
     this.#readRestart();
-  }
-
-  #printResult({ strike, ball }) {
-    this.#view.printGameResult({ strike, ball });
   }
 
   async #readRestart() {

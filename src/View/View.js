@@ -1,12 +1,13 @@
 import { Console } from '@woowacourse/mission-utils';
-import { MESSAGE } from '../constants/message.js';
 import { validateBaseballNumber } from '../utils/validation.js';
+import { InputView } from './InputView.js';
+import { MESSAGE } from '../constants/message.js';
 import { COMMAND, GAME_RESULT } from '../constants/baseballGame.js';
 import { CustomError } from '../Model/Error.js';
 
 export const View = {
   async readUserNumber() {
-    const userNumber = await Console.readLineAsync(MESSAGE.READ.USER_NUMBER);
+    const userNumber = await InputView.readLineAsync(MESSAGE.READ.USER_NUMBER);
     const numberList = userNumber.split('');
 
     validateBaseballNumber(numberList);
