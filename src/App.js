@@ -12,6 +12,7 @@ class App {
     this.makeComputerNumber();
     Console.print(START_MENT);
     await this.startMatching();
+    Console.print(END_MENT);
   makeComputerNumber() {
     const computer = [];
     while (computer.length < 3) {
