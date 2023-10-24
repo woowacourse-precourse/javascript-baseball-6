@@ -45,7 +45,12 @@ class App {
     if (this.hasSameNumbers(userInput)) {
       throw new Error('[ERROR] 중복된 숫자가 있습니다.');
     }
+
+    if (this.hasEmptySpace(userInput)) {
+      throw new Error('[ERROR] 숫자에 공백이 포함되어있습니다.');
+    }
   }
+
 
   isNotNumbers(userInput) {
     const nonNumericRegex = /^\D+$/;
@@ -55,6 +60,11 @@ class App {
   hasSameNumbers(userInput) {
     const userInputArray = userInput.split('');
     return userInputArray.length !== new Set(userInputArray).size;
+  }
+
+  hasEmptySpace(userInput) {
+    const nonEmptySpaceRegex = /\s/;
+    return nonEmptySpaceRegex.test(userInput);
   }
 
   countMatchingNumbers() {
