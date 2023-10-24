@@ -20,6 +20,10 @@ class OutputProcessor {
     }
     MissionUtils.Console.print(message);
   }
+
+  static errorOutput(message) {
+    MissionUtils.Console.print("[ERROR] " + message);
+  }
 }
 
 export default OutputProcessor;
