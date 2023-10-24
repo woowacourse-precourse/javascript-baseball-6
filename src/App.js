@@ -10,10 +10,6 @@ class App {
   userNumber = [];
   computerNumber = [];
 
-  gameStart = () => {
-    Console.print(MESSAGES.START);
-  };
-
   /***   
     1. Number
     2. 1에서 9 사이의 숫자
@@ -70,37 +66,42 @@ class App {
     return result;
   };
 
-  async play() {
-    this.gameStart();
+  gameReady = async () => {
+    this.computerNumber = this.computer.createRandomNumber();
+    await this.gameStart();
+  };
 
+  gameStart = async () => {
     while (true) {
-      this.computerNumber = this.computer.createRandomNumber();
+      this.userNumber = await this.getUserNumberInput();
 
-      while (true) {
-        this.userNumber = await this.getUserNumberInput();
+      const result = await this.calculateGameResult(
+        this.computerNumber,
+        this.userNumber
+      );
 
-        const result = await this.calculateGameResult(
-          this.computerNumber,
-          this.userNumber
-        );
-
-        if (result.ball === 0 && result.strike === 0) {
-          Console.print(MESSAGES.RESULT.NOTHING);
-        } else if (result.strike === 3) {
-          Console.print(MESSAGES.RESULT.ALL_STRIKE);
-          Console.print(MESSAGES.GAME_OVER);
-
-          Console.print(MESSAGES.RESTART_OR_END);
-          const input = await this.getRestartOrEndInput();
-          if (input === "1") {
-            break;
-          }
-          return;
-        } else {
-          Console.print(`${result.ball}볼 ${result.strike}스트라이크`);
+      if (result.ball === 0 && result.strike === 0) {
+        Console.print(MESSAGES.RESULT.NOTHING);
+      } else if (result.strike === 3) {
+        Console.print(MESSAGES.RESULT.ALL_STRIKE);
+        Console.print(MESSAGES.GAME_OVER);
+        Console.print(MESSAGES.RESTART_OR_END);
+        const input = await this.getRestartOrEndInput();
+        if (input === "1") {
+          await this.gameReady();
         }
+        return;
+      } else {
+        Console.print(`${result.ball}볼 ${result.strike}스트라이크`);
       }
     }
+  };
+
+  async play() {
+    Console.print(MESSAGES.START);
+    await this.gameReady();
+
+    return;
   }
 }
 
