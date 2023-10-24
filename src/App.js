@@ -88,15 +88,9 @@ class App {
   }
 
   async play() {
-    // this.printStartMessage();
-    // this.pickComputerNumbers();
-    // console.log(this.computer);
-    // await this.getUserInput();
-    // this.compareInput();
-    // console.log(this.computer, this.userInput);
+    this.printStartMessage();
 
     while (this.restart === '1') {
-      this.printStartMessage();
       this.isAnswer = false;
       this.pickComputerNumbers();
       console.log(this.computer);
