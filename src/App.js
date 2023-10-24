@@ -3,7 +3,7 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 class App {
   async play() {// 게임시작 (경우에 따라 재시작 가능하게)
     //게임 시작문구 출력
-    console.log('숫자 야구 게임을 시작합니다.');
+    MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
     let computernumb = this.createComputernumb(); // 컴퓨터 입력값 받기
     let usernumb = [];
     let coin = '1';
@@ -40,7 +40,6 @@ class App {
       COMPUTER.push(NUMBER);
       } 
     }
-    console.log(COMPUTER)
     return COMPUTER;
   }
 
