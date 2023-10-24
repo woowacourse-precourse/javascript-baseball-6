@@ -33,18 +33,18 @@ class App {
   }
 
   printCount(computerNum, userNum) {
-    let strikeCount = 0;
     let ballCount = 0;
+    let strikeCount = 0;
 
     computerNum.forEach((item, index) =>
       item === userNum[index] ? ++strikeCount : userNum.includes(item) && ++ballCount
     );
 
-    const strikeMessage = strikeCount ? `${strikeCount}스트라이크` : "";
     const ballMessage = ballCount ? `${ballCount}볼` : "";
+    const strikeMessage = strikeCount ? `${strikeCount}스트라이크` : "";
     const messageSpace = strikeCount && ballCount ? " " : "";
 
-    const message = !strikeCount && !ballCount ? "낫싱" : strikeMessage + messageSpace + ballMessage;
+    const message = !strikeCount && !ballCount ? "낫싱" : ballMessage + messageSpace + strikeMessage;
     Console.print(message);
 
     return strikeCount === 3 ? "isSuccess" : "isPlaying";
