@@ -3,7 +3,7 @@ import Game from './components/Game.js';
 class App {
   async play() {
     const GAME = new Game();
-    GAME.start();
+    await GAME.start();
   }
 }
 
