@@ -8,7 +8,6 @@ class BaseballView {
     return await MissionUtils.Console.readLineAsync('숫자를 입력해주세요: ');
   }
   errorMessage(message) {
-    MissionUtils.Console.print(`[ERROR] ${message}`);
     throw new Error(`[ERROR] ${message}`);
   }
   result(strike, ball) {

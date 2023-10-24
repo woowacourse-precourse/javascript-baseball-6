@@ -6,37 +6,29 @@ class BaseballController {
     this.model = new BaseballModel();
     this.view = new BaseballView();
   }
+
   async play() {
     const CONTINUE_GAME = '1';
     const EXIT_GAME = '2';
-    let gamePlayCheck = true;
-
     this.view.startGame();
     this.model.resetBaseballData();
 
-    while (gamePlayCheck) {
-      while (true) {
-        const User_INPUT = await this.view.getUserInput();
-        try {
-          this.checkUserInput(User_INPUT);
-        } catch (error) {
-          throw error;
-        }
-        this.model.setUserInput(User_INPUT);
+    while (true) {
+      const User_INPUT = await this.view.getUserInput();
+      this.checkUserInput(User_INPUT);
+      this.model.setUserInput(User_INPUT);
+      const STRIKE = this.model.getStrike();
+      const BALL = this.model.getBall();
+      this.view.result(STRIKE, BALL);
 
-        const STRIKE = this.model.getStrike();
-        const BALL = this.model.getBall();
-        this.view.result(STRIKE, BALL);
-
-        if (STRIKE === this.model.count) {
-          const NUMBER = await this.view.gameClear();
-          if (NUMBER === CONTINUE_GAME) {
-            this.model.resetBaseballData();
-            break;
-          } else if (NUMBER === EXIT_GAME) {
-            gamePlayCheck = false;
-            break;
-          }
+      if (STRIKE === this.model.count) {
+        const NUMBER = await this.view.gameClear();
+        if (NUMBER === CONTINUE_GAME) {
+          this.model.resetBaseballData();
+        } else if (NUMBER === EXIT_GAME) {
+          break;
+        } else {
+          throw new Error(`[ERROR] 입력된 값이 1또는 2가 아닙니다.`);
         }
       }
     }
@@ -56,15 +48,10 @@ class BaseballController {
   checkUserInput(userInput) {
     if (this.checkUserInputType(userInput)) {
       this.view.errorMessage('숫자가 잘못된 형식입니다.');
-      return false;
     } else if (this.checkUserInputLength(userInput)) {
       this.view.errorMessage(`입력된 숫자가 ${this.model.count}개가 아닙니다.`);
-      return false;
     } else if (this.checkUserInputDuplicate(userInput)) {
       this.view.errorMessage('중복된 숫자가 있습니다.');
-      return false;
-    } else {
-      return true;
     }
   }
 }
