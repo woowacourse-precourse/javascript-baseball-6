@@ -64,7 +64,7 @@ function isRestartValid(number) {
 
 function calculateScore(answer, number) {
   for (let i = 0; i < answer.length; i++) {
-    let index = answer.findIndex(number[i]);
+    let index = answer.findIndex((el) => el === number[i]);
 
     if (index === i) {
       SCORE.strike++;
