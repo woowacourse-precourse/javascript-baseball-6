@@ -59,15 +59,46 @@ function numArrayCompareEvent() {
                     ball++;
                 } 
             }
-            if (strike === 0 && ball === 0) {
-                result.innerHTML = "낫싱";
-            } else if (strike === 3) {
-                result.innerHTML = `3스트라이크
-                3개의 숫자를 모두 맞히셨습니다! 게임 종료
-                게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.`
+            if (strike === 3) {
+                result.innerHTML = "3스트라이크🥇🥇🥇"+"<br>"+"3개의 숫자를 모두 맞히셨습니다!"+"<br>"+"게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
             } else {
-                result.innerHTML = `${strike}스트라이크 ${ball}볼`;
+                if (strike === 0 && ball === 0) {
+                    result.innerHTML = "낫싱";
+                } else {
+                    result.innerHTML = `${strike}스트라이크 ${ball}볼`;
+                }
+                addTry();
             }
         }
     }
+}
+
+
+// 결과가 '3스트라이크'가 아닐 경우 추가기능 구현
+function addTry() {
+    const newTry = document.createElement('div');
+    newTry.className = 'try';
+
+    const tryNumber = document.querySelectorAll(".try").length + 1;
+    const nthTry = document.createElement('h3');
+    nthTry.className = 'nth_try';
+    nthTry.textContent = `${tryNumber}차 시도`;
+
+    const input = document.createElement('input');
+    input.className = 'userNum';
+
+    const button = document.createElement('button');
+    button.className = 'check';
+    button.textContent = '확인';
+    button.onclick = numArrayCompareEvent;
+
+    const result = document.createElement('div');
+    result.className = 'result';
+
+    newTry.appendChild(nthTry);
+    newTry.appendChild(input);
+    newTry.appendChild(button);
+    newTry.appendChild(result);
+
+    document.querySelector("#container").appendChild(newTry);
 }

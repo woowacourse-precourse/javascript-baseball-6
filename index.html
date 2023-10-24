@@ -5,14 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>조경은 숫자야구게임</title>
+    <style>
+        .try {
+            padding: 15px 0 15px 0;
+            border-bottom: 1px solid black;
+        }
+    </style>
 </head>
 <body>
-    <h1>숫자 야구 게임</h1>
-    <h3>서로 다른 세 자리 숫자를 입력하시오</h23>
+    <h1>⚾️ 숫자 야구 게임 ⚾️</h1>
+    <h2>서로 다른 세 자리 숫자를 입력하시오</h2>
 
     <main id="container">
         <div class="try">
-            <h5 class="nth_try"></h5>
+            <h3 class="nth_try">1차 시도</h3>
             <input class="userNum" type="text">
             <button class="check" type="button" onclick="numArrayCompareEvent()">확인</button>
             <div class="result"></div>
