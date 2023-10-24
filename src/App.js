@@ -37,7 +37,6 @@ class App {
       if (!computer.includes(number)) {
         computer.push(number);
       }
-      // console.log(computer);
     }
     return computer;
   }

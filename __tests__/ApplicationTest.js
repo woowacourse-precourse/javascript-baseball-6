@@ -1,23 +1,20 @@
 import App from "../src/App.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
 
-//이건 뭔지 모르겠으니 일단 pass
 const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
 
-  MissionUtils.Console.readLineAsync.mockImplementation(async () => {
+  MissionUtils.Console.readLineAsync.mockImplementation(() => {
     const input = inputs.shift();
-    return input;
+    return Promise.resolve(input);
   });
 };
 
 const mockRandoms = (numbers) => {
   MissionUtils.Random.pickNumberInRange = jest.fn();
-
-  MissionUtils.Random.pickNumberInRange.mockImplementation((min, max) => {
-    const number = numbers.shift();
-    return number;
-  });
+  numbers.reduce((acc, number) => {
+    return acc.mockReturnValueOnce(number);
+  }, MissionUtils.Random.pickNumberInRange);
 };
 
 const getLogSpy = () => {
@@ -26,7 +23,6 @@ const getLogSpy = () => {
   return logSpy;
 };
 
-//여기부터가 test인가 보군
 describe("숫자 야구 게임", () => {
   test("게임 종료 후 재시작", async () => {
     // given
@@ -46,8 +42,7 @@ describe("숫자 야구 게임", () => {
 
     // when
     const app = new App();
-    // await expect(app.play()).resolves.not.toThrow();
-    await app.play();
+    await expect(app.play()).resolves.not.toThrow();
 
     // then
     messages.forEach((output) => {
