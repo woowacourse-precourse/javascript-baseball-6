@@ -39,91 +39,9 @@
 
 ## 🗃️ 클래스 다이어그램
 
-```mermaid
-classDiagram
-    App --|> BaseballDirector : 생성
-    BaseballDirector --|> Player : 플레이어 생성, 데이터 저장
-    BaseballDirector --|> Computer : 컴퓨터 생성, 번호 생성
-    BaseballDirector --|> Referee : 심판 생성, 값 비교
+![image](https://github.com/SWARVY/javascript-baseball-6/assets/53262430/61737dae-3e68-4447-8a3f-ba8b8173480a)
 
-    namespace Application {
-        class App {
-            play() : void
-        }
-    }
-
-    namespace Controller {
-        class BaseballDirector {
-            #player : Object
-            #computer : Object
-            #referee : Object
-            play() : void
-            #getCompareResults() : void
-            #printCompareResults(result) : void
-            #checkGameFinish(result) : void
-            #printGameEnd() : void
-            #checkGameRetry() : void
-            #resetGame() : void
-        }
-    }
-
-    namespace Model {
-        class Player {
-            #selectNumber : Set
-            setSelectNumber(input) : void
-            getSelectNumber() : Set
-        }
-        class Computer {
-            #selectNumber : Set
-            generate() : Set
-            getSelectNumber() : Set
-        }
-        class Referee {
-            compareNumbers(playerNumbers, computerNumbers) : Object
-            #checkStrikeCounts(computerNumbers, computerNumberArrayValue, playerNumber) : number
-            #checkBallCounts(computerNumbers, computerNumberArrayValue, playerNumber) : number
-        }
-    }
-```
-
-```mermaid
-classDiagram
-    BaseballDirector --|> OutputView : 출력
-    InputView --|> Validation : 입력 데이터 검증
-    InputView --|> BaseballDirector : 입력 데이터 전달
-
-    namespace Controller {
-        class BaseballDirector {
-            #player : Object
-            #computer : Object
-            #referee : Object
-            play() : void
-            #getCompareResults() : void
-            #printCompareResults(result) : void
-            #checkGameFinish(result) : void
-            #printGameEnd() : void
-            #checkGameRetry() : void
-            #resetGame() : void
-        }
-    }
-    namespace View {
-        class InputView {
-            getPlayerInput() : string
-            getRetryInput() : string
-        }
-        class OutputView {
-            printGameStart() : void
-            printGameEnd() : void
-            printGameStatus(status) : void
-        }
-        class Validation {
-            isNumber(input) : void
-            isCorrectLength(input) : void
-            isCorrectPlayerInput(input) : void
-            isCorrectRetryInput(input) : void
-        }
-    }
-```
+![image](https://github.com/SWARVY/javascript-baseball-6/assets/53262430/2b880fb6-e333-4e02-beb2-249c682512c8)
 
 ## 🌊 플로우차트
 
