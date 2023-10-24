@@ -20,7 +20,8 @@ class App {
 
     printHint(result);
 
-    if (result.strike < ANSWER_LENGTH) {
+    // 스트라이크가 3개 안나온 경우
+    if (result.strike !== ANSWER_LENGTH) {
       await this.startGame(computer);
     } else {
       Console.print(MESSAGE.CORRECT_ANSWER);
@@ -31,6 +32,7 @@ class App {
   async getPlayerNumber() {
     const playerNumber = await Console.readLineAsync(MESSAGE.INPUT_NUMBER);
 
+    // 유효한지 확인
     if (!isValid(playerNumber)) {
       throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
     }
