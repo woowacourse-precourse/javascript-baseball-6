@@ -10,6 +10,8 @@ class App {
 
     const input = await Console.readLineAsync("숫자를 입력해 주세요: ");
     inputValidation(input);
+
+    const { ball, strike } = getBallStrikeCount(input, this.#answerArray);
   }
 }
 
@@ -39,6 +41,22 @@ function inputValidation(input) {
 function checkDuplicate(input) {
   const numbers = input.split("");
   return [...new Set(numbers)].length === 3 ? false : true;
+}
+
+function getBallStrikeCount(input, answer) {
+  let strike = 0;
+  let ball = 0;
+
+  for (let i in input) {
+    answer.forEach((number, index) => {
+      if (Number(input[i]) === number) {
+        if (Number(i) === index) strike += 1;
+        else ball += 1;
+      }
+    });
+  }
+
+  return { ball, strike };
 }
 
 export default App;
