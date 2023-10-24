@@ -4,7 +4,6 @@ class App {
   async play() {
     printStart();
     const baseballNums = makeRandomNum();
-    console.log("컴터숫자", baseballNums);
     await inputNum(baseballNums);
   }
 }
