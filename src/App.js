@@ -67,14 +67,13 @@ class App {
 const COMPUTER_ANSWER_LENGTH = 3;
 
 const generateComputerAnswer = () => {
-  const computerAnswer = [];
-  while (computerAnswer.length < COMPUTER_ANSWER_LENGTH) {
-    const number = MissionUtils.Random.pickNumberInRange(1, 9);
-    if (!computerAnswer.includes(number)) {
-      computerAnswer.push(number);
-    }
+  const computerAnswer = new Set();
+
+  while (computerAnswer.size < COMPUTER_ANSWER_LENGTH) {
+    computerAnswer.add(MissionUtils.Random.pickNumberInRange(1,9));
   }
-  return computerAnswer;
+
+  return [...computerAnswer];
 };
 
 const calculateResult = (computerAnswer, userGuess) => {
