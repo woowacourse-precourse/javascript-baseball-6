@@ -1,4 +1,4 @@
-class App {
+export default class App {
   constructor() {
     this.secretNumber = this.generateRandomNumber();
     this.exitRequested = false;
@@ -8,21 +8,22 @@ class App {
   generateRandomNumber() {
     const numbers = Array.from({ length: 9 }, (_, i) => i + 1);
     const computer = [];
-    
+
     while (computer.length < 3) {
       const randomIndex = Math.floor(Math.random() * numbers.length);
       computer.push(numbers[randomIndex]);
       numbers.splice(randomIndex, 1);
     }
-    
+
     return computer.join('');
   }
 
-  play() {
+  async play() {
     console.log("숫자 야구 게임을 시작합니다.");
 
-    this.getInput()
-      .then((input) => {
+    while (!this.exitRequested) {
+      try {
+        const input = await this.getInput();
         if (input === '2') {
           console.log("게임을 종료합니다.");
           this.exitRequested = true;
@@ -41,15 +42,11 @@ class App {
             console.log("[ERROR] 숫자가 잘못된 형식입니다.");
           }
         }
-
-        if (!this.exitRequested) {
-          this.play();
-        }
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error(error);
         this.exitRequested = true;
-      });
+      }
+    }
   }
 
   getInput() {
