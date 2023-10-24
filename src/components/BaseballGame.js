@@ -16,8 +16,7 @@ class BaseballGame {
       ? Console.print(`플레이한 게임 수: ${this.gameCount}`)
       : Console.print('숫자 야구 게임을 시작합니다.');
 
-    const VALID_USER_INPUT = await this.getUserInput();
-    this.showGameResult(VALID_USER_INPUT);
+    this.getUserInput();
   }
 
   async getUserInput() {
@@ -26,7 +25,7 @@ class BaseballGame {
     );
 
     this.validateUserInput(USER_INPUT);
-    return USER_INPUT;
+    this.showGameResult(USER_INPUT);
   }
 
   validateUserInput(userInput) {

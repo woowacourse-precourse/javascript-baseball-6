@@ -7,16 +7,12 @@ class GameCalculator {
   }
 
   calculate() {
-    this.randomNumber.forEach((ranNum, randIndex) => {
-      this.userInput.forEach((userNum, userIndex) => {
-        if (ranNum === userNum) {
-          if (randIndex === userIndex) {
-            this.strike += 1;
-          } else {
-            this.ball += 1;
-          }
-        }
-      });
+    this.randomNumber.forEach((randomNum, randomNumIndex) => {
+      if (randomNum === this.userInput[randomNumIndex]) {
+        this.strike += 1;
+      } else if (this.userInput.includes(randomNum)) {
+        this.ball += 1;
+      }
     });
   }
 
