@@ -1,6 +1,16 @@
 import { Random, Console } from "@woowacourse/mission-utils";
 
 class App {
+  constructor() {
+    this.computer = this.randomGenerator();
+    this.isCorrect = false;
+  }
+
+  init() {
+    this.computer = this.randomGenerator();
+    this.isCorrect = false;
+  }
+
   async play() {}
 
   randomGenerator() {
