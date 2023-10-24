@@ -87,6 +87,13 @@ class App {
     }
   }
 
+  checkContinued = (strike) => {
+    if (strike == 3) {
+      return false;
+    }
+    return true;
+  }
+
   async playRound() {
     const computer = this.createComputerNumbers(3);
     //MissionUtils.Console.print(computer);
@@ -102,10 +109,7 @@ class App {
 
       const result = this.createResultStatement(strike, ball);
       MissionUtils.Console.print(result);
-
-      if (strike == 3) {
-        isContinued = false;
-      }
+      isContinued = this.checkContinued(strike);
     } while(isContinued);
   }
 
