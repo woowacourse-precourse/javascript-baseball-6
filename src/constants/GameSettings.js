@@ -1,4 +1,6 @@
 export const GAME_SETTINGS = Object.freeze({
+  startNumber: 1,
+  endNumber: 9,
   numberLength: 3,
 });
 
