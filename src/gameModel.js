@@ -4,14 +4,6 @@ export default class GameModel {
     this.userNumber = [];
   }
 
-  getComputerNumber() {
-    return this.computerNumber;
-  }
-
-  getUserNumber() {
-    return this.userNumber;
-  }
-
   updateComputerNumber(computerNumber) {
     this.computerNumber = computerNumber;
   }
