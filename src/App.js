@@ -1,8 +1,9 @@
 // import { GAME_MESSAGE } from "./constants";
-import { gameStartMessage } from "./modules/game.js";
+import { baseballGame, gameStartMessage } from "./modules/game.js";
 class App {
   async play() {
     gameStartMessage();
+    baseballGame();
   }
 }
 

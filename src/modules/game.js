@@ -13,4 +13,4 @@ function baseballGame() {
 }
 baseballGame();
 
-export { gameStartMessage };
+export { gameStartMessage, baseballGame };

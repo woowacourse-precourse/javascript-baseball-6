@@ -10,14 +10,20 @@ function convertToNumber(userInputArray) {
   });
 }
 
+function hasDuplicates(userInputArray) {
+  return new Set(userInputArray).size == 3;
+}
+
 function isValidNum(userInput) {
   const userInputArray = userInput.split("");
-  if (getArrayLength(userInputArray) && convertToNumber(userInputArray)) {
-    // return true;
-    return console.log("true");
+  if (
+    getArrayLength(userInputArray) &&
+    convertToNumber(userInputArray) &&
+    hasDuplicates(userInputArray)
+  ) {
+    return true;
   }
 
-  // return false;
-  return console.log("false");
+  return false;
 }
 export { isValidNum };
