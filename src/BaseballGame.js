@@ -1,11 +1,11 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import { GAME_MSG, ERROR_MSG } from "./Messages";
 
-// 0. 게임 시작 메세지 출력
 const gameStart = async () => {
+  // 0. 게임 시작 메세지 출력
   MissionUtils.Console.print(GAME_MSG.START);
   const COMPUTER_NUM = getComputerNum();
-  compareNum(COMPUTER_NUM);
+  await compareNum(COMPUTER_NUM);
 };
 
 // 1. 컴퓨터의 랜덤 숫자
@@ -33,6 +33,7 @@ const getUserNum = async () => {
   }
 };
 
+// 3. 컴퓨터와 유저의 숫자 비교
 const compareNum = async (COMPUTER_NUM) => {
   try {
     while (true) {
