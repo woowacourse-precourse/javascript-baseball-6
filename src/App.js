@@ -1,7 +1,15 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
-  async play() {}
+  async play() {
+    let result = false; // 정답체크변수
+    while (true) {
+      const checkedInput = await this.checkUserInput();
+      if (!checkedInput) {
+        break;
+      }
+    }
+  }
   // 3개 숫자 선택
   pickRandNumber() {
     const computer = [];
@@ -57,6 +65,18 @@ class App {
       console.error(error.message);
       throw new Error("[ERROR]");
     }
+  }
+  // 스트라이크, 볼 판정
+  checkScore(answer, input) {
+    let score = [0, 0];
+    for (let i = 0; i < 3; i++) {
+      if (answer[i] == parseInt(input[i])) {
+        score[1] += 1;
+      } else if (answer.includes(parseInt(input[i]))) {
+        score[0] += 1;
+      }
+    }
+    return score;
   }
 }
 
