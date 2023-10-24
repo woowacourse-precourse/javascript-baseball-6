@@ -8,7 +8,7 @@ function CompareNumber(comNum, userNum) {
   const compareResult = { strike: 0, ball: 0 };
   userNum.forEach((item, idx) => {
     if (comNum.includes(item)) {
-      if (comNum.indexOf(item) === idx) {
+      if (comNum[idx] === item) {
         compareResult.strike++;
       } else {
         compareResult.ball++;
