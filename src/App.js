@@ -4,9 +4,12 @@ import { isValidNumber } from "./utils/validation.js";
 import { ERROR_MESSAGE, GAME_MESSAGE } from "./constants/Message.js";
 
 class App {
-  async play() {
+  constructor() {
     //처음 들어왔는지
-    let first = true;
+    this.first = true;
+  }
+
+  async play() {
     //처음일때 시작 메시지
     if (this.first) {
       Console.print(GAME_MESSAGE.GAME_START);
