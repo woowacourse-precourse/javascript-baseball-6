@@ -3,12 +3,11 @@ import { Console, Random } from '@woowacourse/mission-utils';
 const MAX_DIGITS = 3;
 
 class App {
-  strike = 0;
-  ball = 0;
-
   async play() {
     let IS_PLAYING = true;
     let computer = this.computerPicksNumber();
+
+    this.init();
     Console.print('숫자 야구 게임을 시작합니다');
 
     while (IS_PLAYING) {
@@ -17,16 +16,15 @@ class App {
       if (!this.validation(userInput)) {
         throw new Error('[ERROR]');
       }
+
       this.calculateBallAndStrike(computer, userInput);
+
       if (+computer === +userInput) {
         Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
         let userChoice = await this.getUserChoice();
-        if (userChoice === '1') {
+        IS_PLAYING = this.restartOrEnd(userChoice);
+        if (IS_PLAYING) {
           computer = this.computerPicksNumber();
-        } else if (userChoice === '2') {
-          IS_PLAYING = false;
-        } else {
-          throw new Error('[ERROR]');
         }
       }
     }
@@ -49,9 +47,20 @@ class App {
       }
     }
     const computerPick = computerPickArr.join('');
+    
     return computerPick;
   }
 
+  restartOrEnd(userChoice) {
+    switch (userChoice) {
+      case '1':
+        return true;
+      case '2':
+        return false;
+      default:
+        throw new Error('[ERROR] 잘못된 입력입니다. 1 또는 2를 입력하세요.');
+    }
+  }
 
   calculateBallAndStrike(computer, userInput) {
     const computerDigits = computer.split('');
@@ -101,11 +110,9 @@ class App {
     if (input.includes(0)) {
       return false;
     }
+
     return true;
   }
 }
-
-const app = new App();
-app.play();
 
 export default App;
