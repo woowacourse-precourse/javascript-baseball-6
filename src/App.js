@@ -41,6 +41,8 @@ class App {
 
     //입력받은 수 string -> arr
     this.userNumber = [...input].map(Number);
+
+    this.getResult();
   }
 
   //결과
@@ -55,12 +57,12 @@ class App {
     })
 
     //결과 출력
-    if (strike > 0 && ball > 0) Console.print(`${ball}볼 ${strike}스트라이크`);
-    if (strike > 0 && ball === 0) Console.print(`${strike}스트라이크`);
-    if (strike === 0 && ball > 0) Console.print(`${strike}스트라이크`);
-    if (strike == 0 && ball == 0) Console.print('낫싱');
-    if (strike === 3) {
-      Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+    if (result.strike > 0 && result.ball > 0) Console.print(`${result.ball}볼 ${result.strike}스트라이크`);
+    if (result.strike > 0 && result.ball === 0) Console.print(`${result.strike}스트라이크`);
+    if (result.strike === 0 && result.ball > 0) Console.print(`${result.strike}스트라이크`);
+    if (result.strike === 0 && result.ball === 0) Console.print('낫싱');
+    
+    if (result.strike === 3) {
       await this.restart();
     } else {
       this.getUserNum();
@@ -69,12 +71,13 @@ class App {
 
   //재시작
   async restart() {
+    Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
     Console.print('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
     const input = await Console.readLineAsync();
 
-    if (input === 1) await this.play();
-    if (input === 2) Console.print('게임이 종료되었습니다.');
-    if (input !== 1 && input !== 2) Console.print('[ERROR] 1과 2 중에 입력해주세요.');
+    if (input === '1') await this.play();
+    if (input === '2') Console.print('게임이 종료되었습니다.');
+    if (input !== '1' && input !== 2) Console.print('[ERROR] 1과 2 중에 입력해주세요.');
   }
 }
 
