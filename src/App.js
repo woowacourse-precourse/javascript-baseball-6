@@ -29,4 +29,15 @@ const generateRandomoNumber = () => {
   return computerNumber;
 };
 
+// 플레이어로부터 3자리수 입력받는 함수
+const getPlayerNumber = async () => {
+  const playerNum = await input(MESSAGE.INPUT_NUMBER);
+  if (!isValidateNumber(playerNum)) {
+    throw new Error(MESSAGE.INPUT_NUMBER_ERROR);
+  }
+  // 컴퓨터의 수도 숫자배열이니까 플레이어의 수도 숫자배열로
+  const playerNumber = [...playerNum].map(Number);
+  return playerNumber;
+};
+
 export default App;
