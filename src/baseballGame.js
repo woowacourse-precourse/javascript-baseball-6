@@ -13,20 +13,34 @@ class BaseballGame {
     this.showGameStartMessage();
     this.createComputerNumber();
     await this.getUserNumber();
+    this.showCountResult();
   }
 
-  async showGameStartMessage() {
+  showGameStartMessage() {
     Console.print(GUIDE_MESSAGES.GAME_START);
   }
 
-  async createComputerNumber() {
-    const numbers = getUniqueNumbersInRange(1, 9, 3);
-    this.computerNumber = +numbers.map(String).join('');
+  createComputerNumber() {
+    this.computerNumber = getUniqueNumbersInRange(1, 9, 3);
   }
 
   async getUserNumber() {
     const userInput = await Console.readLineAsync(GUIDE_MESSAGES.ENTER_USER_NUMBER);
-    this.userNumber = isValidUserNumber(userInput) && +userInput;
+    this.userNumber =
+      isValidUserNumber(userInput) && userInput.split('').map((character) => +character);
+  }
+
+  showCountResult() {
+    const numberOfStrikes = this.getNumberOfStrikes();
+  }
+
+  getNumberOfStrikes() {
+    let numberOfStrikes = 0;
+    this.computerNumber.forEach((digit, idx) => {
+      if (this.userNumber.includes(digit) && this.computerNumber[idx] === this.userNumber[idx])
+        numberOfStrikes += 1;
+    });
+    return numberOfStrikes;
   }
 }
 
