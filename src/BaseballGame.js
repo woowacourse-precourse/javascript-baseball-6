@@ -1,4 +1,4 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
+import { Console, Random } from "@woowacourse/mission-utils";
 import Messages from "./Messages.js";
 
 class BaseballGame {
@@ -10,7 +10,7 @@ class BaseballGame {
   async start() {
     try {
       this.answerNumber = this.setAnswerNumber();
-      MissionUtils.Console.print(Messages.START);
+      Console.print(Messages.START);
       await this.getInputNumber();
     } catch (error) {
       throw error;
@@ -20,7 +20,7 @@ class BaseballGame {
   setAnswerNumber() {
     const answerNumber = [];
     while (answerNumber.length < this.numberLength) {
-      const number = MissionUtils.Random.pickNumberInRange(1, 9);
+      const number = Random.pickNumberInRange(this.min, this.max);
       if (!answerNumber.includes(number)) {
         answerNumber.push(number);
       }
@@ -29,9 +29,7 @@ class BaseballGame {
   }
 
   async getInputNumber() {
-    const inputNumber = await MissionUtils.Console.readLineAsync(
-      Messages.GET_INPUT
-    );
+    const inputNumber = await Console.readLineAsync(Messages.GET_INPUT);
     const [isVaild, message] = this.isVaildInput(inputNumber);
     try {
       if (!isVaild) {
@@ -45,9 +43,9 @@ class BaseballGame {
 
   async printScore(number) {
     const score = this.checkScore(number);
-    MissionUtils.Console.print(score);
+    Console.print(score);
     if (score === `${this.numberLength}스트라이크`) {
-      MissionUtils.Console.print(Messages.ALL_STRIKE);
+      Console.print(Messages.ALL_STRIKE);
       await this.chooseRestartOrExit();
     } else {
       await this.getInputNumber();
@@ -83,12 +81,10 @@ class BaseballGame {
 
   async chooseRestartOrExit() {
     try {
-      const userChoice = await MissionUtils.Console.readLineAsync(
-        Messages.RESTART_OR_EXIT
-      );
+      const userChoice = await Console.readLineAsync(Messages.RESTART_OR_EXIT);
       if (userChoice === "2") {
         //종료
-        MissionUtils.Console.print(Messages.GAME_OVER);
+        Console.print(Messages.GAME_OVER);
         return Promise.resolve();
       } else if (userChoice === "1") {
         //재시작
