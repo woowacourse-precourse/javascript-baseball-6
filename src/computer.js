@@ -54,6 +54,38 @@ class Computer {
 
     return uniqueNumbers.length === NUMBER_LENGTH;
   }
+
+  calculateResult(answer) {
+    const userNumbers = toUniqueNumbers(answer);
+
+    const result = userNumbers.reduce((result, userNumber, index) => {
+      const { strike, ball } = result;
+
+      const matchedIndex = this.numbers.findIndex((computerNumber) => userNumber === computerNumber);
+
+      if (matchedIndex === index) {
+        return {
+          ball,
+          strike: strike + 1
+        };
+      } else if (matchedIndex !== -1) {
+        return {
+          strike,
+          ball: ball + 1
+        };
+      } else {
+        return {
+          ball,
+          strike,
+        };
+      }
+    }, {
+      strike: 0,
+      ball: 0,
+    });
+
+    return result;
+  }
 }
 
 export default Computer;
