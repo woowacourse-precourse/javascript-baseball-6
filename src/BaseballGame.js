@@ -2,13 +2,15 @@ import { Console, Random } from "@woowacourse/mission-utils";
 import Messages from "./Messages.js";
 
 class BaseballGame {
+  gameRestart = "1";
+  gameExit = "2";
+
   constructor({ minNumber, maxNumber, numberLength }) {
-    this.min = minNumber;
-    this.max = maxNumber;
+    this.minNumber = minNumber;
+    this.maxNumber = maxNumber;
     this.numberLength = numberLength;
-    this.gameRestart = "1";
-    this.gameExit = "2";
   }
+
   async start() {
     try {
       this.answerNumber = this.setAnswerNumber();
@@ -22,7 +24,7 @@ class BaseballGame {
   setAnswerNumber() {
     const answerNumber = [];
     while (answerNumber.length < this.numberLength) {
-      const number = Random.pickNumberInRange(this.min, this.max);
+      const number = Random.pickNumberInRange(this.minNumber, this.maxNumber);
       if (!answerNumber.includes(number)) {
         answerNumber.push(number);
       }
