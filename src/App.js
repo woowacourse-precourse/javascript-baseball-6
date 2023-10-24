@@ -6,7 +6,7 @@ const Message = {
   GAME_FINISH: '3개의 숫자를 모두 맞히셨습니다! 게임 종료',
   GAME_RESTART: '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.',
 
-  INPUT_MESSAGE_ERROR: '3자리 숫자를 입력해야 합니다.',
+  INPUT_MESSAGE_ERROR: '[ERROR] 서로 다른 3자리 숫자를 입력해야 합니다.',
 };
 
 class App {
@@ -41,6 +41,11 @@ class App {
     if (input.length === 3 && Number.isInteger(+input)) {
       this.userInput = [...input];
       this.userInput = this.userInput.map((item) => +item);
+
+      const userInputSet = new Set(this.userInput);
+      if (userInputSet.size !== 3) {
+        throw new Error(Message.INPUT_MESSAGE_ERROR);
+      }
     } else {
       throw new Error(Message.INPUT_MESSAGE_ERROR);
     }
