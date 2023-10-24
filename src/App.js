@@ -6,10 +6,6 @@ class App {
     while (shouldExit === false) {
       let computer = this.generateRandomNumber();
       let human = await this.getUserNumberInput();
-      /* 기능 test용(나중에 지울 것) */
-      console.log(computer);
-      console.log(human);
-      /* ========================= */
       while (this.compareNumberArray(human, computer) === false) {
         human = await this.getUserNumberInput();
       }
