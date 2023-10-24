@@ -42,6 +42,7 @@ class App {
         this.referee = new Referee();
         return this.play();
       }
+      if (userInput === BASEBALL.END_NUMBER) return;
     } catch(error) {
       throw error;
     }
