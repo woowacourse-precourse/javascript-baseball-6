@@ -10,7 +10,7 @@ describe('Validator 클래스 테스트', () => {
   });
 
   test('숫자 야구를 맞출 때 예외를 입력하는 경우', () => {
-    const errGuessInputs = ['122', '21', 'ab2', '012'];
+    const errGuessInputs = ['122', '21', 'ab2', '012', ' ', '2ab'];
     errGuessInputs.forEach((errInput) => {
       expect(() =>
         Validator.validateGuessNumber(errInput).toThrow(ERROR.INVALID_LENGTH)
