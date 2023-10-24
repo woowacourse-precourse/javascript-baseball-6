@@ -2,7 +2,7 @@
 
 - **✅`MissionUtils` 라이브러리를 활용하여 3개의 서로 다른 숫자 생성 기능**
 - **✅ 입력 기능**
-  - `@woowacourse/mission-utils`의 `Random` API 중 `Console.readLineAsync`함수로 구현
+  - `@woowacourse/mission-utils`의 `Random` API 중 `Console.readLineAsync`함수로 구
 - **✅ 입력 검증 기능**
     - `서로 다른 3가지의 숫자`를 받는 경우
         - 게임 재개
@@ -30,4 +30,5 @@
         - 서로 다른 3가지의 숫자가 있는지 판단
         - 숫자 `0`의 유무 판단
     - `게임이 종료된 경우`
-        - 1,2 이외의 값 판단
+        - 입력값의 길이 판단
+        - 1,2 이외의 문자 판단(공백 포함)
