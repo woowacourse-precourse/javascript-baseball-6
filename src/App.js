@@ -3,12 +3,12 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 class App {
   computerNum() {
     const computerNum = [];
-    do {
+    while (computerNum.length !== 3) {
       const number = MissionUtils.Random.pickNumberInRange(1, 9);
       if (!computerNum.includes(number)) {
         computerNum.push(number);
       }
-    } while (computerNum.length !== 3);
+    }
     const computerBall = computerNum.join("");
 
     return computerBall;
