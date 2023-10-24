@@ -28,7 +28,7 @@ const BaseBallGame = {
           count.strike += 1;
           return;
         }
-        // 포함하지만 위치는 불필치 : 볼
+        // 포함하지만 위치는 불일치 : 볼
         count.ball += 1;
       }
     });
