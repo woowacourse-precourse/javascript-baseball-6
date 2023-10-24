@@ -4,6 +4,7 @@ import getComputerNumbers from "./functions/getComputerNumbers.js";
 import getUserNumbers from "./functions/getUserNumbers.js";
 import compareNumbers from "./functions/compareNumbers.js";
 import printScore from "./functions/printScore.js";
+import replay from "./functions/replay.js";
 
 class App {
   async play() {
@@ -16,6 +17,12 @@ class App {
       printScore(strike, ball);
 
       if (strike === 3) break;
+    }
+    Console.print(MESSAGE.END);
+
+    const replay_answer = await replay();
+    if (replay_answer) {
+      this.play();
     }
   }
 }
