@@ -1,38 +1,42 @@
 import { BaseballGame } from './BaseballGame.js';
 import { View } from './View/View.js';
-import { MESSAGE } from './constants/message.js';
-import { GAME_RESULT, WINNING_CONDITION } from './constants/baseballGame.js';
+import { WINNING_CONDITION } from './constants/baseballGame.js';
 
 class App {
   #game;
   #view = View;
 
   constructor() {
-    //TODO: View에서 추상화
-    this.#view.print(MESSAGE.START_GAME);
+    this.#view.printGameStart();
   }
 
   async play() {
     this.#game = new BaseballGame();
+
     await this.#guessNumber();
+    await this.#readRestart();
   }
 
   async #guessNumber() {
     const userNumber = await this.#view.readUserNumber();
-    const { strike, ball } = this.#game.compareNumber(userNumber);
+    const result = this.#game.compareNumber(userNumber);
 
+    this.#checkResult(result);
+  }
+
+  async #checkResult({ strike, ball }) {
     this.#view.printGameResult({ strike, ball });
 
-    if (strike !== WINNING_CONDITION.THREE_STRIKE) return this.#guessNumber();
+    if (strike === WINNING_CONDITION.THREE_STRIKE)
+      return this.#view.printGameWinning(strike);
 
-    this.#view.print(GAME_RESULT.WIN(strike));
-    this.#readRestart();
+    await this.#guessNumber();
   }
 
   async #readRestart() {
     const restart = await this.#view.readRestart();
 
-    if (restart) return this.play();
+    if (restart) this.play();
   }
 }
 
