@@ -18,6 +18,9 @@ class BaseballInput {
       if (isValidNum) {
         const { ball, strike } = this.guessRandomNum(random, userNum);
         this.printAnswer(ball, strike);
+
+        if (strike !== 3) return this.makeUserInput(random);
+        this.printEnd();
       }
     });
   }
@@ -49,6 +52,17 @@ class BaseballInput {
       if (ball === 0) Console.print(`${strike}스트라이크`);
       else Console.print(`${ball}볼`);
     }
+  }
+
+  printEnd() {
+    Console.readLine(
+      "3개의 숫자를 모두 맞히셨습니다! 게임 종료\n게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n",
+      (input) => {
+        if (Number(input) === 1) this.makeUserInput(this.makeComputerNum);
+        else if (Number(input) === 2) Console.close();
+        else throw new Error("[ERROR] 1 또는 2만 입력 가능합니다.");
+      }
+    );
   }
 }
 
