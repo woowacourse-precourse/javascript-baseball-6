@@ -47,7 +47,8 @@ class App {
     // 유효성 테스트 통과 시 배열로 할당
     this.inputValidation(inputNumber);
     this.pitchingNumber = new Array(...inputNumber).map((number) =>
-      parseInt(number)
+      // 문자열 파싱 진수 인자 추가
+      parseInt(number, 10)
     );
   }
 
