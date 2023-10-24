@@ -69,12 +69,15 @@ class GameController {
 
   async askRestartOrQuit() {
     try {
-      const answer = await InputView.getRestartOrQuitAnswer();
-      ExceptionHandler.checkRestartOrQuitAnswer(answer);
+      const answer = await InputView.getRestartOrQuitAnswer(); // 끝낼지 더 할지 사용자 입력 받기
+      ExceptionHandler.checkRestartOrQuitAnswer(answer); // 입력에 대한 예외처리
 
+      // 리플레이
       if (answer === constants.RESTART) {
         await this.restartGame();
-      } else if (answer === constants.QUIT) {
+      }
+      // 종료
+      else if (answer === constants.QUIT) {
         this.quitGame();
       }
     } catch (error) {

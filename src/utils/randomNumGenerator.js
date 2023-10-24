@@ -6,7 +6,7 @@ import { Random } from "@woowacourse/mission-utils";
  * @param {number} end
  * @param {number} count
  * @returns number[]
- * @description 랜덤숫자를 만들어주는 함수
+ * @description 랜덤숫자 배열을 만들어주는 함수
  */
 const randomNumGenerator = (start, end, count) => {
   const computer = [];

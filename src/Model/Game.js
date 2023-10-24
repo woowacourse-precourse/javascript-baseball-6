@@ -1,4 +1,3 @@
-import OutputView from "../View/OutputView.js";
 import constants from "../utils/constants.js";
 import randomNumGenerator from "../utils/randomNumGenerator.js";
 
@@ -49,7 +48,7 @@ class Game {
   }
 
   getStrike() {
-    return this.#ballStrike[constants.STRIKE];
+    return this.#ballStrike[constants.STRIKE]; // 스트라이크 갯수 반환
   }
 }
 export default Game;

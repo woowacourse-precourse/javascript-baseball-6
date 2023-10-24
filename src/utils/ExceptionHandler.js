@@ -2,9 +2,13 @@ import constants from "./constants.js";
 import Message from "./message.js";
 
 const ExceptionHandler = {
-  // 입력이 숫자인지 확인
+  // 입력이 숫자 실수인지 확인
   checkIsNum(inputArr) {
     for (const element of inputArr) {
+      // 소수일때
+      if (element % 1 !== 0) {
+        throw Message.INPUT_IS_THREE_DIGIT;
+      }
       if (isNaN(element)) {
         throw Message.INPUT_IS_NUMBER;
       }
