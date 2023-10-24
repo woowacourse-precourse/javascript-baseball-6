@@ -2,6 +2,7 @@ export const NUM_LENGTH = 3;
 export const MIN_NUMBER = 1;
 export const MAX_NUMBER = 9;
 
+export const WIN_COUNT = 3;
 export const RESTART_GAME = '1';
 export const EXIT_GAME = '2';
 
