@@ -2,37 +2,26 @@ import { MissionUtils } from '@woowacourse/mission-utils';
 import GAME from '../constants/Game.js';
 import GAME_MESSAGE from '../constants/GameMessage.js';
 import isValidTryNumber from '../validation/tryNumberValidation.js';
+import pickNumberInRange from '../utils/pickNumberInRange.js';
 
 class BaseBallGameComputer {
 	#answerNumber;
 	#tryNumber;
 
 	setAnswerNumber() {
-		this.#answerNumber = this.#createAnswerNumber();
+		this.#answerNumber = pickNumberInRange(
+			GAME.validNumMin,
+			GAME.validNumMax,
+			GAME.size
+		);
 	}
 
-	// 유효성 검사를 위한
 	setTryNumber(tryNumber) {
 		const tryNumberArr = tryNumber.split('').map(Number); // str -> numArr
 
 		isValidTryNumber(tryNumberArr);
 
 		this.#tryNumber = tryNumberArr;
-	}
-
-	// TODO: 리펙터링
-	#createAnswerNumber() {
-		const answerNumberArr = [];
-
-		while (answerNumberArr.length < GAME.size) {
-			const number = MissionUtils.Random.pickNumberInRange(
-				GAME.validNumMin,
-				GAME.validNumMax
-			);
-			if (!answerNumberArr.includes(number)) answerNumberArr.push(number);
-		}
-
-		return answerNumberArr;
 	}
 
 	// TODO: 리펙터링
