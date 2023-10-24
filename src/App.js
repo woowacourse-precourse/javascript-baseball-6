@@ -84,8 +84,8 @@ class App {
     }
     if (strike === 0 && ball === 0) {
       Console.print("낫싱");
-      return false;
     }
+    return false;
   }
 
   async notifyGameEnd() {
@@ -96,7 +96,7 @@ class App {
   }
 }
 
-//const app = new App();
-//app.play();
+const app = new App();
+app.play();
 
 export default App;
