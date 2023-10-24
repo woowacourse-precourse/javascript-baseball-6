@@ -1,3 +1,4 @@
+import { ERROR_MESSAGE } from '../../../src/constants/error';
 import { AnswerBalls, TargetBall } from '../../../src/domain';
 
 describe('AnswerBalls 예외 테스트', () => {
@@ -12,7 +13,7 @@ describe('AnswerBalls 예외 테스트', () => {
     expect(() => {
       const answer = new AnswerBalls([1, 2, 3]);
       answer.contains(input);
-    }).toThrow('[ERROR] contains의 인자에 TargetBall을 입력해주세요!');
+    }).toThrow(ERROR_MESSAGE.ANSWER_BALLS.INVALID_CONTAINS_ARGS);
   });
 
   it.each([
@@ -28,7 +29,7 @@ describe('AnswerBalls 예외 테스트', () => {
       expect(() => {
         const answer = new AnswerBalls([1, 2, 3]);
         answer.match(input);
-      }).toThrow('[ERROR] match의 첫번째 인자에 TargetBall을 입력해주세요!');
+      }).toThrow(ERROR_MESSAGE.ANSWER_BALLS.INVALID_MATCH_BALL_ARG);
     },
   );
 
@@ -46,7 +47,7 @@ describe('AnswerBalls 예외 테스트', () => {
         const answer = new AnswerBalls([1, 2, 3]);
         const ball = TargetBall.valueOf(1);
         answer.match(ball, input);
-      }).toThrow('[ERROR] match의 두번째 인자에 올바른 index값을 입력해주세요!');
+      }).toThrow(ERROR_MESSAGE.ANSWER_BALLS.INVALID_MATCH_INDEX_ARG);
     },
   );
 });

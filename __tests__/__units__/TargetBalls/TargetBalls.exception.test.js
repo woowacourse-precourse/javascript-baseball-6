@@ -1,3 +1,4 @@
+import { ERROR_MESSAGE } from '../../../src/constants/error';
 import { TargetBalls } from '../../../src/domain';
 
 describe('TargetBalls 예외 테스트', () => {
@@ -11,7 +12,7 @@ describe('TargetBalls 예외 테스트', () => {
   ])('입력받은 값이 배열 아닐 경우 에러를 발생시킨다. (input: $input)', ({ input }) => {
     expect(() => {
       new TargetBalls(input);
-    }).toThrow('[ERROR] 배열을 입력해주세요!');
+    }).toThrow(ERROR_MESSAGE.COMMON.NOT_ARRAY);
   });
 
   it.each([{ input: [] }, { input: [1] }, { input: [1, 2] }, { input: [1, 2, 3, 4] }])(
@@ -19,7 +20,7 @@ describe('TargetBalls 예외 테스트', () => {
     ({ input }) => {
       expect(() => {
         new TargetBalls(input);
-      }).toThrow('[ERROR] 3개의 숫자를 가진 배열을 입력해주세요!');
+      }).toThrow(ERROR_MESSAGE.TARGET_BALLS.NOT_VALID_QUANTITY);
     },
   );
 
@@ -28,7 +29,7 @@ describe('TargetBalls 예외 테스트', () => {
     ({ input }) => {
       expect(() => {
         new TargetBalls(input);
-      }).toThrow('[ERROR] 중복되지 않는 숫자들로 입력해주세요!');
+      }).toThrow(ERROR_MESSAGE.TARGET_BALLS.IS_DUPLICATED);
     },
   );
 });
