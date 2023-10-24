@@ -44,7 +44,7 @@ class App {
 
   async askForGameRestart() {
     while (true) {
-      const input = await Console.readLineAsync(MESSAGE.continue);
+      const input = (await Console.readLineAsync(MESSAGE.continue)).trim();
       if (input === "1") return true;
       if (input === "2") return false;
     }
@@ -69,13 +69,15 @@ class App {
     if (input === targetNumber) {
       strike = 3;
     } else {
-      for (let i = 0; i < input.length; i++) {
-        if (input[i] === targetNumber[i]) {
+      const inputArray = input.split("");
+
+      inputArray.forEach((inputNumber, index) => {
+        if (inputNumber === targetNumber[index]) {
           strike++;
-        } else if (targetNumber.includes(input[i])) {
+        } else if (targetNumber.includes(inputNumber)) {
           ball++;
         }
-      }
+      });
     }
 
     return {
