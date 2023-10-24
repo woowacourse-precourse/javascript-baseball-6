@@ -57,6 +57,13 @@ class App {
       (strike ? `${strike}스트라이크` : "")
     );
   }
+
+  async askForNewGame() {
+    const answer = await Console.readLineAsync(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요: "
+    );
+    return answer === "1";
+  }
 }
 
 export default App;
