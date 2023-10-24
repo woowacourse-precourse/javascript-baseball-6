@@ -1,5 +1,13 @@
+import BaseballGame from './BaseballGame/index.js';
+
 class App {
-  async play() {}
+  constructor() {
+    this.game = new BaseballGame();
+  }
+
+  async play() {
+    await this.game.start();
+  }
 }
 
 export default App;
