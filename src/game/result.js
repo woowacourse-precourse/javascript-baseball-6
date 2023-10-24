@@ -2,6 +2,7 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import playGame from "../game/playGame.js";
 import inputUserNumber from "../data/inputUserNumber.js";
+import { TEXT } from '../comm/text.js';
 
 export default function gameResult(userNumber, computerNumber){
     const strike = strikeCount(userNumber, computerNumber);
@@ -12,19 +13,19 @@ export default function gameResult(userNumber, computerNumber){
 async function compareNumber(strike, ball, userNumber, computerNumber){
 
     if(strike === 3 && ball === 0){
-        MissionUtils.Console.print(`${strike}스트라이크`);
-        MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');        
+        MissionUtils.Console.print(`${strike}${TEXT.STRIKE}`);
+        MissionUtils.Console.print(`${TEXT.GAME_OVER}`);        
         return playRestart();
     }
 
     if (strike === 0 && ball === 0) {
-        MissionUtils.Console.print('낫싱');
+        MissionUtils.Console.print(`${TEXT.NOTHING}`);
     } else if (strike > 0 && ball > 0) {
-        MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
+        MissionUtils.Console.print(`${ball}${TEXT.BALL} ${strike}${TEXT.STRIKE}`);
     } else if (strike > 0 && ball === 0) {
-        MissionUtils.Console.print(`${strike}스트라이크`);
+        MissionUtils.Console.print(`${strike}${TEXT.STRIKE}`);
     } else if (strike === 0 && ball > 0) {
-        MissionUtils.Console.print(`${ball}볼`);
+        MissionUtils.Console.print(`${ball}${TEXT.BALL}`);
     }
     
     const newUserNumber = await inputUserNumber();
@@ -51,7 +52,7 @@ const ballCount = (userNumber, computerNumber) => {
 }
 
 async function playRestart(){
-    MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. \n')
+    MissionUtils.Console.readLineAsync(`${TEXT.RESTART_YN} \n`)
     .then((res) => {
         if(res == 1){
             return playGame();
