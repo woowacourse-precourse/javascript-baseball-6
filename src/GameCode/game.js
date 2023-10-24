@@ -1,9 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import {
-  BALL_MANAGER,
-  ERROR_OCCURRED,
-  COMPUTER_BALL_MAKER,
-} from "./ballController";
+import { ballManager, errorOccurred, getComputerBall } from "./ballController";
 import {
   START_MESSAGE,
   ERROR_MESSAGE,
@@ -12,7 +8,7 @@ import {
 } from "../Text/message";
 
 //game play
-const GAME_PLAY = (playerNum, computerNum) => {
+const gamePlay = (playerNum, computerNum) => {
   //3스트라이크
   if (playerNum === computerNum) {
     MissionUtils.Console.print(END_MESSAGE.perfect);
@@ -20,7 +16,7 @@ const GAME_PLAY = (playerNum, computerNum) => {
     return gameEnd();
   }
   //아닐 때, 볼 판정 후 다시 사용자 입력 받기
-  const PLAY_TEXT = BALL_MANAGER(playerNum, computerNum);
+  const PLAY_TEXT = ballManager(playerNum, computerNum);
   MissionUtils.Console.print(PLAY_TEXT);
   gameStart(computerNum);
 };
@@ -34,7 +30,7 @@ async function gameEnd() {
   );
 
   if (REPLAY_BUTTON.trim() === RESTART_CHECK.continue) {
-    return INIT(); //다시 시작
+    return init(); //다시 시작
   }
   if (REPLAY_BUTTON.trim() === RESTART_CHECK.stop) {
     return; //종료
@@ -51,17 +47,17 @@ async function gameStart(computerNum) {
   );
 
   //숫자 형식이 안 맞을 때, throw
-  ERROR_OCCURRED(PLAYER_NUM);
+  errorOccurred(PLAYER_NUM);
 
   //게임 진행
-  await GAME_PLAY(PLAYER_NUM, computerNum);
+  await gamePlay(PLAYER_NUM, computerNum);
 }
 
 //game set
-export const INIT = async () => {
+export const init = async () => {
   try {
     //컴퓨터 랜덤 볼
-    const COMPUTER_BALL = COMPUTER_BALL_MAKER();
+    const COMPUTER_BALL = getComputerBall();
     //게임 시작
     await gameStart(COMPUTER_BALL);
   } catch (error) {

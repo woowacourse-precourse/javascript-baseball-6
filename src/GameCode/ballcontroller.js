@@ -2,7 +2,7 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 import { getResultMessage, ERROR_MESSAGE } from "../Text/message";
 
 //ball judge
-export const BALL_MANAGER = (player, computer) => {
+export const ballManager = (player, computer) => {
   let [ball, strike] = [0, 0];
 
   for (let i = 0; i < player.length; i++) {
@@ -15,7 +15,7 @@ export const BALL_MANAGER = (player, computer) => {
 };
 
 //error management
-export const ERROR_OCCURRED = (playerNum) => {
+export const errorOccurred = (playerNum) => {
   //입력이 숫자인지 판별
   if (isNaN(Number(playerNum))) {
     throw new Error(ERROR_MESSAGE.numberError);
@@ -37,7 +37,7 @@ export const ERROR_OCCURRED = (playerNum) => {
 };
 
 //computer random ball
-export const COMPUTER_BALL_MAKER = () => {
+export const getComputerBall = () => {
   const COMPUTER_NUM_ARRAY = [];
   while (COMPUTER_NUM_ARRAY.length < 3) {
     const NUM = MissionUtils.Random.pickNumberInRange(1, 9);
