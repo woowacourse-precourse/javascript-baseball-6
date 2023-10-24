@@ -2,7 +2,8 @@ import generateNumber from './utils/RandomNumber.js';
 import { SETTING } from './Constants.js';
 
 const { MAX, MIN, MAX_INPUT_LENGTH } = SETTING;
-class Game {
+
+export default class Game {
   #answerNumbers;
 
   constructor() {
@@ -25,15 +26,13 @@ class Game {
 
     for (let i = 0; i < MAX_INPUT_LENGTH; i++) {
       if (input[i] === randomNumber[i]) {
-        strikeCount++;
+        strikeCount += 1;
         continue;
       }
       if (randomNumber.includes(input[i])) {
-        ballCount++;
+        ballCount += 1;
       }
     }
     return { ballCount, strikeCount };
   }
 }
-
-export default Game;
