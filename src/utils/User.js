@@ -1,23 +1,55 @@
 import { Console } from "@woowacourse/mission-utils";
+import { ERRORMESSAGE } from "../constants/Message";
 
 export default class User {
   async getNumber() {
     Console.print("숫자를 입력해주세요 : ");
     const playerInput = await Console.readLineAsync("");
 
-    if (playerInput.length !== 3) {
-      throw new Error("[ERROR] 숫자는 3자리여야 합니다.");
-    } else if (playerInput.includes("0")) {
-      throw new Error("[ERROR] 숫자에 0이 포함되어 있습니다.");
-    } else if (playerInput.split("").some((num) => isNaN(num))) {
-      throw new Error("[ERROR] 숫자가 아닌 값이 포함되어 있습니다.");
-    } else if (
-      playerInput.split("").some((num, index, arr) => arr.indexOf(num) !== index)
-    ) {
-      throw new Error("[ERROR] 숫자가 중복되어 있습니다.");
-    } else if (playerInput.includes(" ")) {
-      throw new Error("[ERROR] 숫자에 공백이 포함되어 있습니다.");
-    }
+    this.checkInputValidation(playerInput);
+
     return playerInput;
+  }
+
+  checkInputValidation(input) {
+    this.validateInputLength(input);
+    this.validateZeroIncluded(input);
+    this.validateNonNumber(input);
+    this.validateDuplicateNumber(input);
+    this.validateSpaceIncluded(input);
+  }
+
+  validateInputLength(input) {
+    if (input.length !== 3) {
+      this.throwErrorMessage(ERRORMESSAGE.invalidLength);
+    }
+  }
+
+  validateZeroIncluded(input) {
+    if (input.includes("0")) {
+      this.throwErrorMessage(ERRORMESSAGE.zeroIncluded);
+    }
+  }
+
+  validateNonNumber(input) {
+    if (input.split("").some((num) => isNaN(num))) {
+      this.throwErrorMessage(ERRORMESSAGE.nonNumber);
+    }
+  }
+
+  validateDuplicateNumber(input) {
+    if (input.split("").some((num, index, arr) => arr.indexOf(num) !== index)) {
+      this.throwErrorMessage(ERRORMESSAGE.duplicateNumber);
+    }
+  }
+
+  validateSpaceIncluded(input) {
+    if (input.includes(" ")) {
+      this.throwErrorMessage(ERRORMESSAGE.spaceIncluded);
+    }
+  }
+
+  throwErrorMessage(message) {
+    throw new Error(message);
   }
 }
