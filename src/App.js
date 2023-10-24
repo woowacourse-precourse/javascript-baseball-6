@@ -19,7 +19,7 @@ class App {
 
       while (!isCorrectAnswer) {
         const userSelectedNumber = await this.getUserNumber();
-        const { strikeCounter, ballCounter } = this.compareNumber(
+        const { strikeCounter, ballCounter } = this.calculateBallAndStrike(
           computerNumber,
           userSelectedNumber
         );
@@ -67,7 +67,7 @@ class App {
     return true;
   }
 
-  compareNumber(num1, num2) {
+  calculateBallAndStrike(num1, num2) {
     let strikeCounter = 0;
     let ballCounter = 0;
     for (let numberIndex = 0; numberIndex <= num2.length - 1; numberIndex++) {
