@@ -60,6 +60,12 @@ export default class BaseBall {
   }
 
   countResult(userInput) {
+    if (typeof userInput !== 'number') {
+      throw new Error(
+        `invalid userInput type userInput : ${userInput}, type of input : ${typeof userInput}`
+      );
+    }
+
     const ball = this._checkBallsAmount(userInput);
     const strike = this._checkStrikesAmount(userInput);
     const isNothing = this._checkNothing(userInput);
