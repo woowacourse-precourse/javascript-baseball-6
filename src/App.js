@@ -16,7 +16,7 @@ class App {
 
     // 게임 단계
     let userNumber = InputView.readLineAsync(Message.INPUT_BASEBALL_NUMBER); // 사용자에게 숫자 입력 요청
-    BaseballGame.checkRightNumber(userNumber);
+    BaseballGame.checkRightNumber(userNumber); // 사용자가 알맞은 값을 입력했는지 확인
   };
 };
 
