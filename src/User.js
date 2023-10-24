@@ -19,12 +19,18 @@ class User {
       throw new Error("[ERROR] 숫자의 길이가 올바르지 않습니다.");
     }
 
+    // 입력값에 0이 들어갈때 예외처리
+    if (input.includes("0")) {
+      throw new Error("[ERROR] 1~9 사이의 숫자를 입력해주세요.");
+    }
+
     // 입력값에 중복된 숫자가 들어갈때 예외처리
     const numbers = input.split("");
     const set = new Set(numbers);
     if (set.size !== 3) {
       throw new Error("[ERROR] 중복되는 숫자가 있습니다.");
     }
+
 
     return input;
   }
