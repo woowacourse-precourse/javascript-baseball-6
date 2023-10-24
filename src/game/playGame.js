@@ -6,7 +6,7 @@ import createComputerNumber from "../data/createComputerNumber.js";
 
 export default async function playGame(){
     const userNumber = await inputUserNumber();
-    const computerNumber = createComputerNumber();
-    result(userNumber, computerNumber);
+    const computerNumber = await createComputerNumber();
+    return await result(userNumber, computerNumber);
 }
 

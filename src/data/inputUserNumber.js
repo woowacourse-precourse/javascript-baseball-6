@@ -10,9 +10,6 @@ export default async function inputUserNumber(){
             return;
         }
         return valudateNumber;
-    })
-    .catch((error) => {
-        return MissionUtils.Console.print(error);
     });
     
     return number;
@@ -26,6 +23,6 @@ const inputNumberValidate = (inputNumber) => {
     if(numberLength === 3 && numberSize === 3 && numberCheck == false){
         return inputNumber;
     } else {
-        MissionUtils.Console.print(`${TEXT.INPUT_ERROR}`);
+        throw Error(`${TEXT.INPUT_ERROR}`);
     }
 };
