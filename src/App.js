@@ -21,7 +21,7 @@ class App {
     while (true) {
       const userInput = await Console.readLineAsync("숫자를 입력해주세요 : ");
       if (userInput.length !== 3) {
-        throw new Error("[ERROR] 3자리의 서로 다른 수를 입력해주세요.");
+        throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
       }
 
       const result = this.checkNumbers(userInput.split("").map(Number));
