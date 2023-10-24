@@ -2,23 +2,35 @@
 
 ## 🕹 구현할 기능 목록
 
-- 서로 다른 3자리의 수 입력
+- 사용자 : 서로 다른 3자리의 수 입력
+- 컴퓨터 : 서로 다른 3자리의 랜덤 숫 생성
 - 입력된 숫자와 랜덤 숫자 비교
+- 입력한 수에 대한 결과 볼, 스트라이크 개수로 표시
 - 컴퓨터가 선택한 숫자 맞추면 종료
 - 잘못 입력시 예외 발생
-- 재시작/종료 구분
+- 게임이 끝난 경우 재시작(1)/종료(2) 구분
 
 ## ✏️ Study
 
-### Jest : Javascript Unit Test(단위 테스트)
-
-- describe() : 연관된 테스트 함수들을 구룹화
-
-https://inpa.tistory.com/entry/JEST-%F0%9F%93%9A-%ED%85%8C%EC%8A%A4%ED%8A%B8%EC%97%90-%EC%9C%A0%EC%9A%A9%ED%95%9C-%ED%95%A8%EC%88%98-only-skip-describe-it
-
 ### 객체지향
 
-### Javascript Grammar
+### 🫧 Jest : Javascript Unit Test(단위 테스트)
+
+#### mocking?
+
+mocking은 단위 테스트를 작성할 때, 해당 코드가 의존하는 부분을 mock(모조품)로 대체하는 기법
+
+- jest.fn() : 개별적으로 하나씩 mock functiton(가짜 함수)를 생성
+- mockReturnValue(리턴 값) : 사용자가 return 값 지정
+- mockImplementation(구현 코드) : 동작하는 가짜 함수를 즉석으로 구현
+
+- jest.spyOn(object, methodName) : 어떤 객체에 속한 함수의 구현을 가짜로 대체하지 않고, 해당 함수의 호출 여부와 어떻게 호출되었는지만을 알아내야 할 때 사용
+- describe() : 연관된 테스트 함수들을 구룹화
+- expect : 특정 조건을 검사하여 테스트이 성공 또는 실패를 판단
+
+### 🌵 Javascript Grammar
+
+- NaN = Not-A-Number(숫자가 아님)
 
 - export: 모듈에서 함수, 객체, 원시 값을 내보낼 때 사용
   - named
@@ -26,3 +38,15 @@ https://inpa.tistory.com/entry/JEST-%F0%9F%93%9A-%ED%85%8C%EC%8A%A4%ED%8A%B8%EC%
 - import: 다른 모듈에서 내보낸 바인딩을 가져올 때 사용
 
 - shift(): 배열에서 첫 번째 요소를 제거하고, 제거된 요소를 반환
+- some() : 배열 안의 어떤 요소라도 주어진 판별 함수를 적어도 하나라도 통과하는지 테스트
+  <br>만약 배열에서 주어진 함수가 true을 반환하면 true를 반환하고 그렇지 않으면 false를 반환
+- throw : 사용자 정의 예외를 발생(throw)
+  <br>제어 흐름은 콜스택의 첫 번째 catch (en-US) 블록으로 전달
+  <br>호출자 함수 사이에 catch 블록이 없으면 프로그램이 종료
+
+#### Promise
+
+비동기 작업을 처리하기 위한 객체
+
+- Promise.resolve() : 이행된 Promise 를 반환 (성공)
+- Promise.reject() : 거부된 Promise 객체를 반환 (실패)
