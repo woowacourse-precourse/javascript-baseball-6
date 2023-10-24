@@ -1,7 +1,6 @@
 import Controller from "./controller/Controller.js";
 import View from "./view/View.js";
-import { Console } from '@woowacourse/mission-utils';
-import { ERROR, GAME_PROGRESS_TEXT } from "./constant/constant.js";
+import { ERROR } from "./constant/constant.js";
 
 class App {
 
@@ -18,22 +17,18 @@ class App {
     if (userInput === '1') {
       return this.play(); 
     } else if (userInput === '2') {
-      Console.print('게임을 종료합니다.');
+      this.view.showExitMessage()
     }
   }
 
-
   async showRestartNumberInput() {
-    const userInput = await this.showRestartRequest();
+    const userInput = await this.view.showRestartRequest();
     if (userInput !== '1' && userInput !== '2') {
       throw new Error(ERROR.INVALID_USER_INPUT);
     }
     return userInput;
   }
 
-  showRestartRequest() {
-    return Console.readLineAsync(GAME_PROGRESS_TEXT.GAME_RETRY_MESSAGE);
-  }
 }
 
 export default App;

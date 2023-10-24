@@ -32,6 +32,14 @@ class View {
     showEndMessage() {
         MissionUtils.Console.print(GAME_PROGRESS_TEXT.GAME_ANSWER_MESSAGE);
     }
+
+    showRestartRequest() {
+        return MissionUtils.Console.readLineAsync(GAME_PROGRESS_TEXT.GAME_RETRY_MESSAGE);
+    }
+
+    showExitMessage() {
+        MissionUtils.Console.print(GAME_PROGRESS_TEXT.GAME_EXIT_MESSAGE);
+    }
 }
 
 export default View;
