@@ -50,9 +50,7 @@ class App {
         const STRIKE = this.calcStrike(INPUT_ARR, this.computerInput);
         const BALL = this.calcBall(INPUT_ARR, this.computerInput);
 
-        if (STRIKE === 0 && BALL === 0) {
-          Console.print("낫싱");
-        } else if (STRIKE === 3) {
+        if (STRIKE === 3) {
           Console.print(
             "3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료\n게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
           );
@@ -64,6 +62,8 @@ class App {
           } else {
             throw new Error("[ERROR] 잘못 입력하였습니다.");
           }
+        } else if (STRIKE === 0 && BALL === 0) {
+          Console.print("낫싱");
         } else if (STRIKE > 0 && BALL > 0) {
           Console.print(`${BALL}볼 ${STRIKE}스트라이크`);
         } else if (STRIKE > 0) {
