@@ -36,6 +36,28 @@ class App {
     }
     return true;
   }
+  // 사용자 입력 값 검사
+  async checkUserInput() {
+    try {
+      const userInput = await MissionUtils.Console.readLineAsync(
+        "숫자를 입력해주세요 : "
+      );
+      if (!this.checkUserInputNumber(userInput)) {
+        throw new Error("[ERROR] 입력된 값이 숫자가 아닙니다.");
+      }
+      if (!this.checkUserInputLength(userInput)) {
+        throw new Error("[ERROR] 입력된 값이 3자리 숫자가 아닙니다.");
+      }
+      if (!this.checkUserInputDup(userInput)) {
+        throw new Error("[ERROR] 입력된 값의 숫자가 중복됩니다.");
+      }
+      return userInput;
+    } catch (error) {
+      //todo Console.print사용 고려
+      console.error(error.message);
+      throw new Error("[ERROR]");
+    }
+  }
 }
 
 const app = new App();
