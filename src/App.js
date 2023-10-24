@@ -1,3 +1,5 @@
+import readline from 'readline';
+
 export default class App {
   constructor() {
     this.secretNumber = this.generateRandomNumber();
@@ -22,7 +24,7 @@ export default class App {
   async play() {
     console.log("숫자 야구 게임을 시작합니다.");
     let gameFinished = false;
-  
+
     while (!gameFinished) {
       const input = await this.getInput();
       if (input === '2') {
@@ -31,7 +33,7 @@ export default class App {
       } else if (this.isValidInput(input)) {
         const result = this.checkGuess(input);
         console.log(result);
-  
+
         if (result === '3스트라이크') {
           console.log("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
           gameFinished = true;
@@ -41,17 +43,15 @@ export default class App {
       }
     }
   }
-  
 
   async getInput() {
-    const readline = require('readline');
     const rl = readline.createInterface({
       input: process.stdin,
       output: process.stdout
     });
 
     return new Promise((resolve) => {
-      rl.question("숫자를 입력해주세요 : ", (answer) => {
+      rl.question("숫자를 입력해주세요 (게임 종료: 2) : ", (answer) => {
         rl.close();
         resolve(answer);
       });
@@ -59,6 +59,9 @@ export default class App {
   }
 
   isValidInput(input) {
+    if (input === '2') {
+      return true; // 사용자가 게임 종료를 선택한 경우
+    }
     if (/^\d{3}$/.test(input)) {
       const uniqueDigits = new Set(input.split(''));
       return uniqueDigits.size === 3;
