@@ -24,7 +24,7 @@ https://github.com/woowacourse-projects/javascript-mission-utils
 
 play()
 
-- 처음에 여기서 시작함
+- 프로그램 실행의 시작점
 
 inputGuessNumber()
 
@@ -55,4 +55,4 @@ restartMessage()
 
 gameResultMessage()
 
-- 결과 멘트 출력
+- 게임 결과 멘트 출력
