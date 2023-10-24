@@ -57,10 +57,10 @@ async function checkInput(userInput, computer) {
         }
       }
     }
-    if (states[2] == 3) {
+    if (states[TEXT.NOTHING] == 3) {
       await MissionUtils.Console.print("낫싱");
       return 3;
-    } else if (states[0] == 3) {
+    } else if (states[TEXT.STRIKE] == 3) {
       await MissionUtils.Console.print(`${states[0]}스트라이크`);
       await MissionUtils.Console.print(
         "3개의 숫자를 모두 맞히셨습니다! 게임 종료"
@@ -71,7 +71,13 @@ async function checkInput(userInput, computer) {
       await checkReGameValidation(reGameCodeInput);
       return reGameCodeInput;
     } else {
-      await MissionUtils.Console.print(`${states[1]}볼 ${states[0]}스트라이크`);
+      if (states[TEXT.STRIKE] == 0) {
+        await MissionUtils.Console.print(`${states[TEXT.BALL]}볼`);
+      } else if (states[TEXT.BALL] == 0) {
+        await MissionUtils.Console.print(`${states[TEXT.STRIKE]}스트라이크`);
+      } else {
+        await MissionUtils.Console.print(`${states[1]}볼 ${states[0]}스트라이크`);
+      }
       return 3;
     }
   } catch (error) {
