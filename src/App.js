@@ -18,9 +18,9 @@ class App {
     if (strikeNumbers === 0 && ballNumbers === 0) {
       MissionUtils.Console.print("낫싱");
     } else {
-      MissionUtils.Console.print(
-        `${ballNumbers || ""}볼 ${strikeNumbers || ""}스트라이크`
-      );
+      const ballOutput = ballNumbers !== 0 ? `${ballNumbers}볼 ` : '';
+      const strikeOutput = strikeNumbers !== 0 ? `${strikeNumbers}스트라이크` : '';
+      MissionUtils.Console.print(`${ballOutput}${strikeOutput}`);
     }
   }
   //유저의 숫자와 컴퓨터의 숫자 비교
