@@ -36,6 +36,11 @@ class App {
     });
   }
 
+  constructor() {
+    this.win = false;
+    this.end = false;
+  }
+
 
   async play() {}
 }
