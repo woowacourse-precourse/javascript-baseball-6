@@ -37,11 +37,9 @@ class Model {
 
   changeUserNumbersArr(userNumberInput) {
     let userNumbers = userNumberInput.split("");
-
-    if (userNumbers.every((num) => !!Number(num))) {
-      userNumbers = userNumbers.map((num) => Number(num));
-    }
     validateInputNumber(userNumbers);
+
+    userNumbers = userNumbers.map((num) => Number(num));
 
     return userNumbers;
   }

@@ -16,7 +16,6 @@ class Baseball {
 
       await this.start(this.model.makeComputerRandomNumber());
     } catch (err) {
-      this.view.printMessage(err.message);
       throw err;
     }
   }
@@ -26,9 +25,13 @@ class Baseball {
       const userNumberInput = await this.view.readLineInput(GAME_MESSAGE.play);
       const [ballCount, strikeCount] = this.model.compareNumbers(randomNumbers, userNumberInput);
 
-      this.view.printHint(ballCount, strikeCount);
-
-      strikeCount === NUMBER_LENGTH ? await this.quit() : await this.start(randomNumbers);
+      if (strikeCount === NUMBER_LENGTH) {
+        this.view.printMessage(GAME_MESSAGE.playEnd);
+        await this.quit();
+      } else {
+        this.view.printHint(ballCount, strikeCount);
+        await this.start(randomNumbers);
+      }
     } catch (err) {
       throw err;
     }
@@ -36,8 +39,6 @@ class Baseball {
 
   async quit() {
     try {
-      this.view.printMessage(GAME_MESSAGE.playEnd);
-
       const restartStateInput = await this.view.readLineInput(GAME_MESSAGE.restart);
 
       validateEndInputNumber(restartStateInput);
