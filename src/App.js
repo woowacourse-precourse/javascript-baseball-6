@@ -1,18 +1,20 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 class App {
   async play() {
+    MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
     this.gameStart();
   }
 
   gameStart() {
-    MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
     this.setComputerNumber();
     this.setUserNumber();
   }
 
-  setUserNumber() {
-    const USER_NUMBER =
-      MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
+  async setUserNumber() {
+    const USER_NUMBER = await MissionUtils.Console.readLineAsync(
+      "숫자를 입력해주세요 : "
+    );
+
     this.calculateScore(this.computer, USER_NUMBER);
   }
 
@@ -40,6 +42,7 @@ class App {
       !this.duplicateNumber(answer)
     )
       throw new Error("only number");
+    return answer.split("").map((nbr) => parseInt(nbr, 10));
   }
 
   reStartAnswerCheck(answer) {
@@ -47,20 +50,25 @@ class App {
       throw new Error("잘못된 값을 입력하였습니다.");
   }
 
-  calculateScore(computer, answer) {
+  async calculateScore(computer, answer) {
+    const USER_NUMBER = this.answerCheck(answer);
+    console.log(computer, USER_NUMBER);
     const strikeNumber = computer.filter(
-      (number, index) => number === answer[index]
+      (number, index) => number === USER_NUMBER[index]
     );
 
     const ballNumber = computer
-      .filter((number) => answer.includes(number))
+      .filter((number) => USER_NUMBER.includes(number))
       .filter((number) => !strikeNumber.includes(number));
 
     this.scoreDisplay(strikeNumber.length, ballNumber.length);
+
     if (strikeNumber.length === 3) {
-      MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-      this.reStart();
-    } else this.gameStart();
+      const RESET_NUMBER = await MissionUtils.Console.readLineAsync(
+        "3개의 숫자를 모두 맞히셨습니다! 게임 종료\n게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. "
+      );
+      this.reStart(RESET_NUMBER);
+    } else this.setUserNumber();
   }
 
   scoreDisplay(strike, ball) {
@@ -72,13 +80,10 @@ class App {
     return MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
   }
 
-  reStart() {
-    MissionUtils.Console.readLineAsync(
-      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요 : "
-    ).then((answer) => {
-      this.reStartAnswerCheck(answer);
-      if (answer === "1") this.gameStart();
-    });
+  async reStart(answer) {
+    this.reStartAnswerCheck(answer);
+    if (answer === "1") this.gameStart();
+    else return;
   }
 }
 
