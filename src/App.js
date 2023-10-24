@@ -113,4 +113,8 @@ class App {
   }
 }
 
+//실행 코드
+const app = new App();
+app.play();
+
 export default App;
