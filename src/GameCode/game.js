@@ -28,7 +28,7 @@ async function gameEndManager() {
     return INIT(); //다시 시작
   }
   if (REPLAY_BUTTON.trim() === "2") {
-    return;
+    return; //종료
   }
   // 1과 2 입력 아닐 때, throw
   throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
@@ -56,6 +56,7 @@ export const INIT = async () => {
     //게임 시작
     await gameStart(COMPUTER_BALL);
   } catch (error) {
+    //throw 예외 처리
     throw error;
   }
 };
