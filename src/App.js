@@ -13,7 +13,7 @@ class App {
 
     // 컴퓨터의 숫자를 무작위로 설정
     computerNumber() {
-        
+
         const computer = [];
         while (computer.length < 3) {
             const number = Random.pickNumberInRange(1, 9);
@@ -25,16 +25,12 @@ class App {
     }
 
     // 유저의 숫자를 입력 및 게임종료
-    async userNumber(ComputerInput) {
+    async userNumber(computerInput) {
         while (true) {
             const input = await Console.readLineAsync('숫자를 입력해주세요 : ');
             const userInput = input.trim().split('').map(Number);
 
-            if (userInput.length !== 3 || userInput.some(isNaN)) {
-                throw Error('[ERROR] 숫자가 잘못된 형식입니다.');
-            }
-
-            const result = this.checkNumber(userInput, ComputerInput);
+            const result = this.checkNumber(userInput, computerInput);
             Console.print(result);
 
             if (result === '3스트라이크') {
@@ -49,12 +45,16 @@ class App {
     countNumber(userInput, computerInput) {
         let strike = 0;
         let ball = 0;
-        for (let i = 0; i < 3; i++) {
-            if (userInput[i] === computerInput[i]) {
-                strike++;
-            } else if (computerInput.includes(userInput[i])) {
-                ball++;
+        if (this.vaildData(userInput)) {
+            for (let i = 0; i < 3; i++) {
+                if (userInput[i] === computerInput[i]) {
+                    strike++;
+                } else if (computerInput.includes(userInput[i])) {
+                    ball++;
+                }
             }
+        } else {
+            throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
         }
         return [strike, ball];
     }
@@ -62,6 +62,7 @@ class App {
     //측정된 스트라이크와 볼을 출력
     checkNumber(userInput, computerInput) {
         const [strike, ball] = this.countNumber(userInput, computerInput);
+
         if (strike === 0 && ball === 0) {
             return '낫싱'
         } else if (strike === 0) {
@@ -84,9 +85,12 @@ class App {
         } else {
             throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
         }
-        
+
     }
-    
+    vaildData(userInput) {
+        return /^\d{3}$/.test(userInput) && new Set(userInput).size === 3;
+    }
+
 }
 
 export default App;
