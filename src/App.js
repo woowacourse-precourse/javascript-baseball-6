@@ -56,7 +56,33 @@ class App {
     this.computer = new Computer();
   }
 
-  async play() {}
+  async play() {
+    this.computer.setComputerNumber();
+    while (true) {
+      await this.player.setPlayerNumber();
+      const [ball, strike] = this.compareNumber();
+      const isAllStrike = this.getResult([ball, strike]);
+      if (isAllStrike) {
+        IOHelper.printMessage(
+          `${DIGIT}개의 숫자를 모두 맞히셨습니다! 게임 종료`
+        );
+        IOHelper.printMessage(
+          "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+        );
+        const response = await IOHelper.readLine("");
+        if (response !== "1" && response !== "2") {
+          throw new Error("[ERROR] 1 또는 2만 입력할 수 있습니다.");
+        }
+        if (response === "1") {
+          this.computer.setComputerNumber();
+          continue;
+        }
+        if (response === "2") {
+          break;
+        }
+      }
+    }
+  }
 
   compareNumber() {
     const computerNumber = this.computer.computerNumber;
