@@ -38,37 +38,59 @@ class App {
         ball++
       }
     })
-       
+    
+    if(strike !== 3){
+      await this.giveHint(strike, ball)
+      await this.compareAnswer()
+    }else if(strike === 3){
+      Console.print("3스트라이크")
+      await this.restartOrEnd()
     }
+    
+  }
 
-    // 사용자 입력값 받기
-    async userAnswer(){
-      const USER_ANSWER = await Console.readLineAsync('숫자를 입력해주세요 : ');
-      await this.validateAnswer(USER_ANSWER)
-  
-      return USER_ANSWER
-    }
+  // 사용자 입력값 받기
+  async userAnswer(){
+    const USER_ANSWER = await Console.readLineAsync('숫자를 입력해주세요 : ');
+    await this.validateAnswer(USER_ANSWER)
+
+    return USER_ANSWER
+  }
   
     // 3가지 예외 처리
-    async validateAnswer(answer){
-      const NUMBERS = Random.pickUniqueNumbersInRange(1, 9, 9).toString();
-      const ANSWER = answer.split('');
-  
-      ANSWER.map((num) => {
-        if(!NUMBERS.includes(num)){
-          throw new Error("[ERROR] 입력값이 숫자가 아닙니다.");
-        }
-      })
-  
-      if(ANSWER.length !== 3){
-        throw new Error("[ERROR] 입력값이 3자리가 아닙니다.");
+  async validateAnswer(answer){
+    const NUMBERS = Random.pickUniqueNumbersInRange(1, 9, 9).toString();
+    const ANSWER = answer.split('');
+
+    ANSWER.map((num) => {
+      if(!NUMBERS.includes(num)){
+        throw new Error("[ERROR] 입력값이 숫자가 아닙니다.");
       }
-  
-      if(ANSWER[0] === ANSWER[1] || ANSWER[1] === ANSWER[2] || ANSWER[2] === ANSWER[0]){
-        throw new Error("[ERROR] 중복된 값이 입력되었습니다.");
-      }
-  
+    })
+
+    if(ANSWER.length !== 3){
+      throw new Error("[ERROR] 입력값이 3자리가 아닙니다.");
     }
+
+    if(ANSWER[0] === ANSWER[1] || ANSWER[1] === ANSWER[2] || ANSWER[2] === ANSWER[0]){
+      throw new Error("[ERROR] 중복된 값이 입력되었습니다.");
+    }
+
+  }
+
+  // 정답이 아닐시 제공할 힌트
+  async giveHint(strike, ball){
+    
+    if(strike === 0 && ball === 0){
+      Console.print("낫싱");
+    }else if(strike !== 0 && ball === 0){
+      Console.print(`${strike}스트라이트`);
+    }else if(strike === 0 && ball !== 0){
+      Console.print(`${ball}볼`);
+    }else{
+      Console.print(`${strike}스트라이크 ${ball}볼`);
+    }
+  }
 
 }
 
