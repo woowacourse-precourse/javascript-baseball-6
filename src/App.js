@@ -17,6 +17,8 @@ class App {
     const answer = this.generateRandomNumber();
 
     await this.game(answer);
+
+    const input = await Console.readLineAsync(MESSAGE.continue);
   }
 
   async game(answer) {
