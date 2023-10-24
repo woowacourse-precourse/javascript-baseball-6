@@ -7,10 +7,11 @@ class App {
 
   async play() {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
-    this.gameStart(this.setComputerNumber());
+    this.gameStart();
   }
 
   gameStart() {
+    this.setComputerNumber();
     MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ").then(
       (answer) => {
         this.answerCheck(answer);
@@ -80,9 +81,11 @@ class App {
     ).then((answer) => {
       this.reStartAnswerCheck(answer);
       if (answer === "1") this.gameStart();
-      else process.exitCode = 1;
     });
   }
 }
+
+const test = new App();
+test.play();
 
 export default App;
