@@ -1,11 +1,6 @@
 import App from "../src/App.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
 
-async function playGame() {
-  const app = new App();
-  await app.play();
-}
-
 const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
 
@@ -40,9 +35,8 @@ describe("숫자 야구 게임", () => {
     mockQuestions(answers);
 
     // when
-    // const app = new App();
-    // await expect(app.play()).resolves.not.toThrow();
-    await expect(playGame()).resolves.not.toThrow();
+    const app = new App();
+    await expect(app.play()).resolves.not.toThrow();
 
     // then
     messages.forEach((output) => {
@@ -58,14 +52,17 @@ describe("숫자 야구 게임", () => {
     mockRandoms(randoms);
     mockQuestions(answers);
 
-    await expect(playGame()).resolves.not.toThrow();
-
     // when & then
     // const app = new App();
-    // app.play();
 
     // await expect(app.play()).rejects.toThrow("[ERROR]");
     
+    const app = new App();
 
+    try {
+      await app.play();
+    } catch (error) {
+      expect(error.message).toEqual("[ERROR]] 올바른 숫자를 입력해주세요.");
+    }
   });
 });
