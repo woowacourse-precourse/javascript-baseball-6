@@ -1,12 +1,12 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import messages from "../messages/GameMessages.js";
+import gameMessages from "../messages/GameMessages.js";
 
 const getUserNumber = async () => {
   const userNumbers = await MissionUtils.Console.readLineAsync(
-    messages.GAME_INPUT_NUMBER
+    gameMessages.GAME_INPUT_NUMBER
   );
   if (!isValidInput(userNumbers)) {
-    throw new Error(messages.INVALID_INPUT_ERROR);
+    throw new Error(gameMessages.INVALID_INPUT_ERROR);
   }
   const userNumberArray = userNumbers.split("").map(Number);
   return userNumberArray;
@@ -45,12 +45,12 @@ const getScore = (computerNumbers, userNumbers) => {
 const printScore = (score) => {
   if (score.strike === 3) {
     MissionUtils.Console.print(`${score.strike}스트라이크`);
-    MissionUtils.Console.print(messages.GAME_END);
+    MissionUtils.Console.print(gameMessages.GAME_END);
     return false;
   }
 
   if (score.ball === 0 && score.strike === 0) {
-    MissionUtils.Console.print(messages.NOTHING);
+    MissionUtils.Console.print(gameMessages.NOTHING);
     return true;
   }
 
@@ -63,12 +63,12 @@ const printScore = (score) => {
 
 const getRestartChoice = async (restartCallback) => {
   const restartChoice = await MissionUtils.Console.readLineAsync(
-    messages.GAME_RESTART
+    gameMessages.GAME_RESTART
   );
   if (restartChoice === "1") return restartCallback();
   if (restartChoice === "2")
-    return MissionUtils.Console.print(messages.GAME_EXIT);
-  throw new Error(messages.INVALID_INPUT_RESTART_ERROR);
+    return MissionUtils.Console.print(gameMessages.GAME_EXIT);
+  throw new Error(gameMessages.INVALID_INPUT_RESTART_ERROR);
 };
 
 const generateComputerNumbers = () => {
@@ -83,7 +83,7 @@ const generateComputerNumbers = () => {
 };
 
 const playGame = async (computerNumbers) => {
-  MissionUtils.Console.print(messages.GAME_START);
+  MissionUtils.Console.print(gameMessages.GAME_START);
   let gameContinue = true;
   while (gameContinue) {
     const userNumbers = await getUserNumber();
