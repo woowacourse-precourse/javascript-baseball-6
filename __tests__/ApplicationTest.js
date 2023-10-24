@@ -83,6 +83,23 @@ describe("숫자 야구 게임", () => {
     });
   });
 
+  test("2를 입력시 게임 종료 문구를 출력하는가?", async () => {
+    // given
+    const randoms = [1, 3, 5];
+    const answers = ["135", "2"];
+    const logSpy = getLogSpy();
+    mockRandoms(randoms);
+    mockQuestions(answers);
+
+    // when
+    const app = new App();
+    await expect(app.play()).resolves.not.toThrow();
+
+    // then
+    const lastLogCall = logSpy.mock.calls[logSpy.mock.calls.length - 1][0];
+    expect(lastLogCall).toEqual(expect.stringContaining("게임 종료"));
+  });
+
   test("예외 테스트 - 입력한 수가 3자리의 수가 아닐 경우", async () => {
     // given
     const randoms = [1, 3, 5];
