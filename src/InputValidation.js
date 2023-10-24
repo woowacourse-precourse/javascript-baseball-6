@@ -32,7 +32,7 @@ class InputValidation {
   }
 
   validate() {
-    return [this.isTypeValid, this.isInteger, this.isLengthValid, this.isInAcceptableRange].every(validation => validation());
+    return [this.isTypeValid, this.isInteger, this.isLengthValid, this.isInAcceptableRange].every(validation => validation.bind(this)());
   }
 }
 
