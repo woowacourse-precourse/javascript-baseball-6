@@ -15,7 +15,7 @@ const MESSAGE = Object.freeze({
   NOTHING: "낫싱",
   SUCCESS: "3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료",
 });
-const numberCount = 3;
+const numberCount = 3; //맞추는 숫자갯수
 
 async function makeRandom() {
   const answer = [];
@@ -25,7 +25,7 @@ async function makeRandom() {
       answer.push(number + "");
     }
   }
-  console.log(answer);
+  //console.log(answer);
   return answer;
 }
 
@@ -38,7 +38,7 @@ async function getUserInput(message) {
   }
 }
 
-function checkError(number) {
+function isInputValid(number) {
   for (let i = 0; i < number.length; i++) {
     //지수형태의 숫자열을 막기위해 한글자씩 비교
     if (isNaN(number[i])) {
@@ -53,7 +53,7 @@ function checkError(number) {
 
   return true;
 }
-function checkedError(number) {
+function isRestartValid(number) {
   if (number === "1" || number === "2") {
     return true;
   }
@@ -112,7 +112,7 @@ class App {
 
     while (!SCORE.success) {
       let num = await getUserInput(MESSAGE.INPUTREQUEST);
-      if (!checkError(num)) {
+      if (!isInputValid(num)) {
         throw new Error(MESSAGE.ERROR);
       }
 
@@ -124,7 +124,7 @@ class App {
     }
 
     let number = await getUserInput(MESSAGE.RESTART);
-    if (!checkedError(number)) {
+    if (!isRestartValid(number)) {
       throw new Error(MESSAGE.ERROR);
     }
 
