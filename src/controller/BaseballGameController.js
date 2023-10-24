@@ -18,7 +18,6 @@ class BaseballGameController {
     this.computer.start();
 
     await this.play();
-    await this.playOrEnd();
   }
 
   async play() {
@@ -26,6 +25,7 @@ class BaseballGameController {
     const result = this.baseballGame.result(guessNumber, this.computer.getValue());
 
     OutputView.printGuessResult(result);
+    await this.playOrEnd();
   }
 
   async end() {
