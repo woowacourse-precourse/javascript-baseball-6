@@ -1,6 +1,6 @@
 # 📚 WOOWAPRECOURCE ASSIGNMENT
 
-# 1ST WEEK : ⚾ 숫자 야구
+# ⚾ 숫자 야구
 
 ## 📜 기능 요구사항
 
@@ -36,6 +36,80 @@
 ### 예외 처리
 
 - 사용자가 잘못된 값을 입력할 경우 throw문을 사용해 예외를 발생시키고, "[ERROR]"로 시작하는 에러 메시지를 출력 후 종료한다.
+
+## 🗃️ 클래스 다이어그램
+
+```mermaid
+classDiagram
+    App --|> BaseballDirector : 생성
+    BaseballDirector --|> Player : 플레이어 생성, 데이터 저장
+    BaseballDirector --|> Computer : 컴퓨터 생성, 번호 생성
+    BaseballDirector --|> Referee : 심판 생성, 값 비교
+    BaseballDirector --|> OutputView : 출력
+    InputView --|> Validation : 입력 데이터 검증
+    Validation --|> InputView : 검증 결과 전달
+    InputView --|> BaseballDirector : 입력 데이터 전달
+
+    namespace Application {
+        class App {
+            play() : void
+        }
+    }
+
+    namespace Controller {
+        class BaseballDirector {
+            #player : Object
+            #computer : Object
+            #referee : Object
+            play() : void
+            #getCompareResults() : void
+            #printCompareResults(result) : void
+            #checkGameFinish(result) : void
+            #printGameEnd() : void
+            #checkGameRetry() : void
+            #resetGame() : void
+        }
+    }
+
+    namespace Model {
+        class Player {
+            #selectNumber : Set
+            setSelectNumber(input) : void
+            getSelectNumber() : Set
+        }
+        class Computer {
+            #selectNumber : Set
+            generate() : Set
+            getSelectNumber() : Set
+        }
+        class Referee {
+            compareNumbers(playerNumbers, computerNumbers) : Object
+            #checkStrikeCounts(computerNumbers, computerNumberArrayValue, playerNumber) : number
+            #checkBallCounts(computerNumbers, computerNumberArrayValue, playerNumber) : number
+        }
+    }
+
+    namespace View {
+        class InputView {
+            getPlayerInput() : string
+            getRetryInput() : string
+        }
+        class OutputView {
+            printGameStart() : void
+            printGameEnd() : void
+            printGameStatus(status) : void
+        }
+    }
+
+    namespace Util {
+        class Validation {
+            isNumber(input) : void
+            isCorrectLength(input) : void
+            isCorrectPlayerInput(input) : void
+            isCorrectRetryInput(input) : void
+        }
+    }
+```
 
 ## 🌊 플로우차트
 
