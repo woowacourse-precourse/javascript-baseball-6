@@ -30,8 +30,10 @@ class App {
     const inputArr = this.input.toString().split("");
     const answerArr = this.answer.toString().split("");
     try {
-      const isInclude = (item) => answerArr.includes(item);
-      return inputArr.some(isInclude);
+      const isInclude = answerArr.map((item, index) => {
+        return inputArr.includes(item);
+      });
+      return isInclude.filter((x) => x).length;
     } catch (error) {
       console.log(error);
     }
@@ -39,6 +41,7 @@ class App {
 }
 
 const app = new App();
+// app.play().then((answer) => Console.print(answer));
 app.play();
 
 export default App;
