@@ -1,7 +1,6 @@
 import GameModel from "./models/GameModel.js";
 import GameView from "./view/GameView.js";
 import GameController from "./controllers/GameController.js";
-import { Console } from "@woowacourse/mission-utils";
 
 class App {
   constructor() {
