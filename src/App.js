@@ -104,8 +104,8 @@ class App {
       const input = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
       const player = this.extractPlayerNumbers(input);
 
-      let strike = this.countStrike(computer, player);
-      let ball = this.countBall(computer, player);
+      const strike = this.countStrike(computer, player);
+      const ball = this.countBall(computer, player);
 
       const result = this.createResultStatement(strike, ball);
       MissionUtils.Console.print(result);
