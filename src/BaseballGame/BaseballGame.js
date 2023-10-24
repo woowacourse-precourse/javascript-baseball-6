@@ -1,4 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
+import { MESSAGE } from "./constants.js";
 import Computer from "../Computer/Computer.js";
 
 class BaseballGame {
@@ -11,24 +12,24 @@ class BaseballGame {
   }
 
   async getGameNumberInput() {
-    const input = await Console.readLineAsync('숫자를 입력해주세요 : ');
+    const input = await Console.readLineAsync(MESSAGE.INPUT_GAME);
     await this.judgeGameNumber(input);
   }
 
   async getRestartNumberInput() {
-    Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
-    const input = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
+    Console.print(MESSAGE.OUTPUT_GAME_END);
+    const input = await Console.readLineAsync(MESSAGE.OUTPUT_RESTART);
     return input;
   }
 
   async judgeGameNumber(input) {
     if (!this.computer.checkInputValid(input)) {
-      throw new Error('[ERROR] 잘못된 형식입니다.');
+      throw new Error(MESSAGE.ERROR_NOT_VALID_GAME);
     }
     const hint = this.computer.createHint(input);
     Console.print(hint);
 
-    if (hint === '3스트라이크') {
+    if (hint === MESSAGE.CORRECT_ANSWER_HINT) {
       await this.restart();
       return Promise.resolve();
     }
@@ -46,7 +47,7 @@ class BaseballGame {
       case '2':
         break;
       default:
-        throw new Error('[ERROR] 잘못된 형식입니다.');
+        throw new Error(MESSAGE.ERROR_NOT_VALID_RESTART);
     }
   }
 }
