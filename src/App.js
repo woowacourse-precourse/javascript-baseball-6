@@ -41,10 +41,9 @@ class App {
                 Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
                 break;
             }
-
         }
-
     }
+
     // 스트라이크와 볼의 횟수를 측정
     countNumber(userInput, computerInput) {
         let strike = 0;
@@ -56,7 +55,6 @@ class App {
                 ball++;
             }
         }
-
         return [strike, ball];
     }
 
@@ -89,7 +87,6 @@ class App {
         } else {
             throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
         }
-
     }
 }
 
