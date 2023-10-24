@@ -87,25 +87,22 @@ class App {
   }
 
   async ask_for_restart() { // 게임을 다시 시작할지 종료할지 선택하는 옵션 제공
-    console.log("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
-    
-    function restart_option() {
-      return new Promise(resolve => {
-        MissionUtils.Console.readLineAsync().then(input => {
-          if (input === '1') {
-            resolve(true);
-          } else if (input === '2') {
-            resolve(false);
-          } else {
-            console.log("올바른 옵션을 선택하세요 (1: 재시작, 2: 종료)");
-            resolve(restart_option());
-          }
-        });
-      });
-    }
+    while (true) {
+      console.log("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+      const input = await MissionUtils.Console.readLineAsync();
 
-    return restart_option();
+      if (input === '1') {
+        return true;
+      } else if (input === '2') {
+        return false;
+      } else {
+        console.log("올바른 옵션을 선택하세요 (1: 재시작, 2: 종료)");
+      }
+    }
   }
 }
+
+const app = new App();
+app.play();
 
 export default App;
