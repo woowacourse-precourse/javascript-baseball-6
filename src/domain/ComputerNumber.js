@@ -1,10 +1,8 @@
 import { Random } from '@woowacourse/mission-utils';
+import { NUMBER } from '../utils/Constant.js';
 
 class ComputerNumber {
   #computerNumbers;
-  #MIN_NUM = 1;
-  #MAX_NUM = 9;
-  #NUM_LENGTH = 3;
 
   constructor() {
     this.#computerNumbers = this.makeComputerNumber();
@@ -16,7 +14,7 @@ class ComputerNumber {
 
   makeComputerNumber() {
     const computerNumbers = [];
-    while (computerNumbers.length < this.#NUM_LENGTH) {
+    while (computerNumbers.length < NUMBER.LENGTH) {
       const randomNumber = this.getRandomNumber();
       if (!computerNumbers.includes(randomNumber)) {
         computerNumbers.push(randomNumber);
@@ -26,7 +24,7 @@ class ComputerNumber {
   }
 
   getRandomNumber() {
-    return Random.pickNumberInRange(this.#MIN_NUM, this.#MAX_NUM);
+    return Random.pickNumberInRange(NUMBER.MIN_NUM, NUMBER.MAX_NUM);
   }
 }
 

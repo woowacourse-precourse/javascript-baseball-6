@@ -1,3 +1,5 @@
+import { NUMBER, COMMAND } from './Constant.js';
+
 class Validator {
   static validateNumber(userNumbers) {
     if (/\s/.test(userNumbers.trim())) {
@@ -7,7 +9,7 @@ class Validator {
       throw new Error('[ERROR] 숫자만 입력할 수 있습니다.');
     }
     if (userNumbers.trim().length !== 3) {
-      throw new Error('[ERROR] 길이가 3이여야 합니다.');
+      throw new Error(`[ERROR] 길이가 ${NUMBER.LENGTH}이여야 합니다.`);
     }
     if (userNumbers.includes('0')) {
       throw new Error('[ERROR] 0이 포함되어서는 안됩니다.');
@@ -18,8 +20,10 @@ class Validator {
   }
 
   static validateCommand(userCommand) {
-    if (userCommand !== '1' && userCommand !== '2') {
-      throw new Error('[ERROR] 1(재시작) 또는 2(종료)를 입력해야 합니다.');
+    if (userCommand !== COMMAND.REPLAY && userCommand !== COMMAND.FINISH) {
+      throw new Error(
+        `[ERROR] ${COMMAND.REPLAY}(재시작) 또는 ${COMMAND.FINISH}(종료)를 입력해야 합니다.`
+      );
     }
   }
 }

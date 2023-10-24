@@ -5,6 +5,7 @@ import ComputerNumber from '../domain/ComputerNumber.js';
 import UserNumber from '../domain/UserNumber.js';
 import BaseballGameResult from '../domain/BaseballGameResult.js';
 import InputView from '../view/InputView.js';
+import { NUMBER, COMMAND } from '../utils/Constant.js';
 
 class BaseballGameController {
   #computerNumber;
@@ -36,7 +37,7 @@ class BaseballGameController {
     OutputView.printResult(this.#gameResult);
 
     const strike = this.#gameResult.strike;
-    if (strike === 3) {
+    if (strike === NUMBER.FINISH_STRIKE) {
       OutputView.printEndMessage();
       this.readEndCommandStage();
     } else {
@@ -53,7 +54,7 @@ class BaseballGameController {
   }
 
   replayStage(userCommand) {
-    if (userCommand === '1') {
+    if (userCommand === COMMAND.REPLAY) {
       this.start();
       return;
     }

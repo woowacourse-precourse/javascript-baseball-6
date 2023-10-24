@@ -1,4 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
+import { NUMBER } from '../utils/Constant.js';
 
 const OutputView = {
   printStart() {
@@ -24,7 +25,9 @@ const OutputView = {
     }
   },
   printEndMessage() {
-    Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+    Console.print(
+      `${NUMBER.FINISH_STRIKE}개의 숫자를 모두 맞히셨습니다! 게임 종료`
+    );
   },
 };
 

@@ -1,5 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 import Validator from '../utils/Validator.js';
+import { COMMAND } from '../utils/Constant.js';
 
 const InputView = {
   readUserNumbers(callback) {
@@ -10,7 +11,7 @@ const InputView = {
   },
   readEndCommand(callback) {
     Console.readLineAsync(
-      '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요\n'
+      `게임을 새로 시작하려면 ${COMMAND.REPLAY}, 종료하려면 ${COMMAND.FINISH}를 입력하세요\n`
     ).then((userCommand) => {
       Validator.validateCommand(userCommand);
       callback(userCommand);
