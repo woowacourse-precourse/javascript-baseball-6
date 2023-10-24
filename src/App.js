@@ -7,12 +7,12 @@ class App {
   }
 
   async play() {
-    await Console.print('숫자 야구 게임을 시작합니다.');
-    this.game.startGame();
+    Console.print('숫자 야구 게임을 시작합니다.');
+    await this.game.startGame();
   }
 }
 
 export default App;
 
-const app = new App();
-app.play();
+// const app = new App();
+// app.play();

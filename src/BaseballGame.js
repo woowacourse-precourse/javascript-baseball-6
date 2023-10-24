@@ -1,7 +1,7 @@
-import Computer from './Computer.js';
 import { Console } from '@woowacourse/mission-utils';
-import { checkValidNumberDuringGame } from './Validation.js';
-import { getHintToUser } from './Hint.js';
+import Computer from './Computer.js';
+import { checkValidNumberDuringGame } from './validation.js';
+import { getHintToUser } from './hint.js';
 
 class BaseballGame {
   constructor() {
