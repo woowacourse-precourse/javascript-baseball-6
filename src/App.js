@@ -17,9 +17,24 @@ class App {
   }
 
   async BaseballGame(computerNumber) {
-    while(true) {
+    while (true) {
       try {
         const userNumber = await Console.readLineAsync(GAME_MESSAGE.INPUT);
+        this.inValidNumber(userNumber);
+        //입력 숫자 유효 확인
+        const { ball, strike } = this.calculateBallStrike(
+          computerNumber,
+          this.userNumber
+        );
+
+        const result = this.printResult(ball, strike);
+
+        if (result) {
+          return this.reStart();
+        }
+      } catch (error) {
+        throw new Error(ERROR_MESSAGE.IS_INVALID);
+        // 에러 상황시 에러 문구 출력 추가
       }
     }
   }
