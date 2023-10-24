@@ -1,20 +1,17 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
+import { Random } from "@woowacourse/mission-utils";
 import { CONSTANT } from "../constants/constant";
 
-class Computer {
+export default class Computer {
   generateNumber() {
-    const computer = [];
+    let computer = '';
 
     while (computer.length < CONSTANT.selectNumber) {
-      const number = MissionUtils.Random.pickNumberInRange(CONSTANT.startScope, CONSTANT.endScope);
-
-      if (!computer.includes(number)) {
-        computer.push(number);
+      const randomNumber = Random.pickNumberInRange(CONSTANT.startScope, CONSTANT.endScope);
+      if (!computer.includes(String(randomNumber))) {
+        computer += String(randomNumber);
       }
     }
 
-    return computer.join('');
+    return Number(computer);
   }
 }
-
-export default Computer;

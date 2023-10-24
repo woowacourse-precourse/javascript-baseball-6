@@ -1,53 +1,44 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
-import { GAME_MESSAGE, ERROR_MESSAGE } from "./constants/Message";
+import { Console } from "@woowacourse/mission-utils";
+import InputValid from "./utils/InputValid";
 import Computer from "./models/Computer";
 import GameControl from "./utils/GameControl";
-import InputValid from "./utils/InputValid";
+import { GAME_MESSAGE, ERROR_MESSAGE } from "./constants/Message";
 
-class App {
+export default class App {
   constructor() {
-    this.computer = new Computer();
+    this.computerNumber = '';
     this.isPlaying = true;
+    this.inputvalid = new InputValid();
+    this.computer = new Computer();
+    this.control = new GameControl(this);
   }
 
   async play() {
-    MissionUtils.Console.print(GAME_MESSAGE.startGame);
+    this.control.startGame();
+    this.control.assignComputerNumber();
 
-    while (this.isPlaying) {
-      const computerNumber = this.computer.generateNumber();
-      let result = { strike: 0, ball: 0 };
+    try {
+      while (this.isPlaying) {
+        const input = await this.inputvalid.getUserChoice();
+        const isCorrect = this.control.compareAndPrintResult(input);
 
-      while (result.strike !== 3 && this.isPlaying) {
-        try {
-          const userNumber = await this.getUserInput();
-          InputValid.validate(userNumber);
-          result = GameControl.compareAndPrintResult(computerNumber, userNumber);
+        if (isCorrect) {
+          const restartChoice = await Console.readLineAsync(GAME_MESSAGE.restartGame);
 
-          if (result.strike === 3) {
-            await GameControl.askRestart(this);
+          if (restartChoice === '1') {
+            this.control.assignComputerNumber();
+            continue;
+          } else if (restartChoice === '2') {
+            this.control.stopGame();
+          } else {
+            throw new Error(ERROR_MESSAGE.invalidChoice);
           }
-        } catch (error) {
-          MissionUtils.Console.print(error.message);
-          this.stopGame();
-          throw error;
         }
+      } 
+    } catch (error) {
+        Console.print(ERROR_MESSAGE.playError);
+        throw error;
       }
     }
   }
 
-  stopGame() {
-    this.isPlaying = false;
-  }
-
-  async getUserInput() {
-    const input = await MissionUtils.Console.readLineAsync(GAME_MESSAGE.inputNumber);
-
-    if (!input) {
-      throw new Error(ERROR_MESSAGE.inputError);
-    }
-
-    return input;
-  }
-}
-
-export default App;

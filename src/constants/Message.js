@@ -11,7 +11,8 @@ export const ERROR_MESSAGE = Object.freeze({
   invaildNumber: '[ERROR] 1부터 9까지의 숫자만 입력해야 합니다.',
   duplicateNumber: '[ERROR] 중복된 숫자를 입력하셨습니다.',
   inputError:'[ERROR] 잘못된 값을 입력하셨습니다.',
-  invalidChoice: '[ERROR] 올바른 선택이 아닙니다. 게임을 종료합니다.' 
+  invalidChoice: '[ERROR] 올바른 선택이 아닙니다. 게임을 종료합니다.',
+  playError:'[ERROR] 실행 중 에러가 발생하였습니다.'
 });
 
 export const RESULT_MESSAGE = Object.freeze({

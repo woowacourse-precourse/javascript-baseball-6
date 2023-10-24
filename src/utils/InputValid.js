@@ -1,33 +1,31 @@
-import { ERROR_MESSAGE } from "../constants/Message";
+import { GAME_MESSAGE, ERROR_MESSAGE } from "../constants/Message";
+import { CONSTANT } from "../constants/constant";
+import { Console } from "@woowacourse/mission-utils";
 
-class InputValid {
-  static validate(input) {
-    this.validateLength(input);
-    this.validateNumberInRange(input);
-    this.ensureNoDuplicateNumber(input);
+export default class InputValid {
+
+  async getUserChoice() {
+    const userInput = await Console.readLineAsync(GAME_MESSAGE.inputNumber);
+    return this.checkInputValidation(String(userInput));
   }
 
-  static validateLength(input) {
-    if (!input || typeof input !== 'string' || input.length !== 3) { 
-      throw new Error(`${ERROR_MESSAGE.invalidLength}`);
+  checkInputValidation(input) {
+    this.validateInputLength(input);
+    this.validateInputReplay(input);
+    return Number(input);
+  }
+  
+  validateInputLength(input) {
+    if (input.length !== CONSTANT.selectNumber) {
+      throw new Error(ERROR_MESSAGE.invalidLength);
     }
   }
+  
+  validateInputReplay(input) {
+    const isValidReplay = input.split('').every(char => '1' <= char && char <= '9');
 
-  static validateNumberInRange(input) {
-    for (let char of input) {
-      if (char < '1' || char > '9') {
-        throw new Error(ERROR_MESSAGE.invaildNumber);
-      }
-    }
-  }
-
-  static ensureNoDuplicateNumber(input) {
-    const distinctDigits = new Set(input);
-
-    if (distinctDigits.size !== 3) {
+    if (!isValidReplay) {
       throw new Error(ERROR_MESSAGE.duplicateNumber);
     }
   }
 }
-
-export default InputValid;
