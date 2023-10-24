@@ -3,6 +3,7 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 //ball judge
 export const BALL_MANAGER = (player, computer) => {
   let [ball, strike] = [0, 0];
+
   for (let i = 0; i < player.length; i++) {
     if (computer.includes(player[i])) {
       player[i] === computer[i] ? (strike += 1) : (ball += 1);
@@ -21,12 +22,15 @@ export const BALL_MANAGER = (player, computer) => {
 
 //error management
 export const ERROR_OCCURRED = (playerNum) => {
+  //입력이 숫자인지 판별
   if (isNaN(Number(playerNum))) {
     return true;
   }
+  //1-9 범위인지 판별
   if (!/^[1-9]{3}$/.test(playerNum)) {
     return true;
   }
+  //중복 되는지 판별
   if (
     playerNum[0] === playerNum[1] ||
     playerNum[1] === playerNum[2] ||
