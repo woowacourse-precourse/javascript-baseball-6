@@ -18,14 +18,14 @@ class BaseballController {
   }
 
   async InputUserNumber() {
-    await InputView.readUserLine((input) => {
+    await InputView.readUserLine().then((input) => {
       InputValid.readUserInput(input); // 숫자를 입력하세요 : ...
-      this.InGameResult(input); // 게임 판단
+      this.InGameResult(input); // 게w임 판단
     });
   }
 
   async InputRestartNumber() {
-    await InputView.readRestartNum((input) => {
+    await InputView.readRestartNum().then((input) => {
       InputValid.readRestartInput(input);
       if (input === "1") {
         this.reset();
