@@ -175,8 +175,8 @@
 <td>10월 24일 (화)</td>
 <td>코드 점검 및 리팩토링</td>
 <td>3 Hours</td>
-<td style="text-align: center">🔴</td>
-<td>-</td>
+<td style="text-align: center">🟢</td>
+<td>4 Hours</td>
 </tr>
 <tr>
 <td>10월 25일 (수)</td>
