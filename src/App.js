@@ -9,10 +9,6 @@ function pickRandomNumber(array) {
   }
 }
 
-function initalizeArray(array) {
-  while (array.length !== 0) array.pop();
-}
-
 async function start() {
   Console.print("숫자 야구 게임을 시작합니다.");
   return await Console.readLineAsync("숫자를 입력해주세요 : ");
@@ -69,7 +65,7 @@ class App {
     let ballCount = 0;
 
     while (Number(resetCode) !== 2) {
-      initalizeArray(inputArray);
+      inputArray = [];
       pickRandomNumber(randomArray);
 
       inputData = await start();
@@ -85,8 +81,7 @@ class App {
         Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
 
         resetCode = await finish();
-
-        initalizeArray(randomArray);
+        randomArray = [];
       } else if (strikeCount > 0 || ballCount > 0) {
         Console.print(ballCount + "볼 " + strikeCount + "스트라이크");
       } else {
