@@ -1,6 +1,6 @@
 class InvalidInputError extends Error {
   constructor() {
-    super("잘못된 입력입니다.");
+    super("[ERROR]");
     this.name = "InvalidInputError";
   }
 }

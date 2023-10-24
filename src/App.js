@@ -4,7 +4,7 @@ import { REGEX_VALID_GUESS, REGEX_ONE_OR_TWO } from "./constant";
 
 // App 클래스를 사용자가 숫자 야구 게임을 할 수 있는 컴퓨터라고 생각하고 구현
 class App {
-  #secretNumber = [null, null, null];
+  #secretNumber = [];
   #strike = 0;
   #ball = 0;
 
@@ -42,8 +42,8 @@ class App {
 
   printCompareResult() {
     let result = "";
-    result += this.#strike !== 0 ? `${this.#strike}스트라이크 ` : "";
-    result += this.#ball !== 0 ? `${this.#ball}볼` : "";
+    result += this.#ball !== 0 ? `${this.#ball}볼 ` : "";
+    result += this.#strike !== 0 ? `${this.#strike}스트라이크` : "";
     result === "" ? Console.print("낫싱") : Console.print(result);
   }
 
@@ -57,7 +57,7 @@ class App {
       }
       if (this.#secretNumber.includes(guessNumber[i])) this.#ball += 1;
     }
-    App.printCompareResult();
+    this.printCompareResult();
   }
 
   static async #isPlayAgain() {
@@ -70,20 +70,19 @@ class App {
 
   async #playBaseBall() {
     this.#generateSecretNumber();
-    while (this.#strike < 3) {
-      const guessNumber = App.#inputGuessNumber();
+    do {
+      const guessNumber = await App.#inputGuessNumber();
       this.#compareNumber(guessNumber);
-    }
+    } while (this.#strike < 3);
   }
 
-  play() {
-    try {
-      App.#printGreeting("start");
-      do {
-        this.#playBaseBall();
-        App.#printGreeting("end");
-      } while (App.#isPlayAgain());
-    } catch (error) {}
+  async play() {
+    App.#printGreeting("start");
+    do {
+      await this.#playBaseBall();
+      App.#printGreeting("end");
+      this.#secretNumber = [];
+    } while (await App.#isPlayAgain());
   }
 }
 
