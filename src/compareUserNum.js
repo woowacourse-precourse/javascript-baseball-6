@@ -19,7 +19,6 @@ const getBallCount = (computerNum, userNum) => {
 };
 
 const compareUserNum = async (computerNum) => {
-  console.log(computerNum);
   const userNum = await userInputNum();
   const { ball, strike } = getBallCount(computerNum, userNum);
 
