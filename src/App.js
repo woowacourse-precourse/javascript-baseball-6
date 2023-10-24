@@ -60,6 +60,17 @@ class App {
     }
     return strike;
   }
+
+  countBall(computerNum, userNum){
+    let ball = 0;
+    for(let i = 0; i < computerNum.length; i++){
+      if(computerNum[i] !== userNum[i] && computerNum.includes(userNum[i])){
+        ball++;
+      }
+    }
+    return ball;
+  }
+
 }
 
 export default App;
