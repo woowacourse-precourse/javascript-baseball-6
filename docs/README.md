@@ -1,6 +1,6 @@
 # **구현 기능 목록**
 
-## [ ] 기능 1: 정답 생성
+## [✅] 기능 1: 정답 생성
 정답은 `1부터 9 까지의 서로 다른 수로 이루어진 3자리의 수`여야 한다.
 - Random 값 추출은 [@woowacourse/mission-utils](https://github.com/woowacourse-projects/javascript-mission-utils#mission-utils)의 `Random.pickNumberInRange()`를 활용한다.
 
