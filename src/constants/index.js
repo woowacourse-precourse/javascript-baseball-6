@@ -22,6 +22,7 @@ const ERROR_MESSAGE = {
   IS_NUMBER: "[ERROR] 숫자만 입력해주세요.",
   IS_DUPLICATION: "[ERROR] 중복되는 숫자가 존재합니다.",
   IS_DIGIT: "[ERROR] 자리수가 맞지 않습니다. 3자리 숫자를 입력해주세요.",
+  IS_START: "[ERROR] 게임에 문제가 있습니다. 코드를 확인해주세요."
 };
 
 module.exports = { GAME_MESSAGE, BASEBALL_MESSAGE, END_OPTION, ERROR_MESSAGE };
