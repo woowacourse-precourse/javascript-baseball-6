@@ -22,16 +22,20 @@ class App {
   }
   
   isValidUserNum(userNum) {
-    if(userNum.length !== 3 ) {
-      return false
+    const userPickNum = userNum.split('');
+    const computerPickNum = this.computerNum.join('').split('');
+    if(userPickNum.length !== 3 ) {
+      throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
     }
-    if(userNum.charAt(0) === userNum.charAt(1) || userNum.charAt(1) === userNum.charAt(2) || userNum.charAt(2) === userNum.charAt(0)) {
-      return false
+    if(userPickNum[0] === userPickNum[1] || userPickNum[1] === userPickNum[2] || userPickNum[2] === userPickNum[3]) {
+      throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
     }
-    if(!/^[1-9]{3}$/.test(userNum)) {
-      return false
-    }
-    return true
+    userPickNum.forEach((idx) => {
+      if(isNaN(Number(idx))) {
+        throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+      }
+    })
+    return this.checkStrikeBall(computerPickNum, userPickNum);
   }
 
   countStrike(computerPickNum, userPickNum) {
@@ -39,7 +43,6 @@ class App {
     for(let i = 0; i < computerPickNum.length; i ++) {
       if(computerPickNum[i] === userPickNum[i]) {
         strikes++
-        
       }
     }
     return strikes;
@@ -47,7 +50,6 @@ class App {
 
   countBall(computerPickNum, userPickNum) {
     let balls = 0;
-
     for(let i = 0; i < computerPickNum.length; i ++) {
       if((computerPickNum[i] !== userPickNum[i]) && (userPickNum.includes(computerPickNum[i]))) {
         balls++
@@ -59,7 +61,6 @@ class App {
   checkStrikeBall(computerPickNum, userPickNum) {
     const strike = this.countStrike(computerPickNum, userPickNum);
     const ball = this.countBall(computerPickNum, userPickNum);
-
     return this.printResult(strike, ball);
   }
 
@@ -69,7 +70,6 @@ class App {
       MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
       this.startOrEnd();
     }else{
-
       if(strike === 0 && ball === 0) {
         MissionUtils.Console.print('낫싱');
       }else if(strike === 0 && ball !== 0) {
@@ -80,46 +80,28 @@ class App {
         MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
       }
       return this.play();
-  }
-
-    
+    }   
   }
 
   async startOrEnd() {
-    try{
-      const answer = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. \n');
+    const answer = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. \n');
       if(answer === '1') {
         this.computerNum = this.randomPickNum();
-        return this.play();
+        return await this.play();
       }else if(answer === '2') {
         MissionUtils.Console.print('게임 종료');
-        return null;
-      }else{
-        return this.startOrEnd();
-      }
-    }catch(e) {
-      MissionUtils.Console.print(e.message);
-    }
-  }
-
-
-  async numCorrect() {
-    try {
-      const userNum = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
-      if(this.isValidUserNum(userNum)) {
-        const userPickNum = userNum.split('');
-        const computerPickNum = this.computerNum.join('').split('');
-        this.checkStrikeBall(computerPickNum, userPickNum);
       }else{
         throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
       }
-    }catch(e) {
-      MissionUtils.Console.print(e.message);
-    }
+  }
+
+  async numCorrect() {
+    const userNum = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
+    this.isValidUserNum(userNum)
   }
   
   async play() {
-    this.numCorrect();
+    await this.numCorrect();
   }
 }
 
