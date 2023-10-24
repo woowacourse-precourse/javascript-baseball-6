@@ -1,4 +1,4 @@
-import { MissionUtils, Random } from "@woowacourse/mission-utils";
+import { MissionUtils } from "@woowacourse/mission-utils";
 
 export default class App {
   constructor() {
