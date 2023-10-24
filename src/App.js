@@ -78,6 +78,20 @@ class App {
     }
     return randomNum;
   }
+
+  checkInput(computer, user) {
+    let ball = 0;
+    let strike = 0;
+    user.forEach((num, i) => {
+      if (num === computer[i]) {
+        strike += 1;
+      } else if (computer.includes(num)) {
+        ball += 1;
+      }
+    });
+
+    return { strike, ball };
+  }
 }
 
 export default App;
