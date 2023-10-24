@@ -1,5 +1,9 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 
+const NUMBER_ERROR_MESSAGE = "[ERROR] 숫자만 입력하시오.";
+const RANGE_ERROR_MESSAGE = "[ERROR] 세 자리의 수를 입력하시오.";
+const RESTART_ERROR_MESSAGE = "[ERROR] 1 또는 2를 입력하시오.";
+const DUPLICATE_ERROR_MESSAGE = "[ERROR] 서로 다른 세 자리의 수를 입력하시오.";
 const START_MESSAGE = "숫자 야구 게임 시작을 시작합니다.";
 const USER_MESSAGE = "숫자를 입력해주세요 : ";
 const SUCCESS_MESSAGE = "3개의 숫자를 모두 맞히셨습니다! 게임 종료";
@@ -25,7 +29,7 @@ async function finish() {
   if (input === "1") return true
   else if (input === "2") return false
   else {
-    throw Error("[ERROR] 1 또는 2를 입력하시오. ");
+    throw Error(RESTART_ERROR_MESSAGE);
   }
 }
 
@@ -48,13 +52,13 @@ async function player(computer_number) {
 
 function validation(number) {
   if (number.length !== NUMBER_LENGTH) {
-    throw new Error("[ERROR] 세 자리의 수를 입력하시오.");
+    throw new Error(RANGE_ERROR_MESSAGE);
   } else if (number.length != new Set(number).size) {
-    throw new Error("[ERROR] 서로 다른 세 자리의 수를 입력하시오.");
+    throw new Error(DUPLICATE_ERROR_MESSAGE);
   } else {
     for (let i in number) {
       if (i === NaN) {
-        throw new Error("[ERROR] 숫자만 입력하시오.");
+        throw new Error(NUMBER_ERROR_MESSAGE);
       }
     }
   }
