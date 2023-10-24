@@ -16,13 +16,13 @@ class App {
         let {strikeCount, ballCount} = this
 
         this.pitcher.setRandomBallCount();
-        const {pitcherBallNumbers} = this;
+        const pitcherBallNumbers = this.pitcher.ballCountNumbers;
 
         while (strikeCount !== WIN_CONDITION) {
             strikeCount = 0;
             ballCount = 0;
             await this.batter.setThreeBatNumbers();
-            const {batterBallNumbers} = this;
+            const batterBallNumbers = this.batter.ballCountNumbers;
 
             for (let bi = 0; bi < pitcherBallNumbers.length; bi++) {
                 pitcherBallNumbers.map((pitcherBall, index) => {
