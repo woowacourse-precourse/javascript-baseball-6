@@ -1,5 +1,16 @@
+const { startGame } = require("./modules/startGame");
+const { playGame } = require("./modules/playGame");
+
+
 class App {
-  async play() {}
+  play() {
+    try {
+      startGame();
+      playGame();
+    } catch (error) {
+      throw "[ERROR]";
+    }
+  }
 }
 
-export default App;
+module.exports = App;
