@@ -2,7 +2,7 @@ import numberGameService from "./service/numberGameService.js";
 
 class App {
   async play() {
-    numberGameService();
+    await numberGameService();
   }
 }
 

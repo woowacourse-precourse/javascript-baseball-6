@@ -1,6 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
-function createAnswer(savedAnswer) {
+function createAnswer() {
   function createRandomNumber(answer, index) {
     const RANDOM_NUMBER = MissionUtils.Random.pickNumberInRange(1, 9);
     if (index === 0) {
@@ -19,7 +19,7 @@ function createAnswer(savedAnswer) {
     const SINGLE_ANSWER = createRandomNumber(newAnswer, i);
     newAnswer.push(SINGLE_ANSWER);
   }
-  return [...savedAnswer, ...newAnswer];
+  return [...newAnswer];
 }
 
 export default createAnswer;
