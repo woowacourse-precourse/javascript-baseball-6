@@ -14,10 +14,12 @@ class App {
 
   //params: 문자 타입의 3자리 숫자
   isInValidNumber(number) {
+
     const condition = (
       number.length > 3 || // 3자리 초과
       number.includes('0') || //0포함
-      new Set(number).size !== 3 //중복된 수
+      new Set(number).size !== 3|| //중복된 수
+      isNaN(+number) //숫자가 아님
     )
 
     return condition;
