@@ -1,10 +1,16 @@
-import { Player } from './Player.js';
+import { BaseballNumber } from './BaseballNumber.js';
 
-export class Computer extends Player {
+export class Computer {
+  #answerList;
+
+  constructor(number) {
+    this.#answerList = new BaseballNumber(number)._numberList;
+  }
+
   compareNumber(userNumber) {
-    this.validation(userNumber);
+    const userNumberList = new BaseballNumber(userNumber)._numberList;
 
-    return this.#checkResult(this._number, userNumber);
+    return this.#checkResult(this.#answerList, userNumberList);
   }
 
   #checkResult(answer, userNumber) {

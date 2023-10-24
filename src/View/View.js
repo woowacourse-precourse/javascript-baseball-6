@@ -1,5 +1,4 @@
 import { Console } from '@woowacourse/mission-utils';
-import { validateBaseballNumber } from '../utils/validation.js';
 import { InputView } from './InputView.js';
 import { MESSAGE } from '../constants/message.js';
 import { COMMAND, GAME_RESULT } from '../constants/baseballGame.js';
@@ -7,12 +6,7 @@ import { CustomError } from '../Model/Error.js';
 
 export const View = {
   async readUserNumber() {
-    const userNumber = await InputView.readLineAsync(MESSAGE.READ.USER_NUMBER);
-    const numberList = userNumber.split('');
-
-    validateBaseballNumber(numberList);
-
-    return numberList.map(Number);
+    return await InputView.readLineAsync(MESSAGE.READ.USER_NUMBER);
   },
 
   async readRestart() {
