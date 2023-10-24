@@ -58,18 +58,18 @@ class App {
   // 사용자가 입력한 숫자가 유효한 형식인지 확인하는 함수
   validateNumber(number) {
     if(number.length !== NUMBER_LENGTH) {
-      throw Error('[ERROR] 올바른 형식이 아닙니다.');
+      throw Error('[ERROR] 세 자리의 수가 아닙니다.');
     } else {
       for(let item in number) {
         if(item === NaN) {
-          throw Error('[ERROR] 올바른 형식이 아닙니다.');
+          throw Error('[ERROR] 문자가 포함되어 있습니다.');
         }
         if(item === 0) {
-          throw Error('[ERROR] 올바른 형식이 아닙니다.');
+          throw Error('[ERROR] 1~9 사이의 숫자가 아닙니다.');
         }
       }
       if(number.length !== new Set(number).size) {
-        throw Error('[ERROR] 겹치는 숫자가 있습니다.');
+        throw Error('[ERROR] 중복되는 숫자가 있습니다.');
       }
     }
   }
