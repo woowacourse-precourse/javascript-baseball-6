@@ -23,7 +23,7 @@ export default class Controller {
 
   mainGameController() {
     this.#model = new Model();
-    this.sendPlayerNum();
+    return this.sendPlayerNum();
   }
 
   async sendPlayerNum() {
@@ -38,7 +38,7 @@ export default class Controller {
     this.#model.savePlayerNum(input);
     if (this.#model.getOpponentNum() !== this.#model.getPlayerNum()) {
       this.ballCountOutputController();
-      this.sendPlayerNum();
+      return this.sendPlayerNum();
     }
     if (this.#model.getOpponentNum() === this.#model.getPlayerNum()) {
       printThreeStrike();
