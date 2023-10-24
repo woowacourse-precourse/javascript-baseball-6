@@ -75,11 +75,23 @@ class App {
     return ball;
   }
 
+  createResultStatement = (strike, ball) => {
+    if (strike == 3) {
+      return "3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료";
+    } else {
+      let output = "";
+      if (ball != 0) output += ball + "볼 ";
+      if (strike != 0) output += strike + "스트라이크";
+      if (ball == 0 && strike == 0) output = "낫싱";
+      return output;
+    }
+  }
+
   async playRound() {
     const computer = this.createComputerNumbers(3);
     //MissionUtils.Console.print(computer);
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
-    let isContinued;
+    let isContinued = true;
 
     do {
       const input = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
@@ -88,16 +100,11 @@ class App {
       let strike = this.countStrike(computer, player);
       let ball = this.countBall(computer, player);
 
+      const result = this.createResultStatement(strike, ball);
+      MissionUtils.Console.print(result);
+
       if (strike == 3) {
-        MissionUtils.Console.print("3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료")
         isContinued = false;
-      } else {
-        let output = "";
-        if (ball != 0) output += ball + "볼 ";
-        if (strike != 0) output += strike + "스트라이크";
-        if (ball == 0 && strike == 0) output = "낫싱";
-        MissionUtils.Console.print(output);
-        isContinued = true;
       }
     } while(isContinued);
   }
