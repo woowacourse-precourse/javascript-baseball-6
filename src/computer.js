@@ -1,6 +1,7 @@
-const Random = require('@woowacourse/mission-utils');
+import { MissionUtils } from '@woowacourse/mission-utils';
 
-function getRandomNumber() {
-    return Random.pickUniqueNumbersInRange(1, 9, 3);
+export function generateRandomNumber() {
+    return MissionUtils.Random.pickUniqueNumbersInRange(1, 9, 3);
 }
-module.exports = getRandomNumber;
+
+console.log(generateRandomNumber());
