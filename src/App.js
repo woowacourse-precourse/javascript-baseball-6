@@ -54,7 +54,7 @@ class App {
       isNaN(guessNumber) ||
       this.verifyDigit(guessNumber)
     ) {
-      throw new Error("[ERROR]");
+      throw new Error("[ERROR] 잘못된 유저 입력값입니다.");
     }
   }
   // 유저가 게임을 시작할 것인지 여부를 물어보는 숫자 입력
@@ -75,7 +75,7 @@ class App {
       MissionUtils.Console.print("게임을 종료합니다.");
       return;
     }
-    throw new Error("[ERROR]");
+    throw new Error("[ERROR] 잘못된 유저 입력값입니다.");
   }
   //유저가 숫자 입력
   async askNumber() {
