@@ -6,7 +6,7 @@ export default class User {
   // 입력받은 숫자를 배열에 넣고, 예외를 검사
   async setThreeNummber() {
     const number = await this.getNumber();
-    this.#threeNummer = number.split('').map((char) => {
+    this.#threeNummer = Array.from(number, (char) => {
       if (isNaN(Number(char) || Number(char) === 0)) {
         throw new Error('[ERROR}');
       }
