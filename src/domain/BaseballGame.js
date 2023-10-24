@@ -14,9 +14,7 @@ class BaseballGame {
     const stringComputerInput = computerInput + '';
 
     const ballStrike = stringComputerInput.split('').reduce((acc, computerNumber, index) => {
-      const userNumber = stringUserInput[index];
-
-      if (userNumber === computerNumber) {
+      if (stringUserInput[index] === computerNumber) {
         acc.strike++;
         return acc;
       }
