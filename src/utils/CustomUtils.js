@@ -1,15 +1,15 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import Messages from "../messages/GameMessages.js";
+import messages from "../messages/GameMessages.js";
 
 const getUserNumber = async () => {
-  const USER_NUMBER = await MissionUtils.Console.readLineAsync(
-    Messages.GAME_INPUT_NUMBER
+  const userNumbers = await MissionUtils.Console.readLineAsync(
+    messages.GAME_INPUT_NUMBER
   );
-  if (!isValidInput(USER_NUMBER)) {
-    throw new Error(Messages.INVALID_INPUT_ERROR);
+  if (!isValidInput(userNumbers)) {
+    throw new Error(messages.INVALID_INPUT_ERROR);
   }
-  const USER_NUMBER_ARRAY = USER_NUMBER.split("").map(Number);
-  return USER_NUMBER_ARRAY;
+  const userNumberArray = userNumbers.split("").map(Number);
+  return userNumberArray;
 };
 
 const isValidInput = (input) => {
@@ -29,13 +29,13 @@ const isValidInput = (input) => {
   return true;
 };
 
-const getScore = (computer, userNumber) => {
+const getScore = (computerNumbers, userNumbers) => {
   let strike = 0;
   let ball = 0;
-  for (let i = 0; i < computer.length; i++) {
-    if (computer[i] === userNumber[i]) {
+  for (let i = 0; i < computerNumbers.length; i++) {
+    if (computerNumbers[i] === userNumbers[i]) {
       strike++;
-    } else if (computer.includes(userNumber[i])) {
+    } else if (computerNumbers.includes(userNumbers[i])) {
       ball++;
     }
   }
@@ -45,12 +45,12 @@ const getScore = (computer, userNumber) => {
 const printScore = (score) => {
   if (score.strike === 3) {
     MissionUtils.Console.print(`${score.strike}스트라이크`);
-    MissionUtils.Console.print(Messages.GAME_END);
+    MissionUtils.Console.print(messages.GAME_END);
     return false;
   }
 
   if (score.ball === 0 && score.strike === 0) {
-    MissionUtils.Console.print(Messages.NOTHING);
+    MissionUtils.Console.print(messages.NOTHING);
     return true;
   }
 
@@ -62,32 +62,32 @@ const printScore = (score) => {
 };
 
 const getRestartChoice = async (restartCallback) => {
-  const RESTART_CHOICE = await MissionUtils.Console.readLineAsync(
-    Messages.GAME_RESTART
+  const restartChoice = await MissionUtils.Console.readLineAsync(
+    messages.GAME_RESTART
   );
-  if (RESTART_CHOICE === "1") return restartCallback();
-  if (RESTART_CHOICE === "2")
-    return MissionUtils.Console.print(Messages.GAME_EXIT);
-  throw new Error(Messages.INVALID_INPUT_RESTART_ERROR);
+  if (restartChoice === "1") return restartCallback();
+  if (restartChoice === "2")
+    return MissionUtils.Console.print(messages.GAME_EXIT);
+  throw new Error(messages.INVALID_INPUT_RESTART_ERROR);
 };
 
-const getGenerateComputerNumbers = () => {
-  const computer = [];
-  while (computer.length < 3) {
+const generateComputerNumbers = () => {
+  const computerNumbers = [];
+  while (computerNumbers.length < 3) {
     const number = MissionUtils.Random.pickNumberInRange(1, 9);
-    if (!computer.includes(number)) {
-      computer.push(number);
+    if (!computerNumbers.includes(number)) {
+      computerNumbers.push(number);
     }
   }
-  return computer;
+  return computerNumbers;
 };
 
-const playGame = async (computer) => {
-  MissionUtils.Console.print(Messages.GAME_START);
+const playGame = async (computerNumbers) => {
+  MissionUtils.Console.print(messages.GAME_START);
   let gameContinue = true;
   while (gameContinue) {
-    const userNumber = await getUserNumber();
-    const score = getScore(computer, userNumber);
+    const userNumbers = await getUserNumber();
+    const score = getScore(computerNumbers, userNumbers);
     gameContinue = printScore(score);
   }
 };
@@ -97,6 +97,6 @@ export default {
   getScore,
   printScore,
   getRestartChoice,
-  getGenerateComputerNumbers,
+  generateComputerNumbers,
   playGame,
 };
