@@ -38,7 +38,7 @@ class App {
       if(computerNumber[i] === userInput[i]) strikeCount++;
       else if(computerNumber.includes(userInput[i])) ballCount++;
     }
-    return [strikeCount, ballCount];
+    return {strikeCount, ballCount};
   }
 
   async answerResult(computerNumber, userInput){
@@ -46,9 +46,8 @@ class App {
       MissionUtils.Console.print("3스트라이크");
       return true;
     } else {
-      const compareResult = this.compareNumber(computerNumber,userInput);
-      const STRIKE_COUNT = compareResult[0];
-      const BALL_COUNT = compareResult[1];
+      const STRIKE_COUNT = this.compareNumber(computerNumber,userInput).strikeCount;
+      const BALL_COUNT = this.compareNumber(computerNumber,userInput).ballCount;
 
       if(BALL_COUNT > 0 && STRIKE_COUNT > 0) MissionUtils.Console.print(`${BALL_COUNT}볼 ${STRIKE_COUNT}스트라이크`);
       else if(BALL_COUNT > 0 && STRIKE_COUNT === 0) MissionUtils.Console.print(`${BALL_COUNT}볼`);
