@@ -14,40 +14,50 @@ class MainGame {
       throw new Error("[ERROR] 1-9사이의 세자리 숫자가 아닙니다.");
     }
 
-    const numberSet = new Set(input);
-    if (numberSet.size !== 3) {
+    if (new Set(input).size !== 3) {
       throw new Error("[ERROR] 중복된 숫자가 존재합니다.");
     }
+
+    if (input.length !== 3) {
+      throw new Error("[ERROR] 3자리가 아닙니다.");
+    }
+
+    return true;
   };
 
   //숫자를 입력 받음
   getUserInput = async () => {
     const input = await Console.readLineAsync("숫자를 입력해주세요 : ");
-    this.isValidateNumber(input);
 
-    this.userInput = input.split("").map(Number);
-
-    this.getResult();
+    if (this.isValidateNumber(input)) {
+      const userInput = input.split("").map(Number);
+      return userInput;
+    }
   };
 
   //컴퓨터가 랜덤으로 지정한 값에 대한 나의 값 비교
-  getResult = () => {
+  getResult = async () => {
     this.resultArr = [0, 0, 0];
-    const userInputArray = Array.from(this.userInput);
-    ㄴ;
-    const computerSelectNumberArray = Array.from(this.computerSelectNumber);
+    const userNumber = await this.getUserInput();
+    const computerNumber = [...this.computerSelectNumber];
 
-    userInputArray.forEach((number, index) => {
-      if (number === computerSelectNumberArray[index]) this.resultArr[0]++;
-      else if (computerSelectNumberArray.includes(number)) this.resultArr[1]++;
-      else this.resultArr[2]++;
-    });
+    for (let i = 0; i < userNumber.length; i++) {
+      if (userNumber[i] === computerNumber[i]) resultArr[0]++;
+      else if (computerNumber.includes(userNumber[i])) {
+        resultArr[1]++;
+      } else {
+        resultArr[2]++;
+      }
+    }
 
-    this.printResult();
+    this.printResult(resultArr);
+    if (resultArr[0] === 3) {
+      await this.isRestartOrExit();
+    } else return this.getResult();
   };
 
   //결과를 출력
-  printResult = () => {
+  printResult = (resultArr) => {
     let result = "";
 
     if (this.resultArr[1] > 0) result += `${this.resultArr[1]}볼 `;
@@ -55,10 +65,7 @@ class MainGame {
     if (this.resultArr[2] === 3) result += `낫싱`;
 
     Console.print(result);
-
-    if (this.resultArr[0] === 3) {
-      this.isRestartOrExit();
-    } else this.getUserInput();
+    return;
   };
 
   isRestartOrExit = async () => {
