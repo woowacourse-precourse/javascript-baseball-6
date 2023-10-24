@@ -2,7 +2,7 @@ import { Console, MissionUtils } from '@woowacourse/mission-utils';
 
 class App {
   constructor() {
-    this.computerRandom = [];
+    this.answer = [];
   }
 
   static generateRandomNumber() {
@@ -67,18 +67,15 @@ class App {
   }
 
   async play() {
-    this.computerRandom = App.generateRandomNumber();
+    this.answer = App.generateRandomNumber();
     const CONTINUE_FLAG = true;
 
     Console.print('숫자 야구 게임을 시작합니다.');
     while (CONTINUE_FLAG) {
-      const userRandom = await Console.readLineAsync('숫자를 입력해주세요 : ');
-      App.isValidInput(userRandom);
+      const input = await Console.readLineAsync('숫자를 입력해주세요 : ');
+      App.isValidInput(input);
 
-      const { strike, ball } = App.calculateResult(
-        this.computerRandom,
-        userRandom,
-      );
+      const { strike, ball } = App.calculateResult(this.answer, input);
       App.printResult(strike, ball);
 
       if (strike === 3) {
@@ -88,7 +85,7 @@ class App {
         App.isValidInput(restart, true);
 
         if (restart === '1') {
-          this.computerRandom = App.generateRandomNumber();
+          this.answer = App.generateRandomNumber();
         } else {
           break;
         }
