@@ -51,6 +51,11 @@ class BaseballGame {
 
   async readRetry() {
     const userInput = Number(await Console.readLineAsync(MESSAGES.restartQuery));
+    await this.handleRetry(userInput);
+  }
+  async handleRetry(userInput) {
+    Validator.validateRetry(userInput);
+    if (userInput === 1) return await this.startGame();
   }
 }
 
