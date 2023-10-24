@@ -32,19 +32,19 @@ export default class App {
     return await Console.readLineAsync("숫자를 입력해주세요 : ");
   }
 
+  isUniqueThreeDigitNumber(number) {
+    const regEx = /^(?!.*(\d).*\1)\d{3}$/;
+    return regEx.test(number);
+  }
+
   checkUserNumberValid(userNumber) {
     if (!userNumber) {
       throw new Error(`${ERROR_HEADER} 빈 입력값입니다.`);
     }
     // 입력한 값이 모두 숫자인지 확인
-    // ... 구현 필요 ...
-    if (userNumber.length != VALID_INPUT_LENGTH) {
-      throw new Error(`${ERROR_HEADER} 유효한 자릿수가 아닙니다.`);
-    }
-    const userNumberSet = new Set([...userNumber]);
-    if (userNumberSet.size != VALID_INPUT_LENGTH) {
+    if (!this.isUniqueThreeDigitNumber(userNumber)) {
       throw new Error(
-        `${ERROR_HEADER} 각 자리의 숫자는 서로 다른 숫자여야 합니다.`
+        `${ERROR_HEADER} 입력값은 서로 다른 세자리 숫자여야 합니다.`
       );
     }
   }
