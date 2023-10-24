@@ -44,7 +44,7 @@ describe("숫자 야구 게임", () => {
     });
   });
 
-  test("예외 테스트", async () => {
+   test("예외 테스트", async () => {
     // given
     const randoms = [1, 3, 5];
     const answers = ["1234"];
@@ -55,6 +55,6 @@ describe("숫자 야구 게임", () => {
     // when & then
     const app = new App();
 
-    await expect(app.play()).rejects.toThrow("[ERROR]");
-  });
+    await expect(app.play()).rejects.toThrow(`[ERROR]`);
+  }); 
 });
