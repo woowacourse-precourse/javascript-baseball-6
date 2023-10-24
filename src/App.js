@@ -83,6 +83,24 @@ class App {
     if (strike !== 3) return false;
     else return true;
   }
+
+  /**
+   * 재시작, 완전종료 여부 질문
+   */
+  async isContinue() {
+    Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+
+    const input = await Console.readLineAsync(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. \n"
+    );
+
+    if (input === "1") {
+      this.makeComputerNumber();
+      this.isAnswer();
+    } else if (input === "2") Console.print("게임 종료");
+    else throw new Error("[ERROR] 1이나 2로 입력 해주세요.");
+  }
+
   /**
    * 사용자의 입력을 받고 정답인지 유무 판단하는 과정
    */
