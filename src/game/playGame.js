@@ -1,4 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
+import compareNumbers from "./CompareNumbers";
 
 const getComputerNumber = async () => {
   let computerNumbers = "";
@@ -28,6 +29,14 @@ const getPlayerNumbers = async () => {
 
 const startGame = async (computerNumbers) => {
   const playerNumbers = await getPlayerNumbers();
+  if (computerNumbers === playerNumbers) {
+    MissionUtils.Console.print("3스트라이크");
+    return await askGameAgain();
+  }
+
+  const result = compareNumbers(computerNumbers, playerNumbers);
+  MissionUtils.Console.print(result);
+  await startGame(computerNumbers);
 };
 
 const initalStartGame = async () => {
