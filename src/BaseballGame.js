@@ -25,7 +25,7 @@ class BaseballGame {
         // TODO : 볼과 스트라이크를 계산하는 기능
         const { ball, strike } = this.calculateBallAndStrike(
           computerNumber,
-          userNumber
+          userNumberArray
         );
         // TODO : 비교한 결과에 대해 출력하는 기능
         result = this.printResult(ball, strike);
@@ -56,21 +56,16 @@ class BaseballGame {
     return true;
   }
 
-  calculateBallAndStrike(computerNumber, userNumber) {
-    const userNumberArray = String(userNumber).split("");
+  calculateBallAndStrike(computerNumber, userNumberArray) {
     let ball = 0;
     let strike = 0;
 
-    for (let i = 0; i < 3; i++) {
-      if (computerNumber.includes(Number(userNumberArray[i]))) {
-        ball++;
-      }
-      if (Number(computerNumber[i]) === Number(userNumberArray[i])) {
-        strike++;
-      }
-    }
-
-    ball -= strike;
+    computerNumber.forEach((computer, computerIndex) => {
+      userNumberArray.forEach((user, userIndex) => {
+        if (computer == user && computerIndex == userIndex) strike++;
+        else if (computer == user) ball++;
+      });
+    });
 
     return { ball, strike };
   }
