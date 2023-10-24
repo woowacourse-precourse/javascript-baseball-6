@@ -3,7 +3,7 @@ import Computer from './Computer.js';
 
 class Referee {
   constructor() {
-    this.computer = new Computer(); 
+    this.computer = new Computer();
   }
 
   scoreCalculate(userInput) {
@@ -12,13 +12,13 @@ class Referee {
 
     this.computer.number.forEach((number, idx) => {
       if (number === userNumber[idx]) {
-        return strike++;
+        return strike += 1;
       }
       if (this.computer.number.includes(userNumber[idx])) {
-        return ball++;
+        return ball += 1;
       }
     });
-  
+
     return [strike, ball];
   }
 
@@ -35,5 +35,3 @@ class Referee {
 }
 
 export default Referee;
-
-let a = new Referee();

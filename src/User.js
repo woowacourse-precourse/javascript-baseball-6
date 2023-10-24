@@ -1,10 +1,10 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import { MESSAGE } from './Constant.js';
-import ErrorHandler from  './Error.js';
+import ErrorHandler from './Error.js';
 
 class User {
   constructor() {
-    this.error = new ErrorHandler;
+    this.error = new ErrorHandler();
   }
 
   async progressInput() {
