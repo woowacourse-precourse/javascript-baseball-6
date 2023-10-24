@@ -4,7 +4,7 @@ import MESSAGES from '../Messages';
 const InputView = {
   async readNumber() {
     const userInput = await Console.readLineAsync(MESSAGES.numberQuery);
-    return userInput.split('').map(Number);
+    return Array.from(userInput, Number);
   },
   async readRetry() {
     return Number(await Console.readLineAsync(MESSAGES.restartQuery));
