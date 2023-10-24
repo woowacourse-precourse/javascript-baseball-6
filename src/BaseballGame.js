@@ -2,10 +2,8 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 import { GAME_MSG, ERROR_MSG } from "./Messages";
 
 const gameStart = async () => {
-  // 0. 게임 시작 메세지 출력
   try {
     while (true) {
-      MissionUtils.Console.print(GAME_MSG.START);
       const COMPUTER_NUM = getComputerNum();
       await compareNum(COMPUTER_NUM);
       const ANSWER = restartOrNot();
