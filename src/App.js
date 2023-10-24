@@ -1,19 +1,25 @@
-import { Console } from "@woowacourse/mission-utils";
-import BaseballGame from "./BaseballGame.js";
-import GameInteraction from "./GameInteraction.js";
-import MESSAGES from "./Messages.js";
+import { Console } from '@woowacourse/mission-utils';
+import BaseballGame from './BaseballGame.js';
+import GameInteraction from './GameInteraction.js';
+import MESSAGES from './Messages.js';
 
 class App {
   constructor() {
     this.baseballGame = new BaseballGame();
   }
-  async play() {
-    Console.print(MESSAGES.MSG_START);
-    let isGameOver = false;
 
-    while (!isGameOver) {
-      this.baseballGame.createComputerNumbers();
-      isGameOver = await this.playRound();
+  async play() {
+    try {
+      Console.print(MESSAGES.MSG_START);
+      let isGameOver = false;
+
+      while (!isGameOver) {
+        this.baseballGame.createComputerNumbers();
+        isGameOver = await this.playRound();
+      }
+    } catch (error) {
+      Console.print(error.message);
+      throw error;
     }
   }
 
@@ -32,26 +38,26 @@ class App {
           return await this.askToRestartOrExit();
         }
       } catch (error) {
-        Console.print(error.message);
         throw error;
       }
     }
+    return null;
   }
 
   async askToRestartOrExit() {
     try {
       const answer = await GameInteraction.askToRestartGame();
 
-      if (answer === "1") {
+      if (answer === '1') {
         this.baseballGame.resetComputerNumbers();
         return false;
-      } else if (answer === "2") {
+      } if (answer === '2') {
         return true;
       }
     } catch (error) {
-      Console.print(error.message);
       throw error;
     }
+    return null;
   }
 }
 
