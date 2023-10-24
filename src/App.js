@@ -70,7 +70,7 @@ class App {
       throw new Error("[ERROR] 중복값을 입력하셨습니다.");
     }
     if (userLength.length !== 3) {
-      throw new Error("[ERROR] 세 자리의 숫자를 입력해주세요");
+      throw new Error("[ERROR] 세 자리가 아닌 숫자를 입력하셨습니다.");
     }
   }
 
@@ -86,7 +86,7 @@ class App {
       } else if (response === "2") {
         return;
       } else {
-        throw new Error("[ERROR] 1혹은 2를 입력하세요.");
+        throw new Error("[ERROR] 1 또는 2가 아닌 숫자를 입력하셨습니다.");
       }
     } else {
       const nextUser = await MissionUtils.Console.readLineAsync(
