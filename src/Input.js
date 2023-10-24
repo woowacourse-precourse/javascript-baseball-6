@@ -9,7 +9,8 @@ const Input = {
         return number.split('').map(Number);
       }
     } catch (error) {
-      Console.print('[ERROR] ' + error.message);
+      Console.print(error.message);
+      return Promise.reject(error);
     }
   },
   async getGameEnd() {
@@ -21,7 +22,8 @@ const Input = {
         return number;
       }
     } catch (error) {
-      Console.print('[ERROR] ' + error.message);
+      Console.print(error.message);
+      return Promise.reject(error);
     }
   },
 };

@@ -14,11 +14,8 @@ class App {
 
   async play() {
     this.#printStartMessage();
-    this.#game.startGame();
+    return this.#game.startGame();
   }
 }
-
-const app = new App();
-app.play();
 
 export default App;

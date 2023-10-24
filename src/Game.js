@@ -21,6 +21,7 @@ class Game {
       }
     }
     this.#answer = computer;
+    // console.log(computer);
   }
 
   createHint() {
@@ -38,30 +39,26 @@ class Game {
   }
 
   async threeStrike() {
-    Console.print('3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+    Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
     const number = await Input.getGameEnd();
     if (number === '1') {
-      return this.startGame();
-    } else {
-      return this.endGame();
+      this.startGame();
     }
+
+    return number;
   }
 
   printResult() {
     const { strike, ball } = this.#hint;
-    if (strike === 3) {
-      this.threeStrike();
+
+    if (strike && ball) {
+      Console.print(`${ball}볼 ${strike}스트라이크`);
+    } else if (ball) {
+      Console.print(`${ball}볼`);
+    } else if (strike) {
+      Console.print(`${strike}스트라이크`);
     } else {
-      if (strike && ball) {
-        Console.print(`${ball}볼 ${strike}스트라이크`);
-      } else if (ball) {
-        Console.print(`${ball}볼`);
-      } else if (strike) {
-        Console.print(`${strike}스트라이크`);
-      } else {
-        Console.print('낫싱');
-      }
-      this.progressGame();
+      Console.print('낫싱');
     }
   }
 
@@ -70,21 +67,22 @@ class Game {
     this.#hint = { strike: 0, ball: 0 };
     this.#number = await Input.getNumber();
 
-    if (this.#number) {
+    if (!(this.#number instanceof Error)) {
       this.createHint();
       this.printResult();
-    } else {
-      this.endGame();
+
+      if (this.#hint.strike === 3) {
+        await this.threeStrike();
+      } else {
+        await this.progressGame();
+      }
     }
+    return this.#number;
   }
 
   startGame() {
     this.createAnswer();
-    this.progressGame();
-  }
-
-  endGame() {
-    return;
+    return this.progressGame();
   }
 }
 
