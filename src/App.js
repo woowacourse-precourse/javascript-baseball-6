@@ -52,8 +52,18 @@ class App {
       }
     }
     const gameData = new GameData();
-    const randomNumbers = Random.pickUniqueNumbersInRange(1, 9, 3); // 3개의 숫자 선택
+    // const randomNumbers = Random.pickUniqueNumbersInRange(1, 9, 3); // 3개의 숫자 선택
     // Console.print(randomNumbers);
+    
+    const randomNumbers = [];
+    while (randomNumbers.length < 3) {
+      const number = Random.pickNumberInRange(1, 9);
+      if (!randomNumbers.includes(number)) {
+        randomNumbers.push(number);
+      }
+    }
+
+
     // ball, strike 확인하는 함수
     function setAnalysis(gameData, userInputs, randomNumbers) {
       // userInput과 비교해서 randomNumbers와 다른 값을 찾음
@@ -70,6 +80,8 @@ class App {
       // 값 업데이트
       gameData.setBall(ball);
       gameData.setStrike(strike);
+
+      printResult(gameData)
     }
 
     // 결과 출력하는 함수
@@ -81,14 +93,16 @@ class App {
       if (ball === 0 && strike === 0) {
         Console.print('낫싱');
         return
-      } else if (ball === 0) { // 0볼 n스트라이크
+      } 
+      if (ball === 0) { // 0볼 n스트라이크
         Console.print(`${strike}스트라이크`);
         if (strike === 3) {
           Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
           gameData.setThreeStrike(true); // 삼진 = true
         }
         return
-      } else if (strike === 0) { // n볼 0스트라이크
+      }
+      if (strike === 0) { // n볼 0스트라이크
         Console.print(`${ball}볼`);
         return
       }
@@ -116,6 +130,7 @@ class App {
     // 입력값 유효성 검사
     function validationNumbers(inputNumbers) {
       const inputNumbersSet = new Set(inputNumbers);
+      // Console.print(inputNumbersSet)
     
       return (
         // 문자열의 길이 확인
@@ -132,24 +147,35 @@ class App {
 
     // state가 true일 때 반복
     while (gameData.getState()) {
+    
       // 사용자에게 값 받기
-      // 프로미스 방식 -> 성공 : resolve, 실패 : reject
-      const userInputs = await new Promise((resolve) => {
-        Console.readLine("숫자를 입력해주세요 : ", (input) => {    
-          resolve(input);
-        });
-      });
-      // 잘못된 값을 입력했을 때 처리
-      // validationNumbers가 false일 때
-      if (!validationNumbers(userInputs.split(''))) {
-        throw new Error('잘못된 값을 입력했습니다.');
-        continue; // 잘못된 입력일 경우 반복을 계속함
-      }
-      // 제대로 된 값을 입력했다면 숫자로 변환
-      const userInputsNumber = userInputs.split('').map((userInput) => parseInt(userInput, 10));
+      const number = await Console.readLineAsync("숫자를 입력해주세요 : ");
+      const userInputs = number.split("").map((userInput) => parseInt(userInput, 10)); // [ 1, 2, 3 ]
+      // Console.print(userInputs)
+      // Console.print(number, '--', userInputs)
+      
+      if (!validationNumbers(userInputs)) {
+        throw new Error('[ERROR] 잘못된 값을 입력했습니다.');
+      };
+      // // 프로미스 방식 -> 성공 : resolve, 실패 : reject
+      // const userInputs = await new Promise((resolve) => {
+      //   Console.readLine("숫자를 입력해주세요 : ", (input) => {   
+      //     Console.print(input) 
+      //     Console.print(input.split('').map((userInput) => parseInt(userInput, 10)))
+      //     resolve(input.split('').map((userInput) => parseInt(userInput, 10)));
+      //   });
+      // });
+      // // 잘못된 값을 입력했을 때 처리
+      // // validationNumbers가 false일 때
+      // if (!validationNumbers(userInputs)) {
+      //   throw new Error('잘못된 값을 입력했습니다.');
+      //   continue; // 잘못된 입력일 경우 반복을 계속함
+      // }
+      // // // 제대로 된 값을 입력했다면 숫자로 변환
+      // // const userInputsNumber = userInputs.split('').map((userInput) => parseInt(userInput, 10));
 
-      setAnalysis(gameData, userInputsNumber, randomNumbers);
-      printResult(gameData);
+      setAnalysis(gameData, userInputs, randomNumbers);
+      // printResult(gameData);
 
       if (gameData.getThreeStrike()) {
         await continueOrEnd(gameData);
