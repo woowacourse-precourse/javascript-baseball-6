@@ -1,39 +1,34 @@
 import { Console, Random } from '@woowacourse/mission-utils';
 
+const MAX_DIGITS = 3;
+
 class App {
   strike = 0;
   ball = 0;
 
   async play() {
-    let IS_PLAYING = false;
+    let IS_PLAYING = true;
+    let computer = this.computerPicksNumber();
     Console.print('숫자 야구 게임을 시작합니다');
-    
-    try {
-      let computer = this.computerPicksNumber();
-      IS_PLAYING = true;
 
-      while (IS_PLAYING) {
-        let userInput = await this.getUserInput();
+    while (IS_PLAYING) {
+      let userInput = await this.getUserInput();
 
-        if (!this.validation(userInput)) {
+      if (!this.validation(userInput)) {
+        throw new Error('[ERROR]');
+      }
+      this.calculateBallAndStrike(computer, userInput);
+      if (+computer === +userInput) {
+        Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+        let userChoice = await this.getUserChoice();
+        if (userChoice === '1') {
+          computer = this.computerPicksNumber();
+        } else if (userChoice === '2') {
+          IS_PLAYING = false;
+        } else {
           throw new Error('[ERROR]');
         }
-        this.calculateBallAndStrike(computer, userInput);
-        if (+computer === +userInput) {
-          Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
-          let userChoice = await this.getUserChoice();
-          if (userChoice === '1') {
-            computer = this.computerPicksNumber();
-            continue;
-          } else if (userChoice === '2') {
-            IS_PLAYING = false;
-          } else {
-            throw new Error('[ERROR]');
-          }
-        }
       }
-    } catch (error) {
-      throw new Error('[ERROR]');
     }
   }
 
@@ -47,30 +42,28 @@ class App {
 
   computerPicksNumber() {
     const computerPickArr = [];
-
-    while (computerPickArr.length < 3) {
+    while (computerPickArr.length < MAX_DIGITS) {
       const number = Random.pickNumberInRange(1, 9);
       if (!computerPickArr.includes(number)) {
         computerPickArr.push(number);
       }
     }
-
     const computerPick = computerPickArr.join('');
     return computerPick;
   }
+
 
   calculateBallAndStrike(computer, userInput) {
     const computerDigits = computer.split('');
     const userDigits = userInput.split('');
 
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < MAX_DIGITS; i++) {
       if (computerDigits[i] === userDigits[i]) {
         this.strike++;
       } else if (computer.includes(userDigits[i])) {
         this.ball++;
       }
     }
-
     this.printResult();
   }
 
@@ -96,10 +89,10 @@ class App {
   }
 
   validation(input) {
-    if (input.length !== 3) {
+    if (input.length !== MAX_DIGITS) {
       return false;
     }
-    if (new Set(input).size !== 3) {
+    if (new Set(input).size !== MAX_DIGITS) {
       return false;
     }
     if (Number.isNaN(Number(input))) {
