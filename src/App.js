@@ -107,7 +107,7 @@ class App {
         throw error();
       }
     } catch (error) {
-      throw error(MESSAGE.ERROR.WRONG_VALUE);
+      throw new Error(MESSAGE.ERROR.WRONG_VALUE);
     }
   }
 
