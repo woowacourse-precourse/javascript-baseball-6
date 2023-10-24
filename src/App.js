@@ -1,8 +1,9 @@
-import { Random } from "@woowacourse/mission-utils";
+import { Random, Console } from "@woowacourse/mission-utils";
 
 class App {
   async play() {
     const RANDOM_VALUE = this.getRandomNumber();
+    const INPUT_VALUE = await this.getInputNumber();
   }
 
   getRandomNumber() {
@@ -14,6 +15,15 @@ class App {
       }
     }
     return `${computer[0]}${computer[1]}${computer[2]}`;
+  }
+
+  async getInputNumber() {
+    try {
+      const input = await Console.readLineAsync("숫자를 입력해주세요 : ");
+      return input;
+    } catch (e) {
+      console.error(e);
+    }
   }
 }
 
