@@ -1,4 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
+import { getResultMessage } from "../Text/message";
 
 //ball judge
 export const BALL_MANAGER = (player, computer) => {
@@ -9,15 +10,8 @@ export const BALL_MANAGER = (player, computer) => {
       player[i] === computer[i] ? (strike += 1) : (ball += 1);
     }
   }
-  const TEXT_ARRAY = [];
-  if (ball > 0) {
-    TEXT_ARRAY.push(`${ball}볼`);
-  }
-  if (strike > 0) {
-    TEXT_ARRAY.push(`${strike}스트라이크`);
-  }
-
-  return TEXT_ARRAY.length > 0 ? TEXT_ARRAY.join(" ") : "낫싱";
+  //결과 메세지
+  return getResultMessage(ball, strike);
 };
 
 //error management
