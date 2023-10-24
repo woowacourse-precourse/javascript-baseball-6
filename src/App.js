@@ -6,6 +6,10 @@ class App {
     this.randNum = this.makeRandNum();
   }
 
+  /** 
+   * 컴퓨터 랜덤 숫자를 만들어주는 함수
+   * @returns {Array<number>} 랜덤 생성한 3자리 숫자 배열 
+   */
   makeRandNum() {
     const computer = [];
     while (computer.length < 3) {
@@ -17,6 +21,9 @@ class App {
     return computer;
   }
 
+  /**
+   * 야구 게임 플레이 하는 함수
+   */
   async play() {
     this.printMsg(NORMAL_MSG.START);
     let ONOFF = 1;
@@ -57,6 +64,12 @@ class App {
     
   }
 
+  /**
+   * 볼&스트라이크 개수 체크하는 함수
+   * @param {Array<number>} ansNum 컴퓨터 숫자
+   * @param {Array<number>} inputNum 사용자 숫자
+   * @returns {[number, number]} 볼&스트라이크 개수를 묶은 숫자 배열
+   */
   async checkStrike(ansNum, inputNum) {
     let ball = 0;
     let strike = 0;
@@ -75,6 +88,11 @@ class App {
     return [ball, strike];
   }
 
+  /**
+   * 입력값이 유효한지 확인하는 함수
+   * @param {string} userInput 사용자에게 받은 문자열
+   * @param {Array<number>} inputNum userInput을 각 자릿수 배열로 만든 것
+   */
   checkValidation(userInput, inputNum) {
     let set = new Set(inputNum);
 
@@ -93,21 +111,40 @@ class App {
     return;
   }
 
+  /**
+   * 입력값이 1-9 사이의 숫자인지 체크하는 함수
+   * @param {string} userInput 사용자에게 받은 문자열
+   * @returns {boolean} 확인 결과에 따른 T/F 값
+   */
   isNumber(userInput) {
     const regEx = /[^\d1-9]/;
     const isNum = userInput.match(regEx);
     return !isNum;
   }
 
+  /**
+   * 입력값의 길이가 3인지 확인하는 함수
+   * @param {string} userInput 사용자에게 받은 문자열
+   * @returns {boolean} 확인 결과에 따른 T/F 값
+   */
   isValidLen(userInput) {
-    return userInput.length == 3;
+    return userInput.length === 3;
   }
 
+  /**
+   * 인자로 받은 문자열을 print 해주는 함수
+   * @param {string} str print할 문자열
+   */
   printMsg(str){
     Console.print(str);
     return;
   }
 
+  /**
+   * 오류 메시지 prefix 달아주는 함수
+   * @param {string} str 오류 메시지 문자열
+   * @returns prefix가 추가된 오류 메시지 반환
+   */
   makeErrorMsg(str){
     return `[ERROR] ${str}`;
   }
