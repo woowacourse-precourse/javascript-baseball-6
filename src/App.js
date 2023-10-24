@@ -3,7 +3,7 @@ import { Console, Random } from '@woowacourse/mission-utils';
 const NUMBER_COUNT = 3;
 const GAME_CONTINUE = '1';
 const GAME_END = '2';
-const ERROR_MESSAGE = '[ERROR]';
+const ERROR_MESSAGE = '[ERROR] 유효하지 않은 입력입니다.';
 
 class App {
   constructor() {
