@@ -4,6 +4,7 @@
 const MESSAGES = {
   GAME_START: "숫자 야구 게임을 시작합니다.",
   INPUT_NUMBER: "숫자를 입력해주세요 : ",
+  WRONG_INPUT: "잘못된 입력 형식입니다.",
 };
 
 export default MESSAGES;

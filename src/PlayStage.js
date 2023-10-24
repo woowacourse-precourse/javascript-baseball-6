@@ -47,8 +47,9 @@ class PlayStage {
   /**
    * 사용자의 입력이 형식에 맞지 않을 경우 예외를 발생시킨다.
    * @param {string} text 사용자의 입력
+   * @returns {boolean} 입력 형식이 맞는지 여부
    */
-  #checkValidation(text) {
+  setIsValid(text) {
     if (!/^[1-9]{3}$/.test(text)) {
       this.#isValid = false;
       return;
@@ -58,6 +59,14 @@ class PlayStage {
     if (temp[0] === temp[1] || temp[1] === temp[2] || temp[0] === temp[2]) {
       this.#isValid = false;
     }
+  }
+
+  /**
+   * isValid를 반환한다.
+   * @return {boolean}
+   */
+  getIsValid() {
+    return this.#isValid;
   }
 }
 
