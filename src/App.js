@@ -117,7 +117,7 @@ class App {
     }
 
     let number = await getUserInput(
-      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
     );
     if (!checkedError(number)) {
       throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
