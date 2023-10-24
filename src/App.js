@@ -3,7 +3,7 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 class App {
   async play() {
     function generateRandomNumber() {
-      // 1~9 사이의 서로 다른 임의의 수 3개 선택 함수
+      // 컴퓨터가 1~9 사이의 서로 다른 임의의 수 3개 선택하는 함수
       const computer = [];
       while (computer.length < 3) {
         const number = MissionUtils.Random.pickNumberInRange(1, 9);
@@ -12,6 +12,19 @@ class App {
         }
       }
       return computer;
+    }
+
+    function calculateResult(computer, guess) {
+      // 입력한 수에 대한 결과를 볼, 스트라이크 개수 계산 함수
+      let strikes = 0;
+      let balls = 0;
+
+      for (let i = 0; i < 3; i++) {
+        if (guess[i] === computer[i]) strikes++;
+        else if (computer.includes(guess[i])) balls++;
+      }
+
+      return { strikes, balls };
     }
 
     function palyGame() {
