@@ -1,4 +1,3 @@
-import { readBaseballNumbers, readRestartNumber } from './view/View.js';
 import BaseBall from './BaseBall.js';
 import OutputView from './view/OutputView.js';
 import InputReader from './view/InputReader.js';
@@ -28,12 +27,14 @@ class App {
   }
 
   async check(userInput) {
+    if ([...String(userInput)].length !== 3)
+      throw new Error('[ERROR] 3자리 숫자만 입력해주세요');
+
+    if (new Set([...String(userInput)]).size !== [...String(userInput)].length)
+      throw new Error('[ERROR] 중복되지 않은 숫자를 입력해주세요');
+
     const countResult = this.baseBall.countResult(userInput);
     const { strike } = countResult;
-
-    if ([...String(userInput)].length !== 3) {
-      throw new Error('[ERROR] 3자리 숫자만 입력해주세요');
-    }
 
     this.outputView.printBaseBallCountResult(countResult);
 
@@ -68,9 +69,7 @@ class App {
     this.setting();
   }
 
-  end() {
-    return;
-  }
+  end() {}
 }
 
 const outputView = new OutputView();
