@@ -3,24 +3,31 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 class App {
     async play() {
         await MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
-        while (true) {
-            const COMNUM = this.ComputerNumber();
-            const USERINPUT = await this.UserInput();
-            const USERINPUTArray = USERINPUT.split("").map(Number);
-            if (this.CheckNum(USERINPUT)) {
-                const result = this.BSResult(COMNUM, USERINPUTArray);
+        const comNum = this.ComNum();
+        var restart = 1;
+        while (restart === 1) {
+            await MissionUtils.Console.print("comNum : "); //테스트
+            await MissionUtils.Console.print(comNum); //테스트
+            const userInput = await this.UserInput();
+            await MissionUtils.Console.print("userInput : "); //테스트
+            await MissionUtils.Console.print(userInput); //테스트
+            const inputArray = userInput.split("").map(Number);
+            await MissionUtils.Console.print("inputArray : "); //테스트
+            await MissionUtils.Console.print(inputArray); //테스트
+            await MissionUtils.Console.print("this.CheckNum(userInput) : "); //테스트
+            await MissionUtils.Console.print(this.CheckNum(userInput)); //테스트
+            if (this.CheckNum(userInput) === true) {
+                const result = this.BSResult(comNum, inputArray);
+                await MissionUtils.Console.print("ComNum2 : "); //테스트
+                await MissionUtils.Console.print(comNum); //테스트
+                await MissionUtils.Console.print("result : "); //테스트
                 await MissionUtils.Console.print(result);
                 if (result === "3스트라이크") {
                     await MissionUtils.Console.print(
                         "3개의 숫자를 모두 맞히셨습니다! 게임 종료"
                     );
-                    const restart = await this.Restart();
-                    if (restart === "2") {
-                        break;
-                    }
+                    restart = await this.Restart();
                 }
-            } else {
-                throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
             }
         }
     }
@@ -35,6 +42,8 @@ class App {
             "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
         );
         const choice = await MissionUtils.Console.readLineAsync();
+        await MissionUtils.Console.print("choice : "); //테스트
+        await MissionUtils.Console.print(choice); //테스트
         if (choice === "1" || choice === "2") {
             return choice;
         } else {
@@ -42,47 +51,49 @@ class App {
         }
     }
 
-    ComputerNumber() {
-        const RANDOMNUM = MissionUtils.Random.pickNumberInRange(1, 9);
-        const COMPUTER = [];
-        COMPUTER.push(RANDOMNUM);
-        for (let i = 0; i < 3; i++) {
-            const RANDOMNUM = MissionUtils.Random.pickNumberInRange(1, 9);
-            if (!COMPUTER.includes(RANDOMNUM)) {
-                COMPUTER.push(RANDOMNUM);
+    ComNum() {
+        const ranNum = MissionUtils.Random.pickNumberInRange(1, 9);
+        const comarr = [];
+        comarr.push(ranNum);
+        while (comarr.length < 3) {
+            const ranNum = MissionUtils.Random.pickNumberInRange(1, 9);
+            if (!comarr.includes(ranNum)) {
+                comarr.push(ranNum);
             }
         }
-        return COMPUTER.join("");
+        return comarr.join("");
     }
 
-    CheckNum(USERINPUT) {
-        if (USERINPUT.length === 3 && !isNaN(USERINPUT)) {
+    CheckNum(userInput) {
+        const uniqueInput = [...new Set(userInput)].join("");
+        if (uniqueInput.length === 3 && !isNaN(userInput)) {
             return true;
+        } else {
+            throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
         }
-        return false;
     }
 
-    BSResult(COMNUM, USERINPUTArray) {
-        let STRIKES = 0;
-        let BALLS = 0;
+    BSResult(comNum, inputArray) {
+        let strike = 0;
+        let ball = 0;
         for (let i = 0; i < 3; i++) {
-            if (COMNUM.includes(USERINPUTArray[i])) {
-                BALLS++;
+            if (comNum.includes(inputArray[i])) {
+                ball++;
             }
-            if (USERINPUTArray[i] == COMNUM[i]) {
-                STRIKES++;
-                BALLS--;
+            if (inputArray[i] == comNum[i]) {
+                strike++;
+                ball--;
             }
         }
-        if (STRIKES === 3) {
+        if (strike === 3) {
             return "3스트라이크";
         }
-        if (STRIKES > 0 || BALLS > 0) {
-            const ANSWERNUM = [
-                BALLS > 0 ? `${BALLS}볼 ` : "",
-                STRIKES > 0 ? `${STRIKES}스트라이크` : "",
+        if (strike > 0 || ball > 0) {
+            const answerNum = [
+                ball > 0 ? `${ball}볼 ` : "",
+                strike > 0 ? `${strike}스트라이크` : "",
             ];
-            return ANSWERNUM.join(" ");
+            return answerNum.join(" ");
         }
         return "낫싱";
     }
