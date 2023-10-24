@@ -1,7 +1,7 @@
 import { Random } from "@woowacourse/mission-utils";
 
-class GenerateRandomNumber {
-  async generateRandomNumber(min, max) {
+class ComputerClass {
+  async getNumber(min, max) {
     let randomArr = [];
     let number = 0;
     while (randomArr.length < 3) {
@@ -14,4 +14,4 @@ class GenerateRandomNumber {
   }
 }
 
-export default GenerateRandomNumber;
+export default ComputerClass;

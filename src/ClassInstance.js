@@ -1,30 +1,30 @@
-import GenerateRandomNumber from "./utils/GenerateRandomNumber.js";
-import Validator from "./utils/Validator.js";
-import CheckGuess from "./utils/CheckGuess.js";
-import Restart from "./utils/Restart.js";
+import ComputerClass from "./utils/Computer.js";
+import ValidatorClass from "./utils/Validator.js";
+import RestartClass from "./utils/Restart.js";
+import HintClass from "./utils/Hint.js";
 
 class ClassInstance {
   constructor() {
-    this.generateRandom = new GenerateRandomNumber();
-    this.validatorInstance = new Validator();
-    this.checkGuessInstance = new CheckGuess();
-    this.restartInstance = new Restart();
+    this.computerClass = new ComputerClass();
+    this.validatorClass = new ValidatorClass();
+    this.hintClass = new HintClass();
+    this.restartClass = new RestartClass();
   }
 
-  generateRandomNumber(min, max) {
-    return this.generateRandom.generateRandomNumber(min, max);
+  getNumber(min, max) {
+    return this.computerClass.getNumber(min, max);
   }
 
   validator(input) {
-    return this.validatorInstance.validator(input);
+    return this.validatorClass.validator(input);
   }
 
-  checkGuess(input, answer) {
-    return this.checkGuessInstance.checkGuess(input, answer);
+  hint(input, answer) {
+    return this.hintClass.hint(input, answer);
   }
 
   restart() {
-    return this.restartInstance.restart();
+    return this.restartClass.restart();
   }
 }
 

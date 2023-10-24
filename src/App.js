@@ -4,7 +4,7 @@ import ClassInstance from "./ClassInstance.js";
 class Game {
   async playGame() {
     const c = new ClassInstance();
-    let answer = await c.generateRandomNumber(1, 9);
+    let answer = await c.getNumber(1, 9);
     console.log(answer);
     let isContinue = true;
 
@@ -15,7 +15,7 @@ class Game {
       if (!isValidated) {
         throw new Error("[ERROR]");
       }
-      const result = await c.checkGuess(inputArr, answer);
+      const result = await c.hint(inputArr, answer);
       Console.print(result);
       if (result === "3스트라이크") isContinue = false;
     }

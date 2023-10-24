@@ -1,5 +1,5 @@
-class CheckGuess {
-  async checkGuess(input, answer) {
+class HintClass {
+  async hint(input, answer) {
     let strikes = 0;
     let ball = 0;
     let result = "";
@@ -21,4 +21,4 @@ class CheckGuess {
   }
 }
 
-export default CheckGuess;
+export default HintClass;
