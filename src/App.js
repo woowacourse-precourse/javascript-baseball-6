@@ -68,9 +68,6 @@ class App {
       // 2. 컴퓨터가 랜덤한 3자리 숫자 생성
       const computer = this.makeRandomNum();
 
-      // 확인용
-      // console.log("컴퓨터: ", computer);
-
       // 사용자 입력 반복
       let answer = "000";
       inner: do {
@@ -82,7 +79,6 @@ class App {
         // 7-1. 사용자 숫자 입력 예외처리
         // 중복된 숫자 안되고, 1자리/2자리/4자리이상 숫자 입력 안되고, 빈 입력도 안됨
         const numCheck = /\d{3}/; // 추가 -숫자가 아닌 문자 입력 막기
-        // 테스트 코드
         if (answer.length < 3 || answer.length > 3) {
           throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
         } else if (this.isDup(answer)) {
@@ -92,15 +88,6 @@ class App {
         } else if (answer.includes("0")) {
           throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
         }
-        // try {
-        //   answer = await MissionUtils.Console.readLineAsync(
-        //     "숫자를 입력해주세요 : "
-        //   );
-        // } catch (err) {
-        //   console.log(err);
-        //   MissionUtils.Console.print(`[ERROR] 숫자가 잘못된 형식입니다.`);
-        //   break outer;
-        // }
 
         // 4. 사용자 입력과 컴퓨터가 생성한 숫자 비교
         if (
@@ -133,28 +120,16 @@ class App {
         "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
       );
       // 7-2. 사용자의 게임 새로 시작/종료 입력 처리
-      // 테스트 코드
       if (this.isContinue < 1 || this.isContinue > 2) {
         throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
       }
-      // try {
-      //   if (this.isContinue < 1 || this.isContinue > 2) {
-      //     throw new Error("[ERROR]");
-      //   }
-      // } catch (err) {
-      //   MissionUtils.Console.print(`[ERROR] 숫자가 잘못된 형식입니다.`);
-      //   break outer;
-      // }
       // 6. 1을 입력했으면 처음부터 다시 시작, 2를 입력했으면 프로그램 종료
     }
   }
-  // 7. 예외처리
-  // 7-1. 사용자의 숫자 입력 처리
-  // 7-2. 사용자의 게임 새로 시작/종료 입력 처리
 }
 
 // 게임 실행
-// const game = new App();
-// game.play();
+const game = new App();
+game.play();
 
 export default App;
