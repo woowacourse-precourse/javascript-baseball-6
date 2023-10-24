@@ -1,3 +1,4 @@
+import ERROR_MESSAGES from './constants/ERROR_MESSAGES';
 import { Console } from '@woowacourse/mission-utils';
 
 class UserInput {
@@ -5,18 +6,19 @@ class UserInput {
 		const userInputNumber = Number(userInput);
 		const userInputSet = new Set(userInput.split(''));
 
-		if (userInput.length !== 3) throw new Error('[ERROR] 세 자리 수를 입력해주세요.');
+		if (userInput.length !== 3) throw new Error(ERROR_MESSAGES.INVALID_LENGTH_ERROR);
 
-		if (userInput.includes('0')) throw new Error('[ERROR] 범위 내 숫자를 입력해주세요');
+		if (userInput.includes('0')) throw new Error(ERROR_MESSAGES.INVALID_RANGE_ERROR);
 
-		if (isNaN(userInputNumber)) throw new Error('[ERROR] 숫자를 입력해주세요.');
+		if (isNaN(userInputNumber)) throw new Error(ERROR_MESSAGES.NOT_A_NUMBER_ERROR);
 
 		if (userInput.length !== userInputSet.size)
-			throw new Error('[ERROR] 서로 다른 숫자를 입력해주세요');
+			throw new Error(ERROR_MESSAGES.DUPLICATE_NUMBER_ERROR);
 	}
 
 	checkGameEndInputIsValid(userInput) {
-		if (userInput !== '1' && userInput !== '2') throw new Error('[ERROR] 1 또는 2를 입력해주세요.');
+		if (userInput !== '1' && userInput !== '2')
+			throw new Error(ERROR_MESSAGES.INVALID_CHOICE_ERROR);
 	}
 
 	async baseballInput(question = '숫자를 입력해주세요 : ') {
