@@ -104,5 +104,7 @@ class App {
 		return this.compareNum(await this.createPlayerNum());
 	}
 }
+const app = new App();
+app.play();
 
 export default App;
