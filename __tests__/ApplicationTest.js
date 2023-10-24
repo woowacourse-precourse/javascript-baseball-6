@@ -33,8 +33,6 @@ describe("숫자 야구 게임", () => {
 
     mockRandoms(randoms);
     mockQuestions(answers);
-
-    // when
     const app = new App();
     await expect(app.play()).resolves.not.toThrow();
 
