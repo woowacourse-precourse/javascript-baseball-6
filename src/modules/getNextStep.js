@@ -8,10 +8,7 @@ const isExitOrRestartCommand = (string) => {
 };
 
 const getNextStep = async () => {
-  const command = await inputToUser(
-    INPUT_NEXT_STEP_PROMPT,
-    isExitOrRestartCommand,
-  );
+  const command = await inputToUser(INPUT_NEXT_STEP_PROMPT, isExitOrRestartCommand);
 
   return command;
 };
