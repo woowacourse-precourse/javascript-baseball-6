@@ -13,37 +13,31 @@ class App {
     this.reader = new UserNumberReader();
     this.replayManager = new ReplayManager();
     this.gameState = 'ready';
+    Console.print(Constants.GAME_START);
+  }
+
+  setupNewGame() {
+    this.randomNumber = this.maker.makeRandomNumber();
+    this.gameState = 'ready';
   }
 
   async play() {
+    this.setupNewGame();
     try {
-      Console.print(Constants.GAME_START); // 게임 시작
-      this.randomNumber = this.maker.getRandomNumber();
-
       while (this.gameState !== 'ended') {
-        await this.nextStep();
+        await this.getUserInput();
       }
     } catch (error) {
-      Console.print(Constants.GAME_OVER);
-      //Console.print(error.message);
-      return Promise.reject(error);
-    }
-  }
-
-  async nextStep() {
-    if (this.gameState === 'ready') {
-      await this.getUserInput();
-    } else if (this.gameState === 'playing') {
-      await this.checkAnswer();
-    } else if (this.gameState === 'finished') {
-      await this.handleReplay();
+      Console.print(error.message);
+      this.endGame();
+      return Promise.reject(error); // 오류가 발생하면 함수를 즉시 종료
     }
   }
 
   async getUserInput() {
-    const userNumber = await Console.readLineAsync(); // 사용자 수 읽기
+    const userNumber = await Console.readLineAsync();
     if (!correctNumber(userNumber)) {
-      throw new Error("[ERROR]"); // 예외 발생
+      throw new Error("[ERROR]");
     }
 
     this.reader.setUserNumber(userNumber);
@@ -51,29 +45,36 @@ class App {
     Console.print(`${Constants.NOTICE_INPUT} : ${userAnswer}`);
 
     this.userAnswer = userAnswer;
-    this.gameState = 'playing';
-    await this.nextStep();
+    this.checkAnswer();
   }
 
-  async checkAnswer() {
-    showResult(this.randomNumber, this.userAnswer); // 결과 문구
-
+  checkAnswer() {
+    showResult(this.randomNumber, this.userAnswer);
     if (this.isGameOver(this.randomNumber, this.userAnswer)) {
       Console.print(Constants.GOAL);
-      this.gameState = 'finished';
+      this.endGame();
+      this.handleReplay();
     } else {
-      this.gameState = 'ready';
+      this.getUserInput();
     }
-    await this.nextStep();
   }
 
   async handleReplay() {
-    this.gameState = await this.replayManager.handleReplay();
-    await this.nextStep();
+    const replayState = await this.replayManager.handleReplay();
+    if (replayState === 'ready') {
+      this.play();
+    } else {
+      this.endGame();
+      //Console.print(Constants.GAME_OVER);
+    }
   }
 
   isGameOver(computerNumber, playerNumber) {
-    return computerNumber === playerNumber; // 게임 종료
+    return computerNumber === playerNumber;
+  }
+
+  endGame() {
+    this.gameState = 'ended';
   }
 }
 
