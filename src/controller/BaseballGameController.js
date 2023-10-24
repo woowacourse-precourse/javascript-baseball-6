@@ -17,34 +17,31 @@ class BaseballGameController {
     this.baseballGame.start();
     this.computer.start();
 
-    return await this.play();
+    await this.play();
+    await this.playOrEnd();
   }
 
   async play() {
     const guessNumber = await InputView.readGuessNumber();
     const result = this.baseballGame.result(guessNumber, this.computer.getValue());
 
-    OutputView.printGuessResult({
-      strike: result.strike,
-      ball: result.ball,
-    });
-
-    return await this.playOrEnd();
-  }
-
-  async playOrEnd() {
-    return this.baseballGame.isPlaying ? await this.play() : this.end();
+    OutputView.printGuessResult(result);
   }
 
   async end() {
     OutputView.printEndMessage();
     const answer = await InputView.readRestartAnswer();
 
-    return await this.restartOrExit(answer);
+    await this.restartOrExit(answer);
   }
 
+  async playOrEnd() {
+    this.baseballGame.isPlaying ? await this.play() : await this.end();
+  }
+
+
   async restartOrExit(answer) {
-    return this.baseballGame.isRestart(answer) ? await this.restart() : this.exit();
+    this.baseballGame.isRestart(answer) ? await this.restart() : this.exit();
   }
 
   async restart() {
@@ -52,11 +49,12 @@ class BaseballGameController {
     this.computer.reset();
     this.computer.start();
 
-    return await this.play();
+    await this.play();
   }
 
   exit() {
     this.baseballGame = null;
+    this.computer = null;
     OutputView.printExitMessage();
   }
 }
