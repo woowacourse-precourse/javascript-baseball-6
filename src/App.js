@@ -1,17 +1,19 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import { GAME_MSG } from "./Messages";
-import { gameStart } from "./BaseballGame";
+import { compareNum } from "./BaseballGame";
 
 class App {
   async play() {
     try {
-      // 0. 게임 시작 메세지 출력
       MissionUtils.Console.print(GAME_MSG.START);
-      await gameStart();
+      await compareNum();
     } catch (error) {
       throw new Error("[ERROR]");
     }
   }
 }
+
+const app = new App();
+app.play();
 
 export default App;

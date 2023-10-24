@@ -10,7 +10,7 @@ const GAME_MSG = Object.freeze({
 
 const ERROR_MSG = Object.freeze({
   INPUT_ERROR_LEN: "[ERROR]세자리 수를 입력해주세요.",
-  INPUT_ERROR_SAME: "[ERROR]숫자가 중복되지 않아야 합니다.",
+  INPUT_ERROR_DUPLE: "[ERROR]숫자가 중복되지 않아야 합니다.",
   INPUT_ERROR_NOT_NUM: "[ERROR]숫자만 입력해주세요.",
   RESTART_ERROR_NOT_ANS: "[ERROR]1 혹은 2를 입력해주세요.",
 });
