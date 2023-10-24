@@ -30,16 +30,14 @@ class BaseballGame {
         );
         // TODO : 비교한 결과에 대해 출력하는 기능
         result = this.printResult(ball, strike);
-
       } catch (error) {
         throw new Error(ERROR_MESSAGE.IS_INVALID);
       }
-
-      if (result === 3) {
-        Console.print(`${strike}${BASEBALL_MESSAGE.STRIKE}`);
-        Console.print(GAME_MESSAGE.SUCCESS);
-        return true;
-      }
+    }
+    if (result === 3) {
+      Console.print(`${strike}${BASEBALL_MESSAGE.STRIKE}`);
+      Console.print(GAME_MESSAGE.SUCCESS);
+      return true;
     }
   }
 
