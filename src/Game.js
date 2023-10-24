@@ -10,7 +10,12 @@ class Game {
 
   //컴퓨터의 임의의 3자리 숫자 생성 함수
   getComputerNumber() {
-    return MissionUtils.Random.pickUniqueNumbersInRange(1, 9, 3);
+    const computer = new Set();
+    while (computer.size < 3) {
+      const number = MissionUtils.Random.pickNumberInRange(1, 9);
+      computer.add(number);
+    }
+    return Array.from(computer);
   }
 
   //게임 진행 함수
