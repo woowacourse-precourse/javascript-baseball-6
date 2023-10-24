@@ -57,6 +57,38 @@ class App {
     if (strikeCount !== 3) return this.numberCompare();
     return this.reStart();
   }
+
+  // strikeCount, ballCount에 따라서 보여지는 결과를 출력합니다.
+
+  ballStrikeResult(strikeCount, ballCount) {
+    if (strikeCount === 0 && ballCount === 0) return Console.print("낫싱");
+    if (ballCount === 0) return Console.print(`${strikeCount}스트라이크`);
+    if (strikeCount === 0) return Console.print(`${ballCount}볼`);
+    return Console.print(`${ballCount}볼 ${strikeCount}스트라이크`);
+  }
+
+  isValid(input) {
+    const inputArr = `${input}`.split("");
+    if (inputArr.length !== 3) return false;
+    if (new Set(inputArr).size !== 3) return false;
+    const checkNumber = inputArr.every((v) => !isNaN(v) && v !== "0");
+    return checkNumber ? inputArr : false;
+  }
+
+  async reStart() {
+    const restartInput = await Console.readLineAsync(
+      PROGRESS_MESSAGE.GAME_SUCCESS
+    );
+
+    if (!(restartInput === "1" || restartInput === "2"))
+      throw new Error("[ERROR]");
+
+    if (restartInput === "1") {
+      this.computerAnswer();
+      return this.numberCompare();
+    }
+    if (restartInput === "2") return Console.print("게임 종료");
+  }
 }
 
 const app = new App();
