@@ -1,16 +1,14 @@
 import MESSAGE from '../constants/messages.js';
-import InputHandler from '../utils/inputHandler.js';
 import RandomGenerator from '../utils/randomGenerator.js';
 import { Console } from '@woowacourse/mission-utils';
 import inputValidator from '../validator/inputValidator.js';
 
 class GameController {
   constructor() {
-    //this.startGame();
+    Console.print(MESSAGE.GAME.START);
   }
 
   async startGame() {
-    Console.print(MESSAGE.GAME.START);
     this.computerNumbers = RandomGenerator.pickRandomNumber(3);
     await this.userInput();
   }
@@ -48,20 +46,22 @@ class GameController {
 
     if (strike === 3) {
       this.restartGame();
+    } else {
+      this.userInput();
     }
-    this.userInput();
   }
 
   async restartGame() {
     Console.print(MESSAGE.GAME.RESULT.SUCCESS);
+    await this.inputRestartNumber();
   }
 
   async inputRestartNumber() {
-    const num = await Console.readLineAsync(MESSAGE.GAME.END);
-    inputValidator.validateRestart(num);
-    if (num === 1) {
+    const input = await Console.readLineAsync(MESSAGE.GAME.END);
+    inputValidator.validateRestart(input);
+    if (input === '1') {
       await this.startGame();
-    } else if (num === 2) {
+    } else if (input === '2') {
       return;
     }
   }
