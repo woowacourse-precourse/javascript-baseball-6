@@ -4,20 +4,21 @@ class App {
 
   async play() {
     Console.print("숫자 야구 게임을 시작합니다.");
-    const randomNumber = this.getRandomNumber();
-    let isGameOver  = true;
+    const randomNumber = this.getRandomNumber(); // 랜덤 번호
+    let isGameOver  = true; // 반복문 조건
     
     while(isGameOver) {
       const userNumber = await this.getUserNumber();
       const result = this.checkNumbers(randomNumber, userNumber)
       Console.print(result);
+
       if(result === '3스트라이크') {
-        isGameOver = false;
+        isGameOver = false; // 정답맞췄으니 반복문 탈출
         Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
       
-        await this.reStartOrExit()
       }
     }
+    await this.reStartOrExit()
   }
 
   getRandomNumber() {
@@ -34,7 +35,7 @@ class App {
   async getUserNumber() {
     try {
       const number = await Console.readLineAsync("숫자를 입력해주세요 : ");
-      const numberDuplication = (new Set(number)).size !== number.length;
+      const numberDuplication = (new Set(number)).size !== number.length; // 중복확인하는 변수
 
       if(number.length !== 3) {
         throw new Error("[ERROR] 숫자 3개를 입력해주세요.")
@@ -64,8 +65,10 @@ class App {
     }
 
     for(let i=0; i<3; i++) {
+      // 숫자가 같고 인덱스가 같으면 strike++
       if(computer[i] === +user[i]){
         strike ++
+      // 숫자는 같은데 인덱스가 다른경우 ball++
       } else if(computer.includes(+user[i])) {
         ball ++
       }
@@ -84,6 +87,7 @@ class App {
   async reStartOrExit() {
     const result = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
 
+    // 1이면 재시작 2이면 종료
     if(result === "1") {
       this.play()
     }else if(result === "2") {
