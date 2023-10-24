@@ -6,17 +6,17 @@ const START = 1;
 const STOP = 9;
 
 const getRandomUniqueNumber = () => {
-  const randomNumber = [];
+  const randomNumbers = [];
 
-  while (randomNumber.length < MAX_NUM_LENGTH) {
+  while (randomNumbers.length < MAX_NUM_LENGTH) {
     const number = Random.pickNumberInRange(START, STOP);
 
-    if (!randomNumber.includes(number)) {
-      randomNumber.push(number);
+    if (!randomNumbers.includes(number)) {
+      randomNumbers.push(number);
     }
   }
 
-  const numberString = randomNumber.join('');
+  const numberString = randomNumbers.join('');
 
   return numberString;
 };
