@@ -5,9 +5,12 @@ import makeComputerNumber from './utils/makeComputerNumber';
 
 const { Console } = require('@woowacourse/mission-utils');
 
+const { MESSAGE, GAME, ANSWER_LENGTH } =
+  require('./constants/constants').default;
+
 class App {
   async play() {
-    Console.print('숫자 야구 게임을 시작합니다.');
+    Console.print(MESSAGE.START);
     const computerNumber = makeComputerNumber();
     await this.startGame(computerNumber);
   }
@@ -18,16 +21,16 @@ class App {
 
     printHint(result);
 
-    if (result.strike < 3) {
+    if (result.strike < ANSWER_LENGTH) {
       await this.startGame(computer);
     } else {
-      Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+      Console.print(MESSAGE.CORRECT_ANSWER);
       await this.askRestart();
     }
   }
 
   async getPlayerNumber() {
-    const playerNumber = await Console.readLineAsync('숫자를 입력해주세요 : ');
+    const playerNumber = await Console.readLineAsync(MESSAGE.INPUT_NUMBER);
     if (!isValid(playerNumber)) {
       throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
     }
@@ -35,12 +38,12 @@ class App {
   }
 
   async askRestart() {
-    Console.print('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+    Console.print(MESSAGE.RESTART_STOP);
     const input = await Console.readLineAsync('');
-    if (input === '1') {
+    if (input === GAME.RESTART) {
       await this.play();
-    } else if (input === '2') {
-      Console.print('게임 종료');
+    } else if (input === GAME.STOP) {
+      Console.print(MESSAGE.STOP);
     } else throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
   }
 }
