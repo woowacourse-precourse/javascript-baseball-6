@@ -9,4 +9,3 @@ export default function App() {
 
 const app = new App();
 app.play();
-33;

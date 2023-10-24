@@ -11,11 +11,12 @@ export default function PlayGame(
 
   this.setState = (nextState) => {
     this.state = nextState;
+    console.log(this.state);
   };
 
   const init = () => {
     const RANDOM_NUMBER = RandomNumber();
-    this.setState({ ...this.state, computer: RANDOM_NUMBER });
+    this.setState({ input: [], START_GAME: true, computer: RANDOM_NUMBER });
   };
 
   this.play = async () => {

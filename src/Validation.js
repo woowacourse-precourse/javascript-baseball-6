@@ -21,7 +21,7 @@ export default function Validation() {
   };
 
   this.InputRestartValueValidation = (value) => {
-    if (value !== "1" || value !== "2" || !isNaN(value)) {
+    if (value !== "1" && value !== "2") {
       throw new Error(ERROR.INVALID_RESTART);
     }
   };
