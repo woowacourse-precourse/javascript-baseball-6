@@ -21,7 +21,7 @@ function makeRandom() {
       answer.push(number + "");
     }
   }
-  // console.log(answer);
+  console.log(answer);
   return answer;
 }
 
@@ -35,8 +35,14 @@ async function getUserInput(message) {
 }
 
 function checkError(number) {
-  if (number.length !== 3 || isNaN(number)) {
+  if (number.length !== 3) {
     return false;
+  }
+  for (let i = 0; i < number.length; i++) {
+    if (isNaN(number[i])) {
+      //console.log(number[i], isNaN(number[i]));
+      return false;
+    }
   }
   let set = new Set([...number]);
   //console.log(set.size);
