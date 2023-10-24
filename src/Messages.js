@@ -3,6 +3,7 @@ const Messages = Object.freeze({
 	MSG_BALL: '볼',
 	MSG_STRIKE: '스트라이크',
 	MSG_NOTHING: '낫싱',
+	END_CONDITION: '3스트라이크',
 	MSG_END: '3개의 숫자를 모두 맞히셨습니다! 게임 종료',
 	INPUT_NUMBERS: '숫자를 입력해주세요 : ',
 	INPUT_MENU: '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.',

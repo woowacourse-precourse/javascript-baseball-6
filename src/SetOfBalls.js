@@ -1,4 +1,4 @@
-import { Random, Console } from '@woowacourse/mission-utils'
+import { Random } from '@woowacourse/mission-utils'
 
 class SetOfBalls {
   balls;
@@ -12,6 +12,10 @@ class SetOfBalls {
     const ballOne = Random.pickNumberInRange(1, 9);
     const ballTwo = Random.pickNumberInRange(1, 9);
     const ballThree = Random.pickNumberInRange(1, 9);
+    if (ballOne === ballTwo || ballOne === ballThree || ballTwo === ballThree) {
+      return SetOfBalls.create();
+    }
+
     return new SetOfBalls([ballOne, ballTwo, ballThree]);
   }
 
