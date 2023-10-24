@@ -1,17 +1,29 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
+import { MissionUtils, Console } from "@woowacourse/mission-utils";
 
 class App {
   async play() {
     const computerAnswer = this.generateRandomBallNumber();
     MissionUtils.Console.print(computerAnswer);
-    MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
-    MissionUtils.Console.readLine('숫자를 입력해주세요: ', (answer) => {
-      if(!this.checkAnswer(answer)){
+  
+    while (true) {
+      let answer = await Console.readLineAsync("숫자를 입력해주세요 : ");
+      if (!this.checkAnswer(answer)) {
         throw new Error();
       }
-      this.checkAllStrike(computerAnswer, answer);
-      //console.log(`${answer}`);
-    })
+      let correctAnswer = this.checkAllStrike(computerAnswer, answer); // Added 'this.' before checkAllStrike
+      if (correctAnswer) break;
+    }
+    
+
+    MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+    let regame = await Console.readLineAsync(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+    );
+    if (regame == 1) {
+      this.play();
+      return;
+    }
+    
 
   }
 
@@ -56,11 +68,16 @@ class App {
   } else {
       MissionUtils.Console.print('낫싱');
   }
-    
+    if (strike == 3) {
+      return true;
+    }
+    else false;
     
   }
 
 }
+
+MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
 
 const init = new App();
 init.play();
