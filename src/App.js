@@ -3,133 +3,119 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 class App {
   async play() {
     
-    class Computer {
-      // 클래스로 배열 생성
-      constructor ( answer ) {
-        this.answer = [];
-      }
-      
-      // 정답 난수 생성(초기화)
-      set answer (number) {
-        while (this.answer.length < 3) {
-          number = MissionUtils.Random.pickNumberInRange(1, 9);
-          if (!number.includes(this.answer)) {
-            this.answer.push(number);
-          }
+    async function setAnswer ( answer ) {
+      let element = 0;
+      while ( answer.length < 3 ) {
+        element = MissionUtils.Random.pickNumberInRange(1,9);
+        if(!answer.includes(element)) {
+          answer.push(element);
         }
       }
-
-      // 정답 난수 반환
-      get answer () {
-        return this.answer;
-      }
-    }
-
-    // 전역변수로 선언
-    var user = [];
-
-
-    // 사용자에게서 숫자를 받아오는 함수
-    async function getUsernumber(user) {
-      while( user.length < 3 ) {
-        
-        try {
-          const number = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요.');
-
-          if ( typeof(number) != "number" ) {
-            throw new SyntaxError("[ERROR] 숫자를 입력하지 않았습니다.");
-          }
-          else if ( number == 0 ) {
-            throw new SyntaxError("[ERROR] 0은 입력할 수 없습니다.");
-          }
-          else if ( !user.includes(number) ) {
-            throw new SyntaxError("[ERROR] 동일한 숫자를 입력할 수 없습니다.")
-          }
-          
-          user.push(number);
-
-        } catch (error) {
-          MissionUtils.Console.print('[ERROR] 에러가 발생했습니다');
-        }
-      }
+      return answer;
     }
 
 
-    //전역변수 선언
-    var ball = 0;
-    var strike = 0;
+    async function getUsernumber( user ) {
+      let input = '';
 
+      try {
+        input = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요.');
 
+        if( userNum > 987 ){
+          MissionUtils.Console.print("[ERROR] 세자리 숫자가 아닙니다.")
+          return;
+        }
+
+        for (let len=1; len++; len<4) {
+          user.push( input.substr(len-1, len));
+        }
+
+      } catch (error) {
+        MissionUtils.Console.print('[ERROR] 에러가 발생했습니다');
+      }
+      return user;
+    }
+  
+  
     // 정답 난수와 유저 숫자를 비교
-    async function compareResult (answer, user) {
-      if ( answer.length != 3 || user.length != 3) {
-        MissionUtils.Console.print('[ERROR] 에러가 발생했습니다.');
-      }
-
-      for ( answer_num in answer ) {
-        for ( user_num in user ) {
+    async function compareResult ( answer, user, result ) {
+      for (let answer_num of answer ) {
+        for ( let user_num of user ) {
           if ( answer_num == user_num ) {
             if ( answer.indexOf(answer_num) == user.indexOf(user_num) ) {
-              strike++;
+              result.strike++;
             }
             else {
-              ball++;
+              result.ball++;
             }
           }
         }
       }
+      return result;
     }
     
-
+  
     // 비교한 결과 출력
-    function printResult ( ball, strike ) {
-      if ( ball == 0 ) {
-        if ( strike == 0 ) {
+    function printResult ( result ) {
+      
+      if ( result.ball == 0 ) {
+        if ( result.strike == 0 ) {
           MissionUtils.Console.print('낫싱');
         }
-        else if ( strike == 3 ) {
-          MissionUtils.Console.print(strike, '스트라이크');
+        else if ( result.strike == 3 ) {
+          MissionUtils.Console.print(result.strike, '스트라이크');
           MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
         }
         else {
-          MissionUtils.Console.print(strike, '스트라이크');
+          MissionUtils.Console.print(result.strike, '스트라이크');
         }
       }
       else {
-        if ( strike == 0 ) {
-          MissionUtils.Console.print(ball, '볼');
+        if ( result.strike == 0 ) {
+          MissionUtils.Console.print(result.ball, '볼');
         }
         else {
-          MissionUtils.Console.print(ball, '볼', strike, '스트라이크');
+          MissionUtils.Console.print(result.ball, '볼', result.strike, '스트라이크');
         }
       }
     }
-
-
-    function isEnd ( strike ) {
-      var userwant = 0;
-      userwant = MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+  
+  
+    async function isEnd ( userwant ) {
+      userwant = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
       if ( userwant == 1 ) {
         return 1;
       }
-      else if ( userwant == 2 ) {
-        return 0;
-      }
+      return;
     }
 
 
+
+
+    var answer = [];
+    var user = [];
+    var result = {
+      ball: 0,
+      strike: 0
+    }
+    var userwant = 1;
+
     do {
-      Console.print('숫자 야구 게임을 시작합니다.')
-      let answer = new Computer();
-      //숫자 입력 -- 이것도 변수할당이랑 분리해야된다!!!!18:52
+      MissionUtils.Console.print('숫자 야구 게임을 시작합니다.')
+      answer = setAnswer(answer);
       user = getUsernumber(user);
-      compareResult(answer, user);
-      printResult(ball, strike);
-      if ( strike == 3) {
-        isEnd( strike );
+
+
+      result = compareResult( answer, user, result );
+      printResult( result );
+
+      if ( result.strike == 3) {
+        userwant = isEnd( userwant );
+        if ( userwant == 2) {
+          return;
+        }
       }
-    } while ( isEnd == 1 );
+    } while ( userwant == 1 );
   }
 }
-
 export default App;
