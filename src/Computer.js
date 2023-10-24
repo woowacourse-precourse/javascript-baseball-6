@@ -1,4 +1,5 @@
 import { Random, Console } from '@woowacourse/mission-utils';
+import { RESULT_MESSAGE } from './Message';
 class Computer {
   createRandomNumber() {
     const number = [];
@@ -26,13 +27,15 @@ class Computer {
   }
   resultPrint(strike, ball) {
     if (strike === 0 && ball === 0) {
-      Console.print('낫싱');
+      Console.print(RESULT_MESSAGE.NOTHING);
     } else if (strike !== 0 && ball === 0) {
-      Console.print(strike + '스트라이크');
+      Console.print(strike + RESULT_MESSAGE.STRIKE);
     } else if (strike === 0 && ball !== 0) {
-      Console.print(ball + '볼');
+      Console.print(ball + RESULT_MESSAGE.BALL);
     } else if (strike !== 0 && ball !== 0) {
-      Console.print(ball + '볼 ' + strike + '스트라이크');
+      Console.print(
+        ball + RESULT_MESSAGE.BALL + ' ' + strike + RESULT_MESSAGE.STRIKE
+      );
     }
   }
 }

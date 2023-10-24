@@ -1,21 +1,22 @@
+import { ERROR_MESSAGE } from './Message';
 class InputCheck {
   checkInputNumber(userNumber) {
     if (userNumber.length !== 3) {
-      throw new Error('[ERROR] 입력하신 길이가 잘못되었습니다.');
+      throw new Error(ERROR_MESSAGE.COMMON);
     }
     if (isNaN(userNumber)) {
-      throw new Error('[ERROR] 숫자를 입력해 주세요');
+      throw new Error(ERROR_MESSAGE.TYPE_ERROR);
     }
   }
   restartInputCheck(input) {
     if (input.length !== 1) {
-      throw new Error('[ERROR] 숫자가 잘못된 형식입니다.1');
+      throw new Error(ERROR_MESSAGE.COMMON);
     }
     if (isNaN(input)) {
-      throw new Error('[ERROR] 숫자가 잘못된 형식입니다.2');
+      throw new Error(ERROR_MESSAGE.TYPE_ERROR);
     }
     if (input !== '1' && input !== '2') {
-      throw new Error('[ERROR] 숫자가 잘못된 형식입니다.3');
+      throw new Error(ERROR_MESSAGE.COMMON);
     }
   }
 }
