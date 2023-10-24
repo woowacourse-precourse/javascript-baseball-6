@@ -1,6 +1,6 @@
-const STRIKE = '스트라이크';
-const BALL = '볼';
-const NOTHING = '낫싱';
+import Constant from './Constant';
+
+const { STRIKE, BALL, NOTHING } = Constant;
 
 const findSameNumber = (base, char, index) => {
   const occurrenceIndex = base.indexOf(char);

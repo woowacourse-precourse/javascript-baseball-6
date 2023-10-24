@@ -1,14 +1,10 @@
 import inputToUser from './inputToUser';
+import Constant from './Constant';
 
-const INPUT_NEXT_STEP_PROMPT = `3개의 숫자를 모두 맞히셨습니다! 게임 종료
-게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.
-`;
-
-const EXIT_COMMAND = '1';
-const RESTART_COMMAND = '2';
+const { INPUT_NEXT_STEP_PROMPT, EXIT, RESTART } = Constant;
 
 const isExitOrRestartCommand = string => {
-  return string === EXIT_COMMAND || string === RESTART_COMMAND;
+  return string === EXIT || string === RESTART;
 };
 
 const getNextStep = async () => {

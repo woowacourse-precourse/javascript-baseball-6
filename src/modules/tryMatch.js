@@ -2,11 +2,12 @@ import { Console } from '@woowacourse/mission-utils';
 import inputToUser from './inputToUser';
 import compareNumberString from './compareNumberString';
 import getResultString from './getResultString';
+import Constant from './Constant';
 
-const NUMBER_LENGTH = 3;
+const { MAX_NUM_LENGTH, INPUT_PROMPT } = Constant;
 
 const isValidLength = string => {
-  return string.length === NUMBER_LENGTH;
+  return string.length === MAX_NUM_LENGTH;
 };
 
 const isUnique = string => {
@@ -25,19 +26,17 @@ const isUniqueNumber = string => {
 };
 
 const tryMatch = async baseNumber => {
-  const INPUT_NUMBER_PROMPT = '숫자를 입력해 주세요 : ';
-
   let isMatch = false;
 
   while (!isMatch) {
-    const inputValue = await inputToUser(INPUT_NUMBER_PROMPT, isUniqueNumber);
+    const inputValue = await inputToUser(INPUT_PROMPT, isUniqueNumber);
 
     const { strike, ball } = compareNumberString(baseNumber, inputValue);
 
     const resultString = getResultString({ strike, ball });
     Console.print(resultString);
 
-    isMatch = strike === NUMBER_LENGTH;
+    isMatch = strike === MAX_NUM_LENGTH;
   }
 };
 
