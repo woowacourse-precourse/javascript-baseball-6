@@ -81,13 +81,18 @@ class App {
 
         // 7-1. 사용자 숫자 입력 예외처리
         // 중복된 숫자 안되고, 1자리/2자리/4자리이상 숫자 입력 안되고, 빈 입력도 안됨
+        const numCheck = /\d{3}/; // 추가 -숫자가 아닌 문자 입력 막기
         // 테스트 코드
         // if (answer.length < 3 || answer.length > 3) {
         //   throw new Error("[ERROR]");
         // } else if (this.isDup(answer)) {
         //   throw new Error("[ERROR]");
+        // } else if (!numCheck.test(answer)) {
+        //   throw new Error("[ERROR]");
+        // } else if (answer.includes("0")) {
+        //   throw new Error("[ERROR]");
         // }
-        const numCheck = /\d{3}/; // 추가 -숫자가 아닌 문자 입력 막기
+
         try {
           if (answer.length < 3 || answer.length > 3) {
             throw new Error("[ERROR]");
