@@ -7,8 +7,6 @@ class App {
   }
 }
 
-// 테스트
 const APP = new App();
 APP.play();
-
 export default App;

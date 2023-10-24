@@ -9,14 +9,16 @@ class BaseballGame {
   }
 
   async gameStart() {
-    this.randomNumber = this.randomNumberGenerator();
-    this.gameCount += 1;
+    this.randomNumber = await this.randomNumberGenerator();
 
-    this.gameCount
-      ? Console.print(`플레이한 게임 수: ${this.gameCount}`)
-      : Console.print('숫자 야구 게임을 시작합니다.');
+    if (this.gameCount === 0) {
+      Console.print('숫자 야구 게임을 시작합니다.');
+    } else {
+      Console.print(`플레이한 게임 수: ${this.gameCount}`);
+      Console.print('숫자 야구 게임을 시작합니다.');
+    }
 
-    this.getUserInput();
+    await this.getUserInput();
   }
 
   async getUserInput() {
@@ -25,7 +27,7 @@ class BaseballGame {
     );
 
     this.validateUserInput(USER_INPUT);
-    this.showGameResult(USER_INPUT);
+    await this.showGameResult(USER_INPUT);
   }
 
   validateUserInput(userInput) {
@@ -57,17 +59,9 @@ class BaseballGame {
     Console.print(GAME_RESULT_STRING);
 
     if (GAME_CALCULATOR.validateAnswer()) {
-      Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
-      const RESTART_INPUT = await Console.readLineAsync(
-        '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.'
-      );
-      if (RESTART_INPUT === '1') {
-        this.gameStart();
-      } else if (RESTART_INPUT === '2') {
-        return;
-      }
+      this.restart();
     } else {
-      this.getUserInput();
+      await this.getUserInput();
     }
   }
 
@@ -81,6 +75,19 @@ class BaseballGame {
     }
 
     return RANDOM_NUMBERS.join('');
+  }
+
+  async restart() {
+    Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+    const RESTART_INPUT = await Console.readLineAsync(
+      '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.'
+    );
+    if (RESTART_INPUT === '1') {
+      this.gameCount += 1;
+      this.gameStart();
+    } else if (RESTART_INPUT === '2') {
+      return;
+    }
   }
 }
 
