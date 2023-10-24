@@ -26,6 +26,19 @@ class App {
       throw new Error("[Error] 숫자 입력이 들어오지 않았습니다.");
     }
   }
+  async settingNumber(number) {
+    if (number < 0) {
+      throw new Error("[Error] 숫자는 음수일 수 없습니다.");
+    }
+    if (!/[0-9]/g.test(number)) {
+      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+    }
+    if (number.length !== 3) {
+      throw new Error("[ERROR] 숫자는 3자리 수여야 합니다.");
+    }
+
+    this.input = number;
+    await Console.print(this.isIncluded());
   }
 
   async isIncluded() {
