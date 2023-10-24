@@ -45,10 +45,6 @@ classDiagram
     BaseballDirector --|> Player : 플레이어 생성, 데이터 저장
     BaseballDirector --|> Computer : 컴퓨터 생성, 번호 생성
     BaseballDirector --|> Referee : 심판 생성, 값 비교
-    BaseballDirector --|> OutputView : 출력
-    InputView --|> Validation : 입력 데이터 검증
-    Validation --|> InputView : 검증 결과 전달
-    InputView --|> BaseballDirector : 입력 데이터 전달
 
     namespace Application {
         class App {
@@ -88,7 +84,28 @@ classDiagram
             #checkBallCounts(computerNumbers, computerNumberArrayValue, playerNumber) : number
         }
     }
+```
 
+```mermaid
+classDiagram
+    BaseballDirector --|> OutputView : 출력
+    InputView --|> Validation : 입력 데이터 검증
+    InputView --|> BaseballDirector : 입력 데이터 전달
+
+    namespace Controller {
+        class BaseballDirector {
+            #player : Object
+            #computer : Object
+            #referee : Object
+            play() : void
+            #getCompareResults() : void
+            #printCompareResults(result) : void
+            #checkGameFinish(result) : void
+            #printGameEnd() : void
+            #checkGameRetry() : void
+            #resetGame() : void
+        }
+    }
     namespace View {
         class InputView {
             getPlayerInput() : string
