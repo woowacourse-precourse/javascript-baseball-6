@@ -25,5 +25,6 @@ export const ALERT_MESSAGE = {
       return `${ball ? ball + '볼' : ''} ${strike ? strike + '스트라이크' : ''}`.trim();
     }
   }, 
+  GAME_START: '숫자 야구 게임을 시작합니다.',
   GAME_OVER: '게임 종료'
 };

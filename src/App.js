@@ -10,6 +10,7 @@ class App {
   gameManager = new GameManager();
 
   async play() {
+    MissionUtils.Console.print(ALERT_MESSAGE.GAME_START);
     this.computer.generateThreeDigits();
     this.isPlaying = true;
     try {
