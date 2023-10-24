@@ -1,5 +1,5 @@
 import Player from './player/index.js';
-import ViewOutput from './view/viewOutput.js';
+import OutputView from './view/OutputView.js';
 import { GUIDE_MESSAGES } from '../constants/index.js';
 
 // 숫자야구 어플리케이션의 메인 클래스
@@ -12,7 +12,7 @@ class App {
    * @returns
    */
   async play() {
-    ViewOutput.printMessage(GUIDE_MESSAGES.START);
+    OutputView.printMessage(GUIDE_MESSAGES.START);
     await this.#player.startGame();
   }
 }
