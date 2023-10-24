@@ -1,4 +1,4 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
+import { MissionUtils } from'@woowacourse/mission-utils';
 
 class Model {
     constructor() {
@@ -19,7 +19,7 @@ class Model {
     isValidUserNumber(input) {
         if (input.length !== 3) return false;
         if (new Set(input).size !== 3) return false;
-        if (input.includes(0)) return false;
+        if (input.includes('0')) return false;
         if (Number.isNaN(Number(input)) || !Number.isInteger(Number(input)) || Number(input) < 0) return false;
         return true;
     }

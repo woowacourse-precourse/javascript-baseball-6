@@ -1,5 +1,5 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
-import { BALL_RESULT_TEXT, GAME_PROGRESS_TEXT } from "../constant/constant.js";
+import { MissionUtils } from '@woowacourse/mission-utils';
+import { BALL_RESULT_TEXT, GAME_PROGRESS_TEXT } from '../constant/constant.js';
 
 class View {
     constructor() {}

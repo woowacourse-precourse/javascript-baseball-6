@@ -1,6 +1,6 @@
-import Model from "../model/Model.js";
-import View from "../view/View.js";
-import { ERROR } from "../constant/constant.js";
+import Model from '../model/Model.js';
+import View from '../view/View.js';
+import { ERROR } from '../constant/constant.js';
 
 class Controller {
     constructor() {
@@ -29,10 +29,7 @@ class Controller {
     }
 
     isCorrectNumber(result) {
-        if (result.strike === 3) {
-            return true;
-        }
-        return false;
+        return result.strike === 3;
     }
 }
 
