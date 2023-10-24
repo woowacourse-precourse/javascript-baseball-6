@@ -16,7 +16,7 @@ class App {
       this.checkUserInput(userInput);
       this.calculateGameResult(this.answer, userInput);
 
-      Console.print(await this.printGameResult(this.strike, this.ball));
+      Console.print(this.printGameResult(this.strike, this.ball));
 
       if (this.strike !== 3) {
         this.ball = 0;
@@ -71,7 +71,7 @@ class App {
     }
   }
 
-  async printGameResult(strike, ball) {
+  printGameResult(strike, ball) {
     let resultStr = '';
 
     if (strike === 0 && ball === 0) {
