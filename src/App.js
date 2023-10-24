@@ -3,7 +3,7 @@ import { Console, Random } from '@woowacourse/mission-utils';
 class App {
   constructor() {
     this.numberLength = 3;
-    this.computerNum = this.generateComputerNumber(this.numberLength);
+    this.computerNum = this.generateComputerNumber();
   }
 
   async play() {
@@ -11,19 +11,17 @@ class App {
 
     // eslint-disable-next-line no-constant-condition
     while (true) {
-      try {
-        // eslint-disable-next-line no-await-in-loop
-        const userNum = await this.getUserNumber(); // 사용자 숫자
-        const { strikes, balls } = this.compareNumbers(userNum); // 두 숫자 비교해서 strike와 ball 개수 세기
+      // eslint-disable-next-line no-await-in-loop
+      const userNum = await this.getUserNumber(); // 사용자 숫자
+      if (userNum === null) {
+        Console.print('게임이 종료되었습니다.');
+        break;
+      }
 
-        // eslint-disable-next-line no-await-in-loop
-        if (await this.checkResult(strikes, balls)) {
-          // 비교 결과 확인후 출력, 이때 게임 종료 옵션(2)을 선택했다면 종료
-          break;
-        }
-      } catch (error) {
-        Console.print('에러 발생: ' + error.message);
-        Console.print('예외 처리로 인해 프로그램이 종료되었습니다.');
+      const { strikes, balls } = this.compareNumbers(userNum); // 두 숫자 비교해서 strike와 ball 개수 세기
+      // eslint-disable-next-line no-await-in-loop
+      if (await this.checkResult(strikes, balls)) {
+        // 비교 결과 확인후 출력, 이때 게임 종료 옵션(2)을 선택했다면 종료
         break;
       }
     }
@@ -32,59 +30,81 @@ class App {
   generateComputerNumber() {
     const startInclusive = 1;
     const endInclusive = 9;
-    const computerNumbers = [];
+    const computerNumbers = new Set();
 
-    while (computerNumbers.length < this.numberLength) {
+    while (computerNumbers.size < this.numberLength) {
       const number = Random.pickNumberInRange(startInclusive, endInclusive);
-      if (!computerNumbers.includes(number)) {
-        computerNumbers.push(number);
-      }
+      computerNumbers.add(number);
     }
 
-    if (computerNumbers.length === 3) {
-      const computerNum = computerNumbers.join('');
-      return computerNum;
-    }
+    const computerNum = [...computerNumbers].join('');
+    return computerNum;
   }
 
   async getUserNumber() {
-    let isValidInput = false;
     let userNum;
 
-    // eslint-disable-next-line no-unreachable-loop
-    while (!isValidInput) {
-      // eslint-disable-next-line no-await-in-loop
-      const userInput = await Console.readLineAsync('3자리 숫자를 입력하세요 (1~9): ');
-      userNum = userInput.trim();
-      const userNumbers = userNum.split('');
-      const userNumbersSet = new Set(userNumbers);
+    // eslint-disable-next-line no-unreachable-loop, no-constant-condition
+    while (true) {
+      try {
+        // eslint-disable-next-line no-await-in-loop
+        const userInput = await Console.readLineAsync('3자리 숫자를 입력하세요 (1~9): ');
+        userNum = userInput ? userInput.trim() : '';
+        const userNumbers = userNum.split('');
+        const userNumbersSet = new Set(userNumbers);
 
-      if (
-        userNum.length !== this.numberLength ||
-        !/^[1-9]{3}$/.test(userNum) ||
-        this.numberLength !== userNumbersSet.size
-      ) {
-        throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
-      } else {
-        isValidInput = true;
+        if (
+          userNum.length !== this.numberLength ||
+          !/^[1-9]{3}$/.test(userNum) ||
+          this.numberLength !== userNumbersSet.size
+        ) {
+          throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+        } else {
+          return userNum;
+        }
+      } catch (error) {
+        Console.print('에러 발생: ' + error.message);
+        return null;
       }
-
-      return userNum;
     }
   }
+  // async getUserNumber() {
+  //   while (true) {
+  //     try {
+  //       const userInput = await Console.readLineAsync('3자리 숫자를 입력하세요 (1~9): ');
+
+  //       if (!userInput) {
+  //         Console.print('입력이 유효하지 않습니다. 다시 시도하세요.');
+  //         continue;
+  //       }
+
+  //       const userNum = userInput.trim();
+
+  //       if (userNum.length !== 3 || !/^[1-9]{3}$/.test(userNum) || new Set(userNum).size !== 3) {
+  //         Console.print('[ERROR] 숫자가 잘못된 형식입니다. 다시 시도하세요.');
+  //       } else {
+  //         return userNum;
+  //       }
+  //     } catch (error) {
+  //       Console.print('에러 발생: ' + error.message);
+  //     }
+  //   }
+  // }
 
   compareNumbers(userNum) {
     let strikes = 0;
     let balls = 0;
 
-    for (let i = 0; i < this.numberLength; i++) {
-      const computerDigit = this.computerNum[i];
-      const userDigit = userNum[i];
+    const computerNumbersSet = new Set(this.computerNum.split(''));
+    const userNumbersSet = new Set(userNum.split(''));
 
-      if (computerDigit === userDigit) {
-        strikes++;
-      } else if (this.computerNum.includes(userDigit)) {
-        balls++;
+    for (const digit of userNumbersSet) {
+      if (computerNumbersSet.has(digit)) {
+        if (this.computerNum.indexOf(digit) === userNum.indexOf(digit)) {
+          strikes++;
+        } else {
+          balls++;
+        }
       }
     }
 
@@ -93,7 +113,8 @@ class App {
 
   async checkResult(strikes, balls) {
     if (strikes === this.numberLength) {
-      Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료합니다.');
+      Console.print('3스트라이크');
+      Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
       const option = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
 
       if (option === '2') {
@@ -104,6 +125,7 @@ class App {
       Console.print('\n숫자 야구 게임을 시작합니다.');
       return false;
     }
+
     if (strikes > 0 || balls > 0) {
       Console.print(`${strikes}스트라이크 ${balls}볼`);
     } else {
