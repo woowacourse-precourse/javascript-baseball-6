@@ -21,6 +21,8 @@ class App {
         ) {
           throw new Error("제시된 조건을 확인해주세요(1~9까지의 서로 다른 3자리의 수)");
         }
+        result = this.checkAnswer(input, start);
+        MissionUtils.Console.print(result);
       }
     }
   }
