@@ -51,26 +51,21 @@ class App {
     const NumberArr = userInput.split("").map(Number);
     let balls = 0;
     let strikes = 0;
+
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
         if (NumberArr[i] === this.computer[j]) {
-          if (i === j) {
-            strikes++;
-          } else {
-            balls++;
-          }
+          if (i === j) strikes++;
+          else balls++;
         }
       }
     }
-    if (strikes === 0 && balls === 0) {
-      return "낫싱";
-    } else if (strikes !== 0 && balls === 0) {
-      return strikes + "스트라이크";
-    } else if (strikes === 0 && balls !== 0) {
-      return balls + "볼";
-    } else {
-      return balls + "볼 " + strikes + "스트라이크 ";
-    }
+
+    if (strikes === 0 && balls === 0) return "낫싱";
+    if (strikes !== 0 && balls === 0) return `${strikes}스트라이크`;
+    if (strikes === 0 && balls !== 0) return `${balls}볼`;
+
+    return `${balls}볼 ${strikes}스트라이크`;
   }
 
   async restartInput() {
