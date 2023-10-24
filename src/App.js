@@ -1,4 +1,4 @@
-import { Console } from "@woowacourse/mission-utils";
+import { Console, Random } from "@woowacourse/mission-utils";
 
 class App {
   computer;
@@ -18,7 +18,6 @@ class App {
 
   async play() {
     this.getRandomNumber();
-    ㄴ;
     await this.getUserInput();
   }
 
