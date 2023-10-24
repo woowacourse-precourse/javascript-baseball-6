@@ -22,7 +22,7 @@ class OutputProcessor {
   }
 
   static errorOutput(message) {
-    MissionUtils.Console.print("[ERROR] " + message);
+    MissionUtils.Console.print(message + " 숫자가 잘못된 형식입니다.");
   }
 }
 

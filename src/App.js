@@ -25,6 +25,7 @@ class App {
       } while (restartInput === "1");
     } catch (error) {
       OutputProcessor.errorOutput(error.message);
+      throw error;
     }
   }
 
@@ -51,7 +52,14 @@ class App {
   }
 }
 
-const app = new App();
-app.play();
+(async () => {
+  try {
+    const app = new App();
+    await app.play();
+  } catch (error) {}
+})();
+
+// const app = new App();
+// app.play();
 
 export default App;
