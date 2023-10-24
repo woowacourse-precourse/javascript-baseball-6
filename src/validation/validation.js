@@ -1,14 +1,14 @@
 const MESSAGE = Object.freeze({
-  invalid_type: "[ERROR]",
-  invalid_size: "[ERROR]",
-  invalid_range: "[ERROR]",
-  invalid_duplication: "[ERROR]",
-  invalid_one_or_two: "[ERROR]",
+  invalid_type: '[ERROR]',
+  invalid_size: '[ERROR]',
+  invalid_range: '[ERROR]',
+  invalid_duplication: '[ERROR]',
+  invalid_one_or_two: '[ERROR]',
 });
 
 const validation = {
   checkCorrectMainNumber(input) {
-    input.forEach((number) => {
+    input.forEach(number => {
       if (Number.isNaN(number)) throw new Error(MESSAGE.invalid_type);
     });
   },
@@ -18,7 +18,7 @@ const validation = {
   },
 
   checkCorrectMainNumberRange(input) {
-    input.forEach((number) => {
+    input.forEach(number => {
       if (number < 1 || number > 9) throw new Error(MESSAGE.invalid_range);
     });
   },
@@ -29,8 +29,7 @@ const validation = {
   },
 
   checkOneOrTwo(input) {
-    if (!(input === '1' || input === '2'))
-      throw new Error(MESSAGE.invalid_one_or_two);
+    if (!(input === '1' || input === '2')) throw new Error(MESSAGE.invalid_one_or_two);
   },
 };
 

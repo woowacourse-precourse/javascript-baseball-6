@@ -1,10 +1,8 @@
 import Model from '../Model/Model.js';
-
 import view from '../view/view.js';
 
 const {
-  readPlayerNum,
-  readRestartEnd,
+  readPlayerNum, readRestartEnd,
   printGameStart,
   printBallStrike,
   printBall,
@@ -28,9 +26,9 @@ export default class Controller {
 
   async sendPlayerNum() {
     const input = await readPlayerNum();
-    if (input === 0){
+    if (input === 0) {
       throw new Error('[ERROR]');
-      }
+    }
     return this.ballCountController(input);
   }
 
@@ -66,9 +64,9 @@ export default class Controller {
 
   async endController() {
     const input = await readRestartEnd();
-    if (input === 0){
+    if (input === 0) {
       throw new Error('[ERROR]');
-      }
+    }
     return this.gameEnd(input);
   }
 

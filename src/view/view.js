@@ -25,7 +25,7 @@ const view = {
     try {
       view.mainNumberValidation(input.split('').map(Number));
       return input;
-    } catch (e){
+    } catch (e) {
       view.errorHandler(e);
       return 0;
     }
@@ -40,13 +40,13 @@ const view = {
 
   async readRestartEnd() {
     const input = await Console.readLineAsync(MESSAGE.restart);
-      try {
-        checkOneOrTwo(input);
-        return input
-      } catch (e) {
-        view.errorHandler(e);
-        return 0;
-      };
+    try {
+      checkOneOrTwo(input);
+      return input;
+    } catch (e) {
+      view.errorHandler(e);
+      return 0;
+    }
   },
 
   printGameStart() {
