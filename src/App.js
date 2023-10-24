@@ -46,29 +46,33 @@ class App {
     return number;
   }
 
+  extractPlayerNumbers = (input) => {
+    this.validateThreeDigitNumber(input);
+    const player = [];
+    player[0] = Math.floor(input / 100);
+    player[1] = Math.floor(input % 100 / 10);
+    player[2] = input % 100 % 10;
+    this.validateDuplicatedNumber(player);
+    return player;
+  }
+
   async playRound() {
     const computer = this.createComputerNumbers(3);
     //MissionUtils.Console.print(computer);
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
 
     while (true) {
-      const number = await this.getInput("숫자를 입력해주세요 : ");
-      this.validateThreeDigitNumber(number);
-
-      const player = [];
-      player[0] = Math.floor(number / 100);
-      player[1] = Math.floor(number % 100 / 10);
-      player[2] = number % 100 % 10;
-      this.validateDuplicatedNumber(player);
+      const input = await this.getInput("숫자를 입력해주세요 : ");
+      const playerNumbers = this.extractPlayerNumbers(input);
 
       let strike = 0;
       let ball = 0;
       let nothing = 0;
 
-      for (var i = 0; i < player.length; i++) {
-        if (computer.indexOf(player[i]) == i) {
+      for (var i = 0; i < playerNumbers.length; i++) {
+        if (computer.indexOf(playerNumbers[i]) == i) {
           strike++;
-        } else if (computer.indexOf(player[i]) != -1) {
+        } else if (computer.indexOf(playerNumbers[i]) != -1) {
           ball++;
         } else {
           nothing++;
