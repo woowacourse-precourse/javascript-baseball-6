@@ -1,6 +1,6 @@
 import AppError from '../../src/errors/AppError';
 import { ExitGameCommandValidator } from '../../src/validator';
-import { GAME_TERMS } from '../../src/constants/gameTerms';
+import { EXIT_COMMAND_TYPES } from '../../src/constants/gameOption';
 
 describe('ExitGameCommandValidator 테스트', () => {
   describe('예외 테스트', () => {
@@ -31,10 +31,10 @@ describe('ExitGameCommandValidator 테스트', () => {
   describe('비 예외 테스트', () => {
     test.each([
       {
-        exitGameCommand: `${GAME_TERMS.exitGameCommand.restart}`,
+        exitGameCommand: `${EXIT_COMMAND_TYPES.restart}`,
       },
       {
-        exitGameCommand: `${GAME_TERMS.exitGameCommand.exit}`,
+        exitGameCommand: `${EXIT_COMMAND_TYPES.exit}`,
       },
     ])(
       '입력된 종료 명령어가 "$exitGameCommand"일 때 에러가 발생하지 않아야 한다.',

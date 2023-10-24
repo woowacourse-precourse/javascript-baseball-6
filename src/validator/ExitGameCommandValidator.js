@@ -1,4 +1,4 @@
-import { GAME_TERMS } from '../constants/gameTerms';
+import { EXIT_COMMAND_TYPES } from '../constants/gameOption';
 import AppError from '../errors/AppError';
 import CommonValidator from './CommonValidator';
 
@@ -41,9 +41,9 @@ class ExitGameCommandValidator {
    */
   static VALIDATION_TYPES = Object.freeze({
     availableGameCommand: Object.freeze({
-      errorMessage: `게임 종료 명령어는 ${GAME_TERMS.exitGameCommand.restart}번 또는 ${GAME_TERMS.exitGameCommand.exit}번만 가능합니다.`,
+      errorMessage: `게임 종료 명령어는 ${EXIT_COMMAND_TYPES.restart}번 또는 ${EXIT_COMMAND_TYPES.exit}번만 가능합니다.`,
       isValid(exitGameCommand) {
-        const { restart, exit } = GAME_TERMS.exitGameCommand;
+        const { restart, exit } = EXIT_COMMAND_TYPES;
         return exitGameCommand === restart || exitGameCommand === exit;
       },
     }),

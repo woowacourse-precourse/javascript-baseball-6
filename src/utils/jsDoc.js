@@ -19,10 +19,10 @@
 
 /**
  * @typedef {object} BaseballValidationTypes
- * @property {BaseballValidationType} availableNumber - 숫자만을 검사하기 위한 유효성 객체
- * @property {BaseballValidationType} availableNumberRange - 숫자 범위를 검사하기 위한 유효성 객체
- * @property {BaseballValidationType} availableDigit - 숫자의 자릿수를 검사하기 위한 유효성 객체
- * @property {BaseballValidationType} existDuplicateNumber - 숫자의 중복 여부를 검사하기 위한 유효성 객체
+ * @property {BaseballValidationType} availableNumber - 야구공의 숫자 여부를 검사하기 위한 객체
+ * @property {BaseballValidationType} availableNumberRange - 야구공의 숫자 범위가 유효한지 검사하기 위한 객체
+ * @property {BaseballValidationType} availableSize - 야구공의 사이즈가 유효한지 검사하기 위한 객체
+ * @property {BaseballValidationType} existDuplicateNumber - 야구공의 중복 여부를 검사하기 위한 객체
  */
 
 /**
@@ -33,8 +33,8 @@
 
 /**
  * @typedef {object} CommonValidationTypes
- * @property {CommonValidationType} emptyValues - 입력값이 비어있는지를 검사하기 위한 유효성 객체
- * @property {CommonValidationType} existSpaces - 입력값에 공백이 포함되어 있는지를 검사하기 위한 유효성 객체
+ * @property {CommonValidationType} emptyValues - 입력 값이 비어있는지를 검사하기 위한 객체
+ * @property {CommonValidationType} existSpaces - 입력 값에 공백이 포함되어 있는지를 검사하기 위한 객체
  */
 
 /**

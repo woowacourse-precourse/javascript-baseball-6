@@ -1,6 +1,6 @@
-import { GAME_TERMS } from '../constants/gameTerms';
+import { EXIT_COMMAND_TYPES } from '../constants/gameOption';
 import { SYMBOLS } from '../constants/symbols';
-import { Computer } from '../model';
+import { BaseballMaker, Computer } from '../model';
 import { BaseballValidator, ExitGameCommandValidator } from '../validator';
 import { InputView, OutputView } from '../views';
 
@@ -51,7 +51,7 @@ class GameController {
    */
   async #processExitGameCommand() {
     const userCommand = await this.#requireExitGameCommand();
-    if (userCommand === GAME_TERMS.exitGameCommand.restart) {
+    if (userCommand === EXIT_COMMAND_TYPES.restart) {
       this.#restartGame();
     }
   }
@@ -120,7 +120,7 @@ class GameController {
       const playerBaseball = await this.#requirePlayerBaseball();
       const { strike, ball } = this.#requireCompareResult(playerBaseball);
       this.#requirePrintCompareResult({ strike, ball });
-      if (strike === GAME_TERMS.baseball.digit) break;
+      if (strike === BaseballMaker.BASEBALL_SHAPE.size) break;
     }
     this.#requirePrintExitGame();
   }

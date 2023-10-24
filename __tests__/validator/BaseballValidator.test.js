@@ -10,7 +10,7 @@ describe('BaseballValidator 테스트', () => {
       },
       {
         baseball: '1256',
-        expectedErrorMessage: BaseballValidator.VALIDATION_TYPES.availableDigit.errorMessage,
+        expectedErrorMessage: BaseballValidator.VALIDATION_TYPES.availableSize.errorMessage,
       },
       {
         baseball: '091',

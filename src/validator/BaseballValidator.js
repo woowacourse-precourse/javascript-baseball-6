@@ -1,6 +1,6 @@
-import { GAME_TERMS } from '../constants/gameTerms';
 import { SYMBOLS } from '../constants/symbols';
 import AppError from '../errors/AppError';
+import { BaseballMaker } from '../model';
 import CommonValidator from './CommonValidator';
 
 class BaseballValidator {
@@ -46,25 +46,22 @@ class BaseballValidator {
       },
     }),
     availableNumberRange: Object.freeze({
-      errorMessage: `입력한 숫자는 ${GAME_TERMS.baseball.minNumber}~${GAME_TERMS.baseball.maxNumber}의 범위를 가져야 합니다.`,
+      errorMessage: `입력한 숫자는 ${BaseballMaker.BASEBALL_SHAPE.minNumber}~${BaseballMaker.BASEBALL_SHAPE.maxNumber}의 범위를 가져야 합니다.`,
       isValid(baseball) {
-        return baseball.every(
-          (ballNumber) =>
-            ballNumber >= GAME_TERMS.baseball.minNumber &&
-            ballNumber <= GAME_TERMS.baseball.maxNumber,
-        );
+        const { minNumber, maxNumber } = BaseballMaker.BASEBALL_SHAPE;
+        return baseball.every((ballNumber) => ballNumber >= minNumber && ballNumber <= maxNumber);
       },
     }),
-    availableDigit: Object.freeze({
-      errorMessage: `숫자는 ${GAME_TERMS.baseball.digit}자리만 가능합니다.`,
+    availableSize: Object.freeze({
+      errorMessage: `숫자는 ${BaseballMaker.BASEBALL_SHAPE.size}자리만 가능합니다.`,
       isValid(baseball) {
-        return baseball.length === GAME_TERMS.baseball.digit;
+        return baseball.length === BaseballMaker.BASEBALL_SHAPE.size;
       },
     }),
     existDuplicateNumber: Object.freeze({
       errorMessage: '입력한 숫자에 중복된 값이 존재합니다.',
       isValid(baseball) {
-        return new Set(baseball).size === GAME_TERMS.baseball.digit;
+        return new Set(baseball).size === BaseballMaker.BASEBALL_SHAPE.size;
       },
     }),
   });

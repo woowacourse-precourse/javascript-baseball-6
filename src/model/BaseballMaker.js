@@ -1,22 +1,16 @@
-import { GAME_TERMS } from '../constants/gameTerms';
 import { pickRandomNumberInRange } from '../utils/random';
 
 class BaseballMaker {
-  /**
-   * @private
-   * @type {number}
-   */
-  #minNumber;
+  static BASEBALL_SHAPE = Object.freeze({
+    minNumber: 1,
+    maxNumber: 9,
+    size: 3,
+  });
 
-  /**
-   * @private
-   * @type {number}
-   */
-  #maxNumber;
+  #baseballShape;
 
   constructor() {
-    this.#minNumber = GAME_TERMS.baseball.minNumber;
-    this.#maxNumber = GAME_TERMS.baseball.maxNumber;
+    this.#baseballShape = BaseballMaker.BASEBALL_SHAPE;
   }
 
   /**
@@ -35,8 +29,9 @@ class BaseballMaker {
    */
   createBaseball() {
     const baseball = new Set();
-    while (baseball.size < GAME_TERMS.baseball.digit) {
-      const baseballDigit = pickRandomNumberInRange(this.#minNumber, this.#maxNumber);
+    const { minNumber, maxNumber } = this.#baseballShape;
+    while (baseball.size < this.#baseballShape.size) {
+      const baseballDigit = pickRandomNumberInRange(minNumber, maxNumber);
       baseball.add(baseballDigit);
     }
     return [...baseball];
