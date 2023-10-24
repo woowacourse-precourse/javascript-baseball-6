@@ -1,3 +1,5 @@
+import { splitNumbersToArray } from '../../src/utils/splitNumbersToArray.js';
+
 describe('splitNumbersToArray 테스트', () => {
   it.each([
     { input: '123', output: [1, 2, 3] },
