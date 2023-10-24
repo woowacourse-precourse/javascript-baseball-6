@@ -1,17 +1,18 @@
-import { Console, Random } from "@woowacourse/mission-utils";
+import { Console, Random } from '@woowacourse/mission-utils';
 
 class App {
   constructor() {
     this.randomNumbers = null;
-    this.initMessage = false;
   }
 
   async play() {
-    if (!this.initMessage) {
-      Console.print("숫자 야구 게임을 시작합니다.");
-      this.initMessage = true;
-    }
+    // 1. init message
+    Console.print('숫자 야구 게임을 시작합니다.');
+    await this.gameStart();
+  }
 
+  async gameStart() {
+    // 2. 랜덤한 정답 생성
     this.randomNumbers = this.generateRandomNumber();
     await this.playGameCycle();
   }
@@ -28,80 +29,68 @@ class App {
   }
 
   async playGameCycle() {
-    const userNumbers = await this.promptUserInput();
-    const validatedUserNumbers = this.validateInputNumber(userNumbers) && userNumbers;
-    const roundResult = this.compareRandomToUser(this.randomNumbers, validatedUserNumbers);
-    const isCorrect = this.showRoundResultMessage(roundResult);
+    // 3. 사용자 입력 받기
+    const userAnswer = await Console.readLineAsync('숫자를 입력해주세요 : ');
 
-    isCorrect ? await this.handleGameContinuation() : await this.playGameCycle();
-  }
-  async promptUserInput() {
-    return await Console.readLineAsync('숫자를 입력해주세요 : ');
+    // 4. 입력값 형식 검증 및 5. 정답 검증
+    const validatedUserAnswer = this.validateInputNumber(userAnswer);
+    const roundResult = this.compareWithUserAnswer(this.randomNumbers, validatedUserAnswer);
+    this.showRoundResultMessage(roundResult);
+
+    // 게임 종료 조건 확인
+    roundResult.isFlag ? await this.chooseContinueOrQuit() : await this.playGameCycle();
   }
 
-  validateInputNumber(userNumbers) {
+  validateInputNumber(userAnswer) {
     const threeDigitNumRegex = /^[1-9]{3}$/;
-    const userNumberArray = userNumbers.split('').map((num) => parseInt(num));
-    const isDuplicate = new Set(userNumberArray).size !== userNumberArray.length;
+    const userAnswerArray = userAnswer.split('').map((num) => parseInt(num));
+    const isDuplicate = new Set(userAnswerArray).size !== userAnswerArray.length;
 
-    if (!threeDigitNumRegex.test(userNumbers) || isDuplicate) {
+    if (!threeDigitNumRegex.test(userAnswer) || isDuplicate) {
       throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
     }
-    return true;
+    return userAnswerArray;
   }
 
-  compareRandomToUser(randomNumbers, userNumbers) {
+  compareWithUserAnswer(randomNumbers, userAnswer) {
     let strikes = 0;
     let balls = 0;
+    let isFlag = false;
 
-    const userNumberArray = userNumbers.split('').map((num) => parseInt(num));
-   
     for (let i = 0; i < randomNumbers.length; i++) {
-      if (randomNumbers[i] === userNumberArray[i]) strikes++;
-      else if (userNumberArray.includes(randomNumbers[i])) balls++;
+      if (randomNumbers[i] === userAnswer[i]) strikes++;
+      else if (userAnswer.includes(randomNumbers[i])) balls++;
     }
 
-    return { strikes, balls };
+    if (strikes === 3 && balls === 0) isFlag = true;
+
+    return { strikes, balls, isFlag };
   }
 
   showRoundResultMessage(status) {
+    // 6. 결과 메시지를 출력
     const { strikes, balls } = status;
     let resultMessage = '';
 
-    if (strikes === 3 && balls === 0) {
-      Console.print('3스트라이크');
-      return true;
-    }
-
-    if (balls > 0) {
-      resultMessage += `${balls}볼`;
-    }
-
-    if (strikes > 0) {
-      resultMessage += (resultMessage ? ' ' : '') + `${strikes}스트라이크`;
-    }
-
+    if (balls > 0) resultMessage = `${balls}볼`;
+    if (strikes > 0) resultMessage += (resultMessage ? ' ' : '') + `${strikes}스트라이크`;
     resultMessage = resultMessage || '낫싱';
 
     Console.print(resultMessage);
-
-    return false;
   }
 
-  async promptContinueOrQuit() {
-    Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
-    return await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
-  }
-
-  async handleGameContinuation() {
-    const isReplay = await this.promptContinueOrQuit();
+  async chooseContinueOrQuit() {
+    // 7. 게임 종료 메시지와 함께 재시작 여부를 물음.
+    Console.print('3개의 숫자를 모두 맞히셨습니다!');
+    const isReplay = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
 
     switch (isReplay) {
       case '1': {
-        await this.play();
+        await this.gameStart();
         break;
       }
       case '2': {
+        // 7. 종료
         Console.print('게임 종료');
         break;
       }
