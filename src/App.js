@@ -1,26 +1,23 @@
-// const MissionUtils = require("@woowacourse/mission-utils");
-import { MissionUtils } from "@woowacourse/mission-utils";
+const MissionUtils = require("@woowacourse/mission-utils");
 
 const { Console, Random } = MissionUtils;
 
 class App {
   RANDOM_NUMBER = [];
-
   USER_NUMBER;
-
   ANSWER;
   ERROR = false;
 
-  isDuplicated(number) {
+  isDuplicationInRandomNumber(number) {
     return this.RANDOM_NUMBER.some((num) => num === number);
   }
 
   getRandomNumber() {
     while (this.RANDOM_NUMBER.length < 3) {
       const number = Random.pickNumberInRange(1, 9);
-      if (!this.isDuplicated(number)) this.RANDOM_NUMBER.push(number);
+      if (!this.isDuplicationInRandomNumber(number))
+        this.RANDOM_NUMBER.push(number);
     }
-    // this.RANDOM_NUMBER = [1, 3, 5];
   }
 
   numberOfHits() {
@@ -29,14 +26,12 @@ class App {
       if (this.USER_NUMBER[index] === number) SCORE[0] += 1;
       else if (this.USER_NUMBER.includes(number)) SCORE[1] += 1;
     });
-    // console.log(SCORE)
     return SCORE;
   }
 
   printAnswer(result) {
     const STRIKE = result[0];
     const BALL = result[1];
-    // console.log(STRIKE, BALL);
     if (STRIKE === 3) {
       Console.print("3스트라이크");
       Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
@@ -60,39 +55,44 @@ class App {
       return;
     }
   }
-  /**
-   * input 값이 숫자인지, 3자리인지, 중복된 숫자가 있는지,1~9 사이인지 확인
-   */
 
-  //중복된 숫자가 있는지 확인, 중복 값 있으면 true
-
-  isDup(nums) {
+  isDuplicationInUserNumber(nums) {
     const numberSet = new Set(nums);
     if (numberSet.size === 3) return false;
     else return true;
   }
-  //1~9 사이의 숫자인지 확인, 모두 사이 숫자면 true
+
   isRange(nums) {
     const testNum = nums.filter((num) => num > 0 && num < 10);
     if (testNum.length !== 3) {
       return false;
-    }
-    return true;
-  }
-  //길이 3 아니면 false
-  isLength(nums) {
-    if (nums.length !== 3) return false;
-    return true;
-  }
-
-  testNumber(number) {
-    if (!isNaN(parseInt(number))) {
-      const nums = number.split("").map(Number);
-      if (this.isDup(nums) || !this.isRange(nums) || !this.isLength(nums))
-        return false;
+    } else {
       return true;
     }
-    return false;
+  }
+
+  isLength(nums) {
+    if (nums.length !== 3) return false;
+    else {
+      return true;
+    }
+  }
+
+  testUserNumber(number) {
+    if (!isNaN(parseInt(number))) {
+      const nums = number.split("").map(Number);
+      if (
+        this.isDuplicationInUserNumber(nums) ||
+        !this.isRange(nums) ||
+        !this.isLength(nums)
+      )
+        return false;
+      else {
+        return true;
+      }
+    } else {
+      return false;
+    }
   }
 
   async restart() {
@@ -106,8 +106,6 @@ class App {
         this.USER_NUMBER = "";
         this.play();
       } else if (answer === "2") {
-        // Console.print("게임 종료");
-        // Console.close();
         return;
       } else {
         this.ERROR = true;
@@ -122,7 +120,6 @@ class App {
     if (!(await this.testNumber(number))) {
       this.ERROR = true;
     } else {
-      //   await console.log(this.RANDOM_NUMBER, number);
       await (this.USER_NUMBER = number.split("").map(Number));
       const result = await this.numberOfHits();
       await this.printAnswer(result);
@@ -131,7 +128,7 @@ class App {
     }
   }
 
-  async start() {
+  async gameStart() {
     await this.getRandomNumber();
     await this.getUserInput();
     return;
@@ -140,7 +137,7 @@ class App {
   async play() {
     await Console.print("숫자 야구 게임을 시작합니다.");
 
-    await this.start();
+    await this.gameStart();
 
     if (this.ERROR) {
       this.ERROR = false;
@@ -148,7 +145,4 @@ class App {
     }
   }
 }
-// const app = new App();
-// app.play();
-
 module.exports = App;
