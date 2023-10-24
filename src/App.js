@@ -107,7 +107,4 @@ class App {
   }
 }
 
-let game = new App();
-game.play();
-
 export default App;
