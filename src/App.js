@@ -111,7 +111,8 @@ class App {
       `게임을 새로 시작하려면 ${WANT_REPLAY}, 종료하려면 ${END_GAME}를 입력하세요. : `
     );
 
-    if (response !== WANT_REPLAY && response !== END_GAME) this.throwError();
+    if (response !== WANT_REPLAY && response !== END_GAME)
+      this.throwError("숫자가 잘못된 형식입니다.");
     return response === WANT_REPLAY;
   }
 
@@ -140,7 +141,8 @@ class App {
   async playOneRound() {
     const number = await Console.readLineAsync("숫자를 입력해주세요 : ");
 
-    if (!this.isNumberIsValid(number)) this.throwError();
+    if (!this.isNumberIsValid(number))
+      this.throwError("숫자가 잘못된 형식입니다.");
 
     const { strikeCount, ballCount } = this.getJudgedCountsFor(number);
 
