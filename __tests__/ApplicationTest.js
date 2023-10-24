@@ -57,4 +57,32 @@ describe("숫자 야구 게임", () => {
 
     await expect(app.play()).rejects.toThrow("[ERROR]");
   });
+
+  test("예외 테스트 - 문자 포함 입력", async () => {
+    // given
+    const randoms = [4, 8, 1];
+    const answers = ["12n"];
+
+    mockRandoms(randoms);
+    mockQuestions(answers);
+
+    // when & then
+    const app = new App();
+
+    await expect(app.play()).rejects.toThrow("[ERROR]");
+  });
+  
+  test("예외 테스트 - 중복 숫자 입력", async () => {
+    // given
+    const randoms = [9, 1, 6];
+    const answers = ["588"];
+
+    mockRandoms(randoms);
+    mockQuestions(answers);
+
+    // when & then
+    const app = new App();
+
+    await expect(app.play()).rejects.toThrow("[ERROR]");
+  });
 });
