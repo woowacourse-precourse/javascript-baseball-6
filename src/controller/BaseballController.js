@@ -13,6 +13,12 @@ class BaseballController {
 
   run() {
     this.#Console.print(MESSAGES.GAME_START);
+    const computer_balls = [];
+    while (computer_balls.length < 3) {
+      const number = Random.pickNumberInRange(1, 9);
+      computer_balls.push(number);
+    }
+    console.log(computer_balls);
   }
 }
 
