@@ -67,25 +67,6 @@ class PlayStage {
   getIsValid() {
     return this.#isValid;
   }
-
-  /**
-   * 사용자의 입력에 따라 결과를 출력한다.
-   */
-  async run() {
-    while (this.#strikeCount !== 3) {
-      const input = await this.#numberInput();
-      this.#checkValidation(input);
-      if (!this.#isValid) {
-        Console.print(MESSAGES.WRONG_INPUT);
-        break;
-      }
-
-      const inputNumbers = input.split("").map(Number);
-      this.#strikeCount = this.#getStrikeCount(inputNumbers);
-      this.#ballCount = this.#getBallCount(inputNumbers);
-      this.#printResult();
-    }
-  }
 }
 
 export default PlayStage;
