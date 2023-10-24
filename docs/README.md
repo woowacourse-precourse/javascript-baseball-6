@@ -7,13 +7,12 @@
 
 ## ~~Player~~ => BaseballNumber
 
-- [ ] 세 개의 숫자를 갖는다.
-- [ ] 숫자를 외부에서 주입받는다.
-  - [ ] 숫자가 유효한지 확인한다.
-  - [ ] baseballNumber 관련 validation 유틸함수는 전부 제거하고 메서드는 private field로 유지한다.
-- [ ] 숫자는 private field로 관리한다.
-- [ ] 컴퓨터는 해당 필드를 DI받아 사용한다.
-- [ ] 유저가 숫자를 입력하면, 해당 객체의 인스턴스로 생성한다.
+- [x] 세 개의 숫자를 갖는다.
+- [x] 숫자를 외부에서 주입받는다.
+  - [x] 숫자가 유효한지 확인한다.
+  - [x] baseballNumber 관련 validation 유틸함수는 전부 제거하고 메서드는 private field로 유지한다.
+- [x] 숫자는 private field로 관리한다.
+- [x] 컴퓨터는 해당 필드를 DI받아 사용한다.
 - [ ] 커스텀 에러를 추가한다.
 
 ## 컴퓨터
