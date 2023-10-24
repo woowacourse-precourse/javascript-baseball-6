@@ -48,23 +48,19 @@ class App {
         spell === input[i] && (answer.indexOf(spell) === i ? strike++ : ball++);
       }
     }
-    if (strike === 3) {
+    if (strike === 3)
       return `${strike}스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료`;
-    } else if (strike === 0 && ball > 0) {
-      return `${ball}볼`;
-    } else if (strike > 0 && ball === 0) {
-      return `${strike}스트라이크`;
-    } else if (strike === 0 && ball === 0) {
-      return "낫싱";
-    } else {
-      return `${ball}볼 ${strike}스트라이크`;
-    }
+    if (strike === 0 && ball > 0) return `${ball}볼`;
+    if (strike > 0 && ball === 0) return `${strike}스트라이크`;
+    if (strike === 0 && ball === 0) return "낫싱";
+
+    return `${ball}볼 ${strike}스트라이크`;
   }
   /**각각 다른 세자리 랜덤 정답 생성 */
   generateAnswer() {
     let answer = [];
     while (answer.length < 3) {
-      const num = String(MissionUtils.Random.pickNumberInRange(1, 9));
+      const num = MissionUtils.Random.pickNumberInRange(1, 9);
       if (!answer.includes(num)) answer.push(num);
     }
     return answer.toString().replaceAll(",", "");
