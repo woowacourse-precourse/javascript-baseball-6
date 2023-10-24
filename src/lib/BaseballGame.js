@@ -5,11 +5,12 @@ const { handleCommandInput, handleGuessInput } = require("./HandleInput");
 const { parseCount, printCount, printInitMessage, printWin } = require("./HandleOutput");
 
 class BaseballGame {
+    #answer;
     constructor () {
         // 출력 처리
         printInitMessage();
         // 난수 부여
-        this.numbers = this.#getComputerRandom();
+        this.#answer = this.#getComputerRandom();
     };
 
     #getComputerRandom () {
@@ -32,7 +33,7 @@ class BaseballGame {
             // 입력 처리
             const guess = await handleGuessInput();
             // 계산
-            const count = calcCount(guess, this.numbers);
+            const count = calcCount(guess, this.#answer);
             // 출력 처리
             const result = parseCount(count);
             printCount(result);
@@ -53,7 +54,7 @@ class BaseballGame {
             const retry = await handleCommandInput();
             // 결과 처리
             if (retry) {
-                this.numbers = this.#getComputerRandom();
+                this.#answer = this.#getComputerRandom();
                 await this.play();
             }
             return;
