@@ -58,8 +58,11 @@ class App {
     let strike = 0;
 
     for (let index = 0; index < 3; index++) {
-      if (Number(computerNum[index]) === Number(playerNum[index])) strike += 1;
-      else if (computerNum.includes(Number(playerNum[index]))) ball += 1;
+      if (Number(computerNum[index]) === Number(playerNum[index])) {
+        strike += 1;
+      } else if (computerNum.includes(Number(playerNum[index]))) {
+        ball += 1;
+      }
     }
 
     return { ball, strike };
@@ -69,19 +72,28 @@ class App {
     const BALL = score.ball;
     const STRIKE = score.strike;
 
-    if (BALL !== 0 && STRIKE !== 0) Console.print(`${BALL}볼 ${STRIKE}스트라이크`);
-    else if (BALL !== 0 && STRIKE === 0) Console.print(`${BALL}볼`);
-    else if (BALL === 0 && STRIKE !== 0) Console.print(`${STRIKE}스트라이크`);
-    else Console.print('낫싱');
+    if (BALL !== 0 && STRIKE !== 0) {
+      Console.print(`${BALL}볼 ${STRIKE}스트라이크`);
+    } else if (BALL !== 0 && STRIKE === 0) {
+      Console.print(`${BALL}볼`);
+    } else if (BALL === 0 && STRIKE !== 0) {
+      Console.print(`${STRIKE}스트라이크`);
+    } else {
+      Console.print('낫싱');
+    }
   }
 
   async restartGame() {
     const gameFlag = await Console.readLineAsync(
       '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'
     );
-    if (gameFlag === '1') this.playGame(this.makeNumber());
-    else if (gameFlag === '2') return;
-    else throw new Error('1과 2만 입력이 가능합니다.');
+    if (gameFlag === '1') {
+      this.playGame(this.makeNumber());
+    } else if (gameFlag === '2') {
+      return;
+    } else {
+      throw new Error('1과 2만 입력이 가능합니다.');
+    }
   }
 }
 
