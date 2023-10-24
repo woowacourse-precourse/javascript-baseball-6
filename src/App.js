@@ -1,15 +1,21 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
+
+  createComputerNumbers = (count) => {
+    const computer = [];
+    while (computer.length <count) {
+    const number = MissionUtils.Random.pickNumberInRange(1, 9);
+      if (!computer.includes(number)) {
+        computer.push(number);
+      }
+    }
+    return computer;
+  }
+
   async play() {
     while(true) {
-      const computer = [];
-      while (computer.length < 3) {
-      const number = MissionUtils.Random.pickNumberInRange(1, 9);
-        if (!computer.includes(number)) {
-          computer.push(number);
-        }
-      }
+      const computer = this.createComputerNumbers(3);
       //MissionUtils.Console.print(computer);
       MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
 
