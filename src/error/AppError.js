@@ -1,5 +1,3 @@
-import { ERROR_MESSAGES } from '../constants/errorMessages.js';
-
 class AppError extends Error {
   /**
    * @type {string}
@@ -18,7 +16,7 @@ class AppError extends Error {
    */
 
   constructor(errorMessage) {
-    const message = `${AppError.PREFIX} ${errorMessage || ERROR_MESSAGES.ETC}`;
+    const message = `${AppError.PREFIX} ${errorMessage}`;
     super(message);
     this.name = this.constructor.name;
   }

@@ -4,5 +4,4 @@ export const ERROR_MESSAGES = Object.freeze({
   HAVE_DUPLICATION: '공에 중복되는 숫자가 존재해요!',
   NOT_MATCH_END_OR_RESTART: '1 또는 2를 입력해주세요!',
   OUT_OF_RANGE: '공은 1이상 9이하의 숫자로 이루어져야해요!',
-  ETC: '알 수 없는 에러가 발생했어요!',
 });
