@@ -1,8 +1,6 @@
 import { Random, Console } from '@woowacourse/mission-utils';
 
 export class BaseballService {
-  query = '';
-
   generateRandomNumbers() {
     const computer = [];
     const selected = new Array(10).fill(false);
@@ -47,8 +45,9 @@ export class BaseballService {
   }
 
   async retry() {
-    Console.print('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
-    const baseballRetryInput = await Console.readLineAsync(this.query);
+    const baseballRetryInput = await Console.readLineAsync(
+      '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.'
+    );
     this.validateRetryInput(baseballRetryInput);
     if (baseballRetryInput === '2') {
       return;
@@ -75,8 +74,9 @@ export class BaseballService {
   async baseballQuery() {
     const computer = this.generateRandomNumbers();
     while (true) {
-      Console.print('숫자를 입력해주세요 : ');
-      const baseballQueryInput = await Console.readLineAsync(this.query);
+      const baseballQueryInput = await Console.readLineAsync(
+        '숫자를 입력해주세요 : '
+      );
       this.validateBaseballQueryInput(baseballQueryInput);
       const { ball, strike } = this.refree(computer, baseballQueryInput);
       this.printResult(ball, strike);
