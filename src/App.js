@@ -35,6 +35,21 @@ class App {
     return [...computer];
   }
 
+  checkAnswer(target, computer) {
+    let ball = 0;
+    let strike = 0;
+
+    for (let i=0; i<3; i++) {
+      if(target[i] == computer[i]) {
+        strike++;
+      } else if (computer.includes(Numner(target[i]))) {
+        ball++;
+      }
+    }
+    if (strike === 0 && ball === 0) return "낫싱";
+
+    return `${ball ? ball + "볼" : ""} ${strike ? strike + "스트라이크" : ""}`.trim();
+  }
 }
 
 export default App;
