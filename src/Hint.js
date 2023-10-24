@@ -28,9 +28,11 @@ const convertNumberToString = (strikeNumber, ballNumber) => {
   let hintMessage = '';
 
   if (ballNumber > 0) {
-    hintMessage += `${ballNumber}볼`;
+    hintMessage += `${ballNumber}볼 `;
   }
 
+  // TODO: 볼과 사이에 공백 추가
+  // hintMessage length가 0이 아니면 (볼이 이미 들어가 있으면) 공백을 추가
   if (strikeNumber > 0) {
     hintMessage += `${strikeNumber}스트라이크`;
   }
@@ -42,12 +44,11 @@ const convertNumberToString = (strikeNumber, ballNumber) => {
   return hintMessage;
 };
 
-const getHintToUser = (computerNumber, userNumber) => {
+// eslint-disable-next-line import/prefer-default-export
+export const getHintToUser = (computerNumber, userNumber) => {
   const strikeNumber = countStrike(computerNumber, userNumber);
   const ballNumber = countBall(computerNumber, userNumber, strikeNumber);
   const hintMessage = convertNumberToString(strikeNumber, ballNumber);
 
   return hintMessage;
 };
-
-module.exports = { getHintToUser };
