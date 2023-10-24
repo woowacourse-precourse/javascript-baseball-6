@@ -9,7 +9,7 @@ class App {
     const playerNum = [...playerNumStr].map(num => parseInt(num));
     
     const result = this.checkAnswer(computerNum, playerNum);
-    Console.print(result);
+    this.printHint(result.ball, result.strike);
   }
 
   selectRandomNum() {
@@ -43,6 +43,19 @@ class App {
     })
 
     return result;
+  }
+
+  printHint(ball, strike) {
+    if (strike === 0 && ball === 0) {
+      Console.print("낫싱");
+    } else if(strike !== 0 && ball === 0) {
+      Console.print(`${strike}스트라이크`);
+    } else if(strike === 0 && ball !== 0) {
+      Console.print(`${ball}볼`);
+    } else {
+      Console.print(`${ball}볼 ${strike}스트라이크`); 
+    }
+
   }
 }
 
