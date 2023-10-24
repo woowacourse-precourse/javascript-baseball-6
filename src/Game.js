@@ -12,6 +12,7 @@ export default class Game {
   #isGameFinished;
   constructor() {
     this.#isGameFinished = false;
+    this.refree = new Referee();
   }
 
   start = async (isRetry = false) => {
@@ -20,13 +21,16 @@ export default class Game {
   };
 
   #playGame = async () => {
-    const [computer, refree, player] = this.#initializeGame();
+    // const [computer, refree, player] = this.#initializeGame();
+    // const [computer, player] = this.#initializeGame();
+    const [computer, player] = this.#initializeGame();
     const computerBalls = computer.throwBalls(computer.ballNumbers);
 
     while (!this.#isGameFinished) {
       const playerBallsInput = await this.#promptPlayerBalls();
       const playerBalls = player.throwBalls(playerBallsInput);
-      const result = refree.compareBalls(computerBalls, playerBalls);
+      // const result = this.compareBalls(computerBalls, playerBalls);
+      const result = this.refree.compareBalls(computerBalls, playerBalls);
       this.#processResult(result);
     }
     this.#promptRetry();
@@ -34,7 +38,8 @@ export default class Game {
 
   #initializeGame = () => {
     this.#isGameFinished = false;
-    return [new Computer(), new Referee(), new Player()];
+    // return [new Computer(), new Referee(), new Player()];
+    return [new Computer(), new Player()];
   };
 
   #promptRetry = async () => {
