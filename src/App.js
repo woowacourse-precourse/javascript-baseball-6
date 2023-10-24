@@ -4,7 +4,7 @@ class App {
   async play() {
     try {
       const game = new Game();
-      await game.gameInit();
+      await game.initGame();
     } catch (error) {
       throw error;
     }

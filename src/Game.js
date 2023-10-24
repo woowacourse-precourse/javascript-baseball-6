@@ -1,7 +1,12 @@
 import { Console } from "@woowacourse/mission-utils";
-import Human from "./Human.js";
 import Computer from "./Computer.js";
 import Referee from "./Refree.js";
+import Player from "./Player.js";
+
+const retryAnswer = Object.freeze({
+  1: "1",
+  2: "2",
+});
 
 export default class Game {
   isAllStrike;
@@ -13,11 +18,10 @@ export default class Game {
     const answer = await Console.readLineAsync(
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
     );
-    if (answer !== "1" && answer !== "2") {
-      console.log("answer", answer);
+    if (answer !== retryAnswer[1] && answer !== retryAnswer[2]) {
       throw new Error("[ERROR] 1 또는 2만 입력할 수 있습니다.");
     }
-    answer === "1" && this.gameInit(true);
+    answer === retryAnswer[1] && this.initGame(true);
   };
 
   getHumanBallNumbers = async () => {
@@ -29,12 +33,13 @@ export default class Game {
     }
   };
 
-  gameInit = async (isRetry = false) => {
+  // TODOS : gameInit -> initGame으로 수정. 메서드 분리
+  initGame = async (isRetry = false) => {
     !isRetry && Console.print("숫자 야구 게임을 시작합니다.");
     this.isAllStrike = false;
     const computer = new Computer();
     const refree = new Referee();
-    const human = new Human();
+    const human = new Player();
     const computerBalls = computer.throwBalls(computer.ballNumbers);
 
     while (this.isAllStrike === false) {
@@ -45,9 +50,7 @@ export default class Game {
       if (refree.isThreeStrikes()) {
         Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
         this.isAllStrike = true;
-        //await this.askRetry(); //  [Error: [ERROR] 숫자는 3개를 입력해야합니다.]
       }
-      // await this.askRetry(); // 1 또는 2
     }
     this.askRetry();
   };
