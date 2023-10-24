@@ -5,6 +5,10 @@ const REPLAY_MENT = "게임을 새로 시작하려면 1, 종료하시려면 2를
 
 class App {
   async play() {}
+  constructor() {
+    this.computerNumber = undefined;
+    this.userNumber = undefined;
+  }
 }
 
 export default App;
