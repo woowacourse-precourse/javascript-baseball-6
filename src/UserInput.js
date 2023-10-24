@@ -38,7 +38,9 @@ class UserInput {
 			const userInput = await Console.readLineAsync(question);
 			this.checkGameEndInputIsValid(userInput);
 
-			return userInput;
+			if (userInput === '1') return true;
+
+			return false;
 		} catch (err) {
 			throw new Error(err);
 		}

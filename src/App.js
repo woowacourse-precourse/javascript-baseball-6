@@ -38,7 +38,7 @@ class App {
 		this.#printConsole.gameEnd();
 
 		const gameRestart = await this.#userInput.gameEndInput();
-		if (gameRestart === '1') return this.play();
+		if (gameRestart) return this.play();
 
 		return;
 	}
