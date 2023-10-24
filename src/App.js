@@ -71,9 +71,9 @@ async function startGameAgian() {
   const executeCondition = Number(await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'));
   
   if (executeCondition === 1) {
-    isSame = false;
+    return true;
   } else if (executeCondition === 2) {
-    return;
+    return false;
   } else {
     throw new Error("[ERROR] 게임 실행 조건을 잘못 입력하셨습니다.");
   }
