@@ -8,18 +8,21 @@ class Controller {
     }
 
     async gameStart() {
-        this.model.generateRandomNumber();
+        while (true) {
+            this.model.generateRandomNumber();
 
-        const userInput = await this.view.showUserInput();
-        if (!this.model.isValidUserNumber(userInput)) {
-            //에러처리
-        }
+            const userInput = await this.view.showUserInput();
+            if (!this.model.isValidUserNumber(userInput)) {
+                //에러처리
+            }
 
-        const result = this.model.compareNumbers(userInput);
-        this.view.showResult(result);
+            const result = this.model.compareNumbers(userInput);
+            this.view.showResult(result);
 
-        if (this.isCorrectNumber(result)) {
-            this.view.showEndMessage(); 
+            if (this.isCorrectNumber(result)) {
+                this.view.showEndMessage(); 
+                return ;
+            }
         }
 
     }
