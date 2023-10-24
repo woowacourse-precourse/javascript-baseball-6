@@ -6,8 +6,9 @@ class App {
     this.answer = "";
   }
 
-  throwError() {
-    throw new Error("[ERROR]");
+  throwError(msg = "") {
+    if (msg !== "") msg = ` ${msg}`;
+    throw new Error(`[ERROR]${msg}`);
   }
 
   printStartMessage() {
