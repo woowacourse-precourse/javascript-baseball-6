@@ -36,6 +36,19 @@ class App {
 
     return strike === 3;
   }
+
+  calculateBallAndStrike(playerNumbers) {
+    let ball = 0;
+    let strike = 0;
+    for (let i = 0; i < 3; i++) {
+      if (playerNumbers[i] === this.computerNumbers[i]) {
+        strike++;
+      } else if (this.computerNumbers.includes(playerNumbers[i])) {
+        ball++;
+      }
+    }
+    return { ball, strike };
+  }
 }
 
 export default App;
