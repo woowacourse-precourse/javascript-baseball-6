@@ -15,7 +15,7 @@ class App {
           const arrayOfInput = await this.makeUserInput()
           const {strike,ball} = checkingScore(answer, arrayOfInput)
           playGame(strike,ball)
-          console.log(answer)
+          // console.log(answer)
 
           if (strike === 3) {
             userWillRetry = false;
