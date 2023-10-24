@@ -220,7 +220,7 @@ describe("숫자 야구 게임", () => {
   test("예외 테스트(USER_NUMBER ERROR) 특수문자 입력", async () => {
     // given
     const randoms = [5, 6, 7];
-    const answers = ["!@#$"];
+    const answers = ["1#$"];
     
     mockRandoms(randoms);
     mockQuestions(answers);
@@ -385,10 +385,10 @@ describe("숫자 야구 게임", () => {
     await expect(app.play()).rejects.toThrow("[ERROR]");
   });
 
-  test("예외 테스트(NULL_ERROR) 사용자 빈값 입력", async () => {
+  test("예외 테스트(NULL_ERROR) 사용자 빈값 & 특수문자 입력", async () => {
     // given
     const randoms = [5, 6, 7, 1 ,2 ,3];
-    const answers = ["567","1","123","     "];
+    const answers = ["567","1","123","  1  @"];
     
     mockRandoms(randoms);
     mockQuestions(answers);
@@ -402,7 +402,7 @@ describe("숫자 야구 게임", () => {
   test("예외 테스트(USER_NUMBER_ERROR) 사용자 빈값 & 특수문자 입력", async () => {
     // given
     const randoms = [5, 6, 7, 1 ,2 ,3];
-    const answers = ["5 7@"];
+    const answers = ["   #$1"];
     
     mockRandoms(randoms);
     mockQuestions(answers);
