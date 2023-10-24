@@ -63,6 +63,7 @@ const compareNum = async (COMPUTER_NUM) => {
       }
 
       if (strike === 3) {
+        MissionUtils.Console.print(GAME_MSG.END);
         break;
       }
     }
@@ -70,4 +71,19 @@ const compareNum = async (COMPUTER_NUM) => {
     throw new Error("[ERROR]");
   }
 };
+
+const restartOrNot = async () => {
+  try {
+    MissionUtils.Console.print(GAME_MSG.RESTART);
+    const ANSWER = await MissionUtils.Console.readLineAsync();
+    MissionUtils.Console.print(ANSWER);
+    if (ANSWER != 1 && ANSWER != 2) {
+      throw new Error(ERROR_MSG.RESTART_ERROR_NOT_ANS);
+    }
+    return ANSWER;
+  } catch (error) {
+    throw new Error("[ERROR]");
+  }
+};
+
 export { gameStart };
