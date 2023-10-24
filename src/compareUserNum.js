@@ -1,9 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import randomNum from "./randomNum.js";
 import userInputNum from "./userInputNum.js";
-
-const computerNum = await randomNum();
-console.log(computerNum);
 
 const getBallCount = (computerNum, userNum) => {
   let ball = 0;
@@ -22,7 +18,8 @@ const getBallCount = (computerNum, userNum) => {
   return { ball, strike };
 };
 
-const compareUserNum = async () => {
+const compareUserNum = async (computerNum) => {
+  console.log(computerNum);
   const userNum = await userInputNum();
   const { ball, strike } = getBallCount(computerNum, userNum);
 
@@ -40,12 +37,10 @@ const compareUserNum = async () => {
   MissionUtils.Console.print(resultMessage.trim());
 
   if (strike !== 3) {
-    await compareUserNum();
+    await compareUserNum(computerNum);
   } else {
     MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
   }
 };
 
-const result = await compareUserNum();
-
-console.log(result);
+export default compareUserNum;

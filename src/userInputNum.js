@@ -21,7 +21,7 @@ const userInputNum = async () => {
       return userInputs;
     }
   } catch (error) {
-    console.error("[ERROR] 입력 과정에서 오류가 발생했습니다: ", error);
+    throw new Error("[ERROR] 입력 과정에서 오류가 발생했습니다: ", error);
   }
 };
 
