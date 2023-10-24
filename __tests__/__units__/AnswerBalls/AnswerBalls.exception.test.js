@@ -13,7 +13,7 @@ describe('AnswerBalls 예외 테스트', () => {
     expect(() => {
       const answer = new AnswerBalls([1, 2, 3]);
       answer.contains(input);
-    }).toThrow(ERROR_MESSAGE.ANSWER_BALLS.INVALID_CONTAINS_ARGS);
+    }).toThrow(ERROR_MESSAGE.ANSWER_BALLS.invalidContainsArgs);
   });
 
   it.each([
@@ -29,7 +29,7 @@ describe('AnswerBalls 예외 테스트', () => {
       expect(() => {
         const answer = new AnswerBalls([1, 2, 3]);
         answer.match(input);
-      }).toThrow(ERROR_MESSAGE.ANSWER_BALLS.INVALID_MATCH_BALL_ARG);
+      }).toThrow(ERROR_MESSAGE.ANSWER_BALLS.invalidMatchArgs);
     },
   );
 

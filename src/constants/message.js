@@ -6,5 +6,5 @@ export const MESSAGE = Object.freeze({
   score: (strike, ball) => `${ball ? `${ball}볼 ` : ''}${strike ? `${strike}스트라이크` : ''}`,
   nothing: '낫싱',
   completeGame: `${TargetBalls.BALL_QUANTITY}개의 숫자를 모두 맞히셨습니다! 게임 종료 \n`,
-  askRestart: `게임을 새로 시작하려면 ${RESTART_COMMAND.CONFIRM}, 종료하려면 ${RESTART_COMMAND.DENY}를 입력하세요.`,
+  askRestart: `게임을 새로 시작하려면 ${RESTART_COMMAND.confirm}, 종료하려면 ${RESTART_COMMAND.deny}를 입력하세요.`,
 });

@@ -1,4 +1,4 @@
 export const RESTART_COMMAND = Object.freeze({
-  CONFIRM: '1',
-  DENY: '2',
+  confirm: '1',
+  deny: '2',
 });

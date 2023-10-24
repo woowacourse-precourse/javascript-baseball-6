@@ -29,14 +29,14 @@ export class TargetBall {
 
   #validate(number) {
     if (typeof number !== 'number') {
-      throw new CustomError(ERROR_MESSAGE.COMMON.NOT_NUMBER);
+      throw new CustomError(ERROR_MESSAGE.common.notNumber);
     }
     if (!Number.isInteger(number)) {
-      throw new CustomError(ERROR_MESSAGE.COMMON.NOT_INTEGER);
+      throw new CustomError(ERROR_MESSAGE.common.notInteger);
     }
     if (isOutOfRange(number, TargetBall.MIN, TargetBall.MAX)) {
       throw new CustomError(
-        ERROR_MESSAGE.COMMON.OUT_OF_RANGE(TargetBall.MIN, TargetBall.MAX),
+        ERROR_MESSAGE.common.outOfRange(TargetBall.MIN, TargetBall.MAX),
         this.constructor.name,
       );
     }

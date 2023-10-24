@@ -13,7 +13,7 @@ describe('TargetBall 예외 테스트', () => {
   ])('입력받은 값이 숫자가 아닐 경우 에러를 발생시킨다. (input: $input)', ({ input }) => {
     expect(() => {
       new TargetBall(input);
-    }).toThrow(ERROR_MESSAGE.COMMON.NOT_NUMBER);
+    }).toThrow(ERROR_MESSAGE.common.notNumber);
   });
 
   it.each([{ input: 4.1 }, { input: 1.3 }])(
@@ -21,7 +21,7 @@ describe('TargetBall 예외 테스트', () => {
     ({ input }) => {
       expect(() => {
         new TargetBall(input);
-      }).toThrow(ERROR_MESSAGE.COMMON.NOT_INTEGER);
+      }).toThrow(ERROR_MESSAGE.common.notInteger);
     },
   );
 
@@ -30,7 +30,7 @@ describe('TargetBall 예외 테스트', () => {
     ({ input }) => {
       expect(() => {
         new TargetBall(input);
-      }).toThrow(ERROR_MESSAGE.COMMON.OUT_OF_RANGE(TargetBall.MIN, TargetBall.MAX));
+      }).toThrow(ERROR_MESSAGE.common.outOfRange(TargetBall.MIN, TargetBall.MAX));
     },
   );
 });

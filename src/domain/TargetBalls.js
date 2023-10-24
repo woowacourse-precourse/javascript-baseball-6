@@ -23,15 +23,13 @@ export class TargetBalls {
 
   #validate(numbers) {
     if (!Array.isArray(numbers)) {
-      throw new CustomError(ERROR_MESSAGE.COMMON.NOT_ARRAY);
+      throw new CustomError(ERROR_MESSAGE.common.notArray);
     }
     if (numbers.length !== TargetBalls.BALL_QUANTITY) {
-      throw new CustomError(
-        ERROR_MESSAGE.TARGET_BALLS.NOT_VALID_QUANTITY(TargetBalls.BALL_QUANTITY),
-      );
+      throw new CustomError(ERROR_MESSAGE.targetBalls.invalidQuantity(TargetBalls.BALL_QUANTITY));
     }
     if (isDuplicated(numbers)) {
-      throw new CustomError(ERROR_MESSAGE.TARGET_BALLS.IS_DUPLICATED);
+      throw new CustomError(ERROR_MESSAGE.targetBalls.isDuplicated);
     }
   }
 }

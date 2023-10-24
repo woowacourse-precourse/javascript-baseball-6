@@ -30,10 +30,7 @@ export class AnswerBalls {
 
   #validateContains(ball) {
     if (!(ball instanceof TargetBall)) {
-      throw new CustomError(
-        ERROR_MESSAGE.ANSWER_BALLS.INVALID_CONTAINS_ARGS,
-        this.constructor.name,
-      );
+      throw new CustomError(ERROR_MESSAGE.ANSWER_BALLS.invalidContainsArgs, this.constructor.name);
     }
   }
 
@@ -50,10 +47,7 @@ export class AnswerBalls {
 
   #validateMatch(ball, index) {
     if (!(ball instanceof TargetBall)) {
-      throw new CustomError(
-        ERROR_MESSAGE.ANSWER_BALLS.INVALID_MATCH_BALL_ARG,
-        this.constructor.name,
-      );
+      throw new CustomError(ERROR_MESSAGE.ANSWER_BALLS.invalidMatchArgs, this.constructor.name);
     }
 
     if (typeof index !== 'number' || index < 0) {

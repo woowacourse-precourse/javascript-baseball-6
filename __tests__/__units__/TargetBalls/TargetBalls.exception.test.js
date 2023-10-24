@@ -12,7 +12,7 @@ describe('TargetBalls 예외 테스트', () => {
   ])('입력받은 값이 배열 아닐 경우 에러를 발생시킨다. (input: $input)', ({ input }) => {
     expect(() => {
       new TargetBalls(input);
-    }).toThrow(ERROR_MESSAGE.COMMON.NOT_ARRAY);
+    }).toThrow(ERROR_MESSAGE.common.notArray);
   });
 
   it.each([{ input: [] }, { input: [1] }, { input: [1, 2] }, { input: [1, 2, 3, 4] }])(
@@ -20,7 +20,7 @@ describe('TargetBalls 예외 테스트', () => {
     ({ input }) => {
       expect(() => {
         new TargetBalls(input);
-      }).toThrow(ERROR_MESSAGE.TARGET_BALLS.NOT_VALID_QUANTITY(TargetBalls.BALL_QUANTITY));
+      }).toThrow(ERROR_MESSAGE.targetBalls.invalidQuantity(TargetBalls.BALL_QUANTITY));
     },
   );
 
@@ -29,7 +29,7 @@ describe('TargetBalls 예외 테스트', () => {
     ({ input }) => {
       expect(() => {
         new TargetBalls(input);
-      }).toThrow(ERROR_MESSAGE.TARGET_BALLS.IS_DUPLICATED);
+      }).toThrow(ERROR_MESSAGE.targetBalls.isDuplicated);
     },
   );
 });

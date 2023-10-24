@@ -1,25 +1,25 @@
 import { RESTART_COMMAND } from './system.js';
 
 export const ERROR_MESSAGE = Object.freeze({
-  COMMON: Object.freeze({
-    NOT_NUMBER: '숫자를 입력해주세요!',
-    NOT_INTEGER: '정수를 입력해주세요!',
-    NOT_ARRAY: '배열을 입력해주세요!',
-    OUT_OF_RANGE: (min, max) => `${min} 이상 ${max} 이하의 값을 입력해주세요!`,
+  common: Object.freeze({
+    notNumber: '숫자를 입력해주세요!',
+    notInteger: '정수를 입력해주세요!',
+    notArray: '배열을 입력해주세요!',
+    outOfRange: (min, max) => `${min} 이상 ${max} 이하의 값을 입력해주세요!`,
   }),
 
-  TARGET_BALLS: Object.freeze({
-    NOT_VALID_QUANTITY: (quantity) => `${quantity}개의 숫자를 가진 배열을 입력해주세요!`,
-    IS_DUPLICATED: '중복되지 않는 숫자들로 입력해주세요!',
+  targetBalls: Object.freeze({
+    invalidQuantity: (quantity) => `${quantity}개의 숫자를 가진 배열을 입력해주세요!`,
+    isDuplicated: '중복되지 않는 숫자들로 입력해주세요!',
   }),
 
   ANSWER_BALLS: Object.freeze({
-    INVALID_CONTAINS_ARGS: 'contains의 인자에 TargetBall을 입력해주세요!',
-    INVALID_MATCH_BALL_ARG: 'match의 첫번째 인자에 TargetBall을 입력해주세요!',
-    INVALID_MATCH_INDEX_ARG: 'match의 두번째 인자에 올바른 index값을 입력해주세요!',
+    invalidContainsArgs: 'contains의 인자에 TargetBall을 입력해주세요!',
+    invalidMatchBallArg: 'match의 첫번째 인자에 TargetBall을 입력해주세요!',
+    invalidMatchIndexArg: 'match의 두번째 인자에 올바른 index값을 입력해주세요!',
   }),
 
   RESTART_COMMAND: Object.freeze({
-    INVALID_RESTART_COMMAND: `${RESTART_COMMAND.CONFIRM} 혹은 ${RESTART_COMMAND.DENY}를 입력해주세요!`,
+    invalidRestartCommand: `${RESTART_COMMAND.confirm} 혹은 ${RESTART_COMMAND.deny}를 입력해주세요!`,
   }),
 });
