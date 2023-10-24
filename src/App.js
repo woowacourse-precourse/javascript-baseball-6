@@ -1,49 +1,67 @@
 import { Console } from '@woowacourse/mission-utils';
-import setAnswer from './setAnswer';
-import guessInput from './guessInput';
-import guessJudge from './guessJudge';
-import guessOutput from './guessOutput';
-import restartInput from './restartInput';
+import setRandomAnswer from './setRandomAnswer.js';
+import inputGuess from './inputGuess.js';
+import judgeGuess from './judgeGuess.js';
+import returnResult from './returnResult.js';
+import restartInput from './restartInput.js';
 
 class App {
   #answer;
   #guess;
+  #isCorrect;
   #isEnded;
   
   constructor() {
-    this.#answer = [];
-    this.#guess = "";
+    this.#answer = '';
+    this.#guess = '';
+    this.#isCorrect = false;
     this.#isEnded = false;
   }
 
   async play() {
+    Console.print('숫자 야구 게임을 시작합니다.')
     this.setAnswer();
 
-    while (true) {
+    while (!this.#isEnded) {
       await this.setGuess();
-      const result = await guessJudge(this.#guess, this.#answer);
-      const output = await guessOutput(result);
-      Console.print(output);
+      this.judgeGuessAndResult(this.#guess, this.#answer);
 
-      if (result.strike === 3) {
+      if (this.#isCorrect) {
         if (await restartInput() === '2') {
-          break
+          this.setIsEnded(true);
         } else {
           this.setAnswer();
+          this.setIsCorrect(false);
         }
       }
     }
   }
 
-  async setAnswer() {
-    this.#answer = await setAnswer();
+  setAnswer() {
+    this.#answer = setRandomAnswer();
   }
 
   async setGuess() {
-    this.#guess = await guessInput();
+    this.#guess = await inputGuess();
+  }
+
+  async judgeGuessAndResult(guess, answer) {
+    const result = judgeGuess(guess, answer);
+    
+    if (result.strike === 3) {
+      this.setIsCorrect(true);      
+    }
+
+    Console.print(returnResult(result));
+  }
+
+  setIsCorrect(state) {
+    this.#isCorrect = state;
+  }
+
+  setIsEnded(state) {
+    this.#isEnded = state;
   }
 }
-//@TODO : class로 만들어 객체지향형으로 만들기
-//@TODO : readme 정리하기
 
 export default App;

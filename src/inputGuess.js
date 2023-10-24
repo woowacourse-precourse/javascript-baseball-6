@@ -1,6 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 
-async function guessInput() {
+async function inputGuess() {
   let input = '';
   input = await Console.readLineAsync('숫자를 입력해주세요 : ');
 
@@ -21,4 +21,4 @@ function isDuplicated(str) {
   return false;
 }
 
-export default guessInput;
+export default inputGuess;

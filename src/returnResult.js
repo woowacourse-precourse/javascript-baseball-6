@@ -1,4 +1,4 @@
-async function guessOutput({ ball, strike }) {
+function returnResult({ ball, strike }) {
   let output = ''
 
   if (ball + strike === 0) {
@@ -14,4 +14,4 @@ async function guessOutput({ ball, strike }) {
   return output;
 }
 
-export default guessOutput;
+export default returnResult;

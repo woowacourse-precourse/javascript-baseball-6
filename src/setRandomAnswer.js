@@ -1,6 +1,6 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 
-function setAnswer() {
+function setRandomAnswer() {
   const answer = [];
 
   while (answer.length < 3) {
@@ -14,4 +14,4 @@ function setAnswer() {
   return answer;
 }
 
-export default setAnswer;
+export default setRandomAnswer;

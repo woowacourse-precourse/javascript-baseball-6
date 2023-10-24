@@ -1,4 +1,4 @@
-async function guessJudge(guess, answer) {
+function judgeGuess(guess, answer) {
   let ball = 0;
   let strike = 0;
 
@@ -13,4 +13,4 @@ async function guessJudge(guess, answer) {
   return { ball, strike };
 }
 
-export default guessJudge;
+export default judgeGuess;
