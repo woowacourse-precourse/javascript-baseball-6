@@ -15,4 +15,4 @@ const ERROR = {
     INVALID_USER_INPUT: '[ERROR] 숫자가 잘못된 형식입니다.',
 };
 
-export default  {BALL_RESULT_TEXT, GAME_PROGRESS_TEXT, ERROR };
+module.exports = { BALL_RESULT_TEXT, GAME_PROGRESS_TEXT, ERROR };
