@@ -4,8 +4,10 @@ function getArrayLength(userInputArray) {
 }
 
 function convertToNumber(userInputArray) {
-  const areAllNumbers = userInputArray.every((item) => !isNaN(Number(item)));
-  return areAllNumbers;
+  return userInputArray.every((item) => {
+    const number = Number(item);
+    return !isNaN(number) && number >= 1 && number <= 9;
+  });
 }
 
 function isValidNum(userInput) {
@@ -14,8 +16,8 @@ function isValidNum(userInput) {
     // return true;
     return console.log("true");
   }
-  //   return console.log(userInputArray);
-//   console.log(userInputArray)
+
+  // return false;
   return console.log("false");
 }
 export { isValidNum };
