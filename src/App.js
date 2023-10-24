@@ -14,7 +14,6 @@ class App {
   }
 
   async setUserInput(randomNumber) {
-    console.log(randomNumber);
     try {
       const inputNumber = await MissionUtils.Console.readLineAsync(MESSAGE.GAME.INPUT_NUMBER);
       const userInputNumber = userInputNumberValidation(inputNumber);
