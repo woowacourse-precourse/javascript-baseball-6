@@ -16,4 +16,18 @@ async function getUserInput() {
   }
 }
 
-export { getUserInput };
+async function getRetryInput() {
+  try {
+    const userInput = await MissionUtils.Console.readLineAsync(
+      GAME_MESSAGE.GAME_RESTART_END_MESSAGE
+    );
+    if (userInput !== '1' && userInput !== '2') {
+      throw new Error(GAME_MESSAGE.ERROR_MESSAGE);
+    }
+    return userInput;
+  } catch (error) {
+    throw new Error(GAME_MESSAGE.ERROR_MESSAGE);
+  }
+}
+
+export { getUserInput, getRetryInput };
