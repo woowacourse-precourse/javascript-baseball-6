@@ -9,6 +9,7 @@ class App {
     this.computerNumber = undefined;
     this.userNumber = undefined;
   }
+  async play() {
     this.makeComputerNumber();
     Console.print(START_MENT);
     await this.startMatching();
