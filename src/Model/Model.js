@@ -9,9 +9,7 @@ class Model {
     while (computerRandomNumbers.length < NUMBER_LENGTH) {
       const number = Random.pickNumberInRange(1, 9);
 
-      if (!computerRandomNumbers.includes(number)) {
-        computerRandomNumbers.push(number);
-      }
+      !computerRandomNumbers.includes(number) ? computerRandomNumbers.push(number) : "";
     }
 
     validateComputerNumber(computerRandomNumbers);

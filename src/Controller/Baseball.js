@@ -28,7 +28,7 @@ class Baseball {
 
       this.view.printHint(ballCount, strikeCount);
 
-      strikeCount === NUMBER_LENGTH ? await this.quit() : this.start(randomNumbers);
+      strikeCount === NUMBER_LENGTH ? await this.quit() : await this.start(randomNumbers);
     } catch (err) {
       throw err;
     }
@@ -41,17 +41,20 @@ class Baseball {
       const restartStateInput = await this.view.readLineInput(GAME_MESSAGE.restart);
 
       validateEndInputNumber(restartStateInput);
-
-      if (restartStateInput === GAME.restart) {
-        this.restart = true;
-        this.init();
-      }
-      if (restartStateInput === GAME.end) {
-        this.view.printMessage(GAME_MESSAGE.gameEnd);
-        process.exitCode = 0;
-      }
+      this.restartOrEnd(restartStateInput);
     } catch (err) {
       throw err;
+    }
+  }
+
+  restartOrEnd(restartStateInput) {
+    if (restartStateInput === GAME.restart) {
+      this.restart = true;
+      this.init();
+    }
+    if (restartStateInput === GAME.end) {
+      this.view.printMessage(GAME_MESSAGE.gameEnd);
+      process.exitCode = 0;
     }
   }
 }
