@@ -17,4 +17,17 @@ export default class View {
   input(message) {
     return Console.readLineAsync(message);
   }
+
+  /**
+   * @description 에러 메세지 출력 함수
+   * @param {string} message
+   * @param {boolean} condition
+   */
+
+  throwError(message, condition) {
+    if (condition) {
+      return;
+    }
+    throw new Error(message);
+  }
 }
