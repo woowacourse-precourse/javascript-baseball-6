@@ -28,8 +28,7 @@ class BaseballGame {
         throw new Error(ERROR_MESSAGE.IS_INVALID);
       }
     }
-    if (result === 3) {
-      Console.print(`${strike}${BASEBALL_MESSAGE.STRIKE}`);
+    if (result) {
       Console.print(GAME_MESSAGE.SUCCESS);
       return true;
     }
@@ -67,17 +66,15 @@ class BaseballGame {
       return false;
     } else if (ball === 0 && strike !== 0) {
       Console.print(`${strike}${BASEBALL_MESSAGE.STRIKE}`);
-      return false;
+      if (strike === 3) return true;
+      else return false;
     } else if (ball !== 0 && strike === 0) {
       Console.print(`${ball}${BASEBALL_MESSAGE.BALL}`);
       return false;
-    }
-
-    if (ball === 0 && strike === 0) {
+    } else {
       Console.print(BASEBALL_MESSAGE.NOTHING);
       return false;
     }
-    return true;
   }
 }
 
