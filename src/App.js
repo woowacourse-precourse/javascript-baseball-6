@@ -50,7 +50,7 @@ class App {
     return true;
   }
 
-  compareNumber(computer, user) {
+  calculateStrikesAndBalls(computer, user) {
     let result = { strike: 0, ball: 0 };
     for (let i = 0; i <= NUMBER_COUNT - 1; i++) {
       if (computer.includes(user[i])) {
@@ -108,7 +108,7 @@ class App {
       while (!isCorrect) {
         const userNumber = await this.getUserInput();
         isCorrect = this.printResult(
-          this.compareNumber(this.answerNumbers, userNumber)
+          this.calculateStrikesAndBalls(this.answerNumbers, userNumber)
         );
       }
       continueGame = await this.checkDoAgain();
