@@ -21,20 +21,17 @@ describe("컴퓨터", () => {
     const notAllowedCharacterAnswers = ["12a", "120"];
     const duplicatedCharacterAnswer = "112";
 
-    // when
-    const computer = new Computer();
-
     // then
-    expect(computer.validateAnswerLength(validAnswer)).toBe(true);
-    expect(computer.validateAnswerCharater(validAnswer)).toBe(true);
-    expect(computer.validateAnswerUnique(validAnswer).toBe(true));
+    expect(Computer.validateAnswerLength(validAnswer)).toBe(true);
+    expect(Computer.validateAnswerCharacter(validAnswer)).toBe(true);
+    expect(Computer.validateAnswerUnique(validAnswer)).toBe(true);
     inValidLengthAnswers.forEach((answer) => {
-      expect(computer.validateAnswerLength(answer).toBe(false));
+      expect(Computer.validateAnswerLength(answer)).toBe(false);
     });
     notAllowedCharacterAnswers.forEach((answer) => {
-      expect(computer.validateAnswerCharater(answer).toBe(false));
+      expect(Computer.validateAnswerCharacter(answer)).toBe(false);
     });
-    expect(computer.validateAnswerUnique(duplicatedCharacterAnswer)).toBe(false);
+    expect(Computer.validateAnswerUnique(duplicatedCharacterAnswer)).toBe(false);
   });
 
   test("스트라이크, 볼 계산", () => {
@@ -72,13 +69,11 @@ describe("컴퓨터", () => {
     const answers = ["1", "2", "0", "a"];
     const results = [true, true, false, false];
 
-    // when & then
-    const computer = new Computer();
-
+    // then
     answers.forEach((answer, index) => {
       const result = results[index];
 
-      expect(computer.validateReplayValue(answer)).toBe(result);
+      expect(Computer.validateReplayValue(answer)).toBe(result);
     });
   });
 });
