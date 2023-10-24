@@ -1,3 +1,5 @@
+import { RESTART_COMMAND } from './system.js';
+
 const ERROR_MESSAGE_GENERATOR = Object.freeze({
   OUT_OF_RANGE: (min, max) => `${min} 이상 ${max} 이하의 값을 입력해주세요!`,
 });
@@ -22,5 +24,9 @@ export const ERROR_MESSAGE = Object.freeze({
     INVALID_CONTAINS_ARGS: 'contains의 인자에 TargetBall을 입력해주세요!',
     INVALID_MATCH_BALL_ARG: 'match의 첫번째 인자에 TargetBall을 입력해주세요!',
     INVALID_MATCH_INDEX_ARG: 'match의 두번째 인자에 올바른 index값을 입력해주세요!',
+  }),
+
+  RESTART_COMMAND: Object.freeze({
+    INVALID_RESTART_COMMAND: `${RESTART_COMMAND.CONFIRM} 혹은 ${RESTART_COMMAND.DENY}를 입력해주세요!`,
   }),
 });

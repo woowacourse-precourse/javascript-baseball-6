@@ -1,5 +1,7 @@
+import { ERROR_MESSAGE } from './constants/error.js';
 import { MESSAGE } from './constants/message.js';
 import { RESTART_COMMAND } from './constants/system.js';
+import CustomError from './exceptions/CustomError.js';
 import { BaseballService } from './service/BaseballService.js';
 import { inputView, outputView } from './views/index.js';
 
@@ -14,38 +16,42 @@ class App {
   };
 
   async play() {
-    // console.log(this.#service.baseball.answer.targetBalls.balls.map((ball) => ball.number));
     await this.processTurn();
   }
 
-  async #getUserNumbers() {
-    const numbers = await this.#view.input.readLine(MESSAGE.enterSubmitBall);
-    return numbers.split('').map(Number);
+  async processTurn() {
+    const userNumbers = (await this.#view.input.readLine(MESSAGE.enterSubmitBall))
+      .split('')
+      .map(Number);
+    const score = this.#service.baseball.computeScore(userNumbers);
+    this.#view.output.print(score);
+    await this.checkCompleteGame();
   }
 
-  async processTurn() {
-    const userNumbers = await this.#getUserNumbers();
-    const result = this.#service.baseball.computeScore(userNumbers);
-    this.#view.output.print(result);
+  async checkCompleteGame() {
     if (this.#service.baseball.isEnd()) {
-      this.completeGame();
+      await this.completeGame();
       return;
     }
-    this.processTurn();
-  }
-
-  async #getRestartCommand() {
-    const command = await this.#view.input.readLine(MESSAGE.completeGame);
-    return command.trim();
+    await this.processTurn();
   }
 
   async completeGame() {
-    const restartCommand = await this.#getRestartCommand();
+    this.#view.output.print(MESSAGE.completeGame);
+    await this.askRestart();
+  }
+
+  async askRestart() {
+    const restartCommand = (await this.#view.input.readLine(MESSAGE.askRestart)).trim();
+    if (restartCommand === RESTART_COMMAND.CONFIRM) {
+      this.#service.baseball.init();
+      await this.processTurn();
+      return;
+    }
     if (restartCommand === RESTART_COMMAND.DENY) {
       return;
     }
-    this.#service.baseball.init();
-    this.processTurn();
+    throw new CustomError(ERROR_MESSAGE.RESTART_COMMAND.INVALID_RESTART_COMMAND);
   }
 }
 
