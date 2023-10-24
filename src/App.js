@@ -5,20 +5,24 @@ import { checkingScore, playGame } from "./calculator/Score.js";
 
 class App {
     async play() {
-      const answer = computerRandom();
+      let willBeRestarted = true;
+      MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
+      while (willBeRestarted) {
+        const answer = computerRandom();
+        
+        let userWillRetry = true;
+        while (userWillRetry) {
+          const arrayOfInput = await this.makeUserInput()
+          const {strike,ball} = checkingScore(answer, arrayOfInput)
+          playGame(strike,ball)
+          // console.log(answer)
 
-      let userWillRetry = true;
-      while (userWillRetry) {
-        const arrayOfInput = await this.makeUserInput()
-        const {strike,ball} = checkingScore(answer, arrayOfInput)
-        playGame(strike,ball)
-        // console.log(answer)
-
-        if (strike === 3) {
-          userWillRetry = false;
-        } 
+          if (strike === 3) {
+            userWillRetry = false;
+          } 
+        } // retry 끝나면(정답 맞추면) 
       }
-    }
+    } 
 
     async makeUserInput() {
       const inputNumber = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ').then(
