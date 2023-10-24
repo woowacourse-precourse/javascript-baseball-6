@@ -10,7 +10,7 @@ export default class App {
 		// 랜덤으로 값 설정
 		const COMPUTER = this.randomNumber();
 		// 추후 지울 것
-		// console.log('com', COMPUTER);
+		console.log('com', COMPUTER);
 		// Console.print(`test ${this.randomNumber()}`);
 
 		// 정답일때까지 반복문 실행
@@ -44,11 +44,17 @@ export default class App {
 		// console.log('숫자 야구 게임을 시작합니다.');
 	}
 	randomNumber() {
-		const PICKRANDOMNUMBER = Random.pickUniqueNumbersInRange(1, 9, 3);
-		return PICKRANDOMNUMBER.join('');
+		const RANDOMNUMBERLIST = [];
+		while (RANDOMNUMBERLIST.length < 3) {
+			const RANDOMNUMBER = Random.pickNumberInRange(1, 9);
+			if (!RANDOMNUMBERLIST.includes(RANDOMNUMBER)) {
+				RANDOMNUMBERLIST.push(RANDOMNUMBER);
+			}
+		}
+		return RANDOMNUMBERLIST.join('');
 		// return [1, 3, 5].join('');
 	}
 }
 
-// const app = new App();
-// app.play();
+const app = new App();
+app.play();
