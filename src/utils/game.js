@@ -47,14 +47,13 @@ function compareNumbers(computerNumbers, userInputNumber) {
  */
 function printResultMessage(result) {
   const [strikeCount, ballCount] = result;
-  let resultMessage = "";
+  const messages = [];
 
-  if (strikeCount === 0 && ballCount === 0) resultMessage = "낫싱";
-  else if (strikeCount === 0) resultMessage = `${ballCount}볼`;
-  else if (ballCount === 0) resultMessage = `${strikeCount}스트라이크`;
-  else resultMessage = `${ballCount}볼 ${strikeCount}스트라이크`;
+  if (strikeCount === 0 && ballCount === 0) messages.push("낫싱");
+  if (ballCount !== 0) messages.push(`${ballCount}볼`);
+  if (strikeCount !== 0) messages.push(`${strikeCount}스트라이크`);
 
-  Console.print(resultMessage);
+  Console.print(messages.join(" "));
   return;
 }
 
