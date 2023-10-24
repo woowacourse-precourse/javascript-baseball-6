@@ -12,6 +12,13 @@ class App {
         const input = await MissionUtils.Console.readLineAsync(
           "숫자를 입력해주세요 : "
         );
+        if (
+          input.length !== 3 ||
+          new Set(input).size !== 3 ||
+          [...input].some((item) => Number(item) < 1 || Number(item) > 9)
+        ) {
+          throw new Error("제시된 조건을 확인해주세요(1~9까지의 서로 다른 3자리의 수)")
+        }
       }
     }
   }
