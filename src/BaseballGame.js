@@ -29,12 +29,12 @@ class BaseballGame {
   handleNumber(userNumber) {
     Validator.validateUserNumber(userNumber);
     const result = NumberChecker.getResult(userNumber, this.computerNumber);
-    OutputView.printResult(result);
     this.handleResult(result);
   }
 
-  handleResult({_, strike}) {
-    if (strike < CONSTANTS.winningStrike) return this.readNumber();
+  handleResult(result) {
+    OutputView.printResult(result);
+    if (result.strike < CONSTANTS.winningStrike) return this.readNumber();
     this.readRetry();
   }
 
