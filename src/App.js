@@ -1,28 +1,20 @@
 import { Console } from '@woowacourse/mission-utils';
 import Game from './game';
-import InputError from './errors/input-error';
+import { askContinue } from './functions/input';
 
 class App {
   constructor() {
     Console.print('숫자 야구 게임을 시작합니다.');
   }
 
+  /** * 프로그램 시작점
+   *  * 재귀적으로 동작하여 사용자가 종료를 원할 때까지 반복한다.
+   */
   async play() {
     this.game = new Game();
     await this.game.guess();
 
-    if (await this.#askContinue()) this.play();
-  }
-
-  /** 계속할지 여부 */
-  async #askContinue() {
-    const input = await Console.readLineAsync(
-      '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'
-    );
-
-    if (input === '1') return true;
-    if (input === '2') return false;
-    throw new InputError('1 또는 2를 입력해주세요.');
+    if (await askContinue()) this.play();
   }
 }
 
