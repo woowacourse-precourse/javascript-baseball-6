@@ -8,12 +8,11 @@ class App {
     this.playState = true;
   }
   async play() {
-    this.answer = this.randomNumbersArray();
-
     Console.print('숫자 야구 게임을 시작합니다.');
-    Console.print(`정답은 : ${this.answer}`);
 
     while (this.playState) {
+      this.answer = this.randomNumbersArray();
+      Console.print(`정답은 : ${this.answer}`);
       const userInput = await Console.readLineAsync('숫자를 입력해주세요 :');
       this.checkUserInput(userInput);
       this.calculateGameResult(this.answer, userInput);
@@ -23,8 +22,8 @@ class App {
         this.ball = 0;
         this.strike = 0;
       } else {
-        Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
-        if (Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.') === '1') {
+        Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료 ');
+        if (await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.') === '1') {
           this.playState = true;
         }
       }
@@ -51,14 +50,17 @@ class App {
       this.playState = false;
       return
     } else {
-      answer.forEach((element, index) => {
-        if (element === Number(userInput[index])) {
-          this.strike++;
-        } else if (userInput[index].includes(String(element))) {
-          this.ball++;
+      answer.forEach((answerElement, index) => {
+        if (answerElement === Number(userInput[index])) {
+          this.strike += 1;
+        } else {
+          [...userInput].forEach((inputElement) => {
+            if (answerElement === Number(inputElement)) {
+              this.ball += 1;
+            }
+          })
         }
       })
-
       this.playState = true;
     }
 
