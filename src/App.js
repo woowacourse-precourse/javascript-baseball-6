@@ -54,15 +54,15 @@ class App {
   }
 
   async restartGame() {
-    const gameOptions = {
+    const GAME_OPTIONS = {
       RESTART_GAME: '1',
       END_GAME: '2',
     };
     const gameController = await Console.readLineAsync(
       '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.'
     );
-    if (gameController === gameOptions.RESTART_GAME) return true;
-    if (gameController === gameOptions.END_GAME) return false;
+    if (gameController === GAME_OPTIONS.RESTART_GAME) return true;
+    if (gameController === GAME_OPTIONS.END_GAME) return false;
     throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
   }
 
