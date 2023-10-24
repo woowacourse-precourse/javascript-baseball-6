@@ -12,8 +12,23 @@ const input = async (input = {}) => await Console.readLineAsync(input);
 
 //init - 게임 시작메시지출력, 게임 진행시작
 const init = async () => {
-  while (true) {
+  let gamePlay = false;
+  while (!gamePlay) {
     print(MESSAGE.GAME_START);
+    const computerNumber = generateRandomoNumber();
+    gamePlay = await handleGame(computerNumber);
+  }
+};
+
+// 게임 핸들링 함수
+const handleGame = async (computerNumber) => {
+  let gamePlay = false;
+  // 사용자 입력, 비교, 출력, 재시작 반복
+  while (!gamePlay) {
+    const playerNumber = await getPlayerNumber(computerNumber);
+    const compareResult = compareNumber(computerNumber, playerNumber);
+    const result = printResult(compareResult);
+    if (isCorrect(result)) return askReplay();
   }
 };
 
