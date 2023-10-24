@@ -7,17 +7,17 @@ export default function PrintResult(data) {
       MissionUtils.Console.print(
         `${data.strike}스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료`
       );
-      return True;
+      return true;
     } else if (data.ball === 0) {
       MissionUtils.Console.print(`${data.strike}스트라이크`);
     } else if (data.strike === 0) {
-      MissionUtils.Console.print(`${data.strike}볼`);
+      MissionUtils.Console.print(`${data.ball}볼`);
     } else {
       MissionUtils.Console.print(`${data.ball}볼 ${data.strike}스트라이크`);
     }
   } else {
     MissionUtils.Console.print(`낫싱`);
-    return False;
+    return false;
   }
-  return False;
+  return false;
 }
