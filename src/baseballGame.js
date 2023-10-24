@@ -22,6 +22,7 @@ class BaseballGame {
 
   createComputerNumber() {
     this.computerNumber = getUniqueNumbersInRange(1, 9, 3);
+    Console.print(this.computerNumber);
   }
 
   async getUserNumber() {
@@ -33,6 +34,25 @@ class BaseballGame {
   showCountResult() {
     const numberOfStrikes = this.getNumberOfStrikes();
     const numberOfBalls = this.getNumberOfBalls();
+
+    if (numberOfStrikes === 0 && numberOfBalls === 0) {
+      Console.print(GUIDE_MESSAGES.NONE_MATCHING);
+      return;
+    }
+
+    if (numberOfBalls === 0) {
+      Console.print(`${numberOfStrikes}스트라이크`);
+      if (numberOfStrikes === 3) Console.print(GUIDE_MESSAGES.GAME_FINISH);
+      return;
+    } else {
+      if (numberOfStrikes === 0) {
+        Console.print(`${numberOfBalls}볼`);
+        return;
+      } else {
+        Console.print(`${numberOfBalls}볼 ${numberOfStrikes}스트라이크`);
+        return;
+      }
+    }
   }
 
   getNumberOfStrikes() {
