@@ -1,6 +1,7 @@
 import { Console } from "@woowacourse/mission-utils";
 import Computer from "./Computer";
 import { MESSAGES } from "./constants/Messages";
+import { STATUS } from "./constants/Status";
 
 class App {
   constructor() {
@@ -9,6 +10,10 @@ class App {
 
   userNumber = [];
   computerNumber = [];
+
+  printGameStart = () => {
+    Console.print(MESSAGES.START);
+  };
 
   /***   
     1. Number
@@ -34,6 +39,10 @@ class App {
       throw new Error(MESSAGES.ERROR);
     }
     return Array.from(input).map((el) => Number(el));
+  };
+
+  printRestartOrEnd = () => {
+    Console.print(MESSAGES.RESTART_OR_END);
   };
 
   checkRestartOrEndValidation = (input) => {
@@ -66,6 +75,19 @@ class App {
     return result;
   };
 
+  printGameResult = (result) => {
+    if (result.ball === 0 && result.strike === 0) {
+      Console.print(MESSAGES.RESULT.NOTHING);
+    } else if (result.strike === 3) {
+      Console.print(MESSAGES.RESULT.ALL_STRIKE);
+      Console.print(MESSAGES.GAME_OVER);
+      return STATUS.OVER;
+    } else {
+      Console.print(`${result.ball}볼 ${result.strike}스트라이크`);
+    }
+    return STATUS.CONTINUE;
+  };
+
   gameReady = async () => {
     this.computerNumber = this.computer.createRandomNumber();
     await this.gameStart();
@@ -80,25 +102,22 @@ class App {
         this.userNumber
       );
 
-      if (result.ball === 0 && result.strike === 0) {
-        Console.print(MESSAGES.RESULT.NOTHING);
-      } else if (result.strike === 3) {
-        Console.print(MESSAGES.RESULT.ALL_STRIKE);
-        Console.print(MESSAGES.GAME_OVER);
-        Console.print(MESSAGES.RESTART_OR_END);
+      const resultStatus = this.printGameResult(result);
+
+      if (resultStatus === STATUS.OVER) {
+        this.printRestartOrEnd();
         const input = await this.getRestartOrEndInput();
         if (input === "1") {
           await this.gameReady();
         }
+
         return;
-      } else {
-        Console.print(`${result.ball}볼 ${result.strike}스트라이크`);
       }
     }
   };
 
   async play() {
-    Console.print(MESSAGES.START);
+    this.printGameStart();
     await this.gameReady();
 
     return;
