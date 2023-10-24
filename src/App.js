@@ -49,6 +49,14 @@ class App {
     }
     return { ball, strike };
   }
+
+  buildResultMessage(ball, strike) {
+    return (
+      (ball ? `${ball}볼` : "") +
+      (ball && strike ? " " : "") +
+      (strike ? `${strike}스트라이크` : "")
+    );
+  }
 }
 
 export default App;
