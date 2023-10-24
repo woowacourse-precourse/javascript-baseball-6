@@ -1,5 +1,7 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 
+const COMPUTER_NUM_LEN = 3;
+
 class App {
   async play() {
     Console.print("숫자 야구 게임을 시작합니다.");
@@ -9,6 +11,9 @@ class App {
 
       while (true) {
         const playerNumStr = await Console.readLineAsync("숫자를 입력해주세요 : ");
+        if (playerNumStr.length !== 3) {
+          throw new Error("[ERROR] 숫자가 잘못된 형식입니다.")
+        }
         const playerNum = [...playerNumStr].map(num => parseInt(num));
         
         const result = this.checkAnswer(computerNum, playerNum);
@@ -26,13 +31,15 @@ class App {
         break;
       } else if (gameEndQuestion === '1') {
         continue;
+      } else {
+        throw new Error("[ERROR] 숫자가 잘못된 형식입니다.")
       }
     }
   }
 
   selectRandomNum() {
     const computer = [];
-    while (computer.length < 3) {
+    while (computer.length < COMPUTER_NUM_LEN) {
       const number = Random.pickNumberInRange(1, 9);
       if (!computer.includes(number)) {
         computer.push(number);
