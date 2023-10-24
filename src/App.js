@@ -8,12 +8,7 @@ class App {
   }
 
   createRandomNumber() {
-    while (this.randomNumberArray.length < 3) {
-      const randomNumber = Random.pickNumberInRange(1, 9);
-      if (!this.randomNumberArray.includes(randomNumber)) {
-        this.randomNumberArray.push(randomNumber);
-      }
-    }
+    this.randomNumberArray = [...Random.pickUniqueNumbersInRange(1, 10, 3)];
   }
 
   async play() {
