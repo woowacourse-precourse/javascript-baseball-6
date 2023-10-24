@@ -1,36 +1,18 @@
-const ballCounter = (splittedComputerInputNumbers, splittedUserInputNumbers) => {
+const countBallAndStrike = (computerNumberArray, userNumberArray) => {
   let ballCount = 0;
+  let strikeCount = 0;
 
-  splittedComputerInputNumbers.forEach((computerInputNumber, index) => {
-    if (
-      computerInputNumber !== splittedUserInputNumbers[index] &&
-      splittedUserInputNumbers.includes(computerInputNumber)
-    ) {
+  computerNumberArray.forEach((computerNumber, index) => {
+    if (computerNumber === userNumberArray[index]) {
+      strikeCount += 1;
+    } else if (userNumberArray.includes(computerNumber)) {
       ballCount += 1;
     }
   });
 
-  return ballCount;
-};
-
-const strikeCounter = (splittedComputerInputNumbers, splittedUserInputNumbers) => {
-  let strikeCount = 0;
-
-  splittedComputerInputNumbers.forEach((computerInputNumber, index) => {
-    if (computerInputNumber === splittedUserInputNumbers[index]) {
-      strikeCount += 1;
-    }
-  });
-
-  return strikeCount;
-};
-
-export const calculateResult = (computerRandomNumber, userInputNumber) => {
-  const splittedComputerInputNumbers = computerRandomNumber.split('');
-  const splittedUserInputNumbers = userInputNumber.split('');
-
-  const ballCount = ballCounter(splittedComputerInputNumbers, splittedUserInputNumbers);
-  const strikeCount = strikeCounter(splittedComputerInputNumbers, splittedUserInputNumbers);
-
   return { ballCount, strikeCount };
+};
+
+export const calculateResult = (computerNumber, userNumber) => {
+  return countBallAndStrike([...computerNumber], [...userNumber]);
 };
