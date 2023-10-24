@@ -1,7 +1,7 @@
 import { Console } from "@woowacourse/mission-utils";
-import { evaluateScore, printScore } from "./score.js";
-import { readAnswerInput, readEndDecisionInput } from "./input.js";
-import { pickRandomThreeNumbers } from "./random.js";
+import { evaluateScore, printScore } from "./utils/score.js";
+import { readAnswerInput, readEndDecisionInput } from "./utils/input.js";
+import { pickRandomThreeNumbers } from "./utils/random.js";
 import { MESSAGE, END_DECISION } from "./constants.js";
 
 class App {

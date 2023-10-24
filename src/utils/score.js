@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import { RESULT_CODE } from "./constants.js";
+import { RESULT_CODE } from "../constants.js";
 
 const evaluateScore = (numbers, answerNumbers) => {
   const scoredInput = numbers

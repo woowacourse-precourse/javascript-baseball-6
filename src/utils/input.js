@@ -1,6 +1,6 @@
 import { Console } from "@woowacourse/mission-utils";
 import { validateThreeNaturalNumbers, validateEndDecision } from "./validators.js";
-import { MESSAGE } from "./constants.js";
+import { MESSAGE } from "../constants.js";
 
 const splitStringIntoNumbers = (numberString) => {
   return numberString.split("").map((char) => parseInt(char, 10));

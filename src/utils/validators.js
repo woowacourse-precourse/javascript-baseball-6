@@ -1,4 +1,4 @@
-import { END_DECISION } from "./constants.js";
+import { END_DECISION } from "../constants.js";
 
 const validateThreeNaturalNumbers = (value) => {
   const EXPECTED_LENGTH = 3;
