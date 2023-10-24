@@ -78,6 +78,20 @@ class App {
     }
     return score;
   }
+  // 볼/스트라이크/정답 판정 문자열 출력
+  showResult(answer, input) {
+    const score = this.checkScore(answer, input);
+    if (score[0] === 0 && score[1] === 0) {
+      MissionUtils.Console.print("낫싱");
+      return false;
+    } else if (score[1] === 3) {
+      MissionUtils.Console.print("3스트라이크\n");
+      MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+      return true;
+    }
+    MissionUtils.Console.print(`${score[0]}볼 ${score[1]}스트라이크`);
+    return false;
+  }
 }
 
 const app = new App();
