@@ -55,7 +55,10 @@ class App {
               correctAnswer = answer.join('')
             }
             else if (newGame == 2) {
+              MissionUtils.Console.print("게임 종료");
               gameOver = true
+            } else {
+              throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
             }
           } else if (strike == 0 && ball == 0) {
             MissionUtils.Console.print("낫싱");
