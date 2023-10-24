@@ -63,7 +63,7 @@ npm install
 
 <br><br><br><br><br><br>
 
-## 4. 동작예시
+## 4. 동작 예시
 
 - 사용자 값 입력 시<br>
 
