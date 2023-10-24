@@ -13,11 +13,11 @@ class App {
   }
 
   async play() {
-    const inputNumber = await InputView.getUserNumber();
-    Validation.validateBaseballNumber(inputNumber);
+    const input = await InputView.getUserNumber();
+    Validation.validateBaseballNumber(input);
     this.#refree = new Refree();
 
-    await this.startGameRound(new Player(inputNumber).numberArray);
+    await this.startGameRound(new Player(input).numberArray);
   }
 
   async startGameRound(playerNumber) {
@@ -32,17 +32,18 @@ class App {
 
   async confirmGame() {
     OutputView.printSuccess();
-    const inputNumber = await InputView.confirmContinue();
-    Validation.validateConfirmNumber(inputNumber);
+    const input = await InputView.confirmContinue();
+    Validation.validateConfirmNumber(input);
 
-    if (Number(inputNumber) === 1) await this.play();
-    if (Number(inputNumber) === 2) return;
+    if (Number(input) === 1) await this.play();
+    if (Number(input) === 2) return;
   }
 
   async continueGame() {
-    const inputNumber = await InputView.getUserNumber();
-    Validation.validateBaseballNumber(inputNumber);
-    await this.startGameRound(new Player(inputNumber).numberArray);
+    const input = await InputView.getUserNumber();
+    Validation.validateBaseballNumber(input);
+
+    await this.startGameRound(new Player(input).numberArray);
   }
 }
 
