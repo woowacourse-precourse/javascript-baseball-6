@@ -29,8 +29,8 @@ class BaseballGame {
   }
 
   validateUserInput(userInput) {
-    const USER_INPUT_NUMBER = Number(input);
-    const DIGITS = input.split('');
+    const USER_INPUT_NUMBER = Number(userInput);
+    const DIGITS = userInput.split('');
 
     if (
       isNaN(USER_INPUT_NUMBER) ||
