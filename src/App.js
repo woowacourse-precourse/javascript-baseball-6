@@ -5,7 +5,7 @@ class App {
   createComputerNumbers = (count) => {
     const computer = [];
     while (computer.length <count) {
-    const number = MissionUtils.Random.pickNumberInRange(1, 9);
+      const number = MissionUtils.Random.pickNumberInRange(1, 9);
       if (!computer.includes(number)) {
         computer.push(number);
       }
@@ -41,6 +41,12 @@ class App {
     }
   }
 
+  async getInput(query) {
+    const number = await MissionUtils.Console.readLineAsync(query);
+    return number;
+  }
+  
+
   async play() {
     while(true) {
       const computer = this.createComputerNumbers(3);
@@ -48,7 +54,7 @@ class App {
       MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
 
       while(true) {
-        const number = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
+        const number = await this.getInput("숫자를 입력해주세요 : ");
         this.validateThreeDigitNumber(number);
 
         const player = [];
@@ -75,7 +81,7 @@ class App {
           MissionUtils.Console.print("3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료")
           break;
         }else{
-          var output = "";
+          let output = "";
           if(ball != 0) output += ball + "볼 ";
           if(strike != 0) output += strike + "스트라이크";
           if(nothing == 3) output = "낫싱";
@@ -83,7 +89,7 @@ class App {
         }
       }
 
-      const sign = await MissionUtils.Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n");
+      const sign = await this.getInput("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n");
       this.validateFinishSign(sign);
       if(sign == 1) {
         continue;
