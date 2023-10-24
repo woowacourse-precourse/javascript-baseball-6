@@ -10,10 +10,10 @@ async function getUserInput() {
     if (!isValidNum(userInput)) {
       throw new Error(GAME_MESSAGE.ERROR_MESSAGE);
     }
+    return userInput;
   } catch (error) {
     throw new Error(GAME_MESSAGE.ERROR_MESSAGE);
   }
 }
 
-getUserInput();
 export { getUserInput };

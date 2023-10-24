@@ -8,7 +8,7 @@ function generateComputerNum() {
       computerNum.push(number);
     }
   }
-  return computerNum;
+  return computerNum.join('');
 }
 
 export default generateComputerNum;
