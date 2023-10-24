@@ -20,9 +20,8 @@ async function getUserNumber() {
   const inputSet = new Set(input.split('').map((digit) => Number(digit)));
   if (input.length !== inputSet.size)
     throw new Error('[ERROR] 입력한 숫자에 중복된 숫자가 있습니다.');
-  
-  const inputList = input.split('').map(Number);
-  return inputList;
+
+  return input.split('').map(Number);
 }
 
 
