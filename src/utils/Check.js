@@ -43,5 +43,6 @@ export function checkBall(player, computer, strikeCount){
         if(computer.includes(num)) ballCount += 1
     })
 
+    if(ballCount === 0) return 0
     return ballCount - strikeCount
 }
