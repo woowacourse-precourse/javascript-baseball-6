@@ -1,12 +1,12 @@
 import { GUIDE_MESSAGES } from './constants.js';
 import { Console } from '@woowacourse/mission-utils';
-import { isValidUserNumber, isGameFinish } from './validation.js';
+import { isValidUserNumber, isGameFinish, isValidRestartNumber } from './validation.js';
 import { getUniqueNumbersInRange } from './utils.js';
 
 class BaseballGame {
   constructor() {
-    this.computerNumber = 0;
-    this.userNumber = 0;
+    this.computerNumber = [];
+    this.userNumber = [];
     this.restartNumber = 0;
     this.showGameStartMessage();
     this.createComputerNumber();
@@ -38,7 +38,8 @@ class BaseballGame {
   }
 
   async getRestartNumber() {
-    await Console.readLineAsync(GUIDE_MESSAGES.ENTER_RESTART_NUMBER);
+    const userInput = await Console.readLineAsync(GUIDE_MESSAGES.ENTER_RESTART_NUMBER);
+    this.restartNumber = isValidRestartNumber(userInput) && +userInput;
   }
 
   showCountResult() {

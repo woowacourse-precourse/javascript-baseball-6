@@ -34,6 +34,13 @@ const isNotDuplicate = (input) => {
   if (numbers.length === 3) return true;
 };
 
+export const isValidRestartNumber = (input) => {
+  if (input !== '1' && input !== '2') {
+    throw new Error(ERROR_MESSAGES.NOT_CORRECT_RESTART_NUMBER);
+  }
+  return true;
+};
+
 export const isGameFinish = (numberOfStrikes) => {
   return numberOfStrikes === 3;
 };
