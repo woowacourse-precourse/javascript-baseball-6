@@ -1,4 +1,4 @@
-import { GAME_MESSAGE } from '../constants/constants';
+import { ERROR_MESSAGE, GAME_MESSAGE } from '../constants/constants.js';
 
 /**
  * 재시작 여부 유효성 검사 함수
