@@ -6,11 +6,13 @@ const { Console } = MissionUtils;
 
 class BaseballGame extends Computer {
   #isPlaying;
+  #isSuccess;
   #randomNumber;
 
   constructor() {
     super();
     this.#isPlaying;
+    this.#isSuccess;
     this.#randomNumber;
   }
 
@@ -24,13 +26,15 @@ class BaseballGame extends Computer {
   // 게임 시작
   async start() {
     this.#isPlaying = true;
+    this.#isSuccess = false;
     this.#randomNumber = super.createRandomNumber();
     await this.getPlayerInput();
+    await this.restart();
   }
 
   // 사용자 입력값 받기
   async getPlayerInput() {
-    if (this.#isPlaying) {
+    while (!this.#isSuccess) {
       try {
         const playerInput = await Console.readLineAsync(
           MESSAGES.game.playerInput
@@ -43,13 +47,19 @@ class BaseballGame extends Computer {
           playerInput
         );
 
-        this.printStrikeBall(strikeBall);
+        const result = this.printStrikeBall(strikeBall);
+
+        Console.print(result);
+
+        // 3스트라이크로 정답 맞추었을 때
+        if (result === MESSAGES.result.success) {
+          Console.print(MESSAGES.game.success);
+          this.#isSuccess = true;
+        }
       } catch (error) {
         this.#isPlaying = false;
         throw error;
       }
-    } else {
-      this.init();
     }
   }
 
@@ -64,7 +74,7 @@ class BaseballGame extends Computer {
   }
 
   // 사용자 입력값과 정답(randomNumber) 비교
-  async printStrikeBall(strikeBall) {
+  printStrikeBall(strikeBall) {
     const [strike, ball] = strikeBall;
 
     let result = "";
@@ -79,14 +89,7 @@ class BaseballGame extends Computer {
       result = `${ball}${MESSAGES.result.ball} ${strike}${MESSAGES.result.strike}`;
     }
 
-    Console.print(result);
-
-    if (result === MESSAGES.result.success) {
-      Console.print(MESSAGES.game.success);
-      await this.restart();
-    } else {
-      await this.getPlayerInput();
-    }
+    return result;
   }
 
   // 게임 재시작
@@ -116,7 +119,6 @@ class BaseballGame extends Computer {
   // 게임 종료
   async done() {
     Console.print(MESSAGES.game.done);
-    this.#isPlaying = false;
   }
 }
 
