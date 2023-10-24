@@ -12,6 +12,11 @@ class Controller {
   async ending() {
     await this.view.ending();
     const input = this.view.getInputNumber();
+
+    if (input !== '1' && input !== '2') {
+      throw new Error('[ERROR] 1 또는 2를 입력해주세요.');
+    }
+
     this.model.update(input);
     return this;
   }
