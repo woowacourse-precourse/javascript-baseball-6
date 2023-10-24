@@ -23,7 +23,7 @@ export default class App {
     try {
       while (this.isPlaying) {
         const INPUT = await this.user.getUserChoice();
-        const COMPARE_RESULT = this.control.hasThreeStrikes(INPUT);
+        const COMPARE_RESULT = this.control.compareComputerAndUser(INPUT);
 
         if (COMPARE_RESULT) {
           const RESET = await Console.readLineAsync(GuideText.RESTART);
@@ -34,7 +34,7 @@ export default class App {
           } else if (RESET === '2') {
             this.control.endGame();
           } else {
-            throw new Error(ErrorMessage.INVALID_PATTERN);
+            throw new Error(ErrorMessage.INVALID_RESTART);
           }
         }
       }
