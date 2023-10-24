@@ -5,19 +5,21 @@ class App {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
 
     while(true) {
-      // 상대방(컴퓨터)의 수 얻기 - getComputerNumbers() - 구현 완료
+      // 상대방(컴퓨터)의 수 얻기
       const computerNumbers = this.getComputerNumbers();
 
       // 숫자 맞추기
       while(true) {
-        // 플레이어의 숫자 입력 받기 - getUserInput() - 구현 완료
+        // 플레이어의 숫자 입력 받기
         const userInput = await this.getUserInput();
         MissionUtils.Console.print("숫자를 입력해주세요 : " + userInput);
 
-        // 숫자로 된 배열로 변경
+        // 플레이어의 숫자를 숫자로 된 배열로 변경
         const userInputArr = userInput.split('').map(Number);
 
+        // 유효성 확인
         if(this.isValidInput(userInputArr)) {
+          // 입력한 수, 상대방(컴퓨터)수에 대한 결과
           const result = this.checkGuessResult(computerNumbers, userInputArr);
           MissionUtils.Console.print(result);
 
@@ -31,7 +33,7 @@ class App {
         }
       }
 
-      // 재시작/종료 여부 얻기 - askForRestart() - 미구현
+      // 재시작/종료 여부 얻기
       const restart = await this.askForRestart()
       MissionUtils.Console.print(restart)
 
@@ -56,9 +58,8 @@ class App {
   
   // 입력한 수 유효성 검사
   isValidInput(userInput) {
-    if (userInput.length !== 3) // 숫자 3개가 아니면
-      return false;
-    if (new Set(userInput).size !== 3) // 중복된 수가 있는지
+    // 숫자 3개가 아니거나 중복된 수가 있으면
+    if (userInput.length !== 3 || new Set(userInput).size !== 3)
       return false;
     return true; // 제대로 입력
   }
