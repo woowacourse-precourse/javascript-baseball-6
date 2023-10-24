@@ -1,6 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
 import generateRandomNum from './generateRandomNum';
 import userInput from './userInput';
+import isValidNum from './isValidNum';
 
 class App {
   async play() {
@@ -8,6 +9,8 @@ class App {
 
     const GENERATED_RANDOM_NUM = generateRandomNum();
     const USER_INPUT = userInput();
+
+    isValidNum(USER_INPUT);
   }
 }
 
