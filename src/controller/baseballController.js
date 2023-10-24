@@ -15,13 +15,16 @@ class BaseballController {
 
     while (true) {
       const User_INPUT = await this.view.getUserInput();
+
       this.checkUserInput(User_INPUT);
       this.model.setUserInput(User_INPUT);
+
       const STRIKE = this.model.getStrike();
       const BALL = this.model.getBall();
+
       this.view.result(STRIKE, BALL);
 
-      if (STRIKE === this.model.count) {
+      if (STRIKE === this.model.length) {
         const NUMBER = await this.view.gameClear();
         if (NUMBER === CONTINUE_GAME) {
           this.model.resetBaseballData();
@@ -39,17 +42,19 @@ class BaseballController {
     return Number.isNaN(+userInput);
   }
   checkUserInputDuplicate(userInput) {
-    return [...new Set(userInput.split(''))].length !== this.model.count;
+    return [...new Set(userInput.split(''))].length !== this.model.length;
   }
   checkUserInputLength(userInput) {
-    return userInput.length !== this.model.count;
+    return userInput.length !== this.model.length;
   }
 
   checkUserInput(userInput) {
     if (this.checkUserInputType(userInput)) {
       this.view.errorMessage('숫자가 잘못된 형식입니다.');
     } else if (this.checkUserInputLength(userInput)) {
-      this.view.errorMessage(`입력된 숫자가 ${this.model.count}개가 아닙니다.`);
+      this.view.errorMessage(
+        `입력된 숫자가 ${this.model.length}개가 아닙니다.`
+      );
     } else if (this.checkUserInputDuplicate(userInput)) {
       this.view.errorMessage('중복된 숫자가 있습니다.');
     }
