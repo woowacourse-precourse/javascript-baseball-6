@@ -27,9 +27,9 @@ describe("숫자 야구 게임", () => {
   test("게임 종료 후 재시작", async () => {
     // given
     const randoms = [1, 3, 5, 5, 8, 9];
-    const answers = ["246", "135", "1", "597", "589", "2"];
+    const answers = ["246", "315", "135" ,"1", "597", "589", "2"];
     const logSpy = getLogSpy();
-    const messages = ["낫싱", "3스트라이크", "1볼 1스트라이크", "3스트라이크", "게임 종료"];
+    const messages = ["낫싱", "2볼 1스트라이크", "3스트라이크", "1볼 1스트라이크", "3스트라이크", "게임 종료"];
 
     mockRandoms(randoms);
     mockQuestions(answers);
@@ -53,7 +53,7 @@ describe("숫자 야구 게임", () => {
     mockQuestions(answers);
 
     // when & then
-    const app = new App();
+    const app = new App(); // 여기서 new 키워드를 사용해 App을 인스턴스화 해줘서, App의 생성자 함수가 실행됨
 
     await expect(app.play()).rejects.toThrow("[ERROR]");
   });
