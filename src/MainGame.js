@@ -1,5 +1,6 @@
 import { Computer } from "./Computer.js";
 import { Console } from "@woowacourse/mission-utils";
+import { Messages } from "./messages.js";
 
 class MainGame {
   //컴퓨터(상대방)이 랜덤한 3개의 숫자 선택
@@ -11,22 +12,22 @@ class MainGame {
   //입략값이 1.1-9사이의 숫자인지 2.3자리인지 를 확인해야함
   isValidateNumber = (input) => {
     if (!/^[1-9]+$/.test(input)) {
-      throw new Error("[ERROR] 1-9사이의 세자리 숫자가 아닙니다.");
+      throw new Error(Messages.ERROR.NOT_NUMBER);
     }
 
     if (input.length !== 3) {
-      throw new Error("[ERROR] 3자리가 아닙니다.");
+      throw new Error(Messages.ERROR.NOT_THREE_FIGURES);
     }
 
     if (new Set(input).size !== 3) {
-      throw new Error("[ERROR] 중복된 숫자가 존재합니다.");
+      throw new Error(Messages.ERROR.NOT_UNIQUE);
     }
     return true;
   };
 
   //숫자를 입력 받음
   getUserInput = async () => {
-    const input = await Console.readLineAsync("숫자를 입력해주세요 : ");
+    const input = await Console.readLineAsync(Messages.INPUT_NUMBER);
 
     if (this.isValidateNumber(input)) {
       const userInput = input.split("").map(Number);
@@ -69,18 +70,16 @@ class MainGame {
   };
 
   isRestartOrExit = async () => {
-    const input = await Console.readLineAsync(
-      "3개의 숫자를 모두 맞히셨습니다! 게임 종료 \n게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
-    );
+    const input = await Console.readLineAsync(Messages.RESULT);
 
     if (input === "1") {
       this.computerSelectNumber = this.computer.createRandomNumber();
       return this.getResult();
     } else if (input === "2") {
-      Console.print("게임 종료");
+      Console.print(Messages.END);
       return;
     } else {
-      throw new Error("[ERROR] 선택지에 있지 않습니다.");
+      throw new Error(Messages.ERROR.NOT_RANGE);
     }
   };
 }
