@@ -51,6 +51,14 @@ class App {
       }});
     return { ball, strike };
   }
+  // 힌트 출력 메서드
+  printHintText(ball, strike) {
+    if (strike === 0 && ball === 0) {
+      Console.print('낫싱');
+    } else {
+      Console.print(`${ball > 0 ? ball + '볼 ' : ''}${strike > 0 ? strike + '스트라이크' : ''}`);
+    }
+  }
 }
 
 export default App;
