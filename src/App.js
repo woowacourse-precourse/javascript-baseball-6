@@ -79,13 +79,13 @@ export default class App {
 
     if (this.strikeCnt === 3) {
       Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-      await this.finishGame();
+      await this.askReplay();
     } else {
       await this.play();
     }
   }
 
-  async finishGame() {
+  async askReplay() {
     const isReplay = await Console.readLineAsync(
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
     );
