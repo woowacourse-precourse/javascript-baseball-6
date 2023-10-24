@@ -22,13 +22,24 @@ class App {
     if(str.length !== 3) throw new Error("[ERROR]");
   }
 
+  chkIsOver(gameResult) {
+    if(gameResult[2]=== 3) return {resultStr: "낫싱", isOver: false};
+    let resultStr = "";
+    if(gameResult[1]) resultStr += `${gameResult[1]}볼 `;
+    if(gameResult[0]) resultStr +=  `${gameResult[0]}스트라이크`;
+    return {resultStr, isOver: gameResult[0] === 3 };
+  }
+
   async getUserInput() {
     let input;
     while(true) {
       input = await Console.readLineAsync("숫자를 입력해주세요 : ");
       this.validLen(input);
       this.player.fill(input);
-      break;
+      const gameResult = this.enemy.compare(this.player.get());
+      const {resultStr, isOver} = this.chkIsOver(gameResult);
+      Console.print(resultStr);
+      if(isOver) break;
     }
   }
 
