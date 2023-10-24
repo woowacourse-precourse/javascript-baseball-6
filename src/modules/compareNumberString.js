@@ -13,24 +13,19 @@ const findSameNumber = (base, char, index) => {
 };
 
 const compareNumberString = (base, target) => {
-  let strike = 0;
-  let ball = 0;
-  const charArray = target.split('');
   const resultMapping = {
-    [NOTHING]: () => {},
-    [STRIKE]: () => {
-      strike += 1;
-    },
-    [BALL]: () => {
-      ball += 1;
-    },
+    [STRIKE]: 0,
+    [BALL]: 0,
   };
 
+  const charArray = target.split('');
   charArray.forEach((elem, index) => {
     const findeResult = findSameNumber(base, elem, index);
 
-    resultMapping[findeResult]();
+    resultMapping[findeResult] += 1;
   });
+
+  const { [STRIKE]: strike, [BALL]: ball } = resultMapping;
 
   return { strike, ball };
 };
