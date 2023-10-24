@@ -1,4 +1,4 @@
-const checkValidation = (user, count) => {
+const validation = (user, count) => {
   if (!Array.isArray(user)) {
     return false;
   }
@@ -22,4 +22,4 @@ const checkValidation = (user, count) => {
 
   return true;
 };
-module.exports = { checkValidation };
+module.exports = { validation };

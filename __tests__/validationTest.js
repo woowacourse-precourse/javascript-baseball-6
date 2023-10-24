@@ -1,19 +1,24 @@
-import { checkValidation } from "../src/vallidation"
+import { validation } from "../src/vallidation";
 
 describe("checkValidation", () => {
-  test("세 자리의 숫자가 아닌 경우, 예외 발생", () => {
+  test('세 자리의 숫자가 아닌 경우, 예외 발생', () => {
     // given
-    const userNumbers = [[1, 2], [1], [2, 4, 6, 7], []];
+    const userNumbers = [
+      [1, 2],
+      [1],
+      [2, 4, 6, 7],
+      [],
+    ];
 
     // when & then
     userNumbers.forEach((userNumber) => {
-      expect(checkValidation(userNumber)).toBeFalsy();
+      expect(validation(userNumber)).toBeFalsy();
     });
   });
 
-  test("숫자가 아닌 값이 들어갈 경우, 예외 발생", () => {
+  test('숫자가 아닌 값이 들어갈 경우, 예외 발생', () => {
     // given
-    const userNumbers = [ 
+    const userNumbers = [
       ["1", 2],
       [" "],
       [2, Error(), 6, 7],
@@ -26,11 +31,11 @@ describe("checkValidation", () => {
 
     // when & then
     userNumbers.forEach((userNumber) => {
-      expect(checkValidation(userNumber)).toBeFalsy();
+      expect(validation(userNumber)).toBeFalsy();
     });
   });
 
-  test("숫자가 중복될 경우, 예외 발생", () => {
+  test('숫자가 중복될 경우, 예외 발생', () => {
     // given
     const numbers = [
       [1, 2, 2],
@@ -41,19 +46,19 @@ describe("checkValidation", () => {
 
     // when & then
     numbers.forEach((userNumber) => {
-      expect(checkValidation(userNumber)).toBeFalsy();
+      expect(validation(userNumber)).toBeFalsy();
     });
   });
 
-  test("0이 입력되면 예외 발생", () => {
+  test('0이 입력되면 예외 발생', () => {
     // given
     const number = [0, 2, 3];
-
+    
     // when & then
-    expect(checkValidation(number)).toBeFalsy();
+    expect(validation(number)).toBeFalsy();
   });
 
-  test("세 자리 숫자를, 중복없이 입력할 경우, 예외가 발생하지 않아요", () => {
+  test('세 자리 숫자를, 중복없이 입력할 경우, 예외가 발생하지 않아요', () => {
     // given
     const numbers = [
       [1, 2, 3],
@@ -64,7 +69,7 @@ describe("checkValidation", () => {
 
     // when & then
     numbers.forEach((userNumber) => {
-      checkValidation(userNumber);
+      validation(userNumber);
     });
   });
 });
