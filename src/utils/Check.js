@@ -46,3 +46,9 @@ export function checkBall(player, computer, strikeCount){
     if(ballCount === 0) return 0
     return ballCount - strikeCount
 }
+
+// 재시작시 사용자 input 유효성 검사
+export function checkRetryValidity(input){
+    if(input === 1 || input === 2) return true
+    return false
+}

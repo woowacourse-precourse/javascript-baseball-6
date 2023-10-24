@@ -4,7 +4,7 @@ import Computer from "./Computer"
 import { checkAnswer, checkBall, checkStrike } from "../utils/Check"
 
 export default class Game{
-    isAnswer = false
+    isNewGame = true
     strikeCount = 0
     ballCount = 0
 
@@ -13,7 +13,7 @@ export default class Game{
     }
 
     initGame = () => {
-        this.isAnswer = false
+        this.isNewGame = true
         this.strikeCount = 0
         this.ballCount = 0
     }
@@ -22,13 +22,21 @@ export default class Game{
         const player = new Player()
         const computer = new Computer()
 
-        while(!this.isAnswer){
+        while(true){
             this.initGame()
+            if(this.isNewGame) computer.generateRandNum()
             player.getInput()
+            this.isNewGame = false
 
             if(checkAnswer(player.number, computer.number)){
-                this.isAnswer = true
-                continue
+                endGame()
+                if(player.askRetry() === 1){
+                    this.isNewGame = true
+                    continue
+                }
+                else{
+                    break
+                }                
             }
 
             this.strikeCount = checkStrike(player.number, computer.number)
@@ -47,6 +55,11 @@ export default class Game{
             MissionUtils.Console.print(`${this.strikeCount}스트라이크`)
         else 
             MissionUtils.Console.print(`${this.ballCount}볼 ${this.strikeCount}스트라이크`)
+    }
+
+    endGame = () => {
+        MissionUtils.Console.print('3스트라이크')
+        MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료')
     }
 
 }

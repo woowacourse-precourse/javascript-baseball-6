@@ -1,5 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils"
-import { checkInputValidity } from "../utils/Check"
+import { checkInputValidity, checkRetryValidity } from "../utils/Check"
 
 export default class Player{
     number = []
@@ -12,5 +12,11 @@ export default class Player{
     convertToArray = (input) => {
         const inputArr = input.split('').map(Number)
         this.number = [...inputArr]
+    }
+
+    askRetry = async () => {
+        const input = MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ')
+        if(checkRetryValidity(Number(input)))
+            return Number(input)
     }
 }

@@ -3,10 +3,6 @@ import { MissionUtils } from "@woowacourse/mission-utils"
 export default class Computer{
     number = []
 
-    constructor(){
-        this.generateRandNum()
-    }
-
     generateRandNum = () => {
         this.number = []
     
