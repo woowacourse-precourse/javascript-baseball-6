@@ -8,6 +8,17 @@ while (computerNumbersArray.length < 3) {
 }
 console.log(computerNumbersArray);
 
+// 유저의 입력 배열 userNumbersArray 생성
+
+let userNumbersArray = []; 
+
+function makeUserNumbersArray() {
+    let userNumInputs = document.querySelectorAll('.userNum');
+    let userNumbers = Array.from(userNumInputs, input => Number(input.value));
+    userNumbersArray = userNumbers.toString().split('').map(Number);
+
+    console.log(userNumbersArray);
+}
 
 const result = document.querySelector('.result');
 
@@ -15,18 +26,17 @@ const result = document.querySelector('.result');
 // 확인버튼 클릭했을 때 numArrayCompareEvent() 발생
 function numArrayCompareEvent() {
 
-    // 1. 유저의 입력 배열 userNumbersArray 생성
-    // 사용자의 입력 값 배열 생성
-    let userNum = document.querySelector('.userNum').value; 
-    let userNumbersArray = userNum.toString().split('').map(Number);
-
+    // userNumbersArray 생성
+    // 그전에 원래 userNumbersArray에 들어있는 값들 전부 리셋이 안 되는 오류 발생
+    userNumbersArray.length = 0;
     console.log(userNumbersArray);
+    makeUserNumbersArray();
 
-    // 2. userNumbersArray의 유효성 검사
-
+    // userNumbersArray의 유효성 검사
     // 2-1. 값이 세 자리가 아니라면?
     if (userNumbersArray.length!==3) {
         alert("[ERROR] 세 자리 숫자가 아닙니다.");
+
     } else {
         // 2-2. 중복된 숫자가 있다면?
         let isValid = true;
@@ -48,7 +58,7 @@ function numArrayCompareEvent() {
         }
         // 유효하다면!
         if (isValid) {
-            // 3. computerNumbersArray와 userNumbersArray 비교  
+            // computerNumbersArray와 userNumbersArray 비교  
             let strike = 0;
             let ball = 0;
 
@@ -74,7 +84,8 @@ function numArrayCompareEvent() {
 }
 
 
-// 결과가 '3스트라이크'가 아닐 경우 추가기능 구현
+
+// '3스트라이크'가 아닐 경우 추가기능 구현
 function addTry() {
     const newTry = document.createElement('div');
     newTry.className = 'try';
