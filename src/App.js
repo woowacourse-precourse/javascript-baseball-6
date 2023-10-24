@@ -51,13 +51,15 @@ class App {
   }
 
   static async play() {
-    Console.print("숫자 야구 게임을 시작합니다.");
+    let isSuccess = false;
     const couputerNum = this.setComputerNum();
+    Console.print("숫자 야구 게임을 시작합니다.");
     Console.print(couputerNum); // todo delete
 
-    const userNum = await this.setUserNum();
-
-    this.printCount(couputerNum, userNum);
+    while (!isSuccess) {
+      const userNum = await this.setUserNum();
+      isSuccess = this.printCount(couputerNum, userNum);
+    }
   }
 }
 
