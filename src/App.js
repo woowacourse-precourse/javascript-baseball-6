@@ -44,7 +44,7 @@ class App {
 
   async getUserNum() {
     return new Promise((resolve, reject) => {
-      this.rl.question("숫자를 입력해주세요: ", function (userInput) {
+      this.rl.question("숫자를 입력해주세요 : ", function (userInput) {
         const userNum = Array.from(userInput).map(Number);
         if (
           isNaN(userInput) ||
@@ -78,8 +78,8 @@ class App {
         strike > 0 && ball > 0
           ? `${ball}볼 ${strike}스트라이크`
           : strike > 0
-          ? `${strike} 스트라이크`
-          : `${ball} 볼`
+          ? `${strike}스트라이크`
+          : `${ball}볼`
       );
     } else {
       console.log("낫싱");
