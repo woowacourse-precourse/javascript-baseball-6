@@ -51,7 +51,7 @@
 
 4. 게임 재시작 or 종료
 
-   - [] [예외] 1,2를 제외한 숫자
+   - [x] [예외] 1,2를 제외한 숫자
 
 ## 설계
 
@@ -88,3 +88,47 @@
      - 모든 데이터 초기화 및 다시 구현 1로 이동
    - [x] [2] 종료(2)을 입력 시
      - 게임종료
+
+---
+
+<br>
+
+# 디렉토리 구조
+
+```
+📦src
+┣ 📂constants
+┃ ┣ 📜Messages.js
+┃ ┗ 📜System.js
+┣ 📂controller
+┃ ┗ 📜index.js
+┣ 📂model
+┃ ┣ 📜GameNumberGenerator.js
+┃ ┗ 📜index.js
+┣ 📂utils
+┃ ┣ 📂error
+┃ ┃ ┣ 📜DefaultError.js
+┃ ┃ ┣ 📜GameNumberGeneratorError.js
+┃ ┃ ┗ 📜ValidationError.js
+┃ ┗ 📂validator
+┃ ┃ ┣ 📂utils
+┃ ┃ ┃ ┣ 📂is-duplication
+┃ ┃ ┃ ┃ ┣ 📜index.js
+┃ ┃ ┃ ┃ ┗ 📜index.test.js
+┃ ┃ ┃ ┣ 📂is-exact-length
+┃ ┃ ┃ ┃ ┣ 📜index.js
+┃ ┃ ┃ ┃ ┗ 📜index.test.js
+┃ ┃ ┃ ┣ 📂is-number
+┃ ┃ ┃ ┃ ┣ 📜index.js
+┃ ┃ ┃ ┃ ┗ 📜index.test.js
+┃ ┃ ┃ ┣ 📂is-particular-number
+┃ ┃ ┃ ┃ ┣ 📜index.js
+┃ ┃ ┃ ┃ ┗ 📜index.test.js
+┃ ┃ ┃ ┗ 📜index.js
+┃ ┃ ┗ 📜index.js
+┣ 📂view
+┃ ┣ 📜InputView.js
+┃ ┣ 📜OutputView.js
+┃ ┗ 📜index.js
+┗ 📜App.js
+```
