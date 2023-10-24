@@ -23,6 +23,7 @@ class App {
       const number = MissionUtils.Random.pickNumberInRange(1, 9);
       if (isGenerated[number] === false) {
         computer.push(number);
+        isGenerated[number] = true;
       }
     }
     return computer;
