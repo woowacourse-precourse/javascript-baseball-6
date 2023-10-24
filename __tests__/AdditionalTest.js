@@ -1,6 +1,7 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import App from "../src/App.js";
 import { ERROR_MESSAGES } from "../src/constants/errorMessages.js";
+import Gong from "../src/domains/Gong.js";
 
 const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
@@ -143,4 +144,31 @@ describe("숫자 야구 게임", () => {
       ERROR_MESSAGES.NOT_MATCH_END_OR_RESTART
     );
   });
+
+
+  describe("Gong 클래스의 getNewGongs 메서드", () => {
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+  
+    it("중복 없는 숫자 배열을 반환", () => {
+      const mockNumbers = [1, 1, 2, 3, 4, 4, 4, 5, 6, 7, 8, 9];
+      mockRandoms(mockNumbers);
+  
+      const newGongs = Gong.getNewGongs();
+  
+      expect(newGongs.length).toBe(Gong.GONGS_LENGTH);
+  
+      const uniqueGongs = [...new Set(newGongs)];
+      expect(uniqueGongs.length).toBe(Gong.GONGS_LENGTH);
+
+      uniqueGongs.forEach(num => {
+        expect(num).toBeGreaterThanOrEqual(1);
+        expect(num).toBeLessThanOrEqual(9);
+      });
+    });
+  });
+  
+
+
 });
