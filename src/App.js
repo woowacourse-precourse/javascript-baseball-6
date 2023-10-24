@@ -1,4 +1,4 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
+import { Random, Console } from "@woowacourse/mission-utils";
 class App {
   constructor() {
     this.isContinue = true;
@@ -8,7 +8,7 @@ class App {
   generateRandomNum() {
     const ANSWER = [];
     while (ANSWER.length < 3) {
-      const NUMBER = MissionUtils.Random.pickNumberInRange(1, 9);
+      const NUMBER = Random.pickNumberInRange(1, 9);
       if (!ANSWER.includes(NUMBER)) {
         ANSWER.push(NUMBER);
       }
@@ -39,11 +39,10 @@ class App {
   }
 
   async play() {
-    MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
+    Console.print("숫자 야구 게임을 시작합니다.");
 
     while (this.isContinue) {
-      const USERINPUT =
-        await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
+      const USERINPUT = await Console.readLineAsync("숫자를 입력해주세요 : ");
       const IS_VALID = this.validateInput(USERINPUT);
 
       if (IS_VALID) {
@@ -52,12 +51,12 @@ class App {
         const BALL = this.calcBall(INPUT_ARR, this.computerInput);
 
         if (STRIKE === 0 && BALL === 0) {
-          MissionUtils.Console.print("낫싱");
+          Console.print("낫싱");
         } else if (STRIKE === 3) {
-          MissionUtils.Console.print(
+          Console.print(
             "3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료\n게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
           );
-          const CHOICE = await MissionUtils.Console.readLineAsync("");
+          const CHOICE = await Console.readLineAsync("");
           if (CHOICE === "1") {
             this.computerInput = this.generateRandomNum();
           } else if (CHOICE === "2") {
@@ -66,11 +65,11 @@ class App {
             throw new Error("[ERROR] 잘못 입력하였습니다.");
           }
         } else if (STRIKE > 0 && BALL > 0) {
-          MissionUtils.Console.print(`${BALL}볼 ${STRIKE}스트라이크`);
+          Console.print(`${BALL}볼 ${STRIKE}스트라이크`);
         } else if (STRIKE > 0) {
-          MissionUtils.Console.print(`${STRIKE}스트라이크`);
+          Console.print(`${STRIKE}스트라이크`);
         } else if (BALL > 0) {
-          MissionUtils.Console.print(`${BALL}볼`);
+          Console.print(`${BALL}볼`);
         }
       }
     }
