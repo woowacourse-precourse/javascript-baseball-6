@@ -1,5 +1,3 @@
-import { Console } from "@woowacourse/mission-utils";
-
 class CheckGuess {
   async checkGuess(input, answer) {
     let strikes = 0;

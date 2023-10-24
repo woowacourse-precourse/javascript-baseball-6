@@ -1,7 +1,7 @@
-import GenerateRandomNumber from "./GenerateRandomNumber.js";
-import Validator from "./Validator.js";
-import CheckGuess from "./CheckGuess.js";
-import Restart from "./Restart.js";
+import GenerateRandomNumber from "./utils/GenerateRandomNumber.js";
+import Validator from "./utils/Validator.js";
+import CheckGuess from "./utils/CheckGuess.js";
+import Restart from "./utils/Restart.js";
 
 class ClassInstance {
   constructor() {
