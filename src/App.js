@@ -163,8 +163,7 @@ class App {
 
       return true;
     } else {
-      this.print("1 또는 2를 입력하세요.")
-      return "else"
+      isError();
     }
   }
 
@@ -180,9 +179,6 @@ class App {
       if (strike === 3) {
         this.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
         this.#finish = await this.reStart();
-        if(this.#finish === "else"){
-          this.#finish = await this.reStart();
-        }
       }
       
     }
