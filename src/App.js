@@ -2,21 +2,16 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
   async play() {
+    MissionUtils.Console.print("숫자 야구 게임을 시작합니다");
     let answer = this.pickRandNumber();
     let result = false; // 정답체크변수
     while (true) {
       const checkedInput = await this.checkUserInput();
-      if (!checkedInput) {
-        break;
-      }
-      result = this.showResult(answer, checkedInput); // 정답 시에만 true가 반환된다.
-      // 이 함수 안에서 종료 or 재시작을 해야 됨.
-      if (result) {
-        answer = await this.gameOver(result);
-        if (!answer) {
-          break;
-        }
-      }
+      if (!checkedInput) break;
+
+      result = this.showResult(answer, checkedInput); // 정답 시, true가 반환
+      // 정답 & 종료선택 시 break
+      if (result && !(answer = await this.gameOver(result))) break;
     }
   }
   // 3개 숫자 선택
