@@ -58,6 +58,22 @@ class App {
     }
   }
 
+  startGame(){
+    MissionUtils.Console.print('숫자 야구 게임을 시작합니다.\n');
+
+    const computerAnswer = this.getRandomNumber();
+    let gameResult = false;
+
+    while(true){
+      const userAnswer = this.getUserInput();
+      gameResult = this.answerResult(computerAnswer, userAnswer);
+
+      if(gameResult) break;
+      else this.answerResult(computerAnswer, userAnswer);
+    }
+  }
+
+
   async play() {
 
   }
