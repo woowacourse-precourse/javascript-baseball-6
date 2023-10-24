@@ -10,6 +10,20 @@ class App {
     const controller = new Controller(model, view);
     controller.initGame();
     controller.opening();
+    let isRestart = true;
+    while (isRestart) {
+      let correct = false;
+      try {
+        correct = (await controller.handleInput()).isCorrect;
+      } catch (e) {
+        Error.handle(e);
+        throw e;
+      }
+      if (correct) {
+        isRestart = false;
+      }
+    }
+    return this;
   }
 }
 

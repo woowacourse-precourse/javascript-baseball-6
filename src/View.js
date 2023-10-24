@@ -16,6 +16,26 @@ class View {
     this.inputValue = input;
     return this;
   }
+
+  update(model) {
+    const { strike, ball } = model.getState();
+    let string = '';
+    if (ball > 0) {
+      string += `${ball}볼`;
+    }
+    if (strike > 0) {
+      string += `${strike}스트라이크 `;
+    }
+    if (strike === 0 && ball === 0) {
+      string += '낫싱';
+    }
+    Console.print(string);
+    return this;
+  }
+
+  getInputNumber() {
+    return this.inputValue;
+  }
 }
 
 export default View;

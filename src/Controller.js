@@ -25,7 +25,8 @@ class Controller {
     }
 
     this.model.update(input);
-    return this;
+    this.view.update(this.model);
+    return { isCorrect: this.model.getState().isCorrect };
   }
 
   initGame() {
