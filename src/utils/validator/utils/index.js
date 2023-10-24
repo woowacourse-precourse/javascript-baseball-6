@@ -1,6 +1,4 @@
-import isDuplication from './is-duplication/index.js';
-import isExactLength from './is-exact-length/index.js';
-import isNumber from './is-number/index.js';
-import isParticularNumber from './is-particular-number/index.js';
-
-export { isDuplication, isExactLength, isNumber, isParticularNumber };
+export { default as isExactLength } from './is-exact-length/index.js';
+export { default as isNumber } from './is-number/index.js';
+export { default as isParticularNumber } from './is-particular-number/index.js';
+export { default as isDuplication } from './is-duplication/index.js';
