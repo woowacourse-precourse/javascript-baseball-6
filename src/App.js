@@ -62,9 +62,9 @@ class App {
   }
 
   async play() {
+    // 1. 숫자 야구 게임 시작문 출력
+    this.printStart();
     outer: while (this.isContinue != 2) {
-      // 1. 숫자 야구 게임 시작문 출력
-      this.printStart();
       // 2. 컴퓨터가 랜덤한 3자리 숫자 생성
       const computer = this.makeRandomNum();
 
