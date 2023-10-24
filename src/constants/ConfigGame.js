@@ -1,4 +1,6 @@
 export const GAME_NUMBER = Object.freeze({
+  start: 1,
+  end: 2,
   three: 3,
 });
 

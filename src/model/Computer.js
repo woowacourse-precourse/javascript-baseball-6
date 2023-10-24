@@ -1,4 +1,5 @@
 import { Random } from "@woowacourse/mission-utils";
+import { GAME_NUMBER } from "../constants/ConfigGame";
 
 export default class Computer {
   #computerNumber;
@@ -10,13 +11,13 @@ export default class Computer {
   createRandomNumber() {
     const randomNumber = new Set();
 
-    while (randomNumber.size < 3) {
-      const number = Random.pickNumberInRange(1, 9);
+    while (randomNumber.size < GAME_NUMBER.three) {
+      const number = Random.pickNumberInRange(GAME_NUMBER.start, GAME_NUMBER.end);
       if (!randomNumber.has(number)) {
         randomNumber.add(number);
       }
     }
-    this.#computerNumber = [...randomNumber];
+    this.#computerNumber = randomNumber;
   }
 
   getComputerNumber() {

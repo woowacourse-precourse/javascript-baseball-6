@@ -27,10 +27,10 @@ export function printEnd() {
 export function printResult(result) {
   const message = [];
 
-  if (result.ball > 0) {
+  if (result.ball) {
     message.push(`${result.ball}${MESSAGE_STATE.ball}`);
   }
-  if (result.strike > 0) {
+  if (result.strike) {
     message.push(`${result.strike}${MESSAGE_STATE.strike}`);
   }
   if (!message.length) {
