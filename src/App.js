@@ -50,6 +50,20 @@ class App {
     return { strike, ball };
   }
 
+  printResult(strike, ball) {
+    if (strike == 3) {
+      Console.print('3스트라이크');
+    } else if (!strike && !ball) {
+      Console.print('낫싱');
+    } else if (!strike && ball) {
+      Console.print(`${ball}볼`);
+    } else if (strike && !ball) {
+      Console.print(`${strike}스트라이크`);
+    } else if (strike && ball) {
+      Console.print(`${ball}볼 ${strike}스트라이크`);
+    }
+  }
+
   async play() {
     Console.print('숫자 야구 게임을 시작합니다.');
     
@@ -57,6 +71,7 @@ class App {
     const computerNum = this.getComputerNum();
     
     const { strike, ball } = this.compareNum(userInput, computerNum);
+    this.printResult(strike, ball);
   }
 }
 
