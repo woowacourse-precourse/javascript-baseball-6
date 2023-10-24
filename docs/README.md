@@ -3,8 +3,7 @@
 ### 클래스 - APP
 - 게임 지속 상태를 저장해줄 변수 생성
 - 클래스 내부 play함수 안에서 게임 지속 상태를 조건으로 반복
-  - CreateComputerNumber → InputNumber → CompareNumber → 결과값 출력 → InputContinueState
-- @woowacourse/mission-utils의 Console.print 사용
+  - CreateComputerNumber → InputNumber → CompareNumber → AnswerMessage → InputContinueState
 ### 함수 - CreateComputerNumber
 - @woowacourse/mission-utils의 Random 사용
 - return : {Array} 랜덤하게 생성된 서로 다른 세 가지 숫자
@@ -20,3 +19,6 @@
 ### 함수 - InputContinueState
 - @woowacourse/mission-utils의 Console.readLineAsync 사용
 - return : {Boolean} 게임 계속 진행 여부
+### 함수 - StartMessage, AnswerMessage, ErrorMessage
+- @woowacourse/mission-utils의 Console.print 사용
+- 시작, 비교결과, 에러의 메세지를 출력해주는 함수
