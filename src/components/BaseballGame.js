@@ -1,5 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 import { Random } from '@woowacourse/mission-utils';
+import GameCalculator from './GameCalculator.js';
 
 class BaseballGame {
   constructor() {
@@ -47,7 +48,12 @@ class BaseballGame {
     return true;
   }
 
-  showGameResult(validUserinput) {}
+  showGameResult(validUserinput) {
+    const GAME_CALCULATOR = new GameCalculator(
+      validUserinput,
+      this.randomNumber
+    );
+  }
 
   randomNumberGenerator() {
     const RANDOM_NUMBERS = [];
