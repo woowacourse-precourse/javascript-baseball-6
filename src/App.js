@@ -6,6 +6,10 @@ class App {
     this.playGame = true;
   }
 
+  /**
+   * getComputerValue(): 컴퓨터 숫자를 랜덤으로 생성해 주는 메소드
+   * 랜덤으로 생성된 3자리 숫자 배열 반환
+   */
   getComputerValue = () => {
     const COMPUTER = [];
 
@@ -19,11 +23,20 @@ class App {
     return COMPUTER;
   }
 
+  /**
+   * isValidInput(): 사용자 입력 검증 메소드 (0~9까지 3자리 수)
+   * 입력 검증 후 true 또는 false 반환
+   */
   isValidInput = (userInput) => {
     const INPUT_REGEX = /^[0-9]{3}$/.test(userInput);
     return INPUT_REGEX;
   }
 
+  /**
+   * getUserValue(): 사용자의 입력을 받는 메소드 (0~9까지 3자리 수)
+   * 잘못된 값을 입력했을 시 throw 사용해 예외 처리
+   * 사용자에게 입력 받은 값 배열 반환
+   */
   getUserValue = async () => {
     const USER_INPUT = await Console.readLineAsync('숫자를 입력해주세요 : ');
     
@@ -35,6 +48,10 @@ class App {
     return USER_VALUE;
   }
 
+  /**
+   * getHint(): 판단에 따른 힌트를 출력하는 메소드
+   * 모든 숫자를 맞히고 종료될 경우 재시작 여부를 묻기 위한 문자열 반환
+   */
   getHint = (userValue) => {
     let strikeCount = 0;
     let ballCount = 0;
@@ -61,6 +78,10 @@ class App {
     }
   }
 
+  /**
+   * exitGame(): 재시작 여부를 입력받고 입력 여부에 따라 재시작 또는 종료를 수행하는 메소드
+   * 1 또는 2가 아닌 숫자를 입력했을 시 throw 사용해 예외 처리
+   */
   exitGame = async (userValue) => {
     const RESULT = this.getHint(userValue);
 
@@ -79,6 +100,9 @@ class App {
     }
   }
 
+  /**
+   * play(): 게임을 실행하는 메소드
+   */
   async play() {
     Console.print('숫자 야구 게임을 시작합니다.');
 
