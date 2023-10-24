@@ -18,16 +18,16 @@ export const View = {
     throw new CustomError(MESSAGE.ERROR.INVALID_TYPE);
   },
 
+  printGameStart() {
+    Console.print(MESSAGE.START_GAME);
+  },
+
   printGameResult(result) {
     Console.print(getResultMessage(result));
   },
 
   printGameWinning(strike) {
     Console.print(GAME_RESULT.WIN(strike));
-  },
-
-  printGameStart() {
-    Console.print(MESSAGE.START_GAME);
   },
 };
 
