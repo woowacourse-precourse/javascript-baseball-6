@@ -37,7 +37,7 @@ class App {
 
       this.checkValidation(userInput, inputNum);
 
-      [ball, strike] = await this.checkStrike(this.randNum, inputNum);
+      [ball, strike] = this.checkStrike(this.randNum, inputNum);
 
       if(ball == 0 && strike == 0) {
         this.printMsg(BASEBALL.NOTHING);
@@ -48,8 +48,10 @@ class App {
         this.printMsg(`${strike}${BASEBALL.STRIKE}`);
         this.printMsg(NORMAL_MSG.END);
         ONOFF = await Console.readLineAsync(NORMAL_MSG.SELECT);
-        if(ONOFF == 1) this.randNum = this.makeRandNum();
-        if(ONOFF == 2) return;
+        if(ONOFF == 1) {
+          this.randNum = this.makeRandNum();
+          continue;
+        }
       }
 
       if(ball == 0) this.printMsg(`${strike}${BASEBALL.STRIKE}`);
@@ -70,7 +72,7 @@ class App {
    * @param {Array<number>} inputNum 사용자 숫자
    * @returns {[number, number]} 볼&스트라이크 개수를 묶은 숫자 배열
    */
-  async checkStrike(ansNum, inputNum) {
+  checkStrike(ansNum, inputNum) {
     let ball = 0;
     let strike = 0;
     for(let i = 0; i < inputNum.length; i++){
