@@ -2,10 +2,12 @@ import { Console } from "@woowacourse/mission-utils";
 
 class App {
   computer;
+  userNumber;
 
   constructor() {
     Console.print("숫자 야구 게임을 시작합니다.");
     this.computer = [];
+    this.userNumber = [];
   }
 
   async play() {
