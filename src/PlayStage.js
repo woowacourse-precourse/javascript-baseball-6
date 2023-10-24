@@ -47,7 +47,6 @@ class PlayStage {
   /**
    * 사용자의 입력이 형식에 맞지 않을 경우 예외를 발생시킨다.
    * @param {string} text 사용자의 입력
-   * @returns {boolean} 입력 형식이 맞는지 여부
    */
   setIsValid(text) {
     if (!/^[1-9]{3}$/.test(text)) {
@@ -67,6 +66,25 @@ class PlayStage {
    */
   getIsValid() {
     return this.#isValid;
+  }
+
+  /**
+   * 사용자의 입력에 따라 결과를 출력한다.
+   */
+  async run() {
+    while (this.#strikeCount !== 3) {
+      const input = await this.#numberInput();
+      this.#checkValidation(input);
+      if (!this.#isValid) {
+        Console.print(MESSAGES.WRONG_INPUT);
+        break;
+      }
+
+      const inputNumbers = input.split("").map(Number);
+      this.#strikeCount = this.#getStrikeCount(inputNumbers);
+      this.#ballCount = this.#getBallCount(inputNumbers);
+      this.#printResult();
+    }
   }
 }
 
