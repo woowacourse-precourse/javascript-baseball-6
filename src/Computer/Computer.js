@@ -16,19 +16,21 @@ class Computer {
 
     getStrikeCounts(userInput, correctAnswer) {
         let cnt = 0;
-        for(let i = 0; i < correctAnswer.length; i++){
-            if(userInput[i] === correctAnswer[i])   cnt++;
-        }
-
+        userInput.forEach((input, index) => {
+            if(input === correctAnswer[index]){
+                cnt++;
+            }
+        })
         return cnt;
     }
 
     getBallCounts(userInput, correctAnswer, strikeCounts) {
         let cnt = 0;
-        for(let i = 0; i < userInput.length; i++){
-            if(correctAnswer.includes(userInput[i]))    cnt++;
-        }
-
+        userInput.forEach((input) => {
+            if(correctAnswer.includes(input)){
+                cnt++;
+            }
+        })
         return cnt - strikeCounts;
     }
 
