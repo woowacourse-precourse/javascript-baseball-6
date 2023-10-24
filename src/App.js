@@ -23,10 +23,10 @@ class App {
 
   async play() {
     this.setupNewGame();
-    await this.startGame();
+    await this.playGame();
   }
 
-  async startGame() {
+  async playGame() {
     try {
       while (this.gameState !== 'end') {
         await this.getUserInput();
@@ -40,9 +40,11 @@ class App {
 
   async getUserInput() {
     const userNumber = await Console.readLineAsync();
+
     if (!correctNumber(userNumber)) {
       throw new Error("[ERROR]");
     }
+    
     this.reader.setUserNumber(userNumber);
     const userAnswer = this.reader.getUserNumber();
     Console.print(`${Constants.NOTICE_INPUT} : ${userAnswer}`);
@@ -52,6 +54,7 @@ class App {
 
   checkAnswer() {
     showResult(this.randomNumber, this.userAnswer);
+
     if (this.isGameOver(this.randomNumber, this.userAnswer)) {
       Console.print(Constants.GOAL);
       this.endGame();
@@ -63,6 +66,7 @@ class App {
 
   async handleReplay() {
     const replayState = await this.replayManager.handleReplay();
+
     if (replayState === 'ready') {
       this.play();
     } else {
