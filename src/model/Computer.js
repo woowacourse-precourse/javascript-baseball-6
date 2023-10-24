@@ -21,22 +21,24 @@ class Computer {
 
   /**
    * @private
-   * @param {number[]} playerBaseball - 플레이어의 야구공
+   * @param {number} playerBaseballNumber - 플레이어의 야구공 번호
    * @param {number} digit - 검사할 숫자의 위치
    * @returns {boolean} 스트라이크 판정 여부
    */
-  #isStrike(playerBaseball, digit) {
-    return playerBaseball[digit] === this.#baseball[digit];
+  #isStrike(playerBaseballNumber, digit) {
+    return playerBaseballNumber === this.#baseball[digit];
   }
 
   /**
    * @private
-   * @param {number[]} playerBaseball - 플레이어의 야구공
+   * @param {number} playerBaseballNumber - 플레이어의 야구공 번호
    * @param {number} digit - 검사할 숫자의 위치
    * @returns {boolean} 볼 판정 여부
    */
-  #isBall(playerBaseball, digit) {
-    return !this.#isStrike(playerBaseball, digit) && this.#baseball.includes(playerBaseball[digit]);
+  #isBall(playerBaseballNumber, digit) {
+    return (
+      !this.#isStrike(playerBaseballNumber, digit) && this.#baseball.includes(playerBaseballNumber)
+    );
   }
 
   /**
@@ -45,10 +47,10 @@ class Computer {
    * @param {import('../utils/jsDoc.js').CompareResult} calculateCompareResultParams.prevCompareResult - 이전 비교 결과
    * @returns {import('../utils/jsDoc.js').CompareResult} 계산 결과가 update된 새로운 비교 결과 객체
    */
-  #calculateCompareResult({ prevCompareResult: { strike, ball }, playerBaseball, digit }) {
+  #calculateCompareResult({ prevCompareResult: { strike, ball }, playerBaseballNumber, digit }) {
     return {
-      strike: strike + (this.#isStrike(playerBaseball, digit) ? 1 : 0),
-      ball: ball + (this.#isBall(playerBaseball, digit) ? 1 : 0),
+      strike: strike + (this.#isStrike(playerBaseballNumber, digit) ? 1 : 0),
+      ball: ball + (this.#isBall(playerBaseballNumber, digit) ? 1 : 0),
     };
   }
 
@@ -58,13 +60,9 @@ class Computer {
    * @returns {import('../utils/jsDoc.js').CompareResult} 스트라이크와 볼의 결과를 포함한 객체
    */
   comparePlayerBaseball(playerBaseball) {
-    return this.#baseball.reduce(
-      ({ strike, ball }, _, digit) =>
-        this.#calculateCompareResult({
-          prevCompareResult: { strike, ball },
-          playerBaseball,
-          digit,
-        }),
+    return playerBaseball.reduce(
+      (prevCompareResult, playerBaseballNumber, digit) =>
+        this.#calculateCompareResult({ prevCompareResult, playerBaseballNumber, digit }),
       { strike: 0, ball: 0 },
     );
   }

@@ -7,7 +7,7 @@
 /**
  * @typedef {object} CalculateCompareResultParams
  * @property {CompareResult} prevCompareResult - 이전 비교 결과
- * @property {number[]} playerBaseball - 플레이어의 야구공
+ * @property {number} playerBaseballNumber - 플레이어의 야구공
  * @property {number} digit - 검사할 숫자의 위치
  */
 
