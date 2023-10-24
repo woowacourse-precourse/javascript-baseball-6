@@ -13,7 +13,7 @@ async function compareNumbers(inputNum, randomComputeNum) {
   }
 
   if(strike === 3){
-    MissionUtils.Console.print("3개의 숫자를 모두 맞추어 게임이 종료됩니다.");
+    MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
     return true;
   }else if(strike !== 0 || ball !== 0){
     if(ball === 0){
