@@ -54,6 +54,27 @@ class App {
     return player;
   }
 
+  countStrike = (computer, player) => {
+    let strike = 0;
+    for (var i = 0; i < player.length; i++) {
+      if (computer.indexOf(player[i]) == i) {
+        strike++;
+      }
+    }
+    return strike;
+  }
+
+  countBall = (computer, player) => {
+    let ball = 0;
+    for (var i = 0; i < player.length; i++) {
+      const indexOfNumber = computer.indexOf(player[i]);
+      if (indexOfNumber != i && indexOfNumber != -1) {
+        ball++;
+      }
+    }
+    return ball;
+  }
+
   async playRound() {
     const computer = this.createComputerNumbers(3);
     //MissionUtils.Console.print(computer);
@@ -62,21 +83,10 @@ class App {
 
     do {
       const input = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
-      const playerNumbers = this.extractPlayerNumbers(input);
+      const player = this.extractPlayerNumbers(input);
 
-      let strike = 0;
-      let ball = 0;
-      let nothing = 0;
-
-      for (var i = 0; i < playerNumbers.length; i++) {
-        if (computer.indexOf(playerNumbers[i]) == i) {
-          strike++;
-        } else if (computer.indexOf(playerNumbers[i]) != -1) {
-          ball++;
-        } else {
-          nothing++;
-        }
-      }
+      let strike = this.countStrike(computer, player);
+      let ball = this.countBall(computer, player);
 
       if (strike == 3) {
         MissionUtils.Console.print("3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료")
@@ -85,7 +95,7 @@ class App {
         let output = "";
         if (ball != 0) output += ball + "볼 ";
         if (strike != 0) output += strike + "스트라이크";
-        if (nothing == 3) output = "낫싱";
+        if (ball == 0 && strike == 0) output = "낫싱";
         MissionUtils.Console.print(output);
         isContinued = true;
       }
