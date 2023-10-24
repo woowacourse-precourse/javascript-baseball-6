@@ -10,12 +10,14 @@ const Message = {
 class App {
   computer = [];
   userInput = [];
+  restart = 1;
 
   printStartMessage() {
     MissionUtils.Console.print(Message.START);
   }
 
   async getUserInput() {
+    this.userInput = [];
     const input = await MissionUtils.Console.readLineAsync(
       Message.INPUT_MESSAGE
     );
@@ -41,6 +43,19 @@ class App {
     }
   }
 
+  compareInput() {
+    let strikeNum = 0;
+    let ballNum = 0;
+    this.userInput.forEach((item, index) => {
+      if (this.computer[index] === item) {
+        strikeNum += 1;
+      } else if (this.computer.includes(item)) {
+        ballNum += 1;
+      }
+    });
+    MissionUtils.Console.print(`${ballNum}볼 ${strikeNum}스트라이크`);
+  }
+
   pickComputerNumbers() {
     this.computer = [];
     while (this.computer.length < 3) {
@@ -54,8 +69,10 @@ class App {
   async play() {
     this.printStartMessage();
     this.pickComputerNumbers();
+    console.log(this.computer);
     await this.getUserInput();
-    console.log(this.computer, this.userInput);
+    this.compareInput();
+    // console.log(this.computer, this.userInput);
   }
 }
 
