@@ -1,6 +1,13 @@
 import { Random, Console } from '@woowacourse/mission-utils';
+export const ErrorMessage = Object.freeze({
+  oneOrTwo: '[ERROR] 1 또는 2만 입력 가능합니다.',
+  onlyNumbers: '[ERROR] 숫자만 입력 가능합니다.',
+  threeDigits: '[ERROR] 세 자리 수여야 합니다.',
+  oneToNine: '[ERROR] 각 자리 수는 1~9 사이의 수여야 합니다.',
+  differentDigits: '[ERROR] 각 자리 수는 모두 다른 수여야 합니다.',
+});
 class App {
-  computer;
+  #computer;
   async play() {
     this.init();
     console.log(this.computer);
@@ -37,15 +44,13 @@ class App {
   }
 
   checkDifferentThreeDigits(user) {
-    if (isNaN(user)) throw new Error('[ERROR] 숫자만 입력 가능합니다.');
+    if (isNaN(user)) throw new Error(ErrorMessage.oneOrTwo);
     const array = user.split('');
     if (array.length > 3 || array.length < 3)
-      throw new Error('[ERROR] 세 자리 수여야 합니다.');
+      throw new Error(ErrorMessage.threeDigits);
     const dupCheck = array.filter((v, i) => user.indexOf(v) === i);
-    if (dupCheck.includes('0'))
-      throw new Error('[ERROR] 각 자리 수는 1~9 사이의 수여야 합니다.');
-    if (dupCheck.length < 3)
-      throw new Error('[ERROR] 각 자리 수는 모두 다른 수여야 합니다.');
+    if (dupCheck.includes('0')) throw new Error(ErrorMessage.oneToNine);
+    if (dupCheck.length < 3) throw new Error(ErrorMessage.differentDigits);
     return dupCheck;
   }
 
@@ -91,7 +96,7 @@ class App {
     } else if (result === 2) {
       return;
     } else {
-      throw new Error('[ERROR] 1 또는 2만 입력 가능합니다.');
+      throw new Error(ErrorMessage.oneOrTwo);
     }
   }
 }
