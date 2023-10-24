@@ -26,6 +26,8 @@ class App {
 
   gameProcess() {
     this.inputNumber();
+    const score = this.checkScore(this.computer, this.input);
+    this.answerScore(score);
   }
 
   async inputNumber() {
@@ -40,6 +42,23 @@ class App {
     }
   }
 
+  checkScore(computer, input) {
+    let score = [0,0];
+    for (let i = 0 ; i < computer.length ; i++) {
+      if (computer[i] === input[i]) score[1] += 1;
+      else if (computer.includes(input[i])) score[0] += 1;
+    }
+    return score;
+  }
+
+  answerScore(score) {
+    let ans = "";
+    if (score[0] === 0 && score[1] === 0) ans += "낫싱";
+    if (score[0] > 0) ans += `${score[0]}볼 `;
+    if (score[1] > 0) ans += `${score[1]}스트라이크`;
+  
+    Console.print(ans);
+  }
 }
 
 const app = new App();
