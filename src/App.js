@@ -36,7 +36,7 @@ class App {
     MissionUtils.Console.print(choice);
 
     if (choice === "1") {
-      this.play(); // 게임 재시작
+      this.play();
     } else if (choice === "2") {
       MissionUtils.Console.print("게임을 종료합니다.");
       return;
