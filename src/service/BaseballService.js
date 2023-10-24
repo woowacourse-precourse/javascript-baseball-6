@@ -38,8 +38,8 @@ export class BaseballService {
   }
 
   #getGameResult({ strike, ball }) {
-    const isNothing = strike || ball;
-    const result = isNothing ? MESSAGE.score(strike, ball) : MESSAGE.nothing;
+    const isNothing = !strike && !ball;
+    const result = isNothing ? MESSAGE.nothing : MESSAGE.score(strike, ball);
     return result;
   }
 
