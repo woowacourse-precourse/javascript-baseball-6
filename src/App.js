@@ -1,5 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import { Output, ValidTest, MESSAGE } from './js';
+import { Output, ValidTest, MESSAGE, Player } from './js';
 
 class App {
   playing = true;
@@ -10,7 +10,7 @@ class App {
 
   win = false;
 
-  userNumbers = [];
+  playerNumbers = [];
 
   computerNumbers = [];
 
@@ -18,6 +18,8 @@ class App {
     this.validTest = new ValidTest();
 
     this.output = new Output();
+
+    this.player = new Player();
   }
 
   /**
@@ -62,7 +64,7 @@ class App {
    */
   resetSetting(playing, resetComputerNumbers) {
     this.playing = playing;
-    this.userNumbers = [];
+    this.playerNumbers = [];
     this.win = false;
     this.resetStrikeAndBall();
     if (resetComputerNumbers) this.setComputerNumbers();
@@ -93,29 +95,13 @@ class App {
   }
 
   /**
-   * 사용자가 입력한 글자를 가져와 userNumbers 의 값을 변경
-   */
-  async getUserNumbers() {
-    try {
-      if (!this.strike === 3) this.output.printInputMessage();
-      const text = await MissionUtils.Console.readLineAsync(MESSAGE.INPUT);
-      this.userNumbers = text
-        .replaceAll(' ', '')
-        .split('')
-        .map(v => Number(v));
-    } catch (error) {
-      this.throwError(error);
-    }
-  }
-
-  /**
    * 입력한 숫자에 대한 스트라이크,볼 판단
    */
   compareNumbers() {
     this.computerNumbers.forEach((v, i) => {
-      if (v === this.userNumbers[i]) {
+      if (v === this.playerNumbers[i]) {
         this.strike += 1;
-      } else if (this.userNumbers.includes(v)) {
+      } else if (this.playerNumbers.includes(v)) {
         this.ball += 1;
       }
     });
@@ -147,7 +133,7 @@ class App {
    */
   judgeGame() {
     if (this.win) {
-      const isRestart = this.userNumbers[0] === 1;
+      const isRestart = this.playerNumbers[0] === 1;
       if (isRestart) {
         this.restartGame();
       } else {
@@ -162,10 +148,12 @@ class App {
   async play() {
     this.startGame();
     while (this.playing) {
+      if (!this.win) this.output.printInputMessage();
       try {
         // eslint-disable-next-line
-        await this.getUserNumbers();
-        this.validTest.test(this.userNumbers, this.win);
+        const numbers = await this.player.getNumbers();
+        this.playerNumbers = numbers;
+        this.validTest.test(this.playerNumbers, this.win);
         this.judgeGame();
       } catch (error) {
         this.throwError(`[Error]:${error}`);
