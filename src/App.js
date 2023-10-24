@@ -73,6 +73,41 @@ class App {
       throw new Error('[ERROR] 잘못된 입력입니다.');
     }
   }
+  async playTheGame() {
+    const input = await Console.readLineAsync('숫자를 입력해주세요 : ');
+    // 입력값 검증
+    this.validateInput(input);
+    // 스트라이크, 볼 판단
+    const { ball, strike } = this.calculateBallsAndStrikes();
+    // 힌트 출력
+    this.printHintText(ball, strike);
+    // 3 스트라이크일 경우 재시작 여부 확인
+    if (strike === 3) {
+      Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+      try {
+        this.askReplay();
+      } catch (error) {
+        Console.print(error.message);
+      }
+    } else {
+      this.playTheGame();
+    }
+  }
+  // 게임 시작 메서드
+  async play() {
+    this.answerNumber = '';
+    this.playerInput = '';
+    // 게임 시작문구 출력
+    Console.print('숫자 야구 게임을 시작합니다.');
+    this.setAnswerNumber();
+    // 사용자 입력
+    try {
+      await this.playTheGame();
+    } catch (error) {
+      Console.print(error.message);
+      throw error;
+    }
+  }
 }
 
 export default App;
