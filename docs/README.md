@@ -23,7 +23,9 @@
 1. getUserNumber() 함수로 사용자가 입력한 숫자를 받고 
 2. getHint()함수를 통해 strike와 ball을 구한 후, 
 3. printHint() 함수로 그 힌트를 출력한다.
+
 4-1. 만약 strike가 3이 아니면, 다시 위 과정(1~3)을 반복한다.
+
 4-2. 만약 strike가 3이면, startGameAgain() 함수를 리턴한다.
 
 
@@ -31,5 +33,7 @@
 #### App 클래스의 play 메소드에 실행할 로직을 작성
 1. makeRamdomNumber() 함수로 랜덤 숫자를 생성한다.
 2. compareUserAndRamdomNumber() 함수를 통해 숫자 야구 게임 로직을 실행한다.
+
 3-1. 만약 isExecute가 true면, 게임이 다시 시작된다.
+
 3-2. 만약 isExecute가 false이면, 게임이 종료된다.
