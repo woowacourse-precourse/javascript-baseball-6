@@ -1,4 +1,4 @@
-import { ANSWER_LENGTH } from "../Constants";
+import { ANSWER_LENGTH } from "../Constants.js";
 import { Random } from "@woowacourse/mission-utils";
 
 const generateRandomNumber = () => {

@@ -1,8 +1,8 @@
-import { ANSWER_LENGTH, ERROR_MESSAGE, PLAY_GAME } from "./Constants";
-import generateRandomNumber from "./utils/generateRandomNumbers";
-import checkBallCount from "./utils/checkBallCount";
-import printBallCount from "./utils/printBallCount";
-import validateInput from "./utils/validateInput";
+import { ANSWER_LENGTH, ERROR_MESSAGE, PLAY_GAME } from "./Constants.js";
+import generateRandomNumber from "./utils/generateRandomNumbers.js";
+import checkBallCount from "./utils/checkBallCount.js";
+import printBallCount from "./utils/printBallCount.js";
+import validateInput from "./utils/validateInput.js";
 
 const { Console } = require("@woowacourse/mission-utils");
 

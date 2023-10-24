@@ -1,4 +1,4 @@
-import { ANSWER_LENGTH } from "../Constants";
+import { ANSWER_LENGTH } from "../Constants.js";
 
 const validateInput = (input) => {
   if (input.length !== ANSWER_LENGTH) {

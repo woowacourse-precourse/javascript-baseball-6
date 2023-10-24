@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import { BALL_COUNT } from "../Constants";
+import { BALL_COUNT } from "../Constants.js";
 
 const printBallCount = (scoreCount) => {
   const { strike, ball } = scoreCount;
