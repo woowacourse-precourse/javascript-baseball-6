@@ -51,8 +51,12 @@ function validation(number) {
     throw new Error("[ERROR] 세 자리의 수를 입력하시오.");
   } else if (number.length != new Set(number).size) {
     throw new Error("[ERROR] 서로 다른 세 자리의 수를 입력하시오.");
-  } else if (isNaN(number)) {
-    throw new Error("[ERROR] 숫자만 입력하시오.");
+  } else {
+    for (let i in number) {
+      if (i === NaN) {
+        throw new Error("[ERROR] 숫자만 입력하시오.");
+      }
+    }
   }
 }
 
