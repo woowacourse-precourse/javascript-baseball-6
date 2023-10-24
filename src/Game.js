@@ -46,7 +46,7 @@ export class Game {
     });
   }
 
-  async compareNumbers(inputArray) {
+  compareNumbers(inputArray) {
     let balls = 0;
     let strikes = 0;
     for (let i = 0; i < this.targetArray.length; i++) {
