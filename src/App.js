@@ -1,29 +1,28 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
+import { Console, Random } from "@woowacourse/mission-utils";
 
 class App {
 
   randomNumber = [];
   userBaseballNumber = [];
   MatchingNumbers;
-  Strike = 0;
-  Balls;
+  strike = 0;
+  balls;
 
   setRandomNumber() {
     const computer = [];
     while (computer.length < 3) {
-      const number = MissionUtils.Random.pickNumberInRange(1, 9);
+      const number = Random.pickNumberInRange(1, 9);
       if (!computer.includes(number)) {
         computer.push(number);
       }
     }
     this.randomNumber = [...computer];
-    MissionUtils.Console.print(this.randomNumber);
   }
 
 
   async getUserInput() {
-    this.Strike = 0;
-    const userInput = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
+    this.strike = 0;
+    const userInput = await Console.readLineAsync('숫자를 입력해주세요 : ');
     this.isValidUserInput(userInput);
     this.userBaseballNumber = userInput.split('').map(Number);
   }
@@ -68,49 +67,49 @@ class App {
 
   countMatchingStrikes() {
     for (let i = 0; i < this.randomNumber.length; i++) {
-      if (this.randomNumber[i] == this.userBaseballNumber[i])
-        this.Strike += 1;
+      if (this.randomNumber[i] === this.userBaseballNumber[i])
+        this.strike += 1;
     }
   }
 
   countMatchingBalls() {
-    this.Balls = this.MatchingNumbers - this.Strike;
+    this.balls = this.MatchingNumbers - this.strike;
   }
 
   printResult() {
     if (this.MatchingNumbers === 0)
-      MissionUtils.Console.print('낫싱');
+      Console.print('낫싱');
 
-    if (this.Balls > 0 && this.Strike > 0)
-      MissionUtils.Console.print(`${this.Balls}` + '볼 ' + `${this.Strike}` + '스트라이크');
+    if (this.balls > 0 && this.strike > 0)
+      Console.print(`${this.balls}` + '볼 ' + `${this.strike}` + '스트라이크');
 
-    if (this.Balls > 0 && this.Strike == 0)
-      MissionUtils.Console.print(`${this.Balls}` + '볼');
+    if (this.balls > 0 && this.strike == 0)
+      Console.print(`${this.balls}` + '볼');
 
-    if (this.Strike > 0 && this.Balls == 0)
-      MissionUtils.Console.print(`${this.Strike}` + '스트라이크');
+    if (this.strike > 0 && this.balls == 0)
+      Console.print(`${this.strike}` + '스트라이크');
   }
 
   async playBaseballGame() {
-    while (this.Strike < 3) {
+    while (this.strike < 3) {
       await this.getUserInput();
       this.countMatchingNumbers();
       this.countMatchingStrikes();
       this.countMatchingBalls();
       this.printResult();
     }
-    MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+    Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
     this.askRestartGame();
   }
 
   async askRestartGame() {
     let result;
-    const userInput = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
+    const userInput = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
     result = this.isValidUserInputRestartGame(userInput);
 
     if (result == 1) {
       // 이 부분에서 모듈화 해야겠다는 생각이 듦
-      this.Strike = 0;
+      this.strike = 0;
       this.setRandomNumber();
       this.playBaseballGame();
     }
@@ -135,7 +134,7 @@ class App {
   }
 
   async play() {
-    MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
+    Console.print('숫자 야구 게임을 시작합니다.');
     this.setRandomNumber();
     await this.playBaseballGame();
   }
