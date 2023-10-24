@@ -1,9 +1,5 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 
-function notifyGameStart() {
-  Console.print("숫자 야구 게임을 시작합니다.");
-}
-
 function makeRamdomNumber() {
   const computer = [];
   while (computer.length < 3) {
