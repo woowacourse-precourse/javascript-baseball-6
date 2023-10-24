@@ -25,7 +25,7 @@ class Judge {
 
     if (!/^[1-9]{3}$/.test(userNumber)) {
       Console.print("[ERROR] 숫자가 잘못된 형식입니다.");
-      this.app.PlayerOn = false;
+      this.app.PLAYER_ON = false;
       throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
     }
 
@@ -33,10 +33,10 @@ class Judge {
   }
 
   compareScore(data) {
+    const { me, com } = data;
+
     let strike = 0;
     let ball = 0;
-
-    const { me, com } = data;
 
     com.forEach((el, idx) => {
       if (el === me[idx]) strike++;
@@ -53,31 +53,24 @@ class Judge {
 
     if (!strike && !ball) {
       Console.print("낫싱");
-
       return { state: "LOSE", com };
     }
 
     if (strike !== 3) {
+      let message = "";
       if (ball === 0) {
-        Console.print(`${strike}스트라이크`);
-
-        return { state: "LOSE", com };
+        message = `${strike}스트라이크`;
+      } else if (strike === 0) {
+        message = `${ball}볼`;
+      } else {
+        message = `${ball}볼 ${strike}스트라이크`;
       }
-
-      if (strike === 0) {
-        Console.print(`${ball}볼`);
-
-        return { state: "LOSE", com };
-      }
-
-      Console.print(`${ball}볼 ${strike}스트라이크`);
-
+      Console.print(message);
       return { state: "LOSE", com };
     }
 
     if (strike === 3) {
       Console.print("3스트라이크");
-
       return "WIN";
     }
   }
@@ -91,7 +84,7 @@ class Judge {
       );
 
       if (USER_NUM === "1") {
-        this.app.PlayerOn = true;
+        this.app.PLAYER_ON = true;
         this.app.Computer = this.randomNumber();
 
         return;
@@ -99,7 +92,7 @@ class Judge {
 
       if (USER_NUM === "2") {
         Console.print("게임 종료");
-        this.app.PlayerOn = false;
+        this.app.PLAYER_ON = false;
 
         return;
       }
