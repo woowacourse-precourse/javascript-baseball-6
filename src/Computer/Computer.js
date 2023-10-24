@@ -1,5 +1,5 @@
-import { isValidInput } from "../ValidationUtils.js";
-import { createRandAnswer } from "./ComputerUtils.js";
+import { isValidInput } from "../utils/ValidationUtils.js";
+import { createRandAnswer } from "../utils/createAnswer.js";
 
 class Computer {
     constructor() {
