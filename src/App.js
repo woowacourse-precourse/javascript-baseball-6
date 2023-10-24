@@ -53,10 +53,28 @@ class App {
         return { strikeCount, ballCount };
     }
 
+    // Replay Game or Not
+    async isReplay() {
+        try {
+            const inputString = await Console.readLineAsync(
+                "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+            );
+            if (inputString === "1") {
+                return true;
+            } else if (inputString === "2") {
+                return false;
+            } else {
+                throw new Error("[ERROR] 잘못된 입력입니다.");
+            }
+        } catch (error) {
+            console.error(error.message);
+        }
+    }
+
     async play() {
         console.log("숫자 야구 게임을 시작합니다.");
         const answerNumber = this.makeAnswerNumber();
-        console.log(answerNumber);
+        // console.log(answerNumber);
 
         while (true) {
             // Get input number
@@ -69,7 +87,12 @@ class App {
             );
             if (strikeCount === 3) {
                 console.log("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-                break;
+                const isReplay = await this.isReplay();
+                if (isReplay) {
+                    this.play();
+                } else {
+                    break;
+                }
             } else if (strikeCount === 0 && ballCount === 0) {
                 console.log("낫싱");
             } else if (strikeCount > 0 && ballCount > 0) {
