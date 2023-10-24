@@ -1,3 +1,4 @@
+/*스트라이크, 볼, 낫싱으로 결과를 내는 기능*/
 export default function checkResult(userNumbers, computerNumbers) {
   const data = {
     ball: 0,
