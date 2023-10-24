@@ -1,10 +1,9 @@
 import { printMessage, readLineAsync, isValidAnswerInput, getValidRetryInput } from './utils';
-import { MESSAGE, SCORE, SETTING, GAME_STATUS } from './constants';
+import { MESSAGE, SETTING, GAME_STATUS } from './constants';
 import { Game } from './Game';
 
 const { START, INPUT_NUMBER, CORRECT, RETRY } = MESSAGE
 const { SIZE, RESTART_NUMBER, EXIT_NUMBER } = SETTING;
-const { STRIKE } = SCORE;
 
 class App {
   /**
@@ -27,7 +26,7 @@ class App {
         const scoreMessage = this.game.getScoreMessage(score);
         printMessage(scoreMessage);
 
-        if (score.get(STRIKE) === SIZE) {
+        if (score.strike === SIZE) {
           printMessage(CORRECT);
           const input = await readLineAsync(RETRY);
           const num = getValidRetryInput(input);
