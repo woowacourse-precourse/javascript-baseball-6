@@ -18,6 +18,11 @@ class App {
 	}
 	validUserInput(userInput) {
 		if (userInput.length === 0) throw new Error(ERROR.NOT_INPUT);
+		this.checkValidationInput(userInput);
+		userInput = userInput.split('').map((number) => Number(number));
+		return userInput;
+	}
+	checkValidationInput(userInput) {
 		userInput.split('').forEach((number, index) => {
 			if (isNaN(number)) {
 				throw new Error(ERROR.NOT_A_NUMBER);
@@ -34,8 +39,6 @@ class App {
 				throw new Error(ERROR.NOT_INVALID_LENGTH);
 			}
 		});
-		userInput = userInput.split('').map((number) => parseInt(number));
-		return userInput;
 	}
 	countBall(answer, userInput) {
 		let count = 0;
