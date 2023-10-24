@@ -23,7 +23,7 @@ class App {
             }
             return inputNumber;
         } catch (error) {
-            console.error(error.message);
+            //
         }
     }
 
@@ -67,46 +67,48 @@ class App {
                 throw new Error("[ERROR] 잘못된 입력입니다.");
             }
         } catch (error) {
-            console.error(error.message);
+            //
         }
     }
 
     async play() {
         console.log("숫자 야구 게임을 시작합니다.");
-        const answerNumber = this.makeAnswerNumber();
-        // console.log(answerNumber);
 
         while (true) {
-            // Get input number
-            const inputNumber = await this.getNumber();
+            const answerNumber = this.makeAnswerNumber();
+            console.log(answerNumber);
+            let inputNumber = null;
 
-            // Get strike, ball count
-            const { strikeCount, ballCount } = this.getStrikeAndBallCount(
-                answerNumber,
-                inputNumber
-            );
-            if (strikeCount === 3) {
-                console.log("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-                const isReplay = await this.isReplay();
-                if (isReplay) {
-                    this.play();
-                } else {
+            while (true) {
+                // Get input number
+                const inputNumber = await this.getNumber();
+
+                // Get strike, ball count
+                const { strikeCount, ballCount } = this.getStrikeAndBallCount(
+                    answerNumber,
+                    inputNumber
+                );
+                if (strikeCount === 3) {
+                    console.log("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+                    const isReplay = await this.isReplay();
+                    if (!isReplay) {
+                        return; // 게임 종료
+                    }
                     break;
+                } else if (strikeCount === 0 && ballCount === 0) {
+                    console.log("낫싱");
+                } else if (strikeCount > 0 && ballCount > 0) {
+                    console.log(`${strikeCount} 스트라이크 ${ballCount} 볼`);
+                } else if (strikeCount > 0) {
+                    console.log(`${strikeCount} 스트라이크`);
+                } else if (ballCount > 0) {
+                    console.log(`${ballCount} 볼`);
                 }
-            } else if (strikeCount === 0 && ballCount === 0) {
-                console.log("낫싱");
-            } else if (strikeCount > 0 && ballCount > 0) {
-                console.log(`${strikeCount} 스트라이크 ${ballCount} 볼`);
-            } else if (strikeCount > 0) {
-                console.log(`${strikeCount} 스트라이크`);
-            } else if (ballCount > 0) {
-                console.log(`${ballCount} 볼`);
             }
         }
     }
 }
 
-// Run
 const app = new App();
 app.play();
 
