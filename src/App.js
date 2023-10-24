@@ -43,8 +43,7 @@ class App {
 						errorMessage = "3자리 숫자를 입력하지 않았습니다.";
 						break;
 					case user.some((c) => isNaN(c) || c === 0):
-						errorMessage =
-							"0 또는 숫자 이외의 값들을 입력하셨습니다.";
+						errorMessage = "1부터 9 이외의 값들을 입력하셨습니다.";
 						break;
 					case new Set(user).size !== 3:
 						errorMessage = "중복되는 숫자가 존재합니다.";
