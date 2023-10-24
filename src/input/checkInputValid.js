@@ -4,8 +4,6 @@
  * @param {string} userInput
  * @returns {boolean}
  */
-
-
 export default function checkInputValid(userInput) {
 
   const checkLength = () => userInput.length === 3;
