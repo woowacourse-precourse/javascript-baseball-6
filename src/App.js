@@ -37,7 +37,7 @@ class App {
       let input = [];
 
       this.createNumber(computer);
-      console.log(computer)
+
       while (input.join("") != computer.join("")) {
         const result = [0, 0]; // [볼, 스트라이크]
         input = await MissionUtils.Console.readLineAsync(
