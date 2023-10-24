@@ -4,7 +4,6 @@ import isValid from './utils/isValid';
 import makeComputerNumber from './utils/makeComputerNumber';
 
 const { Console } = require('@woowacourse/mission-utils');
-
 const { MESSAGE, GAME, ANSWER_LENGTH } =
   require('./constants/constants').default;
 
@@ -31,15 +30,18 @@ class App {
 
   async getPlayerNumber() {
     const playerNumber = await Console.readLineAsync(MESSAGE.INPUT_NUMBER);
+
     if (!isValid(playerNumber)) {
       throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
     }
+
     return playerNumber;
   }
 
   async askRestart() {
     Console.print(MESSAGE.RESTART_STOP);
     const input = await Console.readLineAsync('');
+
     if (input === GAME.RESTART) {
       await this.play();
     } else if (input === GAME.STOP) {
