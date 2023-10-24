@@ -19,6 +19,7 @@ class App {
   async play() {
     this.getRandomNumber();
     await this.getUserInput();
+    await this.getGameResult(this.computer, this.userNumber);
   }
 
   getRandomNumber() {
