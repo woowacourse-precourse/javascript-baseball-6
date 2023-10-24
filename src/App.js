@@ -61,6 +61,10 @@ export default class App {
       }
 
       this.printHint(correctDigitCount, correctPositionCount);
+
+      if (correctPositionCount === 3) {
+        await this.isReplay();
+      }
     }
   }
 
@@ -73,6 +77,22 @@ export default class App {
       Console.print(`${ball}볼`);
     } else {
       Console.print(`${ball}볼 ${strike}스트라이크`);
+    }
+  }
+
+  async isReplay() {
+    Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    Console.print(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+    );
+    const userChoice = await Console.readLineAsync("");
+
+    if (userChoice === "1") {
+      this.isReplaying = true;
+    } else if (userChoice === "2") {
+      this.isReplaying = false;
+    } else {
+      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
     }
   }
 }
