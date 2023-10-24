@@ -154,3 +154,12 @@ while (computer.length < 3) {
 - 미션은 [javascript-baseball](https://github.com/woowacourse-precourse/javascript-baseball-6/) 저장소를 Fork & Clone해 시작한다.
 - **기능을 구현하기 전 `docs/README.md`에 구현할 기능 목록을 정리**해 추가한다.
 - 과제 진행 및 제출 방법은 [프리코스 과제 제출](https://github.com/woowacourse/woowacourse-docs/tree/master/precourse) 문서를 참고한다.
+
+## 구현할 기능 목록 - 오정환
+
+- 1. @woowacourse/mission-utils의 Random.pickNumberInRange() 함수를 사용하여 컴퓨터 숫자 생성한다.
+- 2. 사용자로부터 숫자 3자리를 입력 받는다. (만약 3자리가 아니거나 숫자가 아닌 경우 예외 처리)
+- 3. 사용자 숫자와 컴퓨터 숫자를 비교한다.
+- 4. 사용자 숫자와 컴퓨터 숫자를 비교해서 나온 결과가 3스트라이크인 경우 현재 진행 중인 게임을 종료한다.
+- 5. 종료한 후 다음 게임을 진행할지 게임을 종료할지 사용자로부터 입력을 받아 파악한다. (만약 입력값이 1이나 2가 아닌 경우 예외 처리)
+- 6. 만약 1을 선택할 경우 1. 컴퓨터 숫자 생성으로 다시 돌아간다. 2를 선택한 경우에는 전체 게임을 완전 종료한다.
