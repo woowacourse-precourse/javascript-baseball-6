@@ -2,7 +2,7 @@
 // import GameData from "./GameData.js";
 // import { validationNumbers } from "./Validation.js";
 const { Console, Random } = require('@woowacourse/mission-utils');
-const { validationNumbers } = require('./Validation.cjs');
+const { validationNumbers } = require('./Validation.js');
 const GameData = require('./GameData.cjs');
 
 // ball, strike 확인하는 함수
