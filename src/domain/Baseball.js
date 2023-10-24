@@ -17,13 +17,10 @@ class Baseball {
   }
 
   getBallCount(input, strikeCount) {
-    let count = 0;
-
-    for (let i = 0; i < input.length; i++) {
-      if (this.#answer.includes(input[i])) count += 1;
-    }
-
-    return count - strikeCount;
+    const count =
+      input.filter((value) => this.#answer.includes(value)).length -
+      strikeCount;
+    return count;
   }
 
   getResetNumber() {
