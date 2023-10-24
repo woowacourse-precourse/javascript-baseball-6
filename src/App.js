@@ -1,4 +1,4 @@
-import { printMessage, readLineAsync, isValidAnswerInput, isValidRetryInput } from './utils';
+import { printMessage, readLineAsync, isValidAnswerInput, getValidRetryInput } from './utils';
 import { MESSAGE, SCORE, SETTING, GAME_STATUS } from './constants';
 import { Game } from './Game';
 
@@ -22,17 +22,16 @@ class App {
       while (this.game.status === GAME_STATUS.START) {
         const input = await readLineAsync(INPUT_NUMBER);
         isValidAnswerInput(input);
-        const num = input.split('').map(Number);
         
-        const score = this.game.compareScore(num);
+        const score = this.game.compareScore(input);
         const scoreMessage = this.game.getScoreMessage(score);
         printMessage(scoreMessage);
 
         if (score.get(STRIKE) === SIZE) {
           printMessage(CORRECT);
           const input = await readLineAsync(RETRY);
-          isValidRetryInput(input);
-          this.retry(input);
+          const num = getValidRetryInput(input);
+          this.retry(num);
         }
       }
     } catch (error) {
@@ -56,11 +55,10 @@ class App {
    * - RESTART_NUMBER: 게임 재시작
    * - EXIT_NUMBER: 게임 종료
    */
-  retry(input) {
-    input = Number(input);
-    if (input === RESTART_NUMBER) {
+  retry(num) {
+    if (num === RESTART_NUMBER) {
       this.start();
-    } else if (input === EXIT_NUMBER) {
+    } else if (num === EXIT_NUMBER) {
       this.end();
     }
   }
