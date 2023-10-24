@@ -18,7 +18,6 @@ class BaseBallController {
     }
   }
 
-  // TODO : no-await-in-loop 정리
   // prettier-ignore
   /**
    * @param {number} gameNumbers
