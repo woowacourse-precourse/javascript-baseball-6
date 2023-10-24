@@ -54,40 +54,6 @@ class App {
       }
     }
   }
-
-  calculateScore(computerNum, inputNum) {
-    let ball = 0;
-    let strike = 0;
-
-    for (let i = 0; i < computerNum.length; i++) {
-      if (computerNum[i] === inputNum[i]) {
-        strike++;
-      } else if (computerNum.includes(inputNum[i])) {
-        ball++;
-      }
-    }
-
-    return { ball, strike };
-  }
-
-  async getInputNum() {
-    return MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
-  }
-
-  generateRandomNumbers(count) {
-    const numbers = new Set();
-    while (numbers.size < count) {
-      numbers.add(MissionUtils.Random.pickNumberInRange(1, 9));
-    }
-    return [...numbers];
-  }
-
-  async shouldContinue() {
-    const choice = await MissionUtils.Console.readLineAsync(
-      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요: "
-    );
-    return choice === this.NEW_GAME;
-  }
 }
 
 const app = new App();
