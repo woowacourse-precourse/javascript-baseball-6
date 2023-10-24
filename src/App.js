@@ -1,5 +1,5 @@
-import { Console, Random } from "@woowacourse/mission-utils";
-import MESSAGE from "./MESSAGE.js";
+import { Console, Random } from '@woowacourse/mission-utils';
+import MESSAGE from './MESSAGE.js';
 
 class App {
   async play() {
@@ -82,7 +82,7 @@ const printResult = (ball, strike) => {
   if (!strike && !ball) {
     print(MESSAGE.NOTHING);
   } else {
-    let result = "";
+    let result = '';
     if (ball > 0) result += `${ball}${MESSAGE.BALL} `;
     if (strike > 0) result += `${strike}${MESSAGE.STRIKE}`;
     print(result);
@@ -101,9 +101,9 @@ const isCorrect = (strike) => {
 // 게임 재시작 or 종료 옵션 함수
 const askReplay = async () => {
   const endSelect = await input(MESSAGE.INPUT_NUMBER);
-  if (endSelect === "1") {
+  if (endSelect === '1') {
     return false;
-  } else if (endSelect === "2") {
+  } else if (endSelect === '2') {
     return true;
   } else {
     throw new Error(MESSAGE.END_SELECT_ERROR);
