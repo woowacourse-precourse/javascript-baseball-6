@@ -24,6 +24,19 @@ class App {
     if(isNaN(userInputNumber)) throw new Error('[ERROR] 숫자가 아닙니다.')
   }
 
+  compareNumber(computerNumber, userInput){
+    let strikeCount = 0;
+    let ballCount = 0;
+
+    for(let i = 0; i < 3; i++){
+      if(computerNumber[i] === userInput[i])
+      strikeCount++;
+      else if(computerNumber.includes(userInput[i]))
+        ballCount++;
+    }
+    return {strikeCount, strikeCount};
+  }
+
   async play() {}
 }
 
