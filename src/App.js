@@ -54,6 +54,25 @@ class App {
       }
     }
   }
+
+  calculateScore(computerNum, inputNum) {
+    let ball = 0;
+    let strike = 0;
+
+    for (let i = 0; i < computerNum.length; i++) {
+      if (computerNum[i] === inputNum[i]) {
+        strike++;
+      } else if (computerNum.includes(inputNum[i])) {
+        ball++;
+      }
+    }
+
+    return { ball, strike };
+  }
+
+  async getInputNum() {
+    return MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
+  }
 }
 
 const app = new App();
