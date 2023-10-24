@@ -2,6 +2,8 @@ import { Console, Random } from "@woowacourse/mission-utils";
 
 const CORRECT = "correct";
 const KEEP_GOING = "keepGoing";
+const RESTART = "restart";
+const END = "end";
 
 class App {
   #answerArray;
@@ -11,12 +13,39 @@ class App {
 
     this.#answerArray = createRandomAnswer();
 
-    const input = await Console.readLineAsync("숫자를 입력해 주세요: ");
-    inputValidation(input);
+    while (true) {
+      const input = await Console.readLineAsync("숫자를 입력해 주세요: ");
+      inputValidation(input);
 
-    const { ball, strike } = getBallStrikeCount(input, this.#answerArray);
+      const { ball, strike } = getBallStrikeCount(input, this.#answerArray);
 
-    const result = printGameResult(ball, strike);
+      const result = printGameResult(ball, strike);
+
+      if (result === CORRECT) {
+        const restartOrExit = await this.askRestartOrExit();
+
+        if (restartOrExit === RESTART) {
+          await this.play();
+          break;
+        }
+        if (restartOrExit === END) {
+          break;
+        }
+      }
+    }
+  }
+
+  async askRestartOrExit() {
+    const restartGameNumber = await Console.readLineAsync(
+      `게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n`
+    );
+
+    if (Number(restartGameNumber) === 1) {
+      return RESTART;
+    }
+    if (Number(restartGameNumber) === 2) {
+      return END;
+    }
   }
 }
 
