@@ -25,16 +25,15 @@ class App {
 
           if (Validator.validatePlayerChoice(choice)) throw new Error('1 또는 2가 입력되지 않았습니다.');
           this.player.setChoice(choice);
+          const playerWantRestart = this.player.choice === '1';
 
-          if (this.player.choice === '1') {
+          if (playerWantRestart) {
             this.computer.generateThreeDigits();
             continue;
           }
 
-          if (this.player.choice === '2') {
-            this.isPlaying = false;
-            MissionUtils.Console.print('게임 종료');
-          }
+          this.isPlaying = false;
+          MissionUtils.Console.print('게임 종료');
         }
       }
     } catch (e) {
