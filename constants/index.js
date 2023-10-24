@@ -2,7 +2,7 @@ const GUIDE_MESSAGES = Object.freeze({
   START: '숫자 야구 게임을 시작합니다.',
   INPUT: '숫자를 입력해주세요 : ',
   PLAYER_WIN: '3개의 숫자를 모두 맞히셨습니다! 게임 종료',
-  PLAY_AGAIN: `게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n`,
+  RESTART_GAME: `게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n`,
 });
 
 const ERROR_MESSAGES = Object.freeze({
@@ -11,7 +11,7 @@ const ERROR_MESSAGES = Object.freeze({
 });
 
 const PATTERN = Object.freeze({
-  THREE_DIGIT_PATTERN: new RegExp(/^([1-9])(?!.*\1)([1-9])(?!.*\1|\2)([1-9])$/),
+  THREE_DIGIT_REGEX: new RegExp(/^([1-9])(?!.*\1)([1-9])(?!.*\1|\2)([1-9])$/),
 });
 
 const BALL_COUNTS = Object.freeze({
@@ -20,8 +20,8 @@ const BALL_COUNTS = Object.freeze({
   NOTHING: '낫싱',
 });
 
-const PLAY_AGAIN_NUMBERS = Object.freeze({
-  AGAIN: '1', // 게임을 다시 시작하기 위한 입력값
+const RESTART_GAME_NUMBERS = Object.freeze({
+  RESTART: '1', // 게임을 다시 시작하기 위한 입력값
   END: '2', // 게임을 종료하기 위한 입력값
 });
 
@@ -36,6 +36,6 @@ export {
   ERROR_MESSAGES,
   PATTERN,
   BALL_COUNTS,
-  PLAY_AGAIN_NUMBERS,
+  RESTART_GAME_NUMBERS,
   SETTINGS,
 };
