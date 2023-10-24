@@ -21,5 +21,6 @@ module.exports = {
     'no-plusplus': 0,
     'jsdoc/require-param-description': 'off',
     'jsdoc/require-returns-description': 'off',
+    'no-process-exit': 'error',
   },
 };
