@@ -4,7 +4,7 @@ class App {
 
   randomNumber = [];
   userBaseballNumber = [];
-  MatchingNumbers;
+  matchingNumbers;
   strike = 0;
   balls;
 
@@ -34,10 +34,6 @@ class App {
       throw new Error('[ERROR] 입력값은 숫자가 아닙니다.');
     }
 
-    if (typeof userInput === "undefined") {
-      throw new Error('[ERROR] 숫자를 입력해주세요.');
-    }
-
     if (userInput.length === 0) {
       throw new Error('[ERROR] 빈칸을 입력하셨습니다.');
     }
@@ -62,7 +58,7 @@ class App {
   }
 
   countMatchingNumbers() {
-    this.MatchingNumbers = this.randomNumber.filter((nums) => this.userBaseballNumber.includes(nums)).length;
+    this.matchingNumbers = this.randomNumber.filter((nums) => this.userBaseballNumber.includes(nums)).length;
   }
 
   countMatchingStrikes() {
@@ -73,11 +69,11 @@ class App {
   }
 
   countMatchingBalls() {
-    this.balls = this.MatchingNumbers - this.strike;
+    this.balls = this.matchingNumbers - this.strike;
   }
 
   printResult() {
-    if (this.MatchingNumbers === 0)
+    if (this.matchingNumbers === 0)
       Console.print('낫싱');
 
     if (this.balls > 0 && this.strike > 0)
