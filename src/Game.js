@@ -68,7 +68,7 @@ export class Game {
   async playBall() {
     this.welcome();
     this.targetArray = this.randomGenerator();
-    console.log(`target: ${this.targetArray}`);
+    // console.log(`target: ${this.targetArray}`);
     await this.getUserInput();
   }
 }
