@@ -9,16 +9,18 @@ class App {
 
 	generateRandomNumber() {
 		this.#computerAnswer = [];
+
 		while (this.#computerAnswer.length < 3) {
 			const generatedNumber = Random.pickNumberInRange(1, 9);
+
 			if (!this.#computerAnswer.includes(generatedNumber))
 				this.#computerAnswer.push(generatedNumber);
 		}
 	}
 
 	#compareUserAndComputer(inputVal) {
-		let strike = 0,
-			ball = 0;
+		let strike = 0;
+		let ball = 0;
 		const inputDigits = Array.from(inputVal, Number);
 
 		for (let index = 0; index < 3; index++) {
@@ -37,13 +39,16 @@ class App {
 
 		const gameRestart = await this.#userInput.gameEndInput();
 		if (gameRestart === '1') return this.play();
+
 		return;
 	}
 
 	async #playGame() {
 		try {
 			const inputVal = await this.#userInput.baseballInput();
+
 			if (this.#compareUserAndComputer(inputVal) === 3) return this.#gameEnd();
+
 			return this.#playGame();
 		} catch (error) {
 			throw new Error(error);

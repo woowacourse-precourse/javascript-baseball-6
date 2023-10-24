@@ -2,14 +2,15 @@ import { Console } from '@woowacourse/mission-utils';
 
 class UserInput {
 	checkBaseballInputIsValid(userInput) {
+		const userInputNumber = Number(userInput);
+		const userInputSet = new Set(userInput.split(''));
+
 		if (userInput.length !== 3) throw new Error('[ERROR] 세 자리 수를 입력해주세요.');
 
 		if (userInput.includes('0')) throw new Error('[ERROR] 범위 내 숫자를 입력해주세요');
 
-		const userInputNumber = Number(userInput);
 		if (isNaN(userInputNumber)) throw new Error('[ERROR] 숫자를 입력해주세요.');
 
-		const userInputSet = new Set(userInput.split(''));
 		if (userInput.length !== userInputSet.size)
 			throw new Error('[ERROR] 서로 다른 숫자를 입력해주세요');
 	}
@@ -22,6 +23,7 @@ class UserInput {
 		try {
 			const userInput = await Console.readLineAsync(question);
 			this.checkBaseballInputIsValid(userInput);
+
 			return userInput;
 		} catch (err) {
 			throw new Error(err);
@@ -32,6 +34,7 @@ class UserInput {
 		try {
 			const userInput = await Console.readLineAsync(question);
 			this.checkGameEndInputIsValid(userInput);
+
 			return userInput;
 		} catch (err) {
 			throw new Error(err);
