@@ -1,3 +1,5 @@
+import { HINT_MESSAGE } from './constants.js';
+
 const convertStringToArray = (string) => string.split('');
 
 const countStrike = (computerNumber, userNumber) => {
@@ -28,17 +30,15 @@ const convertNumberToString = (strikeNumber, ballNumber) => {
   let hintMessage = '';
 
   if (ballNumber > 0) {
-    hintMessage += `${ballNumber}볼 `;
+    hintMessage += `${ballNumber}${HINT_MESSAGE.BALL} `;
   }
 
-  // TODO: 볼과 사이에 공백 추가
-  // hintMessage length가 0이 아니면 (볼이 이미 들어가 있으면) 공백을 추가
   if (strikeNumber > 0) {
-    hintMessage += `${strikeNumber}스트라이크`;
+    hintMessage += `${strikeNumber}${HINT_MESSAGE.STRIKE}`;
   }
 
   if (hintMessage.length === 0) {
-    hintMessage += '낫싱';
+    hintMessage += HINT_MESSAGE.NOTING;
   }
 
   return hintMessage;

@@ -2,6 +2,7 @@ import { Console } from '@woowacourse/mission-utils';
 import Computer from './Computer.js';
 import { checkValidNumberDuringGame } from './validation.js';
 import { getHintToUser } from './hint.js';
+import { LOG_MESSAGE, HINT_MESSAGE, GAME_SELECT, ERROR_MESSAGE } from './constants.js';
 
 class BaseballGame {
   constructor() {
@@ -13,26 +14,26 @@ class BaseballGame {
   }
 
   async getUserInput() {
-    const input = await Console.readLineAsync('숫자를 입력해주세요 : ');
+    const input = await Console.readLineAsync(LOG_MESSAGE.INPUT_NUMNER);
     this.handleUserInputDuringGame(input);
   }
 
   async recommendRestart() {
-    await Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+    await Console.print(LOG_MESSAGE.CORRECT_END);
 
-    const input = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
+    const input = await Console.readLineAsync(`${LOG_MESSAGE.RESTART_INPUT}\n`);
     this.handleUserInputEndGame(input);
   }
 
   handleUserInputDuringGame(input) {
     if (!checkValidNumberDuringGame(input)) {
-      throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+      throw new Error(ERROR_MESSAGE.INCORRECT_VALUE);
     }
 
     const hintMessage = getHintToUser(this.computer.computerNumber, input);
     Console.print(hintMessage);
 
-    if (hintMessage === '3스트라이크') {
+    if (hintMessage === HINT_MESSAGE.ALL_STRIKE) {
       this.recommendRestart();
       return;
     }
@@ -40,19 +41,19 @@ class BaseballGame {
   }
 
   async handleUserInputEndGame(input) {
-    const checkValidNumberEndGame = ['1', '2'];
+    const checkValidNumberEndGame = [GAME_SELECT.RESTART, GAME_SELECT.END];
 
     if (!checkValidNumberEndGame.includes(input)) {
-      throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+      throw new Error(ERROR_MESSAGE.INCORRECT_VALUE);
     }
     // TODO: 주석 삭제 필요
     // eslint-disable-next-line default-case
     switch (input) {
-      case '1':
+      case GAME_SELECT.RESTART:
         this.restartGame();
         break;
-      case '2':
-        Console.print('게임 종료');
+      case GAME_SELECT.END:
+        Console.print(LOG_MESSAGE.END_GAME);
         break;
     }
   }
