@@ -2,16 +2,16 @@ import { MissionUtils, Console } from "@woowacourse/mission-utils";
 
 class App {
   async play() {
+    // 1-1. 게임 시작 문구 출력
+    Console.print("숫자 야구 게임을 시작합니다.");
     const computer = gameStart();
-    gameProgress(computer);
+    await gameProgress(computer);
+    gameEnd();
   }
 }
 
 // 1. 게임 시작
 const gameStart = () => {
-  // 1-1. 게임 시작 문구 출력
-  Console.print("숫자 야구 게임을 시작합니다.");
-
   // 1-2. 컴퓨터의 랜덤값 생성
   const computer = [];
   while (computer.length < 3) {
@@ -60,7 +60,24 @@ const gameProgress = async (computer) => {
       }
     }
     Console.print(hint.trim());
-    gameProgress(computer);
+    await gameProgress(computer);
+  }
+};
+
+// 3. 게임 종료
+const gameEnd = async () => {
+  // 3-1. 게임 종료 문구 출력
+  Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+  // 3-2. 게임 재시작 여부 입력값 받기
+  const input = await Console.readLineAsync(
+    "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+  );
+  if (input === "1") {
+    const computer = gameStart();
+    await gameProgress(computer);
+    gameEnd();
+  } else if (input === "2") {
+    return;
   }
 };
 
@@ -75,7 +92,6 @@ const inputValidation = (user) => {
   // 숫자
   for (let i of user) {
     if (!answer.includes(i)) {
-      console.log("i: ", i);
       throw new Error("[ERROR] 1 ~ 9 사이의 숫자만 입력해 주세요.");
     }
   }
