@@ -1,22 +1,5 @@
 import { Console, Random } from "@woowacourse/mission-utils";
-// import { CONSTANTS } from "./constants/constants";
-
-const CONSTANTS = {
-  MESSAGES: {
-    START: "⚾️ 숫자 야구 게임을 시작합니다.",
-    INPUT: "숫자를 입력해주세요 : ",
-    END: "3개의 숫자를 모두 맞히셨습니다! 게임 종료",
-    RESTART: "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.",
-    EXIT: "게임을 종료합니다.",
-  },
-  ERROR: {
-    TYPE_VALID: "[ERROR] 숫자를 입력해주세요.",
-    LENGTH_VALID: "[ERROR] 숫자 3자리를 입력해주세요.",
-    ZERO_VALID: "[ERROR] 0을 제외한 1~9까지의 숫자를 입력해주세요.",
-    DUPLICATE_VALID: "[ERROR] 중복되지 않은 숫자를 입력해주세요.",
-    RESTART_VALID: "[ERROR] 1 또는 2를 입력해주세요.",
-  },
-};
+import { CONSTANTS } from "./constants/constants";
 
 class App {
   constructor() {
@@ -65,7 +48,10 @@ class App {
         throw new Error(CONSTANTS.ERROR.ZERO_VALID);
       }
     });
-    // (4) 중복된 값이라면 -> ✅ 보류
+    // (4) 중복된 값이 있다면 -> ✅ 보류
+    if (new Set(this.userNum).size !== 3) {
+      throw new Error(CONSTANTS.ERROR.DUPLICATE_VALID);
+    }
   }
   // 5️⃣ 입력값을 컴퓨터 값과 비교해 결과 출력하는 메인 기능
   async playBaseballGame() {
@@ -120,7 +106,7 @@ class App {
       Console.print(CONSTANTS.MESSAGES.EXIT);
       return false;
     } else if (input !== 1 && input !== 2) {
-      Console(CONSTANTS.ERROR.RESTART_VALID);
+      Console.print(CONSTANTS.ERROR.RESTART_VALID);
     }
   }
 
