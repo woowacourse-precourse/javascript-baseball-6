@@ -8,7 +8,7 @@ class InputValid {
   }
 
   static validateLength(input) {
-    if (!input || typeof input !== 'string' || input.length !== 3) {
+    if (!input || typeof input !== 'string' || input.length !== 3) { 
       throw new Error(`${ERROR_MESSAGE.invalidLength}`);
     }
   }
