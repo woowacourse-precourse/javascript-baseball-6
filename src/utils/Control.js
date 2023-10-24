@@ -1,6 +1,9 @@
-import { Console } from "@woowacourse/mission-utils";
-import Computer from "./Computer";
-import { GuideText, SIZE } from "../constant";
+import { Console } from '@woowacourse/mission-utils';
+import Computer from './Computer';
+import {
+  GuideText,
+  SIZE
+} from '../constant';
 
 export default class Control {
   constructor(app) {
@@ -18,34 +21,36 @@ export default class Control {
 
   compareComputerAndUser(userInput) {
     const COMPUTER = this.app.computerNumber;
-    const USER_ARR = String(userInput).split("");
-    const COM_ARR = String(COMPUTER).split("");
+    const USER_ARR = String(userInput).split('');
+    const COM_ARR = String(COMPUTER).split('');
     const STRIKE = USER_ARR.filter((s, i) => s === COM_ARR[i]).length;
     const BALL = COM_ARR.filter(
       (b, i) => b !== USER_ARR[i] && USER_ARR.includes(b)
     ).length;
-    return this.getResultMessage(STRIKE, BALL)
+    return this.getResultMessage(STRIKE, BALL);
   }
 
   getResultMessage(STRIKE, BALL) {
     if (STRIKE === SIZE) {
-      Console.print("3스트라이크");
+      Console.print('3스트라이크');
       Console.print(GuideText.CORRECT_ANSWER);
       return true;
     }
 
     if (STRIKE === 0 && BALL === 0) {
-      Console.print("낫싱");
+      Console.print('낫싱');
     } else {
-      let message = "";
+      let message = '';
 
       if (BALL > 0) {
         message += `${BALL}볼`;
       }
+
       if (STRIKE > 0) {
-        if (message) message += " ";
+        if (message) message += ' ';
         message += `${STRIKE}스트라이크`;
       }
+      
       Console.print(message);
     }
     return false;

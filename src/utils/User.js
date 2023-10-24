@@ -1,8 +1,8 @@
-import { Console } from "@woowacourse/mission-utils";
+import { Console } from '@woowacourse/mission-utils';
 import {
   ErrorMessage,
   GuideText,
-  SIZE } from "../constant";
+  SIZE } from '../constant';
 
 export default class User {
   async getUserChoice() {

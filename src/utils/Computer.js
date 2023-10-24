@@ -7,6 +7,7 @@ export default class Computer {
 
     while (three_numbers.length < SIZE) {
       const RANDOM_NUMBER = Random.pickNumberInRange(1, 9);
+      
       if (!three_numbers.includes(String(RANDOM_NUMBER))) {
         three_numbers += String(RANDOM_NUMBER);
       }
