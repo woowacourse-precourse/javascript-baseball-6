@@ -35,11 +35,17 @@ async function getUserInput(message) {
 }
 
 function checkError(number) {
-  if (number.length === 3 && !isNaN(number)) {
-    return true;
+  if (number.length !== 3 || isNaN(number)) {
+    return false;
+  }
+  let set = new Set([...number]);
+  //console.log(set.size);
+
+  if (set.size !== 3) {
+    return false;
   }
 
-  return false;
+  return true;
 }
 function checkedError(number) {
   if (number === "1" || number === "2") {
