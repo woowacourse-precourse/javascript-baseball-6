@@ -11,8 +11,8 @@ class App {
     await this.setComputer();
   }
 
-   // 컴퓨터 숫자 생성
-   async setComputer(){
+  // 컴퓨터 숫자 생성
+  async setComputer(){
     const NUMBERS = [];
     
     while(NUMBERS.length < 3){
@@ -24,6 +24,22 @@ class App {
 
     this.#computer = NUMBERS;
   }
+
+  // 사용자와 컴퓨터의 값 비교
+  async compareAnswer(){
+    const USER_ANSWER = await this.userAnswer();
+    let strike = 0
+    let ball = 0
+
+    USER_ANSWER.split('').map((num, i) => {
+      if(num === this.#computer[i]){
+        strike++
+      }else if(this.#computer.includes(num)){
+        ball++
+      }
+    })
+       
+    }
 
     // 사용자 입력값 받기
     async userAnswer(){
