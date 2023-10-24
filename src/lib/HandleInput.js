@@ -1,5 +1,5 @@
 const { Console } = require("@woowacourse/mission-utils");
-const { COMMAND_HASH, ERROR_MESSAGE, INPUT_MESSAGE, VALIDATION_RULE } = require("../Constants");
+const { COMMAND_HASH, ERROR_MESSAGE, INPUT_MESSAGE, VALIDATION_RULE } = require("./Constants");
 
 const handleGuessInput = async function () {
     let response;
