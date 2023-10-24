@@ -19,6 +19,10 @@ class BaseballModel {
       }
     }
   }
+  resetBaseballData() {
+    this.generateRandomNumber();
+    this.setUserInput('');
+  }
   getStrike() {
     return this.userInput.filter(
       (number, idx) => +number === this.targetNumber[idx]

@@ -12,7 +12,7 @@ class BaseballController {
     let gamePlayCheck = true;
 
     this.view.startGame();
-    this.resetBaseballData();
+    this.model.resetBaseballData();
 
     while (gamePlayCheck) {
       while (true) {
@@ -31,7 +31,7 @@ class BaseballController {
         if (strike === this.model.count) {
           const NUMBER = await this.view.gameClear();
           if (NUMBER === CONTINUE_GAME) {
-            this.resetBaseballData();
+            this.model.resetBaseballData();
             break;
           } else if (NUMBER === EXIT_GAME) {
             gamePlayCheck = false;
@@ -66,10 +66,6 @@ class BaseballController {
     } else {
       return true;
     }
-  }
-  resetBaseballData() {
-    this.model.generateRandomNumber();
-    this.model.setUserInput('');
   }
 }
 
