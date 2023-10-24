@@ -1,0 +1,20 @@
+const NUMBER_ONE = 1;
+const NUMBER_TWO = 2;
+const NUMBER_THREE = 3;
+const NUMBER_ZERO = 0;
+
+const STRING_ONE = "1";
+const STRING_TWO = "2";
+const STRING_THREE = "3";
+const STRING_ZERO = "0";
+
+export {
+  NUMBER_ONE,
+  NUMBER_TWO,
+  NUMBER_THREE,
+  NUMBER_ZERO,
+  STRING_ONE,
+  STRING_TWO,
+  STRING_THREE,
+  STRING_ZERO,
+};
