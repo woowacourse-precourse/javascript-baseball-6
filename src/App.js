@@ -2,6 +2,9 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
   async play() {
+    // '숫자 야구 게임을 시작합니다'를 출력한다.
+    MissionUtils.Console.print("숫자 야구 게임을 시작합니다");
+
     const computer = this.generateComputer();
   }
 
