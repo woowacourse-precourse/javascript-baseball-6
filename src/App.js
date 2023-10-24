@@ -1,9 +1,8 @@
 import { Console } from "@woowacourse/mission-utils";
 import Player from "./model/Player.js";
 import Computer from "./model/Computer.js";
-import { playerInput } from "./view/inputView.js";
+import { playerInput, restartInput, printResult, printStart, printEnd } from "./view/View.js";
 import { GAME_NUMBER, GAME_END } from "./constants/gameConfig.js";
-import { MESSAGE_INFO, MESSAGE_STATE } from "./constants/Message.js";
 
 export class App {
   #player;
@@ -12,6 +11,7 @@ export class App {
   constructor() {
     this.#player = new Player();
     this.#computer = new Computer();
+    printStart();
   }
 
   async play() {
@@ -19,8 +19,6 @@ export class App {
   }
 
   async init() {
-    Console.print(MESSAGE_INFO.gameStart);
-
     try {
       const getPlayerInput = await playerInput();
       this.#player.setPlayerNumber(getPlayerInput);
@@ -34,12 +32,25 @@ export class App {
   compare() {
     const result = this.output();
 
-    console.log("result: ", result);
-
+    printResult(result);
     if (result.strike === GAME_NUMBER.three) {
-      Console.print(MESSAGE_INFO.gameEnd);
-      Console.print(MESSAGE_INFO.gameRestart);
-      return;
+      printEnd();
+      return this.restart();
+    }
+
+    return this.init();
+  }
+
+  async restart() {
+    try {
+      const getRestartInput = await restartInput();
+      if (getRestartInput === GAME_END.restart) {
+        this.#computer.createRandomNumber();
+        this.#player.setPlayerNumber("");
+        return this.play();
+      }
+    } catch (error) {
+      Console.print("에러:", error);
     }
   }
 
