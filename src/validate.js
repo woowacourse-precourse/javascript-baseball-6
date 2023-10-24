@@ -1,4 +1,4 @@
-import { GAME } from './constants';
+import { ERROR, GAME } from './constants';
 
 const Validate = {
   inputProperNumbers(numbers) {
@@ -8,26 +8,24 @@ const Validate = {
   },
 
   inputTrebleFigures(numbers) {
-    if (numbers.length !== 3) throw new Error('[ERROR] 세자리 수가 아닙니다.');
+    if (numbers.length !== 3) throw new Error(ERROR.TREBLE_FIGURES);
   },
 
   inputDifferent(numbers) {
     const numsArr = numbers.split('');
     const set = new Set([...numsArr]);
 
-    if (numsArr.length !== set.size) throw new Error('[ERROR] 중복되는 숫자가 있으면 안됩니다.');
+    if (numsArr.length !== set.size) throw new Error(ERROR.DIFFERENT_NUMBER);
   },
 
   inputTypeofNumber(numbers) {
-    if (!Number(numbers)) throw new Error('[ERROR] 숫자를 입력하셔야 합니다.');
+    if (!Number(numbers)) throw new Error(ERROR.TYPE_NUMBER);
   },
 
   inputProperRegameNumber(number) {
-    if (![GAME.REPLAY, GAME.END].includes(number))
-      throw new Error(
-        `[ERROR] 재시작하려면 ${GAME.REPLAY}, 종료하려면 ${GAME.END}를 입력하셔야 합니다.`,
-      );
+    if (![GAME.REPLAY_NUMBER, GAME.END_NUMBER].includes(number))
+      throw new Error(ERROR.REGAME_NUMBER);
   },
 };
 
-export default Validate;
+export default Object.freeze(Validate);

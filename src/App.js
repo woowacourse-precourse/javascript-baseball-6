@@ -18,7 +18,7 @@ class App {
 
     const playerAnswer = await this.mc.askRegame();
     this.mc.validateRegameNumber(playerAnswer);
-    playerAnswer === GAME.REPLAY ? this.replay() : this.gameover();
+    playerAnswer === GAME.REPLAY_NUMBER ? this.replay() : this.gameover();
   }
 
   async repeatQnA() {
