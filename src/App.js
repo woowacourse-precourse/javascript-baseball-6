@@ -15,14 +15,13 @@ class App {
   }
   //스트라이크 볼 개수 결과 출력
   showResults(strikeNumbers, ballNumbers) {
-    if (strikeNumbers === 0 && ballNumbers !== 0) {
+    if (strikeNumbers === 0 && ballNumbers === 0) {
       MissionUtils.Console.print("낫싱");
-    } else if (strikeNumbers === 0) {
-      MissionUtils.Console.print(`${ballNumbers}볼`);
-    } else if (ballNumbers === 0) {
-      MissionUtils.Console.print(`${strikeNumbers}스트라이크`);
+    } else {
+      MissionUtils.Console.print(
+        `${ballNumbers || ""}볼 ${strikeNumbers || ""}스트라이크`
+      );
     }
-    MissionUtils.Console.print(`${ballNumbers}볼 ${strikeNumbers}스트라이크`);
   }
   //유저의 숫자와 컴퓨터의 숫자 비교
   compareNumbers(guessNumber) {
@@ -67,6 +66,7 @@ class App {
       this.gameExiter();
       return;
     }
+    await this.askNumber();
   }
   //게임 시작할시 필요한 메소드들
   async startGame() {
@@ -93,5 +93,7 @@ class App {
     await this.startGame();
   }
 }
+const app = new App();
+app.play();
 
 export default App;
