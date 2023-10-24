@@ -22,6 +22,20 @@ class App {
     }
     this.computerNumber = [...computer];
   }
+  async userInput() {
+    try {
+      const userInput = await Console.readLineAsync("숫자를 입력해주세요 : ");
+      if (userInput.length !== 3) {
+        throw new Error(
+          `[ERROR] 사용자의 입력값이 ${userInput.length}개 입니다. 올바른 입력값은 3개 입니다.`
+        );
+      }
+      this.userNumber = [...userInput].map((e) => +e);
+    } catch (e) {
+      throw new Error("[ERROR]" + e.message);
+    }
+  }
+
   ment(strike, ball) {
     if (strike + ball === 0) {
       return Console.print("낫싱");
