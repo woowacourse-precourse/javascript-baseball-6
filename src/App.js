@@ -1,5 +1,6 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import CreateRandomNumber from './RandomNumber/CreateRandomNumber.js';
+import ValidateExceptions from './Validate/ValidateExceptions';
 
 class App {
   async play() {
@@ -11,7 +12,7 @@ class App {
       );
       const COMPUTER_NUMBER = CreateRandomNumber();
 
-      CheckExceptions(USER_NUMBER.split(''));
+      ValidateExceptions(USER_NUMBER.split(''));
     } catch (error) {
       throw new Error(error);
     }
