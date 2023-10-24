@@ -87,14 +87,18 @@ class App {
         // } else if (this.isDup(answer)) {
         //   throw new Error("[ERROR]");
         // }
+        const numCheck = /\d{3}/; // 추가 -숫자가 아닌 문자 입력 막기
         try {
           if (answer.length < 3 || answer.length > 3) {
             throw new Error("[ERROR]");
           } else if (this.isDup(answer)) {
             throw new Error("[ERROR]");
+          } else if (!numCheck.test(answer)) {
+            // 추가 -숫자가 아닌 문자 입력 막기
+            throw new Error("[ERROR]");
           }
         } catch (err) {
-          MissionUtils.Console.print(`${err} 숫자가 잘못된 형식입니다.`);
+          MissionUtils.Console.print(`[ERROR] 숫자가 잘못된 형식입니다.`);
           break outer;
         }
 
@@ -138,7 +142,7 @@ class App {
           throw new Error("[ERROR]");
         }
       } catch (err) {
-        MissionUtils.Console.print(`${err} 숫자가 잘못된 형식입니다.`);
+        MissionUtils.Console.print(`[ERROR] 숫자가 잘못된 형식입니다.`);
         break outer;
       }
       // 6. 1을 입력했으면 처음부터 다시 시작, 2를 입력했으면 프로그램 종료
