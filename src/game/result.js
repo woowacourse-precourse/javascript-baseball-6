@@ -3,9 +3,13 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 import playGame from "../game/playGame.js";
 import inputUserNumber from "../data/inputUserNumber.js";
 
-export default async function gameResult(userNumber, computerNumber){
+export default function gameResult(userNumber, computerNumber){
     const strike = strikeCount(userNumber, computerNumber);
     const ball = ballCount(userNumber, computerNumber)-strike;
+    compareNumber(strike, ball, userNumber, computerNumber);
+}
+
+async function compareNumber(strike, ball, userNumber, computerNumber){
 
     if(strike === 3 && ball === 0){
         MissionUtils.Console.print(`${strike}스트라이크`);
@@ -24,7 +28,8 @@ export default async function gameResult(userNumber, computerNumber){
     }
     
     const newUserNumber = await inputUserNumber();
-    return gameResult(newUserNumber, computerNumber);
+
+    return gameResult(newUserNumber, computerNumber);    
 }
 
 const strikeCount = (userNumber, computerNumber) => {
