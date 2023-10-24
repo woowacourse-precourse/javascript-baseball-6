@@ -44,7 +44,7 @@ class App {
   async gameClear() {
     const isRestart = await this.view.getUserRestartInput();
     if (isRestart === "1") this.gameStart();
-    else if (isRestart !== "2") this.gameClear();
+    else if (isRestart !== "2") throw new Error("숫자가 잘못된 형식입니다.");
   }
 }
 
