@@ -1,3 +1,5 @@
+import { GUIDE_MESSAGES } from './constants.js';
+import { Console } from '@woowacourse/mission-utils';
 import BaseballGame from './baseballGame.js';
 class App {
   constructor() {

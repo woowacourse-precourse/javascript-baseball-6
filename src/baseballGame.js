@@ -1,5 +1,6 @@
 import { GUIDE_MESSAGES } from './constants.js';
 import { Console } from '@woowacourse/mission-utils';
+import { isValidUserNumber } from './validation.js';
 
 class BaseballGame {
   constructor() {
@@ -13,14 +14,13 @@ class BaseballGame {
   }
 
   async showGameStartMessage() {
-    Console.print(GUIDE_MESSAGES.GAME_START_MESSAGE);
+    Console.print(GUIDE_MESSAGES.GAME_START);
   }
 
   async getUserNumber() {
-    this.userNumber = await Console.readLineAsync(GUIDE_MESSAGES.ENTER_USER_NUMBER_MESSAGE);
+    const userInput = await Console.readLineAsync(GUIDE_MESSAGES.ENTER_USER_NUMBER);
+    this.userNumber = isValidUserNumber(userInput) && +userInput;
   }
-
-  async;
 }
 
 export default BaseballGame;
