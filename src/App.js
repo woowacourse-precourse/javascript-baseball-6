@@ -4,7 +4,7 @@ class App {
   }
   async play() {
     while (this.isRunning) {
-      const start = setAnswer();
+      const start = makeAnswer();
       MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
     
       let result;
@@ -16,7 +16,7 @@ class App {
     }
   }
 
-  setAnswer() {
+  makeAnswer() {
     const computer = [];
     while (computer.length < 3) {
       const randomNum = MissionUtils.Random.pickNumberInRange(1, 9);
