@@ -2,6 +2,9 @@ import * as MissionUtils from '@woowacourse/mission-utils';
 const { Console, Random } = MissionUtils;
 
 class App {
+
+  #computer
+
   async play() {
     Console.print("숫자 야구 게임을 시작합니다.");
     this.gameStart();
@@ -9,6 +12,7 @@ class App {
 
   async gameStart(){
     await this.setComputer();
+    await this.compareAnswer();
   }
 
   // 컴퓨터 숫자 생성
