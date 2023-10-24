@@ -19,7 +19,7 @@ class App {
           new Set(input).size !== 3 ||
           [...input].some((item) => Number(item) < 1 || Number(item) > 9)
         ) {
-          throw new Error("제시된 조건을 확인해주세요(1~9까지의 서로 다른 3자리의 수)")
+          throw new Error("제시된 조건을 확인해주세요(1~9까지의 서로 다른 3자리의 수)");
         }
       }
     }
