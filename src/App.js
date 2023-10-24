@@ -6,14 +6,15 @@ import { checkingScore, playGame } from "./calculator/Score.js";
 class App {
     async play() {
       const answer = computerRandom();
-      const arrayOfInput = this.makeUserInput()
+      const arrayOfInput = await this.makeUserInput()
       const {strike,ball} = checkingScore(answer, arrayOfInput)
       playGame(strike,ball)
+
 
     }
 
     async makeUserInput() {
-      const inputNumber = await Console.readLineAsync('숫자를 입력해주세요 : ').then(
+      const inputNumber = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ').then(
         (value) => value
       )
       try {
@@ -21,7 +22,6 @@ class App {
       } catch(e) {
         throw e
       } 
-
       const arrayOfInput = Array.from(String(inputNumber),Number);
       return arrayOfInput;
     } 
