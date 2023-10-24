@@ -40,23 +40,6 @@ class App {
     }
   }
 
-  async getUserNumber() {
-    const userNumber = await Console.readLineAsync('숫자를 입력해주세요 : ');
-    if (!this.isValidNumber(userNumber)) {
-      throw new Error(this.ERROR_MESSAGE.INCORRECT_FORMAT_NUMBER);
-    }
-    return userNumber;
-  }
-
-  async restartGame() {
-    const gameController = await Console.readLineAsync(
-      '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.'
-    );
-    if (gameController === this.GAME_OPTIONS.RESTART_GAME) return true;
-    if (gameController === this.GAME_OPTIONS.END_GAME) return false;
-    throw new Error(this.ERROR_MESSAGE.INCORRECT_FORMAT_NUMBER);
-  }
-
   pickRandomNumber() {
     let randomNumber = '';
     while (randomNumber.length < 3) {
@@ -66,6 +49,14 @@ class App {
       }
     }
     return randomNumber;
+  }
+
+  async getUserNumber() {
+    const userNumber = await Console.readLineAsync('숫자를 입력해주세요 : ');
+    if (!this.isValidNumber(userNumber)) {
+      throw new Error(this.ERROR_MESSAGE.INCORRECT_FORMAT_NUMBER);
+    }
+    return userNumber;
   }
 
   isValidNumber(num) {
@@ -105,6 +96,15 @@ class App {
       gameResult += '낫싱';
     }
     return gameResult.trim();
+  }
+
+  async restartGame() {
+    const gameController = await Console.readLineAsync(
+      '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.'
+    );
+    if (gameController === this.GAME_OPTIONS.RESTART_GAME) return true;
+    if (gameController === this.GAME_OPTIONS.END_GAME) return false;
+    throw new Error(this.ERROR_MESSAGE.INCORRECT_FORMAT_NUMBER);
   }
 }
 
