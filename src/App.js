@@ -1,16 +1,17 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
+import { CONSOLE_MESSAGE, ERROR_MESSAGE, EXIT_COMMAND, NUMBER_LENGTH } from './Constants';
 
 class App {
   constructor() {
     this.computerNumber = [];
-    this.exitNumber = 1;
+    this.exitNumber = EXIT_COMMAND.RESTART;
   }
   //상대방 숫자 랜덤 생성
   generateRandomNumber() {
-    while (this.computerNumber.length < 3) {
-      const number = MissionUtils.Random.pickNumberInRange(1, 9);
-      if (!this.computerNumber.includes(number)) {
-        this.computerNumber.push(number);
+    while (this.computerNumber.length < NUMBER_LENGTH) {
+      const NUMBER = MissionUtils.Random.pickNumberInRange(1, 9);
+      if (!this.computerNumber.includes(NUMBER)) {
+        this.computerNumber.push(NUMBER);
       }
     }
   }
@@ -28,7 +29,7 @@ class App {
   compareNumbers(guessNumber) {
     let strikeNumbers = 0,
       ballNumbers = 0;
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < NUMBER_LENGTH; i++) {
       if (Number(guessNumber[i]) === this.computerNumber[i]) {
         strikeNumbers += 1;
       } else if (this.computerNumber.includes(Number(guessNumber[i]))) {
@@ -48,41 +49,41 @@ class App {
   //유저의 입력값 검증
   verityUserNumber(guessNumber) {
     if (
-      guessNumber.length !== 3 ||
+      guessNumber.length !== NUMBER_LENGTH ||
       !guessNumber ||
       isNaN(guessNumber) ||
       this.verifyDigit(guessNumber)
     ) {
-      throw new Error('[ERROR] 잘못된 유저 입력값입니다.');
+      throw new Error(ERROR_MESSAGE);
     }
   }
   // 유저가 게임을 시작할 것인지 여부를 물어보는 숫자 입력
   async askExitNumber() {
-    MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+    MissionUtils.Console.print(CONSOLE_MESSAGE.CORRECT);
     this.exitNumber = await MissionUtils.Console.readLineAsync(
-      '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'
+      CONSOLE_MESSAGE.IS_RESTART
     );
     this.gameExiter();
   }
   //유저의 입력값에 따라 재시작 or 종료
   async gameExiter() {
-    if (this.exitNumber === '1') {
+    if (this.exitNumber === EXIT_COMMAND.RESTART) {
       this.computerNumber.length = 0;
       this.startGame();
       return;
-    } else if (this.exitNumber === '2') {
-      MissionUtils.Console.print('게임을 종료합니다.');
+    } else if (this.exitNumber === EXIT_COMMAND.END) {
+      MissionUtils.Console.print(CONSOLE_MESSAGE.END);
       return;
     }
-    throw new Error('[ERROR] 잘못된 유저 입력값입니다.');
+    throw new Error(ERROR_MESSAGE);
   }
   //유저가 숫자 입력
   async askNumber() {
     const guessNumber = await MissionUtils.Console.readLineAsync(
-      '숫자를 입력해주세요 : '
+      CONSOLE_MESSAGE.INPUT_NUMBER
     );
     this.verityUserNumber(guessNumber);
-    if (this.compareNumbers(guessNumber) === 3) {
+    if (this.compareNumbers(guessNumber) === NUMBER_LENGTH) {
       this.askExitNumber();
       return;
     }
