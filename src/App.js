@@ -1,6 +1,6 @@
-import { MissionUtils } from '@woowacourse/mission-utils';
 import View from './View.js';
 import Validate from './Validate.js';
+import PickRandomNumbers from './PickRandomNumbers.js';
 
 class App {
   constructor() {
@@ -16,17 +16,6 @@ class App {
       this.view.infoPrint(error.message);
       throw error;
     }
-  }
-
-  computerPick() {
-    const computer = [];
-    while (computer.length < 3) {
-      const number = MissionUtils.Random.pickNumberInRange(1, 9);
-      if (!computer.includes(number)) {
-        computer.push(number);
-      }
-    }
-    return computer;
   }
 
   judge(computer, user) {
@@ -51,12 +40,12 @@ class App {
 
   async game() {
     let judgeResult = '';
-    const computerNumber = this.computerPick();
+    const computerNumbers = PickRandomNumbers();
     while (judgeResult !== '3스트라이크') {
       const userPickValue = await this.view.userInput('숫자를 입력해주세요 : ');
       this.validate.userPickNumbers(userPickValue);
-      const userNumber = userPickValue.split('').map((element) => +element);
-      judgeResult = this.judge(computerNumber, userNumber);
+      const userNumbers = userPickValue.split('').map((element) => +element);
+      judgeResult = this.judge(computerNumbers, userNumbers);
       this.view.infoPrint(judgeResult);
     }
     this.view.infoPrint('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
