@@ -1,5 +1,8 @@
-class App {
-  async play() {}
-}
+import BaseballDirector from './controller/BaseballDirector.js';
 
-export default App;
+export default class App {
+  play = async () => {
+    this.controller = new BaseballDirector();
+    await this.controller.play();
+  };
+}
