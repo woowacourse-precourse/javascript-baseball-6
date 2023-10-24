@@ -11,7 +11,7 @@
 - [x] 컴퓨터는 1에서 9까지 서로 다른 임의의 수 3개를 선택
 - [x] 컴퓨터가 선택한 3개의 숫자를 모두 맞히면 게임이 종료
 - [x] 종료한 후 게임을 다시 시작하거나 완전히 종료 가능
-- [ ] 사용자가 잘못된 값을 입력한 경우 throw문을 사용해 예외를 발생시킨후 애플리케이션은 종료
+- [x] 사용자가 잘못된 값을 입력한 경우 throw문을 사용해 예외를 발생시킨후 애플리케이션은 종료
 
 ## 입출력 요구 사항
 
@@ -79,7 +79,7 @@ app.play();
 ```
 
 - [x] `package.json`을 변경할 수 없고 외부 라이브러리(jQuery, Lodash 등)를 사용하지 않는다. 순수 Vanilla JS로만 구현한다.
-- [ ] [JavaScript 코드 컨벤션](https://github.com/woowacourse/woowacourse-docs/tree/main/styleguide/javascript)을 지키면서 프로그래밍 한다
+- [x] [JavaScript 코드 컨벤션](https://github.com/woowacourse/woowacourse-docs/tree/main/styleguide/javascript)을 지키면서 프로그래밍 한다
 - [x] 프로그램 종료 시 `process.exit()`를 호출하지 않는다.
 - [x] 프로그램 구현이 완료되면 `ApplicationTest`의 모든 테스트가 성공해야 한다. **테스트가 실패할 경우 0점 처리한다.**
 - [x] 프로그래밍 요구 사항에서 달리 명시하지 않는 한 파일, 패키지 이름을 수정하거나 이동하지 않는다.
