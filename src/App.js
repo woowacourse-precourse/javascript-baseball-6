@@ -39,7 +39,7 @@ class App {
 
       [ball, strike] = this.calculateBS(this.randNum, inputNum);
 
-      if(ball === 0 && strike === 0) {
+      if(ball == 0 && strike == 0) {
         this.printMsg(BASEBALL.NOTHING);
         continue;
       }
@@ -48,16 +48,16 @@ class App {
         this.printMsg(`${strike}${BASEBALL.STRIKE}`);
         this.printMsg(NORMAL_MSG.END);
         ONOFF = await Console.readLineAsync(NORMAL_MSG.SELECT);
-        if(ONOFF === 1) {
+        if(ONOFF == 1) {
           this.randNum = this.makeRandNum();
           continue;
         }
-        if(ONOFF === 2) return;
+        if(ONOFF == 2) return;
       }
 
-      if(ball === 0) this.printMsg(`${strike}${BASEBALL.STRIKE}`);
+      if(ball == 0) this.printMsg(`${strike}${BASEBALL.STRIKE}`);
 
-      if(strike === 0) this.printMsg(`${ball}${BASEBALL.BALL}`);
+      if(strike == 0) this.printMsg(`${ball}${BASEBALL.BALL}`);
 
       if(ball !== 0 && strike !== 0) this.printMsg(`${ball}${BASEBALL.BALL} ${strike}${BASEBALL.STRIKE}`);
 
@@ -77,7 +77,7 @@ class App {
     let ball = 0;
     let strike = 0;
     for(let i = 0; i < inputNum.length; i++){
-      if(inputNum[i] === ansNum[i]){
+      if(inputNum[i] == ansNum[i]){
         strike++;
         continue;
       }
