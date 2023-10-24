@@ -1,7 +1,7 @@
 import { Random, Console } from "@woowacourse/mission-utils";
 
 class App {
-
+  
   async play() {
     Console.print("숫자 야구 게임을 시작합니다.");
     const randomNumber = this.getRandomNumber(); // 랜덤 번호
@@ -31,7 +31,6 @@ class App {
     }
     return computer;
   }
-
   async getUserNumber() {
     try {
       const number = await Console.readLineAsync("숫자를 입력해주세요 : ");
@@ -55,7 +54,6 @@ class App {
       return;
     }
   }
-
   checkNumbers(computer, user) {
     let strike = 0;
     let ball = 0;
@@ -73,7 +71,9 @@ class App {
         ball ++
       }
     }
-    
+    return this.checkNumbersPrint(strike, ball)
+  }
+  checkNumbersPrint(strike, ball) {
     if (strike === 3) {
       return "3스트라이크"; 
     } else if (strike === 0 && ball === 0) {
@@ -81,9 +81,7 @@ class App {
     } else {
       return `${ball}볼 ${strike}스트라이크`; 
     }
-
   }
-
   async reStartOrExit() {
     const result = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
 
