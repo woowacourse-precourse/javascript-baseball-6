@@ -3,7 +3,7 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 class App {
   constructor() {
     this.computerNumbers = this.setComputerNumbers();
-    this.attempts = 0;  // 사용자가 게임을 시도한 횟수
+    this.tryGame = 0;  // 사용자가 게임을 시도한 횟수
   }
 
 
@@ -31,12 +31,12 @@ class App {
         userInput = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요: ");
         this.checkInput(userInput);
         // 유효한 입력일 때의 코드 계속
-        this.attempts++;  // 시도 횟수 +1
+        this.tryGame++;  // 시도 횟수 +1
         const result = this.countResult(userInput);  // 결과 확인
         MissionUtils.Console.print(result); 
   
         if (result === "3스트라이크") {
-          MissionUtils.Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
+          MissionUtils.Console.print(`${this.tryGame} 번의 시도 끝에, 3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
           const restart = await MissionUtils.Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요: ");
           if (restart.trim() === '1') {
             this.computerNumbers = this.setComputerNumbers();
