@@ -10,6 +10,7 @@ class App {
     this.userNumber = undefined;
   }
     this.makeComputerNumber();
+    Console.print(START_MENT);
   makeComputerNumber() {
     const computer = [];
     while (computer.length < 3) {
