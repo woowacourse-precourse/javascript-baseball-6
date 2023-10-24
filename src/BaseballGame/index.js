@@ -12,7 +12,7 @@ class BaseballGame {
   async start() {
     if (!this.isReplay) {
       this.isReplay = true;
-      Output.print(COMMAND.WELCOME);
+      Output.log(COMMAND.WELCOME);
     }
     this.computer = new Computer();
     this.computer.generate();
@@ -21,13 +21,13 @@ class BaseballGame {
 
   async askNumber() {
     const input = await Input.readAsync(COMMAND.ASK_NUMBER);
-    Validator.guessNumber(input);
+    Validator.validateGuessNumber(input);
 
     const { matchString, isMatch } = this.computer.match(input);
-    Output.print(matchString);
+    Output.log(matchString);
 
     if (isMatch) {
-      Output.print(COMMAND.MATCH);
+      Output.log(COMMAND.MATCH);
       await this.askReplay();
       return;
     }
@@ -36,7 +36,7 @@ class BaseballGame {
 
   async askReplay() {
     const input = await Input.readAsync(COMMAND.ASK_REPLAY);
-    Validator.controlNumber(input);
+    Validator.validateControlNumber(input);
 
     if (input === NUMS.REPLAY) {
       await this.start();
