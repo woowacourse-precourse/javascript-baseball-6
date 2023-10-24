@@ -56,7 +56,16 @@ class App {
         ballNum += 1;
       }
     });
-    MissionUtils.Console.print(`${ballNum}볼 ${strikeNum}스트라이크`);
+
+    if (strikeNum === 0 && ballNum === 0) {
+      MissionUtils.Console.print('낫싱');
+    } else if (strikeNum === 0 && ballNum !== 0) {
+      MissionUtils.Console.print(`${ballNum}볼`);
+    } else if (ballNum === 0 && strikeNum !== 0) {
+      MissionUtils.Console.print(`${strikeNum}스트라이크`);
+    } else {
+      MissionUtils.Console.print(`${ballNum}볼 ${strikeNum}스트라이크`);
+    }
 
     if (strikeNum === 3) {
       this.isAnswer = true;
