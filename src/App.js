@@ -52,12 +52,13 @@ class App {
             this.setAnswer(ANSWERINPUT);
           }
         }catch(error) {
-          Console.log('[ERROR] 숫자가 잘못된 형식입니다.');
+          Console.print('[ERROR] 숫자가 잘못된 형식입니다.');
           return 0;
         }
 
         //숫자가 모두 맞을 경우 게임 종료
         if(this.getAnswer() === this.getComputer().join('')) {
+          Console.print('3스트라이크');
           Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
           break;
         }
