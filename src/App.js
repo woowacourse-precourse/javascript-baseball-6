@@ -112,7 +112,6 @@ class App {
     this.playSwitch = true;
     while (this.playSwitch) {
       this.createRandomNumber();
-      Console.print(this.computer); // 제출 전 지우기
       Console.print(GAME_START_MESSAGE);
       this.inputNumber = await Console.readLineAsync(CHOOSE_THE_NUMBER_MESSAGE);
       this.validation();
