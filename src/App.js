@@ -11,6 +11,7 @@ class App {
   computer = [];
   userInput = [];
   restart = 1;
+  isAnswer = false;
 
   printStartMessage() {
     MissionUtils.Console.print(Message.START);
@@ -54,6 +55,10 @@ class App {
       }
     });
     MissionUtils.Console.print(`${ballNum}볼 ${strikeNum}스트라이크`);
+
+    if (strikeNum === 3) {
+      this.isAnswer = true;
+    }
   }
 
   pickComputerNumbers() {
@@ -67,12 +72,26 @@ class App {
   }
 
   async play() {
-    this.printStartMessage();
-    this.pickComputerNumbers();
-    console.log(this.computer);
-    await this.getUserInput();
-    this.compareInput();
+    // this.printStartMessage();
+    // this.pickComputerNumbers();
+    // console.log(this.computer);
+    // await this.getUserInput();
+    // this.compareInput();
     // console.log(this.computer, this.userInput);
+
+    this.printStartMessage();
+    while (this.restart === 1) {
+      this.isAnswer = false;
+      this.pickComputerNumbers();
+      console.log(this.computer);
+
+      while (!this.isAnswer) {
+        await this.getUserInput();
+        this.compareInput();
+      }
+
+      console.log('정답입니다! 새로운 게임을 시작합니다.');
+    }
   }
 }
 
