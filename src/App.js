@@ -41,7 +41,7 @@ class App {
     let ball = 0;
 
     for (let i = 0; i < 3; i++) {
-      if (userInput[i] == computerNum[i]) {
+      if (Number(userInput[i]) === computerNum[i]) {
         strike++;
       } else if (computerNum.includes(Number(userInput[i]))) {
         ball++;
@@ -79,12 +79,12 @@ class App {
     
       const { strike, ball } = this.compareNum(userInput, computerNum);
 
-      if (strike == 3) {
+      if (strike === 3) {
         Console.print('3스트라이크');
         const option = await this.correctAnswer();
-        if (option == 1) {
+        if (option === '1') {
           computerNum = this.getComputerNum();
-        } else if (option == 2) {
+        } else if (option === '2') {
           break;
         } else {
           throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
