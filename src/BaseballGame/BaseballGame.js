@@ -26,6 +26,10 @@ class BaseballGame {
   async inputRestartNumber() {
     await Input.readRestartInputNumber((input) => {
       InputValidator.validateRestartInputNumber(input);
+      if (input === "1") {
+        this.resetGame();
+      }
+      if (input === "2") return;
     });
   }
 
@@ -45,6 +49,11 @@ class BaseballGame {
       return this.inputRestartNumber();
     }
     this.inputUserNumber();
+  }
+
+  async resetGame() {
+    this.#baseball.getResetNumber();
+    await this.inputUserNumber();
   }
 }
 

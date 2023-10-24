@@ -1,3 +1,5 @@
+import RandomNumberGenerator from "../utils/RandomNumberGenerator";
+
 class Compare {
   #answer;
 
@@ -23,6 +25,10 @@ class Compare {
     }
 
     return count - strikeCount;
+  }
+
+  getResetNumber() {
+    this.#answer = RandomNumberGenerator.generateRandomNumber(3);
   }
 }
 
