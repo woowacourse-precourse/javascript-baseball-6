@@ -1,6 +1,6 @@
 import {Console} from "@woowacourse/mission-utils";
 
-const printGameResult = (strikeCount, ballCount, winCondition)=> {
+const printGameResult = (winCondition, strikeCount, ballCount)=> {
     if (strikeCount === winCondition) {
         Console.print(`${winCondition}스트라이크`);
         Console.print(`${winCondition}개의 숫자를 모두 맞히셨습니다! 게임 종료`);

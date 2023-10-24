@@ -6,6 +6,6 @@ import checkRestartStatus from "./message/restaart/checkRestartStatus.js";
 
 const pitcher = new Pitcher();
 const batter = new Batter();
-const app = new App( "1", pitcher, batter, 3);
+const app = new App( pitcher, batter, 3, true);
 
 await app.play();

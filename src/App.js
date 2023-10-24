@@ -3,11 +3,11 @@ import printGameResult from "./message/result/printGameResult.js";
 
 
 class App {
-    constructor(startToken, pitcher, batter, winCondition) {
-        this.startToken = startToken
+    constructor(pitcher, batter, winCondition, hasStartToken) {
         this.batter = batter;
         this.pitcher = pitcher;
-        this.winCondition = winCondition
+        this.winCondition = winCondition;
+        this.hasStartToken = hasStartToken;
     }
 
     checkBatterResult (pitcherBallNumbers, batterBallNumbers) {
@@ -33,21 +33,24 @@ class App {
     }
 
     async play(){
-        const { winCondition, pitcher, batter, checkBatterResult } = this;
+        const {pitcher, batter, winCondition ,checkBatterResult } = this;
+        let { hasStartToken } = this;
 
         pitcher.setRandomBallCount();
         const pitcherBallNumbers = pitcher.ballCountNumbers;
         Console.print(pitcherBallNumbers)
 
-        while (this.strikeCount !== winCondition) {
-            this.strikeCount = 0;
-            this.ballCount = 0;
+        while (hasStartToken) {
             await batter.setThreeBatNumbers();
             const batterBallNumbers = batter.ballCountNumbers;
 
-            const { strikeCount, ballCount} = checkBatterResult(pitcherBallNumbers, batterBallNumbers);
+            const { strikeCount, ballCount} = checkBatterResult(pitcherBallNumbers, batterBallNumbers,);
 
-            printGameResult(strikeCount, ballCount, winCondition);
+            if(strikeCount === winCondition) {
+                hasStartToken = false;
+            }
+
+            printGameResult(winCondition, strikeCount, ballCount);
         }
     }
 }
