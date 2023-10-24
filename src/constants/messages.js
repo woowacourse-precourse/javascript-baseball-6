@@ -1,12 +1,9 @@
-import { MAGIC_NUM } from "../constants/magicNum.js";
+import { MAGIC_NUM } from "./magicNums.js";
 
 export const INPUT_ERROR_MESSAGE = Object.freeze({
-  NUM_ERR: "[ERROR] 숫자가 잘못된 형식입니다.",
-  LENGTH_ERR: `[ERROR] ${MAGIC_NUM.MAX_BASEBALL_NUM}자리의 수를 입력해 주세요.`,
-  RESTART_LENGTH_ERR: `[ERROR] ${MAGIC_NUM.MAX_RESTART_NUM}자리의 수를 입력해 주세요.`,
+  NUM_ERR: `[ERROR] 숫자 ${MAGIC_NUM.NUM_NOT_INCLUDED}이 포함되지 않은 ${MAGIC_NUM.MAX_BASEBALL_NUM}자리의 수를 입력해 주세요.`,
   DUPLICATE_ERR: "[ERROR] 서로 다른 수로 이루어진 숫자를 입력해 주세요.",
-  INCLUDE_NUM_ERR: `[ERROR] 숫자 ${MAGIC_NUM.NUM_NOT_INCLUDED}이 포함되지 않아야 합니다.`,
-  INCLUDE_NUMS_ERR: `[ERROR] 숫자 ${MAGIC_NUM.NEW_GAME_NUM} 또는 ${MAGIC_NUM.END_GAME_NUM}을(를) 입력하셔야 합니다.`,
+  RESTART_NUMS_ERR: `[ERROR] 숫자 ${MAGIC_NUM.NEW_GAME_NUM} 또는 ${MAGIC_NUM.END_GAME_NUM}을(를) 입력하셔야 합니다.`,
 });
 
 export const INFO_MESSAGE = Object.freeze({
