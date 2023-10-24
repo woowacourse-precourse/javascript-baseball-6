@@ -2,7 +2,7 @@ import { Console } from "@woowacourse/mission-utils";
 import InputValid from "./utils/InputValid";
 import Computer from "./models/Computer";
 import GameControl from "./utils/GameControl";
-import { GAME_MESSAGE, ERROR_MESSAGE } from "./constants/Message";
+import { GAMEMESSAGE, ERRORMESSAGE } from "./constants/Message";
 
 export default class App {
   constructor() {
@@ -23,7 +23,7 @@ export default class App {
         const isCorrect = this.gamecontrol.compareAndPrintResult(input);
 
         if (isCorrect) {
-          const restartChoice = await Console.readLineAsync(GAME_MESSAGE.restartGame);
+          const restartChoice = await Console.readLineAsync(GAMEMESSAGE.restartGame);
 
           if (restartChoice === '1') {
             this.gamecontrol.assignComputerNumber();
@@ -31,12 +31,12 @@ export default class App {
           } else if (restartChoice === '2') {
             this.gamecontrol.stopGame();
           } else {
-            throw new Error(ERROR_MESSAGE.invalidChoice);
+            throw new Error(ERRORMESSAGE.invalidChoice);
           }
         }
       } 
     } catch (error) {
-        Console.print(ERROR_MESSAGE.playError);
+        Console.print(ERRORMESSAGE.playError);
         throw error;
       }
     }

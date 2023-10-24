@@ -1,11 +1,11 @@
 import { Console } from "@woowacourse/mission-utils";
-import { GAME_MESSAGE, ERROR_MESSAGE } from "../constants/Message";
+import { GAMEMESSAGE, ERRORMESSAGE } from "../constants/Message";
 import { CONSTANT } from "../constants/constant";
 
 export default class InputValid {
 
   async getUserChoice() {
-    const userInput = await Console.readLineAsync(GAME_MESSAGE.inputNumber);
+    const userInput = await Console.readLineAsync(GAMEMESSAGE.inputNumber);
     return this.checkInputValidation(String(userInput));
   }
 
@@ -17,7 +17,7 @@ export default class InputValid {
   
   validateInputLength(input) {
     if (input.length !== CONSTANT.selectNumber) {
-      throw new Error(ERROR_MESSAGE.invalidLength);
+      throw new Error(ERRORMESSAGE.invalidLength);
     }
   }
   
@@ -25,7 +25,7 @@ export default class InputValid {
     const isValidReplay = input.split('').every(char => '1' <= char && char <= '9');
 
     if (!isValidReplay) {
-      throw new Error(ERROR_MESSAGE.duplicateNumber);
+      throw new Error(ERRORMESSAGE.duplicateNumber);
     }
   }
 }

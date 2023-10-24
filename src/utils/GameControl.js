@@ -1,6 +1,6 @@
 import { Console } from "@woowacourse/mission-utils";
 import { CONSTANT } from "../constants/constant";
-import { GAME_MESSAGE, RESULT_MESSAGE } from "../constants/Message";
+import { GAMEMESSAGE, RESULTMESSAGE } from "../constants/Message";
 import Computer from "../models/Computer";
 
 export default class GameControl {
@@ -10,7 +10,7 @@ export default class GameControl {
   }
 
   startGame() {
-    Console.print(GAME_MESSAGE.startGame);
+    Console.print(GAMEMESSAGE.startGame);
   }
 
   assignComputerNumber() {
@@ -54,18 +54,18 @@ export default class GameControl {
   printResult(strike, ball) {
     if (strike === CONSTANT.selectNumber) {
       Console.print("3스트라이크");
-      Console.print(GAME_MESSAGE.correctGame);
+      Console.print(GAMEMESSAGE.correctGame);
       return true;
     }
 
     if (strike === 0 && ball === 0) {
-      Console.print(RESULT_MESSAGE.nothing);
+      Console.print(RESULTMESSAGE.nothing);
       return false;
     }
     
     const resultMessages = [];
-    if (ball > 0) resultMessages.push(`${ball}${RESULT_MESSAGE.ball}`);
-    if (strike > 0) resultMessages.push(`${strike}${RESULT_MESSAGE.strike}`);
+    if (ball > 0) resultMessages.push(`${ball}${RESULTMESSAGE.ball}`);
+    if (strike > 0) resultMessages.push(`${strike}${RESULTMESSAGE.strike}`);
     Console.print(resultMessages.join(' '));
 
     return false;    
@@ -73,6 +73,6 @@ export default class GameControl {
 
   stopGame() {
     this.app.isPlaying = false;
-    Console.print(GAME_MESSAGE.endGame);
+    Console.print(GAMEMESSAGE.endGame);
   }
 }
