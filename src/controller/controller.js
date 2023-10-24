@@ -30,7 +30,7 @@ class Controller {
     const result = scoreConversion(score);
     if (result === OUTPUT_MASSAGE.CORRECT_ANSWER) {
       View.print(result);
-      this.#askRetry();
+      await this.#askRetry();
     } else {
       View.print(result);
       await this.#askAnswer();
@@ -42,7 +42,7 @@ class Controller {
     retryAnswerValidate(answer);
     if (answer === '1') {
       this.computer.setNumber();
-      this.play();
+      await this.play();
     }
     if (answer === '2') {
       View.print('게임 종료');
