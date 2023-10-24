@@ -26,7 +26,7 @@ const getLogSpy = () => {
 describe("숫자 야구 게임", () => {
   test("게임 종료 후 재시작", async () => {
     // given
-    const randoms = [1, 3, 5, 5, 8, 9];
+    const randoms = [1, 3, 5, 5, 8, 9, 7, 8, 9];
     const answers = ["246", "135", "1", "597", "589", "2"];
     const logSpy = getLogSpy();
     const messages = [
@@ -50,10 +50,62 @@ describe("숫자 야구 게임", () => {
     });
   });
 
-  test("예외 테스트", async () => {
+  test("예외 테스트1", async () => {
     // given
-    const randoms = [1, 3, 5];
+    const randoms = [1, 3, 4];
     const answers = ["1234"];
+
+    mockRandoms(randoms);
+    mockQuestions(answers);
+
+    // when & then
+    const app = new App();
+
+    await expect(app.play()).rejects.toThrow("[ERROR]");
+  });
+  test("예외 테스트2", async () => {
+    // given
+    const randoms = [1, 3, 4];
+    const answers = ["134", "a"];
+
+    mockRandoms(randoms);
+    mockQuestions(answers);
+
+    // when & then
+    const app = new App();
+
+    await expect(app.play()).rejects.toThrow("[ERROR]");
+  });
+  test("예외 테스트3", async () => {
+    // given
+    const randoms = [1, 3, 4];
+    const answers = ["134", "3"];
+
+    mockRandoms(randoms);
+    mockQuestions(answers);
+
+    // when & then
+    const app = new App();
+
+    await expect(app.play()).rejects.toThrow("[ERROR]");
+  });
+  test("예외 테스트4", async () => {
+    // given
+    const randoms = [1, 3, 4];
+    const answers = ["a34"];
+
+    mockRandoms(randoms);
+    mockQuestions(answers);
+
+    // when & then
+    const app = new App();
+
+    await expect(app.play()).rejects.toThrow("[ERROR]");
+  });
+  test("예외 테스트5", async () => {
+    // given
+    const randoms = [1, 3, 4];
+    const answers = ["112"];
 
     mockRandoms(randoms);
     mockQuestions(answers);
