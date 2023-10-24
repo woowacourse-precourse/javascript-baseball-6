@@ -1,6 +1,14 @@
 import { Random, Console } from "@woowacourse/mission-utils";
 
 class App {
+  constructor(status) {
+    this.status = status;
+  }
+
+  setStatus(value) {
+    this.status = value;
+  }
+
   setComputerNum() {
     const computerNum = [];
 
@@ -47,7 +55,7 @@ class App {
     const message = !strikeCount && !ballCount ? "낫싱" : ballMessage + messageSpace + strikeMessage;
     Console.print(message);
 
-    return strikeCount === 3 ? "isSuccess" : "isPlaying";
+    this.setStatus(strikeCount === 3 ? "isSuccess" : "isPlaying");
   }
 
   async resetGame() {
@@ -57,24 +65,24 @@ class App {
       throw new Error("[ERROR] 값을 잘못 입력하였습니다. 게임을 종료합니다.");
     }
 
-    if (input == 1) return "isPlaying";
-    if (input == 2) return "isQuit";
+    if (input == 1) this.setStatus("isPlaying");
+    if (input == 2) this.setStatus("isQuit");
   }
 
   async play() {
     Console.print("숫자 야구 게임을 시작합니다.");
-    let status = "isPlaying";
+    this.setStatus("isPlaying");
 
-    while (status === "isPlaying") {
+    while (this.status === "isPlaying") {
       const couputerNum = this.setComputerNum();
 
-      while (!(status === "isSuccess")) {
+      while (!(this.status === "isSuccess")) {
         const userNum = await this.setUserNum();
-        status = this.printCount(couputerNum, userNum);
+        this.printCount(couputerNum, userNum);
       }
 
       Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-      status = await this.resetGame();
+      await this.resetGame();
     }
   }
 }
