@@ -6,9 +6,9 @@ const MESSAGE = {
   continue: "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.",
   input: "숫자를 입력해주세요 : ",
   nothing: "낫싱",
+  error: "[EEROR] 입력값이 유효하지 않습니다.",
   strike: (count) => `${count}스트라이크`,
   ball: (count) => `${count}볼`,
-  error: (message) => `[ERROR] ${message}`,
 };
 
 class App {
@@ -25,10 +25,10 @@ class App {
 
   async game(targetNumber) {
     while (true) {
-      const input = await Console.readLineAsync("숫자를 입력해주세요 : ");
+      const input = await Console.readLineAsync(MESSAGE.input);
       const isValidInput = this.validateInput(input);
       if (!isValidInput) {
-        throw new Error(MESSAGE.error("입력값이 유효하지 않습니다."));
+        throw new Error(MESSAGE.error);
       }
 
       const { strike, ball } = this.countPitchResult(input, targetNumber);
