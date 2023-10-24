@@ -1,5 +1,13 @@
+// src/index.js
+const { Console, Random } = require('@woowacourse/mission-utils');
+const Game = require('./components/Game');
+
 class App {
-  async play() {}
+  async play() {
+    await Game.startGame();
+    Console.close();
+  }
 }
 
-export default App;
+const app = new App();
+app.play();
