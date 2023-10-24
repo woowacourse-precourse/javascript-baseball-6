@@ -1,6 +1,6 @@
 import Computer from './Computer.js';
 import { Console } from '@woowacourse/mission-utils';
-import { checkValidNumber } from './Validation.js';
+import { checkValidNumberDuringGame } from './Validation.js';
 import { getHintToUser } from './Hint.js';
 
 class BaseballGame {
@@ -25,7 +25,7 @@ class BaseballGame {
   }
 
   handleUserInputDuringGame(input) {
-    if (!checkValidNumber(input)) {
+    if (!checkValidNumberDuringGame(input)) {
       throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
     }
 
@@ -40,9 +40,9 @@ class BaseballGame {
   }
 
   handleUserInputEndGame(input) {
-    const correctInputDigits = ['1', '2'];
+    const checkValidNumberEndGame = ['1', '2'];
 
-    if (!correctInputDigits.includes(input)) {
+    if (!checkValidNumberEndGame.includes(input)) {
       throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
     }
     // TODO: 주석 삭제 필요
