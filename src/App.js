@@ -67,12 +67,16 @@ async function compareUserAndRamdomNumber(computer) {
   }
 }
 
-
-async function notifyGameEnd() {
-  Console.print('3스트라이크');
-  Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
-  Console.print('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
-  return await Console.readLineAsync('');
+async function startGameAgian() {
+  const executeCondition = Number(await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'));
+  
+  if (executeCondition === 1) {
+    isSame = false;
+  } else if (executeCondition === 2) {
+    return;
+  } else {
+    throw new Error("[ERROR] 게임 실행 조건을 잘못 입력하셨습니다.");
+  }
 }
 
 class App {
