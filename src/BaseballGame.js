@@ -15,7 +15,12 @@ export class BaseballGame {
         while (!pitch) {
             try {
                 const userInput = await Console.readLineAsync('숫자를 입력해주세요: ');
-                if (isNaN(userInput)) {
+                for (let i = 0; i < userInput.length; i++) {
+                    let char = userInput.charAt(i)
+                    let ascii = char.charCodeAt()
+                    if ('1'.charCodeAt() <= ascii && ascii <= '9'.charCodeAt()) {
+                        continue;
+                    }
                     throw new Error("[ERROR] 문자를 입력하였습니다");
                 }
 
