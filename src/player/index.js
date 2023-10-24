@@ -1,51 +1,43 @@
 import { GUIDE_MESSAGES, RESTART_GAME_NUMBERS } from '../../constants/index.js';
-import Opponent from '../opponent/index.js';
-import ViewInput from '../view/viewInput.js';
-import ViewOutput from '../view/viewOutput.js';
-import {
-  numberSetValidator,
-  playAgainNumberValidator,
-} from '../utils/inputValidator.js';
+import RandomNumSet from '../opponent/RandomNumSet.js';
+import CheckBallCount from '../opponent/CheckBallCount.js';
+import InputView from '../view/InputView.js';
+import OutputView from '../view/OutputView.js';
 
 class Player {
   /**
    * 유저가 입력한 서로 다른 3자리 수를 담은 배열
    * @type {[number, number, number]}
    */
-  #playerNumberSet = [];
+  #playerNumberSet;
+  #playerWin;
 
   async startGame() {
-    this.opponent = new Opponent();
-    await this.#getPlayerNumberSet();
+    const opponent = new RandomNumSet();
+    this.randomNumSet = opponent.getRandomNumSet();
+    await this.#playGame();
+    await this.#checkRestartGame();
   }
 
-  async #getPlayerNumberSet() {
-    /**
-     * @type {string}
-     */
-    const playerInput = await ViewInput.getPlayerInput(GUIDE_MESSAGES.INPUT);
-    numberSetValidator(playerInput);
-    this.#handleNumberSet(playerInput);
+  async #playGame() {
+    this.#playerWin = false;
+    while (!this.#playerWin) {
+      const playerInput = await InputView.getPlayerInput();
+
+      // 🧑‍🚀 Player-3: playerInput을 [number, number, number]와 같은 number[] type으로 변환
+      this.#playerNumberSet = playerInput.split('').map(Number);
+
+      const [ballCountMessage, strike] = CheckBallCount.calculateBallCount(
+        this.#playerNumberSet,
+        this.randomNumSet
+      );
+      this.#isPlayerWin(strike);
+      OutputView.printMessage(ballCountMessage);
+    }
   }
 
-  /**
-   * 🧑‍🚀 Player-3: playerInput을 [number, number, number]와 같은 number[] type으로 변환
-   * @param {string} playerInput
-   */
-  #handleNumberSet(playerInput) {
-    this.#playerNumberSet = playerInput.split('').map(Number);
-    this.#requestBallCount();
-  }
-
-  // 🧑‍🚀 Player-4: 👾상대방의 checkBallCount()를 통해 플레이어의 input에 대한 볼카운트를 계산한다.
-  #requestBallCount() {
-    const [ballCountMessage, strike] = this.opponent.checkBallCount(
-      this.#playerNumberSet
-    );
-    ViewOutput.printMessage(ballCountMessage);
-
-    if (strike === 3) this.#checkRestartGame();
-    else this.#getPlayerNumberSet();
+  async #isPlayerWin(strike) {
+    if (strike === 3) this.#playerWin = true;
   }
 
   /**
@@ -53,20 +45,15 @@ class Player {
    * @returns
    */
   async #checkRestartGame() {
-    ViewOutput.printMessage(GUIDE_MESSAGES.PLAYER_WIN);
+    OutputView.printMessage(GUIDE_MESSAGES.playerWin);
 
     /**
      * @type {string}
      */
-    const playerInput = await ViewInput.getPlayerInput(
-      GUIDE_MESSAGES.RESTART_GAME
-    );
+    const playerInput = await InputView.getRestartInput();
 
-    playAgainNumberValidator(playerInput);
-
-    if (playerInput === RESTART_GAME_NUMBERS.RESTART) this.startGame();
-    if (playerInput === RESTART_GAME_NUMBERS.END)
-      ViewOutput.printMessage(GUIDE_MESSAGES.END);
+    if (playerInput === RESTART_GAME_NUMBERS.restart) this.startGame();
+    if (playerInput === RESTART_GAME_NUMBERS.end) return;
   }
 }
 
