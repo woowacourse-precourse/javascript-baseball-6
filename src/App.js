@@ -49,7 +49,15 @@ class App {
   async startGame(computer) {
     const player = await this.getPlayerNumber();
     const result = calculateResult(computer, player);
+
     printHint(result);
+
+    if (result.strike < 3) {
+      await this.startGame(computer);
+    } else {
+      Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+      await this.askRestart();
+    }
   }
 
   async getPlayerNumber() {
@@ -58,6 +66,16 @@ class App {
       throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
     }
     return playerNumber;
+  }
+
+  async askRestart() {
+    Console.print('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+    const input = await Console.readLineAsync('');
+    if (input === '1') {
+      await this.play();
+    } else if (input === '2') {
+      Console.print('게임 종료');
+    } else throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
   }
 }
 
