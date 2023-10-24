@@ -28,51 +28,6 @@
      }
      console.log(answer);
     
-     const tries = [];
-     function checkInput(input) {
-        if (input.length !== 3) {
-            throw new Error('3자리 숫자를 입력해 주세요.');
-        } else if (new Set(input).size !== 3) {
-            throw new Error('중복되지 않게 입력해 주세요.');
-        } 
-    }
-     let out = 0;
-     $form.addEventListener('submit', (event) => {
-        event.preventDefault();
-        const value = $input.value;
-        $input.value = '';
-        if (!checkInput(value)) {
-            return;
-        }
-        // 문제 없음
-        if (answer.join('') === value) {
-            $logs.textContent = '홈런';
-            return;
-        } 
-        
-        //몇 스트라이크 몇 볼인지
-        let strike = 0;
-        let ball = 0;
-        for (let i = 0; i < answer.length; i++) {
-            const index = value.indexOf(answer[i]);
-            if (index > -1) { // 일치하는 숫자 발견
-                if (index === i) { // 자릿수도 같음
-                strike += 1;
-            } else { // 숫자만 같음
-                ball += 1;
-            }
-          } 
-        }
-        if (strike === 0 && ball === 0) {
-            out++;
-            $logs.append('${value} :낫싱', document.createElement('br'));
-        } else{
-            $logs.append('${value}: ${strike} 스트라이크 ${ball} 볼', document.createElement('br'));
-        }
-    
-        tries.push(value);
-     });
-    
     </script>
     </body>
 

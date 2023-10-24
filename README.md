@@ -154,3 +154,12 @@ while (computer.length < 3) {
 - 미션은 [javascript-baseball](https://github.com/woowacourse-precourse/javascript-baseball-6/) 저장소를 Fork & Clone해 시작한다.
 - **기능을 구현하기 전 `docs/README.md`에 구현할 기능 목록을 정리**해 추가한다.
 - 과제 진행 및 제출 방법은 [프리코스 과제 제출](https://github.com/woowacourse/woowacourse-docs/tree/master/precourse) 문서를 참고한다.
+
+**구현할 기능 목록 정리**
+1. 숫자 3개를 중복 없이 뽑는다. (순서0)
+2. 숫자0, 자리0 (3개) => 홈런
+   숫자0, 자리0 (2개 이하) => 스트라이크
+   숫자0, 자리x => 볼
+   숫자x, 자리x => 낫싱
+3. 3자리가 아닌 수, 중복된 숫자를 입력할 때 에러
+4. 게임이 끝난 경우 재시작/종료를 구분하는 1과 2 중 하나의 수
