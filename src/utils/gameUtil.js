@@ -1,11 +1,11 @@
-import { Random, Console } from "@woowacourse/mission-utils";
+import {Console, Random} from "@woowacourse/mission-utils";
 
 //겹치지 않는 숫자 생성하기
 export const makeRandomNumber = () => {
   const computer = [];
   while (computer.length < 3) {
     let newNumber = Random.pickNumberInRange(1, 9);
-    if (computer.indexOf(newNumber) == -1) {
+    if (computer.indexOf(newNumber) === -1) {
       computer.push(newNumber);
     }
   }
@@ -39,7 +39,7 @@ export const makeText = (result) => {
   if (strike > 0) {
     answer.push(`${strike}스트라이크`);
   }
-  if (ball == 0 && strike == 0) {
+  if (ball === 0 && strike === 0) {
     answer.push("낫싱");
   }
   Console.print(answer.join(" "));

@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from "../constants/Message";
+import {ERROR_MESSAGE} from "../constants/Message";
 
 //유효성 검사
 export const isValidNumber = (string) => {
@@ -12,9 +12,9 @@ export const isValidNumber = (string) => {
 
   //겹치는 숫자를 입력했을 때
   if (
-    (string[0] == string[1]) |
-    (string[1] == string[2]) |
-    (string[2] == string[0])
+    (string[0] === string[1]) |
+    (string[1] === string[2]) |
+    (string[2] === string[0])
   )
     throw new Error(ERROR_MESSAGE.NOT_VALID_CHOICE);
 };
