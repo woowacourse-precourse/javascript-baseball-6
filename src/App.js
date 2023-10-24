@@ -3,7 +3,7 @@ import OutputView from './View/OutputView.js';
 
 import Player from './Player.js';
 import Refree from './Refree.js';
-import Validation from './Validation.js';
+import Validation from './util/Validation.js';
 
 class App {
   #refree;

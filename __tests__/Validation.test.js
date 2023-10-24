@@ -1,4 +1,4 @@
-import Validation from '../src/Validation.js';
+import Validation from '../src/util/Validation.js';
 
 describe('사용자가 게임을 위한 번호 입력시 유효성 테스트', () => {
   test('입력한 값의 길이가 4자리 인 경우', () => {
