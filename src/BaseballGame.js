@@ -18,6 +18,7 @@ class BaseballGame {
     }
     return [...set];
   }
+  //   숫자 야구에 쓰일 수 있는 숫자인지 유효성 검사
   static validNumber(number) {
     if (
       isNaN(number) ||
@@ -31,6 +32,17 @@ class BaseballGame {
       );
     }
   }
-}
 
+  //   ball,strike 수 반환
+  getAnswer(guess) {
+    const answer = this.#answer.reduce(
+      ({ ball, strike }, value, index) => ({
+        ball: ball + (guess[index] != value && guess.includes(value) ? 1 : 0),
+        strike: strike + (guess[index] == value ? 1 : 0),
+      }),
+      { ball: 0, strike: 0 }
+    );
+    return answer;
+  }
+}
 export default BaseballGame;
