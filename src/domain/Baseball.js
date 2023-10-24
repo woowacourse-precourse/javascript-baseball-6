@@ -9,11 +9,9 @@ class Baseball {
   }
 
   getStrikeCount(input) {
-    let count = 0;
-
-    for (let i = 0; i < input.length; i++) {
-      if (input[i] === this.#answer[i]) count += 1;
-    }
+    const count = input.reduce((acc, value, i) => {
+      return value === this.#answer[i] ? acc + 1 : acc;
+    }, 0);
 
     return count;
   }
