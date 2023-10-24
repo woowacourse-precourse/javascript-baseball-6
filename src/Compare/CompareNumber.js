@@ -1,4 +1,5 @@
 import RandomNumberGenerator from "../utils/RandomNumberGenerator";
+import { StaticNumber } from "../constant/constant";
 
 class Compare {
   #answer;
@@ -28,7 +29,9 @@ class Compare {
   }
 
   getResetNumber() {
-    this.#answer = RandomNumberGenerator.generateRandomNumber(3);
+    this.#answer = RandomNumberGenerator.generateRandomNumber(
+      StaticNumber.BASEBALL_NUMBER_LENGTH
+    );
   }
 }
 

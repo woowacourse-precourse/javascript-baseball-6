@@ -3,12 +3,17 @@ import InputValidator from "../utils/InputValidator.js";
 import Compare from "../Compare/CompareNumber.js";
 import RandomNumberGenerator from "../utils/RandomNumberGenerator.js";
 import Output from "../Output/Output.js";
+import { StaticNumber } from "../constant/constant.js";
 
 class BaseballGame {
   #baseball;
 
   constructor() {
-    this.#baseball = new Compare(RandomNumberGenerator.generateRandomNumber(3));
+    this.#baseball = new Compare(
+      RandomNumberGenerator.generateRandomNumber(
+        StaticNumber.BASEBALL_NUMBER_LENGTH
+      )
+    );
   }
 
   async startGame() {
@@ -26,10 +31,10 @@ class BaseballGame {
   async inputRestartNumber() {
     await Input.readRestartInputNumber((input) => {
       InputValidator.validateRestartInputNumber(input);
-      if (input === "1") {
+      if (input === StaticNumber.INPUT_RESTART_NUMBER) {
         this.resetGame();
       }
-      if (input === "2") return;
+      if (input === StaticNumber.INPUT_END_NUMBER) return;
     });
   }
 
@@ -44,7 +49,7 @@ class BaseballGame {
   checkHint(strikeCount, ballCount) {
     Output.printHintMessage(ballCount, strikeCount);
 
-    if (strikeCount === 3) {
+    if (strikeCount === StaticNumber.BASEBALL_NUMBER_LENGTH) {
       Output.printEndMessage();
       return this.inputRestartNumber();
     }

@@ -1,21 +1,24 @@
+import { ErrorMessage } from "../constant/constant";
+import { StaticNumber } from "../constant/constant";
+
 const InputValidator = {
   validateUserInputNumber(input) {
     const inputNumbers = input.split("");
-    if (input.length !== 3)
-      throw new Error("[ERROR] 입력값은 3자리로 구성되어야 합니다.");
+    if (input.length !== StaticNumber.BASEBALL_NUMBER_LENGTH)
+      throw new Error(ErrorMessage.USER_LENGTH_ERROR);
     if (inputNumbers.includes("0"))
-      throw new Error("[ERROR] 입력값에 0은 포함될 수 없습니다.");
-    if (input.replace(/[1-9]/g, "").length > 0)
-      throw new Error("[ERROR] 입력값은 숫자로 구성되어야 합니다.");
+      throw new Error(ErrorMessage.USER_INCLUDE_ZERO_ERROR);
+    if (input.replace(StaticNumber.POSSIBLE_BASEBALL_NUMBER, "").length > 0)
+      throw new Error(ErrorMessage.USER_NUMBER_ERROR);
     if (inputNumbers.length !== new Set(inputNumbers).size)
-      throw new Error("[ERROR] 입력값은 모두 다른 숫자로 구성되어야 합니다.");
+      throw new Error(ErrorMessage.USER_DUPLICATE_ERROR);
   },
 
   validateRestartInputNumber(input) {
-    if (input.length !== 1)
-      throw new Error("[ERROR] 입력값은 1 또는 2, 둘 중 하나여야 합니다.");
-    if (input.replace(/1|2/g, "").length > 0)
-      throw new Error("[ERROR] 입력값은 1 또는 2로 이루어진 숫자여야 합니다.");
+    if (input.length !== StaticNumber.RESTART_NUMBER_LENGTH)
+      throw new Error(ErrorMessage.RESTART_COUNT_ERROR);
+    if (input.replace(StaticNumber.POSSIBLE_END_OR_NOT_NUMBER, "").length > 0)
+      throw new Error(ErrorMessage.RESTART_NUMBER_ERROR);
   },
 };
 

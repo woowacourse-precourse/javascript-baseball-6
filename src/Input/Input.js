@@ -1,16 +1,15 @@
 import { Console } from "@woowacourse/mission-utils";
+import { GuideMessage } from "../constant/constant";
 
 const Input = {
   async readUserInputNumber(callback) {
-    await Console.readLineAsync("숫자를 입력해주세요 : ").then((input) => {
+    await Console.readLineAsync(GuideMessage.INPUT_NUMBER).then((input) => {
       callback(input);
     });
   },
 
   async readRestartInputNumber(callback) {
-    await Console.readLineAsync(
-      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
-    ).then((input) => {
+    await Console.readLineAsync(GuideMessage.RESTART_GAME).then((input) => {
       callback(input);
     });
   },
