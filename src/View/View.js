@@ -10,7 +10,7 @@ export const View = {
   },
 
   async readRestart() {
-    const userInput = await Console.readLineAsync(MESSAGE.READ.RESTART);
+    const userInput = await InputView.readLineAsync(MESSAGE.READ.RESTART);
 
     if (userInput === COMMAND.RESTART) return true;
     if (userInput === COMMAND.END) return false;
@@ -18,12 +18,16 @@ export const View = {
     throw new CustomError(MESSAGE.ERROR.INVALID_TYPE);
   },
 
-  print(message) {
-    Console.print(message);
+  printGameResult(result) {
+    Console.print(getResultMessage(result));
   },
 
-  printGameResult({ strike, ball }) {
-    this.print(getResultMessage({ strike, ball }));
+  printGameWinning(strike) {
+    Console.print(GAME_RESULT.WIN(strike));
+  },
+
+  printGameStart() {
+    Console.print(MESSAGE.START_GAME);
   },
 };
 
