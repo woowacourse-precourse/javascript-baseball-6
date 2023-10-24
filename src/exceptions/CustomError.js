@@ -1,7 +1,8 @@
 class CustomError extends Error {
+  static #prefix = '[ERROR]';
+
   constructor(message, source) {
-    const prefix = '[ERROR]';
-    super(`${prefix} ${message} ${source && `(occurred by ${source})`}`);
+    super(`${CustomError.#prefix} ${message}${source ? ` (occurred by ${source})` : ''}`);
   }
 }
 
