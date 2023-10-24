@@ -17,6 +17,15 @@ class Baseball {
     return this.#baseball;
   }
 
+  static setBaseballLength(length) {
+    if (length > 9) throw new Error(ErrorMessages.Invalid_Baseball_Length);
+    this.#BASEBALL_LENGTH = length;
+  }
+
+  static getBaseballLength() {
+    return this.#BASEBALL_LENGTH;
+  }
+
   setRandomBaseball() {
     while (this.#baseball.length < Baseball.#BASEBALL_LENGTH) {
       let randomNumber = Random.pickNumberInRange(1, 9);
@@ -33,7 +42,7 @@ class Baseball {
   }
 
   validateBaseballString(baseballString) {
-    if (baseballString.length > 3)
+    if (baseballString.length > Baseball.#BASEBALL_LENGTH)
       throw new Error(ErrorMessages.Invalid_Length);
     if (baseballString.match(/[^0-9]/g))
       throw new Error(ErrorMessages.Invalid_String);

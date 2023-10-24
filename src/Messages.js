@@ -11,6 +11,7 @@ export const GameMessages = {
 };
 
 export const ErrorMessages = {
+  Invalid_Baseball_Length: "[ERROR} : Invalid Baseball Length",
   Invalid_Length: "[ERROR] : Invalid Length",
   Invalid_String: "[ERROR] : Invalid String",
   Invalid_Number: "[ERROR] : Invalid Number",

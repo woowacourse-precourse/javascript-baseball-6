@@ -51,7 +51,7 @@ class Game {
   }
 
   isEndGame() {
-    if (this.#result.strike === 3) return true;
+    if (this.#result.strike === Baseball.getBaseballLength()) return true;
     return false;
   }
 }
