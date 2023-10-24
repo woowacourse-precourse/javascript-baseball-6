@@ -1,15 +1,14 @@
 import { Console, Random } from '@woowacourse/mission-utils';
 
 class App {
-  constructor() {
-    this.GAME_OPTIONS = {
-      RESTART_GAME: '1',
-      END_GAME: '2',
-    };
-    this.ERROR_MESSAGE = {
-      INCORRECT_FORMAT_NUMBER: '[ERROR] 숫자가 잘못된 형식입니다.',
-    };
-  }
+  GAME_OPTIONS = {
+    RESTART_GAME: '1',
+    END_GAME: '2',
+  };
+
+  ERROR_MESSAGE = {
+    INCORRECT_FORMAT_NUMBER: '[ERROR] 숫자가 잘못된 형식입니다.',
+  };
 
   async play() {
     Console.print('숫자 야구 게임을 시작합니다.');
