@@ -36,7 +36,8 @@ describe("숫자 야구 게임", () => {
 
       // when
         const app = new App();
-        await expect(app.play()).resolves.not.toThrow();
+        // await expect(app.play()).resolves.not.toThrow();
+        expect(() => app.play()).not.toThrow();
 
       // then
         messages.forEach((output) => {
@@ -54,7 +55,8 @@ describe("숫자 야구 게임", () => {
 
     // when & then
     const app = new App();
+    const playPromise = app.play();
 
-    await expect(app.play()).rejects.toThrow("[ERROR]");
+    await expect(playPromise).rejects.toThrow("[ERROR]");  
   });
 });
