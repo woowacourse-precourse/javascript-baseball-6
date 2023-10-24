@@ -26,6 +26,8 @@
 
 ## 패키지 구조 및 파일명
 - src
+  - comm
+  - - text.js
   - data
   - - createComputerNumber.js
   - - inputUserNumber.js
