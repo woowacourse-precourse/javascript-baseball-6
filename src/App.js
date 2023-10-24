@@ -12,6 +12,9 @@ class App {
         const input = await Console.readLineAsync("숫자를 입력해주세요 : ");
         const guess = input.split("").map(Number);
 
+        if (guess.length !== 3 || guess.some(isNaN)) {
+          throw new Error("[ERROR] 숫자가 잘못된 형식입니다. 게임 종료");
+        }
 
         const [strikes, balls] = this.calculateScore(secretNumber, guess);
 

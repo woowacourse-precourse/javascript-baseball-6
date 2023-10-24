@@ -1,7 +1,7 @@
 ## 기능 구현 목록
 
-0. API 가져오기
-@woowacourse/mission-utils의 Random 및 Console API
+0. 라이브러리 가져오기
+@woowacourse/mission-utils의 Random 및 Console 라이브러리 임포트
 
 1. 게임 시작 메시지 출력
 Console.print함수 사용
@@ -16,3 +16,6 @@ Console.readLineAsync을 활용하여 숫자를 입력 받고, 이를 숫자로 
 
 4. 정답 비교 기능
 guess와 secretNumber의 각 자리 값을 비교하여 스트라이크와 볼로 표시
+
+5. 에러 메시지 출력 기능
+숫자가 아니거나 3자리 숫자를 입력하지 않았을때, [ERROR]메시지 출력
