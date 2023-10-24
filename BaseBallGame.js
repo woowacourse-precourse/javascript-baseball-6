@@ -8,9 +8,10 @@ class BaseBallGame {
   async play() {
     try {
       MissionUtils.Console.print(START_MESSAGE);
-      this.#generateComputerNumbers();
+      const computerNums = this.#generateComputerNumbers();
       const userInput = await this.#readUserInput();
       this.#checkValidation(userInput);
+      this.#calculateResult(computerNums, userInput)
     } catch (error) {
       MissionUtils.Console.print(error.message);
       throw error;
@@ -25,16 +26,34 @@ class BaseBallGame {
         computer.push(number);
       }
     }
+    return computer
   }
 
   async #readUserInput() {
-    return await MissionUtils.Console.readLineAsync(INPUT_MESSAGE);
+    return MissionUtils.Console.readLineAsync(INPUT_MESSAGE);
   }
 
   #checkValidation(userInput) {
     if (userInput.length !== 3) {
       throw new Error(ERROR_MESSAGE);
     }
+  }
+
+  #calculateResult(computerNums, userInput) {
+    let ballCount = 0;
+    let strikeCount = 0;
+
+    const userInputArr = userInput.split("").map(Number);
+    userInputArr.forEach((num, index) => {
+      if (num === computerNums[index]) strikeCount++;
+      else if (computerNums.includes(num)) ballCount++;
+    })
+
+    let result = "";
+    if (ballCount) result += ballCount + "볼 ";
+    if (strikeCount) result += strikeCount + "스트라이크";
+    if (ballCount === 0 && strikeCount === 0) result += "낫싱";
+    MissionUtils.Console.print(result.trim())
   }
 }
 
