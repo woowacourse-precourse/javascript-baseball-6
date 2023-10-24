@@ -8,9 +8,8 @@ class App {
 
   async play() {
     Console.print("숫자 야구 게임을 시작합니다.");
-    await this.setInputNumber();
     await this.getNumber();
-    await Console.print(this.isIncluded());
+    await this.inputNumber();
   }
 
   async getNumber() {
