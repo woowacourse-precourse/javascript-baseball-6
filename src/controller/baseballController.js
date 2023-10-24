@@ -24,11 +24,11 @@ class BaseballController {
         }
         this.model.setUserInput(User_INPUT);
 
-        const strike = this.model.getStrike();
-        const ball = this.model.getBall();
-        this.view.result(strike, ball);
+        const STRIKE = this.model.getStrike();
+        const BALL = this.model.getBall();
+        this.view.result(STRIKE, BALL);
 
-        if (strike === this.model.count) {
+        if (STRIKE === this.model.count) {
           const NUMBER = await this.view.gameClear();
           if (NUMBER === CONTINUE_GAME) {
             this.model.resetBaseballData();
