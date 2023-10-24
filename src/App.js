@@ -1,6 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import { rejects } from "assert";
-import { read } from "fs";
+import { resolve } from "path";
 import * as readline from "readline";
 
 class App {
@@ -21,10 +20,12 @@ class App {
 
     while (!gameFinished) {
       const userNumArray = await this.getUserNum();
-      const result = this.determine(userNumArray, computerNum);
-      if (result == 3) {
-        this.askToPlayAgain();
-        gameFinished = true;
+      if (userNumArray) {
+        const result = this.determine(userNumArray, computerNum);
+        if (result == 3) {
+          gameFinished = true;
+          await this.askToPlayAgain();
+        }
       }
     }
   }
@@ -50,7 +51,8 @@ class App {
           userInput < 0 ||
           userInput.toString().length !== 3
         ) {
-          reject(new Error("[ERROR] 숫자가 잘못된 형식입니다."));
+          console.log("[ERRER] 숫자가 잘못된 형식입니다. 다시 시도하세요");
+          resolve(undefined);
         } else {
           resolve(userNum);
         }
@@ -66,45 +68,43 @@ class App {
     for (let i = 0; i < userNum.length; i++) {
       if (computerNum[i] == userNum[i]) {
         strike++;
+      } else if (computerNum.includes(userNum[i])) {
+        ball++;
       }
     }
-    //볼
-    for (let i = 0; i < computerNum.length; i++) {
-      for (let j = 0; j < userNum.length; j++) {
-        if (i != j && computerNum[i] == userNum[j]) {
-          ball++;
-        }
-      }
-    }
-    if (strike == 0) {
-      console.log(`${ball} 볼`);
-    } else if (ball == 0) {
-      console.log(`${strike} 스트라이크`);
-    } else if (strike == 0 && ball == 0) {
+
+    if (strike > 0 || ball > 0) {
+      console.log(
+        strike > 0 && ball > 0
+          ? `${ball}볼 ${strike}스트라이크`
+          : strike > 0
+          ? `${strike} 스트라이크`
+          : `${ball} 볼`
+      );
+    } else {
       console.log("낫싱");
-    } else if (strike !== 0 && ball !== 0) {
-      console.log(`${ball}볼 ${strike}스트라이크`);
     }
     if (strike == 3) {
       console.log("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
       return 3;
     }
   }
-  askToPlayAgain() {
-    this.rl.question(
-      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.: ",
-      (response) => {
-        if (response === "1") {
-          this.startNewGame();
-        } else if (response === "2") {
-          console.log("게임을 종료합니다.");
-          this.rl.close();
-        } else {
-          console.log("유효하지 않은 입력입니다. 다시 시도하세요.");
-          this.askToPlayAgain();
-        }
-      }
-    );
+  async askToPlayAgain() {
+    const response = await new Promise((resolve) => {
+      this.rl.question(
+        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.",
+        resolve
+      );
+    });
+    if (response === "1") {
+      this.startNewGame();
+    } else if (response === "2") {
+      console.log("게임을 종료합니다.");
+      this.rl.close();
+    } else {
+      console.log("유효하지 않은 입력입니다. 게임을 종료합니다.");
+      this.rl.close();
+    }
   }
 }
 
