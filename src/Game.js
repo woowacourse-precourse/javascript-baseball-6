@@ -9,34 +9,35 @@ const retryAnswer = Object.freeze({
 });
 
 export default class Game {
+  #isGameFinished;
   constructor() {
-    this.isGameFinished = false;
+    this.#isGameFinished = false;
   }
 
   start = async (isRetry = false) => {
-    !isRetry && this.printGameStartMessage();
-    await this.playGame();
+    !isRetry && this.#printGameStartMessage();
+    await this.#playGame();
   };
 
-  playGame = async () => {
-    const [computer, refree, player] = this.initializeGame();
+  #playGame = async () => {
+    const [computer, refree, player] = this.#initializeGame();
     const computerBalls = computer.throwBalls(computer.ballNumbers);
 
-    while (!this.isGameFinished) {
-      const playerBallsInput = await this.promptPlayerBalls();
+    while (!this.#isGameFinished) {
+      const playerBallsInput = await this.#promptPlayerBalls();
       const playerBalls = player.throwBalls(playerBallsInput);
       const result = refree.compareBalls(computerBalls, playerBalls);
-      this.processResult(result);
+      this.#processResult(result);
     }
-    this.promptRetry();
+    this.#promptRetry();
   };
 
-  initializeGame = () => {
-    this.isGameFinished = false;
+  #initializeGame = () => {
+    this.#isGameFinished = false;
     return [new Computer(), new Referee(), new Player()];
   };
 
-  promptRetry = async () => {
+  #promptRetry = async () => {
     const answer = await Console.readLineAsync(
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
     );
@@ -46,7 +47,7 @@ export default class Game {
     answer === retryAnswer[1] && this.start(true);
   };
 
-  promptPlayerBalls = async () => {
+  #promptPlayerBalls = async () => {
     try {
       const answer = await Console.readLineAsync("숫자를 입력해주세요 : ");
       return answer;
@@ -55,15 +56,15 @@ export default class Game {
     }
   };
 
-  processResult = (result) => {
+  #processResult = (result) => {
     Console.print(result);
     if (result.includes("3스트라이크")) {
       Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-      this.isGameFinished = true;
+      this.#isGameFinished = true;
     }
   };
 
-  printGameStartMessage = () => {
+  #printGameStartMessage = () => {
     Console.print("숫자 야구 게임을 시작합니다.");
   };
 }
