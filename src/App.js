@@ -10,40 +10,43 @@ class App {
     }
   }
 
+  checkNumber(input) {
+    input = new Set(input); // 중복 제거
+    input = [...input];
+
+    input.map((item, index) => {
+      if (isNaN(item)) {
+        throw new Error("[ERROR] : 숫자가 아닌 문자가 포함되어있습니다.");
+      }
+      input[index] = Number(item);
+    });
+    if (input.length != 3) {
+      throw new Error("[ERROR] : 서로 다른 세개의 숫자를 입력해야 합니다.");
+    }
+    if (input.indexOf(0) != -1) {
+      throw new Error("[ERROR] : 0이 포함되어있습니다.");
+    }
+    return input;
+  }
+
   async play() {
     let userAnswer = 1;
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
     while (userAnswer == 1) {
       const computer = [];
-      let userInput = [];
+      let input = [];
 
       this.createNumber(computer);
-
-      while (userInput.join("") != computer.join("")) {
-        userInput = [];
+      console.log(computer)
+      while (input.join("") != computer.join("")) {
         const result = [0, 0]; // [볼, 스트라이크]
-        let input = await MissionUtils.Console.readLineAsync(
+        input = await MissionUtils.Console.readLineAsync(
           "숫자를 입력해주세요 : "
         );
-        
-        input = new Set(input); // 중복 제거
-        input = [...input];
-        
-        input.map((item) => {
-          if (isNaN(item)) {
-            throw new Error("[ERROR] : 숫자가 아닌 문자가 포함되어있습니다.");
-          }
-          userInput.push(Number(item));
-        });
-        if (userInput.length != 3) {
-          throw new Error("[ERROR] : 서로 다른 세개의 숫자를 입력해야 합니다.");
-        }
-        if (userInput.indexOf(0) != -1) {
-          throw new Error("[ERROR] : 0이 포함되어있습니다.");
-        }
-        
 
-        userInput.map((item, index) => {
+        input = this.checkNumber(input);
+
+        input.map((item, index) => {
           if (computer.indexOf(item) != -1) {
             computer.indexOf(item) === index ? result[1]++ : result[0]++;
           }
