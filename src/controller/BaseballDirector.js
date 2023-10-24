@@ -30,7 +30,7 @@ export default class BaseballDirector {
     return this.#getCompareResults();
   };
 
-  #getCompareResults = async () => {
+  #getCompareResults = () => {
     const playerNumber = this.#Player.getSelectNumber();
     const computerNumber = this.#Computer.getSelectNumber();
     const result = this.#Referee.compareNumbers(playerNumber, computerNumber);
@@ -38,19 +38,19 @@ export default class BaseballDirector {
     return this.#printCompareResults(result);
   };
 
-  #printCompareResults = async (result) => {
+  #printCompareResults = (result) => {
     printGameStatus(result);
     return this.#checkGameFinish(result);
   };
 
-  #checkGameFinish = async (result) => {
+  #checkGameFinish = (result) => {
     if (result.strike === GAME_SETTINGS.numberLength) {
       return this.#printGameEnd();
     }
     return this.play();
   };
 
-  #printGameEnd = async () => {
+  #printGameEnd = () => {
     printGameEnd();
     return this.#checkGameRetry();
   };
@@ -64,7 +64,7 @@ export default class BaseballDirector {
     return 0;
   };
 
-  #resetGame = async () => {
+  #resetGame = () => {
     this.#Computer.generate();
     return this.play();
   };
