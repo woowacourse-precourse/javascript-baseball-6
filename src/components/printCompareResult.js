@@ -11,4 +11,4 @@ const printCompareResult = ({ ball, strike }) => {
   } else Console.print("낫싱");
 };
 
-export default printCompareResult;
+export { printCompareResult };

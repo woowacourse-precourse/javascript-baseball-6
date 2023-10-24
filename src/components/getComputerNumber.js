@@ -12,4 +12,4 @@ const getComputerNumber = () => {
   return computer;
 };
 
-export default getComputerNumber;
+export { getComputerNumber };

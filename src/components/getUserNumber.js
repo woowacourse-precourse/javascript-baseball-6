@@ -16,4 +16,4 @@ const getUsernumber = async () => {
   return usernumberList;
 };
 
-export default getUsernumber;
+export { getUsernumber };

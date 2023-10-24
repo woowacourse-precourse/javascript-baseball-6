@@ -5,7 +5,7 @@ const checkRepeatGame = async () => {
     "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
   );
 
-  restartFlag = Number(restartFlag);
+  restartFlag = parseInt(restartFlag);
   if (restartFlag !== 1 && restartFlag !== 2) {
     throw new Error("[ERROR] 1 또는 2를 입력해주세요.");
   }
@@ -13,4 +13,4 @@ const checkRepeatGame = async () => {
   return restartFlag;
 };
 
-export default checkRepeatGame;
+export { checkRepeatGame };

@@ -14,4 +14,4 @@ const compareComputerAndUser = (computer, user) => {
   return { ball, strike };
 };
 
-export default compareComputerAndUser;
+export { compareComputerAndUser };
