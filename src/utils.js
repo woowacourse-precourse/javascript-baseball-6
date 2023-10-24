@@ -20,7 +20,13 @@ const readLineAsync = async (message) => {
 
 /**
  * @param {string} input: 사용자가 입력한 값
- * @returns {boolean} 입력이 유효하면 true반환, 유효하지 않으면 예외를 throw
+ * @description 사용자가 입력한 값이 유효한 값인지 검사하는 함수
+ * - NOT_NUMBER: 모두 숫자로 이루어져 있지 않음
+ * - NOT_SIZE:   3(SIZE)글자가 아님
+ * - NOT_UNIQUE: 세 수가 중복이 없는 유니크한 값이 아님
+ * - NOT_RANGE:  1(MIN_NUMBER) ~ 9(MAX_NUMBER) 사이의 숫자로 이루어져 있지 않음
+ * @returns {boolean} 입력 값이 유효할 때 true 반환
+ * @throws {Error} 입력 값이 유효하지 않을 때
  */
 const isValidInput = (input) => {
   input = input.trim();
