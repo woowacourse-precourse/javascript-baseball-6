@@ -1,4 +1,5 @@
 const BaseballGame = require("./lib/BaseballGame");
+const { Console } = require("@woowacourse/mission-utils")
 
 class App {
   async play() {
@@ -6,6 +7,7 @@ class App {
       const baseballGame = new BaseballGame();
       await baseballGame.play()
     } catch(e) {
+      Console.print(e.message)
       throw e
     }
   };
