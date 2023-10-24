@@ -6,6 +6,11 @@ class View {
     return this;
   }
 
+  async ending() {
+    Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+    return this;
+  }
+
   async inputNumber() {
     await this.input('숫자를 입력해주세요 : ');
     return this;

@@ -9,6 +9,11 @@ class Controller {
     return this;
   }
 
+  async ending() {
+    await this.view.ending();
+    return this;
+  }
+
   async handleInput() {
     await this.view.inputNumber();
     const input = this.view.getInputNumber();
