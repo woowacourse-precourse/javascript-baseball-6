@@ -1,3 +1,5 @@
+import { MissionUtils, Console } from "@woowacourse/mission-utils";
+
 class App {
   constructor() {
     this.computerNumbers = [];
