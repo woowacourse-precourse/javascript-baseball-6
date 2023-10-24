@@ -5,6 +5,7 @@ import { TEXT } from '../comm/text.js';
 export default async function inputUserNumber(){
     const number = MissionUtils.Console.readLineAsync(`${TEXT.INPUT_NUMBER}`)
     .then((res) => {
+        MissionUtils.Console.print(`${TEXT.INPUT_NUMBER} ${res}`);
         const valudateNumber = inputNumberValidate(res);
         return valudateNumber;
     })
@@ -15,7 +16,7 @@ export default async function inputUserNumber(){
     return number;
 }
 
-function inputNumberValidate(inputNumber){
+const inputNumberValidate = (inputNumber) => {
     const numberLength = inputNumber.length;
     const numberSize = new Set(inputNumber.split("")).size;
     const numberCheck = isNaN(inputNumber);
@@ -25,5 +26,4 @@ function inputNumberValidate(inputNumber){
     } else {
         throw new Error(`${TEXT.INPUT_ERROR}`);
     }
-    
-}
+};

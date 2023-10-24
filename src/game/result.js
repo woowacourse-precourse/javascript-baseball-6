@@ -10,8 +10,7 @@ export default function gameResult(userNumber, computerNumber){
     compareNumber(strike, ball, userNumber, computerNumber);
 }
 
-async function compareNumber(strike, ball, userNumber, computerNumber){
-
+const compareNumber = async (strike, ball, userNumber, computerNumber) => {
     if(strike === 3 && ball === 0){
         MissionUtils.Console.print(`${strike}${TEXT.STRIKE}`);
         MissionUtils.Console.print(`${TEXT.GAME_OVER}`);        
@@ -30,7 +29,7 @@ async function compareNumber(strike, ball, userNumber, computerNumber){
     
     const newUserNumber = await inputUserNumber();
 
-    return gameResult(newUserNumber, computerNumber);    
+    return gameResult(newUserNumber, computerNumber);
 }
 
 const strikeCount = (userNumber, computerNumber) => {
@@ -51,17 +50,14 @@ const ballCount = (userNumber, computerNumber) => {
     }, 0);
 }
 
-async function playRestart(){
-    MissionUtils.Console.readLineAsync(`${TEXT.RESTART_YN} \n`)
-    .then((res) => {
-        if(res == 1){
-            return playGame();
-        }else if(res == 2){
-            return;
-        }
-    })
-    .catch((error) => {
-        MissionUtils.Console.print(error);
-    });    
-}
+const playRestart = async () => {
+    const res = await MissionUtils.Console.readLineAsync(`${TEXT.RESTART_YN} \n`);
+    if (res === '1') {
+        MissionUtils.Console.print(`${TEXT.RESTART_YN} \n`);
+        MissionUtils.Console.print(`${res}`);
+        return playGame();
+    } else if (res === '2') {
+        return;
+    }
+} 
 
