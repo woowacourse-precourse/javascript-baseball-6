@@ -4,19 +4,20 @@ class App {
   async play() {
     Console.print('숫자 야구 게임을 시작합니다.');
     const game = new BaseballGame();
-    let errorflag = 0;
-    let flag = 1;
+    let inputFlag;
 
-    while (Number(flag) === 1) {
+    while (true) {
       await game.gameStart().catch(() => {
-        errorflag = 1;
+        throw new Error('[ERROR]');
       });
-      if (errorflag === 1) {
+      inputFlag = await game.retry().catch(() => {
         throw new Error('[ERROR]');
+      });
+      if (inputFlag === '1') {
+        continue;
       }
-      flag = await game.retry();
-      if (!(Number(flag) === 1 || Number(flag) === 2)) {
-        throw new Error('[ERROR]');
+      if (inputFlag === '2') {
+        break;
       }
     }
   }

@@ -2,12 +2,9 @@ import { Console, Random } from '@woowacourse/mission-utils';
 
 export default class Computer {
   #randomThreeNummber;
-  constructor() {
 
-  }
-
+  // 랜덤 3개 수 생성 함수
   setRandomThreeNummber() {
-    // 랜덤 3개 수 생성
     this.#randomThreeNummber = [];
     while (this.#randomThreeNummber.length < 3) {
       const number = Random.pickNumberInRange(1, 9);
@@ -16,8 +13,9 @@ export default class Computer {
       }
     }
   }
+
+  // 랜덤 생성 수 배열 반환 함수
   getRandomThreeNummber() {
-    // 랜덤 생성 수 배열 반환
     return this.#randomThreeNummber;
   }
 }
