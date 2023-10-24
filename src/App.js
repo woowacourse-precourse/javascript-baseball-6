@@ -24,24 +24,58 @@ class App {
         else if (computer.includes(guess[i])) balls++;
       }
 
+      if (strikes === 0 && balls === 0) return "낫싱";
+
       return { strikes, balls };
     }
 
     function palyGame() {
+      //숫자 야구 게임
       MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
+      let Regame = true;
 
-      let attempts = 0;
-      while (ture) {
-        let input =
-          MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
-        let userGuess = input.split("").map(Number);
+      while (Regame) {
+        const computer = generateRandomNumber();
+        let attempts = 0;
 
-        if (
-          userGuess.length !== 3 ||
-          userGuess.some(isNaN) ||
-          userGuess.some((num) => num < 1 || num > 9)
-        ) {
-          throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+        while (ture) {
+          let input =
+            MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
+          let userGuess = input.split("").map(Number);
+
+          if (
+            userGuess.length !== 3 ||
+            userGuess.some(isNaN) ||
+            userGuess.some((num) => num < 1 || num > 9)
+          ) {
+            throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+          }
+
+          attempts++;
+          const result = calculateResult(computer, userGuess);
+          if (result === "낫싱") MissionUtils.Console.print("낫싱");
+          else if (result.strikes === 3) {
+            MissionUtils.Console.print(
+              "3개의 숫자를 모두 맞히셨습니다! 게임 종료"
+            );
+            MissionUtils.Console.print(
+              "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+            );
+            // 게임 재시작 or 종료
+            let answer = MissionUtils.Console.readLineAsync();
+            if (answer !== 1) {
+              Regame = false;
+            }
+            break;
+          } else if (result.strikes === 0) {
+            MissionUtils.Console.print(`${result.balls}볼`);
+          } else if (result.balls === 0) {
+            MissionUtils.Console.print(`${result.strikes}스트라이크`);
+          } else {
+            MissionUtils.Console.print(
+              `${result.balls}볼 ${result.strikes}스트라이크`
+            );
+          }
         }
       }
     }
