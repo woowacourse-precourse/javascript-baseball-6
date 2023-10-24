@@ -9,7 +9,7 @@ import {
   printGameStatus,
 } from '../view/OutputView.js';
 
-export default class BaseballController {
+export default class BaseballDirector {
   #Player;
 
   #Computer;

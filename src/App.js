@@ -1,8 +1,8 @@
-import BaseballController from './controller/BaseballController.js';
+import BaseballDirector from './controller/BaseballDirector.js';
 
 export default class App {
   play = async () => {
-    this.controller = await new BaseballController();
+    this.controller = await new BaseballDirector();
     await this.controller.play();
   };
 }
