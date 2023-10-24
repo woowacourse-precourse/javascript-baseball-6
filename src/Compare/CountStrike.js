@@ -1,16 +1,13 @@
-const CountBall = (computerNumber, userNumber) => {
-  let ballNumber = 0;
+const CountStrike = (computerNumber, userNumber) => {
+  let strikeNumber = 0;
 
-  for (let index = 0; index < computerNumber.length; index++) {
-    if (
-      computerNumber[index] !== userNumber[index] &&
-      computerNumber.includes(userNumber[index])
-    ) {
-      ballNumber += 1;
+  for (let index = 0; index < computerNumber.length; index += 1) {
+    if (computerNumber[index] === userNumber[index]) {
+      strikeNumber += 1;
     }
   }
 
-  return ballNumber;
+  return strikeNumber;
 };
 
-export default CountBall;
+export default CountStrike;
