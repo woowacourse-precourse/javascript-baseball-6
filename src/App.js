@@ -10,6 +10,16 @@ class Game {
     MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
   }
 
+  //랜덤 숫자 생성
+  setRandomNumber() {
+    this.RANDOM_ARR = [];
+    while (this.RANDOM_ARR.length < 3) {
+      const number = MissionUtils.Random.pickNumberInRange(1,9);
+      if (!this.RANDOM_ARR.includes(number)) {
+        this.RANDOM_ARR.push(number);
+      }
+    }
+  }
   //유저 입력값 받아오기 및 게임 수행
   async getUserInput() {
     try{
@@ -31,17 +41,6 @@ class Game {
     }
   }
 
-  //랜덤 숫자 생성
-  setRandomNumber() {
-    this.RANDOM_ARR = [];
-    while (this.RANDOM_ARR.length < 3) {
-      const number = MissionUtils.Random.pickNumberInRange(1,9);
-      if (!this.RANDOM_ARR.includes(number)) {
-        this.RANDOM_ARR.push(number);
-      }
-    }
-  }
-
   //숫자 비교
   compareNumber() {
     const USER_INPUT = this.USER_ANSWER.split('');
@@ -50,12 +49,11 @@ class Game {
       TEMP.push(this.RANDOM_ARR.indexOf(Number(USER_INPUT[i])));
       if( TEMP[i] < 0 ) {
         this.COUNT[2] += 1; // 숫자가 없는 경우
+      }
+      else if( TEMP[i] !== i) {
+        this.COUNT[1] += 1; // 숫자와 자리가 일지하지 않는 경우
       }else {
-        if( TEMP[i] !== i) {
-          this.COUNT[1] += 1; // 숫자와 자리가 일지하지 않는 경우
-        }else {
-          this.COUNT[0] += 1; // 숫자와 자리가 일치하는 경우
-        }
+        this.COUNT[0] += 1; // 숫자와 자리가 일치하는 경우
       }
     }
   }
@@ -82,7 +80,6 @@ class Game {
       MissionUtils.Console.print(`${this.COUNT[0]}스트라이크 \n3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
       this.restart();
     }
-    
   }
 
   //재시작
