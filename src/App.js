@@ -115,8 +115,6 @@ class App {
       roundsPlayed++;
     }
     Console.print(GAME_END_PROMPT);
-
-    return Promise.resolve();
   }
 }
 
