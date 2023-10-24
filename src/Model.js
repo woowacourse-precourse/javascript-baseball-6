@@ -1,4 +1,8 @@
 class Model {
+  constructor() {
+    this.inputNumber = '';
+  }
+
   initAnswer() {
     const answer = [];
     while (answer.length < 3) {
@@ -8,6 +12,11 @@ class Model {
       }
     }
     this.answer = answer.join('');
+    return this;
+  }
+
+  update(input) {
+    this.inputNumber = input;
     return this;
   }
 }

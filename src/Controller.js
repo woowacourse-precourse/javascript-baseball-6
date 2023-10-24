@@ -9,6 +9,14 @@ class Controller {
     return this;
   }
 
+  async handleInput() {
+    await this.view.inputNumber();
+    const input = this.view.getInputNumber();
+
+    this.model.update(input);
+    return this;
+  }
+
   initGame() {
     this.model.initAnswer();
     return this;
