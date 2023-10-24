@@ -25,11 +25,11 @@ class Game {
     while (true) {
       const userNums = await this.getUserNums();
 
-      const result = this.checkResult(userNums);
-      const resultStr = this.getResultStr(result.ball, result.strike);
+      const { ballCnt, strikeCnt } = this.checkResult(userNums);
+      const resultStr = this.getResultStr(ballCnt, strikeCnt);
       Console.print(resultStr);
 
-      if (result.strike === 3) {
+      if (strikeCnt === 3) {
         Console.print(MESSAGE.SUCCESS);
         break;
       }
@@ -88,19 +88,17 @@ class Game {
    * @returns {{strike: number, ball: number}} - 스트라이크와 볼 개수로 이루어진 객체
    */
   checkResult = (userNums) => {
-    const result = {
-      strike: 0,
-      ball: 0,
-    };
+    let ballCnt = 0;
+    let strikeCnt = 0;
 
     userNums.forEach((num, index) => {
       if (num === this.computerNums[index]) {
-        result.strike++;
+        strikeCnt++;
       } else if (this.computerNums.includes(num)) {
-        result.ball++;
+        ballCnt++;
       }
     });
-    return result;
+    return { ballCnt, strikeCnt };
   };
 
   /**
