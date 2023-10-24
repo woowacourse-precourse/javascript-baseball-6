@@ -1,4 +1,5 @@
 import { Random } from "@woowacourse/mission-utils";
+import { ErrorMessages } from "./Messages.js";
 
 class Baseball {
   static #BASEBALL_LENGTH = 3;
@@ -7,8 +8,7 @@ class Baseball {
   constructor(baseballString) {
     this.#baseball = [];
     if (baseballString) {
-      if (this.isInvalidBaseballString(baseballString))
-        throw new Error("[ERROR]");
+      this.validateBaseballString(baseballString);
       this.setStringToBaseball(baseballString);
     } else this.setRandomBaseball();
   }
@@ -32,8 +32,13 @@ class Baseball {
     }
   }
 
-  isInvalidBaseballString(baseballString) {
-    if (baseballString.length > 3) return true;
+  validateBaseballString(baseballString) {
+    if (baseballString.length > 3)
+      throw new Error(ErrorMessages.Invalid_Length);
+    if (baseballString.match(/[^0-9]/g))
+      throw new Error(ErrorMessages.Invalid_String);
+    if (baseballString.length !== new Set(baseballString).size)
+      throw new Error(ErrorMessages.Invalid_Number);
   }
 
   static compareBaseball(guessBall, answerBall) {

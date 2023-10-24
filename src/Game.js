@@ -1,6 +1,6 @@
 import Baseball from "./Baseball.js";
 import { Console } from "@woowacourse/mission-utils";
-import { Messages } from "./Messages.js";
+import { GameMessages } from "./Messages.js";
 
 class Game {
   #answerBaseball;
@@ -15,11 +15,7 @@ class Game {
 
   async runGame() {
     while (true) {
-      try {
-        if (await this.runSingleGuess()) throw new Error("[ERROR]");
-      } catch (e) {
-        throw e;
-      }
+      await this.runSingleGuess();
       if (this.isEndGame()) break;
     }
   }
@@ -31,12 +27,8 @@ class Game {
   }
 
   async getGuess() {
-    const guess = await Console.readLineAsync(Messages.GET_GUESS);
-    try {
-      this.#guessBaseball = new Baseball(guess);
-    } catch (e) {
-      return true;
-    }
+    const guess = await Console.readLineAsync(GameMessages.GET_GUESS);
+    this.#guessBaseball = new Baseball(guess);
   }
 
   makeResult() {
@@ -50,10 +42,10 @@ class Game {
     const { strike, ball, out } = { ...this.#result };
 
     let message = "";
-    if (out) message = Messages.OUT;
+    if (out) message = GameMessages.OUT;
     else {
-      if (ball > 0) message += `${ball}${Messages.BALL} `;
-      if (strike > 0) message += `${strike}${Messages.STRIKE}`;
+      if (ball > 0) message += `${ball}${GameMessages.BALL} `;
+      if (strike > 0) message += `${strike}${GameMessages.STRIKE}`;
     }
     Console.print(message);
   }
