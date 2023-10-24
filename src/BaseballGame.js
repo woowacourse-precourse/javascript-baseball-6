@@ -5,29 +5,32 @@ import Computer from "./Computer.js";
 const { Console } = MissionUtils;
 
 class BaseballGame extends Computer {
+  #isPlaying;
+  #randomNumber;
+
   constructor() {
     super();
-    this.isPlaying;
-    this.randomNumber;
+    this.#isPlaying;
+    this.#randomNumber;
   }
 
   // 게임 초기 세팅
   async init() {
-    this.isPlaying = false;
+    this.#isPlaying = false;
     Console.print(MESSAGES.game.start);
     this.start();
   }
 
   // 게임 시작
   async start() {
-    this.isPlaying = true;
-    this.randomNumber = super.createRandomNumber();
+    this.#isPlaying = true;
+    this.#randomNumber = super.createRandomNumber();
     await this.getPlayerInput();
   }
 
   // 사용자 입력값 받기
   async getPlayerInput() {
-    if (this.isPlaying) {
+    if (this.#isPlaying) {
       try {
         const playerInput = await Console.readLineAsync(
           MESSAGES.game.playerInput
@@ -36,13 +39,13 @@ class BaseballGame extends Computer {
         this.validationPlayerInput(playerInput);
 
         const strikeBall = super.countStrikeBall(
-          this.randomNumber,
+          this.#randomNumber,
           playerInput
         );
 
         this.printStrikeBall(strikeBall);
       } catch (error) {
-        this.isPlaying = false;
+        this.#isPlaying = false;
         throw error;
       }
     } else {
@@ -51,13 +54,13 @@ class BaseballGame extends Computer {
   }
 
   // 사용자 입력값 유효성 검사 (3자리의 숫자인지 확인)
-  async validationPlayerInput(playerInput) {
+  validationPlayerInput(playerInput) {
     const rInput = /^(?!.*(.).*\1)[1-9]{3}$/;
 
     if (!rInput.test(playerInput)) {
-      this.isPlaying = false;
+      this.#isPlaying = false;
       throw new Error(MESSAGES.errors.invalidNumber);
-    }
+    } else return;
   }
 
   // 사용자 입력값과 정답(randomNumber) 비교
@@ -80,9 +83,9 @@ class BaseballGame extends Computer {
 
     if (result === MESSAGES.result.success) {
       Console.print(MESSAGES.game.success);
-      this.restart();
+      await this.restart();
     } else {
-      this.getPlayerInput();
+      await this.getPlayerInput();
     }
   }
 
@@ -113,7 +116,7 @@ class BaseballGame extends Computer {
   // 게임 종료
   async done() {
     Console.print(MESSAGES.game.done);
-    this.isPlaying = false;
+    this.#isPlaying = false;
   }
 }
 
