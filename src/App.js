@@ -4,9 +4,17 @@ class App {
 	constructor() {
 		this.mode = GAME.PLAYING;
 	}
+	/**
+	 * 시작 메세지 보여주는 함수
+	 */
 	showStartMessage() {
 		Console.print(COMMAND.START);
 	}
+
+	/**
+	 * 랜덤한 3개의 숫자 만드는 함수
+	 * @returns 랜덤한 숫자 3개 반환 ex) [1,4,5]
+	 */
 	generateRandomNumber() {
 		const randomNumberList = [];
 		while (randomNumberList.length < GAME.NUMBER_LENGTH) {
@@ -16,12 +24,23 @@ class App {
 		}
 		return randomNumberList.sort();
 	}
-	validUserInput(userInput) {
+
+	/**
+	 * 사용자 입력 가공하는 함수
+	 * @param {string} userInput ex) "123"
+	 * @returns list반환 ex) [1,2,3]
+	 */
+	toListUserInput(userInput) {
 		if (userInput.length === 0) throw new Error(ERROR.NOT_INPUT);
 		this.checkValidationInput(userInput);
 		userInput = userInput.split('').map((number) => Number(number));
 		return userInput;
 	}
+
+	/**
+	 * 사용자 입력 유효한지 확인하는 함수
+	 * @param {list} userInput
+	 */
 	checkValidationInput(userInput) {
 		userInput.split('').forEach((number, index) => {
 			if (isNaN(number)) {
@@ -40,6 +59,13 @@ class App {
 			}
 		});
 	}
+
+	/**
+	 * 볼 개수 확인하는 함수
+	 * @param {list} answer
+	 * @param {list} userInput
+	 * @returns Number ex) 3
+	 */
 	countBall(answer, userInput) {
 		let count = 0;
 		userInput.forEach((number, index) => {
@@ -49,6 +75,13 @@ class App {
 		});
 		return count;
 	}
+
+	/**
+	 * 스트라이크 개수 확인하는 함수
+	 * @param {list} answer
+	 * @param {list} userInput
+	 * @returns number ex) 3
+	 */
 	countStrike(answer, userInput) {
 		let count = 0;
 		userInput.forEach((_, index) => {
@@ -58,6 +91,12 @@ class App {
 		});
 		return count;
 	}
+
+	/**
+	 * 볼, 스트라이크 개수에 따른 게임 처리하는 함수
+	 * @param {list} answer
+	 * @param {list} userInput
+	 */
 	checkGameStatus(answer, userInput) {
 		const ball = this.countBall(answer, userInput);
 		const strike = this.countStrike(answer, userInput);
@@ -75,6 +114,10 @@ class App {
 		}
 		Console.print(message);
 	}
+
+	/**
+	 * 게임 재시작 처리하는 함수
+	 */
 	async userSelectRestart() {
 		Console.print(COMMAND.END);
 		const userSelectMenu = await Console.readLineAsync(COMMAND.RESTART);
@@ -86,20 +129,23 @@ class App {
 			return;
 		} else throw new Error(ERROR.INVALID_NUMBER);
 	}
+
+	/**
+	 * 게임 시작하는 함수
+	 */
 	async gameStart() {
 		const answer = this.generateRandomNumber();
 		while (this.mode !== GAME.FINISH) {
 			let userInput = await Console.readLineAsync(COMMAND.INPUT);
-			userInput = this.validUserInput(userInput);
+			userInput = this.toListUserInput(userInput);
 			this.checkGameStatus(answer, userInput);
 		}
 		this.userSelectRestart();
 	}
+
 	async play() {
 		this.showStartMessage();
 		await this.gameStart();
 	}
 }
-// const app = new App();
-// app.play();
 export default App;
