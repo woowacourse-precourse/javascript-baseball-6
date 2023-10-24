@@ -107,15 +107,19 @@ class App {
         this.printGameResult(STATUS.NOTHING, result);
       } else if (result.strike === 3) {
         this.printGameResult(STATUS.OVER, result);
-        this.printRestartOrEnd();
-        const input = await this.getRestartOrEndInput();
-        if (input === "1") {
-          await this.gameReady();
-        }
+        await this.gameRestartOrEnd();
         return;
       } else {
         this.printGameResult(STATUS.CONTINUE, result);
       }
+    }
+  };
+
+  gameRestartOrEnd = async () => {
+    this.printRestartOrEnd();
+    const input = await this.getRestartOrEndInput();
+    if (input === "1") {
+      await this.gameReady();
     }
   };
 
