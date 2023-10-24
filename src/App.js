@@ -1,38 +1,19 @@
-const { MissionUtils } = require('@woowacourse/mission-utils');
+const { Console, Random } = require('@woowacourse/mission-utils');
 
-function inputErrorHandle() {
-  throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+function isValid(playerInput) {
+  if (playerInput.length !== 3)
+    throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+  if (isNaN(Number(playerInput)))
+    throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+
+  let set = new Set(playerInput);
+  if (set.size !== 3) throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
 }
 
-function isValidNumber(str) {
-  if (str.length !== 3) return false;
-  if (!isNaN(Number(str))) return false;
-
-  let set = new Set(str);
-  if (set.size !== 3) return false;
-  return true;
-}
-
-async function getPlayerNumber() {
-  // try {
-  const playerNumber = await MissionUtils.Console.readLineAsync(
-    '숫자를 입력해주세요 : '
-  );
-  if (!isValidNumber(playerNumber)) {
-    inputErrorHandle();
-  }
-  // return playerNumber.split("").map(Number);
-  return playerNumber;
-  // }
-  // catch (error) {
-  // throw error;
-  // }
-}
-
-async function getComputerNumber() {
-  const computer = '';
+function makeComputerNumber() {
+  let computer = '';
   while (computer.length < 3) {
-    const number = MissionUtils.Random.pickNumberInRange(1, 9);
+    const number = Random.pickNumberInRange(1, 9);
     if (!computer.includes(number)) {
       computer += number;
     }
@@ -42,16 +23,20 @@ async function getComputerNumber() {
 
 class App {
   async play() {
-    // 게임 시작 문구 출력
-    MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
-    const playerPromise = getPlayerNumber();
-    const computerPromise = getComputerNumber();
-    const playerNumber = await playerPromise;
-    const computerNumber = await computerPromise;
+    Console.print('숫자 야구 게임을 시작합니다.');
+    const computerNumber = makeComputerNumber();
+    await this.startGame(computerNumber);
+  }
+
+  async startGame(computer) {
+    const user = await this.getPlayerNumber();
+  }
+
+  async getPlayerNumber() {
+    const playerNumber = await Console.readLineAsync('숫자를 입력해주세요 : ');
+    isValid(playerNumber);
+    return playerNumber;
   }
 }
-
-const app = new App();
-app.play();
 
 export default App;
