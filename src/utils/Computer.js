@@ -1,18 +1,17 @@
 import { Random } from '@woowacourse/mission-utils';
-import { NUMBER_SIZE } from '../constant.js';
+import { SIZE } from '../constant';
 
-class Computer {
+export default class Computer {
   getComputerChoice() {
-    let str = '';
-    while (str.length < NUMBER_SIZE) {
+    let three_numbers = '';
+
+    while (three_numbers.length < SIZE) {
       const RANDOM_NUMBER = Random.pickNumberInRange(1, 9);
-      if (!str.includes(String(RANDOM_NUMBER))) {
-        str += String(RANDOM_NUMBER);
+      if (!three_numbers.includes(String(RANDOM_NUMBER))) {
+        three_numbers += String(RANDOM_NUMBER);
       }
     }
 
-    return Number(str);
+    return Number(three_numbers);
   }
 }
-
-export default Computer;
