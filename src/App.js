@@ -36,6 +36,21 @@ class App {
       this.playerInput = input;
     }
   } 
+  // 볼, 스트라이크 판단 메서드
+  calculateBallsAndStrikes() {
+    const player = this.playerInput.split('');
+    let strike = 0;
+    let ball = 0;
+    player.forEach((number, index) => {
+      if (this.answerNumber.includes(number)) {
+        if (this.answerNumber[index] === player[index]) {
+          strike++;
+        } else {
+          ball++;
+        }
+      }});
+    return { ball, strike };
+  }
 }
 
 export default App;
