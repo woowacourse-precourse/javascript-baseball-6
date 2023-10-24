@@ -57,6 +57,35 @@ function printChecked(balls, strikes) {
 
 class App {
   async play() {
+      Console.print('숫자 야구 게임을 시작합니다.')
+      let isPlaying = true;
+
+      while (isPlaying) {
+        const answer = generateRandomNumber();
+        while (true) {
+          const userInput = await checkRightFormat();
+          const { balls, strikes } = checkNumbers(userInput, answer);
+          printChecked(balls, strikes);
+          if (strikes === 3) {
+            Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+            isPlaying = await this.gameEnding();
+            break;
+          }
+        }
+      }
+    }
+  
+  // 게임 종료 or 재시작
+  async gameEnding() {
+    const condition = Number(await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'));
+    
+    if (condition === 1) {
+      return true;
+    } else if (condition === 2) {
+      return false;
+    } else {
+      throw new Error('[ERROR] 1 이나 2 를 입력해야합니다.')
+    }
   }
 }
 
