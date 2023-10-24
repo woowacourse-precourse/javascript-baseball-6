@@ -1,35 +1,41 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
+const PLAY_MESSAGE = "숫자 야구 게임을 시작합니다.";
+const RESTART_MESSAGE = "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요: ";
+const THREE_STRIKE_MESSAGE = "3개의 숫자를 모두 맞히셨습니다! 게임 종료";
+const END_MESSAGE = "게임을 종료합니다.";
+const PLAY_AGAIN = 1;
+const END_GAME = 2;
+const USER_INPUT_MESSAGE = "사용자 입력값: ";
+const ASK_FOR_INPUT = "숫자를 입력해주세요 : ";
+const THROW_ERROR = "[ERROR] 숫자가 잘못된 형식입니다.";
+
 class App {
 	constructor() {
-		// PLAY_AGAIN 변수를 클래스 레벨에서 정의
-		this.PLAY_AGAIN = true;
+		// playAgain 변수를 클래스 레벨에서 정의
+		this.playAgain = true;
 	}
 
 	async play() {
-		MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
+		MissionUtils.Console.print(PLAY_MESSAGE);
 
-		while (this.PLAY_AGAIN) {
+		while (this.playAgain) {
 			await this.playGame();
 		}
 	}
 
 	async askForRestart() {
-		const USER_INPUT = await MissionUtils.Console.readLineAsync(
-			"게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요: "
-		);
-		await MissionUtils.Console.print(
-			"게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
-		);
-		await MissionUtils.Console.print(USER_INPUT);
+		const userInput = await MissionUtils.Console.readLineAsync(RESTART_MESSAGE);
+		await MissionUtils.Console.print(RESTART_MESSAGE);
+		await MissionUtils.Console.print(userInput);
 
-		if (USER_INPUT == 2) {
-			MissionUtils.Console.print("게임을 종료합니다.");
-			this.PLAY_AGAIN = false;
-		} else if (USER_INPUT == 1) {
+		if (userInput == END_GAME) {
+			MissionUtils.Console.print(END_MESSAGE);
+			this.playAgain = false;
+		} else if (userInput == PLAY_AGAIN) {
 		}
 
-		return USER_INPUT;
+		return userInput;
 	}
 
 	async playGame() {
@@ -43,37 +49,35 @@ class App {
 			getResult = await this.compareNumbers(userNumberArr, computerNumber);
 
 			await MissionUtils.Console.print(
-				"사용자 입력값: " + userNumberArr.join("")
+				USER_INPUT_MESSAGE + userNumberArr.join("")
 			);
 
 			result = await this.printResult(
-				getResult.STRIKE,
-				getResult.NOTHING,
-				getResult.BALL
+				getResult.strike,
+				getResult.nothing,
+				getResult.ball
 			);
 
 			await MissionUtils.Console.print(result); // 결과값 출력
-		} while (getResult.STRIKE !== 3 && userNumberArr.length === 3);
+		} while (getResult.strike !== 3 && userNumberArr.length === 3);
 
-		await MissionUtils.Console.print(
-			"3개의 숫자를 모두 맞히셨습니다! 게임 종료"
-		);
+		await MissionUtils.Console.print(THREE_STRIKE_MESSAGE);
 		await this.askForRestart();
 	}
 
 	async getUserNumber() {
 		try {
-			const USER_NUMBER = await MissionUtils.Console.readLineAsync(
-				"숫자를 입력해주세요 : "
+			const userNumber = await MissionUtils.Console.readLineAsync(
+				ASK_FOR_INPUT
 			);
 
-			if (USER_NUMBER.length !== 3) {
-				await MissionUtils.Console.print(USER_NUMBER);
-				throw new Error("[ERROR]");
+			if (userNumber.length !== 3) {
+				await MissionUtils.Console.print(userNumber);
+				throw new Error(THROW_ERROR);
 			}
 
 			// 배열로 담는 이유는 computerNumber 배열과 하나씩 비교하기 위함
-			const userNumberArr = [...USER_NUMBER].map((x) => Number(x));
+			const userNumberArr = [...userNumber].map((x) => Number(x));
 			return userNumberArr;
 		} catch (error) {
 			throw error;
@@ -92,35 +96,35 @@ class App {
 	}
 
 	async compareNumbers(userNumberArr, computerNumber) {
-		let STRIKE = 0;
-		let NOTHING = 0;
-		let BALL = 0;
+		let strike = 0;
+		let nothing = 0;
+		let ball = 0;
 
 		for (let i = 0; i < 3; i++) {
 			if (userNumberArr[i] === computerNumber[i]) {
-				STRIKE += 1;
+				strike += 1;
 			} else {
-				NOTHING += 1;
+				nothing += 1;
 			}
 			for (let j = 0; j < 3; j++) {
 				if (userNumberArr[i] === computerNumber[j] && i !== j) {
-					BALL += 1;
+					ball += 1;
 				}
 			}
 		}
-		return { STRIKE, NOTHING, BALL };
+		return { strike, nothing, ball };
 	}
 
-	async printResult(STRIKE, NOTHING, BALL) {
+	async printResult(strike, nothing, ball) {
 		let result;
-		if (NOTHING === 3) {
+		if (nothing === 3) {
 			result = "낫싱";
-		} else if (STRIKE === 0) {
-			result = BALL + "볼";
-		} else if (BALL === 0) {
-			result = STRIKE + "스트라이크";
+		} else if (strike === 0) {
+			result = `${ball}볼`;
+		} else if (ball === 0) {
+			result = `${strike}스트라이크`;
 		} else {
-			result = BALL + "볼 " + STRIKE + "스트라이크";
+			result = `${ball}볼 ${strike}스트라이크`;
 		}
 		return result;
 	}
