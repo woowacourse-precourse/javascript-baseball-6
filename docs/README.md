@@ -1,4 +1,4 @@
-# 우아한테크코스 6기 프리코스 1주차 미션 - 숫자 야구 게임을 구현한 저장소입니다.
+# 우아한테크코스 6기 프리코스 1주차 미션 - 숫자 야구 게임
 
 ## 구현할 기능 목록
 1. 숫자 게임 실행
@@ -25,13 +25,13 @@
   * 2 입력 = 프로그램종료
 
 ## 패키지 구조 및 파일명
-  src
-    -- data
-    ----- createComputerNumber.js
-    ----- inputUserNumber.js
-    -- game
-    ----- playGame.js
-    ----- result.js
+  | src
+  |  -- data
+  |  ----- createComputerNumber.js
+  |  ----- inputUserNumber.js
+  |  -- game
+  |  ----- playGame.js
+  |  ----- result.js
 - 데이터를 위한 폴더, 게임 플레이를 위한 폴더로 나누었다. 
   데이터를 위한 폴더 == 상대방(컴퓨터)의 값을 위한 .js파일, 사용자 입출력 및 예외처리를 위한 .js파일
   게임 플레이를 위한 폴더 == 숫자 야구 게임 플레이를 위한 .js파일, 값의 비교 및 결과 도출을 위한 .js파일
