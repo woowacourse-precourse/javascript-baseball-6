@@ -4,7 +4,7 @@
 정답은 `1부터 9 까지의 서로 다른 수로 이루어진 3자리의 수`여야 한다.
 - Random 값 추출은 [@woowacourse/mission-utils](https://github.com/woowacourse-projects/javascript-mission-utils#mission-utils)의 `Random.pickNumberInRange()`를 활용한다.
 
-## [ ] 기능 2: User input 받아오기
+## [✅] 기능 2: User input 받아오기
 - User에게 3자리 수를 입력받는다.
   - 서로 다른 숫자를 입력해야 한다.
   - 0이 아닌 1~9의 숫자를 입력해야 한다.
@@ -14,9 +14,9 @@
 ## [ ] 기능 3: 정답과 비교
 User input과 정답을 비교하여 같은 자리에 같은 수가 있으면 `스트라이크`, 다른 자리에 있으면 `볼`, 같은 수가 전혀 없으면 `낫싱`
 3스트라이크인 경우 기능 4로 이동, 이외의 경우에는 기능 2로 이동한다.
-- [ ] 3-2: 스트라이크 count를 판단.
-- [ ] 3-3: 볼 count를 판단.
-- [ ] 3-4: 스트라이크와 볼 count가 모두 0일 때, 낫싱을 출력.
+- 스트라이크 count를 판단.
+- 볼 count를 판단.
+- 스트라이크와 볼 count가 모두 0일 때, 낫싱을 출력.
 
 ## [ ] 기능 4: 게임 종료
 게임을 다시 시작하거나 완전히 종료할 수 있다.
