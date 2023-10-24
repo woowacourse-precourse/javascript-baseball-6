@@ -74,7 +74,7 @@
     <th>설명</th>
   </tr>
   <tr>
-    <td>valueOf</td>
+    <td>valueOf(<i>number</i>)</td>
     <td>입력받은 인자에 따라 미리 생성해놓은 인스턴스를 반환합니다.</td>
   </tr>
 </table>
@@ -148,11 +148,11 @@
     <th>설명</th>
   </tr>
   <tr>
-    <td>increaseStrike</td>
+    <td>increaseStrike()</td>
     <td>`score`의 `strike`를 `1` 증가시킵니다.</td>
   </tr>
   <tr>
-    <td>increaseBall</td>
+    <td>increaseBall()</td>
     <td>`score`의 `ball`을 `1` 증가시킵니다.</td>
   </tr>
 </table>
@@ -281,3 +281,12 @@
 - [x] Node.js 18.17.1 버전에서 실행 가능한가?
 - [x] `package.json`에 변경사항이 존재하지 않는가?
 - [x] `process.exit()`를 호출하는 코드가 존재하지 않는가?
+
+# 플로우 차트
+
+![baseball drawio](https://github.com/cobocho/javascript-baseball-6/assets/99083803/a3fc9b55-21ce-4667-af78-bc48efd770bd)
+
+# 테스트 실행 결과
+
+<img width="361" alt="test-result" src="https://github.com/cobocho/javascript-baseball-6/assets/99083803/d34a1fb7-30a0-42cc-991b-ea083d3307be">
+
