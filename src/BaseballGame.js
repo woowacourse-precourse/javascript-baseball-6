@@ -8,8 +8,8 @@ class BaseballGame {
     this.computer = new Computer();
   }
 
-  startGame() {
-    this.getUserInput();
+  async startGame() {
+    await this.getUserInput();
   }
 
   async getUserInput() {
@@ -39,7 +39,7 @@ class BaseballGame {
     this.getUserInput();
   }
 
-  handleUserInputEndGame(input) {
+  async handleUserInputEndGame(input) {
     const checkValidNumberEndGame = ['1', '2'];
 
     if (!checkValidNumberEndGame.includes(input)) {
