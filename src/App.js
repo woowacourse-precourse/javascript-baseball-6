@@ -44,27 +44,24 @@ class App {
   }
 
   async userInput() {
-    let inputDigits;
-    
-    while (true) {
-      // "숫자를 입력해주세요" 출력 후 사용자로부터 3자리 숫자 입력 받기
-      const input = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 :");
+    // "숫자를 입력해주세요" 출력 후 사용자로부터 3자리 숫자 입력 받기
+    const input = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 :");
 
-      if (!input || input.length !== 3 || !/^\d+$/.test(input)) {
-        throw new Error("[ERROR]"); // 에러 발생
-      }
+    const inputDigits = input.split('').map(Number);
 
-      inputDigits = input.split('').map(Number);
-
-      // 입력값이 중복일때 확인
-      if (inputDigits.length !== new Set(inputDigits).size) {
-        console.log("입력값이 중복 되었습니다. 각 다른 숫자를 입력해주세요.");
-      } else {
-        break; // 중복이 없으면 입력 받기 종료
-      }
+    // 입력값이 중복일때 확인
+    if (inputDigits.length !== new Set(inputDigits).size) {
+      console.log("입력값이 중복 되었습니다. 각 다른 숫자를 입력해주세요.");
+    } else if (!input || input.length !== 3 || !/^\d+$/.test(input)) {
+      throw new Error("[ERROR]"); // 에러 발생
+    } else {
+      return input;
     }
 
-    return inputDigits;
+    // 중복이나 유효성 에러가 발생한 경우, 재귀 호출을 사용하여 다시 입력받습니다.
+    return this.userInput();
+        
+      
   }
 
   calculateResult(userEnter, computerNumbers) {
