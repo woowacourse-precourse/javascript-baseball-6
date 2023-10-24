@@ -11,7 +11,6 @@ class InputValidation {
   }
   constructor(value, type) {
     this.value = value;
-    this.valueByNumber = Number(value);
     this.type = type;
   }
 
@@ -20,7 +19,7 @@ class InputValidation {
   }
 
   isInteger() {
-    return Number.isInteger(this.valueByNumber);
+    return Number.isInteger(Number(this.value));
   }
 
   isLengthValid() {
@@ -28,7 +27,11 @@ class InputValidation {
   }
 
   isInAcceptableRange() {
-    return InputValidation.LIMIT[this.type]?.RANGE[0] <= this.valueByNumber <= InputValidation.LIMIT[this.type]?.RANGE[1]
+    return [...this.value].every(token => {
+      const tokenAsNumber = Number(token);
+      return (InputValidation.LIMIT[this.type]?.RANGE[0] <= tokenAsNumber)
+        && (tokenAsNumber <= InputValidation.LIMIT[this.type]?.RANGE[1])
+    })
   }
 
   validate() {
