@@ -28,7 +28,7 @@ class App {
 
   async startGame() {
     try {
-      while (this.gameState !== 'ended') {
+      while (this.gameState !== 'end') {
         await this.getUserInput();
       }
     } catch (error) {
@@ -75,7 +75,7 @@ class App {
   }
 
   endGame() {
-    this.gameState = 'ended';
+    this.gameState = 'end';
   }
 }
 

@@ -7,12 +7,11 @@ class ReplayManager {
     const userChoice = await Console.readLineAsync();
     switch (userChoice) {
       case '1':
-        return 'ready'; // 새로운 게임 시작
+        return 'ready';
       case '2':
-        return 'ended'; // 게임 종료
+        return 'end';
       default:
-        Console.print("올바르지 않은 입력입니다. 게임을 종료합니다.");
-        return 'ended';
+        return 'end';
     }
   }
 }
