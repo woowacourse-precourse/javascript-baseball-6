@@ -1,6 +1,6 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import { MESSAGE, BASEBALL } from './Constant.js';
-import User from './user.js';
+import User from './User.js';
 import Referee from './Referee.js';
 
 class App {
@@ -50,3 +50,5 @@ class App {
 }
 
 export default App;
+let a = new App();
+a.play();
