@@ -8,8 +8,8 @@ const restartHandler = async () => {
     "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
   );
 
-  const INPNUT = await Console.readLineAsync("");
-  restart = parseInt(INPNUT);
+  const INPUT = await Console.readLineAsync("");
+  restart = parseInt(INPUT);
 
   if (![1, 2].includes(restart)) {
     throw new Error("[ERROR] 잘못된 형식입니다.");
