@@ -1,5 +1,6 @@
 import ERROR_MESSAGES from './constants/ERROR_MESSAGES';
 import { Console } from '@woowacourse/mission-utils';
+import SYSTEM_MESSAGES from './constants/SYSTEM_MESSAGES';
 
 class UserInput {
 	checkBaseballInputIsValid(userInput) {
@@ -21,7 +22,7 @@ class UserInput {
 			throw new Error(ERROR_MESSAGES.INVALID_CHOICE_ERROR);
 	}
 
-	async baseballInput(question = '숫자를 입력해주세요 : ') {
+	async baseballInput(question = SYSTEM_MESSAGES.NUMBER_INPUT) {
 		try {
 			const userInput = await Console.readLineAsync(question);
 			this.checkBaseballInputIsValid(userInput);
@@ -32,7 +33,7 @@ class UserInput {
 		}
 	}
 
-	async gameEndInput(question = '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n') {
+	async gameEndInput(question = SYSTEM_MESSAGES.GAME_RESTART) {
 		try {
 			const userInput = await Console.readLineAsync(question);
 			this.checkGameEndInputIsValid(userInput);

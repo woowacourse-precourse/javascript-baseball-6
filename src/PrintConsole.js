@@ -1,8 +1,9 @@
 import { Console } from '@woowacourse/mission-utils';
+import SYSTEM_MESSAGES from './constants/SYSTEM_MESSAGES';
 
 class PrintConsole {
 	gameStart() {
-		Console.print('숫자 야구 게임을 시작합니다.');
+		Console.print(SYSTEM_MESSAGES.GAME_END);
 	}
 
 	gameResult(ball, strike) {
@@ -15,7 +16,7 @@ class PrintConsole {
 	}
 
 	gameEnd() {
-		Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+		Console.print(SYSTEM_MESSAGES.GAME_END);
 	}
 }
 
