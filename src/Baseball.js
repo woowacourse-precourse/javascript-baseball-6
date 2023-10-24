@@ -1,5 +1,5 @@
-import { Random } from "@woowacourse/mission-utils";
-import { ErrorMessages } from "./Messages.js";
+import { Random } from '@woowacourse/mission-utils';
+import { ErrorMessages } from './Messages.js';
 
 class Baseball {
   static #BASEBALL_LENGTH = 3;

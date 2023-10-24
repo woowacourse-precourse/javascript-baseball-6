@@ -1,7 +1,7 @@
-import Game from "./Game.js";
-import { GameMessages } from "./Messages.js";
-import { RUN_GAME, END_GAME } from "./GameState.js";
-import { Console } from "@woowacourse/mission-utils";
+import Game from './Game.js';
+import { GameMessages } from './Messages.js';
+import { RUN_GAME, END_GAME } from './GameState.js';
+import { Console } from '@woowacourse/mission-utils';
 
 class App {
   #gameState;
@@ -26,7 +26,7 @@ class App {
 
   async restartOrEndApp() {
     this.#gameState = await Console.readLineAsync(
-      GameMessages.ALL_PASS + "\n" + GameMessages.AKS_REGAME + "\n"
+      GameMessages.ALL_PASS + '\n' + GameMessages.AKS_REGAME + '\n',
     );
   }
 }

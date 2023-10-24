@@ -1,6 +1,6 @@
-import Baseball from "./Baseball.js";
-import { Console } from "@woowacourse/mission-utils";
-import { GameMessages } from "./Messages.js";
+import Baseball from './Baseball.js';
+import { Console } from '@woowacourse/mission-utils';
+import { GameMessages } from './Messages.js';
 
 class Game {
   #answerBaseball;
@@ -34,14 +34,14 @@ class Game {
   makeResult() {
     this.#result = Baseball.compareBaseball(
       this.#guessBaseball,
-      this.#answerBaseball
+      this.#answerBaseball,
     );
   }
 
   tellResult() {
     const { strike, ball, out } = { ...this.#result };
 
-    let message = "";
+    let message = '';
     if (out) message = GameMessages.OUT;
     else {
       if (ball > 0) message += `${ball}${GameMessages.BALL} `;
