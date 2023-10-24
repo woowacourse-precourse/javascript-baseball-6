@@ -24,6 +24,15 @@ class App {
       const number = await Console.readLineAsync("숫자를 입력해주세요: ");
       const answer = this.checkStrikeNBall(number);
       Console.print(answer);
+
+      if (answer === "3스트라이크") {
+        Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+        Console.print("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+        const isRestart = Number(await Console.readLineAsync(""));
+        if (isRestart === 1) {
+          this.computerRandomNums = Random.pickUniqueNumbersInRange(1, 9, 3);
+        } else break;
+      }
     }
   }
 
