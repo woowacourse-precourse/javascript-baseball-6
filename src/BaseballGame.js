@@ -52,8 +52,6 @@ class BaseballGame {
     if (new Set(userNumber).size !== userNumberArray.length) {
       throw new Error(ERROR_MESSAGE.IS_DUPLICATION);
     }
-
-    return true;
   }
 
   calculateBallAndStrike(computerNumber, userNumberArray) {
