@@ -37,7 +37,7 @@ describe("숫자 야구 게임", () => {
     // when
     const app = new App();
     await expect(app.play()).resolves.not.toThrow();
-
+  
     // then
     messages.forEach((output) => {
       expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(output));
