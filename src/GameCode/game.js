@@ -48,12 +48,10 @@ async function gameStart(computerNum) {
   );
 
   //숫자 형식이 안 맞을 때, throw
-  if (errorOccurred(PLAYER_NUM)) {
-    throw new Error(ERROR_MESSAGE.rangeError);
-  }
+  errorOccurred(PLAYER_NUM);
 
   //게임 진행
-  await gamePlay(PLAYER_NUM, computerNum);
+  gamePlay(PLAYER_NUM, computerNum);
 }
 
 //game set
