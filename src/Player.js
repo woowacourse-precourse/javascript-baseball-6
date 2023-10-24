@@ -4,7 +4,7 @@ class Player {
     this.#number = number;
   }
 
-  get playerNumber() {
+  getPlayerNumber() {
     return [...this.#number].map(Number);
   }
 }

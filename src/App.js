@@ -17,7 +17,7 @@ class App {
     Validation.validateBaseballNumber(input);
     this.#refree = new Refree();
 
-    await this.#startGameRound(new Player(input).playerNumber);
+    await this.#startGameRound(new Player(input).getPlayerNumber());
   }
 
   async #startGameRound(playerNumber) {
@@ -43,7 +43,7 @@ class App {
     const input = await InputView.getUserNumber();
     Validation.validateBaseballNumber(input);
 
-    await this.#startGameRound(new Player(input).playerNumber);
+    await this.#startGameRound(new Player(input).getPlayerNumber());
   }
 }
 
