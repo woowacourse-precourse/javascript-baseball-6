@@ -1,14 +1,18 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
+  constructor() {
+    // 게임 종료 상태를 나타내는 변수 추가
+    this.isGameOver = false;
+  }
+
   async play() {
     // 2. '숫자 야구 게임을 시작합니다'를 출력한다.
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다");
 
-    let isGameOver = false;
-
-    while (!isGameOver) {
+    while (!this.isGameOver) {
       const computer = this.generateComputer();
+
       while (true) {
         // 3-1. 사용자의 값을 입력 받고
         const userInput = await MissionUtils.Console.readLineAsync();
@@ -28,12 +32,24 @@ class App {
         MissionUtils.Console.print(evaluation);
 
         if (evaluation === "3스트라이크") {
-          // 5. 컴퓨터가 생성한 3개의 숫자를 모두 맞히면  '3개의 숫자를 모두 맞히셨습니다! 게임 종료'를 출력하면서, 게임이 종료된다.
+          // 6. 컴퓨터가 생성한 3개의 숫자를 모두 맞히면  '3개의 숫자를 모두 맞히셨습니다! 게임 종료'를 출력하면서, 게임이 종료된다.
           MissionUtils.Console.print(
             "3개의 숫자를 모두 맞히셨습니다! 게임 종료"
           );
           break;
         }
+      }
+
+      // 7. '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요'를 출력한다.
+      MissionUtils.Console.print(
+        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요"
+      );
+      const restartOption = await MissionUtils.Console.readLineAsync();
+      MissionUtils.Console.print(restartOption);
+      // 1을 입력 받으면 숫자 야구 게임을 재개한다.
+      // 2를 입력 받으면 애플리케이션은 종료된다.
+      if (restartOption !== "1") {
+        this.isGameOver = true;
       }
     }
   }
