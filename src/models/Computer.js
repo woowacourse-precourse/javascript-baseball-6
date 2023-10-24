@@ -5,8 +5,8 @@ class Computer {
   generateNumber() {
     const computer = [];
 
-    while (computer.length < CONSTANTS.SELECT_NUMBERS) {
-      const number = Random.pickNumberInRange(CONSTANTS.MIN_NUMBER, CONSTANTS.MAX_NUMBER);
+    while (computer.length < CONSTANTS.selectNumber) {
+      const number = Random.pickNumberInRange(CONSTANTS.startScope, CONSTANTS.endScope);
 
       if (!computer.includes(number)) {
         computer.push(number);

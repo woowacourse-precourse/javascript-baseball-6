@@ -3,15 +3,15 @@ import { GAME_MESSAGE, RESULT_MESSAGE, ERROR_MESSAGE } from '../constants/Messag
 
 class Control {
   static async askRestart(appInstance) {
-    const userAnswer = await Console.readLineAsync(GAME_MESSAGE.GAME_RESTART);
+    const userAnswer = await Console.readLineAsync(GAME_MESSAGE.restartGame);
 
     if (userAnswer === '1') {
       appInstance.isPlaying = true;
     } else if (userAnswer === '2') {
-      Console.print(GAME_MESSAGE.GAME_END);
+      Console.print(GAME_MESSAGE.endGame);
       appInstance.isPlaying = false;
     } else {
-      throw new Error(ERROR_MESSAGE.INVALID_CHOICE);
+      throw new Error(ERROR_MESSAGE.invalidChoice);
     }
   }
 
@@ -33,19 +33,19 @@ class Control {
 
   static printResult({ ball, strike }) {
     if (strike === 3) {
-      Console.print(`${strike}${RESULT_MESSAGE.STRIKE}`);
-      Console.print(GAME_MESSAGE.CORRECT_ANSWER);
+      Console.print(`${strike}${RESULT_MESSAGE.strike}`);
+      Console.print(GAME_MESSAGE.correctGame);
       return;
     }
 
     if (strike === 0 && ball === 0) {
-      Console.print(RESULT_MESSAGE.NOTHING);
+      Console.print(RESULT_MESSAGE.nothing);
     } else if (strike === 0) {
-      Console.print(`${ball} ${RESULT_MESSAGE.BALL}`);
+      Console.print(`${ball} ${RESULT_MESSAGE.ball}`);
     } else if (ball === 0) {
-      Console.print(`${strike} ${RESULT_MESSAGE.STRIKE}`);
+      Console.print(`${strike} ${RESULT_MESSAGE.strike}`);
     } else {
-      Console.print(`${ball}${RESULT_MESSAGE.BALL} ${strike}${RESULT_MESSAGE.STRIKE}`);
+      Console.print(`${ball}${RESULT_MESSAGE.ball} ${strike}${RESULT_MESSAGE.strike}`);
     }
   }
 }

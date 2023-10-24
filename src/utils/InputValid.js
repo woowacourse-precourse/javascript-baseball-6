@@ -9,14 +9,14 @@ class InputValid {
 
   static validateLength(input) {
     if (!input || typeof input !== 'string' || input.length !== 3) {
-      throw new Error(`${ERROR_MESSAGE.INVALID_LENGTH}`);
+      throw new Error(`${ERROR_MESSAGE.invalidLength}`);
     }
   }
 
   static validateNumberInRange(input) {
     for (let char of input) {
       if (char < '1' || char > '9') {
-        throw new Error(ERROR_MESSAGE.INVALID_NUMBER);
+        throw new Error(ERROR_MESSAGE.invaildNumber);
       }
     }
   }
@@ -25,7 +25,7 @@ class InputValid {
     const distinctDigits = new Set(input);
 
     if (distinctDigits.size !== 3) {
-      throw new Error(ERROR_MESSAGE.DUPLICATE_NUMBER);
+      throw new Error(ERROR_MESSAGE.duplicateNumber);
     }
   }
 }

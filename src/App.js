@@ -11,7 +11,7 @@ class App {
   }
 
   async play() {
-    Console.print(GAME_MESSAGE.GAME_START);
+    Console.print(GAME_MESSAGE.startGame);
 
     while (this.isPlaying) {
       const computerNumber = this.computer.generateNumber();
@@ -40,10 +40,10 @@ class App {
   }
 
   async getUserInput() {
-    const input = await Console.readLineAsync(GAME_MESSAGE.NUMBER_INPUT);
+    const input = await Console.readLineAsync(GAME_MESSAGE.inputNumber);
 
     if (!input) {
-      throw new Error(ERROR_MESSAGE.WRONG_INPUT);
+      throw new Error(ERROR_MESSAGE.inputError);
     }
 
     return input;
