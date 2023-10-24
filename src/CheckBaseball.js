@@ -40,7 +40,9 @@ function PrintResult(ball, strike) {
 		console.log(`${ball}볼`);
 	} else if (ball === 3 && strike === 3) {
 		console.log(`${strike}스트라이크`);
+	} else if (!(ball - strike)) {
+		console.log(`${strike}스트라이크`);
 	} else {
-		console.log(`${ball}볼 ${strike}스트라이크`);
+		console.log(`${ball - strike}볼 ${strike}스트라이크`);
 	}
 }
