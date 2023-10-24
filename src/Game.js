@@ -31,23 +31,23 @@ class Game {
   async inputUserValue() {
     try {
       const userInput = await Console.readLineAsync("숫자를 입력해주세요 : ");
-      return this.validateUserInput(userInput);
+      return this.validateUserInputNumber(userInput);
     } catch (error) {
       Console.print(error);
       throw new Error(error);
     }
   }
 
-  validateUserInput(userInput) {
-    Validation.validateType(userInput);
-    Validation.validateLength(userInput);
-    Validation.validateUnique(userInput);
+  validateUserInputNumber(userInput) {
+    Validation.checkInRange(userInput);
+    Validation.checkLength(userInput);
+    Validation.checkNoDuplicates(userInput);
 
     return userInput;
   }
 
   vaildateUserCommand(userInput) {
-    Validation.isCommand(userInput);
+    Validation.checkCommandValue(userInput);
 
     return userInput;
   }
