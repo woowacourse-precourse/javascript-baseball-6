@@ -2,10 +2,22 @@ import { Random, Console } from "@woowacourse/mission-utils";
 
 class App {
   async play() {
+    const RESULT = {
+      strike: 0,
+      ball: 0,
+      nothing: 0
+    };
     const RANDOM_VALUE = this.getRandomNumber();
     const INPUT_VALUE = await this.getInputNumber();
+    const INPUT_VALUE_ARR = [...INPUT_VALUE];
 
     this.checkInput(INPUT_VALUE);
+
+    INPUT_VALUE_ARR.forEach((num, idx) => {
+      if (num === RANDOM_VALUE[idx]) RESULT.strike++;
+      else if (RANDOM_VALUE.includes(num)) RESULT.ball++;
+      else if (!RANDOM_VALUE.includes(num)) RESULT.nothing++;
+    })
   }
 
   getRandomNumber() {
