@@ -31,25 +31,3 @@ class User {
 }
 
 export default User;
-
-// // constructor(inputValue) {
-// // 	this.inputValue = inputValue;
-// // }
-// async getUserInput(value) {
-// 	try {
-// 		if (value === NUMBER) {
-// 			this.inputValue = await MissionUtils.Console.readLineAsync(
-// 				"숫자를 입력해주세요 : "
-// 			);
-// 		} else if (value === REPLAY) {
-// 			this.inputValue = await MissionUtils.Console.readLineAsync(
-// 				"게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
-// 			);
-// 		}
-// 	} catch (error) {
-// 		if (isNaN(parseInt(this.inputValue))) {
-// 			throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
-// 		}
-// 	}
-// 	return this.inputValue;
-// }
