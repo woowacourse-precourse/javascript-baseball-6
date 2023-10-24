@@ -40,6 +40,8 @@ class App {
       `게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n`
     );
 
+    restartOrEndValidation(restartGameNumber);
+
     if (Number(restartGameNumber) === 1) {
       return RESTART;
     }
@@ -108,6 +110,14 @@ function printGameResult(ball, strike) {
   let strikeCountMessage = strike !== 0 ? `${strike}스트라이크` : "";
   Console.print(`${ballCountMessage}${strikeCountMessage}`);
   return KEEP_GOING;
+}
+
+function restartOrEndValidation(input) {
+  const oneOrTwoRegex = /^[12]$/;
+
+  if (!input.match(oneOrTwoRegex)) {
+    throw new Error("[ERROR] 숫자 1과 2만 입력 가능합니다.");
+  }
 }
 
 export default App;
