@@ -18,7 +18,16 @@ class App {
       if (!isValid) throw new Error("숫자가 잘못된 형식입니다.");
       const [ball, strike] = this.getScoreCount();
       this.scorePrint(ball, strike);
+      if (strike === 3) break;
     }
+    const isRestart = await this.gameClear();
+    if (isRestart === "1") return await this.gameStart();
+    else if (isRestart !== "2") throw new Error("숫자가 잘못된 형식입니다.");
+  }
+  async gameClear() {
+    Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    Console.print("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+    return await Console.readLineAsync("");
   }
 
   getScoreCount() {
@@ -77,3 +86,4 @@ class App {
 const app = new App();
 app.play();
 export default App;
+
