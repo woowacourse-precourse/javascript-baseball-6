@@ -41,4 +41,23 @@ export default class GameController {
     const inputSet = new Set(input);
     return input.length === inputSet.size;
   }
+  getScore() {
+    const { computerNumber, userNumber } = this.model;
+    let ball = 0;
+    let strike = 0;
+    for (let i = 0; i < computerNumber.length; i++) {
+      const index = computerNumber.indexOf(userNumber[i]);
+      if (index === i) strike++;
+      else if (index > -1) ball++;
+    }
+    return [ball, strike];
+  }
+
+  scoreToString(ball, strike) {
+    let score = "";
+    if (ball === 0 && strike === 0) score = "낫싱";
+    if (ball > 0) score += ball + "볼 ";
+    if (strike > 0) score += strike + "스트라이크";
+    return score;
+  }
 }

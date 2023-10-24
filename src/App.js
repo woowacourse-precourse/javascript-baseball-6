@@ -27,7 +27,15 @@ class App {
       const isValidated = this.controller.inputValidation(userNumber);
       if (isValidated) this.model.updateUserNumber(userNumber);
       else if (isValidated === false) throw new Error("숫자가 잘못된 형식입니다.");
+      const gameClear = this.scoreGrading();
+      if (gameClear) break;
     }
+  }
+  scoreGrading() {
+    const [ball, strike] = this.controller.getScore();
+    const scoreString = this.controller.scoreToString(ball, strike);
+    this.view.printScore(scoreString);
+    return strike === 3;
   }
 }
 

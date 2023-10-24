@@ -7,4 +7,7 @@ export default class GameView {
   async getUserNumberInput() {
     return await Console.readLineAsync("숫자를 입력해주세요 : ");
   }
+  printScore(score) {
+    Console.print(score);
+  }
 }
