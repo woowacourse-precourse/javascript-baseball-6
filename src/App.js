@@ -6,7 +6,7 @@ class App {
   }
   async play() {
     while (this.isRunning) {
-      const start = makeAnswer();
+      const start = this.makeAnswer();
       MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
     
       let result;
