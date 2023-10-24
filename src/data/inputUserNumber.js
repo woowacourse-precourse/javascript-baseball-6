@@ -6,6 +6,9 @@ export default async function inputUserNumber(){
     const number = MissionUtils.Console.readLineAsync(`${TEXT.INPUT_NUMBER}`)
     .then((res) => {
         const valudateNumber = inputNumberValidate(res);
+        if(!valudateNumber){
+            return;
+        }
         return valudateNumber;
     })
     .catch((error) => {
@@ -23,6 +26,6 @@ const inputNumberValidate = (inputNumber) => {
     if(numberLength === 3 && numberSize === 3 && numberCheck == false){
         return inputNumber;
     } else {
-        throw new Error(`${TEXT.INPUT_ERROR}`);
+        MissionUtils.Console.print(`${TEXT.INPUT_ERROR}`);
     }
 };
