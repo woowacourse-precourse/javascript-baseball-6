@@ -29,12 +29,25 @@ async function getPlayerNumber() {
   // }
 }
 
+async function getComputerNumber() {
+  const computer = '';
+  while (computer.length < 3) {
+    const number = MissionUtils.Random.pickNumberInRange(1, 9);
+    if (!computer.includes(number)) {
+      computer += number;
+    }
+  }
+  return computer;
+}
+
 class App {
   async play() {
     // 게임 시작 문구 출력
     MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
     const playerPromise = getPlayerNumber();
+    const computerPromise = getComputerNumber();
     const playerNumber = await playerPromise;
+    const computerNumber = await computerPromise;
   }
 }
 
