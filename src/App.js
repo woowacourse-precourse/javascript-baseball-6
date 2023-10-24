@@ -1,4 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
+import { generateComputerAnswer } from './generateComputerAnswer.js';
+import { calculateResult } from './calculateResult.js';
 
 async function getUserNumber() {
   try {
@@ -35,11 +37,13 @@ const isValidInput = (userNumbers) => {
   return true;
 };
 
+const COMPUTER_ANSWER_LENGTH = 3;
+
 class App {
   async play() {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
 
-    const computerAnswer = generateComputerAnswer();
+    const computerAnswer = generateComputerAnswer(COMPUTER_ANSWER_LENGTH);
 
     while (true) {
       const userGuess = await getUserNumber();
@@ -63,48 +67,6 @@ class App {
     }
   }
 }
-
-const COMPUTER_ANSWER_LENGTH = 3;
-
-const generateComputerAnswer = () => {
-  const computerAnswer = new Set();
-
-  while (computerAnswer.size < COMPUTER_ANSWER_LENGTH) {
-    computerAnswer.add(MissionUtils.Random.pickNumberInRange(1,9));
-  }
-
-  return [...computerAnswer];
-};
-
-const calculateResult = (computerAnswer, userGuess) => {
-  let strike = 0;
-  let ball = 0;
-
-  computerAnswer.forEach((answer, index) => {
-    if (answer === userGuess[index]) {
-      strike += 1;
-    } else if (userGuess.includes(answer)) {
-      ball += 1;
-    }
-  });
-
-  let message = '';
-  if (strike === 0 && ball === 0) {
-    message = '낫싱';
-  } else {
-    if (ball > 0) {
-      message += `${ball}볼`;
-    }
-    if (strike > 0) {
-      if (ball > 0) {
-        message += ' ';
-      }
-      message += `${strike}스트라이크`;
-    }
-  }
-  
-  return { strike, ball, message };
-};
 
 export default App;
 
