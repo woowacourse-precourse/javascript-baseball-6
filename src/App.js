@@ -1,18 +1,19 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
+import View from './View.js';
 
 class App {
+  constructor() {
+    this.view = new View();
+    this.view.infoPrint('숫자 야구 게임을 시작합니다.');
+  }
+
   async play() {
-    this.infoPrint('숫자 야구 게임을 시작합니다.');
     try {
       await this.game();
     } catch (error) {
-      this.infoPrint(error.message);
+      this.view.infoPrint(error.message);
       throw error;
     }
-  }
-
-  infoPrint(message) {
-    MissionUtils.Console.print(message);
   }
 
   computerPick() {
@@ -24,11 +25,6 @@ class App {
       }
     }
     return computer;
-  }
-
-  async userInput(message) {
-    const inputValue = await MissionUtils.Console.readLineAsync(message);
-    return inputValue;
   }
 
   userPickValidation(value) {
@@ -83,20 +79,20 @@ class App {
     let judgeResult = '';
     const computerNumber = this.computerPick();
     while (judgeResult !== '3스트라이크') {
-      const userPickValue = await this.userInput('숫자를 입력해주세요 : ');
+      const userPickValue = await this.view.userInput('숫자를 입력해주세요 : ');
       this.userPickValidation(userPickValue);
       const userNumber = userPickValue.split('').map((element) => +element);
       judgeResult = this.judge(computerNumber, userNumber);
-      this.infoPrint(judgeResult);
+      this.view.infoPrint(judgeResult);
     }
-    this.infoPrint('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
-    const userRestartValue = await this.userInput(
+    this.view.infoPrint('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+    const userRestartValue = await this.view.userInput(
       `게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n`,
     );
     this.userRestartValidation(userRestartValue);
     if (userRestartValue === '1') this.game();
     if (userRestartValue === '2') {
-      this.infoPrint('숫자 야구 게임을 종료합니다.');
+      this.view.infoPrint('숫자 야구 게임을 종료합니다.');
       return;
     }
   }
