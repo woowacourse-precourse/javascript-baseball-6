@@ -1,6 +1,6 @@
+import { Console } from "@woowacourse/mission-utils";
 import { GAME_MESSAGE, ERROR_MESSAGE } from "../constants/Message";
 import { CONSTANT } from "../constants/constant";
-import { Console } from "@woowacourse/mission-utils";
 
 export default class InputValid {
 
