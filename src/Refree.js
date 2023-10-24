@@ -22,9 +22,8 @@ class Refree {
   judgeBallOrStrike(playerNumber) {
     const ball = this.countBall(playerNumber);
     const strike = this.countStrike(playerNumber);
-    const result = this.calculateResult(ball, strike);
 
-    return { ball, strike, result };
+    return { ball, strike };
   }
 
   countBall(playerNumber) {
@@ -41,13 +40,6 @@ class Refree {
         ? count + 1
         : count;
     }, 0);
-  }
-
-  calculateResult(ball, strike) {
-    const result = [];
-    if (ball) result.push(ball + '볼');
-    if (strike) result.push(strike + '스트라이크');
-    return result.length ? result.join(' ') : '낫싱';
   }
 }
 export default Refree;

@@ -5,8 +5,11 @@ const OutputView = {
     Console.print('숫자 야구 게임을 시작합니다.');
   },
 
-  printResult(result) {
-    Console.print(result);
+  printResult(ball, strike) {
+    const result = [];
+    if (ball) result.push(ball + '볼');
+    if (strike) result.push(strike + '스트라이크');
+    Console.print(result.length ? result.join(' ') : '낫싱');
   },
 
   printSuccess() {
