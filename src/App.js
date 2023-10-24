@@ -25,20 +25,23 @@ class App {
         let input = await MissionUtils.Console.readLineAsync(
           "숫자를 입력해주세요 : "
         );
+        
         input = new Set(input); // 중복 제거
         input = [...input];
-        input.map((item) => {
-          if (item < 1 || item > 9 || isNaN(item)) {
-            throw new Error("[ERROR]");
-          }
-          userInput.push(Number(item));
-        });
+
+        if (isNaN(input)) {
+          throw new Error("[ERROR] : 숫자가 아닌 문자가 포함되어있습니다.");
+        }
         if (userInput.length < 3) {
-          throw new Error("[ERROR]");
+          throw new Error("[ERROR] : 서로 다른 세개의 숫자를 입력해야 합니다.");
         }
         if (userInput.indexOf(0) != -1) {
-          throw new Error("[ERROR]");
+          throw new Error("[ERROR] : 0이 포함되어있습니다.");
         }
+        
+        input.map((item) => {
+          userInput.push(Number(item));
+        });
 
         userInput.map((item, index) => {
           if (computer.indexOf(item) != -1) {
