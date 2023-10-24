@@ -68,6 +68,10 @@ class App {
     );
     if (replay === '1') {
       await this.play();
+    } else {
+      if (replay !== '2') {
+        throw new Error('[ERROR] 1또는 2를 입력해주세요.');
+      }
     }
   }
 }
