@@ -91,7 +91,6 @@ class App {
     vaildData(userInput) {
         return /^\d{3}$/.test(userInput) && new Set(userInput).size === 3;
     }
-
 }
 
 export default App;
