@@ -10,7 +10,7 @@ class ErrorCheck {
     }
   }
 
-  static string1or2(string) {
+  static string1Or2(string) {
     if (string !== '1' && string !== '2') throw new Error('[ERROR] Not \'1\' or \'2\'');
   }
 

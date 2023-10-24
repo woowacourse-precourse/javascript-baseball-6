@@ -14,7 +14,7 @@ class ConvertInputTo {
     const inputString = await Console.readLineAsync(
       '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'
     ).catch(ErrorCheck.otherErrorFormat);
-    ErrorCheck.string1or2(inputString);
+    ErrorCheck.string1Or2(inputString);
     return Is.tryAgainBy(inputString);
   }
 }
