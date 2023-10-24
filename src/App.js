@@ -1,7 +1,7 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import {computerRandom} from './calculator/Computer.js'
 import Validation from "./calculator/Validation.js";
-import { checkingScore, playGame } from "./calculator/Score.js";
+import { checkingScore } from "./calculator/Score.js";
 
 class App {
     async play() {
@@ -14,7 +14,7 @@ class App {
         while (userWillRetry) {
           const arrayOfInput = await this.makeUserInput()
           const {strike,ball} = checkingScore(answer, arrayOfInput)
-          playGame(strike,ball)
+          this.playGame(strike,ball)
           // console.log(answer)
 
           if (strike === 3) {
@@ -38,6 +38,26 @@ class App {
       return arrayOfInput;
     } 
 
+    async playGame(strike, ball) {
+       
+  if (strike === 3) {
+      MissionUtils.Console.print(
+         `${strike}스트라이크입니다\n3개의 숫자를 모두 맞히셨습니다! 게임 종료`
+     );
+     return;
+ }
+ if (!strike && !ball) {
+      MissionUtils.Console.print("낫싱");
+     return;
+ }
+ if (strike && ball) {
+      MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
+ } else if (strike && !ball) {
+      MissionUtils.Console.print(`${strike}스트라이크`);
+ } else if (!strike && ball) {
+      MissionUtils.Console.print(`${ball}볼`);
+ }
+}
 
     async isUserWillingToRestart() {
       let restart = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.')
