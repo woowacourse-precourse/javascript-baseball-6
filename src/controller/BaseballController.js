@@ -23,7 +23,11 @@ export class BaseballController {
 
     const restartCommand = await this.view.getInputAsync(MESSAGE.RESTART);
     this.checkRestartCommand(restartCommand);
-    if (restartCommand === RESTART_COMMAND.NEWGAME) this.start();
+    restartCommand === RESTART_COMMAND.NEWGAME ? this.start() : this.quit();
+  }
+
+  quit() {
+    return;
   }
 
   checkRestartCommand(command) {
