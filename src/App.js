@@ -34,8 +34,8 @@ class App {
     }
     this.computerNum = computer;
     // 컴퓨터 값 확인용
-    Console.print("정답은");
-    Console.print(computer);
+    Console.print("쉿! 정답은 : " + computer);
+    // Console.print(computer);
   }
   // 사용자 입력값 받기
   async userInput() {
@@ -64,6 +64,40 @@ class App {
   async playBaseballGame() {
     let strike = 0;
     let ball = 0;
+    let result = "낫싱";
+    let isCorrect = false;
+
+    // 정답을 맞추기 전까지 실행되는 게임
+    while (!isCorrect) {
+      await this.userInput();
+
+      // 스트라이크 계산하기: 인덱스가 같으면 스트라이크
+      for (let i = 0; i < 3; i++) {
+        if (this.userNum.split("")[i] == this.computerNum[i]) {
+          strike++;
+        }
+      }
+      // 볼 계산하기: 입력 수가 있고, 스트라이크가 아니면 볼
+      for (let i = 0; i < 3; i++) {
+        if (
+          this.computerNum.includes(this.userNum.split("")[i]) &&
+          this.userNum.split("")[i] !== this.computerNum[i]
+        ) {
+          ball++;
+        }
+      }
+
+      // 최종 결과 출력!!!!!
+      if (strike === 3) {
+        result = "3스트라이크\n" + CONSTANTS.MESSAGES.END;
+        isCorrect = true;
+      } else if (strike > 0) {
+        ball > 0
+          ? (result = `${ball}볼 ${strike}스트라이크`)
+          : `${strike}스트라이크`;
+      }
+      Console.print(result);
+    }
   }
 
   // 게임 종료 후 -> 재시작 여부 결정
