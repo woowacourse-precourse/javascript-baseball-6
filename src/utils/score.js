@@ -7,7 +7,7 @@ const score = (guesser, answer) => ({
 
   get balls() {
     return guesser.filter(
-      (num, index) => answer[index] !== num && answer.includes(num)
+      (num, index) => answer[index] !== num && answer.includes(num),
     ).length;
   },
 

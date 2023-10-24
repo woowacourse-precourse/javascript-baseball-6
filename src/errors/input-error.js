@@ -1,4 +1,4 @@
-import { CONSTANTS } from '../utils';
+import CONSTANTS from '../assets/constants';
 
 class InputError extends Error {
   constructor(message) {
