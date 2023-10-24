@@ -1,22 +1,26 @@
 import Computer from "./Computer.js";
 import User from "./User.js";
 
+// 게임의 진행을 관리하는 클래스
 class Game {
+  /**
+   *  게임 재시작(또는 첫 시작)
+   */
   async reStart() {
     const com = new Computer();
     const user = new User();
 
     const answer = com.createAnswer();
-    console.log(answer);
 
+    // 답을 맞출때까지 hint를 받기
     let hint = "";
     while (hint !== "3스트라이크") {
       const input = await user.guess();
       hint = com.getHint(answer, input);
     }
 
+    // 게임 재시작 또는 종료를 선택
     if (hint === "3스트라이크") {
-      // 게임 종료 or 새로 시작 로직
       console.log("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.")
       const option = await user.selectOption();
       if (option === "1") {
@@ -27,6 +31,9 @@ class Game {
     }
   }
 
+  /**
+   * 프로그램 종료
+   */
   shutDown() {
     return;
   }
