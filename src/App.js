@@ -31,17 +31,14 @@ function getHint(input, computer) {
   let strike = 0;
   let ball = 0;
 
-  computer.map((computerElement, computerIndex) => {
-    input.map((inputElement, inputIndex) => {
-      if (computerElement === inputElement) {
-        if (computerIndex === inputIndex) {
-          strike++;
-        } else {
-          ball++;
-        }
-      }
-    });
+  computer.map((number, index) => {
+    if (number === input[index]) {
+      strike += 1;
+    }
   });
+
+  ball = computer.filter((number) => input.includes(number)).length;
+  ball -= strike;
 
   return {strike, ball};
 }
