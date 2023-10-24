@@ -21,6 +21,7 @@ const OutputView = {
       if (message.length > 0) message += PROGRESS.and;
       message += `${strike}${PROGRESS.strike}`;
     }
+    
     return this.printStaticMessage(message);
   },
 }
