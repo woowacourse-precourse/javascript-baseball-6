@@ -7,7 +7,7 @@ class App {
         while (finish) {
             const computer = this.computerNumber();
             await this.userNumber(computer);
-            finish = await this.restart();
+            finish = await this.restart(); // 게임 재시작 여부 확인
         }
     }
 
@@ -30,6 +30,10 @@ class App {
             const input = await Console.readLineAsync('숫자를 입력해주세요 : ');
             const userInput = input.trim().split('').map(Number);
 
+            if (userInput.length !== 3 || new Set(userInput).size !== 3) {
+                throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+            }
+
             const result = this.checkNumber(userInput, computerInput);
             Console.print(result);
 
@@ -45,24 +49,24 @@ class App {
     countNumber(userInput, computerInput) {
         let strike = 0;
         let ball = 0;
-        if (this.vaildData(userInput)) {
-            for (let i = 0; i < 3; i++) {
-                if (userInput[i] === computerInput[i]) {
-                    strike++;
-                } else if (computerInput.includes(userInput[i])) {
-                    ball++;
-                }
+        for (let i = 0; i < 3; i++) {
+            if (userInput[i] === computerInput[i]) {
+                strike++;
+            } else if (computerInput.includes(userInput[i])) {
+                ball++;
             }
-        } else {
-            throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
         }
+
         return [strike, ball];
     }
 
     //측정된 스트라이크와 볼을 출력
     checkNumber(userInput, computerInput) {
         const [strike, ball] = this.countNumber(userInput, computerInput);
-
+        if (strike === 3) {
+            Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+            this.finish = false;
+        }
         if (strike === 0 && ball === 0) {
             return '낫싱'
         } else if (strike === 0) {
@@ -87,10 +91,7 @@ class App {
         }
 
     }
-    //예외처리
-    vaildData(userInput) {
-        return /^\d{3}$/.test(userInput) && new Set(userInput).size === 3;
-    }
 }
 
 export default App;
+
