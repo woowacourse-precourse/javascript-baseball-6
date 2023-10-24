@@ -24,14 +24,14 @@ export class BaseballService {
   }
 
   init() {
-    this.setRandomAnswer();
+    this.#setRandomAnswer();
     this.#submittedCorrectly = null;
   }
 
   /**
    * 랜덤한 AnswerBalls를 생성 후 answer에 설정합니다.
    */
-  setRandomAnswer() {
+  #setRandomAnswer() {
     const randomNumbers = new Set();
     while (randomNumbers.size < TargetBalls.BALL_QUANTITY) {
       const randomNumber = MissionUtils.Random.pickNumberInRange(TargetBall.MIN, TargetBall.MAX);

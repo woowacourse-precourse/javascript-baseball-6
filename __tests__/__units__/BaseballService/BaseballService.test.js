@@ -57,4 +57,35 @@ describe('BaseballService 테스트', () => {
       expect(service.isEnd()).toBe(result);
     },
   );
+
+  it.each([
+    {
+      randoms: [
+        [1, 2, 3],
+        [1, 2, 3],
+      ],
+    },
+    {
+      randoms: [
+        [4, 2, 3],
+        [1, 2, 3],
+      ],
+    },
+  ])('초기화시 answer가 재생성되며 submittedCorrectly가 null로 설정된다.', ({ randoms }) => {
+    const [firstNumbers, secondNumbers] = randoms;
+    mockRandoms(firstNumbers);
+    const service = BaseballService.of();
+
+    const firstSubmit = SubmittedBalls.of(firstNumbers);
+    service.computeScore(firstNumbers);
+
+    expect(service.getAnswer()).toEqual(AnswerBalls.of(firstNumbers));
+    expect(service.getSubmittedCorrectly()).toEqual(firstSubmit);
+
+    mockRandoms(secondNumbers);
+    service.init();
+
+    expect(service.getAnswer()).toEqual(AnswerBalls.of(secondNumbers));
+    expect(service.getSubmittedCorrectly()).toBe(null);
+  });
 });
