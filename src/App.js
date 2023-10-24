@@ -4,7 +4,7 @@ class App {
   async play() {
     const RANDOM_VALUE = this.getRandomNumber();
     let isSuccess =  false;
-    
+
     while (!isSuccess) {
       try {
         isSuccess = await this.playOneInput(RANDOM_VALUE);
@@ -13,6 +13,8 @@ class App {
         return;
       }
     }
+
+    this.startGameAgain();
   }
 
   async playOneInput(RANDOM_VALUE) {
@@ -46,8 +48,15 @@ class App {
 
   async getInputNumber() {
     const input = await Console.readLineAsync("숫자를 입력해주세요 : ");
-    this.checkInput(input);
+    this.checkInputNumber(input);
     return input;
+  }
+
+  async startGameAgain() {
+    let input = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+    this.checkInput(input);
+    if (input === '1') this.play();
+    return;
   }
 
   // 입력 값이 숫자가 아니거나, 중복을 제거한 길이가 3이 아니면 throw error
@@ -56,6 +65,12 @@ class App {
 
     if (isNaN(parseInt(input)) || setInput.length !== 3) {
       throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+    }
+  }
+
+  checkInput(input) {
+    if (input !== '1' && input !== '2') {
+      throw new Error("[ERROR] 잘못된 형식입니다.");
     }
   }
 
