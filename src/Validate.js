@@ -1,7 +1,13 @@
+import { ERROR_MESSAGE } from './constants/Message.js';
+import { GAME_SETTING } from './constants/Setting.js';
+
 class Validate {
   userPickNumbers(value) {
-    if (value === undefined || value.length !== 3) {
-      throw new Error('[ERROR] 서로 다른 숫자 3개를 입력해주세요.');
+    if (
+      value === undefined ||
+      value.length !== GAME_SETTING.REQUIRED_PICK_COUNT
+    ) {
+      throw new Error(ERROR_MESSAGE.INPUT_USER_PICK);
     }
 
     const valueArr = [
@@ -10,18 +16,27 @@ class Validate {
           .split('')
           .map((element) => +element)
           .filter((element) => !isNaN(element))
-          .filter((element) => element > 0 && element < 10),
+          .filter(
+            (element) =>
+              element >= GAME_SETTING.MIN_PICK_NUMBER &&
+              element <= GAME_SETTING.MAX_PICK_NUMBER,
+          ),
       ),
     ];
 
-    if (valueArr.length !== 3) {
-      throw new Error('[ERROR] 서로 다른 숫자 3개를 입력해주세요.');
+    if (valueArr.length !== GAME_SETTING.REQUIRED_PICK_COUNT) {
+      throw new Error(ERROR_MESSAGE.INPUT_USER_PICK);
     }
   }
 
   restartOrExit(value) {
-    if (!(value === '1' || value === '2'))
-      throw new Error('[ERROR] 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+    if (
+      !(
+        value === GAME_SETTING.RESTART_NUMBER ||
+        value === GAME_SETTING.EXIT_NUMBER
+      )
+    )
+      throw new Error(ERROR_MESSAGE.INPUT_RESTART_OR_EXIT);
   }
 }
 

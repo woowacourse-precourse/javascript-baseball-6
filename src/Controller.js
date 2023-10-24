@@ -2,6 +2,8 @@ import View from './View.js';
 import Validate from './Validate.js';
 import PickRandomNumbers from './PickRandomNumbers.js';
 import Judge from './Judge.js';
+import { INFO_MESSAGE } from './constants/Message.js';
+import { GAME_SETTING } from './constants/Setting.js';
 
 class Controller {
   ball = 0;
@@ -10,15 +12,17 @@ class Controller {
 
   constructor() {
     this.view = new View();
-    this.view.infoPrint('숫자 야구 게임을 시작합니다.');
+    this.view.infoPrint(INFO_MESSAGE.GAME_START);
     this.validate = new Validate();
   }
 
   async game() {
     this.judgeResult = '';
     const computerNumbers = PickRandomNumbers();
-    while (this.judgeResult !== '3스트라이크') {
-      const userPickValue = await this.view.userInput('숫자를 입력해주세요 : ');
+    while (this.judgeResult !== GAME_SETTING.THREE_STRIKE) {
+      const userPickValue = await this.view.userInput(
+        INFO_MESSAGE.INPUT_USER_NUMBER,
+      );
       this.validate.userPickNumbers(userPickValue);
       const userNumbers = userPickValue.split('').map((element) => +element);
       [this.ball, this.strike] = new Judge().counter(
@@ -28,14 +32,14 @@ class Controller {
       this.judgeResult = new Judge().result(this.ball, this.strike);
       this.view.infoPrint(this.judgeResult);
     }
-    this.view.infoPrint('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+    this.view.infoPrint(INFO_MESSAGE.CORRECT_ANSWER);
     const userRestartValue = await this.view.userInput(
-      `게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n`,
+      INFO_MESSAGE.RESTART_OR_EXIT,
     );
     this.validate.restartOrExit(userRestartValue);
-    if (userRestartValue === '1') this.game();
-    if (userRestartValue === '2') {
-      this.view.infoPrint('숫자 야구 게임을 종료합니다.');
+    if (userRestartValue === GAME_SETTING.RESTART_NUMBER) this.game();
+    if (userRestartValue === GAME_SETTING.EXIT_NUMBER) {
+      this.view.infoPrint(INFO_MESSAGE.GAME_OVER);
       return;
     }
   }
