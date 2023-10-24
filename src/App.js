@@ -7,30 +7,33 @@ class App {
   }
 
   async play() {
-    let CONTINUE_PLAYING = true;
+    let continuePlaying = true;
 
-    while (CONTINUE_PLAYING) {
+    while (continuePlaying) {
       MissionUtils.Console.print("숫자 야구 게임을 시작합니다");
-      const { strike, ball } = this.start();
+      const { ball, strike } = this.start();
 
       if (strike === 3) {
         MissionUtils.Console.print(
           "3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료"
         );
-        CONTINUE_PLAYING = await this.shouldContinue();
+        continuePlaying = await this.shouldContinue();
       } else {
-        this.printGameResultMessage(strike, ball);
+        this.printGameResultMessage(ball, strike);
       }
     }
   }
 
-  printGameResultMessage(strike, ball) {
-    const messages = [];
-    if (ball > 0) messages.push(`${ball}볼`);
-    if (strike > 0) messages.push(`${strike}스트라이크`);
-    if (messages.length === 0) messages.push("낫싱");
-
-    MissionUtils.Console.print(messages.join(" "));
+  printGameResultMessage(ball, strike) {
+    let message =
+      ball === 0
+        ? strike === 0
+          ? "낫싱"
+          : `${strike}스트라이크`
+        : strike === 0
+        ? `${ball}볼`
+        : `${ball}볼 ${strike}스트라이크`;
+    MissionUtils.Console.print(message);
   }
 
   isInputValid(input) {
@@ -66,7 +69,6 @@ class App {
         ball++;
       }
     }
-
     return { ball, strike };
   }
 
@@ -86,7 +88,13 @@ class App {
     const choice = await MissionUtils.Console.readLineAsync(
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요: "
     );
-    return choice === this.NEW_GAME;
+
+    if (choice === this.NEW_GAME) {
+      return true;
+    } else if (choice === this.QUIT_GAME) {
+      return false;
+    }
+    return false;
   }
 }
 
