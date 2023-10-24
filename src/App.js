@@ -62,11 +62,11 @@ class App {
   async startGame(){
     const computerAnswer = this.getRandomNumber();
     let gameResult = false;
-
-    while(!gameResult){
+    
+    do{
       const userAnswer = await this.getUserInput();
-      this.answerResult(computerAnswer, userAnswer);
-    }
+      gameResult = this.answerResult(computerAnswer, userAnswer);
+    } while(!gameResult);
 
     await this.restartGame();
   }
