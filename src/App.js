@@ -1,13 +1,15 @@
 import * as MissionUtils from "@woowacourse/mission-utils";
 import { View } from "./View";
 import { BaseballGame } from "./BaseballGame";
+import { BASEBALL_NUMBER, GAME_RESULT } from "./constants";
+import { MESSAGE } from "./message";
 
 class App {
   #game;
   #view = View;
 
   constructor() {
-    MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
+    MissionUtils.Console.print(MESSAGE.START_GAME);
   }
 
   async play() {
@@ -21,9 +23,9 @@ class App {
 
     this.#view.printGameHint({ strike, ball });
 
-    if (strike !== 3) return this.#guessNum();
+    if (strike !== BASEBALL_NUMBER.THREE_STRIKE) return this.#guessNum();
 
-    MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    MissionUtils.Console.print(GAME_RESULT.WIN(strike));
     this.#chooseRestart();
   }
 
