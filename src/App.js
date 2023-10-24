@@ -33,15 +33,15 @@ class App {
   }
 
   createComputernumb(){ //컴퓨터 랜덤번호 생성
-    const computer = [];
-    while (computer.length < 3) {
-      const number = MissionUtils.Random.pickNumberInRange(1, 9);
-      if (!computer.includes(number)) {
-      computer.push(number);
+    const COMPUTER = [];
+    while (COMPUTER.length < 3) {
+      const NUMBER = MissionUtils.Random.pickNumberInRange(1, 9);
+      if (!COMPUTER.includes(NUMBER)) {
+      COMPUTER.push(NUMBER);
       } 
     }
-    console.log(computer)
-    return computer;
+    console.log(COMPUTER)
+    return COMPUTER;
   }
 
   async getUserNumber() { //유저에게 입력받아오기.
@@ -86,6 +86,7 @@ class App {
   }
   
   printBallStrike(ball, strike){
+
     if(strike===3){
       MissionUtils.Console.print('3스트라이크');
       MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
@@ -99,6 +100,7 @@ class App {
       return 1;
     }
   }
+
 }
 
 export default App;
