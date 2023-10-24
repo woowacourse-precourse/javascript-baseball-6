@@ -57,9 +57,24 @@ class App {
       }
     };
 
+    const exitGame = async (userValue) => {
+      const hint = getHint(userValue);
+      if (hint) {
+        const restart = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n");
+        if (restart === "1") {
+          computerValue = getComputerValue();
+        } else if (restart === "2") {
+          playGame = false;
+        } else {
+          throw new Error("[ERROR] 1 또는 2의 숫자만 입력해주세요.");
+        }
+      }
+    };
+
     let playGame = true;
     while (playGame) {
       const userValue = await getUserValue();
+      await exitGame(userValue);
     }
   }
 }
