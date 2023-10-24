@@ -9,8 +9,11 @@ async function getUsernumber() {
 
 class App {
   async play() {
-    Console.print("숫자 야구 게임을 시작합니다.");
-    const usernumber = await getUsernumber();
+    while (true) {
+      Console.print("숫자 야구 게임을 시작합니다.");
+      const computerNumber = MissionUtils.Random.pickNumberInRange(1, 999);
+      const usernumber = await getUsernumber();
+    }
   }
 }
 
