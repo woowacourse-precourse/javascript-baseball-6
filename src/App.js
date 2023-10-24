@@ -6,7 +6,12 @@ class App {
     let isSuccess =  false;
     
     while (!isSuccess) {
-      isSuccess = await this.playOneInput(RANDOM_VALUE);
+      try {
+        isSuccess = await this.playOneInput(RANDOM_VALUE);
+      } catch (e) {
+        console.error(e);
+        return;
+      }
     }
   }
 
@@ -52,14 +57,10 @@ class App {
 
   // 입력 값이 숫자가 아니거나, 중복을 제거한 길이가 3이 아니면 throw error
   checkInput(input) {
-    try {
-      const setInput = [...new Set(input)];
+    const setInput = [...new Set(input)];
 
-      if (isNaN(parseInt(input)) || setInput.length !== 3) {
-        throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
-      }
-    } catch (e) {
-      console.error(e);
+    if (isNaN(parseInt(input)) || setInput.length !== 3) {
+      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
     }
   }
 
