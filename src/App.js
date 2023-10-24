@@ -1,7 +1,12 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
+import {
+  CONTINUE_ERROR_MESSAGES,
+  CONTINUE_OPTIONS,
+  INFO,
+  INPUT_ERROR_MESSAGES,
+} from "./constant";
 
 class App {
-  #CONTINUE_TYPES = ["1", "2"];
   #computer_number = []; // 컴퓨터가 생성한 값 - Array<int>
   user_answer = ""; // 사용자가 입력한 정답
   is_continue = true; // 게임 진행 여부
@@ -10,14 +15,14 @@ class App {
 
   async play() {
     // * 1. 시작 문구 출력
-    MissionUtils.Console.print("숫자 야구 게임을 시작합니다.\n");
+    MissionUtils.Console.print(INFO.start_comment);
 
     // * 2. 컴퓨터가 랜덤한 숫자를 설정
     this.#setRandomNumber();
 
     while (this.is_continue) {
       // * 3. 사용자 입력
-      MissionUtils.Console.print("숫자를 입력해주세요 : ");
+      MissionUtils.Console.print(INFO.user_input_comment);
       this.user_answer = await MissionUtils.Console.readLineAsync();
 
       // * 3-1. 사용자 입력 값 검증
@@ -32,16 +37,14 @@ class App {
 
       // * 6. 게임이 종료된 경우 처리
       if (this.strikes === 3) {
-        MissionUtils.Console.print(
-          "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
-        );
+        MissionUtils.Console.print(INFO.is_continue_comment);
         // * 7. 사용자 입력
         let user_continue_input = await MissionUtils.Console.readLineAsync();
 
         // * 7-1. 사용자 입력 값 검증
         this.#verifyUserContinue(user_continue_input);
 
-        this.is_continue = user_continue_input === "1";
+        this.is_continue = user_continue_input === CONTINUE_OPTIONS.start;
         // 게임을 새로 시작하는 경우, 랜덤 숫자를 재설정
         if (this.is_continue) {
           this.#setRandomNumber();
@@ -102,26 +105,20 @@ class App {
    * 만약 조건에 맞지 않는 값이라면 오류를 발생시키고 프로그램을 종료한다.
    */
   #verifyUserAnswerNumber() {
-    try {
-      if (isNaN(this.user_answer) || this.user_answer.length !== 3) {
-        throw new Error("숫자가 잘못된 형식입니다.");
-      }
+    if (isNaN(this.user_answer)) {
+      throw new Error(INPUT_ERROR_MESSAGES.is_nan);
+    }
 
-      // ? 서로 다른 세 자리 숫자로 구성되어 있는지 확인
-      let num_count = new Array(10); // 0 ~ 9 까지의 숫자가 몇 번 등장했는지
-      num_count.fill(0);
+    if (this.user_answer.length !== 3) {
+      throw new Error(INPUT_ERROR_MESSAGES.wrong_length);
+    }
 
-      const NUM_ARRAY = this.user_answer.split(""); // 숫자 문자열을 배열 형태로 변환
+    // ? 서로 다른 세 자리 숫자로 구성되어 있는지 확인
+    let num_set = new Set();
 
-      // ? 각 자릿수에 대해서 서로 중복되는지 확인한다.
-      NUM_ARRAY.forEach((num) => {
-        if (num_count[parseInt(num)] > 0) {
-          throw new Error("중복되는 숫자가 존재합니다.");
-        }
-        num_count[parseInt(num)]++;
-      });
-    } catch (error) {
-      throw new Error(`[ERROR] ${error.message}`);
+    for (let i = 0; i < this.user_answer.length; ++i) {
+      if (num_set.has(this.user_answer[i]))
+        throw new Error(INPUT_ERROR_MESSAGES.is_duplicate);
     }
   }
 
@@ -131,12 +128,11 @@ class App {
    * @param {string} inputString
    */
   #verifyUserContinue(inputString) {
-    try {
-      if (!inputString || this.#CONTINUE_TYPES.indexOf(inputString) < 0) {
-        throw new Error("1 혹은 2만 입력할 수 있습니다.");
-      }
-    } catch (error) {
-      throw new Error(`[ERROR] ${error.message}`);
+    if (
+      !inputString ||
+      Object.values(CONTINUE_OPTIONS).indexOf(inputString) < 0
+    ) {
+      throw new Error(CONTINUE_ERROR_MESSAGES.not_in_options);
     }
   }
 
@@ -150,9 +146,7 @@ class App {
     }
 
     if (this.strikes === 3) {
-      MissionUtils.Console.print(
-        "3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료\n"
-      );
+      MissionUtils.Console.print(INFO.correct);
       this.is_continue = false;
       return;
     }
