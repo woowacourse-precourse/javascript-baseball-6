@@ -6,12 +6,22 @@ import guessOutput from './guessOutput';
 import restartInput from './restartInput';
 
 class App {
+  #answer;
+  #guess;
+  #isEnded;
+  
+  constructor() {
+    this.#answer = [];
+    this.#guess = "";
+    this.#isEnded = false;
+  }
+
   async play() {
-    let answer = await setAnswer();
+    this.setAnswer();
 
     while (true) {
-      const guess = await guessInput();
-      const result = await guessJudge(guess, answer);
+      await this.setGuess();
+      const result = await guessJudge(this.#guess, this.#answer);
       const output = await guessOutput(result);
       Console.print(output);
 
@@ -19,10 +29,18 @@ class App {
         if (await restartInput() === '2') {
           break
         } else {
-          answer = await setAnswer();
+          this.setAnswer();
         }
       }
     }
+  }
+
+  async setAnswer() {
+    this.#answer = await setAnswer();
+  }
+
+  async setGuess() {
+    this.#guess = await guessInput();
   }
 }
 //@TODO : class로 만들어 객체지향형으로 만들기

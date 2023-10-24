@@ -1,6 +1,6 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 
-async function setAnswer() {
+function setAnswer() {
   const answer = [];
 
   while (answer.length < 3) {
