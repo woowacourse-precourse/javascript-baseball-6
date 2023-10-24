@@ -10,5 +10,6 @@
   },
   "rules": {
     "linebreak-style": 0
-  }
+  },
+  "ignorePatterns": ["ApplicationTest.js"]
 }
