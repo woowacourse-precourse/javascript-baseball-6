@@ -4,10 +4,15 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 class App {
   async play() {
     // 랜덤 넘버 생성
-    let computer_random_number =
-      MissionUtils.Random.pickNumberInRange(1, 9) * 100 +
-      MissionUtils.Random.pickNumberInRange(1, 9) * 10 +
-      MissionUtils.Random.pickNumberInRange(1, 9);
+    let computer_random_array = [];
+    while (computer_random_array.length < 3) {
+      let random_number = MissionUtils.Random.pickNumberInRange(1, 9);
+
+      if (!computer_random_array.includes(random_number)) {
+        computer_random_array.push(random_number);
+      }
+    }
+    let computer_random_number = computer_random_array.join("");
 
     // 숫자 비교
     function compareNumbers(computer_random_number, human_input) {
