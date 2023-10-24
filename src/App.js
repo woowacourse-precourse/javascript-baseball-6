@@ -1,4 +1,4 @@
-import { Console, Random } from "@woowacourse/mission-utils";
+import { Console, Random } from '@woowacourse/mission-utils';
 
 function makeRamdomNumber() {
   const computer = [];
@@ -43,9 +43,9 @@ function getHint(input, computer) {
   return {strike, ball};
 }
 
-function printHint({ strike, ball }) {
+function printHint(strike, ball) {
   if (strike === 0 && ball === 0) {
-    Console.print("낫싱");
+    Console.print('낫싱');
   } else if (strike !== 0 && ball !== 0) {
     Console.print(`${ball}볼 ${strike}스트라이크`);
   } else if (strike !== 0) {
@@ -59,6 +59,7 @@ async function compareUserAndRamdomNumber(computer) {
   while (1) {
     const input = await getUserNumber();
     const { strike , ball } = getHint(input, computer);
+    //console.log('strike , ball', strike , ball);
     printHint(strike, ball);
     if (strike === 3) {
       Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
@@ -75,39 +76,23 @@ async function startGameAgian() {
   } else if (executeCondition === 2) {
     return false;
   } else {
-    throw new Error("[ERROR] 게임 실행 조건을 잘못 입력하셨습니다.");
+    throw new Error('[ERROR] 게임 실행 조건을 잘못 입력하셨습니다.');
   }
 }
 
 class App {
-
   async play() {
-    let computer = makeRamdomNumber();
-    let input = [];
-    let isSame = false;
-    let executeCondition = '';
-
-    notifyGameStart();
-    while (1) {
-      if (isSame === true) {
-        computer = makeRamdomNumber();
-        executeCondition = await notifyGameEnd();
-        if (executeCondition === '1') {
-          isSame = false;
-        } else if (executeCondition === '2') {
-          return;
-        } else {
-          throw new Error("[ERROR] 게임 실행 조건을 잘못 입력하셨습니다.");
-        }
-      }
-      input = await getUserNumber();
-      isSame = compareUserAndRamdomNumber(input, computer);
+    let isExecute = false;
+    while(!isExecute) {
+      Console.print('숫자 야구 게임을 시작합니다.');
+      const computer = makeRamdomNumber();
+      isExecute = await compareUserAndRamdomNumber(computer);
     }
   }
 }
 
 
-//const app = new App();
-//app.play();
+const app = new App();
+app.play();
 
 export default App;
