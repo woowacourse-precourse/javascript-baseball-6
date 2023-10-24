@@ -1,6 +1,6 @@
-import Controller from "./controller/Controller.js";
-import View from "./view/View.js";
-import { ERROR } from "./constant/constant.js";
+import Controller from './controller/Controller.js';
+import View from './view/View.js';
+import { ERROR } from './constant/constant.js';
 
 class App {
 
@@ -10,14 +10,14 @@ class App {
   }
 
   async play() {
-    //Controller.js 메서드 호출
     this.controller = new Controller();    
     await this.controller.gameStart();
     const userInput = await this.showRestartNumberInput();
+
     if (userInput === '1') {
       return this.play(); 
     } else if (userInput === '2') {
-      this.view.showExitMessage()
+      this.view.showExitMessage();
     }
   }
 
@@ -28,7 +28,6 @@ class App {
     }
     return userInput;
   }
-
 }
 
 export default App;
