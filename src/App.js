@@ -4,14 +4,7 @@ class App {
   userNumber = "";
 
   async play() {
-    const answer = [];
-    while (answer.length < 3) {
-      const number = MissionUtils.Random.pickNumberInRange(1, 9);
-      if (!answer.includes(number)) {
-        answer.push(number);
-      }
-    }
-
+    const answer = this.getRandomNumber();
     let isCorrect = false;
 
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
@@ -19,11 +12,10 @@ class App {
     while (!isCorrect) {
       try {
         const input = await this.getUserNumber();
+        if (input.includes("[ERROR]")) return Promise.reject(new Error(input));
         this.userNumber = input;
-        if (input.includes("[ERROR]")) {
-          return Promise.reject(new Error(input));
-        }
       } catch (error) {}
+
       let strike = 0;
       let ball = 0;
 
@@ -50,6 +42,17 @@ class App {
     await this.handleEndGame();
   }
 
+  getRandomNumber() {
+    const answer = [];
+    while (answer.length < 3) {
+      const number = MissionUtils.Random.pickNumberInRange(1, 9);
+      if (!answer.includes(number)) {
+        answer.push(number);
+      }
+    }
+    return answer;
+  }
+
   async getUserNumber() {
     try {
       const number = await MissionUtils.Console.readLineAsync(
@@ -71,13 +74,9 @@ class App {
         "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
       );
 
-      if (answer === "1") {
-        return this.play();
-      } else if (answer === "2") {
-        return;
-      } else {
-        throw new Error("[ERROR] 1 또는 2를 입력해주세요.");
-      }
+      if (answer === "1") return this.play();
+      if (answer === "2") return;
+      throw new Error("[ERROR] 1 또는 2를 입력해주세요.");
     } catch {}
   }
 }
