@@ -38,6 +38,34 @@ class App {
     ).length;
   }
 
+  async selectOption() {
+    Console.print(
+      "3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료\n게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+    );
+    const CHOICE = await Console.readLineAsync("");
+    if (CHOICE === "1") {
+      this.computerInput = this.generateRandomNum();
+    } else if (CHOICE === "2") {
+      this.isContinue = false;
+    } else {
+      throw new Error("[ERROR] 잘못 입력하였습니다.");
+    }
+  }
+
+  async printResult(strike, ball) {
+    if (strike === 3) {
+      await this.selectOption();
+    } else if (strike === 0 && ball === 0) {
+      Console.print("낫싱");
+    } else if (strike > 0 && ball > 0) {
+      Console.print(`${ball}볼 ${strike}스트라이크`);
+    } else if (strike > 0) {
+      Console.print(`${strike}스트라이크`);
+    } else if (ball > 0) {
+      Console.print(`${ball}볼`);
+    }
+  }
+
   async play() {
     Console.print("숫자 야구 게임을 시작합니다.");
 
@@ -49,28 +77,7 @@ class App {
         const INPUT_ARR = USERINPUT.toString().split("").map(Number);
         const STRIKE = this.calcStrike(INPUT_ARR, this.computerInput);
         const BALL = this.calcBall(INPUT_ARR, this.computerInput);
-
-        if (STRIKE === 3) {
-          Console.print(
-            "3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료\n게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
-          );
-          const CHOICE = await Console.readLineAsync("");
-          if (CHOICE === "1") {
-            this.computerInput = this.generateRandomNum();
-          } else if (CHOICE === "2") {
-            this.isContinue = false;
-          } else {
-            throw new Error("[ERROR] 잘못 입력하였습니다.");
-          }
-        } else if (STRIKE === 0 && BALL === 0) {
-          Console.print("낫싱");
-        } else if (STRIKE > 0 && BALL > 0) {
-          Console.print(`${BALL}볼 ${STRIKE}스트라이크`);
-        } else if (STRIKE > 0) {
-          Console.print(`${STRIKE}스트라이크`);
-        } else if (BALL > 0) {
-          Console.print(`${BALL}볼`);
-        }
+        await this.printResult(STRIKE, BALL);
       }
     }
   }
