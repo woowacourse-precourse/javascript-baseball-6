@@ -15,27 +15,28 @@ class App {
   }
 
   makeComputerRandomNums() {
-    while (this.computerRandomNums.length < 3) {
+    const computerNums = [];
+    while (computerNums.length < 3) {
       const number = Random.pickNumberInRange(1, 9);
-      if (!this.computerRandomNums.includes(number))
-        this.computerRandomNums.push(number);
+      if (!computerNums.includes(number)) computerNums.push(number);
     }
+    return computerNums;
   }
 
   async play() {
     Console.print("숫자 야구 게임을 시작합니다.");
-    this.makeComputerRandomNums();
+    this.computerRandomNums = this.makeComputerRandomNums();
+    await this.makeUserRandomNums();
+  }
 
-    while (true) {
-      const numbers = await Console.readLineAsync("숫자를 입력해주세요: ");
-      this.isValidNumber(numbers);
-
-      if (answer === "3스트라이크") {
-        const isRestart = await this.restart();
-
-        if (!isRestart) break;
-      }
-    }
+  async makeUserRandomNums() {
+    const numbers = await Console.readLineAsync("숫자를 입력해주세요: ");
+    this.isValidNumber(numbers);
+    const strikeNball = this.checkStrikeNBall(numbers);
+    const message = this.makeMessage(strikeNball);
+    Console.print(message);
+    if (message === "3스트라이크") await this.restart();
+    else this.makeUserRandomNums();
   }
 
   checkStrikeNBall(numbers) {
@@ -55,7 +56,7 @@ class App {
       }
     }
 
-    return this.makeMessage(check);
+    return check;
   }
 
   makeMessage({ ball, strike }) {
@@ -72,15 +73,20 @@ class App {
     if (isRestart !== 1 && isRestart !== 2)
       throw new Error(ERROR_MESSAGE.IS_RESTART);
     if (isRestart === 1) {
-      this.computerRandomNums = Random.pickUniqueNumbersInRange(1, 9, 3);
-      return true;
-    } else return false;
+      this.computerRandomNums = this.makeComputerRandomNums();
+      await this.makeUserRandomNums();
+    } else {
+      Console.print("게임 종료");
+    }
   }
 
   isValidNumber(num) {
     const regexp = /\D/g;
     if (num.length < 3 || num.length > 3) throw new Error(ERROR_MESSAGE.LENGTH);
     if (regexp.test(num)) throw new Error(ERROR_MESSAGE.NUMBER);
+    const isdouble = num.split("");
+    const set = new Set(isdouble);
+    if (set.size !== 3) throw new Error(ERROR_MESSAGE.DUPLICATE);
   }
 }
 
