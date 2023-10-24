@@ -43,15 +43,18 @@ class App {
 
   async askRestart() {
     const restartCommand = (await this.#view.input.readLine(MESSAGE.askRestart)).trim();
+    this.#validateRestartCode(restartCommand);
     if (restartCommand === RESTART_COMMAND.CONFIRM) {
       this.#service.baseball.init();
       await this.processTurn();
-      return;
     }
-    if (restartCommand === RESTART_COMMAND.DENY) {
-      return;
+  }
+
+  #validateRestartCode(code) {
+    const validCommandsList = Object.values(RESTART_COMMAND);
+    if (!validCommandsList.includes(code)) {
+      throw new CustomError(ERROR_MESSAGE.RESTART_COMMAND.INVALID_RESTART_COMMAND);
     }
-    throw new CustomError(ERROR_MESSAGE.RESTART_COMMAND.INVALID_RESTART_COMMAND);
   }
 }
 
