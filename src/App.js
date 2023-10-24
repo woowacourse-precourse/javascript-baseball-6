@@ -4,14 +4,14 @@ class App {
   async play() {
     function setNumbers() {
       try {
-        const computer = [];
-        while (computer.length < 3) {
-          const number = MissionUtils.Random.pickNumberInRange(1, 9);
-          if (!computer.includes(number)) {
-            computer.push(number);
+        const COMPUTER = [];
+        while (COMPUTER.length < 3) {
+          const NUMBER = MissionUtils.Random.pickNumberInRange(1, 9);
+          if (!COMPUTER.includes(NUMBER)) {
+            COMPUTER.push(NUMBER);
           }
         }
-        return computer;
+        return COMPUTER;
       } catch (error) {
         throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
       }
@@ -19,30 +19,30 @@ class App {
 
     async function getInput() {
       try {
-        const input = await MissionUtils.Console.readLineAsync(
+        const INPUT = await MissionUtils.Console.readLineAsync(
           "숫자를 입력해주세요 : "
         );
         if (
-          input &&
-          input.length === 3 &&
-          !isNaN(Number(input[0])) &&
-          !isNaN(Number(input[1])) &&
-          !isNaN(Number(input[2])) &&
-          input[0] != input[1] &&
-          input[0] != input[2] &&
-          input[1] != input[2] &&
-          Number(input[0]) &&
-          Number(input[1]) &&
-          Number(input[2])
+          INPUT &&
+          INPUT.length === 3 &&
+          !isNaN(Number(INPUT[0])) &&
+          !isNaN(Number(INPUT[1])) &&
+          !isNaN(Number(INPUT[2])) &&
+          INPUT[0] != INPUT[1] &&
+          INPUT[0] != INPUT[2] &&
+          INPUT[1] != INPUT[2] &&
+          Number(INPUT[0]) &&
+          Number(INPUT[1]) &&
+          Number(INPUT[2])
         ) {
-          const inputarr = [];
+          const INPUTARR = [];
           let idx = 0;
-          while (inputarr.length < 3) {
-            const number = input[idx];
-            inputarr.push(Number(number));
+          while (INPUTARR.length < 3) {
+            const INPUTNUM = INPUT[idx];
+            INPUTARR.push(Number(INPUTNUM));
             idx++;
           }
-          return inputarr;
+          return INPUTARR;
         } else {
           throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
         }
@@ -55,17 +55,17 @@ class App {
       MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
       let finish = false;
       while (!finish) {
-        const answer = await setNumbers();
+        const ANSWER = await setNumbers();
         let correct = false;
         while (!correct) {
           let strike = 0;
           let ball = 0;
           try {
-            const userinput = await getInput();
+            const USERINPUT = await getInput();
             for (let i = 0; i < 3; i++) {
-              if (userinput[i] === answer[i]) {
+              if (USERINPUT[i] === ANSWER[i]) {
                 strike++;
-              } else if (answer.includes(userinput[i])) {
+              } else if (ANSWER.includes(USERINPUT[i])) {
                 ball++;
               }
             }
@@ -89,7 +89,6 @@ class App {
               }
             }
             MissionUtils.Console.print(result);
-            MissionUtils.Console.print(answer);
           } catch (error) {
             throw error;
           }
