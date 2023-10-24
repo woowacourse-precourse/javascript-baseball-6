@@ -1,8 +1,8 @@
-import BallsBox from "./BallsBox.js";
+import ValidatedBalls from "./ValidatedBalls.js";
 
 export default class Player {
   throwBalls = (ballNumbers) => {
-    const balls = new BallsBox(ballNumbers);
-    return balls.ballArray;
+    const validatedBalls = new ValidatedBalls(ballNumbers);
+    return validatedBalls.ballsArray;
   };
 }
