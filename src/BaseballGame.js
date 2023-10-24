@@ -52,7 +52,7 @@ class BaseballGame {
         this.restartGame();
         break;
       case '2':
-        Console.close();
+        Console.print('게임 종료');
         break;
     }
   }
