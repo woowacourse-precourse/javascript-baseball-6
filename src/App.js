@@ -6,5 +6,3 @@ export default class App {
     await this.controller.play();
   };
 }
-
-// new App().play();
