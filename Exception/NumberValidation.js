@@ -1,4 +1,4 @@
-import { ERROR } from '../core/Constants';
+import { ERROR, NUMBER } from '../core/Constants';
 
 import ErrorCase from './ErrorCase';
 
@@ -20,7 +20,7 @@ class NumberValidation extends ErrorCase {
   }
 
   checkLength() {
-    return this.#inputValue.length === 3;
+    return this.#inputValue.length === NUMBER.THREE;
   }
 
   changeStrToNum() {

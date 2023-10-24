@@ -24,4 +24,10 @@ const ERROR = Object.freeze({
   INVALID_NUMBER: '숫자가 잘못된 형식입니다.',
 });
 
-export { COMMAND, COMPUTER, GAME, ERROR };
+const NUMBER = Object.freeze({
+  ONE: 1,
+  TWO: 2,
+  THREE: 3,
+});
+
+export { COMMAND, COMPUTER, GAME, ERROR, NUMBER };

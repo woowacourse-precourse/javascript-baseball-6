@@ -1,4 +1,4 @@
-import { ERROR } from '../core/Constants';
+import { ERROR, NUMBER } from '../core/Constants';
 
 import ErrorCase from './ErrorCase';
 
@@ -16,11 +16,14 @@ class GameCondition extends ErrorCase {
   }
 
   checkOneOrTwo() {
-    return this.changeTypeForNum() === 1 || this.changeTypeForNum() === 2;
+    return (
+      this.changeTypeForNum() === NUMBER.ONE ||
+      this.changeTypeForNum() === NUMBER.TWO
+    );
   }
 
   checkLength() {
-    return this.#inputValue.length === 1;
+    return this.#inputValue.length === NUMBER.ONE;
   }
 
   changeTypeForNum() {
