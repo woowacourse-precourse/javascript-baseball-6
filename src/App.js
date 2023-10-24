@@ -1,17 +1,19 @@
-import { Console, Random } from '@woowacourse/mission-utils';
+import { Console } from '@woowacourse/mission-utils';
 import { ERROR, MESSAGE } from './constants.js';
+import RandomGenerator from './RandomGenerator.js';
 
 class App {
+  randomGenerator;
   computerNumber;
   userNumber;
 
   constructor() {
+    this.randomGenerator = new RandomGenerator();
     Console.print(MESSAGE.startMessage);
   };
 
   async play() {
-    this.computerNumber = this.randomGenerator();
-    // Console.print(this.computerNumber);
+    this.computerNumber = this.randomGenerator.randomNumberr();
     return this.start()
   };
 
@@ -19,21 +21,6 @@ class App {
     this.userNumber = await this.getUserNumber();
     return this.checkInputValidate();
   }
-
-  //랜덤 수 생성
-  randomGenerator() {
-    const COMPUTER = [];
-
-    while (COMPUTER.length < 3) {
-      const COMPUTER_NUMBER = Random.pickNumberInRange(1, 9);
-
-      if (!COMPUTER.includes(COMPUTER_NUMBER)) {
-        COMPUTER.push(COMPUTER_NUMBER);
-      };
-    };
-
-    return COMPUTER;
-  };
 
   // 사용자 수 입력받기
   async getUserNumber() {
