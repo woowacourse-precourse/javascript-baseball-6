@@ -8,7 +8,6 @@ class App {
   computer = new Computer();
   player = new Player();
   gameManager = new GameManager();
-  validator = new Validator();
 
   async play() {
     this.computer.generateThreeDigits();
@@ -24,7 +23,7 @@ class App {
         if (STRIKE === CORRECT_NUMBER) {
           const CHOICE = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
 
-          if (this.validator.validatePlayerChoice(CHOICE)) throw new Error('1 또는 2가 입력되지 않았습니다.');
+          if (Validator.validatePlayerChoice(CHOICE)) throw new Error('1 또는 2가 입력되지 않았습니다.');
           this.player.setChoice(CHOICE)
 
           if (this.player.choice === '1') {
@@ -68,12 +67,11 @@ class Computer {
 }
 
 class Player {
-  validator = new Validator();
   number;
   choice;
 
   setThreeDigits(num) {
-    if (!this.validator.isValidPlayerNumber(num)) throw new Error('[ERROR] : 유효하지 않은 입력입니다.');
+    if (!Validator.isValidPlayerNumber(num)) throw new Error('[ERROR] : 유효하지 않은 입력입니다.');
     
     this.number = num;
   }
@@ -109,15 +107,15 @@ class GameManager {
 }
 
 class Validator {
-  validatePlayerChoice(input) {
+  static validatePlayerChoice(input) {
     return !/^[12]$/.test(input)
   }
 
-  isThreeDigits(input) {
+  static isThreeDigits(input) {
     return /^[1-9]{3}$/.test(String(input))
   }
 
-  isValidPlayerNumber(input) {
+  static isValidPlayerNumber(input) {
     const SET = new Set(...[String(input)]);
     if (this.isThreeDigits(input) && SET.size === 3) {
       return true;
