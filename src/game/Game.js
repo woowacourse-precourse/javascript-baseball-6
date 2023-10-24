@@ -12,7 +12,10 @@ class Game {
   async play() {
     while (!this.isGameEnded) {
       const userInput = await this.ioManager.getThreeNumberInput();
-      const { strike, ball } = this.compareNumbers(this.answer, userInput);
+      const { strike, ball } = this.calculateStrikesAndBalls(
+        this.answer,
+        userInput
+      );
       this.ioManager.printGameStatus(strike, ball);
 
       if (strike === ANSWER_LENGTH) {
@@ -35,14 +38,16 @@ class Game {
     return threeRandomInteger;
   }
 
-  compareNumbers(answer, userResponse) {
+  calculateStrikesAndBalls(answer, userResponse) {
     let strike = 0;
     let ball = 0;
 
     for (let i = 0; i < ANSWER_LENGTH; i++) {
-      if (userResponse.charAt(i) - "0" === answer[i]) {
+      const userNumber = userResponse.charAt(i) - "0";
+      if (userNumber === answer[i]) {
         strike++;
-      } else if (answer.includes(userResponse.charAt(i) - "0")) {
+      }
+      if (answer.includes(userNumber) && userNumber !== answer[i]) {
         ball++;
       }
     }
