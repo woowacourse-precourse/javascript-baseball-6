@@ -1,3 +1,4 @@
+import { ANSWER_LENGTH, ERROR_MESSAGE, PLAY_GAME } from "./Constants";
 import generateRandomNumber from "./utils/generateRandomNumbers";
 import checkBallCount from "./utils/checkBallCount";
 import printBallCount from "./utils/printBallCount";
@@ -6,7 +7,7 @@ const { Console } = require("@woowacourse/mission-utils");
 
 class App {
   async play() {
-    Console.print("숫자 야구 게임을 시작합니다.");
+    Console.print(PLAY_GAME.START);
     await this.gameTurn();
   }
 
@@ -18,24 +19,36 @@ class App {
   async gameStart(answer) {
     try {
       while (true) {
-        const inputNumber = await Console.readLineAsync(
-          "숫자를 입력해주세요 : "
-        );
+        const inputNumber = await Console.readLineAsync(PLAY_GAME.INPUT);
         const score = checkBallCount(inputNumber, answer);
         Console.print(printBallCount(score));
 
-        if (score.strike === 3) {
-          Console.print("3스트라이크");
+        if (score.strike === ANSWER_LENGTH) {
+          Console.print(PLAY_GAME.ANSWER);
           this.checkAnswer();
           break;
         }
       }
     } catch (error) {
       //인풋이 올바른지 확인하는 유효성 검사 필요
+      this.errorMessages();
     }
   }
 
-  checkAnswer() {}
+  async checkAnswer() {
+    Console.print(PLAY_GAME.ANSWER);
+    let input = await Console.readLineAsync(PLAY_GAME.CHECK);
+    if (input === PLAY_GAME.RESTART) {
+      return this.gameTurn();
+    } else if (input === PLAY_GAME.END) {
+      return Console.print(PLAY_GAME.ENDMESSAGE);
+    }
+    return this.errorMessages();
+  }
+
+  async errorMessages() {
+    throw new Error(ERROR_MESSAGE);
+  }
 }
 
 const app = new App();
