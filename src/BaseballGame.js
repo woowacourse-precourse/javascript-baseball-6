@@ -34,6 +34,7 @@ class BaseballGame {
     Validator.validateUserNumber(userNumber);
     const result = NumberChecker.getResult(userNumber, this.computerNumber);
     this.printResult(result);
+    await this.handleResult(result);
   }
   printResult({ball, strike}) {
     let result = '';
@@ -42,6 +43,14 @@ class BaseballGame {
     if (ball === 0 && strike === 0) result = MESSAGES.nothing;
     if (strike === CONSTANTS.winningStrike) result += MESSAGES.correct;
     Console.print(result.trim());
+  }
+  async handleResult({_, strike}) {
+    if (strike < 3) return this.readNumber();
+    await this.readRetry();
+  }
+
+  async readRetry() {
+    const userInput = Number(await Console.readLineAsync(MESSAGES.restartQuery));
   }
 }
 
