@@ -8,40 +8,40 @@
 | "볼"         | 숫자 일치 자리 불일치         |
 | "낫싱"       | 3자리수 숫자/자리 전부 불일치 |
 
-- [ ] 컴퓨터는 1에서 9까지 서로 다른 임의의 수 3개를 선택
-- [ ] 컴퓨터가 선택한 3개의 숫자를 모두 맞히면 게임이 종료
-- [ ] 종료한 후 게임을 다시 시작하거나 완전히 종료 가능
-- [ ] 사용자가 잘못된 값을 입력한 경우 throw문을 사용해 예외를 발생시킨후 애플리케이션은 종료
+- [x] 컴퓨터는 1에서 9까지 서로 다른 임의의 수 3개를 선택
+- [x] 컴퓨터가 선택한 3개의 숫자를 모두 맞히면 게임이 종료
+- [x] 종료한 후 게임을 다시 시작하거나 완전히 종료 가능
+- [x] 사용자가 잘못된 값을 입력한 경우 throw문을 사용해 예외를 발생시킨후 애플리케이션은 종료
 
 ## 입출력 요구 사항
 
 #### 입력
 
-- [ ] 서로 다른 3자리의 수
-- [ ] 게임이 끝난 경우 재시작/종료를 구분하는 1과 2 중 하나의 수
+- [x] 서로 다른 3자리의 수
+- [x] 게임이 끝난 경우 재시작/종료를 구분하는 1과 2 중 하나의 수
 
 #### 출력
 
-- [ ] 입력한 수에 대한 결과를 볼, 스트라이크 개수로 표시
+- [x] 입력한 수에 대한 결과를 볼, 스트라이크 개수로 표시
 
 ```
 1볼 1스트라이크
 ```
 
-- [ ] 하나도 없는 경우
+- [x] 하나도 없는 경우
 
 ```
 낫싱
 ```
 
-- [ ] 3개의 숫자를 모두 맞힐 경우
+- [x] 3개의 숫자를 모두 맞힐 경우
 
 ```
 3스트라이크
 3개의 숫자를 모두 맞히셨습니다! 게임 종료
 ```
 
-- [ ] 게임 시작 문구 출력
+- [x] 게임 시작 문구 출력
 
 ```
 숫자 야구 게임을 시작합니다.
@@ -71,24 +71,24 @@
 
 ## 프로그래밍 요구 사항
 
-- [ ] 프로그램 실행의 시작점은 App.js의 play 메서드
+- [x] 프로그램 실행의 시작점은 App.js의 play 메서드
 
 ```
 const app = new App();
 app.play();
 ```
 
-- [ ] `package.json`을 변경할 수 없고 외부 라이브러리(jQuery, Lodash 등)를 사용하지 않는다. 순수 Vanilla JS로만 구현한다.
-- [ ] [JavaScript 코드 컨벤션](https://github.com/woowacourse/woowacourse-docs/tree/main/styleguide/javascript)을 지키면서 프로그래밍 한다
-- [ ] 프로그램 종료 시 `process.exit()`를 호출하지 않는다.
-- [ ] 프로그램 구현이 완료되면 `ApplicationTest`의 모든 테스트가 성공해야 한다. **테스트가 실패할 경우 0점 처리한다.**
-- [ ] 프로그래밍 요구 사항에서 달리 명시하지 않는 한 파일, 패키지 이름을 수정하거나 이동하지 않는다.
+- [x] `package.json`을 변경할 수 없고 외부 라이브러리(jQuery, Lodash 등)를 사용하지 않는다. 순수 Vanilla JS로만 구현한다.
+- [x] [JavaScript 코드 컨벤션](https://github.com/woowacourse/woowacourse-docs/tree/main/styleguide/javascript)을 지키면서 프로그래밍 한다
+- [x] 프로그램 종료 시 `process.exit()`를 호출하지 않는다.
+- [x] 프로그램 구현이 완료되면 `ApplicationTest`의 모든 테스트가 성공해야 한다. **테스트가 실패할 경우 0점 처리한다.**
+- [x] 프로그래밍 요구 사항에서 달리 명시하지 않는 한 파일, 패키지 이름을 수정하거나 이동하지 않는다.
 
 ### 라이브러리
 
-- [ ] `@woowacourse/mission-utils`의 `Random` 및 `Console` API를 사용하여 구현해야 한다.
-- [ ] Random 값 추출은 `Random.pickNumberInRange()`를 활용한다.
-- [ ] 사용자의 값을 입력 받고 출력하기 위해서는 `Console.readLineAsync`, `Console.print`를 활용한다.
+- [x] `@woowacourse/mission-utils`의 `Random` 및 `Console` API를 사용하여 구현해야 한다.
+- [x] Random 값 추출은 `Random.pickNumberInRange()`를 활용한다.
+- [x] 사용자의 값을 입력 받고 출력하기 위해서는 `Console.readLineAsync`, `Console.print`를 활용한다.
 
 #### 사용 예시
 
