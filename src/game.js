@@ -1,4 +1,5 @@
 import { Console, Random } from "@woowacourse/mission-utils"
+import getUserInput from "./input.js";
 
 const getComputerAnswer = () => {
   const computer = [];
@@ -15,4 +16,5 @@ const getComputerAnswer = () => {
 export default async function gameStart() {
   const answer = getComputerAnswer();
   Console.print(answer);
+  let inputValue = await getUserInput();
 }
