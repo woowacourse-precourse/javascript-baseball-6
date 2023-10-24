@@ -1,52 +1,17 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import { generateComputerAnswer } from './generateComputerAnswer.js';
+import { getUserNumber } from "./getUserNumber.js";
 import { calculateResult } from './calculateResult.js';
-
-async function getUserNumber() {
-  try {
-    const userInput = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
-    const userNumbers = userInput.split('').map(Number);
-
-    if(!isValidInput(userNumbers)) {
-      throw new Error(`[ERROR] 사용자가 입력한 ${userInput}는 숫자가 잘못된 형식입니다.`);
-    }
-
-    return userNumbers;
-  } catch (error) {
-    console.error(error.message);
-    return Promise.reject(error);
-  }
-}
-
-const isValidInput = (userNumbers) => {
-  if(userNumbers.length !== COMPUTER_ANSWER_LENGTH) {
-    return false;
-  }
-
-  const set = new Set(userNumbers);
-  if(set.size !== userNumbers.length) {
-    return false;
-  }
-
-  for(const num of userNumbers) {
-    if(num < 1 || num > 9) {
-      return false;
-    }
-  }
-
-  return true;
-};
-
-const COMPUTER_ANSWER_LENGTH = 3;
 
 class App {
   async play() {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
 
+    const COMPUTER_ANSWER_LENGTH = 3;
     const computerAnswer = generateComputerAnswer(COMPUTER_ANSWER_LENGTH);
 
     while (true) {
-      const userGuess = await getUserNumber();
+      const userGuess = await getUserNumber(COMPUTER_ANSWER_LENGTH);
 
       const { strike, ball, message } = calculateResult(computerAnswer, userGuess);
 
