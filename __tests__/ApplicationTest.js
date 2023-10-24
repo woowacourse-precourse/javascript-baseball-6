@@ -128,7 +128,7 @@ describe("숫자 야구 게임", () => {
   test("스트라이크 & 볼 테스트", async () => {
     // given
     const randoms = [9,8,7,6,5,4];
-    const answers = ["978", "987", "1", "193", "654", "2"];
+    const answers = ["  978", "987", "     1", "193", "654", "    2"];
     const logSpy = getLogSpy();
     const messages = ["2볼 1스트라이크", "3스트라이크", "낫싱", "3스트라이크", "게임 종료"];
     
@@ -333,6 +333,76 @@ describe("숫자 야구 게임", () => {
     // given
     const randoms = [5, 6, 7];
     const answers = ["211"];
+    
+    mockRandoms(randoms);
+    mockQuestions(answers);
+    
+    // when & then
+    const app = new App();
+    
+    await expect(app.play()).rejects.toThrow("[ERROR]");
+  });
+
+  test("예외 테스트(NULL_ERROR) 사용자 빈값 입력", async () => {
+    // given
+    const randoms = [5, 6, 7];
+    const answers = [" "];
+    
+    mockRandoms(randoms);
+    mockQuestions(answers);
+    
+    // when & then
+    const app = new App();
+    
+    await expect(app.play()).rejects.toThrow("[ERROR]");
+  });
+
+  test("예외 테스트(NULL_ERROR) 사용자 빈값 입력", async () => {
+    // given
+    const randoms = [5, 6, 7];
+    const answers = ["567"," "];
+    
+    mockRandoms(randoms);
+    mockQuestions(answers);
+    
+    // when & then
+    const app = new App();
+    
+    await expect(app.play()).rejects.toThrow("[ERROR]");
+  });
+
+  test("예외 테스트(NULL_ERROR) 사용자 빈값 입력", async () => {
+    // given
+    const randoms = [5, 6, 7, 1 ,2 ,3];
+    const answers = ["567","1","123","     "];
+    
+    mockRandoms(randoms);
+    mockQuestions(answers);
+    
+    // when & then
+    const app = new App();
+    
+    await expect(app.play()).rejects.toThrow("[ERROR]");
+  });
+
+  test("예외 테스트(NULL_ERROR) 사용자 빈값 입력", async () => {
+    // given
+    const randoms = [5, 6, 7, 1 ,2 ,3];
+    const answers = ["567","1","123","     "];
+    
+    mockRandoms(randoms);
+    mockQuestions(answers);
+    
+    // when & then
+    const app = new App();
+    
+    await expect(app.play()).rejects.toThrow("[ERROR]");
+  });
+
+  test("예외 테스트(USER_NUMBER_ERROR) 사용자 빈값 & 특수문자 입력", async () => {
+    // given
+    const randoms = [5, 6, 7, 1 ,2 ,3];
+    const answers = ["5 7@"];
     
     mockRandoms(randoms);
     mockQuestions(answers);

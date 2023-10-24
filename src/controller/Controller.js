@@ -22,6 +22,7 @@ class Controller {
     async inputUserNumber() {
         try {
             CONSTANTS.USER_NUMBER = await MissionUtils.Console.readLineAsync(INPUT_MSG.INPUT_NUMBER);
+            CONSTANTS.USER_NUMBER = CONSTANTS.USER_NUMBER.trim();
             this.VAL.numberValidate(CONSTANTS.USER_NUMBER);
             MissionUtils.Console.print(`${INPUT_MSG.INPUT_NUMBER} ${CONSTANTS.USER_NUMBER}`);
         } catch (error) {
@@ -48,6 +49,7 @@ class Controller {
         try {
             MissionUtils.Console.print(OUTPUT_MSG.RE_GAME);
             CONSTANTS.REGAME_CONSTANTS = await MissionUtils.Console.readLineAsync(OUTPUT_MSG.RE_GAME);
+            CONSTANTS.REGAME_CONSTANTS = CONSTANTS.REGAME_CONSTANTS.trim();
             MissionUtils.Console.print(CONSTANTS.REGAME_CONSTANTS);
             this.VAL.reGameValidate(CONSTANTS.REGAME_CONSTANTS);
         } catch (error) {

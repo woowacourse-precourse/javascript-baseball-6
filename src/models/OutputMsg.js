@@ -15,7 +15,8 @@ const ERROR_MSG = {
     IS_ZERO : '[ERROR] 1 부터 9 까지의 값을 입력해주세요',
     ANSWER_NUMBER_ERROR : '[ERROR] 정답 숫자가 잘못 입력되었습니다.',
     RE_GAME_NUMBER_ERROR : '[ERROR] 게임을 다시 시작하려면 1, 종료 하려면 2를 입력해주세요.',
-    NUMBER_DIFFRENT_ERROR : '[ERROR] 서로 다른 3자리의 수를 입력해주세요.'
+    NUMBER_DIFFRENT_ERROR : '[ERROR] 서로 다른 3자리의 수를 입력해주세요.',
+    NULL_ERROR : '[ERROR] 빈 값을 입력하였습니다.'
 }
 
 module.exports = { OUTPUT_MSG ,ERROR_MSG } 
