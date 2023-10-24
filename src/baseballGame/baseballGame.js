@@ -5,6 +5,7 @@ import countBall from "./countBall.js";
 import countStrike from "./countStrike.js";
 import gameResult from "./gameResult.js";
 import checkInputValid from "../input/checkInputValid.js";
+import getRestartDecision from "../input/getRestartDecision.js";
 
 /**
  * 야구게임을 실행한다
@@ -35,12 +36,12 @@ export default async function baseballGame() {
       // check for correct answer
       const strikeCount = countStrike(answer, userInput);
       const ballCount = countBall(answer, userInput) - strikeCount;
-      const isAnswerCorrect = gameResult(strikeCount, ballCount);
+      const isAnswerCorrect = await gameResult(strikeCount, ballCount);
 
       // restart or exit
       if (isAnswerCorrect) {
         MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
-        repeatsRestart = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n') === "1" ? true : false;
+        repeatsRestart = await getRestartDecision();
         break;
       }
     }
