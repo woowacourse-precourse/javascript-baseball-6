@@ -2,13 +2,11 @@ import { Console, Random } from "@woowacourse/mission-utils";
 
 const START_MESSAGE = "숫자 야구 게임 시작을 시작합니다.";
 const USER_MESSAGE = "숫자를 입력해주세요 : ";
-const SUCCESS = "3개의 숫자를 모두 맞히셨습니다! 게임 종료";
+const SUCCESS_MESSAGE = "3개의 숫자를 모두 맞히셨습니다! 게임 종료";
 const RESTART_MESSAGE = "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.";
 const NUMBER_LENGTH = 3;
 const RANGE_START = 1;
 const RANGE_END = 9;
-
-let answer = 0;
 
 function computer_start() {
   const computer = [];
@@ -23,9 +21,10 @@ function computer_start() {
 }
 
 async function finish() {
-  const input = await Console.readLineAsync(RESTART_MESSAGE)
-  if (input === '1') return true
-  else if (input === '2') return false
+  Console.print(RESTART_MESSAGE)
+  const input = await Console.readLineAsync("")
+  if (input === "1") return true
+  else if (input === "2") return false
 }
 
 async function player(computer_number) {
@@ -37,7 +36,7 @@ async function player(computer_number) {
     const result = compare(computer_number, userNum);
     Console.print(result);
     if (result === '3스트라이크') {
-      Console.print(SUCCESS);
+      Console.print(SUCCESS_MESSAGE);
       break;
     }
   }
@@ -73,9 +72,13 @@ function compare(computer_number, player_number) {
 }
 class App {
   async play() {
+    let restart = true;
     Console.print(START_MESSAGE);
-    const computer_number = computer_start();
-    player(computer_number);
+    while (restart) {
+      const computer_number = computer_start();
+      await player(computer_number);
+      restart = await finish();
+    }
   }
 }
 export default App;
