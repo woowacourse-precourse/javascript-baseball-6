@@ -1,9 +1,11 @@
 import { Console } from '@woowacourse/mission-utils';
-import { ERROR, MESSAGE } from './constants.js';
+import { MESSAGE } from './constants.js';
 import RandomGenerator from './RandomGenerator.js';
 import UserInput from './UserInput.js';
+import ValidateCheck from './ValidateCheck.js';
 
 class App {
+  validateCheck;
   userInput;
   randomGenerator;
   computerNumber;
@@ -12,6 +14,7 @@ class App {
   constructor() {
     this.randomGenerator = new RandomGenerator();
     this.userInput = new UserInput();
+    this.validateCheck = new ValidateCheck();
     Console.print(MESSAGE.startMessage);
   };
 
@@ -22,21 +25,9 @@ class App {
 
   async start() {
     this.userNumber = await this.userInput.getUserNumber();
-    return this.checkInputValidate();
-  }
-
-  // 입력받은 수 유효성 검사
-  checkInputValidate() {
-    const IS_UNIQUE = (new Set(this.userNumber)).size;
-    const RE = new RegExp(/[1-9]{3}/g);
-
-    if (!RE.test(this.userNumber) || this.userNumber.length !== 3 || IS_UNIQUE !== 3) {
-      throw new Error (ERROR.invalidInput);
-    };
-
-    this.userNumber =  this.userNumber.split('').map(Number);
+    this.userNumber = this.validateCheck.checkInputValidate(this.userNumber);
     return this.countStrike();
-  };
+  }
 
   //컴퓨터의 수와 입력한 값 비교
   countStrike() {
@@ -59,15 +50,8 @@ class App {
     };
 
     const RETRY = await this.userInput.chooseRetry();
-    return this.checkRetry(RETRY);
-  };
-
-  checkRetry(retryNumber) {
-    if (retryNumber !== "1" && retryNumber !== "2") {
-      throw new Error (ERROR.retryInput);
-    };
-
-    return this.retryOrExit(retryNumber);
+    this.validateCheck.checkRetry(RETRY);
+    return this.retryOrExit(RETRY);
   };
 
   retryOrExit(retryNumber) {
