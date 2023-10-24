@@ -52,7 +52,7 @@ async gameStart(RAN,MY_NUM){
         throw new Error('[ERROR] 입력범위_ 0 입력');
       }
     }
-    if(MY_NUM.length != 3){
+    if(MY_NUM.length !== 3){
       throw new Error("[ERROR] 3자리 숫자를 입력하세요");
     }
 
@@ -85,10 +85,10 @@ async gameStart(RAN,MY_NUM){
 // ㄴ 내 숫자 함수와 재게임함수에서 값을 받아오는 것을 기다려야할 필요가 있기에
 // ㄴ 각각에 await, gameStart에 async이 필요하다
 
-    if(STRIKE.length ==3){
+    if(STRIKE.length ===3){
       Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`)
       await this.gameset();
-    } else if(STRIKE.length !=3){
+    } else if(STRIKE.length !==3){
       await this.myNumber(RAN);
     }
   }
@@ -127,7 +127,7 @@ async gameset(){
       await this.play();
     } else if(SET_NUM==='2'){
       return;
-    } else if(SET_NUM !=1 && SET_NUM!=2){
+    } else if(SET_NUM !=='1' && SET_NUM!=='2'){
       throw new Error('[ERROR]1 또는 2를 입력하세요')
     }
   }
