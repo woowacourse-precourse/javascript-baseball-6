@@ -1,3 +1,19 @@
+import { MissionUtils } from "@woowacourse/mission-utils";
+import {
+  NUMBER_THREE,
+  NUMBER_ZERO,
+  STRING_ONE,
+  STRING_TWO,
+} from "./constants/numbers.js";
+import {
+  BALL_MESSAGE,
+  NOTHING_MESSAGE,
+  STRIKE_MESSAGE,
+  RESTART_END_MESSAGE,
+  WRONG_INPUT_MESSAGE,
+  END_MESSAGE,
+} from "./constants/messages.js";
+
 const ballCount = (playerInputNumberArray, computerPickedNumberArray) => {
   return playerInputNumberArray.filter((number) =>
     computerPickedNumberArray.includes(number)
@@ -34,3 +50,28 @@ const isAllCompleted = (playerInputNumberArray, computerPickedNumberArray) => {
   );
   return false;
 };
+
+const isRestartGame = async () => {
+  let playerChoice = null;
+
+  MissionUtils.Console.print(`${END_MESSAGE}`);
+  try {
+    playerChoice = await MissionUtils.Console.readLineAsync(
+      `${RESTART_END_MESSAGE}`
+    );
+  } catch (error) {
+    throw new Error(WRONG_INPUT_MESSAGE);
+  }
+
+  if (playerChoice === STRING_ONE) {
+    return true;
+  }
+
+  if (playerChoice === STRING_TWO) {
+    return false;
+  }
+
+  throw new Error(WRONG_INPUT_MESSAGE);
+};
+
+export { isAllCompleted, isRestartGame };
