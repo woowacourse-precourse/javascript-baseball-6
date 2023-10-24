@@ -38,7 +38,6 @@ async function getUserNumber() {
 
 async function compareNumber() {
   const computer = generateComputerNumber();
-  MissionUtils.Console.print(computer);
 
   let ball = 0;
   let strike = 0;
