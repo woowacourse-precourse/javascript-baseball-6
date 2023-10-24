@@ -3,6 +3,7 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 class App {
   constructor() {
     this.computerNumber = [];
+    this.exitNumber = 1;
   }
   //상대방 숫자 랜덤 생성
   generateRandomNumber() {
@@ -18,8 +19,9 @@ class App {
     if (strikeNumbers === 0 && ballNumbers === 0) {
       MissionUtils.Console.print("낫싱");
     } else {
-      const ballOutput = ballNumbers !== 0 ? `${ballNumbers}볼 ` : '';
-      const strikeOutput = strikeNumbers !== 0 ? `${strikeNumbers}스트라이크` : '';
+      const ballOutput = ballNumbers !== 0 ? `${ballNumbers}볼 ` : "";
+      const strikeOutput =
+        strikeNumbers !== 0 ? `${strikeNumbers}스트라이크` : "";
       MissionUtils.Console.print(`${ballOutput}${strikeOutput}`);
     }
   }
@@ -55,15 +57,34 @@ class App {
       throw new Error("[ERROR]");
     }
   }
+  // 유저가 게임을 시작할 것인지 여부를 물어보는 숫자 입력
+  async askExitNumber() {
+    MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    this.exitNumber = await MissionUtils.Console.readLineAsync(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+    );
+    this.gameExiter();
+  }
+  //유저의 입력값에 따라 재시작 or 종료
+  async gameExiter() {
+    if (this.exitNumber === "1") {
+      this.computerNumber.length = 0;
+      this.startGame();
+      return;
+    } else if (this.exitNumber === "2") {
+      MissionUtils.Console.print("게임을 종료합니다.");
+      return;
+    }
+    throw new Error("[ERROR]");
+  }
   //유저가 숫자 입력
   async askNumber() {
     const guessNumber = await MissionUtils.Console.readLineAsync(
       "숫자를 입력해주세요 : "
     );
     this.verityUserNumber(guessNumber);
-
     if (this.compareNumbers(guessNumber) === 3) {
-      this.gameExiter();
+      this.askExitNumber();
       return;
     }
     await this.askNumber();
@@ -73,27 +94,10 @@ class App {
     this.generateRandomNumber();
     await this.askNumber();
   }
-  //게임이 끝난 후 유저의 입력값에 따라 재시작 or 종료
-  async gameExiter() {
-    MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-    const EXIT_NUMBER = await MissionUtils.Console.readLineAsync(
-      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
-    );
-    if (EXIT_NUMBER === "1") {
-      this.computerNumber.length = 0;
-    } else if (EXIT_NUMBER === "2") {
-      MissionUtils.Console.print("게임을 종료합니다.");
-      return;
-    } else {
-      throw new Error("[ERROR]");
-    }
-    this.startGame();
-  }
+
   async play() {
     await this.startGame();
   }
 }
-const app = new App();
-app.play();
 
 export default App;
