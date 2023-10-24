@@ -1,6 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 import Computer from './Computer.js';
-import { inputValidator } from './utils/inputValidator.js';
+import { inputValidator, playAgainInputValidator } from './utils/inputValidator.js';
 
 class Player {
   /**
@@ -39,6 +39,8 @@ class Player {
     const userInput = await Console.readLineAsync(
       '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'
     );
+
+    playAgainInputValidator(userInput);
 
     if (userInput === '1') {
       this.startGame();

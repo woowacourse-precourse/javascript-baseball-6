@@ -6,4 +6,11 @@ const inputValidator = (input) => {
   return input;
 };
 
-export { inputValidator };
+const playAgainInputValidator = (input) => {
+  if (input !== '1' && input !== '2') {
+    throw new Error('[ERROR] 1 또는 2를 입력해주세요.');
+  }
+  return input;
+};
+
+export { inputValidator, playAgainInputValidator };
