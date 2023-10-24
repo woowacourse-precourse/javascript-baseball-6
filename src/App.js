@@ -19,6 +19,15 @@ class App {
 
   async gameStart() {
     this.controller.updateRandomComputerNumber();
+    await this.userInput();
+  }
+  async userInput() {
+    while (true) {
+      const userNumber = await this.view.getUserNumberInput();
+      const isValidated = this.controller.inputValidation(userNumber);
+      if (isValidated) this.model.updateUserNumber(userNumber);
+      else if (isValidated === false) throw new Error("숫자가 잘못된 형식입니다.");
+    }
   }
 }
 

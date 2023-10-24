@@ -18,4 +18,27 @@ export default class GameController {
     }
     return computerNumber;
   }
+  inputValidation(input) {
+    const isLengthValid = this.inputLengthCheck(input, 3);
+    const isNumberValid = this.inputNumberCheck(input);
+    const isUniqueValid = this.inputUniqueCheck(input);
+
+    return isLengthValid && isNumberValid && isUniqueValid;
+  }
+
+  inputLengthCheck(input, length) {
+    return input.length === length;
+  }
+
+  inputNumberCheck(input) {
+    for (let i = 0; i < input.length; i++) {
+      if (isNaN(+input[i])) return false;
+    }
+    return true;
+  }
+
+  inputUniqueCheck(input) {
+    const inputSet = new Set(input);
+    return input.length === inputSet.size;
+  }
 }
