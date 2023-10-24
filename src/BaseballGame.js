@@ -2,10 +2,12 @@ import { Console, Random } from "@woowacourse/mission-utils";
 import Messages from "./Messages.js";
 
 class BaseballGame {
-  constructor({ min, max, numberLength }) {
-    this.min = min;
-    this.max = max;
+  constructor({ minNumber, maxNumber, numberLength }) {
+    this.min = minNumber;
+    this.max = maxNumber;
     this.numberLength = numberLength;
+    this.gameRestart = "1";
+    this.gameExit = "2";
   }
   async start() {
     try {
@@ -53,16 +55,16 @@ class BaseballGame {
   }
 
   checkScore(number) {
-    const numberArr = number.split("").map((el) => Number(el));
+    const inputNumber = number.split("").map((el) => Number(el));
     let score = {
       ball: 0,
       strike: 0,
     };
 
-    for (let i = 0; i < numberArr.length; i++) {
-      if (numberArr[i] === this.answerNumber[i]) {
+    for (let i = 0; i < inputNumber.length; i++) {
+      if (inputNumber[i] === this.answerNumber[i]) {
         score.strike++;
-      } else if (this.answerNumber.includes(numberArr[i])) {
+      } else if (this.answerNumber.includes(inputNumber[i])) {
         score.ball++;
       }
     }
@@ -82,12 +84,10 @@ class BaseballGame {
   async chooseRestartOrExit() {
     try {
       const userChoice = await Console.readLineAsync(Messages.RESTART_OR_EXIT);
-      if (userChoice === "2") {
-        //종료
+      if (userChoice === this.gameExit) {
         Console.print(Messages.GAME_OVER);
-        return Promise.resolve();
-      } else if (userChoice === "1") {
-        //재시작
+        return;
+      } else if (userChoice === this.gameRestart) {
         this.answerNumber = this.setAnswerNumber();
         this.getInputNumber();
       } else {
