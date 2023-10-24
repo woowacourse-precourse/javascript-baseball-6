@@ -1,8 +1,9 @@
 import { Console, Random } from "@woowacourse/mission-utils";
+import { ERROR, GAME } from "./Constant.js";
 
 class App {
   async play() {
-    Console.print("숫자 야구 게임을 시작합니다.");
+    Console.print(GAME.START);
     await this.gameStart();
   }
 
@@ -23,18 +24,17 @@ class App {
   }
 
   async inputNum(randomNum) {
-    const input = await Console.readLineAsync("숫자를 입력해주세요 : ");
+    const input = await Console.readLineAsync(GAME.INPUT);
     this.confirmInput(Number(input), randomNum);
   }
 
   confirmInput(userInput, randomNum) {
-    Console.print([userInput]);
     if (isNaN(userInput)) {
-      throw new Error("[ERROR] 숫자가 아닙니다.");
+      throw new Error(ERROR.NOT_NUMBER);
     } else if (userInput.toString().length !== 3) {
-      throw new Error(" [ERROR] 3자리 숫자가 아닙니다.");
+      throw new Error(ERROR.WRONG_LENGTH);
     } else if (userInput.toString().includes(0)) {
-      throw new Error("[ERROR] 0이 포함되어 있습니다.");
+      throw new Error(ERROR.INCLUDE_0);
     } else {
       const changeInput = (arg) => Number(arg);
       const compareInput = Array.from(String(userInput), changeInput);
@@ -78,12 +78,12 @@ class App {
 
   gameEnd() {
     Console.print("3스트라이크");
-    Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    Console.print(GAME.END);
     this.gameRestart();
   }
 
   async gameRestart() {
-    Console.print("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+    Console.print(GAME.RESTART);
     const isRestart = await Console.readLineAsync("");
 
     if (Number(isRestart) == 1) {
