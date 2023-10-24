@@ -1,5 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import { ballManager, errorOccurred, getComputerBall } from "./ballController";
+import { ballManager, getComputerBall } from "./ballController";
+import { errorOccurred } from "./errorController";
 import {
   START_MESSAGE,
   ERROR_MESSAGE,
@@ -25,14 +26,14 @@ const gamePlay = (playerNum, computerNum) => {
 async function gameEnd() {
   MissionUtils.Console.print(END_MESSAGE.ending);
 
-  const REPLAY_BUTTON = await MissionUtils.Console.readLineAsync(
+  const RESTART_BUTTON = await MissionUtils.Console.readLineAsync(
     END_MESSAGE.restart
   );
 
-  if (REPLAY_BUTTON.trim() === RESTART_CHECK.continue) {
+  if (RESTART_BUTTON.trim() === RESTART_CHECK.continue) {
     return init(); //다시 시작
   }
-  if (REPLAY_BUTTON.trim() === RESTART_CHECK.stop) {
+  if (RESTART_BUTTON.trim() === RESTART_CHECK.stop) {
     return; //종료
   }
   // 1과 2 입력 아닐 때, throw
