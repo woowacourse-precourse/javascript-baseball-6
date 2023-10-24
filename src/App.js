@@ -5,19 +5,24 @@ import validateUserInput from './validateUserInput.js';
 import makeAnswer from './makeAnswer.js';
 import checkInputWithAnswer from './checkInputWithAnswer.js';
 import printResult from './printResult.js';
+import askContinue from './askContinue.js';
 
 class App {
   async play() {
-    Console.print(START_MESSAGE);
-    const answer = makeAnswer();
-    let checkResult = {strike: 0, ball: 0, nothing: 0};
-    while (checkResult.strike !== 3){
-      const userInput = await receiveInput();
-      validateUserInput(userInput);
-      checkResult = checkInputWithAnswer(answer, userInput);
-      printResult(checkResult);
+    let gameOn = true;
+    while (gameOn) {
+      Console.print(START_MESSAGE);
+      const answer = makeAnswer();
+      let checkResult = {strike: 0, ball: 0, nothing: 0};
+      while (checkResult.strike !== 3){
+        const userInput = await receiveInput();
+        validateUserInput(userInput);
+        checkResult = checkInputWithAnswer(answer, userInput);
+        printResult(checkResult);
+      }
+      Console.print(END_MESSAGE);
+      gameOn = await askContinue();
     }
-    Console.print(END_MESSAGE);
   }
 }
 
