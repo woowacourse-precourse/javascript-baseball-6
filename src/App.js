@@ -58,6 +58,7 @@ class App {
     // }
   }
 
+  // 플레이어, 컴퓨터 input 검사
   async checkInput() {
     // console.log(userInputArray);
 
