@@ -39,7 +39,6 @@ class App {
   compareNum(userInput, computerNum) {
     let strike = 0;
     let ball = 0;
-
     for (let i = 0; i < 3; i++) {
       if (Number(userInput[i]) === computerNum[i]) {
         strike++;
@@ -58,7 +57,6 @@ class App {
 
   printResult(strike, ball) {
     let resultMessage = ''
-    
     if (ball !== 0) {
       resultMessage += `${ball}볼 `;
     }
@@ -78,7 +76,6 @@ class App {
 
     while (true) {
       const userInput = await this.getUserInput();
-    
       const { strike, ball } = this.compareNum(userInput, computerNum);
 
       if (strike === 3) {
