@@ -1,4 +1,4 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
+import { Random, Console } from "@woowacourse/mission-utils";
 
 const VALID_INPUT_LENGTH = 3;
 const ERROR_HEADER = "[ERROR]";
@@ -10,7 +10,7 @@ export const Replay = Object.freeze({
 
 export default class App {
   constructor() {
-    MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
+    Console.print("숫자 야구 게임을 시작합니다.");
     this.computerNumber = "";
     this.strikeCnt = 0;
     this.ballCnt = 0;
@@ -20,7 +20,7 @@ export default class App {
 
   initComputerNumber() {
     while (this.computerNumber.length < 3) {
-      const randomNumber = MissionUtils.Random.pickNumberInRange(1, 9);
+      const randomNumber = Random.pickNumberInRange(1, 9);
       if (!this.computerNumber.includes(randomNumber)) {
         this.computerNumber += randomNumber;
       }
@@ -29,7 +29,7 @@ export default class App {
   }
 
   async getUserNumber() {
-    return await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
+    return await Console.readLineAsync("숫자를 입력해주세요 : ");
   }
 
   checkUserNumberValid(userNumber) {
@@ -67,10 +67,10 @@ export default class App {
       this.result += `${this.strikeCnt}스트라이크`;
     }
 
-    MissionUtils.Console.print(this.result);
+    Console.print(this.result);
 
     if (this.strikeCnt === 3) {
-      MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+      Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
       await this.finishGame();
     } else {
       await this.play();
@@ -78,7 +78,7 @@ export default class App {
   }
 
   async finishGame() {
-    const isReplay = await MissionUtils.Console.readLineAsync(
+    const isReplay = await Console.readLineAsync(
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
     );
     if (isReplay === Replay.yes) {
