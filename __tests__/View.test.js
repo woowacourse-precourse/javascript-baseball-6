@@ -2,13 +2,10 @@ import { Console } from '@woowacourse/mission-utils';
 import BaseballModel from '../src/model/index.js';
 import OutputView from '../src/view/OutputView.js';
 
-const model = new BaseballModel();
-
 const setModel = () => {
   const testNumbers = [5, 6, 7];
-  model.generateGameNumbers = jest.fn();
-  model.generateGameNumbers.mockReturnValue(testNumbers);
-  model.saveComputerNumbers(model.generateGameNumbers());
+  BaseballModel.generateGameNumbers = jest.fn();
+  BaseballModel.generateGameNumbers.mockReturnValue(testNumbers);
 };
 
 setModel();
@@ -27,7 +24,10 @@ describe('printHint', () => {
     const userNumber = '123';
 
     // when
-    const score = model.compareUserWithComputerNumbers(userNumber);
+    const score = BaseballModel.compareUserWithComputerNumbers(
+      userNumber,
+      BaseballModel.generateGameNumbers(),
+    );
     OutputView.printHint(score);
 
     // then
@@ -39,7 +39,10 @@ describe('printHint', () => {
     const userNumber = '612';
 
     // when
-    const score = model.compareUserWithComputerNumbers(userNumber);
+    const score = BaseballModel.compareUserWithComputerNumbers(
+      userNumber,
+      BaseballModel.generateGameNumbers(),
+    );
     OutputView.printHint(score);
 
     // then
@@ -51,7 +54,10 @@ describe('printHint', () => {
     const userNumber = '512';
 
     // when
-    const score = model.compareUserWithComputerNumbers(userNumber);
+    const score = BaseballModel.compareUserWithComputerNumbers(
+      userNumber,
+      BaseballModel.generateGameNumbers(),
+    );
     OutputView.printHint(score);
 
     // then
@@ -63,7 +69,10 @@ describe('printHint', () => {
     const userNumber = '765';
 
     // when
-    const score = model.compareUserWithComputerNumbers(userNumber);
+    const score = BaseballModel.compareUserWithComputerNumbers(
+      userNumber,
+      BaseballModel.generateGameNumbers(),
+    );
     OutputView.printHint(score);
 
     // then
@@ -75,7 +84,10 @@ describe('printHint', () => {
     const userNumber = '567';
 
     // when
-    const score = model.compareUserWithComputerNumbers(userNumber);
+    const score = BaseballModel.compareUserWithComputerNumbers(
+      userNumber,
+      BaseballModel.generateGameNumbers(),
+    );
     OutputView.printHint(score);
 
     // then

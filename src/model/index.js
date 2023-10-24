@@ -5,21 +5,11 @@ import { ERROR_MESSAGE } from '../constants/Messages.js';
 import { SYSTEM } from '../constants/System.js';
 
 class BaseballModel {
-  /**
-   * @private
-   * @type {number[]}
-   */
-  #computerNumbers;
-
-  constructor() {
-    this.#computerNumbers = [];
-  }
-
-  generateGameNumbers() {
+  static generateGameNumbers() {
     try {
       const randomGameNumbers = GameNumberGenerator();
       Validators.checkGameNumbers(randomGameNumbers.join(''));
-      this.saveComputerNumbers(randomGameNumbers);
+      return randomGameNumbers;
     } catch (error) {
       throw new GameNumberGeneratorError(
         ERROR_MESSAGE.game_number_generator(
@@ -31,22 +21,16 @@ class BaseballModel {
     }
   }
 
-  /**
-   * @param {number[]} data
-   */
-  saveComputerNumbers(data) {
-    this.#computerNumbers = data;
-  }
-
   // prettier-ignore
   /**
-   * @param {string[]} userNumbers 숫자 string
+   * @param {string} userNumbers 숫자 string
+   * @param {number} gameNumbers
    * @returns {{ball : number, strike : number}}
    */
-  compareUserWithComputerNumbers(userNumbers) {
+  static compareUserWithComputerNumbers(userNumbers, gameNumbers) {
     return [...userNumbers].reduce((acc, userNumber, index) => {
-        const isBall = this.#computerNumbers.includes(Number(userNumber));
-        const isStrike = isBall && Number(userNumber) === this.#computerNumbers[index];
+        const isBall = gameNumbers.includes(Number(userNumber));
+        const isStrike = isBall && Number(userNumber) === gameNumbers[index];
         
         if (isStrike) {
           acc.strike += 1;

@@ -1,12 +1,9 @@
 import BaseballModel from '../src/model/index.js';
 
-const model = new BaseballModel();
-
 const setModel = () => {
   const testNumbers = [5, 6, 7];
-  model.generateGameNumbers = jest.fn();
-  model.generateGameNumbers.mockReturnValue(testNumbers);
-  model.saveComputerNumbers(model.generateGameNumbers());
+  BaseballModel.generateGameNumbers = jest.fn();
+  BaseballModel.generateGameNumbers.mockReturnValue(testNumbers);
 };
 
 setModel();
@@ -17,7 +14,10 @@ describe('compareUserWithComputerNumbers', () => {
     const userNumber = '123';
 
     // when
-    const score = model.compareUserWithComputerNumbers(userNumber);
+    const score = BaseballModel.compareUserWithComputerNumbers(
+      userNumber,
+      BaseballModel.generateGameNumbers(),
+    );
 
     // then
     expect(score).toStrictEqual({ ball: 0, strike: 0 });
@@ -28,7 +28,10 @@ describe('compareUserWithComputerNumbers', () => {
     const userNumber = '623';
 
     // when
-    const score = model.compareUserWithComputerNumbers(userNumber);
+    const score = BaseballModel.compareUserWithComputerNumbers(
+      userNumber,
+      BaseballModel.generateGameNumbers(),
+    );
 
     // then
     expect(score).toStrictEqual({ ball: 1, strike: 0 });
@@ -39,7 +42,10 @@ describe('compareUserWithComputerNumbers', () => {
     const userNumber = '523';
 
     // when
-    const score = model.compareUserWithComputerNumbers(userNumber);
+    const score = BaseballModel.compareUserWithComputerNumbers(
+      userNumber,
+      BaseballModel.generateGameNumbers(),
+    );
 
     // then
     expect(score).toStrictEqual({ ball: 0, strike: 1 });
@@ -50,7 +56,10 @@ describe('compareUserWithComputerNumbers', () => {
     const userNumber = '526';
 
     // when
-    const score = model.compareUserWithComputerNumbers(userNumber);
+    const score = BaseballModel.compareUserWithComputerNumbers(
+      userNumber,
+      BaseballModel.generateGameNumbers(),
+    );
 
     // then
     expect(score).toStrictEqual({ ball: 1, strike: 1 });
@@ -61,7 +70,10 @@ describe('compareUserWithComputerNumbers', () => {
     const userNumber = '756';
 
     // when
-    const score = model.compareUserWithComputerNumbers(userNumber);
+    const score = BaseballModel.compareUserWithComputerNumbers(
+      userNumber,
+      BaseballModel.generateGameNumbers(),
+    );
 
     // then
     expect(score).toStrictEqual({ ball: 3, strike: 0 });
@@ -72,7 +84,10 @@ describe('compareUserWithComputerNumbers', () => {
     const userNumber = '523';
 
     // when
-    const score = model.compareUserWithComputerNumbers(userNumber);
+    const score = BaseballModel.compareUserWithComputerNumbers(
+      userNumber,
+      BaseballModel.generateGameNumbers(),
+    );
 
     // then
     expect(score).toStrictEqual({ ball: 0, strike: 1 });
