@@ -34,40 +34,46 @@ class App {
   }
 
   async getResult() {
-    const value = await this.getUserInput();
     let strike = 0;
     let ball = 0;
-    for (let i = 0; i < this.answer.length; i++) {
-      const index = value.indexOf(this.answer[i]);
-      if (index > -1) {
-        if (index === i) {
-          strike += 1;
-        } else {
-          ball += 1;
+
+    while (strike !== 3) {
+      const value = await this.getUserInput();
+      strike = 0;
+      ball = 0;
+
+      for (let i = 0; i < this.answer.length; i++) {
+        const index = value.indexOf(this.answer[i]);
+        if (index > -1) {
+          if (index === i) {
+            strike += 1;
+          } else {
+            ball += 1;
+          }
         }
       }
-    }
-    const strikeMessage = `${strike ? `${strike}스트라이크 ` : ""}`;
-    const ballMessage = `${ball ? `${ball}볼 ` : ""}`;
-    const nothingMessage = `${!strike && !ball ? "낫싱" : ""}`;
 
-    Console.print(ballMessage + strikeMessage + nothingMessage);
-    if (strike === 3) {
-      Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-      return;
+      const strikeMessage = `${strike ? `${strike}스트라이크 ` : ""}`;
+      const ballMessage = `${ball ? `${ball}볼 ` : ""}`;
+      const nothingMessage = `${!strike && !ball ? "낫싱" : ""}`;
+
+      Console.print(ballMessage + strikeMessage + nothingMessage);
     }
-    await this.getResult();
+
+    Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
   }
 
   async restart() {
     const input = await Console.readLineAsync(
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
     );
+
     if (input === "1") {
       const newGame = new App();
       await newGame.play();
       return;
     }
+
     if (input === "2") {
       Console.print("게임 종료");
       return;
@@ -84,9 +90,11 @@ class App {
         answer.push(number);
       }
     }
+
     return answer;
   }
 }
+
 const app = new App();
 app.play();
 
