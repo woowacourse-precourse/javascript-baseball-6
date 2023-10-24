@@ -7,7 +7,16 @@ class App {
     this.computerNum = [];
   }
   // 컴퓨터 값 설정
-  SetComputerNumber() {}
+  SetComputerNumbers() {
+    const computer = [];
+    while (computer.length < 3) {
+      const number = Random.pickNumberInRange(1, 9);
+      if (!computer.includes(number)) {
+        computer.push(number);
+      }
+    }
+    this.computerNum = computer;
+  }
   // 사용자 입력값 받기
   async userInput() {
     this.userNum = await Console.readLineAsync(CONSTANTS.MESSAGES.INPUT);
