@@ -29,7 +29,7 @@ class App {
 
         if (!/^\d{3}$/.test(userInput)) {
           throw new Error(
-            "[ERROR] 입력이 잘못되었습니다. 3자리의 수를 입력해주세요."
+            "[ERROR] 서로 다른 3자리의 숫자만 입력할 수 있습니다."
           );
         }
 
@@ -75,6 +75,7 @@ class App {
 
       if (choice === "2") {
         continuePlaying = false;
+        MissionUtils.Console.print("게임 종료");
       }
     }
   }
