@@ -1,7 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
-// TODO: airbnb 컨벤션 적용
-
 class App {
 	constructor() {
 		// PLAY_AGAIN 변수를 클래스 레벨에서 정의
@@ -29,7 +27,6 @@ class App {
 			MissionUtils.Console.print("게임을 종료합니다.");
 			this.PLAY_AGAIN = false;
 		} else if (USER_INPUT == 1) {
-			await this.play();
 		}
 
 		return USER_INPUT;
