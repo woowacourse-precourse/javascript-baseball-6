@@ -41,8 +41,8 @@ class BaseballGame {
     if (ball > CONSTANTS.nothing) result += ball + MESSAGES.ball;
     if (strike > CONSTANTS.nothing) result += strike + MESSAGES.strike;
     if (ball === CONSTANTS.nothing && strike === CONSTANTS.nothing) result = MESSAGES.nothing;
-    if (strike === CONSTANTS.winningStrike) result += MESSAGES.correct;
     Console.print(result.trim());
+    if (strike === CONSTANTS.winningStrike) Console.print(MESSAGES.correct);
   }
   handleResult({_, strike}) {
     if (strike < CONSTANTS.winningStrike) return this.readNumber();
