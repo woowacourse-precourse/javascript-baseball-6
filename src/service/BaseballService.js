@@ -43,16 +43,24 @@ export class BaseballService {
     return result;
   }
 
+  #computeCurrentBall({ submittedBalls, ball, index }) {
+    if (this.#answer.match(ball, index)) {
+      submittedBalls.increaseStrike();
+      return;
+    }
+    if (this.#answer.contains(ball)) {
+      submittedBalls.increaseBall();
+    }
+  }
+
   computeScore(submit) {
     const submittedBalls = SubmittedBalls.of(submit);
     submittedBalls.targetBalls.balls.forEach((ball, index) => {
-      if (this.#answer.match(ball, index)) {
-        submittedBalls.increaseStrike();
-        return;
-      }
-      if (this.#answer.contains(ball)) {
-        submittedBalls.increaseBall();
-      }
+      this.#computeCurrentBall({
+        submittedBalls,
+        ball,
+        index,
+      });
     });
     this.#setSubmittedCorrectly(submittedBalls);
     return this.#getGameResult(submittedBalls.score);
