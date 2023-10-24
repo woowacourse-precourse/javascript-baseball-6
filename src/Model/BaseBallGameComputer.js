@@ -42,14 +42,8 @@ class BaseBallGameComputer {
 
 	// 시도 넘버의 볼 개수 반환
 	#getBallCount() {
-		return this.#tryNumber.reduce((count, curNum, idx) => {
-			if (
-				curNum !== this.#answerNumber[idx] &&
-				this.#answerNumber.includes(curNum)
-			)
-				return count + 1;
-			else return count;
-		}, 0);
+		return this.#tryNumber.filter((num, i) => num === this.#answerNumber[i])
+			.length;
 	}
 
 	// 시도 넘버의 스트라이크 개수 반환
