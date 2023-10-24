@@ -1,7 +1,7 @@
-const { Console } = require('@woowacourse/mission-utils');
-const { checkValidNumber } = require('./Validation');
-const Computer = require('./Computer');
-const { getHintToUser } = require('./Hint');
+import Computer from './Computer.js';
+import { Console } from '@woowacourse/mission-utils';
+import { checkValidNumber } from './Validation.js';
+import { getHintToUser } from './Hint.js';
 
 class BaseballGame {
   constructor() {
@@ -12,21 +12,16 @@ class BaseballGame {
     this.getUserInput();
   }
 
-  getUserInput() {
-    Console.readLineAsync('숫자를 입력해주세요 : ', (input) => {
-      this.handleUserInputDuringGame(input);
-    });
+  async getUserInput() {
+    const input = await Console.readLineAsync('숫자를 입력해주세요 : ');
+    this.handleUserInputDuringGame(input);
   }
 
-  recommendRestart() {
-    Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+  async recommendRestart() {
+    await Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
 
-    Console.readLineAsync(
-      '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n',
-      (input) => {
-        this.handleUserInputEndGame(input);
-      },
-    );
+    const input = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
+    this.handleUserInputEndGame(input);
   }
 
   handleUserInputDuringGame(input) {
@@ -63,9 +58,9 @@ class BaseballGame {
   }
 
   restartGame() {
-    this.computer.generateNewRandomNumber();
+    this.computer.generateNewCorrectNumber();
     this.startGame();
   }
 }
 
-module.exports = BaseballGame;
+export default BaseballGame;
