@@ -2,33 +2,38 @@ import { MissionUtils, Console } from '@woowacourse/mission-utils';
 
 class App {
   async play() {
-    this.displayGameStartMessage();
-    let playAgain = 1;
-    let answerNumber;
+    try {
+      this.displayGameStartMessage();
+      let playAgain = 1;
+      let answerNumber;
 
-    while (playAgain === 1) {
-      answerNumber = this.generateRandomNumbers();
+      while (playAgain === 1) {
+        answerNumber = this.generateRandomNumbers();
 
-      while (true) {
-        let userInput = await this.promptUserInput();
+        while (true) {
+          let userInput = await this.promptUserInput();
 
-        if (userInput.length !== 3 || new Set(userInput).size !== 3) {
-          throw new Error('[ERROR] 숫자를 잘 못 입력했습니다.');
-        }
-
-        let result = this.evaluateGameResult(answerNumber, userInput);
-        if (result.strike === 3) {
-          Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
-          playAgain = await this.askForAnotherGame();
-          if (playAgain === 1) {
-            answerNumber = this.generateRandomNumbers();
+          if (userInput.length !== 3 || new Set(userInput).size !== 3) {
+            throw new Error('[ERROR] 숫자를 잘 못 입력했습니다.');
           }
 
-          if (playAgain === 2) {
-            break;
+          let result = this.evaluateGameResult(answerNumber, userInput);
+          if (result.strike === 3) {
+            Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+            playAgain = await this.askForAnotherGame();
+            if (playAgain === 1) {
+              answerNumber = this.generateRandomNumbers();
+            }
+
+            if (playAgain === 2) {
+              break;
+            }
           }
         }
       }
+    } catch (error) {
+      Console.print(error.message);
+      throw error;
     }
   }
 
