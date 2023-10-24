@@ -1,5 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import Message from "../src/utils/message.js";
+import Message from "../src/utils/Message.js";
 import GameController from "../src/Controller/GameController.js";
 
 const mockQuestions = (answers) => {

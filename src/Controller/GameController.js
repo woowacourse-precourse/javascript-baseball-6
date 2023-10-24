@@ -3,7 +3,7 @@ import InputView from "../View/InputView.js";
 import OutputView from "../View/OutputView.js";
 import ExceptionHandler from "../utils/ExceptionHandler.js";
 import constants from "../utils/constants.js";
-import Message from "../utils/message.js";
+import Message from "../utils/Message.js";
 
 class GameController {
   constructor() {

@@ -1,5 +1,5 @@
 import constants from "./constants.js";
-import Message from "./message.js";
+import Message from "./Message.js";
 
 const ExceptionHandler = {
   // 입력이 숫자 실수인지 확인

@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import Message from "../utils/message.js";
+import Message from "../utils/Message.js";
 import convertInput from "../utils/convertInput.js";
 
 const InputView = {
