@@ -21,7 +21,7 @@ const readFromPlayer = async () => {
   try {
     answer = await Console.readLineAsync("숫자를 입력해주세요 : ");
   } catch (e) {
-    // reject 되는 경우
+    Console.print(e.message);
   }
   if (isValid(answer)) {
     return readToList(answer);
@@ -32,29 +32,19 @@ const readFromPlayer = async () => {
 
 // 입력된 수의 유효성을 검사하는 함수
 const isValid = (answer) => {
-  if (
+  return (
     answer.length === INPUT_LENGTH &&
     answer >= 100 &&
     answer <= 999 &&
     !isDuplicated(answer)
-  ) {
-    return true;
-  } else {
-    return false;
-  }
+  );
 };
 
 // 유효성 검사 항목 중 중복된 숫자가 있는지 검사하는 함수
-function isDuplicated(str) {
-  const charSet = new Set();
-  for (let char of str) {
-    if (charSet.has(char)) {
-      return true; // Found a duplicate character
-    }
-    charSet.add(char);
-  }
-  return false; // No duplicate characters found
-}
+const isDuplicated = (str) => {
+  const charSet = new Set(str);
+  return str.length !== charSet.size;
+};
 
 // 입력받은 숫자를 리스트 형식으로 반환하는 함수
 const readToList = (answer) => {
@@ -69,12 +59,8 @@ const compareNumber = (computerList, humanList) => {
   for (let i = 0; i < computerList.length; i++) {
     if (computerList[i] === humanList[i]) {
       strikeCnt += 1;
-    } else {
-      for (let j = 0; j < humanList.length; j++) {
-        if (computerList[i] === humanList[j]) {
-          ballCnt += 1;
-        }
-      }
+    } else if (humanList.includes(computerList[i])) {
+      ballCnt += 1;
     }
   }
   return { strikeCnt, ballCnt };
@@ -88,7 +74,7 @@ const readRestart = async () => {
       `게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n`
     );
   } catch (e) {
-    // reject 되는 경우
+    Console.print(e.message);
   }
   if (answer === "1" || answer === "2") {
     return answer;
@@ -134,7 +120,7 @@ class App {
         try {
           humanList = await readFromPlayer();
         } catch (e) {
-          throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+          throw new Error(e.message);
         }
         const { strikeCnt, ballCnt } = compareNumber(computerList, humanList);
         success = printResult(strikeCnt, ballCnt);
@@ -147,8 +133,7 @@ class App {
           return;
         }
       } catch (e) {
-        // Console.print(e);
-        throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+        throw new Error(e.message);
       }
     } while (true);
   }
