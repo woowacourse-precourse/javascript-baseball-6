@@ -47,8 +47,8 @@ class App {
   }
 
   async startGame(computer) {
-    const user = await this.getPlayerNumber();
-    const result = calculateResult(computer, user);
+    const player = await this.getPlayerNumber();
+    const result = calculateResult(computer, player);
     printHint(result);
   }
 
