@@ -2,6 +2,9 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
 
+  RESTART_SIGN = 1;
+  EXIT_SIGN = 2;
+
   createComputerNumbers = (count) => {
     const computer = [];
     while (computer.length < count) {
@@ -41,11 +44,6 @@ class App {
     }
   }
 
-  async getInput(query) {
-    const number = await MissionUtils.Console.readLineAsync(query);
-    return number;
-  }
-
   extractPlayerNumbers = (input) => {
     this.validateThreeDigitNumber(input);
     const player = [];
@@ -63,7 +61,7 @@ class App {
     let isContinued;
 
     do {
-      const input = await this.getInput("숫자를 입력해주세요 : ");
+      const input = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
       const playerNumbers = this.extractPlayerNumbers(input);
 
       let strike = 0;
@@ -99,9 +97,9 @@ class App {
     do {
       await this.playRound();
 
-      sign = await this.getInput("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n");
+      sign = await MissionUtils.Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n");
       this.validateFinishSign(sign);
-    } while (sign == 1);
+    } while (sign == this.RESTART_SIGN);
   }
 }
 
