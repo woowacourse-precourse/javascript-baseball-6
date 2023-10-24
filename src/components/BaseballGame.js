@@ -1,16 +1,22 @@
 import { Console } from '@woowacourse/mission-utils';
+import { Random } from '@woowacourse/mission-utils';
 
 class BaseballGame {
   constructor() {
     this.gameCount = 0;
+    this.randomNumber = null;
   }
 
-  gameStart() {
+  async gameStart() {
+    this.randomNumber = this.randomNumberGenerator();
+    this.gameCount += 1;
+
     this.gameCount
       ? Console.print(`플레이한 게임 수: ${this.gameCount}`)
       : Console.print('숫자 야구 게임을 시작합니다.');
 
-    this.getUserInput();
+    const VALID_USER_INPUT = await this.getUserInput();
+    this.showGameResult(VALID_USER_INPUT);
   }
 
   async getUserInput() {
@@ -19,16 +25,17 @@ class BaseballGame {
     );
 
     this.validateUserInput(USER_INPUT);
+    return USER_INPUT;
   }
 
-  validateUserInput(input) {
+  validateUserInput(userInput) {
     const USER_INPUT_NUMBER = Number(input);
     const DIGITS = input.split('');
 
     if (
       isNaN(USER_INPUT_NUMBER) ||
       DIGITS.some((digit) => Number(digit) < 1 || Number(digit) > 9) ||
-      DIGITS.length > 3
+      DIGITS.length !== 3
     ) {
       throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
     }
@@ -38,6 +45,20 @@ class BaseballGame {
     }
 
     return true;
+  }
+
+  showGameResult(validUserinput) {}
+
+  randomNumberGenerator() {
+    const RANDOM_NUMBERS = [];
+    while (RANDOM_NUMBERS.length < 3) {
+      const RANDOM_NUMBER = Random.pickNumberInRange(1, 9);
+      if (!RANDOM_NUMBERS.includes(RANDOM_NUMBER)) {
+        RANDOM_NUMBERS.push(RANDOM_NUMBER);
+      }
+    }
+
+    return RANDOM_NUMBERS.join('');
   }
 }
 
