@@ -27,7 +27,6 @@ export default class App {
         computer.push(num);
       }
     }
-    // console.log(`generateRandomNum: `, computer);
     return computer;
   }
 
@@ -94,9 +93,7 @@ export default class App {
     if (strike === 1 && ball === 1) {
       Console.print("1볼 1스트라이크");
       return;
-    }
-
-    if (ball || strike) {
+    } else if (ball || strike) {
       Console.print(
         (ball ? `${ball}볼` : "") + (strike ? `${strike}스트라이크` : "")
       );
@@ -148,6 +145,3 @@ export default class App {
     }
   }
 }
-
-const app = new App();
-app.play();
