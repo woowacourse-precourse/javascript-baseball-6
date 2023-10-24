@@ -20,10 +20,15 @@ class App {
     while (!gameOver) {
       try {
         let input = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
+        input = input.trim();
 
-        if (input[0] == 0 || input[1] == 0 || input[2] == 0) {
-          throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
-        } else if (input[0] == input[1] || input[0] == input[2] || input[1] == input[2]) {
+        if (
+          input.length !== 3 ||
+          input.includes("0") ||
+          input[0] == input[1] ||
+          input[1] == input[2] ||
+          input[0] == input[2]
+        ) {
           throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
         } else {
           let strike = 0;
