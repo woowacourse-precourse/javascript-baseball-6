@@ -119,7 +119,7 @@
 
 <br/>
 
-## 🚨 예외처리
+## 🚨 예외 처리
 
 ### 게임 진행 중
 
@@ -133,6 +133,27 @@
 
 <br/>
 
+## ✅ 프로그래밍 요구 사항
+
+### 실행 환경
+
+- [x] Node.js `18.17.1 버전`에서 실행 가능한가?
+- [x] 프로그램 실행의 시작점인 `App.js`의 `play` 메서드로 실행시킬 수 있는가?
+- [ ] `package.json`을 변경할 수 없고 외부 라이브러리(jQuery, Lodash 등)를 사용하지 않는다. 순수 Vanilla JS로만 구현했는가?
+- [x] [JavaScript 코드 컨벤션](https://github.com/woowacourse/woowacourse-docs/tree/main/styleguide/javascript)을 지키면서 프로그래밍 했는가?
+- [x] 프로그램 종료 시 `process.exit()`를 호출하지 않도록 했나?
+- [x] 프로그램 구현이 완료되면 `ApplicationTest`의 모든 테스트가 성공하나?
+- [ ] 프로그래밍 요구 사항에서 달리 명시하지 않는 한 파일, 패키지 이름을 수정하거나 이동하지 않았는가?
+
+### 라이브러리
+
+- [x] `@woowacourse/mission-utils`의 `Random` 및 `Console` API를 사용하여 구현했는가?
+- [x] Random 값 추출은 `Random.pickNumberInRange()`를 활용했는가?
+- [x] 사용자의 값을 입력 받고 출력하기 위해서는 `Console.readLineAsync`, `Console.print`를 활용했는가?
+
+<br/>
+
 ## 🧹 리팩토링
 
-- [ ] WIP ..
+- [ ] 문자열을 상수 처리
+- [ ] 비즈니스 로직이 아닌 함수들을 utils 폴더에 분리
