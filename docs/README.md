@@ -6,7 +6,7 @@
    - 서로 다른 숫자 선정 필요
  
 ## 2. 사용자 입력
-  - 질문 및 입력을 받기 위해 MissionUtils 라이브러리 Console.readLine() 사용
+  - 질문 및 입력을 받고 예외 처리를 하기 위해 MissionUtils 라이브러리 Console.readLineAsync() 사용
   - [예외사항] 잘못된 값이 입력된 경우 [ERROR] 문구로 알린 후, throw문으로 종료
    - 3개의 수가 입력되지 않은 경우
    - 3개의 수가 입력되었지만 length가 3이 아닌 경우
