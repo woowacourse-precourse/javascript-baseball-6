@@ -2,30 +2,32 @@ import { MissionUtils, Console } from "@woowacourse/mission-utils";
 
 class App {
   async play() {
-    const computerAnswer = this.generateRandomBallNumber();
-    MissionUtils.Console.print(computerAnswer);
-  
-    while (true) {
-      let answer = await Console.readLineAsync("숫자를 입력해주세요 : ");
-      if (!this.checkAnswer(answer)) {
-        throw new Error();
+    try {
+      const computerAnswer = this.generateRandomBallNumber();
+      //MissionUtils.Console.print(computerAnswer);
+    
+      while (true) {
+        let answer = await Console.readLineAsync("숫자를 입력해주세요 : ");
+        if (!this.checkAnswer(answer)) {
+          throw new Error();
+        }
+        let correctAnswer = this.checkAllStrike(computerAnswer, answer);
+        if (correctAnswer) break;
       }
-      let correctAnswer = this.checkAllStrike(computerAnswer, answer); // Added 'this.' before checkAllStrike
-      if (correctAnswer) break;
-    }
     
-
-    MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
-    let regame = await Console.readLineAsync(
-      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
-    );
-    if (regame == 1) {
-      this.play();
-      return;
+      MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+      let regame = await Console.readLineAsync(
+        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+      );
+      if (regame == 1) {
+        this.play();
+        return;
+      }
+    } catch (error) {
+      MissionUtils.Console.print('[ERROR] Something went wrong:', error.message);
     }
-    
-
   }
+  
 
   generateRandomBallNumber(){
     const computerAnswer = MissionUtils.Random.pickUniqueNumbersInRange(1, 9, 3);
@@ -57,6 +59,8 @@ class App {
     }
     if (strike > 0 && ball > 0) {
       MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
+    } else if (strike === 3) {
+      MissionUtils.Console.print('3스트라이크'); 
     } else if (strike > 0) {
       MissionUtils.Console.print(`${strike}스트라이크`);
     } else if (ball > 0) {
@@ -64,7 +68,7 @@ class App {
     } else {
       MissionUtils.Console.print('낫싱');
     }
-    return strike === 3; // 수정된 부분
+    return strike === 3;
   }
   
 
