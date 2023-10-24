@@ -1,5 +1,11 @@
 import { Console, Random } from '@woowacourse/mission-utils';
 
+const GAME_START_MESSAGE = '숫자 야구 게임을 시작합니다.';
+const ASK_NEW_GAME_MESSAGE =
+  '3개의 숫자를 모두 맞히셨습니다! 게임 종료.\n게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.';
+const ASK_ENTER_INPUT_MESSAGE = '숫자를 입력해주세요 : ';
+const ERROR_MESSAGE = '[ERROR] 숫자가 잘못된 형식입니다.';
+
 const checkGameIsEnd = (userInput) => {
   if (userInput === '1') {
     return false;
@@ -24,8 +30,7 @@ const printScore = (scoreBoard) => {
 
 const getUserInputForGameSet = async (scoreBoard) => {
   Console.print(printScore(scoreBoard));
-  Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료.');
-  Console.print('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+  Console.print(ASK_NEW_GAME_MESSAGE);
   const userInput = await Console.readLineAsync('');
 
   return checkGameIsEnd(userInput);
@@ -85,7 +90,7 @@ const calculateScore = (userInput, randomNumber) => {
 };
 
 const getUserInput = async () => {
-  const userInput = await Console.readLineAsync('숫자를 입력해주세요 : ');
+  const userInput = await Console.readLineAsync(ASK_ENTER_INPUT_MESSAGE);
   const input = Array.from(userInput, (number) => Number.parseInt(number, 10));
 
   return input;
@@ -95,13 +100,13 @@ const playBaseBall = async () => {
   let randomNumber = makeRandomNumber();
   let isEnd = false;
 
-  Console.print('숫자 야구 게임을 시작합니다.');
+  Console.print(GAME_START);
   while (!isEnd) {
     const userInput = await getUserInput();
     const inputIsValid = checkInputIsValid(userInput);
 
     if (inputIsValid === false) {
-      throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+      throw new Error(ERROR_MESSAGE);
     }
 
     const scoreBoard = calculateScore(userInput, randomNumber);
@@ -110,7 +115,7 @@ const playBaseBall = async () => {
       isEnd = await getUserInputForGameSet(scoreBoard);
 
       if (isEnd.isError) {
-        throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+        throw new Error(ERROR_MESSAGE);
       }
 
       if (isEnd) {
