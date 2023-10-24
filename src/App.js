@@ -1,11 +1,11 @@
 import { MissionUtils, Console } from "@woowacourse/mission-utils";
 
-// Check dulicate of array
-function hasDuplicates(array) {
-    return new Set(array).size !== array.length;
-}
-
 class App {
+    // Check dulicate of array
+    hasDuplicates(array) {
+        return new Set(array).size !== array.length;
+    }
+
     // Get Input Number
     async getNumber() {
         const inputString = await Console.readLineAsync(
@@ -15,7 +15,7 @@ class App {
 
         // Check duplicate and length
         if (
-            hasDuplicates(inputNumber) ||
+            this.hasDuplicates(inputNumber) ||
             inputNumber.length !== 3 ||
             inputNumber.includes(0)
         ) {
@@ -63,7 +63,6 @@ class App {
                 return false;
             } else {
                 throw new Error("[ERROR] 잘못된 입력입니다.");
-                return true;
             }
         } catch (error) {
             console.error(error.message);
@@ -109,7 +108,7 @@ class App {
                     Console.print(`${strikeCount}스트라이크`);
                 } else if (ballCount > 0) {
                     Console.print(`${ballCount}볼`);
-                } else if (strikeCount === 0 && ballCount === 0) {
+                } else {
                     Console.print("낫싱");
                 }
             }
