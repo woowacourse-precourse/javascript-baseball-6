@@ -13,7 +13,7 @@ export const MESSAGES = Object.freeze({
     success: "3스트라이크",
   },
   errors: {
-    invalidNumber: "서로 다른 3자리의 숫자를 입력해 주세요. (1~9)",
-    invalidChoice: "1 또는 2 중 하나를 입력해 주세요.",
+    invalidNumber: "[ERROR] 서로 다른 3자리의 숫자를 입력해 주세요. (1~9)",
+    invalidChoice: "[ERROR] 1 또는 2 중 하나를 입력해 주세요.",
   },
 });
