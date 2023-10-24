@@ -12,6 +12,11 @@ class App {
         computer.push(number);
       }
     }
+
+    //플레이어 입력 받기
+    const userInput = await MissionUtils.Console.readLineAsync(
+      "숫자를 입력해주세요 : "
+    );
   }
 }
 
