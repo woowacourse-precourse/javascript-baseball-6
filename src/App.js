@@ -1,5 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import { TEXT, PROGRAM_STATUS } from "./constants.js";
+import { TEXT, PROGRAM_STATUS, ERROR_CODE } from "./constants.js";
 
 class App {
   async play() {
@@ -86,31 +86,28 @@ async function checkInput(userInput, computer) {
 
 async function checkUserValidation(userInput) {
   if (userInput.length > 3) {
-    // await throwException(2);
-    throw "2";
+    throw ERROR_CODE.USER_INPUT_EXCEPTION;
   }
   const checkNumber = new Map();
   for (let i = 0; i < 3; i++) {
     if (checkNumber.has(userInput[i])) {
-      // await throwException(2);
-      throw "2";
+      throw ERROR_CODE.USER_INPUT_EXCEPTION;
     } else if (userInput[i] >= "1" && userInput[i] <= "9") {
       checkNumber.set(userInput[i], 1);
     } else {
-      // await throwException(2);
-      throw "2";
+      throw ERROR_CODE.USER_INPUT_EXCEPTION;
     }
   }
 }
 
 async function checkReGameValidation(reGameCodeInput) {
   if (reGameCodeInput != 1 && reGameCodeInput != 2) {
-    throw "1";
+    throw ERROR_CODE.REGAME_CODE_EXCEPTION;
   }
 }
 
 async function throwException(errorCode) {
-  if (errorCode == 1) {
+  if (errorCode == ERROR_CODE.REGAME_CODE_EXCEPTION) {
     throw new Error("[ERROR] 1 또는 2를 입력하세요");
   } else {
     throw new Error(
