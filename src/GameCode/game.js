@@ -6,7 +6,7 @@ import {
   ERROR_MESSAGE,
   END_MESSAGE,
   RESTART_CHECK,
-} from "../Text/message";
+} from "../Text/message.js";
 
 //game play
 const gamePlay = (playerNum, computerNum) => {
