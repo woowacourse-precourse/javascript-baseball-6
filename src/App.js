@@ -1,11 +1,13 @@
-import * as MissionUtils from "@woowacourse/mission-utils";
+import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
   async play() {
     let computer = this.generateRandomNumber();
+    let human = await this.getUserNumberInput();
 
     // 기능 test용(나중에 지울 것)
     console.log(computer);
+    console.log(human);
   }
 
   generateRandomNumber() {
@@ -18,6 +20,18 @@ class App {
       }
     }
     return computer;
+  }
+
+  async getUserNumberInput() {
+    try {
+      const userNumberInput = await MissionUtils.Console.readLineAsync(
+        "숫자를 입력해주세요 : "
+      );
+      const numberArray = Array.from(userNumberInput).map(Number);
+      return numberArray;
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
 
