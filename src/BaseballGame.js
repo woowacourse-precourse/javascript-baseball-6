@@ -60,15 +60,15 @@ class BaseballGame {
       });
     });
 
-    if (ball > 0 && strike > 0 && strike < 3) {
+    if (ball !== 0 && strike !== 0) {
       Console.print(
         `${ball}${BASEBALL_MESSAGE.BALL} ${strike}${BASEBALL_MESSAGE.STRIKE}`
       );
       return false;
-    } else if (strike > 0 && strike < 3) {
+    } else if (ball === 0 && strike !== 0) {
       Console.print(`${strike}${BASEBALL_MESSAGE.STRIKE}`);
       return false;
-    } else if (ball > 0) {
+    } else if (ball !== 0 && strike === 0) {
       Console.print(`${ball}${BASEBALL_MESSAGE.BALL}`);
       return false;
     }
@@ -77,6 +77,7 @@ class BaseballGame {
       Console.print(BASEBALL_MESSAGE.NOTHING);
       return false;
     }
+    return true;
   }
 }
 
