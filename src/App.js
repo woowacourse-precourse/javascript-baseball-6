@@ -82,8 +82,12 @@ class App {
 
 
   async play() {
-
+    this.startGame();
   }
 }
+
+const app = new App();
+app.play();
+
 
 export default App;
