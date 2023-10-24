@@ -1,5 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import printMsg from '../utils/printMsg.js';
+import printMsg from '../utils/printMsg';
 
 const BaseBallGame = {
   getRandomArray() {

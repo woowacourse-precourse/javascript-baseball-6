@@ -1,6 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
-import printMsg from '../utils/printMsg.js';
-import BaseBallGame from './baseBallGame.js';
+import printMsg from '../utils/printMsg';
+import BaseBallGame from './baseBallGame';
 
 class App {
   constructor() {
