@@ -6,7 +6,12 @@ class App {
       "숫자를 입력해주세요 : "
     );
     const userNumber = userInput.split("").map((n) => Number(n));
-
+    if (
+      new Set(userNumber).size !== 3 ||
+      userNumber.some((n) => n < 1 || n > 9)
+    ) {
+      throw new Error("[ERROR] 숫자 입력이 잘못되었습니다.");
+    }
     return userNumber;
   }
 
@@ -15,11 +20,7 @@ class App {
     let strike = 0;
     guessNums.map((num, idx) => {
       if (comNums.includes(num)) {
-        if (comNums[idx] == num) {
-          strike++;
-        } else {
-          ball++;
-        }
+        comNums[idx] == num ? strike++ : ball++;
       }
     });
     if (ball === 0 && strike === 0) {
@@ -51,8 +52,7 @@ class App {
     );
 
     if (userInput !== "1" && userInput !== "2") {
-      // throw new Error("1또는 2를 선택해야합니다.");
-      MissionUtils.Console.print("1또는 2를 선택해야합니다.");
+      throw new Error("[ERROR] 1또는 2를 선택해야합니다.");
     }
     if (userInput === "1") {
       return this.play();
