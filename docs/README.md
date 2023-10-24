@@ -13,13 +13,13 @@
 - 게임을 종료한 후 게임을 다시 시작하거나 완전히 종료할 수 있다.
 - 사용자가 잘못된 값을 입력한 경우 `throw`문을 사용해 예외를 발생시킨후 애플리케이션은 종료되어야 한다.
 
-# 목표
+# 🎯 목표
 
 - 도메인별 단위 테스트 우선 작성하기
 - 메서드별 뎁스 최소화 (2 이하, 1 권장)
 - `else` 지양하기
 
-# 구조 설계
+# 🛠️ 구조 설계
 
 ## Controller
 
@@ -41,7 +41,7 @@
 - InputView
 - OutputView
 
-# 객체별 역할
+# 📦 객체별 역할
 
 ## Controller
 
@@ -212,7 +212,7 @@
 
 - 콘솔에 메세지를 출력한다.
 
-# 기능 구현 목록
+# ⚙️ 기능 구현 목록
 
 ## 도메인 구현
 
@@ -271,7 +271,7 @@
 - [x] `Controller`에 `Service`와 `View`를 연결한다.
 - [x] `Controller`에 에러 핸들링 로직을 구성한다.
 
-# 최종 체크포인트
+# ✅ 최종 체크포인트
 
 - [x] `ApplicationTest`를 통과하는가?
 - [x] 모든 단위 테스트가 통과하는가?
@@ -282,11 +282,11 @@
 - [x] `package.json`에 변경사항이 존재하지 않는가?
 - [x] `process.exit()`를 호출하는 코드가 존재하지 않는가?
 
-# 플로우 차트
+# 🚦 플로우 차트
 
 ![baseball drawio](https://github.com/cobocho/javascript-baseball-6/assets/99083803/a3fc9b55-21ce-4667-af78-bc48efd770bd)
 
-# 테스트 실행 결과
+# 💻 테스트 실행 결과
 
 <img width="361" alt="test-result" src="https://github.com/cobocho/javascript-baseball-6/assets/99083803/d34a1fb7-30a0-42cc-991b-ea083d3307be">
 
