@@ -1,17 +1,20 @@
+import { MissionUtils } from "@woowacourse/mission-utils";
+
 class App {
   async play() {
     console.log("숫자 야구 게임을 시작합니다.");
 
     //난수 생성 -> 3자리 임의의 수 만들기
-
-    //플레이어 입력 받기
-
-    //플레이어가 입력한 숫자에 대해 힌트 제공
-
-    //맞출 시 게임 종료 => 다시 시작(1) or 완전히 종료(2) 입력 받기
-
-    //예외 : 숫자 3개 값이 아닐 때 throw로 예외 처리 필요
+    const computer = [];
+    while (computer.length < 3) {
+      const number = MissionUtils.Random.pickNumberInRange(1, 9);
+      if (!computer.includes(number)) {
+        computer.push(number);
+      }
+    }
   }
 }
 
+const app = new App();
+app.play();
 export default App;
