@@ -29,10 +29,8 @@ class App {
   // ball, strike 수에 맞는 출력 메세지 반환
   getResultMessage(ball, strike) {
     if (ball == 0 && strike == 0) return MESSAGE.NOTHING;
-    if (ball > 0 && strike == 0) return `${ball}${MESSAGE.BALL}`;
-    if (ball == 0 && strike > 0) return `${strike}${MESSAGE.STRIKE}`;
     
-    return `${ball}${MESSAGE.BALL} ${strike}${MESSAGE.STRIKE}`;
+    return `${ball > 0 ? ball + MESSAGE.BALL + ' ' : ''}${strike > 0 ? strike + MESSAGE.STRIKE : ''}`.trim();
   }
 
   // 사용자가 입력한 숫자에 대한 결과 출력 후 판별
