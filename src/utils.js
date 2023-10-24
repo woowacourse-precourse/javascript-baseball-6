@@ -27,21 +27,22 @@ const isValidInput = (input) => {
   const set = new Set(input);
   const splittedInput = input.split('').map(Number);
   const { SIZE, MIN_NUMBER, MAX_NUMBER } = SETTING;
+  const { NOT_NUMBER, NOT_SIZE, NOT_UNIQUE, NOT_RANGE } = ERROR_MESSAGE;
 
   if (isNaN(input)) {
-    throw new Error(`${ERROR_MESSAGE.NOT_NUMBER}`);
+    throw new Error(`${NOT_NUMBER}`);
   } 
 
   if (input.length !== SIZE) {
-    throw new Error(`${ERROR_MESSAGE.NOT_SIZE}`);
+    throw new Error(`${NOT_SIZE}`);
   } 
   
   if (set.size !== SIZE) {
-    throw new Error(`${ERROR_MESSAGE.NOT_UNIQUE}`);
+    throw new Error(`${NOT_UNIQUE}`);
   } 
   
   if (splittedInput.filter(v => v < MIN_NUMBER || v > MAX_NUMBER).length > 0) {
-    throw new Error(`${ERROR_MESSAGE.NOT_RANGE}`);
+    throw new Error(`${NOT_RANGE}`);
   }
 
   return true;
