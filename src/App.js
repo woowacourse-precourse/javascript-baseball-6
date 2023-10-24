@@ -1,6 +1,6 @@
-import { Console } from "@woowacourse/mission-utils";
-import Computer from "./Computer";
-import { MESSAGES, STATUS } from "./constants/Constants";
+import { Console } from '@woowacourse/mission-utils';
+import Computer from './Computer';
+import { MESSAGES, STATUS } from './constants/Constants';
 
 class App {
   constructor() {
@@ -12,7 +12,7 @@ class App {
 
   // 게임 시작 문구를 출력한다.
   printGameStart = () => {
-    Console.print(MESSAGES.START);
+    Console.print(MESSAGES.start);
   };
 
   /**
@@ -37,17 +37,19 @@ class App {
    * @return {[number, number, number]}
    */
   getUserNumberInput = async () => {
-    const input = await Console.readLineAsync(MESSAGES.USER_NUMBER);
+    const input = await Console.readLineAsync(MESSAGES.user_number);
+
     if (!this.checkUserNumberValidation(input)) {
-      Console.print(MESSAGES.ERROR);
-      throw new Error(MESSAGES.ERROR);
+      Console.print(MESSAGES.error);
+      throw new Error(MESSAGES.error);
     }
+
     return Array.from(input).map((el) => Number(el));
   };
 
   // 게임 재시작 또는 종료 문구를 출력한다.
   printRestartOrEnd = () => {
-    Console.print(MESSAGES.RESTART_OR_END);
+    Console.print(MESSAGES.restart_or_end);
   };
 
   /**
@@ -56,8 +58,7 @@ class App {
    * @return {boolean}
    */
   checkRestartOrEndValidation = (input) => {
-    const validRegex = /^[12]$/;
-    return validRegex.test(input) ? true : false;
+    return input === '1' || input === '2';
   };
 
   /**
@@ -66,10 +67,12 @@ class App {
    */
   getRestartOrEndInput = async () => {
     const input = await Console.readLineAsync();
+
     if (!this.checkRestartOrEndValidation(input)) {
-      Console.print(MESSAGES.ERROR);
-      throw new Error(MESSAGES.ERROR);
+      Console.print(MESSAGES.error);
+      throw new Error(MESSAGES.error);
     }
+
     return input;
   };
 
@@ -85,9 +88,9 @@ class App {
     computer.map((el, idx) => {
       if (user.indexOf(el) > -1) {
         if (user.indexOf(el) === idx) {
-          result.strike++;
+          result.strike += 1;
         } else {
-          result.ball++;
+          result.ball += 1;
         }
       }
     });
@@ -101,18 +104,22 @@ class App {
    * @param {object} result
    */
   printGameResult = (status, result) => {
+    const { ball, strike } = result;
+
     switch (status) {
-      case STATUS.NOTHING:
-        Console.print(MESSAGES.RESULT.NOTHING);
-        return;
-      case STATUS.CONTINUE:
-        Console.print(`${result.ball}볼 ${result.strike}스트라이크`);
-        return;
-      case STATUS.OVER:
-        Console.print(MESSAGES.RESULT.ALL_STRIKE);
-        Console.print(MESSAGES.GAME_OVER);
-        return;
+      case STATUS.nothing:
+        Console.print(MESSAGES.result.nothing);
+        break;
+      case STATUS.continue:
+        Console.print(`${ball}볼 ${strike}스트라이크`);
+        break;
+      case STATUS.over:
+        Console.print(MESSAGES.result.all_strike);
+        Console.print(MESSAGES.game_over);
+        break;
     }
+
+    return;
   };
 
   // 숫자 야구 게임을 준비한다.
@@ -132,13 +139,14 @@ class App {
       );
 
       if (result.ball === 0 && result.strike === 0) {
-        this.printGameResult(STATUS.NOTHING, result);
+        this.printGameResult(STATUS.nothing, result);
       } else if (result.strike === 3) {
-        this.printGameResult(STATUS.OVER, result);
+        this.printGameResult(STATUS.over, result);
         await this.gameRestartOrEnd();
+
         return;
       } else {
-        this.printGameResult(STATUS.CONTINUE, result);
+        this.printGameResult(STATUS.continue, result);
       }
     }
   };
@@ -146,8 +154,10 @@ class App {
   // 숫자 야구 게임을 재시작하거나 종료한다.
   gameRestartOrEnd = async () => {
     this.printRestartOrEnd();
+
     const input = await this.getRestartOrEndInput();
-    if (input === "1") {
+
+    if (input === '1') {
       await this.gameReady();
     }
   };
@@ -155,6 +165,7 @@ class App {
   async play() {
     this.printGameStart();
     await this.gameReady();
+
     return;
   }
 }
