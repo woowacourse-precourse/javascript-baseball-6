@@ -1,21 +1,21 @@
 import BaseballModel from '../model/index.js';
-import View from '../view/index.js';
+import { InputView, OutputView } from '../view/index.js';
 
 class BaseBallController {
   #model;
 
-  #view;
+  static RETRY = '1';
 
   constructor() {
-    this.#view = View;
+    OutputView.printStart();
     this.#model = new BaseballModel();
   }
 
   async run() {
     this.#model.generateGameNumbers();
     await this.#guessNumber();
-    const userAnswer = await this.#view.readGameCommand();
-    if (userAnswer === '1') {
+    const userAnswer = await InputView.readGameCommand();
+    if (userAnswer === BaseBallController.RETRY) {
       this.run();
     }
   }
@@ -23,11 +23,12 @@ class BaseBallController {
   // TODO : no-await-in-loop 정리
   async #guessNumber() {
     while (true) {
-      const userNumbers = await this.#view.readGameNumbers();
+      const userNumbers = await InputView.readGameNumbers();
       const score = this.#model.compareUserWithComputerNumbers(userNumbers);
-      this.#view.printHint(score);
+
+      OutputView.printHint(score);
       if (score.strike === 3) {
-        this.#view.printSuccess();
+        OutputView.printSuccess();
         break;
       }
     }

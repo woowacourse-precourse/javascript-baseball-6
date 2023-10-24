@@ -1,6 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 import BaseballModel from '../src/model/index.js';
-import View from '../src/view/index.js';
+import OutputView from '../src/view/OutputView.js';
 
 const model = new BaseballModel();
 
@@ -28,7 +28,7 @@ describe('printHint', () => {
 
     // when
     const score = model.compareUserWithComputerNumbers(userNumber);
-    View.printHint(score);
+    OutputView.printHint(score);
 
     // then
     expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('낫싱'));
@@ -40,7 +40,7 @@ describe('printHint', () => {
 
     // when
     const score = model.compareUserWithComputerNumbers(userNumber);
-    View.printHint(score);
+    OutputView.printHint(score);
 
     // then
     expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('1볼'));
@@ -52,7 +52,7 @@ describe('printHint', () => {
 
     // when
     const score = model.compareUserWithComputerNumbers(userNumber);
-    View.printHint(score);
+    OutputView.printHint(score);
 
     // then
     expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('1스트라이크'));
@@ -64,7 +64,7 @@ describe('printHint', () => {
 
     // when
     const score = model.compareUserWithComputerNumbers(userNumber);
-    View.printHint(score);
+    OutputView.printHint(score);
 
     // then
     expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('2볼 1스트라이크'));
@@ -76,7 +76,7 @@ describe('printHint', () => {
 
     // when
     const score = model.compareUserWithComputerNumbers(userNumber);
-    View.printHint(score);
+    OutputView.printHint(score);
 
     // then
     expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('3스트라이크'));

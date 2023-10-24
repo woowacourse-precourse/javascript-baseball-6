@@ -1,4 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
+import Validators from '../utils/validator/index.js';
+import { OUTPUT_MESSAGES } from '../constants/Messages.js';
 
 const InputView = {
   /**
@@ -9,6 +11,18 @@ const InputView = {
   async readLineAsync(message) {
     const userInput = await Console.readLineAsync(message);
     return userInput;
+  },
+
+  async readGameNumbers() {
+    const userNumbers = await InputView.readLineAsync(OUTPUT_MESSAGES.game_number);
+    Validators.checkGameNumbers(userNumbers);
+    return userNumbers;
+  },
+
+  async readGameCommand() {
+    const userAnswer = await InputView.readLineAsync(OUTPUT_MESSAGES.game_command);
+    Validators.checkGameCommand(userAnswer);
+    return userAnswer;
   },
 };
 
