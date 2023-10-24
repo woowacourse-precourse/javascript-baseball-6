@@ -8,6 +8,13 @@ export const ErrorMessage = Object.freeze({
 });
 class App {
   #computer;
+
+  static DIGITS_COUNT = 3;
+  static MIN_DIGIT = 1;
+  static MAX_DIGIT = 9;
+  static RESTART_GAME = 1;
+  static GAME_OVER = 2;
+
   async play() {
     this.init();
     console.log(this.computer);
@@ -27,8 +34,8 @@ class App {
 
   getRandomComputerNumber() {
     const computer = [];
-    while (computer.length < 3) {
-      const num = Random.pickNumberInRange(1, 9);
+    while (computer.length < App.DIGITS_COUNT) {
+      const num = Random.pickNumberInRange(App.MIN_DIGIT, App.MAX_DIGIT);
       if (!computer.includes(num)) {
         computer.push(num);
       }
@@ -46,11 +53,12 @@ class App {
   checkDifferentThreeDigits(user) {
     if (isNaN(user)) throw new Error(ErrorMessage.oneOrTwo);
     const array = user.split('');
-    if (array.length > 3 || array.length < 3)
+    if (array.length > App.DIGITS_COUNT || array.length < App.DIGITS_COUNT)
       throw new Error(ErrorMessage.threeDigits);
     const dupCheck = array.filter((v, i) => user.indexOf(v) === i);
     if (dupCheck.includes('0')) throw new Error(ErrorMessage.oneToNine);
-    if (dupCheck.length < 3) throw new Error(ErrorMessage.differentDigits);
+    if (dupCheck.length < App.DIGITS_COUNT)
+      throw new Error(ErrorMessage.differentDigits);
     return dupCheck;
   }
 
@@ -69,7 +77,7 @@ class App {
     if (strike && !ball) Console.print(`${strike}스트라이크`);
     if (!strike && ball) Console.print(`${ball}볼`);
     if (!strike && !ball) Console.print('낫싱');
-    if (strike === 3) return true;
+    if (strike === App.DIGITS_COUNT) return true;
     else return false;
   }
 
@@ -91,9 +99,9 @@ class App {
 
   checkEndNum(num) {
     const result = parseInt(num);
-    if (result === 1) {
+    if (result === App.RESTART_GAME) {
       this.play();
-    } else if (result === 2) {
+    } else if (result === App.GAME_OVER) {
       return;
     } else {
       throw new Error(ErrorMessage.oneOrTwo);
