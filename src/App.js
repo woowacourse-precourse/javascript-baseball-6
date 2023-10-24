@@ -60,8 +60,9 @@ class App {
     const computer = this.createComputerNumbers(3);
     //MissionUtils.Console.print(computer);
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
+    let isContinued;
 
-    while (true) {
+    do {
       const input = await this.getInput("숫자를 입력해주세요 : ");
       const playerNumbers = this.extractPlayerNumbers(input);
 
@@ -81,15 +82,16 @@ class App {
 
       if (strike == 3) {
         MissionUtils.Console.print("3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료")
-        return;
+        isContinued = false;
       } else {
         let output = "";
         if (ball != 0) output += ball + "볼 ";
         if (strike != 0) output += strike + "스트라이크";
         if (nothing == 3) output = "낫싱";
         MissionUtils.Console.print(output);
+        isContinued = true;
       }
-    }
+    } while(isContinued);
   }
 
   async play() {
