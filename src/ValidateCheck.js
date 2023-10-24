@@ -1,7 +1,7 @@
 import { ERROR } from './constants.js';
 
 class ValidateCheck {
-  checkInputValidate(userNumber) {
+  checkUserNumber(userNumber) {
     const IS_UNIQUE = (new Set(userNumber)).size;
     const RE = new RegExp(/[1-9]{3}/g);
 

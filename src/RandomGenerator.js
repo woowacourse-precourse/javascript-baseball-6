@@ -1,7 +1,7 @@
 import { Random } from '@woowacourse/mission-utils';
 
 class RandomGenerator {
-  randomNumberr() {
+  randomNumber() {
     const COMPUTER = [];
 
     while (COMPUTER.length < 3) {

@@ -5,9 +5,6 @@ import UserInput from './UserInput.js';
 import ValidateCheck from './ValidateCheck.js';
 
 class App {
-  validateCheck;
-  userInput;
-  randomGenerator;
   computerNumber;
   userNumber;
 
@@ -19,13 +16,13 @@ class App {
   };
 
   async play() {
-    this.computerNumber = this.randomGenerator.randomNumberr();
+    this.computerNumber = this.randomGenerator.randomNumber();
     return this.start();
   };
 
   async start() {
     this.userNumber = await this.userInput.getUserNumber();
-    this.userNumber = this.validateCheck.checkInputValidate(this.userNumber);
+    this.userNumber = this.validateCheck.checkUserNumber(this.userNumber);
     return this.countStrike();
   }
 
@@ -33,11 +30,11 @@ class App {
   countStrike() {
     const STRIKE = [...this.computerNumber].filter((x, idx) => this.userNumber[idx] === x).length;
     const BALL = [...this.computerNumber].filter(x => this.userNumber.includes(x)).length - STRIKE;
-    return this.strikeBall(STRIKE,BALL);
+    return this.printStrikeBall(STRIKE,BALL);
   };
 
   //스트라이크와 볼 개수 출력
-  async strikeBall(strike, ball) {
+  async printStrikeBall(strike, ball) {
     let answer = '';
     
     if (ball > 0) answer += `${ball}볼 `;
