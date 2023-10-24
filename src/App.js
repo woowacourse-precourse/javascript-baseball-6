@@ -2,7 +2,7 @@ import { ANSWER_LENGTH, ERROR_MESSAGE, PLAY_GAME } from "./Constants";
 import generateRandomNumber from "./utils/generateRandomNumbers";
 import checkBallCount from "./utils/checkBallCount";
 import printBallCount from "./utils/printBallCount";
-import inputValidCheck from "./utils/inputValidCheck";
+import validateInput from "./utils/validateInput";
 
 const { Console } = require("@woowacourse/mission-utils");
 
@@ -23,7 +23,7 @@ class App {
 
   async gameStart() {
     const inputValue = await Console.readLineAsync(PLAY_GAME.INPUT);
-    if (inputValidCheck(inputValue)) {
+    if (validateInput(inputValue)) {
       const scoreCount = checkBallCount(this.answer, inputValue);
       const { strike } = scoreCount;
 
