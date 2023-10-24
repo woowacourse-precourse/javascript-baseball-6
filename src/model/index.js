@@ -36,11 +36,16 @@ class BaseballModel {
     return [...userNumbers].reduce((acc, userNumber, index) => {
         const isBall = this.#computerNumbers.includes(Number(userNumber));
         const isStrike = isBall && Number(userNumber) === this.#computerNumbers[index];
+        
         if (isStrike) {
           acc.strike += 1;
-        } else if (isBall) {
+          return acc
+        } 
+        
+        if (isBall) {
           acc.ball += 1;
         }
+
         return acc;
       }, { ball: 0, strike: 0 },
     );
