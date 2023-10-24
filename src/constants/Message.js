@@ -5,4 +5,5 @@ export const Message = {
   END: "게임 종료",
   RESET: "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.",
   NOTHING: "낫싱",
+  ERROR: '잘못된 입력입니다. 게임을 종료합니다.'
 };

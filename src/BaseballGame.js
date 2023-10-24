@@ -1,12 +1,13 @@
 import { Random, Console } from "@woowacourse/mission-utils";
 import { Message } from "./constants/Message.js";
+import { handleError } from "./HandleError.js";
 
 export default class BaseballGame {
   start() {
     const answer = '';
     Console.print(Message.INIT);
-    Console.readLine(Message.INPUT, (answer) => {
-      
+    Console.readLine(Message.INPUT, (playerNum) => {
+      handleError(playerNum);
     }); 
   }
 
@@ -14,8 +15,8 @@ export default class BaseballGame {
     if (!nums.includes(num)){
       nums.push(num);
     }
-    return nums;
   }
+
   makeCoumputerNum() {
     const nums = []
     while (nums.length < 3){
@@ -27,7 +28,7 @@ export default class BaseballGame {
   }
 
   play() {
-    this.start();
-    this.makeCoumputerNum();
+    const playerAnswer = this.start();
+    const computerAnswer = this.makeCoumputerNum();
   }
 }
