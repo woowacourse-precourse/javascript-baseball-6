@@ -5,6 +5,7 @@ class App {
   constructor() {
     this.userNum = "";
     this.computerNum = [];
+    this.newGame = true;
   }
   // 컴퓨터 값 설정
   SetComputerNumbers() {
@@ -40,14 +41,27 @@ class App {
     });
     // (4) 중복된 값이라면 -> ✅ 보류
   }
-  // 입력값을 컴퓨터 값과 비교해 결과 출력
-  async showResult() {}
+  // 입력값을 컴퓨터 값과 비교해 결과 출력하는 메인 기능
+  async playBaseballGame() {
+    let strike = 0;
+    let ball = 0;
+    let;
+  }
+
   // 게임 종료 -> 재시작 여부 결정
   async restartGame() {}
 
   // 게임 실행하기
   async play() {
     Console.print(CONSTANTS.MESSAGES.START);
+    while (this.newGame) {
+      this.SetComputerNumbers();
+      await this.playBaseballGame();
+      this.newGame = await this.restartGame();
+      if (!this.newGame) {
+        break;
+      }
+    }
   }
 }
 
