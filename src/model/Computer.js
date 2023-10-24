@@ -1,5 +1,5 @@
 import { Random } from "@woowacourse/mission-utils";
-import { GAME_NUMBER } from "../constants/ConfigGame";
+import { GAME_NUMBER } from "../constants/ConfigGame.js";
 
 export default class Computer {
   #computerNumber;
