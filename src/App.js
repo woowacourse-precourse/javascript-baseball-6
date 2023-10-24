@@ -100,7 +100,7 @@ const playBaseBall = async () => {
   let randomNumber = makeRandomNumber();
   let isEnd = false;
 
-  Console.print(GAME_START);
+  Console.print(GAME_START_MESSAGE);
   while (!isEnd) {
     const userInput = await getUserInput();
     const inputIsValid = checkInputIsValid(userInput);
