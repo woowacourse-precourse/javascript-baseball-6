@@ -6,6 +6,13 @@ const MAX_NUMBER = 9;
 const REPLAY = "1";
 const EXIT = "2";
 
+const INTRO_MESSAGE = "숫자 야구 게임을 시작합니다.";
+const NOTHING_TEXT = "낫싱";
+const STRIKE_TEXT = "스트라이크";
+const BALL_TEXT = "볼";
+const SUCCESS_MESSAGE = "3개의 숫자를 모두 맞히셨습니다! 게임 종료";
+const REPLAY_QUESTION_MESSAGE = "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n";
+
 const toUniqueNumbers = (answer) => {
   const numbers = [
     ...new Set(
@@ -91,6 +98,33 @@ class Computer {
 
   static validateReplayValue(replay) {
     return replay === REPLAY || replay === EXIT;
+  }
+
+  static printIntro() {
+    MissionUtils.Console.print(INTRO_MESSAGE);
+  }
+
+  static printResultMessage({ strike, ball }) {
+    if (strike === 0 && ball === 0) {
+      MissionUtils.Consol.print(NOTHING_TEXT);
+      return;
+    }
+
+    let messages = [];
+    if (ball > 0) {
+      messages = [...messages, `${ball}${BALL_TEXT}`];
+    }
+    if (strike > 0) {
+      messages = [...messages, `${strike}${STRIKE_TEXT}`];
+    }
+
+    const generatedMessage = messages.join(" ");
+
+    MissionUtils.Console.print(generatedMessage);
+  }
+
+  static printSuccessMessage() {
+    MissionUtils.Console.print(SUCCESS_MESSAGE);
   }
 }
 
