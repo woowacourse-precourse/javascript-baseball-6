@@ -6,3 +6,9 @@
 1. 게임 시작 메시지 출력
 Console.print함수 사용
 숫자 야구 게임을 시작합니다.
+
+2. 정답 생성 기능
+generateRandomNumber함수를 통해 1-9까지의 숫자로 랜덤한 세 자리 숫자를 만들기
+이 함수를 통해 생성된 숫자를 secretNumber에 할당하기
+
+
