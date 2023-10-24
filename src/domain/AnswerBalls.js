@@ -18,6 +18,11 @@ export class AnswerBalls {
     return this.#targetBalls;
   }
 
+  /**
+   * targetBalls에 ball을 포함하였는지 판별합니다.
+   * @param {TargetBall} ball
+   * @returns {boolean}
+   */
   contains(ball) {
     this.#validateContains(ball);
     return this.#targetBalls.balls.includes(ball);
@@ -32,6 +37,12 @@ export class AnswerBalls {
     }
   }
 
+  /**
+   * targetBalls의 index에 ball이 존재하는지 판별합니다.
+   * @param {TargetBall} ball
+   * @param {number} index
+   * @returns
+   */
   match(ball, index) {
     this.#validateMatch(ball, index);
     return this.#targetBalls.balls[index] === ball;
