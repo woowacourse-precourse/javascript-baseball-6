@@ -50,5 +50,3 @@ class App {
 }
 
 export default App;
-let a = new App();
-a.play();
