@@ -25,6 +25,5 @@ class App {
 
 export default App;
 
-// comment below out to be evaluated correctly by jest test codes
 // const app = new App();
 // app.play();
