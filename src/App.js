@@ -26,6 +26,13 @@ class App {
     return userInputArray;
   }
 
+  static printCompareResult(strike, ball) {
+    let result = "";
+    result += strike !== 0 ? `${strike}스트라이크 ` : "";
+    result += ball !== 0 ? `${ball}볼` : "";
+    Console.print(result);
+  }
+
   compareNumber(guessNumber) {
     let strike = 0;
     let ball = 0;
@@ -36,6 +43,10 @@ class App {
       }
       if (this.secretNumber.includes(guessNumber[i])) ball += 1;
     }
+    App.printCompareResult(strike, ball);
+
+    // 모두 맞혔는지 확인하기 위해서는 strike의 개수만 필요하므로 strike만 반환
+    return strike;
   }
 
   playBaseBall() {
