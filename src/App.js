@@ -3,10 +3,11 @@ import { Console } from '@woowacourse/mission-utils';
 import { generateRandomNumber } from './generateRandomNumber';
 import { userInput, userInputValidation } from './userInput';
 import { checkResult } from './result';
+import { GAME_END, TEXT, ERROR } from './constants/constants';
 
 class App {
   async play() {
-    Console.print('숫자 야구 게임을 시작합니다.');
+    Console.print(TEXT.INITIAL);
     try {
       this.computerNumber = generateRandomNumber();
       await this.userInputCheck();
@@ -19,7 +20,7 @@ class App {
     this.userNumber = await userInput();
     const isValidationSuccess = userInputValidation(this.userNumber);
     if (isValidationSuccess) await this.compareResult();
-    else throw new Error('숫자가 잘못된 형식입니다.');
+    else throw new Error(ERROR.INVALID_RETRY);
   }
 
   async compareResult() {
@@ -32,15 +33,15 @@ class App {
   }
 
   finishGame() {
-    Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+    Console.print(TEXT.CORRECT_ANSWER);
     this.checkResetGame();
   }
 
   async checkResetGame() {
-    Console.print('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+    Console.print(TEXT.RETRY);
     const isGameRestart = await Console.readLineAsync('');
-    if (isGameRestart === '1') return this.play();
-    else if (isGameRestart !== '2') return this.checkResetGame();
+    if (isGameRestart === GAME_END.RETRY) return this.play();
+    else if (isGameRestart !== GAME_END.EXIT) return this.checkResetGame();
   }
 }
 
