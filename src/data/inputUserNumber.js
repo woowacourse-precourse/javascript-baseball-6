@@ -3,16 +3,12 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 import { TEXT } from '../comm/text.js';
 
 export default async function inputUserNumber(){
-    const number = MissionUtils.Console.readLineAsync(`${TEXT.INPUT_NUMBER}`)
-    .then((res) => {
-        const valudateNumber = inputNumberValidate(res);
-        if(!valudateNumber){
-            return;
-        }
-        return valudateNumber;
-    });
-    
-    return number;
+    const number = await MissionUtils.Console.readLineAsync(`${TEXT.INPUT_NUMBER}`);
+    const valudateNumber = inputNumberValidate(number);
+    if(!valudateNumber){
+        return;
+    }
+    return valudateNumber;
 }
 
 const inputNumberValidate = (inputNumber) => {
