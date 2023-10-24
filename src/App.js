@@ -1,16 +1,18 @@
 import * as MissionUtils from "@woowacourse/mission-utils";
-import RandomStart from "../src/components/RandomStart.js";
-import InputNumber from "../src/components/InputNumber.js";
+import InputUserNumber from "./components/InputUserNumber.js";
 import CheckResult from "./components/CheckResult.js";
+import CreateRandomNumber from "./components/CreateRandomNumber.js";
+import PrintResult from "./components/PrintResult.js";
+import RestartGame from "./components/RestartGame.js";
 
 class App {
   async play() {
-    const computerNumbers = RandomStart(); // RandomStart 함수 사용
+    const computerNumbers = CreateRandomNumber(); // RandomStart 함수 사용
     console.log(computerNumbers);
-    const userNumbers = await InputNumber();
+    const userNumbers = await InputUserNumber();
     console.log(userNumbers);
-    const data = CheckResult(userNumbers, computerNumbers);
-    console.log(data.ball);
+
+    while (!PrintResult(CheckResult(userNumbers, computerNumbers))) {}
   }
 }
 
