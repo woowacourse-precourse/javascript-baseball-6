@@ -12,6 +12,7 @@ const OutputView = {
 
   /**
    * @public
+   * @returns {void}
    */
   printStartGame() {
     this.print(OUTPUT_MESSAGE_TEXT.gameStart);
@@ -20,6 +21,7 @@ const OutputView = {
   /**
    * @public
    * @param {import('../utils/jsDoc.js').CompareResult} compareResult - 스트라이크와 볼의 결과를 포함하는 객체
+   * @returns {void}
    */
   printCompareResult({ strike, ball }) {
     this.print(OUTPUT_MESSAGE_METHOD.compareResult({ strike, ball }));
@@ -27,6 +29,7 @@ const OutputView = {
 
   /**
    * @public
+   * @returns {void}
    */
   printExitGame() {
     this.print(OUTPUT_MESSAGE_TEXT.exitGame);
