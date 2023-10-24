@@ -6,14 +6,15 @@ const MESSAGE = {
   NOTHING: '낫싱',
   BALL: '볼',
   STRIKE: '스트라이크',
-}
+};
+
 const BASEBALL = {
   MIN_NUMBER: 1,
   MAX_NUMBER: 9,
   MAX_LENGTH: 3,
   RESET_NUMBER: '1',
   END_NUMBER: '2',
-}
+};
 
 const ERROR = {
   NUMBER_TYPE: '[ERROR] 1부터 9까지의 숫자만 입력하세요.',
@@ -24,11 +25,6 @@ const ERROR = {
 
 const REGEXP = {
   IS_NOT_NUMBER: /[^1-9]/,
-}
-
-module.exports = {
-  MESSAGE, 
-  BASEBALL,
-  ERROR,
-  REGEXP,
 };
+
+export { MESSAGE, BASEBALL, ERROR, REGEXP };
