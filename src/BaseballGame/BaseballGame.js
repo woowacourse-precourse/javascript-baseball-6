@@ -8,12 +8,12 @@ class BaseballGame {
   }
 
   async startGame() {
-    await this.getGameNumberInput();
+    await this.judgeGameNumber();
   }
 
   async getGameNumberInput() {
     const input = await Console.readLineAsync(MESSAGE.INPUT_GAME);
-    await this.judgeGameNumber(input);
+    return input;
   }
 
   async getRestartNumberInput() {
@@ -22,7 +22,8 @@ class BaseballGame {
     return input;
   }
 
-  async judgeGameNumber(input) {
+  async judgeGameNumber() {
+    const input = await this.getGameNumberInput();
     if (!this.computer.checkInputValid(input)) {
       throw new Error(MESSAGE.ERROR_NOT_VALID_GAME);
     }
@@ -33,7 +34,7 @@ class BaseballGame {
       await this.restart();
       return Promise.resolve();
     }
-    await this.getGameNumberInput();
+    return this.judgeGameNumber();
   }
 
   async restart() {
@@ -42,7 +43,7 @@ class BaseballGame {
     switch (input) {
       case '1':
         this.computer.initAnswer();
-        await this.getGameNumberInput();
+        await this.judgeGameNumber();
         break;
       case '2':
         break;
