@@ -1,25 +1,25 @@
-import countBall from "./countBall.js";
-import countStrike from "./countStrike.js";
-
 /**
  * strikeCount와 ballCount를 입력받아 스트라이크, 볼, 낫싱 여부를 반환한다
  * 
  * @param {number} strikeCount
  * @param {number} ballCount
- * @returns {string}
+ * @returns {boolean}
  */
 export default function gameResult(strikeCount, ballCount) {
-  if (strikeCount + ballCount === 0) {
-    return '낫싱';
+  if (strikeCount === 3) {
+    return true;
+  }
+  if (strikeCount === 0 && ballCount === 0) {
+    MissionUtils.Console.print('낫싱');
   }
   if (strikeCount === 0) {
-    return `${ballCount}볼`;
+    MissionUtils.Console.print(`${ballCount}볼`);
+  } else if (ballCount === 0) {
+    MissionUtils.Console.print(`${strikeCount}스트라이크`);
+  } else {
+    MissionUtils.Console.print(`${ballCount}볼 ${strikeCount}스트라이크`);
   }
-  if (ballCount === 0) {
-    return `${strikeCount}스트라이크`
-  }
-  
-  return `${ballCount}볼 ${strikeCount}스트라이크`;
+  return false;
 }
 
 
