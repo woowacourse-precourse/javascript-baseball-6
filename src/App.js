@@ -1,33 +1,35 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
-// to-do: 사용자 입력값이 [0]번째 인덱스만 나타내고 있음
-// to-do: 3스트라이크인 경우 입력값과 결과값 출력이 안됨
+// to-do: 예외 테스트 케이스 때 result 출력 안되고 throw error하게 처리해야함
+// to-do: playAgain is undefined
 
 class App {
 	async play() {
 		MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
-
 		let playAgain = true;
 
 		while (playAgain) {
 			await this.playGame();
-
-			// 게임 종료 후 재시작 여부를 묻는 부분
-			const userInput = await MissionUtils.Console.readLineAsync(
-				"게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요: "
-			);
-			await MissionUtils.Console.print(
-				"게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
-			);
-			await MissionUtils.Console.print(userInput);
-
-			if (userInput == "2") {
-				playAgain = false;
-				MissionUtils.Console.print("게임을 종료합니다.");
-			} else if (userInput == "1") {
-				await this.play();
-			}
 		}
+	}
+
+	async askForRestart() {
+		const userInput = await MissionUtils.Console.readLineAsync(
+			"게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요: "
+		);
+		await MissionUtils.Console.print(
+			"게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+		);
+		await MissionUtils.Console.print(userInput);
+
+		if (userInput == "2") {
+			MissionUtils.Console.print("게임을 종료합니다.");
+			playAgain = false;
+		} else if (userInput == "1") {
+			await this.play();
+		}
+
+		return userInput;
 	}
 
 	async playGame() {
@@ -57,7 +59,10 @@ class App {
 			await MissionUtils.Console.print(result); // 결과값 출력
 		} while (getResult.strike !== 3 && userNumberArr.length == 3);
 
-		MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+		await MissionUtils.Console.print(
+			"3개의 숫자를 모두 맞히셨습니다! 게임 종료"
+		);
+		await this.askForRestart();
 	}
 
 	async getUserNumber() {
@@ -110,22 +115,12 @@ class App {
 	async printResult(strike, nothing, ball) {
 		let result;
 		if (nothing == 3) {
-			// MissionUtils.Console.print("낫싱");
 			result = "낫싱";
 		} else if (strike == 0) {
-			// MissionUtils.Console.print(ball + "볼");
 			result = ball + "볼";
 		} else if (ball == 0) {
-			// MissionUtils.Console.print(strike + "스트라이크");
 			result = strike + "스트라이크";
-		}
-		// else if (strike == 3) {
-		// 	MissionUtils.Console.print("3스트라이크");
-		// 	MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-		// 	result = "3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료";
-		// }
-		else {
-			// MissionUtils.Console.print(ball + "볼 " + strike + "스트라이크");
+		} else {
 			result = ball + "볼 " + strike + "스트라이크";
 		}
 		return result;
