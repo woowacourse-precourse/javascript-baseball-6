@@ -47,7 +47,6 @@ class App {
       strike = 0;
       for (let i = 0; i < 3; i++) {
         for (let j = 0; j < 3; j++) {
-          MissionUtils.Console.print(i, j);
           if (input[i] == computer[j]) {
             if (i == j) { strike += 1 }//스트라이크
             else { ball += 1 }//볼
