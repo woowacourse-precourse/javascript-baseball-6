@@ -14,13 +14,13 @@ class App {
     this.PLAYER_ON = true;
 
     while (this.PLAYER_ON) {
-      const me = await this.judge.validNumber();
-      const result = this.judge.compareScore({ me, com: this.Computer });
+      const ME = await this.judge.validNumber();
+      const RESULT = this.judge.compareScore({ ME, COM: this.Computer });
 
-      if (result?.state === "LOSE") {
+      if (RESULT?.state === "LOSE") {
         this.PLAYER_ON = true;
       }
-      if (result === "WIN") {
+      if (RESULT === "WIN") {
         await this.judge.gameStatus();
       }
     }

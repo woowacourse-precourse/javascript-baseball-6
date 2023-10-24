@@ -9,8 +9,8 @@ class Judge {
     const COMPUTER_NUM = [];
 
     while (COMPUTER_NUM.length < 3) {
-      const Numbers = MissionUtils.Random.pickNumberInRange(1, 9);
-      if (!COMPUTER_NUM.includes(Numbers)) COMPUTER_NUM.push(Numbers);
+      const NUMBERS = MissionUtils.Random.pickNumberInRange(1, 9);
+      if (!COMPUTER_NUM.includes(NUMBERS)) COMPUTER_NUM.push(NUMBERS);
     }
 
     return COMPUTER_NUM;
@@ -21,31 +21,31 @@ class Judge {
   }
 
   async validNumber() {
-    const userNumber = await this.userNumber(`숫자를 입력해주세요 : `);
+    const USER_NUMBER = await this.userNumber(`숫자를 입력해주세요 : `);
 
-    if (!/^[1-9]{3}$/.test(userNumber)) {
+    if (!/^[1-9]{3}$/.test(USER_NUMBER)) {
       Console.print("[ERROR] 숫자가 잘못된 형식입니다.");
       this.app.PLAYER_ON = false;
       throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
     }
 
-    return Array.from(userNumber, Number);
+    return Array.from(USER_NUMBER, Number);
   }
 
   compareScore(data) {
-    const { me, com } = data;
+    const { ME, COM } = data;
 
     let strike = 0;
     let ball = 0;
 
-    com.forEach((el, idx) => {
-      if (el === me[idx]) strike++;
-      else if (me.includes(el)) ball++;
+    COM.forEach((el, idx) => {
+      if (el === ME[idx]) strike++;
+      else if (ME.includes(el)) ball++;
     });
 
-    const score = this.scoreTable({ strike, ball, com });
+    const SCORE = this.scoreTable({ strike, ball, COM });
 
-    return score;
+    return SCORE;
   }
 
   scoreTable(data) {
