@@ -27,7 +27,6 @@ class BaseBallGame {
       throw new Error('[ERROR] reset 후 시작해야 합니다.');
     }
     MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
-
     let userAnswer = '';
     while (userAnswer !== this.answer) {
       userAnswer = await this.getUserGuessInput();
@@ -57,9 +56,7 @@ class BaseBallGame {
       throw new Error('[ERROR] 입력값은 1~9의 세 자리 숫자여야 합니다.');
     }
     if (new Set(userInput).size !== 3) {
-      throw new Error(
-        '[ERROR] 입력값은 서로 다른 숫자로 이루어진 세 자리 숫자여야 합니다.',
-      );
+      throw new Error('[ERROR] 입력값은 서로 다른 숫자로 이루어진 세 자리 숫자여야 합니다.');
     }
     return true;
   }
@@ -69,10 +66,7 @@ class BaseBallGame {
    * @param userAnswer
    */
   provideHint(userAnswer) {
-    const { balls, strikes } = this.findBallsAndStrikes(
-      this.answer,
-      userAnswer,
-    );
+    const { balls, strikes } = this.findBallsAndStrikes(this.answer, userAnswer);
     this.printBallsAndStrikes(balls, strikes);
     if (strikes === 3) {
       MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
@@ -124,9 +118,9 @@ class BaseBallGame {
    *
    * @returns {Promise<boolean>}
    */
-  async askUserForReply() {
+  async askUserForReplay() {
     const userInput = await MissionUtils.Console.readLineAsync(
-      '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n',
+      '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'
     );
     if (userInput === '1') {
       return true;

@@ -7,7 +7,7 @@ class App {
     while (this.replay) {
       baseBallGame.reset();
       await baseBallGame.begin();
-      this.replay = await baseBallGame.askUserForReply();
+      this.replay = await baseBallGame.askUserForReplay();
     }
   }
 }
