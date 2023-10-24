@@ -1,11 +1,11 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 
-const SCORE = {
+const SCORE = Object.seal({
   ball: 0, //상수가 아니니 대문자로 쓰는게 아니지 않나?
   strike: 0,
   success: false,
-};
-const MESSAGE = {
+});
+const MESSAGE = Object.freeze({
   START: "숫자 야구 게임을 시작합니다.", //속성 네이밍도 대문자로 해야하나?
   INPUTREQUEST: "숫자를 입력해주세요 :",
   RESTART: "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n",
@@ -14,12 +14,12 @@ const MESSAGE = {
   STRIKE: "스트라이크",
   NOTHING: "낫싱",
   SUCCESS: "3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료",
-};
-function makeRandom() {
-  //makeRandom 함수도 비동기로 처리해야 병렬로 getUserInput 처리 되지 않나?
+});
+const numberCount = 3; //맞추는 숫자갯수
+
+async function makeRandom() {
   const answer = [];
-  while (answer.length < 3) {
-    //숫자 3도 상수니까 변수로 사용해야하나?
+  while (answer.length < numberCount) {
     const number = Random.pickNumberInRange(1, 9);
     if (!answer.includes(number + "")) {
       answer.push(number + "");
@@ -38,21 +38,23 @@ async function getUserInput(message) {
   }
 }
 
-function checkError(number) {
+function isInputValid(number) {
   for (let i = 0; i < number.length; i++) {
+    //지수형태의 숫자열을 막기위해 한글자씩 비교
     if (isNaN(number[i])) {
       return false;
     }
   }
-
-  let set = new Set([...number]); //변수를 뭐라 지을지 모르겠음. 중복없앤숫자?
-  if (set.size !== 3 || number.length !== 3) {
+  if (
+    new Set([...number]).size !== numberCount ||
+    number.length !== numberCount
+  ) {
     return false;
   }
 
   return true;
 }
-function checkedError(number) {
+function isRestartValid(number) {
   if (number === "1" || number === "2") {
     return true;
   }
@@ -60,7 +62,7 @@ function checkedError(number) {
   return false;
 }
 
-function checkValue(answer, number) {
+function calculateScore(answer, number) {
   for (let i = 0; i < answer.length; i++) {
     let index = answer.findIndex((el) => el === number[i]);
 
@@ -78,25 +80,20 @@ function resetScore() {
   SCORE.strike = 0;
 }
 function printResult() {
-  // console.log(SCORE);
-  //해당 SCORE 에 여러 조건에 따라 출력문이 달라지는 거니 해당 조건에대해 출력조건을 작성하는 로직을 분리하고
-  // 그 출력조건에 따라 출력을 달리하는 식으로 switch 문을 써서 가독성을 높인다.
   if (SCORE.ball === 0 && SCORE.strike === 0) {
     Console.print(MESSAGE.NOTHING);
     return;
   }
-  if (SCORE.strike === 3) {
+  if (SCORE.strike === numberCount) {
     Console.print(MESSAGE.SUCCESS);
     SCORE.success = true;
     return;
   }
   if (SCORE.ball && SCORE.strike) {
-    // console.log("ball과 strike");
     let text = `${SCORE.ball}${MESSAGE.BALL} ${SCORE.strike}${MESSAGE.STRIKE}`;
     Console.print(text);
     return;
   }
-  // console.log("ball또는strike");
   let text = SCORE.ball
     ? SCORE.ball + MESSAGE.BALL
     : SCORE.strike + MESSAGE.STRIKE;
@@ -107,15 +104,15 @@ function printResult() {
 class App {
   async play() {
     Console.print(MESSAGE.START);
-    const ANSWER = makeRandom();
+    const ANSWER = await makeRandom();
 
     while (!SCORE.success) {
       let num = await getUserInput(MESSAGE.INPUTREQUEST);
-      if (!checkError(num)) {
+      if (!isInputValid(num)) {
         throw new Error(MESSAGE.ERROR);
       }
 
-      checkValue(ANSWER, num);
+      calculateScore(ANSWER, num);
 
       if (!SCORE.success) {
         resetScore();
@@ -123,7 +120,7 @@ class App {
     }
 
     let number = await getUserInput(MESSAGE.RESTART);
-    if (!checkedError(number)) {
+    if (!isRestartValid(number)) {
       throw new Error(MESSAGE.ERROR);
     }
 
