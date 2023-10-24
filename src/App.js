@@ -3,32 +3,42 @@ import { Random, Console } from '@woowacourse/mission-utils'
 class App {
   #computerNumbers = [];
   #playerAns;
+  #endGame = false;
 
   async play() {
     Console.print('숫자 야구 게임을 시작합니다.');
-    while(this.#computerNumbers.length < 3){
-      const randomNumber = Random.pickNumberInRange(1, 9);
-      if(!this.#computerNumbers.includes(randomNumber)){
-        this.#computerNumbers.push(randomNumber);
-      }
-    }
+    
+    this.#computerNumbers = await this.generateComputerNumbers();
     Console.print(this.#computerNumbers);
 
-    this.#playerAns = await Console.readLineAsync('숫자를 입력해주세요 : ');
-
-    this.inputValidator(this.#playerAns);
-    Console.print(this.#playerAns);
-    this.#playerAns = this.#playerAns.split('').map(Number);
-    
-    const ballCounts = this.checkBallCount();
-    Console.print(ballCounts);
-
-    const ballCountMessage = this.ballCountMessage(ballCounts);
-    Console.print(ballCountMessage);
-    
-    if(ballCounts[0] === 3) {
-      Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+    while(!this.#endGame){
+      this.#playerAns = await Console.readLineAsync('숫자를 입력해주세요 : ');
+  
+      this.inputValidator(this.#playerAns);
+      Console.print(this.#playerAns);
+      this.#playerAns = this.#playerAns.split('').map(Number);
+      
+      const ballCounts = this.checkBallCount();
+      Console.print(ballCounts);
+  
+      const ballCountMessage = this.ballCountMessage(ballCounts);
+      Console.print(ballCountMessage);
+      
+      if(ballCounts[0] === 3) {
+        await this.playAgain();
+      }
     }
+  }
+
+  async generateComputerNumbers() {
+    const randomNumbers = [];
+    while(randomNumbers.length < 3){
+      const num = Random.pickNumberInRange(1, 9);
+      if(!randomNumbers.includes(num)){
+        randomNumbers.push(num);
+      }
+    }
+    return randomNumbers;
   }
 
   // 사용자 입력 유효성 검사
@@ -64,6 +74,24 @@ class App {
     if(out === 3) ballCountMessage += `낫싱`;
     
     return ballCountMessage;
+  }
+
+  async playAgain() {
+    Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+    const playerInput = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
+    if(playerInput === '1') {
+      this.#endGame = false;
+      this.#computerNumbers = [];
+      while(this.#computerNumbers.length < 3){
+        const randomNumber = Random.pickNumberInRange(1, 9);
+        if(!this.#computerNumbers.includes(randomNumber)){
+          this.#computerNumbers.push(randomNumber);
+        }
+      }
+      Console.print(this.#computerNumbers);
+    } else {
+      this.#endGame = true;
+    }
   }
 }
 
