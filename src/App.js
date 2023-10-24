@@ -1,5 +1,4 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-
 class App {
   gameEnd = false;
   random = "";
@@ -64,13 +63,14 @@ class App {
   }
   printScore() {
     if (this.strike === 0 && this.ball == 0) MissionUtils.Console.print("낫띵");
-    if (this.strike) MissionUtils.Console.print(`${this.strike}스트라이크`);
-    if (this.ball) MissionUtils.Console.print(`${this.ball}볼`);
     if (this.strike === 3) {
       this.ball = 0;
       this.strike = 0;
       return true;
     }
+    if (this.strike && this.ball) MissionUtils.Console.print(`${this.ball}볼 ${this.strike}스트라이크`);
+    else if (this.strike) MissionUtils.Console.print(`${this.strike}스트라이크`);
+    else if (this.ball) MissionUtils.Console.print(`${this.ball}볼`);
     this.ball = 0;
     this.strike = 0;
     return false;
@@ -81,7 +81,7 @@ class App {
     );
 
     const restartInput = await this.getNumber(
-      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
     );
     if (restartInput === "2") {
       this.gameEnd = true;
@@ -92,4 +92,6 @@ class App {
 }
 
 export default App;
+const app = new App();
+app.play();
 
