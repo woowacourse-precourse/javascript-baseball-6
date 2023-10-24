@@ -1,5 +1,7 @@
+import { MissionUtils } from "@woowacourse/mission-utils";
+
 /**
- * strikeCount와 ballCount를 입력받아 스트라이크, 볼, 낫싱 여부를 반환한다
+ * strikeCount와 ballCount를 입력받아 정답 여부를 반환한다.
  * 
  * @param {number} strikeCount
  * @param {number} ballCount
@@ -10,8 +12,7 @@ export default function gameResult(strikeCount, ballCount) {
 
   if (strikeCount === 0 && ballCount === 0) {
     MissionUtils.Console.print('낫싱');
-  }
-  if (strikeCount === 0) {
+  } else if (strikeCount === 0) {
     MissionUtils.Console.print(`${ballCount}볼`);
   } else if (ballCount === 0) {
     MissionUtils.Console.print(`${strikeCount}스트라이크`);
@@ -21,7 +22,7 @@ export default function gameResult(strikeCount, ballCount) {
   } else {
     MissionUtils.Console.print(`${ballCount}볼 ${strikeCount}스트라이크`);
   }
-  
+
   return isAnswerCorrect;
 }
 
