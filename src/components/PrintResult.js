@@ -1,6 +1,6 @@
-import * as MissionUtils from "@woowacourse/mission-utils";
+import { MissionUtils } from "@woowacourse/mission-utils";
 
-export default function PrintResult(data) {
+export default function printResult(data) {
   // 볼과 스트라이크가 같이 있을 때
   if (data.ball !== 0 || data.strike !== 0) {
     if (data.strike === 3) {

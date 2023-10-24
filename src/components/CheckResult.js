@@ -1,4 +1,4 @@
-export default function CheckResult(userNumbers, computerNumbers) {
+export default function checkResult(userNumbers, computerNumbers) {
   const data = {
     ball: 0,
     strike: 0,
