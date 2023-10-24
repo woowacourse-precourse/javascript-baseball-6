@@ -15,6 +15,9 @@ class App {
       }
     }
     correctAnswer = answer.join('');
+
+    let input = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
+
   }
 }
 
