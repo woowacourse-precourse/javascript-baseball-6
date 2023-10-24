@@ -1,9 +1,9 @@
-// import { Console, Random } from "@woowacourse/mission-utils";
-// import GameData from "./GameData.js";
-// import { validationNumbers } from "./Validation.js";
-const { Console, Random } = require('@woowacourse/mission-utils');
-const { validationNumbers } = require('./Validation.js');
-const GameData = require('./GameData.cjs');
+import { Console, Random } from "@woowacourse/mission-utils";
+import GameData from "./GameData.js";
+import { validationNumbers } from "./Validation.js";
+// const { Console, Random } = require('@woowacourse/mission-utils');
+// const { validationNumbers } = require('./Validation.js');
+// const GameData = require('./GameData.js');
 
 // ball, strike 확인하는 함수
 function setAnalysis(gameData, userInputs, randomNumbers) {
@@ -98,5 +98,5 @@ async function gameStart() {
   }
 }
 
-// export default gameStart;
-exports.gameStart = gameStart;
+export default gameStart;
+// exports.gameStart = gameStart;

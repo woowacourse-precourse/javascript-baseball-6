@@ -42,5 +42,5 @@ class GameData {
   }
 }
 
-// export default GameData;
-module.exports = GameData;
+export default GameData;
+// module.exports = GameData;
