@@ -1,7 +1,8 @@
 import App from "../src/App.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
 
-const mockQuestions = (inputs) => {
+
+export const mockQuestions = (inputs) => {
   // App.js에서 사용되는 readLineAsync을 jest mock함수로 대체
   MissionUtils.Console.readLineAsync = jest.fn();
   
@@ -12,7 +13,7 @@ const mockQuestions = (inputs) => {
   });
 };
 
-const mockRandoms = (numbers) => {
+export const mockRandoms = (numbers) => {
 
   // App.js의 랜덤 숫자 3개를 뽑는 코드를 mock 함수로 대체 
   MissionUtils.Random.pickNumberInRange = jest.fn();
@@ -54,50 +55,5 @@ describe("숫자 야구 게임", () => {
     });
   });
 
-  test("예외 테스트 길이 체크", async () => {
-    // given
-    const randoms = [1, 3, 5];
-    const answers = ["1234"];
-
-    mockRandoms(randoms);
-    mockQuestions(answers);
-
-    // when & then
-    const app = new App();
-
-    await expect(app.play()).rejects.toThrow("[ERROR] 입력한 문자의 길이는 3이어야 합니다.");
-  });
-
-
-
-  test('예외 테스트 입력값 숫자 확인', async() => { 
-    //given
-    const randoms = [1,3,5]
-    const answers = ["r12"]
-
-    mockRandoms(randoms);
-    mockQuestions(answers);
-
-    // when & then
-    const app = new App();
-
-    await expect(app.play()).rejects.toThrow("[ERROR] 1~9 사이의 양수만 입력 가능합니다.");
-
-   })
-
-
-   test('예외 테스트 숫자 중복 입력 확인', async() => { 
-    //given
-    const randoms = [1,3,5]
-    const answers = ["112"]
-
-    mockRandoms(randoms);
-    mockQuestions(answers);
-
-    // when & then
-    const app = new App();
-
-    await expect(app.play()).rejects.toThrow("[ERROR] 중복된 수를 입력했습니다. 각기 다른 수를 입력해주세요.");
-
-   })
 });
+

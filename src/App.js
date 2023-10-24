@@ -1,6 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
-const MESSAGE = {
+export const MESSAGE = {
   START: "숫자 야구 게임을 시작합니다.",
   TYPING: "숫자를 입력해주세요 : ",
   ANSWER: "3스트라이크",
@@ -9,7 +9,7 @@ const MESSAGE = {
 }
 
 
-const ERROR_MESSAGE = {
+export const ERROR_MESSAGE = {
   LENGTH: "[ERROR] 입력한 문자의 길이는 3이어야 합니다.",
   NUMBER: "[ERROR] 1~9 사이의 양수만 입력 가능합니다.",
   IS_RESTART : "[ERROR] 게임의 재시작 종료를 위해서는 1 혹은 2만 입력해주세요.",
@@ -81,6 +81,7 @@ class App {
       this.computerNumber = this.makeRandomComputerNumber();
        await this.playUser()
     }
+
   }
 
   checkOutputError(str){
@@ -94,5 +95,6 @@ class App {
 
 const app = new App();
 //app.play();
+
 
 export default App;
