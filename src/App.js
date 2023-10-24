@@ -8,23 +8,21 @@ function hasDuplicates(array) {
 class App {
     // Get Input Number
     async getNumber() {
-        try {
-            const inputString = await Console.readLineAsync(
-                "숫자를 입력해주세요 : "
-            );
-            const inputNumber = inputString.split("").map(Number);
-            // Check duplicate
-            if (hasDuplicates(inputNumber)) {
-                throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
-            }
-            // Check length
-            if (inputNumber.length !== 3) {
-                throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
-            }
-            return inputNumber;
-        } catch (error) {
-            //
+        const inputString = await Console.readLineAsync(
+            "숫자를 입력해주세요 : "
+        );
+        const inputNumber = inputString.split("").map(Number);
+
+        // Check duplicate and length
+        if (
+            hasDuplicates(inputNumber) ||
+            inputNumber.length !== 3 ||
+            inputNumber.includes(0)
+        ) {
+            throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
         }
+
+        return inputNumber;
     }
 
     // Create Answer Numbers
@@ -65,51 +63,58 @@ class App {
                 return false;
             } else {
                 throw new Error("[ERROR] 잘못된 입력입니다.");
+                return true;
             }
         } catch (error) {
-            //
+            console.error(error.message);
+            return false;
         }
     }
 
     async play() {
-        console.log("숫자 야구 게임을 시작합니다.");
+        Console.print("숫자 야구 게임을 시작합니다.");
 
         while (true) {
             const answerNumber = this.makeAnswerNumber();
-            console.log(answerNumber);
+            Console.print("answerNumber", answerNumber);
             let inputNumber = null;
 
             while (true) {
                 // Get input number
-                const inputNumber = await this.getNumber();
+                inputNumber = await this.getNumber();
+
+                // Check input number
+                if (inputNumber === null) {
+                    break;
+                }
 
                 // Get strike, ball count
                 const { strikeCount, ballCount } = this.getStrikeAndBallCount(
                     answerNumber,
                     inputNumber
                 );
+
                 if (strikeCount === 3) {
-                    console.log("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+                    Console.print("3스트라이크");
+                    Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
                     const isReplay = await this.isReplay();
                     if (!isReplay) {
-                        return; // 게임 종료
+                        // End Game
+                        return;
                     }
                     break;
-                } else if (strikeCount === 0 && ballCount === 0) {
-                    console.log("낫싱");
                 } else if (strikeCount > 0 && ballCount > 0) {
-                    console.log(`${strikeCount} 스트라이크 ${ballCount} 볼`);
+                    Console.print(`${ballCount}볼 ${strikeCount}스트라이크`);
                 } else if (strikeCount > 0) {
-                    console.log(`${strikeCount} 스트라이크`);
+                    Console.print(`${strikeCount}스트라이크`);
                 } else if (ballCount > 0) {
-                    console.log(`${ballCount} 볼`);
+                    Console.print(`${ballCount}볼`);
+                } else if (strikeCount === 0 && ballCount === 0) {
+                    Console.print("낫싱");
                 }
             }
         }
     }
 }
-
-const app = new App();
-app.play();
 
 export default App;
