@@ -2,7 +2,7 @@ import { Console, Random } from "@woowacourse/mission-utils";
 
 class App {
   constructor() {
-    this.answer;
+    this.answer = [];
     this.strike = 0;
     this.ball = 0;
     this.playState = true;
@@ -10,34 +10,41 @@ class App {
   async play() {
     Console.print('숫자 야구 게임을 시작합니다.');
     this.answer = this.randomNumbersArray();
-    //Console.print(`정답은 : ${this.answer}`);
 
     while (this.playState) {
       const userInput = await Console.readLineAsync('숫자를 입력해주세요 :');
       this.checkUserInput(userInput);
       this.calculateGameResult(this.answer, userInput);
 
-      if (this.playState) {
-        Console.print(this.printGameResult(this.strike, this.ball))
+      Console.print(await this.printGameResult(this.strike, this.ball));
+
+      if (this.strike !== 3) {
         this.ball = 0;
         this.strike = 0;
       } else {
-        Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료 ');
-        if (await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.') === '1') {
+        Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+        const userAnswer = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+        if (userAnswer === '1') {
           this.answer = this.randomNumbersArray();
-          this.playState = true;
           this.strike = 0;
           this.ball = 0;
+          continue;
+        } else if (userAnswer === '2') {
+          break;
         }
       }
-
     }
-
-
   }
 
   randomNumbersArray() {
-    return Random.pickUniqueNumbersInRange(1, 9, 3);
+    const computer = [];
+    while (computer.length < 3) {
+      const number = Random.pickNumberInRange(1, 9);
+      if (!computer.includes(number)) {
+        computer.push(number);
+      }
+    }
+    return computer;
   }
 
   checkUserInput(userInput) {
@@ -47,11 +54,8 @@ class App {
   }
 
   calculateGameResult(answer, userInput) {
-
     if (answer.join('') === userInput) {
       this.strike = 3;
-      this.playState = false;
-      return
     } else {
       answer.forEach((answerElement, index) => {
         if (answerElement === Number(userInput[index])) {
@@ -64,12 +68,10 @@ class App {
           })
         }
       })
-      this.playState = true;
     }
-
   }
 
-  printGameResult(strike, ball) {
+  async printGameResult(strike, ball) {
     let resultStr = '';
 
     if (strike === 0 && ball === 0) {
