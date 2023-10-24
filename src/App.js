@@ -27,6 +27,12 @@ class App {
   }
 
   async check(userInput) {
+    if (typeof userInput !== 'number') {
+      throw new Error(
+        `invalid userInput type userInput : ${userInput}, type of input : ${typeof userInput}`
+      );
+    }
+
     if ([...String(userInput)].length !== 3)
       throw new Error('[ERROR] 3자리 숫자만 입력해주세요');
 
