@@ -14,6 +14,8 @@ class App {
       if(result === '3스트라이크') {
         isGameOver = false;
         Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+      
+        await this.reStartOrExit()
       }
     }
   }
@@ -57,6 +59,10 @@ class App {
     let strike = 0;
     let ball = 0;
 
+    if(!user || !computer ){
+      throw new Error('[ERROR] 값이 비어 있습니다.')
+    }
+
     for(let i=0; i<3; i++) {
       if(computer[i] === +user[i]){
         strike ++
@@ -73,6 +79,18 @@ class App {
       return `${ball}볼 ${strike}스트라이크`; 
     }
 
+  }
+
+  async reStartOrExit() {
+    const result = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+
+    if(result === "1") {
+      this.play()
+    }else if(result === "2") {
+      return
+    }else{
+      throw Error("[Error] 1이나 2만 입력해주세요.")
+    }
   }
 }
 
