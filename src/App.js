@@ -1,5 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import { TEXT, PROGRAM_STATUS } from "./constants.js"
+import { TEXT, PROGRAM_STATUS } from "./constants.js";
 
 class App {
   async play() {
@@ -31,62 +31,56 @@ async function computerNumber() {
 async function getUserInput(computer) {
   let code = PROGRAM_STATUS.KEEP;
   while (code == PROGRAM_STATUS.KEEP) {
-    try {
-      const userInput = await MissionUtils.Console.readLineAsync(
-        "숫자를 입력해주세요 : "
-      );
-      await checkUserValidation(userInput);
-      code = await checkInput(userInput, computer);
-    } catch (error) {
-      throw error;
-    }
+    const userInput = await MissionUtils.Console.readLineAsync(
+      "숫자를 입력해주세요 : "
+    );
+    await checkUserValidation(userInput);
+    code = await checkInput(userInput, computer);
   }
   return code;
 }
 
 async function checkInput(userInput, computer) {
-  try {
-    const states = [0, 0, 0];
-    for (let i = 0; i < 3; i++) {
-      for (let j = 0; j < 3; j++) {
-        if (userInput[i] == computer[j]) {
-          if (i == j) {
-            states[TEXT.STRIKE]++;
-          } else {
-            states[TEXT.BALL]++;
-          }
-          break;
+  const states = [0, 0, 0];
+  for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 3; j++) {
+      if (userInput[i] == computer[j]) {
+        if (i == j) {
+          states[TEXT.STRIKE]++;
+        } else {
+          states[TEXT.BALL]++;
         }
-        if (j == 2) {
-          states[TEXT.NOTHING]++;
-        }
+        break;
+      }
+      if (j == 2) {
+        states[TEXT.NOTHING]++;
       }
     }
-    if (states[TEXT.NOTHING] == 3) {
-      await MissionUtils.Console.print("낫싱");
-      return 3;
-    } else if (states[TEXT.STRIKE] == 3) {
-      await MissionUtils.Console.print(`${states[0]}스트라이크`);
-      await MissionUtils.Console.print(
-        "3개의 숫자를 모두 맞히셨습니다! 게임 종료"
-      );
-      const reGameCodeInput = await MissionUtils.Console.readLineAsync(
-        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
-      );
-      await checkReGameValidation(reGameCodeInput);
-      return reGameCodeInput;
+  }
+  if (states[TEXT.NOTHING] == 3) {
+    await MissionUtils.Console.print("낫싱");
+    return 3;
+  } else if (states[TEXT.STRIKE] == 3) {
+    await MissionUtils.Console.print(`${states[0]}스트라이크`);
+    await MissionUtils.Console.print(
+      "3개의 숫자를 모두 맞히셨습니다! 게임 종료"
+    );
+    const reGameCodeInput = await MissionUtils.Console.readLineAsync(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+    );
+    await checkReGameValidation(reGameCodeInput);
+    return reGameCodeInput;
+  } else {
+    if (states[TEXT.STRIKE] == 0) {
+      await MissionUtils.Console.print(`${states[TEXT.BALL]}볼`);
+    } else if (states[TEXT.BALL] == 0) {
+      await MissionUtils.Console.print(`${states[TEXT.STRIKE]}스트라이크`);
     } else {
-      if (states[TEXT.STRIKE] == 0) {
-        await MissionUtils.Console.print(`${states[TEXT.BALL]}볼`);
-      } else if (states[TEXT.BALL] == 0) {
-        await MissionUtils.Console.print(`${states[TEXT.STRIKE]}스트라이크`);
-      } else {
-        await MissionUtils.Console.print(`${states[TEXT.BALL]}볼 ${states[TEXT.STRIKE]}스트라이크`);
-      }
-      return 3;
+      await MissionUtils.Console.print(
+        `${states[TEXT.BALL]}볼 ${states[TEXT.STRIKE]}스트라이크`
+      );
     }
-  } catch (error) {
-    throw error;
+    return 3;
   }
 }
 
