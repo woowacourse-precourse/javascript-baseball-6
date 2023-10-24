@@ -2,7 +2,7 @@ import { ERROR } from '../core/Constants';
 
 import ErrorCase from './ErrorCase';
 
-class GameCondition extends ErrorCase {
+class NumberValidation extends ErrorCase {
   #inputValue;
   constructor(value) {
     super();
@@ -10,22 +10,22 @@ class GameCondition extends ErrorCase {
   }
 
   checkAllException() {
-    if (!(this.checkOneOrTwo() && this.checkLength())) {
+    if (!(this.checkLength() && this.checkInteger())) {
       throw ERROR.INVALID_NUMBER;
     }
   }
 
-  checkOneOrTwo() {
-    return this.changeTypeForNum() === 1 || this.changeTypeForNum() === 2;
+  checkInteger() {
+    return Number.isInteger(this.changeStrToNum());
   }
 
   checkLength() {
-    return this.#inputValue.length === 1;
+    return this.#inputValue.length === 3;
   }
 
-  changeTypeForNum() {
+  changeStrToNum() {
     return Number(this.#inputValue);
   }
 }
 
-export default GameCondition;
+export default NumberValidation;

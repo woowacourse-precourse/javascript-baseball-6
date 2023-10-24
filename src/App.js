@@ -4,14 +4,15 @@ import { COMMAND } from '../core/Constants';
 
 import RandomNumber from '../core/RandomNumber';
 import Baseball from '../core/Baseball';
-import Exception from '../Exception/Root';
+import NumberValidation from '../Exception/NumberValidation';
 import GameCondition from '../Exception/GameCondition';
+import ErrorCase from '../Exception/ErrorCase';
 
 class App {
   #exception;
 
   constructor() {
-    this.#exception = Exception;
+    this.#exception = new ErrorCase();
   }
 
   print(message) {
@@ -35,7 +36,7 @@ class App {
     try {
       const userFeedback = await Console.readLineAsync(COMMAND.RESTART);
 
-      this.#exception.checkAllException(userFeedback);
+      this.#exception.checkAllError(new NumberValidation(userFeedback));
       this.print(Baseball.announceGameOutcome(random, userFeedback));
 
       if (Baseball.isStrikeOut(random, userFeedback)) {
@@ -54,7 +55,7 @@ class App {
       this.end();
       const ask = await Console.readLineAsync(COMMAND.ASK);
 
-      GameCondition.checkAllError(ask);
+      this.#exception.checkAllError(new GameCondition(ask));
       this.print(ask);
 
       if (ask === COMMAND.RESTART) {
