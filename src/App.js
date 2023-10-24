@@ -33,14 +33,30 @@ class App {
         computer.push(number);
       }
     }
-    return computer
+    return computer;
+  }
+
+  compareNum(userInput, computerNum) {
+    let strike = 0;
+    let ball = 0;
+
+    for (let i = 0; i < 3; i++) {
+      if (userInput[i] == computerNum[i]) {
+        strike++;
+      } else if (computerNum.includes(Number(userInput[i]))) {
+        ball++;
+      }
+    }
+    return { strike, ball };
   }
 
   async play() {
     Console.print('숫자 야구 게임을 시작합니다.');
-
+    
     const userInput = await this.getUserInput();
     const computerNum = this.getComputerNum();
+    
+    const { strike, ball } = this.compareNum(userInput, computerNum);
   }
 }
 
