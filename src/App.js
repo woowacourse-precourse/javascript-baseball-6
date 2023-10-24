@@ -12,8 +12,8 @@ class App {
 
   async play() {
     Console.print('숫자 야구 게임을 시작합니다.');
-    let isStartGame = true;
-    while (isStartGame) {
+    let isGameStarting = true;
+    while (isGameStarting) {
       const computerNumber = this.pickRandomNumber();
       let isCorrectAnswer = false;
 
@@ -24,21 +24,8 @@ class App {
           userSelectedNumber
         );
 
-        let resultString = '';
-
-        if (ballCounter !== 0) {
-          resultString += `${ballCounter}볼 `;
-        }
-
-        if (strikeCounter !== 0) {
-          resultString += `${strikeCounter}스트라이크`;
-        }
-
-        if (resultString.length === 0) {
-          resultString += '낫싱';
-        }
-
-        Console.print(resultString.trim());
+        const resultString = this.getResultString(ballCounter, strikeCounter);
+        Console.print(resultString);
 
         if (strikeCounter === 3) {
           Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
@@ -47,9 +34,8 @@ class App {
       }
 
       const isGameRestarting = await this.restartGame();
-
       if (!isGameRestarting) {
-        isStartGame = false;
+        isGameStarting = false;
       }
     }
   }
@@ -105,6 +91,20 @@ class App {
       }
     }
     return { strikeCounter, ballCounter };
+  }
+
+  getResultString(ballCounter, strikeCounter) {
+    let gameResult = '';
+    if (ballCounter !== 0) {
+      gameResult += `${ballCounter}볼 `;
+    }
+    if (strikeCounter !== 0) {
+      gameResult += `${strikeCounter}스트라이크`;
+    }
+    if (gameResult.length === 0) {
+      gameResult += '낫싱';
+    }
+    return gameResult.trim();
   }
 }
 
