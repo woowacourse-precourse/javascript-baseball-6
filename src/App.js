@@ -1,37 +1,38 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
-// to-do: playAgain is undefined
+// TODO: airbnb 컨벤션 적용
 
 class App {
 	constructor() {
-		this.playAgain = true; // playAgain 변수를 클래스 레벨에서 정의
+		// PLAY_AGAIN 변수를 클래스 레벨에서 정의
+		this.PLAY_AGAIN = true;
 	}
 
 	async play() {
 		MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
 
-		while (this.playAgain) {
+		while (this.PLAY_AGAIN) {
 			await this.playGame();
 		}
 	}
 
 	async askForRestart() {
-		const userInput = await MissionUtils.Console.readLineAsync(
+		const USER_INPUT = await MissionUtils.Console.readLineAsync(
 			"게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요: "
 		);
 		await MissionUtils.Console.print(
 			"게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
 		);
-		await MissionUtils.Console.print(userInput);
+		await MissionUtils.Console.print(USER_INPUT);
 
-		if (userInput == "2") {
+		if (USER_INPUT == 2) {
 			MissionUtils.Console.print("게임을 종료합니다.");
-			this.playAgain = false;
-		} else if (userInput == "1") {
+			this.PLAY_AGAIN = false;
+		} else if (USER_INPUT == 1) {
 			await this.play();
 		}
 
-		return userInput;
+		return USER_INPUT;
 	}
 
 	async playGame() {
@@ -46,16 +47,16 @@ class App {
 
 			await MissionUtils.Console.print(
 				"사용자 입력값: " + userNumberArr.join("")
-			); // 사용자 입력값 출력
+			);
 
 			result = await this.printResult(
-				getResult.strike,
-				getResult.nothing,
-				getResult.ball
+				getResult.STRIKE,
+				getResult.NOTHING,
+				getResult.BALL
 			);
 
 			await MissionUtils.Console.print(result); // 결과값 출력
-		} while (getResult.strike !== 3 && userNumberArr.length == 3);
+		} while (getResult.STRIKE !== 3 && userNumberArr.length === 3);
 
 		await MissionUtils.Console.print(
 			"3개의 숫자를 모두 맞히셨습니다! 게임 종료"
@@ -65,17 +66,17 @@ class App {
 
 	async getUserNumber() {
 		try {
-			const userNumber = await MissionUtils.Console.readLineAsync(
+			const USER_NUMBER = await MissionUtils.Console.readLineAsync(
 				"숫자를 입력해주세요 : "
 			);
 
-			if (userNumber.length !== 3) {
-				await MissionUtils.Console.print(userNumber);
+			if (USER_NUMBER.length !== 3) {
+				await MissionUtils.Console.print(USER_NUMBER);
 				throw new Error("[ERROR]");
 			}
 
 			// 배열로 담는 이유는 computerNumber 배열과 하나씩 비교하기 위함
-			const userNumberArr = [...userNumber].map((x) => Number(x));
+			const userNumberArr = [...USER_NUMBER].map((x) => Number(x));
 			return userNumberArr;
 		} catch (error) {
 			throw error;
@@ -94,35 +95,35 @@ class App {
 	}
 
 	async compareNumbers(userNumberArr, computerNumber) {
-		let strike = 0;
-		let nothing = 0;
-		let ball = 0;
+		let STRIKE = 0;
+		let NOTHING = 0;
+		let BALL = 0;
 
 		for (let i = 0; i < 3; i++) {
-			if (userNumberArr[i] == computerNumber[i]) {
-				strike += 1;
+			if (userNumberArr[i] === computerNumber[i]) {
+				STRIKE += 1;
 			} else {
-				nothing += 1;
+				NOTHING += 1;
 			}
 			for (let j = 0; j < 3; j++) {
-				if (userNumberArr[i] == computerNumber[j] && i != j) {
-					ball += 1;
+				if (userNumberArr[i] === computerNumber[j] && i !== j) {
+					BALL += 1;
 				}
 			}
 		}
-		return { strike, nothing, ball };
+		return { STRIKE, NOTHING, BALL };
 	}
 
-	async printResult(strike, nothing, ball) {
+	async printResult(STRIKE, NOTHING, BALL) {
 		let result;
-		if (nothing == 3) {
+		if (NOTHING === 3) {
 			result = "낫싱";
-		} else if (strike == 0) {
-			result = ball + "볼";
-		} else if (ball == 0) {
-			result = strike + "스트라이크";
+		} else if (STRIKE === 0) {
+			result = BALL + "볼";
+		} else if (BALL === 0) {
+			result = STRIKE + "스트라이크";
 		} else {
-			result = ball + "볼 " + strike + "스트라이크";
+			result = BALL + "볼 " + STRIKE + "스트라이크";
 		}
 		return result;
 	}
