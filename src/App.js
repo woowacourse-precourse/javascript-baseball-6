@@ -10,6 +10,9 @@ class App {
     this.computerNumber = [];
     this.userNumber = [];
     this.GAMEMODE = 1;
+    this.NUMBERLENGTH = 3;
+    this.MINNUMBER = 1;
+    this.MAXNUMBER = 9;
   }
 
   startText() {
@@ -18,8 +21,8 @@ class App {
 
   computerNumberSet() {
     this.computerNumber = [];
-    while (this.computerNumber.length < 3) {
-      const number = Random.pickNumberInRange(1, 9);
+    while (this.computerNumber.length < this.NUMBERLENGTH) {
+      const number = Random.pickNumberInRange(this.MINNUMBER, this.MAXNUMBER);
       if (!this.computerNumber.includes(number)) {
         this.computerNumber.push(number);
       }
@@ -28,18 +31,16 @@ class App {
 
   async userNumberSet() {
     this.userNumber = [];
-    let userInput;
+
     try {
-      userInput = await Console.readLineAsync("숫자를 입력해주세요 : ");
-      if (!+userInput) {
-        throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+      const userInput = await Console.readLineAsync("숫자를 입력해주세요 : ");
+      for (let i = 0; i < 3; i++) {
+        this.userNumber.push(+userInput[i]);
       }
+      this.validation(userInput);
     } catch (error) {
       Console.print(error.message);
       throw error;
-    }
-    for (let i = 0; i < 3; i++) {
-      this.userNumber.push(+userInput[i]);
     }
   }
 
@@ -68,17 +69,34 @@ class App {
   }
 
   async restart() {
-    if (this.STRIKE === 3) {
-      Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
-      const mode = await Console.readLineAsync(
-        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
-      );
-      this.GAMEMODE = +mode;
-      if (this.GAMEMODE === 1) {
-        this.computerNumberSet();
-      }
+    Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
+    const mode = await Console.readLineAsync(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+    );
+    this.GAMEMODE = +mode;
+    if (this.GAMEMODE === 1) {
+      this.computerNumberSet();
     }
   }
+
+  validation(userInput) {
+    if (userInput.length !== this.NUMBERLENGTH || !+userInput) {
+      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+    }
+    if (!+userInput) {
+      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+    }
+    for (let i = 0; i < 3; i++) {
+      if (+userInput[i] < this.MINNUMBER || +userInput[i] > this.MAXNUMBER) {
+        throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+      }
+    }
+    let uniqueNumber = new Set(this.userNumber);
+    if (uniqueNumber.size !== this.NUMBERLENGTH) {
+      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+    }
+  }
+
   async play() {
     this.startText();
     this.computerNumberSet();
@@ -86,7 +104,9 @@ class App {
       await this.userNumberSet();
       this.numberCompare();
       this.result();
-      await this.restart();
+      if (this.STRIKE === this.NUMBERLENGTH) {
+        await this.restart();
+      }
     }
   }
 }
