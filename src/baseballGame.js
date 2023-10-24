@@ -32,6 +32,7 @@ class BaseballGame {
 
   showCountResult() {
     const numberOfStrikes = this.getNumberOfStrikes();
+    const numberOfBalls = this.getNumberOfBalls();
   }
 
   getNumberOfStrikes() {
@@ -41,6 +42,15 @@ class BaseballGame {
         numberOfStrikes += 1;
     });
     return numberOfStrikes;
+  }
+
+  getNumberOfBalls() {
+    let numberOfBalls = 0;
+    this.computerNumber.forEach((digit, idx) => {
+      if (this.userNumber.includes(digit) && this.computerNumber[idx] !== this.userNumber[idx])
+        numberOfBalls += 1;
+    });
+    return numberOfBalls;
   }
 }
 
