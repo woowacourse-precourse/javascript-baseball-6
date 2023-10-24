@@ -2,8 +2,8 @@ import { MissionUtils, Console } from "@woowacourse/mission-utils";
 
 class App {
   async play() {
-    gameStart();
-    gameProgress();
+    const computer = gameStart();
+    gameProgress(computer);
   }
 }
 
@@ -24,36 +24,68 @@ const gameStart = () => {
 };
 
 // 2. 게임 진행
-const gameProgress = async () => {
+const gameProgress = async (computer) => {
   // 2-1. 사용자의 입력값 받기
   const input = await Console.readLineAsync("숫자를 입력해주세요 : ");
+  const user = [...input];
+
   // 2-1-(1). 예외처리
-  inputValidation(input);
+  inputValidation(user);
+
+  // 2-2. 컴퓨터의 랜덤값과 사용자의 입력값 비교
+  let ball = 0;
+  let strike = 0;
+  for (let i in user) {
+    if (computer.includes(Number(user[i]))) {
+      if (Number(user[i]) === computer[i]) {
+        strike++;
+      } else ball++;
+    }
+  }
+
+  // 2-3. 결과 문구 출력
+  if (strike === 3) {
+    Console.print(`3스트라이크`);
+    return;
+  } else {
+    let hint = "";
+    if (ball === 0 && strike === 0) {
+      hint += "낫싱";
+    } else {
+      if (ball !== 0) {
+        hint += `${ball}볼 `;
+      }
+      if (strike !== 0) {
+        hint += `${strike}스트라이크`;
+      }
+    }
+    Console.print(hint.trim());
+    gameProgress(computer);
+  }
 };
 
 // 사용자 입력값에 대한 예외 처리
-const inputValidation = (input) => {
-  const inputArr = [...input];
-  const answerArr = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+const inputValidation = (user) => {
+  const answer = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
   // 공백 여부
-  if (inputArr.includes(" ")) {
+  if (user.includes(" ")) {
     throw new Error("[ERROR] 공백이 포함되어 있습니다.");
   }
   // 숫자
-  for (let i of inputArr) {
-    if (!answerArr.includes(i)) {
+  for (let i of user) {
+    if (!answer.includes(i)) {
       console.log("i: ", i);
       throw new Error("[ERROR] 1 ~ 9 사이의 숫자만 입력해 주세요.");
     }
   }
   // 길이
-  if (inputArr.length !== 3) {
+  if (user.length !== 3) {
     throw new Error("[ERROR] 3개의 숫자를 입력해 주세요.");
   }
   // 서로 다른 숫자
   let check = [];
-  for (let i of inputArr) {
+  for (let i of user) {
     if (check.includes(i)) {
       throw new Error("[ERROR] 서로 다른 숫자를 입력해 주세요.");
     } else {
