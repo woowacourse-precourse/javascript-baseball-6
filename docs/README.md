@@ -220,7 +220,7 @@ Print.resultsFrom({ ball:, strike:0 })// 낫싱
 
 ### `runEndMessage()`
 
--`Run.play()`가 끝났을 때 나오는 문구가 출력
+- `Run.play()`가 끝났을 때 나오는 문구가 출력
 
 ## Is
 
@@ -244,7 +244,6 @@ Is.gameOverBy({ball:0,strike:3}); // true
 Is.gameOverBy({ball:1,strike:0}); // false
 ```
 
-
 ### `tryAgainBy(inputString)`
 
 `inputString`이 ‘1’이면 true, ‘2’면 false 반환
@@ -254,3 +253,87 @@ Is.gameOverBy({ball:1,strike:0}); // false
 `inputString`
 
 '1'이나 '2'
+
+
+## ErrorCheck
+
+매개변수에 따라 예외를 반환하는 함수들
+
+
+### `listString(string)`
+
+- 숫자야구의 list가 될 수 있는 문자열인지 확인해, 될 수 없는 문자열인 경우우 예외를 던짐
+
+**매개변수**
+
+`string`
+숫자야구의 list로 변환하고 싶은 문자열
+
+**예외**
+
+1.문자열의 길이가 3이거나
+2.중복된 문자가 문자열 안에 존재하거나
+3.문자열 내의 문자가 UTF-16기준 49미만, 57초과('1'~'9')인 경우
+예외를 던짐
+
+```jsx
+ErrorCheck.listString('123'); // no error
+ErrorCheck.listString('333'); // [ERROR] Wrong List
+```
+
+### `string1Or2(string)`
+- 문자열을 인자로 받아 인자가 '1'이나 '2'인지 확인해, 두 문자열이 아니면 예외를 던짐
+- Errocheck의 `arrayLikeLength(string,1)`와 `ErrorCheck.stringRangeByCharCode(string, 49, 50)`로도 구현 가능
+
+```jsx
+ErrorCheck.string1or2('1'); // no error
+ErrorCheck.string1or2('4'); // [ERROR] Not '1' or '2'
+```
+
+### `arrayLikeLength(arrayLike, length)`
+- 유사배열객체의 길이가 `length`와 같은지 확인해 길이가 다르면 예외를 던짐
+- 문자열도 유사배열객체이므로 arrayLike에 넣을 수 있음
+
+**매개변수**
+`arrayLike`
+길이를 확인할 유사배열객체
+`length`
+배열의 길이와 비교할 수
+```jsx
+ErrorCheck.arrayLikeLength('123',3); // no error
+ErrorCheck.arrayLikeLength([1],3); // [ERROR] Wrong Length
+```
+
+### `sameElementInArray(array)`
+- 배열 안에 중복된 요소가 있는지 확인해, 중복된 요소가 있으면 예외를 던짐
+- 문자열은 배열이 아니므로, `[...string]`과 같이 변환하여 사용
+
+```jsx
+ErrorCheck.sameElementInArray([1,2,3]); // no error
+ErrorCheck.sameElementInArray([...'111']); // [ERROR] Same element in Array
+```
+
+### `stringRangeByCharCode(string, lower, maximum)`
+- 문자열 안에 utf-16 기준 lower **미만**, maximum **초과**의 문자가 있다면 예외를 던짐
+- 아스키코드와 호환 가능
+
+**매개변수**
+`string`
+확인할 문자열
+`lower`,`maximum`
+문자를 확인할 utf-16 기준 하한, 상한
+```jsx
+ErrorCheck.stringRangeByCharCode('123', 49, 57);
+// '1':49 '9':57
+// no error
+ErrorCheck.sameElementInArray('123', 52,57); // [ERROR] Out of Character Range
+```
+
+### `otherErrorFormat(error)`
+- 다른 이유 등 예외를 Play의 예외형식인 "[ERROR]" 가 앞에 있는 예외로 바꿔 던짐
+**매개변수**
+`error`
+"[ERROR]"가 붙지 않은 Error 객체
+```jsx
+ErrorCheck.otherErrorFormat(new Error('so sad'));// [ERROR] so sad
+```
