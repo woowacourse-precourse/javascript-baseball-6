@@ -9,12 +9,7 @@ class App {
       let isCorrectAnswer = false;
 
       while (!isCorrectAnswer) {
-        const userSelectedNumber = await Console.readLineAsync(
-          '숫자를 입력해주세요 : '
-        );
-        if (!this.isValidNumber(userSelectedNumber)) {
-          throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
-        }
+        const userSelectedNumber = await this.getUserNumber();
         const { strikeCounter, ballCounter } = this.compareNumber(
           computerNumber,
           userSelectedNumber
@@ -48,6 +43,14 @@ class App {
         isStartGame = false;
       }
     }
+  }
+
+  async getUserNumber() {
+    const userNumber = await Console.readLineAsync('숫자를 입력해주세요 : ');
+    if (!this.isValidNumber(userNumber)) {
+      throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+    }
+    return userNumber;
   }
 
   async restartGame() {
