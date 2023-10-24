@@ -10,7 +10,6 @@ function pickRandomNumber(array) {
 }
 
 async function start() {
-  Console.print("숫자 야구 게임을 시작합니다.");
   return await Console.readLineAsync("숫자를 입력해주세요 : ");
 }
 
@@ -64,6 +63,8 @@ class App {
     let strikeCount = 0;
     let ballCount = 0;
 
+    Console.print("숫자 야구 게임을 시작합니다.");
+
     while (Number(resetCode) !== 2) {
       inputArray = [];
       pickRandomNumber(randomArray);
@@ -82,8 +83,12 @@ class App {
 
         resetCode = await finish();
         randomArray = [];
-      } else if (strikeCount > 0 || ballCount > 0) {
+      } else if (strikeCount > 0 && ballCount > 0) {
         Console.print(ballCount + "볼 " + strikeCount + "스트라이크");
+      } else if (strikeCount > 0) {
+        Console.print(strikeCount + "스트라이크");
+      } else if (ballCount > 0) {
+        Console.print(ballCount + "볼");
       } else {
         Console.print("낫싱");
       }
