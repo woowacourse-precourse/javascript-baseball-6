@@ -27,10 +27,11 @@ class App {
     this.userBaseballNumber = userInput.split('').map(Number);
   }
 
+
+
   isValidUserInput(userInput) {
 
-    const nonNumericRegex = /^\D+$/;
-    if (nonNumericRegex.test(userInput)) {
+    if (this.isNotNumbers(userInput)) {
       throw new Error('[ERROR] 입력값은 숫자가 아닙니다.');
     }
 
@@ -46,11 +47,20 @@ class App {
       throw new Error('[ERROR] 3자리를 입력해주세요');
     }
 
-    const userInputArray = userInput.split('');
-    if (userInputArray.length !== new Set(userInputArray).size) {
+
+    if (this.hasSameNumber(userInput)) {
       throw new Error('[ERROR] 중복된 숫자가 있습니다.');
     }
+  }
 
+  isNotNumbers(userInput) {
+    const nonNumericRegex = /^\D+$/;
+    return nonNumericRegex.test(userInput);
+  }
+
+  hasSameNumber(userInput) {
+    const userInputArray = userInput.split('');
+    return userInputArray.length !== new Set(userInputArray).size;
   }
 
   countMatchingNumbers() {
