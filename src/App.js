@@ -27,7 +27,7 @@ class App {
     if (input.length !== App.NUMBERS_LENGTH)
       throw new Error("[ERROR] 입력값은 3자리 숫자만 가능합니다.");
 
-    const uniqueChars = new Set(input.split(""));
+    const uniqueChars = new Set([...input]);
     if (uniqueChars.size !== input.length) {
       throw new Error("[ERROR] 중복되지 않는 3자리 숫자를 입력해주세요.");
     }
