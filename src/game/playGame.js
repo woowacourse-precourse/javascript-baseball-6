@@ -34,7 +34,7 @@ const askGameAgain = async () => {
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
     );
     if (answer === "1") {
-      return await initalStartGame();
+      return await initialStartGame();
     }
     if (answer === "2") {
       MissionUtils.Console.print("게임종료");
@@ -56,9 +56,9 @@ const startGame = async (computerNumbers) => {
   await startGame(computerNumbers);
 };
 
-const initalStartGame = async () => {
+const initialStartGame = async () => {
   const computerNumbers = await getComputerNumber();
   await startGame(computerNumbers);
 };
 
-export default initalStartGame;
+export default initialStartGame;
