@@ -7,13 +7,12 @@ export const NOTIFICATION_MESSAGE = Object.freeze({
   gameRetry: '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n',
 });
 
+const ERROR_PREFIX = '[ERROR]';
+
 export const ERROR_MESSAGE = Object.freeze({
-  notAValidNumber:
-    '[ERROR] 입력한 값이 유효한 값이 아닙니다. 1 - 9 까지의 값을 입력해주세요',
-  notAValidNumberLength:
-    '[ERROR] 입력한 값이 유효한 값이 아닙니다. 중복되지 않는 3개의 숫자를 입력해주세요',
-  notAValidRetryCommand:
-    '[ERROR] 입력한 값이 유효한 재시작 코드가 아닙니다. 1 또는 2의 값을 입력해주세요',
+  notAValidNumber: `${ERROR_PREFIX} 입력한 값이 유효한 값이 아닙니다. 1 - 9 까지의 값을 입력해주세요`,
+  notAValidNumberLength: `${ERROR_PREFIX} 입력한 값이 유효한 값이 아닙니다. 중복되지 않는 3개의 숫자를 입력해주세요`,
+  notAValidRetryCommand: `${ERROR_PREFIX} 입력한 값이 유효한 재시작 코드가 아닙니다. 1 또는 2의 값을 입력해주세요`,
 });
 
 export const STATUS_MESSAGE = Object.freeze({
