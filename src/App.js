@@ -1,13 +1,18 @@
 import { Console, Random } from "@woowacourse/mission-utils";
-// let Console = MissionUtils.Console;
-// let Random = MissionUtils.Random; 구조분해
 
-let SCORE = {
-  ball: [0, "볼"],
+const SCORE = {
+  ball: [0, "볼"], //볼 스트라이크같은 출력 문자열이니 메세지로 가는게 맞지 않나?
   strike: [0, "스트라이크"],
   success: false,
 };
-
+const MESSAGE = {
+  start: "숫자 야구 게임을 시작합니다.", //속성 네이밍도 대문자로 해야하나?
+  inputRequest: "숫자를 입력해주세요 :",
+  restart: "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.",
+  error: "[ERROR] 숫자가 잘못된 형식입니다.",
+  nothing: "낫싱",
+  strike: "3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료",
+};
 function makeRandom() {
   const answer = [];
   while (answer.length < 3) {
@@ -69,7 +74,8 @@ function resetScore() {
 }
 function printResult() {
   // console.log(SCORE);
-  //스위치문으로 변경할 것
+  //해당 SCORE 에 여러 조건에 따라 출력문이 달라지는 거니 해당 조건에대해 출력조건을 작성하는 로직을 분리하고
+  // 그 출력조건에 따라 출력을 달리하는 식으로 switch 문을 써서 가독성을 높인다.
   if (SCORE.ball[0] === 0 && SCORE.strike[0] === 0) {
     MissionUtils.Console.print("낫싱");
     return;
@@ -97,7 +103,7 @@ function printResult() {
 
 class App {
   async play() {
-    MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
+    Console.print("숫자 야구 게임을 시작합니다.");
     let answer = makeRandom();
 
     while (!SCORE.success) {
