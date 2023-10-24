@@ -14,11 +14,11 @@ class App {
   }
   // 게임 실행 흐름을 책임지는 함수
   async gameFlow() {
-    const computerAnswer = this.createComputerAnswer();
+    const COMPUTER_ANSWER = this.createComputerAnswer();
     let isUserWon = false;
 
     while (!isUserWon) {
-      isUserWon = await this.checkUserGuess(computerAnswer);
+      isUserWon = await this.checkUserGuess(COMPUTER_ANSWER);
     }
     return;
   }
@@ -34,7 +34,9 @@ class App {
         userInput.length !== 3 ||
         userInput.some((char) => isNaN(parseInt(char, 10)))
       ) {
-        throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+        throw new Error(
+          '[ERROR] 1에서 9 사이의 서로 다른 세 숫자를 입력해 주세요.'
+        );
       }
 
       return userInput.map((char) => parseInt(char, 10));
@@ -119,7 +121,7 @@ class App {
       if (parseInt(answer) === 1 || parseInt(answer) === 2) {
         return parseInt(answer);
       } else {
-        throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+        throw new Error('[ERROR] 1 또는 2의 숫자만 입력해 주세요.');
       }
     } catch (error) {
       throw new Error(error.message);
