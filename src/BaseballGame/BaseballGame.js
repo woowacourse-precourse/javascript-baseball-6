@@ -1,4 +1,3 @@
-import { Console } from "@woowacourse/mission-utils";
 import Input from "../Input/Input.js";
 import InputValidator from "../utils/InputValidator.js";
 import Compare from "../Compare/CompareNumber.js";
@@ -24,6 +23,12 @@ class BaseballGame {
     });
   }
 
+  async inputRestartNumber() {
+    await Input.readRestartInputNumber((input) => {
+      InputValidator.validateRestartInputNumber(input);
+    });
+  }
+
   calculateCount(input) {
     const inputNumber = Array.from(input, Number);
     const strikeCount = this.#baseball.getStrikeCount(inputNumber);
@@ -37,7 +42,9 @@ class BaseballGame {
 
     if (strikeCount === 3) {
       Output.printEndMessage();
+      return this.inputRestartNumber();
     }
+    this.inputUserNumber();
   }
 }
 
