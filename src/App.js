@@ -23,7 +23,14 @@ class App {
       let isOneToNineNum = userInput.split('').every(number => Number(number) >= 1 && Number(number) <= 9)
       if(!(isOneToNineNum)) throw new Error('1~9 사이의 숫자를 입력해주세요.');
 
-      console.log(userInput);
+      let strikeCount = 0;
+      let ballCount = 0;
+      for(let i = 0; i < computer.length; i++) {
+        if(computer[i] === userInput[i]) strikeCount++;
+        else if(computer.includes(userInput[i])) ballCount++;
+      }
+
+      console.log(strikeCount, ballCount);
     }
   }
 }
