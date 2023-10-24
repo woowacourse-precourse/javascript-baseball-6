@@ -9,8 +9,11 @@ class App {
   }
 
   async play() {
-    let computer = this.methods.getRandomArray(); // 사용자가 맞추어야 할 숫자
-    this.isPlaying = true; // 게임 시작
+    // 사용자가 맞추어야 할 숫자
+    let computer = this.methods.getRandomArray();
+
+    // 게임 시작
+    this.isPlaying = true;
     printMsg('숫자 야구 게임을 시작합니다.');
 
     // 종료될 때까지 계속 반복
