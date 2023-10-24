@@ -20,10 +20,10 @@ class App {
     while (1) {
       const number = await Console.readLineAsync('숫자를 입력해주세요 : ');
       const user = number.split('').map(Number);
-      if (user.length !== 3 || number === null || new Set(user).size !== 3) {
+      if (user.includes(0) || user.includes(NaN)) {
         throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
       }
-      if (user.includes(0) || user.includes(NaN)) {
+      if (user.length !== 3 || number === null || new Set(user).size !== 3) {
         throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
       }
       const { strike, ball } = this.hint(user, computer);
