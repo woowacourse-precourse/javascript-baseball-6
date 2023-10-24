@@ -3,11 +3,14 @@ import { Random, Console } from "@woowacourse/mission-utils";
 class App {
 
   async play() {
+    // 시작 메세지 및 입력 메세지 출력
     Console.print("숫자 야구 게임을 시작합니다.");
     const inputNumber = Console.readLineAsync("숫자를 입력해주세요 : ")
+    // 입력값이 형식에 맞지 않을 경우 에러 메세지 출력
     if (!this.isValidNumber(await inputNumber)) {
       throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
     }
+    this.countBallStrike(this.generateRandomNumber() ,await inputNumber);
   }
 
   // 1~9까지 서로 다른 수로 이루어진 세자릿수 생성
@@ -18,6 +21,30 @@ class App {
       if (!computer.includes(number)) {
         computer.push(number);
       }
+    }
+    return computer.join('');
+  }
+
+  // 볼과 스트라이크의 개수 세기
+  countBallStrike(computerGenerateNumber, userInputNumber) {
+    let ball = 0;
+    let strike = 0;
+    for (let computerIndex = 0; computerIndex < 3; computerIndex++) {
+      for (let userIndex = 0; userIndex < 3; userIndex++) {
+        if (computerGenerateNumber[computerIndex] === userInputNumber[userIndex]) {
+          if (computerIndex === userIndex) {
+            strike++;
+          } else {
+            ball++;
+          }
+        }
+      }
+    }
+    if (strike === 0 && ball === 0) {
+      return ("낫싱");
+    }
+    else {
+      return {strike, ball};
     }
   }
 
