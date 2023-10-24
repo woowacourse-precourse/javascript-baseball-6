@@ -24,3 +24,9 @@
   - [x] 볼만 1개 이상인 경우 `n볼` 출력
   - [x] 스트라이크만 1개 이상인 경우 `n스트라이크` 출력
   - [x] 볼과 스트라이크 모두 1개 이상인 경우 `n볼 n스트라이크` 출력
+
+## 🎨 코딩 컨벤션
+
+[우아한테크코스의 자바스크립트 스타일 가이드](https://github.com/woowacourse/woowacourse-docs/tree/main/styleguide/javascript)
+
+[Airbnb JavaScript 스타일 가이드 - 한국어 번역](https://github.com/ParkSB/javascript-style-guide)
