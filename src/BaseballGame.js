@@ -39,15 +39,36 @@ export default class BaseballGame {
     if (playResult[1] > 0) resultMessage += `${playResult[1]}스트라이크`;
     if (playResult[2] === 3) resultMessage += "낫싱";
     Console.print(resultMessage);
+
+    if (playResult[1] === 1) {
+      Console.print(Message.STRIKE);
+      this.finish();
+    } else {
+      this.startGame();
+    }
   };
 
-  play = () => {
+  async finish() {
+    const endAnswer = await Console.readLineAsync(Message.RESET);
+    if (endAnswer === "1") this.startGame();
+    else if (endAnswer === "2") {
+      Console.print(Message.END);
+      return;
+    } else {
+      throw new Error(Message.ERROR);
+    }
+  }
+
+  async startGame() {
+    const computerNum = this.makeCoumputerNum();
+    const playerNum = await Console.readLineAsync(Message.INPUT);
+    handleError(playerNum);
+    const playResult = this.countResult(playerNum, computerNum);
+    this.showResultMessage(playResult);
+  }
+
+  play() {
     Console.print(Message.INIT);
-    Console.readLine(Message.INPUT, (playerNum) => {
-      handleError(playerNum);
-      const computerNum = this.makeCoumputerNum();
-      const playResult = this.countResult(playerNum, computerNum);
-      this.showResultMessage(playResult);
-    });
-  };
+    this.startGame();
+  }
 }

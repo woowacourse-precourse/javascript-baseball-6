@@ -18,6 +18,6 @@ const checkThreeError = (playerNumArray) => {
 export const handleError = (playerNum) => {
   const playerNumArray = playerNum.split("");
   if (checkThreeError(playerNumArray)) {
-    throw Message.ERROR;
+    throw new Error(Message.ERROR);
   }
 };
