@@ -2,7 +2,6 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 import Validation from "./Validation/index.js";
 import { computerRandom } from "./Domain/computer.js";
 import { checkingScore, playGame } from "./Domain/score.js";
-import { printResult } from "./Domain/calculator.js";
 
 
 
@@ -28,9 +27,8 @@ class App {
         }
 
         const arrayOfInput = Array.from(String(userNumberInput), Number);
-        console.log(arrayOfInput)
-
-        console.log(computerInputNumber)
+        // console.log(arrayOfInput)
+        // console.log(computerInputNumber)
 
         const {strike, ball} = checkingScore(computerInputNumber, arrayOfInput);
         playGame(strike,ball)
@@ -60,7 +58,6 @@ class App {
   }
 
 }
-
 
 
 const app = new App();
