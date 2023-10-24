@@ -7,25 +7,22 @@ class User {
 	async getUserInput(value) {
 		let userNum = "";
 		let replay = "";
-		try {
-			if (value === NUMBER) {
-				userNum = await MissionUtils.Console.readLineAsync(
-					"숫자를 입력해주세요 : "
-				);
 
-				if (isNaN(parseInt(userNum))) throw ERROR;
-				if (userNum.length !== 3) throw ERROR;
-			} else if (value === REPLAY) {
-				replay = await MissionUtils.Console.readLineAsync(
-					"게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
-				);
+		if (value === NUMBER) {
+			userNum = await MissionUtils.Console.readLineAsync(
+				"숫자를 입력해주세요 : "
+			);
 
-				if (replay !== "1" && replay !== "2") throw ERROR;
-			}
-		} catch (error) {
-			MissionUtils.Console.print(error);
-			return;
+			if (isNaN(parseInt(userNum))) throw new Error(ERROR);
+			if (userNum.length !== 3) throw new Error(ERROR);
+		} else if (value === REPLAY) {
+			replay = await MissionUtils.Console.readLineAsync(
+				"게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+			);
+
+			if (replay !== "1" && replay !== "2") throw new Error(ERROR);
 		}
+
 		return userNum ? userNum : replay;
 	}
 }
