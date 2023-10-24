@@ -17,7 +17,7 @@ class BaseballGame {
   }
 
   async getUserNumber() {
-    await Console.readLineAsync(GUIDE_MESSAGES.ENTER_USER_NUMBER_MESSAGE);
+    this.userNumber = await Console.readLineAsync(GUIDE_MESSAGES.ENTER_USER_NUMBER_MESSAGE);
   }
 
   async;
