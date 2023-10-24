@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from '../constants/Message';
+import { ERROR_MESSAGE } from "../constants/Message";
 
 class InputValid {
   static validate(input) {

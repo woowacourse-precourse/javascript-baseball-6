@@ -1,8 +1,8 @@
-import { Console } from '@woowacourse/mission-utils';
-import { GAME_MESSAGE, ERROR_MESSAGE } from './constants/Message';
-import Computer from './models/Computer';
-import GameControl from './utils/GameControl';
-import InputValid from './utils/InputValid';
+import { Console } from "@woowacourse/mission-utils";
+import { GAME_MESSAGE, ERROR_MESSAGE } from "./constants/Message";
+import Computer from "./models/Computer";
+import GameControl from "./utils/GameControl";
+import InputValid from "./utils/InputValid";
 
 class App {
   constructor() {
