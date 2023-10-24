@@ -8,7 +8,6 @@ function makeRamdomNumber() {
       computer.push(number);
     }
   }
-  //console.log('computer', computer);
   return computer;
 }
 
