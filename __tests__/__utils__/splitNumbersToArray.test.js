@@ -11,8 +11,10 @@ describe('splitNumbersToArray 테스트', () => {
   ])(
     'splitNumbersToArray는 문자로 이루어진 숫자 리스트를 숫자 배열로 변환한다',
     ({ input, output }) => {
+      // given & when
       const result = splitNumbersToArray(input);
 
+      // then
       expect(result).toEqual(output);
     },
   );

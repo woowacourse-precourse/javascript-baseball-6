@@ -8,7 +8,10 @@ describe('AnswerBalls 테스트', () => {
     { input: [7, 8, 9] },
     { input: [1, 4, 9] },
   ])('입력받은 배열에 따라 `targetBalls` 필드에 `TargetBalls`를 가진다.', ({ input }) => {
+    // given
     const answer = AnswerBalls.of(input);
+
+    // when & then
     expect(answer.getTargetBalls()).toEqual(TargetBalls.of(input));
   });
 
@@ -21,9 +24,15 @@ describe('AnswerBalls 테스트', () => {
   ])(
     '`contains` 메서드는 입력받은 `TargetBall`을 `balls`에 소유하고 있는지 판별한다.',
     ({ input, target, result }) => {
+      // given
       const answer = AnswerBalls.of(input);
       const ball = TargetBall.valueOf(target);
-      expect(answer.contains(ball)).toBe(result);
+
+      // when
+      const computedResult = answer.contains(ball);
+
+      // then
+      expect(computedResult).toBe(result);
     },
   );
 
@@ -37,9 +46,15 @@ describe('AnswerBalls 테스트', () => {
   ])(
     '`match` 메서드는 `balls`에 입력받은 `index`가 입력받은 `TargetBall`과 같은지 판별한다.',
     ({ input, target, index, result }) => {
+      // given
       const answer = AnswerBalls.of(input);
       const ball = TargetBall.valueOf(target);
-      expect(answer.match(ball, index)).toBe(result);
+
+      // when
+      const computedResult = answer.match(ball, index);
+
+      // then
+      expect(computedResult).toBe(result);
     },
   );
 });

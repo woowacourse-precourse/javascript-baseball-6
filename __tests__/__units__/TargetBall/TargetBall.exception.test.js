@@ -12,7 +12,10 @@ describe('TargetBall 예외 테스트', () => {
     { input: [] },
   ])('입력받은 값이 숫자가 아닐 경우 에러를 발생시킨다. (input: $input)', ({ input }) => {
     expect(() => {
+      // given
       new TargetBall(input);
+
+      // when & then
     }).toThrow(ERROR_MESSAGE.common.notNumber);
   });
 
@@ -20,7 +23,10 @@ describe('TargetBall 예외 테스트', () => {
     '입력받은 값이 정수가 아닐 경우 에러를 발생시킨다. (input: $input)',
     ({ input }) => {
       expect(() => {
+        // given
         new TargetBall(input);
+
+        // when & then
       }).toThrow(ERROR_MESSAGE.common.notInteger);
     },
   );
@@ -29,7 +35,10 @@ describe('TargetBall 예외 테스트', () => {
     '입력받은 값이 범위 내 숫자가 아닐 경우 에러를 발생시킨다. (input: $input)',
     ({ input }) => {
       expect(() => {
+        // given
         new TargetBall(input);
+
+        // when & then
       }).toThrow(ERROR_MESSAGE.common.outOfRange(TargetBall.MIN, TargetBall.MAX));
     },
   );

@@ -18,8 +18,11 @@ describe('BaseballService 테스트', () => {
   it.each([{ random: [1, 2, 3] }, { random: [4, 2, 2, 4, 3] }, { random: [7, 6, 9] }])(
     '필드값으로 랜덤한 TargetBall로 이루어진 answer와 submittedCorrectly를 보유한다.',
     ({ random }) => {
+      // given
       mockRandoms(random);
       const service = BaseballService.of();
+
+      // when & then
       expect(service.getAnswer()).toEqual(AnswerBalls.of([...new Set(random)]));
       expect(service.getSubmittedCorrectly()).toBe(null);
     },
@@ -48,11 +51,14 @@ describe('BaseballService 테스트', () => {
   ])(
     '`isEnd`는 `submittedCorrectly`가 존재하여 게임의 종료 여부를 반환한다.',
     ({ submit, random, result }) => {
+      // given
       mockRandoms(random);
-
       const service = BaseballService.of();
+
+      // when
       service.computeScore(submit);
 
+      // then
       expect(service.getSubmittedCorrectly()).toEqual(result ? SubmittedBalls.of(submit) : null);
       expect(service.isEnd()).toBe(result);
     },
@@ -72,19 +78,17 @@ describe('BaseballService 테스트', () => {
       ],
     },
   ])('초기화시 answer가 재생성되며 submittedCorrectly가 null로 설정된다.', ({ randoms }) => {
+    // given
     const [firstNumbers, secondNumbers] = randoms;
     mockRandoms(firstNumbers);
     const service = BaseballService.of();
-
-    const firstSubmit = SubmittedBalls.of(firstNumbers);
     service.computeScore(firstNumbers);
 
-    expect(service.getAnswer()).toEqual(AnswerBalls.of(firstNumbers));
-    expect(service.getSubmittedCorrectly()).toEqual(firstSubmit);
-
+    // when
     mockRandoms(secondNumbers);
     service.init();
 
+    // then
     expect(service.getAnswer()).toEqual(AnswerBalls.of(secondNumbers));
     expect(service.getSubmittedCorrectly()).toBe(null);
   });

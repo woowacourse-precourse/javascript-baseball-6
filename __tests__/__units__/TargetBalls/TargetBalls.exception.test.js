@@ -11,7 +11,10 @@ describe('TargetBalls 예외 테스트', () => {
     { input: {} },
   ])('입력받은 값이 배열 아닐 경우 에러를 발생시킨다. (input: $input)', ({ input }) => {
     expect(() => {
+      // given
       new TargetBalls(input);
+
+      // when & then
     }).toThrow(ERROR_MESSAGE.common.notArray);
   });
 
@@ -19,7 +22,10 @@ describe('TargetBalls 예외 테스트', () => {
     '입력받은 배열의 길이가 유효한 값이 아닐 경우 에러를 발생시킨다. (input: $input)',
     ({ input }) => {
       expect(() => {
+        // given
         new TargetBalls(input);
+
+        // when & then
       }).toThrow(ERROR_MESSAGE.targetBalls.invalidQuantity(TargetBalls.BALL_QUANTITY));
     },
   );
@@ -28,7 +34,10 @@ describe('TargetBalls 예외 테스트', () => {
     '입력받은 배열에 중복이 있을 경우 에러를 발생시킨다. (input: $input)',
     ({ input }) => {
       expect(() => {
+        // given
         new TargetBalls(input);
+
+        // when & then
       }).toThrow(ERROR_MESSAGE.targetBalls.isDuplicated);
     },
   );
