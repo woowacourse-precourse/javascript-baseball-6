@@ -8,9 +8,9 @@ class App {
       BALL: "볼",
       STRIKE: "스트라이크",
       NOTHING: "낫싱",
-      HOMERUN: "3개의 숫자를 모두 맞히셨습니다! 게임 종료",
+      HOMERUN: "3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료",
       START_INFO: "숫자 야구 게임을 시작합니다.",
-      RESTART_INFO: "게임을 새로 시작하려면 1, 종료하려면 2를 입력해주세요.",
+      RESTART_INFO: "게임을 새로 시작하려면 1, 종료하려면 2를 입력해주세요.\n",
       ERROR: "[ERROR] 입력하신 숫자는 잘못된 형식입니다.",
     };
   }
@@ -50,7 +50,6 @@ class App {
     let result = "";
 
     if (strike === 3) {
-      MissionUtils.Console.print(`3${this.constants.STRIKE}`);
       MissionUtils.Console.print(this.constants.HOMERUN);
       return;
     }
@@ -93,6 +92,7 @@ class App {
             this.userNumber
           );
           const ball = this.getBallCount(this.homeRunNumber, this.userNumber);
+
           this.getResultText(strike, ball);
 
           if (strike === 3) {
@@ -129,16 +129,13 @@ class App {
     this.userNumber = inputNumber;
   }
 
-  async getRestartNumber() {
-    MissionUtils.Console.print(this.constants.RESTART_INFO);
-
-    return await MissionUtils.Console.readLineAsync("");
-  }
-
   async restartGame() {
-    const restartNumber = await this.getRestartNumber();
+    const restartNumber = await MissionUtils.Console.readLineAsync(
+      this.constants.RESTART_INFO
+    );
+
     if (restartNumber !== "1" && restartNumber !== "2") {
-      throw new Error("[ERROR] 입력하신 숫자는 잘못된 형식입니다.");
+      throw new Error(this.constants.ERROR);
     }
 
     if (restartNumber === "2") return;
