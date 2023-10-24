@@ -10,7 +10,7 @@ import {
 
 import { Console, Random } from "@woowacourse/mission-utils";
 
-export default class BaseballGame {
+export default class App {
   async play() {
     Console.print(GAME_MESSAGE.GAME_START);
 
@@ -119,5 +119,5 @@ export default class BaseballGame {
   }
 }
 
-const baseballGame = new BaseballGame();
-baseballGame.play();
+const baseballGame = new App();
+// baseballGame.play();
