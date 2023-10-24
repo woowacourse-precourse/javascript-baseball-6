@@ -16,7 +16,7 @@ export default function getRandomNumBer(digitNumber) {
     const pickedNumber = Random.pickNumberInRange(1, 9);
     if (validNumber.indexOf(pickedNumber) === -1) {
       digitCount += 1;
-      validNumber = pickedNumber + validNumber;
+      validNumber = validNumber + pickedNumber;
     }
   }
   return validNumber;
