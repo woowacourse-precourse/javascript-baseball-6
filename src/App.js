@@ -32,7 +32,7 @@ class App {
       }
 
       const { strike, ball } = this.countPitchResult(input, targetNumber);
-      const output = this.outputPitchResult(strike, ball);
+      const output = this.getOutputPitchResult(strike, ball);
       Console.print(output);
 
       if (strike === 3) {
@@ -83,7 +83,7 @@ class App {
     };
   }
 
-  outputPitchResult(strike, ball) {
+  getOutputPitchResult(strike, ball) {
     let result = [];
 
     if (ball > 0) result.push(MESSAGE.ball(ball));
