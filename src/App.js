@@ -1,4 +1,4 @@
-import GamePlayer from './classes/GamePlayer';
+import GamePlayer from './classes/gamePlayer';
 
 class App {
   async play() {

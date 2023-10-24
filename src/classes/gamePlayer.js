@@ -1,6 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
-import NumberGenerator from './NumberGenerator';
-import GameEngine from './GameEngine';
+import NumberGenerator from './numberGenerator';
+import GameEngine from './gameEngine';
 
 class GamePlayer {
   // 게임을 시작하는 함수
