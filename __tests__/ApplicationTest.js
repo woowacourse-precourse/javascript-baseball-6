@@ -34,15 +34,38 @@ const getLogSpy = () => {
 };
 
 describe("숫자 야구 게임", () => {
+  test("컴퓨터는 서로 다른 3개의 다른 랜덤한 수를 선택한다.", () => {
+    // given
+    const randomNumbers = [1, 2, 3];
+    const mockRandom = jest.fn();
+    randomNumbers.forEach((number) => {
+      mockRandom.mockReturnValueOnce(number);
+    });
+
+    MissionUtils.Random.pickNumberInRange = mockRandom;
+
+    const app = new App();
+
+    // when
+    const computerNumbers = app.generateComputerNumbers();
+    const uniqueNumbers = new Set(computerNumbers);
+
+    // then
+    expect(computerNumbers).toEqual([1, 2, 3]);
+    expect(uniqueNumbers.size).toBe(3);
+  });
+
   test("게임 종료 후 재시작", async () => {
     // given
-    const randoms = [1, 3, 5, 5, 8, 9];
-    const answers = ["246", "135", "1", "597", "589", "2"];
+    const randoms = [1, 3, 5, 5, 8, 9, 7, 4, 1];
+    const answers = ["246", "135", "1", "597", "589", "1", "417", "741", "2"];
     const logSpy = getLogSpy();
     const messages = [
       "낫싱",
       "3스트라이크",
       "1볼 1스트라이크",
+      "3스트라이크",
+      "3볼",
       "3스트라이크",
       "게임 종료",
     ];
