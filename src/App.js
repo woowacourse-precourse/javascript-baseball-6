@@ -24,6 +24,13 @@ class App {
 
     return;
   }
+  async userAnswer() {
+    const INPUT_ANSWER = await Console.readLineAsync("숫자를 입력해주세요 : ");
+    const TURN_INTO_NUMBER = INPUT_ANSWER.split("").map(Number);
+    await this.validateAnswer(TURN_INTO_NUMBER);
+
+    return TURN_INTO_NUMBER;
+  }
 }
 
 export default App;
