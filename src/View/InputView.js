@@ -5,7 +5,7 @@ const InputView = {
     try {
       return await Console.readLineAsync('숫자를 입력해주세요 : ');
     } catch (error) {
-      throw new Error(`[ERROR] ${error}`);
+      throw error;
     }
   },
 
@@ -13,7 +13,7 @@ const InputView = {
     try {
       return await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
     } catch (error) {
-      throw new Error(`[ERROR] ${error}`);
+      throw error;
     }
   },
 };
