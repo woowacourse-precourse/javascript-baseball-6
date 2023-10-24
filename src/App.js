@@ -20,7 +20,8 @@ class App {
           if (strike === 3) {
             userWillRetry = false;
           } 
-        } // retry 끝나면(정답 맞추면) 
+        } // retry 끝나면(정답 맞추면) isUserWillingToRestart()  이거 실행되게 해야함
+        willBeRestarted = await this.isUserWillingToRestart("")
       }
     } 
 
