@@ -96,6 +96,8 @@ class App {
       this.getRandomNum();
     } else if (restart === "2") {
       MissionUtils.Console.print("게임 종료");
+    } else {
+      throw new Error("[ERROR] 1 또는 2를 입력해야합니다.");
     }
   }
 }
