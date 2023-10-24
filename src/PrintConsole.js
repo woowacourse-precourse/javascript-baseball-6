@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import SYSTEM_MESSAGES from './constants/SYSTEM_MESSAGES';
+import SYSTEM_MESSAGES from './constants/SYSTEM_MESSAGES.js';
 
 class PrintConsole {
 	gameStart() {

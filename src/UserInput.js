@@ -1,6 +1,6 @@
-import ERROR_MESSAGES from './constants/ERROR_MESSAGES';
+import ERROR_MESSAGES from './constants/ERROR_MESSAGES.js';
+import SYSTEM_MESSAGES from './constants/SYSTEM_MESSAGES.js';
 import { Console } from '@woowacourse/mission-utils';
-import SYSTEM_MESSAGES from './constants/SYSTEM_MESSAGES';
 
 class UserInput {
 	checkBaseballInputIsValid(userInput) {
