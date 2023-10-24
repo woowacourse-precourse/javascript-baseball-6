@@ -1,14 +1,19 @@
 
-var error =false;
-var answerNum;
+var error=false;
+var answerNum = [];
 var userInputNum;
 var correct = false;
 
-const setAnswerNum = function setAnswerNum(num){
-    answerNum = num;
+const setAnswerNum = function setAnswerNum(num) {
+    var check = false;
+    answerNum.forEach((n) => n == num ? check = true : check
+    );
+    if (check == true) {
+        return;
+    }
+    answerNum.push(num);
 }
 
-let errorMessage = "";
 
 const setUserInputNum = function setUserInputNum(num){
 

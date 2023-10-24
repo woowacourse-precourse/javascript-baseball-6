@@ -24,7 +24,10 @@ export default gameCase;
 
 
 const caseNum1 = async function caseNum1(){
-    setAnswerNum(MissionUtils.Random.pickNumberInRange(111,999));
+    setAnswerNum(MissionUtils.Random.pickNumberInRange(1, 9)
+    +10*MissionUtils.Random.pickNumberInRange(1, 9)
+    +100*MissionUtils.Random.pickNumberInRange(1, 9)
+    );
     return 1;
 }
 
