@@ -28,7 +28,7 @@ class App {
 
       this.countBallAndStrike(
         this.computerNumber,
-        guessNumber.split("").map(Number)
+        [...guessNumber].map(Number)
       );
     } catch (error) {
       throw error;
