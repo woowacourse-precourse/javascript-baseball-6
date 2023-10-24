@@ -42,16 +42,16 @@ class BaseBallGameComputer {
 
 	// 시도 넘버의 볼 개수 반환
 	#getBallCount() {
-		return this.#tryNumber.filter((num, i) => num === this.#answerNumber[i])
-			.length;
-	}
-
-	// 시도 넘버의 스트라이크 개수 반환
-	#getStrikeCount() {
 		return this.#tryNumber.filter(
 			(num, i) =>
 				this.#answerNumber.includes(num) && num !== this.#answerNumber[i]
 		).length;
+	}
+
+	// 시도 넘버의 스트라이크 개수 반환
+	#getStrikeCount() {
+		return this.#tryNumber.filter((num, i) => num === this.#answerNumber[i])
+			.length;
 	}
 
 	#setStrikeCount() {
