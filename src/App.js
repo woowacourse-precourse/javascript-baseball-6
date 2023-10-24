@@ -14,7 +14,8 @@ class App {
       }
     }
   }
-
+  
+  async play() {}
   async getInput(prompt) {
     const input = await Console.readLineAsync(prompt);
     if (!/^\d{3}$/.test(input) || !input.trim()) {
@@ -22,8 +23,19 @@ class App {
     }
     return input;
   }
-  
-  async play() {}
+
+  checkInputAndPrintResult(input) {
+    const playerNumbers = input.split("").map((char) => parseInt(char));
+    const { ball, strike } = this.calculateBallAndStrike(playerNumbers);
+
+    if (ball || strike) {
+      Console.print(this.buildResultMessage(ball, strike));
+    } else {
+      Console.print("낫싱");
+    }
+
+    return strike === 3;
+  }
 }
 
 export default App;
