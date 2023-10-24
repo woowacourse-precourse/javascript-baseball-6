@@ -16,6 +16,10 @@ class App {
     MissionUtils.Console.print(Messages.START);
 
     // 사용자 숫자 입력
+    this.inputUser(computer);
+  }
+  
+  inputUser(computer){
     MissionUtils.Console.readLine(Messages.INPUT_NUMBER, (number) => {
       const numberRegExp = new RegExp(/[0-9]/g);
       const numSet = new Set(number);
@@ -36,10 +40,12 @@ class App {
 
         let result = '';
         const [strike, ball, out] = checkCount;
-        if (ball > 0) result += `${ball}볼`;
+        if (ball > 0) result += `${ball}볼 `;
         if (strike > 0) result += `${strike}스트라이크`;
         if (out === 3) result += `낫싱`;
         MissionUtils.Console.print(result);
+
+        if (strike !== 3) this.inputUser(computer);
       }
     });
   }
