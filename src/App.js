@@ -11,7 +11,39 @@ class App {
     this.isCorrect = false;
   }
 
-  async play() {}
+  async play() {
+    Console.print("숫자 야구 게임을 시작합니다.");
+    while (!this.isCorrect) {
+      const user = await this.userInput(this.isCorrect);
+      const { strike, ball } = this.checkInput(this.computer, user);
+
+      if (strike === 0 && ball === 0) {
+        Console.print("낫싱");
+        continue;
+      }
+
+      let answer = "";
+      if (ball > 0) {
+        answer += `${ball}볼 `;
+      }
+
+      if (strike > 0) {
+        answer += `${strike}스트라이크`;
+      }
+
+      Console.print(answer.trim());
+
+      if (strike === 3) {
+        this.isCorrect = true;
+        const inputNum = await this.userInput(this.isCorrect);
+
+        if (inputNum === 1) {
+          this.init();
+          continue;
+        }
+      }
+    }
+  }
 
   async userInput(isCorrect) {
     if (isCorrect) {
