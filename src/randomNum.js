@@ -1,6 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
-const randomNum = () => {
+const randomNum = async () => {
   const computer = [];
   while (computer.length < 3) {
     const number = MissionUtils.Random.pickNumberInRange(1, 9);
@@ -11,7 +11,5 @@ const randomNum = () => {
 
   return computer;
 };
-
-console.log(randomNum());
 
 export default randomNum;

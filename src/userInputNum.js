@@ -17,7 +17,8 @@ const userInputNum = async () => {
       await userInputNum();
     } else {
       userInputs = numbers;
-      console.log("현재까지의 입력 값들: ", userInputs);
+
+      return userInputs;
     }
   } catch (error) {
     console.error("[ERROR] 입력 과정에서 오류가 발생했습니다: ", error);
