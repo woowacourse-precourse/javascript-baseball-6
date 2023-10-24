@@ -12,7 +12,7 @@ class Player {
         .split('')
         .map(v => Number(v));
     } catch (error) {
-      this.throwError(error);
+      throw new Error(error);
     }
   }
 }
