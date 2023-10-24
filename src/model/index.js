@@ -5,6 +5,10 @@ import { ERROR_MESSAGE } from '../constants/Messages.js';
 import { SYSTEM } from '../constants/System.js';
 
 class BaseballModel {
+  /**
+   * @private
+   * @type {number[]}
+   */
   #computerNumbers;
 
   constructor() {
@@ -27,11 +31,18 @@ class BaseballModel {
     }
   }
 
+  /**
+   * @param {number[]} data
+   */
   saveComputerNumbers(data) {
     this.#computerNumbers = data;
   }
 
   // prettier-ignore
+  /**
+   * @param {string[]} userNumbers 숫자 string
+   * @returns {{ball : number, strike : number}}
+   */
   compareUserWithComputerNumbers(userNumbers) {
     return [...userNumbers].reduce((acc, userNumber, index) => {
         const isBall = this.#computerNumbers.includes(Number(userNumber));

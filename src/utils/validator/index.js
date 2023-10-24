@@ -4,6 +4,9 @@ import ValidationError from '../error/ValidationError.js';
 import { GAME_COMMAND, GAME_NUMBER } from '../../constants/System.js';
 
 const Validators = {
+  /**
+   * @param {string} input
+   */
   checkGameNumbers(input) {
     const { number, exclude, duplication, length } = ERROR_MESSAGE;
     if (!isNumber(input)) throw new ValidationError(number);
@@ -16,6 +19,9 @@ const Validators = {
     }
   },
 
+  /**
+   * @param {string} input
+   */
   checkGameCommand(input) {
     const { restart, end } = GAME_COMMAND;
     if (!(isParticularNumber(input, restart) || isParticularNumber(input, end))) {

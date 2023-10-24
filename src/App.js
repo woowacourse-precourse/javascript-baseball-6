@@ -1,6 +1,10 @@
 import BaseBallController from './controller/index.js';
 
 class App {
+  /**
+   * @private
+   * @type {BaseBallController}
+   */
   #controller;
 
   constructor() {

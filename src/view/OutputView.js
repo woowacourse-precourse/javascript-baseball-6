@@ -18,6 +18,13 @@ const OutputView = {
     OutputView.print(OUTPUT_MESSAGES.game_success);
   },
 
+  /**
+   * @typedef {object} score
+   * @property {number} ball
+   * @property {number} strike
+   */
+
+  /** @type {score} */
   printHint({ ball, strike }) {
     if (ball === 0 && strike === 0) {
       OutputView.print(HINT.nothing);
