@@ -21,4 +21,3 @@ class App {
 let app = new App();
 app.play();
 
-
