@@ -2,11 +2,11 @@ import { MissionUtils } from '@woowacourse/mission-utils';
 import { OutputString } from '../constants/index.js';
 
 const OutputView = {
-  printStartString() {
+  printStartString: () => {
     MissionUtils.Console.print(OutputString.OUTPUT_GAME_START);
   },
 
-  printResultString(ballCount, strikeCount) {
+  printResultString: (ballCount, strikeCount) => {
     const result = [];
 
     if (ballCount !== 0) result.push(`${ballCount}볼`);
@@ -16,7 +16,7 @@ const OutputView = {
     MissionUtils.Console.print(result.join(' '));
   },
 
-  printEndString() {
+  printEndString: () => {
     MissionUtils.Console.print(OutputString.OUTPUT_GAME_END);
   },
 };

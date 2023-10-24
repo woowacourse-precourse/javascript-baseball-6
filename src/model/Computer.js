@@ -8,7 +8,7 @@ class Computer {
     this.#randomNumber = randomNumber;
   }
 
-  getStrikeCount(inputNumbers) {
+  getStrikeCount = inputNumbers => {
     let count = 0;
 
     for (let i = 0; i < inputNumbers.length; i += 1) {
@@ -16,9 +16,9 @@ class Computer {
     }
 
     return count;
-  }
+  };
 
-  getBallCount(inputNumbers, strikeCount) {
+  getBallCount = (inputNumbers, strikeCount) => {
     let count = 0;
 
     for (let i = 0; i < inputNumbers.length; i += 1) {
@@ -26,11 +26,11 @@ class Computer {
     }
 
     return count - strikeCount;
-  }
+  };
 
-  reset() {
+  reset = () => {
     this.#randomNumber = generateRandomNumber(NUMBER_SIZE);
-  }
+  };
 }
 
 export default Computer;
