@@ -3,7 +3,12 @@ import { MissionUtils } from '@woowacourse/mission-utils';
 class App {
   async play() {
     this.infoPrint('숫자 야구 게임을 시작합니다.');
-    this.game();
+    try {
+      await this.game();
+    } catch (error) {
+      this.infoPrint(error.message);
+      throw error;
+    }
   }
 
   infoPrint(message) {
@@ -27,7 +32,9 @@ class App {
   }
 
   userPickValidation(value) {
-    if (value.length !== 3) return false;
+    if (value === undefined || value.length !== 3) {
+      throw new Error('[ERROR] 서로 다른 숫자 3개를 입력해주세요.');
+    }
 
     const valueArr = [
       ...new Set(
@@ -38,16 +45,14 @@ class App {
           .filter((element) => element > 0 && element < 10),
       ),
     ];
-    if (valueArr.length !== 3) return false;
-    if (valueArr.length === 3) return true;
+    if (valueArr.length !== 3) {
+      throw new Error('[ERROR] 서로 다른 숫자 3개를 입력해주세요.');
+    }
   }
 
   userRestartValidation(value) {
-    if (value === '1' || value === '2') {
-      return true;
-    } else {
-      return false;
-    }
+    if (!(value === '1' || value === '2'))
+      throw new Error('[ERROR] 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
   }
 
   throwError(message) {
@@ -79,9 +84,7 @@ class App {
     const computerNumber = this.computerPick();
     while (judgeResult !== '3스트라이크') {
       const userPickValue = await this.userInput('숫자를 입력해주세요 : ');
-      const userPickValidationResult = this.userPickValidation(userPickValue);
-      if (!userPickValidationResult)
-        this.throwError('[ERROR] 서로 다른 숫자 3개를 입력해주세요.');
+      this.userPickValidation(userPickValue);
       const userNumber = userPickValue.split('').map((element) => +element);
       judgeResult = this.judge(computerNumber, userNumber);
       this.infoPrint(judgeResult);
@@ -90,10 +93,7 @@ class App {
     const userRestartValue = await this.userInput(
       `게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n`,
     );
-    const userRestartValidationResult =
-      this.userRestartValidation(userRestartValue);
-    if (!userRestartValidationResult)
-      this.throwError('[ERROR] 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+    this.userRestartValidation(userRestartValue);
     if (userRestartValue === '1') this.game();
     if (userRestartValue === '2') return;
   }
