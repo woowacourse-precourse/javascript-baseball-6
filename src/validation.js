@@ -33,3 +33,7 @@ const isNotDuplicate = (input) => {
   });
   if (numbers.length === 3) return true;
 };
+
+export const isGameFinish = (numberOfStrikes) => {
+  return numberOfStrikes === 3;
+};
