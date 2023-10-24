@@ -10,6 +10,7 @@ class App {
 
   async play() {
     this.getRandomNumber();
+    await this.getUserInput();
   }
 
   getRandomNumber() {
@@ -21,6 +22,10 @@ class App {
         this.computer.push(number);
       }
     }
+  }
+
+  async getUserInput() {
+    const inputValue = await Console.readLineAsync("숫자를 입력해주세요 : ");
   }
 }
 
