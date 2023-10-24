@@ -1,4 +1,4 @@
-import { endDecision } from "./constants.js";
+import { END_DECISION } from "./constants.js";
 
 const validateThreeNaturalNumbers = (value) => {
   const EXPECTED_LENGTH = 3;
@@ -25,7 +25,7 @@ const validateThreeNaturalNumbers = (value) => {
 };
 
 const validateEndDecision = (value) => {
-  if (value !== endDecision.RESTART && value !== endDecision.END) {
+  if (value !== END_DECISION.RESTART && value !== END_DECISION.END) {
     throw new Error("[ERROR] 1(재시작), 2(종료) 중 하나를 선택해야 합니다.");
   }
 };

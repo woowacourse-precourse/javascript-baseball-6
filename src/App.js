@@ -2,7 +2,7 @@ import { Console } from "@woowacourse/mission-utils";
 import { evaluateScore, printScore } from "./score.js";
 import { readAnswerInput, readEndDecisionInput } from "./input.js";
 import { pickRandomThreeNumbers } from "./random.js";
-import { message } from "./constants.js";
+import { MESSAGE, END_DECISION } from "./constants.js";
 
 class App {
   answerNumbers;
@@ -14,7 +14,7 @@ class App {
   }
 
   startGame() {
-    Console.print(message.GAME_STARTED);
+    Console.print(MESSAGE.GAME_STARTED);
     this.setNewAnswer();
   }
 
@@ -33,9 +33,9 @@ class App {
   }
 
   async wrapUpGame() {
-    Console.print(message.GAME_ENDED);
+    Console.print(MESSAGE.GAME_ENDED);
     const endDecisionInput = await readEndDecisionInput();
-    if (endDecisionInput === "1") {
+    if (endDecisionInput === END_DECISION.RESTART) {
       await this.play();
     }
   }
