@@ -1,5 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import {BALL_RESULT_TEXT, GAME_PROGRESS_TEXT} from "../constant/constant.js";
+import { BALL_RESULT_TEXT, GAME_PROGRESS_TEXT } from "../constant/constant.js";
 
 class View {
     constructor() {}
@@ -21,10 +21,10 @@ class View {
 
         const userInputResult = [];
         if (ball > 0) {
-            userInputResult.push(ball + `${BALL_RESULT_TEXT.BALL}`);
+            userInputResult.push(ball + BALL_RESULT_TEXT.BALL);
         }
         if (strike > 0) {
-            userInputResult.push(strike + `${BALL_RESULT_TEXT.STRIKE}`);
+            userInputResult.push(strike + BALL_RESULT_TEXT.STRIKE);
         }
         MissionUtils.Console.print(userInputResult.join(' '));
     }

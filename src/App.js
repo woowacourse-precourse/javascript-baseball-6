@@ -1,6 +1,7 @@
 import Controller from "./controller/Controller.js";
 import View from "./view/View.js";
 import { Console } from '@woowacourse/mission-utils';
+import { ERROR, GAME_PROGRESS_TEXT } from "./constant/constant.js";
 
 class App {
 
@@ -25,13 +26,13 @@ class App {
   async showRestartNumberInput() {
     const userInput = await this.showRestartRequest();
     if (userInput !== '1' && userInput !== '2') {
-      throw new Error('[ERROR]');
+      throw new Error(ERROR.INVALID_USER_INPUT);
     }
     return userInput;
   }
 
   showRestartRequest() {
-    return Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
+    return Console.readLineAsync(GAME_PROGRESS_TEXT.GAME_RETRY_MESSAGE);
   }
 }
 

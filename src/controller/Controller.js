@@ -1,6 +1,6 @@
 import Model from "../model/Model.js";
 import View from "../view/View.js";
-import {ERROR} from "../constant/constant.js";
+import { ERROR } from "../constant/constant.js";
 
 class Controller {
     constructor() {
