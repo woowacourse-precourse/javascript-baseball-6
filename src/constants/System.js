@@ -11,3 +11,13 @@ export const HINT = Object.freeze({
   },
   clear: /0볼|0스트라이크/g,
 });
+
+export const GAME_NUMBER = Object.freeze({
+  without_number: 0,
+  length: 3,
+});
+
+export const GAME_COMMAND = Object.freeze({
+  restart: 1,
+  end: 2,
+});
