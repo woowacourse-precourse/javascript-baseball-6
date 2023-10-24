@@ -28,20 +28,20 @@ class App {
         
         input = new Set(input); // 중복 제거
         input = [...input];
-
-        if (isNaN(input)) {
-          throw new Error("[ERROR] : 숫자가 아닌 문자가 포함되어있습니다.");
-        }
-        if (userInput.length < 3) {
+        
+        input.map((item) => {
+          if (isNaN(item)) {
+            throw new Error("[ERROR] : 숫자가 아닌 문자가 포함되어있습니다.");
+          }
+          userInput.push(Number(item));
+        });
+        if (userInput.length != 3) {
           throw new Error("[ERROR] : 서로 다른 세개의 숫자를 입력해야 합니다.");
         }
         if (userInput.indexOf(0) != -1) {
           throw new Error("[ERROR] : 0이 포함되어있습니다.");
         }
         
-        input.map((item) => {
-          userInput.push(Number(item));
-        });
 
         userInput.map((item, index) => {
           if (computer.indexOf(item) != -1) {
