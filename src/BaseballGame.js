@@ -7,10 +7,10 @@ const {
 const { Computer } = require("./Computer");
 
 class BaseballGame {
-  async startBasballGame() {
-    // 게임 시작 메세지 출력
-    Console.print(GAME_MESSAGE.START);
-    // TODO : 1~9까지 랜덤 숫자를 생성하는 기능
+  async startBaseballGame() {
+     // 게임 시작 메세지 출력
+     Console.print(GAME_MESSAGE.START);
+     // TODO : 1~9까지 랜덤 숫자를 생성하는 기능
     const computer = new Computer();
     const computerNumber = computer.generateComputerNumber();
 
