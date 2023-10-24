@@ -22,13 +22,8 @@ class BaseballGame {
         const userNumberArray = userNumber.split("").map(Number);
         // TODO : 사용자가 입력한 숫자에 대해 유효한 값인지 확인하는 기능
         this.inValidNumber(userNumber, userNumberArray);
-        // TODO : 볼과 스트라이크를 계산하는 기능
-        const { ball, strike } = this.calculateBallAndStrike(
-          computerNumber,
-          userNumberArray
-        );
-        // TODO : 비교한 결과에 대해 출력하는 기능
-        result = this.printResult(ball, strike);
+        // TODO : 볼과 스트라이크를 계산하고 그 결과에 대해 출력하는 기능
+        result = this.calculateBallAndStrike(computerNumber, userNumberArray);
       } catch (error) {
         throw new Error(ERROR_MESSAGE.IS_INVALID);
       }
@@ -65,10 +60,6 @@ class BaseballGame {
       });
     });
 
-    return { ball, strike };
-  }
-
-  printResult(ball, strike) {
     if (ball > 0 && strike > 0 && strike < 3) {
       Console.print(
         `${ball}${BASEBALL_MESSAGE.BALL} ${strike}${BASEBALL_MESSAGE.STRIKE}`
