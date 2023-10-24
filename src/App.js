@@ -84,9 +84,9 @@ class App {
 
   async askRetry() {
     // judge 메서드에서 삼진인 경우 호출
-    const RETRY = this.message("RETRY");
+    const RETRY_MESSAGE = this.message("RETRY");
     // 게임 재시도 여부 물어봄
-    const retryInput = await MissionUtils.Console.readLineAsync(RETRY);
+    const retryInput = await MissionUtils.Console.readLineAsync(RETRY_MESSAGE);
     if (retryInput === "1") {
       this.makeStrikeZoneNumber();
       await this.game();
@@ -95,15 +95,15 @@ class App {
   }
 
   congratMessagePrint() {
-    const CONGRAT = this.message("CONGRAT");
-    this.printMsgIs(CONGRAT);
+    const CONGRAT_MESSAGE = this.message("CONGRAT");
+    this.printMsgIs(CONGRAT_MESSAGE);
   }
 
   resultMessagePrint(strikes, balls) {
     // judge 메서드에서 삼진이 아닌 경우 호출
     // compareResult 객체에서 스트라이크, 볼 개수 출력
-    const NOTHING = this.message("NOTHING");
-    if (strikes === 0 && balls === 0) this.printMsgIs(NOTHING);
+    const NOTHING_MESSAGE = this.message("NOTHING");
+    if (strikes === 0 && balls === 0) this.printMsgIs(NOTHING_MESSAGE);
     if (strikes !== 0 && balls !== 0)
       this.printMsgIs(`${balls}볼 ${strikes}스트라이크`);
     if (strikes === 0 && balls !== 0) this.printMsgIs(`${balls}볼`);
