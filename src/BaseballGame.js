@@ -33,19 +33,22 @@ const getComputerNum = () => {
 const getUserNum = async () => {
   try {
     const USER_NUM = await MissionUtils.Console.readLineAsync(GAME_MSG.INPUT);
-    if (USER_NUM.length !== 3) {
-      throw new Error(ERROR_MSG.INPUT_ERROR_LEN);
-    }
-    const checkDup = new Set(USER_NUM.split(""));
-    if (checkDup.length !== 3) {
-      throw new Error(ERROR_MSG.INPUT_ERROR_SAME);
-    }
-    if (isNaN(Number(USER_NUM))) {
-      throw new Error(ERROR_MSG.INPUT_ERROR_NOT_NUM);
-    }
+    userValid(USER_NUM);
     return USER_NUM;
   } catch (error) {
     throw new Error("[ERROR]");
+  }
+};
+const userValid = (number) => {
+  if (number.length !== 3) {
+    throw new Error(ERROR_MSG.INPUT_ERROR_LEN);
+  }
+  const checkDup = new Set(number.split(""));
+  if (checkDup.length !== 3) {
+    throw new Error(ERROR_MSG.INPUT_ERROR_SAME);
+  }
+  if (isNaN(Number(number))) {
+    throw new Error(ERROR_MSG.INPUT_ERROR_NOT_NUM);
   }
 };
 
@@ -67,18 +70,7 @@ const compareNum = async (COMPUTER_NUM) => {
       }
 
       // 4. 힌트 출력
-      if (ball === 0 && strike === 0) {
-        MissionUtils.Console.print(GAME_MSG.NOTHING);
-      } else if (ball > 0 && strike === 0) {
-        MissionUtils.Console.print(ball + GAME_MSG.BALL);
-      } else if (ball === 0 && strike > 0) {
-        MissionUtils.Console.print(strike + GAME_MSG.STRIKE);
-      } else {
-        MissionUtils.Console.print(
-          ball + GAME_MSG.BALL + " " + strike + GAME_MSG.STRIKE
-        );
-      }
-
+      getHint(ball, strike);
       if (strike === 3) {
         MissionUtils.Console.print(GAME_MSG.END);
         break;
@@ -86,6 +78,20 @@ const compareNum = async (COMPUTER_NUM) => {
     }
   } catch (error) {
     throw new Error("[ERROR]");
+  }
+};
+
+const getHint = (ball, strike) => {
+  if (ball === 0 && strike === 0) {
+    MissionUtils.Console.print(GAME_MSG.NOTHING);
+  } else if (ball > 0 && strike === 0) {
+    MissionUtils.Console.print(ball + GAME_MSG.BALL);
+  } else if (ball === 0 && strike > 0) {
+    MissionUtils.Console.print(strike + GAME_MSG.STRIKE);
+  } else {
+    MissionUtils.Console.print(
+      ball + GAME_MSG.BALL + " " + strike + GAME_MSG.STRIKE
+    );
   }
 };
 
