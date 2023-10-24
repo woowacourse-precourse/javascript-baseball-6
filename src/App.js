@@ -31,7 +31,7 @@ class App {
     this.isWin = false;
     Console.print("숫자 야구 게임을 시작합니다.");
     this.strikes = generateStrikes();
-    Console.print(this.strikes); // 코드 작성 시 활성화하여 작업
+    // Console.print(this.strikes); // 코드 작성 시 활성화하여 작업
     while (!this.isWin) {
       await this.playInning().then(message => {
         Console.print(message);
@@ -50,14 +50,14 @@ class App {
     const guess = await getUserInput(QUERY.guess, REGEX.guess);
     const [strikeCount, ballCount] = this.getScore(guess, this.strikes);
     let message = "";
+    if (ballCount > 0) {
+      message += `${ballCount}볼 `;
+    }
+    if (strikeCount > 0) {
+      message += `${strikeCount}스트라이크`;
+    }
     if (ballCount == 0 && strikeCount == 0) {
       message = "낫싱";
-    } else if (strikeCount == 0) {
-      message += `${ballCount}볼`;
-    } else if (ballCount == 0) {
-      message += `${strikeCount}스트라이크`;
-    } else {
-      message += `${ballCount}볼 ${strikeCount}스트라이크`;
     }
     return message;
   }
@@ -68,17 +68,12 @@ class App {
     guessNumbers.forEach((number, index) => {
       if (number == strikeNumbers[index]) {
         strikeCount += 1;
-      } else {
-        if (strikeNumbers.includes(number)) {
-          ballCount += 1;
-        }
+      } else if (strikeNumbers.includes(number)) {
+        ballCount += 1;
       }
     });
     return [strikeCount, ballCount];
   }
 }
-
-const a = new App();
-a.play();
 
 export default App;
