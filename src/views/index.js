@@ -1,2 +1,2 @@
-export * from './inputView';
-export * from './outputView';
+export * from './InputView';
+export * from './OutputView';
