@@ -59,7 +59,4 @@ class BaseBallGameComputer {
 	}
 }
 
-/**
- * 스트라이크 개수가 많이 쓰이는데 이를
- */
 export default BaseBallGameComputer;
