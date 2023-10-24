@@ -21,6 +21,7 @@ class App {
     this.controller.updateRandomComputerNumber();
     await this.userInput();
   }
+
   async userInput() {
     while (true) {
       const userNumber = await this.view.getUserNumberInput();
@@ -30,12 +31,20 @@ class App {
       const gameClear = this.scoreGrading();
       if (gameClear) break;
     }
+    this.gameClear();
   }
+
   scoreGrading() {
     const [ball, strike] = this.controller.getScore();
     const scoreString = this.controller.scoreToString(ball, strike);
     this.view.printScore(scoreString);
     return strike === 3;
+  }
+
+  async gameClear() {
+    const isRestart = await this.view.getUserRestartInput();
+    if (isRestart === "1") this.gameStart();
+    else if (isRestart !== "2") this.gameClear();
   }
 }
 

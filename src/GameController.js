@@ -18,11 +18,11 @@ export default class GameController {
     }
     return computerNumber;
   }
+
   inputValidation(input) {
     const isLengthValid = this.inputLengthCheck(input, 3);
     const isNumberValid = this.inputNumberCheck(input);
     const isUniqueValid = this.inputUniqueCheck(input);
-
     return isLengthValid && isNumberValid && isUniqueValid;
   }
 
@@ -41,6 +41,7 @@ export default class GameController {
     const inputSet = new Set(input);
     return input.length === inputSet.size;
   }
+
   getScore() {
     const { computerNumber, userNumber } = this.model;
     let ball = 0;
