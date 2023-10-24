@@ -1,47 +1,38 @@
 import {Console} from "@woowacourse/mission-utils";
-import Batter from "./unit/Batter.js";
-import Pitcher from "./unit/Pitcher.js";
-
+import printGameResult from "./message/result/printGameResult.js";
+import checkBatterResult from "./evaluation/checkBatterResult.js";
+import checkRestartStatus from "./message/restaart/checkRestartStatus.js";
 
 class App {
-    constructor() {
-        this.batter = new Batter();
-        this.pitcher = new Pitcher();
+    constructor(pitcher, batter, winCondition) {
+        this.batter = batter;
+        this.pitcher = pitcher;
+        this.winCondition = winCondition
         this.strikeCount = 0;
         this.ballCount = 0;
     }
 
     async play(){
-        const WIN_CONDITION = 3;
-        let {strikeCount, ballCount} = this
+        const { winCondition, pitcher, batter } = this;
 
-        this.pitcher.setRandomBallCount();
-        const pitcherBallNumbers = this.pitcher.ballCountNumbers;
+        pitcher.setRandomBallCount();
+        const pitcherBallNumbers = pitcher.ballCountNumbers;
+        Console.print(pitcherBallNumbers)
 
-        while (strikeCount !== WIN_CONDITION) {
-            strikeCount = 0;
-            ballCount = 0;
-            await this.batter.setThreeBatNumbers();
-            const batterBallNumbers = this.batter.ballCountNumbers;
+        while (this.strikeCount !== winCondition) {
+            this.strikeCount = 0;
+            this.ballCount = 0;
+            await batter.setThreeBatNumbers();
+            const batterBallNumbers = batter.ballCountNumbers;
 
-            for (let bi = 0; bi < pitcherBallNumbers.length; bi++) {
-                pitcherBallNumbers.map((pitcherBall, index) => {
-                    if (pitcherBall === batterBallNumbers[bi] && bi === index) {
-                        strikeCount++;
-                    }
+            const [ strikeCountResult, ballCountResult ] = checkBatterResult(pitcherBallNumbers, batterBallNumbers, this.strikeCount, this.ballCount);
+            this.strikeCount = strikeCountResult;
+            this.ballCount = ballCountResult;
 
-                    if (pitcherBall === batterBallNumbers[bi] && bi !== index) {
-                        ballCount++;
-                    }
-                })
-            }
-
-            if (strikeCount === 3) {Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");}
-            if (strikeCount && ballCount) {Console.print(`${ballCount}볼 ${strikeCount}스트라이크`)}
-            if (strikeCount && !ballCount) {Console.print(`${strikeCount}스트라이크`)}
-            if (!strikeCount && ballCount) {Console.print(`${ballCount}볼`)}
-            if (!strikeCount && !ballCount) {Console.print("낫싱");}
+            printGameResult(this.strikeCount, this.ballCount, winCondition);
         }
+
+        return await checkRestartStatus();
     }
 }
 
