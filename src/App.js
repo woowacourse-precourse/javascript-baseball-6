@@ -12,7 +12,10 @@ class App {
   }
 
   getUserInput(){
-    return MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
+    const userInput = MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
+    const validatedUserInput = this.checkInputValidation(userInput);
+
+    return validatedUserInput;
   }
 
   checkInputValidation(userInputNumber){
@@ -22,6 +25,8 @@ class App {
     if(userInputNumberArr.length !== 3) throw new Error('[ERROR] 중복된 숫자가 있습니다.')
     if(userInputNumber.includes(0)) throw new Error('[ERROR] 1~9 사이의 숫자가 아닙니다.')
     if(isNaN(userInputNumber)) throw new Error('[ERROR] 숫자가 아닙니다.')
+    
+    return userInputNumberArr;
   }
 
   compareNumber(computerNumber, userInput){
@@ -29,10 +34,8 @@ class App {
     let ballCount = 0;
 
     for(let i = 0; i < 3; i++){
-      if(computerNumber[i] === userInput[i])
-      strikeCount++;
-      else if(computerNumber.includes(userInput[i]))
-        ballCount++;
+      if(computerNumber[i] === userInput[i]) strikeCount++;
+      else if(computerNumber.includes(userInput[i])) ballCount++;
     }
     return {strikeCount, ballCount};
   }
@@ -54,7 +57,9 @@ class App {
     }
   }
 
-  async play() {}
+  async play() {
+
+  }
 }
 
 export default App;
