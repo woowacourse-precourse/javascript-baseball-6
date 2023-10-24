@@ -1,8 +1,8 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import App from "../src/App.js";
-import { ERROR_MESSAGE } from "../src/constants.js";
-import { pickNumberInRange, printMessage, readLineAsync, throwError } from "../src/utils.js";
-import BaseBallGame from "../src/BaseballGame.js";
+import BaseBallGame from "../src/core/BaseballGame.js";
+import { ERROR_MESSAGE } from "../src/utils/constants.js";
+import { pickNumberInRange, printMessage, readLineAsync, throwError } from "../src/utils/index.js";
 
 const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();

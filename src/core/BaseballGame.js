@@ -1,4 +1,4 @@
-import { pickNumberInRange } from "./utils.js";
+import { pickNumberInRange } from "../utils/index.js";
 
 class BaseBallGame {
   /**

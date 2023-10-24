@@ -1,8 +1,10 @@
-import { throwError, printMessage, readLineAsync } from "./utils.js";
-import { LOG, GAME_SETTING, ERROR_MESSAGE, SCORE } from "./constants.js";
-import BaseBallGame from "./BaseballGame.js";
+import { throwError, printMessage, readLineAsync } from "./utils/index.js";
+import { LOG, GAME_SETTING, ERROR_MESSAGE, SCORE } from "./utils/constants.js";
+import BaseBallGame from "./core/BaseballGame.js";
 
 const { STRIKE, BALL, NOTHING } = SCORE;
+const { CORRECT, INPUT_NUMBER, RESTART, START } = LOG;
+const { HEADER, NOT_LENGTH, NOT_NUMBER, NOT_RANGE, NOT_RESTART_OR_END, NOT_UNIQUE } = ERROR_MESSAGE;
 const { MIN_RANDOM_NUMBER, MAX_RANDOM_NUMBER, MAX_INPUT_LENGTH, END_NUMBER, RESTART_NUMBER } =
   GAME_SETTING;
 
@@ -36,7 +38,7 @@ class App {
     try {
       this.start();
 
-      printMessage(LOG.START);
+      printMessage(START);
 
       const baseballGame = this.baseballGame;
 
@@ -53,7 +55,7 @@ class App {
           continue;
         }
 
-        printMessage(LOG.CORRECT);
+        printMessage(CORRECT);
 
         const isRestart = await this.confirmRestart();
 
@@ -61,7 +63,7 @@ class App {
       }
     } catch (e) {
       this.end();
-      throwError(`${ERROR_MESSAGE.HEADER} ${e.message}`);
+      throwError(`${HEADER} ${e.message}`);
     }
   }
 
@@ -102,7 +104,7 @@ class App {
    * @returns {Promise<number[]>} 사용자가 입력한 3자리 숫자
    */
   async getUserNumbers() {
-    const input = (await readLineAsync(LOG.INPUT_NUMBER)).trim();
+    const input = (await readLineAsync(INPUT_NUMBER)).trim();
 
     this.validateInput(input);
 
@@ -117,12 +119,12 @@ class App {
    * @returns {Promise<boolean>} 게임을 재시작할지 여부
    */
   async confirmRestart() {
-    const input = await readLineAsync(LOG.RESTART);
+    const input = await readLineAsync(RESTART);
 
     const restartNumber = Number(input);
 
     throwError(
-      ERROR_MESSAGE.NOT_RESTART_OR_END,
+      NOT_RESTART_OR_END,
       restartNumber !== RESTART_NUMBER && restartNumber !== END_NUMBER,
     );
 
@@ -145,14 +147,14 @@ class App {
     const set = new Set(splittedInput);
     const { maxInputLength, min, max } = this.gameSetting;
 
-    throwError(ERROR_MESSAGE.NOT_NUMBER, isNaN(Number(input)));
+    throwError(NOT_NUMBER, isNaN(Number(input)));
 
-    throwError(ERROR_MESSAGE.NOT_LENGTH, input.length !== maxInputLength);
+    throwError(NOT_LENGTH, input.length !== maxInputLength);
 
-    throwError(ERROR_MESSAGE.NOT_UNIQUE, set.size !== maxInputLength);
+    throwError(NOT_UNIQUE, set.size !== maxInputLength);
 
     throwError(
-      ERROR_MESSAGE.NOT_RANGE,
+      NOT_RANGE,
       splittedInput.filter((number) => Number(number) < min || Number(number) > max).length > 0,
     );
 
