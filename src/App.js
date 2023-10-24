@@ -85,4 +85,16 @@ const isCorrect = (compareResult) => {
   return false;
 };
 
+// 게임 재시작 or 종료 옵션 함수
+const askReplay = async () => {
+  const endSelect = await input(MESSAGE.INPUT_NUMBER);
+  if (endSelect === "1") {
+    return false;
+  } else if (endSelect === "2") {
+    return true;
+  } else {
+    throw new Error(MESSAGE.END_SELECT_ERROR);
+  }
+};
+
 export default App;
