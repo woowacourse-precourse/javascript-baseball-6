@@ -3,10 +3,6 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 const { Random } = MissionUtils;
 
 class Computer {
-  constructor() {
-    this.randomNumber = this.createRandomNumber();
-  }
-
   //* [x, y, z]
   // 1~9 사이 서로 다른 임의의 3자리 수 생성
   createRandomNumber() {
@@ -26,6 +22,10 @@ class Computer {
   //* [x, y]
   // 스트라이크, 볼 판정
   countStrikeBall(randomNumber, playerInput) {
+    if (!randomNumber || !playerInput) {
+      return;
+    }
+
     let strike = 0;
     let ball = 0;
 
