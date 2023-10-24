@@ -6,27 +6,6 @@ class App {
     this.computerNum = this.generateComputerNumber();
   }
 
-  // async play() {
-  //   Console.print('\n숫자 야구 게임을 시작합니다.');
-
-  //   while (true) {
-  //     const userNum = await this.getUserNumber(); // 사용자 숫자
-  //     if (userNum === null) {
-  //       Console.print('게임이 종료되었습니다.');
-  //       break;
-  //     }
-
-  //     const { strikes, balls } = this.compareNumbers(userNum); // 두 숫자 비교해서 strike와 ball 개수 세기
-
-  //     const isGameEnded = await this.checkResult(strikes, balls);
-  //     if (isGameEnded) {
-  //       // 비교 결과 확인후 출력, 이때 게임 종료 옵션(2)을 선택했다면 종료
-  //       break;
-  //     }
-  //   }
-
-  //   return null;
-  // }
   async play() {
     Console.print('\n숫자 야구 게임을 시작합니다');
 
@@ -66,14 +45,13 @@ class App {
       const userNum = userInput ? userInput.trim() : '';
 
       if (userNum === null) {
-        return null;
+        throw new Error('[ERROR] 입력이 취소되었습니다.');
       }
 
       this.validateUserInput(userNum);
       return userNum;
     } catch (error) {
-      Console.print('에러 발생: ' + error.message);
-      return null;
+      return Promise.reject(error);
     }
   }
 
@@ -117,15 +95,18 @@ class App {
     if (strikes === this.numberLength) {
       Console.print('3스트라이크');
       Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+
       const option = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
 
       if (option === '2') {
         Console.print('게임이 종료되었습니다.');
         return true;
       }
-      this.computerNum = this.generateComputerNumber(this.numberLength);
-      Console.print('\n숫자 야구 게임을 시작합니다.');
-      return false;
+      if (option === '1') {
+        this.computerNum = this.generateComputerNumber(this.numberLength);
+        Console.print('\n숫자 야구 게임을 시작합니다');
+        return false;
+      }
     }
 
     if (strikes > 0 || balls > 0) {
