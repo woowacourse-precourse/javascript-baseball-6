@@ -1,9 +1,10 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
+import { TEXT, PROGRAM_STATUS } from "./constants.js"
 
 class App {
   async play() {
-    let code = 1;
-    while (code != 2) {
+    let code = PROGRAM_STATUS.START;
+    while (code != PROGRAM_STATUS.END) {
       const computer = [];
       while (computer.length < 3) {
         const randomNumber = await MissionUtils.Random.pickNumberInRange(1, 9);
@@ -16,11 +17,6 @@ class App {
       try {
         code = await getUserInput(computer);
       } catch (error) {
-        code = 2;
-        // MissionUtils.Console.print(
-        //   "[ERROR] 중복되지 않는 1 ~ 9 사이의 세자리 숫자를 입력해주세요."
-        // );
-        // console.log('hihihihihih : ', error);
         await throwException(error);
       }
     }
@@ -28,20 +24,15 @@ class App {
 }
 
 async function getUserInput(computer) {
-  let code = 3;
-  //code 3 사용자가 맞추지 못함
-  while (code == 3) {
+  let code = PROGRAM_STATUS.KEEP;
+  while (code == PROGRAM_STATUS.KEEP) {
     try {
       const userInput = await MissionUtils.Console.readLineAsync(
         "숫자를 입력해주세요 : "
       );
-      // console.log(`사용자가 입력한 숫자 : ${userInput}`); //DEBUG
-      //유효성 검증
       await checkUserValidation(userInput);
       code = await checkInput(userInput, computer);
     } catch (error) {
-      // reject 되는 경우
-      // console.log("getUserInput() catch문");
       throw error;
     }
   }
@@ -51,20 +42,18 @@ async function getUserInput(computer) {
 async function checkInput(userInput, computer) {
   try {
     const states = [0, 0, 0];
-    // console.log(`사용자가 입력한 숫자 : ${userInput}(checkInput함수))`); //DEBUG
-    // console.log(`컴퓨터가 입력한 숫자 : ${computer}(checkInput함수))`); //DEBUG
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
         if (userInput[i] == computer[j]) {
           if (i == j) {
-            states[0]++;
+            states[TEXT.STRIKE]++;
           } else {
-            states[1]++;
+            states[TEXT.BALL]++;
           }
           break;
         }
         if (j == 2) {
-          states[2]++;
+          states[TEXT.NOTHING]++;
         }
       }
     }
@@ -80,7 +69,6 @@ async function checkInput(userInput, computer) {
         "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
       );
       await checkReGameValidation(reGameCodeInput);
-      //console.log("reGameCodeInput : ", reGameCodeInput); //DEBUG
       return reGameCodeInput;
     } else {
       await MissionUtils.Console.print(`${states[1]}볼 ${states[0]}스트라이크`);
