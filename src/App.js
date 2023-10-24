@@ -143,7 +143,6 @@ class App {
       } else if (result.strike === 3) {
         this.printGameResult(STATUS.over, result);
         await this.gameRestartOrEnd();
-
         return;
       } else {
         this.printGameResult(STATUS.continue, result);
@@ -164,6 +163,7 @@ class App {
 
   async play() {
     this.printGameStart();
+
     await this.gameReady();
 
     return;
