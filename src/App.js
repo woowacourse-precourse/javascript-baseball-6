@@ -12,6 +12,12 @@ class App {
     // 3-2. 입력 받은 숫자를 출력한다.
     MissionUtils.Console.print(`숫자를 입력해주세요 : ${userInput}`);
 
+    // 5. 서로 다른 세 자리 수가 아닌 값을 입력받은 경우, 애플리케이션은 종료된다. (throw문을 사용해 예외 처리)
+    if (!this.isValidInput(userInput)) {
+      MissionUtils.Console.print("올바른 입력이 아닙니다. 게임을 종료합니다.");
+      throw new Error("[ERROR]");
+    }
+
     // 4. 플레이어에게 입력 받은 숫자의 답을 출력해준다.
     const evaluation = this.evaluateInput(userInput, computer);
     MissionUtils.Console.print(evaluation);
@@ -31,7 +37,7 @@ class App {
     return computer;
   }
 
-  // 플레이어가 제시한 숫자에 대한 답 
+  // 플레이어가 제시한 숫자에 대한 답
   evaluateInput(userInput, computer) {
     let strikes = 0;
     let balls = 0;
@@ -55,6 +61,10 @@ class App {
       // 같은 수가 전혀 없으면 '낫싱'을 출력한다.
       return "낫싱";
     }
+  }
+
+  isValidInput(input) {
+    return /^\d{3}$/.test(input) && input.length <= 3; // 3자리 숫자 입력 여부 및 길이 확인
   }
 }
 
