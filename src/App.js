@@ -1,4 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
+import { GAME_MSG } from "./Messages";
 import { gameStart } from "./BaseballGame";
 
 class App {
