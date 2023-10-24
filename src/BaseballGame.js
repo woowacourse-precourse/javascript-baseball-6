@@ -15,7 +15,8 @@ class BaseballGame {
     const computer = new Computer();
     const computerNumber = computer.generateComputerNumber();
 
-    while (true) {
+    let result = false;
+    while (!result) {
       // TODO : 숫자를 입력 받는 기능
       try {
         const userNumber = await Console.readLineAsync(GAME_MESSAGE.INPUT);
@@ -28,13 +29,16 @@ class BaseballGame {
           userNumber
         );
         // TODO : 비교한 결과에 대해 출력하는 기능
-        const result = this.printResult(ball, strike);
+        result = this.printResult(ball, strike);
 
-        if (result) {
-          return this.reStart();
-        }
       } catch (error) {
         throw new Error(ERROR_MESSAGE.IS_INVALID);
+      }
+
+      if (result === 3) {
+        Console.print(`${strike}${BASEBALL_MESSAGE.STRIKE}`);
+        Console.print(GAME_MESSAGE.SUCCESS);
+        return true;
       }
     }
   }
@@ -91,12 +95,6 @@ class BaseballGame {
     if (ball === 0 && strike === 0) {
       Console.print(BASEBALL_MESSAGE.NOTHING);
       return false;
-    }
-
-    if (strike === 3) {
-      Console.print(`${strike}${BASEBALL_MESSAGE.STRIKE}`);
-      Console.print(GAME_MESSAGE.SUCCESS);
-      return true;
     }
   }
 
