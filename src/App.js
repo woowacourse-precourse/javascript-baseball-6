@@ -8,7 +8,8 @@ class App {
     const playerNumStr = await Console.readLineAsync("숫자를 입력해주세요 : ");
     const playerNum = [...playerNumStr].map(num => parseInt(num));
     
-    
+    const result = this.checkAnswer(computerNum, playerNum);
+    Console.print(result);
   }
 
   selectRandomNum() {
@@ -23,7 +24,26 @@ class App {
     return computer;
   }
 
-  
+  checkAnswer(computerNum, playerNum) {
+    const result = {
+      ball: 0,
+      strike: 0
+    };
+
+    computerNum.forEach((computerNumElement, computerNumIndex) => {
+      playerNum.forEach((playerNumElement, playerNumIndex) => {
+        if (computerNumElement === playerNumElement) {
+          if (computerNumIndex === playerNumIndex) {
+            result.strike++;
+          } else {
+            result.ball++;
+          }
+        }
+      })
+    })
+
+    return result;
+  }
 }
 
 export default App;
