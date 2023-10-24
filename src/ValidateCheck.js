@@ -9,7 +9,7 @@ class ValidateCheck {
       throw new Error (ERROR.invalidInput);
     };
 
-    return userNumber.split('').map(Number);;
+    return userNumber.split('').map(Number);
   };
 
   checkRetry(retryNumber) {
