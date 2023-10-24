@@ -3,12 +3,15 @@
 </br>
 
 # 구현할 기능 목록
+- generateComputerNumbers()
+- isValidInput(userGuess)
+- caclulateResult(userGuess, computerNumbers)
+- 게임 재시작
 
 </br>
 
 ## generateComputerNumbers()
 
----
 
 </br>
 
@@ -30,7 +33,6 @@
 
 ## isValidInput(userGuess)
 
----
 
 </br>
 
