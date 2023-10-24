@@ -1,12 +1,21 @@
 import { pickRandomNumberInRange } from '../utils/random';
 
 class BaseballMaker {
+  /**
+   * @static
+   * @public
+   * @type {import('../utils/jsDoc').BaseballShape}
+   */
   static BASEBALL_SHAPE = Object.freeze({
     minNumber: 1,
     maxNumber: 9,
     size: 3,
   });
 
+  /**
+   * @private
+   * @type {import('../utils/jsDoc').BaseballShape}
+   */
   #baseballShape;
 
   constructor() {

@@ -48,4 +48,11 @@
  * @property {ExitGameValidationType} availableGameCommand - 게임 종료 명령어의 유효성을 검사하는 객체
  */
 
+/**
+ * @typedef {object} BaseballShape
+ * @property {number} minNumber - 야구공의 최소 값
+ * @property {number} maxNumber - 야구공의 최대 값
+ * @property {number} size - 야구공 배열의 크기(length)
+ */
+
 export {};
