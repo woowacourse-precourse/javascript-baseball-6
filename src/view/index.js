@@ -10,21 +10,21 @@ const View = {
   },
 
   printStart() {
-    OutputView.print(OUTPUT_MESSAGES.GAME_START);
+    OutputView.print(OUTPUT_MESSAGES.game_start);
   },
 
   printSuccess() {
-    OutputView.print(OUTPUT_MESSAGES.GAME_SUCCESS);
+    OutputView.print(OUTPUT_MESSAGES.game_success);
   },
 
   async readGameNumbers() {
-    const userNumbers = await InputView.readLineAsync(OUTPUT_MESSAGES.GAME_NUMBER);
+    const userNumbers = await InputView.readLineAsync(OUTPUT_MESSAGES.game_number);
     Validators.checkGameNumbers(userNumbers);
     return userNumbers;
   },
 
   async readGameCommand() {
-    const userAnswer = await InputView.readLineAsync(OUTPUT_MESSAGES.GAME_COMMAND);
+    const userAnswer = await InputView.readLineAsync(OUTPUT_MESSAGES.game_command);
     Validators.checkGameCommand(userAnswer);
     return userAnswer;
   },

@@ -7,10 +7,10 @@ import { SYSTEM } from '../constants/System.js';
  */
 const GameNumberGenerator = () => {
   const numbers = new Set();
-  while (numbers.size < SYSTEM.GAME_NUMBER_COUNT) {
+  while (numbers.size < SYSTEM.game_number_count) {
     const randomNumber = Random.pickNumberInRange(
-      SYSTEM.GAME_NUMBER_RANGE_START,
-      SYSTEM.GAME_NUMBER_RANGE_END,
+      SYSTEM.game_number_range_start,
+      SYSTEM.game_number_range_end,
     );
     numbers.add(randomNumber);
   }

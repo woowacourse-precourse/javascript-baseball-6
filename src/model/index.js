@@ -16,7 +16,7 @@ class BaseballModel {
       Validators.checkGameNumbers(randomGameNumbers.join(''));
       this.saveComputerNumbers(randomGameNumbers);
     } catch (error) {
-      throw new GameNumberGeneratorError(ERROR_MESSAGE.GAME_NUMBER_GENERATOR);
+      throw new GameNumberGeneratorError(ERROR_MESSAGE.game_number_generator);
     }
   }
 

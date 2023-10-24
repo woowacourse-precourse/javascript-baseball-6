@@ -5,13 +5,13 @@ import { GAME_COMMAND, GAME_NUMBER } from '../../constants/System.js';
 
 const Validators = {
   checkGameNumbers(input) {
-    if (!isNumber(input)) throw new ValidationError(ERROR_MESSAGE.STRING);
+    if (!isNumber(input)) throw new ValidationError(ERROR_MESSAGE.string);
     if (isParticularNumber(input, GAME_NUMBER.without_number)) {
-      throw new ValidationError(ERROR_MESSAGE.ZERO);
+      throw new ValidationError(ERROR_MESSAGE.zero);
     }
-    if (isDuplication(input)) throw new ValidationError(ERROR_MESSAGE.DUPLICATION);
+    if (isDuplication(input)) throw new ValidationError(ERROR_MESSAGE.duplication);
     if (!isExactLength(input, GAME_NUMBER.length)) {
-      throw new ValidationError(ERROR_MESSAGE.THREE_DIGIT);
+      throw new ValidationError(ERROR_MESSAGE.three_digit);
     }
   },
 
@@ -22,7 +22,7 @@ const Validators = {
         isParticularNumber(input, GAME_COMMAND.end)
       )
     ) {
-      throw new ValidationError(ERROR_MESSAGE.ONLY_ONE_OR_TWO);
+      throw new ValidationError(ERROR_MESSAGE.only_one_or_two);
     }
   },
 };
