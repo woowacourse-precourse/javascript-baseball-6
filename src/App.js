@@ -16,7 +16,29 @@ class App {
       this.userNumber = await Console.readLineAsync("숫자를 입력해주세요 : ");
       const isValid = this.inputValidation(this.userNumber);
       if (!isValid) throw new Error("숫자가 잘못된 형식입니다.");
+      const [ball, strike] = this.getScoreCount();
+      this.scorePrint(ball, strike);
     }
+  }
+
+  getScoreCount() {
+    const { userNumber, computerNumber } = this;
+    let ball = 0;
+    let strike = 0;
+    for (let i = 0; i < computerNumber.length; i++) {
+      const index = computerNumber.indexOf(+userNumber[i]);
+      if (index === i) strike++;
+      else if (index > -1) ball++;
+    }
+    return [ball, strike];
+  }
+
+  scorePrint(ball, strike) {
+    let score = "";
+    if (ball === 0 && strike === 0) score = "낫싱";
+    if (ball > 0) score += ball + "볼 ";
+    if (strike > 0) score += strike + "스트라이크";
+    Console.print(score);
   }
 
   inputValidation(numbers) {
