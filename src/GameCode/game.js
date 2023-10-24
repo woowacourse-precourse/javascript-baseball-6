@@ -9,7 +9,7 @@ import {
 } from "../Text/message.js";
 
 //game play
-const gamePlay = async (playerNum, computerNum) => {
+const gamePlay = (playerNum, computerNum) => {
   //3스트라이크
   if (playerNum === computerNum) {
     MissionUtils.Console.print(END_MESSAGE.perfect);
@@ -19,7 +19,7 @@ const gamePlay = async (playerNum, computerNum) => {
   //아닐 때, 볼 판정 후 다시 사용자 입력 받기
   const PLAY_TEXT = ballManager(playerNum, computerNum);
   MissionUtils.Console.print(PLAY_TEXT);
-  await gameStart(computerNum);
+  gameStart(computerNum);
 };
 
 //game end
@@ -48,7 +48,9 @@ async function gameStart(computerNum) {
   );
 
   //숫자 형식이 안 맞을 때, throw
-  errorOccurred(PLAYER_NUM);
+  if (errorOccurred(PLAYER_NUM)) {
+    throw new Error(ERROR_MESSAGE.rangeError);
+  }
 
   //게임 진행
   await gamePlay(PLAYER_NUM, computerNum);

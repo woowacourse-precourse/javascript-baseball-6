@@ -65,72 +65,72 @@ describe("숫자 야구 게임", () => {
   });
 
   //추가 테스트
-  // test("볼", async () => {
-  //   // given
-  //   const randoms = [1, 2, 3];
-  //   const answers = ["891", "251", "231", "123", "2"];
-  //   const logSpy = getLogSpy();
-  //   const messages = ["1볼", "2볼", "3볼", "3스트라이크", "게임 종료"];
+  test("볼", async () => {
+    // given
+    const randoms = [1, 2, 3];
+    const answers = ["891", "251", "231", "123", "2"];
+    const logSpy = getLogSpy();
+    const messages = ["1볼", "2볼", "3볼", "3스트라이크", "게임 종료"];
 
-  //   mockRandoms(randoms);
-  //   mockQuestions(answers);
+    mockRandoms(randoms);
+    mockQuestions(answers);
 
-  //   // when
-  //   const app = new App();
-  //   await expect(app.play()).resolves.not.toThrow();
+    // when
+    const app = new App();
+    await expect(app.play()).resolves.not.toThrow();
 
-  //   // then
-  //   messages.forEach((output) => {
-  //     expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(output));
-  //   });
-  // });
+    // then
+    messages.forEach((output) => {
+      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(output));
+    });
+  });
 
-  // test("스트라이크", async () => {
-  //   // given
-  //   const randoms = [1, 2, 3];
-  //   const answers = ["145", "125", "123", "2"];
-  //   const logSpy = getLogSpy();
-  //   const messages = ["1스트라이크", "2스트라이크", "3스트라이크", "게임 종료"];
+  test("스트라이크", async () => {
+    // given
+    const randoms = [1, 2, 3];
+    const answers = ["145", "125", "123", "2"];
+    const logSpy = getLogSpy();
+    const messages = ["1스트라이크", "2스트라이크", "3스트라이크", "게임 종료"];
 
-  //   mockRandoms(randoms);
-  //   mockQuestions(answers);
+    mockRandoms(randoms);
+    mockQuestions(answers);
 
-  //   // when
-  //   const app = new App();
-  //   await expect(app.play()).resolves.not.toThrow();
+    // when
+    const app = new App();
+    await expect(app.play()).resolves.not.toThrow();
 
-  //   // then
-  //   messages.forEach((output) => {
-  //     expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(output));
-  //   });
-  // });
+    // then
+    messages.forEach((output) => {
+      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(output));
+    });
+  });
 
-  //예외 추가 케이스
-  // test("중복", async () => {
-  //   // given
-  //   const randoms = [1, 3, 5];
-  //   const answers = ["133"];
+  //  예외 추가 케이스
+  test("중복", async () => {
+    // given
+    const randoms = [1, 3, 5];
+    const answers = ["133"];
 
-  //   mockRandoms(randoms);
-  //   mockQuestions(answers);
+    mockRandoms(randoms);
+    mockQuestions(answers);
 
-  //   // when & then
-  //   const app = new App();
+    // when & then
+    const app = new App();
 
-  //   await expect(app.play()).rejects.toThrow("[ERROR]");
-  // });
+    await expect(app.play()).rejects.toThrow("[ERROR]");
+  });
 
-  // test("길이 미달", async () => {
-  //   // given
-  //   const randoms = [1, 3, 5];
-  //   const answers = ["12"];
+  test("길이 미달", async () => {
+    // given
+    const randoms = [1, 3, 5];
+    const answers = ["12"];
 
-  //   mockRandoms(randoms);
-  //   mockQuestions(answers);
+    mockRandoms(randoms);
+    mockQuestions(answers);
 
-  //   // when & then
-  //   const app = new App();
+    // when & then
+    const app = new App();
 
-  //   await expect(app.play()).rejects.toThrow("[ERROR]");
-  // });
+    await expect(app.play()).rejects.toThrow("[ERROR]");
+  });
 });
