@@ -1,13 +1,16 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 
-const START_MESSAGE = "숫자 야구 게임 시작을 시작합니다."
-const USER_MESSAGE = "숫자를 입력해주세요 : "
-const NUMBER_LENGTH = 3
-const RANGE_START = 1
-const RANGE_END = 9
+const START_MESSAGE = "숫자 야구 게임 시작을 시작합니다.";
+const USER_MESSAGE = "숫자를 입력해주세요 : ";
+const SUCCESS = "3개의 숫자를 모두 맞히셨습니다! 게임 종료";
+const RESTART_MESSAGE = "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.";
+const NUMBER_LENGTH = 3;
+const RANGE_START = 1;
+const RANGE_END = 9;
+
+let answer = 0;
 
 function computer_start() {
-  Console.print(START_MESSAGE);
   const computer = [];
   while (computer.length < NUMBER_LENGTH) {
     const number = Random.pickNumberInRange(RANGE_START, RANGE_END);
@@ -19,13 +22,25 @@ function computer_start() {
   return computer;
 }
 
-async function player(computer_number) {
-  let userNum = [];
-  const input = await Console.readLineAsync(USER_MESSAGE);
-  const user = (input + '').split('').map((num) => parseInt(num));
-  user.map((item) => userNum.push(item));
+async function finish() {
+  const input = await Console.readLineAsync(RESTART_MESSAGE)
+  if (input === '1') return true
+  else if (input === '2') return false
+}
 
-  compare(computer_number, userNum);
+async function player(computer_number) {
+  while (true) {
+    let userNum = [];
+    const input = await Console.readLineAsync(USER_MESSAGE);
+    const user = (input + '').split('').map((num) => parseInt(num));
+    user.map((item) => userNum.push(item));
+    const result = compare(computer_number, userNum);
+    Console.print(result);
+    if (result === '3스트라이크') {
+      Console.print(SUCCESS);
+      break;
+    }
+  }
 
 }
 
@@ -44,24 +59,23 @@ function compare(computer_number, player_number) {
       }
     }
   }
-  Console.print(strike);
-  Console.print(ball);
 
   if (strike === 0 && ball === 0) {
-    Console.print("낫싱");
+    return "낫싱";
   } else if (strike !== 0 && ball === 0) {
-    Console.print(`${strike}스트라이크`);
+    return `${strike}스트라이크`;
   } else if (ball !== 0 && strike === 0) {
-    Console.print(`${ball}볼`);
+    return `${ball}볼`;
   } else {
-    Console.print(`${ball}볼 ${strike}스트라이크`);
+    return `${ball}볼 ${strike}스트라이크`;
   }
 
 }
 class App {
   async play() {
+    Console.print(START_MESSAGE);
     const computer_number = computer_start();
-    const userNum = player(computer_number);
+    player(computer_number);
   }
 }
 export default App;
