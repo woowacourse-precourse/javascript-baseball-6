@@ -2,6 +2,10 @@ import { MissionUtils } from '@woowacourse/mission-utils';
 import MESSAGE from './Message';
 
 class Output {
+  /**
+   *
+   * @param {string} message
+   */
   // eslint-disable-next-line
   printMessage(message) {
     MissionUtils.Console.print(message);
@@ -23,7 +27,7 @@ class Output {
     this.printMessage(MESSAGE.GAME_RESTART);
   }
 
-  printErrorMessage() {
+  printTypeErrorMessage() {
     this.printMessage(MESSAGE.TYPE_ERROR);
   }
 
