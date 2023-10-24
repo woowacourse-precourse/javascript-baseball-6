@@ -10,10 +10,9 @@ class ViewInput {
    * @param {string} input
    * @returns
    */
-  static async getPlayerInput(message, callback) {
-    await Console.readLineAsync(message).then((input) => {
-      callback(input);
-    });
+  static getPlayerInput(message) {
+    const input = Console.readLineAsync(message);
+    return input;
   }
 }
 

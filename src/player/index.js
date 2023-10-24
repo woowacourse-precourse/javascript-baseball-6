@@ -19,18 +19,13 @@ class Player {
     await this.#getPlayerNumberSet();
   }
 
-  // 🧑‍🚀 Player-1: 플레이어는 3자리 숫자를 맞추기 위해 input에 숫자를 입력
   async #getPlayerNumberSet() {
     /**
      * @type {string}
      */
-    await ViewInput.getPlayerInput(GUIDE_MESSAGES.INPUT, (playerInput) => {
-      // 🧑‍🚀 Player-2: 입력받은 input의 유효성 검사를 진행.
-      numberSetValidator(playerInput);
-
-      // 유효한 playerInput을 넘김.
-      this.#handleNumberSet(playerInput);
-    });
+    const playerInput = await ViewInput.getPlayerInput(GUIDE_MESSAGES.INPUT);
+    numberSetValidator(playerInput);
+    this.#handleNumberSet(playerInput);
   }
 
   /**
@@ -49,9 +44,7 @@ class Player {
     );
     ViewOutput.printMessage(ballCountMessage);
 
-    // 🧑‍🚀 Player-4-a: `3스트라이크가 아닌 경우` 🧑‍🚀 Player-1 로직을 콜백한다.
     if (strike === 3) this.#checkRestartGame();
-    //🧑‍🚀 Player-4-b: `3스트라이크인 경우` 볼카운트와 함께 게임 종료 메시지를 print한다.
     else this.#getPlayerNumberSet();
   }
 
@@ -62,16 +55,18 @@ class Player {
   async #checkRestartGame() {
     ViewOutput.printMessage(GUIDE_MESSAGES.PLAYER_WIN);
 
-    await ViewInput.getPlayerInput(
-      GUIDE_MESSAGES.RESTART_GAME,
-      (playerInput) => {
-        // 🧑‍🚀 Player-5-a: 입력한 숫자가 유효성 검사 (`'1' 또는 '2'`)에 통과하지 못하면 예외를 발생시켜 게임을 종료한다.
-        playAgainNumberValidator(playerInput);
-
-        if (playerInput === RESTART_GAME_NUMBERS.RESTART) this.startGame();
-        if (playerInput === RESTART_GAME_NUMBERS.END) return;
-      }
+    /**
+     * @type {string}
+     */
+    const playerInput = await ViewInput.getPlayerInput(
+      GUIDE_MESSAGES.RESTART_GAME
     );
+
+    playAgainNumberValidator(playerInput);
+
+    if (playerInput === RESTART_GAME_NUMBERS.RESTART) this.startGame();
+    if (playerInput === RESTART_GAME_NUMBERS.END)
+      ViewOutput.printMessage(GUIDE_MESSAGES.END);
   }
 }
 
