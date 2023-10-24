@@ -1,6 +1,7 @@
 import { Random } from "@woowacourse/mission-utils";
+import { Console } from "@woowacourse/mission-utils";
 
-export default function getRandomNumBer(digitNumber) {
+export function getTargetNumber(digitNumber) {
   if (!Number.isInteger(digitNumber)) {
     return new Error("[ERROR]: digitNumber must be a natural number");
   }
@@ -20,4 +21,19 @@ export default function getRandomNumBer(digitNumber) {
     }
   }
   return validNumber;
+}
+
+export async function getUserNumber(digitNumber) {
+  const guessInputNumber = await Console.readLineAsync(
+    "숫자를 입력해주세요 : "
+  );
+  if (isNaN(guessInputNumber)) {
+    throw new Error("[ERROR]: guessInputNumber must be a Number");
+  }
+  if (guessInputNumber.length !== digitNumber) {
+    throw new Error(
+      `[ERROR]: guessInputNumber must be ${digitNumber} digit Number`
+    );
+  }
+  return guessInputNumber;
 }

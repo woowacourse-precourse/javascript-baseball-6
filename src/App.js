@@ -1,25 +1,24 @@
-// import baseballGame from "./baseballGame.js";
 import { Console } from "@woowacourse/mission-utils";
-import getRandomNumber from "./getRandomNumber.js";
+import { getTargetNumber, getUserNumber } from "./getRandomNumber.js";
 
 const gameStart = async () => {
-  const targetNumber = await getRandomNumber(3);
+  const targetNumber = await getTargetNumber(3);
   while (true) {
-    const validInputNumber = await userInputNumber(3);
-    const { ball, strike } = getCheckedGameData(targetNumber, validInputNumber);
+    const userNumber = await getUserNumber(3);
+    const { ball, strike } = getCheckedInputData(targetNumber, userNumber);
     printGameResult(ball, strike);
-    if (validInputNumber === targetNumber) {
+    if (userNumber === targetNumber) {
       printGameEnd();
       break;
     }
   }
-  const reTryInputNumber = await Console.readLineAsync(
+  const reStartInputNumber = await Console.readLineAsync(
     "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
   );
-  isReTry(reTryInputNumber);
+  isReStart(reStartInputNumber);
 };
 
-const getCheckedGameData = (targetNumber, inputNumber) => {
+const getCheckedInputData = (targetNumber, inputNumber) => {
   let ball = 0;
   let strike = 0;
   for (const [targetIndex, currentTargetNumber] of Object.entries(
@@ -40,27 +39,10 @@ const getCheckedGameData = (targetNumber, inputNumber) => {
   return { ball, strike };
 };
 
-// 유효한 값이 입력됐는지 확인
-const userInputNumber = async (digitNumber) => {
-  const guessInputNumber = await Console.readLineAsync(
-    "숫자를 입력해주세요 : "
-  );
-  if (isNaN(guessInputNumber)) {
-    throw new Error("[ERROR]: guessInputNumber must be a Number");
-  }
-  if (guessInputNumber.length !== digitNumber) {
-    throw new Error(
-      `[ERROR]: guessInputNumber must be ${digitNumber} digit Number`
-    );
-  }
-  return guessInputNumber;
-};
-
-const isReTry = (seletedNumber) => {
+const isReStart = (seletedNumber) => {
   if (seletedNumber === "1") {
     gameStart();
   } else if (seletedNumber === "2") {
-    // Console.print("숫자 야구 게임을 종료합니다.");
     return;
   } else {
     throw new Error("[ERROR]: Invalid input. Please enter 1 or 2");
