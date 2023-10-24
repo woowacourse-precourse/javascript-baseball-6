@@ -1,3 +1,5 @@
+import { MissionUtils } from "@woowacourse/mission-utils";
+
 class App {
   constructor() {
     this.isRunning = true;
