@@ -59,6 +59,20 @@ class App {
       Console.print(`${ball > 0 ? ball + '볼 ' : ''}${strike > 0 ? strike + '스트라이크' : ''}`);
     }
   }
+  // 게임 종료 후 재시작 여부 확인
+  async askReplay() {
+    const replay = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+    if (replay === "1") {
+      Console.print(replay);
+      return this.play();
+    } else if (replay === "2") {
+      Console.print(replay);
+      Console.print('게임을 종료합니다.');
+      return;
+    } else {
+      throw new Error('[ERROR] 잘못된 입력입니다.');
+    }
+  }
 }
 
 export default App;
