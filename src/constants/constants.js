@@ -8,7 +8,7 @@ const MESSAGE = {
   ball: '볼',
   nothing: '낫싱',
   gameover: '게임 종료.',
-  error: '[ERROR]',
+  error: '[ERROR] : 유효한 숫자가 아닙니다.',
 };
 
 const CONSTANT = {

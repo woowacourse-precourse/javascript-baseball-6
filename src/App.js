@@ -49,6 +49,3 @@ export default class App {
     return this.init();
   }
 }
-
-const hi = new App();
-hi.play();
