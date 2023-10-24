@@ -10,6 +10,8 @@ class App {
         '숫자를 입력해주세요 : '
       );
       const COMPUTER_NUMBER = CreateRandomNumber();
+
+      CheckExceptions(USER_NUMBER.split(''));
     } catch (error) {
       throw new Error(error);
     }
