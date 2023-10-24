@@ -1,7 +1,6 @@
 import { MissionUtils,Console } from "@woowacourse/mission-utils";
 
 class App {
-  idx = 0;
   computer = [];
   
   init(){
@@ -56,13 +55,15 @@ class App {
           Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료.")
           const cmd = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
           if(Number(cmd)===1){
-            this.init();
+            this.init();//새로운 컴퓨터 번호 생성
           }else if(Number(cmd)===2){
-            break;
+            break;//게임종료
+          }else{
+            throw new Error("[ERROR]")//예외 발생
           }
         }
       }else{
-        throw new Error("[ERROR]")
+        throw new Error("[ERROR]")//예외 발생
       }
     }
   }
@@ -70,12 +71,8 @@ class App {
   async confirm(number){
     //1~9까지 숫자 3글자만 입력
     const re = new RegExp("^[1-9]{3}$")
-    console.log(re.test(number))
     return re.test(number)
   }
 }
 
 export default App;
-
-// const a = new App();
-// a.play();
