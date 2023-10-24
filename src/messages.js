@@ -14,6 +14,7 @@ const MESSAGES = {
     OUT_OF_LENGTH: '[ERROR] 숫자의 길이가 3이 아닙니다.',
     OUT_OF_INPUT_NUMBER_RANGE: '[ERROR] 각 자리의 숫자가 1에서 9사이가 아닙니다.',
     DUPLICATION_ERROR: '[ERROR] 서로 같은 수가 존재합니다.',
+    OUT_OF_RESTART_NUMBER_RANGE: '[ERROR] 재시작 여부 선택 시, 1 또는 2를 입력해야합니다.',
   },
 };
 

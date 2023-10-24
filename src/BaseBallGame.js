@@ -2,6 +2,7 @@ import { Console } from '@woowacourse/mission-utils';
 import Computer from './Computer.js';
 import User from './User.js';
 import { MESSAGES } from './messages.js';
+import { validateRestartNumber } from './validation.js';
 
 class BaseBallGame {
   constructor() {
@@ -72,6 +73,8 @@ class BaseBallGame {
   async getRestartNumber() {
     Console.print(MESSAGES.CORRECT_NUMBER);
     await Console.readLineAsync(MESSAGES.RESTART_OR_DONE).then((restartNum) => {
+      validateRestartNumber(restartNum);
+
       if (restartNum === '1') {
         this.start();
       } else if (restartNum === '2') {

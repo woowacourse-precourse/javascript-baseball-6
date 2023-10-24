@@ -35,4 +35,14 @@ const validateInputNumber = (userNumber) => {
   }
 };
 
-export { validateInputNumber };
+const isOneOrTwo = (restartNum) => {
+  return restartNum === '1' || restartNum === '2';
+};
+
+const validateRestartNumber = (restartNumber) => {
+  if (!isOneOrTwo(restartNumber)) {
+    throw new Error(MESSAGES.ERROR.OUT_OF_RESTART_NUMBER_RANGE);
+  }
+};
+
+export { validateInputNumber, validateRestartNumber };
