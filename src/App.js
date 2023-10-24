@@ -17,9 +17,9 @@ class App {
 
       while (!isAnswer) {
         const user = await getUsernumber();
-        const compareResult = await compareComputerAndUser(computer, user);
+        const compareResult = compareComputerAndUser(computer, user);
 
-        await printCompareResult(compareResult);
+        printCompareResult(compareResult);
 
         if (compareResult.strike === 3) {
           isAnswer = 1;
@@ -31,6 +31,3 @@ class App {
 }
 
 export default App;
-
-const app = new App();
-app.play();
