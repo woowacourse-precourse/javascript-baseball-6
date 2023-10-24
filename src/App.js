@@ -49,7 +49,7 @@ class App {
   }
 
   /**
-   * @param {string} input: 사용자가 입력한 문자
+   * @param {number} num: 사용자가 입력한 숫자
    * @description 게임을 재시작 혹은 종료할지 판별하는 함수
    * - RESTART_NUMBER: 게임 재시작
    * - EXIT_NUMBER: 게임 종료
@@ -63,9 +63,7 @@ class App {
   }
 
   /**
-   * @param {null | Error} 
-   * - null: 정상 종료했을 때
-   * - Error: 에러 발생했을 때
+   * @param {Error?} error: 발생된 에러
    * @description 게임을 종료하는 함수
    * - 게임 상태를 종료로 변경
    * @throws {Error} 에러 발생했을 떄
