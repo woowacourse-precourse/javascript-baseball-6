@@ -1,5 +1,7 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-
+const BALL = 0;
+const STRIKE = 1;
+const NOTHING = 2;
 
 class App {
   async play() {
@@ -9,10 +11,10 @@ class App {
 }
 export default App;
 
-
 const gameStart = async () => {
   const computer = await computerNum(); // 컴퓨터에서 임의의 수 3개 선택
-  await userInputNum(computer); // 사용자로부터 3자리 수 입력받기
+  const user = await userNum(); // 사용자로부터 3자리 수 입력받기
+  if (user !== undefined) await printResult(user, computer);  // user가 입력한 숫자가 유효할 경우 result 실행
 };
 
 const computerNum = async () => {
@@ -26,16 +28,13 @@ const computerNum = async () => {
   return computer;
 }
 
-const userInputNum = async (computer) => {
-  let userInput;
+const userNum = async () => {
   try {
-    userInput = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
-    const user = await checkNum(userInput);  // 입력값 유효성 체크
-    await compare(user, computer);  // 입력받은 값이 유효할 경우 숫자 비교
-  } catch (error){
+    const userInput = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
+    return checkNum(userInput);  // 입력값 유효성 체크 & Number[] 반환
+  } catch (error) {
     throw error;
   }
-  
 }
 
 const checkNum = async (userInput) => {
@@ -45,46 +44,52 @@ const checkNum = async (userInput) => {
       user[index] = parseInt(e);
       if (isNaN(e)) throw new Error("[ERROR] 숫자가 잘못된 형식입니다.")
     })
-
-  return user;
+    return user;  // userNum 에 return
   }
   else {
     throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
   }
 }
 
-const compare = async (user, computer) => {
-  let ballCount = 0;
-  let strikeCount = 0;
-  let nothing = false;
-  user.forEach((user, index) => {
-    computer.forEach((computer) => {
-      user === computer ? ballCount++ : null;
-    })
-    user === computer[index] ? strikeCount++ : null;
-  })
-  ballCount === 0 ? nothing = true : null;
-  ballCount -= strikeCount; // 스트라이크카운트(같은수가 같은자리에)는 볼카운에서 제외
-  await compareResult(ballCount, strikeCount, nothing, computer);
-}
+const printResult = async (user, computer) => {
+  const res = await compare(user, computer);  // 숫자 비교 시작
 
-const compareResult = async (ball, strike, nothing, computer) => {
-  if (nothing === true) {
+  if (res[NOTHING] === true) {  // 낫싱
     await MissionUtils.Console.print('낫싱');
-    await userInputNum(computer);
+    const newUser = await userNum();
+    await printResult(newUser, computer);
   }
-  else if (strike === 3) {
+  else if (res[STRIKE] === 3) {  // 3스트라이크
     await MissionUtils.Console.print('3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료');
     try {
       await askNewGame();
-    } catch {
-      await MissionUtils.Console.print(error);
+    } catch (error){
+      throw error;
     }
   }
-  else {
-    await MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
-    await userInputNum(computer);
+  else {  // 그 외
+    let printRes = "";
+    if (res[BALL] > 0) printRes += `${res[0]}볼 `;
+    if (res[STRIKE] > 0) printRes += `${res[1]}스트라이크`;
+    if (res[NOTHING] === 1) printRes += `낫싱`;
+    await MissionUtils.Console.print(printRes);
+    const newUser = await userNum();
+    await printResult(newUser, computer);
   }
+}
+
+const compare = async (user, computer) => {
+  let count = [0, 0, 0];  // ball | strike | nothing
+  user.forEach((user, index) => {
+    computer.forEach((computer) => {
+      user === computer ? count[BALL]++ : null;  // ball count 증가
+    })
+    user === computer[index] ? count[STRIKE]++ : null; // strike count 증가
+  })
+  count[BALL] === 0 ? count[NOTHING] = 1 : count[NOTHING] = 0; //볼카운트 0인 경우 낫싱===1(true)
+  count[BALL] -= count[STRIKE]; // 스트라이크카운트(같은수가 같은자리에)는 볼카운에서 제외
+
+  return count;
 }
 
 const askNewGame = async () => {
@@ -95,12 +100,12 @@ const askNewGame = async () => {
     throw error;
   }
   if (userInput === '1') {
-      await gameStart();
+    await gameStart();
   }
-  else if(userInput === '2'){
+  else if (userInput === '2') {
     await MissionUtils.Console.print("게임종료");
   }
-  else{
+  else {
     throw ("[ERROR] 숫자가 잘못된 형식입니다.");
   }
 }
