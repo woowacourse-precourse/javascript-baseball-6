@@ -1,7 +1,7 @@
 const MESSAGE = Object.freeze({
   GAME_START: "숫자 야구 게임을 시작합니다.",
   INPUT_NUMBER: "숫자를 입력해주세요 : ",
-  INPUT_NUMBER_ERROR: "서로 다른 3개의 숫자를 입력해야합니다.",
+  INPUT_NUMBER_ERROR: "[ERROR]서로 다른 3개의 숫자를 입력해야합니다.",
   BALL: "볼",
   STRIKE: "스트라이크",
   NOTHING: "낫싱",
