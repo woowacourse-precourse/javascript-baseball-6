@@ -1,10 +1,10 @@
-# 구현할 기능 목록 정리
+# 🛠️ 구현할 기능 목록 정리
 
-## RandomNumberGenerator
+## ⚾️ RandomNumberGenerator
 
 - [x] 3자리 랜덤 숫자를 생성한다
 
-## GameEngine
+## ⚾️ GameEngine
 
 - [x] 입력받은 값을 배열로 변경한다
 - [x] 배열로 변환한 값을 숫자로 변경한다
@@ -19,7 +19,7 @@
 - [x] 입력값이 1~9 사이가 아니면 에러
 - [x] 입력값에 중복이 있으면 에러
 
-## GamePlayer
+## ⚾️ GamePlayer
 
 - [x] 게임을 시작한다
 - [x] 숫자를 입력한다
