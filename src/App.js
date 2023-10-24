@@ -1,13 +1,14 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import {computerRandom} from './calculator/Computer.js'
 import Validation from "./calculator/Validation.js";
-import { checkingScore } from "./calculator/Score.js";
+import { checkingScore, playGame } from "./calculator/Score.js";
 
 class App {
     async play() {
       const answer = computerRandom();
       const arrayOfInput = this.makeUserInput()
-      const {a,b} = checkingScore(answer, arrayOfInput)
+      const {strike,ball} = checkingScore(answer, arrayOfInput)
+      playGame(strike,ball)
 
     }
 
