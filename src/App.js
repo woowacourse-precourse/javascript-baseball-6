@@ -11,6 +11,7 @@ class App {
   }
     this.makeComputerNumber();
     Console.print(START_MENT);
+    await this.startMatching();
   makeComputerNumber() {
     const computer = [];
     while (computer.length < 3) {
@@ -20,6 +21,23 @@ class App {
       }
     }
     this.computerNumber = [...computer];
+  }
+  async startMatching() {
+    let ball = 0;
+    let strike = 0;
+    while (true) {
+      await this.userInput();
+      this.userNumber.forEach((num, index) => {
+        if (num === this.computerNumber[index]) {
+          strike += 1;
+        } else if (this.computerNumber.includes(num)) {
+          ball += 1;
+        }
+      });
+      if (strike === 3) return;
+      strike = 0;
+      ball = 0;
+    }
   }
 }
 
