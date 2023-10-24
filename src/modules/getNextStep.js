@@ -3,7 +3,7 @@ import Constant from './Constant';
 
 const { INPUT_NEXT_STEP_PROMPT, EXIT, RESTART } = Constant;
 
-const isExitOrRestartCommand = string => {
+const isExitOrRestartCommand = (string) => {
   return string === EXIT || string === RESTART;
 };
 

@@ -6,18 +6,18 @@ import Constant from './Constant';
 
 const { MAX_NUM_LENGTH, INPUT_PROMPT } = Constant;
 
-const isValidLength = string => {
+const isValidLength = (string) => {
   return string.length === MAX_NUM_LENGTH;
 };
 
-const isUnique = string => {
+const isUnique = (string) => {
   const charArray = string.split('');
   const charSet = new Set(charArray);
 
   return charArray.length === charSet.size;
 };
 
-const isUniqueNumber = string => {
+const isUniqueNumber = (string) => {
   const number = Number(string);
   if (Number.isNaN(number)) {
     return false;
@@ -25,7 +25,7 @@ const isUniqueNumber = string => {
   return isValidLength(string) && isUnique(string);
 };
 
-const tryMatch = async baseNumber => {
+const tryMatch = async (baseNumber) => {
   let isMatch = false;
 
   while (!isMatch) {
