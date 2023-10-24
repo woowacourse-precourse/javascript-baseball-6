@@ -1,5 +1,6 @@
 import { Console } from "@woowacourse/mission-utils";
 import Computer from "./Computer";
+import { MESSAGES } from "./constants/Messages";
 
 class App {
   constructor() {
@@ -10,7 +11,7 @@ class App {
   computerNumber = [];
 
   gameStart = () => {
-    Console.print("숫자 야구 게임을 시작합니다.");
+    Console.print(MESSAGES.START);
   };
 
   /***   
@@ -31,10 +32,10 @@ class App {
   };
 
   getUserNumberInput = async () => {
-    const input = await Console.readLineAsync("숫자를 입력해주세요 : ");
+    const input = await Console.readLineAsync(MESSAGES.USER_NUMBER);
     if (!this.checkUserNumberValidation(input)) {
-      Console.print("[ERROR] 입력이 잘못된 형식입니다.");
-      throw new Error("[ERROR] 입력이 잘못된 형식입니다.");
+      Console.print(MESSAGES.ERROR);
+      throw new Error(MESSAGES.ERROR);
     }
     return Array.from(input).map((el) => Number(el));
   };
@@ -47,8 +48,8 @@ class App {
   getRestartOrEndInput = async () => {
     const input = await Console.readLineAsync();
     if (!this.checkRestartOrEndValidation(input)) {
-      Console.print("[ERROR] 입력이 잘못된 형식입니다.");
-      throw new Error("[ERROR] 입력이 잘못된 형식입니다.");
+      Console.print(MESSAGES.ERROR);
+      throw new Error(MESSAGES.ERROR);
     }
     return input;
   };
@@ -84,12 +85,12 @@ class App {
         );
 
         if (result.ball === 0 && result.strike === 0) {
-          Console.print("낫싱");
+          Console.print(MESSAGES.RESULT.NOTHING);
         } else if (result.strike === 3) {
-          Console.print("3스트라이크");
-          Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+          Console.print(MESSAGES.RESULT.ALL_STRIKE);
+          Console.print(MESSAGES.GAME_OVER);
 
-          Console.print("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+          Console.print(MESSAGES.RESTART_OR_END);
           const input = await this.getRestartOrEndInput();
           if (input === "1") {
             break;
