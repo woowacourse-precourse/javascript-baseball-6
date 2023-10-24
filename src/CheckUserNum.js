@@ -8,7 +8,10 @@ class CheckUserNum {
       throw new Error("[ERROR] 숫자를 입력해주세요.");
     }
     if (setUserNum.has("0")) {
-      throw new Error("[ERROR] 1~9까지의 숫자만 입력해주세요");
+      throw new Error("[ERROR] 1~9까지의 숫자만 입력해주세요.");
+    }
+    if (setUserNum.size !== user.length) {
+      throw new Error("[ERROR] 중복되지 않는 숫자를 입력해주세요.");
     }
   }
 }
