@@ -1,4 +1,4 @@
-import { MESSAGE } from "../utils/Constant";
+import { MESSAGE } from "../utils/Constant.js";
 
 const Output = {
   // 시작 메세지
@@ -30,4 +30,4 @@ const Output = {
   },
 };
 
-module.exports = Output;
+export { Output };

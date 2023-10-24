@@ -18,4 +18,4 @@ const Check = {
   },
 }
 
-module.exports = Check
+export { Check }

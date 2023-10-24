@@ -1,4 +1,4 @@
-import { NUMBER, ERROR, FLAG } from "../utils/Constant";
+import { NUMBER, ERROR, FLAG } from "./Constant.js";
 
 const Validation = {
   /*
@@ -29,4 +29,4 @@ const Validation = {
   }
 }
 
-module.exports = { Validation };
+export { Validation }

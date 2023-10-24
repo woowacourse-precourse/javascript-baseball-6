@@ -1,5 +1,5 @@
 import { Random } from "@woowacourse/mission-utils";
-import { NUMBER } from "./Constant";
+import { NUMBER } from "./Constant.js";
 
 const Computer = {
   // 서로 다른 3 자리(MAX_LENGTH) 정수 반환
@@ -17,4 +17,4 @@ const Computer = {
   }
 }
 
-module.exports = Computer;
+export { Computer };

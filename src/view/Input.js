@@ -1,6 +1,6 @@
 import { Console } from "@woowacourse/mission-utils";
-import { Validation } from "../utils/Validation";
-import { MESSAGE } from "../utils/Constant";
+import { Validation } from "../utils/Validation.js";
+import { MESSAGE } from "../utils/Constant.js";
 
 const Input = {
   // 유저 정수 입력 및 오류 확인
@@ -28,4 +28,4 @@ const Input = {
   }
 };
 
-module.exports = Input;
+export { Input };

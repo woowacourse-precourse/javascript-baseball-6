@@ -22,4 +22,4 @@ const ERROR = {
   INPUT_FLAG: '[ERROR] 정해진 값이 아닙니다.',
 }
 
-module.exports = { MESSAGE, NUMBER, FLAG, ERROR };
+export { MESSAGE, NUMBER, FLAG, ERROR };

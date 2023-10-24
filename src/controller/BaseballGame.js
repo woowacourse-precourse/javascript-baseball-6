@@ -1,9 +1,9 @@
 import { Console } from "@woowacourse/mission-utils";
-import { NUMBER, FLAG } from "../utils/Constant";
-import Computer from "../utils/Computer";
-import Check from "../utils/Check";
-import Input from "../view/Input";
-import Output from "../view/Ouput";
+import { NUMBER, FLAG } from "../utils/Constant.js";
+import { Computer } from "../utils/Computer.js";
+import { Check } from "../utils/Check.js";
+import { Input } from "../view/Input.js";
+import { Output } from "../view/Ouput.js";
 
 class BaseballGame {
   constructor () {}
@@ -55,4 +55,4 @@ class BaseballGame {
   }
 }
 
-module.exports = BaseballGame;
+export default BaseballGame;
