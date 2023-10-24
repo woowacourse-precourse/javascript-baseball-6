@@ -43,17 +43,17 @@ class App {
 
   async answerResult(computerNumber, userInput){
     if(computerNumber.join('') === userInput.join('')){
-      MissionUtils.Console.print("3스트라이크 \n 3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+      MissionUtils.Console.print("3스트라이크");
       return true;
     } else {
       const compareResult = this.compareNumber(computerNumber,userInput);
-      const BALL_COUNT = compareResult[0];
-      const STRIKE_COUNT = compareResult[1];
+      const STRIKE_COUNT = compareResult[0];
+      const BALL_COUNT = compareResult[1];
 
-      if(BALL_COUNT > 0 && STRIKE_COUNT > 0) MissionUtils.Console.print('${BALL_COUNT}볼 ${STRIKE_COUNT}스트라이크');
-      else if(BALL_COUNT > 0 && STRIKE_COUNT === 0) MissionUtils.Console.print('${BALL_COUNT}볼');
-      else if(BALL_COUNT === 0 && STRIKE_COUNT > 0) MissionUtils.Console.print('${STRIKE_COUNT}스트라이크');
-      else if(BALL_COUNT === 0 && STRIKE_COUNT === 0) MissionUtils.Console.print('낫싱');
+      if(BALL_COUNT > 0 && STRIKE_COUNT > 0) MissionUtils.Console.print(`${BALL_COUNT}볼 ${STRIKE_COUNT}스트라이크`);
+      else if(BALL_COUNT > 0 && STRIKE_COUNT === 0) MissionUtils.Console.print(`${BALL_COUNT}볼`);
+      else if(BALL_COUNT === 0 && STRIKE_COUNT > 0) MissionUtils.Console.print(`${STRIKE_COUNT}스트라이크`);
+      else if(BALL_COUNT === 0 && STRIKE_COUNT === 0) MissionUtils.Console.print(`낫싱`);
       
       return false;
     }
@@ -63,21 +63,21 @@ class App {
     const computerAnswer = this.getRandomNumber();
     let gameResult = false;
 
-    do{
+    while(!gameResult){
       const userAnswer = await this.getUserInput();
-      gameResult = this.answerResult(computerAnswer, userAnswer);
-    } while(!gameResult);
+      gameResult = await this.answerResult(computerAnswer, userAnswer);
+    }  
 
-    await this.restartGame();
+    return await this.restartGame();
   }
 
   async restartGame(){
+    MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
     const restartAnswer = await MissionUtils.Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
     if(restartAnswer === "1") await this.startGame();
     else if(restartAnswer === "2") MissionUtils.Console.print("게임 종료");
     else throw new Error("[ERROR] 1이나 2를 입력해주세요.");
   }
-
 
   async play() {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
