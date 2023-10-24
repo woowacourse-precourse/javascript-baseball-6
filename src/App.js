@@ -17,6 +17,7 @@ class App {
       }
     }
     this.randomNumber = [...computer];
+    MissionUtils.Console.print(this.randomNumber);
   }
 
 
@@ -30,7 +31,6 @@ class App {
 
 
   isValidUserInput(userInput) {
-
     if (this.isNotNumbers(userInput)) {
       throw new Error('[ERROR] 입력값은 숫자가 아닙니다.');
     }
@@ -47,8 +47,7 @@ class App {
       throw new Error('[ERROR] 3자리를 입력해주세요');
     }
 
-
-    if (this.hasSameNumber(userInput)) {
+    if (this.hasSameNumbers(userInput)) {
       throw new Error('[ERROR] 중복된 숫자가 있습니다.');
     }
   }
@@ -58,7 +57,7 @@ class App {
     return nonNumericRegex.test(userInput);
   }
 
-  hasSameNumber(userInput) {
+  hasSameNumbers(userInput) {
     const userInputArray = userInput.split('');
     return userInputArray.length !== new Set(userInputArray).size;
   }
@@ -119,12 +118,20 @@ class App {
 
   isValidUserInputRestartGame(userInput) {
     userInput = Number(userInput);
-    if (userInput.length === 0) throw new Error('[Error] 빈칸을 입력하셨습니다.');
-    if (userInput != 1 && userInput != 2) throw new Error('[Error] 1 또는 2를 입력해주세요');
 
+    if (this.isNotNumbers(userInput)) {
+      throw new Error('[ERROR] 입력값은 숫자가 아닙니다.');
+    }
+
+    if (userInput.length === 0) {
+      throw new Error('[Error] 빈칸을 입력하셨습니다. 1또는 2를 입력해주세요.');
+    }
+
+    if (userInput != 1 && userInput != 2) {
+      throw new Error('[Error] 1 또는 2를 입력해주세요.');
+    }
 
     return userInput;
-    // 이후 예외조건 추가
   }
 
   async play() {
