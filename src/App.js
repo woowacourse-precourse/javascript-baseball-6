@@ -1,18 +1,32 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import { rejects } from "assert";
+import { read } from "fs";
 import * as readline from "readline";
-// 객체로 작성해보기
-class App {
-  constructor() {}
-  async play() {
-    const computerNum = this.computerNum();
-    const userNumArray = await this.getUserNum();
-    this.determine(userNumArray, computerNum);
 
-    // if (strike == 3) {
-    //   console.log("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-    //   console.log("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
-    // }
+class App {
+  constructor() {
+    this.rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout,
+    });
+  }
+  async play() {
+    await this.startNewGame();
+  }
+
+  async startNewGame() {
+    console.log("숫자 야구 게임을 시작합니다.");
+    const computerNum = this.computerNum();
+    let gameFinished = false;
+
+    while (!gameFinished) {
+      const userNumArray = await this.getUserNum();
+      const result = this.determine(userNumArray, computerNum);
+      if (result == 3) {
+        this.askToPlayAgain();
+        gameFinished = true;
+      }
+    }
   }
 
   computerNum() {
@@ -22,22 +36,14 @@ class App {
       if (!computer.includes(number)) {
         computer.push(number);
       }
+      // console.log(computer);
     }
     return computer;
-    console.log(computer);
   }
 
   async getUserNum() {
-    console.log("숫자 야구 게임을 시작합니다.");
-
-    const rl = readline.createInterface({
-      input: process.stdin,
-      output: process.stdout,
-    });
-
-    const userNumArray = await new Promise((resolve, reject) => {
-      rl.question("숫자를 입력해주세요: ", function (userInput) {
-        rl.close();
+    return new Promise((resolve, reject) => {
+      this.rl.question("숫자를 입력해주세요: ", function (userInput) {
         const userNum = Array.from(userInput).map(Number);
         if (
           isNaN(userInput) ||
@@ -50,8 +56,6 @@ class App {
         }
       });
     });
-
-    return userNumArray;
   }
 
   determine(userNum, computerNum) {
@@ -78,9 +82,29 @@ class App {
       console.log(`${strike} 스트라이크`);
     } else if (strike == 0 && ball == 0) {
       console.log("낫싱");
-    } else {
+    } else if (strike !== 0 && ball !== 0) {
       console.log(`${ball}볼 ${strike}스트라이크`);
     }
+    if (strike == 3) {
+      console.log("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+      return 3;
+    }
+  }
+  askToPlayAgain() {
+    this.rl.question(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.: ",
+      (response) => {
+        if (response === "1") {
+          this.startNewGame();
+        } else if (response === "2") {
+          console.log("게임을 종료합니다.");
+          this.rl.close();
+        } else {
+          console.log("유효하지 않은 입력입니다. 다시 시도하세요.");
+          this.askToPlayAgain();
+        }
+      }
+    );
   }
 }
 
