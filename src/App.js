@@ -14,6 +14,7 @@ const CONSTANTS = {
     LENGTH_VALID: "[ERROR] 숫자 3자리를 입력해주세요.",
     ZERO_VALID: "[ERROR] 0을 제외한 1~9까지의 숫자를 입력해주세요.",
     DUPLICATE_VALID: "[ERROR] 중복되지 않은 숫자를 입력해주세요.",
+    RESTART_VALID: "[ERROR] 1 또는 2를 입력해주세요.",
   },
 };
 
@@ -40,7 +41,7 @@ class App {
     }
 
     // 컴퓨터 값 확인용
-    // Console.print("쉿! 정답은 : " + this.computerNum);
+    Console.print("쉿! 정답은 : " + this.computerNum);
     // Console.print(this.computerNum);
   }
   // 3️⃣ 사용자 입력값 받기
@@ -118,6 +119,8 @@ class App {
     } else if (input === "2") {
       Console.print(CONSTANTS.MESSAGES.EXIT);
       return false;
+    } else if (input !== 1 && input !== 2) {
+      Console(CONSTANTS.ERROR.RESTART_VALID);
     }
   }
 
