@@ -3,7 +3,10 @@ import { Random, Console } from '@woowacourse/mission-utils';
 class App {
   constructor() {
     this.LENGTH_OF_NUMBER = 3;
-    this.ERROR_MESSAGE = '[ERROR] 숫자가 잘못된 형식입니다.';
+    this.NUMBER_ERROR_MESSAGE = '[ERROR] 숫자가 잘못된 형식입니다.';
+    this.LENGTH_ERROR_MESSAGE = '[ERROR] 숫자 길이가 잘못되었습니다.';
+    this.ZERO_ERROR_MESSAGE = '[ERROR] 0이 포함되어 있습니다.';
+    this.DUPLICATE_ERROR_MESSAGE = '[ERROR] 중복된 숫자가 포함되어 있습니다';
     this.NOTHING = '낫싱';
     this.RESTART_MESSAGE =
       '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n';
@@ -35,14 +38,20 @@ class App {
 
   createComputerNumber() {
     let result = '';
-    for (let i = 0; i < this.LENGTH_OF_NUMBER; i += 1)
-      result += Random.pickNumberInRange(1, 9).toString();
+    while (result.length < this.LENGTH_OF_NUMBER) {
+      const newNumber = Random.pickNumberInRange(1, 9).toString();
+      if (!result.includes(newNumber)) result += newNumber;
+    }
     return result;
   }
 
   validateNumber(number) {
-    if (Number.isNaN(number) || number.length !== this.LENGTH_OF_NUMBER)
-      throw new Error(this.ERROR_MESSAGE);
+    if (Number.isNaN(number)) throw new Error(this.NUMBER_ERROR_MESSAGE);
+    else if (number.length !== this.LENGTH_OF_NUMBER)
+      throw new Error(this.LENGTH_ERROR_MESSAGE);
+    else if (number.includes('0')) throw new Error(this.ZERO_ERROR_MESSAGE);
+    else if (number.length !== new Set(number).size)
+      throw new Error(this.DUPLICATE_ERROR_MESSAGE);
     return number;
   }
 
