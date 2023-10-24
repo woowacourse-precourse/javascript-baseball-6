@@ -1,122 +1,71 @@
 import {
     STRING,
-    INPUT_LIMIT,
-    RANDOM_NUMBER_MAX, RANDOM_NUMBER_MIN,
     ERRORS,
     STRIKE_GAME_CLEAR,
     RESTART_NUMBER,
     END_NUMBER
 } from "./constants/index.js"
-import { print,readLineAsync, pickNumberInRange, throwError } from './utils/index.js'
-
+import { print, readLineAsync, throwError } from './utils/index.js'
+import Player from "./Player.js"
+import Computer from "./Computer.js"
 class App {
     isplaying;
+    player;
+    computer;
     randomNumber;
 
     constructor() {
-        this.init();
+        this.player = new Player();
+        this.computer = new Computer();
     }
-
-    init() {
-        this.isplaying = true;
-        this.randomNumber = this.makeRandomNumber();
-    }
+    /** 프로그램을 시작하는 메소드 */
     async play() {
-        print(STRING.START);
-        // for test
-        console.log(this.randomNumber);
+        this.gameStart()
+        const computer = this.computer;
         while (this.isplaying) {
-            const input = await this.playerInputNumber();
-            const { ball, strike } = await this.umpireOfGame(input);
+            console.log(computer);
+            const input = await this.player.playerInputNumber();
+            const { ball, strike } = await computer.umpireOfGame(input);
             this.printJudgement(ball, strike);
             if (strike === STRIKE_GAME_CLEAR) {
                 await this.gameClear();
             }
         }
     }
+
+
     /**
-     * 게임 동작 함수
+     * 게임 시작시 발생하는 메소드
+     * init을 통해 this.isplaying과 computer의 random값을 초기화 했었지만
+     * play메소드가 실행되기 전에 랜덤숫자가 생성되는 것을 막기 위해 변경하였음
      */
-    
-    /**
-     * 중복되지 않은 숫자배열을 생성해주는 메소드  (number.length=3)
-     * @return {number[]}
-     */
-    makeRandomNumber() {
-        const randomNumber = [];
-        while (randomNumber.length < INPUT_LIMIT) {
-            const pickNumber = pickNumberInRange(RANDOM_NUMBER_MIN, RANDOM_NUMBER_MAX);
-            if (!randomNumber.includes(pickNumber)) {
-                randomNumber.push(pickNumber);
-            }
-        }
-        return randomNumber;
+    gameStart() {
+        print(STRING.START);
+        this.isplaying = true;
+        this.computer.init();
     }
 
-    /**
-     * 사용자에게 데이터를 입력받는 메소드
-     * @returns {number[]}
-     */
-    async playerInputNumber() {
-        const a = await readLineAsync(STRING.INPUT);
-        // 입력받은 데이터의 양쪽 공백을 제거해준다.
-        const input = a.trim();
-        this.validateInput(input);
-        return Array.from(input, Number);
-    }
-
-    /**
-     * 사용자에게 입력받은 데이터가 조건에 부합하는지 검사하는 메소드. (예외가 발생할 시에 프로그램을 종료한다.)
-     * @param {string} input 
-     * @returns true
-     */
-    validateInput(input) {
-
-        throwError(input.length !== 3, `${ERRORS.LENGTH}`);
-        throwError(!/^[1-9]+$/.test(input), `${ERRORS.NUMBER}`);
-
-        const dedupe = new Set(input);
-        throwError(dedupe.size !== 3, `${ERRORS.DUPLICATION}`);
-
-        return true;
-    }
-    /**
-         * 사용자에게 입력받은 데이터의 스트라이크와 볼의 개수를 판별해냄
-    */
-    async umpireOfGame(input) {
-        const result = {
-            ball: 0,
-            strike: 0
-        }
-        const randomNumber = this.randomNumber;
-        randomNumber.forEach((number, idx) => {
-            const inputNumber = input[idx];
-            if (number == inputNumber) {
-                result.strike++;
-            } else if (this.randomNumber.includes(inputNumber)) {
-                result.ball++;
-            }
-        })
-        return result;
-    }
     /**
      * 데이터 판별 결과를 출력함
      * @param {number} ball
      * @param {number} strike
-     * @returns 
+     * @return 
      */
 
     printJudgement(ball, strike) {
         if (ball + strike === 0) {
             print(STRING.NOTHING);
         }
+
         let str = "";
         if (ball != 0) {
             str += `${ball}${STRING.BALL} `;
         }
+
         if (strike != 0) {
             str += `${strike}${STRING.STRIKE}`;
         }
+        
         print(str);
     }
 
@@ -132,13 +81,11 @@ class App {
         throwError(!/^[1-2]$/.test(input), `${ERRORS.CLEAR_INPUT_NUMBER}`)
 
         if (input == RESTART_NUMBER) {
-            this.init();
+            this.computer.init();
         } else if (input == END_NUMBER) {
             this.isplaying = false;
         }
     }
-
-
 
 }
 

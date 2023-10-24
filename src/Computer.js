@@ -7,14 +7,15 @@ import { pickNumberInRange } from './utils/index.js'
  * @class
  */
 class Computer{
-    /**
-     * 중복되지 않은 숫자배열을 생성해주는 메소드  (number.length=3)
-     * @return {number[]}
-     */
     randomNumber;
     init(){
         this.randomNumber = this.makeRandomNumber();
     }
+
+     /**
+     * 중복되지 않은 숫자배열을 생성해주는 메소드  (number.length=3)
+     * @return {number[]}
+     */
     makeRandomNumber() {
         const randomNumber = [];
         while (randomNumber.length < INPUT_LIMIT) {
@@ -27,7 +28,9 @@ class Computer{
     }
 
     /**
-         * 사용자에게 입력받은 데이터의 스트라이크와 볼의 개수를 판별해냄
+    * 사용자에게 입력받은 데이터의 스트라이크와 볼의 개수를 판별해냄
+    * @param {string} input
+    * @return {object} {ball, strike}
     */
     async umpireOfGame(input) {
         const result = {
