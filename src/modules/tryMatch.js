@@ -19,9 +19,11 @@ const isUnique = (string) => {
 
 const isUniqueNumber = (string) => {
   const number = Number(string);
+
   if (Number.isNaN(number)) {
     return false;
   }
+
   return isValidLength(string) && isUnique(string);
 };
 
