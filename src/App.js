@@ -8,18 +8,25 @@ class App {
 
   async getRandomNum() {
     const computer = [];
+    let computerNum="";
     while (computer.length < 3) {
       const number = MissionUtils.Random.pickNumberInRange(1, 9);
       if (!computer.includes(number)) {
         computer.push(number);
       }
     }
-    return this.getUserNum();
+    computerNum=computer.join('');
+    return this.getUserNum(computerNum);
   }
 
-  async getUserNum() {
-    const user = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
-    await this.validCheckUserNum(user);
+  async getUserNum(computerNum) {
+    const userNum = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
+    try{
+      this.validCheckUserNum(userNum);
+      this.checkResult(computerNum, userNum);
+    } catch(err){
+      MissionUtils.Console.print(err.message);
+    }
   }
 
   async validCheckUserNum(userNum) {
@@ -42,6 +49,16 @@ class App {
 
   isCheckDuplicate(userNum) {
     return new Set(userNum).size === 3;
+  }
+
+  countStrike(computerNum, userNum){
+    let strike = 0;
+    for(let i = 0; i < computerNum.length; i++){
+      if(computerNum[i] === userNum[i]){
+        strike++;
+      }
+    }
+    return strike;
   }
 }
 
