@@ -1,21 +1,18 @@
 import { Console } from "@woowacourse/mission-utils";
 import { MESSAGE_INFO, MESSAGE_STATE } from "../constants/Message.js";
+import { isValidInput, isValidRestart } from "../utils/Validation.js";
 
 // [입출력] 비동기
 export async function playerInput() {
-  try {
-    return Console.readLineAsync(MESSAGE_INFO.gameInput);
-  } catch (error) {
-    return Console.print(error);
-  }
+  const inputValue = await Console.readLineAsync(MESSAGE_INFO.gameInput);
+  isValidInput(inputValue);
+  return inputValue;
 }
 
 export async function restartInput() {
-  try {
-    return Console.readLineAsync(MESSAGE_INFO.gameRestart);
-  } catch (error) {
-    return Console.print(error);
-  }
+  const inputValue = await Console.readLineAsync(MESSAGE_INFO.gameRestart);
+  isValidRestart(inputValue);
+  return inputValue;
 }
 
 // [입출력] 출력

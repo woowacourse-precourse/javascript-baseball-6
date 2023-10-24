@@ -2,7 +2,7 @@ import { Console } from "@woowacourse/mission-utils";
 import Player from "./model/Player.js";
 import Computer from "./model/Computer.js";
 import { playerInput, restartInput, printResult, printStart, printEnd } from "./view/View.js";
-import { GAME_NUMBER, GAME_END } from "./constants/gameConfig.js";
+import { GAME_NUMBER, GAME_END } from "./constants/ConfigGame.js";
 
 export class App {
   #player;
@@ -19,14 +19,10 @@ export class App {
   }
 
   async init() {
-    try {
-      const getPlayerInput = await playerInput();
-      this.#player.setPlayerNumber(getPlayerInput);
-      this.test();
-      this.compare();
-    } catch (error) {
-      Console.print("에러:", error);
-    }
+    const getPlayerInput = await playerInput();
+    this.#player.setPlayerNumber(getPlayerInput);
+    this.test();
+    this.compare();
   }
 
   compare() {
@@ -42,15 +38,11 @@ export class App {
   }
 
   async restart() {
-    try {
-      const getRestartInput = await restartInput();
-      if (getRestartInput === GAME_END.restart) {
-        this.#computer.createRandomNumber();
-        this.#player.setPlayerNumber("");
-        return this.play();
-      }
-    } catch (error) {
-      Console.print("에러:", error);
+    const getRestartInput = await restartInput();
+    if (getRestartInput === GAME_END.restart) {
+      this.#computer.createRandomNumber();
+      this.#player.setPlayerNumber("");
+      return this.play();
     }
   }
 
