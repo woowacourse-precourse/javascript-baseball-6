@@ -1,21 +1,14 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 import getComputerInput from "./input/getComputerInput.js";
 import getUserInput from "./input/getUserInput.js";
+import getBallStrikeCount from "./game/getBallStrikeCount.js";
 
 class App {
   async play() {
     let computer = getComputerInput();
     while(1) {
       let userInput = await getUserInput();
-
-      let strikeCount = 0;
-      let ballCount = 0;
-      for(let i = 0; i < computer.length; i++) {
-        if(computer[i] === userInput[i]) strikeCount++;
-        else if(computer.includes(userInput[i])) ballCount++;
-      }
-
-      let totalCount = [ballCount, strikeCount];
+      let totalCount = getBallStrikeCount(computer, userInput);
       const RESULT = [];
       if(totalCount[0]) RESULT.push(`${totalCount[0]}볼`);
       if(totalCount[1]) RESULT.push(`${totalCount[1]}스트라이크`);
