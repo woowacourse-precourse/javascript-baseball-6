@@ -2,7 +2,7 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 import { SETTING, SCORE, MESSAGE } from "./constants/gameConfig.js";
 class App {
   showStartMessage() {
-    MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
+    MissionUtils.Console.print(MESSAGE.GAME.START);
   }
 
   setRandomNumber() {
