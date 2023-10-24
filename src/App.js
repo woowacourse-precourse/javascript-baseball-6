@@ -73,9 +73,7 @@ class App {
       MissionUtils.Console.print(`choice : ${choice}`);
 
       if (!/^[12]$/.test(choice)) {
-        throw new Error(
-          "[ERROR] 입력이 잘못되었습니다. 게임의 재시작/종료는 1 또는 2로 결정할 수 있습니다."
-        );
+        throw new Error("[ERROR] 재시작 여부는 1 또는 2를 입력해야 합니다.");
       }
 
       if (choice === "2") {

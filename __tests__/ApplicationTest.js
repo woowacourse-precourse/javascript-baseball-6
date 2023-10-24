@@ -1,17 +1,39 @@
 import App from "../src/App.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
 
+function hasDuplicates(input) {
+  const seen = {};
+
+  for (let i = 0; i < input.length; i++) {
+    if (seen[input[i]]) {
+      return true; // 중복 발견
+    }
+    seen[input[i]] = true;
+  }
+
+  return false; // 중복 없음
+}
 const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
 
   MissionUtils.Console.readLineAsync.mockImplementation(() => {
     const input = inputs.shift();
     if (input === "1" || input === "2") {
-      // 게임 종료 후 1 또는 2를 입력받을 경우, 유효한 입력으로 처리한다.
       return Promise.resolve(input);
     }
+    if (input && input.length < 3 && input !== "1" && input !== "2") {
+      return Promise.reject(
+        new Error("[ERROR] 재시작 여부는 1 또는 2를 입력해야 합니다.")
+      );
+    }
+    if (input && hasDuplicates(input)) {
+      return Promise.reject(
+        new Error(
+          "[ERROR] 숫자 야구는 서로 다른 3자리의 숫자만 입력할 수 있습니다."
+        )
+      );
+    }
     if (!/^\d{3}$/.test(input)) {
-      // 입력값이 숫자가 아닌 경우 오류를 던진다.
       return Promise.reject(
         new Error("[ERROR] 서로 다른 3자리의 숫자만 입력할 수 있습니다.")
       );
@@ -98,6 +120,37 @@ describe("숫자 야구 게임", () => {
     // then
     const lastLogCall = logSpy.mock.calls[logSpy.mock.calls.length - 1][0];
     expect(lastLogCall).toEqual(expect.stringContaining("게임 종료"));
+  });
+
+  test("예외 테스트 - 중복된 숫자 입력", async () => {
+    // given
+    const randoms = [1, 3, 5];
+    const answers = ["779"];
+    mockRandoms(randoms);
+    mockQuestions(answers);
+
+    // when & then
+    const app = new App();
+
+    await expect(app.play()).rejects.toThrow(
+      "[ERROR] 숫자 야구는 서로 다른 3자리의 숫자만 입력할 수 있습니다."
+    );
+  });
+
+  test("예외 테스트 - 잘못된 재시작 여부 입력", async () => {
+    // given
+    const randoms = [1, 3, 5];
+    const answers = ["135", "3"];
+
+    mockRandoms(randoms);
+    mockQuestions(answers);
+
+    // when & then
+    const app = new App();
+
+    await expect(app.play()).rejects.toThrow(
+      "[ERROR] 재시작 여부는 1 또는 2를 입력해야 합니다."
+    );
   });
 
   test("예외 테스트 - 입력한 수가 3자리의 수가 아닐 경우", async () => {
