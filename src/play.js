@@ -9,7 +9,7 @@ const threeStrike = async () => {
     '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.'
   );
   if (choice === '1') {
-    await gameinit();
+    await play();
   } else if (choice === '2') {
     return false;
   } else {
@@ -75,9 +75,9 @@ const createNum = () => {
   return computer;
 };
 
-const gameinit = async () => {
+const play = async () => {
   const generateNum = createNum();
   await getUserNum(generateNum);
 };
 
-module.exports = { gameinit, compareTwoNums, createNum };
+module.exports = { play, compareTwoNums, createNum };
