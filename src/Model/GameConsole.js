@@ -2,14 +2,19 @@ import ERROR from '../constants/Error.js';
 import GAME from '../constants/Game.js';
 import RestartCommandError from '../error/RestartCommandError.js';
 import isNan from '../utils/isNan.js';
+import restartCommandValidation from '../validation/restartCommandValidation.js';
 
+// 다른 커멘드가 추가될 수 있으므로 클래스로 따로 분리하였다.
+// 또한 입력받은 커맨드를 기억해야한다는 요구사항이 들어올 수도 있다.
 class GameConsole {
-	static isValidRestartCommand(input) {
-		if (isNan(input)) throw new RestartCommandError(ERROR.isNan);
-		if (parseInt(input) !== GAME.restart && parseInt(input) !== GAME.exit)
-			throw new RestartCommandError(ERROR.invalidRestartCommand);
+	constructor() {
+		this.currentCommand = this.currentCommand;
+	}
 
-		return parseInt(input); // 형태 변화도 같이 해서 준다. 단순한 변환이므로 함께했다.
+	setRestartCommand(input) {
+		restartCommandValidation(input); // 에러 발생 가능성 위치
+
+		this.currentCommand = parseInt(input);
 	}
 }
 
