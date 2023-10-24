@@ -27,11 +27,7 @@ class App {
   }
 
   async playGame() {
-    this.strikes = [];
-    this.isWin = false;
-    Console.print("숫자 야구 게임을 시작합니다.");
-    this.strikes = generateStrikes();
-    // Console.print(this.strikes); // 코드 작성 시 활성화하여 작업
+    this.startGame();
     while (!this.isWin) {
       const [message, strikeCount] = await this.playInning();
       Console.print(message);
@@ -41,6 +37,13 @@ class App {
         return Promise.resolve();
       }
     }
+  }
+
+  startGame() {
+    this.strikes = generateStrikes();
+    // Console.print(this.strikes); // 코드 작성 시 활성화하여 작업
+    this.isWin = false;
+    Console.print("숫자 야구 게임을 시작합니다.");
   }
 
   async playInning() {
