@@ -5,8 +5,12 @@ class App {
   constructor() {
     this.strike = 0;
     this.ball = 0;
-    // 컴퓨터는 1부터 9까지 서로 다른 임의의 수 3개를 선택한다.
     this.computer = [];
+  }
+
+  setComputerNum() {
+    this.computer = [];
+    // 컴퓨터는 1부터 9까지 서로 다른 임의의 수 3개를 선택한다.
     while (this.computer.length < 3) {
       const number = MissionUtils.Random.pickNumberInRange(1, 9);
       if (!this.computer.includes(number)) {
@@ -18,7 +22,12 @@ class App {
   async play() {
     let gameNum = 0;
     let isEnd = false;
+
+    // 컴퓨터 번호 다시 세팅
+    this.setComputerNum();
+
     while(!isEnd) {
+
       this.strike = 0;
       this.ball = 0;
       try {
@@ -58,6 +67,8 @@ class App {
           if (gameNum == 1) isEnd = false;
           else if(gameNum == 2) isEnd = true;
           console.log('isEnd?: ', isEnd, 'gameNum', gameNum);
+          // 컴퓨터 번호 다시 세팅
+          this.setComputerNum();
         } else {
           MissionUtils.Console.print(`낫싱`);
         }
@@ -71,7 +82,6 @@ class App {
 }
 
 const app = new App();
-console.log(app.computer);
 app.play();
 
 export default App;
