@@ -11,38 +11,39 @@ export default class Compare {
   }
 
   async compareNumbers() {
-    let correctPositionCount = 0;
-    const machineGeneratedNumber = await this.getComputerNumber();
+    let strikeCount = 0;
+    const computerNumber = await this.getComputerNumber();
 
-    while (correctPositionCount !== 3) {
-      const playerInput = await this.user.getNumber();
-      correctPositionCount = 0;
-      let correctDigitCount = 0;
+    while (strikeCount !== 3) {
+      const userInput = await this.user.getNumber();
+      let ballCount = 0;
 
       for (let i = 0; i < 3; i++) {
-        if (playerInput[i] === machineGeneratedNumber[i]) {
-          correctPositionCount++;
-        } else if (machineGeneratedNumber.includes(playerInput[i])) {
-          correctDigitCount++;
+        if (userInput[i] === computerNumber[i]) {
+          strikeCount++;
+        } else if (computerNumber.includes(userInput[i])) {
+          ballCount++;
         }
       }
 
-      this.printHint(correctDigitCount, correctPositionCount);
+      this.printResult(ballCount, strikeCount);
 
-      if (correctPositionCount === 3) {
+      if (strikeCount === 3) {
         return true; 
       }
+
+      strikeCount = 0;
     }
 
     return false;
   }
 
-  printHint(ball, strike) {
+  printResult(ball, strike) {
     if (ball === 0 && strike === 0) {
       Console.print("낫싱");
-    } else if (ball === 0 && strike !== 0) {
+    } else if (ball === 0) {
       Console.print(`${strike}스트라이크`);
-    } else if (ball !== 0 && strike === 0) {
+    } else if (strike === 0) {
       Console.print(`${ball}볼`);
     } else {
       Console.print(`${ball}볼 ${strike}스트라이크`);
