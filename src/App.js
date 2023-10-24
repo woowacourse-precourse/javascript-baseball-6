@@ -6,6 +6,11 @@ export const ErrorMessage = Object.freeze({
   oneToNine: '[ERROR] 각 자리 수는 1~9 사이의 수여야 합니다.',
   differentDigits: '[ERROR] 각 자리 수는 모두 다른 수여야 합니다.',
 });
+export const ConsoleMessage = Object.freeze({
+  userNumber: '숫자를 입력해주세요 : ',
+  allCorrect: '3개의 숫자를 모두 맞히셨습니다! 게임종료',
+  resumeGame: '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n',
+});
 class App {
   #computer;
 
@@ -44,7 +49,7 @@ class App {
   }
 
   async getUserNumber() {
-    const user = await Console.readLineAsync('숫자를 입력해주세요 : ');
+    const user = await Console.readLineAsync(ConsoleMessage.userNumber);
     const checkedNum = this.checkDifferentThreeDigits(user.trim());
     const parsedNum = checkedNum.map((v) => parseInt(v));
     return parsedNum;
@@ -83,7 +88,7 @@ class App {
 
   restartGame(result) {
     if (result) {
-      Console.print('3개의 숫자를 모두 맞히셨습니다! 게임종료');
+      Console.print(ConsoleMessage.allCorrect);
       this.endGame();
     } else {
       this.playBaseball(this.computer);
@@ -91,9 +96,7 @@ class App {
   }
 
   async endGame() {
-    const num = await Console.readLineAsync(
-      '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'
-    );
+    const num = await Console.readLineAsync(ConsoleMessage.resumeGame);
     this.checkEndNum(num);
   }
 
