@@ -3,6 +3,8 @@ import { MissionUtils } from '@woowacourse/mission-utils';
 const Message = {
   START: '숫자 야구 게임을 시작합니다.',
   INPUT_MESSAGE: '숫자를 입력해주세요 : ',
+  GAME_FINISH: '3개의 숫자를 모두 맞히셨습니다! 게임 종료',
+  GAME_RESTART: '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.',
 
   INPUT_MESSAGE_ERROR: '3자리 숫자를 입력해야 합니다.',
 };
@@ -10,7 +12,7 @@ const Message = {
 class App {
   computer = [];
   userInput = [];
-  restart = 1;
+  restart = '1';
   isAnswer = false;
 
   printStartMessage() {
@@ -79,8 +81,8 @@ class App {
     // this.compareInput();
     // console.log(this.computer, this.userInput);
 
-    this.printStartMessage();
-    while (this.restart === 1) {
+    while (this.restart === '1') {
+      this.printStartMessage();
       this.isAnswer = false;
       this.pickComputerNumbers();
       console.log(this.computer);
@@ -90,7 +92,9 @@ class App {
         this.compareInput();
       }
 
-      console.log('정답입니다! 새로운 게임을 시작합니다.');
+      MissionUtils.Console.print(Message.GAME_FINISH);
+      MissionUtils.Console.print(Message.GAME_RESTART);
+      this.restart = await MissionUtils.Console.readLineAsync('');
     }
   }
 }
