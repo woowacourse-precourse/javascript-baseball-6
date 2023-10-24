@@ -16,7 +16,7 @@ class Umpire {
         [strike, GameMessages.GAME_RESULT_STRIKE],
       ]
         .filter(([count]) => count > 0)
-        .map(([count, message]) => `${count}${message}`)
+        .map(([count, gameJudgment]) => `${count}${gameJudgment}`)
         .join(' ') || GameMessages.GAME_RESULT_NOTHING;
 
     Console.print(countResult);
