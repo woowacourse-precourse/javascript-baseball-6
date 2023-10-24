@@ -1,4 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
+import { BALL_COUNT } from '../constants/constants.js';
 
 class Hint {
   /** @param {{computer: number[], user: number[]}} */
@@ -32,8 +33,8 @@ class Hint {
    */
   countHint() {
     const { computer, user } = this.player;
-    let ball = 0;
-    let strike = 0;
+    let ball = BALL_COUNT.RESET;
+    let strike = BALL_COUNT.RESET;
 
     user?.forEach((num, idx) => {
       const exist = computer.indexOf(num);
@@ -51,10 +52,10 @@ class Hint {
    * @param {number} strike
    */
   printHint(ball, strike) {
-    if (ball === 0 && strike === 0) Console.print('낫싱');
-    else if (ball !== 0 && strike === 0) Console.print(`${ball}볼`);
-    else if (ball === 0 && strike !== 0) Console.print(`${strike}스트라이크`);
-    else if (ball !== 0 && strike !== 0) Console.print(`${ball}볼 ${strike}스트라이크`);
+    if (ball === 0 && strike === 0) Console.print(BALL_COUNT.NOTHING);
+    else if (ball !== 0 && strike === 0) Console.print(`${ball}${BALL_COUNT.BALL}`);
+    else if (ball === 0 && strike !== 0) Console.print(`${strike}${BALL_COUNT.STRIKE}`);
+    else if (ball !== 0 && strike !== 0) Console.print(`${ball}${BALL_COUNT.BALL} ${strike}${BALL_COUNT.STRIKE}`);
   }
 }
 
