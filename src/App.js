@@ -20,7 +20,7 @@ class App {
           if (strike === 3) {
             userWillRetry = false;
           } 
-        } // retry 끝나면(정답 맞추면) isUserWillingToRestart()  이거 실행되게 해야함
+        } 
         willBeRestarted = await this.isUserWillingToRestart()
       }
     } 
@@ -38,6 +38,7 @@ class App {
       return arrayOfInput;
     } 
 
+
     async isUserWillingToRestart() {
       let restart = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.')
       .then((value) => value);
@@ -47,14 +48,12 @@ class App {
       } else if (restart === "2") {
         MissionUtils.Console.print("2번을 눌렀습니다. 게임을 종료하겠습니다.");
         return false;
-      } else {
-        this.isUserWillingToRestart("잘못된 숫자를 입력하였습니다. ")
+      } return this.isUserWillingToRestart();       
       }
     }
-};
 
+const app = new App;
+app.play();
 
-const app = new App()
-app.play()
 
 export default App;
