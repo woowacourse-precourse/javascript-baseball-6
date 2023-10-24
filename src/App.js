@@ -25,6 +25,35 @@ class App {
     this.#computer = NUMBERS;
   }
 
+    // 사용자 입력값 받기
+    async userAnswer(){
+      const USER_ANSWER = await Console.readLineAsync('숫자를 입력해주세요 : ');
+      await this.validateAnswer(USER_ANSWER)
+  
+      return USER_ANSWER
+    }
+  
+    // 3가지 예외 처리
+    async validateAnswer(answer){
+      const NUMBERS = Random.pickUniqueNumbersInRange(1, 9, 9).toString();
+      const ANSWER = answer.split('');
+  
+      ANSWER.map((num) => {
+        if(!NUMBERS.includes(num)){
+          throw new Error("[ERROR] 입력값이 숫자가 아닙니다.");
+        }
+      })
+  
+      if(ANSWER.length !== 3){
+        throw new Error("[ERROR] 입력값이 3자리가 아닙니다.");
+      }
+  
+      if(ANSWER[0] === ANSWER[1] || ANSWER[1] === ANSWER[2] || ANSWER[2] === ANSWER[0]){
+        throw new Error("[ERROR] 중복된 값이 입력되었습니다.");
+      }
+  
+    }
+
 }
 
 export default App;
