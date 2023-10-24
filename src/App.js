@@ -51,6 +51,7 @@ function checkUserNum(COM_NUM, USER_NUM) {
 
 
 class App {
+
   async play() {
 
     let COM_NUMBER = getRandomNumber()
@@ -59,6 +60,7 @@ class App {
     let userNum;
 
     while (true) {
+
       userNum = await getUserNum();
 
       let strike = checkUserNum(COM_NUMBER, userNum);
@@ -66,11 +68,15 @@ class App {
       if (strike === 3) {
         Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
         const OVERM = await MissionUtils.Console.readLineAsync("게임을 새로 시작하려면 '1', 종료하려면 '2'를 입력하세요.");
-      }
 
+        if (OVERM === "1") {
+          COM_NUMBER = getRandomNumber();
+        } else if (OVERM === "2") {
+          break;
+        }
+      }
     }
-    
-    }
+  }
 }
 
 
