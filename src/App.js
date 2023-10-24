@@ -1,7 +1,7 @@
 import { Random, Console } from "@woowacourse/mission-utils";
 
 // 비교 할 수의 총 갯수를 지정하는 상수
-const INPUT_LENGTH = 3;
+const COMPARE_LENGTH = 3;
 
 // 출력 할 때 사용할 메시지를 지정하는 상수
 const MESSAGE = {
@@ -17,7 +17,7 @@ const MESSAGE = {
 // 컴퓨터가 3개의 난수 배열을 생성하는 함수
 const getComputerNumber = () => {
   const computer = [];
-  while (computer.length < INPUT_LENGTH) {
+  while (computer.length < COMPARE_LENGTH) {
     const number = Random.pickNumberInRange(1, 9);
     if (!computer.includes(number)) {
       computer.push(number);
@@ -44,7 +44,7 @@ const readFromPlayer = async () => {
 // 입력된 수의 유효성을 검사하는 함수
 const isValid = (answer) => {
   return (
-    answer.length === INPUT_LENGTH &&
+    answer.length === COMPARE_LENGTH &&
     answer >= 100 &&
     answer <= 999 &&
     !isDuplicated(answer)
@@ -94,7 +94,7 @@ const readRestart = async () => {
 
 // 결과를 출력하는 함수
 const printResult = (strikeCnt, ballCnt) => {
-  if (strikeCnt === INPUT_LENGTH) {
+  if (strikeCnt === COMPARE_LENGTH) {
     Console.print(`${strikeCnt}${MESSAGE.STRIKE}`);
     Console.print(`${strikeCnt}${MESSAGE.SUCCESS}`);
     return true;
@@ -114,39 +114,24 @@ const printResult = (strikeCnt, ballCnt) => {
   }
 };
 
+const playGame = async () => {
+  Console.print(MESSAGE.START);
+  let restart = "1";
+  while (restart === "1") {
+    const computerList = getComputerNumber();
+    let isEnd = false;
+    while (!isEnd) {
+      const humanList = await readFromPlayer();
+      const { strikeCnt, ballCnt } = compareNumber(computerList, humanList);
+      isEnd = printResult(strikeCnt, ballCnt);
+    }
+    restart = await readRestart();
+  }
+};
+
 class App {
   async play() {
-    let success = false;
-
-    Console.print(MESSAGE.START);
-
-    do {
-      const computerList = getComputerNumber();
-      let humanList = [];
-
-      // 3스트라이크에 성공하지 못하면 성공할 때 까지 루프한다.
-      while (!success) {
-        try {
-          humanList = await readFromPlayer();
-        } catch (e) {
-          throw new Error(e.message);
-        }
-        const { strikeCnt, ballCnt } = compareNumber(computerList, humanList);
-        success = printResult(strikeCnt, ballCnt);
-      }
-
-      // 플레이어의 입력에 따라 재시작하거나 종료한다.
-      try {
-        const restart = await readRestart();
-        if (restart === "1") {
-          success = false;
-        } else if (restart === "2") {
-          return;
-        }
-      } catch (e) {
-        throw new Error(e.message);
-      }
-    } while (true);
+    await playGame();
   }
 }
 
