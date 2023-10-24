@@ -1,8 +1,8 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
-  constructor(){
-    this.computerNumber = []
+  constructor() {
+    this.computerNumber = [];
   }
   //상대방 숫자 랜덤 생성
   generateRandomNumber() {
@@ -38,30 +38,34 @@ class App {
     this.showResults(strikeNumbers, ballNumbers);
     return strikeNumbers;
   }
-  //각 자리 숫자들이 서로 다른지 판별
-  verifyUniqueDigit(guessNumber) {
+  //각자리 숫자들이 서로 다른지 검증
+  verifyDigit(guessNumber) {
     const digit1 = Math.floor(guessNumber / 100);
     const digit2 = Math.floor((guessNumber % 100) / 10);
     const digit3 = guessNumber % 10;
     return !(digit1 !== digit2 && digit1 !== digit3 && digit2 !== digit3);
+  }
+  //유저의 입력값 검증
+  verityUserNumber(guessNumber) {
+    if (
+      guessNumber.length !== 3 ||
+      !guessNumber ||
+      isNaN(guessNumber) ||
+      this.verifyDigit(guessNumber)
+    ) {
+      throw new Error("[ERROR]");
+    }
   }
   //유저가 숫자 입력
   async askNumber() {
     const guessNumber = await MissionUtils.Console.readLineAsync(
       "숫자를 입력해주세요 : "
     );
-    if (
-      guessNumber.length !== 3 ||
-      !guessNumber ||
-      isNaN(guessNumber) ||
-      this.verifyUniqueDigit(guessNumber)
-    ) {
-      throw new Error("[ERROR]");
-    } else {
-      if (this.compareNumbers(guessNumber) === 3) {
-        this.gameExiter();
-        return;
-      }
+    this.verityUserNumber(guessNumber);
+
+    if (this.compareNumbers(guessNumber) === 3) {
+      this.gameExiter();
+      return;
     }
   }
   //게임 시작할시 필요한 메소드들
