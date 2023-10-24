@@ -1,9 +1,9 @@
 import { Console } from "@woowacourse/mission-utils";
 import {
-  validateUserInputNumber,
   validateUserSelectNumber,
   GAME_EXIT,
-} from "./utils/validation.js";
+} from "./utils/game-control-validation.js";
+import { validateUserInputNumber } from "./utils/number-validation.js";
 import {
   generateComputerNumbers,
   compareNumbers,
