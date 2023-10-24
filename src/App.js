@@ -1,6 +1,6 @@
 import { MissionUtils, Console } from '@woowacourse/mission-utils';
 const GAME_START_MESSAGE = '숫자 야구 게임을 시작합니다.';
-const INPUT_YOUR_NUMBER = "'숫자를 입력해주세요 :";
+const INPUT_YOUR_NUMBER = '숫자를 입력해주세요 :';
 const ERROR_MESSAGE = '[ERROR] 숫자를 잘 못 입력했습니다.';
 const WINNING_MASSAGE = '3개의 숫자를 모두 맞히셨습니다! 게임 종료';
 const AKS_RESTART_MASSAGE =
@@ -18,10 +18,6 @@ class App {
 
       while (true) {
         let userInput = await this.promptUserInput();
-
-        if (userInput.length !== 3 || new Set(userInput).size !== 3) {
-          throw new Error(ERROR_MESSAGE);
-        }
 
         let result = this.evaluateGameResult(answerNumber, userInput);
 
@@ -46,6 +42,23 @@ class App {
     Console.print(gameStartMessage);
   }
 
+  parseInputToNumber(input) {
+    return input.split('').map((number) => parseInt(number));
+  }
+
+  isValidRestartInput(restartOrEnd) {
+    return (
+      restartOrEnd.length === 1 &&
+      (restartOrEnd[0] === 1 || restartOrEnd[0] === 2)
+    );
+  }
+
+  isValidPlayerInput(inputPlayerNumber) {
+    return (
+      inputPlayerNumber.length !== 3 || new Set(inputPlayerNumber).size !== 3
+    );
+  }
+
   generateRandomNumbers() {
     let pickNumbers = [];
     while (pickNumbers.length < 3) {
@@ -58,8 +71,11 @@ class App {
   }
 
   async promptUserInput() {
-    let playerInput = await Console.readLineAsync(INPUT_YOUR_NUMBER);
-    let playerNumber = playerInput.split('').map((number) => parseInt(number));
+    const playerInput = await Console.readLineAsync(INPUT_YOUR_NUMBER);
+    const playerNumber = this.parseInputToNumber(playerInput);
+    if (this.isValidPlayerInput(playerNumber)) {
+      throw new Error(ERROR_MESSAGE);
+    }
     return playerNumber;
   }
 
@@ -113,17 +129,12 @@ class App {
   }
 
   async askForAnotherGame() {
-    let plyerInputOneorTwo = await Console.readLineAsync(AKS_RESTART_MASSAGE);
-    let restartOrEnd = plyerInputOneorTwo
-      .split('')
-      .map((number) => parseInt(number));
-    if (
-      restartOrEnd.length !== 1 ||
-      (restartOrEnd[0] !== 1 && restartOrEnd[0] !== 2)
-    ) {
+    const playerInput = await Console.readLineAsync(AKS_RESTART_MASSAGE);
+    const playerAnswer = this.parseInputToNumber(playerInput);
+    if (!this.isValidRestartInput(playerAnswer)) {
       throw new Error(ERROR_MESSAGE);
     }
-    return restartOrEnd[0]; // 반환값을 숫자로 변경
+    return playerAnswer[0]; // 반환값을 숫자로 변경
   }
 }
 
