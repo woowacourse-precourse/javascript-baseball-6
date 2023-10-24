@@ -67,27 +67,18 @@ class App {
     return Console.print(`${ballCount}볼 ${strikeCount}스트라이크`);
   }
 
+  // 유효성 검사를 합니다.
+  // 편의를 위해 받아온 값을 배열로 바꿉니다.
+  // 길이가 3이 아니라면 false
+  // Set을 활용하여 겹쳐진 값을 제외하고 3이 아니라면 false
+  // every를 활용하여 모든 요소에 접근한 후, 숫자가 아닌 값이 있거나 0이 있으면 false
+
   isValid(input) {
     const inputArr = `${input}`.split("");
     if (inputArr.length !== 3) return false;
     if (new Set(inputArr).size !== 3) return false;
     const checkNumber = inputArr.every((v) => !isNaN(v) && v !== "0");
     return checkNumber ? inputArr : false;
-  }
-
-  async reStart() {
-    const restartInput = await Console.readLineAsync(
-      PROGRESS_MESSAGE.GAME_SUCCESS
-    );
-
-    if (!(restartInput === "1" || restartInput === "2"))
-      throw new Error("[ERROR]");
-
-    if (restartInput === "1") {
-      this.computerAnswer();
-      return this.numberCompare();
-    }
-    if (restartInput === "2") return Console.print("게임 종료");
   }
 }
 
