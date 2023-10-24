@@ -3,6 +3,8 @@ import { MissionUtils } from '@woowacourse/mission-utils';
 const CORRECT_NUMBER = 3;
 
 class App {
+  isPlaying;
+
   computer = new Computer();
   player = new Player();
   gameManager = new GameManager();
@@ -10,10 +12,9 @@ class App {
 
   async play() {
     this.computer.generateThreeDigits();
-    let isPlaying = true;
-
+    this.isPlaying = true;
     try {
-      while (isPlaying) {
+      while (this.isPlaying) {
         const USER_NUMBER = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
         this.player.setThreeDigits(USER_NUMBER);
 
@@ -32,7 +33,7 @@ class App {
           }
 
           if (this.player.choice === '2') {
-            isPlaying = false;
+            this.isPlaying = false;
             MissionUtils.Console.print('게임 종료');
           }
         }
