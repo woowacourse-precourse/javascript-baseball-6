@@ -15,6 +15,12 @@ class BaseballGame extends Computer {
     Console.print(MESSAGES.game.start);
     this.start();
   }
+
+  // 게임 시작
+  async start() {
+    this.randomNumber = super.createRandomNumber();
+    await this.getPlayerInput();
+  }
 }
 
 export default BaseballGame;
