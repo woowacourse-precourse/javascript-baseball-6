@@ -1,9 +1,18 @@
 export default class Referee {
   #strike;
   #ball;
+
   constructor() {
     this.#strike = 0;
     this.#ball = 0;
+  }
+
+  compareBalls(answer, guess) {
+    this.#strike = 0;
+    this.#ball = 0;
+
+    this.#calculateScore(answer, guess);
+    return this.#getResult();
   }
 
   #calculateScore(answer, guess) {
@@ -27,13 +36,5 @@ export default class Referee {
 
     const output = result.join(" ");
     if (output) return output;
-  }
-
-  compareBalls(answer, guess) {
-    this.#strike = 0;
-    this.#ball = 0;
-
-    this.#calculateScore(answer, guess);
-    return this.#getResult();
   }
 }

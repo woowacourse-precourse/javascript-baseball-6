@@ -3,13 +3,13 @@ export default class ValidatedBalls {
   ballsArray;
 
   constructor(ballString) {
-    this.validationSize(ballString);
-    this.validationDuplicate(ballString);
-    this.validationRange(ballString);
+    this.#validationSize(ballString);
+    this.#validationDuplicate(ballString);
+    this.#validationRange(ballString);
     this.ballsArray = ballString.split("");
   }
 
-  validationSize(ballString) {
+  #validationSize(ballString) {
     if (
       !ballString ||
       ballString === "" ||
@@ -19,13 +19,13 @@ export default class ValidatedBalls {
     }
   }
 
-  validationDuplicate(ballString) {
+  #validationDuplicate(ballString) {
     if (ballString.length !== new Set(ballString).size) {
       throw new Error("[ERROR] 각 공의 숫자는 중복되지 않아야합니다.");
     }
   }
 
-  validationRange(ballString) {
+  #validationRange(ballString) {
     if (!/^[1-9]+$/.test(ballString)) {
       throw new Error(
         "[ERROR] 각 공의 숫자는 1이상 9이하의 정수이어야만합니다."
