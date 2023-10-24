@@ -18,8 +18,6 @@ class App {
       return this.play(); 
     } else if (userInput === '2') {
       Console.print('게임을 종료합니다.');
-    } else {
-      //에러 처리
     }
   }
 
@@ -27,7 +25,7 @@ class App {
   async showRestartNumberInput() {
     const userInput = await this.showRestartRequest();
     if (userInput !== '1' && userInput !== '2') {
-      //에러 처리
+      throw new Error('[ERROR]');
     }
     return userInput;
   }

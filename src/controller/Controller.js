@@ -13,7 +13,7 @@ class Controller {
 
             const userInput = await this.view.showUserInput();
             if (!this.model.isValidUserNumber(userInput)) {
-                //에러처리
+                throw new Error('[ERROR]');
             }
 
             const result = this.model.compareNumbers(userInput);
