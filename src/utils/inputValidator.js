@@ -5,28 +5,24 @@ import {
 } from '../../constants/index.js';
 
 /**
- * 플레이어가 입력한 numberSet에 대한 유효성 검사
+ * 🧑‍🚀 Player-2: Player-1에서 입력받은 `input`에 대한 유효성 검사
  * @param {string} input
  * @returns
  */
-export const numberSetValidator = (input) => {
-  if (!PATTERN.THREE_DIGIT_REGEX.test(input))
-    throw new Error(ERROR_MESSAGES.INVALID_COUNT_NUMBER);
-
-  return input;
+export const validateNumberSet = (input) => {
+  if (!PATTERN.threeDigitRegex.test(input))
+    throw new Error(ERROR_MESSAGES.invalidCountNumber);
 };
 
 /**
- * 플레이어가 입력한 재시작 input에 대한 유효성 검사
+ * 🧑‍🚀 Player-6: Player-5에서 입력받은 input의 유효성을 검사
  * @param {string} input
  * @returns
  */
-export const playAgainNumberValidator = (input) => {
+export const validateRestartNumber = (input) => {
   if (
-    input !== RESTART_GAME_NUMBERS.RESTART &&
-    input !== RESTART_GAME_NUMBERS.END
+    input !== RESTART_GAME_NUMBERS.restart &&
+    input !== RESTART_GAME_NUMBERS.end
   )
-    throw new Error(ERROR_MESSAGES.INVALID_REPLAY_NUMBER);
-
-  return input;
+    throw new Error(ERROR_MESSAGES.invalidRestartNumber);
 };
