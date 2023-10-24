@@ -1,5 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 import MESSAGE from '../constant/MESSAGE.js';
+import { CONSTANT } from '../constant/CONSTANT.js';
 
 const outputView = {
   printGameStart() {
@@ -7,7 +8,7 @@ const outputView = {
   },
 
   printBallStrike(ball, strike) {
-    const ballPrint = ball + MESSAGE.ball + ' ';
+    const ballPrint = ball + MESSAGE.ball + CONSTANT.space;
     const strikePrint = strike + MESSAGE.strike;
     Console.print(`${ball === 0 ? '' : ballPrint}${strike === 0 ? '' : strikePrint}`);
   },
@@ -17,7 +18,7 @@ const outputView = {
   },
 
   printThreeStrike() {
-    Console.print(`3${MESSAGE.strike}`);
+    Console.print(`${CONSTANT.strikeThree}${MESSAGE.strike}`);
     Console.print(MESSAGE.gameEnd);
   },
 

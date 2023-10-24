@@ -1,6 +1,7 @@
 import Model from '../Model/Model.js';
 import outputView from '../view/outputView.js';
 import inputView from '../view/inputView.js';
+import { CHOICE } from '../constant/CONSTANT.js';
 
 export default class Controller {
   #model;
@@ -50,10 +51,10 @@ export default class Controller {
   async endController() {
     const input = await inputView.readRestartEnd();
 
-    if (input === '1') {
+    if (input === CHOICE.restart) {
       return this.mainGameController();
     }
-    if (input === '2') {
+    if (input === CHOICE.end) {
       return outputView.exit();
     }
   }
