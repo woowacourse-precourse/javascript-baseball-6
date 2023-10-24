@@ -5,7 +5,7 @@ describe('Validator 클래스 테스트', () => {
   test('숫자 야구 입력 시 서로 다른 3자리 숫자를 입력하는 경우', () => {
     const inputs = ['123', '546', '193'];
     inputs.forEach((input) => {
-      expect(() => Validator.guessNumber(input)).not.toThrow();
+      expect(() => Validator.validateGuessNumber(input)).not.toThrow();
     });
   });
 
@@ -13,7 +13,7 @@ describe('Validator 클래스 테스트', () => {
     const errGuessInputs = ['122', '21', 'ab2', '012'];
     errGuessInputs.forEach((errInput) => {
       expect(() =>
-        Validator.guessNumber(errInput).toThrow(ERROR.INVALID_LENGTH)
+        Validator.validateGuessNumber(errInput).toThrow(ERROR.INVALID_LENGTH)
       );
     });
   });
@@ -21,7 +21,7 @@ describe('Validator 클래스 테스트', () => {
   test('게임 재시작 여부를 올바르게 입력하는 경우', () => {
     const inputs = ['1', '2'];
     inputs.forEach((input) => {
-      expect(() => Validator.controlNumber(input).not.toThrow());
+      expect(() => Validator.validateControlNumber(input).not.toThrow());
     });
   });
 
@@ -29,7 +29,9 @@ describe('Validator 클래스 테스트', () => {
     const errGuessInputs = ['3', '11', '22', 'a', ' '];
     errGuessInputs.forEach((errInput) => {
       expect(() =>
-        Validator.controlNumber(errInput).toThrow(ERROR.INVALID_CONTROL_NUM)
+        Validator.validateControlNumber(errInput).toThrow(
+          ERROR.INVALID_CONTROL_NUM
+        )
       );
     });
   });
