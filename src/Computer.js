@@ -1,6 +1,11 @@
 import { Random, Console } from "@woowacourse/mission-utils";
 
+// 게임 내에서의 컴퓨터(상대방) 역할을 하는 클래스
 class Computer {
+  /**
+   * 유저가 맞출 답 생성
+   * @returns {number[]} 서로 다른 3자리의 랜덤 숫자 배열
+   */
   createAnswer() {
     const answer = [];
     while (answer.length < 3) {
@@ -11,6 +16,13 @@ class Computer {
     }
     return answer;
   }
+
+  /**
+   * 유저의 입력값에 대한 스트라이크,볼,낫싱을 판단
+   * @param {number[]} answer createAnswer에서 만들어진 숫자 배열
+   * @param {string} input 유저가 입력한 값
+   * @returns {string} 유저가 입력한 값에 대한 힌트 메시지
+   */
   getHint(answer, input) {
     // input을 number[] 형태로 변환
     const splitInput = input.split("").map((item) => parseInt(item));
