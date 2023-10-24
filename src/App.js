@@ -1,17 +1,20 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 
 const SCORE = {
-  ball: [0, "볼"], //볼 스트라이크같은 출력 문자열이니 메세지로 가는게 맞지 않나?
-  strike: [0, "스트라이크"],
+  ball: 0, //볼 스트라이크같은 출력 문자열이니 메세지로 가는게 맞지 않나?
+  strike: 0,
   success: false,
 };
 const MESSAGE = {
-  start: "숫자 야구 게임을 시작합니다.", //속성 네이밍도 대문자로 해야하나?
-  inputRequest: "숫자를 입력해주세요 :",
-  restart: "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.",
-  error: "[ERROR] 숫자가 잘못된 형식입니다.",
-  nothing: "낫싱",
-  strike: "3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료",
+  START: "숫자 야구 게임을 시작합니다.", //속성 네이밍도 대문자로 해야하나?
+  INPUTREQUEST: "숫자를 입력해주세요 :",
+  RESTART: "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n",
+  ERROR: "[ERROR] 숫자가 잘못된 형식입니다.",
+
+  BALL: "볼",
+  STRIKE: "스트라이크",
+  NOTHING: "낫싱",
+  SUCCESS: "3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료",
 };
 function makeRandom() {
   const answer = [];
@@ -30,7 +33,7 @@ async function getUserInput(message) {
     const number = await Console.readLineAsync(message);
     return number;
   } catch (error) {
-    throw new Error("[ERROR]");
+    throw new Error(MESSAGE.ERROR);
   }
 }
 
@@ -70,17 +73,17 @@ function review(answer, number) {
     // console.log(index);
     // console.log(i);
     if (index === i) {
-      SCORE.strike[0]++;
+      SCORE.strike++;
     }
     if (index >= 0 && index !== i) {
-      SCORE.ball[0]++;
+      SCORE.ball++;
     }
   }
   printResult();
 }
 function resetScore() {
-  SCORE.ball[0] = 0;
-  SCORE.strike[0] = 0;
+  SCORE.ball = 0;
+  SCORE.strike = 0;
 
   // console.log(SCORE);
 }
@@ -88,38 +91,38 @@ function printResult() {
   // console.log(SCORE);
   //해당 SCORE 에 여러 조건에 따라 출력문이 달라지는 거니 해당 조건에대해 출력조건을 작성하는 로직을 분리하고
   // 그 출력조건에 따라 출력을 달리하는 식으로 switch 문을 써서 가독성을 높인다.
-  if (SCORE.ball[0] === 0 && SCORE.strike[0] === 0) {
-    Console.print("낫싱");
+  if (SCORE.ball === 0 && SCORE.strike === 0) {
+    Console.print(MESSAGE.NOTHING);
     return;
   }
-  if (SCORE.strike[0] === 3) {
-    Console.print("3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+  if (SCORE.strike === 3) {
+    Console.print(MESSAGE.SUCCESS);
     SCORE.success = true;
     return;
   }
-  if (SCORE.ball[0] && SCORE.strike[0]) {
+  if (SCORE.ball && SCORE.strike) {
     // console.log("ball과 strike");
-    let text = `${SCORE.ball[0]}볼 ${SCORE.strike[0]}스트라이크`;
+    let text = `${SCORE.ball}${MESSAGE.BALL} ${SCORE.strike}${MESSAGE.STRIKE}`;
     Console.print(text);
     return;
   }
   // console.log("ball또는strike");
-  let text = SCORE.ball[0]
-    ? SCORE.ball[0] + "볼"
-    : SCORE.strike[0] + "스트라이크";
+  let text = SCORE.ball
+    ? SCORE.ball + MESSAGE.BALL
+    : SCORE.strike + MESSAGE.STRIKE;
   Console.print(text);
   return;
 }
 
 class App {
   async play() {
-    Console.print("숫자 야구 게임을 시작합니다.");
+    Console.print(MESSAGE.START);
     let answer = makeRandom();
 
     while (!SCORE.success) {
-      let num = await getUserInput("숫자를 입력해주세요 :");
+      let num = await getUserInput(MESSAGE.INPUTREQUEST);
       if (!checkError(num)) {
-        throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+        throw new Error(MESSAGE.ERROR);
       }
 
       review(answer, num);
@@ -128,19 +131,14 @@ class App {
       }
     }
 
-    let number = await getUserInput(
-      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
-    );
+    let number = await getUserInput(MESSAGE.RESTART);
     if (!checkedError(number)) {
-      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+      throw new Error(MESSAGE.ERROR);
     }
 
     if (number === "1") {
       resetScore();
       SCORE.success = false;
-      //console.log(SCORE);
-      // answer = makeRandom();
-      // continue;
       return this.play();
     }
 
