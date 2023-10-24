@@ -1,8 +1,8 @@
-import readline from 'readline';
-
-export default class App {
+class App {
   constructor() {
     this.secretNumber = this.generateRandomNumber();
+    this.exitRequested = false;
+    this.play();
   }
 
   generateRandomNumber() {
@@ -18,40 +18,49 @@ export default class App {
     return computer.join('');
   }
 
-  async play() {
+  play() {
     console.log("숫자 야구 게임을 시작합니다.");
 
-    while (true) {
-      const input = await this.getInput();
-      
-      if (input === '2') {
-        console.log("게임을 종료합니다.");
-        break;
-      }
-      
-      if (this.isValidInput(input)) {
-        const result = this.checkGuess(input);
-        console.log(result);
-
-        if (result === '3스트라이크') {
-          console.log("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-          break;
+    this.getInput()
+      .then((input) => {
+        if (input === '2') {
+          console.log("게임을 종료합니다.");
+          this.exitRequested = true;
         }
-      } else {
-        console.log("[ERROR] 숫자가 잘못된 형식입니다.");
-      }
-    }
+
+        if (!this.exitRequested) {
+          if (this.isValidInput(input)) {
+            const result = this.checkGuess(input);
+            console.log(result);
+
+            if (result === '3스트라이크') {
+              console.log("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+              this.exitRequested = true;
+            }
+          } else {
+            console.log("[ERROR] 숫자가 잘못된 형식입니다.");
+          }
+        }
+
+        if (!this.exitRequested) {
+          this.play();
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        this.exitRequested = true;
+      });
   }
 
-  async getInput() {
-    const rl = readline.createInterface({
-      input: process.stdin,
-      output: process.stdout
-    });
+  getInput() {
+    return new Promise((resolve, reject) => {
+      const readline = require('readline').createInterface({
+        input: process.stdin,
+        output: process.stdout
+      });
 
-    return new Promise((resolve) => {
-      rl.question("숫자를 입력해주세요 : ", (answer) => {
-        rl.close();
+      readline.question("숫자를 입력해주세요 : ", (answer) => {
+        readline.close();
         resolve(answer);
       });
     });
@@ -83,5 +92,4 @@ export default class App {
   }
 }
 
-const app = new App();
-app.play();
+new App();
