@@ -47,6 +47,32 @@ class BaseballGame extends Computer {
       throw new Error(MESSAGES.errors.invalidNumber);
     }
   }
+
+  // 사용자 입력값과 정답(randomNumber) 비교
+  async printStrikeBall(strikeBall) {
+    const [strike, ball] = strikeBall;
+
+    let result = "";
+
+    if (strike === 0 && ball === 0) {
+      result = MESSAGES.result.nothing;
+    } else if (strike > 0 && ball === 0) {
+      result = `${strike}${MESSAGES.result.strike}`;
+    } else if (strike === 0 && ball > 0) {
+      result = `${ball}${MESSAGES.result.ball}`;
+    } else if (strike > 0 && ball > 0) {
+      result = `${ball}${MESSAGES.result.ball} ${strike}${MESSAGES.result.strike}`;
+    }
+
+    Console.print(result);
+
+    if (result === MESSAGES.result.success) {
+      Console.print(MESSAGES.game.success);
+      this.restart();
+    } else {
+      this.getPlayerInput();
+    }
+  }
 }
 
 export default BaseballGame;
