@@ -1,8 +1,7 @@
-import { OUTPUT_MESSAGES } from '../constants/Messages.js';
+import { HINT, OUTPUT_MESSAGES } from '../constants/Messages.js';
 import OutputView from './OutputView.js';
 import Validators from '../utils/validator/index.js';
 import InputView from './InputView.js';
-import { HINT } from '../constants/System.js';
 
 const View = {
   print(message) {

@@ -14,3 +14,11 @@ export const ERROR_MESSAGE = Object.freeze({
   game_number_generator: '생선된 결과 값은 1~9 사이의 서로 다른 3자리 숫자가 아닙니다.',
   only_one_or_two: '1~2 사이의 숫자만 입력할 수 있습니다.',
 });
+
+export const HINT = Object.freeze({
+  nothing: '낫싱',
+  message(ball, strike) {
+    return `${ball}볼 ${strike}스트라이크`;
+  },
+  clear: /0볼|0스트라이크/g,
+});
