@@ -3,6 +3,8 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 const NUMBER_LENGTH = 3;
 const MIN_NUMBER = 1;
 const MAX_NUMBER = 9;
+const REPLAY = "1";
+const EXIT = "2";
 
 const toUniqueNumbers = (answer) => {
   const numbers = [
@@ -85,6 +87,10 @@ class Computer {
     });
 
     return result;
+  }
+
+  static validateReplayValue(replay) {
+    return replay === REPLAY || replay === EXIT;
   }
 }
 
