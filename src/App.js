@@ -29,9 +29,9 @@ class App {
   }
   async gameOver() {
     Console.print(messages.correctNumber)
-    let rePlay = await Console.readLineAsync(messages.reStart)
-    if (rePlay == 1) this.reStart()
-    else if (rePlay != 2) throw new Error(messages.errorMessage)
+    let rePlay = Number(await Console.readLineAsync(messages.reStart))
+    if (rePlay === 1) this.reStart()
+    else if (rePlay !== 2) throw new Error(messages.errorMessage)
   }
   async getPlayerNumber() {
     this.player = [...(await Console.readLineAsync(messages.inputNumber))]
