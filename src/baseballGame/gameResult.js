@@ -25,10 +25,3 @@ export default function gameResult(strikeCount, ballCount) {
 
   return isAnswerCorrect;
 }
-
-
-// console.log(gameResult(2, 1));
-// console.log(gameResult(1, 0));
-// console.log(gameResult(0, 1));
-// console.log(gameResult(0, 0));
-// console.log(gameResult(3, 0));

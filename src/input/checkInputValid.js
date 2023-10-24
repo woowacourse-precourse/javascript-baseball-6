@@ -14,21 +14,3 @@ export default function checkInputValid(userInput) {
   
   return isValid;
 }
-
-/*
-  // test cases 
-  console.log("\ncheckLengh");
-  console.log(checkInputValid("234"));
-  console.log(checkInputValid("1234"));
-
-
-  console.log("\ncheckOverlap");
-  console.log(checkInputValid("223"));
-  console.log(checkInputValid("222"));
-
-  console.log("\nisNumber");
-  console.log(checkInputValid("2o3"));
-  console.log(checkInputValid("2303"));
-  console.log(checkInputValid("23o3"));
-  console.log(checkInputValid("23o4"));
-*/

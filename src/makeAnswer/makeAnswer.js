@@ -17,5 +17,3 @@ export default function makeAnswer() {
   
   return answerList.join("");
 }
-
-// console.log(makeAnswer());
