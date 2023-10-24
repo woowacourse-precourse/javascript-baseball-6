@@ -18,7 +18,15 @@ class BaseballController {
       const number = Random.pickNumberInRange(1, 9);
       computer_balls.push(number);
     }
-    console.log(computer_balls);
+    this.#Console.readLineAsync(MESSAGES.INSERT_NUMBER)
+      .then((result) => {
+        const input = result.split(''); // ['1','2','3']
+        // console.log(input);
+        // 에러 처리 해야 하는 부분 => 1. 숫자가 3개 이상 입력 된 경우  2. 숫자가 아닌 글자가 입력된 경우
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 }
 
