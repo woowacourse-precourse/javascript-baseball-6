@@ -1,6 +1,15 @@
 ### 구현할 기능 목록
 
+0. async 사용하기
+- 모듈 가져오기
+- import { MissionUtils } from "@woowacourse/mission-utils";
+
 1. 랜덤으로 컴퓨터가 숫자 값을 정하는 기능
+- 별도 파일 만들기: Computer.js
+- 3자리 숫자를 array 형태로 만들기
+- Random.pickNumberInRange 사용
+- 함수 export -> App.js에 import 하기
+
 2. 사용자로부터 값을 입력 받는 기능
 3. 사용자의 입력값이 유효한지 확인하는 기능
     1) 숫자 길이가 3
