@@ -52,17 +52,17 @@ class App {
   }
 
   validation() {
-    for (let num of this.toArray) {
-      let valid = RANGE_NUMBERS.includes(num);
+    for (let num of this.inputNumber) {
+      let valid = RANGE_NUMBERS.includes(Number(num));
       if (!valid) {
         throw new Error(OUT_OF_RANGE_ERROR);
       }
     }
-    if (this.toArray.length !== 3) {
+    if (this.inputNumber.length !== 3) {
       throw new Error(OUT_OF_LENGTH_ERROR);
     }
-    const deduplicateObj = new Set(this.toArray);
-    if (deduplicateObj.size !== this.toArray.length) {
+    const deduplicateObj = new Set(this.inputNumber);
+    if (deduplicateObj.size !== this.inputNumber.length) {
       throw new Error(DUPLICATE_NUMBER_ERROR);
     }
   }
@@ -74,7 +74,7 @@ class App {
     for (let i = 0; i < 3; i++) {
       if (this.computer[i] === this.toArray[i]) {
         strike += 1;
-      } else if (this.computer.includes(this.inputNumber[i])) {
+      } else if (this.computer.includes(this.toArray[i])) {
         ball += 1;
       }
     }
@@ -100,6 +100,7 @@ class App {
     if (reGameChoice === '1') {
       this.initialize();
       this.play();
+      return;
     } else if (reGameChoice === '2') {
       return;
     } else {
@@ -114,17 +115,18 @@ class App {
       Console.print(this.computer); // 제출 전 지우기
       Console.print(GAME_START_MESSAGE);
       this.inputNumber = await Console.readLineAsync(CHOOSE_THE_NUMBER_MESSAGE);
-      this.parsing();
       this.validation();
+      this.parsing();
 
       while (this.playSwitch) {
         let result = this.ballAndStrikeCount();
-        if (!result) {
-          this.inputNumber = await Console.readLineAsync(GAME_ONGOING_MESSAGE);
-          this.toArray = [];
-          this.parsing();
-          this.validation();
+        if (result) {
+          return;
         }
+        this.inputNumber = await Console.readLineAsync(GAME_ONGOING_MESSAGE);
+        this.toArray = [];
+        this.validation();
+        this.parsing();
       }
     }
   }
