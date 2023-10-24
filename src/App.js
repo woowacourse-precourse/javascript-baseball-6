@@ -17,6 +17,10 @@ class App {
             if (hasDuplicates(inputNumber)) {
                 throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
             }
+            // Check length
+            if (inputNumber.length !== 3) {
+                throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+            }
             return inputNumber;
         } catch (error) {
             console.error(error.message);
@@ -35,14 +39,47 @@ class App {
         return answerNumber;
     }
 
+    // Get Strike, Ball Count
+    getStrikeAndBallCount(answerNumber, inputNumber) {
+        let strikeCount = 0;
+        let ballCount = 0;
+        for (let i = 0; i < 3; i++) {
+            if (answerNumber[i] === inputNumber[i]) {
+                strikeCount++;
+            } else if (answerNumber.includes(inputNumber[i])) {
+                ballCount++;
+            }
+        }
+        return { strikeCount, ballCount };
+    }
+
     async play() {
         console.log("숫자 야구 게임을 시작합니다.");
         const answerNumber = this.makeAnswerNumber();
-        // console.log(answerNumber);
+        console.log(answerNumber);
 
-        // Get input number
-        const inputNumber = await this.getNumber();
-        // console.log(inputNumber);
+        while (true) {
+            // Get input number
+            const inputNumber = await this.getNumber();
+
+            // Get strike, ball count
+            const { strikeCount, ballCount } = this.getStrikeAndBallCount(
+                answerNumber,
+                inputNumber
+            );
+            if (strikeCount === 3) {
+                console.log("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+                break;
+            } else if (strikeCount === 0 && ballCount === 0) {
+                console.log("낫싱");
+            } else if (strikeCount > 0 && ballCount > 0) {
+                console.log(`${strikeCount} 스트라이크 ${ballCount} 볼`);
+            } else if (strikeCount > 0) {
+                console.log(`${strikeCount} 스트라이크`);
+            } else if (ballCount > 0) {
+                console.log(`${ballCount} 볼`);
+            }
+        }
     }
 }
 
