@@ -1,4 +1,4 @@
-const compareComputerAndUser = (computer, user) => {
+const compareComputerAndUser = async (computer, user) => {
   let ball = 0,
     strike = 0;
 
