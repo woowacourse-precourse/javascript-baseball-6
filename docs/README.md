@@ -132,3 +132,15 @@
 ┃ ┗ 📜index.js
 ┗ 📜App.js
 ```
+
+<br>
+
+# 순서도
+
+![Alt text](../img/flowChart.png)
+
+<br>
+
+# 구조도
+
+![Alt text](../img/architecture.png)
