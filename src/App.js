@@ -9,9 +9,9 @@ class App {
   generateAnswer() {
     this.answer = [];
     for (let i = 0; i < 3; i++) {
-      const num = MissionUtils.Random.pickNumberInRange(1, 9);
-      if (!this.answer.includes(num)) {
-        this.answer.push(num);
+      const NUM = MissionUtils.Random.pickNumberInRange(1, 9);
+      if (!this.answer.includes(NUM)) {
+        this.answer.push(NUM);
       } else {
         i--;
       }
@@ -44,19 +44,19 @@ class App {
 
     while (true) {
       try {
-        const input = await MissionUtils.Console.readLineAsync(
+        const INPUT = await MissionUtils.Console.readLineAsync(
           '세 자리 숫자를 입력하세요: '
         );
 
-        if (!this.isValidInput(input)) {
+        if (!this.isValidInput(INPUT)) {
           throw new Error(' [ERROR] 숫자가 잘못된 형식입니다.');
         }
 
-        const guessNumbers = input.split('');
+        const GUESS_NUMBERS = INPUT.split('');
 
-        const result = this.checkGuess(guessNumbers);
+        const RESULT = this.checkGuess(GUESS_NUMBERS);
 
-        if (result.strike === 3) {
+        if (RESULT.strike === 3) {
           MissionUtils.Console.print('3스트라이크');
           MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다!');
 
@@ -70,8 +70,8 @@ class App {
 
         let outputMessage = '';
 
-        if (result.ball > 0) outputMessage += `${result.ball}볼 `;
-        if (result.strike > 0) outputMessage += `${result.strike}스트라이크 `;
+        if (RESULT.ball > 0) outputMessage += `${RESULT.ball}볼 `;
+        if (RESULT.strike > 0) outputMessage += `${RESULT.strike}스트라이크 `;
         if (!outputMessage) outputMessage = '낫싱';
 
         MissionUtils.Console.print(outputMessage.trim());
@@ -82,28 +82,28 @@ class App {
     }
   }
 
-  isValidInput(input) {
+  isValidInput(INPUT) {
     // 게임 재시작 또는 종료를 위한 입력값 처리
-    // if (input === '1' || input === '2') return true;
+    // if (INPUT === '1' || INPUT === '2') return true;
     // 입력값 검증 로직 구현 필요
     // 예: 길이는 3자리여야 하며, 각 자리수는 모두 다른 숫자여야 한다.
-    if (!input || input.length !== 3) return false;
+    if (!INPUT || INPUT.length !== 3) return false;
 
-    if (new Set(input).size !== input.length) return false;
+    if (new Set(INPUT).size !== INPUT.length) return false;
 
     return true;
   }
 
-  checkGuess(guessNumbers) {
+  checkGuess(GUESS_NUMBERS) {
     let strikeCount = 0;
     let ballCount = 0;
 
-    guessNumbers.forEach((numStr, idx) => {
+    GUESS_NUMBERS.forEach((numStr, idx) => {
       // numStr: string
-      const answerIdx = this.answer.indexOf(Number(numStr)); // Convert string to number before comparison
+      const ANSWER_IDX = this.answer.indexOf(Number(numStr)); // Convert string to number before comparison
 
-      if (answerIdx !== -1) {
-        answerIdx === idx ? strikeCount++ : ballCount++;
+      if (ANSWER_IDX !== -1) {
+        ANSWER_IDX === idx ? strikeCount++ : ballCount++;
       }
     });
 
@@ -112,8 +112,8 @@ class App {
 }
 
 (async () => {
-  const app = new App();
-  await app.play();
+  const APP = new App();
+  await APP.play();
 })();
 
 export default App;
