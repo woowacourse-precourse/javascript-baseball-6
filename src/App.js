@@ -146,7 +146,7 @@ class App {
   }
 }
 
-export default App;
-
 const myApp = new App();
 myApp.play();
+
+export default App;
