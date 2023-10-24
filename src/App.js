@@ -80,6 +80,26 @@ class App {
     const checkNumber = inputArr.every((v) => !isNaN(v) && v !== "0");
     return checkNumber ? inputArr : false;
   }
+
+  // 재시작과 종료를 묻는 로직입니다.
+  // 1, 2가 아니라면 ERROR
+  // 1이라면 다시 computerInput을 받아오고, 다시 userInput을 받습니다.
+  // 2를 누르면 게임 종료를 하며 끝.
+
+  async reStart() {
+    const restartInput = await Console.readLineAsync(
+      PROGRESS_MESSAGE.GAME_SUCCESS
+    );
+
+    if (!(restartInput === "1" || restartInput === "2"))
+      throw new Error("[ERROR]");
+
+    if (restartInput === "1") {
+      this.computerAnswer();
+      return this.numberCompare();
+    }
+    if (restartInput === "2") return Console.print("게임 종료");
+  }
 }
 
 const app = new App();
