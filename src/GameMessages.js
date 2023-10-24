@@ -2,11 +2,11 @@ import { Console } from '@woowacourse/mission-utils';
 import { GAME_START_MESSAGE, GAME_WIN_MESSAGE, GAME_END_MESSAGE, BASEBALL_STRIKE, BASEBALL_BALL, BASEBALL_NOTHING } from './Constants.js';
 
 export default class GameMessages {
-  static showStartMessage() {
+  showStartMessage() {
     Console.print(GAME_START_MESSAGE);
   }
 
-  static showCountStatus(strike, ball) {
+  showCountStatus(strike, ball) {
     if (strike === 0 && ball === 0) {
       Console.print(BASEBALL_NOTHING);
     } else {
@@ -16,8 +16,8 @@ export default class GameMessages {
       Console.print(results.join(' '));
     }
   }
-
-  static showWinMessage() {
+  
+  showWinMessage() {
     Console.print(GAME_WIN_MESSAGE);
   }
 
