@@ -2,9 +2,9 @@ import { Random, Console } from "@woowacourse/mission-utils";
 
 class App {
   static setComputerNum() {
-    const randomNumber = [];
-
     Console.print("숫자 야구 게임을 시작합니다.");
+
+    const randomNumber = [];
 
     while (randomNumber.length < 3) {
       const num = Random.pickNumberInRange(1, 9);
@@ -34,11 +34,19 @@ class App {
     return answer;
   }
 
+  static setCount(computerNum, userNum) {
+    return computerNum.map((item, index) =>
+      item === userNum[index] ? "strike" : userNum.includes(item) ? "ball" : "nothing"
+    );
+  }
+
   static async play() {
     const computer = this.setComputerNum();
     Console.print(computer); // todo delete
     const user = await this.setUserNum();
     Console.print(user); // todo delete
+    const count = this.setCount(computer, user);
+    Console.print(count); // todo delete
   }
 }
 
