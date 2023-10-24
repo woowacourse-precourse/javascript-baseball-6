@@ -28,13 +28,29 @@ class App {
   }
 
   isValidUserInput(userInput) {
+
+    const nonNumericRegex = /^\D+$/;
+    if (nonNumericRegex.test(userInput)) {
+      throw new Error('[ERROR] 입력값은 숫자가 아닙니다.');
+    }
+
     if (typeof userInput === "undefined") {
-      throw new Error('[ERROR] undefined입니다. 숫자를 입력해주세요.');
+      throw new Error('[ERROR] 숫자를 입력해주세요.');
+    }
+
+    if (userInput.length === 0) {
+      throw new Error('[ERROR] 빈칸을 입력하셨습니다.');
     }
 
     if (userInput.length !== 3) {
       throw new Error('[ERROR] 3자리를 입력해주세요');
     }
+
+    const userInputArray = userInput.split('');
+    if (userInputArray.length !== new Set(userInputArray).size) {
+      throw new Error('[ERROR] 중복된 숫자가 있습니다.');
+    }
+
   }
 
   countMatchingNumbers() {
@@ -93,9 +109,9 @@ class App {
 
   isValidUserInputRestartGame(userInput) {
     userInput = Number(userInput);
-    if (userInput != 1 && userInput != 2) {
-      throw new Error('[Error] 1 또는 2를 입력해주세요');
-    }
+    if (userInput.length === 0) throw new Error('[Error] 빈칸을 입력하셨습니다.');
+    if (userInput != 1 && userInput != 2) throw new Error('[Error] 1 또는 2를 입력해주세요');
+
 
     return userInput;
     // 이후 예외조건 추가
@@ -107,6 +123,9 @@ class App {
     await this.playBaseballGame();
   }
 }
+
+const app = new App();
+app.play();
 
 
 export default App;
