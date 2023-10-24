@@ -1,6 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import throwInvalidInputErrorMessage from "./throwInvalidInputErrorMessage.js";
-import CheckInputValidation from "./checkInputValidation.js";
+import checkInputValidation from "./checkInputValidation.js";
 
 async function parseInputToArray() {
   try {
@@ -8,9 +8,9 @@ async function parseInputToArray() {
       "숫자를 입력해주세요 : "
     );
 
-    const IS_INPUT_VALID = await CheckInputValidation(INPUT);
+    const IS_INPUT_VALID = await checkInputValidation(INPUT);
 
-    if (IS_INPUT_VALID) {
+    if (IS_INPUT_VALID === true) {
       const VALID_INPUT_ARRAY = INPUT.split("").map((item) => parseInt(item));
       return VALID_INPUT_ARRAY;
     } else {
