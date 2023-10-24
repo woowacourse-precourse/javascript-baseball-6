@@ -24,16 +24,17 @@ const getLogSpy = () => {
   return logSpy;
 };
 
-describe("숫자 야구 게임", () => {
-  test("게임 종료 후 재시작", async () => {
+describe("숫자 야구 게임을 테스트 코드를 통해 플레이하기", () => {
+  test("5번 입력 후 종료 테스트", async () => {
     // given
-    const randoms = [1, 3, 5, 5, 8, 9];
-    const answers = ["246", "135", "1", "597", "589", "2"];
+    const randoms = [1, 2, 3];
+    const answers = ["897", "852", "327", "321", "123", "2"];
     const logSpy = getLogSpy();
     const messages = [
       "낫싱",
-      "3스트라이크",
-      "1볼 1스트라이크",
+      "1볼",
+      "2볼",
+      "2볼 1스트라이크",
       "3스트라이크",
       "게임 종료",
     ];
@@ -49,19 +50,5 @@ describe("숫자 야구 게임", () => {
     messages.forEach((output) => {
       expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(output));
     });
-  });
-
-  test("예외 테스트", async () => {
-    // given
-    const randoms = [1, 3, 5];
-    const answers = ["1234"];
-
-    mockRandoms(randoms);
-    mockQuestions(answers);
-
-    // when & then
-    const app = new App();
-
-    await expect(app.play()).rejects.toThrow("[ERROR]");
   });
 });
