@@ -16,7 +16,7 @@ async function getUserInput() {
   }
 }
 
-async function askRestart() {
+async function askRetry() {
   const retry = await Console.readLineAsync(FINISH_MESSAGE);
   if (retry == USER_CHOICE_RETRY) return true;
   else return false;
@@ -44,7 +44,7 @@ async function playGame() {
 		do {
 	    printIntroMessage();
 	    await startGame();
-	    retry = await askRestart()
+	    retry = await askRetry()
 	  } while(retry)
 	  printEndMessage();
 	}
