@@ -34,6 +34,24 @@ const get_ball_count = (string_number, target_number) => {
   return count;
 };
 
+// 사용자에 따라 게임 종료 또는 재시작
+const game_reset_or_end = async () => {
+  MissionUtils.Console.print('3개의 숫자를 모두 맞추셨습니다! 게임 종료');
+  MissionUtils.Console.print('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요');
+
+  while (true) {
+    const user_input = await MissionUtils.Console.readLineAsync('');
+
+    if (user_input === '1') {
+      return false;
+    } else if (user_input === '2') {
+      return true;
+    } else {
+      MissionUtils.Console.print('[ERROR] 잘못된 형식입니다.');
+    }
+  }
+};
+
 class App {
   async play() {}
 }
