@@ -13,5 +13,5 @@ class App {
 
 export default App;
 
-const app = new App();
-app.play();
+// const app = new App();
+// app.play();

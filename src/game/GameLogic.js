@@ -16,7 +16,7 @@ class GameLogic {
     return computerNumber;
   }
 
-  checkNumber(computer, user) {
+  compareNumbers(computer, user) {
     let ball = 0;
     let strike = 0;
     console.log('computer: ', computer, ', user: ', user);
@@ -32,10 +32,10 @@ class GameLogic {
       }
     }
 
-    return this.printCheckNumber(ball, strike);
+    return this.printResult(ball, strike);
   }
 
-  printCheckNumber(ball, strike) {
+  printResult(ball, strike) {
     let gameResult = '';
 
     if (ball === 0 && strike === 0) {

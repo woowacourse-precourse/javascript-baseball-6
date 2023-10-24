@@ -1,5 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import GameLogic from "./GameLogic.js";
+import Exception from "../utils/Exception.js";
 
 class GameController {
   constructor() {
@@ -7,33 +8,29 @@ class GameController {
   }
 
   async getUserInput(question) {
-    const answer = await MissionUtils.Console.readLineAsync(question);
-    if (answer === undefined) {
-      throw new Error("[ERROR] 올바른 입력 형태가 아닙니다.");
-    }
-    return answer;
+    return await MissionUtils.Console.readLineAsync(question);
   }
 
   async startGame() {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
-    await this.playGame();
+    await this.runGame();
   }
 
-  async playGame() {
+  async runGame() {
     let computerNumber = this.gameLogic.createComputerNumber();
-    let userNumber = '';
+    let userResult = '';
 
     while(true) {
-      const answer = await this.getUserInput('숫자를 입력해주세요 : ');
+      const userNumber = await this.getUserInput('숫자를 입력해주세요 : ');
 
-      const userNumberToString = String(answer);
-      const mapfn = (arg) => Number(arg);
-      const userNumberArray = Array.from(userNumberToString, mapfn);
+      Exception.userNumberException(userNumber);
 
-      userNumber = this.gameLogic.checkNumber(computerNumber, userNumberArray);
-      MissionUtils.Console.print(userNumber);
+      const userNumberArray = userNumber.split('').map(Number);
 
-      if (userNumber === '3스트라이크') {
+      userResult = this.gameLogic.compareNumbers(computerNumber, userNumberArray);
+      MissionUtils.Console.print(userResult);
+
+      if (userResult === '3스트라이크') {
         return this.strike();
       }
     }
@@ -48,11 +45,11 @@ class GameController {
     const answer = await this.getUserInput('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
 
     if (answer === '1') {
-      return this.playGame();
+      return this.runGame();
     } else if (answer === '2') {
       return false;
     } else {
-      throw new Error('[ERROR] 입력이 잘못된 형식입니다.');
+      throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
     }
   }
 }
