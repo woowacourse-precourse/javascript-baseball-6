@@ -77,27 +77,25 @@ function printResult() {
   //해당 SCORE 에 여러 조건에 따라 출력문이 달라지는 거니 해당 조건에대해 출력조건을 작성하는 로직을 분리하고
   // 그 출력조건에 따라 출력을 달리하는 식으로 switch 문을 써서 가독성을 높인다.
   if (SCORE.ball[0] === 0 && SCORE.strike[0] === 0) {
-    MissionUtils.Console.print("낫싱");
+    Console.print("낫싱");
     return;
   }
   if (SCORE.strike[0] === 3) {
-    MissionUtils.Console.print(
-      "3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료"
-    );
+    Console.print("3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료");
     SCORE.success = true;
     return;
   }
   if (SCORE.ball[0] && SCORE.strike[0]) {
     // console.log("ball과 strike");
     let text = `${SCORE.ball[0]}볼 ${SCORE.strike[0]}스트라이크`;
-    MissionUtils.Console.print(text);
+    Console.print(text);
     return;
   }
   // console.log("ball또는strike");
   let text = SCORE.ball[0]
     ? SCORE.ball[0] + "볼"
     : SCORE.strike[0] + "스트라이크";
-  MissionUtils.Console.print(text);
+  Console.print(text);
   return;
 }
 
