@@ -26,18 +26,18 @@ describe('BaseballService 테스트', () => {
   );
 
   it.each([
-    { submit: [1, 2, 3], random: [1, 2, 3], result: { strike: 3, ball: 0 } },
-    { submit: [1, 2, 4], random: [4, 1, 2], result: { strike: 0, ball: 3 } },
-    { submit: [2, 1, 5], random: [2, 1, 3], result: { strike: 2, ball: 0 } },
-    { submit: [7, 8, 9], random: [9, 8, 7], result: { strike: 1, ball: 2 } },
-    { submit: [1, 4, 9], random: [2, 3, 5], result: { strike: 0, ball: 0 } },
+    { submit: [1, 2, 3], random: [1, 2, 3], result: '3스트라이크' },
+    { submit: [1, 2, 4], random: [4, 1, 2], result: '3볼' },
+    { submit: [2, 1, 5], random: [2, 1, 3], result: '2스트라이크' },
+    { submit: [7, 8, 9], random: [9, 8, 7], result: '2볼 1스트라이크' },
+    { submit: [1, 4, 9], random: [2, 3, 5], result: '낫싱' },
   ])(
     'computeScore는 입력받은 값을 숫자인 배열로 변환해 SubmittedBalls를 생성후 answer와 비교하여 결과를 반환한다.',
     ({ submit, random, result }) => {
       mockRandoms(random);
 
       const service = new BaseballService();
-      expect(service.computeScore(submit)).toEqual(result);
+      expect(service.computeScore(submit)).toMatch(result);
     },
   );
 

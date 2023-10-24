@@ -1,5 +1,6 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import { AnswerBalls, SubmittedBalls, TargetBall, TargetBalls } from '../domain';
+import { AnswerBalls, SubmittedBalls, TargetBall, TargetBalls } from '../domain/index.js';
+import { MESSAGE } from '../constants/message.js';
 
 export class BaseballService {
   #answer;
@@ -7,7 +8,11 @@ export class BaseballService {
   #submittedCorrectly = null;
 
   constructor() {
-    this.setRandomAnswer();
+    this.init();
+  }
+
+  static of() {
+    return new BaseballService();
   }
 
   get answer() {
@@ -16,6 +21,11 @@ export class BaseballService {
 
   get submittedCorrectly() {
     return this.#submittedCorrectly;
+  }
+
+  init() {
+    this.setRandomAnswer();
+    this.#submittedCorrectly = null;
   }
 
   setRandomAnswer() {
@@ -27,6 +37,13 @@ export class BaseballService {
     }
 
     this.#answer = AnswerBalls.of([...randomNumbers]);
+  }
+
+  #getGameResult({ strike, ball }) {
+    if (strike || ball) {
+      return MESSAGE.score(strike, ball);
+    }
+    return MESSAGE.nothing;
   }
 
   computeScore(submit) {
@@ -41,7 +58,7 @@ export class BaseballService {
       }
     });
     this.#setSubmittedCorrectly(submittedBalls);
-    return submittedBalls.score;
+    return this.#getGameResult(submittedBalls.score);
   }
 
   #setSubmittedCorrectly(submit) {
