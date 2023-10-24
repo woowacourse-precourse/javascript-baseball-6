@@ -1,21 +1,23 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
+import checkInputValid from "./checkInputValid.js";
 
 /**
  * 터미널로 유저에게 input을 입력받아 전달한다.
  * 
- * @returns {object}
+ * @returns {string}
+ * @throws 
  */
 export default async function getUserInput() {
-  // validation 기능 추가해야 함.
-
+  const userInput = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
+  
   try {
-  const userInput = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요.');
-  return userInput;
-  } catch (e) {
-    console.log("Error: " + e.message);
+    if (!checkInputValid(userInput)) {
+      throw new Error("잘못된 값을 입력했습니다.");
+    }
+  } catch (err){
+    MissionUtils.Console.print("Error : " + err.message);
   }
-
+  return userInput;
 }
 
-// console.log(getUserInput());
-
+// console.log(await getUserInput());
