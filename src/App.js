@@ -4,6 +4,7 @@ class App {
   async play() {
     const gameManager = new GameManager();
     gameManager.gamestart();
+    gameManager.generateRandomNum();
   }
 }
 
