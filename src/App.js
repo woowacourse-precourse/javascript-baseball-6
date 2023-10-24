@@ -82,31 +82,24 @@ class App {
   async play(restartNumber) {
     await this.initializeGame(restartNumber);
 
-    return new Promise(async (resolve, reject) => {
-      try {
-        while (true) {
-          await this.getUserNumber();
+    try {
+      while (true) {
+        await this.getUserNumber();
 
-          const strike = this.getStrikeCount(
-            this.homeRunNumber,
-            this.userNumber
-          );
-          const ball = this.getBallCount(this.homeRunNumber, this.userNumber);
+        const strike = this.getStrikeCount(this.homeRunNumber, this.userNumber);
+        const ball = this.getBallCount(this.homeRunNumber, this.userNumber);
 
-          this.getResultText(strike, ball);
+        this.getResultText(strike, ball);
 
-          if (strike === 3) {
-            await this.restartGame();
-            resolve();
+        if (strike === 3) {
+          await this.restartGame();
 
-            return;
-          }
+          return;
         }
-      } catch (error) {
-        reject(error);
-        MissionUtils.Console.print(error.message);
       }
-    });
+    } catch (error) {
+      throw new Error(this.constants.ERROR);
+    }
   }
 
   async initializeGame(restartNumber) {
