@@ -48,6 +48,25 @@ class Game {
       }
     }
   }
+
+  printPlayerGuessResult() {
+    if (this.cntBall === 0 && this.cntStrike === 0) {
+      MissionUtils.Console.print('낫싱');
+      return;
+    }
+
+    if (this.cntBall === 0) {
+      MissionUtils.Console.print(`${this.cntStrike}스트라이크`);
+      return;
+    }
+
+    if (this.cntStrike === 0) {
+      MissionUtils.Console.print(`${this.cntBall}볼`);
+      return;
+    }
+
+    MissionUtils.Console.print(`${this.cntBall}볼 ${this.cntStrike}스트라이크`);
+  }
 }
 
 export default Game;

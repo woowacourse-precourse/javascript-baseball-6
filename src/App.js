@@ -24,7 +24,7 @@ class App {
       await player.guessAnswer();
       game.countStrike(player.guessedNumber);
       game.countBall(player.guessedNumber);
-      Message.printPlayerGuessResult(game.cntBall, game.cntStrike);
+      game.printPlayerGuessResult();
 
       if (game.cntStrike === LENGTH_OF_ANSWER) {
         Message.printGameOver();
