@@ -1,6 +1,6 @@
-import Game from './Game';
+import Game from './model/Game';
 import View from './view/View';
-import { MESSAGE, SETTING } from './Constants';
+import { MESSAGE, SETTING } from './utils/Constants';
 import { validateInput, validateRestartInput } from './utils/Validator';
 
 const {
@@ -47,6 +47,10 @@ export default class App {
     }
   }
 
+  /**
+   * @description 사용자에게 입력값 수신 및 유효성 검사 호출 함수
+   * @returns {number}
+   */
   async getUserNumber() {
     this.#view.print(GAME_START);
     const inputNumber = (await this.#view.input(INPUT_NUMBER)).trim();
@@ -54,6 +58,11 @@ export default class App {
 
     return inputNumber;
   }
+
+  /**
+   * @description 사용자에게 재시작 입력값 수신 및 유효성 검사 호출 함수
+   * @returns {Promise<number|null>}
+   */
 
   async getUserRestartChoice() {
     const restartNumber = Number(await this.#view.input(SUGGEST_NEW_GAME));
@@ -67,7 +76,6 @@ export default class App {
    * @description 입력값에 따른 동작 구분 함수
    * @param {number} input
    */
-
   restart(input) {
     input === RESTART ? this.#game.init() : this.end();
   }
