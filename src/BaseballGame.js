@@ -6,6 +6,10 @@ const gameStart = async () => {
   MissionUtils.Console.print(GAME_MSG.START);
   const COMPUTER_NUM = getComputerNum();
   await compareNum(COMPUTER_NUM);
+  const ANSWER = restartOrNot();
+  if (ANSWER == 2) {
+    endGame();
+  }
 };
 
 // 1. 컴퓨터의 랜덤 숫자
@@ -50,6 +54,7 @@ const compareNum = async (COMPUTER_NUM) => {
         }
       }
 
+      // 4. 힌트 출력
       if (ball === 0 && strike === 0) {
         MissionUtils.Console.print(GAME_MSG.NOTHING);
       } else if (ball > 0 && strike === 0) {
@@ -72,6 +77,7 @@ const compareNum = async (COMPUTER_NUM) => {
   }
 };
 
+// 6. 게임 재시작/종료 선택
 const restartOrNot = async () => {
   try {
     MissionUtils.Console.print(GAME_MSG.RESTART);
@@ -84,6 +90,10 @@ const restartOrNot = async () => {
   } catch (error) {
     throw new Error("[ERROR]");
   }
+};
+
+const endGame = () => {
+  return;
 };
 
 export { gameStart };
