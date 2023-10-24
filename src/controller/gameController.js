@@ -12,37 +12,25 @@ class GameController {
   async startGame() {
     Console.print(MESSAGE.GAME.START);
     this.computerNumbers = RandomGenerator.pickRandomNumber(3);
-    await this.inputUserNumber();
+    await this.userInput();
   }
 
-  async inputUserNumber() {
-    await InputHandler.userInput((input) => {
-      inputValidator.validateNumber(input);
-      Console.print('여기까진 왔니?');
-      this.ballCount();
-    });
+  async userInput() {
+    const userNum = await Console.readLineAsync(MESSAGE.GAME.INPUT);
+    inputValidator.validateNumber(userNum);
+    this.ballCount(userNum);
   }
 
-  async inputRestartNumber() {
-    await InputHandler.inputRestartNumber((input) => {
-      inputValidator.validateRestart(input);
-      if (input === 1) {
-        this.restartGame();
-      }
-      if (input === 2) return;
-    });
-  }
-
-  ballCount() {
-    const strike = 0;
-    const ball = 0;
-    Console.print('여기까지 왔어');
+  async ballCount(userNumbers) {
+    this.strike = 0;
+    this.ball = 0;
+    const userNumbersArray = String(userNumbers).split('').map(Number);
     this.computerNumbers.forEach((computerNumber, i) => {
-      if (computerNumber === user[i]) strike += 1;
-      else if (this.computerNumbers.includes(user[i])) ball += 1;
-
-      return this.printResult(strike, ball);
+      if (computerNumber === userNumbersArray[i]) this.strike += 1;
+      else if (this.computerNumbers.includes(userNumbersArray[i]))
+        this.ball += 1;
     });
+    this.printResult(this.strike, this.ball);
   }
 
   printResult(strike, ball) {
@@ -59,8 +47,22 @@ class GameController {
     }
 
     if (strike === 3) {
-      Console.print(MESSAGE.GAME.RESULT.SUCCESS);
-      return this.inputRestartNumber();
+      this.restartGame();
+    }
+    this.userInput();
+  }
+
+  async restartGame() {
+    Console.print(MESSAGE.GAME.RESULT.SUCCESS);
+  }
+
+  async inputRestartNumber() {
+    const num = await Console.readLineAsync(MESSAGE.GAME.END);
+    inputValidator.validateRestart(num);
+    if (num === 1) {
+      await this.startGame();
+    } else if (num === 2) {
+      return;
     }
   }
 }
