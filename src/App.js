@@ -30,7 +30,14 @@ class App {
         else if(computer.includes(userInput[i])) ballCount++;
       }
 
-      console.log(strikeCount, ballCount);
+      let totalCount = [ballCount, strikeCount];
+      const RESULT = [];
+      if(totalCount[0]) RESULT.push(`${totalCount[0]}볼`);
+      if(totalCount[1]) RESULT.push(`${totalCount[1]}스트라이크`);
+      if(totalCount[1] === 3) RESULT.push(`\n3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
+      if(totalCount[0] === 0 && totalCount[1] === 0) RESULT.push('낫싱');
+
+      Console.print(RESULT.join(''));
     }
   }
 }
