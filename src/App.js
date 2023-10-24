@@ -17,6 +17,11 @@ const generateRandomNumber = () => {
   return computer.join('');
 }
 
+const initGame = async () => {
+  const computerNumber = generateRandomNumber();
+  await playGame(computerNumber);
+}
+
 const playGame = async (computerNumber) => {
   const userNumber = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
   if (!validateInput(userNumber)) {
