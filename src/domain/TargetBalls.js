@@ -26,7 +26,9 @@ export class TargetBalls {
       throw new CustomError(ERROR_MESSAGE.COMMON.NOT_ARRAY);
     }
     if (numbers.length !== TargetBalls.BALL_QUANTITY) {
-      throw new CustomError(ERROR_MESSAGE.TARGET_BALLS.NOT_VALID_QUANTITY);
+      throw new CustomError(
+        ERROR_MESSAGE.TARGET_BALLS.NOT_VALID_QUANTITY(TargetBalls.BALL_QUANTITY),
+      );
     }
     if (isDuplicated(numbers)) {
       throw new CustomError(ERROR_MESSAGE.TARGET_BALLS.IS_DUPLICATED);

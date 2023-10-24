@@ -9,7 +9,7 @@ export const ERROR_MESSAGE = Object.freeze({
   }),
 
   TARGET_BALLS: Object.freeze({
-    NOT_VALID_QUANTITY: '3개의 숫자를 가진 배열을 입력해주세요!',
+    NOT_VALID_QUANTITY: (quantity) => `${quantity}개의 숫자를 가진 배열을 입력해주세요!`,
     IS_DUPLICATED: '중복되지 않는 숫자들로 입력해주세요!',
   }),
 

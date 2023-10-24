@@ -20,7 +20,7 @@ describe('TargetBalls 예외 테스트', () => {
     ({ input }) => {
       expect(() => {
         new TargetBalls(input);
-      }).toThrow(ERROR_MESSAGE.TARGET_BALLS.NOT_VALID_QUANTITY);
+      }).toThrow(ERROR_MESSAGE.TARGET_BALLS.NOT_VALID_QUANTITY(TargetBalls.BALL_QUANTITY));
     },
   );
 
