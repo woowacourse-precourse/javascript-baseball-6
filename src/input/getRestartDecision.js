@@ -11,10 +11,10 @@ export default async function getRestartDecision() {
 
 
   if (userInput !== "1" && userInput !== "2"){
-    MissionUtils.Console.print("잘못된 값을 입력했습니다.");
+    MissionUtils.Console.print('잘못된 값을 입력했습니다.');
     throw new Error("[ERROR]");
   }
 
-  const restartDecision = (userInput === "1" ? true : false);
+  const restartDecision = (userInput === '1' ? true : false);
   return restartDecision;
 }
