@@ -4,7 +4,6 @@ class App {
   }
 
   initializeComputerNumbers() {
-    
     Console.print("숫자 야구 게임을 시작합니다");
     this.computerNumbers = [];
     while (this.computerNumbers.length < 3) {
@@ -14,8 +13,30 @@ class App {
       }
     }
   }
+
+  async play() {
+    while (true) {
+      this.initializeComputerNumbers();
+      Console.print(`Computer: ${this.computerNumbers}`);
+
+      while (true) {
+        try {
+          const input = await this.getInput("숫자를 입력해주세요: ");
+          if (this.checkInputAndPrintResult(input)) {
+            Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+            break;
+          }
+        } catch (error) {
+          throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+        }
+      }
+
+      if (!(await this.askForNewGame())) {
+        break;
+      }
+    }
+  }
   
-  async play() {}
   async getInput(prompt) {
     const input = await Console.readLineAsync(prompt);
     if (!/^\d{3}$/.test(input) || !input.trim()) {
