@@ -9,10 +9,10 @@
 ## 📮 미션 제출 방법
 
 - 미션 구현을 완료한 후 GitHub을 통해 제출해야 한다.
-  - GitHub을 활용한 제출 방법은 [프리코스 과제 제출](https://github.com/woowacourse/woowacourse-docs/tree/master/precourse) 문서를 참고해
+  - GitHub을 활용한 제출 방법은 [프리코스 과제 제출] 문서를 참고해
     제출한다.
-- GitHub에 미션을 제출한 후 [우아한테크코스 지원](https://apply.techcourse.co.kr) 사이트에 접속하여 프리코스 과제를 제출한다.
-  - 자세한 방법은 [제출 가이드](https://github.com/woowacourse/woowacourse-docs/tree/master/precourse#제출-가이드) 참고
+- GitHub에 미션을 제출한 후 [우아한테크코스 지원] 사이트에 접속하여 프리코스 과제를 제출한다.
+  - 자세한 방법은 [제출 가이드] 참고
   - **Pull Request만 보내고 지원 플랫폼에서 과제를 제출하지 않으면 최종 제출하지 않은 것으로 처리되니 주의한다.**
 
 ## 🚨 과제 제출 전 체크 리스트 - 0점 방지
@@ -124,7 +124,7 @@ app.play();
 ```
 
 - `package.json`을 변경할 수 없고 외부 라이브러리(jQuery, Lodash 등)를 사용하지 않는다. 순수 Vanilla JS로만 구현한다.
-- [JavaScript 코드 컨벤션](https://github.com/woowacourse/woowacourse-docs/tree/main/styleguide/javascript)을 지키면서 프로그래밍 한다
+- [JavaScript 코드 컨벤션]을 지키면서 프로그래밍 한다
 - 프로그램 종료 시 `process.exit()`를 호출하지 않는다.
 - 프로그램 구현이 완료되면 `ApplicationTest`의 모든 테스트가 성공해야 한다. **테스트가 실패할 경우 0점 처리한다.**
 - 프로그래밍 요구 사항에서 달리 명시하지 않는 한 파일, 패키지 이름을 수정하거나 이동하지 않는다.
@@ -151,6 +151,6 @@ while (computer.length < 3) {
 
 ## ✏️ 과제 진행 요구 사항
 
-- 미션은 [javascript-baseball](https://github.com/woowacourse-precourse/javascript-baseball-6/) 저장소를 Fork & Clone해 시작한다.
+- 미션은 [javascript-baseball]저장소를 Fork & Clone해 시작한다.
 - **기능을 구현하기 전 `docs/README.md`에 구현할 기능 목록을 정리**해 추가한다.
-- 과제 진행 및 제출 방법은 [프리코스 과제 제출](https://github.com/woowacourse/woowacourse-docs/tree/master/precourse) 문서를 참고한다.
+- 과제 진행 및 제출 방법은 [프리코스 과제 제출] 문서를 참고한다.
