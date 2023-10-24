@@ -22,6 +22,19 @@ class App {
     }
     this.computerNumber = [...computer];
   }
+  ment(strike, ball) {
+    if (strike + ball === 0) {
+      return Console.print("낫싱");
+    }
+    if (strike === 0) {
+      return Console.print(`${ball}볼`);
+    }
+    if (ball === 0) {
+      return Console.print(`${strike}스트라이크`);
+    }
+    return Console.print(`${ball}볼 ${strike}스트라이크`);
+  }
+
   async startMatching() {
     let ball = 0;
     let strike = 0;
@@ -34,6 +47,7 @@ class App {
           ball += 1;
         }
       });
+      this.ment(strike, ball);
       if (strike === 3) return;
       strike = 0;
       ball = 0;
