@@ -1,4 +1,4 @@
-import MESSAGE from '../constants/messages';
+import MESSAGE from './constants/messages.js';
 
 const InputHandler = {
   async userInput() {

@@ -1,10 +1,14 @@
 import { Console } from '@woowacourse/mission-utils';
-import MESSAGE from '../src/constants/messages.js';
+import MESSAGE from './constants/messages.js';
+import GameController from './controller/gameController.js';
 
 class App {
+  #game = new GameController();
+
+  constructor() {}
+
   async play() {
-    Console.print(MESSAGE.GAME.INPUT);
-    console.log(MESSAGE.GAME.END);
+    await this.#game.startGame();
   }
 }
 
