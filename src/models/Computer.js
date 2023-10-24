@@ -1,12 +1,12 @@
 import { Random } from '@woowacourse/mission-utils';
-import { CONSTANTS } from '../constants/constant';
+import { CONSTANT } from '../constants/constant';
 
 class Computer {
   generateNumber() {
     const computer = [];
 
-    while (computer.length < CONSTANTS.selectNumber) {
-      const number = Random.pickNumberInRange(CONSTANTS.startScope, CONSTANTS.endScope);
+    while (computer.length < CONSTANT.selectNumber) {
+      const number = Random.pickNumberInRange(CONSTANT.startScope, CONSTANT.endScope);
 
       if (!computer.includes(number)) {
         computer.push(number);
