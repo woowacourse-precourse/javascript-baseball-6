@@ -44,7 +44,7 @@ class App {
     let result = "";
     result += this.#strike !== 0 ? `${this.#strike}스트라이크 ` : "";
     result += this.#ball !== 0 ? `${this.#ball}볼` : "";
-    Console.print(result);
+    result === "" ? Console.print("낫싱") : Console.print(result);
   }
 
   #compareNumber(guessNumber) {
