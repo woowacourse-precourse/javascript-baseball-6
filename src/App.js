@@ -5,6 +5,7 @@ class App {
     const gameManager = new GameManager();
     gameManager.gamestart();
     gameManager.generateRandomNum();
+    gameManager.insertNum();
   }
 }
 

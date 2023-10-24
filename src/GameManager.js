@@ -17,6 +17,11 @@ class GameManager {
 
     return randomNum;
   }
+
+  insertNum() {
+    const myNum = Console.readLineAsync("숫자를 입력해주세요 : ");
+    return myNum;
+  }
 }
 
 export default GameManager;
