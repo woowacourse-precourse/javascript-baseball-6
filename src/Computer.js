@@ -1,22 +1,22 @@
-import { Random } from "@woowacourse/mission-utils";
+import { MissionUtils } from "@woowacourse/mission-utils";
 
 class Computer {
   //생성된 랜덤 숫자가 들어갈 변수
-  #computerInput;
+  computerNumber;
 
   constructor() {
-    this.#computerInput = this.#createComNumber;
+    this.computerNumber = this.createComNumber();
   }
 
   get computerInput() {
-    return this.#computerInput;
+    return this.computerNumber;
   }
 
   //모듈을 사용해 랜덤 숫자를 생성
-  #createComNumber() {
+  createComNumber = () => {
     const comNumber = [];
     while (comNumber.length < 3) {
-      const randomNumber = Random.pickNumberInRange(1, 9);
+      const randomNumber = MissionUtils.Random.pickNumberInRange(1, 9);
       if (!comNumber.includes(randomNumber)) {
         comNumber.push(randomNumber);
       }
