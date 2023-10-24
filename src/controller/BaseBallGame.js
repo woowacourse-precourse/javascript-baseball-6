@@ -1,8 +1,6 @@
-import { Console } from '@woowacourse/mission-utils';
 import GameConsole from '../Model/GameConsole.js';
 import GAME from '../constants/Game.js';
 import Io from '../io/Io.js';
-import allZero from '../utils/allZero.js';
 
 class BaseBallGame {
 	#model;
@@ -19,29 +17,33 @@ class BaseBallGame {
 	}
 
 	async #getTryNumber() {
-		const tryNumber = await Io.getTryNumber(); // 에러 발생 위치
+		const tryNumber = await Io.getTryNumber();
 
 		this.#model.setTryNumber(tryNumber);
-		await this.#getResult();
+		await this.#printResult();
 	}
 
-	async #getResult() {
-		const [ballCount, strikeCount] = this.#model.getBallAndStrikeCounts();
+	async #printResult() {
+		const [ballCount, strikeCount] = this.#model.getResult();
 
 		Io.printResult([ballCount, strikeCount]);
 
-		this.#checkClear(strikeCount);
+		this.#checkClear();
 	}
 
-	async #checkClear(strikeCount) {
-		if (strikeCount !== GAME.size) await this.#getTryNumber();
-		else await this.#gameClear();
+	async #checkClear() {
+		if (this.#model.isClear()) await this.#clear();
+		else await this.#getTryNumber();
 	}
 
-	async #gameClear() {
+	async #clear() {
 		Io.printClear();
 
-		let command = await Io.getRestart(); // 에러 발생 위치
+		this.#checkRestart();
+	}
+
+	async #checkRestart() {
+		let command = await Io.getRestart();
 
 		command = GameConsole.isValidRestartCommand(command); // 이 데이터를 추후에 사용하지 않으므로 static
 
