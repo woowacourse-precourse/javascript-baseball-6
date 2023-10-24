@@ -4,7 +4,7 @@ class App {
   play() {
     const baseballInput = new BaseballInput();
 
-    baseballInput.startString();
+    baseballInput.startPrint();
     let random = baseballInput.makeComputerNum();
     baseballInput.makeUserInput(random);
   }
