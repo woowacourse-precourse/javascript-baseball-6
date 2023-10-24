@@ -25,6 +25,7 @@ const gameStart = () => {
 
 // 2. 게임 진행
 const gameProgress = async (computer) => {
+  console.log("computer: ", computer);
   // 2-1. 사용자의 입력값 받기
   const input = await Console.readLineAsync("숫자를 입력해주세요 : ");
   const user = [...input];
@@ -78,6 +79,10 @@ const gameEnd = async () => {
     gameEnd();
   } else if (input === "2") {
     return;
+  }
+  // 3-3. 예외 처리
+  else {
+    throw new Error("[ERROR] 1 또는 2를 입력해 주세요.");
   }
 };
 
