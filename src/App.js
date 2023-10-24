@@ -66,44 +66,71 @@ class App {
   // 3. 정답 비교
   async checkAns() {
     let isCorrect = false;
-    // while(!isCorrect){
-    await this.userInput();
+    while (!isCorrect) {
+      await this.userInput();
 
-    Console.print("userNum " + typeof this.userNum);
-    Console.print("answer " + typeof this.answer[0]);
+      Console.print("userNum " + typeof this.userNum);
+      Console.print("answer " + typeof this.answer[0]);
 
-    let inputArr = this.userNum.split("");
+      let inputArr = this.userNum.split("");
 
-    // 1) 스트라이크 계산
-    let strike = 0;
+      // 1) 스트라이크 계산
+      let strike = 0;
 
-    for (let i = 0; i < 3; i++) {
-      if (+inputArr[i] === this.answer[i]) {
-        strike++;
+      for (let i = 0; i < 3; i++) {
+        if (+inputArr[i] === this.answer[i]) {
+          strike++;
+        }
+      }
+
+      // 2) 볼 계산
+      let ball = 0;
+
+      for (let i = 0; i < 3; i++) {
+        if (
+          this.answer.includes(+inputArr[i]) &&
+          +inputArr[i] !== this.answer[i]
+        ) {
+          ball++;
+        }
+      }
+
+      // 3) 결과 출력
+      if (strike === 3) {
+        Console.print("정답입니다!");
+        isCorrect = true;
+      } else {
+        Console.print("strike : " + strike + " / ball : " + ball);
       }
     }
-    Console.print("strike " + strike);
-
-    // 2) 볼 계산
-    let ball = 0;
-
-    for (let i = 0; i < 3; i++) {
-      if (
-        this.answer.includes(+inputArr[i]) &&
-        +inputArr[i] !== this.answer[i]
-      ) {
-        ball++;
-      }
-    }
-
-    Console.print("ball" + ball);
   }
 
-  async play() {
-    this.init();
-    this.setAnswer();
+  // 4. 재시작
+  async newGame() {
+    let input = await Console.readLineAsync(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+    );
+    if (input === "1") {
+      return true;
+    } else if (input === "2") {
+      return false;
+    }
+  }
 
-    await this.checkAns();
+  /**
+   * 게임 실행
+   */
+  async play() {
+    Console.print("숫자 야구 게임을 시작합니다.");
+    while (this.continueGame) {
+      this.init();
+      this.setAnswer();
+
+      await this.checkAns();
+
+      this.continueGame = await this.newGame();
+      if (!this.continueGame) break;
+    }
   }
 }
 
