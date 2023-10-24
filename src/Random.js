@@ -2,7 +2,7 @@ const { Random } = require("@woowacourse/mission-utils");
 
 class Random {
   generateComRandom() {
-    const comRandozm = [];
+    const comRandom = [];
     while (comRandom.length < 3) {
       const number = Random.pickNumberInRange(1, 9);
       if (!comRandom.includes(number)) {
