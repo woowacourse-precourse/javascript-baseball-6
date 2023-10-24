@@ -1,4 +1,5 @@
 import { Random } from "@woowacourse/mission-utils";
+import { MESSAGE } from "./Constant";
 
 class BaseballGame {
   #answer;
@@ -27,9 +28,7 @@ class BaseballGame {
       new Set(number).size !== 3 ||
       !Number.isInteger(parseFloat(number))
     ) {
-      throw new Error(
-        "[Error] 1~9까지로 구성된 서로 다른 3자리 수를 입력하세요"
-      );
+      throw new Error(MESSAGE.INVALID_INPUT);
     }
   }
 
