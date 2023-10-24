@@ -37,9 +37,6 @@ class BaseballGame {
 
   async restart() {
     const input = await this.getRestartNumberInput();
-    if (input !== '1' && input !== '2') {
-      throw new Error('[ERROR] 잘못된 형식입니다.');
-    }
 
     switch (input) {
       case '1':
@@ -48,6 +45,8 @@ class BaseballGame {
         break;
       case '2':
         break;
+      default:
+        throw new Error('[ERROR] 잘못된 형식입니다.');
     }
   }
 }
