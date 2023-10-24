@@ -7,50 +7,15 @@ class App {
     let MATCH = true;
 
     while (MATCH) {
-      let COMPUTER = '';
+      const COMPUTER = GET_RANDOM_THREE_NUMBER();
       let PLAYER = '';
-
-      while (COMPUTER.length < 3) {
-        const number = Random.pickNumberInRange(1, 9);
-        if (!COMPUTER.includes(number)) {
-          COMPUTER += number;
-        }
-      }
 
       while (COMPUTER !== PLAYER) {
         PLAYER = await Console.readLineAsync('숫자를 입력해주세요 : ');
 
-        if (/[^0-9]/.test(PLAYER)) {
-          throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
-        }
+        VALIDATE_NUMBER(PLAYER);
 
-        if (PLAYER.length !== 3) {
-          throw new Error('[ERROR] 숫자가 3자리가 아닙니다.');
-        }
-
-        if (/(\d).*\1/.test(PLAYER)) {
-          throw new Error('[ERROR] 숫자가 중복되었습니다.');
-        }
-
-        let BALL = 0;
-        let STRIKE = 0;
-        let HINT = '';
-
-        for (let i = 0; i < PLAYER.length; i++) {
-          if (COMPUTER[i] === PLAYER[i]) {
-            STRIKE++;
-          } else if (COMPUTER.includes(PLAYER[i])) {
-            BALL++;
-          }
-        }
-
-        if (BALL === 0 && STRIKE === 0) {
-          HINT = '낫싱';
-        } else {
-          HINT = `${BALL === 0 ? '' : BALL + '볼 '}${
-            STRIKE === 0 ? '' : STRIKE + '스트라이크'
-          }`;
-        }
+        const HINT = PRINT_HINT(COMPUTER, PLAYER);
 
         Console.print(HINT);
 
@@ -72,5 +37,58 @@ class App {
     }
   }
 }
+
+const GET_RANDOM_THREE_NUMBER = function () {
+  let THREE_NUMBER = '';
+
+  while (THREE_NUMBER.length < 3) {
+    const NUMBER = Random.pickNumberInRange(1, 9);
+    if (!THREE_NUMBER.includes(NUMBER)) {
+      THREE_NUMBER += NUMBER;
+    }
+  }
+
+  return THREE_NUMBER;
+};
+
+const VALIDATE_NUMBER = function (NUMBER) {
+  if (/[^0-9]/.test(NUMBER)) {
+    throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+  }
+
+  if (NUMBER.length !== 3) {
+    throw new Error('[ERROR] 숫자가 3자리가 아닙니다.');
+  }
+
+  if (/(\d).*\1/.test(NUMBER)) {
+    throw new Error('[ERROR] 숫자가 중복되었습니다.');
+  }
+
+  return;
+};
+
+const PRINT_HINT = function (COMPUTER_NUMBER, PLAYER_NUMBER) {
+  let BALL = 0;
+  let STRIKE = 0;
+  let HINT = '';
+
+  for (let i = 0; i < PLAYER_NUMBER.length; i++) {
+    if (COMPUTER_NUMBER[i] === PLAYER_NUMBER[i]) {
+      STRIKE++;
+    } else if (COMPUTER_NUMBER.includes(PLAYER_NUMBER[i])) {
+      BALL++;
+    }
+  }
+
+  if (BALL === 0 && STRIKE === 0) {
+    HINT = '낫싱';
+  } else {
+    HINT = `${BALL === 0 ? '' : BALL + '볼 '}${
+      STRIKE === 0 ? '' : STRIKE + '스트라이크'
+    }`;
+  }
+
+  return HINT;
+};
 
 export default App;
