@@ -8,6 +8,11 @@ class Controller {
     this.view.opening();
     return this;
   }
+
+  initGame() {
+    this.model.initAnswer();
+    return this;
+  }
 }
 
 export default Controller;
