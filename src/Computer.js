@@ -1,11 +1,11 @@
-const { Random } = require('@woowacourse/mission-utils');
+import { Random } from '@woowacourse/mission-utils';
 
 class Computer {
   constructor() {
     this.computerNumber = this.generateRandomNumber();
   }
 
-  generateNewRandomNumber() {
+  generateNewCorrectNumber() {
     this.computerNumber = this.generateRandomNumber();
   }
 
@@ -24,4 +24,4 @@ class Computer {
   }
 }
 
-module.exports = Computer;
+export default Computer;
