@@ -1,6 +1,8 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import { AnswerBalls, SubmittedBalls, TargetBall, TargetBalls } from '../domain/index.js';
-import { MESSAGE } from '../constants/message.js';
+
+import { AnswerBalls, SubmittedBalls, TargetBall, TargetBalls } from '../domain';
+
+import { MESSAGE } from '../constants/message';
 
 export class BaseballService {
   #answer;

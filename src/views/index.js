@@ -1,2 +1,2 @@
-export * from './inputView.js';
-export * from './outputView.js';
+export * from './inputView';
+export * from './outputView';

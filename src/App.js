@@ -1,10 +1,14 @@
-import { ERROR_MESSAGE } from './constants/error.js';
-import { MESSAGE } from './constants/message.js';
-import { RESTART_COMMAND } from './constants/system.js';
-import CustomError from './exceptions/CustomError.js';
-import { BaseballService } from './service/BaseballService.js';
-import { splitNumbersToArray } from './utils/splitNumbersToArray.js';
-import { inputView, outputView } from './views/index.js';
+import { BaseballService } from './service/BaseballService';
+
+import { inputView, outputView } from './views';
+
+import { splitNumbersToArray } from './utils/splitNumbersToArray';
+
+import { MESSAGE } from './constants/message';
+import { RESTART_COMMAND } from './constants/system';
+import { ERROR_MESSAGE } from './constants/error';
+
+import CustomError from './exceptions/CustomError';
 
 class App {
   #view = {

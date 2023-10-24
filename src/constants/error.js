@@ -1,4 +1,4 @@
-import { RESTART_COMMAND } from './system.js';
+import { RESTART_COMMAND } from './system';
 
 export const ERROR_MESSAGE = Object.freeze({
   common: Object.freeze({

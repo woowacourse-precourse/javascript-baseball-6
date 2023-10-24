@@ -1,5 +1,5 @@
-import { TargetBalls } from '../domain/index.js';
-import { RESTART_COMMAND } from './system.js';
+import { TargetBalls } from '../domain';
+import { RESTART_COMMAND } from './system';
 
 export const MESSAGE = Object.freeze({
   enterSubmitBall: '숫자 야구 게임을 시작합니다.\n숫자를 입력해주세요 : ',

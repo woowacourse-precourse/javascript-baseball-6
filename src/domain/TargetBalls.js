@@ -1,7 +1,10 @@
-import { ERROR_MESSAGE } from '../constants/error.js';
-import CustomError from '../exceptions/CustomError.js';
-import { isDuplicated } from '../utils/validator.js';
-import { TargetBall } from './TargetBall.js';
+import { TargetBall } from './TargetBall';
+
+import { isDuplicated } from '../utils/validator';
+
+import { ERROR_MESSAGE } from '../constants/error';
+
+import CustomError from '../exceptions/CustomError';
 
 export class TargetBalls {
   #balls;

@@ -1,4 +1,4 @@
-import { splitNumbersToArray } from '../../src/utils/splitNumbersToArray.js';
+import { splitNumbersToArray } from '../../src/utils/splitNumbersToArray';
 
 describe('splitNumbersToArray 테스트', () => {
   it.each([
