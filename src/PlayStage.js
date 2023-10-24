@@ -1,0 +1,44 @@
+import { Console } from "@woowacourse/mission-utils";
+import MESSAGES from "./Messages.js";
+
+/**
+ * 사용자 입력 후 결과 출력까지 담당하는 클래스
+ * 1. 사용자 입력을 받는다.
+ * 2. 사용자 입력이 형식에 맞지 않을 경우 예외를 발생시킨다.
+ * 3. 사용자 입력이 정상적일 경우 결과를 출력한다.
+ */
+class PlayStage {
+  /** @type {MESSAGES} */
+  #message;
+
+  /** @type {[number, number, number]} */
+  #numbers;
+
+  /** @type {number} */
+  #strikeCount;
+
+  /** @type {number} */
+  #ballCount;
+
+  /**
+   * 생성자: 입력 메세지, 숫자들이 담긴 배열을 가져오고,
+   * 스트라이크, 볼 카운트를 0으로 초기화한다.
+   * @param {[number, number, number]} numbers 숫자들이 담긴 배열
+   */
+  constructor(numbers) {
+    this.#message = MESSAGES.INPUT_NUMBER;
+    this.#numbers = numbers;
+    this.#strikeCount = 0;
+    this.#ballCount = 0;
+  }
+
+  /**
+   * 사용자의 숫자 입력을 받는다.
+   * @returns {Promise} 입력된 숫자 값
+   */
+  numberInput() {
+    return Console.readLineAsync(this.#message);
+  }
+}
+
+export default PlayStage;
