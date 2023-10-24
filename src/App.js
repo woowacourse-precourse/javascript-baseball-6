@@ -45,10 +45,10 @@ class App {
 }
 
 class Computer {
-  #number;
+  #generatedNumber;
 
   getThreeDigits() {
-    return this.#number;
+    return this.#generatedNumber;
   }
 
   generateThreeDigits() {
@@ -61,7 +61,7 @@ class Computer {
       }
     }
 
-    this.#number = Number(stringThreeDigits);
+    this.#generatedNumber = Number(stringThreeDigits);
   }
 }
 
