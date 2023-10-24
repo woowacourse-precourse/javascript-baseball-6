@@ -24,42 +24,35 @@ async function getUserNumber() {
   return input.split('').map(Number);
 }
 
-
-
-
-function compareUserAndRamdomNumber(input, computer) {
-  if (input.join("") === computer.join("")) {
-    return true;
-  }
-
+function getHint(input, computer) {
   let strike = 0;
   let ball = 0;
 
-  computer.forEach((number, index) => {
-    if (number === input[index]) {
-      strike += 1;
-    }
+  computer.map((computerElement, computerIndex) => {
+    input.map((inputElement, inputIndex) => {
+      if (computerElement === inputElement) {
+        if (computerIndex === inputIndex) {
+          strike++;
+        } else {
+          ball++;
+        }
+      }
+    });
   });
 
-  ball = computer.filter((number) => input.includes(number)).length;
-  ball -= strike;
+  return {strike, ball};
+}
 
-  if (strike !== 0 && ball !== 0) {
-    Console.print(`${ball}볼 ${strike}스트라이크`);
-    return false;
-  }
-  if (strike !== 0) {
-    Console.print(`${strike}스트라이크`);
-    return false;
-  }
-  if (ball !== 0) {
-    Console.print(`${ball}볼`);
-    return false;
-  }
+function printHint({ strike, ball }) {
   if (strike === 0 && ball === 0) {
     Console.print("낫싱");
+  } else if (strike !== 0 && ball !== 0) {
+    Console.print(`${ball}볼 ${strike}스트라이크`);
+  } else if (strike !== 0) {
+    Console.print(`${strike}스트라이크`);
+  } else if (ball !== 0) {
+    Console.print(`${ball}볼`);
   }
-  return false;
 }
 
 async function notifyGameEnd() {
