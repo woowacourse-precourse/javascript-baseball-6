@@ -23,17 +23,19 @@ export default class Game{
         const computer = new Computer()
 
         while(true){
-            this.initGame()
-            if(this.isNewGame) computer.generateRandNum()
             const playerNum = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ')
-            console.log(`playernum: ${playerNum}`)
-            if(checkInputValidity(playerNum)) player.convertToArray(playerNum)
+            if(!checkInputValidity(playerNum)) 
+                throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+            player.convertToArray(playerNum)
+            
+            if(this.isNewGame) computer.generateRandNum()
+            this.initGame()
             this.isNewGame = false
 
-            console.log(`player: ${player.number} // computer: ${computer.number}`)
             if(checkAnswer(player.number, computer.number)){
                 this.endGame()
-                if(player.askRetry() === 1){
+                const retry = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ')
+                if(retry === '1'){
                     this.isNewGame = true
                     continue
                 }
@@ -41,7 +43,6 @@ export default class Game{
                     break
                 }                
             }
-
             this.strikeCount = checkStrike(player.number, computer.number)
             this.ballCount = checkBall(player.number, computer.number, this.strikeCount)
         

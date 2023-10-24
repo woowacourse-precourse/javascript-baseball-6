@@ -10,7 +10,6 @@ export default class Computer{
             const number = MissionUtils.Random.pickNumberInRange(1, 9)
             if(!this.number.includes(number)) this.number.push(number)
         }
-        
         return this.number
     }
 }

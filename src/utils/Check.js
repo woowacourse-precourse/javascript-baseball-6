@@ -18,12 +18,9 @@ export function checkInputValidity(input){
 
 // 정답 일치 여부 확인
 export function checkAnswer(player, computer){
-    if(player.length !== computer.length) return false
-
-    player.forEach((num, i)=>{
-        if(num !== computer[i]) return false
-    })
-
+    for(let i=0; i<player.length; i++){
+        if(player[i] !== computer[i]) return false
+    }
     return true
 }
 
