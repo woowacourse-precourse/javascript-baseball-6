@@ -12,6 +12,6 @@ describe('TargetBalls 테스트', () => {
     const targetBalls = TargetBalls.of(input);
 
     // when & then
-    expect(targetBalls.getBalls()).toEqual(input.map(TargetBall.valueOf));
+    expect(targetBalls.getBalls()).toEqual(Array.from(input, TargetBall.valueOf));
   });
 });

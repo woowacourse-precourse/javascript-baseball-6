@@ -3,4 +3,4 @@
  * @param {string} string
  * @returns {number[]}
  */
-export const splitNumbersToArray = (string) => string.split('').map(Number);
+export const splitNumbersToArray = (string) => Array.from(string.split(''), Number);

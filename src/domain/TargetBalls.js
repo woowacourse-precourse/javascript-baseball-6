@@ -8,7 +8,7 @@ export class TargetBalls {
 
   constructor(numbers) {
     this.#validate(numbers);
-    this.#balls = numbers.map(TargetBall.valueOf);
+    this.#balls = Array.from(numbers, TargetBall.valueOf);
   }
 
   static BALL_QUANTITY = 3;
