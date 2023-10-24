@@ -9,6 +9,7 @@ class App {
     this.#answerArray = createRandomAnswer();
 
     const input = await Console.readLineAsync("숫자를 입력해 주세요: ");
+    inputValidation(input);
   }
 }
 
@@ -21,6 +22,23 @@ function createRandomAnswer() {
     }
   }
   return computer;
+}
+
+function inputValidation(input) {
+  const numberStringRegex = /^[0-9]+$/;
+
+  if (!input.match(numberStringRegex)) {
+    throw new Error("[ERROR] 숫자만 입력해 주세요.");
+  }
+
+  if (input.length !== 3 || input.includes("0") || checkDuplicate(input)) {
+    throw new Error("[ERROR] 0을 제외한 서로 다른 세자리 수로 입력해주세요.");
+  }
+}
+
+function checkDuplicate(input) {
+  const numbers = input.split("");
+  return [...new Set(numbers)].length === 3 ? false : true;
 }
 
 export default App;
