@@ -10,7 +10,7 @@ function pickRandomNumber(array) {
 }
 
 async function start() {
-  return await Console.readLineAsync("숫자를 입력해주세요 : ");
+  return Console.readLineAsync("숫자를 입력해주세요 : ");
 }
 
 function judgeError(array) {
@@ -41,11 +41,11 @@ function calculateBall(randomArray, inputArray, strikeCount) {
   let judgeArray = [];
 
   judgeArray = randomArray.map((data) => inputArray.includes(data));
-  return judgeArray.filter((data) => data === true).length - strikeCount;
+  return judgeArray.filter((data) => data).length - strikeCount;
 }
 
 async function finish() {
-  return await Console.readLineAsync(
+  return Console.readLineAsync(
     "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
   );
 }
