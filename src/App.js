@@ -34,6 +34,12 @@ class App {
         throw new Error("[ERROR] 3자리 숫자를 입력해 주세요.");
       }
     });
+
+    userNum = userNum.split("").map((num) => {
+      return Number(num);
+    });
+
+    return userNum;
   }
 
   constructor() {
@@ -107,16 +113,16 @@ class App {
 
       if (this.win) {
         MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-        let res = await MissionUtils.Console.readLineAsync(
+        let userRes = await MissionUtils.Console.readLineAsync(
           "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
         );
 
-        if (res === "1") {
-          this.win = false;
+        if (userRes === "1") {
           this.end = false;
+          this.win = false;
 
-          comNum = this.getRandomNum();
-        } else if (res === "2") {
+          computerNum = this.getRandomNum();
+        } else if (userRes === "2") {
           this.end = true;
         } else {
           throw new Error("[ERROR] 1 혹은 2를 입력해 주세요.");
