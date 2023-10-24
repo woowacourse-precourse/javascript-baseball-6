@@ -19,9 +19,9 @@ export default class BaseballGameController {
     while (!this.#baseballGame.isGameEnded()) {
       if (this.#baseballGame.isInCommandPhase()) {
         await this.#readCommandInput(this.#baseballGame);
-      } else {
-        await this.#readNumbersInput(this.#baseballGame);
+        continue;
       }
+      await this.#readNumbersInput(this.#baseballGame);
     }
   }
 
