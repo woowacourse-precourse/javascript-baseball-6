@@ -3,6 +3,7 @@ import MESSAGES from './Messages';
 import Computer from './Computer';
 import Validator from '../utils/Validator';
 import NumberChecker from './NumberChecker';
+import CONSTANTS from './Constants';
 
 class BaseballGame {
   computerNumber;
@@ -27,7 +28,20 @@ class BaseballGame {
   async readNumber() {
     const userInput = await Console.readLineAsync(MESSAGES.numberQuery);
     const userNumber = userInput.split('').map(Number);
+    await this.handleNumber(userNumber);
+  }
+  async handleNumber(userNumber) {
     Validator.validateUserNumber(userNumber);
+    const result = NumberChecker.getResult(userNumber, this.computerNumber);
+    this.printResult(result);
+  }
+  printResult({ball, strike}) {
+    let result = '';
+    if (ball > 0) result += ball + MESSAGES.ball;
+    if (strike > 0) result += strike + MESSAGES.strike;
+    if (ball === 0 && strike === 0) result = MESSAGES.nothing;
+    if (strike === CONSTANTS.winningStrike) result += MESSAGES.correct;
+    Console.print(result.trim());
   }
 }
 
