@@ -1,4 +1,4 @@
-import { INPUT_MESSAGE, FINISH_MESSAGE } from "./constants/messages.js";
+import { INPUT_MESSAGE, FINISH_MESSAGE } from "./constants/Messages.js";
 import { validateInput } from "./ValidateInput.js";
 import { generateRandomNumber } from "./RandomNumber.js";
 import { printIntroMessage, printGameResult, printEndMessage } from "./View.js";

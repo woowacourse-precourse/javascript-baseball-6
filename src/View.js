@@ -1,4 +1,4 @@
-import { OUTPUT_MESSAGE, GAME_RESULT } from "./constants/messages.js";
+import { OUTPUT_MESSAGE, GAME_RESULT } from "./constants/Messages.js";
 import { Console } from "@woowacourse/mission-utils";
 
 function printIntroMessage() {
