@@ -7,10 +7,10 @@ import { TEXT } from '../comm/text.js';
 export default function gameResult(userNumber, computerNumber){
     const strike = strikeCount(userNumber, computerNumber);
     const ball = ballCount(userNumber, computerNumber)-strike;
-    compareNumber(strike, ball, userNumber, computerNumber);
+    compareNumber(strike, ball, computerNumber);
 }
 
-const compareNumber = async (strike, ball, userNumber, computerNumber) => {
+const compareNumber = async (strike, ball, computerNumber) => {
     if(strike === 3 && ball === 0){
         MissionUtils.Console.print(`${strike}${TEXT.STRIKE}`);
         MissionUtils.Console.print(`${TEXT.GAME_OVER}`);        
