@@ -14,7 +14,7 @@ export class BaseballGame {
     this.#computer = new Computer(answerNumber);
   }
 
-  guessNumber(userNumber) {
+  compareNumber(userNumber) {
     return this.#computer.compareNumber(userNumber);
   }
 }

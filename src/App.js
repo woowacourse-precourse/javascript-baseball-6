@@ -19,7 +19,7 @@ class App {
   async #guessNumber() {
     while (true) {
       const userNumber = await this.#view.readUserNumber();
-      const { strike, ball } = this.#game.guessNumber(userNumber);
+      const { strike, ball } = this.#game.compareNumber(userNumber);
 
       this.#printResult({ strike, ball });
 

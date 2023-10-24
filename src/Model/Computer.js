@@ -4,23 +4,21 @@ export class Computer extends Player {
   compareNumber(userNumber) {
     this.validation(userNumber);
 
-    const strike = this.#checkStrike(this._number, userNumber);
-    const ball = this.#checkBall(this._number, userNumber);
-
-    return { strike, ball };
+    return this.#checkResult(this._number, userNumber);
   }
 
-  #checkStrike(answer, userNumber) {
-    const strike = answer.filter(
-      (number, index) => number === userNumber[index]
-    );
+  #checkResult(answer, userNumber) {
+    const defaultValue = { strike: 0, ball: 0 };
 
-    return strike.length;
-  }
+    return answer.reduce((acc, current, index) => {
+      if (current === userNumber[index]) {
+        acc.strike += 1;
+        return acc;
+      }
 
-  #checkBall(answer, userNumber) {
-    const ball = answer.filter((number) => userNumber.includes(number));
+      if (userNumber.includes(current)) acc.ball += 1;
 
-    return ball.length;
+      return acc;
+    }, defaultValue);
   }
 }
