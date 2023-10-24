@@ -16,3 +16,5 @@ export const GAME_RESULT = {
   ball: "볼",
   nothing: "낫싱"
 }
+
+export const USER_CHOICE_RETRY = "1";

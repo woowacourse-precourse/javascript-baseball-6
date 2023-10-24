@@ -1,4 +1,4 @@
-import { INPUT_MESSAGE, FINISH_MESSAGE } from "./constants/Messages.js";
+import { INPUT_MESSAGE, FINISH_MESSAGE, USER_CHOICE_RETRY } from "./constants/Messages.js";
 import { validateInput } from "./ValidateInput.js";
 import { generateRandomNumber } from "./RandomNumber.js";
 import { printIntroMessage, printGameResult, printEndMessage } from "./View.js";
@@ -18,7 +18,7 @@ async function getUserInput() {
 
 async function askRestart() {
   const retry = await Console.readLineAsync(FINISH_MESSAGE);
-  if (retry == "1") return true;
+  if (retry == USER_CHOICE_RETRY) return true;
   else return false;
 }
 
