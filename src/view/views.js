@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import { MESSAGE } from '../constants/constants.js'
+import { MESSAGE } from '../constants/constants.js';
 
 export default class Views {
   constructor() {
@@ -14,16 +14,20 @@ export default class Views {
     let resultMessage = '';
 
     if (result.ball !== 0) {
-      resultMessage = resultMessage.concat(String(result.ball) + MESSAGE.ball + ' ');
+      resultMessage = resultMessage.concat(
+        String(result.ball) + MESSAGE.ball + ' ',
+      );
     }
-  
+
     if (result.strike !== 0) {
-      resultMessage = resultMessage.concat(String(result.strike) + MESSAGE.strike + ' ');
+      resultMessage = resultMessage.concat(
+        String(result.strike) + MESSAGE.strike + ' ',
+      );
     }
 
     return Console.print(resultMessage);
   }
-  
+
   printMessage(message) {
     return Console.print(message);
   }
