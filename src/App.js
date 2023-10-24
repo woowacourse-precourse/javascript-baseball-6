@@ -28,6 +28,10 @@ class App {
     }
   }
 
+  calcStrike(userInput, computerInput) {
+    return userInput.filter((el, i) => computerInput[i] === el).length;
+  }
+
   async play() {}
 }
 
