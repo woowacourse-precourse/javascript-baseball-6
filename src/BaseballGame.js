@@ -22,9 +22,12 @@ export default class BaseballGame {
   }
 
   generateRandomNumbers() {
-    const numbers = new Set();
-    while (numbers.size < 3) {
-      numbers.add(Random.pickNumberInRange(RANDOM_MIN, RANDOM_MAX));
+    const numbers = [];
+    while (numbers.length < 3) {
+      const randomNumber = Random.pickNumberInRange(RANDOM_MIN, RANDOM_MAX);
+      if (!numbers.includes(randomNumber)) {
+        numbers.push(randomNumber);
+      }
     }
     return [...numbers];
   }
