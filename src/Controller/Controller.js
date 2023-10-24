@@ -1,31 +1,23 @@
 import Model from '../Model/Model.js';
-import view from '../view/view.js';
-
-const {
-  readPlayerNum, readRestartEnd,
-  printGameStart,
-  printBallStrike,
-  printBall,
-  printStrike,
-  printNothing,
-  printThreeStrike,
-  exit,
-} = view;
+import outputView from '../view/outputView.js';
+import inputView from '../view/inputView.js';
 
 export default class Controller {
   #model;
 
   constructor() {
-    printGameStart();
+    outputView.printGameStart();
   }
 
   mainGameController() {
     this.#model = new Model();
+
     return this.sendPlayerNum();
   }
 
   async sendPlayerNum() {
-    const input = await readPlayerNum();
+    const input = await inputView.readPlayerNum();
+
     return this.ballCountController(input);
   }
 
@@ -33,11 +25,13 @@ export default class Controller {
     this.#model.savePlayerNum(input);
     if (this.#model.getOpponentNum() !== this.#model.getPlayerNum()) {
       this.ballCountOutputController();
+
       return this.sendPlayerNum();
     }
     if (this.#model.getOpponentNum() === this.#model.getPlayerNum()) {
-      printThreeStrike();
-      this.endController();
+      outputView.printThreeStrike();
+
+      return this.endController();
     }
   }
 
@@ -45,31 +39,22 @@ export default class Controller {
     const ballCount = this.#model.getBall();
     const strikeCount = this.#model.getStrike();
 
-    if (ballCount > 0 && strikeCount > 0) {
-      printBallStrike(ballCount, strikeCount);
-    }
-    if (ballCount > 0 && strikeCount === 0) {
-      printBall(ballCount);
-    }
-    if (ballCount === 0 && strikeCount > 0) {
-      printStrike(strikeCount);
+    if (ballCount > 0 || strikeCount > 0) {
+      return outputView.printBallStrike(ballCount, strikeCount);
     }
     if (ballCount === 0 && strikeCount === 0) {
-      printNothing();
+      return outputView.printNothing();
     }
   }
 
   async endController() {
-    const input = await readRestartEnd();
-    return this.gameEnd(input);
-  }
+    const input = await inputView.readRestartEnd();
 
-  async gameEnd(input) {
     if (input === '1') {
       return this.mainGameController();
     }
     if (input === '2') {
-      return exit();
+      return outputView.exit();
     }
   }
 }
