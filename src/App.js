@@ -45,7 +45,7 @@ class App {
 
   async user_input() {
     // "숫자를 입력해주세요" 출력 후 사용자로부터 3자리 숫자 입력 받기
-    const input = await MissionUtils.Console.readLineAsync();
+    const input = await MissionUtils.Console.readLineAsync("");
 
     if (!input || input.length !== 3 || !/^\d+$/.test(input)) {
       throw new Error("[ERROR]"); // 에러 발생
