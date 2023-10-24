@@ -11,4 +11,7 @@ Console.print함수 사용
 generateRandomNumber함수를 통해 1-9까지의 숫자로 랜덤한 세 자리 숫자를 만들기
 이 함수를 통해 생성된 숫자를 secretNumber에 할당하기
 
+3. 숫자 입력 기능
+Console.readLineAsync을 활용하여 숫자를 입력 받고, 이를 숫자로 변환하여 guess에 할당
+
 

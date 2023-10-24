@@ -6,7 +6,12 @@ class App {
     
     while (true) {
       const secretNumber = this.generateRandomNumber();
-    
+      let attempts = 0;
+
+      while (true) {
+        const input = await Console.readLineAsync("숫자를 입력해주세요 : ");
+        const guess = input.split("").map(Number);
+
   }
 }
 
