@@ -5,7 +5,7 @@
 - 제목은 50자 이내 / 변경사항이 "무엇"인지 명확히 작성 / 끝에 마침표 금지.
 - [Commit Template] ~ 양식에 맞추어 작성한다.
 - Commit Template 작성 시에는 대문자로 시작한다.
-- ex) Feat : 로그인 기능 추가
+- ex) [Feat] 로그인 기능 추가
 
 ## Commit Template
 - Feat : 새로운 기능 추가
