@@ -6,14 +6,14 @@ class App {
   }
 
   randomNumberGenerator() {
-    const answer = [];
-    while (answer.length < 3) {
-      const number = MissionUtils.Random.pickNumberInRange(1, 9);
-      if (!answer.includes(number)) {
-        answer.push(number);
+    const ANSWER = [];
+    while (ANSWER.length < 3) {
+      const NUMBER = MissionUtils.Random.pickNumberInRange(1, 9);
+      if (!ANSWER.includes(NUMBER)) {
+        ANSWER.push(NUMBER);
       }
     }
-    return answer;
+    return ANSWER;
   }
 
   validateInput(userInput) {
@@ -42,12 +42,12 @@ class App {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
 
     while (this.isContinue) {
-      let userInput =
+      const USERINPUT =
         await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
-      let isValid = this.validateInput(userInput);
+      const IS_VALID = this.validateInput(USERINPUT);
 
-      if (isValid) {
-        const INPUT_ARR = userInput.toString().split("").map(Number);
+      if (IS_VALID) {
+        const INPUT_ARR = USERINPUT.toString().split("").map(Number);
         const STRIKE = this.calcStrike(INPUT_ARR, this.computerInput);
         const BALL = this.calcBall(INPUT_ARR, this.computerInput);
 
