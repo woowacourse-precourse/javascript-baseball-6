@@ -1,6 +1,9 @@
 import { Console } from "@woowacourse/mission-utils";
 import Player from "./model/Player.js";
 import Computer from "./model/Computer.js";
+import { playerInput } from "./view/inputView.js";
+import { GAME_NUMBER, GAME_END } from "./constants/gameConfig.js";
+import { MESSAGE_INFO, MESSAGE_STATE } from "./constants/Message.js";
 
 export class App {
   #player;
@@ -16,10 +19,10 @@ export class App {
   }
 
   async init() {
-    Console.print("숫자 야구 게임을 시작합니다.");
+    Console.print(MESSAGE_INFO.gameStart);
 
     try {
-      const getPlayerInput = await this.playerInput();
+      const getPlayerInput = await playerInput();
       this.#player.setPlayerNumber(getPlayerInput);
       this.test();
       this.compare();
@@ -28,21 +31,14 @@ export class App {
     }
   }
 
-  async playerInput() {
-    try {
-      return Console.readLineAsync("숫자를 입력해주세요 : ");
-    } catch (error) {
-      return Console.print(error);
-    }
-  }
-
   compare() {
     const result = this.output();
+
     console.log("result: ", result);
 
-    if (result.strike === 3) {
-      Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-      Console.print("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+    if (result.strike === GAME_NUMBER.three) {
+      Console.print(MESSAGE_INFO.gameEnd);
+      Console.print(MESSAGE_INFO.gameRestart);
       return;
     }
   }
