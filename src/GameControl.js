@@ -3,6 +3,7 @@ import { MissionUtils, Console } from "@woowacourse/mission-utils";
 class Game {
   constructor(App) {
     this.app = App;
+    this.answer = [];
   }
 
   randomNum() {
@@ -18,12 +19,7 @@ class Game {
 
   userNumber(message) {
     let Number;
-
-    try {
-      Number = MissionUtils.Console.readLineAsync(message);
-    } catch (e) {
-      throw Error(e.message);
-    }
+    Number = MissionUtils.Console.readLineAsync(message);
 
     return Number;
   }
@@ -36,21 +32,19 @@ class Game {
       if (!IS_NUMBER || USER_NUMBER.length !== 3) {
         throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
       }
-    } catch (e) {
+    } catch (error) {
       this.app.isPlaying = false;
-      throw Error(e.message);
+      throw Error(error.message);
     }
-
     const USER = Array.from(USER_NUMBER).map(Number);
 
     return USER;
   }
 
-  getComparisonBall(data) {
+  getComparisonResult(data) {
     let strike = 0;
     let ball = 0;
 
-    const obj = {};
     const { me, com } = data;
 
     com.forEach((el, idx) => {
@@ -58,9 +52,9 @@ class Game {
       else if (me.includes(el)) ball++;
     });
 
+    const obj = {};
     if (ball > 0) obj["ball"] = ball;
     if (strike > 0) obj["strike"] = strike;
-    obj["com"] = com;
 
     const RESULT = this.isNumberSame(obj);
 
@@ -68,54 +62,29 @@ class Game {
   }
 
   isNumberSame(data) {
-    const answer = [];
-    const { strike, ball, com } = data;
+    const { strike, ball } = data;
 
-    // if (strike + ball === 0) {
-    //   Console.print("낫싱");
-
-    //   return { state: "FAIL", com };
-    // }
-
-    // if (strike !== 3) {
-    //   if (ball === 0) {
-    //     Console.print(`${strike}스트라이크`);
-
-    //     return { state: "FAIL", com };
-    //   }
-
-    //   if (strike === 0) {
-    //     Console.print(`${ball}볼`);
-
-    //     return { state: "FAIL", com };
-    //   }
-
-    //   Console.print(`${ball}볼 ${strike}스트라이크`);
-
-    //   return { state: "FAIL", com };
-    // }
-
-    // if (strike === 3) {
-    //   Console.print("3스트라이크");
-
-    //   return "WIN";
-    // }
-
-    if (!ball && !strike) {
+    if (!strike && !ball) {
       Console.print("낫싱");
-      return { state: "FAIL", com };
-    }
 
-    if (ball) answer.push(`${ball}볼 `);
-    if (strike && strike === 3) {
-      Console.print(`${strike}스트라이크`);
+      return;
+    }
+    if (strike === 3) {
+      Console.print("3스트라이크");
+
       return "WIN";
     }
-    if (strike && strike !== 3) answer.push(`${strike}스트라이크`);
 
-    const ANSWER = Array.from(answer).join("");
-    Console.print(ANSWER);
-    return;
+    const result = [];
+
+    if (ball > 0) {
+      result.push(`${ball}볼 `);
+    }
+    if (strike > 0) {
+      result.push(`${strike}스트라이크`);
+    }
+
+    Console.print(Array.from(result).join(""));
   }
 
   async handleGameStatus() {
@@ -133,12 +102,10 @@ class Game {
         return;
       }
       if (USER_NUM === "1") {
-        this.app.isPlaying = true;
         this.app.Computer = this.randomNum();
 
         return;
       }
-
       throw new Error("[ERROR] 1 또는 2를 입력해주세요.");
     } catch (error) {
       throw Error(error.message);
