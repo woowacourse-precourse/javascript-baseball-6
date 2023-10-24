@@ -14,7 +14,7 @@ const { invalidNumbers, invalidCommand } = ERROR_MESSAGES;
 export const validationUtils = {
   validateNumbers(input) {
     const numbers = input.split('');
-    for (const validation of validations) {
+    for (const validation of numberValidations) {
       if (!validation.isValid(numbers)) {
         throw new Error(validation.error);
       }
@@ -27,7 +27,7 @@ export const validationUtils = {
   },
 };
 
-const validations = [
+const numberValidations = [
   { isValid: isValidLength, error: invalidNumbers.length },
   { isValid: areAllIntegers, error: invalidNumbers.integer },
   { isValid: areAllWithinRange, error: invalidNumbers.range },
