@@ -23,7 +23,7 @@ class App {
 
   // 사용자에게 3자리 숫자를 입력받은 후, 각각의 숫자를 요소로 가지는 배열로 변환 후 반환
   static async #inputGuessNumber() {
-    const userInput = Console.readLineAsync("숫자를 입력해주세요 : ");
+    const userInput = await Console.readLineAsync("숫자를 입력해주세요 : ");
     const userInputArray = userInput.split("").map(Number);
     return userInputArray;
   }
@@ -48,7 +48,14 @@ class App {
     App.printCompareResult();
   }
 
-  #playBaseBall() {
+  static async #isPlayAgain() {
+    const userInput = await Console.readLineAsync(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+    );
+    return userInput === "1" ? true : false;
+  }
+
+  async #playBaseBall() {
     this.#generateSecretNumber();
     while (this.#strike < 3) {
       const guessNumber = App.#inputGuessNumber();
@@ -58,8 +65,10 @@ class App {
 
   play() {
     App.#printGreeting("start");
-    this.#playBaseBall();
-    App.#printGreeting("end");
+    do {
+      this.#playBaseBall();
+      App.#printGreeting("end");
+    } while (App.#isPlayAgain());
   }
 }
 
