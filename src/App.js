@@ -3,6 +3,9 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 const { Console, Random } = MissionUtils;
 
 class App {
+  #answer;
+  #userInput;
+  #gameStatus;
   constructor() {
     this.#answer = [];
     this.#userInput = [];
@@ -141,10 +144,6 @@ class App {
       }
     }
   }
-
-  #answer;
-  #userInput;
-  #gameStatus;
 }
 
 const triggerError = () => {
