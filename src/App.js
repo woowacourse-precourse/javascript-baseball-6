@@ -96,12 +96,18 @@ class App {
       }
 
       // 3) 결과 출력
+      let result = "낫싱";
       if (strike === 3) {
-        Console.print("정답입니다!");
+        result = "3스트라이크\n 게임 종료";
         isCorrect = true;
-      } else {
-        Console.print("strike : " + strike + " / ball : " + ball);
+      } else if (strike > 0) {
+        ball > 0
+          ? (result = `${ball}볼 ${strike}스트라이크`)
+          : `${strike}스트라이크`;
+      } else if (ball > 0) {
+        result = `${ball}볼`;
       }
+      Console.print(result);
     }
   }
 
