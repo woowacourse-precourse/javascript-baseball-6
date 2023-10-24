@@ -11,6 +11,10 @@ class App {
     }
   }
 
+  getUserInput(){
+    return MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
+  }
+
   async play() {}
 }
 
