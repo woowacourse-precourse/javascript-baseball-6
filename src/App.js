@@ -12,18 +12,18 @@ class App {
     return computerNumber;
   }
 
-  getUserInput(){
-    const userInput = MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
+  async getUserInput(){
+    const userInput = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
     const validatedUserInput = this.checkInputValidation(userInput);
 
     return validatedUserInput;
   }
 
   checkInputValidation(userInputNumber){
-    const userInputNumberArr = [...new Set(userInputNumber.split(''))].map(Number);
+    const userInputNumberArr = userInputNumber.split('').map(Number);
     
     if(userInputNumber.length !== 3) throw new Error('[ERROR] 3자리 숫자가 아닙니다.')
-    if(userInputNumberArr.length !== 3) throw new Error('[ERROR] 중복된 숫자가 있습니다.')
+    if(new Set(userInputNumberArr).size !== 3) throw new Error('[ERROR] 중복된 숫자가 있습니다.')
     if(userInputNumber.includes(0)) throw new Error('[ERROR] 1~9 사이의 숫자가 아닙니다.')
     if(isNaN(userInputNumber)) throw new Error('[ERROR] 숫자가 아닙니다.')
     
@@ -41,8 +41,8 @@ class App {
     return {strikeCount, ballCount};
   }
 
-  answerResult(computerNumber, userInput){
-    if(computerNumber.join('') === userInput.join('')){
+  async answerResult(computerNumber, userInput){
+    if(computerNumber.join('') === userInput){
       MissionUtils.Console.print('3스트라이크 \n 3개의 숫자를 모두 맞히셨습니다! 게임 종료');
       return true;
     } else {
@@ -58,7 +58,7 @@ class App {
     }
   }
 
-  startGame(){
+  async startGame(){
     MissionUtils.Console.print('숫자 야구 게임을 시작합니다.\n');
 
     const computerAnswer = this.getRandomNumber();
@@ -71,23 +71,24 @@ class App {
       if(gameResult) break;
       else this.answerResult(computerAnswer, userAnswer);
     }
+
+    this.restartGame();
   }
 
-  restartGame(){
-    const restartAnswer = MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
-    if(restartAnswer === 1) this.startGame();
-    else if(restartAnswer === 2) MissionUtils.Console.print("게임 종료");
+  async restartGame(){
+    const restartAnswer = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+    if(restartAnswer === '1') await this.startGame();
+    else if(restartAnswer === '2') MissionUtils.Console.print("게임 종료");
     else throw new Error('[ERROR] 1이나 2를 입력해주세요.')
   }
 
 
   async play() {
-    this.startGame();
+    await this.startGame();
   }
 }
 
 const app = new App();
 app.play();
-
 
 export default App;
