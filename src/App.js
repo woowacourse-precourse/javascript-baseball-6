@@ -1,5 +1,6 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import BaseballGame from './BaseballGame.js';
+import { GAME_MESSAGES } from './constants.js';
 
 class App {
   constructor() {
@@ -7,7 +8,7 @@ class App {
   }
 
   gameStartMessage() {
-    MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
+    MissionUtils.Console.print(GAME_MESSAGES.START);
   }
 
   async play() {

@@ -1,11 +1,17 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import { NUMBER_REGEX } from './constants.js';
+import {
+  ERROR_MESSAGES,
+  GAME_MESSAGES,
+  NUMBER_COUNT,
+  NUMBER_REGEX,
+  VALID_USER_INPUTS,
+} from './constants.js';
 
 const UserInput = {
   async getUserInputAsync() {
     try {
       const userInput = await MissionUtils.Console.readLineAsync(
-        '숫자를 입력해 주세요 : '
+        GAME_MESSAGES.INPUT_NUMBERS
       );
       this.isValidInputForBaseballGame(userInput);
       return userInput;
@@ -17,7 +23,7 @@ const UserInput = {
   async playAgainInputAsync() {
     try {
       const userInput = await MissionUtils.Console.readLineAsync(
-        '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'
+        GAME_MESSAGES.INPUT_RESTART
       );
       this.isValidRestartInputForBaseballGame(userInput);
       return userInput;
@@ -31,25 +37,28 @@ const UserInput = {
 
     const isValidNumber = numberArray.every((num) => NUMBER_REGEX.test(num));
     if (!isValidNumber) {
-      throw new Error('[ERROR]');
+      throw new Error(ERROR_MESSAGES.INVALID_NUMBER);
     }
 
-    if (numberArray.length !== 3) {
-      throw new Error('[ERROR]');
+    if (numberArray.length !== NUMBER_COUNT) {
+      throw new Error(ERROR_MESSAGES.INVALID_NUMBER_COUNT);
     }
 
-    if (new Set(numberArray).size !== 3) {
-      throw new Error('[ERROR]');
+    if (new Set(numberArray).size !== NUMBER_COUNT) {
+      throw new Error(ERROR_MESSAGES.DUPLICATE_NUMBERS);
     }
 
     return true;
   },
 
   isValidRestartInputForBaseballGame(userInput) {
-    if (userInput === '1' || userInput === '2') {
+    if (
+      userInput === VALID_USER_INPUTS.RESTART ||
+      userInput === VALID_USER_INPUTS.EXIT
+    ) {
       return true;
     }
-    throw new Error('[ERROR]');
+    throw new Error(ERROR_MESSAGES.INVALID_RESTART_INPUT);
   },
 };
 

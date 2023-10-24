@@ -1,5 +1,6 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import UserInput from './UserInput.js';
+import { GAME_MESSAGES, NUMBER_COUNT, VALID_USER_INPUTS } from './constants.js';
 
 class BaseballGame {
   constructor() {
@@ -8,7 +9,7 @@ class BaseballGame {
 
   generateRandomNumbers() {
     const computer = [];
-    while (computer.length < 3) {
+    while (computer.length < NUMBER_COUNT) {
       const number = MissionUtils.Random.pickNumberInRange(1, 9);
       if (!computer.includes(number)) {
         computer.push(number);
@@ -23,8 +24,8 @@ class BaseballGame {
       const result = this.calculateResult(userInput);
       this.printResult(result);
 
-      if (result.strikes === 3) {
-        MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+      if (result.strikes === NUMBER_COUNT) {
+        MissionUtils.Console.print(GAME_MESSAGES.WIN);
         await this.endGame();
         break;
       }
@@ -38,7 +39,7 @@ class BaseballGame {
     let strikes = 0;
     let balls = 0;
 
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < NUMBER_COUNT; i++) {
       if (userNumberArray[i] === targetNumberArray[i]) {
         strikes++;
       } else if (targetNumberArray.includes(userNumberArray[i])) {
@@ -61,7 +62,7 @@ class BaseballGame {
     }
 
     if (result.strikes === 0 && result.balls === 0) {
-      resultMessage = '낫싱';
+      resultMessage = GAME_MESSAGES.NOTHING;
     }
 
     MissionUtils.Console.print(resultMessage);
@@ -69,7 +70,7 @@ class BaseballGame {
 
   async endGame() {
     const playAgain = await UserInput.playAgainInputAsync();
-    if (playAgain === '1') {
+    if (playAgain === VALID_USER_INPUTS.RESTART) {
       this.reset();
       this.play();
     }
