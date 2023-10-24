@@ -1,10 +1,10 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import * as Constants from './const/Messages';
-import RandomNumberMaker from './play/RandomNumberMaker';
-import UserNumberReader from './play/UserNumberReader';
-import { correctNumber } from './Utils/CorrectNumber';
-import { showResult } from './play/GameResult';
-import ReplayManager from "./play/ReplayManager";
+import RandomNumberMaker from './utils/RandomNumberMaker';
+import UserNumberReader from './utils/UserNumberReader';
+import { correctNumber } from './utils/CorrectUserNumber';
+import { showResult } from './utils/GameResult';
+import ReplayManager from "./utils/ReplayManager";
 const Console = MissionUtils.Console;
 
 class App {
