@@ -1,5 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import gameMessages from "../messages/GameMessages.js";
+import constants from "../constants/constants.js";
 
 const getUserNumber = async () => {
   const userNumbers = await MissionUtils.Console.readLineAsync(
@@ -17,12 +18,12 @@ const isValidInput = (input) => {
     return false;
   }
 
-  if (input.length !== 3) {
+  if (input.length !== constants.BASEBALL_MAX_LENGTH) {
     return false;
   }
 
   const uniqueNumbers = new Set(input.split(""));
-  if (uniqueNumbers.size !== 3) {
+  if (uniqueNumbers.size !== constants.BASEBALL_MAX_LENGTH) {
     return false;
   }
 
@@ -43,7 +44,7 @@ const getScore = (computerNumbers, userNumbers) => {
 };
 
 const printScore = (score) => {
-  if (score.strike === 3) {
+  if (score.strike === constants.BASEBALL_MAX_LENGTH) {
     MissionUtils.Console.print(`${score.strike}스트라이크`);
     MissionUtils.Console.print(gameMessages.GAME_END);
     return false;
@@ -73,7 +74,7 @@ const getRestartChoice = async (restartCallback) => {
 
 const generateComputerNumbers = () => {
   const computerNumbers = [];
-  while (computerNumbers.length < 3) {
+  while (computerNumbers.length < constants.BASEBALL_MAX_LENGTH) {
     const number = MissionUtils.Random.pickNumberInRange(1, 9);
     if (!computerNumbers.includes(number)) {
       computerNumbers.push(number);
