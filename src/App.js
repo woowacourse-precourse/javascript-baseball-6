@@ -96,6 +96,9 @@ class App {
           } else if (!numCheck.test(answer)) {
             // 추가 -숫자가 아닌 문자 입력 막기
             throw new Error("[ERROR]");
+          } else if (answer.includes("0")) {
+            // 추가2 -숫자 0 입력 막기
+            throw new Error("[ERROR]");
           }
         } catch (err) {
           MissionUtils.Console.print(`[ERROR] 숫자가 잘못된 형식입니다.`);
