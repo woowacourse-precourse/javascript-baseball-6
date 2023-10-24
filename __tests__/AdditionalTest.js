@@ -112,6 +112,20 @@ describe("숫자 야구 게임", () => {
     // when & then
     const app = new App();
 
+    await expect(app.play()).rejects.toThrow(ERROR_MESSAGES.NOT_A_NUMBER);
+  });
+
+  test("단일 공백에 관한 예외테스트", async () => {
+    // given
+    const randoms = [1, 3, 5];
+    const answers = [""];
+
+    mockRandoms(randoms);
+    mockQuestions(answers);
+
+    // when & then
+    const app = new App();
+
     await expect(app.play()).rejects.toThrow(ERROR_MESSAGES.NOT_MATCH_LENGTH);
   });
 
