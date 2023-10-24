@@ -1,6 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 
-export const outputView = Object.freeze({
+export const OutputView = Object.freeze({
   print(message) {
     Console.print(message);
   },

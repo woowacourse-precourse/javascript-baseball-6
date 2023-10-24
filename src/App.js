@@ -1,6 +1,6 @@
 import BaseballService from './service/BaseballService';
 
-import { inputView, outputView } from './views';
+import { InputView, OutputView } from './views';
 
 import { splitNumbersToArray } from './utils/splitNumbersToArray';
 
@@ -12,8 +12,8 @@ import CustomError from './exceptions/CustomError';
 
 class App {
   #view = {
-    input: inputView,
-    output: outputView,
+    input: InputView,
+    output: OutputView,
   };
 
   #service = {

@@ -1,6 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 
-export const inputView = Object.freeze({
+export const InputView = Object.freeze({
   async readLine(query) {
     const answer = await Console.readLineAsync(query);
     return answer;
