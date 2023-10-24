@@ -2,7 +2,7 @@ import { Console, Random } from '@woowacourse/mission-utils';
 
 class App {
   constructor() {
-    this.randomNumbers = null;
+    this.correctAnswer = null;
   }
 
   async play() {
@@ -13,19 +13,19 @@ class App {
 
   async gameStart() {
     // 2. 랜덤한 정답 생성
-    this.randomNumbers = this.generateRandomNumber();
+    this.correctAnswer = this.generateCorrectNumber();
     await this.playGameCycle();
   }
 
-  generateRandomNumber() {
-    const randomNumbers = [];
-    while (randomNumbers.length < 3) {
+  generateCorrectNumber() {
+    const correctAnswer = [];
+    while (correctAnswer.length < 3) {
       const number = Random.pickNumberInRange(1, 9);
-      if (!randomNumbers.includes(number)) {
-        randomNumbers.push(number);
+      if (!correctAnswer.includes(number)) {
+        correctAnswer.push(number);
       }
     }
-    return randomNumbers;
+    return correctAnswer;
   }
 
   async playGameCycle() {
@@ -34,7 +34,7 @@ class App {
 
     // 4. 입력값 형식 검증 및 5. 정답 검증
     const validatedUserAnswer = this.validateInputNumber(userAnswer);
-    const roundResult = this.compareWithUserAnswer(this.randomNumbers, validatedUserAnswer);
+    const roundResult = this.compareWithUserAnswer(this.correctAnswer, validatedUserAnswer);
     this.showRoundResultMessage(roundResult);
 
     // 게임 종료 조건 확인
@@ -52,14 +52,13 @@ class App {
     return userAnswerArray;
   }
 
-  compareWithUserAnswer(randomNumbers, userAnswer) {
     let strikes = 0;
     let balls = 0;
     let isFlag = false;
 
-    for (let i = 0; i < randomNumbers.length; i++) {
-      if (randomNumbers[i] === userAnswer[i]) strikes++;
-      else if (userAnswer.includes(randomNumbers[i])) balls++;
+    for (let i = 0; i < correctAnswer.length; i++) {
+      if (correctAnswer[i] === userAnswer[i]) strikes++;
+      else if (userAnswer.includes(correctAnswer[i])) balls++;
     }
 
     if (strikes === 3 && balls === 0) isFlag = true;
