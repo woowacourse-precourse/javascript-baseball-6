@@ -14,4 +14,9 @@ class Balls {
     Console.print(threeDigitNumber);
     return threeDigitNumber;
   }
+  inputValidation(inputNumbers) {
+    if (!(/^\d{3}$/.test(inputNumbers) && new Set(inputNumbers).size === 3)) {
+      throw new Error("[ERROR]");
+    }
+  }
 }
