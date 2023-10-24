@@ -7,7 +7,8 @@
 - `@woowacourse/mission-utils`의 `Random` 및 `Console` API를 사용하여 구현한다.
   - Random 값 추출은 `Random.pickNumberInRange()`를 활용한다.
   - 사용자의 값을 입력 받고 출력하기 위해서는 `Console.readLineAsync`, `Console.print`를 활용한다.
-- 메시지가 다양하지 않으니, 출력할 메시지는 모두 `INGAME_MESSAGE`, `ERROR_MESSAGE` 두 가지 객체에서 관리한다.
+- 메시지가 다양하지 않으니, 출력할 메시지는 모두 `MESSAGE` 객체에서 관리한다.
+  - 에러 메시지는 `[ERROR] `로 시작한다.
 - 사용자가 잘못된 값을 입력한 경우 `throw`문을 사용해 예외를 발생시킨 후 애플리케이션을 종료한다.
 
 ## 📝 구현할 기능 목록
