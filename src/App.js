@@ -13,10 +13,11 @@ class App {
         }
         //재시작 여부를 묻는 부분
         const userInput = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
-        if (userInput == 2) break;
-        else continue;
+        if (userInput == '1') continue;
+        if (userInput == '2') break;
+        throw new Error("[ERROR]");
       } catch (error) {
-          throw error;
+        throw error;
       }
     }
   }
