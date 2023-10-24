@@ -9,7 +9,7 @@ const Message = {
 
 class App {
   computer = [];
-  userInput;
+  userInput = [];
 
   printStartMessage() {
     MissionUtils.Console.print(Message.START);
@@ -28,13 +28,14 @@ class App {
       input[1] !== '0' &&
       input[2] !== '0'
     ) {
-      this.userInput = input;
+      this.userInput = +input;
     } else {
       throw new Error(Message.INPUT_MESSAGE_ERROR);
     }
 
     if (input.length === 3 && Number.isInteger(+input)) {
-      this.userInput = input;
+      this.userInput = [...input];
+      this.userInput = this.userInput.map((item) => +item);
     } else {
       throw new Error(Message.INPUT_MESSAGE_ERROR);
     }
