@@ -1,15 +1,16 @@
 import { MissionUtils, Console } from "@woowacourse/mission-utils";
 
 class App {
-  constructor(input, answer) {
+  constructor(input, answer, gameContinue = 0) {
     this.input = input;
     this.answer = answer;
+    this.gameContinue = gameContinue;
   }
 
   async play() {
     Console.print("숫자 야구 게임을 시작합니다.");
     await this.getNumber();
-    await this.inputNumber();
+    while (this.gameContinue === 0) await this.inputNumber();
   }
 
   async getNumber() {
