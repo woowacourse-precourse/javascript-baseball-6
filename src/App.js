@@ -21,7 +21,7 @@ class App {
 
   checkInputValidation(userInputNumber){
     const userInputNumberArr = userInputNumber.split('').map(Number);
-    
+
     if(userInputNumber.length !== 3) throw new Error("[ERROR] 3자리 숫자가 아닙니다.");
     if(new Set(userInputNumberArr).size !== 3) throw new Error("[ERROR] 중복된 숫자가 있습니다.");
     if(userInputNumber.includes(0)) throw new Error("[ERROR] 1~9 사이의 숫자가 아닙니다.");
@@ -41,8 +41,8 @@ class App {
     return [strikeCount, ballCount];
   }
 
-  answerResult(computerNumber, userInput){
-    if(computerNumber.join('') === userInput){
+  async answerResult(computerNumber, userInput){
+    if(computerNumber.join('') === userInput.join('')){
       MissionUtils.Console.print("3스트라이크 \n 3개의 숫자를 모두 맞히셨습니다! 게임 종료");
       return true;
     } else {
@@ -65,7 +65,7 @@ class App {
 
     while(!gameResult){
       const userAnswer = await this.getUserInput();
-      gameResult = this.answerResult(computerAnswer, userAnswer);
+      this.answerResult(computerAnswer, userAnswer);
     }
 
     await this.restartGame();
@@ -73,7 +73,7 @@ class App {
 
   async restartGame(){
     const restartAnswer = await MissionUtils.Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
-    if(restartAnswer === "1") this.startGame();
+    if(restartAnswer === "1") await this.startGame();
     else if(restartAnswer === "2") MissionUtils.Console.print("게임 종료");
     else throw new Error("[ERROR] 1이나 2를 입력해주세요.")
   }
