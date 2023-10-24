@@ -6,7 +6,6 @@ class App {
     let code = PROGRAM_STATUS.START;
     while (code != PROGRAM_STATUS.END) {
       const computer = await computerNumber();
-      console.log(computer); //DEBUG
       await MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
       try {
         code = await getUserInput(computer);
@@ -41,6 +40,12 @@ async function getUserInput(computer) {
 }
 
 async function checkInput(userInput, computer) {
+  const states = await gameLogic(userInput, computer);
+  const code = await checkGameLogicResult(states);
+  return code;
+}
+
+async function gameLogic(userInput, computer) {
   const states = [0, 0, 0];
   for (let i = 0; i < 3; i++) {
     for (let j = 0; j < 3; j++) {
@@ -57,9 +62,14 @@ async function checkInput(userInput, computer) {
       }
     }
   }
+  return states;
+}
+
+async function checkGameLogicResult(states) {
+  let code = 0;
   if (states[TEXT.NOTHING] == 3) {
     await MissionUtils.Console.print("낫싱");
-    return 3;
+    code = PROGRAM_STATUS.KEEP;
   } else if (states[TEXT.STRIKE] == 3) {
     await MissionUtils.Console.print(`${states[0]}스트라이크`);
     await MissionUtils.Console.print(
@@ -69,7 +79,7 @@ async function checkInput(userInput, computer) {
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
     );
     await checkReGameValidation(reGameCodeInput);
-    return reGameCodeInput;
+    code = reGameCodeInput;
   } else {
     if (states[TEXT.STRIKE] == 0) {
       await MissionUtils.Console.print(`${states[TEXT.BALL]}볼`);
@@ -80,8 +90,9 @@ async function checkInput(userInput, computer) {
         `${states[TEXT.BALL]}볼 ${states[TEXT.STRIKE]}스트라이크`
       );
     }
-    return 3;
+    code = PROGRAM_STATUS.KEEP;
   }
+  return code;
 }
 
 async function checkUserValidation(userInput) {
