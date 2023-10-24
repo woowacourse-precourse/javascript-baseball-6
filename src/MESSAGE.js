@@ -10,4 +10,4 @@ const MESSAGE = Object.freeze({
   END_SELECT_ERROR: "잘못된 값을 입력했습니다.",
 });
 
-export default { MESSAGE };
+export default MESSAGE;
