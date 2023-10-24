@@ -51,7 +51,7 @@ class App {
       const input = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 :");
 
       if (!input || input.length !== 3 || !/^\d+$/.test(input)) {
-        throw new Error("올바른 숫자를 입력해주세요.");
+        throw new Error("[ERROR]"); // 에러 발생
       }
 
       inputDigits = input.split('').map(Number);
