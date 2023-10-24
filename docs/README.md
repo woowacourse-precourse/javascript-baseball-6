@@ -27,8 +27,16 @@
 (try {Validation.gameInputValidation(inputNumber);} catch(e) {throw e} )
 
 4. 컴퓨터가 정한 숫자와 사용자의 숫자를 비교하는 기능
+- 별도 파일 만들기: Score.js
+- answer=[a,b,c]와 input=[d,e,f] 비교
+- for문 사용
+(array의 위치와 값까지 같으면 'strike'에 1점 추가)
+(array의 위치와 값이 같지 않지만, 값을 다른 위치에서 포함하고 있으면 'ball'에 1점 추가)
+- App.js에서 다루고 있는 answer(컴퓨터랜덤값)와 inputValue(사용자 입력값) 가져오기
 
 5. 사용자의 숫자에 대한 결과를 출력하는 기능
+
+
 6. 게임을 재시작하는 기능
     - 반복문 안에 선언하여 프로그램이 한번에 종료되지 않게 하기
 7. 게임 초기화 세팅
