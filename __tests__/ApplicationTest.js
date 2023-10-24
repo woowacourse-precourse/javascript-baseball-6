@@ -1,6 +1,7 @@
 import App from "../src/App.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
 import { generateComputerAnswer } from "../src/generateComputerAnswer.js";
+import { getUserNumber } from "../src/getUserNumber.js";
 
 const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
@@ -73,5 +74,19 @@ describe("숫자 야구 게임", () => {
     const app = new App();
 
     await expect(app.play()).rejects.toThrow("[ERROR]");
+  });
+
+  test('숫자가 아닌 문자 입력', async () => {
+    const inputs = ["abc", "1^2", "xy2", "$#@"];
+    const mockFn = jest.fn();
+
+    mockFn.mockImplementation(() => {
+      const input = inputs.shift();
+      return Promise.resolve(input);
+    });
+
+    MissionUtils.Console.readLineAsync = mockFn;
+
+    await expect(getUserNumber(3)).rejects.toThrow("[ERROR]");
   });
 });
