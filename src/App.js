@@ -15,13 +15,13 @@ class App {
           const arrayOfInput = await this.makeUserInput()
           const {strike,ball} = checkingScore(answer, arrayOfInput)
           playGame(strike,ball)
-          // console.log(answer)
+          console.log(answer)
 
           if (strike === 3) {
             userWillRetry = false;
           } 
         } // retry 끝나면(정답 맞추면) isUserWillingToRestart()  이거 실행되게 해야함
-        willBeRestarted = await this.isUserWillingToRestart("")
+        willBeRestarted = await this.isUserWillingToRestart()
       }
     } 
 
@@ -52,7 +52,6 @@ class App {
       }
     }
 };
-
 
 
 const app = new App()
