@@ -1,4 +1,4 @@
-import SETTING from "./setting";
+import SETTING from "./setting.js";
 
 const MESSAGE = {
   INPUT: {
