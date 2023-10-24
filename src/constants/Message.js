@@ -3,7 +3,7 @@ export const GAME_MESSAGE = Object.freeze({
   inputNumber: '숫자를 입력해주세요 : ',
   correctGame: '3개의 숫자를 모두 맞히셨습니다! 게임 종료',
   restartGame: '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.',
-  endGame: '게임 종료'
+  endGame: '게임 종료',
 });
 
 export const ERROR_MESSAGE = Object.freeze({
@@ -12,11 +12,11 @@ export const ERROR_MESSAGE = Object.freeze({
   duplicateNumber: '[ERROR] 중복된 숫자를 입력하셨습니다.',
   inputError:'[ERROR] 잘못된 값을 입력하셨습니다.',
   invalidChoice: '[ERROR] 올바른 선택이 아닙니다. 게임을 종료합니다.',
-  playError:'[ERROR] 실행 중 에러가 발생하였습니다.'
+  playError:'[ERROR] 실행 중 에러가 발생하였습니다.',
 });
 
 export const RESULT_MESSAGE = Object.freeze({
   ball: '볼',
   strike: '스트라이크',
-  nothing: '낫싱'
+  nothing: '낫싱',
 });

@@ -7,6 +7,7 @@ export default class Computer {
 
     while (computer.length < CONSTANT.selectNumber) {
       const randomNumber = Random.pickNumberInRange(CONSTANT.startScope, CONSTANT.endScope);
+      
       if (!computer.includes(String(randomNumber))) {
         computer += String(randomNumber);
       }

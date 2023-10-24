@@ -10,26 +10,26 @@ export default class App {
     this.isPlaying = true;
     this.inputvalid = new InputValid();
     this.computer = new Computer();
-    this.control = new GameControl(this);
+    this.gamecontrol = new GameControl(this);
   }
 
   async play() {
-    this.control.startGame();
-    this.control.assignComputerNumber();
+    this.gamecontrol.startGame();
+    this.gamecontrol.assignComputerNumber();
 
     try {
       while (this.isPlaying) {
         const input = await this.inputvalid.getUserChoice();
-        const isCorrect = this.control.compareAndPrintResult(input);
+        const isCorrect = this.gamecontrol.compareAndPrintResult(input);
 
         if (isCorrect) {
           const restartChoice = await Console.readLineAsync(GAME_MESSAGE.restartGame);
 
           if (restartChoice === '1') {
-            this.control.assignComputerNumber();
+            this.gamecontrol.assignComputerNumber();
             continue;
           } else if (restartChoice === '2') {
-            this.control.stopGame();
+            this.gamecontrol.stopGame();
           } else {
             throw new Error(ERROR_MESSAGE.invalidChoice);
           }
