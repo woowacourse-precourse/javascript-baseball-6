@@ -1,7 +1,8 @@
 import { Console } from '@woowacourse/mission-utils';
+import { TEXT, REG_EXP } from './constants/constants';
 
 async function userInput() {
-  const userInput = await Console.readLineAsync('숫자를 입력해주세요: ');
+  const userInput = await Console.readLineAsync(TEXT.INITIAL);
   return changeNumArr(userInput);
 }
 
@@ -11,7 +12,7 @@ function changeNumArr(number) {
 
 function userInputValidation(nums) {
   const inputStr = nums.join('');
-  const regex = /^[1-9]{3}$/;
+  const regex = REG_EXP.INPUT_VALIDATION;
   return regex.test(inputStr);
 }
 
