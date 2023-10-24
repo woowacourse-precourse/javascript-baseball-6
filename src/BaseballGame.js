@@ -33,12 +33,21 @@ export default class BaseballGame {
     return playResult;
   };
 
+  showResultMessage = (playResult) => {
+    let resultMessage = "";
+    if (playResult[0] > 0) resultMessage += `${playResult[0]}볼 `;
+    if (playResult[1] > 0) resultMessage += `${playResult[1]}스트라이크`;
+    if (playResult[2] === 3) resultMessage += "낫싱";
+    Console.print(resultMessage);
+  };
+
   play = () => {
     Console.print(Message.INIT);
     Console.readLine(Message.INPUT, (playerNum) => {
       handleError(playerNum);
       const computerNum = this.makeCoumputerNum();
       const playResult = this.countResult(playerNum, computerNum);
+      this.showResultMessage(playResult);
     });
   };
 }
