@@ -17,37 +17,37 @@ class App {
   };
 
   async play() {
-    await this.processTurn();
+    await this.#processTurn();
   }
 
-  async processTurn() {
+  async #processTurn() {
     const userNumbers = splitNumbersToArray(
       await this.#view.input.readLine(MESSAGE.enterSubmitBall),
     );
     const score = this.#service.baseball.computeScore(userNumbers);
     this.#view.output.print(score);
-    await this.checkCompleteGame();
+    await this.#checkCompleteGame();
   }
 
-  async checkCompleteGame() {
+  async #checkCompleteGame() {
     if (this.#service.baseball.isEnd()) {
-      await this.completeGame();
+      await this.#completeGame();
       return;
     }
-    await this.processTurn();
+    await this.#processTurn();
   }
 
-  async completeGame() {
+  async #completeGame() {
     this.#view.output.print(MESSAGE.completeGame);
-    await this.askRestart();
+    await this.#askRestart();
   }
 
-  async askRestart() {
+  async #askRestart() {
     const restartCommand = (await this.#view.input.readLine(MESSAGE.askRestart)).trim();
     this.#validateRestartCode(restartCommand);
     if (restartCommand === RESTART_COMMAND.CONFIRM) {
       this.#service.baseball.init();
-      await this.processTurn();
+      await this.#processTurn();
     }
   }
 

@@ -19,9 +19,9 @@ describe('BaseballService 테스트', () => {
     '필드값으로 랜덤한 TargetBall로 이루어진 answer와 submittedCorrectly를 보유한다.',
     ({ random }) => {
       mockRandoms(random);
-      const service = new BaseballService();
-      expect(service.answer).toEqual(AnswerBalls.of([...new Set(random)]));
-      expect(service.submittedCorrectly).toBe(null);
+      const service = BaseballService.of();
+      expect(service.getAnswer()).toEqual(AnswerBalls.of([...new Set(random)]));
+      expect(service.getSubmittedCorrectly()).toBe(null);
     },
   );
 
@@ -36,7 +36,7 @@ describe('BaseballService 테스트', () => {
     ({ submit, random, result }) => {
       mockRandoms(random);
 
-      const service = new BaseballService();
+      const service = BaseballService.of();
       expect(service.computeScore(submit)).toMatch(result);
     },
   );
@@ -50,10 +50,10 @@ describe('BaseballService 테스트', () => {
     ({ submit, random, result }) => {
       mockRandoms(random);
 
-      const service = new BaseballService();
+      const service = BaseballService.of();
       service.computeScore(submit);
 
-      expect(service.submittedCorrectly).toEqual(result ? SubmittedBalls.of(submit) : null);
+      expect(service.getSubmittedCorrectly()).toEqual(result ? SubmittedBalls.of(submit) : null);
       expect(service.isEnd()).toBe(result);
     },
   );

@@ -9,7 +9,7 @@ describe('AnswerBalls 테스트', () => {
     { input: [1, 4, 9] },
   ])('입력받은 배열에 따라 `targetBalls` 필드에 `TargetBalls`를 가진다.', ({ input }) => {
     const answer = AnswerBalls.of(input);
-    expect(answer.targetBalls).toEqual(TargetBalls.of(input));
+    expect(answer.getTargetBalls()).toEqual(TargetBalls.of(input));
   });
 
   it.each([

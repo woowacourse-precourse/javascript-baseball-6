@@ -14,7 +14,7 @@ export class AnswerBalls {
     return new AnswerBalls(numbers);
   }
 
-  get targetBalls() {
+  getTargetBalls() {
     return this.#targetBalls;
   }
 
@@ -25,7 +25,7 @@ export class AnswerBalls {
    */
   contains(ball) {
     this.#validateContains(ball);
-    return this.#targetBalls.balls.includes(ball);
+    return this.#targetBalls.getBalls().includes(ball);
   }
 
   #validateContains(ball) {
@@ -45,7 +45,7 @@ export class AnswerBalls {
    */
   match(ball, index) {
     this.#validateMatch(ball, index);
-    return this.#targetBalls.balls[index] === ball;
+    return this.#targetBalls.getBalls()[index] === ball;
   }
 
   #validateMatch(ball, index) {

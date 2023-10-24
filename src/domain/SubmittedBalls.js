@@ -16,11 +16,11 @@ export class SubmittedBalls {
     return new SubmittedBalls(numbers);
   }
 
-  get targetBalls() {
+  getTargetBalls() {
     return this.#targetBalls;
   }
 
-  get score() {
+  getScore() {
     return this.#score;
   }
 

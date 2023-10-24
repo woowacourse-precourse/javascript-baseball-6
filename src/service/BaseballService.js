@@ -15,11 +15,11 @@ export class BaseballService {
     return new BaseballService();
   }
 
-  get answer() {
+  getAnswer() {
     return this.#answer;
   }
 
-  get submittedCorrectly() {
+  getSubmittedCorrectly() {
     return this.#submittedCorrectly;
   }
 
@@ -79,15 +79,18 @@ export class BaseballService {
    */
   computeScore(submit) {
     const submittedBalls = SubmittedBalls.of(submit);
-    submittedBalls.targetBalls.balls.forEach((ball, index) => {
-      this.#computeCurrentBall({
-        submittedBalls,
-        ball,
-        index,
+    submittedBalls
+      .getTargetBalls()
+      .getBalls()
+      .forEach((ball, index) => {
+        this.#computeCurrentBall({
+          submittedBalls,
+          ball,
+          index,
+        });
       });
-    });
     this.#setSubmittedCorrectly(submittedBalls);
-    return this.#getGameResult(submittedBalls.score);
+    return this.#getGameResult(submittedBalls.getScore());
   }
 
   /**
@@ -95,7 +98,7 @@ export class BaseballService {
    * @param {SubmittedBalls} submit
    */
   #setSubmittedCorrectly(submit) {
-    if (submit.score.strike === TargetBalls.BALL_QUANTITY) {
+    if (submit.getScore().strike === TargetBalls.BALL_QUANTITY) {
       this.#submittedCorrectly = submit;
     }
   }

@@ -8,7 +8,7 @@ describe('TargetBalls 테스트', () => {
     { input: [7, 8, 9] },
     { input: [1, 4, 9] },
   ])('입력받은 배열에 따라 `balls` 필드에 `TargetBall`로 이루어진 배열을 가진다.', ({ input }) => {
-    const balls = TargetBalls.of(input);
-    expect(balls.balls).toEqual(input.map(TargetBall.valueOf));
+    const targetballs = TargetBalls.of(input);
+    expect(targetballs.getBalls()).toEqual(input.map(TargetBall.valueOf));
   });
 });

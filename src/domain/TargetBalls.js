@@ -6,18 +6,18 @@ import { TargetBall } from './TargetBall.js';
 export class TargetBalls {
   #balls;
 
-  static BALL_QUANTITY = 3;
-
   constructor(numbers) {
     this.#validate(numbers);
     this.#balls = numbers.map(TargetBall.valueOf);
   }
 
+  static BALL_QUANTITY = 3;
+
   static of(numbers) {
     return new TargetBalls(numbers);
   }
 
-  get balls() {
+  getBalls() {
     return this.#balls;
   }
 

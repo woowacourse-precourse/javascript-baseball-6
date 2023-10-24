@@ -23,7 +23,7 @@ export class TargetBall {
     return targetBall;
   }
 
-  get number() {
+  getNumber() {
     return this.#number;
   }
 
