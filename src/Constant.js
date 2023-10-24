@@ -4,6 +4,8 @@ const MESSAGE = {
   GAME_CLEAR: '3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료',
   GAME_RESET: '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n',
   NOTHING: '낫싱',
+  BALL: '볼',
+  STRIKE: '스트라이크',
 }
 const BASEBALL = {
   MIN_NUMBER: 1,
@@ -11,8 +13,6 @@ const BASEBALL = {
   MAX_LENGTH: 3,
   RESET_NUMBER: '1',
   END_NUMBER: '2',
-  BALL: '볼',
-  STRIKE: '스트라이크',
 }
 
 const ERROR = {

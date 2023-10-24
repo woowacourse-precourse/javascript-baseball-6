@@ -1,4 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
+import { MESSAGE } from './Constant.js';
 import ErrorHandler from  './Error.js';
 
 class User {
@@ -7,13 +8,13 @@ class User {
   }
 
   async progressInput() {
-    const userInput = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
+    const userInput = await MissionUtils.Console.readLineAsync(MESSAGE.NUMBER_INPUT);
     this.error.baseballNumberCheck(userInput);
     return userInput;
   }
 
   async resetInput() {
-    const userInput = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
+    const userInput = await MissionUtils.Console.readLineAsync(MESSAGE.GAME_RESET);
     this.error.resetNumberCheck(userInput);
     return userInput;
   }

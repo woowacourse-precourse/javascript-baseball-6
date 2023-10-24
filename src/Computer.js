@@ -1,4 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
+import { BASEBALL } from './Constant.js';
 
 class Computer {
   constructor() {
@@ -8,8 +9,8 @@ class Computer {
   generateRandomNumber() {
     const number = [];
 
-    while (number.length < 3) {
-      const randomNumber = MissionUtils.Random.pickNumberInRange(1, 9);
+    while (number.length < BASEBALL.MAX_LENGTH) {
+      const randomNumber = MissionUtils.Random.pickNumberInRange(BASEBALL.MIN_NUMBER, BASEBALL.MAX_NUMBER);
       if (number.includes(randomNumber)) {
         continue;
       }
