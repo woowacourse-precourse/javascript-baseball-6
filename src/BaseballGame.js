@@ -25,7 +25,7 @@ class BaseballGame {
         // TODO : 볼과 스트라이크를 계산하는 기능
         const { ball, strike } = this.calculateBallAndStrike(
           computerNumber,
-          this.userNumber
+          userNumber
         );
         // TODO : 비교한 결과에 대해 출력하는 기능
         const result = this.printResult(ball, strike);
