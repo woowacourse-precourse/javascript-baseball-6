@@ -6,9 +6,6 @@ async function compareNumber(computerNum) {
   const userInputNum = await getUserInput();
   const strikeCount = countStrikes(computerNum, userInputNum);
   const ballCount = countBalls(computerNum, userInputNum);
-  console.log(computerNum, userInputNum);
-  console.log("strikeCount", strikeCount);
-  console.log("ballCount", ballCount);
 
   if (strikeCount === 0 && ballCount === 0) {
     MissionUtils.Console.print(RESULT.NOTHING);
@@ -53,6 +50,5 @@ function countBalls(computerNum, userInputNum) {
 
   return ballCount;
 }
-// compareNumber(generateComputerNum());
 
 export { compareNumber };
