@@ -35,7 +35,7 @@ function dataToArray(data, array) {
   }
 }
 
-function caculateStrike(randomArray, inputArray) {
+function calculateStrike(randomArray, inputArray) {
   let count = 0;
 
   for (let i = 0; i < randomArray.length; i++) {
@@ -45,7 +45,7 @@ function caculateStrike(randomArray, inputArray) {
   return count;
 }
 
-function caculateBall(randomArray, inputArray, strikeCount) {
+function calculateBall(randomArray, inputArray, strikeCount) {
   let judgeArray = [];
 
   judgeArray = randomArray.map((data) => inputArray.includes(data));
@@ -77,8 +77,8 @@ class App {
 
       dataToArray(inputData, inputArray);
 
-      strikeCount = caculateStrike(randomArray, inputArray);
-      ballCount = caculateBall(randomArray, inputArray, strikeCount);
+      strikeCount = calculateStrike(randomArray, inputArray);
+      ballCount = calculateBall(randomArray, inputArray, strikeCount);
 
       if (strikeCount === 3) {
         Console.print("3스트라이크");
