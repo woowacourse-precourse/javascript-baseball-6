@@ -22,19 +22,14 @@ export function countCheck(userNumber, computer_number){
 
 // 정답 출력 
 export function answerPrint(ball, strike) {
-    let answer = "";
     if(ball !== 0){
         if(strike !== 0){
-        answer = ball + "볼 " + strike + "스트라이크";          
-        }else {
-        answer = ball + "볼";
+        return ball + "볼 " + strike + "스트라이크";          
         }
+        return ball + "볼";
     }
-    else if(strike !== 0){
-        answer = strike + "스트라이크";
+    if(strike !== 0){
+        return strike + "스트라이크";
     }
-    else {
-        answer = '낫싱';
-    }
-    return answer;
+    return '낫싱';
 }
