@@ -16,7 +16,7 @@ export default class Game {
 
   /**
    * @description 두 값을 비교하여 판정을 내리는 함수
-   * @param {string} input
+   * @param {number} input
    * @returns {object} {strikeCount: number, ballCount: number}
    */
   compareNumbers(input) {
