@@ -12,8 +12,31 @@ class App {
         const input = await Console.readLineAsync("숫자를 입력해주세요 : ");
         const guess = input.split("").map(Number);
 
+
+        const [strikes, balls] = this.calculateScore(secretNumber, guess);
+
+        if (strikes === 3) {
+          Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+          break;
+        }
+
+        let feedback = "";
+        if (strikes > 0) {
+          feedback += `${strikes}스트라이크 `;
+        }
+        if (balls > 0) {
+          feedback += `${balls}볼`;
+        }
+        if (strikes === 0 && balls === 0) {
+          feedback += "낫싱";
+        } 
+        Console.print(feedback);
+
+        attempts++;
+      }
+    }
   }
-}
+
 
 
   generateRandomNumber() {
@@ -25,4 +48,20 @@ class App {
     }
     return result;
   }
+
+  calculateScore(secret, guess) {
+    let strikes = 0;
+    let balls = 0;
+    for (let i = 0; i < 3; i++) {
+      if (secret[i] === guess[i]) {
+        strikes++;
+      } else if (secret.includes(guess[i])) {
+        balls++;
+      } else {
+        continue;
+      }
+    }
+    return [strikes, balls];
+  }
+}
 export default App;
