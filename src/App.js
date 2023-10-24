@@ -1,23 +1,23 @@
-import { Console, Random } from "@woowacourse/mission-utils";
+import { Console, Random } from '@woowacourse/mission-utils';
 
 const COMPUTER_NUM_LEN = 3;
 
 class App {
   async play() {
-    Console.print("숫자 야구 게임을 시작합니다.");
+    Console.print('숫자 야구 게임을 시작합니다.');
 
     while (true) {
       const computerNum = this.selectRandomNum();
 
       while (true) {
-        const playerNumStr = await Console.readLineAsync("숫자를 입력해주세요 : ");
+        const playerNumStr = await Console.readLineAsync('숫자를 입력해주세요 : ');
         if (playerNumStr.length !== COMPUTER_NUM_LEN) {
-          throw new Error("[ERROR] 숫자가 잘못된 형식입니다.")
+          throw new Error('[ERROR] 숫자가 잘못된 형식입니다.')
         }
-        const playerNum = [...playerNumStr].map(num => parseInt(num));
+        const playerNum = [...playerNumStr].map((num) => parseInt(num));
         
         const result = this.checkAnswer(computerNum, playerNum);
-        const hint = this.printHint(result.ball, result.strike);
+        const hint = this.printHint(result);
 
         if (hint === `${COMPUTER_NUM_LEN}스트라이크`) {
           Console.print(`${COMPUTER_NUM_LEN}개의 숫자를 모두 맞히셨습니다! 게임 종료`);
@@ -25,14 +25,14 @@ class App {
         }
       }
 
-      const gameEndQuestion = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n");
+      const gameEndQuestion = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
       if (gameEndQuestion === '2') {
-        Console.print("게임종료");
+        Console.print('게임종료');
         break;
       } else if (gameEndQuestion === '1') {
         continue;
       } else {
-        throw new Error("[ERROR] 숫자가 잘못된 형식입니다.")
+        throw new Error('[ERROR] 숫자가 잘못된 형식입니다.')
       }
     }
   }
@@ -70,13 +70,14 @@ class App {
     return result;
   }
 
-  printHint(ball, strike) {
+  printHint({ ball, strike }) {
     let result;
+
     if (strike === 0 && ball === 0) {
-      result = "낫싱";
-    } else if(strike !== 0 && ball === 0) {
+      result = '낫싱';
+    } else if (strike !== 0 && ball === 0) {
       result = `${strike}스트라이크`;
-    } else if(strike === 0 && ball !== 0) {
+    } else if (strike === 0 && ball !== 0) {
       result = `${ball}볼`;
     } else {
       result = `${ball}볼 ${strike}스트라이크`; 
