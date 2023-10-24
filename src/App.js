@@ -1,4 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
+import { Output, ValidTest, MESSAGE } from './js';
 
 class App {
   playing = true;
@@ -13,19 +14,11 @@ class App {
 
   computerNumbers = [];
 
-  // 분리, 상수로
-  SENTENCE = {
-    START: '숫자 야구 게임을 시작합니다.',
-    END: '게임종료',
-    INPUT_NUMBER: '숫자를 입력해주세요.',
-    STRIKE: '스트라이크',
-    THREE_STRIKE: '3스트라이크',
-    BALL: '볼',
-    NOTHING: '낫싱',
-    WIN: '3개의 숫자를 모두 맞히셨습니다! 게임 종료',
-    RESTART: '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.',
-    ERROR: '[ERROR] 숫자가 잘못된 형식입니다.',
-  };
+  constructor() {
+    this.validTest = new ValidTest();
+
+    this.output = new Output();
+  }
 
   /**
    * computerNumbers 값 설정 : 1-9까지의 서로 다른 3가지 숫자로 이루어진 배열
@@ -43,11 +36,6 @@ class App {
       }
     }
     this.computerNumbers = array;
-  }
-  // [message] 메세지 출력
-  // eslint-disable-next-line
-  printMessage(message) {
-    MissionUtils.Console.print(message);
   }
 
   /**
@@ -85,7 +73,7 @@ class App {
    */
   startGame() {
     this.resetSetting(true, true);
-    this.printMessage(this.SENTENCE.start);
+    this.output.printGameStartMessage();
   }
 
   /**
@@ -101,7 +89,7 @@ class App {
    */
   gameOver(showMessage) {
     this.resetSetting(false, false);
-    if (showMessage) this.printMessage(this.SENTENCE.end);
+    if (showMessage) this.output.printGameOverMessage();
   }
 
   /**
@@ -109,10 +97,8 @@ class App {
    */
   async getUserNumbers() {
     try {
-      if (!this.strike === 3) this.printMessage(this.SENTENCE.INPUT_NUMBER);
-      const text = await MissionUtils.Console.readLineAsync(
-        this.SENTENCE.INPUT_NUMBER,
-      );
+      if (!this.strike === 3) this.output.printInputMessage();
+      const text = await MissionUtils.Console.readLineAsync(MESSAGE.INPUT);
       this.userNumbers = text
         .replaceAll(' ', '')
         .split('')
@@ -120,20 +106,6 @@ class App {
     } catch (error) {
       this.throwError(error);
     }
-  }
-
-  /**
-   * 입력한 글자에 대한 유효성 검사
-   */
-  validNumbers() {
-    const text = this.userNumbers.join('');
-    let pass;
-    if (!this.win) {
-      pass = /^[1-9]{3}$/.test(text);
-    } else {
-      pass = /^[1,2]$/.test(text);
-    }
-    if (!pass) throw new Error(this.SENTENCE.ERROR);
   }
 
   /**
@@ -156,16 +128,16 @@ class App {
     const isNothing = !this.strike && !this.ball;
     if (this.strike === 3) {
       this.win = true;
-      this.printMessage(this.SENTENCE.THREE_STRIKE);
-      this.printMessage(this.SENTENCE.WIN);
-      this.printMessage(this.SENTENCE.RESTART);
+      this.output.printThreeStrikeMessage();
+      this.output.printWinMessage();
+      this.output.printGameRestartMessage();
     } else if (isNothing) {
-      this.printMessage(this.SENTENCE.NOTHING);
+      this.output.printNothingMessage();
     } else {
-      const strikeAndBall = `${
-        this.ball ? this.ball + this.SENTENCE.BALL : ''
-      } ${this.strike ? this.strike + this.SENTENCE.STRIKE : ''}`;
-      this.printMessage(strikeAndBall);
+      const strikeAndBall = `${this.ball ? `${this.ball}볼` : ''} ${
+        this.strike ? `${this.strike}스트라이크` : ''
+      }`;
+      this.output.printMessage(strikeAndBall);
     }
     this.resetStrikeAndBall();
   }
@@ -193,7 +165,7 @@ class App {
       try {
         // eslint-disable-next-line
         await this.getUserNumbers();
-        this.validNumbers();
+        this.validTest.test(this.userNumbers, this.win);
         this.judgeGame();
       } catch (error) {
         this.throwError(`[Error]:${error}`);
