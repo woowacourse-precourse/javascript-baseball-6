@@ -4,7 +4,7 @@ class BaseballModel {
   constructor() {
     this.targetNumber = [];
     this.userInput = [];
-    this.correctCount = 0;
+    this.count = 3;
   }
   setUserInput(userInput) {
     this.userInput = userInput.split('');
@@ -12,7 +12,7 @@ class BaseballModel {
   generateRandomNumber() {
     this.targetNumber = [];
 
-    while (this.targetNumber.length < 3) {
+    while (this.targetNumber.length < this.count) {
       const NUMBER = MissionUtils.Random.pickNumberInRange(1, 9);
       if (!this.targetNumber.includes(NUMBER)) {
         this.targetNumber.push(NUMBER);
