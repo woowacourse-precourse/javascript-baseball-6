@@ -3,7 +3,7 @@ import start from "./components/start";
 
 class App {
   async play() {
-    Console.print("숫자 야구 게임을 시작합니다.\n");
+    Console.print("숫자 야구 게임을 시작합니다.");
     start();
   }
 }

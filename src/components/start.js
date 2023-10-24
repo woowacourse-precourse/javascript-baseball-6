@@ -1,5 +1,5 @@
-import makeRandomNumber from "./makeRandomNumber";
-import askNumbers from "./askNumbers";
+import makeRandomNumber from "./makeRandomNumber.js";
+import askNumbers from "./askNumbers.js";
 
 const start = () => {
   const randomNumber = makeRandomNumber();
