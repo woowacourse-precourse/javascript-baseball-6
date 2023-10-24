@@ -11,11 +11,13 @@ class BaseBallGame {
 		Io.printStart();
 	}
 
+	// 게임 시작
 	async start() {
 		this.#model.setAnswerNumber();
 		await this.#getTryNumber();
 	}
 
+	// 시도 넘버 입력 받기
 	async #getTryNumber() {
 		const tryNumber = await Io.getTryNumber();
 
@@ -23,6 +25,7 @@ class BaseBallGame {
 		await this.#printResult();
 	}
 
+	// 시도 넘버의 결과 출력하기
 	async #printResult() {
 		const [ballCount, strikeCount] = this.#model.getResult();
 
@@ -31,21 +34,24 @@ class BaseBallGame {
 		this.#checkClear();
 	}
 
+	// 클리어 여부 확인하기
 	async #checkClear() {
 		if (this.#model.isClear()) await this.#clear();
 		else await this.#getTryNumber();
 	}
 
+	// 게임 클리어 알리기
 	async #clear() {
 		Io.printClear();
 
 		this.#checkRestart();
 	}
 
+	// 재시도 여부 확인하기
 	async #checkRestart() {
 		let command = await Io.getRestart();
 
-		command = GameConsole.isValidRestartCommand(command); // 이 데이터를 추후에 사용하지 않으므로 static
+		command = GameConsole.isValidRestartCommand(command);
 
 		if (command === GAME.restart) await this.start();
 		else if (command === GAME.exit) this.#exit();
