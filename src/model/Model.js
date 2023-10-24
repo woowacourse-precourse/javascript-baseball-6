@@ -5,7 +5,6 @@ class Model {
         this.computer = [];
     }
 
-    //랜덤 숫자 생성 메서드
     generateRandomNumber() {
         while (this.computer.length < 3) {
             const number = MissionUtils.Random.pickNumberInRange(1, 9);
@@ -15,7 +14,6 @@ class Model {
         }
     }
 
-    //사용자 입력 유효성 판단 로직
     isValidUserNumber(input) {
         if (input.length !== 3) return false;
         if (new Set(input).size !== 3) return false;
@@ -24,7 +22,6 @@ class Model {
         return true;
     }
 
-    //랜덤 숫자와 사용자 입력 숫자 비교 로직
     compareNumbers(userInput) {
         const compareResult = {
             strike: 0,
