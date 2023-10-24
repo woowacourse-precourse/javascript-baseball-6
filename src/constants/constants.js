@@ -1,6 +1,6 @@
 const ANSWER_LENGTH = 3;
 
-const GAME_STATUS = {
+const GAME = {
   RESTART: '1',
   STOP: '2',
 };
@@ -13,4 +13,4 @@ const MESSAGE = {
   STOP: `게임 종료`,
 };
 
-export default { MESSAGE, GAME_STATUS, ANSWER_LENGTH };
+export default { MESSAGE, GAME, ANSWER_LENGTH };
