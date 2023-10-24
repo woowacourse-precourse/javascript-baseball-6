@@ -6,8 +6,10 @@
   - computer 배열 선언.
   - computer.length가 3 미만일 동안, 1~9까지의 중복되지 않은 random 수 3개를 배열에 추가.
 - 사용자 guess number 받기.
+  - player 배열 선언.
   - string 타입의 데이터를 배열화.
 - 사용자 guess number 유효성 검사.
+  - 길이는 3, 모두 숫자여야 한다.
   - 예외 상황 시 에러 문구를 출력해야 한다. 단, 에러 문구는 “[ERROR]“로 시작해야 한다.
 - random number와 guess number 비교하고 피드백 출력.
   - 같은 수가 같은 자리에 있으면 '스트라이크'
