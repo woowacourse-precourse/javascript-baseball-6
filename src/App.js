@@ -27,7 +27,9 @@ class App {
     }
   }
 
-  #printResult({ strike, ball }) {}
+  #printResult({ strike, ball }) {
+    this.#view.printGameResult({ strike, ball });
+  }
 }
 
 export default App;
