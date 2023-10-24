@@ -10,15 +10,16 @@ class App {
   userNumber = [];
   computerNumber = [];
 
+  // 게임 시작 문구를 출력한다.
   printGameStart = () => {
     Console.print(MESSAGES.START);
   };
 
-  /***   
-    1. Number
-    2. 1에서 9 사이의 숫자
-    3. 서로 다른 세 자리의 숫자
-  ***/
+  /**
+   * 사용자 숫자 입력에 대한 유효성을 검사한다.
+   * @param {*} input
+   * @return {boolean}
+   */
   checkUserNumberValidation = (input) => {
     const validRegex = /^[1-9]{3}$/;
 
@@ -31,6 +32,10 @@ class App {
     return false;
   };
 
+  /**
+   * 사용자 숫자 입력을 받는다.
+   * @return {[number, number, number]}
+   */
   getUserNumberInput = async () => {
     const input = await Console.readLineAsync(MESSAGES.USER_NUMBER);
     if (!this.checkUserNumberValidation(input)) {
@@ -40,15 +45,25 @@ class App {
     return Array.from(input).map((el) => Number(el));
   };
 
+  // 게임 재시작 또는 종료 문구를 출력한다.
   printRestartOrEnd = () => {
     Console.print(MESSAGES.RESTART_OR_END);
   };
 
+  /**
+   * 게임 재시작 또는 종료 입력에 대한 유효성을 검사한다.
+   * @param {*} input
+   * @return {boolean}
+   */
   checkRestartOrEndValidation = (input) => {
     const validRegex = /^[12]$/;
     return validRegex.test(input) ? true : false;
   };
 
+  /**
+   * 게임 재시작 또는 종료 입력을 받는다.
+   * @return {number}
+   */
   getRestartOrEndInput = async () => {
     const input = await Console.readLineAsync();
     if (!this.checkRestartOrEndValidation(input)) {
@@ -58,6 +73,12 @@ class App {
     return input;
   };
 
+  /**
+   * 숫자 야구 게임 결과를 계산한다.
+   * @param {[number, number, number]} computer
+   * @param {[number, number, number]} user
+   * @return {object}
+   */
   calculateGameResult = async (computer, user) => {
     const result = { ball: 0, strike: 0 };
 
@@ -74,6 +95,11 @@ class App {
     return result;
   };
 
+  /**
+   * 숫자 야구 게임 결과 문구를 출력한다.
+   * @param {number} status
+   * @param {object} result
+   */
   printGameResult = (status, result) => {
     switch (status) {
       case STATUS.NOTHING:
@@ -89,11 +115,13 @@ class App {
     }
   };
 
+  // 숫자 야구 게임을 준비한다.
   gameReady = async () => {
     this.computerNumber = this.computer.createRandomNumber();
     await this.gameStart();
   };
 
+  // 숫자 야구 게임을 시작한다.
   gameStart = async () => {
     while (true) {
       this.userNumber = await this.getUserNumberInput();
@@ -115,6 +143,7 @@ class App {
     }
   };
 
+  // 숫자 야구 게임을 재시작하거나 종료한다.
   gameRestartOrEnd = async () => {
     this.printRestartOrEnd();
     const input = await this.getRestartOrEndInput();
