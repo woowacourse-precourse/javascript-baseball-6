@@ -1,4 +1,4 @@
-import { ERROR, SETTING } from '../Constants';
+import { ERROR, SETTING } from './Constants.js';
 
 /**
  * @description 사용자 입력값 검증 함수
