@@ -4,6 +4,12 @@ const NUMBER_COUNT = 3;
 const GAME_CONTINUE = '1';
 const GAME_END = '2';
 const ERROR_MESSAGE = '[ERROR] 유효하지 않은 입력입니다.';
+const INPUT_PROMPT = '숫자를 입력해주세요 : ';
+const CORRECT_ANSWER_PROMPT = '3개의 숫자를 모두 맞히셨습니다! 게임 종료';
+const GAME_START_PROMPT = '숫자 야구 게임을 시작합니다.';
+const GAME_RESTART_PROMPT =
+  '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.';
+const GAME_END_PROMPT = '게임이 종료되었습니다.';
 
 class App {
   constructor() {
@@ -21,7 +27,7 @@ class App {
   }
 
   async getUserInput() {
-    let numbers = await Console.readLineAsync('숫자를 입력해주세요 : ');
+    let numbers = await Console.readLineAsync(INPUT_PROMPT);
     if (this.checkValidInput(numbers)) {
       return numbers.split('').map(Number);
     }
@@ -72,7 +78,7 @@ class App {
     }
 
     if (strike === 3) {
-      Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
+      Console.print(CORRECT_ANSWER_PROMPT);
       return true;
     }
 
@@ -80,7 +86,7 @@ class App {
   }
 
   async checkDoAgain() {
-    Console.print(`게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.`);
+    Console.print(GAME_RESTART_PROMPT);
     const doAgain = await Console.readLineAsync('');
     if (doAgain !== GAME_CONTINUE && doAgain !== GAME_END) {
       throw new Error(ERROR_MESSAGE);
@@ -95,7 +101,7 @@ class App {
 
     while (continueGame && roundsPlayed < maxRounds) {
       this.initializeAnswerNumbers();
-      Console.print('숫자 야구 게임을 시작합니다.');
+      Console.print(GAME_START_PROMPT);
       console.log(this.answerNumbers);
 
       let isCorrect = false;
@@ -109,7 +115,7 @@ class App {
       continueGame = await this.checkDoAgain();
       roundsPlayed++;
     }
-    Console.print('게임이 종료되었습니다.');
+    Console.print(GAME_END_PROMPT);
 
     return Promise.resolve();
   }
