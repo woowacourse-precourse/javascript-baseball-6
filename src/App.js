@@ -60,13 +60,13 @@ export default class App {
     let message = '';
 
     if (strike === MAX_STRIKE_COUNT) {
-      return `${strike}${STRIKE}\n${SUCCESS}`;
+      return `${STRIKE(strike)}\n${SUCCESS}`;
     }
     if (ball > 0) {
-      message += `${ball}${BALL} `;
+      message += `${BALL(ball)} `;
     }
     if (strike > 0) {
-      message += `${strike}${STRIKE}`;
+      message += `${STRIKE(strike)}`;
     }
     return message.trim() || `${NOTHING}`;
   }
