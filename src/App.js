@@ -1,6 +1,6 @@
 import NumberBaseBall from './NumberBaseBall';
 import { MESSAGE } from './utils/Constants';
-
+BaseBallGame;
 class App {
 	async play() {
 		const baseBallGame = new NumberBaseBall();
@@ -8,6 +8,4 @@ class App {
 	}
 }
 
-const app = new App();
-app.play();
 export default App;
