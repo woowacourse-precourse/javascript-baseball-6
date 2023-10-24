@@ -5,7 +5,7 @@ export default async function ResponseGameRestart() {
 		if (answer === '1' || answer === '2') {
 			return answer;
 		} else {
-			throw new Error('[ERROR] : 1과 2외의 다른 값을 입력했습니다.');
+			throw new Error('[ERROR] 1과 2외의 다른 값을 입력했습니다.');
 		}
 	} catch (error) {
 		Console.print(`${error.message}`);
