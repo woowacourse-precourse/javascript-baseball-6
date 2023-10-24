@@ -1,4 +1,4 @@
-import { MissionUtils, Console } from '@woowacourse/mission-utils';
+import { Console } from '@woowacourse/mission-utils';
 import { SETTING, ERROR_MESSAGE } from './constants';
 
 /**
@@ -16,21 +16,6 @@ const printMessage = (message) => {
  */
 const readLineAsync = async (message) => {
   return Console.readLineAsync(message);
-}
-
-/**
- * @description 1(MIN_NUMBER) ~ 9(MAX_NUMBER) 사이의 랜덤한 숫자 배열을 반환하는 함수
- * @returns {Array<number>} computer: 길이가 3(SIZE)인 랜덤 숫자 배열
- */
-const generateRandomNumber = () => {
-  const computer = [];
-  while (computer.length < SETTING.SIZE) {
-    const number = MissionUtils.Random.pickNumberInRange(SETTING.MIN_NUMBER, SETTING.MAX_NUMBER);
-    if (!computer.includes(number)) {
-      computer.push(number);
-    }
-  }
-  return computer;
 }
 
 /**
@@ -62,4 +47,4 @@ const isValidInput = (input) => {
   return true;
 }
 
-export { printMessage, readLineAsync, generateRandomNumber, isValidInput };
+export { printMessage, readLineAsync, isValidInput };
