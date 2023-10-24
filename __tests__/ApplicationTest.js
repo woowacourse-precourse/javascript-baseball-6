@@ -85,4 +85,18 @@ describe("숫자 야구 게임", () => {
 
     await expect(app.play()).rejects.toThrow("[ERROR]");
   });
+
+  test("예외 테스트(중복숫자 체크)", async () => {
+    // given
+    const randoms = [4, 5, 2];
+    const answers = ["445"];
+
+    mockRandoms(randoms);
+    mockQuestions(answers);
+
+    // when & then
+    const app = new App();
+
+    await expect(app.play()).rejects.toThrow("[ERROR]");
+  });
 });
