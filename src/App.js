@@ -28,7 +28,6 @@ class App {
     }
   }
 
-
   computerNumber() {
     const numbers = [];
 
@@ -90,10 +89,9 @@ class App {
     if (option != 1 && option != 2) {
       throw new Error(ERROR_MESSAGE.ENDINGOPTION_ERROR);  
     }
+    
     return option;
   }
-
-
 }
 
 export default App;
