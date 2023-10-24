@@ -2,6 +2,7 @@ import { Console, Random } from "@woowacourse/mission-utils";
 import getComputerInput from "./input/getComputerInput.js";
 import getUserInput from "./input/getUserInput.js";
 import getBallStrikeCount from "./game/getBallStrikeCount.js";
+import getResult from "./game/getResult.js";
 
 class App {
   async play() {
@@ -9,12 +10,9 @@ class App {
     while(1) {
       let userInput = await getUserInput();
       let totalCount = getBallStrikeCount(computer, userInput);
-      const RESULT = [];
-      if(totalCount[0]) RESULT.push(`${totalCount[0]}볼`);
-      if(totalCount[1]) RESULT.push(`${totalCount[1]}스트라이크`);
-      if(totalCount[0] === 0 && totalCount[1] === 0) RESULT.push('낫싱');
+      let result = getResult(totalCount);
 
-      Console.print(RESULT.join(''));
+      Console.print(result);
 
       let isGameOver = ''
       if(totalCount[1] === 3) {
