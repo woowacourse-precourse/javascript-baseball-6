@@ -1,4 +1,4 @@
-function compareNum(opponentArray, playerArray) {
+export default function compareNum(opponentArray, playerArray) {
   let ball = 0;
   let strike = 0;
   opponentArray.forEach((element, index) => {
@@ -11,5 +11,3 @@ function compareNum(opponentArray, playerArray) {
   });
   return { strike, ball };
 }
-
-export { compareNum };

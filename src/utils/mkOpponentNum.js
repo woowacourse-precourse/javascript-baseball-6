@@ -1,6 +1,6 @@
 import { Random } from '@woowacourse/mission-utils';
 
-function mkOpponentNum() {
+export default function mkOpponentNum() {
   let opponentNum = '';
   while (opponentNum.length < 3) {
     const number = Random.pickNumberInRange(1, 9);
@@ -9,5 +9,3 @@ function mkOpponentNum() {
 
   return opponentNum;
 }
-
-export { mkOpponentNum };

@@ -1,5 +1,5 @@
-import { compareNum } from '../utils/compareNum.js';
-import { mkOpponentNum } from '../utils/mkOpponentNum.js';
+import compareNum from '../utils/compareNum.js';
+import mkOpponentNum from '../utils/mkOpponentNum.js';
 
 export default class Model {
   #opponentNum;
