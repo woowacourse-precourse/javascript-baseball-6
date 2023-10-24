@@ -47,18 +47,34 @@ class App {
     const message = !strikeCount && !ballCount ? "낫싱" : strikeMessage + messageSpace + ballMessage;
     Console.print(message);
 
-    return strikeCount === 3 ? true : false;
+    return strikeCount === 3 ? "isSuccess" : "isPlaying";
+  }
+
+  static async resetGame() {
+    const input = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n");
+
+    if (!(input == 1 || input == 2)) {
+      throw new Error("[ERROR] 값을 잘못 입력하였습니다. 게임을 종료합니다.");
+    }
+
+    if (input == 1) return "isPlaying";
+    if (input == 2) return "isQuit";
   }
 
   static async play() {
-    let isSuccess = false;
-    const couputerNum = this.setComputerNum();
-    Console.print("숫자 야구 게임을 시작합니다.");
-    Console.print(couputerNum); // todo delete
+    let status = "isPlaying";
 
-    while (!isSuccess) {
-      const userNum = await this.setUserNum();
-      isSuccess = this.printCount(couputerNum, userNum);
+    while (status === "isPlaying") {
+      const couputerNum = this.setComputerNum();
+      Console.print("숫자 야구 게임을 시작합니다.");
+
+      while (!(status === "isSuccess")) {
+        const userNum = await this.setUserNum();
+        status = this.printCount(couputerNum, userNum);
+      }
+
+      Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+      status = await this.resetGame();
     }
   }
 }
