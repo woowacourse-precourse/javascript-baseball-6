@@ -2,7 +2,6 @@ const { Console } = require("@woowacourse/mission-utils");
 const {
   GAME_MESSAGE,
   BASEBALL_MESSAGE,
-  END_OPTION,
   ERROR_MESSAGE,
 } = require("./constants");
 const { Computer } = require("./Computer");
@@ -93,20 +92,6 @@ class BaseballGame {
     if (ball === 0 && strike === 0) {
       Console.print(BASEBALL_MESSAGE.NOTHING);
       return false;
-    }
-  }
-
-  // TODO : 재시작 여부를 확인하는 기능
-  async reStart() {
-    try {
-      const choiceEndOption = await Console.readLineAsync(GAME_MESSAGE.RESTART);
-      if (choiceEndOption === END_OPTION.NEW_GAME) {
-        return this.play();
-      } else if (choiceEndOption == END_OPTION.EXIT) {
-        Console.print(GAME_MESSAGE.END);
-      }
-    } catch (error) {
-      throw new Error(ERROR_MESSAGE.IS_INVALID);
     }
   }
 }
