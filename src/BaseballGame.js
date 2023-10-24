@@ -7,31 +7,46 @@ const { Console } = MissionUtils;
 class BaseballGame extends Computer {
   constructor() {
     super();
+    this.isPlaying;
     this.randomNumber;
   }
 
   // 게임 초기 세팅
   async init() {
+    this.isPlaying = false;
     Console.print(MESSAGES.game.start);
     this.start();
   }
 
   // 게임 시작
   async start() {
+    this.isPlaying = true;
     this.randomNumber = super.createRandomNumber();
     await this.getPlayerInput();
   }
 
   // 사용자 입력값 받기
   async getPlayerInput() {
-    try {
-      const playerInput = await Console.readLineAsync(
-        MESSAGES.game.playerInput
-      );
+    if (this.isPlaying) {
+      try {
+        const playerInput = await Console.readLineAsync(
+          MESSAGES.game.playerInput
+        );
 
-      this.validationPlayerInput(playerInput);
-    } catch (error) {
-      throw error;
+        this.validationPlayerInput(playerInput);
+
+        const strikeBall = super.countStrikeBall(
+          this.randomNumber,
+          playerInput
+        );
+
+        this.printStrikeBall(strikeBall);
+      } catch (error) {
+        this.isPlaying = false;
+        throw error;
+      }
+    } else {
+      this.init();
     }
   }
 
@@ -39,11 +54,8 @@ class BaseballGame extends Computer {
   async validationPlayerInput(playerInput) {
     const rInput = /^(?!.*(.).*\1)[1-9]{3}$/;
 
-    if (rInput.test(playerInput)) {
-      const strikeBall = super.countStrikeBall(this.randomNumber, playerInput);
-
-      this.printStrikeBall(strikeBall);
-    } else {
+    if (!rInput.test(playerInput)) {
+      this.isPlaying = false;
       throw new Error(MESSAGES.errors.invalidNumber);
     }
   }
@@ -101,6 +113,7 @@ class BaseballGame extends Computer {
   // 게임 종료
   async done() {
     Console.print(MESSAGES.game.done);
+    this.isPlaying = false;
   }
 }
 
