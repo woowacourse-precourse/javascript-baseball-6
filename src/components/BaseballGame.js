@@ -47,11 +47,28 @@ class BaseballGame {
     return true;
   }
 
-  showGameResult(validUserinput) {
+  async showGameResult(validUserinput) {
     const GAME_CALCULATOR = new GameCalculator(
       validUserinput,
       this.randomNumber
     );
+
+    const GAME_RESULT_STRING = GAME_CALCULATOR.getStringResult();
+    Console.print(GAME_RESULT_STRING);
+
+    if (GAME_CALCULATOR.validateAnswer()) {
+      Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+      const RESTART_INPUT = await Console.readLineAsync(
+        '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.'
+      );
+      if (RESTART_INPUT === '1') {
+        this.gameStart();
+      } else if (RESTART_INPUT === '2') {
+        return;
+      }
+    } else {
+      this.getUserInput();
+    }
   }
 
   randomNumberGenerator() {
