@@ -16,10 +16,10 @@ class App {
 
   async setting() {
     this.baseBall.init();
-    await this.piching();
+    await this.pitching();
   }
 
-  async piching() {
+  async pitching() {
     const response = await this.inputReader.baseBallNumbers();
     const userInput = Number(response);
 
@@ -48,7 +48,7 @@ class App {
       this.complete();
       return;
     }
-    await this.piching();
+    await this.pitching();
   }
 
   async complete() {
