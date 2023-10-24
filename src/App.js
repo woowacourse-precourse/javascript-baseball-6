@@ -8,18 +8,21 @@ function makeRamdomNumber() {
       computer.push(number);
     }
   }
+  //console.log('computer', computer);
   return computer;
 }
 
 async function getUserNumber() {
   const input = await Console.readLineAsync('숫자를 입력해주세요 : ');
-  
-  if (!/^[1-9]{3}$/.test(Number(input)))
-    throw new Error('[ERROR] 입력한 숫자가 잘못된 형식입니다.');
 
-  const inputSet = new Set(input.split('').map((digit) => Number(digit)));
-  if (input.length !== inputSet.size)
+  if (!/^[1-9]{3}$/.test(Number(input))) {
+    throw new Error('[ERROR] 입력한 숫자가 잘못된 형식입니다.');
+  }
+
+  const inputSet = new Set(input.split('').map(Number));
+  if (input.length !== inputSet.size) {
     throw new Error('[ERROR] 입력한 숫자에 중복된 숫자가 있습니다.');
+  }
 
   return input.split('').map(Number);
 }
@@ -44,14 +47,20 @@ function getHint(input, computer) {
 }
 
 function printHint(strike, ball) {
-  if (strike === 0 && ball === 0) {
-    Console.print('낫싱');
-  } else if (strike !== 0 && ball !== 0) {
+  if (ball !== 0 && strike !== 0) {
     Console.print(`${ball}볼 ${strike}스트라이크`);
-  } else if (strike !== 0) {
-    Console.print(`${strike}스트라이크`);
-  } else if (ball !== 0) {
+    return;
+  }
+  if (ball !== 0) {
     Console.print(`${ball}볼`);
+    return;
+  }
+  if (strike !== 0) {
+    Console.print(`${strike}스트라이크`);
+    return;
+  }
+  if (ball === 0 && strike === 0) {
+    Console.print('낫싱');
   }
 }
 
@@ -59,7 +68,6 @@ async function compareUserAndRamdomNumber(computer) {
   while (1) {
     const input = await getUserNumber();
     const { strike , ball } = getHint(input, computer);
-    //console.log('strike , ball', strike , ball);
     printHint(strike, ball);
     if (strike === 3) {
       Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
@@ -82,9 +90,9 @@ async function startGameAgian() {
 
 class App {
   async play() {
-    let isExecute = false;
-    while(!isExecute) {
-      Console.print('숫자 야구 게임을 시작합니다.');
+    let isExecute = true;
+    Console.print('숫자 야구 게임을 시작합니다.');
+    while(isExecute) {
       const computer = makeRamdomNumber();
       isExecute = await compareUserAndRamdomNumber(computer);
     }
@@ -92,7 +100,7 @@ class App {
 }
 
 
-const app = new App();
-app.play();
+//const app = new App();
+//app.play();
 
 export default App;
