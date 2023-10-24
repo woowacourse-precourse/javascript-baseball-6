@@ -5,11 +5,22 @@ class App {
     Console.print("숫자 야구 게임을 시작합니다.");
 
     const computerNum = this.selectRandomNum();
-    const playerNumStr = await Console.readLineAsync("숫자를 입력해주세요 : ");
-    const playerNum = [...playerNumStr].map(num => parseInt(num));
+
+    while (true) {
+      const playerNumStr = await Console.readLineAsync("숫자를 입력해주세요 : ");
+      const playerNum = [...playerNumStr].map(num => parseInt(num));
+      
+      const result = this.checkAnswer(computerNum, playerNum);
+      const hint = this.printHint(result.ball, result.strike);
+
+      if (hint === "3스트라이크") {
+        Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+        break;
+      }
+    }
+
     
-    const result = this.checkAnswer(computerNum, playerNum);
-    this.printHint(result.ball, result.strike);
+    
   }
 
   selectRandomNum() {
@@ -46,16 +57,19 @@ class App {
   }
 
   printHint(ball, strike) {
+    let result;
     if (strike === 0 && ball === 0) {
-      Console.print("낫싱");
+      result = "낫싱";
     } else if(strike !== 0 && ball === 0) {
-      Console.print(`${strike}스트라이크`);
+      result = `${strike}스트라이크`;
     } else if(strike === 0 && ball !== 0) {
-      Console.print(`${ball}볼`);
+      result = `${ball}볼`;
     } else {
-      Console.print(`${ball}볼 ${strike}스트라이크`); 
+      result = `${ball}볼 ${strike}스트라이크`; 
     }
 
+    Console.print(result);
+    return result;
   }
 }
 
