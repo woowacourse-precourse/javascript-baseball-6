@@ -17,15 +17,11 @@ export class Game {
   }
 
   async getUserInput() {
-    try {
-      const input = await MissionUtils.Console.readLineAsync(
-        `서로 다른 세 자리 숫자를 입력해주세요: `
-      );
-      this.validateUserInput(input);
-      return this.compareNumbers(input);
-    } catch (e) {
-      throw e;
-    }
+    const input = await MissionUtils.Console.readLineAsync(
+      `서로 다른 세 자리 숫자를 입력해주세요: `
+    );
+    this.validateUserInput(input);
+    return this.compareNumbers(input);
   }
 
   validateUserInput(input) {
