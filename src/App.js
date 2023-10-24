@@ -1,6 +1,10 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
+  constructor() {
+    this.FLAG = true;
+  }
+
   getComNumbers() {
     const computer = [];
     while (computer.length < 3) {
@@ -12,32 +16,96 @@ class App {
     return computer;
   }
 
+  calculateResult(userNumbers) {
+    let strikeCnt = 0;
+    let ballCnt = 0;
+    let comNumbers = this.getComNumbers();
+    //comNumbers = [1, 3, 5];
+    // MissionUtils.Console.print("comNumbers");
+    // MissionUtils.Console.print(comNumbers);
+
+    /* 
+    스트라이크 후보군을 뽑습니다
+    사용자 숫자 리스트와 컴퓨터 숫자 리스트의 교집합이 존재하면 이는 "스트라이크" 또는 "볼"이 될 수 있고
+    각 배열의 교집합의 원소의 인덱스가 같으면 "스트라이크", 다르면 "볼"로 판단할 수 있습니다  
+    */
+    let intersection = userNumbers.filter((num) => comNumbers.includes(num));
+
+    if (Array.isArray(intersection) && intersection.length === 0) {
+      return "낫싱";
+    } else {
+      for (const num of intersection) {
+        let comIdx = comNumbers.indexOf(num);
+        let userIdx = userNumbers.indexOf(num);
+        if (comIdx === userIdx) {
+          strikeCnt++;
+        } else {
+          ballCnt++;
+        }
+      }
+      return { strikeCnt, ballCnt };
+    }
+  }
+
   validationInput(userNumbers) {
-    MissionUtils.Console.print("userNumbers");
-    MissionUtils.Console.print(userNumbers);
+    // MissionUtils.Console.print("userNumbers");
+    // MissionUtils.Console.print(userNumbers);
     if (
       userNumbers.includes(NaN) ||
       userNumbers.includes(0) ||
       userNumbers.length !== 3 ||
       [...new Set(userNumbers)].length !== 3
     ) {
-      throw new Error("[ERROR]");
+      throw new Error("[ERROR] 사용자 입력의 숫자가 잘못된 형식입니다.");
     }
   }
 
   async play() {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
 
-    let userNumberstr = await MissionUtils.Console.readLineAsync(
-      "숫자를 입력해주세요 : "
-    );
-    let userNumbers = [...userNumberstr].map(Number);
-    this.validationInput(userNumbers);
+    while (this.FLAG) {
+      let userNumberstr = await MissionUtils.Console.readLineAsync(
+        "숫자를 입력해주세요 : "
+      );
+      let userNumbers = [...userNumberstr].map(Number);
 
-    let comNumbers = this.getComNumbers();
-    MissionUtils.Console.print("comNumbers");
-    MissionUtils.Console.print(comNumbers);
+      this.validationInput(userNumbers);
+
+      let res = this.calculateResult(userNumbers);
+      if (typeof res == "string") {
+        MissionUtils.Console.print("낫싱");
+      } else {
+        let answer = "";
+        if (res?.ballCnt > 0) {
+          answer += `${res?.ballCnt}볼 `;
+        }
+        if (res?.strikeCnt > 0) {
+          answer += `${res?.strikeCnt}스트라이크`;
+        }
+        MissionUtils.Console.print(answer);
+        if (res?.strikeCnt === 3) {
+          MissionUtils.Console.print(
+            "3개의 숫자를 모두 맞히셨습니다! 게임 종료"
+          );
+
+          let flagstr = await MissionUtils.Console.readLineAsync(
+            "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+          );
+          if (flagstr === "1") {
+            this.FLAG = true;
+          } else if (flagstr === "2") {
+            this.FLAG = false;
+          } else {
+            throw new Error("[ERROR] 새로 시작하려면 1, 종료하려면 2를 입력");
+          }
+        }
+      }
+    }
+    MissionUtils.Console.print("게임 종료!");
   }
 }
 
 export default App;
+
+// const app = new App();
+// app.play();
