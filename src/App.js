@@ -33,7 +33,7 @@ class App {
         // 유효한 입력일 때의 코드 계속
         this.tryGame++;  // 시도 횟수 +1
         const result = this.countResult(userInput);  // 결과 확인
-        MissionUtils.Console.print(result); 
+        MissionUtils.Console.print(result);
   
         if (result === "3스트라이크") {
           MissionUtils.Console.print(`${this.tryGame} 번의 시도 끝에, 3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
@@ -44,14 +44,14 @@ class App {
             MissionUtils.Console.print("게임을 다시 시작합니다.");
           } else {
             MissionUtils.Console.print("게임을 종료합니다.");
-            break; // 반복문을 종료하여 프로그램을 종료합니다.
+            return; // 반복문을 종료하여 프로그램을 종료합니다.
           }
         }
       }
     } catch (error) {
-      MissionUtils.Console.print(error.message);
+      return Promise.reject(error);
     }
-  }
+  }  
   
 
   // 입력이 1부터 9까지의 세 자릿수로 이루어진 문자열인지를 확인
@@ -59,7 +59,7 @@ class App {
     if (/^[1-9]{3}$/.test(input)) {
       return true; // 유효한 입력
     } else {
-      throw new Error("[Error] 올바른 숫자를 입력해주세요."); // 잘못된 입력일 경우 프로그램 종료
+      throw new Error("[ERROR]"); // 잘못된 입력일 경우 프로그램 종료
     }
   }
   

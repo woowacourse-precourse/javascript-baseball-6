@@ -53,13 +53,8 @@ describe("숫자 야구 게임", () => {
     mockQuestions(answers);
 
     // when & then
-    // const app = new App();
-    // app.play();
-
-    // await expect(app.play()).rejects.toThrow("[ERROR]");
-
     const app = new App();
+    await expect(app.play()).rejects.toThrow("[ERROR]");
 
-    await expect(app.play()).resolves.toBeUndefined();
   });
 });
