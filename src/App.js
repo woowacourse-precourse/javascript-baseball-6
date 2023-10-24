@@ -1,11 +1,10 @@
-import { GUIDE_MESSAGES } from './constants.js';
-import { Console } from '@woowacourse/mission-utils';
+import BaseballGame from './baseballGame.js';
 class App {
-  async play() {
-    this.showGameStartMessage();
+  constructor() {
+    this.baseballGame = new BaseballGame();
   }
-  async showGameStartMessage() {
-    Console.print(GUIDE_MESSAGES.GAME_START_MESSAGE);
+  async play() {
+    await this.baseballGame.playBaseball();
   }
 }
 
