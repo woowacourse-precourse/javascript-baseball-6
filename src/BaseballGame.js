@@ -97,6 +97,11 @@ class BaseballGame extends Computer {
       throw error;
     }
   }
+
+  // 게임 종료
+  async done() {
+    Console.print(MESSAGES.game.done);
+  }
 }
 
 export default BaseballGame;
