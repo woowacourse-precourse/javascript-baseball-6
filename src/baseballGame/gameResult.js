@@ -6,9 +6,8 @@
  * @returns {boolean}
  */
 export default function gameResult(strikeCount, ballCount) {
-  if (strikeCount === 3) {
-    return true;
-  }
+  let isAnswerCorrect = false;
+
   if (strikeCount === 0 && ballCount === 0) {
     MissionUtils.Console.print('낫싱');
   }
@@ -16,10 +15,14 @@ export default function gameResult(strikeCount, ballCount) {
     MissionUtils.Console.print(`${ballCount}볼`);
   } else if (ballCount === 0) {
     MissionUtils.Console.print(`${strikeCount}스트라이크`);
+    if (strikeCount === 3) {
+      isAnswerCorrect = true;
+    }
   } else {
     MissionUtils.Console.print(`${ballCount}볼 ${strikeCount}스트라이크`);
   }
-  return false;
+  
+  return isAnswerCorrect;
 }
 
 
