@@ -25,6 +25,7 @@ class App {
           const RETRY = await Console.readLineAsync(
             '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.'
           );
+
           if (RETRY === '1') {
             MATCH = true;
           } else if (RETRY === '2') {
@@ -39,16 +40,17 @@ class App {
 }
 
 const GET_RANDOM_THREE_NUMBER = function () {
-  let THREE_NUMBER = '';
+  let NUMBERS = '';
 
-  while (THREE_NUMBER.length < 3) {
+  while (NUMBERS.length < 3) {
     const NUMBER = Random.pickNumberInRange(1, 9);
-    if (!THREE_NUMBER.includes(NUMBER)) {
-      THREE_NUMBER += NUMBER;
+
+    if (!NUMBERS.includes(NUMBER)) {
+      NUMBERS += NUMBER;
     }
   }
 
-  return THREE_NUMBER;
+  return NUMBERS;
 };
 
 const VALIDATE_NUMBER = function (NUMBER) {
