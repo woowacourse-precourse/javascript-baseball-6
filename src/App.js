@@ -14,11 +14,20 @@ const MESSAGE = {
 class App {
   async play() {
     Console.print(MESSAGE.start);
-    const answer = this.generateRandomNumber();
+    let isKeepPlaying = true;
+    while (isKeepPlaying) {
+      const answer = this.generateRandomNumber();
+      await this.game(answer);
 
-    await this.game(answer);
-
-    const input = await Console.readLineAsync(MESSAGE.continue);
+      while (true) {
+        const input = (await Console.readLineAsync(MESSAGE.continue)).trim();
+        if (input === "1") break;
+        if (input === "2") {
+          isKeepPlaying = false;
+          break;
+        }
+      }
+    }
   }
 
   async game(answer) {
@@ -46,10 +55,10 @@ class App {
 
     while (true) {
       if (result.length >= 3) break;
-
       const random = Random.pickNumberInRange(1, 9);
       if (!result.includes(random)) result += random;
     }
+
     return result;
   }
 
@@ -87,7 +96,7 @@ class App {
   validateInput(input) {
     const regEx = new RegExp("^(?!.*(\\d).*\\1)[1-9]{3}$");
 
-    return regEx.test(input.trim());
+    return regEx.test(input);
   }
 }
 
