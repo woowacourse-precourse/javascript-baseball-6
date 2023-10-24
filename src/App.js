@@ -12,12 +12,25 @@ function createComputerNumber() {
   return numbers;
 }
 
-async function printUserAnswer() {
-  try {
-    const answer = await Console.readLineAsync('숫자를 입력해주세요: ');
-    return answer;
-  } catch (error) {
-    Console.print('[ERROR]:', error);
+function compareNumbers(computerAnswer, userAnswer) {
+  let ball = 0;
+  let strike = 0;
+  for (let i = 0; i < 2; i++) {
+    if (computerAnswer[i] == userAnswer[i]) {
+      strike++
+    }
+    if (userAnswer.includes(computerAnswer[i])) {
+      ball++
+    }
+  }
+  if (strike == 3) {
+    Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료')
+  }
+  if (ball > 0) {
+    Console.print(`${ball}볼`)
+  }
+  if (strike > 0 && strike != 3) {
+    Console.print(`${strike}스트라이크`)
   }
 }
 
@@ -27,13 +40,11 @@ class App {
       Console.print('숫자 야구 게임을 시작합니다.');
       let computerAnswer = createComputerNumber();
       let userAnswer = await Console.readLineAsync('숫자를 입력해주세요: ');
-      if (computerAnswer.join('') == userAnswer) {
-        Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
-      }
+      compareNumbers(computerAnswer, userAnswer.split(''))
     } catch (err) {
-      Console.print("[ERROR]: ", err)
-    }
-  }
+      Console.print(err);
+    } 
+  } 
 }
 
 const app = new App();
