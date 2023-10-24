@@ -21,7 +21,7 @@ function makeRandom() {
       answer.push(number + "");
     }
   }
-  console.log(answer);
+  // console.log(answer);
   return answer;
 }
 
