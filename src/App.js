@@ -11,16 +11,12 @@ class App {
   init() {
     Message.printGameStart();
     game.setAnswer();
-    game.initCntStrike();
-    game.initCntBall();
   }
 
   async play() {
     this.init();
 
     while (this.gameStatus !== EXIT) {
-      game.initCntStrike();
-      game.initCntBall();
       await player.guessAnswer();
       game.countStrike(player.guessedNumber);
       game.countBall(player.guessedNumber);
@@ -32,14 +28,10 @@ class App {
         if (this.gameStatus === EXIT) {
           break;
         }
-        game.initAnswer();
         game.setAnswer();
       }
     }
   }
 }
-
-const app = new App();
-app.play();
 
 export default App;

@@ -13,6 +13,7 @@ class Game {
   }
 
   setAnswer() {
+    this.initAnswer();
     while (this.answer.length < LENGTH_OF_ANSWER) {
       const number = MissionUtils.Random.pickNumberInRange(1, 9);
       if (!this.answer.includes(number)) {
@@ -30,6 +31,7 @@ class Game {
   }
 
   countBall(userInput) {
+    this.initCntBall();
     for (let i = 0; i < LENGTH_OF_ANSWER; i += 1) {
       const targetNumber = userInput[i];
       if (
@@ -42,6 +44,7 @@ class Game {
   }
 
   countStrike(userInput) {
+    this.initCntStrike();
     for (let i = 0; i < LENGTH_OF_ANSWER; i += 1) {
       if (this.answer[i] === userInput[i]) {
         this.cntStrike += 1;
