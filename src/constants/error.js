@@ -5,11 +5,15 @@ export const ERROR_MESSAGE = Object.freeze({
     notNumber: '숫자를 입력해주세요!',
     notInteger: '정수를 입력해주세요!',
     notArray: '배열을 입력해주세요!',
-    outOfRange: (min, max) => `${min} 이상 ${max} 이하의 값을 입력해주세요!`,
+    outOfRange(min, max) {
+      return `${min} 이상 ${max} 이하의 값을 입력해주세요!`;
+    },
   }),
 
   targetBalls: Object.freeze({
-    invalidQuantity: (quantity) => `${quantity}개의 숫자를 가진 배열을 입력해주세요!`,
+    invalidQuantity(quantity) {
+      return `${quantity}개의 숫자를 가진 배열을 입력해주세요!`;
+    },
     isDuplicated: '중복되지 않는 숫자들로 입력해주세요!',
   }),
 
