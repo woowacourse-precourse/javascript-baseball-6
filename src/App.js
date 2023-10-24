@@ -7,6 +7,11 @@ import {
 
 class App {
   #computer
+  #userNumber
+
+  constructor() {
+    this.callbackUserNumber = this.callbackUserNumber.bind(this)
+  }
 
   printGameStart() {
     Console.print(PRINT_STRING.GAME_START)
@@ -22,11 +27,20 @@ class App {
     }
   }
 
+  async inputUserNumber() {
+    this.#userNumber = await Console.readLineAsync(PRINT_STRING.INPUT_NUMBER);
+    this.callbackUserNumber()
+  }
+
+  callbackUserNumber() {
+  }
+
   async play() {
     if (!this.#computer) {
       this.printGameStart();
     }
     this.generateRandomNumbers()
+    this.inputUserNumber()
   }
 }
 
