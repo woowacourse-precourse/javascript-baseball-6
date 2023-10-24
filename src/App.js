@@ -72,6 +72,7 @@ class App {
 
     Console.print('숫자 야구 게임을 시작합니다.');
     while (CONTINUE_FLAG) {
+      // eslint-disable-next-line no-await-in-loop
       const input = await Console.readLineAsync('숫자를 입력해주세요 : ');
       App.isValidInput(input);
 
@@ -79,6 +80,7 @@ class App {
       App.printResult(strike, ball);
 
       if (strike === 3) {
+        // eslint-disable-next-line no-await-in-loop
         const restart = await Console.readLineAsync(
           '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n',
         );
