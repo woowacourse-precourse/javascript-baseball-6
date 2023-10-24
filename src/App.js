@@ -12,6 +12,28 @@ const create_random_number = () => {
   return number_list;
 };
 
+// 스트라이크 카운트를 계산하는 함수
+const get_strike_count = (string_number, target_number) => {
+  let count = 0;
+
+  string_number.split('').forEach((number, index) => {
+    if (number === target_number[index]) count += 1;
+  });
+
+  return count;
+};
+
+// 볼 카운트를 계산하는 함수
+const get_ball_count = (string_number, target_number) => {
+  let count = 0;
+
+  for (let number of target_number.split('')) {
+    if (string_number.includes(number)) count += 1;
+  }
+
+  return count;
+};
+
 class App {
   async play() {}
 }
