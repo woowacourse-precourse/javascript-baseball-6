@@ -102,7 +102,6 @@ class App {
     while (continueGame && roundsPlayed < maxRounds) {
       this.initializeAnswerNumbers();
       Console.print(GAME_START_PROMPT);
-      console.log(this.answerNumbers);
 
       let isCorrect = false;
 
