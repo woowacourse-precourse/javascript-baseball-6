@@ -11,7 +11,7 @@ class App {
 
       while (true) {
         const playerNumStr = await Console.readLineAsync("숫자를 입력해주세요 : ");
-        if (playerNumStr.length !== 3) {
+        if (playerNumStr.length !== COMPUTER_NUM_LEN) {
           throw new Error("[ERROR] 숫자가 잘못된 형식입니다.")
         }
         const playerNum = [...playerNumStr].map(num => parseInt(num));
@@ -19,8 +19,8 @@ class App {
         const result = this.checkAnswer(computerNum, playerNum);
         const hint = this.printHint(result.ball, result.strike);
 
-        if (hint === "3스트라이크") {
-          Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+        if (hint === `${COMPUTER_NUM_LEN}스트라이크`) {
+          Console.print(`${COMPUTER_NUM_LEN}개의 숫자를 모두 맞히셨습니다! 게임 종료`);
           break;
         }
       }
