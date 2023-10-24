@@ -11,8 +11,6 @@ class App {
   }
 
   async play() {
-    MissionUtils.Console.print(this.answerNums);
-
     const line = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
 
     if (!this.isValidNum(line)) {
