@@ -32,10 +32,7 @@ function dataToArray(data, array) {
 
 function calculateStrike(randomArray, inputArray) {
   let count = 0;
-
-  for (let i = 0; i < randomArray.length; i++) {
-    if (randomArray[i] === inputArray[i]) count++;
-  }
+  randomArray.map((data, index) => data === inputArray[index] && count++);
 
   return count;
 }
