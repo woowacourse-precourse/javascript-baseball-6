@@ -26,6 +26,23 @@ class App {
 
   async getUserInput() {
     const inputValue = await Console.readLineAsync("숫자를 입력해주세요 : ");
+
+    this.validateUserInput(inputValue);
+  }
+
+  validateUserInput(str) {
+    this.userNumber = [];
+    if (str.length < 4) {
+      for (const i in str) {
+        if (!isNaN(str[i]) && !this.userNumber.includes(str[i])) {
+          this.userNumber.push(str[i]);
+        } else {
+          throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+        }
+      }
+    } else {
+      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+    }
   }
 }
 
