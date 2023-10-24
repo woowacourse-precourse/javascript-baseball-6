@@ -1,7 +1,7 @@
 const Validation = {
   validateType(value) {
-    if (isNaN(value) || value.includes(".")) {
-      throw new Error("[ERROR] 정수를 입력해 주세요.");
+    if (isNaN(value) || value.includes(0) || value.includes(".")) {
+      throw new Error("[ERROR] 1 ~ 9사이의 정수를 입력해 주세요.");
     }
   },
 
