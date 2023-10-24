@@ -1,4 +1,5 @@
 import { Console, Random } from "@woowacourse/mission-utils";
+import { isValidNumbers } from "./utilities";
 
 class App {
   constructor() {
@@ -8,6 +9,10 @@ class App {
 
   async play() {
     this.startGame();
+
+    while (true) {
+      await this.getUserInput();
+    }
   }
 
   startGame() {
@@ -21,6 +26,15 @@ class App {
       if (!this.computerNumbers.includes(number)) {
         this.computerNumbers.push(number);
       }
+    }
+  }
+
+  async getUserInput() {
+    this.userNumbers = (await Console.readLineAsync("숫자를 입력해주세요 : "))
+      .split("")
+      .map(Number);
+    if (this.userNumbers.length !== 3 || !isValidNumbers(this.userNumbers)) {
+      throw new Error("[ERROR] 잘못된 입력입니다.");
     }
   }
 }
