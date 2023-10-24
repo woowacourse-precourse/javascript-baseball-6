@@ -1,4 +1,4 @@
-import { BaseballService } from './service/BaseballService';
+import BaseballService from './service/BaseballService';
 
 import { inputView, outputView } from './views';
 

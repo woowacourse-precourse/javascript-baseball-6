@@ -1,6 +1,6 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import { AnswerBalls, SubmittedBalls } from '../../../src/domain';
-import { BaseballService } from '../../../src/service/BaseballService';
+import BaseballService from '../../../src/service/BaseballService';
 
 const mockRandoms = (numbers) => {
   MissionUtils.Random.pickNumberInRange = jest.fn();

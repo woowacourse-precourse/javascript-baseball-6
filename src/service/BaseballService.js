@@ -4,7 +4,7 @@ import { AnswerBalls, SubmittedBalls, TargetBall, TargetBalls } from '../domain'
 
 import { MESSAGE } from '../constants/message';
 
-export class BaseballService {
+class BaseballService {
   #answer;
 
   #submittedCorrectly = null;
@@ -113,3 +113,5 @@ export class BaseballService {
     return this.#submittedCorrectly !== null;
   }
 }
+
+export default BaseballService;
