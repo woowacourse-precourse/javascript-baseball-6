@@ -2,8 +2,6 @@ import { Random } from '@woowacourse/mission-utils';
 import { RESULTOBJECT } from '../constants/constants.js';
 
 export default class Computer {
-  _computerNumber;
-
   constructor() {
     this.makeRandomNumber();
   }
@@ -17,7 +15,6 @@ export default class Computer {
     }
 
     this._computerNumber = Array.from(computerNumber);
-    console.log(this._computerNumber);
   }
 
   judgeResult(userNumber) {
@@ -29,8 +26,8 @@ export default class Computer {
 
     userNumber.map((num, i) => {
       if (
-        num !== this._computerNumber[i] &&
-        this._computerNumber.includes(num)
+        num !== this._computerNumber[i]
+        && this._computerNumber.includes(num)
       ) {
         result.ball += 1;
       }

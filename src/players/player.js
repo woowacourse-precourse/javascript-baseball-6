@@ -1,15 +1,13 @@
 import { MESSAGE } from '../constants/constants.js';
+import View from '../view/View.js';
 
 export default class Player {
-  _playerNumber;
+  async inputNumber() {
+    const userInput = await View.readInput(MESSAGE.input);
 
-  async inputNumber(view) {
-    const userInput = await view.readInput(MESSAGE.input);
-
-    if (this.isValidNumber(userInput)) {
-      this._playerNumber = userInput.split('').map(num => parseInt(num));
+    if (Player.isValidNumber(userInput)) {
+      this._playerNumber = userInput.split('').map(num => parseInt(num, 10));
     }
-    return;
   }
 
   getJudgeResult(computer) {
@@ -17,31 +15,31 @@ export default class Player {
     return result;
   }
 
-  isValidNumber(userInput) {
+  static isValidNumber(userInput) {
     const userInputToArray = userInput.split('');
 
     if (userInputToArray.length !== 3) {
       throw new Error(MESSAGE.error);
     }
 
-    if (userInputToArray.some(char => isNaN(parseInt(char)))) {
+    if (userInputToArray.some(char => isNaN(parseInt(char, 10)))) {
       throw new Error(MESSAGE.error);
     }
 
-    const numericInput = userInputToArray.map(num => parseInt(num));
+    const numericInput = userInputToArray.map(num => parseInt(num, 10));
 
     if (numericInput.includes(0)) {
       throw new Error(MESSAGE.error);
     }
 
-    if (this.hasDuplicates(numericInput)) {
+    if (Player.hasDuplicates(numericInput)) {
       throw new Error(MESSAGE.error);
     }
 
     return true;
   }
 
-  hasDuplicates(userNumber) {
+  static hasDuplicates(userNumber) {
     const uniqueNumbers = new Set(userNumber);
     return uniqueNumbers.size !== userNumber.length;
   }
