@@ -99,9 +99,6 @@ classDiagram
             printGameEnd() : void
             printGameStatus(status) : void
         }
-    }
-
-    namespace Util {
         class Validation {
             isNumber(input) : void
             isCorrectLength(input) : void
