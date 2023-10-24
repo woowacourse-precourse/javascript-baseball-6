@@ -5,7 +5,7 @@ class App {
     let restart_game = true;
 
     while (restart_game) {
-      console.log("숫자 야구 게임을 시작합니다.");
+      MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
       restart_game = await this.play_game(); // 게임 재시작 여부를 확인
     }
     MissionUtils.Console.print("게임 종료");
@@ -23,7 +23,7 @@ class App {
       this.print_result(result); // 결과 출력
 
       if (result.strikes === 3) { // 게임 종료 조건 확인
-        console.log("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+        MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
         game_end = true;
       }
     }
@@ -50,6 +50,13 @@ class App {
     if (!input || input.length !== 3 || !/^\d+$/.test(input)) {
       throw new Error("[ERROR]"); // 에러 발생
     }
+    const input_digits = input.split('').map(Number);
+
+    // 입력값이 중복일때 확인
+    if (input_digits.length !== new Set(input_digits).size) {
+      throw new Error("[ERROR]"); // 에러 발생
+    }
+
     return input;
   }
 
@@ -88,15 +95,15 @@ class App {
 
   async ask_for_restart() { // 게임을 다시 시작할지 종료할지 선택하는 옵션 제공
     while (true) {
-      console.log("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
-      const input = await MissionUtils.Console.readLineAsync();
+      MissionUtils.Console.print("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+      const input = await MissionUtils.Console.readLineAsync("");
 
       if (input === '1') {
         return true;
       } else if (input === '2') {
         return false;
       } else {
-        console.log("올바른 옵션을 선택하세요 (1: 재시작, 2: 종료)");
+        MissionUtils.Console.print("올바른 옵션을 선택하세요 (1: 재시작, 2: 종료)");
       }
     }
   }
