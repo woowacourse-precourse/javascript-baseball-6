@@ -33,22 +33,24 @@ class App {
     this.strikes = generateStrikes();
     // Console.print(this.strikes); // 코드 작성 시 활성화하여 작업
     while (!this.isWin) {
-      await this.playInning().then(message => {
-        Console.print(message);
-        if (message == "3스트라이크") {
-          this.isWin = true;
-          Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-          return new Promise(resolve => {
-            resolve();
-          });
-        }
-      });
+      const [message, strikeCount] = await this.playInning();
+      Console.print(message);
+      if (strikeCount == 3) {
+        this.isWin = true;
+        Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+        return Promise.resolve();
+      }
     }
   }
 
   async playInning() {
     const guess = await getUserInput(QUERY.guess, REGEX.guess);
     const [strikeCount, ballCount] = this.getScore(guess, this.strikes);
+    const message = this.getMessage(strikeCount, ballCount);
+    return [message, strikeCount];
+  }
+
+  getMessage(strikeCount, ballCount) {
     let message = "";
     if (ballCount > 0) {
       message += `${ballCount}볼 `;
