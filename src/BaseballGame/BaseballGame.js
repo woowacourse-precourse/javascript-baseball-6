@@ -30,7 +30,7 @@ class BaseballGame {
 
     if (hint === '3스트라이크') {
       await this.restart();
-      return;
+      return Promise.resolve();
     }
     await this.getGameNumberInput();
   }
