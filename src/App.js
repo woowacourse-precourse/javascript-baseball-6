@@ -1,12 +1,16 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
+import { Console, Random } from "@woowacourse/mission-utils";
 
 class App {
- 
+  constructor(){
+    
+    this.STRIKE = 0;
+    this.BALL = 0;
+  }
   // create random number
   setNumber() {
     const COMPUTER = [];
     while (COMPUTER.length < 3) {
-      const NUMBER = MissionUtils.Random.pickNumberInRange(1, 9);
+      const NUMBER = Random.pickNumberInRange(1, 9);
       if (!COMPUTER.includes(NUMBER)) {
         COMPUTER.push(NUMBER);
       }
@@ -16,88 +20,70 @@ class App {
   }
 
   // inputnumber
-  async inputUserNumber () {
+  async inputUserNumber() {
+    const USER_NUMBER = await Console.readLineAsync('숫자를 입력해주세요 : ');
     
-    
-    MissionUtils.Console.print("숫자를 입력해주세요: ");
-    const USER_NUMBER = await MissionUtils.Console.readLineAsync();
-    console.log(USER_NUMBER);
     if (USER_NUMBER.match(/\D/)) {
-      throw new Error("[ERROR]");
+      throw new Error("ERROR] : 숫자만 입력해 주세요.");
     }
     if (USER_NUMBER.length !== 3) {
-      throw new Error("[ERROR]");
+      throw new Error("[ERROR] : 3자리 숫자를 입력해주세요.");
     }
-    return Promise.resolve(USER_NUMBER);
-
-    
+    return USER_NUMBER;
   }
 
   // checknumber
   checkNumber(answer, userinput) {
-    console.log(userinput);
-    let STRIKE = 0;
-    let BALL = 0;
+    
+    let COUNT = {STRIKE:0, BALL:0};
+    
     userinput.split("").forEach((n, idx) => {
+      
       if (answer.indexOf(n) == idx) {
-        STRIKE++;
+        COUNT.STRIKE++;
       } else if (answer.includes(n)) {
-        BALL++;
+        COUNT.BALL++;
       }
     });
-    if (BALL == 0 && STRIKE == 0) {
-      MissionUtils.Console.print("낫싱");
-      this.inputUserNumber(answer);
-    } else if (STRIKE == 3) {
-      MissionUtils.Console.print(
-        `${STRIKE}스트라이크 \n3개의 숫자를 모두 맞히셨습니다! 게임 종료`
-      );
-      this.Replay();
-    } else if (STRIKE > 0 && BALL > 0) {
-      MissionUtils.Console.print(`${BALL}볼 ${STRIKE}스트라이크`);
-      this.inputUserNumber(answer);
-    } else if (STRIKE == 0 && BALL > 0) {
-      MissionUtils.Console.print(`${BALL}볼`);
-      this.inputUserNumber(answer);
-    } else if (BALL == 0 && STRIKE > 0) {
-      MissionUtils.Console.print(`${STRIKE}스트라이크`);
-      this.inputUserNumber(answer);
-    }
+    return COUNT;
   }
 
-  //playmore?
-  async Replay() {
-    MissionUtils.Console.print(
+  async play() {
+    
+    Console.print("숫자 야구 게임을 시작합니다.");
+    const ANSWER = this.setNumber();
+    while(this.STRIKE < 3){
+      const USER_INPUT = await this.inputUserNumber();
+      const COUNT_PLAY = this.checkNumber(ANSWER, USER_INPUT);
+      this.STRIKE = COUNT_PLAY.STRIKE;
+      this.BALL = COUNT_PLAY.BALL;
+      if (this.BALL == 0 && this.STRIKE == 0) {
+        Console.print("낫싱");
+      } else if (this.STRIKE > 0 && this.BALL > 0) {
+        Console.print(`${this.BALL}볼 ${this.STRIKE}스트라이크`);
+      } else if (this.BALL > 0) {
+        Console.print(`${this.BALL}볼`);
+      } else if (this.STRIKE > 0) {
+        Console.print(`${this.STRIKE}스트라이크`);
+      } 
+    }
+    Console.print(
+      `${this.STRIKE}스트라이크 \n3개의 숫자를 모두 맞히셨습니다! 게임 종료`
+    );
+    const CHOICE = await Console.readLineAsync(
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
     );
-    const CHOICE = await MissionUtils.Console.readLineAsync();
     if (CHOICE == 1) {
-      const app =new App();
+      const app = new App();
+
       app.play();
     } else {
       //exit game
       return;
     }
   }
-
-  async play() {
-    MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
-    const ANSWER = this.setNumber();
-    
-    this.inputUserNumber()
-    .then((resolve)=>this.checkNumber(ANSWER,resolve))
-    .catch(async (err)=>{
-      try {
-        return await Promise.reject(err.message);
-      } catch (e) {
-        MissionUtils.Console.print(e);
-      }
-      
-    })
-    
   
-    
-  }
+  
 }
 
 export default App;
