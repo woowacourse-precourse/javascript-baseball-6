@@ -10,6 +10,7 @@ export const INPUT_ERROR_MESSAGE = Object.freeze({
 });
 
 export const INFO_MESSAGE = Object.freeze({
+  INPUT_NUM_MESSAGE: "숫자를 입력해 주세요 : ",
   START_MESSAGE: "숫자 야구 게임을 시작합니다.",
   WIN_MESSAGE: `${MAGIC_NUM.MAX_BASEBALL_NUM}개의 숫자를 모두 맞히셨습니다! `,
   END_MESSAGE: "게임 종료",
