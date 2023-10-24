@@ -1,5 +1,5 @@
 import Game from './Game.js';
-import { input, print } from './view/View.js';
+import View from './view/View.js';
 import { MESSAGE, SETTING } from './Constants.js';
 import { validateInput, validateRestartInput } from './utils/Validator.js';
 
@@ -7,47 +7,66 @@ const {
   GAME_START,
   INPUT_NUMBER,
   SUGGEST_NEW_GAME,
-  STRIKE,
   SUCCESS,
-  BALL,
   NOTHING,
+  BALL,
+  STRIKE,
 } = MESSAGE;
-const { MAX_STRIKE_COUNT } = SETTING;
+const { RESTART, MAX_STRIKE_COUNT } = SETTING;
 
 export default class App {
   #game;
 
+  #view;
+
+  #inProgress = true;
+
   constructor() {
     this.#game = new Game();
+    this.#view = new View();
   }
 
   async play() {
     try {
-      let isGameFinished = false;
+      while (this.#inProgress) {
+        this.#view.print(GAME_START);
 
-      while (!isGameFinished) {
-        print(GAME_START);
-
-        const inputNumber = (await input(INPUT_NUMBER)).trim();
+        const inputNumber = (await this.#view.input(INPUT_NUMBER)).trim();
         validateInput(inputNumber);
 
         const { ballCount, strikeCount } = this.#game.checkGuess(inputNumber);
         const message = this.feedbackMessage(ballCount, strikeCount);
-        print(message);
+        this.#view.print(message);
 
         if (strikeCount !== MAX_STRIKE_COUNT) continue;
-        const restartNumber = Number(await input(SUGGEST_NEW_GAME));
-        isGameFinished = !(
-          validateRestartInput(restartNumber) && restartNumber === 1
-        );
 
-        if (!isGameFinished) {
-          this.#game.init();
-        }
+        const restartNumber = await this.askForRestart();
+        this.restart(restartNumber);
       }
     } catch (e) {
+      this.end();
       throw new Error(e.message);
     }
+  }
+
+  async askForRestart() {
+    const restartNumber = Number(await this.#view.input(SUGGEST_NEW_GAME));
+    if (validateRestartInput(restartNumber)) {
+      return restartNumber;
+    }
+  }
+
+  /**
+   * @description 입력값에 따른 동작 구분 함수
+   * @param {number} input
+   */
+
+  restart(input) {
+    input === RESTART ? this.#game.init() : this.end();
+  }
+
+  end() {
+    this.#inProgress = false;
   }
 
   /**
