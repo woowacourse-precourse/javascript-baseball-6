@@ -1,8 +1,9 @@
 import ErrorCatcher from './ErrorCatcher.js';
 
 export const validateNumbers = (numbers) => {
-  ErrorCatcher.validateLength(numbers);
   ErrorCatcher.validateType(numbers);
+  ErrorCatcher.validateRange(numbers);
+  ErrorCatcher.validateLength(numbers);
   ErrorCatcher.validateUnique(numbers);
 };
 

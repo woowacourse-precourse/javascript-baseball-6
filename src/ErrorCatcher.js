@@ -2,14 +2,18 @@ import {
   ANSWER_LENGTH,
   START_ORDER,
   QUIT_ORDER,
+  NOT_IN_RANGE_NUMBER,
 } from './constants/constants.js';
 
+const DECIMAL_POINT = Object.freeze('.');
+const MINUS = Object.freeze('-');
+
 const ERROR_MESSAGE = Object.freeze({
-  NO_NUMBER: '[ERROR] 숫자가 아닌 값은 입력할 수 없습니다.',
-  NO_INTEGER: '[ERROR] 정수가 아닌 숫자를 입력할 수 없습니다.',
-  INVALID_LENGTH: '[ERROR] 3자리 숫자를 입력해야 합니다.',
+  NO_NUMBER: '[ERROR] 부호/기호/문자 없이 숫자만 입력해야 합니다.',
+  NOT_IN_RANGE: `[ERROR] ${NOT_IN_RANGE_NUMBER}을 제외한 숫자만 입력해야 합니다.`,
+  INVALID_LENGTH: `[ERROR] ${ANSWER_LENGTH}개의 숫자를 입력해야 합니다.`,
   NO_UNIQUE: '[ERROR] 서로 다른 숫자를 입력해야 합니다.',
-  INVALID_ORDER: '[ERROR] 1 또는 2 중 하나만 입력할 수 있습니다.',
+  INVALID_ORDER: `[ERROR] ${START_ORDER} 또는 ${QUIT_ORDER} 중 하나만 입력할 수 있습니다.`,
 });
 
 const ErrorCatcher = {
@@ -18,13 +22,23 @@ const ErrorCatcher = {
       throw ERROR_MESSAGE.NO_NUMBER;
     }
 
-    if (answer.split('').includes('.')) {
-      throw ERROR_MESSAGE.NO_INTEGER;
+    if (answer.split('').includes(DECIMAL_POINT)) {
+      throw ERROR_MESSAGE.NO_NUMBER;
+    }
+
+    if (answer.split('').includes(MINUS)) {
+      throw ERROR_MESSAGE.NO_NUMBER;
+    }
+  },
+
+  validateRange(answer) {
+    if (answer.split('').includes(NOT_IN_RANGE_NUMBER)) {
+      throw ERROR_MESSAGE.NOT_IN_RANGE;
     }
   },
 
   validateLength(answer) {
-    if (answer.split('').length !== ANSWER_LENGTH) {
+    if (String(parseInt(answer)).length !== ANSWER_LENGTH) {
       throw ERROR_MESSAGE.INVALID_LENGTH;
     }
   },
