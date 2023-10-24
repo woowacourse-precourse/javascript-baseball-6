@@ -1,6 +1,16 @@
 import { Console, Random } from '@woowacourse/mission-utils';
 
 class App {
+  constructor() {
+    this.GAME_OPTIONS = {
+      RESTART_GAME: '1',
+      END_GAME: '2',
+    };
+    this.ERROR_MESSAGE = {
+      INCORRECT_FORMAT_NUMBER: '[ERROR] 숫자가 잘못된 형식입니다.',
+    };
+  }
+
   async play() {
     Console.print('숫자 야구 게임을 시작합니다.');
     let isStartGame = true;
@@ -48,22 +58,18 @@ class App {
   async getUserNumber() {
     const userNumber = await Console.readLineAsync('숫자를 입력해주세요 : ');
     if (!this.isValidNumber(userNumber)) {
-      throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+      throw new Error(this.ERROR_MESSAGE.INCORRECT_FORMAT_NUMBER);
     }
     return userNumber;
   }
 
   async restartGame() {
-    const GAME_OPTIONS = {
-      RESTART_GAME: '1',
-      END_GAME: '2',
-    };
     const gameController = await Console.readLineAsync(
       '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.'
     );
-    if (gameController === GAME_OPTIONS.RESTART_GAME) return true;
-    if (gameController === GAME_OPTIONS.END_GAME) return false;
-    throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+    if (gameController === this.GAME_OPTIONS.RESTART_GAME) return true;
+    if (gameController === this.GAME_OPTIONS.END_GAME) return false;
+    throw new Error(this.ERROR_MESSAGE.INCORRECT_FORMAT_NUMBER);
   }
 
   pickRandomNumber() {
