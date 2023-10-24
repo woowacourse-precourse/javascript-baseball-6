@@ -42,14 +42,6 @@ class App {
     }
   }
 
-  async askForGameRestart() {
-    const input = (await Console.readLineAsync(MESSAGE.continue)).trim();
-    if (input === "1") return true;
-    if (input === "2") return false;
-
-    throw new Error(MESSAGE.error);
-  }
-
   generateRandomNumber() {
     let result = "";
 
@@ -92,6 +84,15 @@ class App {
 
     return result.join(" ");
   }
+
+  async askForGameRestart() {
+    const input = (await Console.readLineAsync(MESSAGE.continue)).trim();
+    if (input === "1") return true;
+    if (input === "2") return false;
+
+    throw new Error(MESSAGE.error);
+  }
+
   validateInput(input) {
     const regEx = new RegExp("^(?!.*(\\d).*\\1)[1-9]{3}$");
 
