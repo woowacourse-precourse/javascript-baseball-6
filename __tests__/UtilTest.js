@@ -6,7 +6,7 @@ describe("유틸 테스트", () => {
     test("서로 다른 수인지 검증한다.", () => {
       const [size, min, max] = [3, 1, 9];
       const number = generateNumber({ size, min, max });
-      expect(Validator.hasUniqueNumbers(number)).toBeTruthy();
+      expect(Validator.isNumber(number) && Validator.hasUniqueValue(number)).toBeTruthy();
     });
     test("1~9 사이의 수인지 검증한다.", () => {
       const [size, min, max] = [3, 1, 9];

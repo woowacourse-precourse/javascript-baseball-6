@@ -2,9 +2,7 @@ const Validator = {
   isValidLength: (input, { size }) => {
     return String(input).length === size;
   },
-  hasUniqueNumbers: (input) => {
-    if (!Validator.isNumber(input)) return false;
-
+  hasUniqueValue: (input) => {
     const array = String(input).split('');
     const filteredArray = [...new Set(array)];
 
@@ -12,7 +10,6 @@ const Validator = {
   },
   isValidRange: (input, { min, max }) => {
     if (!Validator.isNumber(input)) return false;
-
 
     for (const key of String(input)) {
       const numberKey = Number(key);

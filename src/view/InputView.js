@@ -9,7 +9,11 @@ const InputView = {
     const { SIZE, RANGE: { MIN, MAX } } = SETTING.RULE;
     const guessNumber = await Console.readLineAsync(MESSAGE.INPUT.GUESS_NUMBER);
 
-    if (!Validator.hasUniqueNumbers(guessNumber)) {
+    if (!Validator.isNumber(guessNumber)) {
+      throw new ValidationError(MESSAGE.ERROR.INVALID_NUMBER);
+    }
+
+    if (!Validator.hasUniqueValue(guessNumber)) {
       throw new ValidationError(MESSAGE.ERROR.DUPLICATED);
     }
 

@@ -8,11 +8,11 @@ describe("입력값 검증", () => {
     expect(Validator.isValidLength("12", { size: 2 })).toBeTruthy();
   });
 
-  test("서로 다른 수인지 검증한다.", () => {
-    expect(Validator.hasUniqueNumbers("123")).toBeTruthy();
-    expect(Validator.hasUniqueNumbers("112")).toBeFalsy();
-    expect(Validator.hasUniqueNumbers("121")).toBeFalsy();
-    expect(Validator.hasUniqueNumbers("12a")).toBeFalsy();
+  test("서로 다른 값인지 검증한다.", () => {
+    expect(Validator.hasUniqueValue("123")).toBeTruthy();
+    expect(Validator.hasUniqueValue("112")).toBeFalsy();
+    expect(Validator.hasUniqueValue("121")).toBeFalsy();
+    expect(Validator.hasUniqueValue("abc")).toBeTruthy();
   });
 
   test("1~9 사이의 수인지 검증한다.", () => {
