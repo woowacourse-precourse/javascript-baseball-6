@@ -20,7 +20,7 @@ export async function getMenuInput() {
 }
 
 export function parseNumber(str) {
-  if (typeof str !== ('string' || 'number'))
+  if (typeof str !== 'string' && typeof str !== 'number')
     throw new Error('인자는 문자열이나 숫자이어야 합니다.');
 
   const parseNumber = Number(str);
