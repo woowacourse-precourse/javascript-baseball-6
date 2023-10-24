@@ -1,7 +1,7 @@
-import { Random, Console } from '@woowacourse/mission-utils';
+import { Console } from '@woowacourse/mission-utils';
 import { INPUT_LENGTH, MESSAGE, RESTART } from './utils/Constants';
-import { printBallCount, getStrikeAndBall } from './utils/BallCount';
-import { checkIsValid } from './utils/CheckInput';
+import { printPitchingCount, getPitchingCount } from './utils/BallCount';
+import { checkIsReplay, checkIsValid } from './utils/CheckInput';
 import getRandomNumber from './utils/Random';
 
 class App {
@@ -16,16 +16,18 @@ class App {
 			const userNumber = input.split('').map((num) => parseInt(num));
 			checkIsValid(userNumber);
 
-			const { ballCount, strikeCount } = getStrikeAndBall(
+			const { ballCount, strikeCount } = getPitchingCount(
 				this.computerNumber,
 				userNumber
 			);
 
-			printBallCount(ballCount, strikeCount);
+			printPitchingCount(ballCount, strikeCount);
 
 			if (strikeCount === INPUT_LENGTH) {
 				Console.print(MESSAGE.end);
 				const choice = await Console.readLineAsync(MESSAGE.restart);
+
+				checkIsReplay(choice);
 
 				if (choice !== RESTART) {
 					return;

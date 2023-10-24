@@ -1,6 +1,6 @@
 import { Console, Random } from '@woowacourse/mission-utils';
 import getRandomNumber from './utils/Random';
-import { getStrikeAndBall, printBallCount } from './utils/BallCount';
+import { getPitchingCount, printPitchingCount } from './utils/BallCount';
 // import { checkIsValid } from './utils/CheckInput';
 import { MESSAGE, RESTART, INPUT_LENGTH } from './utils/Constants';
 
@@ -39,12 +39,12 @@ class BaseBallGame {
 			const userNumber = input.split('').map((element) => parseInt(element));
 			this.checkIsValid(userNumber);
 
-			const { ballCount, strikeCount } = getStrikeAndBall(
+			const { ballCount, strikeCount } = getPitchingCount(
 				computerNumber,
 				userNumber
 			);
 
-			printBallCount(ballCount, strikeCount);
+			printPitchingCount(ballCount, strikeCount);
 
 			if (strikeCount === 3) {
 				Console.print(MESSAGE.end);

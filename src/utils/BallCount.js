@@ -1,6 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 
-export const getStrikeAndBall = (computerNumber, userNumber) => {
+export const getPitchingCount = (computerNumber, userNumber) => {
 	let ballCount = 0;
 	let strikeCount = 0;
 
@@ -12,7 +12,7 @@ export const getStrikeAndBall = (computerNumber, userNumber) => {
 	return { ballCount, strikeCount };
 };
 
-export const printBallCount = (ballCount, strikeCount) => {
+export const printPitchingCount = (ballCount, strikeCount) => {
 	if (ballCount !== 0 && strikeCount !== 0) {
 		Console.print(`${ballCount}볼 ${strikeCount}스트라이크`);
 		return;
