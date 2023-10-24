@@ -53,8 +53,6 @@ const ballCount = (userNumber, computerNumber) => {
 const playRestart = async () => {
     const res = await MissionUtils.Console.readLineAsync(`${TEXT.RESTART_YN} \n`);
     if (res === '1') {
-        MissionUtils.Console.print(`${TEXT.RESTART_YN} \n`);
-        MissionUtils.Console.print(`${res}`);
         return playGame();
     } else if (res === '2') {
         return;

@@ -5,7 +5,6 @@ import { TEXT } from '../comm/text.js';
 export default async function inputUserNumber(){
     const number = MissionUtils.Console.readLineAsync(`${TEXT.INPUT_NUMBER}`)
     .then((res) => {
-        MissionUtils.Console.print(`${TEXT.INPUT_NUMBER} ${res}`);
         const valudateNumber = inputNumberValidate(res);
         return valudateNumber;
     })
