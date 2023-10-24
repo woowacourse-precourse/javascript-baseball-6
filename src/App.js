@@ -21,6 +21,7 @@ class App {
     await this.reStartOrExit()
   }
 
+  // 랜덤 번호 가져오는 함수
   getRandomNumber() {
     const computer = [];
     while (computer.length < 3) {
@@ -31,6 +32,7 @@ class App {
     }
     return computer;
   }
+  // 유저 번호 받는 함수
   async getUserNumber() {
     try {
       const number = await Console.readLineAsync("숫자를 입력해주세요 : ");
@@ -54,6 +56,7 @@ class App {
       return;
     }
   }
+  // 랜덤번호와 유저번호 체크하는 함수
   checkNumbers(computer, user) {
     let strike = 0;
     let ball = 0;
@@ -73,6 +76,7 @@ class App {
     }
     return this.checkNumbersPrint(strike, ball)
   }
+  // 체크한 함수 결과값 반환해주는 함수
   checkNumbersPrint(strike, ball) {
     if (strike === 3) {
       return "3스트라이크"; 
@@ -82,6 +86,7 @@ class App {
       return `${ball}볼 ${strike}스트라이크`; 
     }
   }
+  // 재시작할지 종료할지 선택하는 함수
   async reStartOrExit() {
     const result = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
 
