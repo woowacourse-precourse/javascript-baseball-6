@@ -24,8 +24,6 @@ class App {
     const INPUT_VALUE = await this.getInputNumber();
     const INPUT_VALUE_ARR = [...INPUT_VALUE];
 
-    this.checkInput(INPUT_VALUE);
-
     INPUT_VALUE_ARR.forEach((num, idx) => {
       if (num === RANDOM_VALUE[idx]) RESULT.strike++;
       else if (RANDOM_VALUE.includes(num)) RESULT.ball++;
@@ -47,16 +45,13 @@ class App {
   }
 
   async getInputNumber() {
-    try {
-      const input = await Console.readLineAsync("숫자를 입력해주세요 : ");
-      return input;
-    } catch (e) {
-      console.error(e);
-    }
+    const input = await Console.readLineAsync("숫자를 입력해주세요 : ");
+    this.checkInput(input);
+    return input;
   }
 
   // 입력 값이 숫자가 아니거나, 중복을 제거한 길이가 3이 아니면 throw error
-  checkInput(input) {
+  checkInputNumber(input) {
     const setInput = [...new Set(input)];
 
     if (isNaN(parseInt(input)) || setInput.length !== 3) {
