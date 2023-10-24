@@ -45,9 +45,10 @@ function isInputValid(number) {
       return false;
     }
   }
-
-  let set = new Set([...number]); //변수를 뭐라 지을지 모르겠음. 중복없앤숫자?
-  if (set.size !== numberCount || number.length !== numberCount) {
+  if (
+    new Set([...number]).size !== numberCount ||
+    number.length !== numberCount
+  ) {
     return false;
   }
 
@@ -61,7 +62,7 @@ function isRestartValid(number) {
   return false;
 }
 
-function checkValue(answer, number) {
+function calculateScore(answer, number) {
   for (let i = 0; i < answer.length; i++) {
     let index = answer.findIndex((el) => el === number[i]);
 
@@ -116,7 +117,7 @@ class App {
         throw new Error(MESSAGE.ERROR);
       }
 
-      checkValue(ANSWER, num);
+      calculateScore(ANSWER, num);
 
       if (!SCORE.success) {
         resetScore();
