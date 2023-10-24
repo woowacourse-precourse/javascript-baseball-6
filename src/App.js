@@ -17,4 +17,16 @@ const init = async () => {
   }
 };
 
+// 컴퓨터의 임의의 3자리 수 생성 함수
+const generateRandomoNumber = () => {
+  const computerNumber = [];
+  while (computerNumber.length < 3) {
+    const randomNumber = Random.pickNumberInRange(1, 9);
+    if (!computerNumber.includes(randomNumber)) {
+      computerNumber.push(randomNumber);
+    }
+  }
+  return computerNumber;
+};
+
 export default App;
