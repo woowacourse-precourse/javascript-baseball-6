@@ -26,7 +26,7 @@ class App {
   async inputNumbers() {
     const numericRegex = /^[0-9]+$/;
 
-    while(1) {
+    while(true) {
       const input = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
       
       if (input.length !== 3){ // 3자 이내의 숫자를 입력한 경우 오류 발생
@@ -93,7 +93,7 @@ class App {
   async play() {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
 
-    while(1) {
+    while(true) {
       this.numbers = this.getRandomNumbers(); // 랜덤 숫사 배열 생성
       
       await this.inputNumbers(); // 플레이어 숫자 입력
