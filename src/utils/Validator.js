@@ -1,4 +1,4 @@
-import { SETTING } from './Constants.js';
+import { SETTING } from './Constants';
 
 const { MAX_INPUT_LENGTH, RESTART, END } = SETTING;
 

@@ -1,7 +1,7 @@
-import Game from './model/Game.js';
-import View from './view/View.js';
-import { ERROR, MESSAGE, SETTING } from './utils/Constants.js';
-import { validator } from './utils/Validator.js';
+import Game from './model/Game';
+import View from './view/View';
+import { ERROR, MESSAGE, SETTING } from './utils/Constants';
+import { validator } from './utils/Validator';
 
 const { RESTART, MAX_STRIKE_COUNT } = SETTING;
 const { HEADER, NUMBER, LENGTH, DUPLICATE, RESTART_NUMBER } = ERROR;
