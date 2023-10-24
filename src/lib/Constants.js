@@ -3,17 +3,18 @@ const INPUT_MESSAGE ={
     COMMAND: '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.',
 };
 
-const VALIDATION_RULE = {
-    VALID_GUESS_LENGTH: 3,
-    VALID_COMMAND: ['1', '2'],
-    GUESS_MIN_VALUE_INCLUSIVE: 1,
-    GUESS_MAX_VALUE_INCLUSIVE: 9,
-};
-
 const COMMAND_HASH = {
     '1' : true,
     '2' : false,
 };
+
+const VALIDATION_RULE = {
+    VALID_GUESS_LENGTH: 3,
+    VALID_COMMAND: Object.keys(COMMAND_HASH),
+    GUESS_MIN_VALUE_INCLUSIVE: 1,
+    GUESS_MAX_VALUE_INCLUSIVE: 9,
+};
+
 
 const _Error_HEAD = '[ERROR]'
 const ERROR_MESSAGE = {
