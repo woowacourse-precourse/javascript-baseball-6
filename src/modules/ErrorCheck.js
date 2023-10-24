@@ -29,13 +29,6 @@ class ErrorCheck {
     if (setFromArray.size != array.length) throw new Error('[ERROR] Same element in Array');
   }
 
-  static rangeByCharCode(string, lower, maximum) {
-    [...string].forEach((element) => {
-      if (element.charCodeAt(0) < lower || maximum < element.charCodeAt(0))
-        throw new Error('[ERROR] Out of Character Range');
-    });
-  }
-
   static stringRangeByCharCode(string, lower, maximum) {
     [...string].forEach((element) => {
       if (element.charCodeAt(0) < lower || maximum < element.charCodeAt(0))
