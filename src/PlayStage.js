@@ -1,4 +1,4 @@
-import { Console } from "@woowacourse/mission-utils";
+import { Console, Random } from "@woowacourse/mission-utils";
 import MESSAGES from "./Messages.js";
 
 /**
@@ -20,6 +20,9 @@ class PlayStage {
   /** @type {number} */
   #ballCount;
 
+  /** @type {boolean} */
+  #isValid;
+
   /**
    * 생성자: 입력 메세지, 숫자들이 담긴 배열을 가져오고,
    * 스트라이크, 볼 카운트를 0으로 초기화한다.
@@ -30,14 +33,31 @@ class PlayStage {
     this.#numbers = numbers;
     this.#strikeCount = 0;
     this.#ballCount = 0;
+    this.#isValid = true;
   }
 
   /**
-   * 사용자의 숫자 입력을 받는다.
+   * 사용자의 숫자 입력을 받는다. (String)
    * @returns {Promise} 입력된 숫자 값
    */
-  numberInput() {
+  #numberInput() {
     return Console.readLineAsync(this.#message);
+  }
+
+  /**
+   * 사용자의 입력이 형식에 맞지 않을 경우 예외를 발생시킨다.
+   * @param {string} text 사용자의 입력
+   */
+  #checkValidation(text) {
+    if (!/^[1-9]{3}$/.test(text)) {
+      this.#isValid = false;
+      return;
+    }
+
+    const temp = text.split("").map(Number);
+    if (temp[0] === temp[1] || temp[1] === temp[2] || temp[0] === temp[2]) {
+      this.#isValid = false;
+    }
   }
 }
 
