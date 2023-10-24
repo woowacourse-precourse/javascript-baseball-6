@@ -1,63 +1,42 @@
-import generateNumber from './utils/RandomNumber.js';
-import { print, input } from './view/View.js';
+import Game from './Game.js';
+import { input, print } from './view/View.js';
 import { MESSAGE, SETTING } from './Constants.js';
 import { validateInput, validateRestartInput } from './utils/Validator.js';
 
 export default class App {
-  #answerNumbers;
-  #isFinish = false;
+  #game;
 
   constructor() {
-    this.init();
+    this.#game = new Game();
   }
 
   async play() {
     try {
-      while (!this.#isFinish) {
+      let isGameFinished = false;
+
+      while (!isGameFinished) {
         print(MESSAGE.GAME_START);
+
         const inputNumber = (await input(MESSAGE.INPUT_NUMBER)).trim();
         validateInput(inputNumber);
-        const { ballCount, strikeCount } = this.checkGuess(inputNumber);
+
+        const { ballCount, strikeCount } = this.#game.checkGuess(inputNumber);
         const message = this.feedbackMessage(ballCount, strikeCount);
         print(message);
 
-        if (strikeCount !== SETTING.MAX_STRIKE_COUNT) continue;
-
-        const restartNumber = Number(await input(MESSAGE.SUGGEST_NEW_GAME));
-        validateRestartInput(restartNumber) && restartNumber === 1
-          ? this.init()
-          : (this.#isFinish = true);
+        if (strikeCount === SETTING.MAX_STRIKE_COUNT) {
+          const restartNumber = Number(await input(MESSAGE.SUGGEST_NEW_GAME));
+          isGameFinished = !(
+            validateRestartInput(restartNumber) && restartNumber === 1
+          );
+          if (!isGameFinished) {
+            this.#game.init();
+          }
+        }
       }
     } catch (e) {
       throw new Error(e.message);
     }
-  }
-
-  init() {
-    this.#answerNumbers = generateNumber(SETTING.MIN, SETTING.MAX);
-    // console.log(this.#answerNumbers);
-  }
-
-  /**
-   * @description 두 값을 비교하여 판정을 내리는 함수
-   * @param {string} input
-   * @returns {object} {strikeCount: number, ballCount: number}
-   */
-  checkGuess(input) {
-    const randomNumber = this.#answerNumbers.join('');
-    let strikeCount = 0;
-    let ballCount = 0;
-
-    for (let i = 0; i < SETTING.MAX_INPUT_LENGTH; i++) {
-      if (input[i] === randomNumber[i]) {
-        strikeCount++;
-        continue;
-      }
-      if (randomNumber.includes(input[i])) {
-        ballCount++;
-      }
-    }
-    return { ballCount, strikeCount };
   }
 
   /**
