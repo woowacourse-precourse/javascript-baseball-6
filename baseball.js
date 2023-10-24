@@ -1,10 +1,3 @@
-/*class App {
-  async play() {}
-}
-
-export default App;
-*/
-
 class Random {
     static PICK_NUMBER_IN_RANGE(min, max) {
       return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -92,6 +85,5 @@ class Random {
   
   const app = new NumberBaseballGame();
   app.PLAY();
-  
   
   
