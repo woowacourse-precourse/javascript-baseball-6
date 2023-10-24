@@ -22,12 +22,22 @@ class App {
       let gameResult = BaseballGame.compareNumber(userNumber, this.computerNumber); // 사용자의 수와 컴퓨터의 수를 비교
       OutputView.printMessage(gameResult); // 게임 결과 출력
       if (gameResult === '3스트라이크') {
-        // 게임 종료
+        // 3스트라이크 게임 종료
         this.is3Strike = true;
         OutputView.printMessage(Message.THREE_STRIKE);
       }
     }
-  };
+
+    // 게임 종료 단계
+    let retry = await InputView.readLineAsync(Message.RETRY);
+    if (retry === '1') {
+      this.computerNumber = null;
+      this.is3Strike = false;
+      this.play();
+    } else if (retry !== '2') {
+      throw new Error(Message.ERROR_ONEORTWO);
+    }
+  }
 };
 
 export default App;
