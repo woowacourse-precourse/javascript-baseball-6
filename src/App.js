@@ -42,7 +42,7 @@ class App {
       const MYNUMBER = await Console.readLineAsync("숫자를 입력해주세요 : ");
 
       if(this.isInValidNumber(MYNUMBER)){
-          throw new Error("[ERROR]");
+          throw new Error("[ERROR] 유효하지 않은 숫자입니다.");
       }
   
       //3. 힌트 결과 계산
