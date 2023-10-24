@@ -3,6 +3,7 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 class App {
   async play() {
 
+    let gameOver = false
     let correctAnswer;
 
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
@@ -45,6 +46,9 @@ class App {
             answer.push(number)
           }
           correctAnswer = answer.join('')
+        }
+        else if (newGame == 2) {
+          gameOver = true
         }
       }
     }
