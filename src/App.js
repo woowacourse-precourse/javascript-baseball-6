@@ -1,16 +1,15 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 class App {
   gameEnd = false;
-  random = "";
+  random = [];
   ball = 0;
   strike = 0;
   constructor() {
-    this.random = this.init();
+    this.init();
     this.ball = 0;
     this.strike = 0;
   }
   async play() {
-    
     while (!this.gameEnd) {
       const input = await this.getInput();
       this.estimateScore(input);
@@ -20,21 +19,21 @@ class App {
   }
   init() {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
-    return this.generateRandom()
+    this.generateRandom();
   }
   generateRandom() {
-    const str = MissionUtils.Random.pickNumberInRange(100, 999).toString();
-    const strArray = str.split("");
-    const isPossible =
-      strArray.filter((value, index) => strArray.indexOf(value) === index)
-        .length === 3;
-    if (isPossible) return str;
-    return this.generateRandom();
+    this.random = []
+    while (this.random.length < 3) {
+      const number = MissionUtils.Random.pickNumberInRange(1, 9);
+      if (!this.random.includes(number)) {
+        this.random.push(number);
+      }
+    }
   }
   async getInput() {
-      const userInput = await this.getNumber("숫자를 입력해주세요 : ");
-      this.numberCheck(userInput);
-      return userInput;
+    const userInput = await this.getNumber("숫자를 입력해주세요 : ");
+    this.numberCheck(userInput);
+    return userInput;
   }
 
   async getNumber(msg) {
@@ -45,13 +44,13 @@ class App {
     const NUMBER_CHECK = /[0-9]$/g;
     if (NUMBER_CHECK.test(userInput) && userInput > 99 && userInput < 1000)
       return true;
-    throw "error";
+    throw Error("[ERROR]");
   }
 
   estimateScore(userInput) {
     const result = userInput
       .split("")
-      .map((value, index) => this.calculateScore(value, index));
+      .map((value, index) => this.calculateScore(Number(value), index));
   }
 
   calculateScore(value, index) {
@@ -62,14 +61,17 @@ class App {
       : this.ball++;
   }
   printScore() {
-    if (this.strike === 0 && this.ball == 0) MissionUtils.Console.print("낫띵");
+    if (this.strike === 0 && this.ball == 0) MissionUtils.Console.print("낫싱");
     if (this.strike === 3) {
+      MissionUtils.Console.print(`${this.strike}스트라이크`);
       this.ball = 0;
       this.strike = 0;
       return true;
     }
-    if (this.strike && this.ball) MissionUtils.Console.print(`${this.ball}볼 ${this.strike}스트라이크`);
-    else if (this.strike) MissionUtils.Console.print(`${this.strike}스트라이크`);
+    if (this.strike && this.ball)
+      MissionUtils.Console.print(`${this.ball}볼 ${this.strike}스트라이크`);
+    else if (this.strike)
+      MissionUtils.Console.print(`${this.strike}스트라이크`);
     else if (this.ball) MissionUtils.Console.print(`${this.ball}볼`);
     this.ball = 0;
     this.strike = 0;
@@ -87,11 +89,8 @@ class App {
       this.gameEnd = true;
       return;
     }
-    this.random = this.init();
+    this.init();
   }
 }
 
 export default App;
-const app = new App();
-app.play();
-
