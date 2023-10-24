@@ -31,8 +31,10 @@ const getUserNumber = async () => {
   return userNumber;
 };
 
-// 숫자로만 이루어진 문자열인지 확인하는 함수
-// 숫자로만 이루어졌으면 true 반환, 아니면 false 반환
+/**
+ * 숫자로만 이루어진 문자열인지 확인하는 함수
+ * 숫자로만 이루어졌으면 true 반환, 아니면 false 반환
+ */
 const isDigit = (input) => {
   for (let i = 0; i < input.length; i++) {
     const ch = input.charAt(i).charCodeAt();
@@ -43,8 +45,10 @@ const isDigit = (input) => {
   return true;
 };
 
-// 중복된 문자 값이 있는지 확인하는 함수
-// 중복 값이 있으면 true, 아니면 false
+/**
+ * 중복된 문자 값이 있는지 확인하는 함수
+ * 중복 값이 있으면 true, 아니면 false
+ */
 const isDuplicated = (input) => {
   for (let i = 0; i < input.length; i++) {
     const ch = input.charAt(i);
@@ -88,8 +92,10 @@ const compareNumber = (cNum, num) => {
   return false;
 };
 
-// 스트라이크 처리 함수
-// 입력값 : 컴퓨터 숫자, 입력 숫자  반환값 : 스트라이크 횟수
+/**
+ * 스트라이크 처리 함수
+ * 입력값 : 컴퓨터 숫자, 입력 숫자  반환값 : 스트라이크 횟수
+ */
 const getStrike = (cNum, num) => {
   let count = 0;
   for (let i = 0; i < cNum.length; i++) {
@@ -100,8 +106,10 @@ const getStrike = (cNum, num) => {
   return count;
 };
 
-// 볼 처리 함수
-// 입력값 : 컴퓨터 숫자, 입력 숫자  반환값 : 볼 횟수
+/**
+ * 볼 처리 함수
+ * 입력값 : 컴퓨터 숫자, 입력 숫자  반환값 : 볼 횟수
+ */
 const getBall = (cNum, num) => {
   let count = 0;
   for (let i = 0; i < cNum.length; i++) {
@@ -113,8 +121,10 @@ const getBall = (cNum, num) => {
   return count;
 };
 
-// 4. 게임 종료 처리
-// 1 입력시 true 반환, 2 입력시 false
+/**
+ * 4. 게임 종료 처리
+ * 1 입력시 true 반환, 2 입력시 false
+ */
 const restartGame = async () => {
   const restart = await Console.readLineAsync(
     "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
