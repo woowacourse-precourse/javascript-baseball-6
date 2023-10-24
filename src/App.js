@@ -23,7 +23,7 @@ export default class App {
     while (true) {
       const userInput = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
       if (userInput.length !== 3) {
-        throw new Error("[ERROR] 3자리 숫자를 입력해주세요.");
+        throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
       }
 
       const { strikes, balls } = this.getScore(userInput.split("").map(Number));
