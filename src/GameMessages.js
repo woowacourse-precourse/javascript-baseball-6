@@ -1,3 +1,4 @@
+// 게임 진행 관련 메시지
 export const GameMessages = Object.freeze({
   GAME_START: '숫자 야구 게임을 시작합니다.',
   PITCH_THE_BALL: '숫자를 입력해주세요 : ',

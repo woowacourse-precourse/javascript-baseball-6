@@ -36,15 +36,21 @@ class App {
     this.play(false);
   }
 
+  // 투수 번호를 받는다.
   async #getPitcherNumbers() {
-    const inputBalls = await Console.readLineAsync('숫자를 입력해주세요 : ');
+    const inputBalls = await Console.readLineAsync(GameMessages.PITCH_THE_BALL);
     return Pitcher.parsePitchBalls(inputBalls);
   }
 
+  // 게임 종료 후
   async #decideToContinueGame() {
     const choice = await Console.readLineAsync('');
     return choiceOptions(choice);
   }
 }
+
+const app = new App();
+app.play();
+
 export default App;
 

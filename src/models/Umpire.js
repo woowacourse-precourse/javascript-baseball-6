@@ -4,6 +4,10 @@ import {GameMessages} from '../GameMessages.js';
 import {Console} from '@woowacourse/mission-utils';
 
 class Umpire {
+  static BALL_COUNT = 3;
+  static MIN_COUNT = 1;
+  static MAX_COUNT = 9;
+
   getGameResult(inputPitcherNumbers, inputCatcherNumbers) {
     const {ball, strike} = this.getResultOfJudgment(inputPitcherNumbers, inputCatcherNumbers);
     const countResult =
@@ -17,7 +21,7 @@ class Umpire {
 
     Console.print(countResult);
 
-    if (strike === Pitcher.BALL_COUNT) {
+    if (strike === Umpire.BALL_COUNT) {
       Console.print(GameMessages.GAME_RESULT_EXIT);
       return true;
     }
