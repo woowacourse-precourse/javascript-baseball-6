@@ -1,79 +1,118 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
+const MissionUtils = require('@woowacourse/mission-utils');
 
-class App {
-  async play() {
-    const computer = [];
+const { Console, Random } = MissionUtils;
 
-    // 컴퓨터가 0에서 9 사이의 서로 다른 숫자 3개를 무작위로 뽑음
-    while (computer.length < 3) {
-      const number = MissionUtils.Random.pickNumberInRange(0, 9);
-      if (!computer.includes(number)) {
-        computer.push(number);
-      }
-    }
+class App {  //ESVersion 6 클래스 선언 
+  #userInput;
 
-    let attempts = 0;
+  #randomNumber;
 
-    while (true) {
-      // 사용자로부터 값을 입력받음
-      const userInput = await MissionUtils.Console.readLineAsync(
-        "숫자를 입력해주세요 (예: 1 2 3): "
-      );
-
-      if (!this.isValidInput(userInput)) {
-        MissionUtils.Console.print(
-          "올바른 입력이 아닙니다. 0에서 9 사이의 서로 다른 숫자 3개를 입력하세요."
-        );
-        continue;
-      }
-
-      const userNumbers = userInput.split(" ").map(Number);
-
-      // S(스트라이크)와 B(볼) 판별
-      const { strikes, balls } = this.checkGuess(computer, userNumbers);
-      attempts++;
-
-      if (strikes === 3) {
-        MissionUtils.Console.print(
-          `축하합니다! 정답을 맞혔습니다. 횟수: ${attempts}번`
-        );
-        break;
-      } else {
-        MissionUtils.Console.print(`${strikes}스트라이크 ${balls}볼`);
-      }
-    }
+  constructor() {
+    this.#userInput = '';
+    this.#randomNumber = '';
+    this.gameResults = {};
+    this.compare = {
+      isStrike: (num, idx) => this.#randomNumber[idx] === num,
+      isBall: (num, idx) => this.#randomNumber[idx] !== num && this.#randomNumber.includes(num),
+    };
+    this.inputCheck = {
+      isLenThree: answer => answer.length === 3,
+      isInt: answer => Number.isInteger(+answer),
+      isNegative: answer => Math.sign(answer) === -1,
+    };
   }
 
-  isValidInput(userInput) {
-    const userNumbers = userInput.split(" ").map(Number);
-    return (
-      userNumbers.length === 3 &&
-      userNumbers.every(
-        (number) => !isNaN(number) && number >= 0 && number <= 9
-      ) &&
-      new Set(userNumbers).size === 3
-    );
+  print(message) {
+    Console.print(message);
   }
 
-  checkGuess(computer, user) {
-    let strikes = 0;
-    let balls = 0;
+  printStartNotification() {
+    this.print('숫자 야구 게임을 시작합니다.');
+  }
 
-    for (let i = 0; i < 3; i++) {
-      if (computer[i] === user[i]) {
-        strikes++;
-      } else if (computer.includes(user[i])) {
-        balls++;
-      }
+  generateRandomNumber() {
+    while (this.#randomNumber.length < 3) {
+      const number = Random.pickNumberInRange(1, 9);
+      if (!this.#randomNumber.includes(number)) this.#randomNumber += `${number}`;
     }
+    this.#randomNumber = [...this.#randomNumber];
+  }
 
-    return { strikes, balls };
+  getUserInput() {
+    Console.readLine('숫자를 입력해주세요 : ', answer => {
+      const { isLenThree, isInt, isNegative } = this.inputCheck;
+      if (!isLenThree(answer) || !isInt(answer) || isNegative(answer))
+        throw new Error('잘못된 값을 입력하셨습니다.');
+
+      this.#userInput = [...answer];
+      this.gameResults = {};
+
+      this.getResult();
+      this.printResult();
+      this.restart();
+    });
+  }
+
+  getResult() {
+    const { gameResults } = this;
+    const { isStrike, isBall } = this.compare;
+
+    this.#userInput.forEach((num, idx) => {
+      if (isStrike(num, idx)) gameResults.strike = gameResults.strike + 1 || 1;
+      if (isBall(num, idx)) gameResults.ball = gameResults.ball + 1 || 1;
+    });
+  }
+
+  printResult() {
+    const { strike, ball } = this.gameResults;
+    const { print } = this;
+
+    const ballMessage = `${ball ? `${ball}볼 ` : ''}`;
+    const strikeMessage = `${strike ? `${strike}스트라이크 ` : ''}`;
+    const nothingMessage = `${!strike && !ball ? '낫싱' : ''}`;
+
+    print(ballMessage + strikeMessage + nothingMessage);
+    if (strike === 3) print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+    else this.getUserInput();
+  }
+
+  restart() {
+    Console.readLine('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n', answer => {
+      if (answer === '1') {
+        this.#randomNumber = '';
+        this.start();
+        return;
+      }
+      if (answer === '2') {
+        this.print('게임 종료');
+        Console.close();
+        return;
+      }
+      Console.close();
+      throw new Error('잘못된 값을 입력하셨습니다.'); //에러 처리
+    });
+  }
+
+  get userInput() {
+    return this.#userInput;
+  }
+
+  get randomNumber() {
+    return this.#randomNumber;
+  }
+
+  start() {
+    this.generateRandomNumber();
+    this.getUserInput();
+  }
+
+  play() {
+    this.printStartNotification();
+    this.start();
   }
 }
 
-export default App;
+const app = new App();
+app.play();
 
-(async () => {
-  const app = new App();
-  await app.play();
-})();
+module.exports = App;
