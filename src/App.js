@@ -3,7 +3,7 @@ import { Random, Console } from '@woowacourse/mission-utils';
 class App {
   async play() {
     Console.print('숫자 야구 게임을 시작합니다.');
-    this.playGame(this.makeNumber());
+    return this.playGame(this.makeNumber());
   }
 
   makeNumber() {
@@ -18,17 +18,19 @@ class App {
   }
 
   async playGame(computerNum) {
-    while (true) {
+    let isGameOver = false;
+
+    while (!isGameOver) {
       const playerNum = await Console.readLineAsync('숫자를 입력해주세요 : ');
       this.checkplayerNum(playerNum);
       const score = this.getScore(computerNum, playerNum);
       this.printScore(score);
       if (score.strike === 3) {
         Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
-        break;
+        isGameOver = true;
       }
     }
-    this.restartGame();
+    return this.restartGame();
   }
 
   checkplayerNum(playerNum) {
@@ -90,7 +92,7 @@ class App {
     if (gameFlag === '1') {
       this.playGame(this.makeNumber());
     } else if (gameFlag === '2') {
-      return;
+      Console.print('게임 종료');
     } else {
       throw new Error('[ERROR] 1과 2만 입력이 가능합니다.');
     }
