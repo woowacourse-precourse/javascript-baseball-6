@@ -23,7 +23,7 @@ class App {
     const validation = new InputValidation(input, 'GAME');
 
     if (!validation.validate()) {
-      throw this.ERROR_MESSAGE;
+      throw new Error(this.ERROR_MESSAGE);
     }
 
     this.lastGuessNumberAsString = input;
@@ -51,20 +51,37 @@ class App {
     return result;
   }
 
+  async confirmExit() {
+    const input = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
+    const validation = new InputValidation(input, 'EXIT');
+
+    if (!validation.validate()) {
+      throw new Error(this.ERROR_MESSAGE);
+    }
+
+    return input === '2'
+  }
+
   async play() {
     Console.print('숫자 야구 게임을 시작합니다.');
 
-    this.init();
-
     while (true) {
-      await this.askForGuessNumber();
-      const result = this.getResultForGuessNumber();
-      if (result.strike === 3) {
-        Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
-        break;
+      this.init();
+
+      while (true) {
+        await this.askForGuessNumber();
+        const result = this.getResultForGuessNumber();
+        if (result.strike === 3) {
+          Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+          break;
+        }
+      }
+
+      const wantsToExit = await this.confirmExit();
+      if (wantsToExit) {
+        return;
       }
     }
-
   }
 }
 
