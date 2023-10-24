@@ -32,6 +32,12 @@ class App {
     return userInput.filter((el, i) => computerInput[i] === el).length;
   }
 
+  calcBall(userInput, computerInput) {
+    return userInput.filter(
+      (el, i) => computerInput.includes(el) && computerInput[i] !== el
+    ).length;
+  }
+
   async play() {}
 }
 
