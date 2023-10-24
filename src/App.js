@@ -44,20 +44,27 @@ class App {
   }
 
   async userInput() {
-    // "숫자를 입력해주세요" 출력 후 사용자로부터 3자리 숫자 입력 받기
-    const input = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 :");
+    let inputDigits;
+    
+    while (true) {
+      // "숫자를 입력해주세요" 출력 후 사용자로부터 3자리 숫자 입력 받기
+      const input = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 :");
 
-    if (!input || input.length !== 3 || !/^\d+$/.test(input)) {
-      throw new Error("[ERROR]"); // 에러 발생
+      if (!input || input.length !== 3 || !/^\d+$/.test(input)) {
+        throw new Error("올바른 숫자를 입력해주세요.");
+      }
+
+      inputDigits = input.split('').map(Number);
+
+      // 입력값이 중복일때 확인
+      if (inputDigits.length !== new Set(inputDigits).size) {
+        console.log("입력값이 중복 되었습니다. 각 다른 숫자를 입력해주세요.");
+      } else {
+        break; // 중복이 없으면 입력 받기 종료
+      }
     }
-    const inputDigits = input.split('').map(Number);
 
-    // 입력값이 중복일때 확인
-    if (inputDigits.length !== new Set(inputDigits).size) {
-      throw new Error("[ERROR]"); // 에러 발생
-    }
-
-    return input;
+    return inputDigits;
   }
 
   calculateResult(userEnter, computerNumbers) {
