@@ -1,8 +1,10 @@
 import { Console, Random } from "@woowacourse/mission-utils";
+import Computer from "./modules/Computer";
 
 export default class App {
   constructor() {
     this.isReplaying = true;
+    this.computer = new Computer();
   }
 
   async play() {
@@ -33,14 +35,7 @@ export default class App {
   }
 
   async getComputerNumber() {
-    const machineGeneratedNumber = [];
-    while (machineGeneratedNumber.length < 3) {
-      const randomDigit = Random.pickNumberInRange(1, 9);
-      if (!machineGeneratedNumber.includes(randomDigit)) {
-        machineGeneratedNumber.push(randomDigit);
-      }
-    }
-    return machineGeneratedNumber.join("");
+    return this.computer.getComputerNumber();
   }
 
   async compareNumbers() {
