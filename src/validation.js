@@ -8,6 +8,10 @@ export const isValidUserNumber = (input) => {
   if (!isThreeDigits(input)) {
     throw new Error(ERROR_MESSAGES.NOT_THREE_DIGITS);
   }
+
+  if (!isNotDuplicate(input)) {
+    throw new Error(ERROR_MESSAGES.DUPLICATE);
+  }
   return true;
 };
 
@@ -18,4 +22,14 @@ const isAllCorrectRangeDigits = (input) => {
 
 const isThreeDigits = (input) => {
   if (input.length === 3) return true;
+};
+
+const isNotDuplicate = (input) => {
+  const numbers = [];
+  input.split('').forEach((digit) => {
+    if (!numbers.includes(+digit)) {
+      numbers.push(+digit);
+    }
+  });
+  if (numbers.length === 3) return true;
 };
