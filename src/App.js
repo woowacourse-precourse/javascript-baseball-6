@@ -110,18 +110,22 @@ class App {
     }
 
     async function gameStart() {
-      const COMPUTER = makeAnswer();
+      
+      let playAgain = true;
       // Console.print(COMPUTER);
-
-      while (true) {
-        if (!(await chkValue(COMPUTER))) {
-          break;
+      while (playAgain) {
+        const COMPUTER = makeAnswer();
+        while (true) {
+          if (!(await chkValue(COMPUTER))) {
+            break;
+          }
         }
-      }
-      try {
-        return (await newGameChk()) ? await gameStart() : 0;
-      } catch (error) {
-        Console.print(error);
+
+        try {
+          playAgain = await newGameChk();
+        } catch(error) {
+          Console.print(error);
+        }
       }
     }
 
