@@ -4,6 +4,7 @@ class App {
 	constructor() {
 		this.mode = GAME.PLAYING;
 	}
+
 	/**
 	 * 시작 메세지 보여주는 함수
 	 */
