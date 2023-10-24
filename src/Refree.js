@@ -1,5 +1,3 @@
-import { Console } from "@woowacourse/mission-utils";
-
 export default class Referee {
   #strike;
   #ball;

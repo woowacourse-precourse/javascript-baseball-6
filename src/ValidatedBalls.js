@@ -1,15 +1,12 @@
-import { Console } from "@woowacourse/mission-utils";
-
-// TODO : TDD 코드 짜보기
-export default class BallsBox {
+export default class ValidatedBalls {
   #BALL_NUMBERS_SIZE = 3;
-  ballArray;
+  ballsArray;
 
   constructor(ballString) {
     this.validationSize(ballString);
     this.validationDuplicate(ballString);
     this.validationRange(ballString);
-    this.ballArray = ballString.split("");
+    this.ballsArray = ballString.split("");
   }
 
   validationSize(ballString) {
