@@ -1,3 +1,5 @@
+import { Random } from "@woowacourse/mission-utils";
+
 class Model {
   constructor() {
     this.inputNumber = '';
@@ -6,7 +8,7 @@ class Model {
   initAnswer() {
     const answer = [];
     while (answer.length < 3) {
-      const randomNumber = Math.floor(Math.random() * 9) + 1;
+      const randomNumber = Random.pickNumberInRange(1, 9);
       if (!answer.includes(randomNumber)) {
         answer.push(randomNumber);
       }
