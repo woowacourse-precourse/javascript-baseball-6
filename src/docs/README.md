@@ -1,4 +1,6 @@
-# 📚 WOOWAPRECOURCE 1ST WEEK ASSIGNMENT - ⚾ 숫자 야구
+# 📚 WOOWAPRECOURCE ASSIGNMENT
+
+# 1ST WEEK : ⚾ 숫자 야구
 
 ## 📜 기능 요구사항
 
