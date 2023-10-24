@@ -1,4 +1,4 @@
-import { CONSTANTS } from '.';
+import CONSTANTS from '../assets/constants';
 import InputError from '../errors/input-error';
 
 const isAllNumber = (numbers) => !numbers.some(Number.isNaN);

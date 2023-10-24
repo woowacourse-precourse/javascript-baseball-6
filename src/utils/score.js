@@ -1,4 +1,4 @@
-import CONSTANTS from './constants';
+import CONSTANTS from '../assets/constants';
 
 const score = (guesser, answer) => ({
   get strikes() {
