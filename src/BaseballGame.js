@@ -4,6 +4,7 @@ import Computer from './Computer';
 import Validator from '../utils/Validator';
 import NumberChecker from './NumberChecker';
 import CONSTANTS from './Constants';
+import InputView from './Views/InputView';
 
 class BaseballGame {
   computerNumber;
@@ -26,8 +27,7 @@ class BaseballGame {
   }
 
   async readNumber() {
-    const userInput = await Console.readLineAsync(MESSAGES.numberQuery);
-    const userNumber = userInput.split('').map(Number);
+    const userNumber = await InputView.readNumber();
     await this.handleNumber(userNumber);
   }
   async handleNumber(userNumber) {
@@ -50,7 +50,7 @@ class BaseballGame {
   }
 
   async readRetry() {
-    const userInput = Number(await Console.readLineAsync(MESSAGES.restartQuery));
+    const userInput = await InputView.readRetry();
     await this.handleRetry(userInput);
   }
   async handleRetry(userInput) {
