@@ -11,6 +11,8 @@ class Controller {
 
   async ending() {
     await this.view.ending();
+    const input = this.view.getInputNumber();
+    this.model.update(input);
     return this;
   }
 
