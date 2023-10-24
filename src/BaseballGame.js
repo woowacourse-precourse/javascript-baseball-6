@@ -12,6 +12,7 @@ export default class BaseballGame {
     this.#user = new User();
   }
 
+  // 게임 시작 함수
   async gameStart() {
     this.#ballCount = 0;
     this.#strikeCount = 0;
@@ -22,19 +23,20 @@ export default class BaseballGame {
       this.#strikeCount = 0;
       await this.#user
         .setThreeNummber()
-        .then(() => {
-          this.compareNumber();
-        })
-        .then(() => {
-          this.printCount();
-        })
-        .catch((error) => {
-          throw new Error('[ERROR]');
-        });
+          .then(() => {
+            this.compareNumber();
+          })
+          .then(() => {
+            this.printCount();
+          })
+          .catch((error) => {
+            throw new Error('[ERROR]');
+          });
     }
     Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
   }
 
+  // 랜덤 숫자 배열과 입력받은 숫자 배열을 비교하는 함수
   compareNumber() {
     const computerNumberArray = this.#computer.getRandomThreeNummber();
     const userNumberArray = this.#user.getThreeNummber();
@@ -49,6 +51,7 @@ export default class BaseballGame {
     });
   }
 
+  // 비교 결과를 출력하는 함수
   printCount() {
     if (this.#ballCount === 0 && this.#strikeCount === 0) {
       Console.print('낫싱');
@@ -61,7 +64,8 @@ export default class BaseballGame {
     }
   }
 
-  async retry() {
+  // 게임 재시작 여부를 입력받는 함수
+  async getRetryAnswer() {
     try {
       const number = await Console.readLineAsync(
         '숫자를 게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.'

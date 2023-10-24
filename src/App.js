@@ -10,7 +10,7 @@ class App {
       await game.gameStart().catch(() => {
         throw new Error('[ERROR]');
       });
-      inputFlag = await game.retry().catch(() => {
+      inputFlag = await game.getRetryAnswer().catch(() => {
         throw new Error('[ERROR]');
       });
       if (inputFlag === '1') {
