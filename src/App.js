@@ -1,4 +1,4 @@
-import {Random, Console} from "@woowacourse/mission-utils";
+import { Random, Console } from "@woowacourse/mission-utils";
 
 class App {
   async play() {
@@ -36,6 +36,13 @@ class App {
         Console.print(feedback);
 
         attempts++;
+      }
+
+      const playAgain = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n");
+      if (playAgain === "2") {
+        return;
+      } else if (playAgain !== "1") {
+        throw new Error("[ERROR] 1 또는 2를 입력하세요. 게임 종료");
       }
     }
   }
