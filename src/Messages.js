@@ -10,3 +10,10 @@ export const ERROR_MESSAGE = Object.freeze({
   NOT_ONLY_NUMBER: "[ERROR] 숫자만 입력하세요",
   DUPLICATE_NUMBER: "[ERROR] 중복된 숫자가 입력되었습니다.",
 });
+
+export const BASEBALL_MESSAGE = Object.freeze({
+  NOTHING: "낫싱",
+  BALL: "볼",
+  STRIKE: "스트라이크",
+  END_GAME: "3스트라이크",
+});

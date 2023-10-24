@@ -1,5 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import { GAME_MESSAGE, ERROR_MESSAGE } from "./Messages.js";
+import { GAME_MESSAGE, ERROR_MESSAGE, BASEBALL_MESSAGE } from "./Messages.js";
 
 class App {
   constructor() {
@@ -14,7 +14,7 @@ class App {
   async playNumberGame() {
     this.generateRandomNumber();
     let printResult;
-    while (printResult !== "3스트라이크") {
+    while (printResult !== BASEBALL_MESSAGE.END_GAME) {
       const userInput = await MissionUtils.Console.readLineAsync(
         GAME_MESSAGE.INPUT_NUMBER
       );
@@ -61,11 +61,12 @@ class App {
       }
     }
 
-    if (strikes === 0 && balls === 0) return "낫싱";
-    if (strikes !== 0 && balls === 0) return `${strikes}스트라이크`;
-    if (strikes === 0 && balls !== 0) return `${balls}볼`;
+    if (strikes === 0 && balls === 0) return BASEBALL_MESSAGE.NOTHING;
+    if (strikes !== 0 && balls === 0)
+      return `${strikes}${BASEBALL_MESSAGE.STRIKE}`;
+    if (strikes === 0 && balls !== 0) return `${balls}${BASEBALL_MESSAGE.BALL}`;
 
-    return `${balls}볼 ${strikes}스트라이크`;
+    return `${balls}${BASEBALL_MESSAGE.BALL} ${strikes}${BASEBALL_MESSAGE.STRIKE}`;
   }
 
   async restartInput() {
