@@ -56,4 +56,7 @@ class App {
   }
 }
 
+const appInstance = new App();
+appInstance.play();
+
 export default App;
