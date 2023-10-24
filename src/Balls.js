@@ -19,4 +19,15 @@ class Balls {
       throw new Error("[ERROR]");
     }
   }
+  calculateStrike(inputNumbers) {
+    const guessNumbers = inputNumbers.split("").map(Number);
+    let strikes = 0;
+
+    for (let i = 0; i < 3; i += 1) {
+      if (guessNumbers[i] === this.randomNumbers[i]) {
+        strikes += 1;
+      }
+    }
+    return strikes;
+  }
 }
