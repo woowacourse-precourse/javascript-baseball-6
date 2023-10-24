@@ -26,8 +26,9 @@ export function isValidInput(userNumbers, answerLength) {
     return false;
   }
 
+  const regex = /^[1-9]+$/;
   for(const num of userNumbers) {
-    if(num < 1 || num > 9) {
+    if(!regex.test(String(num)) || num < 1 || num > 9) {
       return false;
     }
   }
