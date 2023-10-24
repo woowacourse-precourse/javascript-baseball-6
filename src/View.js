@@ -21,7 +21,7 @@ export const View = {
     if (userInput === 1) return True;
     if (userInput === 2) return false;
 
-    throw new Error("1과 2 중에 하나를 입력해주세요.");
+    throw new Error(" [ERROR] 1과 2 중에 하나를 입력해주세요.");
   },
 
   printGameHint({ strike, ball }) {
@@ -32,5 +32,7 @@ export const View = {
 const getGameHint = ({ strike, ball }) => {
   if (strike === 0 && ball === 0) return "낫싱";
 
-  return `${ball}볼 ${스트라이크}`;
+  return [ball && `${ball}볼`, strike && `${strike}스트라이크`]
+    .filter(Boolean)
+    .join(" ");
 };

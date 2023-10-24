@@ -1,11 +1,12 @@
 import * as MissionUtils from "@woowacourse/mission-utils";
 
 export const createRandomNum = () => {
-  const randomNum = [];
+  const numberSet = new Set();
 
-  while (randomNum.length < 3) {
-    const num = MissionUtils.Random.pickNumberInRange(1, 9);
-    if (!randomNum.includes(num)) randomNum.push(num);
+  while (numberSet.size < 3) {
+    const randomNum = MissionUtils.Random.pickNumberInRange(1, 9);
+
+    numberSet.add(randomNum);
   }
-  return randomNum;
+  return [...numberSet];
 };

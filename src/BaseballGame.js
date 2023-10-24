@@ -2,19 +2,19 @@ import { Computer } from "./Computer";
 import { createRandomNum } from "./createRandomNum";
 
 export class BaseballGame {
-  computer;
+  #computer;
 
   constructor() {
-    this.setHint();
+    this.#setHint();
   }
 
-  setHint() {
+  #setHint() {
     const answerNum = createRandomNum();
 
-    this.computer = new Computer(answerNum);
+    this.#computer = new Computer(answerNum);
   }
 
   compareNum(userNumber) {
-    return this.computer.compareNum(userNumber);
+    return this.#computer.compareNum(userNumber);
   }
 }
