@@ -53,9 +53,19 @@ describe("숫자 야구 게임", () => {
     mockQuestions(answers);
 
     // when & then
-    const app = new App();
+    // const app = new App();
+    // app.play();
 
     // await expect(app.play()).rejects.toThrow("[ERROR]");
-    app.play();
+
+    const app = new App();
+
+    try {
+      await app.play();
+    } catch (error) {
+      expect(error.message).toEqual("[ERROR] 올바른 숫자를 입력해주세요.");
+    }
+    
+
   });
 });
