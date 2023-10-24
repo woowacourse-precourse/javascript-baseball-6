@@ -16,9 +16,13 @@ const getPlayerNumbers = async () => {
     const answer = await MissionUtils.Console.readLineAsync(
       "숫자를 입력해주세요: "
     );
-    return answer;
+    if (answer.length !== 3) {
+      throw new Error("[ERROR]");
+    } else {
+      return answer;
+    }
   } catch (error) {
-    console.error(error);
+    throw error;
   }
 };
 
