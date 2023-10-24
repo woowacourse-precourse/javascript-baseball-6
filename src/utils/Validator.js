@@ -3,8 +3,8 @@ class Validator {
     if (/\s/.test(userNumbers.trim())) {
       throw new Error('[ERROR] 중간에 공백은 입력할 수 없습니다.');
     }
-    if (isNaN(Number(userNumbers))) {
-      throw new Error('[ERROR] 숫자가 아닙니다.');
+    if (!/^\d+$/.test(userNumbers.trim())) {
+      throw new Error('[ERROR] 숫자만 입력할 수 있습니다.');
     }
     if (userNumbers.trim().length !== 3) {
       throw new Error('[ERROR] 길이가 3이여야 합니다.');
