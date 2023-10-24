@@ -73,6 +73,30 @@ class BaseballGame extends Computer {
       this.getPlayerInput();
     }
   }
+
+  // 게임 재시작
+  async restart() {
+    try {
+      const playerInput = await Console.readLineAsync(
+        MESSAGES.game.restartOrDone
+      );
+
+      const choice = parseInt(playerInput, 10);
+
+      switch (choice) {
+        case 1:
+          this.start();
+          break;
+        case 2:
+          this.done();
+          break;
+        default:
+          throw new Error(MESSAGES.errors.invalidChoice);
+      }
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export default BaseballGame;
