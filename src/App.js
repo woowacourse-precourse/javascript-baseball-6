@@ -1,17 +1,14 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 
 class App {
-  constructor() {
-    this.answer = [];
-  }
   async play() {
     Console.print('숫자 야구 게임을 시작합니다.');
-    this.answer = this.randomNumbersArray();
+    let answer = this.randomNumbersArray();
 
     while (true) {
       const userInput = await Console.readLineAsync('숫자를 입력해주세요 :');
       this.checkUserInput(userInput);
-      const { strike, ball } = this.calculateGameResult(this.answer, userInput);
+      const { strike, ball } = this.calculateGameResult(answer, userInput);
 
       Console.print(this.printGameResult(strike, ball));
 
@@ -19,9 +16,9 @@ class App {
         Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
         const userAnswer = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
         if (userAnswer === '1') {
-          this.answer = this.randomNumbersArray();
+          answer = this.randomNumbersArray();
           continue;
-        } else if (userAnswer === '2') {
+        } else {
           break;
         }
       }
