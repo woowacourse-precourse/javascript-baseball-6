@@ -20,7 +20,7 @@ class BaseballGame {
 
   // 사용자가 입력한 수가 정상적인 수인지 확인
   static checkRightNumber(userNumber) {
-    let number = String(userNumber)
+    const number = String(userNumber)
       .split("")
       .map(n => parseInt(n, 10));
 
@@ -36,6 +36,42 @@ class BaseballGame {
     }
 
     return true;
+  }
+
+  // 사용자가 입력한 수와 컴퓨터의 수를 비교하여 결과 출력
+  static compareNumber(userNumber, computerNumber) {
+    const userNumberArray = String(userNumber)
+    .split("")
+    .map(n => parseInt(n, 10));
+
+    const computerNumberArray = String(computerNumber)
+    .split("")
+    .map(n => parseInt(n, 10));
+
+    // 게임 결과를 담을 변수
+    let ball = 0;
+    let strike = 0;
+    let gameResult = "";
+
+    for (let i = 0; i < 3; i++) {
+      if (userNumberArray[i] === computerNumberArray[i]) {
+        strike += 1;
+      } else if (computerNumberArray.includes(userNumberArray[i])) {
+        ball += 1;
+      }
+    }
+
+    if (ball > 0) {
+      gameResult += `${ball}볼 `;
+    }
+
+    if (strike > 0) {
+      gameResult += `${strike}스트라이크`;
+    }
+
+    if (ball === 0 && strike === 0) {
+      gameResult = '낫싱';
+    }
   }
 };
 
