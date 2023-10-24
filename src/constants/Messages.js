@@ -3,7 +3,8 @@ const Messages = Object.freeze({
     INPUT_NUMBER: '숫자를 입력해주세요 : ',
 
     ERROR: {
-        NUMBER_RANGE: '3자리 숫자만 입력 가능합니다.'
+        NUMBER_RANGE: '3자리 숫자만 입력 가능합니다.',
+        DUPLICATE_NUMBER: '서로 다른 숫자만 입력 가능합니다.'
     }
   });
   

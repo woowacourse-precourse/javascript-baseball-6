@@ -18,9 +18,13 @@ class App {
     // 사용자 숫자 입력
     MissionUtils.Console.readLine(Messages.INPUT_NUMBER, (number) => {
       const numberRegExp = new RegExp(/[0-9]/g);
+      const numSet = new Set(number);
+      
       if (number.length !== 3 || !numberRegExp.test(number)) {
         throw new Error(Messages.ERROR.NUMBER_RANGE);
-      } else{
+      } else if (numSet.size < 3) {
+        throw new Error(Messages.ERROR.DUPLICATE_NUMBER);
+      } else {
 
       }
     });
