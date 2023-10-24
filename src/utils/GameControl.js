@@ -1,14 +1,14 @@
-import { Console } from "@woowacourse/mission-utils";
+import { MissionUtils } from "@woowacourse/mission-utils";
 import { GAME_MESSAGE, RESULT_MESSAGE, ERROR_MESSAGE } from "../constants/Message";
 
 class GameControl {
   static async askRestart(appInstance) {
-    const userAnswer = await Console.readLineAsync(GAME_MESSAGE.restartGame);
+    const userAnswer = await MissionUtils.Console.readLineAsync(GAME_MESSAGE.restartGame);
 
     if (userAnswer === '1') {
       appInstance.isPlaying = true;
     } else if (userAnswer === '2') {
-      Console.print(GAME_MESSAGE.endGame);
+      MissionUtils.Console.print(GAME_MESSAGE.endGame);
       appInstance.isPlaying = false;
     } else {
       throw new Error(ERROR_MESSAGE.invalidChoice);
@@ -33,19 +33,19 @@ class GameControl {
 
   static printResult({ ball, strike }) {
     if (strike === 3) {
-      Console.print(`${strike}${RESULT_MESSAGE.strike}`);
-      Console.print(GAME_MESSAGE.correctGame);
+      MissionUtils.Console.print(`${strike}${RESULT_MESSAGE.strike}`);
+      MissionUtils.Console.print(GAME_MESSAGE.correctGame);
       return;
     }
 
     if (strike === 0 && ball === 0) {
-      Console.print(RESULT_MESSAGE.nothing);
+      MissionUtils.Console.print(RESULT_MESSAGE.nothing);
     } else if (strike === 0) {
-      Console.print(`${ball} ${RESULT_MESSAGE.ball}`);
+      MissionUtils.Console.print(`${ball} ${RESULT_MESSAGE.ball}`);
     } else if (ball === 0) {
-      Console.print(`${strike} ${RESULT_MESSAGE.strike}`);
+      MissionUtils.Console.print(`${strike} ${RESULT_MESSAGE.strike}`);
     } else {
-      Console.print(`${ball}${RESULT_MESSAGE.ball} ${strike}${RESULT_MESSAGE.strike}`);
+      MissionUtils.Console.print(`${ball}${RESULT_MESSAGE.ball} ${strike}${RESULT_MESSAGE.strike}`);
     }
   }
 }

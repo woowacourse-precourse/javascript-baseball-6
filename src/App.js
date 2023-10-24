@@ -1,4 +1,4 @@
-import { Console } from "@woowacourse/mission-utils";
+import { MissionUtils } from "@woowacourse/mission-utils";
 import { GAME_MESSAGE, ERROR_MESSAGE } from "./constants/Message";
 import Computer from "./models/Computer";
 import GameControl from "./utils/GameControl";
@@ -11,7 +11,7 @@ class App {
   }
 
   async play() {
-    Console.print(GAME_MESSAGE.startGame);
+    MissionUtils.Console.print(GAME_MESSAGE.startGame);
 
     while (this.isPlaying) {
       const computerNumber = this.computer.generateNumber();
@@ -27,7 +27,7 @@ class App {
             await GameControl.askRestart(this);
           }
         } catch (error) {
-          Console.print(error.message);
+          MissionUtils.Console.print(error.message);
           this.stopGame();
           throw error;
         }
@@ -40,7 +40,7 @@ class App {
   }
 
   async getUserInput() {
-    const input = await Console.readLineAsync(GAME_MESSAGE.inputNumber);
+    const input = await MissionUtils.Console.readLineAsync(GAME_MESSAGE.inputNumber);
 
     if (!input) {
       throw new Error(ERROR_MESSAGE.inputError);
