@@ -9,6 +9,17 @@ class App {
     this.computerNumber = undefined;
     this.userNumber = undefined;
   }
+    this.makeComputerNumber();
+  makeComputerNumber() {
+    const computer = [];
+    while (computer.length < 3) {
+      const number = Random.pickNumberInRange(1, 9);
+      if (!computer.includes(number)) {
+        computer.push(number);
+      }
+    }
+    this.computerNumber = [...computer];
+  }
 }
 
 export default App;
