@@ -7,9 +7,8 @@ export default async function RestartGame() {
   );
   // console.log(userInput);
   if (userInput === "1") {
-    const app = new App();
-    app.play();
+    return true;
   } else if (userInput === "2") {
-    return;
+    return false;
   }
 }

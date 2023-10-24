@@ -7,15 +7,24 @@ import RestartGame from "./components/RestartGame.js";
 
 class App {
   async play() {
-    const computerNumbers = CreateRandomNumber(); // RandomStart 함수 사용
+    let computerNumbers = CreateRandomNumber(); // RandomStart 함수 사용
     console.log(computerNumbers);
 
     let userNumbers;
     do {
       userNumbers = await InputUserNumber();
       console.log(userNumbers);
-    } while (!PrintResult(CheckResult(userNumbers, computerNumbers)));
-    RestartGame();
+
+      if (PrintResult(CheckResult(userNumbers, computerNumbers))) {
+        const RESTART = await RestartGame();
+        if (RESTART) {
+          computerNumbers = CreateRandomNumber(); // RandomStart 함수 사용
+          console.log(computerNumbers);
+        } else {
+          break;
+        }
+      }
+    } while (true);
   }
 }
 

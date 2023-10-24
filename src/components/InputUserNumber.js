@@ -11,7 +11,7 @@ export default async function InputUserNumber() {
     throw new Error("[ERROR] 입력값은 숫자여야 합니다.");
   } else {
     if (userInput.includes(0)) {
-      ("[ERROR] 입력값은 1~9사이의 숫자여야 합니다.");
+      throw new Error("[ERROR] 입력값은 1~9사이의 숫자여야 합니다.");
     }
   }
 
