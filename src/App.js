@@ -5,13 +5,7 @@ class App {
   async play() {
     let code = PROGRAM_STATUS.START;
     while (code != PROGRAM_STATUS.END) {
-      const computer = [];
-      while (computer.length < 3) {
-        const randomNumber = await MissionUtils.Random.pickNumberInRange(1, 9);
-        if (!computer.includes(randomNumber)) {
-          computer.push(randomNumber);
-        }
-      }
+      const computer = await computerNumber();
       console.log(computer); //DEBUG
       await MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
       try {
@@ -21,6 +15,17 @@ class App {
       }
     }
   }
+}
+
+async function computerNumber() {
+  const computer = [];
+  while (computer.length < 3) {
+    const randomNumber = await MissionUtils.Random.pickNumberInRange(1, 9);
+    if (!computer.includes(randomNumber)) {
+      computer.push(randomNumber);
+    }
+  }
+  return computer;
 }
 
 async function getUserInput(computer) {
@@ -76,7 +81,7 @@ async function checkInput(userInput, computer) {
       } else if (states[TEXT.BALL] == 0) {
         await MissionUtils.Console.print(`${states[TEXT.STRIKE]}스트라이크`);
       } else {
-        await MissionUtils.Console.print(`${states[1]}볼 ${states[0]}스트라이크`);
+        await MissionUtils.Console.print(`${states[TEXT.BALL]}볼 ${states[TEXT.STRIKE]}스트라이크`);
       }
       return 3;
     }
