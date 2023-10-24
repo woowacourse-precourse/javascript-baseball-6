@@ -1,4 +1,3 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
 import { playGame } from './baseball.js';
 
 class App {
