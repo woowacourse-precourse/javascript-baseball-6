@@ -17,6 +17,26 @@ class BaseBallGame {
 
   async playBaseBallGame() {
     await this.user.getUserNumber();
+
+    const [ballCnt, strikeCnt] = this.getBallAndStrikeCnt(
+      this.computer.computerNum,
+      this.user.userNum,
+    );
+  }
+
+  getBallAndStrikeCnt(computerNum, userNum) {
+    let ballCnt = 0;
+    let strikeCnt = 0;
+
+    userNum.forEach((number, idx) => {
+      if (number === computerNum[idx]) {
+        strikeCnt += 1;
+      } else if (computerNum.includes(number)) {
+        ballCnt += 1;
+      }
+    });
+
+    return [ballCnt, strikeCnt];
   }
 }
 
