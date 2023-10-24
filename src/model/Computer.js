@@ -1,4 +1,5 @@
 import { Random } from '@woowacourse/mission-utils';
+import { GAME_SETTINGS } from '../constants/GameSettings';
 
 export default class Computer {
   #selectNumber;
@@ -10,8 +11,11 @@ export default class Computer {
   generate = () => {
     const generatedNumber = new Set();
 
-    while (generatedNumber.size < 3) {
-      const number = Random.pickNumberInRange(1, 9);
+    while (generatedNumber.size < GAME_SETTINGS.numberLength) {
+      const number = Random.pickNumberInRange(
+        GAME_SETTINGS.startNumber,
+        GAME_SETTINGS.endNumber
+      );
       if (!generatedNumber.has(number)) {
         generatedNumber.add(number);
       }
