@@ -1,6 +1,6 @@
 import { MainGame } from "./MainGame.js";
 import { Console } from "@woowacourse/mission-utils";
-import { Messages } from "./messages.js";
+import { Messages } from "./Messages.js";
 
 class App {
   async play() {

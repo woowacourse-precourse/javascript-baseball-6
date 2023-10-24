@@ -1,6 +1,6 @@
 import { Computer } from "./Computer.js";
 import { Console } from "@woowacourse/mission-utils";
-import { Messages } from "./messages.js";
+import { Messages } from "./Messages.js";
 
 class MainGame {
   //컴퓨터(상대방)이 랜덤한 3개의 숫자 선택
