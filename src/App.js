@@ -7,9 +7,7 @@ class App {
   }
 
   async play() {
-    let continuePlaying = true;
-
-    while (continuePlaying) {
+    while (true) {
       MissionUtils.Console.print("숫자 야구 게임을 시작합니다");
       const { ball, strike } = this.start();
 
@@ -17,7 +15,9 @@ class App {
         MissionUtils.Console.print(
           "3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료"
         );
-        continuePlaying = await this.shouldContinue();
+        if (!(await this.shouldContinue())) {
+          break;
+        }
       } else {
         this.printGameResultMessage(ball, strike);
       }
@@ -69,6 +69,7 @@ class App {
         ball++;
       }
     }
+
     return { ball, strike };
   }
 
@@ -88,11 +89,10 @@ class App {
     const choice = await MissionUtils.Console.readLineAsync(
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요: "
     );
-
     if (choice === this.NEW_GAME) {
       return true;
     } else if (choice === this.QUIT_GAME) {
-      return false;
+      process.exit(0);
     }
     return false;
   }
