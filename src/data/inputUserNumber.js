@@ -2,9 +2,8 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 export default async function inputUserNumber(){
-    const number = MissionUtils.Console.readLineAsync()
+    const number = MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ')
     .then((res) => {
-        MissionUtils.Console.print(`숫자를 입력해주세요 : ${res}`);
         const valudateNumber = inputNumberValidate(res);
         return valudateNumber;
     })
