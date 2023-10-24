@@ -11,7 +11,7 @@ export default async function getUserInput() {
   const userInput = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
   
   if (!checkInputValid(userInput)) {
-    MissionUtils.Console.print("잘못된 값을 입력했습니다.");
+    MissionUtils.Console.print('잘못된 값을 입력했습니다.');
     throw new Error("[ERROR]");
   }
 
