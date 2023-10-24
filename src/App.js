@@ -1,23 +1,24 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import { PROMPT } from './constants/constants.js';
-import { get3DigitRandom } from './utils/get3DigitRandom.js';
-import { validateInput } from './utils/validateInput.js';
-import { getBallsAndStrikes } from './utils/getBallsAndStrikes.js';
-import { printResult } from './utils/printResult.js';
+import { PROMPT } from './constants/constants';
+import getRandom from './utils/get3DigitRandom';
+import validateInput from './utils/validateInput';
+import getBaseball from './utils/getBallsAndStrikes';
+import printResult from './utils/printResult';
 class App {
+  constructor() {
+    this.baseball = { ball: 0, strike: 0 };
+  }
+
   async play() {
-    MissionUtils.Console.print(PROMPT.START_GAME);
-
-    const computer = get3DigitRandom();
-    let baseball = { ball: 0, strike: 0 };
-    while (baseball['strike'] < 3) {
-      let user = await MissionUtils.Console.readLineAsync(PROMPT.INPUT_NUMBER);
-      user = user.toString();
-      const LEN = user.length;
-
-      validateInput(user, LEN);
-      baseball = getBallsAndStrikes(computer, user, baseball);
-      printResult(baseball['ball'], baseball['strike']);
+    MissionUtils.Console.print(PROMPT.startGame);
+    const computer = getRandom();
+    while (this.baseball.strike < 3) {
+      const user = String(
+        await MissionUtils.Console.readLineAsync(PROMPT.inputNumber)
+      );
+      validateInput(user, user.length);
+      this.baseball = getBaseball(computer, user, this.baseball);
+      printResult(this.baseball.ball, this.baseball.strike);
     }
   }
 }
