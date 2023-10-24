@@ -3,14 +3,14 @@ import { MissionUtils } from '@woowacourse/mission-utils';
 class App {
   // 램덤 숫자 생성하는 함수
   createRandomNumber() {
-    const computer = [];
-    while (computer.length < 3) {
-      const number = MissionUtils.Random.pickNumberInRange(1, 9);
-      if (!computer.includes(number)) {
-        computer.push(number);
+    const RANDOM_NUMBER = [];
+    while (RANDOM_NUMBER.length < 3) {
+      const NUMBER = MissionUtils.Random.pickNumberInRange(1, 9);
+      if (!RANDOM_NUMBER.includes(NUMBER)) {
+        RANDOM_NUMBER.push(NUMBER);
       }
     }
-    return computer.join(''); // computer 배열을 반환
+    return RANDOM_NUMBER.join('');
   }
 
   // 유효한 숫자인지 확인하는 함수
@@ -41,17 +41,17 @@ class App {
 
       while (true) {
         // MissionUtils.Console.print('숫자를 입력해주세요:'); // 사용자 입력 안내 메시지
-        const guess = await MissionUtils.Console.readLineAsync();
+        const GUESS = await MissionUtils.Console.readLineAsync();
 
-        if (!this.isValidInput(guess)) {
+        if (!this.isValidInput(GUESS)) {
           throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
         }
 
-        const result = this.checkBallsAndStrikes(guess, answer);
+        const RESULT = this.checkBallsAndStrikes(GUESS, answer);
 
-        MissionUtils.Console.print(result);
+        MissionUtils.Console.print(RESULT);
 
-        if (result === '3스트라이크') {
+        if (RESULT === '3스트라이크') {
           // MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다!');
           playAgain = await MissionUtils.Console.readLineAsync();
           if (playAgain === '2') {
