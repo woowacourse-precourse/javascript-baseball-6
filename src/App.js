@@ -36,12 +36,13 @@ class App {
     // 유저의 입력을 받는 함수
     async getUserInput(text) {
         const userinput = await MissionUtils.Console.readLineAsync(text);
-
-        if (userinput.length === 3) {
-            const check = new Set(userinput);
-            if (check.size === 3) {
-                return userinput;
-            }
+        const regex = /^[1-9]{3}$/;
+        if (!regex.test(userinput)) {
+            throw new Error('[ERROR] 3자리의 숫자만 입력 가능합니다.');
+        }
+        const check = new Set(userinput);
+        if (check.size === 3) {
+            return userinput;
         }
 
         throw new Error('[ERROR] 잘못된 입력입니다.');
