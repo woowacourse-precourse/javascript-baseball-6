@@ -6,11 +6,18 @@ import { checkingScore, playGame } from "./calculator/Score.js";
 class App {
     async play() {
       const answer = computerRandom();
-      const arrayOfInput = await this.makeUserInput()
-      const {strike,ball} = checkingScore(answer, arrayOfInput)
-      playGame(strike,ball)
 
+      let userWillRetry = true;
+      while (userWillRetry) {
+        const arrayOfInput = await this.makeUserInput()
+        const {strike,ball} = checkingScore(answer, arrayOfInput)
+        playGame(strike,ball)
+        // console.log(answer)
 
+        if (strike === 3) {
+          userWillRetry = false;
+        }
+      }
     }
 
     async makeUserInput() {
