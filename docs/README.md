@@ -1,10 +1,10 @@
 # Convention
 
 ## Commit Convention
-- <타입> : <제목> 의 형식으로 제목을 아래 공백줄에 작성.
 - 제목은 50자 이내 / 변경사항이 "무엇"인지 명확히 작성 / 끝에 마침표 금지.
 - [Commit Template] ~ 양식에 맞추어 작성한다.
 - Commit Template 작성 시에는 대문자로 시작한다.
+- Commit 내용은 수정하거나, 구현한 기능에 대해 Commit Template을 활용하여 순차적으로 기술한다.
 - ex) [Feat] 로그인 기능 추가
 
 ## Commit Template
