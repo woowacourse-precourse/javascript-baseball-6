@@ -2,10 +2,10 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 class App {
   constructor() {
     this.isContinue = true;
-    this.computerInput = this.randomNumberGenerator();
+    this.computerInput = this.generateRandomNum();
   }
 
-  randomNumberGenerator() {
+  generateRandomNum() {
     const ANSWER = [];
     while (ANSWER.length < 3) {
       const NUMBER = MissionUtils.Random.pickNumberInRange(1, 9);
@@ -63,7 +63,7 @@ class App {
           );
           const CHOICE = await MissionUtils.Console.readLineAsync("");
           if (CHOICE === "1") {
-            this.computerInput = this.randomNumberGenerator();
+            this.computerInput = this.generateRandomNum();
           } else if (CHOICE === "2") {
             this.isContinue = false;
           } else {
