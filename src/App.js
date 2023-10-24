@@ -5,7 +5,6 @@ class App {
   async play() {
     let IS_PLAYING = true;
     let computer = this.computerPicksNumber();
-    this.init();
     Console.print(CONSTANT.GAME_START_MESSAGE);
 
     while (IS_PLAYING) {
@@ -15,7 +14,7 @@ class App {
         throw new Error(CONSTANT.INPUT_VALIDATION);
       }
       this.calculateBallAndStrike(computer, userInput);
-      if (+computer === +userInput) {
+      if (Number(computer) === Number(userInput)) {
         Console.print(CONSTANT.THREE_NUMBER_CORRECT);
         let userChoice = await this.getUserChoice();
         IS_PLAYING = this.restartOrEnd(userChoice);
@@ -48,15 +47,12 @@ class App {
   }
 
   restartOrEnd(userChoice) {
-    switch (userChoice) {
-      case '1':
-        computer = this.computerPicksNumber();
-        break;
-      case '2':
-        IS_PLAYING = false;
-        break;
-      default:
-        throw new Error(CONSTANT.NOT_ONE_TWO);
+    if (userChoice === '1') {
+      return true;
+    } else if (userChoice === '2') {
+      return false;
+    } else {
+      throw new Error(CONSTANT.NOT_ONE_TWO);
     }
   }
   
