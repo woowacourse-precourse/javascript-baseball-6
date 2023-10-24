@@ -24,6 +24,16 @@ class App {
         result = this.checkAnswer(input, start);
         MissionUtils.Console.print(result);
       }
+
+      MissionUtils.Console.print("3스트라이크 3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+
+      const replay = await MissionUtils.Console.readLineAsync(
+        "게임을 다시 시작하려면 1 / 게임을 종료하려면 2를 입력하세요."
+      );
+
+      if (replay === "2") {
+        this.isRunning = false;
+      }
     }
   }
 
