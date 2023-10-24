@@ -21,7 +21,7 @@ class App {
       this.printCompareResult();
       if (this.gameOver()) {
         const input = await this.answerKeepGoingOrOver();
-        this.setGameState(input);
+        this.setGameOverState(input);
       }
       this.user = [];
       this.ballNumber = 0;
@@ -40,13 +40,11 @@ class App {
     try {
       this.checkValueIsNumber(input)
 
-      const arr = this.formattingUserNumber(input);
+      const arr = this.strToArrUserNumber(input);
 
       this.checkIsLengthThree(arr);
 
-      const set = new Set([...arr]);
-
-      this.checkHasDuplicateNumber(set);
+      this.checkHasDuplicateNumber(arr);
 
       return arr;
     } catch (error) {
@@ -60,7 +58,9 @@ class App {
     }
   }
 
-  checkHasDuplicateNumber(set) {
+  checkHasDuplicateNumber(arr) {
+    const target = [...arr];
+    const set = new Set(target);
     if(set.size !== 3) {
       throw new Error();
     }
@@ -73,7 +73,7 @@ class App {
     }
   }
 
-  formattingUserNumber(input) {
+  strToArrUserNumber(input) {
     const targetArr = input.split('');
     return targetArr;
   }
@@ -147,14 +147,14 @@ class App {
     return number;
   }
 
-  setGameState(number) {
+  setGameOverState(number) {
     switch (number) {
       case '2':
         this.keepPlaying = false;
         break;
       case '1':
         this.computer = [];
-        this.initUserAndCount();
+        this.initUserNumberAndCount();
         this.initializeComputerNumber();
         break;
       default:
@@ -162,7 +162,7 @@ class App {
     }
   }
 
-  initUserAndCount() {
+  initUserNumberAndCount() {
     this.user = [];
     this.strikeNumber = 0;
     this.ballNumber = 0;
