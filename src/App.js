@@ -9,9 +9,8 @@ class App {
       while (COMPUTER.length < 3) {
         const number = Random.pickNumberInRange(1, 9);
         if (!COMPUTER.includes(number)) {
-          
+          COMPUTER.push(number);
         }
-        COMPUTER.push(number);
       }
 
       //  숫자입력받는함수
