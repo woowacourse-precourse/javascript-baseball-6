@@ -18,10 +18,10 @@ export const View = {
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
     );
 
-    if (userInput === 1) return True;
-    if (userInput === 2) return false;
+    if (userInput === "1") return true;
+    if (userInput === "2") return false;
 
-    throw new Error(" [ERROR] 1과 2 중에 하나를 입력해주세요.");
+    throw new Error(" [ERROR] 숫자를 입력해주세요.");
   },
 
   printGameHint({ strike, ball }) {
