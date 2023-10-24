@@ -95,7 +95,10 @@ class App {
     );
     this.userRestartValidation(userRestartValue);
     if (userRestartValue === '1') this.game();
-    if (userRestartValue === '2') return;
+    if (userRestartValue === '2') {
+      this.infoPrint('숫자 야구 게임을 종료합니다.');
+      return;
+    }
   }
 }
 
