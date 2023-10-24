@@ -1,7 +1,7 @@
 const ERROR = {
   PREFIX: "[ERROR]",
   MESSAGE: {
-    INVALID_INPUT: "올바른 입력이 아닙니다.",
+    INVALID_INPUT: "숫자가 잘못된 형식입니다.",
   },
 };
 
