@@ -6,6 +6,7 @@ class App {
   }
 }
 
+//게임 시작 함수
 async function start() {
   MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
   const ANSWER_ARRAY = createAnsArray();
@@ -13,6 +14,7 @@ async function start() {
   await compareNumber(ANSWER_ARRAY, inputArray);
 }
 
+//정답 배열 생성 함수
 function createAnsArray() {
   const ANSWER_NUM_ARRAY = [];
   while (ANSWER_NUM_ARRAY.length < 3) {
@@ -24,6 +26,7 @@ function createAnsArray() {
   return ANSWER_NUM_ARRAY;
 }
 
+//입력 배열 생성 및 유효성 검증 함수
 async function createNumArray() {
   const INPUT = await MissionUtils.Console.readLineAsync(
     "숫자를 입력해주세요 : "
@@ -41,6 +44,7 @@ async function createNumArray() {
   }
 }
 
+//숫자 비교 함수
 async function compareNumber(ANSWER_ARRAY, inputArray) {
   let strike = 0;
   let ball = 0;
@@ -68,6 +72,7 @@ async function compareNumber(ANSWER_ARRAY, inputArray) {
   await compareNumber(ANSWER_ARRAY, inputArray);
 }
 
+//게임 재시작 여부 확인 함수
 async function restartQuestion() {
   MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
   const RESTART = await MissionUtils.Console.readLineAsync(
