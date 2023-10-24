@@ -1,7 +1,7 @@
-const MissionUtils = require('@woowacourse/mission-utils');
+import { MissionUtils } from "@woowacourse/mission-utils";
 const { Console, Random } = MissionUtils;
 
-const MESSAGE = {
+export const MESSAGE = {
   START: '숫자 야구 게임을 시작합니다.',
   INPUT: '숫자를 입력해주세요 : ',
   FINISH: '3개의 숫자를 모두 맞히셨습니다! 게임 종료',
@@ -9,7 +9,7 @@ const MESSAGE = {
   END: '게임이 종료되었습니다.'
 }
 
-const ERROR_MESSAGE = {
+export const ERROR_MESSAGE = {
   LENGTH: '[ERROR] 세 자리 숫자만 입력해야합니다.',
   INT: '[ERROR] 1부터 9사이의 숫자만 입력해야합니다.',
   UNIQUE: '[ERROR] 1부터 9사이의 숫자가 하나씩 있어야합니다.',
