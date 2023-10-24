@@ -56,7 +56,7 @@ class App {
       if(STRIKE === 3){
         Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
         const RETRY = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. ");
-        if(RETRY !== '1' && RETRY !== '2') throw new Error('[ERROR]');
+        if(RETRY !== '1' && RETRY !== '2') throw new Error('[ERROR] 유효하지 않는 숫자입니다.');
         return RETRY;
       }
     }
