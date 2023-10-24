@@ -1,7 +1,7 @@
 import { Random, Console } from "@woowacourse/mission-utils";
 
 class App {
-  static setComputerNum() {
+  setComputerNum() {
     const computerNum = [];
 
     while (computerNum.length < 3) {
@@ -12,7 +12,7 @@ class App {
     return computerNum;
   }
 
-  static async setUserNum() {
+  async setUserNum() {
     const inputNumber = await Console.readLineAsync("숫자를 입력해주세요 : ");
 
     if (!inputNumber.match(/^[1-9]{3}$/)) {
@@ -32,7 +32,7 @@ class App {
     return userNum;
   }
 
-  static printCount(computerNum, userNum) {
+  printCount(computerNum, userNum) {
     let strikeCount = 0;
     let ballCount = 0;
 
@@ -50,7 +50,7 @@ class App {
     return strikeCount === 3 ? "isSuccess" : "isPlaying";
   }
 
-  static async resetGame() {
+  async resetGame() {
     const input = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n");
 
     if (!(input == 1 || input == 2)) {
@@ -61,12 +61,12 @@ class App {
     if (input == 2) return "isQuit";
   }
 
-  static async play() {
+  async play() {
+    Console.print("숫자 야구 게임을 시작합니다.");
     let status = "isPlaying";
 
     while (status === "isPlaying") {
       const couputerNum = this.setComputerNum();
-      Console.print("숫자 야구 게임을 시작합니다.");
 
       while (!(status === "isSuccess")) {
         const userNum = await this.setUserNum();
@@ -78,7 +78,5 @@ class App {
     }
   }
 }
-
-App.play(); // todo delete
 
 export default App;
