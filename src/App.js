@@ -1,6 +1,15 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
+  createNumber(computer) {
+    while (computer.length < 3) {
+      const number = MissionUtils.Random.pickNumberInRange(1, 9);
+      if (!computer.includes(number)) {
+        computer.push(number);
+      }
+    }
+  }
+
   async play() {
     let userAnswer = 1;
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
@@ -8,12 +17,7 @@ class App {
       const computer = [];
       let userInput = [];
 
-      while (computer.length < 3) {
-        const number = MissionUtils.Random.pickNumberInRange(1, 9);
-        if (!computer.includes(number)) {
-          computer.push(number);
-        }
-      }
+      this.createNumber(computer);
 
       while (userInput.join("") != computer.join("")) {
         userInput = [];
