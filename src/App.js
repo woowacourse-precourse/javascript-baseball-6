@@ -1,5 +1,21 @@
 import { Console, Random } from "@woowacourse/mission-utils";
-import { CONSTANTS } from "./constants/constants";
+// import { CONSTANTS } from "./constants/constants";
+
+const CONSTANTS = {
+  MESSAGES: {
+    START: "⚾️ 숫자 야구 게임을 시작합니다.",
+    INPUT: "숫자를 입력해주세요 : ",
+    END: "3개의 숫자를 모두 맞히셨습니다! 게임 종료",
+    RESTART: "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.",
+    EXIT: "게임을 종료합니다.",
+  },
+  ERROR: {
+    TYPE_VALID: "[ERROR] 숫자를 입력해주세요.",
+    LENGTH_VALID: "[ERROR] 숫자 3자리를 입력해주세요.",
+    ZERO_VALID: "[ERROR] 0을 제외한 1~9까지의 숫자를 입력해주세요.",
+    DUPLICATE_VALID: "[ERROR] 중복되지 않은 숫자를 입력해주세요.",
+  },
+};
 
 class App {
   constructor() {
@@ -17,6 +33,9 @@ class App {
       }
     }
     this.computerNum = computer;
+    // 컴퓨터 값 확인용
+    Console.print("정답은");
+    Console.print(computer);
   }
   // 사용자 입력값 받기
   async userInput() {
@@ -45,11 +64,19 @@ class App {
   async playBaseballGame() {
     let strike = 0;
     let ball = 0;
-    let;
   }
 
-  // 게임 종료 -> 재시작 여부 결정
-  async restartGame() {}
+  // 게임 종료 후 -> 재시작 여부 결정
+  async afterGame() {
+    let input = await Console.readLineAsync(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+    );
+    if (input === "1") {
+      return true;
+    } else if (input === "2") {
+      return false;
+    }
+  }
 
   // 게임 실행하기
   async play() {
@@ -57,7 +84,7 @@ class App {
     while (this.newGame) {
       this.SetComputerNumbers();
       await this.playBaseballGame();
-      this.newGame = await this.restartGame();
+      this.newGame = await this.afterGame();
       if (!this.newGame) {
         break;
       }
