@@ -18,12 +18,14 @@ class App {
     return this.answer;
   }
 
-  async setInputNumber() {
+  async inputNumber() {
     try {
-      this.input = await Console.readLineAsync("숫자를 입력해주세요 : ");
+      const number = await Console.readLineAsync("숫자를 입력해주세요 : ");
+      await this.settingNumber(number);
     } catch (error) {
-      console.log(error);
+      throw new Error("[Error] 숫자 입력이 들어오지 않았습니다.");
     }
+  }
   }
 
   async isIncluded() {
