@@ -14,15 +14,17 @@ class App {
   }
 
   async suggestNewGame() {
-    const input = await MissionUtils.Console.readLineAsync(
-      `게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.`
-    );
-    if (input === "1") {
-      await this.play();
-    } else return;
+    let input;
+    do {
+      input = await MissionUtils.Console.readLineAsync(
+        `게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.`
+      );
+      if (input === "1") {
+        await this.play();
+      }
+    } while (input !== "1" && input !== "2");
   }
 }
-
 export default App;
 
 // const app = new App();
