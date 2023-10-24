@@ -1,7 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
 import { GAME_MESSAGE, RESULT_MESSAGE, ERROR_MESSAGE } from '../constants/Message';
 
-class Control {
+class GameControl {
   static async askRestart(appInstance) {
     const userAnswer = await Console.readLineAsync(GAME_MESSAGE.restartGame);
 
@@ -50,4 +50,4 @@ class Control {
   }
 }
 
-export default Control;
+export default GameControl;

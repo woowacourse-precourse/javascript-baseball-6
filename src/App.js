@@ -1,7 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
 import { GAME_MESSAGE, ERROR_MESSAGE } from './constants/Message';
 import Computer from './models/Computer';
-import Control from './utils/Control';
+import GameControl from './utils/GameControl';
 import InputValid from './utils/InputValid';
 
 class App {
@@ -21,10 +21,10 @@ class App {
         try {
           const userNumber = await this.getUserInput();
           InputValid.validate(userNumber);
-          result = Control.compareAndPrintResult(computerNumber, userNumber);
+          result = GameControl.compareAndPrintResult(computerNumber, userNumber);
 
           if (result.strike === 3) {
-            await Control.askRestart(this);
+            await GameControl.askRestart(this);
           }
         } catch (error) {
           Console.print(error.message);
