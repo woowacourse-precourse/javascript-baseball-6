@@ -47,22 +47,30 @@ class App {
     return STRIKE;
   }
 
-  replay() {
-    Console.print("");
+  async replay() {
+    Console.print("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요");
+    const REPLAY_NUMBER = await Console.readLineAsync("");
+
+    return REPLAY_NUMBER;
   }
 
   async play() {
-    let CORRECT = false;
+    let REPLAY_NUMBER = "1";
     Console.print("숫자 야구 게임을 시작합니다.");
-    const RANDOM_NUMBER = this.randomNumber().join("");
-    Console.print(`${RANDOM_NUMBER}`);
-    while (CORRECT === false) {
-      const USER_NUMBER = await this.inputNumber();
-      const STRIKE = await this.calculateScore(USER_NUMBER, RANDOM_NUMBER);
-      if (STRIKE === 3) {
-        Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-        CORRECT = true;
+
+    while (REPLAY_NUMBER === "1") {
+      let CORRECT = false;
+      const RANDOM_NUMBER = this.randomNumber().join("");
+      // Console.print(`${RANDOM_NUMBER}`);
+      while (CORRECT === false) {
+        const USER_NUMBER = await this.inputNumber();
+        const STRIKE = await this.calculateScore(USER_NUMBER, RANDOM_NUMBER);
+        if (STRIKE === 3) {
+          Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+          CORRECT = true;
+        }
       }
+      REPLAY_NUMBER = await this.replay();
     }
   }
 }
