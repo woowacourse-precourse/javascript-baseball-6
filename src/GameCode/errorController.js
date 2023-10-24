@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from "../Text/message";
+import { ERROR_MESSAGE } from "../Text/message.js";
 
 //error management
 export const errorOccurred = (playerNum) => {

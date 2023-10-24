@@ -1,6 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import { ballManager, getComputerBall } from "./ballController";
-import { errorOccurred } from "./errorController";
+import { ballManager, getComputerBall } from "./ballController.js";
+import { errorOccurred } from "./errorController.js";
 import {
   START_MESSAGE,
   ERROR_MESSAGE,

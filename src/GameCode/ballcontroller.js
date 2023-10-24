@@ -1,5 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import { getResultMessage } from "../Text/message";
+import { getResultMessage } from "../Text/message.js";
 
 //ball judge
 export const ballManager = (player, computer) => {
