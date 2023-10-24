@@ -17,16 +17,29 @@ class App {
     //Console.print api 사용
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
 
-    //랜덤 컴퓨터넘 생성
-    const computerNum = await this.getComputerNum();
     let inputArr;
     let result;
+    //랜덤 컴퓨터넘 생성
+    const computerNum = await this.getComputerNum();
 
     while (true) {
       // test answer 값 가져오기 input에 array로
       inputArr = await this.getInputNumber();
-      result = await this.compareNumbers(inputArr, computerNum);
+      const { STRIKE, BALL, NOTHING } = await this.compareNumbers(
+        inputArr,
+        computerNum
+      );
+      await MissionUtils.Console.print("사용자 입력값: " + inputArr.join(""));
+      result = await this.printResult(STRIKE, BALL, NOTHING);
+      await MissionUtils.Console.print(result); // 결과값 출력
+
+      if (STRIKE === 3 || inputArr.length !== 3) {
+        break; // 루프 종료 조건
+      }
     }
+    await MissionUtils.Console.print(
+      "3개의 숫자를 모두 맞히셨습니다! 게임 종료"
+    );
   }
 
   /** input 값 받아오는 함수 */
@@ -36,6 +49,9 @@ class App {
       const INPUT = await MissionUtils.Console.readLineAsync(
         "숫자를 입력해주세요 : "
       );
+      if (INPUT.length !== 3) {
+        throw new Error("[ERROR]");
+      }
       //배열 순회
       const inputArr = [...INPUT].map((x) => Number(x));
       return inputArr;
@@ -74,11 +90,8 @@ class App {
         strike++;
       }
     }
-    //3 스트라이크, 게임 종료
-    if (strike === 3) {
-      this.GAME_STATE = false;
-    }
-    return { strike, ball, strike };
+
+    return { strike, ball, nothing };
   }
 
   async printingResult(strike, ball, nothing) {
