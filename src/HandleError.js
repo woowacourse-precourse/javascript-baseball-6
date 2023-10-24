@@ -16,8 +16,9 @@ const checkThreeError = (playerNumArray) => {
 };
 
 export const handleError = (playerNum) => {
-  const playerNumArray = playerNum.split("");
+  const playerNumArray = playerNum.split("").map(Number); //확인필요
   if (checkThreeError(playerNumArray)) {
     throw new Error(Message.ERROR);
   }
+  return playerNumArray;
 };
