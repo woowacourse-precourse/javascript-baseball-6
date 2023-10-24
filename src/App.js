@@ -43,11 +43,11 @@ class App {
   }
 
   async askForGameRestart() {
-    while (true) {
-      const input = (await Console.readLineAsync(MESSAGE.continue)).trim();
-      if (input === "1") return true;
-      if (input === "2") return false;
-    }
+    const input = (await Console.readLineAsync(MESSAGE.continue)).trim();
+    if (input === "1") return true;
+    if (input === "2") return false;
+
+    throw new Error(MESSAGE.error);
   }
 
   generateRandomNumber() {
