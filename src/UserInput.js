@@ -7,7 +7,7 @@ const UserInput = {
       const userInput = await MissionUtils.Console.readLineAsync(
         '숫자를 입력해 주세요 : '
       );
-      this.isValidInput(userInput);
+      this.isValidInputForBaseballGame(userInput);
       return userInput;
     } catch (error) {
       throw error;
@@ -19,6 +19,7 @@ const UserInput = {
       const userInput = await MissionUtils.Console.readLineAsync(
         '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'
       );
+      this.isValidRestartInputForBaseballGame(userInput);
       return userInput;
     } catch (error) {
       throw error;
@@ -42,6 +43,13 @@ const UserInput = {
     }
 
     return true;
+  },
+
+  isValidRestartInputForBaseballGame(userInput) {
+    if (userInput === '1' || userInput === '2') {
+      return true;
+    }
+    throw new Error('[ERROR]');
   },
 };
 
