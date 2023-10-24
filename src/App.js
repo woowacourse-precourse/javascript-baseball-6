@@ -54,7 +54,7 @@ class App {
     for (let i=0; i<3; i++) {
       if(target[i] == computer[i]) {
         strike++;
-      } else if (computer.includes(Numner(target[i]))) {
+      } else if (computer.includes(Number(target[i]))) {
         ball++;
       }
     }
