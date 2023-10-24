@@ -1,10 +1,9 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 /**
- * 정답을 생성하여 리스트 형태로 반환
+ * 무작위로 정답을 생성하여 string 형태로 반환
  * 
- * @todo answerList 반환형태 string / list 중 선택
- * @returns {*}
+ * @returns {string}
  */
 export default function makeAnswer() {
   const answerList = [];
@@ -16,7 +15,7 @@ export default function makeAnswer() {
     }
   }
   
-  return answerList;
+  return answerList.join("");
 }
 
 // console.log(makeAnswer());
