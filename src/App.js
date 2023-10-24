@@ -7,7 +7,7 @@ class App {
   async play() {
     Console.print(MESSAGE.START);
 
-    const computer = await getComputerNumbers();
+    const computer = getComputerNumbers();
     const user = await getUserNumbers();
   }
 }
