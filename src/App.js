@@ -34,7 +34,24 @@ class App {
       else if(computerNumber.includes(userInput[i]))
         ballCount++;
     }
-    return {strikeCount, strikeCount};
+    return {strikeCount, ballCount};
+  }
+
+  answerResult(computerNumber, userInput){
+    if(computerNumber.join('') === userInput.join('')){
+      MissionUtils.Console.print('3스트라이크 \n 3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+      return true;
+    } else {
+      const BALL_COUNT = this.compareNumber(computerNumber,userInput).ballCount;
+      const STRIKE_COUNT = this.compareNumber(computerNumber,userInput).strikeCount;
+
+      if(BALL_COUNT > 0 && STRIKE_COUNT > 0) MissionUtils.Console.print('${BALL_COUNT}볼 ${STRIKE_COUNT}스트라이크');
+      else if(BALL_COUNT > 0 && STRIKE_COUNT === 0) MissionUtils.Console.print('${BALL_COUNT}볼');
+      else if(BALL_COUNT === 0 && STRIKE_COUNT > 0) MissionUtils.Console.print('${STRIKE_COUNT}스트라이크');
+      else if(BALL_COUNT === 0 && STRIKE_COUNT === 0) MissionUtils.Console.print('낫싱');
+      
+      return false;
+    }
   }
 
   async play() {}
