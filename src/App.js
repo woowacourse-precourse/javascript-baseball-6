@@ -16,7 +16,6 @@ function computer_start() {
       computer.push(number);
     }
   }
-  Console.print(computer);
   return computer;
 }
 
@@ -25,6 +24,9 @@ async function finish() {
   const input = await Console.readLineAsync("")
   if (input === "1") return true
   else if (input === "2") return false
+  else {
+    throw Error("[ERROR] 1 또는 2를 입력하시오. ");
+  }
 }
 
 async function player(computer_number) {
@@ -33,6 +35,7 @@ async function player(computer_number) {
     const input = await Console.readLineAsync(USER_MESSAGE);
     const user = (input + '').split('').map((num) => parseInt(num));
     user.map((item) => userNum.push(item));
+    validation(userNum);
     const result = compare(computer_number, userNum);
     Console.print(result);
     if (result === '3스트라이크') {
@@ -41,6 +44,16 @@ async function player(computer_number) {
     }
   }
 
+}
+
+function validation(number) {
+  if (number.length !== NUMBER_LENGTH) {
+    throw new Error("[ERROR] 세 자리의 수를 입력하시오.");
+  } else if (number.length != new Set(number).size) {
+    throw new Error("[ERROR] 서로 다른 세 자리의 수를 입력하시오.");
+  } else if (isNaN(number)) {
+    throw new Error("[ERROR] 숫자만 입력하시오.");
+  }
 }
 
 function compare(computer_number, player_number) {
