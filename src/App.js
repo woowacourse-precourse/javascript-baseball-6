@@ -1,4 +1,4 @@
-class App {
+export default class App {
   constructor() {
     this.secretNumber = this.generateRandomNumber();
     this.attempts = 0;
@@ -21,27 +21,27 @@ class App {
 
   async play() {
     console.log("숫자 야구 게임을 시작합니다.");
-
-    while (true) {
+    let gameFinished = false;
+  
+    while (!gameFinished) {
       const input = await this.getInput();
       if (input === '2') {
         console.log("게임을 종료합니다.");
-        break;
-      }
-
-      if (this.isValidInput(input)) {
+        gameFinished = true;
+      } else if (this.isValidInput(input)) {
         const result = this.checkGuess(input);
         console.log(result);
-
+  
         if (result === '3스트라이크') {
           console.log("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-          break;
+          gameFinished = true;
         }
       } else {
         console.log("[ERROR] 숫자가 잘못된 형식입니다.");
       }
     }
   }
+  
 
   async getInput() {
     const readline = require('readline');
@@ -90,4 +90,3 @@ class App {
 
 const app = new App();
 app.play();
-
