@@ -4,7 +4,7 @@ const NEW_GAME = "1";
 const NUMBER_ERROR = "[ERROR] 숫자가 잘못된 형식입니다.";
 
 const gamePlay = async (randomNumber) => {
-  const input = await Console.readLineAsync("숫자를 입력해주세요: ");
+  const input = await Console.readLineAsync("숫자를 입력해주세요 : ");
   if (!/^\d{3}$/.test(input)) {
     throw new Error(NUMBER_ERROR);
   }
