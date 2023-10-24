@@ -27,8 +27,6 @@ class App {
 
   async askNumber() {
     const userInput = await Console.readLineAsync(REQUEST.NUMBER);
-    console.log('유저 : ', userInput);
-    console.log('컴퓨터 : ', this.computerRandomNumber);
     this.validateUserNumber(userInput);
 
     const { ballCount, strikeCount } = calculateResult(this.computerRandomNumber, userInput);
