@@ -27,7 +27,7 @@ class App {
     this.isWin = false;
     Console.print("숫자 야구 게임을 시작합니다.");
     this.strikes = generateStrikes();
-    Console.print(this.strikes); // 코드 작성 시 활성화하여 작업
+    // Console.print(this.strikes); // 코드 작성 시 활성화하여 작업
     while (!this.isWin) {
       await this.playInning().then(message => {
         Console.print(message);
