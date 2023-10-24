@@ -1,5 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import compareNumbers from "./CompareNumbers";
+import compareNumbers from "./compareNumbers.js";
 
 const getComputerNumber = async () => {
   let computerNumbers = "";
