@@ -7,8 +7,7 @@ class App {
   }
 
   /**
-   * 1-9의 서로 다른 3자리 수 배열 반환한다.
-   * @returns {Number[]} 서로 다른 3자리 숫자 배열
+   * 1-9의 서로 다른 3자리 수 배열을 생성한다.
    */
   getRandomNumbers() {
     const numbers = new Set();
@@ -17,7 +16,7 @@ class App {
       numbers.add(MissionUtils.Random.pickNumberInRange(1, 9));
     }
     
-    return [...numbers];
+    this.numbers =  [...numbers];
   }
 
   /**
@@ -94,7 +93,7 @@ class App {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
 
     while(true) {
-      this.numbers = this.getRandomNumbers(); // 랜덤 숫사 배열 생성
+      this.getRandomNumbers(); // 랜덤 숫사 배열 생성
       
       await this.inputNumbers(); // 플레이어 숫자 입력
       
