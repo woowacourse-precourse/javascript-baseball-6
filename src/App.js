@@ -1,7 +1,7 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 
 const SCORE = {
-  ball: 0, //볼 스트라이크같은 출력 문자열이니 메세지로 가는게 맞지 않나?
+  ball: 0, //상수가 아니니 대문자로 쓰는게 아니지 않나?
   strike: 0,
   success: false,
 };
@@ -10,21 +10,22 @@ const MESSAGE = {
   INPUTREQUEST: "숫자를 입력해주세요 :",
   RESTART: "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n",
   ERROR: "[ERROR] 숫자가 잘못된 형식입니다.",
-
   BALL: "볼",
   STRIKE: "스트라이크",
   NOTHING: "낫싱",
   SUCCESS: "3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료",
 };
 function makeRandom() {
+  //makeRandom 함수도 비동기로 처리해야 병렬로 getUserInput 처리 되지 않나?
   const answer = [];
   while (answer.length < 3) {
+    //숫자 3도 상수니까 변수로 사용해야하나?
     const number = Random.pickNumberInRange(1, 9);
     if (!answer.includes(number + "")) {
       answer.push(number + "");
     }
   }
-  console.log(answer);
+  //console.log(answer);
   return answer;
 }
 
@@ -38,19 +39,14 @@ async function getUserInput(message) {
 }
 
 function checkError(number) {
-  if (number.length !== 3) {
-    return false;
-  }
   for (let i = 0; i < number.length; i++) {
     if (isNaN(number[i])) {
-      //console.log(number[i], isNaN(number[i]));
       return false;
     }
   }
-  let set = new Set([...number]);
-  //console.log(set.size);
 
-  if (set.size !== 3) {
+  let set = new Set([...number]); //변수를 뭐라 지을지 모르겠음. 중복없앤숫자?
+  if (set.size !== 3 || number.length !== 3) {
     return false;
   }
 
@@ -64,14 +60,10 @@ function checkedError(number) {
   return false;
 }
 
-function review(answer, number) {
-  // console.log(answer, number);
-  // console.log(SCORE);
+function checkValue(answer, number) {
   for (let i = 0; i < answer.length; i++) {
-    // console.log(SCORE);
     let index = answer.findIndex((el) => el === number[i]);
-    // console.log(index);
-    // console.log(i);
+
     if (index === i) {
       SCORE.strike++;
     }
@@ -84,8 +76,6 @@ function review(answer, number) {
 function resetScore() {
   SCORE.ball = 0;
   SCORE.strike = 0;
-
-  // console.log(SCORE);
 }
 function printResult() {
   // console.log(SCORE);
@@ -117,7 +107,7 @@ function printResult() {
 class App {
   async play() {
     Console.print(MESSAGE.START);
-    let answer = makeRandom();
+    const ANSWER = makeRandom();
 
     while (!SCORE.success) {
       let num = await getUserInput(MESSAGE.INPUTREQUEST);
@@ -125,7 +115,8 @@ class App {
         throw new Error(MESSAGE.ERROR);
       }
 
-      review(answer, num);
+      checkValue(ANSWER, num);
+
       if (!SCORE.success) {
         resetScore();
       }
