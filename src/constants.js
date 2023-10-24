@@ -12,7 +12,7 @@ const RESULT = {
     STRIKE: '스트라이크',
 }
 
-module.exports = {
+export {
     GAME_MESSAGE,
-    RESULT
+    RESULT,
 }
