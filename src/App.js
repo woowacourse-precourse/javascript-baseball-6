@@ -32,19 +32,18 @@ class App {
     MissionUtils.Console.print(
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
     );
-    const choice = await MissionUtils.ㅈ;
+    const choice = await MissionUtils.Console.readLineAsync();
     MissionUtils.Console.print(choice);
 
     if (choice === "1") {
       this.play(); // 게임 재시작
     } else if (choice === "2") {
       MissionUtils.Console.print("게임을 종료합니다.");
-      process.exit(0); // 프로그램 종료
+      return;
     } else {
       throw new Error("[ERROR] 잘못된 선택입니다.");
     }
   }
-
   generateComputerNumbers() {
     const computer = [];
     while (computer.length < 3) {
