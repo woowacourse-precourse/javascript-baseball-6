@@ -6,8 +6,10 @@ class App {
   #strike = 0;
   #ball = 0;
 
-  static #printGreeting() {
-    Console.print("숫자 야구 게임을 시작합니다.");
+  static #printGreeting(type) {
+    if (type === "start") Console.print("숫자 야구 게임을 시작합니다.");
+    if (type === "end")
+      Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
   }
 
   #generateSecretNumber() {
@@ -48,13 +50,16 @@ class App {
 
   #playBaseBall() {
     this.#generateSecretNumber();
-    const guessNumber = App.#inputGuessNumber();
-    this.#compareNumber(guessNumber);
+    while (this.#strike < 3) {
+      const guessNumber = App.#inputGuessNumber();
+      this.#compareNumber(guessNumber);
+    }
   }
 
   play() {
-    App.printGreeting();
-    this.playBaseBall();
+    App.#printGreeting("start");
+    this.#playBaseBall();
+    App.#printGreeting("end");
   }
 }
 
