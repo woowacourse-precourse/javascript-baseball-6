@@ -1,8 +1,10 @@
-import Game from './model/Game';
-import View from './view/View';
-import { MESSAGE, SETTING } from './utils/Constants';
-import { validateInput, validateRestartInput } from './utils/Validator';
+import Game from './model/Game.js';
+import View from './view/View.js';
+import { ERROR, MESSAGE, SETTING } from './utils/Constants.js';
+import { validator } from './utils/Validator.js';
 
+const { RESTART, MAX_STRIKE_COUNT } = SETTING;
+const { HEADER, NUMBER, LENGTH, DUPLICATE, RESTART_NUMBER } = ERROR;
 const {
   GAME_START,
   INPUT_NUMBER,
@@ -12,7 +14,6 @@ const {
   BALL,
   STRIKE,
 } = MESSAGE;
-const { RESTART, MAX_STRIKE_COUNT } = SETTING;
 
 export default class App {
   #game;
@@ -54,7 +55,7 @@ export default class App {
   async getUserNumber() {
     this.#view.print(GAME_START);
     const inputNumber = (await this.#view.input(INPUT_NUMBER)).trim();
-    validateInput(inputNumber);
+    this.validateInput(inputNumber);
 
     return inputNumber;
   }
@@ -66,7 +67,7 @@ export default class App {
 
   async getUserRestartChoice() {
     const restartNumber = Number(await this.#view.input(SUGGEST_NEW_GAME));
-    if (validateRestartInput(restartNumber)) {
+    if (this.validateRestartInput(restartNumber)) {
       return restartNumber;
     }
     return null;
@@ -103,6 +104,28 @@ export default class App {
       message += `${STRIKE(strike)}`;
     }
     return message.trim() || `${NOTHING}`;
+  }
+
+  validateInput(input) {
+    this.#view.throwError(`${HEADER}${NUMBER}`, validator.isNumber(input));
+    this.#view.throwError(
+      `${HEADER}${LENGTH}`,
+      validator.isCorrectLength(input),
+    );
+    this.#view.throwError(
+      `${HEADER}${DUPLICATE}`,
+      validator.isDuplicate(input),
+    );
+
+    return true;
+  }
+
+  validateRestartInput(input) {
+    this.#view.throwError(
+      `${HEADER}${RESTART_NUMBER}`,
+      validator.isRestartNumber(input),
+    );
+    return true;
   }
 }
 

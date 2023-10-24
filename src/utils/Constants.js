@@ -22,8 +22,10 @@ const SETTING = Object.freeze({
 
 const ERROR = Object.freeze({
   HEADER: '[ERROR] ',
-  INPUT: '사용자 입력값이 잘못되었습니다. 다시 확인해주세요.',
-  RESTART: '재시작 입력값이 잘못되었습니다. 다시 확인해주세요.',
+  NUMBER: '숫자가 아닌 값 혹은 0 이 입력되었습니다. 다시 확인해주세요.',
+  LENGTH: '입력값의 길이가 잘못되었습니다. 다시 확인해주세요.',
+  DUPLICATE: '입력에 중복된 값이 있습니다. 다시 확인해주세요.',
+  RESTART_NUMBER: '1 또는 2만 입력 해야됩니다. 다시 확인해주세요.',
 });
 
 export { MESSAGE, SETTING, ERROR };
