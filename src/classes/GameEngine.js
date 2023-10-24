@@ -2,7 +2,7 @@ import { Console } from '@woowacourse/mission-utils';
 
 class GameEngine {
   // 입력값을 배열로 변경하는 함수
-  inputToArray(input) {
+  static inputToArray(input) {
     if (input.length !== 3) {
       throw new Error('[ERROR] 3자리 값이 아닙니다.');
     }
@@ -12,7 +12,7 @@ class GameEngine {
   }
 
   // 문자배열을 숫자배열로 변경하는 함수
-  stringToNumber(playerNumber) {
+  static stringToNumber(playerNumber) {
     return playerNumber.map((x) => {
       const num = Number(x);
       if (Number.isNaN(num)) {
@@ -23,7 +23,7 @@ class GameEngine {
   }
 
   // 플레이어 숫자가 유효한지 판별하는 함수
-  playerNumberValidity(playerNumber) {
+  static playerNumberValidity(playerNumber) {
     playerNumber.forEach((x) => {
       if (x < 1 || x > 9) {
         throw new Error('[ERROR] 숫자는 1부터 9까지여야 합니다.');
@@ -35,7 +35,7 @@ class GameEngine {
   }
 
   // 플레이어의 점수를 반환하는 함수
-  countScore(computerNumber, playerNumber) {
+  static countScore(computerNumber, playerNumber) {
     const score = { ball: 0, strike: 0 };
 
     playerNumber.forEach((x, i) => {
@@ -51,7 +51,7 @@ class GameEngine {
   }
 
   // 플레이어의 점수를 프린트하는 함수
-  printScore({ ball, strike }) {
+  static printScore({ ball, strike }) {
     if (ball === 0 && strike === 0) {
       Console.print('낫싱');
       return;
