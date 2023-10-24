@@ -413,5 +413,48 @@ describe("숫자 야구 게임", () => {
     await expect(app.play()).rejects.toThrow("[ERROR]");
   });
 
+  test("예외 테스트(USER_NUMBER_ERROR) 문자 입력", async () => {
+    // given
+    const randoms = [5, 6, 7, 1 ,2 ,3];
+    const answers = ["567","1","ONE"];
+    
+    mockRandoms(randoms);
+    mockQuestions(answers);
+    
+    // when & then
+    const app = new App();
+    
+    await expect(app.play()).rejects.toThrow("[ERROR]");
+  });
+
+  test("예외 테스트(USER_NUMBER_ERROR) 문자 입력", async () => {
+    // given
+    const randoms = [5, 6, 7, 1 ,2 ,3];
+    const answers = ["567","1","123","TWO"];
+    
+    mockRandoms(randoms);
+    mockQuestions(answers);
+    
+    // when & then
+    const app = new App();
+    
+    await expect(app.play()).rejects.toThrow("[ERROR]");
+  });
+
+  test("예외 테스트(USER_NUMBER_ERROR) 문자 입력", async () => {
+    // given
+    const randoms = [5, 6, 7, 1 ,2 ,3];
+    const answers = ["567","1","1W3"];
+    
+    mockRandoms(randoms);
+    mockQuestions(answers);
+    
+    // when & then
+    const app = new App();
+    
+    await expect(app.play()).rejects.toThrow("[ERROR]");
+  });
+
+
   
 });
