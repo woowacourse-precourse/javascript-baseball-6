@@ -111,6 +111,8 @@ class App {
   processNextStep(strike) {
     if (strike === 3) {
       this.confirmRetry();
+    } else {
+      this.inputUserNumber();
     }
   }
 
