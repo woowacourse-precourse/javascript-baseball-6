@@ -33,7 +33,7 @@ export default class OutputView {
       return;
     }
     this.#print(
-      `${ball}${BASEBALL_TEXT.BALL}` + ' ' + `${strike}${BASEBALL_TEXT.STRIKE}`
+      `${ball}${BASEBALL_TEXT.BALL} ${strike}${BASEBALL_TEXT.STRIKE}`
     );
   }
 

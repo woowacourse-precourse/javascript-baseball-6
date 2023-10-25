@@ -11,7 +11,6 @@ export const createRandomNumbers = (length, _ = paramType(length, Number)) => {
     );
     if (!result.includes(randomNumber)) result.push(randomNumber);
   }
-
   const winningNumbers = Number(result.join(''));
 
   return winningNumbers;
