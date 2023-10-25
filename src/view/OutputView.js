@@ -37,6 +37,11 @@ export default class OutputView {
     );
   }
 
+  printThreeStrikes() {
+    this.#print(`3스트라이크
+3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
+  }
+
   #print(text, _ = paramType(text, String)) {
     Console.print(text);
   }
