@@ -69,7 +69,6 @@ class App {
   }
 
   async getGameResult(computerNum, inputNum) {
-    this.resetHint();
     this.compareNumber(computerNum, inputNum);
 
     if (this.strike === 3) {
@@ -87,12 +86,6 @@ class App {
       this.validateUserInput(userInput);
       await this.getGameResult(computerNum, userInput);
     }
-  }
-
-  resetHint() {
-    this.strike = 0;
-    this.ball = 0;
-    this.nothing = 0;
   }
 
   async restart() {
