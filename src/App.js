@@ -25,6 +25,19 @@ class App {
 
     return input;
   }
+
+  judgeUserGuess(computerGuess, userGuess) {
+    const guessResult = [0, 0];
+    for (let i = 0; i < computerGuess.length; i++) {
+      if (computerGuess[i] === userGuess[i]) {
+        guessResult[1]++;
+      } else if (computerGuess.includes(userGuess[i])) {
+        guessResult[0]++;
+      }
+    }
+
+    return guessResult;
+  }
 }
 
 export default App;
