@@ -1,16 +1,16 @@
-import {Console} from "@woowacourse/mission-utils";
 import inputValidation from "../validify/inputValidation.js";
+import {Console} from "@woowacourse/mission-utils";
 
 class Batter {
     constructor() {
-        this.ballCountNumbers = [];
+        this.gameNumbers = [];
     }
 
-    async setThreeBatNumbers () {
+    async enterGameNumbers () {
         try {
             const batterInput = await Console.readLineAsync("숫자를 입력해주세요 : ");
-            this.ballCountNumbers = batterInput.split("").map(Number);
-            inputValidation(this.ballCountNumbers);
+            this.gameNumbers = batterInput.split("").map(Number);
+            inputValidation(this.gameNumbers);
         } catch (error) {
             throw new Error(error);
         }

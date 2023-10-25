@@ -2,14 +2,14 @@ import {MissionUtils} from "@woowacourse/mission-utils";
 
 class Pitcher {
     constructor() {
-        this.gameCountNumbers = []
+        this.gameNumbers = []
     }
 
-    setRandomBallCount() {
-        while (this.gameCountNumbers.length < 3) {
+    setRandomGameNumbers() {
+        while (this.gameNumbers.length < 3) {
             const number = MissionUtils.Random.pickNumberInRange(1, 9);
-            if (!this.gameCountNumbers.includes(number)) {
-                this.gameCountNumbers.push(number);
+            if (!this.gameNumbers.includes(number)) {
+                this.gameNumbers.push(number);
             }
         }
     }
