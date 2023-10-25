@@ -47,7 +47,7 @@ class App {
       throw new Error("[ERROR] 3글자가 아닌 입력입니다.");
     }
     for (const char of input) {
-      if (char < '0' || char > '9') {
+      if (char < '1' || char > '9') {
         throw new Error("[ERROR] 숫자가 아닌 입력이 포함되어 있습니다.");
       }
     }
