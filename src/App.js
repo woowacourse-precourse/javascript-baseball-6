@@ -48,6 +48,7 @@ class App {
       return;
     }
   }
+
   async settingNumber(number) {
     const [a, b, c] = number.split("").map(Number);
     if (a === b || b === c || c === a) {
@@ -70,7 +71,15 @@ class App {
     }
 
     this.input = number;
-    await Console.print(this.isIncluded());
+    await this.calculate();
+  }
+
+  async calculate() {
+    const inputArr = this.input.split("");
+    const answerArr = this.answer.split("");
+    await this.strike(inputArr, answerArr);
+    await this.ball(inputArr, answerArr);
+    await this.consoleOutput(this.strikeCount, this.ballCount);
   }
 
   async strike(inputArr, answerArr) {
