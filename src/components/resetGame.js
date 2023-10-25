@@ -1,5 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import { GAME } from '../pages/texts';
+import { GAME } from '../pages/texts.js';
 
 export default async function resetGame() {
     const userInput = await MissionUtils.Console.readLineAsync(GAME.RESTART);

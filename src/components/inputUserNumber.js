@@ -1,9 +1,9 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import { GAME, ERROR } from '../pages/texts';
+import { GAME, ERROR } from '../pages/texts.js';
 
 export default async function inputUserNumber() {
     /* User에게 숫자 입력받기 */
-    const userNumber = MissionUtils.Console.readLineAsync(GAME.INPUT);
+    const userNumber = await MissionUtils.Console.readLineAsync(GAME.INPUT);
 
     /* 입력받은 숫자가 숫자가 아닐때 */
     if (isNaN(userNumber)) {
@@ -21,8 +21,8 @@ export default async function inputUserNumber() {
     }
 
     /* 입력받은 숫자의 각 자리수가 모두 같은숫자 일때 */
-    const sameNumber = new Set(userInput);
-    if (sameNumber.size !== userInput.length) {
+    const sameNumber = new Set(userNumber);
+    if (sameNumber.size !== userNumber.length) {
         throw new Error(ERROR.DOUBLE);
     }
 
