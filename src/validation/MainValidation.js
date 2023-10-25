@@ -1,5 +1,5 @@
 import ERROR from '../constant/ERROR.js';
-import { SETTING } from '../constant/CONSTANT';
+import { SETTING } from '../constant/CONSTANT.js';
 
 export default class MainValidation {
   constructor(input) {
