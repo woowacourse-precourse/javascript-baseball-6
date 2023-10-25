@@ -19,7 +19,7 @@ export class BaseballNumber {
     if (typeof input === TYPE.STRING) return input.split('');
     if (Array.isArray(input)) return input;
 
-    throw new Error(ERROR.MESSAGE.INVALID_BASEBALL_NUMBER_TYPE);
+    throw new BaseballNumberError(ERROR.MESSAGE.INVALID_BASEBALL_NUMBER_TYPE);
   }
 
   #validation(numberList) {
