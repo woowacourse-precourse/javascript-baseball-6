@@ -1,7 +1,13 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 //볼, 스트라이크 계산
-export function count (userNumber, answerNumber, i, j, hintcount) {
+export function count(
+    userNumber,
+    answerNumber,
+    i,
+    j,
+    hintcount,
+  ) {
     if(answerNumber[i] === userNumber[j]){
         if(i === j){
             hintcount.strike++;
@@ -29,7 +35,7 @@ export function printHint (hintcount) {
     MissionUtils.Console.print(hint.join(' '));
 
     if(hintcount.strike === 3){
-        MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+        MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
         return true;
     }
     return false;

@@ -18,9 +18,9 @@ const start = async() => {
 
 //사용자에게 숫자 입력받기
 const inputNum = async() => {
-    let inputNumber = await MissionUtils.Console.readLineAsync("숫자를 입력해 주세요 : ");
+    let inputNumber = await MissionUtils.Console.readLineAsync('숫자를 입력해 주세요 : ');
     if (!isValidInput(inputNumber)) {
-        throw new Error("[ERROR] 올바른 숫자를 입력해주세요.");
+        throw new Error('[ERROR] 올바른 숫자를 입력해주세요.');
     }
     return inputNumber;
 }
@@ -48,14 +48,14 @@ const checkNum = (inputNumber, answerNumber) => {
 
 //게임 재시작 여부 묻기
 const replay = async() => {
-    const replay = await MissionUtils.Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+    const replay = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
     if (replay === '1') {
         return start();
     } else if (replay === '2') {
         //gmae end
         return false;
     } else {
-        throw new Error("[ERROR] 올바른 숫자를 입력해주세요.");
+        throw new Error('[ERROR] 올바른 숫자를 입력해주세요.');
     }
 
 }
