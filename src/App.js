@@ -5,16 +5,17 @@ class App {
     this.controller = new BaseballController();
   }
   async play() {
-    try {
-      await this.controller.play();
-    } catch (e) {
-      MissionUtils.Console.print(`${e}`);
-      throw e;
-    }
+    await this.controller.play();
   }
 }
 const app = new App();
 
-app.play();
-
+async function game() {
+  try {
+    app.play();
+  } catch (e) {
+    MissionUtils.Console.print(`${e}`);
+  }
+}
+game();
 export default App;
