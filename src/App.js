@@ -54,10 +54,27 @@ class App {
     console.log(this.#computerNumber, this.#userNum, '비교용');
 
     if (this.#validator.compareNumber(this.#userNum, this.#computerNumber)) {
-      MissionUtils.Console.print(this.#counter.count(this.#userNum, this.#computerNumber));
+      this.#counter.count(this.#userNum, this.#computerNumber);
       this.#isGameFinish = this.#counter.getStrikes() === 3;
-    }
 
+      //여기 리팩토링 필요
+
+      if (this.#counter.getStrikes() > 0 && this.#counter.getBalls() > 0) {
+        MissionUtils.Console.print(
+          `${this.#counter.getBalls()}볼 ${this.#counter.getStrikes()}스트라이크 `,
+        );
+      }
+
+      if (this.#counter.getStrikes() > 0 && this.#counter.getBalls() === 0) {
+        MissionUtils.Console.print(`${this.#counter.getStrikes()}스트라이크`);
+      }
+      if (this.#counter.getBalls() > 0 && this.#counter.getStrikes() === 0) {
+        MissionUtils.Console.print(`${this.#counter.getBalls()}볼`);
+      }
+      if (this.#counter.getBalls() === 0 && this.#counter.getStrikes() === 0) {
+        MissionUtils.Console.print('낫싱');
+      }
+    }
     if (!this.#isGameFinish) await this.progress();
   }
 }
