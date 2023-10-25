@@ -18,6 +18,7 @@ class App {
     await this.getUserInput();
     this.handleException();
     this.checkMatch();
+    this.printResult();
   }
 
   makeRandomNumbers() {
@@ -66,6 +67,18 @@ class App {
     });
     this.ball = ball;
     this.strike = strike;
+  }
+
+  printResult() {
+    if (this.strike === 0 && this.ball === 0) {
+      MissionUtils.Console.print('낫싱');
+    } else if (this.strike !== 0 && this.ball === 0) {
+      MissionUtils.Console.print(`${this.strike}스트라이크`);
+    } else if (this.strike === 0 && this.ball !== 0) {
+      MissionUtils.Console.print(`${this.ball}볼`);
+    } else {
+      MissionUtils.Console.print(`${this.ball}볼 ${this.strike}스트라이크`);
+    }
   }
 }
 
