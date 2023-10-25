@@ -1,7 +1,8 @@
 import { Console, Random } from "@woowacourse/mission-utils";
-import { IN_GAME_SETTING, IN_GAME_MESSAGE } from "../utils/Constants";
+import { IN_GAME_SETTING, IN_GAME_MESSAGE, AFTER_GAME_USER_COMMAND, IN_GAME_ERROR } from "../utils/Constants";
 import validateUserAnswer from "../utils/validateUserAnswer";
 import getUserScore from "../utils/getUserScore";
+import convertUserScoreToMessage from "../utils/convertUserScoreToMessage";
 
 class App {
   constructor() {
