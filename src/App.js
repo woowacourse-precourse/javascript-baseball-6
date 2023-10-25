@@ -1,14 +1,3 @@
-// const MissionUtils = require('./MissionUtils');
-
-// class App {
-//   async play() {
-// 	const game = new MissionUtils();
-// 	game.start();
-//   }
-// }
-
-// export default App;
-
 const MissionUtils = require("@woowacourse/mission-utils");
 
 class App {
@@ -48,10 +37,10 @@ class App {
   async gameRound() {
     let answer = this.setAnswer();
     while(true) {
-      const inputNum = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
+      const userInput = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
 
-      if(inputNum.length == 3) {
-        const [strikeNum, ballNum] = this.checkInput(inputNum, answer);
+      if(userInput.length == 3) {
+        const [strikeNum, ballNum] = this.checkInput(userInput, answer);
         MissionUtils.Console.print(this.printResult(strikeNum, ballNum));
         if(strikeNum == 3) break;
       } else {
