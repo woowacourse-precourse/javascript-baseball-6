@@ -9,9 +9,8 @@ export default function printResult(data) {
   const format = makeBallFormat(ball) + makeStrikeFormat(strike);
 
   if (strike === 3) {
-    consoleView.printResult(
-      `${data.strike}${BASEBALL.STRIKE}\n${OUTPUT_MESSAGE.FINISH}`
-    );
+    consoleView.printResult(`${data.strike}${BASEBALL.STRIKE}`);
+    consoleView.printEnd(`${OUTPUT_MESSAGE.FINISH}`);
 
     return true;
   } else {
