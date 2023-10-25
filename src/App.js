@@ -68,6 +68,16 @@ class App {
 
     MissionUtils.Console.print(result);
   }
+
+  validateNumber = (number) => {
+    const setNumber = new Set(number);
+
+    if (number.length !== setNumber.size || number.length !== 3) {
+      return this.texts.ERROR;
+    }
+
+    return null;
+  };
 }
 
 const myApp = new App();
