@@ -13,7 +13,10 @@ class App {
         try {
           const input = await Console.readLineAsync("숫자를 입력해주세요: ");
           this.checkUserNum(input);
-          
+          if (this.doGame(input)) {
+            Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+            break;
+          }
         } catch (error) {
           throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
         }
@@ -41,6 +44,15 @@ class App {
     return input;
   }
   
+  doGame(input) {
+    const playerNumbers = input.split("").map((char) => parseInt(char));
+    const { ball, strike } = this.compareNum(playerNumbers);
+
+    this.printHint(ball, strike);
+
+    return strike === 3;
+  }
+
   compareNum(playerNumbers) {
     let ball = 0;
     let strike = 0;
@@ -65,7 +77,7 @@ class App {
       Console.print(`${ball}볼 ${strike}스트라이크`);
     }
   }
-  
+
   async resetGame() {
     const answer = await Console.readLineAsync(
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요: "
