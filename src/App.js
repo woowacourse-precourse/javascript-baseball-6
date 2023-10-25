@@ -44,19 +44,11 @@ class App {
       
       //숫자 입력 반복
       while(true){ 
-        try{
-          const ANSWERINPUT = await Console.readLineAsync('숫자를 입력해주세요 : ');
-          if(!await checkAnswerData(ANSWERINPUT)) {
-            throw 'errorData';
-          }else{
-            this.setAnswer(ANSWERINPUT);
-          }
-        }catch(error) {
-          Console.print('[ERROR] 숫자가 잘못된 형식입니다.');
-          return 0;
+        const ANSWERINPUT = await Console.readLineAsync('숫자를 입력해주세요 : ');
+        if(await checkAnswerData(ANSWERINPUT)) {
+          this.setAnswer(ANSWERINPUT);
         }
 
-        //숫자가 모두 맞을 경우 게임 종료
         if(this.getAnswer() === this.getComputer().join('')) {
           Console.print('3스트라이크');
           Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
@@ -75,23 +67,16 @@ class App {
           Console.print('낫싱');
         }
       }
-
+      
       const RESTARTNOINPUT = Number(await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'));
-      try {
-        if(!(RESTARTNOINPUT === 1 || RESTARTNOINPUT === 2)) {
-          throw 'errorData';
-        }else {
-          this.setRestartNo(RESTARTNOINPUT);
-        }
-      }catch(error) {
-        Console.print('[ERROR] 숫자가 잘못된 형식입니다.');
-        return 0;
+
+      if(!(RESTARTNOINPUT === 1 || RESTARTNOINPUT === 2)) {
+        throw new Error('[ERROR] 1 또는 2를 입력해주세요.');
+      }else {
+        this.setRestartNo(RESTARTNOINPUT);
       }
     }
   }
 }
-
-const MYAPP = new App();
-await MYAPP.play();
 
 export default App;
