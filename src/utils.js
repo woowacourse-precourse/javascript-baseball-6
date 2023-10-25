@@ -5,4 +5,4 @@ async function userInput(message) {
   return input;
 }
 
-export { userInput }
+export default userInput;
