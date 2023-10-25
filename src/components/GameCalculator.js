@@ -1,16 +1,16 @@
 class GameCalculator {
   constructor(userInput, randomNumber) {
-    this.userInput = userInput.split('');
-    this.randomNumber = randomNumber.split('');
+    this.userInputArr = userInput.split('');
+    this.randomNumberArr = randomNumber.split('');
     this.strike = 0;
     this.ball = 0;
   }
 
   calculate() {
-    this.randomNumber.forEach((randomNum, randomNumIndex) => {
-      if (randomNum === this.userInput[randomNumIndex]) {
+    this.randomNumberArr.forEach((number, index) => {
+      if (number === this.userInputArr[index]) {
         this.strike += 1;
-      } else if (this.userInput.includes(randomNum)) {
+      } else if (this.userInputArr.includes(number)) {
         this.ball += 1;
       }
     });
@@ -21,11 +21,11 @@ class GameCalculator {
 
     if (this.strike === 0 && this.ball === 0) {
       return '낫싱';
-    } else if (this.strike === 0) {
+    } else if (this.strike === 0 && this.ball > 0) {
       return `${this.ball}볼`;
-    } else if (this.ball === 0) {
+    } else if (this.ball === 0 && this.strike > 0) {
       return `${this.strike}스트라이크`;
-    } else {
+    } else if(this.ball > 0 && this.strike > 0) {
       return `${this.ball}볼 ${this.strike}스트라이크`;
     }
   }

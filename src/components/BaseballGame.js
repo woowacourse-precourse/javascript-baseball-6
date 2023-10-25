@@ -9,15 +9,15 @@ class BaseballGame {
   }
 
   async gameStart() {
-    this.randomNumber = await this.randomNumberGenerator();
+    this.randomNumber = this.randomNumberGenerator();
 
     if (this.gameCount === 0) {
       Console.print('숫자 야구 게임을 시작합니다.');
-    } else {
+    } else if (this.gameCount > 0) {
       Console.print(`플레이한 게임 수: ${this.gameCount}`);
       Console.print('숫자 야구 게임을 시작합니다.');
     }
-
+    
     await this.getUserInput();
   }
 
@@ -27,6 +27,7 @@ class BaseballGame {
     );
 
     this.validateUserInput(USER_INPUT);
+    
     await this.showGameResult(USER_INPUT);
   }
 
@@ -35,9 +36,9 @@ class BaseballGame {
     const DIGITS = userInput.split('');
 
     if (
-      isNaN(USER_INPUT_NUMBER) ||
-      DIGITS.some((digit) => Number(digit) < 1 || Number(digit) > 9) ||
-      DIGITS.length !== 3
+      isNaN(USER_INPUT_NUMBER) 
+      || DIGITS.some((digit) => Number(digit) < 1 || Number(digit) > 9) 
+      || DIGITS.length !== 3
     ) {
       throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
     }
@@ -48,7 +49,7 @@ class BaseballGame {
 
     return true;
   }
-
+  
   async showGameResult(validUserinput) {
     const GAME_CALCULATOR = new GameCalculator(
       validUserinput,
@@ -59,7 +60,7 @@ class BaseballGame {
     Console.print(GAME_RESULT_STRING);
 
     if (GAME_CALCULATOR.validateAnswer()) {
-      this.restart();
+      await this.restart();
     } else {
       await this.getUserInput();
     }
@@ -84,7 +85,7 @@ class BaseballGame {
     );
     if (RESTART_INPUT === '1') {
       this.gameCount += 1;
-      this.gameStart();
+      await this.gameStart();
     } else if (RESTART_INPUT === '2') {
       return;
     }
