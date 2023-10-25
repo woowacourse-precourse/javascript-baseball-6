@@ -6,14 +6,14 @@ class App {
       return /^\d{3}$/.test(input);
     }
 
-    function validateNumber(num) { // 1아니면 2가 맞는지 판별하는 함수
+    function validateNumber(num) { // 1 아니면 2가 맞는지 판별하는 함수
       if (num === '1' || num === '2') {
         return true;
       }
       throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
     }
 
-    function changeArray(str) {
+    function changeArray(str) { // 배열 변환 함수
       const numArray = new Array(str.length);
 
       for (let i = 0; i < str.length; i++) {
@@ -27,7 +27,7 @@ class App {
       return numArray;
     }
 
-    async function numberGame() {
+    async function numberGame() { // 숫자 게임 함수
       let computer = [];
       while (computer.length < 3) {
         let number = MissionUtils.Random.pickNumberInRange(1, 9);
