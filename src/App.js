@@ -7,7 +7,6 @@ class App {
 
   play() {
     return this.game.start().catch((error) => {
-      console.error(error);
       throw error;
     });
   }
