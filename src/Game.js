@@ -6,44 +6,33 @@ class Game {
     this.answer = [];
     this.strikeCount = 0;
     this.ballCount = 0;
-    this.output = OUTPUT_MESSAGE.START;
   }
 
   setAnswer() {
-    this.answer = [
-      ...MissionUtils.Random.pickUniqueNumbersInRange(
-        1,
-        9,
-        CONDITION.FULL_ANSWER_COUNT
-      ),
-    ];
-  }
-
-  setOutput(type) {
-    switch (type) {
-      case "start":
-        this.output = OUTPUT_MESSAGE.START;
-        break;
-      case "restart":
-        this.output = OUTPUT_MESSAGE.RESTART;
-        break;
-      case "input":
-        this.output = OUTPUT_MESSAGE.INPUT;
-        break;
-      case "count":
-        this.output = OUTPUT_MESSAGE.COUNT(this.strikeCount, this.ballCount);
-        break;
-      case "end":
-        this.output = OUTPUT_MESSAGE.END;
-        break;
-      case "exit":
-        this.output = OUTPUT_MESSAGE.EXIT;
-        break;
+    while (this.answer.length < 3) {
+      const number = MissionUtils.Random.pickNumberInRange(1, 9);
+      if (!this.answer.includes(number)) {
+        this.answer.push(number);
+      }
     }
   }
 
   setBaseBallCount(userInput) {
+    this.resetBaseBallCount();
+
+    if (!userInput) {
+      throw new Error("[ERROR] 입력이 비어있습니다.");
+    }
+
+    if (userInput.length > CONDITION.FULL_ANSWER_COUNT) {
+      throw new Error("[ERROR] 세자리 입력을 초과했습니다.");
+    }
+
     const userInputArray = userInput.split("");
+
+    if (userInputArray.some((number) => isNaN(Number(number)))) {
+      throw new Error("[ERROR] 숫자 외의 문자를 입력했습니다.");
+    }
 
     userInputArray.forEach((number, index) => {
       if (this.answer[index] === Number(number)) {
@@ -54,8 +43,9 @@ class Game {
     });
   }
 
-  getAnswer() {
-    return this.answer;
+  resetBaseBallCount() {
+    this.strikeCount = 0;
+    this.ballCount = 0;
   }
 
   getStrikeCount() {
@@ -64,10 +54,6 @@ class Game {
 
   getBallCount() {
     return this.ballCount;
-  }
-
-  getOutput() {
-    return this.output;
   }
 }
 
