@@ -16,6 +16,13 @@ class App {
       this.validateNumber(input);
       const result = this.compareNumber(input);
       Console.print(result);
+      if (result === "3스트라이크") {
+        const shouldExit = await this.printRestart();
+        if (shouldExit) {
+          break;
+        }
+        this.randomNumber = this.generateNumber(); // 새로운 숫자 생성
+      }
     }
   }
 
@@ -29,7 +36,6 @@ class App {
         randomNumber.push(number);
       }
     }
-    Console.print(randomNumber);
     return randomNumber;
   }
 
@@ -46,7 +52,19 @@ class App {
     }
   }
 
-  printRestart() {}
+  async printRestart() {
+    const RESTART = "1";
+    const EXIT = "2";
+    Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    const exitInput = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+    if (exitInput === RESTART) {
+      return false;
+    } else if (exitInput === EXIT) {
+      return true;
+    } else {
+      throw new Error(`${ERROR} 1,2 외의 다른 숫자입니다`);
+    }
+  }
 
   compareNumber(input) {
     // 숫자 비교
