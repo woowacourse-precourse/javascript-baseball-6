@@ -1,0 +1,5 @@
+const CONTINUE = 0;
+const RESTART = 1;
+const GAMEOVER = 2;
+
+export {CONTINUE, RESTART, GAMEOVER};
