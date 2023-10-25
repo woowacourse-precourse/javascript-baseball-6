@@ -38,20 +38,20 @@ class App {
   }
 
   getRandomNumber() {
-    const computer = [];
-    while (computer.length < 3) {
+    const COMPUTER = [];
+    while (COMPUTER.length < 3) {
       const number = Random.pickNumberInRange(1, 9);
-      if (!computer.includes(number)) {
-        computer.push(number);
+      if (!COMPUTER.includes(number)) {
+        COMPUTER.push(number);
       }
     }
-    return `${computer[0]}${computer[1]}${computer[2]}`;
+    return `${COMPUTER[0]}${COMPUTER[1]}${COMPUTER[2]}`;
   }
 
   async getInputNumber() {
-    const input = await Console.readLineAsync("숫자를 입력해주세요 : ");
-    this.checkInputNumber(input);
-    return input;
+    const INPUT = await Console.readLineAsync("숫자를 입력해주세요 : ");
+    this.checkInputNumber(INPUT);
+    return INPUT;
   }
 
   async startGameAgain() {
@@ -63,9 +63,9 @@ class App {
 
   // 입력 값이 숫자가 아니거나, 중복을 제거한 길이가 3이 아니면 throw error
   checkInputNumber(input) {
-    const setInput = [...new Set(input)];
+    const SET_INPUT = [...new Set(input)];
 
-    if (isNaN(parseInt(input)) || setInput.length !== 3) {
+    if (isNaN(parseInt(input)) || SET_INPUT.length !== 3) {
       throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
     }
   }
