@@ -6,13 +6,9 @@ export default class Compare {
     this.computer = computer;
   }
 
-  async getComputerNumber() {
-    return this.computer.getComputerNumber();
-  }
-
   async compareNumbers() {
     let strikeCount = 0;
-    const computerNumber = await this.getComputerNumber();
+    const computerNumber = await this.computer.getComputerNumber();
 
     while (strikeCount !== 3) {
       const userInput = await this.user.getNumber();
@@ -26,7 +22,7 @@ export default class Compare {
         }
       }
 
-      this.printResult(ballCount, strikeCount);
+      this.printHintMessage(ballCount, strikeCount);
 
       if (strikeCount === 3) {
         return true; 
@@ -38,7 +34,7 @@ export default class Compare {
     return false;
   }
 
-  printResult(ball, strike) {
+  printHintMessage(ball, strike) {
     if (ball === 0 && strike === 0) {
       Console.print("낫싱");
     } else if (ball === 0) {
