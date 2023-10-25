@@ -16,22 +16,16 @@ const printQuestionNewGame = () => {
     print('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
 };
 
+const getBallResult = (ballCount) => ballCount > 0 ? [`${ballCount}볼`] : [];
+
+const getStrikeResult = (strikeCount) => strikeCount > 0 ? [`${strikeCount}스트라이크`] : [];
+
 const getMatchResult = ({ ballCount, strikeCount }) => {
     if (ballCount + strikeCount === 0) {
         return '낫싱';
     }
 
-    const result = [];
-
-    if (ballCount > 0) {
-        result.push(`${ballCount}볼`);
-    }
-    
-    if (strikeCount > 0) {
-        result.push(`${strikeCount}스트라이크`);
-    }
-
-    return result.join(' ');
+    return getBallResult(ballCount).concat(getStrikeResult(strikeCount)).join(' ');;
 };
 
 const printMatchResult = (matchResult) => {
