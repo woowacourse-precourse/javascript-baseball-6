@@ -68,8 +68,8 @@ class App {
         else{
           game = true;
           start = true;
-
         }
+        throw new Error('[ERROR] 잘못된 입력입니다.')
       }
 
     }
