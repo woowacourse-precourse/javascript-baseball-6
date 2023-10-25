@@ -44,11 +44,14 @@ class App {
     if (input.length !== 3) {
       throw new Error(`${ERROR} 입력된 숫자는 3자리 숫자여야 합니다.`);
     }
-    if (!input.match(/[1-9]/g)) {
-      throw new Error(`${ERROR} 입력된 숫자가 1~9 사이의 숫자가 아닙니다.`);
+    if (input.includes("0")) {
+      throw new Error(`${ERROR} 입력된 숫자에 0이 포함되어 있습니다.`);
+    }
+    if (input.split("").some((num) => isNaN(num))) {
+      throw new Error(`${ERROR} 입력된 숫자에 문자가 포함되어 있습니다.`);
     }
     if (input.length !== new Set(input).size) {
-      throw new Error(`${ERROR} 중복된 수가 입력되었습니다. `);
+      throw new Error(`${ERROR} 중복된 수가 입력되었습니다.`);
     }
   }
 
