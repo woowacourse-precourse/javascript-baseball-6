@@ -1,2 +1,6 @@
 node_modules
 package-lock.json
+.eslintrc.json
+.prettierrc.json
+.eslintrc.cjs
+__tests__/AppExecute.js
