@@ -40,7 +40,3 @@ export const isValidRestartNumber = (input) => {
   }
   return true;
 };
-
-export const isGameFinish = (numberOfStrikes) => {
-  return numberOfStrikes === 3;
-};

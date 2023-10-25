@@ -1,31 +1,32 @@
 import { GUIDE_MESSAGES } from './constants.js';
 import { Console } from '@woowacourse/mission-utils';
-import { isValidUserNumber, isGameFinish, isValidRestartNumber } from './validation.js';
+import { isValidUserNumber, isValidRestartNumber } from './validation.js';
 import { getUniqueNumbersInRange } from './utils.js';
 
 class BaseballGame {
   constructor() {
-    this.computerNumber = [];
-    this.userNumber = [];
-    this.restartNumber = 0;
     this.showGameStartMessage();
-    this.createComputerNumber();
+    this.init();
   }
 
   async playBaseball() {
-    await this.getUserNumber();
-    this.showCountResult();
-    if (isGameFinish(this.getNumberOfStrikes())) {
-      await this.getRestartNumber();
-      if (this.restartNumber === 1) {
-        this.createComputerNumber();
-        this.playBaseball();
-      } else {
-        return;
-      }
-    } else {
+    await this.guessComputerNumber();
+    while (this.getNumberOfStrikes() !== 3) {
+      await this.guessComputerNumber();
+    }
+    this.restartNumber = await this.getRestartNumber();
+    if (this.restartNumber === 1) {
+      this.createComputerNumber();
+      this.init();
       this.playBaseball();
     }
+  }
+
+  init() {
+    this.computerNumber = [];
+    this.userNumber = [];
+    this.restartNumber = 0;
+    this.createComputerNumber();
   }
 
   showGameStartMessage() {
@@ -36,15 +37,20 @@ class BaseballGame {
     this.computerNumber = getUniqueNumbersInRange(1, 9, 3);
   }
 
+  async guessComputerNumber() {
+    this.userNumber = await this.getUserNumber();
+    this.showCountResult();
+    return;
+  }
+
   async getUserNumber() {
     const userInput = await Console.readLineAsync(GUIDE_MESSAGES.ENTER_USER_NUMBER);
-    this.userNumber =
-      isValidUserNumber(userInput) && userInput.split('').map((character) => +character);
+    return isValidUserNumber(userInput) && userInput.split('').map((character) => +character);
   }
 
   async getRestartNumber() {
     const userInput = await Console.readLineAsync(GUIDE_MESSAGES.ENTER_RESTART_NUMBER);
-    this.restartNumber = isValidRestartNumber(userInput) && +userInput;
+    return isValidRestartNumber(userInput) && +userInput;
   }
 
   showCountResult() {
@@ -53,7 +59,6 @@ class BaseballGame {
 
     if (numberOfStrikes === 0 && numberOfBalls === 0) {
       Console.print(GUIDE_MESSAGES.NONE_MATCHING);
-      return;
     }
 
     if (numberOfBalls === 0) {
@@ -63,10 +68,8 @@ class BaseballGame {
     } else {
       if (numberOfStrikes === 0) {
         Console.print(`${numberOfBalls}볼`);
-        return;
       } else {
         Console.print(`${numberOfBalls}볼 ${numberOfStrikes}스트라이크`);
-        return;
       }
     }
   }
