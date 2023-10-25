@@ -1,113 +1,62 @@
 import { Random, Console } from "@woowacourse/mission-utils";
 class App {
+
+  async getUserNum() {
+    console.log("getusernum fun")
+    const input = await Console.readLineAsync("숫자를 입력해주세요 : ");
+    const inputStringArray = input.split('');
+    const inputNumArray = inputStringArray.map(Number);
+    
+    return inputNumArray;
+  }
+
+  checkNum = (inputNumArray) => {
+    console.log("checknum fun")
+    for(let i=0; i<inputNumArray.length; i++){
+      if(isNaN(inputNumArray[i])){
+        return(false)
+      }
+    }
+    return(true)
+  }
+
+  checkLen = (inputNumArray) => {
+    console.log("checklen fun")
+    return(inputNumArray.length !== 3 ? false : true)
+  }
+
+  checkDuple = (inputNumArray) => {
+    console.log("checkduple fun")
+    const arrayToSet = new Set();
+    for(let item of inputNumArray){
+      arrayToSet.add(item)
+    }
+    return(arrayToSet.size !== 3 ? false : true)
+  }
+
+  checkUserNum = (inputNumArray) => {
+    console.log("checkusernum fun")
+    const valNum = this.checkNum(inputNumArray);
+    const valLen = this.checkLen(inputNumArray);
+    const valDuple = this.checkDuple(inputNumArray);
+
+    console.log(`${valNum} ${valLen} ${valDuple}`)
+    return (valNum && valLen && valDuple)
+  }
+
   async play() {
+    console.log("play fun")
+    const inputNumArray = await this.getUserNum();
+    const validateNum = this.checkUserNum(inputNumArray);
 
-    try {
-      const GOAL = await this.getComNum();
-      await this.tryPlay(GOAL)
-    } catch (error) {
-      Console.print(`에러 발생: ${error.message}`);
-      await this.play()
-    }
-
-  }
-
-  async getComNum() {
-    const GOAL = [];
-    while (GOAL.length < 3) {
-      const RANDOM_NUMBER = Random.pickNumberInRange(1, 9);
-      if (!GOAL.includes(RANDOM_NUMBER)) {
-        GOAL.push(RANDOM_NUMBER);
-      }
-    }
-    return GOAL;
-  }
-  async tryPlay(GOAL) {
-    let number = await this.getUserNum(GOAL);
-
-    if(number === 0) {
-      await this.tryPlay(GOAL)
-    }else{
-      await this.compare(GOAL, number);
-    }
-  }
-  async getUserNum(GOAL) {
-    const number = await Console.readLineAsync("숫자를 입력해주세요 : ");
-
-    const EXIST = new Set();
-
-    for (const digit of number) {
-      EXIST.add(digit);
-    }
-
-    if(EXIST.size === 3){
-      /*
-      const toInt = Array.from(EXIST).map((item)=>{
-        return parseInt(item)
-      })
-      return toInt;
-      */
-      return Array.from(EXIST).map(Number);
-    }else{
-      Console.print(`${number} 의 길이가 3 이 아니거나 중복숫자가 있습니다. ${EXIST.size}`);
-      return 0;
-    }
-
-  }
-  async userWin(){
-    Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`)
-  }
-  async compare(GOAL, number){
-    let strike = 0;
-    let ball = 0;
-
-    console.log(GOAL);
-    console.log(number)
-
-    for(let i=0; i<GOAL.length; i++){
-      if(GOAL[i]===number[i]){
-        strike++;
-      }else{
-        for(let j=0; j<number.length; j++){
-          if(GOAL[i] === number[j]){
-            ball++;
-          }
-        }
-      }
-    }
-
-    console.log(GOAL)
-    console.log(number)
-    console.log(strike)
-    console.log(ball)
-
-    if(strike===3){
-      console.log("user win")
-      this.userWin();
-    }else{
-      console.log("user fail")
-      this.tryPlay(GOAL);
-    }
-  }
+    console.log(validateNum);
+  }  
 }
 
-
-console.log("loaded App.js");
 const app = new App;
+
+Console.print("숫자 야구 게임을 시작합니다.")
 app.play();
 
 
 export default App;
-
-
-
-/** const EXIST = new Set();
-
-      for (const digit of number) {
-        EXIST.add(digit);
-      }
-
-      if (EXIST.size !== 3 || number.length > 3) {
-        Console.print(`${number} 의 길이가 3 이 아니거나 중복숫자가 있습니다. ${EXIST.size}`);
-        throw new Error("유저가 입력한 숫자가 포맷을 벗어남");
-      } */
