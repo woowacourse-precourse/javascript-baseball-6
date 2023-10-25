@@ -2,17 +2,23 @@ import { stringToIntArrayConvertor } from '../utils/stringToIntArrayConvertor.js
 import { playerNumbersValidator } from '../utils/playerInputValidator.js';
 
 class Player {
+  #numbers;
+
   constructor() {
-    this.numbers = [];
+    this.#numbers = [];
   }
 
-  setNumbers(inputNumbers) {
-    playerNumbersValidator(inputNumbers);
-    this.numbers = stringToIntArrayConvertor(inputNumbers);
+  #setNumbers(inputNumbers) {
+    this.#numbers = stringToIntArrayConvertor(inputNumbers);
   }
 
   getNumbers() {
-    return this.numbers;
+    return this.#numbers;
+  }
+
+  resetNumbers(inputNumbers) {
+    playerNumbersValidator(inputNumbers);
+    this.#setNumbers(inputNumbers);
   }
 }
 

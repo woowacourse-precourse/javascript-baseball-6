@@ -1,16 +1,22 @@
 import { randomNumbersGenerator } from '../utils/randomNumbersGenerator.js';
 
 class Computer {
+  #numbers;
+
   constructor() {
-    this.numbers = [];
+    this.#numbers = [];
   }
 
-  setNumbers() {
-    this.numbers = randomNumbersGenerator();
+  #setNumbers() {
+    this.#numbers = randomNumbersGenerator();
   }
 
   getNumbers() {
-    return this.numbers;
+    return this.#numbers;
+  }
+
+  resetNumbers() {
+    this.#setNumbers();
   }
 }
 

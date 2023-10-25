@@ -1,34 +1,37 @@
 import { VALIDATION } from '../constants/constants';
 
 class GameResult {
+  #ball;
+  #strike;
+
   constructor() {
-    this.ball = 0;
-    this.strike = 0;
+    this.#ball = 0;
+    this.#strike = 0;
   }
 
   getStrike() {
-    return this.strike;
+    return this.#strike;
   }
 
   getBall() {
-    return this.ball;
+    return this.#ball;
   }
 
-  addStrike() {
-    this.strike += 1;
+  #addStrike() {
+    this.#strike += 1;
   }
 
-  addBall() {
-    this.ball += 1;
+  #addBall() {
+    this.#ball += 1;
   }
 
   resetResult() {
-    this.ball = 0;
-    this.strike = 0;
+    this.#ball = 0;
+    this.#strike = 0;
   }
 
   isCompleteMatch() {
-    return this.strike === VALIDATION.maxSize;
+    return this.#strike === VALIDATION.maxSize;
   }
 
   compareNumbers(computerNumbers, playerNumbers) {
@@ -36,9 +39,9 @@ class GameResult {
 
     for (let i = 0; i < VALIDATION.maxSize; i++) {
       if (computerNumbers[i] === playerNumbers[i]) {
-        this.addStrike();
+        this.#addStrike();
       } else if (computerNumbers.includes(playerNumbers[i])) {
-        this.addBall();
+        this.#addBall();
       }
     }
   }
