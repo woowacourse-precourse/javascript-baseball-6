@@ -2,7 +2,6 @@ import { Console, Random } from "@woowacourse/mission-utils";
 
 class App {
   computer;
-  userNumber;
   strike;
   ball;
   nothing;
@@ -10,7 +9,6 @@ class App {
   constructor() {
     Console.print("숫자 야구 게임을 시작합니다.");
     this.computer = [];
-    this.userNumber = [];
     this.strike = 0;
     this.ball = 0;
     this.nothing = 0;
@@ -18,8 +16,9 @@ class App {
 
   async play() {
     this.computer = this.getRandomNumber();
-    await this.getUserInput();
-    await this.getGameResult(this.computer, this.userNumber);
+    const userInput = await this.getUserInput();
+    this.validateUserInput(userInput);
+    await this.getGameResult(this.computer, userInput);
   }
 
   getRandomNumber() {
@@ -39,15 +38,15 @@ class App {
   async getUserInput() {
     const inputValue = await Console.readLineAsync("숫자를 입력해주세요 : ");
 
-    this.validateUserInput(inputValue);
+    return inputValue;
   }
 
   validateUserInput(str) {
-    this.userNumber = [];
+    const userNumber = [];
     if (str.length < 4) {
       for (const i in str) {
-        if (!isNaN(str[i]) && !this.userNumber.includes(str[i])) {
-          this.userNumber.push(str[i]);
+        if (!isNaN(str[i]) && !userNumber.includes(str[i])) {
+          userNumber.push(str[i]);
         } else {
           throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
         }
@@ -84,8 +83,9 @@ class App {
         } ${this.nothing === 3 ? "낫싱" : ""}`.trim()
       );
 
-      await this.getUserInput();
-      await this.getGameResult(computerNum, this.userNumber);
+      const userInput = await this.getUserInput();
+      this.validateUserInput(userInput);
+      await this.getGameResult(computerNum, userInput);
     }
   }
 
