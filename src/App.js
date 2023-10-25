@@ -5,18 +5,36 @@ import checkIsValidInput from "./checkIsValidInput";
 
 class App {
   async play() {
-    MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
+    while (true) {
+      MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
 
-    const answer = await generateAnswerArray();
-    // console.log("[answer]", answer);
+      const answer = await generateAnswerArray();
 
-    const userInput = await getUserInput();
-    // console.log("[userInput]", userInput);
+      let userInput = await getUserInput();
+      const isValidInput = checkIsValidInput(userInput);
+      if (!isValidInput) {
+        throw Error("[ERROR] 숫자가 잘못된 형식입니다.");
+      }
 
-    const isValidInput = checkIsValidInput(userInput);
-    // console.log("[isValidInput]", isValidInput);
+      while (userInput !== answer.join("")) {
+        userInput = await getUserInput();
+        const isValidInput = checkIsValidInput(userInput);
+        if (!isValidInput) {
+          throw Error("[ERROR] 숫자가 잘못된 형식입니다.");
+        }
 
-    if (!isValidInput) throw Error("[ERROR] 숫자가 잘못된 형식입니다.");
+        MissionUtils.Console.print("계산 결과를 출력하기");
+      }
+
+      MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+
+      const restart = await MissionUtils.Console.readLineAsync(
+        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+      );
+
+      if (restart === "2") break;
+      if (restart === "1") continue;
+    }
   }
 }
 
