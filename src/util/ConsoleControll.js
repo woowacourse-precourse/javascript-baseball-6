@@ -10,17 +10,17 @@ const consoleView = {
     return await MissionUtils.Console.readLineAsync(INPUT_MESSAGE.RETRY);
   },
 
-  async printStart() {
-    await MissionUtils.Console.print(OUTPUT_MESSAGE.START);
+  printStart() {
+    MissionUtils.Console.print(OUTPUT_MESSAGE.START);
   },
-  async printEnd() {
-    await MissionUtils.Console.print(OUTPUT_MESSAGE.FINISH);
+  printEnd() {
+    MissionUtils.Console.print(OUTPUT_MESSAGE.FINISH);
   },
-  async printResult(data) {
-    await MissionUtils.Console.print(data);
+  printResult(data) {
+    MissionUtils.Console.print(data);
   },
-  async printNothing() {
-    await MissionUtils.Console.print(BASEBALL.NOTHING);
+  printNothing() {
+    MissionUtils.Console.print(BASEBALL.NOTHING);
   },
 };
 
