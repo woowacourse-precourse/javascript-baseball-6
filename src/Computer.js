@@ -1,4 +1,5 @@
 import { Random, Console } from "@woowacourse/mission-utils";
+import Player from "./Player.js";
 
 class Computer {
   constructor() {
@@ -21,9 +22,9 @@ class Computer {
   };
 
   // 정답과 player의 input값을 비교할 함수
-  compareAnswer = (input) => {
+  compareAnswer = (playerInput) => {
     // player의 입력값을 숫자 배열로 변환
-    const inputNumber = input.split("").map(Number);
+    const inputNumber = playerInput.split("").map(Number);
     let strike = 0;
     let ball = 0;
     // player의 입력값과 정답을 비교해 strike와 ball을 변경
@@ -37,7 +38,12 @@ class Computer {
       }
     }
     this.printResult(ball, strike);
-    return [ball, strike];
+    if (strike === 3) {
+      return false;
+    } else {
+      return true;
+    }
+    // return [ball, strike];
   };
   // 결과를 출력하는 함수
   printResult = (ball, strike) => {
@@ -54,6 +60,14 @@ class Computer {
       Console.print(`${ball}볼 ${strike}스트라이크`);
     }
   };
+  // Playe가 정답을 맞췄을 경우
+  async correctAnswer() {
+    Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    const select = await Console.readLineAsync(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n",
+    );
+    return select;
+  }
 }
 
 export default Computer;
