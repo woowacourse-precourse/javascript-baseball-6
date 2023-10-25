@@ -11,8 +11,9 @@ class App {
     const CORRECT_ANSWER = NewRandomAnswer();
 
     while (!GAME_END) {
-    const USER_ANSWER = await InputAnswer();
+      const USER_ANSWER = await InputAnswer();
 
+      [strike, ball] = CheckBallStrike(CORRECT_ANSWER, USER_ANSWER);
 
     }
   }
@@ -48,7 +49,7 @@ async function InputAnswer() {
   USER_ANSWER = Array.from(USER_INPUT).map(Number);
 
   if (new Set(USER_ANSWER).size !== USER_ANSWER.length) {
-    throw new Error("[ERROR] 중복된 숫자를 입력하시면 압됩니다.");
+    throw new Error("[ERROR] 중복된 숫자를 입력하시면 안됩니다.");
   }
 
   if (USER_ANSWER.some(num => num < 1 || num > 9)) {
@@ -56,6 +57,21 @@ async function InputAnswer() {
   }
 
   return USER_ANSWER;
+}
+
+function CheckBallStrike(computerAnswer,userAnswer) {
+  let ball = 0;
+  let strike = 0;
+
+  for (let i = 0; i < computerAnswer.length; i++){
+    if (computerAnswer[i] === userAnswer[i]) {
+      strike++;
+    }
+    else if (userAnswer.includes(computerAnswer[i])) {
+      ball++;
+    }
+  }
+  return [strike, ball];
 }
 
 export default App;
