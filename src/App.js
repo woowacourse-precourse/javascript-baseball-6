@@ -15,7 +15,7 @@ class App {
   async play() {
 
     Console.print('\x1b[37m숫자 야구 게임을 시작합니다.');
-    while (true) {
+    while (1) {
       const COMPUTER_NUMBER = RandomBallNumber();
 
       while (1) {
@@ -35,7 +35,6 @@ class App {
         if (my_result[0] == 0 || my_result[1] == 0 || my_result[2] == 0) {
           throw new Error('\x1b[31m[ERROR] 1 ~ 9까지의 숫자를 입력해주세요\x1b[37m');
         }
-
 
         let BallCnt = 0;
         let StrikeCnt = 0;
