@@ -16,7 +16,7 @@ class App {
 
   init() {
     this.computer = this.getRandomComputerNumber();
-    Console.print(ConsoleMessage.startGame);
+    Console.print(ConsoleMessage.START_GAME);
   }
 
   async playBaseball(computer) {
@@ -38,21 +38,22 @@ class App {
   }
 
   async getUserNumber() {
-    const user = await Console.readLineAsync(ConsoleMessage.userNumber);
+    const user = await Console.readLineAsync(ConsoleMessage.USER_NUMBER);
     const checkedNum = this.checkDifferentThreeDigits(user.trim());
     const parsedNum = checkedNum.map((v) => parseInt(v));
     return parsedNum;
   }
 
   checkDifferentThreeDigits(user) {
-    if (isNaN(user)) throw new Error(ErrorMessage.oneOrTwo);
+    if (isNaN(user)) throw new Error(ErrorMessage.NUMBERS_ONLY);
     const array = user.split('');
     if (array.length > App.DIGITS_COUNT || array.length < App.DIGITS_COUNT)
-      throw new Error(ErrorMessage.threeDigits);
+      throw new Error(ErrorMessage.THREE_DIGITS_ONLY);
     const dupCheck = array.filter((v, i) => user.indexOf(v) === i);
-    if (dupCheck.includes('0')) throw new Error(ErrorMessage.oneToNine);
+    if (dupCheck.includes('0'))
+      throw new Error(ErrorMessage.VALID_FROM_ONE_TO_NINE);
     if (dupCheck.length < App.DIGITS_COUNT)
-      throw new Error(ErrorMessage.differentDigits);
+      throw new Error(ErrorMessage.MUST_DIFFERENT_DIGITS);
     return dupCheck;
   }
 
@@ -78,7 +79,7 @@ class App {
 
   restartGame(result) {
     if (result) {
-      Console.print(ConsoleMessage.allCorrect);
+      Console.print(ConsoleMessage.ALL_CORRECT);
       this.endGame();
     } else {
       this.playBaseball(this.computer);
@@ -86,7 +87,7 @@ class App {
   }
 
   async endGame() {
-    const num = await Console.readLineAsync(ConsoleMessage.resumeGame);
+    const num = await Console.readLineAsync(ConsoleMessage.RESTART_GAME_OR_NOT);
     this.checkEndNum(num);
   }
 
@@ -97,7 +98,7 @@ class App {
     } else if (result === App.GAME_OVER) {
       return;
     } else {
-      throw new Error(ErrorMessage.oneOrTwo);
+      throw new Error(ErrorMessage.ONE_OR_TWO_ONLY);
     }
   }
 }
