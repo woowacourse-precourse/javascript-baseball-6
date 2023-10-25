@@ -59,7 +59,6 @@ export default class BaseballGame {
 
   isValidInput(input) {
     if (!/^\d{3}$/.test(input) || new Set(input).size !== 3) {
-        
       throw new Error('[ERROR] 올바른 입력값을 입력해주세요');
     }
     return true;
