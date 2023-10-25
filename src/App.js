@@ -7,8 +7,6 @@ class App {
     let result = false; // 정답체크변수
     while (true) {
       const checkedInput = await this.checkUserInput();
-      if (!checkedInput) break;
-
       result = this.showResult(answer, checkedInput); // 정답 시, true가 반환
       // 정답 & 종료선택 시 break
       if (result && !(answer = await this.gameOver(result))) break;
@@ -65,9 +63,8 @@ class App {
       }
       return userInput;
     } catch (error) {
-      //todo Console.print사용 고려
       MissionUtils.Console.print(error.message);
-      throw new Error("[ERROR]");
+      throw error;
     }
   }
   // 스트라이크, 볼 판정
@@ -111,7 +108,7 @@ class App {
       throw new Error("[ERROR] 알맞은 형식의 입력이 아닙니다.");
     } catch (error) {
       MissionUtils.Console.print(error.message);
-      throw new Error("[ERROR]");
+      throw error;
     }
   }
 }
