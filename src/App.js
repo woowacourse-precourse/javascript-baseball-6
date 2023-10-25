@@ -86,7 +86,7 @@ class App {
       this.tellStrike(strike,ball);
 
       // 게임종료
-      if (strike===3){
+      if (strike===MAX_LENGTH){
         MissionUtils.Console.print(GAME_WIN_MSG);
         const again =await MissionUtils.Console.readLineAsync(RETRY_MSG);
         //1 일때는 한번 더
