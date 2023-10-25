@@ -44,10 +44,16 @@ const Print_Result = (strike_num, ball_num) => { // 사용자 입력에 대한 �
 }
 
 const Check_Input = (input, computer)=>{ // 사용자에게 유효한 숫자를 입력받았는지 확인
-    //길이 확인, 중복되는 입력값이 있는지 확인, 0이 포함되어 있는지 확인
-    if (input.length !== computer.length
-        || (input[0] === input[1] || input[1] === input[2] || input[2] === input[0])
-        || (input[0] === '0' || input[1] === '0' || input[2] === '0') ) {
+    //길이 확인
+    if (input.length !== computer.length) {
+        throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+    }
+    //중복되는 입력값이 있는지 확인,
+    if(input[0] === input[1] || input[1] === input[2] || input[2] === input[0]){
+        throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+    }
+    //0이 포함되어 있는지 확인
+    if('0' in input){
         throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
     }
 }
@@ -67,8 +73,6 @@ class App {
         //컴퓨터 랜덤 숫자 저장하기 (3자리 숫자)
         let computer = Set_Computer();
 
-
-
         //게임의 종료 판단 flag
         let flag = 1;
 
@@ -85,7 +89,6 @@ class App {
         while (flag) {
 
             try {
-
                 //사용자 입력받기
                 user = await Console.readLineAsync("숫자를 입력해주세요 : ");
                 //올바른 입력인지 확인
