@@ -15,11 +15,10 @@ const MESSAGE = Object.freeze({
   NOTHING: "낫싱",
   SUCCESS: "3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료",
 });
-const numberCount = 3; //맞추는 숫자갯수
-
+const NUMBERCOUNT = 3; //맞추는 숫자갯수
 async function makeRandom() {
   const answer = [];
-  while (answer.length < numberCount) {
+  while (answer.length < NUMBERCOUNT) {
     const number = Random.pickNumberInRange(1, 9);
     if (!answer.includes(number + "")) {
       answer.push(number + "");
@@ -46,8 +45,8 @@ function isInputValid(number) {
     }
   }
   if (
-    new Set([...number]).size !== numberCount ||
-    number.length !== numberCount
+    new Set([...number]).size !== NUMBERCOUNT ||
+    number.length !== NUMBERCOUNT
   ) {
     return false;
   }
@@ -84,7 +83,7 @@ function printResult() {
     Console.print(MESSAGE.NOTHING);
     return;
   }
-  if (SCORE.strike === numberCount) {
+  if (SCORE.strike === NUMBERCOUNT) {
     Console.print(MESSAGE.SUCCESS);
     SCORE.success = true;
     return;
