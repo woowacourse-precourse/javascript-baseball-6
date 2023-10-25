@@ -1,9 +1,9 @@
 import { Console } from '@woowacourse/mission-utils';
-import { GUIDE_MESSAGES } from '../../constants';
+import { GUIDE_MESSAGES } from '../../constants/index.js';
 import {
   validateNumberSet,
   validateRestartNumber,
-} from '../utils/inputValidator';
+} from '../utils/inputValidator.js';
 
 /**
  * 숫자야구 애플리케이션 Input View를 담당하는 클래스로서,
