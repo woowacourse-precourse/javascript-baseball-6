@@ -23,14 +23,11 @@ class Baseball {
   async startGame() {
     this.isClear = false;
 
-    /** 컴퓨터(상대) 숫자 */
     this.player.computer = new Computer().getNumber();
 
     while (!this.isClear) {
-      /** 유저 숫자 */
       this.player.user = await new User().getNumber();
 
-      /** 비교 후 힌트 출력, 게임클리어 여부 리턴 */
       this.isClear = new Hint(this.player).checkBaseballWin();
     }
 
