@@ -1,11 +1,13 @@
 import { Console } from "@woowacourse/mission-utils";
 import { getAnswer, getUserInput } from "./getRandomNumber.js";
 
+const SIZE = 3;
+
 const Start = async () => {
-  const answer = await getAnswer(3);
+  const answer = await getAnswer(SIZE);
 
   while (true) {
-    const user = await getUserInput(3);
+    const user = await getUserInput(SIZE);
     const { ball, strike } = getGameResult(answer, user);
 
     printResult(ball, strike);
@@ -22,9 +24,8 @@ const Start = async () => {
 const getGameResult = (answer, user) => {
   let ball = 0;
   let strike = 0;
-  const size = answer.length;
 
-  for (let i = 0; i < size; i++) {
+  for (let i = 0; i < SIZE; i++) {
     if (answer[i] === user[i]) {
       strike += 1;
     } else if (answer.includes(user[i])) {
