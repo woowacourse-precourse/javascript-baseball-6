@@ -9,7 +9,7 @@ export const generateRandomNumber = () => {
     }
   }
   return computer.join('');
-}
+};
 
 export const countScore = (computerNumber, userNumber) => {
   const result = {
@@ -26,7 +26,7 @@ export const countScore = (computerNumber, userNumber) => {
     }
   });
   return result;
-}
+};
 
 export const printScore = (ball, strike) => {
   const textArray = [];
@@ -40,4 +40,4 @@ export const printScore = (ball, strike) => {
   if (textArray.length === 0)
     return '낫싱';
   return textArray.join(' ');
-}
+};

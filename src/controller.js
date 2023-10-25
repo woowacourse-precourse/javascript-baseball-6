@@ -1,19 +1,18 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import { generateRandomNumber, countScore, printScore } from "./game.js";
-import {validateAskRetry, validateInput} from "./validator.js"
-
+import { validateAskRetry, validateInput } from "./validator.js"
 
 export const initGame = async () => {
   const computerNumber = generateRandomNumber();
   await startGame(computerNumber);
-}
+};
 
 const gameProcess = async (computerNumber, userNumber) => {
   if (computerNumber === userNumber) {
     MissionUtils.Console.print('3스트라이크');
     return askReplay();
   }
-  const {ball, strike} = countScore(computerNumber, userNumber);
+  const { ball, strike } = countScore(computerNumber, userNumber);
   MissionUtils.Console.print(printScore(ball, strike));
   return startGame(computerNumber);
 };
@@ -26,10 +25,9 @@ const startGame = async (computerNumber) => {
   return await gameProcess(computerNumber, userNumber);
 };
 
-
 const finishGame = () => {
   MissionUtils.Console.print('게임 종료');
-}
+};
 
 const askReplay = async () => {
   MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
