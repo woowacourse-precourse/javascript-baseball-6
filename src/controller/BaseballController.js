@@ -12,8 +12,7 @@ export class BaseballController {
     this.model.settingComputerNumber();
 
     while (!this.model.getIsFinished()) {
-      const userNumber = await this.view.getInputAsync(MESSAGE.INPUT);
-      this.model.setUserNumber(userNumber);
+      await this.getUserInput();
 
       const gameResult = this.model.getGameResult();
       this.view.printGameResult(gameResult);
@@ -26,6 +25,11 @@ export class BaseballController {
 
   quit() {
     return;
+  }
+
+  async getUserInput() {
+    const userNumber = await this.view.getInputAsync(MESSAGE.INPUT);
+    this.model.setUserNumber(userNumber);
   }
 
   async queryRestartOption() {
