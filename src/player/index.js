@@ -9,10 +9,6 @@ import InputView from '../view/InputView.js';
 import OutputView from '../view/OutputView.js';
 
 class Player {
-  /**
-   * 유저가 입력한 서로 다른 3자리 수를 담은 배열
-   * @type {[number, number, number]}
-   */
   #playerNumberSet;
   #playerWin;
 
@@ -35,13 +31,10 @@ class Player {
         this.#playerNumberSet,
         this.randomNumSet
       );
-      this.#isPlayerWin(strike);
+
+      if (strike === SETTINGS.winningNumber) this.#playerWin = true;
       OutputView.printMessage(ballCountMessage);
     }
-  }
-
-  async #isPlayerWin(strike) {
-    if (strike === SETTINGS.winningNumber) this.#playerWin = true;
   }
 
   async #checkRestartGame() {
