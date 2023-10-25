@@ -1,6 +1,7 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
+  //FLAG = True;
   constructor() {
     this.FLAG = true;
   }
@@ -21,14 +22,9 @@ class App {
     let ballCnt = 0;
     let comNumbers = this.getComNumbers();
     //comNumbers = [1, 3, 5];
-    // MissionUtils.Console.print("comNumbers");
-    // MissionUtils.Console.print(comNumbers);
+    MissionUtils.Console.print("comNumbers");
+    MissionUtils.Console.print(comNumbers);
 
-    /* 
-    스트라이크 후보군을 뽑습니다
-    사용자 숫자 리스트와 컴퓨터 숫자 리스트의 교집합이 존재하면 이는 "스트라이크" 또는 "볼"이 될 수 있고
-    각 배열의 교집합의 원소의 인덱스가 같으면 "스트라이크", 다르면 "볼"로 판단할 수 있습니다  
-    */
     let intersection = userNumbers.filter((num) => comNumbers.includes(num));
 
     if (Array.isArray(intersection) && intersection.length === 0) {
@@ -48,15 +44,15 @@ class App {
   }
 
   validationInput(userNumbers) {
-    // MissionUtils.Console.print("userNumbers");
-    // MissionUtils.Console.print(userNumbers);
+    MissionUtils.Console.print("userNumbers");
+    MissionUtils.Console.print(userNumbers);
     if (
       userNumbers.includes(NaN) ||
       userNumbers.includes(0) ||
       userNumbers.length !== 3 ||
       [...new Set(userNumbers)].length !== 3
     ) {
-      throw new Error("[ERROR] 사용자 입력의 숫자가 잘못된 형식입니다.");
+      throw new Error("[ERROR] 사용자 입력의 숫자가 잘못된 형식입니다");
     }
   }
 
@@ -96,7 +92,9 @@ class App {
           } else if (flagstr === "2") {
             this.FLAG = false;
           } else {
-            throw new Error("[ERROR] 새로 시작하려면 1, 종료하려면 2를 입력");
+            throw new Error(
+              "[ERROR] 새로 시작하려면 1, 종료하려면 2를 입력하세요"
+            );
           }
         }
       }
