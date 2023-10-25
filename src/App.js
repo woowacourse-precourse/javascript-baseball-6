@@ -9,6 +9,24 @@ class App {
 
     this.generateComputerNumbers();
   }
+  async play() {
+    this.generateComputerNumbers();
+    while (!this.isGameOver) {
+      this.getUserInput();
+      this.calculateResult();
+      this.printResult();
+      if (this.isGameOver) {
+        this.playAgain();
+      }
+    }
+  }
+
+  generateComputerNumbers() {
+    this.computerNumbers = [];
+    for (let i = 0; i < 3; i++) {
+      this.computerNumbers.push(Math.floor(Math.random() * 9 + 1));
+    }
+  }
 
   getUserInput() {
     const input = Promise.resolve(Console.readLineAsync());
