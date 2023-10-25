@@ -64,7 +64,7 @@ class App {
             throw new Error('[ERROR] 입력이 잘못되었습니다');
           }
           if (restart === '2'){
-            return
+            return;
           }
         }
       }
