@@ -1,19 +1,22 @@
-import { Console } from "@woowacourse/mission-utils";
-import Game from "./Game.js";
+import { Console } from '@woowacourse/mission-utils';
+import Game from './Game.js';
+
 class App {
   async play() {
-    Console.print("숫자 야구 게임을 시작합니다.");
+    Console.print('숫자 야구 게임을 시작합니다.');
+
     while (true) {
       const game = new Game();
 
       await game.gameStart();
 
-      if (game.isStart == "2") {
-        Console.print("게임 종료");
+      if (game.isStart == '2') {
+        Console.print('게임 종료');
         break;
       }
     }
   }
 }
-
+const app = new App();
+app.play();
 export default App;
