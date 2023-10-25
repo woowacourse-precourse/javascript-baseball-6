@@ -23,6 +23,19 @@ export default class App {
           if (userInput.length !== 3 || !this.isInputValid(userInput)) {
               throw new Error('[ERROR] 잘못된 입력입니다.');
           }
+          if (strike === 3) {
+            MissionUtils.Console.print('3스트라이크');
+            MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+        
+            const userChoice = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+            if (userChoice === '1') {
+                this.computerNumbers = [];
+                this.addComputerNumbers();
+                continue;
+            } else {
+                break;
+            }  
       }
-  }
 }
+    }
+  }
