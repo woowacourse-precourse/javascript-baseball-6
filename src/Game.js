@@ -2,6 +2,7 @@ import { Console } from "@woowacourse/mission-utils";
 import Computer from "./Computer.js";
 import Referee from "./Refree.js";
 import Player from "./Player.js";
+import { PromptMessage, errorMessage } from "./Message.js";
 
 const retryAnswer = Object.freeze({
   1: "1",
@@ -10,6 +11,8 @@ const retryAnswer = Object.freeze({
 
 export default class Game {
   #isGameFinished;
+  #THREE_STRIKE = "3스트라이크";
+
   constructor() {
     this.#isGameFinished = false;
     this.refree = new Referee();
@@ -39,33 +42,31 @@ export default class Game {
   };
 
   #promptRetry = async () => {
-    const answer = await Console.readLineAsync(
-      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
-    );
+    const answer = await Console.readLineAsync(PromptMessage.GAME_START_OR_END);
     if (answer !== retryAnswer[1] && answer !== retryAnswer[2]) {
-      throw new Error("[ERROR] 1 또는 2만 입력할 수 있습니다.");
+      throw new Error(errorMessage.INVALID_INPUT);
     }
     answer === retryAnswer[1] && this.start(true);
   };
 
   #promptPlayerBalls = async () => {
     try {
-      const answer = await Console.readLineAsync("숫자를 입력해주세요 : ");
+      const answer = await Console.readLineAsync(PromptMessage.ENTER_NUMBERS);
       return answer;
     } catch (error) {
-      throw new Error("[ERROR] 다시 입력해주세요.");
+      throw new Error(errorMessage.RE_PROMPT);
     }
   };
 
   #processResult = (result) => {
     Console.print(result);
-    if (result.includes("3스트라이크")) {
-      Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    if (result.includes(this.#THREE_STRIKE)) {
+      Console.print(PromptMessage.GAME_END);
       this.#isGameFinished = true;
     }
   };
 
   #printGameStartMessage = () => {
-    Console.print("숫자 야구 게임을 시작합니다.");
+    Console.print(PromptMessage.GAME_START);
   };
 }

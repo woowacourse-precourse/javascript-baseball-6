@@ -35,6 +35,5 @@ class PromptMessage {
 }
 
 const errorMessage = new ErrorMessage();
-const promptMessage = new PromptMessage();
 
-export { errorMessage, promptMessage };
+export { errorMessage, PromptMessage };

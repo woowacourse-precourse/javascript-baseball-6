@@ -1,3 +1,5 @@
+import { PromptMessage } from "./Message.js";
+
 export default class Referee {
   #strike;
   #ball;
@@ -27,12 +29,12 @@ export default class Referee {
 
   #getResult() {
     if (this.#strike === 0 && this.#ball === 0) {
-      return "낫싱";
+      return PromptMessage.NOTHING;
     }
 
     const result = [];
-    this.#ball && result.push(`${this.#ball}`);
-    this.#strike && result.push(`${this.#strike}스트라이크`);
+    this.#ball && result.push(PromptMessage.BALL(this.#ball));
+    this.#strike && result.push(PromptMessage.STRIKE(this.#strike));
 
     const output = result.join(" ");
     if (output) return output;
