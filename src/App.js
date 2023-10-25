@@ -15,21 +15,19 @@ class App {
 
   // 플레이어 숫자 입력 함수
   async createPlayerNum() {
-    const PLAYER_NUM = await MissionUtils.Console.readLineAsync(
-        "숫자 3개를 입력해주세요 : "
-    );
+    const PLAYER_NUM = await MissionUtils.Console.readLineAsync("숫자 3개를 입력해주세요 : ");
+
     // 예외처리
-    if (
-        isNaN(PLAYER_NUM)
-    ) {
+    if (isNaN(PLAYER_NUM)) {
       throw new Error("[ERROR]: 숫자가 아닌 문자는 입력할 수 없습니다.");
-    }
-    if (
+    }else if (
         PLAYER_NUM.length !== 3 ||
-        PLAYER_NUM.includes(0)
-    ) {
+        PLAYER_NUM.includes('0')) {
       throw new Error("[ERROR]: 3개의 숫자가 아니거나 0을 포함한 숫자는 입력할 수 없습니다.");
-    }//
+    } else if ( new Set(PLAYER_NUM).size !== 3){
+      throw new Error("[ERROR]: 중복된 숫자는 입력할 수 없습니다.");
+    }
+    // 정상 처리
     else {
       return Array.from(PLAYER_NUM).map(Number);
     }
@@ -90,7 +88,7 @@ class App {
       return;
     } //
     else {
-      throw new Error("[ERROR]");
+      throw new Error("[ERROR]: 정해진 숫자외의 문자를 입력하였습니다.");
     }
   }
 
