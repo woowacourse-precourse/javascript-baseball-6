@@ -1,6 +1,6 @@
-import AppError from '../../src/errors/AppError';
-import { ExitGameCommandValidator } from '../../src/validator';
-import { EXIT_COMMAND_TYPES } from '../../src/constants/gameOption';
+import AppError from '../../src/errors/AppError.js';
+import { ExitGameCommandValidator } from '../../src/validator/index.js';
+import { EXIT_COMMAND_TYPES } from '../../src/constants/gameOption.js';
 
 describe('ExitGameCommandValidator 테스트', () => {
   describe('예외 테스트', () => {

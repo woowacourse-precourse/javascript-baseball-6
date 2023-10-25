@@ -1,2 +1,2 @@
-export { default as BaseballMaker } from './BaseballMaker';
-export { default as Computer } from './Computer';
+export { default as BaseballMaker } from './BaseballMaker.js';
+export { default as Computer } from './Computer.js';

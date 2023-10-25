@@ -1,5 +1,5 @@
-import { BaseballMaker } from '../../src/model';
-import { BaseballValidator } from '../../src/validator';
+import { BaseballMaker } from '../../src/model/index.js';
+import { BaseballValidator } from '../../src/validator/index.js';
 
 describe('BaseBallMaker 테스트', () => {
   const { availableNumber, availableNumberRange, availableSize, existDuplicateNumber } =

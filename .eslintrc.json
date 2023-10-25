@@ -12,6 +12,7 @@
   "rules": {
     "import/prefer-default-export": ["off"],
     "no-await-in-loop": ["off"],
-    "no-constant-condition": ["off"]
+    "no-constant-condition": ["off"],
+    "import/extensions": ["off"]
   }
 }

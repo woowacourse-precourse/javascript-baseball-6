@@ -1,7 +1,7 @@
-import { SYMBOLS } from '../constants/symbols';
-import AppError from '../errors/AppError';
-import { BaseballMaker } from '../model';
-import CommonValidator from './CommonValidator';
+import { SYMBOLS } from '../constants/symbols.js';
+import AppError from '../errors/AppError.js';
+import { BaseballMaker } from '../model/index.js';
+import CommonValidator from './CommonValidator.js';
 
 class BaseballValidator {
   /**

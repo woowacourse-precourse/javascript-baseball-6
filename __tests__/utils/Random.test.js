@@ -1,4 +1,4 @@
-import { pickRandomNumberInRange } from '../../src/utils/random';
+import { pickRandomNumberInRange } from '../../src/utils/random.js';
 
 describe('pickRandomNumberInRange 테스트', () => {
   test.each([

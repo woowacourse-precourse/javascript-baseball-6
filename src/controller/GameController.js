@@ -1,8 +1,8 @@
-import { EXIT_COMMAND_TYPES } from '../constants/gameOption';
-import { SYMBOLS } from '../constants/symbols';
-import { BaseballMaker, Computer } from '../model';
-import { BaseballValidator, ExitGameCommandValidator } from '../validator';
-import { InputView, OutputView } from '../views';
+import { EXIT_COMMAND_TYPES } from '../constants/gameOption.js';
+import { SYMBOLS } from '../constants/symbols.js';
+import { BaseballMaker, Computer } from '../model/index.js';
+import { BaseballValidator, ExitGameCommandValidator } from '../validator/index.js';
+import { InputView, OutputView } from '../views/index.js';
 
 class GameController {
   #computer;

@@ -1,2 +1,2 @@
-export { default as InputView } from './InputView';
-export { default as OutputView } from './OutputView';
+export { default as InputView } from './InputView.js';
+export { default as OutputView } from './OutputView.js';

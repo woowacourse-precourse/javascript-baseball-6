@@ -1,6 +1,6 @@
-import { EXIT_COMMAND_TYPES } from '../constants/gameOption';
-import AppError from '../errors/AppError';
-import CommonValidator from './CommonValidator';
+import { EXIT_COMMAND_TYPES } from '../constants/gameOption.js';
+import AppError from '../errors/AppError.js';
+import CommonValidator from './CommonValidator.js';
 
 /**
  * '게임 종료 명령어 유효성 검사'의 역할을 수행

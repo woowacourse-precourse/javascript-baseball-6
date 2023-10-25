@@ -1,5 +1,5 @@
-import { SYMBOLS } from '../constants/symbols';
-import AppError from '../errors/AppError';
+import { SYMBOLS } from '../constants/symbols.js';
+import AppError from '../errors/AppError.js';
 
 class CommonValidator {
   /**

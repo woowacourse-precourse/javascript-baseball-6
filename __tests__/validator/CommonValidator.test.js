@@ -1,5 +1,5 @@
-import AppError from '../../src/errors/AppError';
-import { CommonValidator } from '../../src/validator';
+import AppError from '../../src/errors/AppError.js';
+import { CommonValidator } from '../../src/validator/index.js';
 
 describe('CommonValidator 테스트', () => {
   describe('예외 테스트', () => {

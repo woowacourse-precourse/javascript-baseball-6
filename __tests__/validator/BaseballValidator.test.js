@@ -1,5 +1,5 @@
-import AppError from '../../src/errors/AppError';
-import { BaseballValidator } from '../../src/validator';
+import AppError from '../../src/errors/AppError.js';
+import { BaseballValidator } from '../../src/validator/index.js';
 
 describe('BaseballValidator 테스트', () => {
   describe('예외 테스트', () => {

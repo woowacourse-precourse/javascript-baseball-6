@@ -1,4 +1,4 @@
-import { BaseballMaker, Computer } from '../../src/model';
+import { BaseballMaker, Computer } from '../../src/model/index.js';
 
 describe('Computer 테스트', () => {
   beforeAll(() => {

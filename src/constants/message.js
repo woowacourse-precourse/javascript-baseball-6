@@ -1,6 +1,6 @@
-import { BaseballMaker } from '../model';
-import { EXIT_COMMAND_TYPES } from './gameOption';
-import { SYMBOLS } from './symbols';
+import { BaseballMaker } from '../model/index.js';
+import { EXIT_COMMAND_TYPES } from './gameOption.js';
+import { SYMBOLS } from './symbols.js';
 
 export const OUTPUT_MESSAGE_TEXT = Object.freeze({
   gameStart: '숫자 야구 게임을 시작합니다.',

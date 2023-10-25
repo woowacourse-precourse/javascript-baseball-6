@@ -1,4 +1,4 @@
-import BaseballMaker from './BaseballMaker';
+import BaseballMaker from './BaseballMaker.js';
 
 class Computer {
   /**

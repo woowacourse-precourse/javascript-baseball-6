@@ -1,4 +1,4 @@
-import { COMPARE_RESULT_FORMAT_TYPES, OUTPUT_MESSAGE_METHOD } from '../../src/constants/message';
+import { COMPARE_RESULT_FORMAT_TYPES, OUTPUT_MESSAGE_METHOD } from '../../src/constants/message.js';
 
 describe('Message 모듈 테스트', () => {
   describe('OUTPUT_MESSAGE_METHOD 테스트', () => {

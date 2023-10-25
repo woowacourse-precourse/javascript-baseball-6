@@ -1,4 +1,4 @@
-import { pickRandomNumberInRange } from '../utils/random';
+import { pickRandomNumberInRange } from '../utils/random.js';
 
 class BaseballMaker {
   /**
