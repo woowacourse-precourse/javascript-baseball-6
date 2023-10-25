@@ -1,5 +1,5 @@
 import { Computer } from './Model/Computer.js';
-import { answerGenerator } from './utils/baseballNumberUtils.js';
+import { generateAnswer } from './utils/baseballNumberUtils.js';
 
 export class BaseballGame {
   #computer;
@@ -9,7 +9,7 @@ export class BaseballGame {
   }
 
   #setAnswer() {
-    const answerNumber = answerGenerator();
+    const answerNumber = generateAnswer();
 
     this.#computer = new Computer(answerNumber);
   }

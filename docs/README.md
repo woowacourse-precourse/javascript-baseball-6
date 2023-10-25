@@ -105,11 +105,12 @@
 
 - [x] BaseballNumber
 - [x] Computer
-- [ ] Error
+- [x] Error
 
 ### utils
 
-- [ ] answerGenerator
+- [x] baseballNumberUtils
+- [x] messageUtils
 
 ### View
 

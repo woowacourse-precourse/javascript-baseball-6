@@ -1,7 +1,7 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import { BASEBALL_NUMBER, NUMBER } from '../constants/baseballNumber.js';
 
-export const answerGenerator = () => {
+export const generateAnswer = () => {
   const numberSet = new Set();
 
   while (numberSet.size < BASEBALL_NUMBER.DIGIT) {
