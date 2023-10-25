@@ -1,12 +1,13 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import MESSAGE from "./utils/Constants.js";
-import Computer from "./utils/Computer.js";
+import MESSAGE from "./modules/Constants.js";
+import Computer from "./modules/Computer.js";
 class App {
+  constructor() {
+    this.computer = new Computer();
+  }
   async play() {
     this.start();
-
-    const COMPUTER = new Computer();
-    COMPUTER.setNumber();
+    this.computer.setNumber();
   }
 
   start() {
