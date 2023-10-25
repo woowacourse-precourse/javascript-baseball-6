@@ -37,11 +37,16 @@ const setUserInputNum = function setUserInputNum(num){
 
     const tmpUserInputNum = [];
     while (tmpUserInputNum.length < 3) {
+        for(let chk = 0;chk<tmpUserInputNum.length-1;chk+=1){
+            if(tmpUserInputNum[chk] === (tmp%10)){
+                throw Error('[ERROR] 잘못된 입력입니다.')
+            }
+        }
        tmpUserInputNum.push(tmp % 10);
         tmp = parseInt(tmp/10, 10);
     }
     for (let idx = 2; idx >= 0; idx -= 1){
-        userInputNum.push(tmpUserInputNum[idx]);
+          userInputNum.push(tmpUserInputNum[idx]);
     }
 
     ballCnt = 0;
