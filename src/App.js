@@ -73,6 +73,26 @@ class App {
 
     return `${ballCount}b${strikeCount}s`;
   }
+
+  async checkContinueOrExit() {
+    const userInput = await Console.readLineAsync(
+      MESSAGE_TABLE.CONTINUE_OR_EXIT
+    );
+
+    if (userInput === CONTINUE_OR_EXIT_CODE.CONTINUE) {
+      this.continueGame();
+    }
+
+    if (userInput === CONTINUE_OR_EXIT_CODE.EXIT) {
+      Console.print(MESSAGE_TABLE.EXIT_GAME);
+    }
+  }
+
+  continueGame() {
+    this.#randomNumber = this.generateRandomNumber();
+    this.isContinuous = true;
+    this.play();
+  }
 }
 
 const app = new App();
