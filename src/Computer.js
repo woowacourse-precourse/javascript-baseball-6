@@ -1,4 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
+import { ANSWER_LENGTH } from './utils';
 
 class Computer {
   constructor() {
@@ -7,7 +8,7 @@ class Computer {
 
   getRandomNumbers() {
     const randomNumbers = [];
-    while (randomNumbers.length < 3) {
+    while (randomNumbers.length < ANSWER_LENGTH) {
       const number = MissionUtils.Random.pickNumberInRange(1, 9);
       if (!randomNumbers.includes(number)) {
         randomNumbers.push(number);
