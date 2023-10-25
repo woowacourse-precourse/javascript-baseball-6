@@ -15,36 +15,34 @@ class App {
 
   async play() {
     Console.print(GAME_HELP.GAME_START);
-
     while (this.proceeding) {
-      this.restart && (await this.getNumber());
-      await this.inputNumber();
+      this.restart && (await this.getAnswerNumber());
+      await this.getUserInput();
     }
   }
 
-  async getNumber() {
+  async getAnswerNumber() {
     const answerSet = new Set();
 
     while (answerSet.size !== 3) {
       answerSet.add(MissionUtils.Random.pickNumberInRange(1, 9));
     }
-
     this.answer = Array.from(answerSet).join("");
     this.restart = false;
   }
 
-  async inputNumber() {
+  async getUserInput() {
     const number = await Console.readLineAsync(GAME_HELP.INPUT_NUMBER_MSG);
     this.strikeCount = 0;
     this.ballCount = 0;
 
-    await this.settingNumber(number);
+    await this.setUserNumber(number);
     if (!number) {
       throw new Error(ERROR.INPUT_VALUE);
     }
   }
 
-  async settingNumber(number) {
+  async setUserNumber(number) {
     error(number);
     this.input = number;
     await this.calculate();
@@ -53,6 +51,7 @@ class App {
   async calculate() {
     const inputArr = this.input.split("");
     const answerArr = this.answer.split("");
+
     await this.strike(inputArr, answerArr);
     await this.ball(inputArr, answerArr);
     await this.consoleOutput(this.strikeCount, this.ballCount);
