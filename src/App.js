@@ -1,4 +1,4 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
+import { MissionUtils, Console } from "@woowacourse/mission-utils";
 
 class App {
   constructor() {
@@ -32,10 +32,6 @@ class App {
     const strikes = this.calculateStrikes(computerNumbers, userNumbers);
     const balls = this.calculateBalls(computerNumbers, userNumbers);
 
-    // console.log("Computer Numbers:", computerNumbers);
-    // console.log("User Numbers:", userNumbers);
-    // console.log("Strikes:", strikes);
-    // console.log("Balls:", balls);
 
     if (strikes > 0 || balls > 0) {
       let resultString = '';
@@ -45,20 +41,15 @@ class App {
       if (balls > 0) {
         resultString += `${balls}볼`;
       }
-      console.log(resultString);
+      return resultString; // 결과 문자열 반환
     } else {
-      console.log(`낫싱`);
+      return "낫싱"; // 낫싱인 경우 문자열 반환
     }
   }
 
 
   async play() {
-    console.log(`숫자 야구 게임을 시작합니다.`);
-    // Computer 클래스의 인스턴스를 생성
-    // const computer = new Computer();
-    // Computer 클래스의 createNumbers() 메서드를 호출해서 컴퓨터의 숫자를 생성한다.
-    // computer.createNumbers();
-
+    Console.print(`숫자 야구 게임을 시작합니다.`);
 
     // 게임 루프 시작
     while (true) {
@@ -68,14 +59,15 @@ class App {
         const computerNumbers = this.computer.getNumbers();
         const userNumbers = this.user.getNumbers();
 
-        this.gameResult(computerNumbers, userNumbers);
+        const resultString = this.gameResult(computerNumbers, userNumbers);
+        Console.print(resultString); // 결과 문자열 콘솔 출력
 
         // 게임이 종료되는 조건을 확인하고 종료한다. (예: 3스트라이크인 경우)
         if (this.calculateStrikes(computerNumbers, userNumbers) === 3) {
-          console.log(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
+          Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
           const restart = await MissionUtils.Console.readLineAsync(`게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n`);
           if (restart !== '1') {
-            console.log('게임을 종료합니다.');
+            Console.print(`게임을 종료합니다.`);
             break; // 게임 종료
           } else {
             this.user = new User(); // User 객체 재생성
@@ -83,7 +75,7 @@ class App {
           }
         }
       } catch (error) {
-        console.log(error);
+        Console.print(error.message);
         break;
       }
     }
@@ -146,7 +138,6 @@ class User {
         break; // 올바른 입력을 받았으므로 루프를 탈출함
       }
     } catch (error) {
-      // console.log(error); // 에러를 콘솔에 출력
       throw error; // 에러를 다시 throw하여 상위 코드에서도 처리할 수 있게 함
     }
   }
@@ -160,7 +151,7 @@ class User {
 
 const app = new App();
 app.play().catch(error => {
-  console.log(error);
+  Console.print(error)
 });
 
 
