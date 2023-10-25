@@ -14,7 +14,6 @@ class App {
   // async play() {
 
   // }
-}
 
   // 라운드 입력
   async roundInput() {
@@ -29,6 +28,20 @@ class App {
       MissionUtils.Console.print(MESSAGES.ERROR_GUESS);
     }
   }
+
+  // 결과 체크
+  inputCheck(input) {
+    const guess = new Numbers(input.split('').map(Number)); // 인풋으로 넘버스 클래스 생성
+    const scoreArray = app.answer.count(guess); // 비교 채점
+    app.answer.result(scoreArray);
+    if (scoreArray[0] === 3) {
+      app.isFinished = true;
+    }
+  }
+
+}
+
+  
 
 
 
