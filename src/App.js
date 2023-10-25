@@ -57,13 +57,14 @@ class App {
         var result = "";
         if (strike === 3) {
           MissionUtils.Console.print(
-            "3개의 숫자를 모두 맞히셨습니다! 게임 종료"
+            "3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료"
           );
           break;
         } else {
-          if (strike > 0) result += `${strike}스트라이크`;
           if (ball > 0) result += `${ball}볼`;
+          if (strike > 0) result += ` ${strike}스트라이크`;
           if (nothing === 3) result = "낫싱";
+          result = result.trim();
           MissionUtils.Console.print(result);
         }
       }
