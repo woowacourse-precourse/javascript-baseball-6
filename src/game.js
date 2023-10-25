@@ -1,6 +1,8 @@
 import { Console, Random } from "@woowacourse/mission-utils"
+import { GAME } from "./text.js";
 import getUserInput from "./input.js";
 import getResult from "./result.js"
+import { STATE } from "./state.js";
 
 const getComputerAnswer = () => {
   const computer = [];
@@ -14,10 +16,10 @@ const getComputerAnswer = () => {
 }
 
 async function restart() {
-  const askRestart = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n");
-  if (askRestart == 1)
+  const askRestart = await Console.readLineAsync(GAME.RESTART);
+  if (askRestart == STATE.RESTART_YES)
     await gameStart();
-  else
+  else if (askRestart == STATE.RESTART_NO)
     return;
 }
 
@@ -26,6 +28,6 @@ export default async function gameStart() {
   let input = await getUserInput();
   while (getResult(answer, input) === 0)
     input = await getUserInput();
-  Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료")
+  Console.print(GAME.COMPLETE)
   await restart();
 }
