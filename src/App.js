@@ -1,14 +1,8 @@
-const MissionUtils = require("@woowacourse/mission-utils")
-const Computer = require("./class/Computer")
-const Player = require("./class/Player")
-const {
-  checkAnswer,
-  checkInputValidity,
-  checkStrike,
-  checkBall,
-  checkRetryValidity
-} = require("./utils/Check")
-const { LOGS } = require("./libs/LOGS")
+import { MissionUtils } from "@woowacourse/mission-utils"
+import Computer from "./class/Computer.js"
+import Player from "./class/Player.js" 
+import { checkAnswer, checkInputValidity, checkStrike, checkBall, checkRetryValidity } from "./utils/Check.js"
+import { LOGS } from "./libs/LOGS.js"
 
 let strikeCount = 0
 let ballCount = 0

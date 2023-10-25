@@ -1,5 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils"
-import { checkInputValidity, checkRetryValidity } from "../utils/Check"
+import { checkInputValidity, checkRetryValidity } from "../utils/Check.js"
 
 export default class Player{
     number = []
