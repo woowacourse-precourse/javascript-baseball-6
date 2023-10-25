@@ -44,30 +44,34 @@ let start = false;
 class App {
   async play() {}
   async play(){
+    try{
 
 
-    while(!start){
-      //시작
-      MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
-      //숫자생성
-      const TRUE_ANSWER = generateNumber();
+      while(!start){
+        //시작
+        MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
+        //숫자생성
+        const TRUE_ANSWER = generateNumber();
 
-      let end = false;
-      while(!end){
-        const USER_INPUT = await getInput(TRUE_ANSWER);
-        const {BALL,STRIKE} = isCorrect(USER_INPUT,TRUE_ANSWER);
-        win(BALL,STRIKE);
+        let end = false;
+        while(!end){
+          const USER_INPUT = await getInput(TRUE_ANSWER);
+          const {BALL,STRIKE} = isCorrect(USER_INPUT,TRUE_ANSWER);
+          win(BALL,STRIKE);
 
-        let restart = await MissionUtils.Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
-        if (restart == 1){
-          start = true;
+          let restart = await MissionUtils.Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+          if (restart == 1){
+            start = true;
+          }
+          else if (restart == 2){
+            end = true;
+            start = true;
+          }
+          throw new Error('[ERROR] 입력이 잘못되었습니다')
         }
-        else if (restart == 2){
-          end = true;
-          start = true;
-        }
-        throw new Error('[ERROR] 입력이 잘못되었습니다')
       }
+    }catch(e){
+      throw new Error(`${e.message}`)
     }
   }
 }
