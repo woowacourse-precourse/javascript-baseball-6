@@ -18,6 +18,11 @@ class Computer {
     return numbers;
   }
 
+  /**
+   *
+   * @param {[number, number, number]} input
+   * @returns {number}
+   */
   countStrike(input) {
     let strike = 0;
 
@@ -28,6 +33,11 @@ class Computer {
     return strike;
   }
 
+  /**
+   *
+   * @param {[number, number, number]} input
+   * @returns {number}
+   */
   countBall(input) {
     let ball = 0;
 
@@ -38,6 +48,11 @@ class Computer {
     return ball;
   }
 
+  /**
+   *
+   * @param {[number, number, number]} input
+   * @returns {{number,number}}
+   */
   resultGenerator(input) {
     const strike = this.countStrike(input);
     const ball = this.countBall(input);

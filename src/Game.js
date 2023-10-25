@@ -20,6 +20,10 @@ class Game {
     }
   }
 
+  /**
+   *
+   * @param {string} input
+   */
   inputController(input) {
     if (input.length !== 3)
       throw new Error(
@@ -47,6 +51,10 @@ class Game {
     this.inputController(input);
   }
 
+  /**
+   *
+   * @param {{number, number}}
+   */
   async getOutput({ strike, ball }) {
     if (strike == 3) {
       Console.print('3스트라이크');
