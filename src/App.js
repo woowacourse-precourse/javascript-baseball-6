@@ -1,5 +1,6 @@
 import { Console, MissionUtils } from '@woowacourse/mission-utils';
 import InputProcessor from './InputProcessor.js';
+import { GAME_QUIT_OPTION, GAME_RESTART_OPTION } from './Constants.js';
 
 class App {
   generateRandomNumbers() {
@@ -56,6 +57,12 @@ class App {
 
       if (strike === 3) {
         Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+        const userChoice = await InputProcessor.inputOption();
+        if (userChoice === GAME_QUIT_OPTION) {
+          break;
+        } else if (userChoice === GAME_RESTART_OPTION) {
+          computerNumbers = this.generateRandomNumbers();
+        }
       }
     }
   }
