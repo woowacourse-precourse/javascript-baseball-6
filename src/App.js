@@ -13,6 +13,8 @@ class App {
       computer.calculateResult(userNumbers);
       Screen.printResult(computer);
     }
+
+    Screen.printGameOver();
   }
 }
 
