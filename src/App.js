@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import { IN_GAME_MESSAGE, AFTER_GAME_USER_COMMAND, IN_GAME_ERROR } from "../utils/Constants.js";
+import { IN_GAME_SETTING, IN_GAME_MESSAGE, AFTER_GAME_USER_COMMAND, IN_GAME_ERROR } from "../utils/Constants.js";
 import validateUserAnswer from "../utils/validateUserAnswer.js";
 import generateRightAnswer from "../utils/generateAnswer.js";
 import getUserScore from "../utils/getUserScore.js";
@@ -39,7 +39,7 @@ class App {
     Console.print(convertUserScoreToMessage(userScore));
 
     // 결과에 따른 다음 프로세스 분기 처리 후 턴 종료
-    if (userScore.strike === 3 && userScore.ball === 0) {
+    if (userScore.strike === IN_GAME_SETTING.answerLength) {
       Console.print(IN_GAME_MESSAGE.rightAnswer);
       return this.checkRestartGame();
     }
