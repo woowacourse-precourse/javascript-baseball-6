@@ -38,6 +38,19 @@ class App {
       return Promise.reject(error);
     }
   }
+  
+  compare(answer, userInputNumber) {
+    let strike = 0;
+    let ball = 0;
+
+    for (var i = 0; i < 3; i++) {
+      if (answer[i] == userInputNumber[i]) {
+        strike++;
+      } else if (answer.includes(userInputNumber[i]))
+        ball++;
+    }
+    return [strike, ball];
+  }
 
   async play() {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
