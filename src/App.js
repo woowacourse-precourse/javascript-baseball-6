@@ -4,9 +4,8 @@ class App {
   constructor() {
     this.gameManager = new GameManager();
   }
-
   async play() {
-    await this.gameManager.startGame();
+    await this.gameManager.playGame();
   }
 }
 

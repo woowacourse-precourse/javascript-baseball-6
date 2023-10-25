@@ -5,7 +5,7 @@ export const EXIT_COMMAND = {
 };
 export const CONSOLE_MESSAGE = {
   INPUT_NUMBER: '숫자를 입력하세요: ',
-  CORRECT: '3개의 숫자를 모두 맞히셨습니다! 게임 종료',
+  THREE_STRIKE: '3개의 숫자를 모두 맞히셨습니다! 게임 종료',
   IS_RESTART: '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n',
   END: '게임을 종료합니다.',
 };

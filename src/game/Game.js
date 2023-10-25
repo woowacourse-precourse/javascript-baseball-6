@@ -14,6 +14,13 @@ class Game {
       }
     }
   }
+  //낫싱 판별
+  isNothing(strikeNumbers, ballNumbers) {
+    if (strikeNumbers === 0 && ballNumbers === 0) {
+      return '낫싱';
+    }
+    return '';
+  }
   //스트라이크인지 확인
   isStrike(guessNumber, i) {
     if (Number(guessNumber[i]) === this.computerNumber[i]) {
@@ -32,7 +39,7 @@ class Game {
     return 0;
   }
   //유저의 숫자와 컴퓨터의 숫자 비교
-  compareNumbers(guessNumber) {
+  countBallandStrike(guessNumber) {
     let strikeNumbers = 0;
     let ballNumbers = 0;
     for (let i = 0; i < NUMBER_LENGTH; i++) {
