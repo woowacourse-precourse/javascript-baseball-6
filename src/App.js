@@ -59,7 +59,6 @@ async function askNewGame() {
 
 async function playGame() {
   const answer = makeNumber();
-  console.log(`answer: ${answer}`);
   while(true){
     const userValue = await getInput();
     const [strike, ball] = cntStrikeBall(answer, userValue);
