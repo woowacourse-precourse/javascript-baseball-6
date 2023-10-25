@@ -13,15 +13,34 @@ class App {
     }
   }
 
+  validNumber(number) {
+    if (number.length !== 3) {
+      return "[ERROR] 숫자는 3자리여야 합니다.";
+    }
+
+    if (isNaN(parseInt(number))) {
+      return "[ERROR] 입력값은 숫자여야 아닙니다.";
+    }
+
+    if (number.includes("0")) {
+      return "[ERROR] 숫자에 0이 포함되어 있습니다.";
+    }
+
+    if (new Set(number).size !== 3) {
+      return "[ERROR] 각 자릿수는 서로 다른 숫자여야 합니다.";
+    }
+    return false;
+  }
+
   async receiveNumber() {
     try {
       const number = await MissionUtils.Console.readLineAsync(
         "숫자를 입력해주세요 : "
       );
 
-      if (number.length !== 3 || isNaN(parseInt(number))) {
-        throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
-      }
+      const err = this.validNumber(number);
+      if (err) throw new Error(err);
+
       return number;
     } catch (error) {
       throw error;
@@ -66,7 +85,7 @@ class App {
         "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
       );
       if (number !== "1" && number !== "2") {
-        throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+        throw new Error("[ERROR] 숫자는 1 혹은 2 만 입력해야 합니다.");
       }
       return number;
     } catch (error) {
