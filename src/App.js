@@ -1,4 +1,5 @@
 import { BaseballGame } from "./BaseballGame";
+import { GAME_ACTIONS } from "./constants";
 
 class App {
   async play() {
@@ -7,7 +8,7 @@ class App {
     while (true) {
       await baseballGame.start();
       const action = await baseballGame.askForRestartOrExit();
-      if (action === "exit") break;
+      if (action === GAME_ACTIONS.EXIT) break;
     }
   }
 }
