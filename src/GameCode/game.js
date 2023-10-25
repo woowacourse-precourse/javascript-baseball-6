@@ -1,12 +1,7 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
-import { ballManager, getComputerBall } from "./ballController.js";
-import { errorOccurred } from "./errorController.js";
-import {
-  START_MESSAGE,
-  ERROR_MESSAGE,
-  END_MESSAGE,
-  RESTART_CHECK,
-} from "../Text/message.js";
+import { MissionUtils } from '@woowacourse/mission-utils';
+import { ballManager, getComputerBall } from './ballController.js';
+import { errorOccurred } from './errorController.js';
+import { START_MESSAGE, ERROR_MESSAGE, END_MESSAGE, RESTART_CHECK } from '../Text/message.js';
 
 //game play
 const gamePlay = (playerNum, computerNum) => {
@@ -25,9 +20,7 @@ const gamePlay = (playerNum, computerNum) => {
 
 //game end
 const gameEnd = async () => {
-  const RESTART_BUTTON = await MissionUtils.Console.readLineAsync(
-    END_MESSAGE.restart
-  );
+  const RESTART_BUTTON = await MissionUtils.Console.readLineAsync(END_MESSAGE.restart);
 
   if (RESTART_BUTTON.trim() === RESTART_CHECK.continue) {
     init(); //다시 시작
@@ -43,14 +36,13 @@ const gameEnd = async () => {
 //game start
 const gameStart = async (computerNum) => {
   //사용사 숫자 입력 받기
-  const PLAYER_NUM = await MissionUtils.Console.readLineAsync(
-    START_MESSAGE.input
-  );
+  const PLAYER_NUM = await MissionUtils.Console.readLineAsync(START_MESSAGE.input);
 
   //숫자 형식이 맞을 때
-  errorOccurred(PLAYER_NUM);
-  //게임 진행
-  gamePlay(PLAYER_NUM, computerNum);
+  if (!errorOccurred(PLAYER_NUM)) {
+    //게임 진행
+    gamePlay(PLAYER_NUM, computerNum);
+  }
 };
 
 //game set
@@ -58,8 +50,9 @@ export const init = async () => {
   try {
     //컴퓨터 랜덤 볼
     const COMPUTER_BALL = getComputerBall();
+    MissionUtils.Console.print(COMPUTER_BALL);
     //게임 시작
-    await gameStart(COMPUTER_BALL);
+    await gameStart(COMPUTER_BALL.join(''));
   } catch (error) {
     //throw 예외 처리
     throw error;

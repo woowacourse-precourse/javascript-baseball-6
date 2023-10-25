@@ -1,5 +1,5 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
-import { getResultMessage } from "../Text/message.js";
+import { MissionUtils } from '@woowacourse/mission-utils';
+import { getResultMessage } from '../Text/message.js';
 
 //ball judge
 export const ballManager = (player, computer) => {
@@ -24,6 +24,5 @@ export const getComputerBall = () => {
       COMPUTER_NUM_ARRAY.push(NUM);
     }
   }
-  MissionUtils.Console.print(COMPUTER_NUM_ARRAY);
-  return COMPUTER_NUM_ARRAY.join("");
+  return COMPUTER_NUM_ARRAY;
 };
