@@ -6,7 +6,7 @@ class App {
   async play() {
     Console.print(Message.INIT);
     const computerNum = makeCoumputerNum();
-    await inputNum(computerNum);
+    await startGame(computerNum);
   }
 }
 
@@ -25,7 +25,7 @@ const makeCoumputerNum = () => {
   return nums;
 };
 
-const inputNum = async (computerNum) => {
+const startGame = async (computerNum) => {
   const playerNum = await Console.readLineAsync(Message.INPUT);
   const userNum = handleError(playerNum);
   const playResult = countResult(userNum, computerNum);
@@ -34,30 +34,25 @@ const inputNum = async (computerNum) => {
 };
 
 const countResult = (playerNum, computerNum) => {
-  let strike = 0;
-  let ball = 0;
-  let out = 0;
+  const playResult = [0, 0, 0];
 
   for (let i = 0; i < 3; i++) {
     if (playerNum[i] == computerNum[i]) {
-      strike += 1;
+      playResult[0] += 1
     } else if (computerNum.includes(playerNum[i])) {
-      ball += 1;
+      playResult[1] += 1
     } else {
-      out += 1;
+      playResult[2]+=1
     }
   }
-  return [strike, ball, out];
+  return playResult;
 };
 
-const showResultMessage = (playResult, computerNum) => {
+const showResultMessage = (playResult) => {
   let resultMessage = "";
-  const strike = playResult[0];
-  const ball = playResult[1];
-  const out = playResult[2];
-  if (out === 3) return Console.print("낫싱");
-  if (ball > 0) resultMessage += `${ball}볼 `;
-  if (strike > 0) resultMessage += `${strike}스트라이크`;
+  if (playResult[2] === 3) return Console.print("낫싱");
+  if (playResult[1] > 0) resultMessage += `${playResult[1]}볼 `;
+  if (playResult[0] > 0) resultMessage += `${playResult[0]}스트라이크`;
   Console.print(resultMessage);
 };
 
@@ -66,7 +61,7 @@ const checkStrike = (playResult, computerNum) => {
     Console.print(Message.STRIKE);
     finish();
   } else {
-    inputNum(computerNum);
+    startGame(computerNum);
   }
 };
 
