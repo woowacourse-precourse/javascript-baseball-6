@@ -1,13 +1,17 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
-
+  continue = false
   async play() {
+    this.continue = true
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
     const computerNum = this.setNum();
-    const userNum = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
-    this.vaildation(userNum)
-    this.result(computerNum, userNum)
+    MissionUtils.Console.print(computerNum);
+    while(this.continue) {
+      const userNum = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
+      this.vaildation(userNum)
+      this.result(computerNum, userNum)
+    }
     
   }
 
@@ -47,6 +51,9 @@ class App {
 
     else if (strike > 0) {
       MissionUtils.Console.print(`${strike}스트라이크`)
+      if (strike === 3) {
+        this.continue = false
+      }
     }
 
   }
