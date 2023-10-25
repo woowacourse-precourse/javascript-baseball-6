@@ -25,6 +25,49 @@ class App {
     }
     return (this.answer = result.join(""));
   }
+
+  getBallCount(answer, userInput) {
+    let ball = 0;
+    for (let i = 0; i < 3; i += 1) {
+      if (answer[i] !== userInput[i] && answer.includes(userInput[i])) {
+        ball += 1;
+      }
+    }
+    return ball;
+  }
+
+  getStrikeCount(answer, userInput) {
+    let strike = 0;
+    for (let i = 0; i < 3; i += 1) {
+      if (answer[i] === userInput[i]) {
+        strike += 1;
+      }
+    }
+    return strike;
+  }
+
+  getResult(strike, ball) {
+    let result = "";
+
+    if (strike === 3) {
+      MissionUtils.Console.print(this.texts.GAME_FINISH);
+      return;
+    }
+
+    if (strike === 0 && ball === 0) {
+      MissionUtils.Console.print(this.texts.NOTHING);
+    }
+
+    if (ball > 0) {
+      result += `${ball}${this.texts.BALL} `;
+    }
+
+    if (strike > 0) {
+      result += `${strike}${this.texts.STRIKE}`;
+    }
+
+    MissionUtils.Console.print(result);
+  }
 }
 
 const myApp = new App();
