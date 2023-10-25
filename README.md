@@ -154,3 +154,104 @@ while (computer.length < 3) {
 - 미션은 [javascript-baseball](https://github.com/woowacourse-precourse/javascript-baseball-6/) 저장소를 Fork & Clone해 시작한다.
 - **기능을 구현하기 전 `docs/README.md`에 구현할 기능 목록을 정리**해 추가한다.
 - 과제 진행 및 제출 방법은 [프리코스 과제 제출](https://github.com/woowacourse/woowacourse-docs/tree/master/precourse) 문서를 참고한다.
+
+## 📄 `App.js` 기능 목록
+
+### 1. 게임 시작 메시지 출력
+- 게임이 시작되면 콘솔에 게임 시작 메시지를 출력합니다.
+
+    ```javascript
+    printStartMessage() {
+        MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
+    }
+    ```
+
+### 2. 정답 숫자 설정
+- 게임 시작 시 1-9까지의 서로 다른 무작위 숫자 3개를 정답으로 설정합니다.
+
+    ```javascript
+    async setUpAnswer() {
+        this.answer = [];
+        while (this.answer.length < 3) {
+            const number = MissionUtils.Random.pickNumberInRange(1, 9);
+            if (!this.answer.includes(number)) {
+                this.answer.push(number);
+            }
+        }
+    }
+    ```
+
+### 3. 사용자로부터 숫자 입력 받기
+- 게임 사용자로부터 3개의 숫자를 입력 받습니다. 유효하지 않은 입력에 대해서는 오류 메시지를 출력합니다.
+
+    ```javascript
+    async getUserGuess() {
+        const input = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
+        if (!/^[1-9]{3}$/.test(input)) {
+            throw new Error("[ERROR] 잘못된 입력입니다. 1-9 사이의 서로 다른 숫자 3개를 입력해주세요.");
+        }
+        return input.split("").map(Number);
+    }
+    ```
+
+### 4. 입력한 숫자 평가하기
+- 사용자가 입력한 숫자를 평가하여 결과(스트라이크, 볼, 또는 낫싱)를 결정합니다.
+
+    ```javascript
+    checkGuess(userGuess) {
+        let strikes = 0;
+        let balls = 0;
+
+        userGuess.forEach((num, index) => {
+            if (this.answer.includes(num)) {
+                (this.answer[index] === num) ? strikes++ : balls++;
+            }
+        });
+
+        return {
+            message: strikes === 0 && balls === 0 ? "낫싱" : `${balls}볼 ${strikes}스트라이크`,
+            strikes
+        };
+    }
+    ```
+
+### 5. 게임 오버 체크
+- 3 스트라이크 시 사용자가 게임에서 승리한 것으로 간주하고 게임을 종료합니다.
+
+    ```javascript
+    async gameLoop() {
+        let result;
+        do {
+            const userGuess = await this.getUserGuess();
+            result = this.checkGuess(userGuess);
+            MissionUtils.Console.print(result.message);
+        } while (result.strikes < 3);
+
+        MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    }
+    ```
+
+### 6. 게임 계속 여부 확인
+- 게임 종료 후, 사용자가 게임을 계속할지 여부를 확인합니다.
+
+    ```javascript
+    async checkContinue() {
+        const input = await MissionUtils.Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. ");
+        if (input === "1") {
+            this.isPlaying = true;
+        } else if (input === "2") {
+            this.isPlaying = false;
+        } else {
+            throw new Error("[ERROR] 잘못된 입력입니다. 1 또는 2를 입력해주세요.");
+        }
+    }
+    ```
+
+### 7. 예외 상황 처리
+- 게임 중 발생할 수 있는 예외 상황을 처리합니다.
+
+    ```javascript
+    // 예외 처리는 각 메서드 (특히 getUserGuess 및 checkContinue) 내에서 이루어집니다.
+    // 위의 코드 스니펫에서 예외 처리 로직을 확인할 수 있습니다.
+    ```
+
