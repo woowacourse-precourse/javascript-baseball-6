@@ -37,10 +37,10 @@ const caseNum2 = function caseNum2(){
 }
 
 const caseNum3 = async function caseNum3() {
-    console.log(answerNum);
-    console.log(userInputNum);
+
     for (let idx = 0; idx < 3; idx += 1){
         
+
         if (answerNum[idx] === userInputNum[idx]) {
             setBallStrike(1);
             continue;
@@ -51,19 +51,15 @@ const caseNum3 = async function caseNum3() {
             }
             if (answerNum[idx] === userInputNum[compare]) {
                 setBallStrike(0);
-                break;
             }
         }
 
 
     }
-    console.log(answerNum);
-    console.log(userInputNum);
+
 
     if (strikeCnt == 3) {
-   
-    
-        return 3;
+        return 4;
     }
-    return 2;
+    return 3;
 }

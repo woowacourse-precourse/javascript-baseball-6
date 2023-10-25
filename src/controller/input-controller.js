@@ -1,8 +1,8 @@
 
 import { MissionUtils } from "@woowacourse/mission-utils";
-import {viewError} from "../view/text-case.js";
+import {setResultView, viewError} from "../view/text-case.js";
 import { setUserInputNum } from "../model/data.js";
-import {error} from "../model/data.js";
+import {error,ballCnt, strikeCnt} from "../model/data.js";
 
 const gameContinueInputController = async function continueController(viewInput){
     while(true){
@@ -26,7 +26,7 @@ const gameContinueInputController = async function continueController(viewInput)
 
 const inputController = async function inputController(caseNum, viewText){
 
-    if(caseNum === 1){
+    if(caseNum === 1||caseNum === 3||caseNum === 4){
         MissionUtils.Console.print(viewText);
         return;
     }
@@ -37,7 +37,6 @@ const inputController = async function inputController(caseNum, viewText){
         }catch(err){
             throw err;
         }
-
     }
 
 }

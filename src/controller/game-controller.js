@@ -34,12 +34,14 @@ export default gameStart;
 const gamePlay = async function(){
     var gameState = 1;
     var caseNum = 1;
-    while (true && correct !== true) {
+    while (true) {
+
+        //view처리를 어디서 해줄건지 정해야됨
 
         caseNum = parseInt(await gameCase(gameState),10);
-        var viewText = await pickView(caseNum);
+       
+        var viewText = await pickView(caseNum, ballCnt, strikeCnt);
         
-        if(caseNum==3)break;
         try{
             await inputController(caseNum, String(await viewText));
             
@@ -47,17 +49,12 @@ const gamePlay = async function(){
             throw err;
         }
 
-        // if (gameState == 3 && caseNum !=3 ) {
-        //     await setResultView(ballCnt, strikeCnt);
-        // }
-        //view처리를 어디서 해줄건지 정해야됨
-
-
-        
+        if(caseNum===4)break;
         if (gameState === 1 || gameState === 2) {
             gameState++;
+        }else if(gameState === 3){
+            gameState = 2;
         }
-        
         
     }
     
