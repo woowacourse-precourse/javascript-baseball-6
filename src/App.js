@@ -10,7 +10,30 @@ class App {
   async play() {
     Console.print(MESSAGES.START);
 
-    await this.baseballGame.start();
+    while (true) {
+      await this.baseballGame.start();
+
+      const shouldRestart = await this.getUserInputToRestart();
+      if (!shouldRestart) return;
+      this.baseballGame = new BaseballGame();
+    }
+  }
+
+  async getUserInputToRestart() {
+    try {
+      const userInput = await Console.readLineAsync(MESSAGES.RESTART_OR_DONE);
+
+      switch (userInput) {
+        case "1":
+          return true;
+        case "2":
+          return false;
+        default:
+          throw new Error(MESSAGES.RESTART_NUMBER_ERROR);
+      }
+    } catch (error) {
+      throw new Error(error.message);
+    }
   }
 }
 

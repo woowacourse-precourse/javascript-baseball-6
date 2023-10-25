@@ -13,6 +13,8 @@ class BaseballGame {
   async start() {
     this.computer = this.generateRandomNumbers();
 
+    Console.print(this.computer);
+
     while (!this.correct) {
       const guess = await Console.readLineAsync(MESSAGES.INPUT_NUMBER);
 
@@ -56,6 +58,24 @@ class BaseballGame {
   //       throw new Error(MESSAGES.INPUT_NUMBER_DUPLICATION_ERROR);
   //     }
   //   }
+
+  getHint(guess) {
+    const guessArr = guess.trim().split("").map(Number);
+    let strikes = 0;
+    let balls = 0;
+
+    this.computer.forEach((computerNum, idx) => {
+      if (computerNum === guessArr[idx]) strikes++;
+      else if (guessArr.includes(computerNum)) balls++;
+    });
+
+    const output =
+      (balls === 0 ? "" : `${balls}볼 `) +
+      (strikes === 0 ? "" : `${strikes}스트라이크`);
+    Console.print(output || "낫싱");
+
+    strikes === 3 ? (this.correct = true) : null;
+  }
 }
 
 export default BaseballGame;
