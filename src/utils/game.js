@@ -5,16 +5,14 @@ import { Console, Random } from "@woowacourse/mission-utils";
  * @returns {string} 서로 다른 3자리의 수
  */
 function generateComputerNumbers() {
-  const computer = [];
+  const computer = new Set();
 
-  while (computer.length < 3) {
+  while (computer.size < 3) {
     const number = Random.pickNumberInRange(1, 9);
-    if (!computer.includes(number)) {
-      computer.push(number);
-    }
+    computer.add(number);
   }
 
-  return computer.join("");
+  return [...computer].join("");
 }
 
 /**
