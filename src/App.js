@@ -9,7 +9,7 @@ class App {
     Console.print('숫자 야구 게임을 시작합니다.');
   }
 
-  getCompouterNumbers() {
+  getComputerNumbers() {
     const computerNumbers = [];
 
     while (computerNumbers.length < 3) {
@@ -84,7 +84,7 @@ class App {
     
     do {
       if (!computerNumbers) {
-        computerNumbers = this.getCompouterNumbers();
+        computerNumbers = this.getComputerNumbers();
       }
       
       const userNumbers = await this.getUserNumbers();
@@ -101,7 +101,7 @@ class App {
           if (restartFlag === EXIT) {
             break;
           } else {
-            computerNumbers = this.getCompouterNumbers();
+            computerNumbers = this.getComputerNumbers();
           }
         } else {
           throw new Error('[ERROR] 숫자가 잘못된 형식입니다')
