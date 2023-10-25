@@ -4,20 +4,13 @@ import { constant } from "./constant.js";
 import { printResult } from "./printResult.js";
 
 class App {
-  constructor(
-    input,
-    answer,
-    strikeCount,
-    ballCount,
-    proceeding = true,
-    restart = false
-  ) {
-    this.input = input;
-    this.answer = answer;
-    this.strikeCount = strikeCount;
-    this.ballCount = ballCount;
-    this.proceeding = proceeding;
-    this.restart = restart;
+  constructor() {
+    this.input = "";
+    this.answer = "";
+    this.strikeCount = 0;
+    this.ballCount = 0;
+    this.proceeding = true;
+    this.restart = true;
   }
 
   async play() {
