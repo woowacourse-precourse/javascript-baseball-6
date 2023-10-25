@@ -138,6 +138,6 @@ describe('숫자 야구 게임', () => {
     mockQuestions(answers);
 
     const app = new App();
-    await expect(app.restartGame()).rejects.toThrow('[ERROR] 입력값이 1이나 2가 아닙니다.');
+    await expect(app.play()).rejects.toThrow('[ERROR] 입력값이 1이나 2가 아닙니다.');
   });
 });
