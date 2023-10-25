@@ -3,6 +3,7 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 class App {
   constructor() {
     this.user = new User();
+    this.computer = new Computer();
   }
 
   calculateStrikes(computerNumbers, userNumbers) {
@@ -31,15 +32,12 @@ class App {
     const strikes = this.calculateStrikes(computerNumbers, userNumbers);
     const balls = this.calculateBalls(computerNumbers, userNumbers);
 
-    console.log("Computer Numbers:", computerNumbers);
-    console.log("User Numbers:", userNumbers);
-    console.log("Strikes:", strikes);
-    console.log("Balls:", balls);
+    // console.log("Computer Numbers:", computerNumbers);
+    // console.log("User Numbers:", userNumbers);
+    // console.log("Strikes:", strikes);
+    // console.log("Balls:", balls);
 
-    if (strikes === 3) {
-      console.log(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
-      console.log(`게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.`);
-    } else if (strikes > 0 || balls > 0) {
+    if (strikes > 0 || balls > 0) {
       let resultString = '';
       if (strikes > 0) {
         resultString += `${strikes}스트라이크 `;
@@ -57,21 +55,38 @@ class App {
   async play() {
     console.log(`숫자 야구 게임을 시작합니다.`);
     // Computer 클래스의 인스턴스를 생성
-    const computer = new Computer();
-    // Computer 클래스의 createNumbers() 메서드를 호출해서 app.play()로 쓸 수 있게 만든다.
-    computer.createNumbers();
+    // const computer = new Computer();
+    // Computer 클래스의 createNumbers() 메서드를 호출해서 컴퓨터의 숫자를 생성한다.
+    // computer.createNumbers();
 
-    try {
-      await this.user.createInputs(); // createInputs 함수가 완료될 때까지 기다림
-    } catch (error) {
-      console.log(error);
-      return; // 에러가 발생하면 게임을 중단하고 종료
+
+    // 게임 루프 시작
+    while (true) {
+      try {
+        // const user = new User();
+        await this.user.createInputs();
+
+        const computerNumbers = this.computer.getNumbers();
+        const userNumbers = this.user.getNumbers();
+
+        this.gameResult(computerNumbers, userNumbers);
+
+        // 게임이 종료되는 조건을 확인하고 종료한다. (예: 3스트라이크인 경우)
+        if (this.calculateStrikes(computerNumbers, userNumbers) === 3) {
+          console.log(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
+          const restart = await MissionUtils.Console.readLineAsync(`게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.`);
+          if (restart !== '1') {
+            console.log('게임을 종료합니다.');
+            break; // 게임 종료
+          } else {
+            this.user = new User(); // User 객체 재생성
+            this.computer = new Computer(); // Computer 객체 재생성
+          }
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
-
-    const computerNumbers = computer.getNumbers();
-    const userNumbers = this.user.getNumbers();
-
-    this.gameResult(computerNumbers, userNumbers);
   }
 
 }
@@ -79,10 +94,11 @@ class App {
 class Computer {
   // Computer 클래스에 numbers 로 빈 배열을 만든다. 이 배열안에는 컴퓨터가 생성할 난수를 저장할 곳이다.
   constructor() {
-    this.numbers = [];
+    this.createNumbers();
   }
   // createNumbers 메서드는 컴퓨터의 숫자를 생성한다.
   createNumbers() {
+    this.numbers = [];
     // while문을 통해서 배열에 숫자가 3개 들어갈 때까지 반복한다
     while (this.numbers.length < 3) {
       // 프리코스에 제공된 라이브러리로 1 - 9의 난수를 만들고 num에 저장한다
@@ -93,7 +109,7 @@ class Computer {
       }
     }
     // numbers 배열에 저장된 3개의 난수를 출력한다
-    console.log(this.numbers);
+    // console.log(this.numbers);
   }
 
   getNumbers() {
@@ -134,7 +150,6 @@ class User {
 
       } catch (error) {
         reject(error);
-        // throw error; // 상위 호출자인 play 메서드로 예외를 보낸다
       }
     });
   }
