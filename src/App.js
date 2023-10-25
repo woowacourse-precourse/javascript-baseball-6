@@ -1,6 +1,6 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 const InputError = require("./lib/utils/error.js");
-const { MESSAGE } = require("./lib/constants/message.js");
+const { GAME_MESSAGE } = require("./lib/constants/message.js");
 const { WORD } = require("./lib/constants/word.js");
 
 class App {
@@ -18,7 +18,7 @@ class App {
 
   // startGame : 숫자 야구 게임 시작
   startGame() {
-    Console.print(MESSAGE.START);
+    Console.print(GAME_MESSAGE.START);
   }
 
   // playGame : 숫자 야구 게임 플레이
@@ -49,7 +49,7 @@ class App {
 
   // inputUserNumber: 사용자의 올바른 입력값 저장
   async inputUserNumber() {
-    const input = await Console.readLineAsync(MESSAGE.INPUT);
+    const input = await Console.readLineAsync(GAME_MESSAGE.INPUT);
     this.Error.validateUserInput(input);
     const numbers = input.split("").map((value) => Number(value));
 
@@ -92,7 +92,7 @@ class App {
     Console.print(resultMessage);
 
     if (result.strike === 3) {
-      Console.print(MESSAGE.FINISH);
+      Console.print(GAME_MESSAGE.FINISH);
       return true;
     } else {
       return false;
@@ -101,7 +101,7 @@ class App {
 
   // replayGame : 사용자가 계속 게임을 이어나갈지, 종료할지 결정
   async replayGame() {
-    const input = await Console.readLineAsync(MESSAGE.REPLAY);
+    const input = await Console.readLineAsync(GAME_MESSAGE.REPLAY);
 
     switch (input) {
       case WORD.RETRY:
