@@ -3,11 +3,10 @@ import IOManager from "./IOManager.js";
 
 class App {
   constructor() {
-    this.NUMBER_NOT_VALID_MESSAGE = "숫자가 잘못된 형식입니다.";
     this.ANSWER_LENGTH = 3;
     this.answer = "";
 
-    this.ioManager = new IOManager();
+    this.ioManager = IOManager.getInstance();
   }
 
   setAnswer() {
@@ -91,7 +90,5 @@ class App {
     return this.isGameEnd(strikeCount);
   }
 }
-
-new App().play();
 
 export default App;

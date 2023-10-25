@@ -1,9 +1,17 @@
 import { Console } from "@woowacourse/mission-utils";
 
 class IOManager {
+  static #instance = null;
+
   constructor() {
     this.ANSWER_LENGTH = 3;
     this.NUMBER_NOT_VALID_MESSAGE = "숫자가 잘못된 형식입니다.";
+  }
+
+  // Singletone
+  static getInstance() {
+    if (!this.#instance) this.#instance = new IOManager();
+    return this.#instance;
   }
 
   throwError(msg = "") {
@@ -46,6 +54,8 @@ class IOManager {
       `게임을 새로 시작하려면 ${WANT_REPLAY}, 종료하려면 ${END_GAME}를 입력하세요. : `
     );
 
+    console.log("askReplay ", response);
+
     if (response !== WANT_REPLAY && response !== END_GAME)
       this.throwError(this.NUMBER_NOT_VALID_MESSAGE);
     return response === WANT_REPLAY;
@@ -70,7 +80,7 @@ class IOManager {
   async askNumber() {
     const number = await Console.readLineAsync("숫자를 입력해주세요 : ");
 
-    console.log(number);
+    console.log("askNumber ", number);
 
     if (!this.isNumberIsValid(number))
       this.throwError(this.NUMBER_NOT_VALID_MESSAGE);
