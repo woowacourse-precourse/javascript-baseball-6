@@ -88,17 +88,17 @@ class App {
 
             // 힌트 출력 기능
             if (strike === 0) {
-              exportLibrary(ball + '볼');
+              exportLibrary(`${ball}볼`);
               await gameStart();
             };
 
             if (ball === 0 && strike !== 3) {
-              exportLibrary(strike + '스트라이크');
+              exportLibrary(`${strike}스트라이크`);
               await gameStart();
             };
 
             if (strike > 0 && ball > 0) {
-              exportLibrary(ball + '볼' + ' ' + strike + '스트라이크');
+              exportLibrary(`${ball}볼 ${strike}스트라이크`);
               await gameStart();
             };
 
