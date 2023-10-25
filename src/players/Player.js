@@ -2,6 +2,7 @@ import { MESSAGE } from '../constants/constants.js';
 import View from '../view/View.js';
 
 export default class Player {
+
   async inputNumber() {
     const userInput = await View.readInput(MESSAGE.input);
 
