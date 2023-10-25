@@ -52,9 +52,9 @@ function compareNumbers(computerAnswer, userAnswer) {
 
 function isValidInput(input) {
   return (
-    input.length === 3 &&
-    new Set(input).size === 3 &&
-    input.every((digit) => Number.isInteger(Number(digit)))
+    input.length === 3
+    && new Set(input).size === 3
+    && input.every((digit) => Number.isInteger(Number(digit)))
   );
 }
 
@@ -96,7 +96,7 @@ class App {
 
   async postGameChoice() {
     const choice = await Console.readLineAsync(
-      '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.',
+      '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. \n',
     );
 
     if (choice === '1') return true;
