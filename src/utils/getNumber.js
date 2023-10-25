@@ -1,6 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import { GAME_MESSAGE } from "../constants";
-import { validator } from "./validateInput";
+import { validator } from "./validator";
 
 export function getComputerNumber() {
   const computer = [];
