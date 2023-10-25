@@ -67,7 +67,7 @@ class App {
           Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
           const restart = await MissionUtils.Console.readLineAsync(`게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n`);
           if (restart !== '1') {
-            Console.print(`게임을 종료합니다.`);
+            Console.print(`게임을 종료.`);
             break; // 게임 종료
           } else {
             this.user = new User(); // User 객체 재생성
@@ -75,8 +75,9 @@ class App {
           }
         }
       } catch (error) {
-        Console.print(error.message);
-        break;
+        // Console.print(error.message);
+        // break;
+        return Promise.reject(error); // 예외 테스트 통과 코드
       }
     }
   }
@@ -153,6 +154,5 @@ const app = new App();
 app.play().catch(error => {
   Console.print(error)
 });
-
 
 export default App;
