@@ -34,7 +34,7 @@ class App {
 
     // 유효한지 확인
     if (!isValid(playerNumber)) {
-      throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+      throw new Error(MESSAGE.ERROR.INPUT);
     }
 
     return playerNumber;
@@ -48,7 +48,7 @@ class App {
       await this.play();
     } else if (input === GAME.STOP) {
       Console.print(MESSAGE.STOP);
-    } else throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+    } else throw new Error(MESSAGE.ERROR.RESTART);
   }
 }
 

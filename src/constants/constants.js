@@ -11,6 +11,10 @@ const MESSAGE = {
   CORRECT_ANSWER: `${ANSWER_LENGTH}개의 숫자를 모두 맞히셨습니다! 게임 종료`,
   RESTART_STOP: '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.',
   STOP: `게임 종료`,
+  ERROR: {
+    INPUT: '[ERROR] 숫자가 잘못된 형식입니다.',
+    RESTART: '[ERROR] 숫자가 1 또는 2가 아닙니다.',
+  },
 };
 
 export default { MESSAGE, GAME, ANSWER_LENGTH };
