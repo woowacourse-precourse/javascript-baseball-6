@@ -1,9 +1,10 @@
 import { Console } from '@woowacourse/mission-utils';
 import { InputView } from './InputView.js';
 import { MESSAGE } from '../constants/message.js';
-import { COMMAND, GAME_RESULT } from '../constants/baseballGame.js';
+import { COMMAND } from '../constants/baseballGame.js';
 import { InputViewError } from '../Model/Error.js';
 import { ERROR } from '../constants/error.js';
+import { GameResultMessage, getResultMessage } from '../utils/messageUtils.js';
 
 export const View = {
   async readUserNumber() {
@@ -28,14 +29,6 @@ export const View = {
   },
 
   printGameWinning(strike) {
-    Console.print(GAME_RESULT.WIN(strike));
+    Console.print(GameResultMessage.formatWin(strike));
   },
-};
-
-const getResultMessage = ({ strike, ball }) => {
-  if (strike === 0 && ball === 0) return GAME_RESULT.NOTHING;
-
-  return [ball && GAME_RESULT.BALL(ball), strike && GAME_RESULT.STRIKE(strike)]
-    .filter(Boolean)
-    .join(' ');
 };
