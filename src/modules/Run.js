@@ -1,7 +1,7 @@
-import ConvertInputTo from "./ConvertInputTo.js";
-import Get from "./Get.js";
-import Print from "./Print.js";
-import Is from "./Is.js";
+import ConvertInputTo from "./ConvertInputTo";
+import Get from "./Get";
+import Print from "./Print";
+import Is from "./Is";
 
 class Run {
   static async baseball() {

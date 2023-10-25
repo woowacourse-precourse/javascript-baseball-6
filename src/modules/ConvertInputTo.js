@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import ErrorCheck from './ErrorCheck.js';
+import ErrorCheck from './ErrorCheck';
 import Is from './Is.js';
 
 class ConvertInputTo {

@@ -1,9 +1,9 @@
-import ConvertInputTo from "./ConvertInputTo.js";
-import ErrorCheck from "./ErrorCheck.js";
-import Get from "./Get.js";
-import Is from "./Is.js";
-import Print from "./Print.js";
-import Run from "./Run.js";
+import ConvertInputTo from "./ConvertInputTo";
+import ErrorCheck from "./ErrorCheck";
+import Get from "./Get";
+import Is from "./Is";
+import Print from "./Print";
+import Run from "./Run";
 
 export {
   ConvertInputTo,
