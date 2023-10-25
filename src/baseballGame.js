@@ -13,16 +13,14 @@ class BaseballGame {
   async start() {
     this.computer = this.generateRandomNumbers();
 
-    Console.print(this.computer);
-
     while (!this.correct) {
       const guess = await Console.readLineAsync(MESSAGES.INPUT_NUMBER);
 
-      //   try {
-      //     this.validateGuess(guess);
-      //   } catch (error) {
-      //     throw new Error(error.message);
-      //   }
+      try {
+        this.validateGuess(guess);
+      } catch (error) {
+        throw new Error(error.message);
+      }
 
       this.getHint(guess);
     }
@@ -41,23 +39,23 @@ class BaseballGame {
     return [...numbers];
   }
 
-  //   validateGuess(guess) {
-  //     const threeDigitsPattern = /^\d{3}$/;
-  //     const oneToNinePattern = /^[1-9]+$/;
-  //     const hasDuplicatePattern = /(.)\1/;
+  validateGuess(guess) {
+    const threeDigitsPattern = /^\d{3}$/;
+    const oneToNinePattern = /^[1-9]+$/;
+    const hasDuplicatePattern = /(.)\1/;
 
-  //     if (!threeDigitsPattern.test(guess)) {
-  //       throw new Error(MESSAGES.INPUT_NUMBER_LENGTH_ERROR);
-  //     }
+    if (!threeDigitsPattern.test(guess)) {
+      throw new Error(MESSAGES.INPUT_NUMBER_LENGTH_ERROR);
+    }
 
-  //     if (!oneToNinePattern.test(guess)) {
-  //       throw new Error(MESSAGES.INPUT_NUMBER_RANGE_ERROR);
-  //     }
+    if (!oneToNinePattern.test(guess)) {
+      throw new Error(MESSAGES.INPUT_NUMBER_RANGE_ERROR);
+    }
 
-  //     if (hasDuplicatePattern.test(guess)) {
-  //       throw new Error(MESSAGES.INPUT_NUMBER_DUPLICATION_ERROR);
-  //     }
-  //   }
+    if (hasDuplicatePattern.test(guess)) {
+      throw new Error(MESSAGES.INPUT_NUMBER_DUPLICATION_ERROR);
+    }
+  }
 
   getHint(guess) {
     const guessArr = guess.trim().split("").map(Number);
