@@ -1,5 +1,5 @@
 import App from "../src/App.js";
-import { MissionUtils } from "@woowacourse/mission-utils";
+import { Console, MissionUtils } from "@woowacourse/mission-utils";
 
 const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
@@ -40,6 +40,7 @@ describe("숫자 야구 게임", () => {
 
     // then
     messages.forEach((output) => {
+      MissionUtils.Console.print(output)
       expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(output));
     });
   });
