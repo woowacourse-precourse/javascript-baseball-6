@@ -3,7 +3,7 @@ export default function isValidNum(USER_INPUT) {
 
   if (
     (USER_INPUT.length !== 3) 
-    || (CONFIRM_DUPLICATE.length !== 3)
+    || (CONFIRM_DUPLICATE.size !== 3)
     || isNaN(USER_INPUT)
     || USER_INPUT.includes(0)
   ) {
