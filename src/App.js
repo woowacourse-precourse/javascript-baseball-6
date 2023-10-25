@@ -2,6 +2,7 @@ import BaseBall from './BaseBall.js';
 import OutputView from './view/OutputView.js';
 import InputReader from './view/InputReader.js';
 import { validation } from './utils/Validation.js';
+import { paramType } from './utils/paramType.js';
 
 class App {
   constructor(outputView, inputReader) {
@@ -27,12 +28,7 @@ class App {
     await this.check(userInput);
   }
 
-  async check(userInput) {
-    if (typeof userInput !== 'number' || Number.isNaN(userInput)) {
-      throw new Error(
-        `invalid userInput type userInput : ${userInput}, type of input : ${typeof userInput}`
-      );
-    }
+  async check(userInput, _0 = paramType(userInput, Number)) {
     validation.baseBallNumbersInputOfUser(userInput);
 
     const countResult = this.baseBall.countResult(userInput);
