@@ -100,17 +100,22 @@ class App {
   }
   
   async replay() {
-    const regame = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. \n');
+    try {
+      const regame = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. \n');
   
-    if (regame === '1') {
-      this.computerAnswer = this.generateRandomBallNumber();
-      return await this.play(); 
-    } else if (regame === '2') {
-      MissionUtils.Console.print('게임 종료');
-    } else {
-      throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+      if (regame === '1') {
+        this.computerAnswer = this.generateRandomBallNumber();
+        return await this.play(); 
+      } else if (regame === '2') {
+        MissionUtils.Console.print('게임 종료');
+      } else {
+        throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+      }
+    } catch (error) {
+      MissionUtils.Console.print(error.message); // 예외가 발생하면 에러 메시지 출력
     }
   }
+  
 
   async numCorrect() {
     const answer = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');

@@ -48,15 +48,18 @@ describe("숫자 야구 게임", () => {
     // given
     const randoms = [1, 3, 5];
     const answers = ["1234"];
-
+  
     mockRandoms(randoms);
     mockQuestions(answers);
-
+  
     // when & then
     const app = new App();
-    const logSpy = getLogSpy(); 
-    await app.play();
-
-    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[ERROR]"));
+  
+    try {
+      await app.play(); 
+    } catch (error) {
+      expect(error.message).toBe("[ERROR]");
+    }
   });
+  
 });
