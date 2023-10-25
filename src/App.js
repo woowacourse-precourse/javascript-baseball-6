@@ -1,12 +1,12 @@
 import { Console, Random, MissionUtils } from '@woowacourse/mission-utils';
 
-class App {n
+class App {
+
     async play() {
         Console.print('숫자 야구 게임을 시작합니다.')
 
         let newGame = 1;
         let computerInput = await this.getComputerInput()
-
 
 
         while (newGame === 1) {
@@ -60,7 +60,7 @@ class App {n
     async getUserInput() {
         const inputNumber = await Console.readLineAsync();
         if (inputNumber.length > 3) {
-            throw new Error('잘못된 형식의 숫자');
+            throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
         }
         return inputNumber.split('').map(Number)
     }
