@@ -5,20 +5,21 @@ class App {
   constructor() {
     this.strike = 0;
     this.ball = 0;
-    this.computer = [];
+    this.computerNum = [];
+    this.userNum = [];
   }
 
   setComputerNum() {
-    this.computer = [];
-    // 컴퓨터는 1부터 9까지 서로 다른 임의의 수 3개를 선택한다.
-    while (this.computer.length < 3) {
+    this.computerNum = [];
+
+    while (this.computerNum.length < 3) {
       const number = MissionUtils.Random.pickNumberInRange(1, 9);
-      if (!this.computer.includes(number)) {
-        this.computer.push(number);
+      if (!this.computerNum.includes(number)) {
+        this.computerNum.push(number);
       }
     }
 
-    console.log('computer : ', this.computer);
+    console.log('computer : ', this.computerNum);
   }
 
   print(){
@@ -28,11 +29,11 @@ class App {
     else MissionUtils.Console.print(`낫싱`);
   }
 
-  errorCheck(number) {
-    if (isNaN(Number(number))) throw new Error("[ERROR] 숫자만 입력해주세요.");
-    if (number.length !== 3) throw new Error("[ERROR] 3자리 숫자를 입력해주세요.");
-    if (number.includes(0)) throw new Error("[ERROR] 0은 입력할 수 없습니다.");
-    if (number[0] === number[1] || number[1] === number[2] || number[2] === number[0]) throw new Error("[ERROR] 서로 다른 3개의 숫자를 입력해주세요.");
+  errorCheck() {
+    if (isNaN(Number(this.userNum))) throw new Error("[ERROR] 숫자만 입력해주세요.");
+    if (this.userNum.length !== 3) throw new Error("[ERROR] 3자리 숫자를 입력해주세요.");
+    if (this.userNum.includes(0)) throw new Error("[ERROR] 0은 입력할 수 없습니다.");
+    if (this.userNum[0] === this.userNum[1] || this.userNum[1] === this.userNum[2] || this.userNum[2] === this.userNum[0]) throw new Error("[ERROR] 서로 다른 3개의 숫자를 입력해주세요.");
   }
 
   async play() {
@@ -47,27 +48,21 @@ class App {
       this.strike = 0;
       this.ball = 0;
   
-      const number = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
-
-      // 컴퓨터는 사용자가 입력한 수에 대한 결과를 낫싱과, 볼, 스트라이크 개수로 표시한다.
-      this.num_list = [...number].map(v => +v);
+      this.userNum = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
 
       // 입력 확인
-      this.errorCheck(number);
+      this.errorCheck();
 
-      this.computer.map((v, idx) => {
-        // 다 같으면 스트라이크
-        if (this.computer[idx] === this.num_list[idx]) {
-          this.strike++;
-        }
-        // 들어는 있는데, 같은 자리가 아니라면, 볼
-        else if (this.num_list.includes(v)) {
-          this.ball++;
-        }
+      // 스트라이크, 볼 확인
+      this.computerNum.map((v, idx) => {
+        if (this.computerNum[idx] == this.userNum[idx]) this.strike++;
+        else if (this.userNum.includes(v)) this.ball++;
       })
 
       // 출력
       this.print();
+
+      // 게임 종료 확인
       if (this.strike === 3) {
         MissionUtils.Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
         gameNum = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
