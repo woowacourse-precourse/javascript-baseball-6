@@ -1,9 +1,9 @@
-import printError from "../message/error/printError.js";
+import printInputTypeError from "../message/error/printInputTypeError.js";
 
 const nanValidation = (array) => {
     array.map((element) => {
         if(isNaN(element)) {
-            printError();
+            printInputTypeError();
         }
     });
 }
