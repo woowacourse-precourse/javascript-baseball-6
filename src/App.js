@@ -1,4 +1,5 @@
 import { printMessage } from "./utils/messages.js";
+import { displayResultMessage } from "./displayResultMessage.js";
 import { generateComputerNumber, getUserInput } from "./inputValidation.js";
 import { countBaseballCounts, askToContinue } from "./gameLogic.js";
 
@@ -13,6 +14,7 @@ class App {
       while (result.strike !== 3) {
         const userInputNumber = await getUserInput();
         result = countBaseballCounts(computerNumber, userInputNumber);
+        displayResultMessage(result);
       }
 
       const isRestarted = await askToContinue();
