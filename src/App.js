@@ -3,28 +3,27 @@ const MissionUtils = require("@woowacourse/mission-utils");
 const { Console, Random } = MissionUtils;
 
 class App {
-  RANDOM_NUMBER = [];
-  USER_NUMBER;
-  ANSWER;
-  ERROR = false;
+  random_number = [];
+  user_number;
+  answer;
 
   isDuplicationInRandomNumber(number) {
-    return this.RANDOM_NUMBER.some((num) => num === number);
+    return this.random_number.some((num) => num === number);
   }
 
   getRandomNumber() {
-    while (this.RANDOM_NUMBER.length < 3) {
+    while (this.random_number.length < 3) {
       const number = Random.pickNumberInRange(1, 9);
       if (!this.isDuplicationInRandomNumber(number))
-        this.RANDOM_NUMBER.push(number);
+        this.random_number.push(number);
     }
   }
 
   numberOfHits() {
     const SCORE = [0, 0];
-    this.RANDOM_NUMBER.map((number, index) => {
-      if (this.USER_NUMBER[index] === number) SCORE[0] += 1;
-      else if (this.USER_NUMBER.includes(number)) SCORE[1] += 1;
+    this.random_number.map((number, index) => {
+      if (this.user_number[index] === number) SCORE[0] += 1;
+      else if (this.user_number.includes(number)) SCORE[1] += 1;
     });
     return SCORE;
   }
@@ -35,23 +34,23 @@ class App {
     if (STRIKE === 3) {
       Console.print("3스트라이크");
       Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-      this.ANSWER = true;
+      this.answer = true;
       return;
     } else if (STRIKE === 0 && BALL === 0) {
       Console.print("낫싱");
-      this.ANSWER = false;
+      this.answer = false;
       return;
     } else if (STRIKE === 0 && BALL > 0) {
       Console.print(`${BALL}볼`);
-      this.ANSWER = false;
+      this.answer = false;
       return;
     } else if (STRIKE > 0 && BALL === 0) {
       Console.print(`${STRIKE}스트라이크`);
-      this.ANSWER = false;
+      this.answer = false;
       return;
     } else {
       Console.print(`${BALL}볼 ${STRIKE}스트라이크`);
-      this.ANSWER = false;
+      this.answer = false;
       return;
     }
   }
@@ -96,20 +95,19 @@ class App {
   }
 
   async restart() {
-    const answer = await Console.readLineAsync(
+    const restart_answer = await Console.readLineAsync(
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
     );
 
-    if (answer) {
-      if (answer === "1") {
-        this.RANDOM_NUMBER = [];
-        this.USER_NUMBER = "";
+    if (restart_answer) {
+      if (restart_answer === "1") {
+        this.random_number = [];
+        this.user_number = "";
         this.play();
-      } else if (answer === "2") {
+      } else if (restart_answer === "2") {
         return;
       } else {
-        this.ERROR = true;
-        return;
+        throw new Error("[ERROR] 잘못된 입력입니다.");
       }
     }
   }
@@ -118,12 +116,12 @@ class App {
     let number = await Console.readLineAsync("숫자를 입력해주세요 :");
 
     if (!(await this.testUserNumber(number))) {
-      this.ERROR = true;
+      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
     } else {
-      await (this.USER_NUMBER = number.split("").map(Number));
+      await (this.user_number = number.split("").map(Number));
       const result = await this.numberOfHits();
       await this.printAnswer(result);
-      this.ANSWER ? await this.restart() : await this.getUserInput();
+      this.answer ? await this.restart() : await this.getUserInput();
       return;
     }
   }
@@ -136,13 +134,7 @@ class App {
 
   async play() {
     await Console.print("숫자 야구 게임을 시작합니다.");
-
     await this.gameStart();
-
-    if (this.ERROR) {
-      this.ERROR = false;
-      return Promise.reject(new Error("[ERROR] 숫자가 잘못된 형식입니다."));
-    }
   }
 }
 module.exports = App;
