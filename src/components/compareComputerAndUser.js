@@ -2,15 +2,14 @@ const compareComputerAndUser = (computer, user) => {
   let ball = 0,
     strike = 0;
 
-  for (let i = 0; i < computer.length; i++) {
-    for (let j = 0; j < user.length; j++) {
-      if (computer[i] === user[j]) {
-        if (i == j) strike += 1;
-        else ball += 1;
+  computer.forEach((computerNumber, computerIndex)=>{
+    user.forEach((userNumber, userIndex)=>{
+      if (computerNumber === userNumber){
+        if (computerIndex === userIndex) strike += 1;
+        else ball+=1;
       }
-    }
-  }
-
+    })
+  })
   return { ball, strike };
 };
 
