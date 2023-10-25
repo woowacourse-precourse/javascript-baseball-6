@@ -25,14 +25,10 @@ class App {
     if (number.length !== 3) {
       throw new Error('[ERROR] 3자리 숫자가 아닙니다.');
     }
-    const user = [];
-    number.forEach((element) => {
-      if (!user.includes(element)) {
-        user.push(element);
-      } else {
-        throw new Error('[ERROR] 서로 다른 숫자가 아닙니다.');
-      }
-    });
+    const user = [...new Set(number)];
+    if (user.length !== number.length) {
+      throw new Error('[ERROR] 서로 다른 숫자가 아닙니다.');
+    }
     this.userNumber = user;
   }
 
