@@ -11,48 +11,53 @@ function createComputerNumber() {
   return numbers;
 }
 
-function compareNumbers(computerAnswer, userAnswer) {
+function processBallAndStrike(computerAnswer, userAnswer) {
   let ball = 0;
   let strike = 0;
 
-  for (let i = 0; i < 3; i++) {
-    if (computerAnswer[i] === userAnswer[i]) {
-      strike++;
-      continue;
+  computerAnswer.forEach((value, index) => {
+    if (value === userAnswer[index]) {
+      strike += 1;
+      return;
     }
-    if (
-      userAnswer.includes(computerAnswer[i]) &&
-      computerAnswer[i] !== userAnswer[i]
-    ) {
-      ball++;
+    if (userAnswer.includes(value)) {
+      ball += 1;
     }
-  }
+  });
 
+  return { ball, strike };
+}
+
+function printBallAndStrikeResult({ ball, strike }) {
   if (strike === 3) {
-    Console.print(
-      `${strike}스트라이크 \n3개의 숫자를 모두 맞히셨습니다! 게임 종료`,
-    );
-    return { strike, ball };
+    return Console.print(`${strike}스트라이크 \n3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
   }
 
   if (strike === 0 && ball === 0) {
-    Console.print('낫싱');
-    return { strike, ball };
+    return Console.print('낫싱');
   }
 
-  if (ball > 0 && strike == 0) Console.print(`${ball}볼`);
-  if (strike > 0 && ball == 0) Console.print(`${strike}스트라이크`);
-  if (ball > 0 && strike > 0) Console.print(`${ball}볼 ${strike}스트라이크`);
-  return { strike, ball };
+  if (ball > 0 && strike > 0) {
+    return Console.print(`${ball}볼 ${strike}스트라이크`);
+  }
+
+  if (strike === 0) {
+    return Console.print(`${ball}볼`);
+  }
+
+  return Console.print(`${strike}스트라이크`);
+}
+
+function compareNumbers(computerAnswer, userAnswer) {
+  const result = processBallAndStrike(computerAnswer, userAnswer);
+  printBallAndStrikeResult(result);
+  return result;
 }
 
 function isValidInput(input) {
   if (input.length !== 3) return false;
-  const uniqueDigits = [...new Set(input)];
-  return (
-    uniqueDigits.every((digit) => Number.isInteger(Number(digit))) &&
-    uniqueDigits.length === 3
-  );
+  if (new Set(input).size !== 3) return false;
+  return input.every((digit) => Number.isInteger(Number(digit)));
 }
 
 async function requestUserAnswer() {
@@ -66,41 +71,39 @@ async function requestUserAnswer() {
 }
 
 async function postGameChoice() {
-  const choice = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+  const choice = await Console.readLineAsync(
+    '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.',
+  );
 
-  switch (choice) {
-    case '1':
-      return true;
-    case '2':
-      return false;
-    default:
-      return await postGameChoice();  // 사용자가 올바른 선택을 할 때까지 반복 요청
-  }
+  if (choice === '1') return true;
+  if (choice === '2') return false;
+
+  return postGameChoice();
 }
 
 class App {
+  async playGame() {
+    Console.print('숫자 야구 게임을 시작합니다.');
+    const computerAnswer = createComputerNumber();
+    let strike = 0;
+
+    while (strike !== 3) {
+      const userAnswer = await requestUserAnswer();
+      const result = compareNumbers(computerAnswer, userAnswer);
+      strike = result.strike;
+    }
+
+    return postGameChoice();
+  }
+
   async play() {
     let continueGame = true;
 
     while (continueGame) {
-      Console.print('숫자 야구 게임을 시작합니다.');
-      const computerAnswer = createComputerNumber();
-      let strike = 0;
-
-      while (strike !== 3) {
-        try {
-          const userAnswer = await requestUserAnswer();
-          const result = compareNumbers(computerAnswer, userAnswer);
-          strike = result.strike;
-        } catch (error) {
-          Console.print(error);
-        }
-      }
-      continueGame = await postGameChoice();  // 게임이 끝나고 사용자의 선택을 기다립니다.
+      continueGame = await this.playGame();
     }
   }
 }
-
 
 const app = new App();
 app.play();
