@@ -19,7 +19,6 @@ class GameLogic {
   compareNumbers(computer, user) {
     let ball = 0;
     let strike = 0;
-    console.log('computer: ', computer, ', user: ', user);
 
     for(let i = 0; i < 3 ; i++) {
       if (user.includes(computer[i])) {

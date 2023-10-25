@@ -1,4 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
+import { GameMessages } from "../constants/GameMessages.js";
+import { ErrorMessages } from "../constants/ErrorMessages.js";
 import GameLogic from "./GameLogic.js";
 import Exception from "../utils/Exception.js";
 
@@ -12,7 +14,7 @@ class GameController {
   }
 
   async startGame() {
-    MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
+    MissionUtils.Console.print(GameMessages.START_GAME);
     await this.runGame();
   }
 
@@ -21,7 +23,7 @@ class GameController {
     let userResult = '';
 
     while(true) {
-      const userNumber = await this.getUserInput('숫자를 입력해주세요 : ');
+      const userNumber = await this.getUserInput(GameMessages.NUMBER_INPUT);
 
       Exception.userNumberException(userNumber);
 
@@ -37,19 +39,19 @@ class GameController {
   }
 
   strike() {
-    MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+    MissionUtils.Console.print(GameMessages.END_GAME);
     return this.restartGame();
   }
 
   async restartGame() {
-    const answer = await this.getUserInput('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+    const answer = await this.getUserInput(GameMessages.RETRY_GAME_OR_END_GAME);
 
     if (answer === '1') {
       return this.runGame();
     } else if (answer === '2') {
       return false;
     } else {
-      throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+      throw new Error(ErrorMessages.INVALID_END_MESSAGE);
     }
   }
 }
