@@ -9,10 +9,11 @@ export default class BaseBall {
 
   createPassword() {
     const passwordArray = [];
-    while (passwordArray.length !== 3) {
+    while (passwordArray.length < 3) {
       const randomNumber = Random.pickNumberInRange(1, 9);
-      if (passwordArray.includes(randomNumber)) continue;
-      passwordArray.push(randomNumber);
+      if (!passwordArray.includes(randomNumber)) {
+        passwordArray.push(randomNumber);
+      }
     }
 
     return Number(passwordArray.join(''));
