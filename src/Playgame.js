@@ -24,20 +24,23 @@ class Playgame {
         let strike = 0;
         let ball = 0;
     
-        for (let j = 0; j < 3; j++) {
-            if (numbers[j] === input[j]) {
+        for (let i = 0; i < 3; i++) {
+            if (numbers[i] === input[i]) {
                 strike++;
-            } else if (numbers.includes(input[j])) {
+            } else if (numbers.includes(input[i])) {
                 ball++;
             }
         };
     
-        if (strike === 0 && ball === 0) return '낫싱';
-        if (strike === 0 && ball !== 0) return `${ball}볼`;
-        if (strike !== 0 && ball === 0) return `${strike}스트라이크`;
-        if (strike === 3) return '3스트라이크';
-
-        return `${ball}볼 ${strike}스트라이크`;
+        if (strike > 0 && ball > 0) {
+            return `${ball}볼 ${strike}스트라이크`;
+        } else if (strike > 0) {
+            return `${strike}스트라이크`;
+        } else if (ball > 0) {
+            return `${ball}볼`;
+        } else {
+            return '낫싱';
+        }
 
     }
 }
