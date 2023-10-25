@@ -32,7 +32,6 @@ class App {
   // 사용자에게 입력 받은 값 배열 반환
   getUserValue = async () => {
     const userGuess = await MissionUtils.Console.readLineAsync(GAME.INPUT);
-
     if (!this.isValidInput(userGuess)) {
       throw new Error("[ERROR] 서로 다른 숫자 3개만 입력 가능합니다.");
     }

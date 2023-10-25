@@ -21,14 +21,14 @@
 
 - [x] 게임이 끝난 경우 재시작(1)/종료(2) 구분
 
-## ✏️ Study
+# ✏️ Study
 
-### 🫧 Jest : Javascript Unit Test(단위 테스트)
+## 🫧 Jest : Javascript Unit Test(단위 테스트)
 
 - `jest.spyOn(object, methodName)` : 어떤 객체에 속한 함수의 구현을 가짜로 대체하지 않고, 해당 함수의 호출 여부와 어떻게 호출되었는지만을 알아내야 할 때 사용
 - `describe()` : 연관된 테스트 함수들을 구룹화
 
-#### mocking?
+### mocking?
 
 mocking은 단위 테스트를 작성할 때, 해당 코드가 의존하는 부분을 mock(모조품)로 대체하는 기법
 
@@ -36,7 +36,7 @@ mocking은 단위 테스트를 작성할 때, 해당 코드가 의존하는 부�
 - `mockReturnValue(리턴 값)` : 사용자가 return 값 지정
 - `mockImplementation(구현 코드)` : 동작하는 가짜 함수를 즉석으로 구현
 
-#### `expect()`
+### `expect()`
 
 특정 조건을 검사하여 테스트이 성공 또는 실패를 판단
 
@@ -48,7 +48,7 @@ mocking은 단위 테스트를 작성할 때, 해당 코드가 의존하는 부�
 - `.toHaveBeenCalledWith(arg1, arg2, ...)` : 특정 인수를 사용하여 모의 함수가 호출되었는지 확인하는 데 사용
 - `stringContaining(string)` : 해당 문자열을 포함하는지 확인
 
-### 🌵 Javascript Grammar
+## 🌵 Javascript Grammar
 
 - `NaN` = Not-A-Number(숫자가 아님)
 - `export` : 모듈에서 함수, 객체, 원시 값을 내보낼 때 사용
@@ -63,12 +63,12 @@ mocking은 단위 테스트를 작성할 때, 해당 코드가 의존하는 부�
   <br> 예외가 발생하면 함수가 중지되고 catc문으로 전달
   <br>호출자 함수 사이에 catch문이 없으면 프로그램 종료
 
-#### 비동기 작업 처리
+### 비동기 작업 처리
 
 - `async` : 함수 정의 앞에 붙어서 해당 함수가 비동기 함수임을 나타냄
 - `await` : 비동기 작업이 완료될 때까지 함수의 실행을 일시 중단 시키는 역할
 
-##### Promise
+#### Promise
 
 비동기 작업을 처리하기 위한 객체
 
