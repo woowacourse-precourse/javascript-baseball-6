@@ -1,7 +1,7 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import { createNumber } from "./createNumber.js";
+import { createNumber } from "./CreateNumber.js";
 import { validateNumber } from "./validateNumber.js";
-import { compareNumber } from "./compareNumber.js";
+import { compareNumber } from "./CompareNumber.js";
 import Messages from "../utils/Messages.js";
 
 class baseballGame {
