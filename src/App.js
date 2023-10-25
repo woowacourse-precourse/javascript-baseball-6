@@ -53,7 +53,7 @@ class BaseballGame {
         while (true) {
             let input = '';
             try {
-                input = await Console.readLineAsync('숫자를 입력해주세요 : ');
+                input = await Console.readLineAsync('숫자를 입력해주세요: ');
                 this.validateInput(input);
             } catch (error) {
                 console.log(error.message);
@@ -67,8 +67,7 @@ class BaseballGame {
                 console.log('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
                 const restart = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
                 if (restart === '1') {
-                    this.computer = [];
-                    this.play();
+                    return new BaseballGame().play();
                 } else {
                     break;
                 }
