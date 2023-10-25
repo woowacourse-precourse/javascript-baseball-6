@@ -10,7 +10,7 @@ class GameManager {
   async startGame() {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
     const computerNumber = this.gameLogic.generateNewNumber();
-    await this.playGame(computerNumber);
+    this.playGame(computerNumber);
   }
 
   async playGame(computerNumber) {
@@ -20,7 +20,8 @@ class GameManager {
 
     if (computerNumber === answer) {
       return this.strike();
-    } else if (!Exception.baseballException(answer)) {
+    }
+    if (!Exception.baseballException(answer)) {
       throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
     }
     this.checkBall(computerNumber, answer);
@@ -36,6 +37,7 @@ class GameManager {
   }
 
   strike() {
+    MissionUtils.Console.print("3스트라이크");
     MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
     this.restartGame();
   }
