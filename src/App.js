@@ -75,7 +75,6 @@ class App {
   async play() {
     Console.print('숫자 야구 게임을 시작합니다.');
     let computerNum = this.getComputerNum();
-    console.log(computerNum)
 
     while (true) {
       const userInput = await this.getUserInput();
