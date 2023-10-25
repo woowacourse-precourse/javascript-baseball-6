@@ -6,8 +6,7 @@ class App {
     const computer = this.generateRandomNumbers();
     while (true) {
       if (this.printUserGuess(this.judgeUserGuess(computer, await this.takeUserGuess()))) {
-        MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-        const playContinue = await MissionUtils.Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+        const playContinue = await this.takePlayContinue();
         if (playContinue !== "1" && playContinue !== "2") {
           throw MissionUtils.Console.print("1 또는 2만 입력 가능합니다.");
         }
@@ -73,6 +72,13 @@ class App {
     }
     MissionUtils.Console.print(`${guessResult[0]}볼 ${guessResult[1]}스트라이크`);
     return false;
+  }
+
+  async takePlayContinue() {
+    MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    const playContinueInput = await MissionUtils.Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n");
+
+    return playContinueInput.trim();
   }
 }
 
