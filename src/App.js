@@ -10,11 +10,7 @@ class App {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
 
     while (!isCorrect) {
-      try {
-        const input = await this.getUserNumber();
-        if (input.includes("[ERROR]")) return Promise.reject(new Error(input));
-        this.userNumber = input;
-      } catch (error) {}
+      this.userNumber = await this.getUserNumber();
 
       let strike = 0;
       let ball = 0;
@@ -54,30 +50,27 @@ class App {
   }
 
   async getUserNumber() {
-    try {
-      const number = await MissionUtils.Console.readLineAsync(
-        "숫자를 입력하세요: "
-      );
+    const number = await MissionUtils.Console.readLineAsync(
+      "숫자를 입력하세요: "
+    );
 
-      if (isNaN(number)) return "[ERROR] 숫자가 잘못된 형식입니다.";
-      if (number.length !== 3) return "[ERROR] 3자리 숫자를 입력해주세요.";
-      if ([...new Set(number)].length !== 3)
-        return "[ERROR] 중복된 숫자가 있습니다.";
+    if (isNaN(number)) throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+    if (number.length !== 3)
+      throw new Error("[ERROR] 3자리 숫자를 입력해주세요.");
+    if ([...new Set(number)].length !== 3)
+      throw new Error("[ERROR] 중복된 숫자가 있습니다.");
 
-      return number;
-    } catch (error) {}
+    return number;
   }
 
   async handleEndGame() {
-    try {
-      const answer = await MissionUtils.Console.readLineAsync(
-        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
-      );
+    const answer = await MissionUtils.Console.readLineAsync(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+    );
 
-      if (answer === "1") return this.play();
-      if (answer === "2") return;
-      throw new Error("[ERROR] 1 또는 2를 입력해주세요.");
-    } catch {}
+    if (answer === "1") return this.play();
+    if (answer === "2") return;
+    throw new Error("[ERROR] 1 또는 2를 입력해주세요.");
   }
 }
 
