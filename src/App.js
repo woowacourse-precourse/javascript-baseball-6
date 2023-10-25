@@ -16,11 +16,7 @@ const Start = async () => {
     }
   }
 
-  const reStartInput = await Console.readLineAsync(
-    "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
-  );
-
-  isReStart(reStartInput);
+  await isReStart();
 };
 
 const getGameResult = (answer, user) => {
@@ -38,18 +34,21 @@ const getGameResult = (answer, user) => {
   return { ball, strike };
 };
 
-const isReStart = (seletedNumber) => {
-  if (seletedNumber === "1") {
+const isReStart = async () => {
+  const reStartInput = await Console.readLineAsync(
+    "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+  );
+
+  if (reStartInput === "1") {
     Start();
     return;
   }
-  if (seletedNumber === "2") {
+  if (reStartInput === "2") {
     return;
   }
   throw new Error("[ERROR]: Invalid input. Please enter 1 or 2");
 };
 
-// 뷰
 const printStart = () => Console.print("숫자 야구 게임을 시작합니다.");
 
 const printEnd = () =>
