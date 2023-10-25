@@ -4,19 +4,12 @@ class App {
 
     try {
       const GOAL = await this.getComNum();
-      const number = await this.getUserNum();
-
-      const testg = [1,2,3];
-      if(testg === number){
-        console.log("goal=number")
-      }else{
-        console.log(`${GOAL} ${number}`);
-      }
+      await this.tryPlay(GOAL)
 
       //Console.print(`유저가 입력한 숫자 : ${number} ${Array.isArray(number)}`);
     } catch (error) {
       Console.print(`에러 발생: ${error.message}`);
-      this.play()
+      await this.play()
     }
   }
 
@@ -30,9 +23,19 @@ class App {
     }
     return GOAL;
   }
-  async getUserNum() {
+  async tryPlay(GOAL) {
+    let number = await this.getUserNum(GOAL);
+
+    if(number === 0) {
+      await this.tryPlay(GOAL)
+    }else{
+      await this.compare(GOAL, number);
+    }
+  }
+  async getUserNum(GOAL) {
     const number = await Console.readLineAsync("숫자를 입력해주세요 : ");
 
+    console.log("??!?!")
     const EXIST = new Set();
 
     for (const digit of number) {
@@ -40,13 +43,52 @@ class App {
     }
 
     if(EXIST.size === 3){
-      return Array.from(EXIST);
+      const toInt = Array.from(EXIST).map((item)=>{
+        return parseInt(item)
+      })
+      console.log("toplay: return")
+      return toInt;
     }else{
       Console.print(`${number} 의 길이가 3 이 아니거나 중복숫자가 있습니다. ${EXIST.size}`);
-      this.getUserNum();
+      return 0;
+    }
+
+  }
+  async userWin(){
+    Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`)
+  }
+  async compare(GOAL, number){
+    let strike = 0;
+    let ball = 0;
+
+    console.log(GOAL);
+    console.log(number)
+
+    for(let i=0; i<GOAL.length; i++){
+      if(GOAL[i]===number[i]){
+        strike++;
+      }else{
+        for(let j=0; j<number.length; j++){
+          if(GOAL[i] === number[j]){
+            ball++;
+          }
+        }
+      }
+    }
+
+    console.log(GOAL)
+    console.log(number)
+    console.log(strike)
+    console.log(ball)
+
+    if(strike===3){
+      console.log("user win")
+      this.userWin();
+    }else{
+      console.log("user fail")
+      this.tryPlay(GOAL);
     }
   }
-  
 }
 
 
