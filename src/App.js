@@ -79,7 +79,4 @@ class App {
   }
 }
 
-// const myApp = new App();
-// myApp.play();
-
 export default App;
