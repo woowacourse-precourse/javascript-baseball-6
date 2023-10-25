@@ -15,7 +15,7 @@ class App {
 
   async play() {
     Console.print(constant.GAME_START);
-    await this.getNumber();
+
     while (this.proceeding) {
       this.restart && (await this.getNumber());
       await this.inputNumber();
