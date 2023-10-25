@@ -67,6 +67,6 @@ app.play();
 
 ### 예시 영상
 
-<p align="center>
+<p align="center">
   <img src="./src/PlayExample.gif" alt="숫자 야구 게임을 하는 영상 gif">
 <p>
