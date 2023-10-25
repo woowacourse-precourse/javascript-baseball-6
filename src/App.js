@@ -31,6 +31,17 @@ class App {
       return `${ballCount}볼 ${strikeCount}스트라이크`;
     }
   }
+  makeComputerNum() {
+    // 컴퓨터 값 생성
+    let computer = [];
+    while (computer.length < 3) {
+      const number = MissionUtils.Random.pickNumberInRange(1, 9);
+      if (!computer.includes(number)) {
+        computer.push(number);
+      }
+    }
+    return computer;
+  }
   async continueCheck() {
     // 계속할지 여부 체크
     MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
@@ -60,13 +71,8 @@ class App {
         let computer = [];
         let me = [];
 
-        //컴퓨터값 생성
-        while (computer.length < 3) {
-          const number = MissionUtils.Random.pickNumberInRange(1, 9);
-          if (!computer.includes(number)) {
-            computer.push(number);
-          }
-        }
+        computer = this.makeComputerNum(); //컴퓨터 값 생성
+
         while (!finish) {
           let userInput =
             await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 :");
