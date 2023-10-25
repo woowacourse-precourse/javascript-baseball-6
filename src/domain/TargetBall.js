@@ -22,6 +22,9 @@ export class TargetBall {
   static valueOf(number) {
     TargetBall.#validate(number);
     const targetBall = TargetBall.#TARGET_NUMBERS[number];
+    if (!targetBall) {
+      throw new CustomError(ERROR_MESSAGE.common.undefinedInstance);
+    }
     return targetBall;
   }
 

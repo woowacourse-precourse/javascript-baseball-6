@@ -8,6 +8,7 @@ export const ERROR_MESSAGE = Object.freeze({
     notNumber: '숫자를 입력해주세요!',
     notInteger: '정수를 입력해주세요!',
     notArray: '배열을 입력해주세요!',
+    undefinedInstance: '존재하지 않는 인스턴스입니다!',
   }),
 
   targetBalls: Object.freeze({
