@@ -2,7 +2,8 @@ import { Console } from '@woowacourse/mission-utils';
 import { InputView } from './InputView.js';
 import { MESSAGE } from '../constants/message.js';
 import { COMMAND, GAME_RESULT } from '../constants/baseballGame.js';
-import { CustomError } from '../Model/Error.js';
+import { InputViewError } from '../Model/Error.js';
+import { ERROR } from '../constants/error.js';
 
 export const View = {
   async readUserNumber() {
@@ -15,7 +16,7 @@ export const View = {
     if (userInput === COMMAND.RESTART) return true;
     if (userInput === COMMAND.END) return false;
 
-    throw new CustomError(MESSAGE.ERROR.INVALID_TYPE);
+    throw new InputViewError(ERROR.MESSAGE.INVALID_TYPE);
   },
 
   printGameStart() {

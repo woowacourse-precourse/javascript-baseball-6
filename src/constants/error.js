@@ -9,7 +9,6 @@ const MESSAGE = Object.freeze({
 const NAME = Object.freeze({
   INPUT_VIEW: 'InputViewError',
   BASEBALL_NUMBER: 'BaseballNumberError',
-  BASEBALL_GAME: 'BaseballGameError',
 });
 
 export const ERROR = Object.freeze({
