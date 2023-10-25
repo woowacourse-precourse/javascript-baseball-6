@@ -17,6 +17,8 @@ class App {
       if (input.length !== 3 || input.some((n) => !Number.isInteger(n))) {
         throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
       }
+
+      const [strike, ball] = this.getStrikesBalls(input, answer);
     }
   }
 
@@ -28,6 +30,18 @@ class App {
       arr.push(rand);
     }
     return arr;
+  }
+
+  getStrikesBalls(input, answer) {
+    let [strike, ball] = [0, 0];
+    for (let i = 0; i < 3; i += 1) {
+      if (input[i] === answer[i]) {
+        strike += 1;
+      } else if (answer.includes(input[i])) {
+        ball += 1;
+      }
+    }
+    return [strike, ball];
   }
 }
 
