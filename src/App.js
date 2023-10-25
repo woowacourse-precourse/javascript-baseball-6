@@ -36,8 +36,11 @@ class App {
   }
 
   async play() {
+    MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
+
     while (this.isPlaying) {
       if (this.isCorrect) this.computer = this.getComputerNumbers();
+      this.user = await this.getUserNumbers();
     }
   }
 
@@ -51,6 +54,22 @@ class App {
 
       if (!NUMBERS.includes(NUMBER)) NUMBERS.push(NUMBER);
     }
+
+    return NUMBERS;
+  }
+
+  async getUserNumbers() {
+    const NUMBERS = [];
+
+    const INPUT = await MissionUtils.Console.readLineAsync(
+      "숫자를 입력해주세요 : "
+    );
+
+    INPUT.split("").forEach((e) => {
+      if (NUMBERS.includes(e)) throw new Error("[ERROR]");
+
+      NUMBERS.push(e);
+    });
 
     return NUMBERS;
   }
