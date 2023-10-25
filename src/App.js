@@ -46,7 +46,7 @@ class App {
 
 async function getUserInputNumber(msg) {  // 플레이어로부터 3자리 숫자를 입력받음.
   try {
-    const userNumber = await Console.readLineAsync(msg);  // 입력 후 반환
+    var userNumber = await Console.readLineAsync(msg);  // 입력 후 반환
     return userNumber;
   } catch (error) { 
     throw new Error("[ERROR] 잘못 된 형식의 입력입니다 !!");
@@ -60,7 +60,7 @@ function isUserInputNumberValid(num){  // 입력받은 수가 올바른지 검�
   if(Math.sign(num) === -1)  // 음수가 아닌지 확인
     throw new Error("[ERROR] 양수를 입력해주세요 !!");
 
-  const numSet = new Set(num);  // 중복 값 확인을 위해 set으로 변경 후 길이 비교
+    var numSet = new Set(num);  // 중복 값 확인을 위해 set으로 변경 후 길이 비교
   if(num.length !== numSet.size) {  // 값이 다르면 중복 값이 있는 것.
     throw new Error("[ERROR] 서로 다른 세 자리 수를 입력해주세요 !!");
   }
