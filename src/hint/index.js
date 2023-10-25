@@ -36,7 +36,3 @@ export function getHint(target, input) {
   }
   return "낫싱";
 }
-
-export function checkIsAnswer(hint) {
-  return hint === "3스트라이크";
-}

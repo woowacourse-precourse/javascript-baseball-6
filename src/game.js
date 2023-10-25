@@ -1,7 +1,7 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import { generateAnswerArray } from "./init";
 import { handleInput } from "./input";
-import { getHint, checkIsAnswer } from "./hint";
+import { getHint } from "./hint";
 import { RESTART_FLAG, QUIT_FLAG } from "./constant";
 
 export async function initGame() {
@@ -10,13 +10,12 @@ export async function initGame() {
 }
 
 export async function playGame(answer) {
-  let input = "";
   while (true) {
-    input = await handleInput();
+    const input = await handleInput();
     const hint = getHint(answer, input);
     MissionUtils.Console.print(hint);
 
-    if (checkIsAnswer(hint)) break;
+    if (answer === input) break;
   }
 }
 
