@@ -28,13 +28,13 @@ class App {
         const countB = this.ballCount(input) - countS;
      
         if (countS !== 0 || countB !== 0) {
-          MissionUtils.Console.print(`${countB ? countB + '볼' : ''} ${countS ? countS + '스트라이크' : ''}`);
+          MissionUtils.Console.print(`${countB ? countB + '볼' : ''} ${countS ? countS+'스트라이크' : ''}`);
         } else {
           MissionUtils.Console.print('낫싱');
         }
   
         if (countS === 3) {
-          MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+          MissionUtils.Console.print(`${countS}개의 숫자를 모두 맞히셨습니다! 게임 종료`);
           const regame = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. ');
           if(regame === '1' ) { 
             this.computer = [];
@@ -59,12 +59,15 @@ class App {
 }
 
 const app = new App();
-// try{
-  app.play()
-// } catch (error) {
-//   // console.log("123sa")
-//   // console.log(`${error.message}`);
-// }
+async function main() {
+  try {
+    await app.play();
+  } catch (error) {
+    // Handle errors
+    console.log(`${error.message}`);
+  }
+}
+main();
 
 export default App;
 
