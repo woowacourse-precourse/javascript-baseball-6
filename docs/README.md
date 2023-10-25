@@ -1,0 +1,5 @@
+- feat: initial setting 
+    - play 메서드 추가
+    - README 작성
+- feat: 입력값 받기  
+- feat: 입력값과 대조
