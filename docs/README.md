@@ -27,5 +27,10 @@ Node.js 18.17.
   - 받은 숫자가 1 인 경우 1번 과정으로 돌아가서 게임을 재시작
   - 받은 숫자가 2 인 경우 게임을 종료
 - 스트라이크 3 이 아닌 경우
+
   - 스트라이크, 볼, 낫싱 중 0 이상인 값을 출력하여 사용자에게 보여줌
   - 2 번으로 돌아가서 다시 세자리 숫자를 입력받음
+
+  @woowacourse/mission-utils의 Random 및 Console API를 사용하여 구현해야 한다.
+  Random 값 추출은 Random.pickNumberInRange()를 활용한다.
+  사용자의 값을 입력 받고 출력하기 위해서는 Console.readLineAsync, Console.print를 활용한다.
