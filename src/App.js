@@ -12,7 +12,6 @@ class App {
     }return computer;
     }
   
-
   async CheckPlayerInput(){    //플레이어가 입력한 값을 체크 
     let playerNumbers = [];
     const playerInputNumbers = await Console.readLineAsync("숫자를 입력해주세요 : ");         
