@@ -1,4 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
+import { paramType } from '../utils/paramType';
 
 export default class OutputView {
   #MESSAGE = {
@@ -22,7 +23,10 @@ export default class OutputView {
     this.#print(this.#MESSAGE.GAME_END);
   }
 
-  printBaseBallCountResult(baseBallCountResult) {
+  printBaseBallCountResult(
+    baseBallCountResult,
+    _ = paramType(baseBallCountResult, Object)
+  ) {
     const { strike, ball, isNothing } = baseBallCountResult;
 
     if (!ball && strike) {

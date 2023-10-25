@@ -1,4 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
+import { paramType } from '../utils/paramType';
 
 export default class InputReader {
   #MESSAGE = {
@@ -18,7 +19,7 @@ export default class InputReader {
     return userInput;
   }
 
-  async #onRead(text) {
+  async #onRead(text, _ = paramType(text, String)) {
     if (typeof text !== 'string')
       throw new Error('입력값이 string이 아닙니다.');
     const userInput = await Console.readLineAsync(text);

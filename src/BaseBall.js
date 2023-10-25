@@ -1,4 +1,4 @@
-import { Random } from '@woowacourse/mission-utils';
+import { paramType } from './utils/paramType';
 
 export default class BaseBall {
   #winningNumbers;
@@ -7,24 +7,15 @@ export default class BaseBall {
     this.#winningNumbers = winningNumbers;
   }
 
-  createPassword() {
-    const winningNumbersArray = [];
-    while (winningNumbersArray.length < 3) {
-      const randomNumber = Random.pickNumberInRange(1, 9);
-      if (!winningNumbersArray.includes(randomNumber)) {
-        winningNumbersArray.push(randomNumber);
-      }
-    }
-    const winningNumbers = Number(winningNumbersArray.join(''));
+  countResult(userInput, _ = paramType(userInput, Number)) {
+    const ball = this._checkBallsAmount(userInput);
+    const strike = this._checkStrikesAmount(userInput);
+    const isNothing = this._checkNothing(userInput);
 
-    return winningNumbers;
+    return { ball, strike, isNothing };
   }
 
-  // _setPassword(password) {
-  //   this.#winningNumbers = password;
-  // }
-
-  _checkBallsAmount(userInput) {
+  _checkBallsAmount(userInput, _ = paramType(userInput, Number)) {
     const userInputArray = [...String(userInput)];
     const ballsAmount = [...String(this.#winningNumbers)].reduce(
       (ballAmount, currentPassword, idx) => {
@@ -40,7 +31,7 @@ export default class BaseBall {
     return ballsAmount;
   }
 
-  _checkStrikesAmount(userInput) {
+  _checkStrikesAmount(userInput, _ = paramType(userInput, Number)) {
     const userInputArray = [...String(userInput)];
     const strikesAmount = [...String(this.#winningNumbers)].reduce(
       (strikeAmount, currentPassword, idx) => {
@@ -54,7 +45,7 @@ export default class BaseBall {
     return strikesAmount;
   }
 
-  _checkNothing(userInput) {
+  _checkNothing(userInput, _ = paramType(userInput, Number)) {
     const userInputArray = [...String(userInput)];
     const isNothing = [...String(this.#winningNumbers)].every(
       (number) => !userInputArray.includes(number)
@@ -62,23 +53,4 @@ export default class BaseBall {
 
     return isNothing;
   }
-
-  countResult(userInput) {
-    if (typeof userInput !== 'number') {
-      throw new Error(
-        `invalid userInput type userInput : ${userInput}, type of input : ${typeof userInput}`
-      );
-    }
-
-    const ball = this._checkBallsAmount(userInput);
-    const strike = this._checkStrikesAmount(userInput);
-    const isNothing = this._checkNothing(userInput);
-
-    return { ball, strike, isNothing };
-  }
-
-  // init() {
-  //   const password = this.createPassword();
-  //   this._setPassword(password);
-  // }
 }

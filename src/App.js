@@ -19,7 +19,9 @@ class App {
 
   async setting() {
     const randomNumbers = createRandomNumbers();
+
     this.baseBall = new BaseBall(randomNumbers);
+
     await this.pitching();
   }
 
@@ -30,7 +32,7 @@ class App {
     await this.check(userInput);
   }
 
-  async check(userInput, _0 = paramType(userInput, Number)) {
+  async check(userInput, _ = paramType(userInput, Number)) {
     validation.baseBallNumbersInputOfUser(userInput);
 
     const countResult = this.baseBall.countResult(userInput);
@@ -72,5 +74,8 @@ class App {
     return;
   }
 }
+
+const app = new App();
+app.play();
 
 export default App;
