@@ -1,37 +1,31 @@
 import { Console, Random } from "@woowacourse/mission-utils";
+import {
+  NUMBER_SIZE,
+  START_MESSAGE,
+  INPUT_MESSAGE,
+  END_MESSAGE,
+  DECISION_MESSAGE,
+  DUPLICATION_ERROR,
+  DECISION_ERROR,
+  FORM_ERROR,
+  VALID_INPUT_FORM,
+} from "./GameUtils.js";
 
 class App {
+  // App 시작 동작
   async play() {
-    // 초기 시작을 알림.
-    this.alertStart();
-    // 랜덤 넘버 생성
+    this.tellStart();
     this.generateRandomNumber();
     await this.continueApp();
   }
 
-  async continueApp() {
-    this.strike = 0;
-    this.ball = 0;
-    await this.selectNumber();
-    this.compareInput();
-    this.printResult();
-    const result = this.isCorrectAnswer();
-    if (result) {
-      const select = await this.handleEndCase();
-      if (select === "2") {
-        return;
-      }
-      this.generateRandomNumber();
-    }
-    await this.continueApp();
-  }
-  alertStart() {
-    Console.print("숫자 야구 게임을 시작합니다.");
+  tellStart() {
+    Console.print(START_MESSAGE);
   }
 
   generateRandomNumber() {
     const randomNumber = [];
-    while (randomNumber.length < 3) {
+    while (randomNumber.length < NUMBER_SIZE) {
       const createdNumber = Random.pickNumberInRange(1, 9);
       if (!randomNumber.includes(createdNumber)) {
         randomNumber.push(createdNumber);
@@ -39,16 +33,41 @@ class App {
     }
     this.generatedNumber = [...randomNumber];
   }
-  async selectNumber() {
-    const input = await Console.readLineAsync("숫자를 입력해주세요 : ");
+
+  // 랜덤값 기반 사용자 입력과 동일할 때까지 동작
+  async continueApp() {
+    await this.inputNumber();
+    const { strike, ball } = this.compareInput();
+    this.printResult(strike, ball);
+    const result = this.isCorrectAnswer(strike, ball);
+    // 정답일 때,
+    if (result) {
+      // 종료 또는 재시작 선택
+      const select = await this.handleEndCase();
+      // 2를 선택하면 프로그램 종료
+      if (select === "2") {
+        return;
+      }
+      // 다시 시작하면 새로운 랜덤넘버 재생성
+      this.generateRandomNumber();
+    }
+    // 게임 계속 진행
+    await this.continueApp();
+  }
+
+  // 사용자의 수 입력
+  async inputNumber() {
+    const input = await Console.readLineAsync(INPUT_MESSAGE);
     try {
-      if (input.length !== 3) {
-        throw new Error("[ERROR] 3자리 이외의 입력은 할 수 없습니다.");
+      // 세 자리수 체크
+      if (!VALID_INPUT_FORM.test(input)) {
+        throw new Error(FORM_ERROR);
       }
       const checkList = [];
+      // 숫자 중복 체크
       for (const pick of [...input]) {
         if (checkList.includes(pick)) {
-          throw new Error("[ERROR] 중복되는 숫자는 입력 불가능합니다.");
+          throw new Error(DUPLICATION_ERROR);
         }
         checkList.push(pick);
       }
@@ -58,52 +77,50 @@ class App {
     }
   }
 
-  // 스트라이크와 볼의 판별을 하는 매서드
+  // 스트라이크와 볼의 판별
   compareInput() {
+    let strike = 0;
+    let ball = 0;
     this.input.forEach((checkNumber, index) => {
       const randomNumber = [...this.generatedNumber];
       if (parseInt(checkNumber) === randomNumber[index]) {
-        this.strike += 1;
+        strike += 1;
       } else if (randomNumber.includes(parseInt(checkNumber))) {
-        this.ball += 1;
+        ball += 1;
       }
     });
+    return { strike, ball };
   }
 
-  printResult() {
-    if (this.strike === 0 && this.ball === 0) {
+  printResult(strike, ball) {
+    if (strike === 0 && ball === 0) {
       Console.print("낫싱");
       return;
     }
-    const resultData = [];
-    if (this.ball > 0) resultData.push(this.ball + "볼");
-    if (this.strike > 0) resultData.push(this.strike + "스트라이크");
-    Console.print(resultData.join(" "));
+    const resultMessage = [];
+    if (ball > 0) resultMessage.push(ball + "볼");
+    if (strike > 0) resultMessage.push(strike + "스트라이크");
+    Console.print(resultMessage.join(" "));
   }
 
-  isCorrectAnswer() {
-    if (this.strike === 3) {
-      Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+  isCorrectAnswer(strike) {
+    if (strike === NUMBER_SIZE) {
+      Console.print(END_MESSAGE);
       return true;
-    } else if (this.strike < 3) {
-      return false;
     }
+    return false;
   }
   async handleEndCase() {
     try {
-      const selection = await Console.readLineAsync(
-        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
-      );
+      const selection = await Console.readLineAsync(DECISION_MESSAGE);
       if (!(selection == "1" || selection === "2")) {
-        throw new Error("[ERROR] 1과 2 이외의 숫자는 입력할 수 없습니다.");
+        throw new Error(DECISION_ERROR);
       }
       return selection;
-    } catch (err) {
-      throw err;
+    } catch (error) {
+      throw error;
     }
   }
 }
 
-// const app = new App();
-// app.play();
 export default App;
