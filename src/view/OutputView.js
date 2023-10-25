@@ -1,26 +1,17 @@
 import { Console } from '@woowacourse/mission-utils';
-import { paramType } from '../utils/paramType';
+import { paramType } from '../utils/paramType.js';
+import { GAME_MESSAGE } from '../constants/gameMessage.js';
+import { BASEBALL_TEXT } from '../constants/baseBallText.js';
 
 export default class OutputView {
-  #MESSAGE = {
-    GAME_START: '숫자 야구 게임을 시작합니다.',
-    GAME_END: '3개의 숫자를 모두 맞히셨습니다! 게임 종료',
-  };
-
-  #BASEBALL_WORD = {
-    BALL: '볼',
-    STRIKE: '스트라이크',
-    NOTHING: '낫싱',
-  };
-
   constructor() {}
 
   printGameStartMessage() {
-    this.#print(this.#MESSAGE.GAME_START);
+    this.#print(GAME_MESSAGE.START);
   }
 
   printGameEndMessage() {
-    this.#print(this.#MESSAGE.GAME_END);
+    this.#print(GAME_MESSAGE.END);
   }
 
   printBaseBallCountResult(
@@ -30,27 +21,23 @@ export default class OutputView {
     const { strike, ball, isNothing } = baseBallCountResult;
 
     if (!ball && strike) {
-      this.#print(`${strike}${this.#BASEBALL_WORD.STRIKE}`);
+      this.#print(`${strike}${BASEBALL_TEXT.STRIKE}`);
       return;
     }
     if (ball && !strike) {
-      this.#print(`${ball}${this.#BASEBALL_WORD.BALL}`);
+      this.#print(`${ball}${BASEBALL_TEXT.BALL}`);
       return;
     }
     if (isNothing) {
-      this.#print(this.#BASEBALL_WORD.NOTHING);
+      this.#print(BASEBALL_TEXT.NOTHING);
       return;
     }
     this.#print(
-      `${ball}${this.#BASEBALL_WORD.BALL}` +
-        ' ' +
-        `${strike}${this.#BASEBALL_WORD.STRIKE}`
+      `${ball}${BASEBALL_TEXT.BALL}` + ' ' + `${strike}${BASEBALL_TEXT.STRIKE}`
     );
   }
 
-  #print(text) {
-    if (typeof text !== 'string')
-      throw new Error('string 형식의 message만 입력해주세요.');
+  #print(text, _ = paramType(text, String)) {
     Console.print(text);
   }
 }

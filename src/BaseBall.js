@@ -1,4 +1,4 @@
-import { paramType } from './utils/paramType';
+import { paramType } from './utils/paramType.js';
 
 export default class BaseBall {
   #winningNumbers;

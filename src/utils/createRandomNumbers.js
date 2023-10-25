@@ -1,14 +1,18 @@
 import { Random } from '@woowacourse/mission-utils';
+import { RANDOM_NUMBERS } from '../constants/randomNumbers.js';
+import { paramType } from './paramType.js';
 
-export const createRandomNumbers = () => {
-  const winningNumbersArray = [];
-  while (winningNumbersArray.length < 3) {
-    const randomNumber = Random.pickNumberInRange(1, 9);
-    if (!winningNumbersArray.includes(randomNumber)) {
-      winningNumbersArray.push(randomNumber);
-    }
+export const createRandomNumbers = (length, _ = paramType(length, Number)) => {
+  const result = [];
+  while (result.length < length) {
+    const randomNumber = Random.pickNumberInRange(
+      RANDOM_NUMBERS.RANGE.MIN,
+      RANDOM_NUMBERS.RANGE.MAX
+    );
+    if (!result.includes(randomNumber)) result.push(randomNumber);
   }
-  const winningNumbers = Number(winningNumbersArray.join(''));
+
+  const winningNumbers = Number(result.join(''));
 
   return winningNumbers;
 };
