@@ -1,11 +1,14 @@
 import { Random, Console } from "@woowacourse/mission-utils";
 
 class App {
-  pickRandomNumber(array) {
-    while (array.length < 3) {
+  inputArray = [];
+  randomArray = [];
+
+  pickRandomNumber() {
+    while (this.randomArray.length < 3) {
       const number = Random.pickNumberInRange(1, 9);
-      if (!array.includes(number)) {
-        array.push(number);
+      if (!this.randomArray.includes(number)) {
+        this.randomArray.push(number);
       }
     }
   }
@@ -20,28 +23,30 @@ class App {
     }
   }
 
-  dataToArray(data, array) {
+  dataToArray(data) {
     let count = 2;
 
-    while (array.length < 3) {
-      array.push(Math.floor(data / 10 ** count));
+    while (this.inputArray.length < 3) {
+      this.inputArray.push(Math.floor(data / 10 ** count));
       data = data % 10 ** count;
 
       count--;
     }
   }
 
-  calculateStrike(randomArray, inputArray) {
+  calculateStrike() {
     let count = 0;
-    randomArray.map((data, index) => data === inputArray[index] && count++);
+    this.randomArray.map(
+      (data, index) => data === this.inputArray[index] && count++
+    );
 
     return count;
   }
 
-  calculateBall(randomArray, inputArray, strikeCount) {
+  calculateBall(strikeCount) {
     let judgeArray = [];
 
-    judgeArray = randomArray.map((data) => inputArray.includes(data));
+    judgeArray = this.randomArray.map((data) => this.inputArray.includes(data));
     return judgeArray.filter((data) => data).length - strikeCount;
   }
 
@@ -52,8 +57,6 @@ class App {
   }
 
   async play() {
-    let randomArray = [];
-    let inputArray = [];
     let inputData = "";
     let resetCode = "";
 
@@ -63,23 +66,23 @@ class App {
     Console.print("숫자 야구 게임을 시작합니다.");
 
     while (resetCode !== "2") {
-      inputArray = [];
-      this.pickRandomNumber(randomArray);
+      this.inputArray = [];
+      this.pickRandomNumber();
 
       inputData = await this.start();
       this.validate(inputData);
 
-      this.dataToArray(inputData, inputArray);
+      this.dataToArray(inputData);
 
-      strikeCount = this.calculateStrike(randomArray, inputArray);
-      ballCount = this.calculateBall(randomArray, inputArray, strikeCount);
+      strikeCount = this.calculateStrike();
+      ballCount = this.calculateBall(strikeCount);
 
       if (strikeCount === 3) {
         Console.print("3스트라이크");
         Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
 
         resetCode = await this.finish();
-        randomArray = [];
+        this.randomArray = [];
       } else if (strikeCount > 0 && ballCount > 0) {
         Console.print(ballCount + "볼 " + strikeCount + "스트라이크");
       } else if (strikeCount > 0) {
