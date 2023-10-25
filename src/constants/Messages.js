@@ -9,7 +9,7 @@ const Messages = Object.freeze({
         NUMBER_RANGE: '3자리 숫자만 입력 가능합니다.',
         DUPLICATE_NUMBER: '서로 다른 숫자만 입력 가능합니다.',
         CHOOSE_NUMBER: '1 혹은 2만 입력 가능합니다.'
-    }
+    },
   });
   
-  module.exports = Messages;
+  export default Messages;
