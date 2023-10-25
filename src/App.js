@@ -42,18 +42,13 @@ class App {
   computeNumber() {
     const { user } = this;
     const { computer } = this;
-    let ball = 0;
-    let strike = 0;
-    user.map((num, index) => {
-      if (computer.includes(num)) {
-        if (num === computer[index]) {
-          strike += 1;
-        } else {
-          ball += 1;
-        }
-      }
-      return { strike, ball };
-    });
+    const strikesAndBalls = user.map((num, index) => ({
+      isStrike: num === computer[index],
+      isBall: computer.includes(num) && num !== computer[index],
+    }));
+    const strike = strikesAndBalls.filter((entry) => entry.isStrike).length;
+    const ball = strikesAndBalls.filter((entry) => entry.isBall).length;
+
     if (ball > 0) {
       if (strike > 0) {
         Console.print(`${ball}볼 ${strike}스트라이크`);
@@ -97,7 +92,7 @@ class App {
   }
 }
 
-// export default App;
+export default App;
 
-const app = new App();
-app.play();
+// const app = new App();
+// app.play();
