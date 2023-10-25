@@ -44,6 +44,13 @@ class Validator {
     return this.#isAvailable;
   }
 
+  isvalidCount(count) {
+    if (count === this.#MAXIMUM_NUMBER_LENGTH) {
+      return count;
+    }
+    return true;
+  }
+
   static hasUniqueNumbers(num) {
     const numArr = String(num).split('');
     if (!(numArr[0] !== numArr[1] && numArr[0] !== numArr[2] && numArr[1] !== numArr[2])) {
