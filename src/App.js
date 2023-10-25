@@ -1,6 +1,8 @@
-import ConvertInputTo from './modules/ConvertInputTo.js';
-import Run from './modules/Run.js';
-import Print from './modules/Print.js';
+import {
+  Print,
+  Run,
+  ConvertInputTo
+} from './modules/AppModules';
 
 class App {
   async play() {
