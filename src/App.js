@@ -1,8 +1,9 @@
-import {Console} from "@woowacourse/mission-utils";
 import printGameResult from "./message/result/printGameResult.js";
 import Pitcher from "./unit/Pitcher.js";
 import Batter from "./unit/Batter.js";
 import checkRestartStatus from "./message/restaart/checkRestartStatus.js";
+import Umpire from "./unit/umpire.js";
+import {Console} from "@woowacourse/mission-utils";
 
 
 class App {
@@ -12,34 +13,14 @@ class App {
         this.restartToken = "1"
     }
 
-    checkBatterResult (pitcherBallNumbers, batterBallNumbers) {
-        let strikeCount = 0;
-        let ballCount = 0;
-
-        for (let i = 0; i < pitcherBallNumbers.length; i++) {
-            pitcherBallNumbers.map((pitcherBall, index) => {
-                if (pitcherBall === batterBallNumbers[i] && i === index) {
-                    strikeCount++;
-                }
-
-                if (pitcherBall === batterBallNumbers[i] && i !== index) {
-                    ballCount++;
-                }
-            });
-        }
-
-        return {
-            strikeCount,
-            ballCount,
-        }
-    }
-
     async play(){
+        let { restartToken } = this;
 
-        while (this.restartToken === "1") {
-            const batter = new Batter();
+        while (restartToken === "1") {
+            const umpire = new Umpire();
             const pitcher = new Pitcher();
-            const { winCondition ,checkBatterResult } = this;
+            const batter = new Batter();
+            const { winCondition } = this;
             let { hasStartToken } = this;
 
             pitcher.setRandomBallCount();
@@ -49,7 +30,7 @@ class App {
                 await batter.setThreeBatNumbers();
                 const batterBallNumbers = batter.ballCountNumbers;
 
-                const { strikeCount, ballCount} = checkBatterResult(pitcherBallNumbers, batterBallNumbers,);
+                const { strikeCount, ballCount} = umpire.checkBatterResult(pitcherBallNumbers, batterBallNumbers);
 
                 if(strikeCount === winCondition) {
                     hasStartToken = false;
@@ -58,9 +39,12 @@ class App {
                 printGameResult(winCondition, strikeCount, ballCount);
             }
 
-            this.restartToken = await checkRestartStatus();
+            restartToken = await checkRestartStatus();
         }
     }
 }
 
 export default App;
+
+const app = new App();
+app.play();
