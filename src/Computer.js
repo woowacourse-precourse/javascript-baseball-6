@@ -15,7 +15,9 @@ class Computer {
       }
     }
 
-    return number.join('');
+    return answer.join('');
 
   }
 }
+
+export default Computer;

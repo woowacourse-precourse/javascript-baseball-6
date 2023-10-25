@@ -21,7 +21,7 @@ class App {
         }
 
         //사용자가 정상적인 값을 입력할 경우
-        const result = this.playgame.hint(this.computer.numbers, input);
+        const result = this.playgame.hint(this.computer.answer, input);
         Console.print(result);
         
         if (result === '3스트라이크') {

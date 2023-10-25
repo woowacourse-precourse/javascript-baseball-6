@@ -1,6 +1,6 @@
 class Playgame {
     constructor(numbers, input) {
-        this.numbers = this.numbers;
+        this.numbers = numbers;
         this.usernumbers = input;
     }
 
