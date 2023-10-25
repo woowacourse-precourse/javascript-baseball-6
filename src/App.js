@@ -1,4 +1,4 @@
-import { Console } from "@woowacourse/mission-utils";
+import { MissionUtils } from "@woowacourse/mission-utils";
 import { generateStrikes } from "./modules/random.js";
 import { getUserInput } from "./modules/input.js";
 import { QUERY, REGEX } from "./modules/constants.js";
@@ -26,16 +26,16 @@ class App {
   }
 
   async playGame() {
-    Console.print("숫자 야구 게임을 시작합니다.");
+    MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
     this.strikes = generateStrikes();
-    // Console.print(this.strikes); // 코드 작성 시 활성화하여 작업
+    // MissionUtils.Console.print(this.strikes); // 코드 작성 시 활성화하여 작업
     while (true) {
       if (await this.isWin()) {
         break;
       }
     }
     this.strikes = [];
-    Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
   }
 
   async isWin() {
@@ -49,7 +49,7 @@ class App {
   async playInning() {
     const guess = await getUserInput(QUERY.guess, REGEX.guess);
     const [strikeCount, ballCount] = this.getScore(guess, this.strikes);
-    Console.print(this.getMessage(strikeCount, ballCount));
+    MissionUtils.Console.print(this.getMessage(strikeCount, ballCount));
     return strikeCount;
   }
 
