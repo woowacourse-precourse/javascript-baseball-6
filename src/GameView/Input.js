@@ -8,7 +8,7 @@ class Input {
 
   async askRegame() {
     const choice = await Console.readLineAsync(
-      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. "
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
     );
     if (choice === "2") {
       Console.print("게임을 종료합니다.");
@@ -17,7 +17,7 @@ class Input {
     if (choice === "1") {
       return false;
     }
-    throw new Error("[ERROR]");
+    throw new Error("[ERROR]: 잘못된 입력입니다. (1 또는 2 입력)");
   }
 }
 export default Input;

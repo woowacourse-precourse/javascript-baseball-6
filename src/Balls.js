@@ -17,7 +17,7 @@ class Balls {
 
   inputValidation(inputNumbers) {
     if (!(/^\d{3}$/.test(inputNumbers) && new Set(inputNumbers).size === 3)) {
-      throw new Error("[ERROR]");
+      throw new Error("[ERROR]: 잘못된 입력입니다.");
     }
   }
 
