@@ -10,13 +10,8 @@ class App {
       this.checkNumber(ANSWER, USER_INPUT);
       this.getHint();
     }
-    Console.print(
-      `${this.STRIKE}스트라이크 \n3개의 숫자를 모두 맞히셨습니다! 게임 종료`
-    );
-    const CHOICE = await Console.readLineAsync(
-      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
-    );
     
+    const CHOICE = await this.inputReplay();
     if (CHOICE == 1) {
       const app = new App();
       app.play();
@@ -30,6 +25,7 @@ class App {
     this.STRIKE = 0;
     this.BALL = 0;
   };
+
   /* create random number */
   setNumber() {
     let COMPUTER = [];
@@ -86,6 +82,21 @@ class App {
       HINTTEXT = `${this.STRIKE}스트라이크`;
     }
     return Console.print(HINTTEXT);
+  };
+
+  /* ask about replay */
+  async inputReplay(){
+    Console.print(
+      `${this.STRIKE}스트라이크 \n3개의 숫자를 모두 맞히셨습니다! 게임 종료`
+    );
+    const CHOICE = await Console.readLineAsync(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+    );
+    if(CHOICE !== "1" && CHOICE !== "2"){
+      throw new Error("[ERROR] : 1과 2중 하나만 입력해주세요.");
+    }else{
+      return CHOICE;
+    }
   };
 
 }
