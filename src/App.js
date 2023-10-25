@@ -1,8 +1,8 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import { AnswerMaker } from "./model/AnswerMaker.js";
 //import { InputView } from "./InputView.js";
-import { Validater } from "./Validater.js";
-import { Spliter } from "./Spliter.js";
+import { Validater } from "./utils/Validater.js";
+import { Spliter } from "./utils/Spliter.js";
 import { OutputView } from "./OutputView.js";
 import { Storage } from "./model/Storage.js";
 
