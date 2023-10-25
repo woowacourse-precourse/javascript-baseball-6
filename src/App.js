@@ -1,56 +1,75 @@
 import { Console, MissionUtils } from "@woowacourse/mission-utils";
 
+const START = "숫자 야구 게임을 시작합니다.";
+const ERROR = "[ERROR]";
+
 class App {
   constructor() {
-    this.RANDOMNUMBER = this.GENERATENUMBER();
+    this.randomNumber = this.generateNumber();
   }
 
   async play() {
-    Console.print("숫자 야구 게임을 시작합니다.");
+    Console.print(START);
 
     while (true) {
-      const INPUT = await Console.readLineAsync("3자리 숫자를 입력하세요: ");
-
-      const RESULT = this.COMPARENUMBER(INPUT);
-      Console.print(RESULT);
+      const input = await Console.readLineAsync("3자리 숫자를 입력하세요: ");
+      this.validateNumber(input);
+      const result = this.compareNumber(input);
+      Console.print(result);
     }
   }
 
-  GENERATENUMBER() {
-    // 랜덤 숫자 생성 함수
-    const RANDOMNUMBER = [];
+  generateNumber() {
+    // 랜덤 숫자 생성
+    const randomNumber = [];
 
-    while (RANDOMNUMBER.length < 3) {
-      const NUMBER = MissionUtils.Random.pickNumberInRange(1, 9);
-      if (!RANDOMNUMBER.includes(NUMBER)) {
-        RANDOMNUMBER.push(NUMBER);
+    while (randomNumber.length < 3) {
+      const number = MissionUtils.Random.pickNumberInRange(1, 9);
+      if (!randomNumber.includes(number)) {
+        randomNumber.push(number);
       }
     }
-    Console.print(RANDOMNUMBER);
-    return RANDOMNUMBER;
+    Console.print(randomNumber);
+    return randomNumber;
   }
 
-  COMPARENUMBER(INPUT) {
-    const RANDOM = this.RANDOMNUMBER.join(""); // 배열에 입력된 숫자들 세자리 숫자로 변경
+  validateNumber(input) {
+    //input을 받으면 string 데이터 타입이 된다
+    if (input.length !== 3) {
+      throw new Error(`${ERROR} 입력된 숫자는 3자리 숫자여야 합니다.`);
+    }
+    if (!input.match(/[1-9]/g)) {
+      throw new Error(`${ERROR} 입력된 숫자가 1~9 사이의 숫자가 아닙니다.`);
+    }
+    if (input.length !== new Set(input).size) {
+      throw new Error(`${ERROR} 중복된 수가 입력되었습니다. `);
+    }
+  }
 
-    let STRIKE = 0;
-    let BALL = 0;
+  printRestart() {}
+
+  compareNumber(input) {
+    // 숫자 비교
+    const random = this.randomNumber.join(""); // 배열에 입력된 숫자들 세자리 숫자로 변경
+
+    let strike = 0;
+    let ball = 0;
 
     for (let i = 0; i < 3; i++) {
-      if (RANDOM[i] === INPUT[i]) {
-        STRIKE += 1;
-      } else if (RANDOM.includes(INPUT[i])) {
-        BALL += 1;
+      if (random[i] === input[i]) {
+        strike += 1;
+      } else if (random.includes(input[i])) {
+        ball += 1;
       }
     }
-    if (STRIKE === 0 && BALL === 0) {
+    if (strike === 0 && ball === 0) {
       return "낫싱";
-    } else if (STRIKE === 0) {
-      return `${BALL}볼`;
-    } else if (BALL === 0) {
-      return `${STRIKE}스트라이크`;
+    } else if (strike === 0) {
+      return `${ball}볼`;
+    } else if (ball === 0) {
+      return `${strike}스트라이크`;
     } else {
-      return `${BALL}볼 ${STRIKE}스트라이크`;
+      return `${ball}볼 ${strike}스트라이크`;
     }
   }
 }
