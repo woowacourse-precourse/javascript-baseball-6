@@ -3,7 +3,6 @@ const MissionUtils = require("@woowacourse/mission-utils");
 class App {
   createRandomNumber() {
     this.computerNumber = [];
-
     while (this.computerNumber.length < 3) {
       const number = MissionUtils.Random.pickNumberInRange(1, 9);
       if (!this.computerNumber.includes(number)) {
@@ -20,7 +19,6 @@ class App {
         return false;
       }
     }
-
     return true;
   }
 
@@ -60,10 +58,10 @@ class App {
 
     if (restartGame === "1") {
       this.createRandomNumber();
-      return true; // Indicates that the game should be restarted
+      return true; 
     } else if (restartGame === "2") {
       MissionUtils.Console.print("게임 종료");
-      return false; // Indicates that the game should end
+      return false; 
     }
 
     throw new Error("[ERROR] 1 또는 2를 입력해주세요.");
