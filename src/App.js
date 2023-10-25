@@ -52,7 +52,8 @@ class App {
     const lengthValidate = numbers.length === 3;
     const uniqueValidate = setNumber.size === 3;
     const numberValidate = [...numbers].every((digit) => !isNaN(+digit));
-    return lengthValidate && uniqueValidate && numberValidate;
+    const zeroValidate = !numbers.includes("0");
+    return lengthValidate && uniqueValidate && numberValidate && zeroValidate;
   }
 
   generateRandomNumber() {
