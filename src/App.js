@@ -1,5 +1,10 @@
 import {MissionUtils} from "@woowacourse/mission-utils";
 
+const MAX_LENGTH = 3;
+const RESTART ="1";
+const QUIT = "2";
+
+
 class App {
   //생성자 = 객체 생성하며 랜덤값을 받아오셈
   constructor(){
@@ -9,7 +14,7 @@ class App {
   //랜덤값 구하기
   makeRandom(){
     const randomList= [];
-    while(randomList.length <3){
+    while(randomList.length < MAX_LENGTH){
       //1~9 중 숫자 한개를 뽑는다.
       const answer = MissionUtils.Random.pickNumberInRange(1,9);
       //리스트에 없는 숫자이면
@@ -38,24 +43,24 @@ class App {
         }
       }
     }
-    return {strike, ball};
+    return { strike, ball };
   };
 
   async play() {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
     while(true){
       //숫자 입력받기
-      const userInput = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
+      const USER_INPUT = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
       
       //에러체크
-      if (!userInput){
-        throw new Error("[ERROR] ");
+      if (!USER_INPUT){
+        throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
       }
       //입력받은 숫자 배열에 넣기
-      const inputList = userInput.split('').map(Number);
+      const INPUT_LIST = USER_INPUT.split('').map(Number);
       
       //스트라이크 볼 체크
-      const {strike, ball} =this.checkNumber(inputList,this.answerList);
+      const { strike, ball } = this.checkNumber(INPUT_LIST, this.answerList);
 
 
       //조건별 출력
@@ -81,11 +86,11 @@ class App {
         //리트하실?
         const again =await MissionUtils.Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
         //1 일때는 한번 더
-        if (again==1){
+        if (again===RESTART){
           this.answerList=this.makeRandom();
           continue;
         //2 일때는 그만
-        }else if(again ==2){
+        }else if(again ===QUIT){
           break;
         }
       }
