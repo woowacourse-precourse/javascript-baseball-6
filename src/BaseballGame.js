@@ -4,8 +4,6 @@ import User from './User.js';
 import { ERROR_MESSAGE, GAME_STATUS } from './utils';
 
 class BaseballGame {
-  #strike = 0;
-  #ball = 0;
   #isAllCorrected = false;
   #isRestarted = false;
 
@@ -62,6 +60,8 @@ class BaseballGame {
   }
 
   createGameResult(number1, number2) {
+    let strike = 0;
+    let ball = 0;
     const number1Array = number1.split('');
     const number2Array = number2.split('');
 
@@ -70,27 +70,24 @@ class BaseballGame {
       if (indexOf === -1) return;
 
       if (indexOf === index) {
-        this.#strike += 1;
+        strike += 1;
       } else {
-        this.#ball += 1;
+        ball += 1;
       }
     });
 
-    this.#isAllCorrected = this.#strike === 3;
+    this.#isAllCorrected = strike === 3;
 
     let result = '';
-    if (this.#strike === 0 && this.#ball === 0) {
+    if (strike === 0 && ball === 0) {
       result = '낫싱';
-    } else if (this.#strike === 0) {
-      result = `${this.#ball}볼`;
-    } else if (this.#ball === 0) {
-      result = `${this.#strike}스트라이크`;
+    } else if (strike === 0) {
+      result = `${ball}볼`;
+    } else if (ball === 0) {
+      result = `${strike}스트라이크`;
     } else {
-      result = `${this.#ball}볼 ${this.#strike}스트라이크`;
+      result = `${ball}볼 ${strike}스트라이크`;
     }
-
-    this.#strike = 0;
-    this.#ball = 0;
 
     MissionUtils.Console.print(result);
 
