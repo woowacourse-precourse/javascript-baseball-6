@@ -26,10 +26,14 @@ class App {
   }
 
   static generateRandomNumber() {
-    let computer = 0;
-    const [number1, number2, number3] = MissionUtils.Random.pickUniqueNumbersInRange(1, 9, 3);
-    computer = number1 * 100 + number2 * 10 + number3;
-    return computer;
+    const computer = [];
+    while (computer.length < 3) {
+      const number = MissionUtils.Random.pickNumberInRange(1, 9);
+      if (!computer.includes(number)) {
+        computer.push(number);
+      }
+    }
+    return computer[0] * 100 + computer[1] * 10 + computer[2];
   }
 
   static printResult(ballCount, strikeCount) {
@@ -75,8 +79,7 @@ class App {
         const number = await Console.readLineAsync('숫자를 입력해주세요 : ');
         App.isValidNumber(number);
         App.isSameNumber(number);
-
-        const gameWin = App.IsGameWin(computer, number.toString());
+        const gameWin = App.IsGameWin(computer.toString(), number.toString());
         if (gameWin){
           Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
           const input = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
