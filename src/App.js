@@ -89,7 +89,7 @@ class App {
         } else if (option === '2') {
           break;
         }
-      } else {
+      } else if (strike < 3) {
         Console.print(this.printResult(strike, ball));
       }
     }
