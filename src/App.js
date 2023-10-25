@@ -89,6 +89,8 @@ class App {
     try {
       const answer = await Console.readLineAsync(GAME_RESTART);
       const answerNum = Number(answer);
+      this.restartStatusValidator(answerNum);
+      this.restartAndEnd(answerNum);
     } catch (error) {
       throw new Error(ERROR_TEXT);
     }
@@ -97,6 +99,12 @@ class App {
   restartStatusValidator(answer) {
     if (answer !== 1 && answer !== 2) {
       throw new Error(ERROR_TEXT);
+    }
+  }
+
+  async restartAndEnd(answer) {
+    if (answer === 1) {
+      await this.gameStart();
     }
   }
 }
