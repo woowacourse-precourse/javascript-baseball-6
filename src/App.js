@@ -1,9 +1,10 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
-const ERROR_MSG = "[ERROR]";
+const START_MSG = "숫자 야구 게임을 시작합니다.";
 const INPUT_PROCESS_MSG = "숫자를 입력해주세요.";
 const INPUT_FINISH_MSG = "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.";
 const FINISH_MSG = "게임 종료";
+const ERROR_MSG = "[ERROR]";
 
 class App {
   getRanNum() {
@@ -39,6 +40,7 @@ class App {
     if (ball && strike) answer = `${ball}볼 ${strike}스트라이크`;
     if (ball && !strike) answer = a`${ball}볼`;
     if (!ball && strike) answer = `${strike}스트라이크`;
+
     return answer;
   }
 
@@ -59,6 +61,7 @@ class App {
   }
 
   async play() {
+    MissionUtils.Console.print(START_MSG);
     await this.restart();
   }
 }
