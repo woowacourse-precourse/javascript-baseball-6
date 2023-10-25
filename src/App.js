@@ -43,7 +43,6 @@ class App {
   }
 
   arrayValueRangeCheck() {
-    console.log(this.#userNumber)
     for (let i = 0; i < this.#userNumber.length; i++) {
       if (!this.#userNumber[i] > 0 && this.#userNumber[i] < 10) {
         throw new Error(PRINT_ERROR_STRING.ERROR_RANGE);
@@ -77,10 +76,31 @@ class App {
     return [strike, ball]
   }
 
+  printResult(strike, ball) {
+    let resultString;
+
+    const ballString = ball ? `${ball}볼` : '';
+    const strikeString = strike ? `${strike}스트라이크` : '';
+
+    if (ballString || strikeString) {
+      const separator = ballString && strikeString ? ' ' : '';
+      resultString = ballString + separator + strikeString;
+    } else {
+      resultString = '낫싱';
+    }
+    Console.print(resultString);
+
+    if (strike === 3) {
+      Console.print(PRINT_STRING.GAME_OVER);
+    }
+    return resultString;
+  }
+
   callbackUserNumber() {
     this.convertToNumberArray();
     this.arrayErrorCheck();
     const [strike, ball] = this.arrayCheck()
+    this.printResult(strike, ball)
   }
 
   async play() {
