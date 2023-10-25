@@ -14,6 +14,7 @@ const RESET_OPTIONS = {
 };
 
 const ERROR = {
+  INPUT_LENGTH: "[ERROR] 잘못된 값입니다. 3자리 수를 입력하세요.",
   RESET: "[ERROR] 잘못된 값입니다. 1 또는 2를 입력하세요.",
 };
 

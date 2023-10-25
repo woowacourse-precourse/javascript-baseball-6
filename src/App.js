@@ -10,11 +10,23 @@ class App {
   async play() {
     this.start();
     this.computer.setNumber();
-    this.reset();
+    this.isPlaying();
   }
 
   start() {
     MissionUtils.Console.print(MESSAGE.GAME_START);
+  }
+
+  async isPlaying() {
+    let result = { strike: 0, ball: 0 };
+    while (result.strike !== 3) {
+      try {
+        await this.user.answerInput();
+      } catch (error) {
+        throw error;
+      }
+    }
+    this.reset();
   }
 
   async reset() {
