@@ -9,10 +9,10 @@ class BaseballGame {
   }
 
   async playBaseball() {
-    this.showGameStartMessage();
+    this.printGameStartMessage();
 
     while (this.gameState !== GAME_STATE.END) {
-      let computerNumber = await this.createComputerNumber();
+      let computerNumber = await this.generateComputerNumber();
 
       while (this.gameState === GAME_STATE.IN_PROGRESS) {
         const userNumberInput = await Console.readLineAsync(GUIDE_MESSAGES.ENTER_USER_NUMBER);
@@ -22,7 +22,7 @@ class BaseballGame {
           userNumberInput.split('').map((character) => +character);
 
         const { numberOfStrikes, numberOfBalls } = this.getCountResult(computerNumber, userNumber);
-        this.showCountResult(numberOfStrikes, numberOfBalls);
+        this.printCountResult(numberOfStrikes, numberOfBalls);
 
         if (numberOfStrikes === 3) {
           this.gameState = GAME_STATE.FINISH;
@@ -36,38 +36,8 @@ class BaseballGame {
     }
   }
 
-  getCountResult(computerNumber, userNumber) {
-    const numberOfStrikes = this.getNumberOfStrikes(computerNumber, userNumber);
-    const numberOfBalls = this.getNumberOfBalls(computerNumber, userNumber);
-    return { numberOfStrikes, numberOfBalls };
-  }
-
-  createComputerNumber() {
+  generateComputerNumber() {
     return getUniqueNumbersInRange(1, 9, 3);
-  }
-
-  showGameStartMessage() {
-    Console.print(GUIDE_MESSAGES.GAME_START);
-  }
-
-  showCountResult(numberOfStrikes, numberOfBalls) {
-    if (numberOfStrikes === 0 && numberOfBalls === 0) {
-      Console.print(GUIDE_MESSAGES.NONE_MATCHING);
-      return;
-    }
-
-    if (numberOfBalls === 0) {
-      Console.print(`${numberOfStrikes}스트라이크`);
-      if (numberOfStrikes === 3) Console.print(GUIDE_MESSAGES.GAME_FINISH);
-      return;
-    } else {
-      if (numberOfStrikes === 0) {
-        Console.print(`${numberOfBalls}볼`);
-      } else {
-        Console.print(`${numberOfBalls}볼 ${numberOfStrikes}스트라이크`);
-      }
-      return;
-    }
   }
 
   getNumberOfStrikes(computerNumber, userNumber) {
@@ -85,6 +55,36 @@ class BaseballGame {
       if (userNumber.includes(digit) && computerNumber[idx] !== userNumber[idx]) numberOfBalls += 1;
     });
     return numberOfBalls;
+  }
+
+  getCountResult(computerNumber, userNumber) {
+    const numberOfStrikes = this.getNumberOfStrikes(computerNumber, userNumber);
+    const numberOfBalls = this.getNumberOfBalls(computerNumber, userNumber);
+    return { numberOfStrikes, numberOfBalls };
+  }
+
+  printGameStartMessage() {
+    Console.print(GUIDE_MESSAGES.GAME_START);
+  }
+
+  printCountResult(numberOfStrikes, numberOfBalls) {
+    if (numberOfStrikes === 0 && numberOfBalls === 0) {
+      Console.print(GUIDE_MESSAGES.NONE_MATCHING);
+      return;
+    }
+
+    if (numberOfBalls === 0) {
+      Console.print(`${numberOfStrikes}스트라이크`);
+      if (numberOfStrikes === 3) Console.print(GUIDE_MESSAGES.GAME_FINISH);
+      return;
+    } else {
+      if (numberOfStrikes === 0) {
+        Console.print(`${numberOfBalls}볼`);
+      } else {
+        Console.print(`${numberOfBalls}볼 ${numberOfStrikes}스트라이크`);
+      }
+      return;
+    }
   }
 }
 
