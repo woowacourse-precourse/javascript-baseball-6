@@ -9,17 +9,17 @@ class App {
   async play() {
     let computerNumbers = ballNumberMaker();
     let userNumbers;
-    while (true) {
+    do {
       userNumbers = await getInputAndCheck();
       if (printResult(ballCount(userNumbers, computerNumbers))) {
-        const restart = await restartGame();
+        let restart = await restartGame();
         if (restart) {
           computerNumbers = ballNumberMaker();
         } else {
           break;
         }
       }
-    }
+    } while (true);
   }
 }
 
