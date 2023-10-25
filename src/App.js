@@ -22,8 +22,7 @@ class App {
       let computer = this.makeAnswer();
       // console.log("computer", computer)
 
-      let isAnswer = false;
-      while(!isAnswer) {
+      while(1) {
         const readInput = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
         // console.log("readInput", readInput)
         if(readInput.length===3) {
@@ -83,9 +82,3 @@ class App {
 }
 
 export default App;
-
-// 테스트 위한 
-// const app = new App();
-// app.play();
-// const result = app.checkInput("132", "123")
-// console.log(result)
