@@ -1,29 +1,10 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import { validCheckUserNum } from './components/ValidInput';
+import { getRandomNum, getRestartNum } from "./components/NumberSet";
 
 class App {
   async play() {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
-    await this.getRandomNum();
-  }
-
-  async getRandomNum() {
-    const computer = [];
-    let computerNum = "";
-    while (computer.length < 3) {
-      const number = MissionUtils.Random.pickNumberInRange(1, 9);
-      if (!computer.includes(number)) {
-        computer.push(number);
-      }
-    }
-    computerNum = computer.join("");
-    await this.getUserNum(computerNum);
-  }
-
-  async getUserNum(computerNum) {
-    const userNum = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
-    await validCheckUserNum(userNum);
-    await this.checkResult(computerNum, userNum);
+    await getRandomNum();
   }
 
   async checkResult(computerNum, userNum) {
@@ -70,9 +51,9 @@ class App {
   }
 
   async exitGame() {
-    const restart = await MissionUtils.Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+    const restart = getRestartNum();
     if (restart === "1") {
-      this.getRandomNum();
+      getRandomNum();
     } else if (restart === "2") {
       MissionUtils.Console.print("게임 종료");
     } else {
