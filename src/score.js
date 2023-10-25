@@ -6,32 +6,33 @@ class Score {
     this.answer = answer;
   }
 
-  strikes() {
+  getStrikeCount() {
     return this.guesser.filter((num, index) => this.answer[index] === num).length;
   }
 
-  balls() {
+  getBallCount() {
     return this.guesser.filter(
       (num, index) => this.answer[index] !== num && this.answer.includes(num),
     ).length;
   }
 
-  nothing() {
-    return this.strikes() === 0 && this.balls() === 0;
+  isNothing() {
+    return this.getStrikeCount() === 0 && this.getBallCount() === 0;
   }
 
   toString() {
-    if (this.nothing()) return '낫싱';
+    if (this.isNothing()) return '낫싱';
 
     let result = '';
-    if (this.balls() > 0) result += `${this.balls()}볼`;
-    if (this.strikes() > 0 && this.balls() > 0) result += ' ';
-    if (this.strikes() > 0) result += `${this.strikes()}스트라이크`;
+    if (this.getBallCount() > 0) result += `${this.getBallCount()}볼`;
+    if (this.getStrikeCount() > 0 && this.getStrikeCount() > 0) result += ' ';
+    if (this.getStrikeCount() > 0) result += `${this.getStrikeCount()}스트라이크`;
+
     return result;
   }
 
-  win() {
-    return this.strikes() === CONSTANTS.MAX_INPUT_SIZE;
+  isWin() {
+    return this.getStrikeCount() === CONSTANTS.MAX_INPUT_SIZE;
   }
 }
 

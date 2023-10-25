@@ -24,7 +24,7 @@ class Game {
 
     Console.print(scores.toString());
 
-    if (scores.win()) {
+    if (scores.isWin()) {
       Console.print(
         `${CONSTANTS.MAX_INPUT_SIZE}개의 숫자를 모두 맞히셨습니다! 게임 종료`,
       );
