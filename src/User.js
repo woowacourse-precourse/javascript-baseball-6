@@ -1,16 +1,29 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import { QUERY_STATUS } from "./query_status.js";
 export default class User {
-    async returnUserQuery(query, status) {
-        const input = await MissionUtils.Console.readLineAsync(query);
-        if (!this.checkValidation(input, status))
+    async returnUserNumber() {
+        const input = await MissionUtils.Console.readLineAsync(
+            "숫자를 입력해주세요 : "
+        );
+
+        if (input.length !== 3)
             throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+        if (input.includes("0"))
+            throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+        if (isNaN(input)) throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+
         return input;
     }
-    checkValidation(str, status) {
-        if (status === QUERY_STATUS.PLAYING && str.length > 3) return false;
-        else if (status === QUERY_STATUS.REPLAY && str.length > 1) return false;
-        else if (isNaN(str)) return false;
-        else return true;
+
+    async returnUserReplay() {
+        const input = await MissionUtils.Console.readLineAsync(
+            "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+        );
+        if (input.length !== 1)
+            throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+        if (input !== "1" && input !== "2")
+            throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+        if (isNaN(input)) throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+
+        return input;
     }
 }

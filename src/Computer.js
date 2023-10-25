@@ -1,5 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import { QUERY_STATUS } from "./query_status.js";
+
 export default class Computer {
     static QUIT = "2";
     static STRIKE = 3;
@@ -20,10 +20,7 @@ export default class Computer {
         while (true) {
             this.pickRandomNumbers();
             while (true) {
-                const input = await user.returnUserQuery(
-                    "숫자를 입력해주세요 : ",
-                    QUERY_STATUS.PLAYING
-                );
+                const input = await user.returnUserNumber();
                 const result = this.returnMessage(input);
                 MissionUtils.Console.print(result.result);
                 if (result.success) {
@@ -33,10 +30,7 @@ export default class Computer {
                     break;
                 }
             }
-            const input = await user.returnUserQuery(
-                "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n",
-                QUERY_STATUS.REPLAY
-            );
+            const input = await user.returnUserReplay();
             if (input === Computer.QUIT) break;
         }
     }
