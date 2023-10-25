@@ -59,6 +59,20 @@ class BaseballGame {
       throw new Error(ERROR_MESSAGES.INVALID_DUPLICATE_NUMBERS);
     }
   }
+
+  compareNumbers() {
+    const targetSet = new Set(this.#targetNumbers);
+
+    for (let i = 0; i < 3; i++) {
+      const userNumber = this.#userNumbers[i];
+
+      if (this.#targetNumbers[i] === userNumber) {
+        this.#strikeCnt += 1;
+      } else if (targetSet.has(userNumber)) {
+        this.#ballCnt += 1;
+      }
+    }
+  }
 }
 
 export default BaseballGame;
