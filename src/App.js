@@ -38,7 +38,7 @@ class App {
       } else if (userInput === "2") {
         MissionUtils.Console.print(MESSAGE.GAME.END);
       } else {
-        throw error();
+        throw new Error(MESSAGE.ERROR.WRONG_VALUE);
       }
     } catch (error) {
       throw new Error(MESSAGE.ERROR.WRONG_VALUE);
