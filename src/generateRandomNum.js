@@ -11,5 +11,5 @@ export default async function generateRandomNum() {
     }
   }
 
-  return COMPUTER_GENERATED_NUM.join();
+  return COMPUTER_GENERATED_NUM.join('');
 }
