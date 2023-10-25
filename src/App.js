@@ -5,10 +5,11 @@ const NUM_LENGTH = 3;
 class App {
   async play() {
     MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
-    while(true) {
+    let playGame = true;
+    while(playGame) {
       const computerNum = computerPickNum();
-      startGame(computerNum);
-      
+      await startGame(computerNum);
+      playGame = await endGame();
     }
   }
 }
@@ -29,7 +30,7 @@ const computerPickNum = () => {
 const startGame = (computerNum) => {
   while(true) {
     const input = MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
-    const userNum = input.split('').map(Number);
+    const userNum = input.toString().split('').map(Number);
 
     checkInput(input);
 
@@ -48,12 +49,14 @@ const startGame = (computerNum) => {
 }
 
 const checkInput = (input) => {
-  const userInput = new Set(input.split('').map(Number));
+  const userInput = new Set(input.toString().split('').map(Number));
 
   if (input.length !== NUM_LENGTH)
-    throw Error('[ERROR] 숫자가 잘못된 형식입니다. 숫자 3개를 입력해주세요.');
+    throw Error('[ERROR] 숫자가 잘못된 형식입니다. 3개의 숫자만 입력 가능합니다.');
   if ([...userInput].length !== NUM_LENGTH)
-    throw Error('[ERROR] 숫자가 잘못된 형식입니다. 중복되지 않는 숫자를 입력해주세요.');
+    throw Error('[ERROR] 숫자가 잘못된 형식입니다. 중복되지 않는 숫자만 입력 가능합니다.');
+  if (Number.isNaN(input)) throw Error('[ERROR] 숫자만 입력해주세요.');
+  if (input.includes(' ')) throw Error('[ERROR] 공백은 입력하지 마세요.');
 }
 
 //(3)결과 출력
@@ -88,5 +91,15 @@ const printResult = (ball, strike) => {
 }
 
 //(4)게임 결과
+const endGame = () => {
+  const askReplay = MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
+
+  if(askReplay === '1')
+    return true;
+  else if(askReplay === '2')
+    return false;
+  else
+    throw new Error('[ERROR] 잘못된 형식입니다. 1 또는 2만 입력 가능합니다.');
+}
 
 export default App;
