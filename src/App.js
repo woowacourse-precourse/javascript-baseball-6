@@ -6,11 +6,6 @@ import { GUIDE_MESSAGES } from '../constants/index.js';
 class App {
   #player = new Player();
 
-  /**
-   * 🖥️ '숫자 야구 게임을 시작합니다.' 메시지와 함께 player 인스턴스를 호출한다.
-   * @async
-   * @returns
-   */
   async play() {
     OutputView.printMessage(GUIDE_MESSAGES.start);
     await this.#player.startGame();

@@ -7,10 +7,6 @@ import { SETTINGS } from '../../constants/index.js';
  */
 class RandomNumSet {
   getRandomNumSet() {
-    /**
-     * 랜덤하게 결정된 서로 다른 3자리 수를 담은 정답 배열
-     * @type {number[]}
-     */
     const answer = [];
 
     while (answer.length < SETTINGS.numberOfRandom) {
