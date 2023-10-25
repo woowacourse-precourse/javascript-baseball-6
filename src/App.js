@@ -28,6 +28,13 @@ class App {
     else MissionUtils.Console.print(`낫싱`);
   }
 
+  errorCheck(number) {
+    if (isNaN(Number(number))) throw new Error("[ERROR] 숫자만 입력해주세요.");
+    if (number.length !== 3) throw new Error("[ERROR] 3자리 숫자를 입력해주세요.");
+    if (number.includes(0)) throw new Error("[ERROR] 0은 입력할 수 없습니다.");
+    if (number[0] === number[1] || number[1] === number[2] || number[2] === number[0]) throw new Error("[ERROR] 서로 다른 3개의 숫자를 입력해주세요.");
+  }
+
   async play() {
     let gameNum = 0;
     let isEnd = false;
@@ -41,16 +48,12 @@ class App {
       this.ball = 0;
   
       const number = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
-      console.log(number, typeof number, number.length);
-      // 입력이 정상적인지 확인
-      if (isNaN(Number(number))) throw new Error("[ERROR] 숫자만 입력해주세요.");
-      console.log(number.length)
-      if (number.length !== 3) throw new Error("[ERROR] 3자리 숫자를 입력해주세요.");
-      if (number.includes(0)) throw new Error("[ERROR] 0은 입력할 수 없습니다.");
-
 
       // 컴퓨터는 사용자가 입력한 수에 대한 결과를 낫싱과, 볼, 스트라이크 개수로 표시한다.
       this.num_list = [...number].map(v => +v);
+
+      // 입력 확인
+      this.errorCheck(number);
 
       this.computer.map((v, idx) => {
         // 다 같으면 스트라이크
