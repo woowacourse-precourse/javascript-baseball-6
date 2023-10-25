@@ -1,13 +1,12 @@
 import { Console } from "@woowacourse/mission-utils";
-import { Validation } from "./Validation.js";
+import { validation } from "./Validation.js";
 import { MESSAGE } from "../constants/messages.js";
 
 export const player = {
   input: async function () {
     try {
       const input = await Console.readLineAsync(MESSAGE.PLAYER.INPUT);
-      const validation = new Validation(input);
-      validation.validate();
+      validation.validatePlayerNumber(input);
 
       return input;
     } catch (error) {
@@ -20,6 +19,7 @@ export const player = {
     const input = await Console.readLineAsync(
       MESSAGE.PLAYER.SELECT_REPLAY_OR_EXIT
     );
+    validation.validateSelectReplayOrExit(input);
 
     if (input === "1") {
       return true;
@@ -27,7 +27,5 @@ export const player = {
     if (input === "2") {
       return false;
     }
-
-    throw new Error(MESSAGE.ERROR.UNDEFINED);
   },
 };
