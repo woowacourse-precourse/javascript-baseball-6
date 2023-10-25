@@ -1,4 +1,14 @@
-import { BALL, Console, ERROR_TEXT, GAME_START_TEXT, NOTHING, Random, STRIKE } from './Constant';
+import {
+  BALL,
+  Console,
+  ERROR_TEXT,
+  GAME_RESTART,
+  GAME_START_TEXT,
+  GAME_SUCCESS,
+  NOTHING,
+  Random,
+  STRIKE,
+} from './Constant';
 
 class App {
   constructor() {
@@ -105,6 +115,9 @@ class App {
   async restartAndEnd(answer) {
     if (answer === 1) {
       await this.gameStart();
+    }
+    if (answer === 2) {
+      return;
     }
   }
 }
