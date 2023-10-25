@@ -12,3 +12,7 @@ export const constant = {
     ONE_OR_TWO: "[ERROR] 1과 2 중에서 입력 해야합니다.",
   },
 };
+
+export const BALL = "볼";
+export const STRIKE = "스트라이크";
+export const NOTHING = "낫싱";
