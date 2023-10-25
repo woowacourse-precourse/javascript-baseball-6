@@ -39,10 +39,10 @@ class App {
   }
 
   async inputNumber() {
-      const number = await Console.readLineAsync("숫자를 입력해주세요 : ");
+    const number = await Console.readLineAsync("숫자를 입력해주세요 : ");
     this.strikeCount = 0;
     this.ballCount = 0;
-      await this.settingNumber(number);
+    await this.settingNumber(number);
     if (!number) {
       throw new Error("[Error] 숫자 입력이 들어오지 않았습니다.");
       return;
