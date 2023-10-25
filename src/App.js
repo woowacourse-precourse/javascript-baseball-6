@@ -12,14 +12,14 @@ class App {
   async play() {
     MissionUtils.Console.print(GAME.START);
     let computerNumbers = createRandomNumber();
-    let RESTART = true;
+    let restart = true;
     do {
       let userNumbers = await inputUserNumber();
       if (printResult(checkResult(userNumbers, computerNumbers))) {
-        RESTART = await restartGame();
-        if (RESTART) computerNumbers = createRandomNumber();
+        restart = await restartGame();
+        if (restart) computerNumbers = createRandomNumber();
       }
-    } while (RESTART);
+    } while (restart);
   }
 }
 
