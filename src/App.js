@@ -1,6 +1,7 @@
 import { MissionUtils, Console } from "@woowacourse/mission-utils";
 import { error } from "./error.js";
 import { constant } from "./constant.js";
+import { printResult } from "./printResult.js";
 
 class App {
   constructor(
@@ -81,27 +82,9 @@ class App {
     return this.ballCount;
   }
 
-  async consoleOutput(strikeCount, ballCount) {
-    const BALL = `${ballCount}볼`;
-    const STRIKE = `${strikeCount}스트라이크`;
-    if (!strikeCount && !ballCount) {
-      Console.print("낫싱");
-    }
-
-    if (strikeCount && ballCount) {
-      Console.print(`${BALL} ${STRIKE}`);
-    }
-
-    if (strikeCount && !ballCount) {
-      Console.print(STRIKE);
-    }
-
-    if (!strikeCount && ballCount) {
-      Console.print(BALL);
-    }
-
-    if (strikeCount === 3) {
-      await Console.print(constant.CORRECT_NUMBER);
+  async consoleOutput() {
+    const isFinished = printResult(this.strikeCount, this.ballCount);
+    if (isFinished === 3) {
       await this.finishedGame();
     }
   }
