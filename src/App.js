@@ -64,5 +64,12 @@ export default class App {
 
         return { strike, ball };
     }
- 
+    generateResultMessage(strike, ball) {
+      let resultMessage = '';
+      if (ball > 0) resultMessage += `${ball}볼 `;
+      if (strike > 0) resultMessage += `${strike}스트라이크`;
+      if (ball === 0 && strike === 0) resultMessage = '낫싱';
+      return resultMessage.trim();
+  }
+    
   }
