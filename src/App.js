@@ -2,11 +2,15 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
   async play() {
-    MissionUtils.Console.print("숫자 야구를 시작합니다.");
-    const computerNumber = this.getRandomNumber();
-    await this.startGame(computerNumber);
-    const isEnd = await this.endGame();
-    if (!isEnd) this.play();
+    try {
+      MissionUtils.Console.print("숫자 야구를 시작합니다.");
+      const computerNumber = this.getRandomNumber();
+      await this.startGame(computerNumber);
+      const isEnd = await this.endGame();
+      if (!isEnd) this.play();
+    } catch (error) {
+      throw new Error(`[ERROR] ${error}`);
+    }
   }
 
   async startGame(computerNumber) {
@@ -16,12 +20,13 @@ class App {
       const result = this.getBaseballResult(userNumber, computerNumber);
       if (result === 0) {
         await this.startGame(computerNumber);
+        return 0;
       } else {
         MissionUtils.Console.print("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
         return 1;
       }
     } catch (error) {
-      throw new Error(`[ERROR] ${error}`);
+      throw error;
     }
   }
 
