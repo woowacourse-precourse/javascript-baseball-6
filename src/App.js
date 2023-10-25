@@ -48,10 +48,16 @@ class App {
   async play() {
     Console.print('숫자 야구 게임을 시작합니다.');
     let computerNumbers = this.generateRandomNumbers();
-    const userNumbers = await InputProcessor.inputNumber();
 
-    const { ball, strike } = this.compare(computerNumbers, userNumbers);
-    Console.print(this.getHintString(ball, strike));
+    while (true) {
+      const userNumbers = await InputProcessor.inputNumber();
+      const { ball, strike } = this.compare(computerNumbers, userNumbers);
+      Console.print(this.getHintString(ball, strike));
+
+      if (strike === 3) {
+        Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+      }
+    }
   }
 }
 
