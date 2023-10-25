@@ -1,5 +1,5 @@
 import inputToUser from './inputToUser';
-import Constant from './Constant';
+import Constant from '../constant/Constant';
 
 const { MAX_NUM_LENGTH, EXIT, RESTART } = Constant;
 

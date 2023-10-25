@@ -2,7 +2,7 @@ import { Console } from '@woowacourse/mission-utils';
 import inputToUser from './inputToUser';
 import compareNumberString from './compareNumberString';
 import getResultString from './getResultString';
-import Constant from './Constant';
+import Constant from '../constant/Constant';
 
 const { MAX_NUM_LENGTH, INPUT_PROMPT } = Constant;
 

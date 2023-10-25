@@ -1,4 +1,4 @@
-import Constant from './Constant';
+import Constant from '../constant/Constant';
 
 const { STRIKE, BALL, NOTHING } = Constant;
 

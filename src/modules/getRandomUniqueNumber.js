@@ -1,5 +1,5 @@
 import { Random } from '@woowacourse/mission-utils';
-import Constant from './Constant';
+import Constant from '../constant/Constant';
 
 const { MAX_NUM_LENGTH } = Constant;
 const START = 1;
