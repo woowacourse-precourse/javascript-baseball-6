@@ -43,15 +43,16 @@ export default class Computer {
         };
     }
     calculateBallStrike(expectNumbers) {
-        let ball = 0;
-        let strike = 0;
-        [...expectNumbers]
+        return [...expectNumbers]
             .map((n) => +n)
-            .forEach((n, idx) => {
-                if (this.numbers[idx] === n) strike++;
-                else if (this.numbers.includes(n)) ball++;
-            });
-        return { ball, strike };
+            .reduce(
+                (res, cur, idx) => {
+                    if (this.numbers[idx] === cur) res.strike++;
+                    else if (this.numbers.includes(cur)) res.ball++;
+                    return res;
+                },
+                { ball: 0, strike: 0 }
+            );
     }
     getResultString({ ball, strike }) {
         if (ball === 0 && strike === 0) return "낫싱";
