@@ -33,11 +33,12 @@
 
 ---
 
-## Computer 클래스
+## RandomNumberGenerator 클래스
 
 ### Methods
 
-- [x] `generateNumbers()`: 랜덤한 3개의 숫자를 생성한다. (미션 라이브러리 유틸 사용)
+- [x] `generateRandomNumber()`: 1부터 9까지의 랜덤한 숫자 하나를 생성한다.(MissionUtils 라이브러리 사용)
+- [x] `generateRandomNumbers()`: 랜덤한 3개의 숫자를 생성하고 배열로 반환한다.(중복 숫자는 허용x)
 
 ---
 
