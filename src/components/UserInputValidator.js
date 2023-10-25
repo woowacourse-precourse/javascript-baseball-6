@@ -7,7 +7,7 @@ class UserInputValidator {
   validateUserInput() {
     if (
         isNaN(this.userInputNumber) 
-        || this.userInputArr.some((digit) => Number(digit) < 1 || Number(digit) > 9) 
+        || this.userInputArr.some((number) => Number(number) < 1 || Number(number) > 9) 
         || this.userInputArr.length !== 3
       ) {
         throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');

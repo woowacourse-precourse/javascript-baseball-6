@@ -8,6 +8,7 @@ class BaseballGame {
   constructor() {
     this.gameCount = 0;
     this.randomNumber = null;
+    this.userInput = null;
   }
 
   async gameStart() {
@@ -23,18 +24,17 @@ class BaseballGame {
   }
 
   async getUserInput() {
-    const USER_INPUT = await Console.readLineAsync(
+    this.userInput = await Console.readLineAsync( 
       '1~9를 이용하여 각 자리가 중복되지 않는 세자리 숫자를 입력해주세요 : '
     );
-
-    const USER_INPUT_VALIDATOR = new UserInputValidator(USER_INPUT);
+    const USER_INPUT_VALIDATOR = new UserInputValidator(this.userInput);
     USER_INPUT_VALIDATOR.validateUserInput();
-    await this.showGameResult(USER_INPUT);
+    await this.showGameResult();
   }
   
-  async showGameResult(validUserinput) {
+  async showGameResult() {
     const GAME_CALCULATOR = new GameCalculator(
-      validUserinput,
+      this.userInput,
       this.randomNumber
     );
     const GAME_RESULT_STRING = GAME_CALCULATOR.getStringResult();
