@@ -8,12 +8,12 @@ class App {
 
     // 초기 설정
     Console.print("숫자 야구 게임을 시작합니다.");
-    const CORRECT_ANSWER = NewRandomAnswer();
-
+    
     while (!GAME_END) {
+      const CORRECT_ANSWER = NewRandomAnswer();
       const USER_ANSWER = await InputAnswer();
 
-      [strike, ball] = CheckBallStrike(CORRECT_ANSWER, USER_ANSWER);
+      const [strike, ball] = CheckBallStrike(CORRECT_ANSWER, USER_ANSWER);
 
     }
   }
