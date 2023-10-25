@@ -59,9 +59,27 @@ class App {
       { ball: 0, strike: 0 }
     );
 
+    this.printResult(ball, strike);
+
     if (strike !== 3) {
       await this.userChoice();
     }
+  }
+
+  printResult(ball, strike) {
+    let resultMessage = '';
+
+    if (strike === 3) {
+      resultMessage = '3스트라이크';
+    } else {
+      const ballMessage = ball > 0 ? `${ball}볼` : '';
+      const strikeMessage = strike > 0 ? `${strike}스트라이크` : '';
+
+      resultMessage =
+        [ballMessage, strikeMessage].filter(Boolean).join(' ') || '낫싱';
+    }
+
+    Console.print(resultMessage);
   }
 }
 
