@@ -1,13 +1,10 @@
 import App from "../src/App.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
 
-const mockQuestions = (inputs) => {
-  MissionUtils.Console.readLineAsync = jest.fn();
-
-  MissionUtils.Console.readLineAsync.mockImplementation(() => {
-    const input = inputs.shift();
-    return Promise.resolve(input);
-  });
+const getLogSpy = () => {
+  const logSpy = jest.spyOn(MissionUtils.Console, "print");
+  logSpy.mockClear();
+  return logSpy;
 };
 
 const mockRandoms = (numbers) => {
@@ -17,13 +14,17 @@ const mockRandoms = (numbers) => {
   }, MissionUtils.Random.pickNumberInRange);
 };
 
-const getLogSpy = () => {
-  const logSpy = jest.spyOn(MissionUtils.Console, "print");
-  logSpy.mockClear();
-  return logSpy;
+const mockQuestions = (inputs) => {
+  MissionUtils.Console.readLineAsync = jest.fn();
+
+  MissionUtils.Console.readLineAsync.mockImplementation(() => {
+    const input = inputs.shift();
+    return Promise.resolve(input);
+  });
 };
 
 describe("숫자 야구 게임", () => {
+  // 아래의 코드는 타임아웃을 설정할 필요가 없습니다.
   test("게임 종료 후 재시작", async () => {
     // given
     const randoms = [1, 3, 5, 5, 8, 9];
@@ -44,6 +45,7 @@ describe("숫자 야구 게임", () => {
     });
   });
 
+  // 아래의 코드 역시 타임아웃을 설정할 필요가 없습니다.
   test("예외 테스트", async () => {
     // given
     const randoms = [1, 3, 5];
