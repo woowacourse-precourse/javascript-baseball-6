@@ -21,14 +21,12 @@ class BaseballGame {
     return this.countStrike();
   };
 
-  //컴퓨터의 수와 입력한 값 비교
   countStrike() {
     const STRIKE = [...this.computerNumber].filter((x, idx) => this.userNumber[idx] === x).length;
     const BALL = [...this.computerNumber].filter(x => this.userNumber.includes(x)).length - STRIKE;
     return this.printStrikeBall(STRIKE,BALL);
   };
 
-  //스트라이크와 볼 개수 출력
   printStrikeBall(strike, ball) {
     let answer = '';
     
@@ -48,7 +46,6 @@ class BaseballGame {
     return this.allStrike();
   };
 
-  // 스트라이크일 경우
   async allStrike() {
     const RETRY = await this.userInput.chooseRetry();
     this.validateCheck.checkRetry(RETRY);
