@@ -102,8 +102,8 @@ async function getInput(){
 
 //스트라이크, 볼 판정
 function isCorrect(COMPUTER, answer){
-  let ball;
-  let strike;
+  let ball = 0;
+  let strike = 0;
   for (let i = 0; i < COMPUTER.length; i++){
     if(COMPUTER.includes(answer[i])){
       if(COMPUTER.indexOf(answer[i]) == i){
