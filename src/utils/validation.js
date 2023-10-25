@@ -1,7 +1,7 @@
 export const validation = {
   baseBallNumbersInputOfUser: (userInput) => {
-    if (/[^1-9]/g.test(userInput))
-      throw new Error('[ERROR] 1-9 사이의 숫자만 입력해주세요');
+    // if (/[^1-9]/g.test(userInput))
+    //   throw new Error('[ERROR] 1-9 사이의 숫자만 입력해주세요');
 
     if ([...String(userInput)].length !== 3)
       throw new Error('[ERROR] 3자리 숫자만 입력해주세요');
