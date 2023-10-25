@@ -15,7 +15,17 @@ class BaseballGame {
 
     while (!this.correct) {
       const guess = await Console.readLineAsync(MESSAGES.INPUT_NUMBER);
+
+      //   try {
+      //     this.validateGuess(guess);
+      //   } catch (error) {
+      //     throw new Error(error.message);
+      //   }
+
+      this.getHint(guess);
     }
+
+    Console.print(MESSAGES.CORRECT_NUMBER);
   }
 
   generateRandomNumbers() {
@@ -28,6 +38,24 @@ class BaseballGame {
     }
     return [...numbers];
   }
+
+  //   validateGuess(guess) {
+  //     const threeDigitsPattern = /^\d{3}$/;
+  //     const oneToNinePattern = /^[1-9]+$/;
+  //     const hasDuplicatePattern = /(.)\1/;
+
+  //     if (!threeDigitsPattern.test(guess)) {
+  //       throw new Error(MESSAGES.INPUT_NUMBER_LENGTH_ERROR);
+  //     }
+
+  //     if (!oneToNinePattern.test(guess)) {
+  //       throw new Error(MESSAGES.INPUT_NUMBER_RANGE_ERROR);
+  //     }
+
+  //     if (hasDuplicatePattern.test(guess)) {
+  //       throw new Error(MESSAGES.INPUT_NUMBER_DUPLICATION_ERROR);
+  //     }
+  //   }
 }
 
 export default BaseballGame;
