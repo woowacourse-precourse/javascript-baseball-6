@@ -7,7 +7,7 @@ class App {
     while (true) {
       const input = await Console.readLineAsync("숫자를 입력해주세요 : ");
       if (!this.checkInputCorrect(input)) {
-        throw new Error("[ERROR] 잘못된 형식입니다.");
+        throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
       }
       const result = this.compare(input);
       Console.print(result);
@@ -32,6 +32,8 @@ class App {
       return true;
     } else if (exitNumber === "2") {
       return false;
+    } else {
+      throw new Error("[ERROR] 다른 숫자를 입력하셨습니다.");
     }
   }
   // 랜덤숫자생성
