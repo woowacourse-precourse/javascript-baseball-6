@@ -1,5 +1,7 @@
 - feat: initial setting 
     - README 작성
-- feat: 입력값 받기  
-    - readline
+- feat: 서로 다른 3개의 입력값 받기  
+    - input validation 1: 3자리 수인가
+    - input validation 2: 서로 다른 수인가
 - feat: 입력값과 대조
+    - 컴퓨터의 랜덤 숫자 3개 선택 (Random API)
