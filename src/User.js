@@ -5,11 +5,15 @@ export default class User {
             '숫자를 입력해주세요 : '
         );
 
-        if (input.length !== 3)
+        if (input.length !== 3) {
             throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
-        if (input.includes('0'))
+        }
+        if (input.includes('0')) {
             throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
-        if (isNaN(input)) throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+        }
+        if (isNaN(input)) {
+            throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+        }
 
         return input;
     }
@@ -18,11 +22,15 @@ export default class User {
         const input = await MissionUtils.Console.readLineAsync(
             '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'
         );
-        if (input.length !== 1)
+        if (input.length !== 1) {
             throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
-        if (input !== '1' && input !== '2')
+        }
+        if (input !== '1' && input !== '2') {
             throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
-        if (isNaN(input)) throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+        }
+        if (isNaN(input)) {
+            throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+        }
 
         return input;
     }
