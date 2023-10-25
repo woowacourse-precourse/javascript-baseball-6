@@ -26,7 +26,8 @@ export class Computer {
   async compareAnswerRepeatedly() {
     while (this.#count.strike !== 3) {
       this.#initializeCount();
-      this.#compareAnswer(await player.input());
+      const playerInput = await player.getPlayNumber();
+      this.#compareAnswer(playerInput);
       this.#printResult();
     }
     return true;

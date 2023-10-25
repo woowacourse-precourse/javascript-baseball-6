@@ -7,7 +7,7 @@ const INPUT_MESSAGE = {
 };
 
 export const player = {
-  input: async function () {
+  getPlayNumber: async function () {
     try {
       const input = await Console.readLineAsync(INPUT_MESSAGE.PLAY_NUMBER);
       validation.validatePlayNumber(input);
