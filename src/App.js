@@ -6,8 +6,10 @@ import {
 } from "./constants/index.js"; // https://stackoverflow.com/questions/64453859/directory-import-is-not-supported-resolving-es-modules-with-node-js
 
 class App {
+  #randomNumber;
+
   constructor() {
-    this._randomNumber = this.generateRandomNumber();
+    this.#randomNumber = this.generateRandomNumber();
     this.isContinuous = true;
   }
 
@@ -81,9 +83,9 @@ class App {
     let ballCount = 0;
 
     userInput.forEach((num, idx) => {
-      if (!this._randomNumber.includes(num)) return;
+      if (!this.#randomNumber.includes(num)) return;
 
-      if (this._randomNumber.indexOf(num) === idx) {
+      if (this.#randomNumber.indexOf(num) === idx) {
         strikeCount++;
       } else {
         ballCount++;
@@ -108,7 +110,7 @@ class App {
   }
 
   continueGame() {
-    this._randomNumber = this.generateRandomNumber();
+    this.#randomNumber = this.generateRandomNumber();
     this.isContinuous = true;
     this.play();
   }
