@@ -7,23 +7,24 @@ export default class Compare {
   }
 
   async compareNumbers() {
-    let strikeCount = 0;
     const computerNumber = await this.computer.getComputerNumber();
+    let result = false;
 
-    while (strikeCount !== 3) {
+    while (!result) {
       const userInput = await this.user.getNumber();
-      const ballCount = this.getBallCount(userInput, computerNumber);
-
-      strikeCount = this.getStrikeCount(userInput, computerNumber);
-
-      HintView.printHintMessage(ballCount, strikeCount);
-
-      if (strikeCount === 3) {
-        return true;
-      }
+      result = this.checkGameResult(userInput, computerNumber);
     }
 
-    return false;
+    return result;
+  }
+
+  checkGameResult(userInput, computerNumber) {
+    const ballCount = this.getBallCount(userInput, computerNumber);
+    const strikeCount = this.getStrikeCount(userInput, computerNumber);
+    
+    this.displayHint(ballCount, strikeCount);
+
+    return strikeCount === 3;
   }
 
   getBallCount(userInput, computerNumber) {
@@ -48,5 +49,9 @@ export default class Compare {
     }
 
     return strikeCount;
+  }
+  
+  displayHint(ballCount, strikeCount) {
+    HintView.printHintMessage(ballCount, strikeCount);
   }
 }
