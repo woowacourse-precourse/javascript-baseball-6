@@ -29,7 +29,7 @@ class ValidationUtils {
       throw new Error(ERROR_MESSAGE.NOT_THREE_GUESSNUMBER);
     }
   }
-  // 올바른 1혹은 2만 입력해야 하는 입력값인지
+  // 1혹은 2만 입력해야 하는 입력값인지
   static isNumberOneorTwo(inputValue){
     if (inputValue !== '1' && inputValue !== '2') {
         throw new Error(ERROR_MESSAGE.NOT_NUMBER_ONE_OR_TWO);

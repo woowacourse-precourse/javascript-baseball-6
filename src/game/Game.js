@@ -6,7 +6,7 @@ class Game {
     this.computerNumber = [];
   }
 
-  //상대방 숫자 랜덤 생성
+  // 상대방 숫자 랜덤 생성
   generateRandomNumber() {
     while (this.computerNumber.length < NUMBER_LENGTH) {
       const NUMBER = MissionUtils.Random.pickNumberInRange(1, 9);
@@ -15,21 +15,21 @@ class Game {
       }
     }
   }
-  //낫싱 판별
+  // 낫싱 판별
   isNothing(strikeNumbers, ballNumbers) {
     if (strikeNumbers === 0 && ballNumbers === 0) {
       return '낫싱';
     }
     return '';
   }
-  //스트라이크인지 확인
+  // 스트라이크인지 확인
   isStrike(guessNumber, i) {
     if (Number(guessNumber[i]) === this.computerNumber[i]) {
       return 1;
     }
     return 0;
   }
-  //볼인지 확인
+  // 볼인지 확인
   isBall(guessNumber, i) {
     if (
       this.computerNumber.includes(Number(guessNumber[i])) &&
@@ -39,7 +39,7 @@ class Game {
     }
     return 0;
   }
-  //유저의 숫자와 컴퓨터의 숫자 비교
+  // 유저의 숫자와 컴퓨터의 숫자 비교
   countBallandStrike(guessNumber) {
     let strikeNumbers = 0;
     let ballNumbers = 0;
