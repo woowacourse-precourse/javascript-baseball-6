@@ -1,0 +1,90 @@
+const Random = require('@woowacourse/mission-utils').Random;
+const Console = require('@woowacourse/mission-utils').Console;
+
+class BaseballGame {
+  constructor() {
+    this.targetNumbers = this.generateRandomNumbers();
+    this.attempts = 0;
+  }
+
+  generateRandomNumbers() {
+    const numbers = [];
+    while (numbers.length < 3) {
+      const num = Random.pickNumberInRange(1, 9);
+      if (!numbers.includes(num)) {
+        numbers.push(num);
+      }
+    }
+    return numbers;
+  }
+
+  play() {
+    Console.print('숫자 야구 게임을 시작합니다.');
+
+    while (true) {
+      const userInput = this.getUserInput();
+      const result = this.calculateResult(userInput);
+
+      Console.print(result);
+
+      if (result === '3스트라이크') {
+        Console.print('게임 종료');
+        if (!this.askForRestart()) {
+          break;
+        }
+      }
+    }
+  }
+
+  getUserInput() {
+    let input;
+    while (true) {
+      try {
+        input = Console.readLineAsync('숫자를 입력해주세요 : ');
+        if (!this.isValidInput(input)) {
+          throw new Error('올바른 입력이 아닙니다.');
+        }
+        break;
+      } catch (error) {
+        Console.print(`에러: ${error.message}`);
+      }
+    }
+    return input;
+  }
+
+  isValidInput(input) {
+    return /^\d{3}$/.test(input) && new Set(input).size === 3;
+  }
+
+  calculateResult(input) {
+    this.attempts++;
+
+    const inputNumbers = input.split('').map(Number);
+    let strikes = 0;
+    let balls = 0;
+
+    for (let i = 0; i < 3; i++) {
+      if (inputNumbers[i] === this.targetNumbers[i]) {
+        strikes++;
+      } else if (this.targetNumbers.includes(inputNumbers[i])) {
+        balls++;
+      }
+    }
+
+    if (strikes === 3) {
+      return `${strikes}스트라이크\n${this.attempts}개의 숫자를 모두 맞히셨습니다! 게임 종료`;
+    } else if (strikes === 0 && balls === 0) {
+      return '낫싱';
+    } else {
+      return `${balls}볼 ${strikes}스트라이크`;
+    }
+  }
+
+  askForRestart() {
+    const choice = Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. ');
+    return choice === '1';
+  }
+}
+
+const game = new BaseballGame();
+game.play();
