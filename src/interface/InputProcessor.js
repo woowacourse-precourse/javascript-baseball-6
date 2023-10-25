@@ -2,8 +2,6 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 import AnswerValidator from "../gameUtils/AnswerValidator.js";
 
 class InputProcessor {
-  constructor() {}
-
   static async answerInput() {
     const input = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
     if (!AnswerValidator.validateAnswer(input)) throw new Error("[ERROR]");
