@@ -2,12 +2,15 @@ import { Random, Console } from '@woowacourse/mission-utils';
 import { ErrorMessage, ConsoleMessage } from './Messages.js';
 
 export class BaseballGame {
-  computer;
   static DIGITS_COUNT = 3;
   static MIN_DIGIT = 1;
   static MAX_DIGIT = 9;
   static RESTART_GAME = 1;
   static GAME_OVER = 2;
+
+  constructor() {
+    this.computer = null;
+  }
 
   init() {
     this.computer = this.getRandomComputerNumber();
@@ -79,8 +82,8 @@ export class BaseballGame {
     else return false;
   }
 
-  restartGame(result) {
-    if (result) {
+  restartGame(answer) {
+    if (answer) {
       Console.print(ConsoleMessage.ALL_CORRECT);
       this.endGame();
     } else {
@@ -90,14 +93,14 @@ export class BaseballGame {
 
   async endGame() {
     const num = await Console.readLineAsync(ConsoleMessage.RESTART_GAME_OR_NOT);
-    this.checkEndNum(num);
+    this.validateAnswer(num);
   }
 
-  checkEndNum(num) {
-    const result = parseInt(num);
-    if (result === BaseballGame.RESTART_GAME) {
+  validateAnswer(num) {
+    const answer = parseInt(num);
+    if (answer === BaseballGame.RESTART_GAME) {
       this.init();
-    } else if (result === BaseballGame.GAME_OVER) {
+    } else if (answer === BaseballGame.GAME_OVER) {
       return;
     } else {
       throw new Error(ErrorMessage.ONE_OR_TWO_ONLY);
