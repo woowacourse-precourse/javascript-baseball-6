@@ -10,11 +10,10 @@ class App {
     let computerNumbers = ballNumberMaker();
 
     let userNumbers;
-    let restart = true;
-    while (restart) {
+    while (true) {
       userNumbers = await getInputAndCheck();
       if (printResult(ballCount(userNumbers, computerNumbers))) {
-        restart = await restartGame();
+        const restart = await restartGame();
         if (restart) {
           computerNumbers = ballNumberMaker();
         } else {
@@ -27,7 +26,7 @@ class App {
 
 export default App;
 
-consoleView.printStart();
+// consoleView.printStart();
 
 // const app = new App();
 // app.play();
