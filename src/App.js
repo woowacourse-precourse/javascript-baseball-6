@@ -6,7 +6,7 @@ class App {
   #answer = null;
   async play() {
     Console.print('숫자 야구 게임을 시작합니다.');
-    this._initAnswer();
+    this.initAnswer();
     while (!this.#isPause) {
       let inputedNumbers = '';
       try {
@@ -14,37 +14,37 @@ class App {
       } catch (e) {
         throw new Error(e);
       }
-      this._checkInputedNumbersValidation(inputedNumbers);
-      const countedResult = this._countStrikeAndBall(this.#answer, inputedNumbers);
-      Console.print(this._trimString(countedResult));
-      if (this._checkAnswer(countedResult.cntStrike)) {
+      this.checkInputedNumbersValidation(inputedNumbers);
+      const countedResult = this.countStrikeAndBall(this.#answer, inputedNumbers);
+      Console.print(this.trimString(countedResult));
+      if (this.checkAnswer(countedResult.cntStrike)) {
         Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
         const pickedType = await Console.readLineAsync(`게임을 새로 시작하려면 ${GameType.RESTART}, 종료하려면 ${GameType.END}를 입력하세요.`);
         if (pickedType === GameType.END) {
           this.#isPause = true;
         } else if (pickedType === GameType.RESTART) {
-          this._initAnswer();
+          this.initAnswer();
         }
       }
     }
   }
 
-  _checkInputedNumbersValidation(inputedNumbers) {
+  checkInputedNumbersValidation(inputedNumbers) {
     if (inputedNumbers.length !== Rules.DIGIT_COUNT)
       throw new Error("[ERROR] 3자리를 입력해주세요.");
-    if (this._isExistDuplication(inputedNumbers))
+    if (this.isExistDuplication(inputedNumbers))
       throw new Error("[ERROR] 중복된 숫자가 존재합니다.");
-    if (this._isContainZero(inputedNumbers))
+    if (this.isContainZero(inputedNumbers))
       throw new Error("[ERROR] 1 ~ 9사이의 숫자가 필요합니다.");
   }
 
-  _isContainZero(inputedNumbers) {
+  isContainZero(inputedNumbers) {
     if (inputedNumbers.split('').indexOf('0') === -1)
       return false;
     return true;
   }
 
-  _isExistDuplication(inputedNumbers) {
+  isExistDuplication(inputedNumbers) {
     let result = false;
     inputedNumbers.split('').forEach((first, idx) => {
       inputedNumbers.split('').forEach((second, jdx) => {
@@ -57,7 +57,7 @@ class App {
     return result;
   }
 
-  _trimString({ cntStrike, cntBall }) {
+  trimString({ cntStrike, cntBall }) {
     if (cntStrike === 0 && cntBall === 0)
       return '낫싱';
     if (cntStrike === 0)
@@ -67,11 +67,11 @@ class App {
     return `${cntBall}볼 ${cntStrike}스트라이크`;
   }
 
-  _checkAnswer(cntStrike) {
+  checkAnswer(cntStrike) {
     return cntStrike === Rules.DIGIT_COUNT;
   }
 
-  _countStrikeAndBall(answer, numbers) {
+  countStrikeAndBall(answer, numbers) {
     let cntStrike = 0;
     let cntBall = 0;
     const answers = answer?.split('');
@@ -85,7 +85,7 @@ class App {
     return { cntStrike, cntBall };
   }
 
-  _initAnswer() {
+  initAnswer() {
     const computer = [];
     while (computer.length < Rules.DIGIT_COUNT) {
       const number = MissionUtils.Random.pickNumberInRange(1, 9);
