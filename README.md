@@ -154,3 +154,14 @@ while (computer.length < 3) {
 - 미션은 [javascript-baseball](https://github.com/woowacourse-precourse/javascript-baseball-6/) 저장소를 Fork & Clone해 시작한다.
 - **기능을 구현하기 전 `docs/README.md`에 구현할 기능 목록을 정리**해 추가한다.
 - 과제 진행 및 제출 방법은 [프리코스 과제 제출](https://github.com/woowacourse/woowacourse-docs/tree/master/precourse) 문서를 참고한다.
+
+# 구현할 기능 목록
+- 게임 시작
+  1. 게임 시작 문구 출력
+  2. 컴퓨터가 서로 다른 세 자리 수 떠오르게 하기
+  3. 서로 다른 세 자리 수 입력 받기
+  4. 숫자 비교하기
+  5. 결과 출력하기
+  6. 예외 처리하기
+- 게임 종료
+   1. 재시작 여부 물어보기
