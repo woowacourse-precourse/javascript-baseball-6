@@ -10,6 +10,10 @@ const CONDITIONS = {
   NUMBER_REGEX: /^[1-9]{3}$/,
   MAX_STRIKE_COUNT: 3,
   COUNT: 1,
+  RESTART: {
+    YES: "1",
+    NO: "2",
+  },
 };
 
 export default CONDITIONS;
