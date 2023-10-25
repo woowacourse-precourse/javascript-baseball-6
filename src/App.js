@@ -1,16 +1,20 @@
-import { Console, MissionUtils } from "@woowacourse/mission-utils";
+import { MissionUtils, Console } from "@woowacourse/mission-utils";
 import checkNum from './Validation.js';
 import { getComputerNumber, compareNum, printHint } from './Computer.js';
 
 class App {
   async play() {
+    Console.print("숫자 야구 게임을 시작합니다.");
+
+    let userNum;
+    let restart;
+
     while(true){
-      Console.print("숫자 야구 게임을 시작합니다.");
-      let computerNum = getComputerNumber(); 
+      const computerNum = getComputerNumber(); 
 
       while(true){
         try{
-          const userNum = await Console.readLineAsync("숫자를 입력해주세요 : ");
+          userNum = await Console.readLineAsync("숫자를 입력해주세요 : ");
           checkNum(userNum);
           const result = compareNum(computerNum, userNum);
           printHint(result.strike, result.ball);
@@ -24,7 +28,7 @@ class App {
         }
       }
       
-      const restart = await Console.readLineAsync(
+      restart = await Console.readLineAsync(
         "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
       );
       

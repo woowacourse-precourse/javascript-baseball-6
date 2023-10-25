@@ -3,8 +3,11 @@ const checkNum = (userNum) =>{
         userNum[0] === userNum[1] ||
         userNum[1] === userNum[2] ||
         userNum[0] === userNum[2]
-    )
-    throw new Error();
+    ){
+        throw new Error();
+    }
+    
+    return;
 }
 
 export default checkNum;
