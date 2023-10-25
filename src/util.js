@@ -24,7 +24,5 @@ export function isInValidCommand(command) {
   const isWrongLength = command.length !== VALID_COMMAND_LENGTH;
   const isNotNumber = [...command].some((char) => isNaN(+char));
 
-  return [isDuplicatedNumber, isWrongLength, isNotNumber].some(
-    (condition) => condition
-  );
+  return [isDuplicatedNumber, isWrongLength, isNotNumber].some(Boolean);
 }

@@ -14,26 +14,28 @@ class App {
     }
   }
 
+  getGameResult(userInput) {
+    return this.computer.reduce(
+      (prevCount, number, index) => {
+        if (userInput[index] === number) {
+          return { ...prevCount, strike: prevCount.strike + 1 };
+        }
+        if (userInput.includes(number)) {
+          return { ...prevCount, ball: prevCount.ball + 1 };
+        }
+        return prevCount;
+      },
+      { strike: 0, ball: 0 }
+    );
+  }
+
   async gameStart() {
     const input = await Console.readLineAsync(GAME_MESSAGE.INPUT);
     if (isInValidCommand(input)) {
       throw new Error(GAME_MESSAGE.INVALID_INPUT);
     }
-    const inputToNumber = [...input].map((char) => +char);
-    const { strike, ball } = this.computer.reduce(
-      (prevCount, number, index) => {
-        if (inputToNumber[index] === number) {
-          return { ...prevCount, strike: prevCount.strike + 1 };
-        }
-
-        if (inputToNumber.includes(number)) {
-          return { ...prevCount, ball: prevCount.ball + 1 };
-        }
-
-        return prevCount;
-      },
-      { strike: 0, ball: 0 }
-    );
+    const inputToNumber = [...input].map(Number);
+    const { strike, ball } = this.getGameResult(inputToNumber);
 
     const resultMessage = getResultMessage({
       strike,
@@ -53,20 +55,22 @@ class App {
   async play() {
     this.initComputer();
     Console.print(GAME_MESSAGE.START);
+
     await this.gameStart();
+
     const command = await Console.readLineAsync(
       GAME_MESSAGE.RESTART_OR_EXIT_GUIDE
     );
-    if (command === "1") {
-      this.play();
-      return;
-    }
 
-    if (command === "2") {
-      return;
+    switch (command) {
+      case "1":
+        this.play();
+        break;
+      case "2":
+        break;
+      default:
+        throw new Error(GAME_MESSAGE.INVALID_INPUT);
     }
-
-    throw new Error(GAME_MESSAGE.INPUT);
   }
 }
 
