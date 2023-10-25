@@ -4,6 +4,8 @@ import { InputView, OutputView } from '../view/index.js';
 class BaseBallController {
   static RETRY = '1';
 
+  static END_POINT = 3;
+
   constructor() {
     OutputView.printStart();
   }
@@ -39,7 +41,7 @@ class BaseBallController {
       const score = BaseballModel.compareUserWithComputerNumbers(userNumbers, gameNumbers);
 
       OutputView.printHint(score);
-      if (score.strike === 3) {
+      if (score.strike === this.END_POINT) {
         OutputView.printSuccess();
         break;
       }
