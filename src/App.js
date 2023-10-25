@@ -4,7 +4,6 @@ import { START_MESSAGE } from './Text/message.js';
 
 class App {
   async play() {
-    MissionUtils.Console.print(START_MESSAGE.initial);
     await init();
   }
 }
