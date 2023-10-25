@@ -1,5 +1,5 @@
-import Screen from "./Screen";
-import Computer from "./Computer";
+import Screen from './Screen';
+import Computer from './Computer';
 
 class App {
   async play() {
@@ -19,7 +19,7 @@ class App {
 
       const answer = await Screen.askRestart();
 
-      if (answer === "2") {
+      if (answer === '2') {
         break;
       }
     }
