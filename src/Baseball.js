@@ -75,12 +75,8 @@ export default class BaseballGame {
       }
     }
 
-    if (strike === 0 && ball === 0) {
-      return '낫싱';
-    } else if (strike === 3) {
-      return '3스트라이크';
-    } else {
-      return `${ball}볼 ${strike}스트라이크`;
-    }
+    if (strike === 0 && ball === 0) { return '낫싱'; } 
+    else if (strike === 3) { return '3스트라이크'; } 
+    else { return `${ball}볼 ${strike}스트라이크`; }
   }
 }
