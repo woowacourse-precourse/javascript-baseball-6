@@ -1,4 +1,8 @@
-import { GUIDE_MESSAGES, RESTART_GAME_NUMBERS } from '../../constants/index.js';
+import {
+  GUIDE_MESSAGES,
+  RESTART_GAME_NUMBERS,
+  SETTINGS,
+} from '../../constants/index.js';
 import RandomNumSet from '../opponent/RandomNumSet.js';
 import CheckBallCount from '../opponent/CheckBallCount.js';
 import InputView from '../view/InputView.js';
@@ -37,18 +41,14 @@ class Player {
   }
 
   async #isPlayerWin(strike) {
-    if (strike === 3) this.#playerWin = true;
+    if (strike === SETTINGS.winningNumber) this.#playerWin = true;
   }
 
-  /**
-   * 🧑‍🚀 Player-5: `게임을 다시 시작하려면 1, 종료하려면 2를 입력하세요.` 메시지의 input에 재시작 여부를 입력한다.
-   * @returns
-   */
   async #checkRestartGame() {
     OutputView.printMessage(GUIDE_MESSAGES.playerWin);
 
     /**
-     * @type {string}
+     * 🧑‍🚀 Player-5: `게임을 다시 시작하려면 1, 종료하려면 2를 입력하세요.` 메시지의 input에 재시작 여부를 입력한다.
      */
     const playerInput = await InputView.getRestartInput();
 
