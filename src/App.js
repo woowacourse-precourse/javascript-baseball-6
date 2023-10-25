@@ -121,7 +121,7 @@ class App {
       while (true) {
         try {
           const userNum = await this.getUserNum();
-          if (this.checkUserNum(userNum)) this.calculateResult(userNum); // 여기 체이닝으로?
+          if (this.checkUserNum(userNum)) this.calculateResult(userNum); 
         } 
         catch (error) {
           MissionUtils.Console.print(error.message);  
