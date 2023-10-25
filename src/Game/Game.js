@@ -31,12 +31,11 @@ class Game {
       this.user.updateSelection(input);
 
       const result = Calculator.calculateResult(this.user.selection, answer);
-
-      let resultMessage = "";
-      if (result.balls > 0) resultMessage += `${result.balls}볼 `;
-      if (result.strikes > 0) resultMessage += `${result.strikes}스트라이크`;
-      if (result.balls === 0 && result.strikes === 0) resultMessage = "낫싱";
-      MissionUtils.Console.print(resultMessage.trim());
+      const resultMessage = Calculator.generateCalculatedResultMassage(
+        result.balls,
+        result.strikes
+      );
+      MissionUtils.Console.print(resultMessage);
 
       if (result.strikes === 3) break;
     }

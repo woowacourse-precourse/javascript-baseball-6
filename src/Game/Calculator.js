@@ -11,6 +11,16 @@ class Calculator {
 
     return { balls: balls, strikes: strikes };
   }
+
+  static generateCalculatedResultMassage(balls, strikes) {
+    let resultMessage = "";
+
+    if (balls > 0) resultMessage += `${balls}볼 `;
+    if (strikes > 0) resultMessage += `${strikes}스트라이크`;
+    if (balls === 0 && strikes === 0) resultMessage = "낫싱";
+
+    return resultMessage.trim();
+  }
 }
 
 export default Calculator;
