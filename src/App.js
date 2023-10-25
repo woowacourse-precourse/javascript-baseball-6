@@ -1,3 +1,5 @@
+import { MissionUtils } from "@woowacourse/mission-utils";
+
 class App {
   constructor() {
     this.isPlaying = false;
@@ -33,7 +35,28 @@ class App {
     };
   }
 
-  async play() {}
+  async play() {
+    while (this.isPlaying) {
+      if (this.isCorrect) this.computer = this.getComputerNumbers();
+    }
+  }
+
+  getComputerNumbers() {
+    const MIN = 1;
+    const MAX = 9;
+    const NUMBERS = [];
+
+    while (NUMBERS.length < 3) {
+      const NUMBER = MissionUtils.Random.pickNumberInRange(MIN, MAX);
+
+      if (!NUMBERS.includes(NUMBER)) NUMBERS.push(NUMBER);
+    }
+
+    return NUMBERS;
+  }
 }
+
+const app = new App();
+app.play();
 
 export default App;
