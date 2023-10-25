@@ -29,6 +29,23 @@ class App {
   async userChoice() {
     const userInput = await Console.readLineAsync('숫자를 입력해주세요: ');
     const userNumbers = userInput.split('').map(Number);
+
+    this.userChoiceValidation(userNumbers);
+  }
+
+  userChoiceValidation(userNumbers) {
+    if (userNumbers.length !== 3) {
+      throw new Error('[ERROR] 3개의 숫자를 입력해주세요!');
+    }
+
+    if (!userNumbers.every((num) => num >= 1 && num <= 9)) {
+      throw new Error('[ERROR] 입력값은 모두 1부터 9까지의 정수여야 합니다');
+    }
+
+    const uniqueNumbers = [...new Set(userNumbers)];
+    if (uniqueNumbers.length !== 3) {
+      throw new Error('[ERROR] 중복되지 않는 숫자 3개를 입력해주세요');
+    }
   }
 }
 
