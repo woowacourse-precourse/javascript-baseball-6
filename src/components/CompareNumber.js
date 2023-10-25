@@ -13,8 +13,10 @@ export function compareNumber(target, guess) {
     }
   }
   // 출력
+
   let resultString = "";
-  if (ball) resultString += `${ball}볼 `;
+  if (ball) resultString += `${ball}볼`;
+  if (ball && strike) resultString += " ";
   if (strike) resultString += `${strike}스트라이크`;
   if (!ball && !strike) resultString += "낫싱";
   MissionUtils.Console.print(resultString);

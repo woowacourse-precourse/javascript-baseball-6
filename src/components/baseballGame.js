@@ -4,7 +4,7 @@ import { validateNumber } from "./validateNumber.js";
 import { compareNumber } from "./compareNumber.js";
 import Messages from "../utils/Messages.js";
 
-class BaseballGame {
+class baseballGame {
   async start() {
     const randomNumber = new CreateNumber().randomNumber;
     while (true) {
@@ -12,7 +12,7 @@ class BaseballGame {
       if (!validateNumber(inputNumber)) {
         throw new Error(Messages.ERROR.INVALID_BALL_NUMBER);
       }
-      const userNumber = inputNumber.split("").map(Number);
+      const userNumber = inputNumber.split("").map((v) => parseInt(v));
       if (compareNumber(randomNumber, userNumber)) {
         MissionUtils.Console.print(Messages.RESULT);
         break;
@@ -21,4 +21,4 @@ class BaseballGame {
   }
 }
 
-export default BaseballGame;
+export default baseballGame;
