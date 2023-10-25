@@ -1,4 +1,4 @@
-import HintView from "../utils/HintView";
+import HintView from "../views/HintView";
 
 export default class Compare {
   constructor(user, computer) {

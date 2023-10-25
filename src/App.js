@@ -1,7 +1,7 @@
 import Computer from "./modules/Computer";
-import User from "./utils/User";
-import Compare from "./utils/Compare";
-import Control from "./utils/Control";
+import User from "./modules/User";
+import Compare from "./controllers/Compare";
+import Control from "./controllers/Control";
 
 export default class App {
   constructor() {
