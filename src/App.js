@@ -62,8 +62,8 @@ class App {
     this.end();
   }
 
-  restart() {
-    this.setting();
+  async restart() {
+    await this.setting();
   }
 
   end() {
