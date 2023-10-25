@@ -5,6 +5,10 @@ export const getNumber = async () => {
 
   let numbers = [];
   numbers = input.split("").map(Number);
+
+  if (new Set(numbers).size !== 3) {
+    throw new Error("[ERROR] 잘못된 입력입니다.");
+  }
   return numbers;
 };
 
