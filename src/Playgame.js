@@ -25,9 +25,9 @@ class Playgame {
         let ball = 0;
     
         for (let i = 0; i < 3; i++) {
-            if (numbers[i] === input[i]) {
+            if (input[i] === numbers[i]) {
                 strike++;
-            } else if (input.includes(numbers[i])) {
+            } else if (numbers.includes(input[i])) {
                 ball++;
             }
         };
