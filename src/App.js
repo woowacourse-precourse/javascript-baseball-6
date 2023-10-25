@@ -1,5 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import { GAME } from "./Message";
+import { GAME, ERROR } from "./Message";
 
 class App {
   constructor() {
@@ -27,13 +27,13 @@ class App {
     return inputRegex;
   };
 
-  // inputNumber(): 사용자로부터 입력 받는 메소드
+  // getUserValue(): 사용자로부터 입력 받는 메소드
   // 잘못된 값을 입력했을 시 throw 사용해 예외 처리
   // 사용자에게 입력 받은 값 배열 반환
   getUserValue = async () => {
     const userGuess = await MissionUtils.Console.readLineAsync(GAME.INPUT);
     if (!this.isValidInput(userGuess)) {
-      throw new Error("[ERROR] 서로 다른 숫자 3개만 입력 가능합니다.");
+      throw new Error(ERROR.INPUT);
     }
 
     return [...userGuess].map((value) => Number(value));
@@ -51,9 +51,7 @@ class App {
     }
 
     if (strikes === 3) {
-      MissionUtils.Console.print(
-        "3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료"
-      );
+      MissionUtils.Console.print(GAME.END);
       return "restart";
     } else if (strikes && balls)
       MissionUtils.Console.print(`${balls}볼 ${strikes}스트라이크`);
@@ -72,7 +70,7 @@ class App {
       if (restart === "1") this.computerValue = this.generateRandomNumber();
       else if (restart === "2") this.playGame = false;
       else {
-        throw new Error("[ERROR] 1 또는 2의 숫자만 입력해주세요.");
+        throw new Error(ERROR.RESTART);
       }
     }
   };
