@@ -42,12 +42,11 @@ class Score {
   toString() {
     if (this.isNothing()) return '낫싱';
 
-    let result = '';
-    if (this.getBallCount() > 0) result += `${this.getBallCount()}볼`;
-    if (this.getStrikeCount() > 0 && this.getBallCount() > 0) result += ' ';
-    if (this.getStrikeCount() > 0) result += `${this.getStrikeCount()}스트라이크`;
+    const result = [];
+    if (this.getBallCount() > 0) result.push(`${this.getBallCount()}볼`);
+    if (this.getStrikeCount() > 0) result.push(`${this.getStrikeCount()}스트라이크`);
 
-    return result;
+    return result.join(' ');
   }
 
   /**
