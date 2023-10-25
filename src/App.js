@@ -30,7 +30,9 @@ class App {
         computer.push(number);
       }
     }
-    this.strikeZoneNumber = computer;
+    if (computer.length === new Set(computer).size) {
+      this.strikeZoneNumber = computer;
+    }
   }
 
   async game() {
