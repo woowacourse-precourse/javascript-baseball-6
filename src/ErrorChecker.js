@@ -1,4 +1,4 @@
-import { INVALID_INPUT, INVALID_END_INPUT } from "./Constants.js";
+import { INVALID_INPUT, INVALID_END_INPUT } from './Constants.js';
 
 export default class ErrorChecker {
   static validateIsString(input) {
