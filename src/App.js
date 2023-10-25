@@ -63,6 +63,18 @@ class App {
 
     return { ball, strike };
   }
+
+  //기능 5) 비교 결과 출력
+  PrintResult(ball, strike) {
+    if (strike === 0 && ball === 0) {
+      Console.print("낫싱");
+    } else {
+      let result = "";
+      if (ball !== 0) result += `${ball}볼 `;
+      if (strike !== 0) result += `${strike}스트라이크`;
+      Console.print(result);
+    }
+  }
 }
 
 export default App;
