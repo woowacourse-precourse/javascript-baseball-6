@@ -23,10 +23,14 @@ export default class Control {
 
     if (userChoice === "1") {
       this.app.isReplaying = true;
-    } else if (userChoice === "2") {
-      this.app.isReplaying = false;
-    } else {
-      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+      return;
     }
+    
+    if (userChoice === "2") {
+      this.app.isReplaying = false;
+      return;
+    }
+
+    throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
   }
 }
