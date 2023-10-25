@@ -48,7 +48,7 @@ class BaseballGame {
     this.#userNumbers.forEach((number) => {
       if (isNaN(number)) {
         MissionUtils.Console.print(ERROR_MESSAGES.INVALID_INPUT_NUMBER);
-        new Error(ERROR_MESSAGES.INVALID_INPUT_NUMBER);
+        throw new Error(ERROR_MESSAGES.INVALID_INPUT_NUMBER);
       } else if (number <= 0 || 9 < number) {
         MissionUtils.Console.print(ERROR_MESSAGES.OUT_OF_RANGE);
         throw new Error(ERROR_MESSAGES.OUT_OF_RANGE);
@@ -56,8 +56,9 @@ class BaseballGame {
     });
 
     // 숫자 중복 여부 확인
-    const isUnique = new Set(this.#userNumbers).size;
-    if (isUnique) {
+    const isDuplicate =
+      new Set(this.#userNumbers).size !== this.#userNumbers.length;
+    if (isDuplicate) {
       MissionUtils.Console.print(ERROR_MESSAGES.INVALID_DUPLICATE_NUMBERS);
       throw new Error(ERROR_MESSAGES.INVALID_DUPLICATE_NUMBERS);
     }
