@@ -43,8 +43,9 @@ export default class Computer {
         };
     }
     calculateBallStrike(expectedNumbers) {
-        return [...expectedNumbers]
-            .map((n) => +n)
+        return expectedNumbers
+            .split('')
+            .map(Number)
             .reduce(
                 (res, cur, idx) => {
                     const newRes = { ...res };
