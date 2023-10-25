@@ -1,3 +1,4 @@
+import { Random } from "@woowacourse/mission-utils";
 class Enemy {
   constructor() {
     this.item = {};
@@ -11,6 +12,16 @@ class Enemy {
     arr.forEach((v, i) => {
       this.item[v] = i;
     });
+  }
+
+  setRandomNumber(){
+    const computer = [];
+    let num;
+    while(computer.length !== 3) {
+      num = Random.pickNumberInRange(1,9)
+      if(!computer.includes(num)) computer.push(num);
+    }
+    this.fill(computer);
   }
 
   compare(p) {
