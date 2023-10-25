@@ -39,18 +39,6 @@ class BaseballGameController {
     this.#computer.resetNumbers();
   }
 
-  async finishGame() {
-    this.#outputView.printGameEnd();
-    this.#gameResult.resetResult();
-
-    const gameCode = await this.#inputView.readPlayerGameCode();
-    playerGameCodeValidator(gameCode);
-
-    if (gameCode === GAME_CODE.restart) {
-      this.play();
-    }
-  }
-
   compareNumbers() {
     const computerNumbers = this.#computer.getNumbers();
     const playerNumbers = this.#player.getNumbers();
@@ -66,6 +54,18 @@ class BaseballGameController {
       this.#outputView.printNothing();
     } else {
       this.#outputView.printHint(ball, strike);
+    }
+  }
+
+  async finishGame() {
+    this.#outputView.printGameEnd();
+    this.#gameResult.resetResult();
+
+    const gameCode = await this.#inputView.readPlayerGameCode();
+    playerGameCodeValidator(gameCode);
+
+    if (gameCode === GAME_CODE.restart) {
+      this.play();
     }
   }
 }
