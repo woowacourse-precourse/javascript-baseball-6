@@ -23,7 +23,7 @@ npm test
 - [x] Random 값 추출 및 입출력 핸들링에 `@woowacourse/mission-utils` 라이브러리를 사용하였나요?
 - [x] 새로운 라이브러리를 설치하지 않았나요?
 - [x] process.exit 을 호출하지 않았나요?
-- [ ] [JavaScript 코드 컨벤션](https://github.com/woowacourse/woowacourse-docs/tree/main/styleguide/javascript)이 지켜졌나요?
+- [x] [JavaScript 코드 컨벤션](https://github.com/woowacourse/woowacourse-docs/tree/main/styleguide/javascript)이 지켜졌나요?
 - [x] Node.js 18.17.1 에서 테스트 해보았나요?
 - [ ] PR 후 홈페이지에 과제 제출을 진행하였나요?
 ---
