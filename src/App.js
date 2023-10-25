@@ -12,28 +12,18 @@ class App {
     this.isContinuous = true;
   }
 
-  async play() {
-    Console.print(MESSAGE_TABLE.GAME_START);
+  generateRandomNumber() {
+    const randomNumber = [];
 
-    while (this.isContinuous) {
-      const userInput = await this.parsingUserInput();
+    while (randomNumber.length < 3) {
+      const number = Random.pickNumberInRange(1, 9);
 
-      if (!this.checkValidAnswer(userInput)) {
-        Console.print(MESSAGE_TABLE.INVALID_INPUT);
-        continue;
-      }
-
-      let usersAnswer = this.validateParsedInput(userInput);
-      const computerAnswer = "0b3s";
-
-      this.printResult(usersAnswer);
-
-      if (usersAnswer === computerAnswer) {
-        Console.print(MESSAGE_TABLE.CORRECT_ANSWER);
-        this.isContinuous = false;
-        await this.checkContinueOrExit();
+      if (!randomNumber.includes(number)) {
+        randomNumber.push(number);
       }
     }
+
+    return randomNumber;
   }
 }
 
