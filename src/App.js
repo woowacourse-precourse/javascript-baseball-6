@@ -1,106 +1,86 @@
-import { Console, Random } from "@woowacourse/mission-utils";
+import { Random, Console } from '@woowacourse/mission-utils';
 
 class BaseballGame {
   constructor() {
-    this.computerNumber = this.generateComputerNumber();
-    this.attempts = 0;
+    this.computer = [];
   }
 
   generateComputerNumber() {
-    const numbers = Array.from({ length: 9 }, (_, i) => i + 1);
-    const computerNumber = [];
+    while (this.computer.length < 3) {
+      const number = Random.pickNumberInRange(1, 9);
+      if (!this.computer.includes(number)) {
+        this.computer.push(number);
+      }
+    }
+  }
 
-    while (computerNumber.length < 3) {
-      const randomIndex = Random.pickNumberInRange(1, numbers.length) - 1;
-      const digit = numbers.splice(randomIndex, 1)[0];
-      computerNumber.push(digit);
+  getHint(input) {
+    let strike = 0;
+    let ball = 0;
+
+    for (let i = 0; i < 3; i++) {
+      if (this.computer[i] === input[i]) {
+        strike += 1;
+      } else if (this.computer.includes(input[i])) {
+        ball += 1;
+      }
     }
 
-    return computerNumber.join("");
+    if (strike === 0 && ball === 0) {
+      return '낫싱';
+    } else if (strike === 0) {
+      return `${ball}볼`;
+    } else if (ball === 0) {
+      return `${strike}스트라이크`;
+    } else {
+      return `${ball}볼 ${strike}스트라이크`;
+    }
+  }
+
+  validateInput(input) {
+    if (input.length !== 3 || isNaN(input) || [...new Set(input)].length !== 3) {
+      throw new Error('[ERROR] 입력값이 유효하지 않습니다. 1부터 9까지 서로 다른 숫자 3개를 입력해주세요.');
+    }
   }
 
   async play() {
-    Console.print("숫자 야구 게임을 시작합니다.");
-
-    const playRound = async () => {
-      const userInput = await Console.readLineAsync("숫자를 입력해주세요: ");
-
+    this.generateComputerNumber();
+    while (true) {
+      let input = '';
       try {
-        this.validateUserInput(userInput);
-        this.attempts++;
-        const result = this.compareNumbers(userInput);
-
-        if (result.strikes === 3) {
-          Console.print(`3스트라이크 3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
-          this.askForNewGame();
-        } else if (result.strikes === 0 && result.balls === 0) {
-          Console.print("낫싱");
-        } else {
-          let message = "";
-          if (result.balls > 0) {
-            message += `${result.balls}볼`;
-          }
-          if (result.strikes > 0) {
-            message += (message ? " " : "") + `${result.strikes}스트라이크`;
-          }
-          Console.print(message);
-        }
-
-        playRound();
+        input = await Console.readLineAsync('숫자를 입력해주세요 : ');
+        this.validateInput(input);
       } catch (error) {
-        Console.print(error.message);
-        process.exit(1);
+        console.log(error.message);
+        continue;
       }
-    };
 
-    playRound();
-  }
+      const hint = this.getHint(input.split('').map(Number));
+      console.log(hint);
 
-  validateUserInput(userInput) {
-    if (!/^[1-9]{3}$/.test(userInput)) {
-      throw new Error("[ERROR] 1부터 9까지의 숫자를 이용해서 3자리의 자연수를 입력해주세요.");
-    }
-
-    const digits = userInput.split("");
-    if (digits[0] === digits[1] || digits[1] === digits[2] || digits[0] === digits[2]) {
-      throw new Error("[ERROR] 각 자리의 숫자가 중복되지 않도록 입력해주세요.");
-    }
-  }
-
-  compareNumbers(userInput) {
-    const userDigits = userInput.split("");
-    const computerDigits = this.computerNumber.split("");
-
-    let strikes = 0;
-    let balls = 0;
-
-    for (let i = 0; i < 3; i++) {
-      if (userDigits[i] === computerDigits[i]) {
-        strikes++;
-      } else if (computerDigits.includes(userDigits[i])) {
-        balls++;
+      if (hint === '3스트라이크') {
+        console.log('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+        const restart = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+        if (restart === '1') {
+          this.computer = [];
+          this.play();
+        } else {
+          break;
+        }
       }
     }
-
-    return { strikes, balls };
-  }
-
-  askForNewGame() {
-    Console.print("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요:");
-
-    Console.readLineAsync("").then((choice) => {
-      if (choice === "1") {
-        const newGame = new BaseballGame();
-        newGame.play();
-      } else if (choice === "2") {
-        Console.print("프로그램을 종료합니다.");
-      } else {
-        Console.print("1을 입력하여 게임을 새로 시작하거나 2를 입력하여 종료하세요.");
-        this.askForNewGame();
-      }
-    });
   }
 }
 
-const app = new BaseballGame();
-app.play();
+class App {
+  constructor() {
+    this.baseballGame = new BaseballGame();
+  }
+
+  play() {
+    this.baseballGame.play();
+  }
+}
+
+const game = new App();
+game.play();
