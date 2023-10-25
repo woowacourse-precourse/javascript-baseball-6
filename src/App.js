@@ -12,6 +12,7 @@ class App {
   }
 
   async play() {
+    await this.model.getUserInputNumber();
   }
 
 }

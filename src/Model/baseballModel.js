@@ -25,9 +25,15 @@ class BaseballModel {
 	}
 
 	async getUserInputNumber() {
+		const input = await BaseballView.getUserInput('숫자를 입력해주세요 : ');
+		validate.isNum(input);
+		this.#userInputNumber = input.split('');
+		validate.sizeCheck(3, input);
+		validate.isDuplicatedNumber(input);
 	}
 
 	checkMatchingNumber() {
+
 	}
 
 	isGameOver() {
