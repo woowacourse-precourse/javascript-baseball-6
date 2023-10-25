@@ -1,7 +1,6 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 
 let gameResult = 0;
-let restartResult = 1;
 
 function getRandomNumber() {
   const randomNumbers = [];
@@ -35,9 +34,10 @@ function getGameResult(computer, user) {
 }
 
 class App {
+  restartResult = 1;
   async play() {
-    while (restartResult === 1) {
-      Console.print("숫자 야구 게임을 시작합니다."); // 게임 시작 문구
+    Console.print(`숫자 야구 게임을 시작합니다.`); // 게임 시작 문구
+    while (this.restartResult === 1) {
       let randomNumbers = getRandomNumber(); // 컴퓨터의 숫자 3개 생성
       Console.print(randomNumbers);
 
@@ -50,11 +50,11 @@ class App {
           .split("")
           .map((element) => parseInt(element, 10)); // input을 int형으로 바꾼다.
 
-        if (userInputs.length !== 3) throw new Error("3 Input require"); // 3개의 input인지 검증
+        if (userInputs.length !== 3) throw new Error("[ERROR]3 Input require"); // 3개의 input인지 검증
         const userInputSet = new Set(userInputs);
 
         if (userInputSet.size !== 3) {
-          throw new Error("duplicated input");
+          throw new Error("[ERROR]duplicated input");
         } // 중복된 숫자가 없는지 검증
 
         [ball, strike] = getGameResult(randomNumbers, userInputs);
@@ -75,19 +75,19 @@ class App {
       }
       Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
       let restartInput = await Console.readLineAsync(
-        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+        `게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n`
       );
       if (restartInput === "1") {
-        restartResult = 1;
+        this.restartResult = 1;
         ball = 0;
         strike = 0;
         gameResult = 0;
       } else if (restartInput === "2") {
-        restartResult = 2;
+        this.restartResult = 2;
         return;
       } else {
-        restartResult = 0;
-        throw new Error("not 1 or 2 value. game over");
+        this.restartResult = 0;
+        throw new Error("[ERROR]");
       }
     }
   }
