@@ -1,13 +1,17 @@
 import { Random, Console } from '@woowacourse/mission-utils';
 
+const NUMBER_OF_DIGITS = 3;
+const MIN_NUMBER = 1;
+const MAX_NUMBER = 9;
+
 class BaseballGame {
     constructor() {
         this.computer = [];
     }
 
     generateComputerNumber() {
-        while (this.computer.length < 3) {
-            const number = Random.pickNumberInRange(1, 9);
+        while (this.computer.length < NUMBER_OF_DIGITS) {
+            const number = Random.pickNumberInRange(MIN_NUMBER, MAX_NUMBER);
             if (!this.computer.includes(number)) {
                 this.computer.push(number);
             }
@@ -49,7 +53,7 @@ class BaseballGame {
         while (true) {
             let input = '';
             try {
-                input = await Console.readLineAsync('숫자를 입력해주세요: ');
+                input = await Console.readLineAsync('숫자를 입력해주세요 : ');
                 this.validateInput(input);
             } catch (error) {
                 console.log(error.message);
@@ -83,5 +87,5 @@ class App {
     }
 }
 
-const game = new App();
-game.play();
+const app = new App();
+app.play();
