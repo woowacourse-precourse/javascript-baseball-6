@@ -47,9 +47,10 @@ export default class Computer {
             .map((n) => +n)
             .reduce(
                 (res, cur, idx) => {
-                    if (this.numbers[idx] === cur) res.strike++;
-                    else if (this.numbers.includes(cur)) res.ball++;
-                    return res;
+                    const newRes = { ...res };
+                    if (this.numbers[idx] === cur) newRes.strike++;
+                    else if (this.numbers.includes(cur)) newRes.ball++;
+                    return newRes;
                 },
                 { ball: 0, strike: 0 }
             );
