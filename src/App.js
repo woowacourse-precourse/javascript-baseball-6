@@ -13,6 +13,17 @@ class App {
                 this.randomNumber.push(number);
         }
     }
+
+    async play() {
+        try {
+            this.initGame();
+            MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
+            await this.inputNumber();
+        } catch (error) {
+            throw error;
+        }
+    }
+
 }
 
 export default App;
