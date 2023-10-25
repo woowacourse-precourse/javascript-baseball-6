@@ -15,6 +15,7 @@ const countStrikes = (computer, user) => {
   });
   return strikes;
 };
+
 const countBalls = (computer, user) => {
   let balls = 0;
   user.forEach((u, i) => {
