@@ -19,6 +19,9 @@ class App {
       }
 
       const [strike, ball] = this.getStrikesBalls(input, answer);
+
+      const message = this.getMessage(strike, ball);
+      Console.print(message);
     }
   }
 
@@ -42,6 +45,20 @@ class App {
       }
     }
     return [strike, ball];
+  }
+
+  getMessage(strike, ball) {
+    let message = '';
+    if (ball > 0) {
+      message += `${ball}볼`;
+    }
+    if (strike > 0) {
+      message += ` ${strike}스트라이크`;
+    }
+    if (message === '') {
+      message = '낫싱';
+    }
+    return message.trim();
   }
 }
 
