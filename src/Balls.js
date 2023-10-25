@@ -67,3 +67,4 @@ class Balls {
     Console.print("게임을 다시 시작합니다.");
   }
 }
+export default Balls;
