@@ -3,18 +3,16 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 class App {
     constructor() {
         this.randomNumber = [];
-        // predictNumber = [];
-        this.strike = 0;
-        this.ball = 0;
     }
 
     async play() {
-        // 주어진 util사용하여 중복하지 않는 랜덤 숫자 생성
-
         let isGamePlaying = true;
 
         while (isGamePlaying) {
+            // 게임 재시작 경우를 고려해 초기화
             this.randomNumber = [];
+
+            // 주어진 util사용하여 중복하지 않는 랜덤 숫자 생성
             while (this.randomNumber.length < 3) {
                 const num = MissionUtils.Random.pickNumberInRange(1, 9);
 
@@ -29,15 +27,12 @@ class App {
         }
     }
 
-    async startGame() {}
-
     // 게임
     async playGame() {
         while (true) {
-            let predictNumber;
-
-            this.strike = 0;
-            this.ball = 0;
+            let predictNumber = [];
+            let strike = 0;
+            let ball = 0;
 
             try {
                 // 입력값
@@ -53,20 +48,20 @@ class App {
                 // for문과 if 문 이용해서 각자리 비교
                 for (let i = 0; i < 3; i++) {
                     if (predictNumber[i] == this.randomNumber[i]) {
-                        this.strike++;
+                        strike++;
                     } else if (this.randomNumber.includes(Number(predictNumber[i]))) {
-                        this.ball++;
+                        ball++;
                     }
                 }
 
                 let message = "낫싱";
 
-                if (this.ball > 0 && this.strike > 0) {
-                    message = `${this.ball}볼 ${this.strike}스트라이크`;
-                } else if (this.ball > 0 && this.strike === 0) {
-                    this.message = `${this.ball}볼`;
-                } else if (this.ball === 0 && this.strike > 0) {
-                    message = `${this.strike}스트라이크`;
+                if (ball > 0 && strike > 0) {
+                    message = `${ball}볼 ${strike}스트라이크`;
+                } else if (ball > 0 && strike === 0) {
+                    this.message = `${ball}볼`;
+                } else if (ball === 0 && strike > 0) {
+                    message = `${strike}스트라이크`;
                 }
 
                 // 메세지 출력
@@ -74,7 +69,7 @@ class App {
                 // 출력 메세지
                 const STRIKE_MESSAGE = `3스트라이크 \n3개의 숫자를 모두 맞히셨습니다! 게임 종료`;
 
-                if (this.strike === 3) {
+                if (strike === 3) {
                     MissionUtils.Console.print(STRIKE_MESSAGE);
                     // this.replayGame();
 
