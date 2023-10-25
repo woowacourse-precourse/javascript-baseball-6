@@ -38,7 +38,7 @@ class App {
       return Promise.reject(error);
     }
   }
-  
+
   compare(answer, userInputNumber) {
     let strike = 0;
     let ball = 0;
@@ -53,8 +53,27 @@ class App {
   }
 
   async play() {
+    let start = 1;
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
-    
+  
+    try {
+      while (start == 1) {
+        const answer = this.computer();
+        let strike = 0;
+        let ball = 0;
+
+        while (strike != 3) {
+          const userInputNumber = await this.user();
+
+          [strike, ball] = this.compare(answer, userInputNumber);
+
+        }
+
+        MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+      }
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 }
 
