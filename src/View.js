@@ -1,4 +1,4 @@
-import { DELIMITER } from "./constants/MagicNumber.js";
+import { DELIMITER, BLANK } from "./constants/MagicNumber.js";
 import { OUTPUT_MESSAGE, GAME_RESULT } from "./constants/Messages.js";
 import { Console } from "@woowacourse/mission-utils";
 
