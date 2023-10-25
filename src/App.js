@@ -31,26 +31,32 @@ class App {
   checkAnswer(answer){
     const userAnswer = answer.split('');
     const computerAnswerArr = this.computerAnswer.split('');
-    
+  
     if(userAnswer.length !== 3){
-      throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+      MissionUtils.Console.print('[ERROR] 숫자가 잘못된 형식입니다.');
+      return null; 
     }
     if(userAnswer.includes('0')){
-      throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+      MissionUtils.Console.print('[ERROR] 숫자가 잘못된 형식입니다.');
+      return null;
     }
     if(userAnswer[0] === userAnswer[1] 
       || userAnswer[1] === userAnswer[2] 
       || userAnswer[2] === userAnswer[3]
       ){
-      throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+      MissionUtils.Console.print('[ERROR] 숫자가 잘못된 형식입니다.');
+      return null;
     }
     userAnswer.forEach((idx) => {
       if (isNaN(Number(idx))) {
-        throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+        MissionUtils.Console.print('[ERROR] 숫자가 잘못된 형식입니다.');
+        return null;
       }
     });
-    return { computerAnswerArr, userAnswer }; // return values for further processing
+  
+    return { computerAnswerArr, userAnswer };
   }
+  
   
   countBall(computerAnswerArr, userAnswer) {
     let ball = 0;
@@ -116,6 +122,7 @@ class App {
     }
   }
   
+  
 
   async numCorrect() {
     const answer = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
@@ -131,10 +138,9 @@ class App {
     try {
       await this.numCorrect(); 
     } catch (error) {
-      MissionUtils.Console.print(error.message);
+      return Promise.reject(error.message); // 예외가 발생하면 에러 메시지를 reject 합니다.
     }
   }
-  
   
 }
 

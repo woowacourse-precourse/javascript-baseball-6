@@ -48,18 +48,17 @@ describe("숫자 야구 게임", () => {
     // given
     const randoms = [1, 3, 5];
     const answers = ["1234"];
-  
+
     mockRandoms(randoms);
     mockQuestions(answers);
-  
+
     // when & then
     const app = new App();
-  
+
     try {
-      await app.play(); 
+      await app.play();
     } catch (error) {
-      expect(error.message).toBe("[ERROR]");
+      expect(error.message).toEqual('[ERROR] 숫자가 잘못된 형식입니다.');
     }
   });
-  
 });
