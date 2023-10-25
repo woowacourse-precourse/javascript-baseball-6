@@ -11,12 +11,12 @@ class App {
   async play() {
     console.print('숫자 야구 게임을 시작합니다.');
 
-      while(start == 1) {
-        const input = Console.readLineAsync('숫자를 입력해주세요 : ');
-        const checkInput = this.playgame.check(input);
+      while(1) {
+        const input = await Console.readLineAsync('숫자를 입력해주세요 : ');
+        const checkinput = this.playgame.check(input);
 
         //사용자가 잘못된 값을 입력할 경우
-        if (checkInput === false) {
+        if (checkinput === false) {
           throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
         }
 
@@ -26,8 +26,15 @@ class App {
         
         if (result === '3스트라이크') {
         Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+        const restart = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n");
 
-        start = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+        //게임 재시작 여부
+        if (restart === '1') {
+          this.computer = new Computer();
+        } else {
+          break;
+        }
+
        }
 
       }
@@ -37,5 +44,7 @@ class App {
   }
   
   
+const app = new App();
+app.play();
 
 export default App;
