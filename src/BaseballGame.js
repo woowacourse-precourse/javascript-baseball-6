@@ -38,7 +38,7 @@ class BaseballGame {
     // 입력된 숫자가 3개인지 확인.
     if (this.#userNumbers.length != 3) {
       MissionUtils.Console.print(ERROR_MESSAGES.INVALID_DUPLICATE_NUMBERS);
-      new Error(ERROR_MESSAGES.INVALID_DUPLICATE_NUMBERS);
+      throw new Error(ERROR_MESSAGES.INVALID_DUPLICATE_NUMBERS);
     }
 
     // 각 숫자가 범위 내의 숫자인지 확인.
@@ -46,9 +46,9 @@ class BaseballGame {
       if (isNaN(number)) {
         MissionUtils.Console.print(ERROR_MESSAGES.INVALID_INPUT_NUMBER);
         new Error(ERROR_MESSAGES.INVALID_INPUT_NUMBER);
-      } else if (number <= 0 && 9 < number) {
+      } else if (number <= 0 || 9 < number) {
         MissionUtils.Console.print(ERROR_MESSAGES.OUT_OF_RANGE);
-        new Error(ERROR_MESSAGES.OUT_OF_RANGE);
+        throw new Error(ERROR_MESSAGES.OUT_OF_RANGE);
       }
     });
 
@@ -56,7 +56,7 @@ class BaseballGame {
     const isUnique = new Set(this.#userNumbers).size;
     if (isUnique) {
       MissionUtils.Console.print(ERROR_MESSAGES.INVALID_DUPLICATE_NUMBERS);
-      new Error(ERROR_MESSAGES.INVALID_DUPLICATE_NUMBERS);
+      throw new Error(ERROR_MESSAGES.INVALID_DUPLICATE_NUMBERS);
     }
   }
 }
