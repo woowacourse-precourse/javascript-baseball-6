@@ -1,23 +1,11 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import { generateAnswerArray } from "./init";
-import { handleInput } from "./input";
-import { getHint, checkIsAnswer } from "./hint";
+import { initGame, playGame } from "./game";
 
 class App {
   async play() {
     while (true) {
-      MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
-
-      const answer = await generateAnswerArray();
-
-      let input = "";
-      while (true) {
-        input = await handleInput();
-        const hint = getHint(answer, input);
-        MissionUtils.Console.print(hint);
-
-        if (checkIsAnswer(hint)) break;
-      }
+      const answer = await initGame();
+      await playGame(answer);
 
       MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
 
