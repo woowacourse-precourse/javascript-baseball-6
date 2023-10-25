@@ -1,5 +1,3 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
-
 export default function checkUserInput(USER_INPUT) {
   //숫자인지?
   if (isNaN(Number(USER_INPUT))) {
