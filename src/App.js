@@ -1,8 +1,8 @@
 import { Console } from '@woowacourse/mission-utils';
 
-import { generateRandomNumber } from './generateRandomNumber';
+import generateRandomNumber from './generateRandomNumber';
+import checkResult from './result';
 import { userInput, userInputValidation } from './userInput';
-import { checkResult } from './result';
 import { GAME_END, TEXT, ERROR } from './constants/constants';
 
 class App {
@@ -27,9 +27,8 @@ class App {
     const isSuccess = checkResult(this.computerNumber, this.userNumber);
     if (isSuccess) {
       return this.finishGame();
-    } else {
-      return this.userInputCheck();
     }
+    return this.userInputCheck();
   }
 
   finishGame() {
@@ -41,7 +40,9 @@ class App {
     Console.print(TEXT.RETRY);
     const isGameRestart = await Console.readLineAsync('');
     if (isGameRestart === GAME_END.RETRY) return this.play();
-    else if (isGameRestart !== GAME_END.EXIT) return this.checkResetGame();
+    if (isGameRestart !== GAME_END.EXIT) return this.checkResetGame();
+
+    return null;
   }
 }
 
