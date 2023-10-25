@@ -1,5 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import { AnswerMaker } from "./AnswerMaker";
+import { AnswerMaker } from "./AnswerMaker.js";
+//import { InputView } from "./InputView.js";
 
 class App {
   async play() {
@@ -69,9 +70,10 @@ function resultPrint(strick,ball) {
 
 //3스트라이크: 게임 다시하기
 async function gameRestart() {
-  const restart = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.')
+  MissionUtils.Console.print('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+  const restart = await MissionUtils.Console.readLineAsync('');
   if (restart === '1' || restart === '2') {
-    MissionUtils.Console.print(restart);
+    //MissionUtils.Console.print(restart);
         userIntention(restart);
   } else {
     throw new Error("[ERROR]");
