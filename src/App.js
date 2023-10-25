@@ -5,7 +5,7 @@ const NUMBER_RANGE = /^[1-9]+$/;
 
 class App {
 
-  constructor(){
+  constructor() {
     this.answer = null;
   }
 
@@ -20,13 +20,20 @@ class App {
       case 'playing':{
         const inputNumber = await Console.readLineAsync("숫자를 입력해주세요 : ");
         this.validateAndThrowError(inputNumber)
+
+        const scoreInfo = this.createScore(inputNumber);
+
+        if (scoreInfo.strike === ANSWER_LENGTH) {
+          await this.toggleGame("clear");
+        } 
+        break;
       }
       case 'clear':
       default: break;
     }
   }
 
-  createAnswer(){
+  createAnswer() {
     const answer = [];
     while (answer.length < ANSWER_LENGTH) {
       const number = String(Random.pickNumberInRange(1, 9));
@@ -35,6 +42,21 @@ class App {
       }
     }
     return answer.join("");
+  }
+
+  createScore(inputNumber) {
+    const scoreInfo = { strike: 0, ball: 0 };
+    for(let i = 0 ; i < ANSWER_LENGTH ; i++){
+      const currentNumber = inputNumber[i];
+      if(currentNumber === this.answer[i]){
+        scoreInfo.strike++;
+        continue;
+      }
+      if(this.answer.includes(currentNumber)){
+        scoreInfo.ball++;
+      }
+    }
+    return scoreInfo;
   }
 
   validateAndThrowError(inputNumber){
