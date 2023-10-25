@@ -1,91 +1,76 @@
 #!/usr/bin/env node
+const { Random, Console } = import('@woowacourse/mission-utils');
+
 class App {
   play() {
-    console.log("App Start..")
-  }
-}
+    Console.print('숫자 야구 게임을 시작합니다.');
 
+    while (true) {
+      const computer = this.generateRandomNumber();
+      Console.print('서로 다른 3자리의 숫자를 입력해주세요: ');
+      const userGuess = Console.readLineAsync();
 
-const app = new App();
-app.play;
+      if (userGuess.length !== 3 || !this.isUnique(userGuess)) {
+        Console.print('올바른 3자리 숫자를 입력해주세요.');
+        continue;
+      }
 
-const readline = require('readline');
+      const result = this.calculateResult(computer, userGuess);
+      Console.print(result);
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
-
-function generateRandomNumber() {
-  const numbers = MissionUtils.Random.pickNumberInRange(1, 9);
-  const result = [];
-  for (let i = 0; i < 3; i++) {
-    const randomIndex = Math.floor(Math.random() * numbers.length);
-    result.push(numbers[randomIndex]);
-    numbers.splice(randomIndex, 1);
-  }
-  return result;
-}
-
-function getHint(guess, answer) {
-  let strike = 0;
-  let ball = 0;
-
-  for (let i = 0; i < 3; i++) {
-    if (guess[i] === answer[i]) {
-      strike++;
-    } else if (answer.includes(guess[i])) {
-      ball++;
+      if (result === '3스트라이크') {
+        Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+        const restart = this.askForRestart();
+        if (restart !== '1') {
+          Console.print('게임을 종료합니다.');
+          break;
+        }
+      }
     }
   }
 
-  if (strike === 3) {
-    return '3스트라이크! 정답을 맞혔습니다!';
-  } else {
-    const strikeText = strike > 0 ? `${strike}스트라이크` : '';
-    const ballText = ball > 0 ? `${ball}볼` : '';
-    const nothingText = strike === 0 && ball === 0 ? '낫싱' : '';
-    return `${strikeText} ${ballText} ${nothingText}`;
+  generateRandomNumber() {
+    const computer = [];
+    while (computer.length < 3) {
+      const number = Random.pickNumberInRange(1, 9);
+      if (!computer.includes(number)) {
+        computer.push(number);
+      }
+    }
+    return computer.join('');
+  }
+
+  isUnique(guess) {
+    return new Set(guess).size === 3;
+  }
+
+  calculateResult(computer, userGuess) {
+    let strike = 0;
+    let ball = 0;
+
+    for (let i = 0; i < 3; i++) {
+      if (computer[i] === userGuess[i]) {
+        strike++;
+      } else if (computer.includes(userGuess[i])) {
+        ball++;
+      }
+    }
+
+    if (strike === 3) {
+      return '3스트라이크';
+    } else {
+      const strikeText = strike > 0 ? `${strike}스트라이크` : '';
+      const ballText = ball > 0 ? `${ball}볼` : '';
+      const nothingText = strike === 0 && ball === 0 ? '낫싱' : '';
+      return `${strikeText} ${ballText} ${nothingText}`;
+    }
+  }
+
+  askForRestart() {
+    Console.print('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+    return Console.readLineAsync();
   }
 }
 
-function playGame() {
-  const answer = generateRandomNumber();
-  let attempts = 0;
-
-  function askForGuess() {
-    rl.question('숫자를 입력해주세요: ', (input) => {
-      const guess = input.trim().split('').map(Number);
-
-      if (guess.length !== 3 || guess.some(isNaN) || new Set(guess).size !== 3) {
-        console.log('올바른 3자리 숫자를 입력해주세요.');
-        askForGuess();
-        return;
-      }
-
-      const hint = getHint(guess, answer);
-      console.log(hint);
-
-      attempts++;
-
-      if (hint !== '3스트라이크! 정답을 맞혔습니다!') {
-        console.log(`시도 횟수: ${attempts}`);
-        askForGuess();
-      } else {
-        console.log(`게임 종료! ${attempts}번 시도했습니다.`);
-        rl.question('게임을 다시 시작하려면 "yes"를 입력하세요. 그렇지 않으면 종료합니다: ', (response) => {
-          if (response.toLowerCase() === 'yes') {
-            playGame();
-          } else {
-            rl.close();
-          }
-        });
-      }
-    });
-  }
-
-  console.log('1부터 9까지 서로 다른 숫자로 이루어진 3자리 수를 맞춰보세요.');
-  askForGuess();
-}
-
-playGame();
+const app = new App();
+app.play();
