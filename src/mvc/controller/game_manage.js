@@ -1,5 +1,6 @@
 import ComputerNum from '../model/computer_num.js';
 import CalculateResult from '../model/calculate_game_result.js';
+import PrintGameResult from '../view/print_game_result.js';
 import UserNumError from '../../utils/error/user_num_error.js';
 import {Console} from '@woowacourse/mission-utils';
 
@@ -38,8 +39,24 @@ class GameManage {
     const PRINT_GAME_RESULT = new PrintGameResult(GAME_RESULT);
     if (GAME_RESULT.strike === 3) {
       PRINT_GAME_RESULT.printThreeStrike();
+      return this.newGameOrExit();
     }
     PRINT_GAME_RESULT.printNotRight();
+    this.gameRestart();
+  }
+  gameRestart() {
+    this.isResetComputerNum = false;
+    this.inputUserNum();
+  }
+  async newGameOrExit() {
+    switch(await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.')) {
+      case '1':
+        this.isResetComputerNum = true;
+        this.inputUserNum();
+        break;
+      default:
+        return;
+    }
   }
 }
 
