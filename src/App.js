@@ -1,3 +1,5 @@
+import { Console, Random } from './Constant';
+
 class App {
   constructor() {
     this.pitcherNumbers = [];
@@ -13,6 +15,7 @@ class App {
   async gameStart() {
     this.pitcherNumbers = [];
     await this.getPitcherNumbers();
+    await this.getHitterNumbers();
   }
 
   async getPitcherNumbers() {
@@ -22,6 +25,10 @@ class App {
         this.pitcherNumbers.push(number);
       }
     }
+  }
+
+  async getHitterNumbers() {
+    const answerStr = await Console.readLineAsync(GAME_START_TEXT);
   }
 }
 
