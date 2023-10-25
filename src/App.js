@@ -44,7 +44,23 @@ class App {
       }
     }
     return { strike, ball };
-  };
+  }
+
+  tellStrike(strike, ball){
+    //조건별 출력
+    if (strike ===0 && ball ===0){
+      MissionUtils.Console.print("낫싱");
+    }
+    else if(strike ===0){
+      MissionUtils.Console.print(`${ball}볼`);
+    }
+    else if(ball ===0){
+      MissionUtils.Console.print(`${strike}스트라이크`);
+    }
+    else{
+      MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
+    }
+  }
 
   async play() {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
@@ -56,34 +72,17 @@ class App {
       if (!USER_INPUT){
         throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
       }
+      
       //입력받은 숫자 배열에 넣기
       const INPUT_LIST = USER_INPUT.split('').map(Number);
       
       //스트라이크 볼 체크
       const { strike, ball } = this.checkNumber(INPUT_LIST, this.answerList);
-
-
-      //조건별 출력
-      if (strike ===0 && ball ===0){
-        MissionUtils.Console.print("낫싱");
-      }
-      else if(strike ===0){
-        MissionUtils.Console.print(`${ball}볼`);
-      }
-      else if(ball ===0){
-        MissionUtils.Console.print(`${strike}스트라이크`);
-      }
-      else{
-        MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
-      }
-
-
+      this.tellStrike(strike,ball);
 
       // 게임종료
       if (strike===3){
         MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-
-        //리트하실?
         const again =await MissionUtils.Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
         //1 일때는 한번 더
         if (again===RESTART){
