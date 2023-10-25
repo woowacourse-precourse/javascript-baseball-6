@@ -8,7 +8,7 @@ class App {
 
   async play() {
     Console.print("숫자 야구 게임을 시작합니다.");
-    this.startGame();
+    await this.startGame();
   }
 
   async startGame() {
@@ -99,7 +99,7 @@ class App {
 
   validateUserInput(userInput) {
     if (!this.checkUserInputLength(userInput)) {
-      throw new Error(`[ERROR] 서로 다른 3자리 숫자를 입력해주세요.`);
+      throw new Error("[ERROR] 서로 다른 3자리 숫자를 입력해주세요.");
     }
     if (!this.checkUserInputIsNumbers(userInput)) {
       throw new Error("[ERROR] 숫자가 아닌 문자가 포함되어 있습니다.");
