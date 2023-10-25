@@ -22,8 +22,18 @@ class Game {
   }
 
   inputController(input) {
-    if (input.length !== 3) throw new Error("[ERROR]game");
-    if (!/^[1-9]{3}$/.test(input)) throw new Error("[ERROR]game");
+    if (input.length !== 3)
+      throw new Error(
+        "[ERROR]{1 - 9}의 중복되지 않는 3자리 숫자를 입력해주세요."
+      );
+    if (!/^[1-9]{3}$/.test(input))
+      throw new Error(
+        "[ERROR]{1 - 9}의 중복되지 않는 3자리 숫자를 입력해주세요."
+      );
+    if (new Set(input.split("")).size !== 3)
+      throw new Error(
+        "[ERROR]1 - 9의 중복되지 않는 3자리 숫자를 입력해주세요."
+      );
 
     const newInput = input.split("").map(Number);
     const result = this.computer.resultGenerator(newInput);
@@ -39,7 +49,7 @@ class Game {
         "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
       );
       if (endSelector != "1" && endSelector != "2")
-        throw new Error("[ERROE]end");
+        throw new Error("[ERROE]1 또는 2를 입력해주세요.");
       else {
         this.isStart = endSelector;
         this.isSuccess = true;
