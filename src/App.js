@@ -1,15 +1,17 @@
+import { MissionUtils } from "@woowacourse/mission-utils";
+
 class App {
   async play() {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
     const computer = this.generateRandomNumbers();
     while (true) {
-      if (this.printUserGuess(this.judgeUserGuess(computer, this.takeUserGuess()))) {
-        MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
-        const playContinue = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
-        if (playContinue !== '1' || playContinue !== '2') {
-          throw MissionUtils.Console.print('1 또는 2만 입력 가능합니다.');
+      if (this.printUserGuess(this.judgeUserGuess(computer, await this.takeUserGuess()))) {
+        MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+        const playContinue = await MissionUtils.Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+        if (playContinue !== "1" && playContinue !== "2") {
+          throw MissionUtils.Console.print("1 또는 2만 입력 가능합니다.");
         }
-        if (playContinue === '2') {
+        if (playContinue === "2") {
           break;
         }
       }
@@ -28,12 +30,12 @@ class App {
     return computer;
   }
 
-  takeUserGuess() {
-    const inputString = MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
+  async takeUserGuess() {
+    const inputString = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
     const input = inputString.trim().split('').map(Number);
 
     if (input.length !== 3 || input.includes(NaN)) {
-      throw MissionUtils.Console.print('3자리 숫자만 입력 가능합니다.');
+      throw MissionUtils.Console.print("3자리 숫자만 입력 가능합니다.");
     }
 
     return input;
@@ -54,15 +56,15 @@ class App {
 
   printUserGuess(guessResult) {
     if (guessResult[0] === 3) {
-      MissionUtils.Console.print('3볼');
+      MissionUtils.Console.print("3볼");
       return false;
     }
     if (guessResult.reduce((acc, cur) => {return acc + cur}, 0) === 0) {
-      MissionUtils.Console.print('낫싱');
+      MissionUtils.Console.print("낫싱");
       return false;
     }
     if (guessResult[1] === 3) {
-      MissionUtils.Console.print('3스트라이크');
+      MissionUtils.Console.print("3스트라이크");
       return true;
     }
     MissionUtils.Console.print(`${guessResult[0]}볼 ${guessResult[1]}스트라이크`);
