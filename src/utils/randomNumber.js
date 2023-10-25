@@ -8,5 +8,5 @@ export const randomNumber = () => {
       COMPUTER.push(number);
     }
   }
-  return COMPUTER
+  return COMPUTER;
 };
