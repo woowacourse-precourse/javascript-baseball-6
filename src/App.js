@@ -17,6 +17,10 @@ class App {
   }
 
   inputCheck(input) {
+    const regexp = /^[1-9]+$/;
+    if (!input.match(regexp)) {
+      throw new Error('[ERROR] 1부터 9까지의 수가 아닙니다.');
+    }
     const number = input.split('').map(Number);
     if (number.length !== 3) {
       throw new Error('[ERROR] 3자리 숫자가 아닙니다.');
@@ -102,6 +106,3 @@ class App {
 }
 
 export default App;
-
-// const app = new App();
-// app.play();
