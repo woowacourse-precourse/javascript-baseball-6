@@ -1,8 +1,8 @@
 import { Console, MissionUtils } from '@woowacourse/mission-utils';
 
+import MESSAGES from './message.js';
 import feedback from './feedback/feedback.js';
 import isError from './validation.js';
-import { messages } from './message.js';
 
 class App {
   constructor() {
@@ -28,13 +28,13 @@ class App {
     this.gameStart();
   }
   async gameOver() {
-    Console.print(messages.correctNumber);
-    let rePlay = Number(await Console.readLineAsync(messages.reStart));
+    Console.print(MESSAGES.correctNumber);
+    let rePlay = Number(await Console.readLineAsync(MESSAGES.reStart));
     if (rePlay === 1) this.reStart();
-    else if (rePlay !== 2) throw new Error(messages.errorMessage);
+    else if (rePlay !== 2) throw new Error(MESSAGES.errorMessage);
   }
   async getPlayerNumber() {
-    this.player = [...(await Console.readLineAsync(messages.inputNumber))];
+    this.player = [...(await Console.readLineAsync(MESSAGES.inputNumber))];
   }
   async createRandomNumber() {
     while (this.computer.length < 3) {
@@ -43,7 +43,7 @@ class App {
     }
   }
   async startMessage() {
-    Console.print(messages.gameStart);
+    Console.print(MESSAGES.gameStart);
   }
   async play() {
     this.startMessage();
