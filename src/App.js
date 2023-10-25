@@ -40,10 +40,17 @@ class App {
   }
   comparePrint(STRIKE,BALL)
   {
-    (STRIKE && BALL) && Console.print(`${BALL}볼 ${STRIKE}스트라이크`);
-    (!STRIKE && BALL) && Console.print(`${BALL}볼`);
-    (STRIKE && !BALL) && Console.print(`${STRIKE}스트라이크`);
-    (!STRIKE && !BALL) && Console.print(`낫싱`);
+    if(STRIKE && BALL) Console.print(`${BALL}볼 ${STRIKE}스트라이크`); else false;
+    if(!STRIKE && BALL) Console.print(`${BALL}볼`); else false
+    if(STRIKE && !BALL) Console.print(`${STRIKE}스트라이크`)
+    else{
+      if(STRIKE===3){
+        Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+        return true;
+      }
+      else false;
+    }
+    if(!STRIKE && !BALL) Console.print(`낫싱`);
   }
   compareNumber(userNumbers)
   {
@@ -54,8 +61,12 @@ class App {
   async play() {
 
       Console.print("숫자 야구 게임을 시작합니다.");
-      const userNumbers = await this.userNumberInput();
-      this.compareNumber(userNumbers);
+
+      while(1)
+      {
+        const userNumbers = await this.userNumberInput();
+        this.compareNumber(userNumbers);
+      }
   }
 }
 
