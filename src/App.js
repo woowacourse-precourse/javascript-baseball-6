@@ -14,7 +14,6 @@ class App {
     // 5. 재시작 확인 1-4 while문
     while (this.GAME_FLAG) {
       this.GAME_ING = true;
-      Console.print('숫자 야구 게임을 시작합니다.');
       const COMPUTER_NUM = this.createRandomNum();
 
       while (this.GAME_ING) {
@@ -22,7 +21,8 @@ class App {
         const GAME_RESULT = this.compareNum(USER_NUM, COMPUTER_NUM);
         this.resultConsole(GAME_RESULT);
       }
-      await this.restartGame(); 
+
+      await this.restartGame();
     }
   }
 
@@ -38,12 +38,12 @@ class App {
     return COMPUTER.join('');
   }
 
-  // 게임 로직 
+  // 게임 로직
   async baseballGame(COMPUTER_NUM) {
     while (this.GAME_ING) {
-    const USER_NUM = await this.getUserInput();
-    const GAME_RESULT = this.compareNum(USER_NUM, COMPUTER_NUM);
-    this.resultConsole(GAME_RESULT);
+      const USER_NUM = await this.getUserInput();
+      const GAME_RESULT = this.compareNum(USER_NUM, COMPUTER_NUM);
+      this.resultConsole(GAME_RESULT);
     }
     this.GAME_ING = true;
     this.restartGame();
@@ -82,6 +82,7 @@ class App {
   resultConsole(gameResult) {
     let [ball, strike] = gameResult;
     if (strike === 3) {
+      Console.print(`${strike}스트라이크`)
       Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
       this.GAME_ING = false;
     } else if (ball === 0 && strike === 0) {
@@ -114,8 +115,5 @@ class App {
     }
   }
 }
-
-const app = new App();
-app.play();
 
 export default App;
