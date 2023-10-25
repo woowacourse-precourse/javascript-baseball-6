@@ -14,6 +14,26 @@ class App {
 
   async play() {
     Console.print(MESSAGE_TABLE.GAME_START);
+
+    while (this.isContinuous) {
+      const userInput = await this.parsingUserInput();
+
+      if (!this.checkValidAnswer(userInput)) {
+        Console.print(MESSAGE_TABLE.INVALID_INPUT);
+        continue;
+      }
+
+      let usersAnswer = this.validateParsedInput(userInput);
+      const computerAnswer = "0b3s";
+
+      this.printResult(usersAnswer);
+
+      if (usersAnswer === computerAnswer) {
+        Console.print(MESSAGE_TABLE.CORRECT_ANSWER);
+        this.isContinuous = false;
+        await this.checkContinueOrExit();
+      }
+    }
   }
 
   generateRandomNumber() {
