@@ -6,8 +6,29 @@ class App {
   async play() {
     Console.print('숫자 야구 게임을 시작합니다.');
     const computerNumber = CreateComputerNumber(3);
+    this.turn(computerNumber);
+  }
+
+  async start() {
+    const computerNumber = CreateComputerNumber(3);
+    this.turn(computerNumber);
+  }
+
+  async turn(computerNumber) {
     const number = await InputNumber();
-    CompareNumber(computerNumber, number);
+    const restart = await CompareNumber(computerNumber, number);
+    switch (restart) {
+      case 0:
+        this.turn(computerNumber);
+        break;
+      case 1:
+        this.start();
+        break;
+      case 2:
+        break;
+      default:
+        break;
+    }
   }
 }
 
@@ -30,8 +51,8 @@ function CheckString(input) {
 }
 
 function CheckRestartInput(input) {
-  if (input === '1') return true;
-  if (input === '2') return false;
+  if (input === '1') return 1;
+  if (input === '2') return 2;
 
   throw new Error(
     '[ERROR] Input Value is Incorrect. You have to choose 1 or 2.'
@@ -80,17 +101,18 @@ function CompareNumber(computerNumber, myNumber) {
   });
   const [result, isEnd] = PrintOutput(ball, strike);
   Console.print(result);
-  isRestartGame(isEnd);
+  return isRestartGame(isEnd);
 }
 
 async function isRestartGame(isEnd) {
-  if (!isEnd) return;
+  if (!isEnd) return 0;
   Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
   try {
     const choice = await Console.readLineAsync(
       '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.'
     );
     const restart = CheckRestartInput(choice);
+    return restart;
   } catch (error) {
     throw new Error(error, '[ERROR] readLineAsync Promise Rejected.');
   }
