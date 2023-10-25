@@ -21,16 +21,20 @@ export class BaseballController {
       if (gameResult.strike === DONE_COUNT) break;
     }
 
-    const restartCommand = await this.view.getInputAsync(MESSAGE.RESTART);
-    this.checkRestartCommand(restartCommand);
-    restartCommand === RESTART_COMMAND.NEWGAME ? this.start() : this.quit();
+    await this.queryRestartOption();
   }
 
   quit() {
     return;
   }
 
-  checkRestartCommand(command) {
+  async queryRestartOption() {
+    const restartCommand = await this.view.getInputAsync(MESSAGE.RESTART);
+    this.validateRestartCommand(restartCommand);
+    restartCommand === RESTART_COMMAND.NEWGAME ? this.start() : this.quit();
+  }
+
+  validateRestartCommand(command) {
     const validCommands = [RESTART_COMMAND.NEWGAME, RESTART_COMMAND.QUIT];
     if (!validCommands.includes(command)) {
       throw new Error(ERROR_MESSAGE.INVALID_END_COMMAND);
