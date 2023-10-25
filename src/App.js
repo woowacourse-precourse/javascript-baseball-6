@@ -66,13 +66,14 @@ function compareTwo3digitNumbers(targetNumber, userInputNumber) {
   let strike = 0;
   let ball = 0; 
 
-  for (let i =0 ; i < targetNumber.length; i++) {
-    targetNumber.includes(userInputNumber[i]) && (
-      targetNumber[i] == userInputNumber[i]
-      ? strike++
-      : ball++
+  userInputNumber.forEach((digit, index) => {
+    targetNumber.includes(digit) && (
+      targetNumber[index] == digit 
+        ? strike ++
+        : ball++
     )
-  }
+  })
+
   return [ball, strike];
 }
 
