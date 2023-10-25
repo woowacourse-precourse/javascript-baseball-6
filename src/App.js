@@ -1,6 +1,11 @@
 import { Console, MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
+  //게임이 시작될 때 컴퓨터 숫자를 한 번만 생성
+  constructor() {
+    this.computerNumbers = this.randomNumber();
+  }
+
   //게임시작
   start() {
     Console.print("숫자 야구 게임을 시작합니다.");
@@ -44,12 +49,10 @@ class App {
     let answer = "";
 
     for (let i = 0; i < 3; i++) {
-      //같은 수, 같은 자리
+      //같은 수, 같은 자리 or 같은 수, 다른 자리
       if (computer[i] === numbers[i]) {
         strikes += 1;
-      }
-      //같은 수, 다른 자리
-      if (computer.includes(numbers[i])) {
+      } else if (computer.includes(numbers[i])) {
         balls += 1;
       }
     }
@@ -73,32 +76,35 @@ class App {
 
   //게임재시작 여부
   async reStart(strikes) {
-    if (strikes === 3) {
+    if (strikes === 3 && balls === 3) {
       Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
       const choice = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.")
 
       if (choice === "1") {
         this.play();
       } else if (choice === "2") {
-        process.exit(0);
+        return;
       } else {
         throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
       }
-
     }
   }
 
   async play() {
     this.start();
-    const userNumbers = await this.getNumbers(); //사용자로부터 입력받은 숫자
-    try {
-      this.exception(userNumbers);
-      const computerNumbers = this.randomNumber();//랜덤으로 생성된 숫자
-      const answer = this.score(computerNumbers, userNumbers);
-      this.printAnswer(answer);
-    } catch (error) {
-      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
-      process.exit(1);
+    while (true) {
+      const userNumbers = await this.getNumbers(); //사용자로부터 입력받은 숫자
+      try {
+        this.exception(userNumbers);
+        const answer = this.score(this.computerNumbers, userNumbers);
+        this.printAnswer(answer);
+        const choice = await this.reStart(answer.startsWith('3스트라이크') ? 3 : 0);
+        if (choice === 2) {
+          break;
+        }
+      } catch (error) {
+        throw new Error(error.message);
+      }
     }
   }
 }
