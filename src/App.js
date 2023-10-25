@@ -7,7 +7,7 @@ class App {
 
     while (true) {
       await baseballGame.start();
-      const action = await baseballGame.askForRestartOrExit();
+      const action = await baseballGame.getActionFromInput();
       if (action === GAME_ACTIONS.EXIT) break;
     }
   }

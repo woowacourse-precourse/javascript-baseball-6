@@ -25,16 +25,18 @@ export class BaseballGame {
   }
 
   /** 게임을 재시작할지 종료할지 입력받는 함수 */
-  async askForRestartOrExit() {
+  async getActionFromInput() {
     const finishControlInput = await Console.readLineAsync(
       MESSAGES.INPUT_ACTION
     );
 
-    if (finishControlInput === "1") return GAME_ACTIONS.RESTART;
+    const isInvalid = !Object.values(GAME_ACTIONS).includes(
+      +finishControlInput
+    );
 
-    if (finishControlInput === "2") return GAME_ACTIONS.EXIT;
+    if (isInvalid) throw new Error(MESSAGES.INPUT_ERROR);
 
-    throw new Error(MESSAGES.INPUT_ERROR);
+    return +finishControlInput;
   }
 
   /** 입력받은 input과 answer를 비교해서 볼, 스트라이크 수를 리턴하는 메소드 */
