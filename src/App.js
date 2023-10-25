@@ -1,51 +1,51 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
+import { MissionUtils, Console } from "@woowacourse/mission-utils";
 
 const START_MESSAGE = '숫자 야구 게임을 시작합니다.';
 const INPUT_MESSAGE = '숫자를 입력해주세요 : ';
 const THREE_STRIKE_MESSAGE = '3개의 숫자를 모두 맞히셨습니다! 게임 종료';
 const RETRY_MESSAGE = '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n';
-const ERROR_MESSAGE = '[ERROR] 잘못된 수의 형식입니다.'
+const ERROR_MESSAGE = '[ERROR] 숫자가 잘못된 형식입니다.'
 const NOTHING = '낫싱';
 const BALL = '볼';
 const STRIKE = '스트라이크';
 
 class App {
   async play() {
-    MissionUtils.Console.print(`${START_MESSAGE}`);
-    this.getGameResult();    
-  }
-
-  async getGameResult() {
+    Console.print(`${START_MESSAGE}`);
+    // this.getGameResult();  
     while (true) {
       let inputNumber, retryNumber;
       const answerNumber = await this.makeAnsNumber();
-      console.log(answerNumber);
       let isThreeStrike = true;
 
       while (isThreeStrike) {
         inputNumber = await this.makeInputNumber();
         if (!inputNumber) break;
         let [strike, ball, out] = this.checkNumber(answerNumber, inputNumber);
-        if (out === 3) MissionUtils.Console.print(`${NOTHING}`);
+        if (out === 3) Console.print(`${NOTHING}`);
         else {
           if (ball > 0) {
             if (strike === 0) {
-              MissionUtils.Console.print(ball + `${BALL}`);
+              Console.print(ball + `${BALL}`);
             } else {
-              MissionUtils.Console.print(ball + `${BALL}` + strike + `${STRIKE}`);
+              Console.print(ball + `${BALL}` + strike + `${STRIKE}`);
             }
           }
-          else MissionUtils.Console.print(strike + `${STRIKE}`);
+          else Console.print(strike + `${STRIKE}`);
         }
         isThreeStrike = strike === 3 ? false : true;
       }
       if (!inputNumber) break;
-      MissionUtils.Console.print(`${THREE_STRIKE_MESSAGE}`);
+      Console.print(`${THREE_STRIKE_MESSAGE}`);
       retryNumber = await this.inputRetry();
       if (!retryNumber) break;
       if (retryNumber === 2) break;
     }
   }
+
+  // async getGameResult() {
+    
+  // }
 
   async makeAnsNumber() {
     const numberArr = [];
@@ -60,12 +60,12 @@ class App {
 
   async makeInputNumber() {
     try {
-      let inputNumber = await MissionUtils.Console.readLineAsync(`${INPUT_MESSAGE}`);
+      let inputNumber = await Console.readLineAsync(`${INPUT_MESSAGE}`);
       this.checkInputNumber(inputNumber);
       inputNumber = [...inputNumber].map(el => +el);
       return inputNumber;
     } catch (error) {
-      MissionUtils.Console.print(error.message);
+      Console.print(error.message);
     }
   }
 
@@ -76,11 +76,11 @@ class App {
 
   async inputRetry() {
     try {
-      let message = await MissionUtils.Console.readLineAsync(`${RETRY_MESSAGE}`);
+      let message = await Console.readLineAsync(`${RETRY_MESSAGE}`);
       this.checkRetryNumber(message);
       return +message;
     } catch (error) {
-      MissionUtils.Console.print(error.message);
+      Console.print(error.message);
     }
   }
 
