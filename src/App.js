@@ -3,7 +3,7 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 class App {
   constructor() {
     this.randomNumbers = [];
-    this.userInput = "";
+    this.userInput = [];
   }
 
   async play() {
@@ -14,7 +14,10 @@ class App {
   async startGame() {
     this.generateRandomNumbers();
     try {
-      await this.getUserInput();
+      while (true) {
+        await this.getUserInput();
+        this.getResult();
+      }
     } catch (error) {
       console.error(error.message);
     }
@@ -34,7 +37,38 @@ class App {
       "서로 다른 3자리의 숫자를 입력해주세요 : "
     );
     this.validateUserInput(userInput);
-    this.userInput = userInput;
+    this.userInput = userInput.split("").map(Number);
+  }
+
+  getResult() {
+    let strikes = 0;
+    let balls = 0;
+    let result = "";
+
+    for (let i = 0; i < 3; i++) {
+      if (this.userInput[i] === this.randomNumbers[i]) {
+        strikes++;
+      } else if (this.randomNumbers.includes(this.userInput[i])) {
+        balls++;
+      }
+    }
+
+    if (balls > 0 && strikes > 0) {
+      result = `${balls}볼 ${strikes}스트라이크`;
+    } else if (balls > 0) {
+      result = `${balls}볼`;
+    } else if (strikes > 0) {
+      result = `${strikes}스트라이크`;
+      if (strikes === 3) {
+        MissionUtils.Console.print("3스트라이크");
+        return true;
+      }
+    } else {
+      result = "낫싱";
+    }
+
+    MissionUtils.Console.print(result);
+    return false;
   }
 
   validateUserInput(userInput) {
