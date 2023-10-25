@@ -19,7 +19,6 @@ export default class OutputView {
     _ = paramType(baseBallCountResult, Object)
   ) {
     const { strike, ball, isNothing } = baseBallCountResult;
-    console.log(baseBallCountResult);
 
     if (isNothing) {
       this.#print(BASEBALL_TEXT.NOTHING);
