@@ -24,23 +24,20 @@ class App {
 
       for (let i = 0; i < 3; i++) {
         const idx = line.indexOf(value[i]);
-        if (idx == i) sign[0]++;
-        else if (idx != -1) sign[1]++;
+        if (idx === i) sign[0]++;
+        else if (idx !== -1) sign[1]++;
       }
 
-      if (sign[0] == 3) {
+      if (sign[0] === 3) {
         Console.print("3스트라이크");
         Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
         break;
       }
       else {
-        let answer = '';
-
-        if (sign[1] > 0) answer += sign[1] + "볼";
-        if (sign[0] > 0) answer += sign[0] + "스트라이크";
-        if (answer.length == 0) answer = "낫싱"
-
-        Console.print(answer);
+        if(sign[0] === 0 && sign[1] === 0)  Console.print("낫싱");
+        else if(sign[0] === 0)  Console.print(sign[1]+"볼")
+        else if(sign[1] === 0)  Console.print(sign[0]+"스트라이크")
+        else   Console.print(`${sign[1]}볼 ${sign[0]}스트라이크`)
       }
     }
   }
