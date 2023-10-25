@@ -12,20 +12,23 @@ export class BaseballGame {
     this.computer = null;
   }
 
-  startGame() {
+  initialStart() {
     this.init();
     Console.print(ConsoleMessage.START_GAME);
-    return this.playBaseball(this.computer);
+    return this.playBaseball();
   }
 
   init() {
     this.computer = this.getRandomComputerNumber();
   }
 
-  async playBaseball(computer) {
-    const user = await this.getUserNumber();
-    const score = this.getScore(computer, user);
-    const result = this.printResult(score);
+  async playBaseball() {
+    let result = false;
+    while (!result) {
+      const user = await this.getUserNumber();
+      const score = this.getScore(user);
+      result = this.printResult(score);
+    }
     await this.restartGame(result);
   }
 
@@ -45,26 +48,38 @@ export class BaseballGame {
 
   async getUserNumber() {
     const user = await Console.readLineAsync(ConsoleMessage.USER_NUMBER);
-    const validatedNum = this.validateUserDigits(user.trim());
-    const parsedNum = validatedNum.map((v) => parseInt(v));
-    return parsedNum;
+    return this.validateUserDigits(user);
   }
 
   validateUserDigits(user) {
-    if (isNaN(user) || user.includes('0') || user.includes('.'))
-      throw new Error(ErrorMessage.VALID_FROM_ONE_TO_NINE);
-    if (user.length !== BaseballGame.DIGITS_COUNT)
-      throw new Error(ErrorMessage.THREE_DIGITS_ONLY);
-    const array = user.split('');
-    const dupCheck = array.filter((v, i) => user.indexOf(v) === i);
-    if (dupCheck.length < BaseballGame.DIGITS_COUNT)
-      throw new Error(ErrorMessage.MUST_DIFFERENT_DIGITS);
-    return dupCheck;
+    this.validateFromOneToNine(user);
+    this.validateThreeDigitsOnly(user);
+    this.validateDifferentDigits(user);
+    const allChecked = user.split('');
+    return allChecked.map((v) => parseInt(v));
   }
 
-  getScore(computer, user) {
+  validateFromOneToNine(user) {
+    const regExg = /^[1-9]+$/;
+    if (!regExg.test(user))
+      throw new Error(ErrorMessage.VALID_FROM_ONE_TO_NINE);
+  }
+
+  validateThreeDigitsOnly(user) {
+    if (user.length !== BaseballGame.DIGITS_COUNT)
+      throw new Error(ErrorMessage.THREE_DIGITS_ONLY);
+  }
+
+  validateDifferentDigits(user) {
+    const array = user.split('');
+    const dupChecked = array.filter((v, i) => user.indexOf(v) === i);
+    if (dupChecked.length < BaseballGame.DIGITS_COUNT)
+      throw new Error(ErrorMessage.MUST_DIFFERENT_DIGITS);
+  }
+
+  getScore(user) {
     const result = { strike: 0, ball: 0 };
-    computer.forEach((v, i) => {
+    this.computer.forEach((v, i) => {
       if (v === user[i]) return result.strike++;
       if (v !== user[i] && user.includes(v)) return result.ball++;
     });
@@ -78,15 +93,15 @@ export class BaseballGame {
     if (!strike && ball) Console.print(`${ball}볼`);
     if (!strike && !ball) Console.print('낫싱');
 
-    if (strike === BaseballGame.DIGITS_COUNT) return true;
-    else return false;
+    if (strike === BaseballGame.DIGITS_COUNT) {
+      Console.print(ConsoleMessage.ALL_CORRECT);
+      return true;
+    } else return false;
   }
 
   restartGame(result) {
-    if (result) {
-      Console.print(ConsoleMessage.ALL_CORRECT);
-      return this.endGame();
-    } else return this.playBaseball(this.computer);
+    if (result) return this.endGame();
+    else return this.playBaseball();
   }
 
   async endGame() {
@@ -98,7 +113,7 @@ export class BaseballGame {
     const answer = parseInt(num);
     if (answer === BaseballGame.RESTART_GAME) {
       this.init();
-      return this.playBaseball(this.computer);
+      return this.playBaseball();
     } else if (answer === BaseballGame.GAME_OVER) return;
     else throw new Error(ErrorMessage.ONE_OR_TWO_ONLY);
   }
