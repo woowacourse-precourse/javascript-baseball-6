@@ -20,7 +20,10 @@ class App {
   async play() {
     Console.print("숫자 야구 게임을 시작합니다.");
     await this.getNumber();
-    while (this.gameContinue === 0) await this.inputNumber();
+    while (this.proceeding) {
+      this.restart && (await this.getNumber());
+      await this.inputNumber();
+    }
   }
 
   async getNumber() {
