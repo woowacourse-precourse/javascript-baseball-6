@@ -31,7 +31,8 @@ const Count_Num = (computer, input, LENGTH) => { // 스트라이크와 볼의 �
     return [strike_num, ball_num];
 }
 
-const Print_Result = (strike_num, ball_num) => { // 사용자 입력에 대한 결과 출력
+const Print_Result = (strike_num, ball_num) => {
+    // 사용자 입력에 대한 결과 출력
     if (ball_num > 0 && strike_num > 0) {
         Console.print(ball_num + '볼 ' + strike_num + '스트라이크');
     } else if (strike_num > 0) {
@@ -43,7 +44,9 @@ const Print_Result = (strike_num, ball_num) => { // 사용자 입력에 대한 �
     }
 }
 
-const Check_Input = (input, computer)=>{ // 사용자에게 유효한 숫자를 입력받았는지 확인
+const Check_Input = (input, computer)=>{
+    // 사용자에게 유효한 숫자를 입력받았는지 확인
+
     //길이 확인
     if (input.length !== computer.length) {
         throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
@@ -58,7 +61,8 @@ const Check_Input = (input, computer)=>{ // 사용자에게 유효한 숫자를 
     }
 }
 
-const Check_Continue=(input)=>{ // 게임 종료 시점에서 유효한 입력이 들어왔는지 확인
+const Check_Continue=(input)=>{
+    // 게임 종료 시점에서 유효한 입력이 들어왔는지 확인
     if (input != 1 && input != 2) {
         throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
     }
@@ -103,7 +107,7 @@ class App {
             strike_num = 0;
             ball_num = 0;
 
-            //strike와 ball개수 확인
+            //strike와 ball개수 계산
             [strike_num, ball_num] = Count_Num(computer, user, computer.length);
 
 
