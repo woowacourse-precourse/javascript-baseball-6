@@ -1,9 +1,10 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import { AnswerMaker } from "./AnswerMaker.js";
+import { AnswerMaker } from "./model/AnswerMaker.js";
 //import { InputView } from "./InputView.js";
 import { Validater } from "./Validater.js";
 import { Spliter } from "./Spliter.js";
 import { OutputView } from "./OutputView.js";
+import { Storage } from "./model/Storage.js";
 
 class App {
   async play() {
@@ -13,20 +14,15 @@ class App {
 
 export default App;
 
-var results = {
-    strick : 0,
-    ball : 0
-}
-
 OutputView.printStartComment();
 const app = new App();
 app.play();
 
 function gameStart() {
-  results.strick = 0;
-  results.ball = 0;
-  const answer = AnswerMaker.generate(); //list
-  return gameContinue(answer);
+  Storage.strick = 0;
+  Storage.ball = 0;
+  AnswerMaker.generate();
+  return gameContinue(Storage.answer); // list
 }
 
 async function gameContinue(answer) {
@@ -34,7 +30,7 @@ async function gameContinue(answer) {
   Validater.validationCheck(tryNumber);
   gameResult(answer, tryNumber);
 
-  if (results.strick !== 3) {
+  if (Storage.strick !== 3) {
       gameContinue(answer);
   } else {
     MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
@@ -44,19 +40,19 @@ async function gameContinue(answer) {
 
 function gameResult(answer, tryNumber) {
   const tryNumberSplit = Spliter.splitNumber(tryNumber);
-  results.strick = 0;
-  results.ball = 0;
+  Storage.strick = 0;
+  Storage.ball = 0;
   for (let i = 0; i < tryNumberSplit.length; i++) {
       if (tryNumberSplit[i] === answer[i]) {
-          results.strick++;
+        Storage.strick++;
       } else if (tryNumberSplit[i] !== answer[i] 
           && answer.includes(tryNumberSplit[i])) {
-              results.ball++;
+            Storage.ball++;
       } else {
           // 낫싱
       }
   }
-  return OutputView.printResult(results.strick,results.ball);
+  return OutputView.printResult(Storage.strick,Storage.ball);
 }
 
 //3스트라이크: 게임 다시하기

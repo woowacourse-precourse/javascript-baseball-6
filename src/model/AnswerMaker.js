@@ -1,4 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
+import { Storage } from "./Storage.js";
 
 export const AnswerMaker = {
     generate() {
@@ -9,8 +10,7 @@ export const AnswerMaker = {
               computer.push(number);
           }
         }
-    //console.log(computer);
-    return computer;
+        Storage.answer = computer;
     }
 }
 
