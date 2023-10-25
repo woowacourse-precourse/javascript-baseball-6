@@ -6,16 +6,24 @@ import {
 const NUM_MIN = 1;
 const NUM_MAX = 9;
 const NUM_LEN = 3;
-const ANSWER = [];
 
 class App {
-  constructor() {}
+  constructor() {
+    this.answer = [];
+  }
+
+  errorHandler(errorName){
+    const TYPEERROR = new Error("[ERROR] 잘못된 형식의 입력입니다.");
+    if (errorName === "typeError"){
+      throw TYPEERROR;
+    }
+  }
 
   generateAnswer() {
-    while (ANSWER.length < NUM_LEN) {
+    while (this.answer.length < NUM_LEN) {
       const digit = Random.pickNumberInRange(NUM_MIN, NUM_MAX);
-      if (!ANSWER.includes(digit)) {
-        ANSWER.push(digit);
+      if (!this.answer.includes(digit)) {
+        this.answer.push(digit);
       }
     }
   }
@@ -39,7 +47,7 @@ class App {
 
   isValidInput(userInput) {
     if (!this.checkInput(userInput)) {
-      throw new Error("[ERROR] 잘못된 형식의 입력입니다.");
+      this.errorHandler("typeError");
     }
   }
 
@@ -49,10 +57,10 @@ class App {
     let ball = 0;
 
     for (let i = 0; i < NUM_LEN; i++) {
-      if (inputArray[i] === ANSWER[i]) {
+      if (inputArray[i] === this.answer[i]) {
         strike++;
       }
-      else if (ANSWER.includes(inputArray[i])) {
+      else if (this.answer.includes(inputArray[i])) {
         ball++;
       }
     }
@@ -73,7 +81,7 @@ class App {
   async gameRestart() {
     var input = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n");
     if (input !== "1" && input !== "2") {
-      throw new Error("[ERROR] 잘못된 형식의 입력입니다.");
+      this.errorHandler("typeError");
     }
     return input;
   }
@@ -94,7 +102,7 @@ class App {
   async play() {
     Console.print("숫자 야구 게임을 시작합니다.");
     while (await this.gameController() !== '2') {
-      ANSWER = [];
+      this.answer = [];
     }
     Console.print("애플리케이션을 종료합니다.");
   }
