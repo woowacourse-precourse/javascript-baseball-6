@@ -5,8 +5,19 @@ class OpponentNumber {
   /** @type {number} */
   #number;
 
+  /**
+   * 생성자: 상대방(컴퓨터)의 숫자를 저장한다.
+   * @param {number} number
+   */
   constructor(number) {
     this.#number = number;
+  }
+
+  /**
+   * 상대방(컴퓨터)의 숫자를 반환한다.
+   */
+  getNumber() {
+    return this.#number;
   }
 }
 
