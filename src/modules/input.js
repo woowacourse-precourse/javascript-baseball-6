@@ -5,10 +5,10 @@ function checkInputValue(input) {
   const arrayValue = Array.from(
     new Set(input.split("").map((ele) => parseInt(ele, 10))),
   );
-  if (arrayValue.length !== 3)
-    throw new Error(ERROR.LENGTH);
   if (arrayValue.length !== input.length)
     throw new Error(ERROR.REPEATED);
+  if (arrayValue.length !== 3)
+    throw new Error(ERROR.LENGTH);
   arrayValue.forEach((num) => {
     if (Number.isNaN(num) || num === 0) {
       throw new Error(ERROR.NUMBER);
