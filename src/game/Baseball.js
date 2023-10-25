@@ -1,4 +1,4 @@
-import { Random } from "@woowacourse/mission-utils";
+import { Console, Random } from "@woowacourse/mission-utils";
 
 // 1~9까지 서로 다른 수로 이루어진 세자릿수 생성
 export const generateRandomNumber = () => {
@@ -36,6 +36,7 @@ export const countBallStrike = (computerGenerateNumber, userInputNumber) => {
   if (strike !== 0) {
     inform.push(`${strike}스트라이크`);
   }
+
   let informText = '낫싱';
   if (inform.length > 0) {
     informText = inform.join("");
