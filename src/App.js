@@ -1,39 +1,41 @@
-import { Console } from '@woowacourse/mission-utils';
-import { Random } from '@woowacourse/mission-utils';
+const { Console, Random } = require('@woowacourse/mission-utils');
 
 class App {
-  constructor() {
-    this.startGameMessage();
-    this.computerNumbers = this.generateRandomNumber();
+  startGameMessage() {
+    Console.print('숫자 야구 게임을 시작합니다.');
   }
 
-  startGameMessage = () => {
-    Console.print('숫자 야구 게임을 시작합니다.');
-  };
-
-  generateRandomNumber = () => {
-    const computer = [];
-    while (computer.length < 3) {
+  generateRandomNumber() {
+    this.computerNumbers = [];
+    while (this.computerNumbers.length < 3) {
       const number = Random.pickNumberInRange(1, 9);
-      if (!computer.includes(number)) {
-        computer.push(number);
+      if (!this.computerNumbers.includes(number)) {
+        this.computerNumbers.push(number);
       }
     }
-    return computer;
-  };
+    return this.computerNumbers;
+  }
 
-  getNumberInput = async () => {
+  validateUserInput(userInput) {
+    if (userInput.length !== 3) return false;
+    for (const num of userInput) {
+      if (isNaN(num) || num < 1 || num > 9) return false;
+    }
+    return true;
+  }
+
+  async getNumberInput() {
     const userInput = await Console.readLineAsync('숫자를 입력해주세요 : ');
-    const isNumeric = !Number.isNaN(parseInt(userInput, 10));
-    if (!isNumeric || userInput.length !== 3) {
-      throw new Error('[ERROR] 3자리 숫자를 입력해주세요.');
+    if (!this.validateUserInput(userInput)) {
+      throw new Error('[ERROR]');
     }
     return userInput;
-  };
+  }
 
-  calculateResult = (computerNumbers, userInput) => {
+  checkBaseBallResult(computerNumbers, userInput) {
     let strike = 0;
     let ball = 0;
+    let result = '';
     for (let i = 0; i < computerNumbers.length; i++) {
       if (computerNumbers[i] === parseInt(userInput[i], 10)) {
         strike += 1;
@@ -41,66 +43,53 @@ class App {
         ball += 1;
       }
     }
-    return { strike, ball };
-  };
-
-  displayResult = (result) => {
-    let isGameClear = false;
-    if (result.strike === 3) {
-      isGameClear = true;
-      Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
-    } else if (result.strike === 0 && result.ball === 0) {
-      Console.print('낫싱');
-    } else if (result.strike === 0) {
-      Console.print(`${result.ball}볼`);
-    } else if (result.ball === 0) {
-      Console.print(`${result.strike}스트라이크`);
-    } else {
-      Console.print(`${result.ball}볼 ${result.strike}스트라이크`);
+    if (ball === 0 && strike === 0) {
+      return '낫싱';
     }
-    return isGameClear;
-  };
+    if (ball > 0) {
+      result += `${ball}볼 `;
+    }
+    if (strike > 0) {
+      result += `${strike}스트라이크`;
+    }
+    return result.trim();
+  }
 
-  selectRestart = async () => {
+  displayResult(result) {
+    Console.print(result);
+  }
+
+  async selectRestart() {
     const userInput = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
     if (userInput.trim() !== '1' && userInput.trim() !== '2') {
-      throw new Error('[ERROR] 1 또는 2를 입력해주세요.');
+      throw new Error('[ERROR]');
     }
-    return userInput.trim();
-  };
+    return userInput.trim() === '1';
+  }
 
-  restartGame = () => {
-    this.startGameMessage();
+  restartGame() {
     this.computerNumbers = this.generateRandomNumber();
-  };
-
-  handleGamePlay = async () => {
-    try {
-      const userInput = await this.getNumberInput();
-      const result = this.calculateResult(this.computerNumbers, userInput);
-      const isGameClear = this.displayResult(result);
-      return isGameClear;
-    } catch (error) {
-      Console.print(error.message);
-      return false;
-    }
-  };
+  }
 
   async play() {
-    let isRestart = '1';
-    while (isRestart === '1') {
-      const isGameClear = await this.handleGamePlay();
-      if (isGameClear) {
+    let isRestart = true;
+    this.startGameMessage();
+    this.generateRandomNumber();
+    while (isRestart) {
+      const userInput = await this.getNumberInput();
+      const result = this.checkBaseBallResult(this.computerNumbers, userInput);
+      this.displayResult(result);
+      if (result === '3스트라이크') {
+        Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
         isRestart = await this.selectRestart();
-        if (isRestart === '1') {
+        if (isRestart) {
           this.restartGame();
+        } else {
+          isRestart = false;
         }
       }
     }
   }
 }
 
-const app = new App();
-app.play();
-
-export default App;
+module.exports = App;
