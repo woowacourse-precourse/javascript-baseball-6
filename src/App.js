@@ -53,5 +53,9 @@ class App {
       ) - strike;
     this.result = { strike, ball };
   }
+
+  printResult() {
+    console.log(`스트라이크: ${this.result.strike}, 볼: ${this.result.ball}`);
+  }
 }
 export default App;
