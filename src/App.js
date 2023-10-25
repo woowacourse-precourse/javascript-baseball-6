@@ -5,13 +5,13 @@ class App {
     Console.print('숫자야구 게임을 시작합니다.');
 
     while (true) {
-      const answer = genNum();
+      const answer = this.generateRandomNumber();
 
       while (true) {
         const user_input = await Console.readLineAsync('숫자를 입력해주세요 : ');
-        if (!validate(user_input)) throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+        if (!this.checkValidateInput(user_input)) throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
 
-        const { hint_msg, isCorrect } = check(answer, user_input);
+        const { hint_msg, isCorrect } = this.checkAnswer(answer, user_input);
         Console.print(hint_msg);
         if (isCorrect) break;
       }
