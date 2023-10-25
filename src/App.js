@@ -33,7 +33,7 @@ class App {
         `숫자를 입력해주세요 : `
       );
       // 입력값 검증
-      if (temp.length !== 3) {
+      if (temp.length !== 3 || Number(temp)!=temp) {
         throw new Error("[ERROR]");
       }
 
@@ -61,5 +61,5 @@ class App {
 
 export default App;
 
-// const app = new App();
-// app.play();
+const app = new App();
+app.play();
