@@ -18,7 +18,7 @@
 
 ### 4. 컴퓨터 랜덤 값 생성
 
-- [ ] `@woowacourse/mission-utils`의 `Random.pickNumberInRange()`를 사용하여 랜덤 값을 추출한다.
+- [x] `@woowacourse/mission-utils`의 `Random.pickNumberInRange()`를 사용하여 랜덤 값을 추출한다.
 
 ### 5. 결과 확인
 
