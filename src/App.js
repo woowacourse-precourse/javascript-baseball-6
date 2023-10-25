@@ -6,7 +6,6 @@ class App {
     this.continue = true
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
     const computerNum = this.setNum();
-    MissionUtils.Console.print(computerNum);
     while(this.continue) {
       const userNum = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
       this.vaildation(userNum)
@@ -106,5 +105,7 @@ class App {
   }
 }
 
+const app = new App();
+app.play();
 
 export default App;
