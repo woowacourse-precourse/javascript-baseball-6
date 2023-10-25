@@ -1,7 +1,8 @@
 import { MissionUtils, Console } from "@woowacourse/mission-utils";
-import { RESTART_NUMBER_REGEXP, USER_NUMBER_REGEXP } from "./constant";
 
 class App {
+  static RESTART_NUMBER_REGEXP = /^[12]$/;
+  static USER_NUMBER_REGEXP=/^\d{3}$/;
   #COMPUTERNUMBERS=[];
   USERACTION=1;
   initializeComputerNumer()
@@ -16,7 +17,7 @@ class App {
   }
   validation(checkNumber)
   {
-    if(!USER_NUMBER_REGEXP.test(checkNumber)) return false;
+    if(!App.USER_NUMBER_REGEXP.test(checkNumber)) return false;
     return checkNumber;
   }
   async userNumberInput(){
@@ -63,7 +64,7 @@ class App {
      }
   }
   checkRestartNumber(menu) {
-    if (RESTART_NUMBER_REGEXP.test(menu)) return true;
+    if (App.RESTART_NUMBER_REGEXP.test(menu)) return true;
     throw new Error('[ERROR] 입력은 공백을 포함하지않은 1 또는 2 이어야합니다.');
   }
   async restartInput(){
