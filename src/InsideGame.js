@@ -15,7 +15,7 @@ class InsideGame {
   isValidAnswer(answer) {
     if (answer.includes(" ")) {
       throw new Error("[ERROR] 공백이 포함되어 있습니다.");
-    }
+    } 
     if (isNaN(answer)) {
       throw new Error("[ERROR] 숫자만 입력해주세요.");
     }
@@ -30,6 +30,9 @@ class InsideGame {
     }
     if (new Set(answer).size !== 3) {
       throw new Error("[ERROR] 중복된 숫자를 입력했습니다.");
+    }
+    if (!Number.isInteger(Number(answer))){
+      throw new Error("[ERROR] 숫자를 입력해주세요.")
     }
     return "Normal Value";
   }
