@@ -28,8 +28,8 @@ GAME_RESTART: '게임을 새로 시작하려면 1, 종료하려면 2를 입력�
 
 3. 숫자 입력 문구 출력 후 사용자 입력 받기
 
-- Console.readLine 사용해서 문구 출력 및 입력 받기
-- consturctor - 콜백 받은 함수 바인드 하기
+- Console.readLineAsync 사용해서 문구 출력 및 입력 받기
+- constructor - 함수 바인드 하기
 - INPUT_NUMBER 문구 출력
 
 4. 콜백에서 사용자 입력 받은 숫자로 알맞은 메서드로 순서대로 이동
@@ -46,9 +46,9 @@ GAME_RESTART: '게임을 새로 시작하려면 1, 종료하려면 2를 입력�
   - 3스트라이크 일때, 게임 재시작 문구 출력 및 입력받고 기능 호출하는 메서드로 이동
   - 3스트라이크가 아닐 때, 숫자 3개 입력 받는 메서드로 이동
 - 스트라이크 일때, 게임 재시작 문구 출력 및 입력받고 기능 호출
-  - "3개의 숫자를 모두 맞히셨습니다! 게임 종료" 출력
-  - MissionUtils.Console.readLine("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요." ,콜백)
-    - consturctor : 콜백 받은 함수 바인드 하기
+  - GAME_OVER 문구 출력
+  - GAME_RESTART 문구 출력
+    - constructor : 함수 바인드 하기
     - "1" 입력했을 때 : this.play() 다시 처음부터 시작
     - "2" 입력했을 때 : Console.close() 프로그램 종료
     - 1,2 가 아닌 다른 값을 입력 했을때 : throw Error 에러발생 시키기
