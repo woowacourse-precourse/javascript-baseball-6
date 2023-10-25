@@ -10,9 +10,23 @@ class App {
     while(this.continue) {
       const userNum = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
       this.vaildation(userNum)
-      this.result(computerNum, userNum)
+      let [ball, strike] = this.result(computerNum, userNum)
+      this.printresult(ball, strike)
+      if (strike === 3) {
+        const userReturn = await MissionUtils.Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+        this.restart(userReturn)
+      }
     }
-    
+  }
+
+  restart(userReturn) {
+    if (userReturn !== "1" && userReturn !== "2") {
+      throw new Error("1과 2중에 하나만 입력해주세요.")
+    }
+    if (userReturn === "2") {
+      this.continue = false;
+    }
+
   }
 
   // 랜덤값과 입력값을 비교
@@ -31,7 +45,7 @@ class App {
         }
       }
     }
-    this.printresult(ball, strike)
+    return [ball, strike]
   }
 
   //비교값 출력
@@ -52,7 +66,7 @@ class App {
     else if (strike > 0) {
       MissionUtils.Console.print(`${strike}스트라이크`)
       if (strike === 3) {
-        this.continue = false
+        MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료")
       }
     }
 
@@ -92,7 +106,5 @@ class App {
   }
 }
 
-const app = new App();
-app.play();
 
 export default App;
