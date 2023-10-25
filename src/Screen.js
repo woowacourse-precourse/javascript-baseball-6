@@ -34,6 +34,13 @@ class Screen {
   static printGameOver() {
     Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
   }
+
+  static async askRestart() {
+    Console.print("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+    const answer = await Console.readLineAsync();
+
+    return answer;
+  }
 }
 
 export default Screen;

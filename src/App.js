@@ -5,16 +5,24 @@ class App {
   async play() {
     Screen.printTitle();
 
-    const computer = new Computer();
+    while (true) {
+      const computer = new Computer();
 
-    while (!computer.isFinished()) {
-      const userNumbers = await Screen.inputUserNumbers();
+      while (!computer.isFinished()) {
+        const userNumbers = await Screen.inputUserNumbers();
 
-      computer.calculateResult(userNumbers);
-      Screen.printResult(computer);
+        computer.calculateResult(userNumbers);
+        Screen.printResult(computer);
+      }
+
+      Screen.printGameOver();
+
+      const answer = await Screen.askRestart();
+
+      if (answer === "2") {
+        break;
+      }
     }
-
-    Screen.printGameOver();
   }
 }
 
