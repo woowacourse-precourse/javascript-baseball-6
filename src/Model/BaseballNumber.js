@@ -19,7 +19,7 @@ export class BaseballNumber {
     if (typeof input === TYPE.STRING) return input.split('');
     if (Array.isArray(input)) return input;
 
-    throw new Error('잘못된 type입니다. (Number, String, Array만 가능합니다)');
+    throw new Error(ERROR.MESSAGE.INVALID_BASEBALL_NUMBER_TYPE);
   }
 
   #validation(numberList) {
@@ -30,7 +30,7 @@ export class BaseballNumber {
       throw new BaseballNumberError(ERROR.MESSAGE.DUPLICATE_NUMBERS);
 
     if (!numberList.every(Number))
-      throw new BaseballNumberError(ERROR.MESSAGE.INVALID_TYPE);
+      throw new BaseballNumberError(ERROR.MESSAGE.NOT_A_NUMBER);
 
     if (!numberList.every(isBaseballNumber))
       throw new BaseballNumberError(ERROR.MESSAGE.OUT_OF_RANGE);

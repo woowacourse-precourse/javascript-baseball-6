@@ -16,7 +16,7 @@ export const View = {
     if (userInput === COMMAND.RESTART) return true;
     if (userInput === COMMAND.END) return false;
 
-    throw new InputViewError(ERROR.MESSAGE.INVALID_TYPE);
+    throw new InputViewError(ERROR.MESSAGE.INVALID_RESTART);
   },
 
   printGameStart() {
