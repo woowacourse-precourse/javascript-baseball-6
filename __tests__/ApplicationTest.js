@@ -70,7 +70,7 @@ describe("IOManager 테스트", () => {
   let ioManager = null;
 
   beforeEach(() => {
-    ioManager = new IOManager();
+    ioManager = IOManager.getInstance();
   });
 
   test("에러 출력 테스트", () => {
