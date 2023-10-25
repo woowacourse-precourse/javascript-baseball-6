@@ -13,7 +13,7 @@ class App {
         player[0] === player[1] ||
         player[0] === player[2] ||
         player[1] === player[2] ) {
-      throw new error('[ERROR] 숫자가 잘못된 형식입니다.')
+      throw new Error('[ERROR] 숫자가 잘못된 형식입니다.')
     }
 
     let result = this.compare(computer,player);
@@ -51,7 +51,7 @@ compare(computer,player) {
   let strike_1 = 0;
   let ball_1 = 0;
   if (computer[1] === player[1]) ++strike_1;
-  else if (computer.includes(player[1])) ++ball_1;
+  else if (computer.includes(player[1])) ++ball_1;8
 
   let strike_2 = 0;
   let ball_2 = 0;

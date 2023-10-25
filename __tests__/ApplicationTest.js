@@ -9,7 +9,7 @@ const mockQuestions = (inputs) => {
     return Promise.resolve(input);
   });
 };
-j
+
 const mockRandoms = (numbers) => {
   MissionUtils.Random.pickNumberInRange = jest.fn();
   numbers.reduce((acc, number) => {
