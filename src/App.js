@@ -8,8 +8,8 @@ export default class App {
 		this.gameStart();
 		while (true) {
 			await this.gamePlay();
-			const CHECKRESTART = await gameRestart();
-			if (CHECKRESTART !== '1') {
+			const CHECK_RESTART = await gameRestart();
+			if (CHECK_RESTART !== '1') {
 				break;
 			}
 		}
@@ -20,14 +20,14 @@ export default class App {
 	}
 
 	randomNumber() {
-		const RANDOMNUMBERLIST = [];
-		while (RANDOMNUMBERLIST.length < 3) {
-			const RANDOMNUMBER = Random.pickNumberInRange(1, 9);
-			if (!RANDOMNUMBERLIST.includes(RANDOMNUMBER)) {
-				RANDOMNUMBERLIST.push(RANDOMNUMBER);
+		const RANDOM_NUMBER_LIST = [];
+		while (RANDOM_NUMBER_LIST.length < 3) {
+			const RANDOM_NUMBER = Random.pickNumberInRange(1, 9);
+			if (!RANDOM_NUMBER_LIST.includes(RANDOM_NUMBER)) {
+				RANDOM_NUMBER_LIST.push(RANDOM_NUMBER);
 			}
 		}
-		return RANDOMNUMBERLIST.join('');
+		return RANDOM_NUMBER_LIST.join('');
 	}
 
 	async gamePlay() {
