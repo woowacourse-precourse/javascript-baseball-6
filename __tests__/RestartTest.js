@@ -18,13 +18,13 @@ describe("게임 종료 및 재개 테스트", () => {
     const app = new App();
     const logSpy = getLogSpy();
     mockConsoleFn('2');
-    await app.restart();
+    await app.wantToReplay();
     expect(logSpy).toHaveBeenCalledWith(MESSAGE.END);
   })
 
   test("1과 2가 아닌 다른 값을 입력했을 경우", async () => {
     const app = new App();
     mockConsoleFn('게임종료해줘.');
-    await expect(app.restart()).rejects.toThrow(ERROR_MESSAGE.RESTART);
+    await expect(app.wantToReplay()).rejects.toThrow(ERROR_MESSAGE.RESTART);
   })
 })

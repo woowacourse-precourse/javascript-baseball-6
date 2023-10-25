@@ -16,6 +16,11 @@ export const ERROR_MESSAGE = {
   RESTART: '[ERROR] 숫자가 잘못된 형식입니다.',
 }
 
+const INPUT = {
+  RESTART: '1',
+  END: '2',
+}
+
 const REGEX = /^[1-9]+$/;
 
 class App {
@@ -24,56 +29,82 @@ class App {
     this.userStringInput = '';
     this.userInput = [];
     this.gameResults = {};
+
+    this.validate = {
+      isLenThree: (input) => input.length === 3,
+      isInt: (input) => REGEX.test(input),
+      isUnique: (input) => {
+        const uniqueArr = [...new Set([...input])];
+        return input.length === uniqueArr.length;
+      },
+    }
+    this.compare = {
+      isStrike: (num, idx) => {
+        const { randomNumber } = this;
+        return randomNumber[idx] === num
+      },
+      isBall: (num, idx) => {
+        const { randomNumber } = this;
+        return randomNumber[idx] !== num && randomNumber.includes(num)
+      },
+    }
   }
 
   async play() {
     Console.print(MESSAGE.START);
     this.generateRandomNumber();
+    await this.start();
+  }
+
+  async start(){
     await this.getUserInput();
-  }
-  
-  generateRandomNumber(){
-    const numberArr = [];
-    
-    while(numberArr.length < 3){
-      const number = Random.pickNumberInRange(1, 9);
-      if(!numberArr.includes(number)) numberArr.push(number);
-    }
-
-    this.randomNumber = [...numberArr];
-  }
-
-  async getUserInput(){
-    const input = await Console.readLineAsync(MESSAGE.INPUT);
-    this.userStringInput = input;
     this.validateInput();
-    this.userInput = [...input].map(Number);
-
+    this.setUserInput();
     this.getResult();
     this.printResult();
 
     const { strike } = this.gameResults;
-    if(strike === 3) await this.restart();
-    else this.getUserInput();
+    if(strike === 3) await this.wantToReplay();
+    else await this.start();
+  }
+  
+  generateRandomNumber(){
+    const numberArr = [];
+    while(numberArr.length < 3){
+      const number = Random.pickNumberInRange(1, 9);
+      if(!numberArr.includes(number)) numberArr.push(number);
+    }
+    this.randomNumber = [...numberArr];
+  }
+
+
+  async getUserInput(){
+    const input = await Console.readLineAsync(MESSAGE.INPUT);
+    this.userStringInput = input;
+  }
+
+  setUserInput(){
+    const { userStringInput } = this;
+    this.userInput = [...userStringInput].map(Number);
   }
 
   validateInput(){
     const { userStringInput } = this;
-    const uniqueArr = [...new Set([...userStringInput])];
+    const { isLenThree, isInt, isUnique } = this.validate;
 
-    if(userStringInput.length !== 3) throw new Error(ERROR_MESSAGE.LENGTH);
-    if(!REGEX.test(userStringInput)) throw new Error(ERROR_MESSAGE.INT);
-    if(userStringInput.length !== uniqueArr.length) throw new Error(ERROR_MESSAGE.UNIQUE);
+    if(!isLenThree(userStringInput)) throw new Error(ERROR_MESSAGE.LENGTH);
+    if(!isInt(userStringInput)) throw new Error(ERROR_MESSAGE.INT);
+    if(!isUnique(userStringInput)) throw new Error(ERROR_MESSAGE.UNIQUE);
   }
 
   getResult(){
     const { userInput } = this;
-    const { randomNumber } = this;
+    const { isStrike, isBall } = this.compare;
     const result = { strike: 0, ball: 0};
 
     userInput.forEach((num, idx)=> {
-      if(randomNumber[idx] === num) result.strike += 1;
-      if(randomNumber[idx] !== num && randomNumber.includes(num)) result.ball += 1;
+      if(isStrike(num, idx)) result.strike += 1;
+      if(isBall(num, idx)) result.ball += 1;
     })
   
     this.gameResults = result;
@@ -88,14 +119,14 @@ class App {
     if(strike > 0 && ball === 0) Console.print(`${strike}스트라이크`);
   }
 
-  async restart(){
+  async wantToReplay(){
     Console.print(MESSAGE.FINISH);
     Console.print(MESSAGE.RESTART);
     const input = await Console.readLineAsync('');
 
-    if(input === '1') await this.play();
-    if(input === '2') Console.print(MESSAGE.END);
-    if(input !== '1' && input !== '2') throw new Error(ERROR_MESSAGE.RESTART);
+    if(input === INPUT.RESTART) await this.play();
+    if(input === INPUT.END) Console.print(MESSAGE.END);
+    if(input !== INPUT.RESTART && input !== INPUT.END) throw new Error(ERROR_MESSAGE.RESTART);
   }
 }
 
