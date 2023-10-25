@@ -1,7 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
 import Computer from './Computer.js';
 import { inputValidator, playAgainInputValidator } from './utils/inputValidator.js';
-import { GUIDE_MESSAGE } from '../constants/index.js';
+import { GUIDE_MESSAGE, RESTART_GAME_NUMBERS } from '../constants/index.js';
 
 class Player {
   /**
@@ -16,12 +16,12 @@ class Player {
 
   async getUserInput() {
     const userInput = await Console.readLineAsync(GUIDE_MESSAGE.INPUT);
-    inputValidator(userInput);
     this.handlePlayerNumbers(userInput);
   }
 
   handlePlayerNumbers(userAns) {
     this.#playerNumber = userAns.split('').map(Number);
+    inputValidator(this.#playerNumber);
     this.requestBallCount();
   }
 
@@ -41,7 +41,7 @@ class Player {
 
     playAgainInputValidator(userInput);
 
-    if (userInput === '1') {
+    if (userInput === RESTART_GAME_NUMBERS.RESTART) {
       this.startGame();
     } else {
       return;

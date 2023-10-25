@@ -1,8 +1,16 @@
-import { ERROR_MESSAGE, RESTART_GAME_NUMBERS, REGEXP_PTTERN } from "../../constants/index.js";
+import { ERROR_MESSAGE, RESTART_GAME_NUMBERS, SETTING } from '../../constants/index.js';
 
 const inputValidator = (input) => {
-  if (!REGEXP_PTTERN.THREE_DIGIT_PATTERN.test(input)) {
-    throw new Error(ERROR_MESSAGE.INVAILD_INPUT_MESSAGE);
+  if (input.length > SETTING.NUMBER_OF_INPUT) {
+    throw new Error(ERROR_MESSAGE.INVAILD_INPUT_LENGTH_MESSAGE);
+  }
+  for (const element of input) {
+    if (typeof element !== 'number' || isNaN(element)) {
+      throw new Error(ERROR_MESSAGE.INVALID_ELEMENT_TYPE_MESSAGE);
+    }
+  }
+  if (input.length !== new Set(input).size) {
+    throw new Error(ERROR_MESSAGE.DUPLICATE_ELEMENTS_MESSAGE);
   }
   return input;
 };
