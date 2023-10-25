@@ -55,10 +55,12 @@ class App {
   }
   // 힌트 출력 메서드
   printHintText(ball, strike) {
+    const ballCount = ball > 0 ? ball + '볼 ' : '';
+    const strikeCount = strike > 0 ? strike + '스트라이크' : '';
     if (strike === 0 && ball === 0) {
       Console.print('낫싱');
     } else {
-      Console.print(`${ball > 0 ? ball + '볼 ' : ''}${strike > 0 ? strike + '스트라이크' : ''}`);
+      Console.print(`${ballCount}${strikeCount}`);
     }
   }
   // 게임 종료 후 재시작 여부 확인
@@ -66,7 +68,7 @@ class App {
     const replay = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
     if (replay === "1") {
       Console.print(replay);
-      return this.play();
+      this.play();
     } else if (replay === "2") {
       Console.print(replay);
       Console.print('게임을 종료합니다.');
@@ -74,40 +76,28 @@ class App {
       this.handleError('Error', '[ERROR] 1 또는 2를 입력해주세요');
     }
   }
+  // 게임 진행 메서드
   async playTheGame() {
     const input = await Console.readLineAsync('숫자를 입력해주세요 : ');
-    // 입력값 검증
     this.validateInput(input);
-    // 스트라이크, 볼 판단
+
     const { ball, strike } = this.calculateBallsAndStrikes();
-    // 힌트 출력
     this.printHintText(ball, strike);
-    // 3 스트라이크일 경우 재시작 여부 확인
+
     if (strike === 3) {
       Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
-      try {
-        this.askReplay();
-      } catch (error) {
-        Console.print(error.message);
-      }
+      this.askReplay();
     } else {
       this.playTheGame();
     }
   }
-  // 게임 시작 메서드
   async play() {
     this.answerNumber = '';
     this.playerInput = '';
-    // 게임 시작문구 출력
-    Console.print('숫자 야구 게임을 시작합니다.');
     this.setAnswerNumber();
-    // 사용자 입력
-    try {
-      await this.playTheGame();
-    } catch (error) {
-      Console.print(error.message);
-      throw error;
-    }
+    Console.print('숫자 야구 게임을 시작합니다.');
+
+    await this.playTheGame();
   }
 }
 
