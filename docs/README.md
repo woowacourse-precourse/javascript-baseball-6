@@ -12,8 +12,8 @@
 
   - 생성자의 값에 대한 유연성(string, Array, number) 제공하기. 다만, 안정성을 확보할 것.
 
-    - [ ] number 처리 => string 처리 => 배열처리 => 예외처리 순으로 진행한다.
-    - [ ] 커스텀 에러를 사용한다.
+    - [x] number 처리 => string 처리 => 배열처리 => 예외처리 순으로 진행한다.
+    - [x] 커스텀 에러를 사용한다.
 
   - [x] 숫자가 유효한지 확인한다.
   - [x] baseballNumber 관련 validation 유틸함수는 전부 제거하고 메서드는 private field로 유지한다.
@@ -91,7 +91,9 @@
 
 ### constants
 
-- [ ] baseballGame
+- [x] baseballGame
+  - 음... 변수를 받아서 string을 반환하는게 상수인가? 고민해보기.
+    => 아 유틸함수로 빼면 되겠구나!
 - [ ] error
 - [ ] message
 
