@@ -1,67 +1,102 @@
-import { Random, Console } from "@woowacourse/mission-utils";
+const MissionUtils = require("@woowacourse/mission-utils");
 
 class App {
-  // 답 생성
-  static setRandomNumber() {
-    const randomNumber = [];
-    while (randomNumber.length < 3) {
-      const number = Random.pickNumberInRange(1, 9);
-      if (!randomNumber.includes(number)) {
-        randomNumber.push(number);
+  createRandomNumber() {
+    this.computerNumber = [];
+
+    while (this.computerNumber.length < 3) {
+      const number = MissionUtils.Random.pickNumberInRange(1, 9);
+      if (!this.computerNumber.includes(number)) {
+        this.computerNumber.push(number);
+      }
+    }
+  }
+
+  validateUserInput(userNumber) {
+    if (userNumber.length !== 3) return false;
+
+    for (const num of userNumber) {
+      if (isNaN(num) || num < 1 || num > 9) {
+        return false;
       }
     }
 
-    Console.print(randomNumber); // 확인
+    return true;
   }
 
-  static async getUserNumber() {
-    const userInputNumber = await Console.readLineAsync(
-      "숫자를 입력해주세요 : "
+  checkStrikeAndBall(userNumber) {
+    let strike = 0;
+    let ball = 0;
+
+    for (let i = 0; i < 3; i++) {
+      if (userNumber[i] == this.computerNumber[i]) {
+        strike++;
+      } else if (this.computerNumber.includes(parseInt(userNumber[i], 10))) {
+        ball++;
+      }
+    }
+
+    if (strike === 0 && ball === 0) {
+      return "낫싱";
+    }
+
+    let result = "";
+
+    if (ball > 0) {
+      result += `${ball}볼 `;
+    }
+
+    if (strike > 0) {
+      result += `${strike}스트라이크`;
+    }
+
+    return result.trim();
+  }
+
+  async restartOrEndGame() {
+    const restartGame = await MissionUtils.Console.readLineAsync(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
     );
-    Console.print(userInputNumber);
-    // 1~9까지 중복되지 않은 세자리 수 정규식
-    // const regex = /^(?!.*(.).*\1)[1-9]{3}$/;
-    // if (!regex.test(userInputNumber)) {
-    //   throw new Error('[Error] 중복되지 않은 1부터 9 사이의 세자리 수를 입력해주세요')
-    // }
 
-    // 예외사항 처리
-    // 1. 세자리 숫자가 입력되지 않을 경우
-    // 2. 숫자가 아닌 문자가 입력 될 경우
-    // 3. 중복된 숫자가 입력 될 경우
-    // 4. 1~9가 아닌 숫자가 입력 될 경우
-
-    if (userInputNumber.length !== 3) {
-      throw new Error("[Error] 세자리 수를 입력해주세요");
+    if (restartGame === "1") {
+      this.createRandomNumber();
+      return true; // Indicates that the game should be restarted
+    } else if (restartGame === "2") {
+      MissionUtils.Console.print("게임 종료");
+      return false; // Indicates that the game should end
     }
 
-    if (isNaN(userInputNumber)) {
-      throw new Error("[Error] 숫자를 입력해주세요");
-    }
-
-    if (
-      userInputNumber[0] === userInputNumber[1] ||
-      userInputNumber[0] === userInputNumber[2] ||
-      userInputNumber[1] === userInputNumber[2]
-    ) {
-      throw new Error("[Error] 중복되지 않은 숫자를 입력해주세요");
-    }
-
-    if (userInputNumber.includes(0)) {
-      throw new Error("[Error] 1~9 사이의 숫자를 입력해주세요");
-    }
-
-    const userAnswer = userInputNumber.split("").map((number) => +number);
-    Console.print(userAnswer);
+    throw new Error("[ERROR] 1 또는 2를 입력해주세요.");
   }
 
-  static play() {
-    Console.print("숫자 야구 게임을 시작합니다.");
-    this.setRandomNumber();
-    this.getUserNumber();
+  async play() {
+    MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
+    this.createRandomNumber();
+
+    while (true) {
+      const userNumber = await MissionUtils.Console.readLineAsync(
+        "숫자를 입력해주세요 : "
+      );
+
+      if (!this.validateUserInput(userNumber)) {
+        throw new Error("[ERROR]");
+      }
+
+      const result = this.checkStrikeAndBall(userNumber);
+      MissionUtils.Console.print(result);
+
+      if (result === "3스트라이크") {
+        MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다!");
+        const shouldRestart = await this.restartOrEndGame();
+
+        if (shouldRestart) {
+          continue;
+        } else {
+          break;
+        }
+      }
+    }
   }
 }
-
-App.play();
 
 export default App;
