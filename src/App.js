@@ -33,7 +33,7 @@ randomnum;
     if (isNaN(playerInput)) throw new Error('숫자만 입력해주세요.');
     if (playerInput.includes(' ')) throw new Error('공백 없이 입력해주세요.');
     if (playerInput.length !== 3) throw new Error ('3자리 수로 입력해주세요.');
-    if ([...inputToSet].length !== 3) throw ('중복되지 않는 3자리의 수로 입력해주세요.');
+    if ([...inputToSet].length !== 3) throw new Error ('중복되지 않는 3자리의 수로 입력해주세요.');
     return this.showHint(playerInput, this.randomnum);
   }
 
