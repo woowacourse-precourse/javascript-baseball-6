@@ -2,7 +2,7 @@ import {
   Print,
   Run,
   ConvertInputTo
-} from './modules/AppModules';
+} from './modules/AppModules.js';
 
 class App {
   async play() {
