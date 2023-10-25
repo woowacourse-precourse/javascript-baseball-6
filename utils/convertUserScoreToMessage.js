@@ -1,4 +1,4 @@
-import { IN_GAME_RESULT_ITEM } from "./Constants";
+import { IN_GAME_RESULT_ITEM } from "./Constants.js";
 
 export default function convertUserScoreToMessage(userScore) {
   let message = "";

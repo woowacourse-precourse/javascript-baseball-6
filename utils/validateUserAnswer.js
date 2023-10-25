@@ -1,4 +1,4 @@
-import { IN_GAME_SETTING, IN_GAME_ERROR } from "./Constants";
+import { IN_GAME_SETTING, IN_GAME_ERROR } from "./Constants.js";
 
 export default function validateUserAnswer(userAnswer) {
   if (!/^\d{3}$/.test(userAnswer)) {
