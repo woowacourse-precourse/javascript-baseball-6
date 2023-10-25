@@ -56,14 +56,16 @@ class BaseballGame {
     * @returns {[number, number, number]} 컴퓨터와 사용자를 비교한 배열
     */
    getCheckCount = () => {
-    const checkCount = [0, 0, 0];
     const numbers = this.#userInput.split('').map(Number);
-    numbers.forEach((splitednumber, index) => {
-        if (this.#computerInput[index] === splitednumber) checkCount[0]++;
-        else if (this.#computerInput.includes(splitednumber)) checkCount[1]++;
-        else checkCount[2]++;
-    });
-    return checkCount;
+    return numbers.reduce(
+        (checkCount, number, index) => {
+            if (this.#computerInput[index] === number) checkCount[0]++;
+            else if (this.#computerInput.includes(number)) checkCount[1]++;
+            else checkCount[2]++;
+            return checkCount;
+        },
+        [0, 0, 0]
+    );
    };
 
    /**
