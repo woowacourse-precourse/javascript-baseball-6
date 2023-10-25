@@ -1,4 +1,5 @@
 import ERROR from '../constant/ERROR.js';
+import { CHOICE } from '../constant/CONSTANT.js';
 
 export default class RestartValidation {
   constructor(input) {
@@ -6,7 +7,7 @@ export default class RestartValidation {
   }
 
   checkOneOrTwo(input) {
-    if (!(input === '1' || input === '2')) {
+    if (!(input === CHOICE.restart || input === CHOICE.end)) {
       throw new Error(ERROR.invalid_one_or_two);
     }
   }

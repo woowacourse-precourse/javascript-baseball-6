@@ -1,4 +1,5 @@
 import ERROR from '../constant/ERROR.js';
+import { SETTING } from '../constant/CONSTANT';
 
 export default class MainValidation {
   constructor(input) {
@@ -17,14 +18,14 @@ export default class MainValidation {
   }
 
   checkCorrectMainNumbersize(input) {
-    if (input.length !== 3) {
+    if (input.length !== SETTING.numLen) {
       throw new Error(ERROR.invalid_size);
     }
   }
 
   checkCorrectMainNumberRange(input) {
     input.forEach(number => {
-      if (number < 1 || number > 9) {
+      if (number < SETTING.startNum || number > SETTING.endNum) {
         throw new Error(ERROR.invalid_range);
       }
     });
@@ -32,7 +33,7 @@ export default class MainValidation {
 
   checkDuplicationMainNumber(input) {
     const setInput = new Set(input);
-    if (setInput.size !== 3) {
+    if (setInput.size !== SETTING.numLen) {
       throw new Error(ERROR.invalid_duplication);
     }
   }
