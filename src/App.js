@@ -87,6 +87,19 @@ class App {
     this.createRandomNumber();
     this.userNumber = null;
   }
+
+  async getUserNumber() {
+    const inputNumber = await MissionUtils.Console.readLineAsync(
+      "숫자를 입력해 주세요 : "
+    );
+
+    const errorText = this.validateNumber(inputNumber);
+    if (errorText) {
+      throw new Error(errorText);
+    }
+
+    this.userNumber = inputNumber;
+  }
 }
 
 const myApp = new App();
