@@ -1,7 +1,11 @@
 import * as MissionUtils from "@woowacourse/mission-utils";
 
 class App {
-  randomNumber() {
+  printStartMessage() {
+    MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
+  }
+
+  createRandomNumber() {
     const RANDOM_NUMBER = new Set();
     while (RANDOM_NUMBER.size !== 3) {
       RANDOM_NUMBER.add(MissionUtils.Random.pickNumberInRange(1, 9));
@@ -13,6 +17,11 @@ class App {
     const USER_NUMBER = await MissionUtils.Console.readLineAsync(
       "숫자를 입력해주세요: "
     );
+
+    return USER_NUMBER;
+  }
+
+  async exception(USER_NUMBER) {
     if (
       USER_NUMBER.length !== 3 ||
       new Set(USER_NUMBER).size !== 3 ||
@@ -20,7 +29,6 @@ class App {
     ) {
       throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
     }
-    return USER_NUMBER;
   }
 
   async calculateScore(USER_NUMBER, RANDOM_NUMBER) {
@@ -52,32 +60,34 @@ class App {
     MissionUtils.Console.print(
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요"
     );
-    const replay_number = await MissionUtils.Console.readLineAsync("");
+    const REPLAY_NUMBER = await MissionUtils.Console.readLineAsync("");
 
-    return replay_number;
+    return REPLAY_NUMBER === "1" ? true : false;
   }
 
   async play() {
-    let replay_number = "1";
-    MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
+    this.printStartMessage();
+    let replay = false;
 
-    while (replay_number === "1") {
+    do {
       let correct = false;
-      const RANDOM_NUMBER = this.randomNumber().join("");
+      const RANDOM_NUMBER = this.createRandomNumber().join("");
+      MissionUtils.Console.print(RANDOM_NUMBER);
 
-      MissionUtils.Console.print(`${RANDOM_NUMBER}`);
       while (correct === false) {
         const USER_NUMBER = await this.inputNumber();
-        const strike = await this.calculateScore(USER_NUMBER, RANDOM_NUMBER);
-        if (strike === 3) {
+        await this.exception(USER_NUMBER);
+        const STRIKE = await this.calculateScore(USER_NUMBER, RANDOM_NUMBER);
+        if (STRIKE === 3) {
           MissionUtils.Console.print(
             "3개의 숫자를 모두 맞히셨습니다! 게임 종료"
           );
           correct = true;
         }
       }
-      replay_number = await this.replay();
-    }
+
+      replay = await this.replay();
+    } while (replay === true);
   }
 }
 
