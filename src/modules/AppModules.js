@@ -3,7 +3,7 @@ import ErrorCheck from './ErrorCheck.js';
 import Get from './Get.js';
 import Is from './Is.js';
 import Print from './Print.js';
-import Run from './Run';
+import Run from './Run.js';
 
 export {
   ConvertInputTo,
