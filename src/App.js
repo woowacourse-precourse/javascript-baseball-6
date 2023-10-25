@@ -2,33 +2,33 @@ import * as MissionUtils from "@woowacourse/mission-utils";
 
 // 3자리의 랜덤 숫자를 생성하는 함수
 const create_random_number = () => {
-  let number_list = "";
+  let number_list = [];
   while (number_list.length < 3) {
     const number = MissionUtils.Random.pickNumberInRange(1, 9).toString();
 
-    if (!number_list.includes(number)) number_list += number;
+    if (!number_list.includes(number)) number_list.push(number);
   }
 
   return number_list;
 };
 
 // 스트라이크 카운트를 계산하는 함수
-const get_strike_count = (string_number, target_number) => {
+const get_strike_count = (random_number, user_number) => {
   let count = 0;
 
-  string_number.split("").forEach((number, index) => {
-    if (number === target_number[index]) count += 1;
+  random_number.forEach((number, index) => {
+    if (number === user_number[index]) count += 1;
   });
 
   return count;
 };
 
 // 볼 카운트를 계산하는 함수
-const get_ball_count = (string_number, target_number) => {
+const get_ball_count = (random_number, user_number) => {
   let count = 0;
 
-  string_number.split("").forEach((number, index) => {
-    if (target_number.includes(number) && number !== target_number[index]) count += 1;
+  random_number.forEach((number, index) => {
+    if (user_number.includes(number) && number !== user_number[index]) count += 1;
   });
 
   return count;
@@ -36,46 +36,40 @@ const get_ball_count = (string_number, target_number) => {
 
 // 사용자 예측 값 입력받기
 const get_user_guess = async () => {
-  try {
-    while (true) {
-      const user_input = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
+  const user_input = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
 
-      // 예외 처리 ( 입력한 자리 수가 3자리 수 보다 짧은 경우, 숫자 외에 다른 문자가 입력된 경우 )
-      if (user_input.length < 3 || Number.isNaN(user_input)) {
-        throw new Error("[ERROR] 잘못된 입력입니다.");
-      }
-
-      // 예외 처리 ( 입력 값에 0이 포함된 경우, 중복된 값이 입력된 경우 )
-      const user_input_split = user_input.split("");
-      const is_includes_zero = user_input.includes("0");
-      const is_all_different_number = user_input_split.every(
-        (number) => user_input_split.indexOf(number) === user_input_split.lastIndexOf(number),
-      );
-
-      if (!is_includes_zero && is_all_different_number) return user_input;
-
-      if (is_includes_zero) {
-        throw new Error("[ERROR] 입력 값에 0이 포함되어 있습니다.");
-      } else if (!is_all_different_number) {
-        throw new Error("[ERROR] 입력 값에 중복된 값이 있습니다.");
-      } else {
-        throw new Error("[ERROR] 올바른 형식이 아닙니다.");
-      }
-    }
-  } catch (error) {
+  // 예외 처리 ( 입력한 자리 수가 3자리 수 보다 짧은 경우, 숫자 외에 다른 문자가 입력된 경우 )
+  if (user_input == undefined || user_input.length < 3 || Number.isNaN(user_input)) {
     throw new Error("[ERROR] 잘못된 입력입니다.");
+  }
+
+  // 예외 처리 ( 입력 값에 0이 포함된 경우, 중복된 값이 입력된 경우 )
+  const user_input_split = user_input.split("");
+  const is_includes_zero = user_input.includes("0");
+  const is_all_different_number = user_input_split.every(
+    (number) => user_input_split.indexOf(number) === user_input_split.lastIndexOf(number),
+  );
+
+  if (!is_includes_zero && is_all_different_number) return user_input;
+
+  if (is_includes_zero) {
+    throw new Error("[ERROR] 입력 값에 0이 포함되어 있습니다.");
+  } else if (!is_all_different_number) {
+    throw new Error("[ERROR] 입력 값에 중복된 값이 있습니다.");
+  } else {
+    throw new Error("[ERROR] 올바른 형식이 아닙니다.");
   }
 };
 
 // 예측 결과 출력
-const guess_result = async (random_number, user_input) => {
+const guess_result = (random_number, user_input) => {
   const strike = get_strike_count(random_number, user_input);
   const ball = get_ball_count(random_number, user_input);
 
   const strike_count_text = strike ? `${strike}스트라이크` : "";
-  const ball_count_text = ball ? `${ball}볼 ` : "";
+  const ball_count_text = ball ? `${ball}볼` : "";
 
-  const resuslt_text = ball || strike ? `${ball_count_text}${strike_count_text}` : "낫싱";
+  const resuslt_text = ball || strike ? `${ball_count_text} ${strike_count_text}` : "낫싱";
 
   MissionUtils.Console.print(resuslt_text);
 
@@ -108,11 +102,9 @@ class App {
     while (true) {
       const random_number = create_random_number();
 
-      // MissionUtils.Console.print(random_number);
-
       while (true) {
         const user_input = await get_user_guess();
-        const strike_result = await guess_result(random_number, user_input);
+        const strike_result = guess_result(random_number, user_input);
 
         if (strike_result === 3) break;
       }
