@@ -13,7 +13,19 @@ class App {
 
   submitUserAnswerHalnder() {
     Console.readLine("게임 시작! 숫자 3개를 입력해 주세요", (answer) => {
-      console.log(` ${answer}`);
+      const userAnswerArray = Array.from(answer, Number);
+
+      if (isNaN(answer)) {
+        throw new Error("[Error] 숫자만 입력해 주세요.");
+      }
+
+      if (userAnswerArray.length !== 3 || userAnswerArray.includes(0)) {
+        throw new Error("[Error] 0을 제외한 3자리의 숫자를 입력해 주세요.");
+      }
+
+      if (userAnswerArray.length !== [...new Set(userAnswerArray)].length) {
+        throw new Error("[Error] 중복되지 않은 3자리의 숫자를 입력해 주세요.");
+      }
     });
   }
 
