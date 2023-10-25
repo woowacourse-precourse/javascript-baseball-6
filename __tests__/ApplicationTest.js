@@ -43,7 +43,7 @@ describe("숫자 야구 게임", () => {
       expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(output));
     });
   });
-
+  
   test("예외 테스트", async () => {
     // given
     const randoms = [1, 3, 5];
