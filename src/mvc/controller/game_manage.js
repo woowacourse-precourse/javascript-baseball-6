@@ -1,3 +1,7 @@
+import ComputerNum from '../model/computer_num.js';
+import UserNumError from '../../utils/error/user_num_error.js';
+import {Console} from '@woowacourse/mission-utils';
+
 class GameManage {
   constructor() {                                                                                                                                                                                                                                                                                                                                                                                             
     this.isResetComputerNum = true;
