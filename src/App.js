@@ -23,14 +23,16 @@ class App {
     Console.print("숫자 야구 게임을 시작합니다.");
 
     while (this.isContinue) {
-      const userInput = await this.getUserInput();
+      const userInput = await this.parsingUserInput();
 
       if (!this.checkValidAnswer(userInput)) {
-        Console.print("올바르지 않은 숫자입니다.");
+        Console.print(
+          "입력값이 유효하지 않습니다. 세자리 숫자로 입력해주세요."
+        );
         continue;
       }
 
-      let usersAnswer = this.checkParsedAnswer(userInput);
+      let usersAnswer = this.validateParsedInput(userInput);
 
       this.printResult(usersAnswer);
 
@@ -56,17 +58,19 @@ class App {
     return randomNumber;
   }
 
-  async getUserInput() {
+  async parsingUserInput() {
     const userInput = await Console.readLineAsync("숫자를 입력해주세요: ");
 
     if (userInput == null || userInput.trim() === "") {
-      throw new Error("[ERROR] 입력값이 유효하지 않습니다.");
+      throw new Error(
+        "[ERROR] 입력값이 유효하지 않습니다. 프로그램을 종료합니다."
+      );
     }
 
     return userInput.trim().split("").map(Number);
   }
 
-  async printResult(usersAnswer) {
+  printResult(usersAnswer) {
     Console.print(ANSWER_TABLE[usersAnswer]);
   }
 
@@ -82,7 +86,7 @@ class App {
     return true;
   }
 
-  checkParsedAnswer(userInput) {
+  validateParsedInput(userInput) {
     let strike = 0;
     let ball = 0;
 
@@ -113,10 +117,10 @@ class App {
     }
   }
 
-  async continueGame() {
+  continueGame() {
     this._randomNumber = this.generateRandomNumber();
     this.isContinue = true;
-    await this.play();
+    this.play();
   }
 }
 
