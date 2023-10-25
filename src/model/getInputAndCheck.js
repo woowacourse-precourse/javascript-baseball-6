@@ -1,4 +1,4 @@
-import consoleView from "../util/consoleControll.js";
+import consoleControl from "../util/consoleControl.js";
 import {
   checkNumber,
   checkLength,
@@ -6,7 +6,7 @@ import {
 } from "../util/inputValidation.js";
 
 export default async function getInputAndCheck() {
-  const userInput = await consoleView.readNumber();
+  const userInput = await consoleControl.readNumber();
 
   checkNumber(userInput);
   checkLength(userInput);

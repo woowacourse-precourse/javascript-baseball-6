@@ -2,7 +2,7 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 import { INPUT_MESSAGE, OUTPUT_MESSAGE } from "../constants/message.js";
 import { BASEBALL } from "../constants/baseBall.js";
 
-const consoleView = {
+const consoleControl = {
   async readNumber() {
     return await MissionUtils.Console.readLineAsync(INPUT_MESSAGE.NUMBER);
   },
@@ -24,4 +24,4 @@ const consoleView = {
   },
 };
 
-export default consoleView;
+export default consoleControl;

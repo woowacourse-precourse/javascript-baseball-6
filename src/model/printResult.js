@@ -1,7 +1,7 @@
 import { BASEBALL } from "../constants/baseBall.js";
 import { OUTPUT_MESSAGE } from "../constants/message.js";
 import { ZERO } from "../constants/number.js";
-import consoleView from "../util/consoleControll.js";
+import consoleControl from "../util/consoleControl.js";
 
 export default function printResult(data) {
   const { ball, strike } = data;
@@ -9,13 +9,13 @@ export default function printResult(data) {
   const format = makeBallFormat(ball) + makeStrikeFormat(strike);
 
   if (strike === 3) {
-    consoleView.printResult(`${strike}${BASEBALL.STRIKE}`);
-    consoleView.printEnd(`${OUTPUT_MESSAGE.FINISH}`);
+    consoleControl.printResult(`${strike}${BASEBALL.STRIKE}`);
+    consoleControl.printEnd(`${OUTPUT_MESSAGE.FINISH}`);
     return true;
   } else {
     format === ""
-      ? consoleView.printNothing()
-      : consoleView.printResult(format);
+      ? consoleControl.printNothing()
+      : consoleControl.printResult(format);
     return false;
   }
 }
