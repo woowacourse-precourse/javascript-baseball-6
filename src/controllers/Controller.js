@@ -1,4 +1,4 @@
-import OpponentNumber from "../models/OpponentNumber.js";
+import Opponent from "../models/Opponent.js";
 import GAME_START from "../views/GameStart.js";
 import RANDOM_NUMBER from "../utils/RandomNumber.js";
 
@@ -7,22 +7,24 @@ import RANDOM_NUMBER from "../utils/RandomNumber.js";
  * 1. 상대방(컴퓨터) 숫자를 생성한다
  */
 class Controller {
-  /** @type {OpponentNumber} */
-  #opponentNumber;
+  /** @type {Opponent} */
+  #opponent;
 
   /**
    * 게임을 실행하는 함수
    */
   run() {
-    this.startGame();
+    GAME_START();
+    this.generateOpponent();
   }
 
   /**
    * 상대방(컴퓨터) 숫자를 생성하는 함수
+   * @returns {Opponent}
    */
-  startGame() {
-    GAME_START();
-    this.#opponentNumber = new OpponentNumber(RANDOM_NUMBER());
+  generateOpponent() {
+    this.#opponent = new Opponent(RANDOM_NUMBER());
+    return this.#opponent;
   }
 }
 
