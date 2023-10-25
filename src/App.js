@@ -32,10 +32,10 @@ class App {
     const strikes = this.calculateStrikes(computerNumbers, userNumbers);
     const balls = this.calculateBalls(computerNumbers, userNumbers);
 
-    console.log("Computer Numbers:", computerNumbers);
-    console.log("User Numbers:", userNumbers);
-    console.log("Strikes:", strikes);
-    console.log("Balls:", balls);
+    // console.log("Computer Numbers:", computerNumbers);
+    // console.log("User Numbers:", userNumbers);
+    // console.log("Strikes:", strikes);
+    // console.log("Balls:", balls);
 
     if (strikes > 0 || balls > 0) {
       let resultString = '';
@@ -73,7 +73,7 @@ class App {
         // 게임이 종료되는 조건을 확인하고 종료한다. (예: 3스트라이크인 경우)
         if (this.calculateStrikes(computerNumbers, userNumbers) === 3) {
           console.log(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
-          const restart = await MissionUtils.Console.readLineAsync(`게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.`);
+          const restart = await MissionUtils.Console.readLineAsync(`게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n`);
           if (restart !== '1') {
             console.log('게임을 종료합니다.');
             break; // 게임 종료
@@ -87,7 +87,6 @@ class App {
       }
     }
   }
-
 }
 
 class Computer {
@@ -122,28 +121,34 @@ class User {
   }
 
   async createInputs() {
-    let input = await MissionUtils.Console.readLineAsync(`숫자를 입력해주세요 : `);
+    try {
+      while (true) {
+        let input = await MissionUtils.Console.readLineAsync(`숫자를 입력해주세요 : `);
 
-    // 입력이 비어 있는 경우 다시 입력 요청
-    while (!input) {
-      console.log("입력이 비어있습니다. 다시 입력해주세요.");
-      input = await MissionUtils.Console.readLineAsync(`숫자를 입력해주세요 : `);
+        // 입력이 비어 있는 경우 또는 공백만 입력된 경우 에러를 throw
+        if (!input || input.trim() === "") {
+          throw new Error(`[ERROR] 숫자를 입력해주세요.`);
+        }
+
+        const numbers = Array.from(input).map(num => parseInt(num));
+        if (numbers.some(isNaN) || numbers.length !== 3) {
+          throw new Error(`[ERROR] 숫자가 잘못된 형식입니다.`);
+        }
+
+        const uniqueNumbers = new Set(numbers);
+        if (uniqueNumbers.size !== numbers.length) {
+          throw new Error(`[ERROR] 중복된 숫자가 있습니다. 다시 입력해주세요.`);
+        }
+
+        this.numbers = numbers;
+        // console.log("User Numbers:", this.numbers);
+        break; // 올바른 입력을 받았으므로 루프를 탈출함
+      }
+    } catch (error) {
+      // console.log(error); // 에러를 콘솔에 출력
+      throw error; // 에러를 다시 throw하여 상위 코드에서도 처리할 수 있게 함
     }
-
-    const numbers = Array.from(input).map(num => parseInt(num));
-    if (numbers.some(isNaN) || numbers.length !== 3) {
-      throw new Error(`숫자 3개를 올바르게 입력해주세요.`);
-    }
-
-    const uniqueNumbers = new Set(numbers);
-    if (uniqueNumbers.size !== numbers.length) {
-      throw new Error(`중복된 숫자가 있습니다. 다시 입력해주세요.`);
-    }
-
-    this.numbers = numbers;
-    console.log("User Numbers:", this.numbers);
   }
-
 
 
 
