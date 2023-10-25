@@ -16,15 +16,18 @@ class App {
 
   async userInputNumber() {
     const answer = await Console.readLineAsync('숫자를 입력해주세요 : ');
+    if(!answer){
+      throw Error('[ERROR] 공백은 허용하지 않습니다. 숫자를 입력해주세요.');
+    }
 
     const checkLength = answer.length === 3;
     const checkIsDuplicate = new Set(answer).size === 3;
     const checkIsNumber = new RegExp(/^[1-9]{3}$/);
 
-    Console.print("answer 유효성 검사");
-    Console.print(checkIsNumber.test(answer));
-    Console.print(checkLength);
-    Console.print(checkIsDuplicate);
+//    Console.print("answer 유효성 검사");
+//    Console.print(checkIsNumber.test(answer));
+//    Console.print(checkLength);
+//    Console.print(checkIsDuplicate);
     if(checkLength == true && checkIsDuplicate == true && checkIsNumber.test(answer)==true){
       return answer;
     }
@@ -46,11 +49,11 @@ class App {
     while(true){  
   
       const userNumber = await this.userInputNumber();
-      Console.print(userNumber.split(''));
+      // Console.print(userNumber.split(''));
 
       const {gameSuccess, hintMessage} = await roundResult(computerNumber, userNumber);
-      Console.print(`gameSuccess는? ${gameSuccess}`);
-      Console.print(hintMessage);
+      // Console.print(`gameSuccess는? ${gameSuccess}`);
+      // Console.print(hintMessage);
 
 
       if(gameSuccess){
@@ -60,7 +63,7 @@ class App {
         if(restart === '2'){
           return;
         }else if(restart ==='1'){
-          this.playBaseballGame();
+          await this.playBaseballGame();
         }else{
           throw Error('[ERROR] 게임을 새로 시작하려면 1, 종료하려면 2를 입력해야합니다.');
         }
