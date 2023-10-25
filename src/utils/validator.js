@@ -1,11 +1,11 @@
 import InputError from '../errors/input-error';
-import CONSTANTS from '../assets/constants';
+import { CONSTANTS } from '../constants';
 
 const isAllNumber = (numbers) => !numbers.some(Number.isNaN);
 const isInRange = (numbers) => numbers.every(
   (number) => CONSTANTS.RANGE.from <= number && number <= CONSTANTS.RANGE.to,
 );
-const isThreeWordLong = (numbers) => numbers.length === CONSTANTS.NUM_LENGTH;
+const isThreeWordLong = (numbers) => numbers.length === CONSTANTS.MAX_INPUT_SIZE;
 const isUnique = (numbers) => new Set(numbers).size === numbers.length;
 
 export default function validate(numbers) {
@@ -18,7 +18,7 @@ export default function validate(numbers) {
     );
   }
   if (!isThreeWordLong(numbers)) {
-    throw new InputError(`${CONSTANTS.NUM_LENGTH}자리 숫자를 입력해주세요.`);
+    throw new InputError(`${CONSTANTS.MAX_INPUT_SIZE}자리 숫자를 입력해주세요.`);
   }
   if (!isUnique(numbers)) {
     throw new InputError('중복되지 않는 숫자를 입력해주세요.');

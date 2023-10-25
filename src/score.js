@@ -1,4 +1,4 @@
-import CONSTANTS from './assets/constants';
+import { CONSTANTS } from './constants';
 
 class Score {
   constructor(guesser, answer) {
@@ -25,13 +25,13 @@ class Score {
 
     let result = '';
     if (this.balls() > 0) result += `${this.balls()}볼`;
-    if (this.strikes() > 0 && this.balls() > 0) result += CONSTANTS.SPACE;
+    if (this.strikes() > 0 && this.balls() > 0) result += ' ';
     if (this.strikes() > 0) result += `${this.strikes()}스트라이크`;
     return result;
   }
 
   win() {
-    return this.strikes() === CONSTANTS.NUM_LENGTH;
+    return this.strikes() === CONSTANTS.MAX_INPUT_SIZE;
   }
 }
 

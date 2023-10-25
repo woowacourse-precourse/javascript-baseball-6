@@ -1,9 +1,9 @@
-import CONSTANTS from '../assets/constants';
+import { ERROR_HEADER } from '../constants';
 
 class InputError extends Error {
   constructor(message) {
     super(message);
-    this.message = `${CONSTANTS.ERROR_HEADER} ${message}`;
+    this.message = `${ERROR_HEADER} ${message}`;
   }
 }
 

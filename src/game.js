@@ -1,6 +1,6 @@
 import { Console, Random } from '@woowacourse/mission-utils';
 import Score from './score';
-import CONSTANTS from './assets/constants';
+import { CONSTANTS } from './constants';
 import { input } from './functions/input';
 
 /** * 게임을 관리하는 클래스
@@ -26,7 +26,7 @@ class Game {
 
     if (scores.win()) {
       Console.print(
-        `${CONSTANTS.NUM_LENGTH}개의 숫자를 모두 맞히셨습니다! 게임 종료`,
+        `${CONSTANTS.MAX_INPUT_SIZE}개의 숫자를 모두 맞히셨습니다! 게임 종료`,
       );
       return;
     }
@@ -39,7 +39,7 @@ class Game {
    */
   #setAnswer() {
     const set = new Set();
-    while (set.size < CONSTANTS.NUM_LENGTH) {
+    while (set.size < CONSTANTS.MAX_INPUT_SIZE) {
       set.add(
         Random.pickNumberInRange(CONSTANTS.RANGE.from, CONSTANTS.RANGE.to),
       );
