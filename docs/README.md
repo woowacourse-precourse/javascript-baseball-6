@@ -92,3 +92,29 @@ class RandomNumSet {
 - [x] 미션은 [javascript-baseball](https://github.com/woowacourse-precourse/javascript-baseball-6/) 저장소를 Fork & Clone해 시작한다.
 - [x] 기능을 구현하기 전 `docs/README.md`에 구현할 기능 목록을 정리해 추가한다.
 - [x] 과제 진행 및 제출 방법은 [프리코스 과제 제출](https://github.com/woowacourse/woowacourse-docs/tree/main/precourse) 문서를 참고한다.
+
+---
+
+### 파일 구조
+
+```bash
+📦__tests__
+ ┣ 📜ApplicationTest.js
+ ┗ 📜ValidationTest.js
+📦constants
+ ┗ 📜index.js
+📦docs
+ ┗ 📜README.md
+📦src
+ ┣ 📂opponent
+ ┃ ┣ 📜CheckBallCount.js
+ ┃ ┗ 📜RandomNumSet.js
+ ┣ 📂player
+ ┃ ┗ 📜index.js
+ ┣ 📂utils
+ ┃ ┗ 📜inputValidator.js
+ ┣ 📂view
+ ┃ ┣ 📜InputView.js
+ ┃ ┗ 📜OutputView.js
+ ┗ 📜App.js
+```
