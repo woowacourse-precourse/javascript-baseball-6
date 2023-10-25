@@ -57,5 +57,20 @@ class App {
   printResult() {
     console.log(`스트라이크: ${this.result.strike}, 볼: ${this.result.ball}`);
   }
+
+  playAgain() {
+    console.log("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+    const playAgain = Promise.resolve(Console.readLineAsync());
+    if (playAgain === "1") {
+      this.computerNumbers = [];
+      this.userNumbers = [];
+      this.attempts = 0;
+      this.isGameOver = false;
+      this.play();
+    } else {
+      console.log("게임을 종료합니다.");
+      process.exit();
+    }
+  }
 }
 export default App;
