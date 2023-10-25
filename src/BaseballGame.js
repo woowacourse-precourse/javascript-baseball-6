@@ -57,8 +57,8 @@ class BaseballGame {
     */
    getCheckCount = () => {
     const checkCount = [0, 0, 0];
-    const splitedNumbers = this.#userInput.split('').map(Number);
-    splitedNumbers.forEach((splitednumber, index) => {
+    const numbers = this.#userInput.split('').map(Number);
+    numbers.forEach((splitednumber, index) => {
         if (this.#computerInput[index] === splitednumber) checkCount[0]++;
         else if (this.#computerInput.includes(splitednumber)) checkCount[1]++;
         else checkCount[2]++;
