@@ -9,7 +9,7 @@ const randomComputer = () => {
     computer.add(number)
   }
 
-  return [...computer];
+  return Array.from(computer);
 }
 
 //스코어 체크
