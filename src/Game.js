@@ -15,6 +15,8 @@ class Game {
       await this.getInput();
 
       await this.getOutput(this.result);
+
+      if (this.isSuccess) await this.endSelector();
     }
   }
 
@@ -50,23 +52,25 @@ class Game {
       Console.print('3스트라이크');
       Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
 
-      const endSelector = await Console.readLineAsync(
-        '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'
-      );
-
-      if (endSelector != '1' && endSelector != '2')
-        throw new Error('[ERROE]1 또는 2를 입력해주세요.');
-
-      this.isStart = endSelector;
       this.isSuccess = true;
-
-      return;
     }
+    if (strike != 3) {
+      const printBall = ball ? `${ball}볼 ` : '';
+      const printStrike = strike ? `${strike}스트라이크` : '';
 
-    const printBall = ball ? `${ball}볼 ` : '';
-    const printStrike = strike ? `${strike}스트라이크` : '';
+      Console.print(strike + ball ? printBall + printStrike : '낫싱');
+    }
+  }
 
-    Console.print(strike + ball ? printBall + printStrike : '낫싱');
+  async endSelector() {
+    const endSelector = await Console.readLineAsync(
+      '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'
+    );
+
+    if (endSelector != '1' && endSelector != '2')
+      throw new Error('[ERROE]1 또는 2를 입력해주세요.');
+
+    this.isStart = endSelector;
   }
 }
 
