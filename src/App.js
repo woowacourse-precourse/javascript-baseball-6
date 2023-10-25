@@ -8,7 +8,4 @@ class App {
     await init();
   }
 }
-const app = new App();
-app.play();
-
 export default App;

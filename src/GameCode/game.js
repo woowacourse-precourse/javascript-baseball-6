@@ -50,11 +50,9 @@ export const init = async () => {
   try {
     //컴퓨터 랜덤 볼
     const COMPUTER_BALL = getComputerBall();
-
     //게임 시작
     await gameStart(COMPUTER_BALL.join(''));
   } catch (error) {
-    //throw 예외 처리
     throw error;
   }
 };
