@@ -1,36 +1,12 @@
 //ES Modules 방식으로 woowacourse-projects/javascript-mission-utils 모듈 사용
 import { MissionUtils } from "@woowacourse/mission-utils";
+import generateRandomNumber from "./generateRandomNumber.js";
 
 class App {
   async play() {
-    //랜덤 넘버 생성
+    let computer_random_number = generateRandomNumber();
 
-    // let computer_random_array = [];
-    // while (computer_random_array.length < 3) {
-    //   let random_number = MissionUtils.Random.pickNumberInRange(1, 9);
-    //   if (!computer_random_array.includes(random_number)) {
-    //     computer_random_array.push(random_number);
-    //   }
-    // }
-    // let computer_random_number = computer_random_array.join("");
-
-    class RandomNumberGenerator {
-      generate() {
-        let computer_random_array = [];
-        while (computer_random_array.length < 3) {
-          let random_number = MissionUtils.Random.pickNumberInRange(1, 9);
-          if (!computer_random_array.includes(random_number)) {
-            computer_random_array.push(random_number);
-          }
-        }
-        return computer_random_array.join("");
-      }
-    }
-
-    let generator = new RandomNumberGenerator();
-    let computer_random_number = generator.generate();
-
-    // 숫자 비교13
+    // 숫자 비교
     function compareNumbers(computer_random_number, human_input) {
       let strike_number = 0;
       let ball_number = 0;
@@ -96,9 +72,9 @@ class App {
 
           // MissionUtils.Console.print(error);
         } else {
-          // MissionUtils.Console.print(
-          //   "!!!!!!컴퓨터에서 생성한 넘버!!!!!!!" + computer_random_number
-          // );
+          MissionUtils.Console.print(
+            "!!!!!!컴퓨터에서 생성한 넘버!!!!!!!" + computer_random_number
+          );
 
           compareNumbers(computer_random_number, user_input);
           if (computer_random_number == user_input) {
@@ -107,11 +83,11 @@ class App {
             );
 
             if (restartOrExit === "1") {
-              computer_random_number = generator.generate();
+              computer_random_number = generateRandomNumber();
+
               continue; // 게임 재시작
             } else if (restartOrExit === "2") {
               MissionUtils.Console.print("게임 종료");
-
               gameContinue = false; // 게임 종료
             }
           }
