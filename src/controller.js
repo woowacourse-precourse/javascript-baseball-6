@@ -21,11 +21,11 @@ const gameProcess = async (computerNumber, userNumber) => {
 const startGame = async (computerNumber) => {
   const userNumber = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
   if (!validateInput(userNumber)) {
-    await startGame(computerNumber);
-  } else {
-    await gameProcess(computerNumber, userNumber);
+    return await startGame(computerNumber);
   }
-}
+  return await gameProcess(computerNumber, userNumber);
+};
+
 
 const finishGame = () => {
   MissionUtils.Console.print('');
