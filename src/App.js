@@ -4,6 +4,7 @@ class App {
   #COMPUTERNUMBERS=[];
   initializeComputerNumer()
   {
+    if(this.#COMPUTERNUMBERS.length !==0) this.#COMPUTERNUMBERS=[];
     while (this.#COMPUTERNUMBERS.length < 3) {
       const number = MissionUtils.Random.pickNumberInRange(1, 9);
       if (!this.#COMPUTERNUMBERS.includes(number)) {
@@ -59,22 +60,47 @@ class App {
       return "END";
      }
   }
+  checkRestartNumber(menu) {
+    const REGEXP=/^[12]$/;
+    if (REGEXP.test(menu)) return true;
+    throw new Error('[ERROR] 입력은 공백을 포함하지않은 1 또는 2 이어야합니다.');
+  }
+  async restartInput(){
+    try{
+      const menu = await Console.readLineAsync('');
+      if(this.checkRestartNumber(menu)) return parseInt(menu);
+    }catch(err)
+    {
+      throw new Error('[ERROR] woowacourse 라이브러리 에러' + error.message);
+    }
+  }
+  restart(menu)
+  {
+    if(menu ===1){
+
+    }
+  }
   getCompuerNum()
   {
     console.log(this.#COMPUTERNUMBERS)
   }
   async play() {
+      this.initializeComputerNumer();
       Console.print("숫자 야구 게임을 시작합니다.");
       while(1)
       {
         const userNumbers = await this.userNumberInput();
         if(this.compareNumber(userNumbers)==="END")break;
       }
+      const menu = await this.restartInput();
+      if(menu === 1)
+      {
+        this.initializeComputerNumer();
+        this.play()
+      }
   }
 }
 
 const app = new App();
-app.initializeComputerNumer();
-app.getCompuerNum();
 app.play();
 export default App;
