@@ -10,7 +10,6 @@ export default class Computer {
                 this.numbers.push(number);
             }
         }
-        console.log({ number: this.numbers });
     }
     async playGame(USER) {
         MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
@@ -28,10 +27,10 @@ export default class Computer {
                     break;
                 }
             }
-            MissionUtils.Console.print(
-                "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+            const INPUT = await USER.returnUserQuery(
+                "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
             );
-            if (USER.returnUserInput() === 2) break;
+            if (INPUT === 2) break;
         }
     }
     returnMessage(expect_numbers) {
