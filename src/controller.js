@@ -12,11 +12,10 @@ const gameProcess = async (computerNumber, userNumber) => {
   if (computerNumber === userNumber) {
     MissionUtils.Console.print('3스트라이크');
     return askReplay();
-  } else {
-    const {ball, strike} = countScore(computerNumber, userNumber);
-    MissionUtils.Console.print(printScore(ball, strike));
-    return startGame(computerNumber);
   }
+  const {ball, strike} = countScore(computerNumber, userNumber);
+  MissionUtils.Console.print(printScore(ball, strike));
+  return startGame(computerNumber);
 };
 
 const startGame = async (computerNumber) => {
