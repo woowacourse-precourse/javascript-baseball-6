@@ -1,9 +1,12 @@
 export const validation = {
   baseBallNumbersInputOfUser: (userInput) => {
+    if (userInput.trim().length !== 3) {
+      throw new Error('[ERROR] 입력에 공백이 있으면 안됩니다 !');
+    }
     if ([...userInput].length !== 3) {
       throw new Error('[ERROR] 3자리 숫자만 입력해주세요');
     }
-    if (/[^1-9]/g.test(userInput)) {
+    if (/[^1-9]/g.test(userInput.trim())) {
       throw new Error('[ERROR] 1-9 사이의 숫자만 입력해주세요');
     }
     if (new Set([...userInput]).size < [...userInput].length) {
@@ -18,3 +21,5 @@ export const validation = {
       throw new Error('[ERROR] 1 또는 2만 입력해주세요');
   },
 };
+
+console.log(' 12'.trim().length === 3);
