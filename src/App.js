@@ -2,6 +2,7 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
   async generateNum() {
+   
       const computerNum = [];
       let userNum = "";
       let validPattern = /^(?!.*(.).*\1)[1-9]{3}$/;
@@ -12,7 +13,7 @@ class App {
           computerNum.push(number);
         }
       }
-      
+      console.log(computerNum)
       userNum = await MissionUtils.Console.readLineAsync("숫자 야구 게임을 시작합니다. \n숫자를 입력해주세요 : ");
 
       if(!validPattern.test(userNum)){
