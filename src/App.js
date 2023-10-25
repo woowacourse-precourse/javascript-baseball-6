@@ -19,8 +19,10 @@ class App {
           const input = await this.gameRestart();
         }
       }
-    } catch {
-      throw new Error("[ERROR]");
+    } catch (error) {
+      const errorMessage = `[ERROR] : ${error.message}`;
+      MissionUtils.Console.print(errorMessage);
+      throw new Error(errorMessage);
     }
   }
 
@@ -28,7 +30,6 @@ class App {
     try {
       const input = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요: ");
       const answer = String(input);
-      console.log(answer);
       return answer;
     } catch (error) {
       throw new Error("[ERROR]");
@@ -60,6 +61,3 @@ class App {
 }
 
 export default App;
-
-/*const app = new App();
-app.play();*/

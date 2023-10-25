@@ -8,24 +8,19 @@ export const computerRandom = () => {
       computerArr.push(number);
     }
   }
-  const correctAnswer = computerArr.join("");
-  console.log(correctAnswer);
-  return correctAnswer;
-};
-
-export const numberReset = () => {
-  randomNumber = computerRandom();
+  const randomNumber = computerArr.join("");
+  return randomNumber;
 };
 
 export const validateInput = (randomNumber, input) => {
   if (input.length !== 3) {
-    throw Error("[ERROR]: 3자리 숫자를 입력해주세요.");
+    throw new Error("3자리 숫자를 입력해주세요.");
   }
   if (input.includes("0")) {
-    throw Error("[ERROR]: 0은 입력할 수 없습니다.");
+    throw new Error("0은 입력할 수 없습니다.");
   }
   if (input[0] === input[1] || input[1] === input[2] || input[0] === input[2]) {
-    throw Error("[ERROR]: 중복되지 않은 숫자를 입력해주세요.");
+    throw new Error("중복되지 않은 숫자를 입력해주세요.");
   } else {
     return input;
   }
@@ -47,6 +42,7 @@ export const countHandle = (computerNumber, answer) => {
 export const resultHandle = (strikeCnt, ballCnt) => {
   if (strikeCnt === 0 && ballCnt === 0) {
     MissionUtils.Console.print("낫싱");
+    return;
   }
   if (strikeCnt !== 0 && ballCnt == 0) {
     MissionUtils.Console.print(`${strikeCnt}스트라이크`);
