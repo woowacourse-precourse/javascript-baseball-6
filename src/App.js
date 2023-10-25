@@ -15,11 +15,10 @@ class App {
   }
   async play() {
     Console.print(`${START_MESSAGE}`);
-    while (true) {
-      let inputNumber, retryNumber;
 
+    while (true) {
       // 숫자를 입력받고 볼, 스트라이크 판정하는 부분.
-      inputNumber = await this.makeInputNumber();
+      let inputNumber = await this.makeInputNumber();
       if (!inputNumber) break;
       let [strike, ball] = this.checkNumber(this.answerNumber, inputNumber);
       if (strike === 0 && ball === 0) Console.print(`${NOTHING}`);
@@ -31,7 +30,7 @@ class App {
       if (strike === 3) {
         Console.print(`${THREE_STRIKE_MESSAGE}`);
 
-        retryNumber = await this.inputRetry();
+        let retryNumber = await this.inputRetry();
         if (retryNumber === 1) {
           this.answerNumber = this.makeAnsNumber();
         }
