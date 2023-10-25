@@ -6,9 +6,9 @@ import { Console, Random } from '@woowacourse/mission-utils';
 
 class App {
   async play() {
-    Console.print('숫자 야구 게임을 시작합니다.');
+    // Console.print('숫자 야구 게임을 시작합니다.');
     
-    async function gameStart() {
+    // async function gameStart() {
       // 랜덤 숫자 뽑기
       const randomNumbers = [];
       while (randomNumbers.length < 3) { // 배열 길이가 3이 될 때까지 반복
@@ -17,17 +17,22 @@ class App {
           randomNumbers.push(number);
         }
       }
-      Console.print(randomNumbers);
+      // const randomNumbers = [2,4,6];
+      Console.print("==" + randomNumbers);
 
 
       // 숫자 입력 반복
       while (1) {
         const number = await Console.readLineAsync('숫자를 입력해주세요 : '); // 사용자 입력값
         const user = number.split('').map(Number); // 사용자 입력값 유효성 검사 & 통과하면 user에 저장
-        if (user.length !== 3 || number === null || new Set(user).size !== 3) {
-          throw new Error('[ERROR] 숫자가 잘못된 형식입니다.'); // 예외 발생 및 종료
-        }
         // Console.print(user);
+        // Console.print(typeof user);
+        // Console.print(user.length);
+        // Console.print(number);
+        // Console.print(new Set(user));
+        if (user.length !== 3 || number === null || new Set(user).size !== 3) {
+          throw new Error('[ERROR] 잘못된 값을 입력했습니다.'); // 예외 발생 및 종료
+        }
 
         let strike = 0;
         let ball = 0;
@@ -68,11 +73,12 @@ class App {
         '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'
       );
       if (replay === '1') {
-        gameStart();
+        // gameStart();
+        app.play();
       }
-    };
+    // };
 
-    gameStart();
+    // gameStart();
   }
 
 
@@ -254,7 +260,7 @@ class App {
 
   // }
 }
-
+Console.print('숫자 야구 게임을 시작합니다.');
 const app = new App();
 app.play();
 
