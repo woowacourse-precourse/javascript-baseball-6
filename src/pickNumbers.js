@@ -18,8 +18,6 @@ const makeNumbersLength = (numbersLength, arr = []) => {
     return [...arr];
 };
 
-
-
 const pickUniqueNumbersInRange = (numbersLength) => {
     return makeNumbersLength(numbersLength);
 };
