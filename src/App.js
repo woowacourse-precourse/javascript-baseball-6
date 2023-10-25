@@ -11,6 +11,23 @@ const RandomBallNumber = () => {
   return COMPUTER.join('');
 }
 
+const WRONG_NUMBER = (my_result) => {
+  if (my_result.length !== 3) {
+    throw new Error('\x1b[31m[ERROR] 3개만 입력해주세요\x1b[37m');
+  }
+
+  if (isNaN(my_result[0]) === true || isNaN(my_result[1]) === true || isNaN(my_result[2]) === true) {
+    throw new Error('\x1b[31m[ERROR] 숫자만 입력해주세요\x1b[37m');
+  }
+
+  if (my_result[0] === my_result[1] || my_result[0] === my_result[2] || my_result[1] === my_result[2]) {
+    throw new Error('\x1b[31m[ERROR] 서로 다른 숫자를 입력해주세요\x1b[37m');
+  }
+  if (my_result[0] == 0 || my_result[1] == 0 || my_result[2] == 0) {
+    throw new Error('\x1b[31m[ERROR] 1 ~ 9까지의 숫자를 입력해주세요\x1b[37m');
+  }
+}
+
 class App {
   async play() {
 
@@ -20,21 +37,8 @@ class App {
 
       while (1) {
         const my_result = await Console.readLineAsync("숫자를 입력해주세요 : ");
-
-        if (my_result.length !== 3) {
-          throw new Error('\x1b[31m[ERROR] 3개만 입력해주세요\x1b[37m');
-        }
-
-        if (isNaN(my_result[0]) === true || isNaN(my_result[1]) === true || isNaN(my_result[2]) === true) {
-          throw new Error('\x1b[31m[ERROR] 숫자만 입력해주세요\x1b[37m');
-        }
-
-        if (my_result[0] === my_result[1] || my_result[0] === my_result[2] || my_result[1] === my_result[2]) {
-          throw new Error('\x1b[31m[ERROR] 서로 다른 숫자를 입력해주세요\x1b[37m');
-        }
-        if (my_result[0] == 0 || my_result[1] == 0 || my_result[2] == 0) {
-          throw new Error('\x1b[31m[ERROR] 1 ~ 9까지의 숫자를 입력해주세요\x1b[37m');
-        }
+        
+        WRONG_NUMBER(my_result);
 
         let BallCnt = 0;
         let StrikeCnt = 0;
