@@ -12,18 +12,18 @@ import {
 } 
 from './print.js';
 
-const isAnswer = (strikeCount, fixedLength) => {
-    return strikeCount === fixedLength;
-};
+const isAnswer = (strikeCount, fixedLength) => strikeCount === fixedLength;
 
 const playGame = async (computerNumbers, fixedLength) => {
     const userNumbers = await inputUserNumbers(fixedLength);
     const matchResult = match(computerNumbers, userNumbers);
-    printMatchResult({ ...matchResult }); 
+
+    printMatchResult(matchResult); 
 
     if (!isAnswer(matchResult.strikeCount, fixedLength)) {
         await playGame(computerNumbers, fixedLength);
     }
+
     printEndGame();
 };
 
@@ -32,7 +32,9 @@ const main = async (fixedLength) => {
     await playGame(computerNumbers, fixedLength);
 
     printQuestionNewGame();
-    if (await inputNewGameSelection()) {
+    const newGameSelection = await inputNewGameSelection();
+
+    if (newGameSelection) {
         await main(fixedLength);
     }
 };
