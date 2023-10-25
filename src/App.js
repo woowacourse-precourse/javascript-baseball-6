@@ -6,26 +6,31 @@ const GameStatus = {
 };
 
 class App {
-  static isValidNumber(number) {
-    const pattern = /^[1-9]{3}$/;
-    if (pattern.test(number) === false)
-      throw new Error('숫자 입력이 올바르지 않습니다.');
+  constructor() {
+    this.computer = this.generateRandomNumber();
   }
 
-  static isSameNumber(number) {
-    if (/(.).*\1/.test(number)) {
-      throw new Error('중복된 숫자가 있습니다.');
+  isValidNumber(number) {
+    const pattern = /^[1-9]{3}$/;
+    if (pattern.test(number) === false) {
+      throw new Error('[ERROR] 숫자 입력이 올바르지 않습니다.');
     }
   }
-  
-  static isValidRestart(input) {
+
+  isSameNumber(number) {
+    if (/(.).*\1/.test(number)) {
+      throw new Error('[ERROR] 중복된 숫자가 있습니다.');
+    }
+  }
+
+  isValidRestart(input) {
     const pattern = /^[1-2]{1}$/;
     if (pattern.test(input) === false) {
-      throw new Error('숫자 입력이 올바르지 않습니다.');
+      throw new Error('[ERROR] 숫자 입력이 올바르지 않습니다.');
     }
   }
 
-  static generateRandomNumber() {
+  generateRandomNumber() {
     const computer = [];
     while (computer.length < 3) {
       const number = MissionUtils.Random.pickNumberInRange(1, 9);
@@ -36,7 +41,7 @@ class App {
     return computer[0] * 100 + computer[1] * 10 + computer[2];
   }
 
-  static printResult(ballCount, strikeCount) {
+  printResult(ballCount, strikeCount) {
     if (ballCount === 0 && strikeCount === 0) {
       Console.print('낫싱');
     }
@@ -51,8 +56,8 @@ class App {
     }
   }
 
-  static IsGameWin(computer, number) {
-    let computerStr = computer.toString();
+  IsGameWin(number) {
+    let computerStr = this.computer.toString();
     let numberStr = number.toString();
     let ballCount = 0;
     let strikeCount = 0;
@@ -63,36 +68,32 @@ class App {
         ++ballCount;
       }
     }
-    App.printResult(ballCount, strikeCount);
-    if (strikeCount === 3) {
-      return true;
-    } else {
-      return false;
-    }
+    this.printResult(ballCount, strikeCount);
+    return strikeCount === 3;
   }
 
-  static async play() {
+  async play() {
     try {
       Console.print('숫자 야구 게임을 시작합니다.');
-      let computer = App.generateRandomNumber();
-      while(true) {
+      while (true) {
         const number = await Console.readLineAsync('숫자를 입력해주세요 : ');
-        App.isValidNumber(number);
-        App.isSameNumber(number);
-        const gameWin = App.IsGameWin(computer.toString(), number.toString());
-        if (gameWin){
+        this.isValidNumber(number);
+        this.isSameNumber(number);
+        const gameWin = this.IsGameWin(number);
+        if (gameWin) {
           Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
           const input = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
-          App.isValidRestart(input);
+          this.isValidRestart(input);
           if (input == GameStatus.END) {
             Console.print('게임을 종료합니다.');
             return;
           }
-          computer = App.generateRandomNumber();
+          this.computer = this.generateRandomNumber();
         }
       }
     } catch (error) {
-      Console.print(`[ERROR] ${error.message}`);
+      Console.print(error.message);
+      throw error;
     }
   }
 }
