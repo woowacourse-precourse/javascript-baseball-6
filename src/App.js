@@ -44,6 +44,8 @@ class App {
 
       this.isCorrect = this.compareNumbers();
 
+      console.log(this.computer);
+      console.log(this.user);
       console.log(
         `STRIKE : ${this.status.strike}, BALL : ${this.status.ball}, OUT : ${this.status.out}`
       );
@@ -80,15 +82,15 @@ class App {
       NUMBERS.push(e);
     });
 
-    return NUMBERS;
+    return NUMBERS.map(Number);
   }
 
   compareNumbers() {
+    this.clearStatus();
+
     for (let i = 0; i < this.user.length; i++) {
       const USER = this.user[i];
       const COMPUTER = this.computer[i];
-
-      this.clearStatus();
 
       if (USER === COMPUTER) {
         this.status.strike++;
