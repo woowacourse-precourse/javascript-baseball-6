@@ -9,8 +9,15 @@
 
 - [x] 세 개의 숫자를 갖는다.
 - [x] 숫자를 외부에서 주입받는다.
+
+  - 생성자의 값에 대한 유연성(string, Array, number) 제공하기. 다만, 안정성을 확보할 것.
+
+    - [ ] number 처리 => string 처리 => 배열처리 => 예외처리 순으로 진행한다.
+    - [ ] 커스텀 에러를 사용한다.
+
   - [x] 숫자가 유효한지 확인한다.
   - [x] baseballNumber 관련 validation 유틸함수는 전부 제거하고 메서드는 private field로 유지한다.
+
 - [x] 숫자는 private field로 관리한다.
 - [x] 컴퓨터는 해당 필드를 DI받아 사용한다.
 - [x] 커스텀 에러를 추가한다.
@@ -79,6 +86,34 @@
 ---
 
 ## 리팩터링 사항
+
+객관적으로 다시 한 번 살펴보기
+
+### constants
+
+- [ ] baseballGame
+- [ ] error
+- [ ] message
+
+### Model
+
+- [ ] BaseballNumber
+- [ ] Computer
+- [ ] Error
+
+### utils
+
+- [ ] answerGenerator
+
+### View
+
+- [ ] InputView
+- [ ] View
+
+### Root
+
+- [ ] App.js
+- [ ] BaseballGame
 
 ### CustomError
 
