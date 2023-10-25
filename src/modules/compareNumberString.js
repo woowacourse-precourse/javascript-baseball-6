@@ -20,9 +20,9 @@ const compareNumberString = (base, target) => {
 
   const charArray = target.split('');
   charArray.forEach((elem, index) => {
-    const findeResult = findSameNumber(base, elem, index);
+    const compareResult = findSameNumber(base, elem, index);
 
-    resultMapping[findeResult] += 1;
+    resultMapping[compareResult] += 1;
   });
 
   const { [STRIKE]: strike, [BALL]: ball } = resultMapping;
