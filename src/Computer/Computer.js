@@ -10,6 +10,7 @@ class Computer {
         computer.push(number);
       }
     }
+    MissionUtils.Console.print(computer);
     return computer;
   }
 }
