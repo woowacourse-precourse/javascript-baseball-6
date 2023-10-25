@@ -1,3 +1,4 @@
+import { Random, Console } from "@woowacourse/mission-utils";
 class Balls {
   constructor() {
     this.randomNumbers = this.generateRandomNumber();
