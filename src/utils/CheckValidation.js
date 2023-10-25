@@ -1,12 +1,10 @@
 /**
  * 입력값의 유효성을 검사하는 함수
- * @param {number} number 입력값
+ * @param {string} text 입력값
  * @returns {boolean} 유효성 여부
  *
  */
-const CHECK_VALIDATION = (number) => {
-  const text = number.toString();
-
+const CHECK_VALIDATION = (text) => {
   // 1. 입력값에 숫자 이외의 문자가 있는지 확인한다.
   // 2. 입력값이 3자리인지 확인한다.
   // 3. 입력값이 1~9 사이의 숫자인지 확인한다.
