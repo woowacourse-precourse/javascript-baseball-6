@@ -20,7 +20,7 @@ class App {
     if (!/^\d{3}$/.test(userInput)) {
       return false;
     }
-    let checkUnique = new Set(userInput);
+    const checkUnique = new Set(userInput);
     return checkUnique.size === 3;
   }
 
@@ -52,13 +52,13 @@ class App {
     Console.print("숫자 야구 게임을 시작합니다.");
 
     while (this.game) {
-      let userInput = await Console.readLineAsync("숫자를 입력해 주세요 : ");
+      const userInput = await Console.readLineAsync("숫자를 입력해 주세요 : ");
       if (!this.handleValid(userInput)) {
         Console.print("유효하지 않은 입력입니다. 게임을 종료합니다.");
         this.game = false;
         throw new Error("[ERROR]");
       }
-      let answer = this.checkAnswer(userInput);
+      const answer = this.checkAnswer(userInput);
 
       Console.print(answer);
 
