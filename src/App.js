@@ -1,5 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import generateAnswerArray from "./generateAnswerArray";
+import getUserInput from "./getUserInput";
 
 class App {
   async play() {
@@ -7,6 +8,9 @@ class App {
 
     const answer = await generateAnswerArray();
     // console.log("[answer]", answer);
+
+    const userInput = await getUserInput();
+    // console.log("[userInput]", userInput);
   }
 }
 
