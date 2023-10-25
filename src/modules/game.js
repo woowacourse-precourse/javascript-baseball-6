@@ -1,8 +1,8 @@
 import { Console, Random } from "@woowacourse/mission-utils";
-import { GAME } from "./text";
+import { GAME } from "../common/text";
+import { STATE } from "../common/state";
 import getUserInput from "./input";
-import getResult from "./result";
-import { STATE } from "./state";
+import getResult from "../result";
 
 const getComputerAnswer = () => {
   const computer = [];

@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import { ERROR, GAME } from "./text";
+import { ERROR, GAME } from "../common/text";
 
 function checkInputValue(input) {
   const arrayValue = Array.from(
@@ -9,8 +9,8 @@ function checkInputValue(input) {
     throw new Error(ERROR.LENGTH);
   if (arrayValue.length !== input.length)
     throw new Error(ERROR.REPEATED);
-  arrayValue.forEach((ele) => {
-    if (Number.isNaN(ele) || ele === 0) {
+  arrayValue.forEach((num) => {
+    if (Number.isNaN(num) || num === 0) {
       throw new Error(ERROR.NUMBER);
     }
   });

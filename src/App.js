@@ -1,6 +1,6 @@
 import { Console } from "@woowacourse/mission-utils";
-import gameStart from "./game";
-import { GAME } from "./text";
+import { GAME } from "./common/text";
+import gameStart from "./modules/game";
 
 class App {
   async play() {
