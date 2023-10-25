@@ -10,21 +10,27 @@ class App {
     return inputNumArray;
   }
 
+  //각 요소 하나하나가 1~9의 숫자가 맞는지
   checkNum = (inputNumArray) => {
     console.log("checknum fun")
     for(let i=0; i<inputNumArray.length; i++){
       if(isNaN(inputNumArray[i])){
         return(false)
       }
+      if(inputNumArray[i] < 1 || inputNumArray[i] > 9){
+        return(false)
+      }
     }
     return(true)
   }
 
+  //3개의 요소인지
   checkLen = (inputNumArray) => {
     console.log("checklen fun")
     return(inputNumArray.length !== 3 ? false : true)
   }
 
+  //중복을 제외하고도 3개의 요소인지
   checkDuple = (inputNumArray) => {
     console.log("checkduple fun")
     const arrayToSet = new Set();
