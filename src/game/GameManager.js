@@ -7,8 +7,7 @@ class GameManager {
     this.gameLogic = new GameLogic();
   }
 
-  async startGame() {
-    MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
+  startGame() {
     const computerNumber = this.gameLogic.generateNewNumber();
     this.playGame(computerNumber);
   }
@@ -48,8 +47,7 @@ class GameManager {
     );
 
     if (answer === "1") {
-      const computerNumber = this.gameLogic.generateNewNumber();
-      return this.playGame(computerNumber);
+      return this.startGame();
     } else if (answer === "2") {
       return;
     } else {
