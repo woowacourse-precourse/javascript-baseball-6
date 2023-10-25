@@ -12,7 +12,7 @@ class GameLogic {
         numberArray.push(number);
       }
     }
-    console.log(numberArray);
+    // console.log(numberArray);
     return numberArray.join("");
   }
 
@@ -43,7 +43,7 @@ class GameLogic {
       } else if (strike === 0 && ball) {
         gameResult = `${ball}볼`;
       } else if (strike && ball === 0) {
-        gameResult = ` ${strike}스트라이크`;
+        gameResult = `${strike}스트라이크`;
       }
     }
     return gameResult;
