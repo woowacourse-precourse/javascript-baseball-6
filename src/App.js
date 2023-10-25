@@ -11,9 +11,6 @@ class App {
   }
 
   generateRandomBallNumber(){
-    /*const computerAnsArr = MissionUtils.Random.pickUniqueNumbersInRange(1, 9, 3);
-    this.computerAnswer = computerAnsArr.join('');
-    return this.computerAnswer;*/
     const computer = [];
     while (computer.length < 3) {
       const number = MissionUtils.Random.pickNumberInRange(1, 9);
@@ -33,29 +30,26 @@ class App {
     const computerAnswerArr = this.computerAnswer.split('');
   
     if(userAnswer.length !== 3){
-      MissionUtils.Console.print('[ERROR] 숫자가 잘못된 형식입니다.');
-      return null; 
+      throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
     }
     if(userAnswer.includes('0')){
-      MissionUtils.Console.print('[ERROR] 숫자가 잘못된 형식입니다.');
-      return null;
+      throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
     }
     if(userAnswer[0] === userAnswer[1] 
       || userAnswer[1] === userAnswer[2] 
       || userAnswer[2] === userAnswer[3]
       ){
-      MissionUtils.Console.print('[ERROR] 숫자가 잘못된 형식입니다.');
-      return null;
+      throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
     }
     userAnswer.forEach((idx) => {
       if (isNaN(Number(idx))) {
-        MissionUtils.Console.print('[ERROR] 숫자가 잘못된 형식입니다.');
-        return null;
+        throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
       }
     });
   
     return { computerAnswerArr, userAnswer };
   }
+  
   
   
   countBall(computerAnswerArr, userAnswer) {
@@ -106,7 +100,7 @@ class App {
   }
   
   async replay() {
-    try {
+    /*try {
       const regame = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. \n');
   
       if (regame === '1') {
@@ -118,11 +112,20 @@ class App {
         throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
       }
     } catch (error) {
-      MissionUtils.Console.print(error.message); // 예외가 발생하면 에러 메시지 출력
+      MissionUtils.Console.print(error.message); 
+    }
+*/
+    const regame = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. \n');
+      
+    if (regame === '1') {
+      this.computerAnswer = this.generateRandomBallNumber();
+      return await this.play(); 
+    } else if (regame === '2') {
+      MissionUtils.Console.print('게임 종료');
+    } else {
+      throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
     }
   }
-  
-  
 
   async numCorrect() {
     const answer = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
@@ -130,7 +133,7 @@ class App {
       const { computerAnswerArr, userAnswer } = this.checkAnswer(answer);
       this.checkBallStrike(computerAnswerArr, userAnswer);
     } catch (error) {
-      MissionUtils.Console.print(error.message);
+      throw new Error(error.message);
     }
   }
   
@@ -138,9 +141,18 @@ class App {
     try {
       await this.numCorrect(); 
     } catch (error) {
-      return Promise.reject(error.message); // 예외가 발생하면 에러 메시지를 reject 합니다.
+      throw new Error(error.message);
     }
   }
+
+  
+  
+  
+  
+  
+  
+  
+  
   
 }
 

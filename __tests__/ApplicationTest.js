@@ -55,10 +55,6 @@ describe("숫자 야구 게임", () => {
     // when & then
     const app = new App();
 
-    try {
-      await app.play();
-    } catch (error) {
-      expect(error.message).toEqual('[ERROR] 숫자가 잘못된 형식입니다.');
-    }
+    await expect(app.play()).rejects.toThrow("[ERROR]");
   });
 });
