@@ -5,7 +5,7 @@ import { RESULT_MESSAGE, GAME_END, TEXT, ERROR } from '../Constants/constant.js'
 export const gameSet = async () => {
   try {
     const RANDOM_NUMBER = makeRandomNumber();
-    // MissionUtils.Console.print(RANDOM_NUMBER);
+    MissionUtils.Console.print(RANDOM_NUMBER);
     await getUserInputNumber(RANDOM_NUMBER);
   } catch (error) {
     throw error;
