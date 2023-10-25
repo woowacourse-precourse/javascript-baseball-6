@@ -25,6 +25,7 @@ const getLogSpy = () => {
 
 describe("숫자 야구 게임", () => {
   test("게임 종료 후 재시작", async () => {
+
     // given
     const randoms = [1, 3, 5, 5, 8, 9];
     const answers = ["246", "135", "1", "597", "589", "2"];
@@ -42,6 +43,7 @@ describe("숫자 야구 게임", () => {
     messages.forEach((output) => {
       expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(output));
     });
+
   });
 
   test("예외 테스트", async () => {
