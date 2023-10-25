@@ -1,42 +1,24 @@
 # 미션 - 숫자 야구
 
-## 🔍 진행 방식
-
-- 미션은 **기능 요구 사항, 프로그래밍 요구 사항, 과제 진행 요구 사항** 세 가지로 구성되어 있다.
-- 세 개의 요구 사항을 만족하기 위해 노력한다. 특히 기능을 구현하기 전에 기능 목록을 만든다.
-- 기능 요구 사항에 기재되지 않은 내용은 스스로 판단하여 구현한다.
-
-## 📮 미션 제출 방법
-
-- 미션 구현을 완료한 후 GitHub을 통해 제출해야 한다.
-  - GitHub을 활용한 제출 방법은 [프리코스 과제 제출](https://github.com/woowacourse/woowacourse-docs/tree/master/precourse) 문서를 참고해
-    제출한다.
-- GitHub에 미션을 제출한 후 [우아한테크코스 지원](https://apply.techcourse.co.kr) 사이트에 접속하여 프리코스 과제를 제출한다.
-  - 자세한 방법은 [제출 가이드](https://github.com/woowacourse/woowacourse-docs/tree/master/precourse#제출-가이드) 참고
-  - **Pull Request만 보내고 지원 플랫폼에서 과제를 제출하지 않으면 최종 제출하지 않은 것으로 처리되니 주의한다.**
-
-## 🚨 과제 제출 전 체크 리스트 - 0점 방지
-
-- 기능 구현을 모두 정상적으로 했더라도 **요구 사항에 명시된 출력값 형식을 지키지 않을 경우 0점으로 처리**한다.
-- 기능 구현을 완료한 뒤 아래 가이드에 따라 테스트를 실행했을 때 모든 테스트가 성공하는지 확인한다.
-- **테스트가 실패할 경우 0점으로 처리**되므로, 반드시 확인 후 제출한다.
-
-### 테스트 실행 가이드
-
-- 테스트 패키지 설치를 위해 `Node.js` 버전 `18.17.1` 이상이 필요하다.
-- 다음 명령어를 입력해 패키지를 설치한다.
-
-```bash
-npm install
+## 구현한 함수
 ```
-
-- 설치가 완료되었다면, 다음 명령어를 입력해 테스트를 실행한다.
-
-```bash
-npm test
+checkstrikeball(answer, temp)
 ```
+- 정답(answer)과 입력(temp)을 비교해서 결과 string을 리턴하는 함수
+- 같은 수가 같은 자리에 있으면 스트라이크, 다른 자리에 있으면 볼, 같은 수가 전혀 없으면 낫싱
+```
+startgame()
+- 서로 다른 3자리 수로 이뤄진 answer 배열 생성
+- 루프를 돌면서 입력을 받고, 입력이 3자리가 아니면 error
+- checkstrikeball의 리턴값을 출력
+- checkstrikeball의 리턴값이 "3스트라이크"라면 게임 종료
+```
+```
+play()
+```
+- 루프를 돌면서 startgame() 호출
+- 2를 입력 받을 시 프로그램 종료
 
----
 
 ## 🚀 기능 요구 사항
 
@@ -87,29 +69,6 @@ npm test
 숫자 야구 게임을 시작합니다.
 ```
 
-#### 실행 결과 예시
-
-```
-숫자 야구 게임을 시작합니다.
-숫자를 입력해주세요 : 123
-1볼 1스트라이크
-숫자를 입력해주세요 : 145
-1볼
-숫자를 입력해주세요 : 671
-2볼
-숫자를 입력해주세요 : 216
-1스트라이크
-숫자를 입력해주세요 : 713
-3스트라이크
-3개의 숫자를 모두 맞히셨습니다! 게임 종료
-게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.
-1
-숫자를 입력해주세요 : 123
-1볼
-...
-```
-
----
 
 ## 🎯 프로그래밍 요구 사항
 
@@ -134,23 +93,3 @@ app.play();
 - `@woowacourse/mission-utils`의 `Random` 및 `Console` API를 사용하여 구현해야 한다.
   - Random 값 추출은 `Random.pickNumberInRange()`를 활용한다.
   - 사용자의 값을 입력 받고 출력하기 위해서는 `Console.readLineAsync`, `Console.print`를 활용한다.
-
-#### 사용 예시
-
-```javascript
-const computer = [];
-while (computer.length < 3) {
-  const number = MissionUtils.Random.pickNumberInRange(1, 9);
-  if (!computer.includes(number)) {
-    computer.push(number);
-  }
-}
-```
-
----
-
-## ✏️ 과제 진행 요구 사항
-
-- 미션은 [javascript-baseball](https://github.com/woowacourse-precourse/javascript-baseball-6/) 저장소를 Fork & Clone해 시작한다.
-- **기능을 구현하기 전 `docs/README.md`에 구현할 기능 목록을 정리**해 추가한다.
-- 과제 진행 및 제출 방법은 [프리코스 과제 제출](https://github.com/woowacourse/woowacourse-docs/tree/master/precourse) 문서를 참고한다.
