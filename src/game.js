@@ -41,10 +41,11 @@ const inputPitches = async (computerNum) => {
   STRIKE = BALL = 0;
   const userInput = await Console.readLineAsync("숫자를 입력해주세요 : ");
 
-  if (validation(userInput) !== "VALID")
+  if (validation(userInput) !== "VALID") {
     throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
-  await Console.print(`숫자를 입력해주세요 : ${userInput}`);
+  }
 
+  Console.print(`숫자를 입력해주세요 : ${userInput}`);
   await comparePitches(userInput, computerNum);
 };
 
