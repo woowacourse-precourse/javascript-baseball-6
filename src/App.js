@@ -122,37 +122,28 @@ class User {
   }
 
   async createInputs() {
-    // console.log("입력값:", input);
-    // console.log("변환된 숫자 배열:", numbers);
-    // console.log("중복 확인 결과:", uniqueNumbers);
+    let input = await MissionUtils.Console.readLineAsync(`숫자를 입력해주세요 : `);
 
-    let input; // input 변수를 먼저 정의해야 합니다.
-    try {
-      while (!input) {
-        input = await MissionUtils.Console.readLineAsync(`숫자를 입력해주세요 : `);
-        if (!input) {
-          console.log("입력이 비어있습니다. 다시 입력해주세요.");
-          throw new Error("입력이 비어있습니다.");
-        }
-      }
-
-      const numbers = input.split('').map(num => parseInt(num));
-
-      if (numbers.some(isNaN) || numbers.length !== 3) {
-        throw new Error(`숫자 3개를 올바르게 입력해주세요.`);
-      }
-
-      const uniqueNumbers = new Set(numbers);
-      if (uniqueNumbers.size !== numbers.length) {
-        throw new Error(`중복된 숫자가 있습니다. 다시 입력해주세요.`);
-      }
-
-      this.numbers = numbers;
-      console.log("User Numbers:", this.numbers);
-    } catch (error) {
-      throw error;
+    // 입력이 비어 있는 경우 다시 입력 요청
+    while (!input) {
+      console.log("입력이 비어있습니다. 다시 입력해주세요.");
+      input = await MissionUtils.Console.readLineAsync(`숫자를 입력해주세요 : `);
     }
+
+    const numbers = Array.from(input).map(num => parseInt(num));
+    if (numbers.some(isNaN) || numbers.length !== 3) {
+      throw new Error(`숫자 3개를 올바르게 입력해주세요.`);
+    }
+
+    const uniqueNumbers = new Set(numbers);
+    if (uniqueNumbers.size !== numbers.length) {
+      throw new Error(`중복된 숫자가 있습니다. 다시 입력해주세요.`);
+    }
+
+    this.numbers = numbers;
+    console.log("User Numbers:", this.numbers);
   }
+
 
 
 
