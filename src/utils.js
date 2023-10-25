@@ -3,7 +3,6 @@ import { SETTING, ERROR_MESSAGE } from './constants';
 
 /**
  * @param {string} message: 출력할 메세지
- * @description 사용자에게 메세지를 출력하는 함수 
  */
 const printMessage = (message) => {
   return Console.print(message);
@@ -11,7 +10,6 @@ const printMessage = (message) => {
 
 /**
  * @param {string} message: 출력할 메세지
- * @description 사용자에게 메세지를 출력하고 입력을 받는 함수
  * @returns {Promise<string>} 사용자가 입력한 문자
  */
 const readLineAsync = async (message) => {
@@ -21,10 +19,6 @@ const readLineAsync = async (message) => {
 /**
  * @param {string} input: 사용자가 입력한 값
  * @description 사용자가 입력한 값이 유효한 값인지 검사하는 함수
- * - NOT_NUMBER: 모두 숫자로 이루어져 있지 않음
- * - NOT_SIZE:   3(SIZE)글자가 아님
- * - NOT_UNIQUE: 세 수가 중복이 없는 유니크한 값이 아님
- * - NOT_RANGE:  1(MIN_NUMBER) ~ 9(MAX_NUMBER) 사이의 숫자로 이루어져 있지 않음
  * @returns {boolean} 입력 값이 유효할 때 true 반환
  * @throws {Error} 입력 값이 유효하지 않을 때
  */
@@ -57,9 +51,8 @@ const isValidAnswerInput = (input) => {
 /**
  * @param {string} input: 사용자가 입력한 값
  * @description 사용자가 입력한 값이 유효한 값인지 검사하는 함수
- * - NOT_RETRY_NUMBER: 1(RESTART_NUMBER) 또는 2(EXIT_NUMBER)를 입력하지
  * @returns {number} 검증에 통과한 유효한 값
- * @throws {Error} 입력 값이 유효하지 않을 때
+ * @throws {Error} 입력값이 유효하지 않을 때
  */
 const getValidRetryInput = (input) => {
   input = Number(input.trim());

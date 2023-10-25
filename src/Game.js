@@ -14,7 +14,7 @@ export class Game {
 
   /**
    * @description 1(MIN_NUMBER) ~ 9(MAX_NUMBER) 사이의 랜덤한 숫자 배열을 반환하는 함수
-   * @returns {Array<number>} computer: 길이가 3(SIZE)인 랜덤 숫자 배열
+   * @returns {Array<number>} 길이가 3(SIZE)인 랜덤 숫자 배열
    */
   generateRandomNumber() {
     const computer = [];
@@ -32,8 +32,7 @@ export class Game {
    * @description 사용자가 입력한 숫자와 랜덤 숫자를 비교하여 BALL, STRIKE 정보를 저장하는 함수
    * - 숫자가 있으나 위치가 다른 경우 BALL
    * - 숫자와 위치가 일치한 경우 STRIKE
-   * - 아무것도 일치하지 않으면 낫싱 (0볼0스트라이크)
-   * @returns {Object<string, number>} score: BALL과 STRIKE 정보를 담은 객체
+   * @returns {Object<string, number>} BALL과 STRIKE 정보를 담은 객체
    */
   compareScore(input) {
     const num = input.split('').map(Number);
@@ -54,7 +53,7 @@ export class Game {
   /**
    * @param {Object<string, number>} score: BALL과 STRIKE 정보를 담은 객체
    * @description 저장된 BALL, STRIKE 정보를 출력하기 위한 문자열을 만드는 함수
-   * @returns {string} message: 판정결과 문자열
+   * @returns {string} 판정결과 문자열
    */
   getScoreMessage(score) {
     let message = []; 
