@@ -28,7 +28,7 @@ function processBallAndStrike(computerAnswer, userAnswer) {
   return { ball, strike };
 }
 
-function getMessageForBallAndStrike({ ball, strike }) {
+function haveMessageForBallAndStrike({ ball, strike }) {
   if (strike === 3) {
     return `${strike}스트라이크 \n3개의 숫자를 모두 맞히셨습니다! 게임 종료`;
   }
@@ -46,15 +46,15 @@ function getMessageForBallAndStrike({ ball, strike }) {
 
 function compareNumbers(computerAnswer, userAnswer) {
   const result = processBallAndStrike(computerAnswer, userAnswer);
-  Console.print(getMessageForBallAndStrike(result));
+  Console.print(haveMessageForBallAndStrike(result));
   return result;
 }
 
 function isValidInput(input) {
   return (
-    input.length === 3 &&
-    new Set(input).size === 3 &&
-    input.every((digit) => Number.isInteger(Number(digit)))
+    input.length === 3
+    && new Set(input).size === 3
+    && input.every((digit) => Number.isInteger(Number(digit)))
   );
 }
 
@@ -68,38 +68,41 @@ async function requestUserAnswer() {
   return inputArray;
 }
 
-async function postGameChoice() {
-  const choice = await Console.readLineAsync(
-    '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.',
-  );
-
-  if (choice === '1') return true;
-  if (choice === '2') return false;
-
-  return postGameChoice();
+async function playSingleRound(computerAnswer) {
+  const userAnswer = await requestUserAnswer();
+  return compareNumbers(computerAnswer, userAnswer);
 }
 
 class App {
-  static async play() {
-    let continueGame = true;
-
-    while (continueGame) {
-      continueGame = await App.playGame();
-    }
-  }
-
-  static async playGame() {
+  async playGame() {
     Console.print('숫자 야구 게임을 시작합니다.');
     const computerAnswer = createComputerNumber();
-    let strike = 0;
 
-    while (strike !== 3) {
-      const userAnswer = await requestUserAnswer();
-      const result = compareNumbers(computerAnswer, userAnswer);
-      strike = result.strike;
+    let result = { strike: 0 };
+    while (result.strike !== 3) {
+      result = await playSingleRound(computerAnswer);
     }
 
-    return postGameChoice();
+    return this.postGameChoice();
+  }
+
+  async play() {
+    let continueGame = true;
+    while (continueGame) {
+      continueGame = await this.playGame();
+    }
+    return null;
+  }
+
+  async postGameChoice() {
+    const choice = await Console.readLineAsync(
+      '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.',
+    );
+
+    if (choice === '1') return true;
+    if (choice === '2') return false;
+
+    return this.postGameChoice();
   }
 }
 
