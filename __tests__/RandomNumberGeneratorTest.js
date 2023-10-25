@@ -15,7 +15,7 @@ describe('Computer 클래스 검사', () => {
     number = new RandomNumberGenerator();
   });
 
-  describe('generateNumbers 메소드 검사', () => {
+  describe('generateRandomNumbers 메소드 검사', () => {
     it('중복 없는 숫자 배열을 생성해야 한다', () => {
       mockRandoms([1, 2, 3]);
 
