@@ -1,6 +1,7 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import { AnswerMaker } from "./AnswerMaker.js";
 //import { InputView } from "./InputView.js";
+import { Validater } from "./Validater.js";
 
 class App {
   async play() {
@@ -28,7 +29,7 @@ function gameStart() {
 
 async function gameContinue(answer) {
   const tryNumber = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요:');
-  validationCheck(tryNumber);
+  Validater.validationCheck(tryNumber);
   gameResult(answer, tryNumber);
 
   if (results.strick !== 3) {
@@ -86,43 +87,4 @@ function userIntention(select) {
   } else {
       process.exitCode = 0;
   }
-}
-
-//유효숫자 검증
-function validationCheck(number) {
-  if (isNumber(number) === NaN) {
-    throw new Error("[ERROR]");
-  } else if (validationCountNumber(number) === false) {
-    throw new Error("[ERROR]");
-  } else if (validationSameNumber(number) === true) {
-    throw new Error("[ERROR]");
-  } else {
-      return true;
-  }
-}
-
-function isNumber(number) {
-  var parseNumber = parseInt(number);
-  return parseNumber;
-}
-
-function splitNumber(number) {
-  return (number + '').split('').map(Number);
-}
-
-function validationCountNumber(number) {
-  const numberSplit = splitNumber(number)
-  if (numberSplit.length!== 3) {
-      return false;
-  }
-  return true;
-}
-
-function validationSameNumber(number) {
-  const numberSplit = splitNumber(number)
-  let set = [...new Set(numberSplit)];
-  if (numberSplit.length !== set.length) {
-      return true;
-  }
-  return false;
 }
