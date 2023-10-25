@@ -32,7 +32,7 @@ export class BaseballNumber {
     if (numberList.includes(NUMBER.ZERO))
       throw new BaseballNumberError(ERROR.MESSAGE.OUT_OF_RANGE);
 
-    if (!numberList.every(Number))
+    if (!numberList.every((value) => !isNaN(value)))
       throw new BaseballNumberError(ERROR.MESSAGE.NOT_A_NUMBER);
 
     if (!numberList.every(isBaseballNumber))
