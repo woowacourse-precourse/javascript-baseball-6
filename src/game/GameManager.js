@@ -7,10 +7,10 @@ class GameManager {
     this.gameLogic = new GameLogic();
   }
 
-  startGame() {
+  async startGame() {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
     const computerNumber = this.gameLogic.generateNewNumber();
-    this.playGame(computerNumber);
+    await this.playGame(computerNumber);
   }
 
   async playGame(computerNumber) {
@@ -19,10 +19,11 @@ class GameManager {
     );
 
     if (computerNumber === answer) {
-      this.strike();
-    } else if (Exception.baseballException(answer)) {
-      this.checkBall(computerNumber, answer);
+      return this.strike();
+    } else if (!Exception.baseballException(answer)) {
+      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
     }
+    this.checkBall(computerNumber, answer);
   }
 
   checkBall(computerNumber, userNumber) {
@@ -31,7 +32,7 @@ class GameManager {
       userNumber
     );
     MissionUtils.Console.print(checkedResult);
-    return this.playGame(computerNumber);
+    this.playGame(computerNumber);
   }
 
   strike() {
@@ -46,7 +47,7 @@ class GameManager {
 
     if (answer === "1") {
       const computerNumber = this.gameLogic.generateNewNumber();
-      this.playGame(computerNumber);
+      return this.playGame(computerNumber);
     } else if (answer === "2") {
       return;
     } else {
