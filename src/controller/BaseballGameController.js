@@ -2,6 +2,7 @@ import BaseballGame from "../domain/BaseballGame.js";
 import randomNumberGenerator from "../utils/RandomNumberGenerator.js";
 import InputView from "../view/InputView.js";
 import OutputView from "../view/OutputView.js";
+import InputValidator from "../utils/Validator.js";
 import { StaticNumber } from "../domain/Constant.js";
 
 class BaseballGameController {
@@ -18,6 +19,7 @@ class BaseballGameController {
 
   async readUserGuessNumber() {
     await InputView.readUserGuessNumber((input) => {
+      InputValidator.validateUserNumber(input);
       this.calculateScore(input);
     });
   }
