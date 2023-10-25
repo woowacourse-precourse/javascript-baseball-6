@@ -28,16 +28,12 @@ class App {
   //사용자로부터 값 입력받기
   async getNumbers() {
     const numbers = await Console.readLineAsync('숫자를 입력해주세요 : ');
-    Console.print('');
     return numbers;
   }
 
   //값이 유효한지 확인, 유효하지 않으면 throw
   exception(numbers) {
-    if (numbers.length !== 3) {
-      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
-    }
-    if (!/^\d+$/.test(numbers)) {
+    if (numbers.length !== 3 || !/^\d+$/.test(numbers)) {
       throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
     }
   }
@@ -76,14 +72,14 @@ class App {
 
   //게임재시작 여부
   async reStart(strikes) {
-    if (strikes === 3 && balls === 3) {
+    if (strikes === 3) {
       Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
       const choice = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.")
 
       if (choice === "1") {
-        this.play();
+        this.computerNumbers = this.randomNumber(); // 새로운 숫자 생성
       } else if (choice === "2") {
-        return;
+        return 2;
       } else {
         throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
       }
