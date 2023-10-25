@@ -62,6 +62,21 @@ class App {
         }
         return true;
     }   
+
+    judgeResult(enterInput) {
+      let strikes = 0;
+      let balls = 0;
+
+      for (let i = 0; i < 3; i++) {
+          if (enterInput[i] == this.randomNumber[i]) {
+              strikes++;
+          } else if (this.randomNumber.includes(Number(enterInput[i]))) {
+              balls++;
+          }
+      }
+
+      return this.formatResult(strikes, balls);
+    }
 }
 
 export default App;
