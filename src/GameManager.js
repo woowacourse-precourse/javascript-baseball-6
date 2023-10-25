@@ -7,11 +7,19 @@ import {Console} from "@woowacourse/mission-utils";
 export const PRINT_ERROR_MESSAGE = () => {
     throw new Error(ERROR_MESSAGE);
 };
-export const  PLAY_GAME = async () =>{
-    const RANDOM_NUMBER = CREATE_RANDOM_NUMBER();
-    console.log("컴퓨터"+RANDOM_NUMBER);
-    const PLAYER_NUMBER = (await PLAYER_INPUT()).split('').map(Number);
-    await RETURN_RESULT(PLAYER_NUMBER,RANDOM_NUMBER);
+export const PLAY_GAME = async () => {
+    let flag = true;
+    do {
+        const RANDOM_NUMBER = CREATE_RANDOM_NUMBER();
+        console.log("컴퓨터" + RANDOM_NUMBER);
+        do {
+            const PLAYER_NUMBER = (await PLAYER_INPUT()).split('').map(Number);
+            console.log("사용자" + PLAYER_NUMBER);
+            flag = await CHECK_END_GAME(PLAYER_NUMBER, RANDOM_NUMBER);
+        }
+        while (flag === 1);
+    }
+    while (flag);
 }
 
 export const CHECK_END_GAME = async (PLAYER_NUMBER, RANDOM_NUMBER) => {
