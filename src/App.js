@@ -18,11 +18,9 @@ class App {
       if (!computer.includes(number)) {
         computer.push(number);
       }
-
     }
 
     return computer.join('');
-
   }
 
   checkAnswer(answer){
@@ -49,9 +47,6 @@ class App {
   
     return { computerAnswerArr, userAnswer };
   }
-  
-  
-  
   countBall(computerAnswerArr, userAnswer) {
     let ball = 0;
     for (let i = 0; i < computerAnswerArr.length; i++) {
@@ -94,7 +89,6 @@ class App {
       } else if (strikes !== 0 && balls !== 0) {
         MissionUtils.Console.print(`${balls}볼 ${strikes}스트라이크`);
       }
-
       return this.play();
     }
   }
@@ -143,17 +137,7 @@ class App {
     } catch (error) {
       throw new Error(error.message);
     }
-  }
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  } 
 }
 
 const app = new App();
