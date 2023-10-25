@@ -52,11 +52,15 @@ function compareNumbers(computerAnswer, userAnswer) {
 
 function isValidInput(input) {
   return (
-    input.length === 3
-    && new Set(input).size === 3
-    && input.every((digit) => Number.isInteger(Number(digit)))
+    input.length === 3 &&
+    new Set(input).size === 3 &&
+    input.every((digit) => {
+      const number = Number(digit);
+      return number >= 1 && number <= 9;
+    })
   );
 }
+
 
 async function requestUserAnswer() {
   const input = await Console.readLineAsync('숫자를 입력해주세요 : ');
