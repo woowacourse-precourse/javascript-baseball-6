@@ -5,7 +5,7 @@ class Validator {
     return input.filter((num) => Number.isNaN(num)).length === 0;
   }
   static checkIsThreeNumbers(input) {
-    return input.length === 3;
+    return input.length === CONSTANT.MAX_NUM_LEN;
   }
   static checkHasDuplicate(input) {
     return new Set(input).size === input.length;

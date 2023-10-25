@@ -21,7 +21,7 @@ class Computer {
   compareUserNumbersWithRandomNumber(userNumbers) {
     const numsOfStrike = this.#countStrike(userNumbers);
     const numsOfBall = this.#countBall(userNumbers);
-    return this.#makeResultString(numsOfStrike, numsOfBall);
+    return this.#makeHintString(numsOfStrike, numsOfBall);
   }
 
   #countStrike(userNumbers) {
@@ -41,7 +41,7 @@ class Computer {
     }, 0);
   }
 
-  #makeResultString(strike, ball) {
+  #makeHintString(strike, ball) {
     let result = [];
     if (!strike && !ball) return RESULT.NOTHING;
     if (ball) result.push(ball + RESULT.BALL);
