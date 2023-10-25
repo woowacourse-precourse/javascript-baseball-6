@@ -12,7 +12,7 @@ export const gameSet = async () => {
   }
 };
 
-export const getUserInputNumber = async (randomNumber) => {
+const getUserInputNumber = async (randomNumber) => {
   const USER_INPUT_NUMBER = await MissionUtils.Console.readLineAsync(TEXT.GET_USER_NUMBER);
   if (!isValidUserNumber(USER_INPUT_NUMBER)) {
     throw new Error(ERROR.INVALID_USER_NUMBER);
@@ -20,7 +20,7 @@ export const getUserInputNumber = async (randomNumber) => {
   handleGameProcess(randomNumber, stringToNumberArray(USER_INPUT_NUMBER));
 };
 
-export const handleGameProcess = (randomNumber, userInputNumber) => {
+const handleGameProcess = (randomNumber, userInputNumber) => {
   const RESULT = compareNumber(randomNumber, userInputNumber);
   printResult(RESULT);
   if (isCorrectAnswer(RESULT)) {
@@ -30,11 +30,11 @@ export const handleGameProcess = (randomNumber, userInputNumber) => {
   getUserInputNumber(randomNumber);
 };
 
-export const stringToNumberArray = (string) => {
+const stringToNumberArray = (string) => {
   return [...string].map((char) => Number(char));
 };
 
-export const compareNumber = (randomNumber, userInputNumber) => {
+const compareNumber = (randomNumber, userInputNumber) => {
   const RESULT = {
     ball: 0,
     strike: 0,
@@ -49,7 +49,7 @@ export const compareNumber = (randomNumber, userInputNumber) => {
   return RESULT;
 };
 
-export const printResult = (result) => {
+const printResult = (result) => {
   const { strike, ball } = result;
   if (strike === 0 && ball === 0) {
     MissionUtils.Console.print(RESULT_MESSAGE.NOTHING);
@@ -62,7 +62,7 @@ export const printResult = (result) => {
   MissionUtils.Console.print(RESULT_ARRAY.join(' '));
 };
 
-export const isCorrectAnswer = (result) => {
+const isCorrectAnswer = (result) => {
   if (result.strike === 3) {
     MissionUtils.Console.print(TEXT.CORRECT_ANSWER);
     return true;
@@ -70,12 +70,12 @@ export const isCorrectAnswer = (result) => {
   return false;
 };
 
-export const askRetry = async () => {
+const askRetry = async () => {
   const RETRY_MESSAGE = await MissionUtils.Console.readLineAsync(TEXT.RETRY);
   retryOrExit(RETRY_MESSAGE);
 };
 
-export const retryOrExit = (answer) => {
+const retryOrExit = (answer) => {
   if (answer === GAME_END.RETRY) {
     gameSet();
     return;
