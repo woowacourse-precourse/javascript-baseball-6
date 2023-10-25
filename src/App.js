@@ -5,7 +5,6 @@ import { checkAnswer, checkInputValidity, checkStrike, checkBall, checkRetryVali
 
 let strikeCount = 0
 let ballCount = 0
-let isNewGame = true
 
 class App {
     async play() {
@@ -29,8 +28,7 @@ class App {
 
                 if(retry === '1'){ // 재시도인 경우
                     computer.generateRandNum()
-                    ballCount = 0
-                    strikeCount = 0
+                    initGame()
                     continue
                 }
                 else break // 게임 종료인 경우
@@ -47,7 +45,6 @@ class App {
 
 // 게임 시작마다 호출
 const initGame = () => {
-    isNewGame = true
     strikeCount = 0
     ballCount = 0
 }
