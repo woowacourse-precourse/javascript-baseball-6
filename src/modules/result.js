@@ -1,5 +1,6 @@
 /* eslint-disable no-plusplus */
 import { Console } from "@woowacourse/mission-utils";
+import { STATE } from "../common/state"
 
 function printResult(strike, ball) {
   let str = "";
@@ -9,28 +10,21 @@ function printResult(strike, ball) {
   Console.print(str);
 }
 
-const getStrikeCount = (answer, number) => {
-  let cnt = 0;
+function getStrikeBallCount(answer, number) {
+  let strike = 0;
+  let ball = 0;
   number.forEach((num, idx) => {
-    if (num === answer[idx]) cnt++;
+    if (num === answer[idx]) strike++;
+    else if (answer.includes(num)) ball++;
   });
-  return cnt;
-};
-
-const getBallCount = (answer, number) => {
-  let cnt = 0;
-  number.forEach((num, idx) => {
-    if (answer.includes(num) && answer.indexOf(num) !== idx) cnt++;
-  });
-  return cnt;
+  return [strike, ball];
 };
 
 export default function getResult(answer, number) {
-  const strike = getStrikeCount(answer, number);
-  const ball = getBallCount(answer, number);
-
+  const [strike, ball] = getStrikeBallCount(answer, number);
   printResult(strike, ball);
 
-  if (strike === 3) return 1;
-  return 0;
+  if (strike === 3)
+    return STATE.GAME_SUCCESS;
+  return STATE.GAME_FAIL;
 }
