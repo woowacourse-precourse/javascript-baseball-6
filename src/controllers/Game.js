@@ -1,8 +1,8 @@
 import { Console } from "@woowacourse/mission-utils";
-import Computer from "./Computer.js";
-import Referee from "./Refree.js";
-import Player from "./Player.js";
-import { PromptMessage, errorMessage } from "./Message.js";
+import Computer from "../models/Computer.js";
+import Referee from "../models/Refree.js";
+import Player from "../models/Player.js";
+import { PromptMessage, errorMessage } from "../views/Message.js";
 
 const retryAnswer = Object.freeze({
   1: "1",

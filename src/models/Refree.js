@@ -1,4 +1,4 @@
-import { PromptMessage } from "./Message.js";
+import { PromptMessage } from "../views/Message.js";
 
 export default class Referee {
   #strike;

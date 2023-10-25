@@ -1,4 +1,4 @@
-import { errorMessage } from "./Message";
+import { errorMessage } from "../views/Message";
 
 export default class ValidatedBalls {
   #BALL_NUMBERS_SIZE = 3;
