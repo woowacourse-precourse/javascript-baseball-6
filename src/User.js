@@ -1,6 +1,6 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 export default class User {
-    async returnUserNumber() {
+    async getUserNumber() {
         const input = await MissionUtils.Console.readLineAsync(
             '숫자를 입력해주세요 : '
         );
@@ -12,7 +12,7 @@ export default class User {
         return input;
     }
 
-    async returnUserReplay() {
+    async getUserReplay() {
         const input = await MissionUtils.Console.readLineAsync(
             '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'
         );

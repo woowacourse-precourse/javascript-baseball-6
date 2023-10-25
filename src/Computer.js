@@ -20,8 +20,8 @@ export default class Computer {
         while (true) {
             this.pickRandomNumbers();
             while (true) {
-                const input = await user.returnUserNumber();
-                const result = this.returnMessage(input);
+                const input = await user.getUserNumber();
+                const result = this.getMessage(input);
                 MissionUtils.Console.print(result.result);
                 if (result.success) {
                     MissionUtils.Console.print(
@@ -30,20 +30,20 @@ export default class Computer {
                     break;
                 }
             }
-            const input = await user.returnUserReplay();
+            const input = await user.getUserReplay();
             if (input === Computer.QUIT) break;
         }
     }
-    returnMessage(expectNumbers) {
-        const ballStrike = this.calculateBallStrike(expectNumbers);
+    getMessage(expectedNumbers) {
+        const ballStrike = this.calculateBallStrike(expectedNumbers);
         const result = this.getResultString(ballStrike);
         return {
             result,
             success: ballStrike.strike === Computer.STRIKE,
         };
     }
-    calculateBallStrike(expectNumbers) {
-        return [...expectNumbers]
+    calculateBallStrike(expectedNumbers) {
+        return [...expectedNumbers]
             .map((n) => +n)
             .reduce(
                 (res, cur, idx) => {
