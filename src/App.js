@@ -16,6 +16,7 @@ class App {
         try{
           userNum = await Console.readLineAsync("숫자를 입력해주세요 : ");
           checkNum(userNum);
+          
           const result = compareNum(computerNum, userNum);
           printHint(result.strike, result.ball);
   
@@ -29,10 +30,10 @@ class App {
       }
       
       restart = await Console.readLineAsync(
-        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
       );
       
-      if(restart === "2"){
+      if( restart === "2" ) {
         break;
       }
     }
