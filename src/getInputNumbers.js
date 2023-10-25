@@ -6,11 +6,11 @@ export async function getInputNumbers() {
 		STRINGS.USER_INPUT
 	);
 	if (userNumbers.length !== 3) {
-		throw Error("[ERROR] 3개의 숫자를 입력해야 합니다.");
+		throw Error(STRINGS.ERROR_LENGTH);
 	} else if (isNaN(userNumbers)) {
-		throw Error("[ERROR] 숫자만 입력 가능합니다.");
+		throw Error(STRINGS.ERROR_NAN);
 	} else if (userNumbers.includes("0")) {
-		throw Error("[ERROR] 1부터 9까지의 숫자만 입력 가능합니다.");
+		throw Error(STRINGS.ERROR_RANGE);
 	} else {
 		return userNumbers.toString();
 	}
