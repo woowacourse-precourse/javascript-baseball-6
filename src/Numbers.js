@@ -23,7 +23,19 @@ class Numbers {
         return answerArray;
     }
 
-    
+    // 점수 계산
+    count(target) {
+        const score = [0, 0]; // [스트라이크, 볼]
+        for (let i=0; i<this.numbersArray.length; i++) {
+            if (this.numbersArray[i] === target.numbersArray[i]) {
+            score[0]++;
+            } else if (target.numbersArray.includes(this.numbersArray[i])) {
+            score[1]++;
+            }
+        }
+        return score;
+        }
+
 }
 
 
