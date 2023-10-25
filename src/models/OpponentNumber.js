@@ -4,6 +4,10 @@
 class OpponentNumber {
   /** @type {number} */
   #number;
+
+  constructor(number) {
+    this.#number = number;
+  }
 }
 
 export default OpponentNumber;
