@@ -9,6 +9,7 @@ class App {
     while (KEEP_PLAY) {
       let HOME_RUN = false
       let TARGET_NUMBER = getRandomNumber()
+
       Console.print("숫자 야구 게임을 시작합니다.")
 
       while (!HOME_RUN) {
@@ -32,47 +33,46 @@ class App {
       (userInput == 2) && (KEEP_PLAY = false)
     }
   }
+
+  
+
+  getRandomNumber() {
+    const randomNumber = []; 
+    
+    while (randomNumber.length < 3) {
+      const digit = Random.pickNumberInRange(1, 9)
+      !randomNumber.includes(digit) && randomNumber.push(digit)
+    }
+
+    return randomNumber
+  }  
 }
 
 function getRandomNumber() {
-    const number = []; 
-    while (number.length < 3) {
-      const tempDigit = Random.pickNumberInRange(1, 9)
-      !number.includes(tempDigit) && number.push(tempDigit)
-    }
-    return number
+  const randomNumber = []; 
+  while (randomNumber.length < 3) {
+    const digit = Random.pickNumberInRange(1, 9)
+    !randomNumber.includes(digit) && randomNumber.push(digit)
+  }
+  return randomNumber
 }
 
 
 function checkExceptionalInput(input) {
-  // return input.toString().length == 3 && !isNaN(input) && checkDuplicateNumber(input)  
-  return input.toString().length == 3 && !isNaN(input)
-    ? true
-    : false
-}
-
-function checkDuplicateNumber(number) {
-  const numberToString = number.toString()
-  for (let i = 0; i < numberToString.length; i++) {
-    for (let j = i+1; j < numberToString.length; j++) {
-      return (numberToString[i] == numberToString[j]) 
-        ? false
-        : true
-    }
-  }
+  return input.toString().length == 3 && !isNaN(input) ? true : false
 }
 
 function compareTwo3digitNumbers(targetNumber, userInputNumber) {
   let strike = 0;
-  let ball = 0;
+  let ball = 0; 
 
   for (let i =0 ; i < targetNumber.length; i++) {
-    targetNumber.includes(userInputNumber[i])
-        ? targetNumber[i] == userInputNumber[i]
-          ? strike++
-          : ball++
-        : {}
-    }
+    targetNumber.includes(userInputNumber[i]) && (
+      targetNumber[i] == userInputNumber[i]
+      ? strike++
+      : ball++
+    )
+  }
   return [ball, strike];
 }
 
