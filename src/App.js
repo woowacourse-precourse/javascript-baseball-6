@@ -31,6 +31,7 @@ class App {
     const userNumbers = userInput.split('').map(Number);
 
     this.userChoiceValidation(userNumbers);
+    this.checkAnswer(userNumbers);
   }
 
   userChoiceValidation(userNumbers) {
@@ -45,6 +46,21 @@ class App {
     const uniqueNumbers = [...new Set(userNumbers)];
     if (uniqueNumbers.length !== 3) {
       throw new Error('[ERROR] 중복되지 않는 숫자 3개를 입력해주세요');
+    }
+  }
+
+  async checkAnswer(userNumbers) {
+    const { ball, strike } = userNumbers.reduce(
+      (acc, element, index) => {
+        if (this.answer[index] === element) acc.strike++;
+        else if (this.answer.includes(element)) acc.ball++;
+        return acc;
+      },
+      { ball: 0, strike: 0 }
+    );
+
+    if (strike !== 3) {
+      await this.userChoice();
     }
   }
 }
