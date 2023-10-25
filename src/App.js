@@ -13,19 +13,19 @@ class App {
       }
     } catch(error) {
       console.error(error.message)
-      throw error;
+      throw error; //이걸 해줘야함 
     }
   }
 
   async onePlay() {
     try {
       let computer = this.makeAnswer();
-      console.log("computer", computer)
+      // console.log("computer", computer)
 
       let isAnswer = false;
       while(!isAnswer) {
         const readInput = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
-        console.log("readInput", readInput)
+        // console.log("readInput", readInput)
         if(readInput.length===3) {
           const [strikeNum, ballNum] = this.checkInput(readInput, computer);
           const resultString = this.makeResultString(strikeNum, ballNum);
@@ -47,7 +47,7 @@ class App {
     if(s===0) {
       if(b===0) string = "낫싱";
       else string = `${b}볼`;
-    } else { //스트 존재
+    } else { 
       if(b===0) string = `${s}스트라이크`;
       else string = `${b}볼 ${s}스트라이크`
     }
@@ -59,11 +59,10 @@ class App {
     answer = answer.map(Number);
     let strike = 0;
     let ball = 0;
-    //잘못 들어온 경우 예외처리!
     for(let i=0; i<3; i++) {
-      if(inputArr[i]===answer[i]) { //자리수가 같으면 스트
+      if(inputArr[i]===answer[i]) { //자리수가 같으면 스트라이크
         strike++;
-      } else if(answer.includes(inputArr[i])){ //같진 않지만 포함 시 볼 
+      } else if(answer.includes(inputArr[i])){ //자리수 같진 않지만 포함 시 볼 
         ball++;
       }
     }
@@ -72,7 +71,7 @@ class App {
   }
 
   makeAnswer() {
-    const computer = []; //야구 게임 한번 할때마다 
+    const computer = []; 
     while(computer.length < 3) {
       const num = MissionUtils.Random.pickNumberInRange(1,9);
       if(!computer.includes(num)){
@@ -83,8 +82,10 @@ class App {
   }
 }
 
+export default App;
+
+// 테스트 위한 
 // const app = new App();
 // app.play();
 // const result = app.checkInput("132", "123")
 // console.log(result)
-export default App;
