@@ -1,5 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
-export default async function responseGameRestart() {
+
+export default async function gameRestart() {
 	try {
 		const answer = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
 		if (answer === '1' || answer === '2') {

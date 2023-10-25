@@ -1,14 +1,14 @@
 import { Console, Random } from '@woowacourse/mission-utils';
-import playerInputNumber from './playerInputNumber.js';
-import checkBaseball from './checkBaseball.js';
-import responseGameRestart from './responseGameRestart.js';
+import playerInput from './playerInput.js';
+import checkingBaseball from './checkingBaseball.js';
+import gameRestart from './gameRestart.js';
 
 export default class App {
 	async play() {
 		this.gameStart();
 		while (true) {
 			await this.gamePlay();
-			const CHECKRESTART = await responseGameRestart();
+			const CHECKRESTART = await gameRestart();
 			if (CHECKRESTART !== '1') {
 				break;
 			}
@@ -34,8 +34,8 @@ export default class App {
 		const COMPUTER = this.randomNumber();
 		let CHECKBASEBALL = true;
 		while (CHECKBASEBALL) {
-			const PLAYER = await playerInputNumber();
-			CHECKBASEBALL = checkBaseball(PLAYER, COMPUTER);
+			const PLAYER = await playerInput();
+			CHECKBASEBALL = checkingBaseball(PLAYER, COMPUTER);
 		}
 	}
 }

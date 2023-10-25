@@ -1,6 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 
-export default function checkBaseball(player, computer) {
+export default function checkingBaseball(player, computer) {
 	try {
 		let BALL = CheckBall(player, computer);
 		let STRIKE = CheckStrike(player, computer);

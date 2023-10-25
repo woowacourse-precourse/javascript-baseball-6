@@ -1,9 +1,8 @@
 import { Console } from '@woowacourse/mission-utils';
 
-export default async function playerInputNumber() {
+export default async function playerInput() {
 	try {
 		const answer = await Console.readLineAsync('숫자를 입력해주세요 : ');
-
 		if (answer.includes('0')) {
 			throw new Error('[ERROR] 입력한 값에 0이 포함되어 있습니다.');
 		} else if (!Boolean(Number(answer))) {
