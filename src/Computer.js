@@ -48,8 +48,8 @@ export default class Computer {
             .reduce(
                 (res, cur, idx) => {
                     const newRes = { ...res };
-                    if (this.numbers[idx] === cur) newRes.strike++;
-                    else if (this.numbers.includes(cur)) newRes.ball++;
+                    if (this.numbers[idx] === cur) newRes.strike += 1;
+                    else if (this.numbers.includes(cur)) newRes.ball += 1;
                     return newRes;
                 },
                 { ball: 0, strike: 0 }
