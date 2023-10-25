@@ -7,28 +7,28 @@ class Baseball{
   userInput;
 
   //시작 메시지 출력
-  start = () => {
+  async start(){
     MissionUtils.Console.print(SystemMessage.START);
 
-    this.comCreateNum();
+    await this.comCreateNum();
   };
 
   //컴퓨터가 숫자를 생성함
-  comCreateNum = () => {
+  async comCreateNum() {
     this.computerInput = new Computer();
 
-    this.getUserInput();
+    await this.getUserInput();
   }
   
   //게임 재시작
-  restartGame = () => {
-    this.comCreateNum();
+  async restartGame() {
+    await this.comCreateNum();
   }
 
 
   //유저가 입력한 값을 받아와서 저장함
-  getUserInput = () => {
-    MissionUtils.Console.readLineAsync(SystemMessage.INPUT_NUMBER)
+  async getUserInput() {
+    await MissionUtils.Console.readLineAsync(SystemMessage.INPUT_NUMBER)
     .then((number) => {
       //MissionUtils.Console.print(`${number} <- 현재 숫자`)
       
@@ -48,7 +48,7 @@ class Baseball{
   };
 
   //숫자가 3자리가 입력되었는지 확인
-  checkNotThreeDigits = (number) => {
+  checkNotThreeDigits(number) {
     const inputNumSet = new Set(number);
     const numberRegExp = RegExp(/[1-9]{3}/g);
     
@@ -66,7 +66,7 @@ class Baseball{
   // };
 
   //입력된 숫자를 비교
-  compareNumber = () => {
+  compareNumber() {
     const computerNumber = this.computerInput.computerNumber;
     return this.userInput.reduce(
       (checkCount, number, index) => {
@@ -83,7 +83,7 @@ class Baseball{
   }
 
   //비교한 결과값을 출력
-  getNumberResult = ([strike, ball, out]) => {
+  getNumberResult([strike, ball, out]) {
     let resultText = "";
     
     if(ball > 0) {
@@ -108,7 +108,7 @@ class Baseball{
   }
 
   //3스트라이크일 경우, 재시작 혹은 종료 여부 선택
-  selectRestartOrFinish = () => {
+  selectRestartOrFinish() {
     MissionUtils.Console.print(SystemMessage.THREE_STRIKE);
 
     MissionUtils.Console.readLineAsync(SystemMessage.RESTART_OR_EXIT)
