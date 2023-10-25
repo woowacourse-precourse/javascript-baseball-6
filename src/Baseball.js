@@ -19,13 +19,6 @@ export default class BaseballGame {
     MissionUtils.Console.print(result);
   }
 
-  async askForRestart() {
-    const response = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요: ');
-    if (response === '2') {
-      this.isGameRunning = false;
-    }
-  }
-
   async init() {
     MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
 
@@ -54,6 +47,13 @@ export default class BaseballGame {
       }
 
       await this.askForRestart();
+    }
+  }
+
+  async askForRestart() {
+    const response = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요: ');
+    if (response === '2') {
+      this.isGameRunning = false;
     }
   }
 
