@@ -14,10 +14,29 @@ class App {
     return randomNumbers;
   }
 
+  compare(computerNumbers, userNumbers) {
+    let strike = 0;
+    let ball = 0;
+
+    computerNumbers.forEach((computerNum, computerNumIdx) => {
+      userNumbers.forEach((userNum, userNumIdx) => {
+        if (computerNum === userNum && computerNumIdx === userNumIdx) {
+          strike += 1;
+        } else if (computerNum === userNum) {
+          ball += 1;
+        }
+      });
+    });
+
+    return { ball, strike };
+  }
+
   async play() {
     Console.print('숫자 야구 게임을 시작합니다.');
     let computerNumbers = this.generateRandomNumbers();
     const userNumbers = await InputProcessor.inputNumber();
+
+    const { ball, strike } = this.compare(computerNumbers, userNumbers);
   }
 }
 
