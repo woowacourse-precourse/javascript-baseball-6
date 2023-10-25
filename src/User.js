@@ -1,5 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import { isValidInput } from './utils';
+import { ERROR_MESSAGE, isValidInput } from './utils';
 
 class User {
   #number;
@@ -14,7 +14,7 @@ class User {
       );
 
       if (!isValidInput(number)) {
-        throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+        throw new Error(ERROR_MESSAGE.incorrectNumberFormat);
       }
       this.#number = number;
     } catch (error) {

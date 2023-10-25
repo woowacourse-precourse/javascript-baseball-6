@@ -1,11 +1,7 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import Computer from './Computer.js';
 import User from './User.js';
-
-const GAME_STATUS = {
-  restart: '1',
-  terminal: '2',
-};
+import { ERROR_MESSAGE, GAME_STATUS } from './utils';
 
 class BaseballGame {
   #strike = 0;
@@ -48,16 +44,16 @@ class BaseballGame {
 
   async keepGoingGame() {
     try {
-      const answer = await MissionUtils.Console.readLineAsync(
+      const gameStatus = await MissionUtils.Console.readLineAsync(
         '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'
       );
 
-      if (answer == GAME_STATUS.restart) {
+      if (gameStatus === GAME_STATUS.restart) {
         this.#isRestarted = true;
-      } else if (answer === GAME_STATUS.terminal) {
+      } else if (gameStatus === GAME_STATUS.terminal) {
         this.#isRestarted = false;
       } else {
-        throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+        throw new Error(ERROR_MESSAGE.incorrectGameStatus);
       }
     } catch (error) {
       this.#isRestarted = false;
