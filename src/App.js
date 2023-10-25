@@ -65,7 +65,20 @@ class App {
     if(strikes==3) {
       MissionUtils.Console.print(`${strikes}스트라이크`);
       MissionUtils.Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
-      MissionUtils.Console.print(`게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.`);
+      
+      var input = await MissionUtils.Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.")
+
+      if(input==1) {
+        // computer_number3 = MissionUtils.Random.pickUniqueNumbersInRange(1, 9, 3);
+        MissionUtils.Console.print("게임을 재시작합니다.");
+        isNewGame = true; // 게임 재시작
+      } else 
+      if(input==2) {
+        MissionUtils.Console.print("게임 종료합니다.");
+        //isNewGame = false; // 게임 종료
+        isNewGame = false;
+      }
+
     }
     else if (balls==0 && (strikes==1 || strikes ==2)){
       MissionUtils.Console.print(`${strikes}스트라이크`);
