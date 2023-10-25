@@ -7,6 +7,10 @@ import { createRandomNumbers } from './utils/createRandomNumbers.js';
 import { GAME_COMMAND } from './constants/gameCommand.js';
 
 class App {
+  inputReader;
+  outputView;
+  baseBall;
+
   constructor() {
     this.inputReader = new InputReader();
     this.outputView = new OutputView();
