@@ -16,7 +16,15 @@ class GameManage {
     const ERROR = new UserNumError(USER_NUM);
     if (!ERROR.userNumNotExist() && !ERROR.userNumNotNumber() &&
         !ERROR.userNumNotThree() && !ERROR.userNumSameNum()) {
+        this.createComputerNum(USER_NUM);      
     }
+  }
+  createComputerNum(USER_NUM) {
+    this.computerNum = this.isResetComputerNum 
+    ? 
+    new ComputerNum().createComputerNum() 
+    : 
+    this.computerNum; 
   }
 }
 
