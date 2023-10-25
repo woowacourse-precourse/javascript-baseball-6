@@ -58,7 +58,7 @@
 
 ### 모듈화 작업
 
-- [ ] 에러 출력 및 화면 입출력 기능 모듈화 (App.js -> IOManager.js)
+- [x] 에러 출력 및 화면 입출력 기능 모듈화 (App.js -> IOManager.js)
 - [ ] 정답 생성 및 정답 검증 기능 모듈화 (App.js -> AnswerManager.js)
 
 ### 테스팅
@@ -66,6 +66,6 @@
 - [x] `게임 종료 후 재시작` 테스트 통과하기
 - [x] `예외 테스트` 테스트 통과하기
 - [x] IOManager 모듈 테스트 코드 작성, 전부 fail
-- [ ] IOManager 모듈 테스트 통과하기
+- [x] IOManager 모듈 테스트 통과하기
 - [ ] AnswerManager 모듈 테스트 코드 작성, 전부 fail
 - [ ] AnswerManager 모듈 테스트 통과하기
