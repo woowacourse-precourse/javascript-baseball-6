@@ -9,7 +9,7 @@ export const AnswerMaker = {
               computer.push(number);
           }
         }
-    console.log(computer);
+    //console.log(computer);
     return computer;
     }
 }

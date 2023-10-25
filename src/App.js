@@ -2,6 +2,8 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 import { AnswerMaker } from "./AnswerMaker.js";
 //import { InputView } from "./InputView.js";
 import { Validater } from "./Validater.js";
+import { Spliter } from "./Spliter.js";
+import { OutputView } from "./OutputView.js";
 
 class App {
   async play() {
@@ -16,7 +18,7 @@ var results = {
     ball : 0
 }
 
-MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
+OutputView.printStartComment();
 const app = new App();
 app.play();
 
@@ -41,7 +43,7 @@ async function gameContinue(answer) {
 }
 
 function gameResult(answer, tryNumber) {
-  const tryNumberSplit = splitNumber(tryNumber);
+  const tryNumberSplit = Spliter.splitNumber(tryNumber);
   results.strick = 0;
   results.ball = 0;
   for (let i = 0; i < tryNumberSplit.length; i++) {
@@ -54,19 +56,7 @@ function gameResult(answer, tryNumber) {
           // 낫싱
       }
   }
-  return resultPrint(results.strick,results.ball);
-}
-
-function resultPrint(strick,ball) {
-  if (strick !== 0 && ball !== 0) {
-      return MissionUtils.Console.print(`${ball}볼 ${strick}스트라이크`);
-  } else if (strick === 0 && ball!== 0) {
-      return MissionUtils.Console.print(`${ball}볼`);
-  } else if (strick!== 0 && ball === 0) {
-      return MissionUtils.Console.print(`${strick}스트라이크`);
-  } else {
-      MissionUtils.Console.print('낫싱');
-  }
+  return OutputView.printResult(results.strick,results.ball);
 }
 
 //3스트라이크: 게임 다시하기
