@@ -2,7 +2,7 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 import { STRINGS } from "./constants/strings";
 import { createRandomNumber } from "./createRandomNumber";
 import { getInputNumbers } from "./getInputNumbers";
-import { Judge } from "./judge";
+import { judge } from "./judge";
 import { replay } from "./replay";
 
 class App {
@@ -18,7 +18,7 @@ class App {
 			do {
 				userNumbers = await getInputNumbers();
 
-				result = await Judge(answerNumbers, userNumbers);
+				result = await judge(answerNumbers, userNumbers);
 			} while (!result);
 
 			const replayChoice = await replay();

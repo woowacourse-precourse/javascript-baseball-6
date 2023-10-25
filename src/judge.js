@@ -3,7 +3,7 @@ import { STRINGS } from "./constants/strings";
 import { getInputNumbers } from "./getInputNumbers";
 import { replay } from "./replay";
 
-export async function Judge(answer, userNumbers) {
+export async function judge(answer, userNumbers) {
 	let ANSWER_NUMBERS = [...new Set(answer.split(""))];
 	let USER_NUMBERS = [...new Set(userNumbers.split(""))];
 	let ball = 0;
