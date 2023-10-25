@@ -48,8 +48,20 @@ class App {
     } // 중복된 숫자가 없는지 검증
     //Console.print(userInputs);
     const [ball, strike] = getGameResult(randaomNumbers, userInputs);
-    Console.print(ball);
-    Console.print(strike);
+    // Console.print(ball);
+    // Console.print(strike);
+    if (ball === 0 && strike === 0) {
+      Console.print("낫싱");
+    }
+    if (ball > 0 && strike === 0) {
+      Console.print(`${ball}볼`);
+    }
+    if (ball === 0 && strike > 0) {
+      Console.print(`${strike}스트라이크`);
+    }
+    if (ball > 0 && strike > 0) {
+      Console.print(`${ball}볼 ${strike}스트라이크`);
+    }
   }
 }
 
