@@ -29,14 +29,11 @@ class App {
   }
 
   getRandomNumber() {
-    const computer = [];
-    while (computer.length < 3) {
-      const number = Random.pickNumberInRange(1, 9);
-      if (!computer.includes(number)) {
-        computer.push(number);
-      }
+    const computer = new Set();
+    while (computer.size < 3) {
+      computer.add(Random.pickNumberInRange(1, 9));
     }
-    this.computer = computer;
+    this.computer = [...computer];
   }
 
   computeNumber() {
