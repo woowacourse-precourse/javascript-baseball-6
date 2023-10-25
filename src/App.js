@@ -21,7 +21,6 @@ class App {
       }
     } catch (error) {
       const errorMessage = `[ERROR] : ${error.message}`;
-      MissionUtils.Console.print(errorMessage);
       throw new Error(errorMessage);
     }
   }
