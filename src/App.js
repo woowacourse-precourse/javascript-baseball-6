@@ -7,8 +7,8 @@ import { createRandomNumbers } from './utils/createRandomNumbers.js';
 
 class App {
   constructor() {
-    this.outputView = new OutputView();
     this.inputReader = new InputReader();
+    this.outputView = new OutputView();
     this.baseBall = null;
   }
 
@@ -19,7 +19,6 @@ class App {
 
   async setting() {
     const randomNumbers = createRandomNumbers();
-
     this.baseBall = new BaseBall(randomNumbers);
 
     await this.pitching();
@@ -29,12 +28,12 @@ class App {
     const response = await this.inputReader.baseBallNumbers();
     const userInput = Number(response);
 
+    validation.baseBallNumbersInputOfUser(userInput);
+
     await this.check(userInput);
   }
 
   async check(userInput, _ = paramType(userInput, Number)) {
-    validation.baseBallNumbersInputOfUser(userInput);
-
     const countResult = this.baseBall.countResult(userInput);
     const { strike } = countResult;
 
@@ -44,6 +43,7 @@ class App {
       await this.complete();
       return;
     }
+
     await this.pitching();
   }
 

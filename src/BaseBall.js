@@ -3,7 +3,7 @@ import { paramType } from './utils/paramType';
 export default class BaseBall {
   #winningNumbers;
 
-  constructor(winningNumbers) {
+  constructor(winningNumbers, _ = paramType(winningNumbers, Number)) {
     this.#winningNumbers = winningNumbers;
   }
 
@@ -18,12 +18,12 @@ export default class BaseBall {
   _checkBallsAmount(userInput, _ = paramType(userInput, Number)) {
     const userInputArray = [...String(userInput)];
     const ballsAmount = [...String(this.#winningNumbers)].reduce(
-      (ballAmount, currentPassword, idx) => {
-        if (currentPassword === userInputArray[idx]) return ballAmount;
-        if (userInputArray.includes(currentPassword)) {
-          return (ballAmount += 1);
+      (balls, winningNumber, idx) => {
+        if (winningNumber === userInputArray[idx]) return balls;
+        if (userInputArray.includes(winningNumber)) {
+          return (balls += 1);
         }
-        return ballAmount;
+        return balls;
       },
       0
     );
@@ -34,10 +34,8 @@ export default class BaseBall {
   _checkStrikesAmount(userInput, _ = paramType(userInput, Number)) {
     const userInputArray = [...String(userInput)];
     const strikesAmount = [...String(this.#winningNumbers)].reduce(
-      (strikeAmount, currentPassword, idx) => {
-        return currentPassword === userInputArray[idx]
-          ? (strikeAmount += 1)
-          : strikeAmount;
+      (strikes, winningNumber, idx) => {
+        return winningNumber === userInputArray[idx] ? (strikes += 1) : strikes;
       },
       0
     );
@@ -48,7 +46,7 @@ export default class BaseBall {
   _checkNothing(userInput, _ = paramType(userInput, Number)) {
     const userInputArray = [...String(userInput)];
     const isNothing = [...String(this.#winningNumbers)].every(
-      (number) => !userInputArray.includes(number)
+      (winningNumber) => !userInputArray.includes(winningNumber)
     );
 
     return isNothing;
