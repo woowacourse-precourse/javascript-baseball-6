@@ -18,10 +18,6 @@ class App {
     const checkIsDuplicate = new Set(answer).size === 3;
     const checkIsNumber = new RegExp(/^[1-9]{3}$/);
 
-//    Console.print("answer 유효성 검사");
-//    Console.print(checkIsNumber.test(answer));
-//    Console.print(checkLength);
-//    Console.print(checkIsDuplicate);
     if(checkLength == true && checkIsDuplicate == true && checkIsNumber.test(answer)==true){
       return answer;
     }
@@ -49,17 +45,12 @@ class App {
 
   async playBaseballGame(){
     const computerNumber = await this.createRandomNumber();
-     // Console.print(computerNumber);
 
     while(true){  
-  
       const userNumber = await this.userInputNumber();
-      // Console.print(userNumber.split(''));
-
       const {gameSuccess, hintMessage} = await roundResult(computerNumber, userNumber);
-      // Console.print(`gameSuccess는? ${gameSuccess}`);
-       Console.print(hintMessage);
 
+      Console.print(hintMessage);
 
       if(gameSuccess){
         Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
