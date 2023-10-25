@@ -4,29 +4,28 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 class App {
   constructor() {
     this.computer = this.generateRandomNumbers();
-    this.isGameRunning = true;
+    this.ISGAMERUNNING = true;
   }
 
   async play() {
     //console.log('숫자 야구 게임을 시작합니다.');
     MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
-    while (this.isGameRunning) {
+    while (this.ISGAMERUNNING) {
       try {
         const userInput = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
         if (!this.isValidInput(userInput)) {
-          this.isGameRunning = false; // 게임을 종료하도록 플래그를 설정
+          this.ISGAMERUNNING = false; // 게임을 종료하도록 플래그를 설정
           throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
         }
 
         const [strike, ball] = this.getScore(userInput);
         if (strike === 3) {
           MissionUtils.Console.print('3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료');
-          // this.isGameRunning = false;
           const restart = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
           if (restart === '1') {
             this.resetGame();
           } else if (restart === '2') {
-            this.isGameRunning = false; // 게임 완전 종료
+            this.ISGAMERUNNING = false; // 게임 완전 종료
           }
         } else if (ball === 0 && strike === 0) {
           MissionUtils.Console.print('낫싱');
@@ -34,8 +33,7 @@ class App {
           MissionUtils.Console.print(`${ball ? ball + '볼 ' : ''}${strike ? strike + '스트라이크' : ''}`.trim());
         }
       } catch (error) {
-        // console.error(error.message);
-        this.isGameRunning = false;
+        this.ISGAMERUNNING = false;
         throw error; // 예외를 다시 던짐
       }
     }
@@ -77,7 +75,7 @@ class App {
 
   async resetGame() {
     this.computer = this.generateRandomNumbers();
-    this.isGameRunning = true;
+    this.ISGAMERUNNING = true;
     try {
       await this.play(); // 비동기 실행을 기다림
     } catch (error) {
