@@ -1,4 +1,4 @@
-export const GAME_STATUS = {
+export const GAME_STATUS = Object.freeze({
   END: "end",
   CONTINUE: "continue",
-};
+});
