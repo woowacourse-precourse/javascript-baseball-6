@@ -6,7 +6,7 @@ import reGame from './regame';
 export default async function startGame(COM_NUM) {
   let endGame = false;
 
-  while(endGame) {
+  while(!endGame) {
     const USER_INPUT = await userInput();
   
     isValidNum(USER_INPUT);
