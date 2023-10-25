@@ -32,7 +32,12 @@ class App {
     this.callbackUserNumber()
   }
 
+  convertToNumberArray() {
+    this.#userNumber = this.#userNumber.split('').map((num) => Number(num));
+  }
+
   callbackUserNumber() {
+    this.convertToNumberArray();
   }
 
   async play() {
