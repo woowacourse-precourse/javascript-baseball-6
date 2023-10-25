@@ -1,0 +1,43 @@
+1. clone/fork/remote 차이
+clone : repository에서 작업한 프로젝트 로컬로 가져오기 (원본 수정 시 반영 가능)
+ - <cmd> git clone "주소"
+fork : 다른 사람의 repository에서 작업한 프로젝트 내 git으로 복붙하기 (원본 수정시 반영 불가능)
+ - <github 페이지> 원하는 repository에서 fork 버튼 선택
+remote : 로컬에서 작업한 프로젝트를 git으로 보내기 위한 연결 작업
+ - <cmd> git remote git remote add origin "주소"
+ - git pull origin main
+ - git add --all
+ - git commit -m "commit 설명 멘트"
+ - git push origin main 
+ 등등 사용가능
+
+2. node.js 사용하는 법
+- Node.js 홈페이지에서 다운로드
+- npm 코드로 테스트 패키지 설치 및 실행
+ - npm install
+ - npm test (패키지에서 설정한 코드이므로 다른 패키지에서는 사용 불가능)
+
+3. docs/README.md
+- docs 파일 생성 후, README 파일 만들기
+- 구현할 기능을 상세하게 적어놓고 그것에 맞춰서 구현하기 위한 용도?
+
+4. Console.readLineAsync 왜 안돼..?
+- 함수에 async가 있으므로 함수 불러올 때 await 사용하기
+
+5. throw error -> throw new Error("에러 문구")
+
+6. 정규식 사용시 "" 말고 `` 사용할 것!
+
+7. js는 변수 선언이 다른 언어에 비해 문법적으로 더 자유로움
+-> 잘못된 변수 선언은 오류에 걸리지 않아 오류잡기 힘들었음..
+
+8. if문에 세미콜론이 안쓰이는 등 세미콜론 규칙에 대해 잘 몰랐음..
+
+9. 코드 정리
+ - 변수명은 snake case
+ - 함수명에는 특수문자 사용 x
+ - 연산자 앞뒤로 띄어쓰기
+ - 괄호 앞뒤로 띄어쓰기 x
+ - 기능별로 함수 분리하기
+ - 주석 뒤 한 칸 띄어쓰기
+ - 세미콜론 if문에는 사용 x
