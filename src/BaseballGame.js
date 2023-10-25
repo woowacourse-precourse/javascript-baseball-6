@@ -20,11 +20,14 @@ class BaseballGame {
     }
   }
 
-  getUserNumbers() {
+  async getUserNumbers() {
     const CONSOLE_MESSAGE = '숫자를 입력해주세요 : ';
-    MissionUtils.Console.readLine(CONSOLE_MESSAGE, (numbers) => {
+    let numbers = '';
+
+    try {
+      numbers = await MissionUtils.Console.readLineAsync(CONSOLE_MESSAGE);
       this.#userNumbers = [...numbers].map((number) => Number(number));
-    });
+    } catch (error) {}
   }
 
   validateUserNumbers() {
