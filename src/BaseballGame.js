@@ -32,12 +32,12 @@ async function startGame() {
 
 async function playGame() {
   let retry;
-		do {
-	    printIntroMessage();
-	    await startGame();
-	    retry = await askRetry()
-	  } while(retry)
-	  printEndMessage();
+  do {
+    printIntroMessage();
+    await startGame();
+    retry = await askRetry()
+  } while(retry)
+  printEndMessage();
 }
 
 export { playGame };
