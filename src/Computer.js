@@ -34,17 +34,18 @@ class Computer{
               }
         }
         
+
         if(this.ball !== 0){
-            message += `${this.ball} 볼 `
+            message += `${this.ball}볼 `
         }
         if(this.strike !== 0){
             if(message !== ''){
                 message += ' '
             }
-            message += `${this.strike} 스트라이크`
+            message += `${this.strike}스트라이크`
         }
         if(this.ball === 0 && this.strike === 0){
-            message == '낫싱'
+            message = '낫싱'
         }
         return message
     }
