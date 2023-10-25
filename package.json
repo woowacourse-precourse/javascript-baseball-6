@@ -14,7 +14,6 @@
   },
   "scripts": {
     "test": "jest"
-
   },
   "repository": {
     "type": "git",
