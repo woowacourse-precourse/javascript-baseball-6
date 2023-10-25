@@ -6,9 +6,8 @@ class App {
     this.playerInput = '';
   }
   // error 핸들링 메서드
-  handleError(name, message) {
+  handleError(message) {
     let error = new Error();
-    error.name = name;
     error.message = message;
     Console.print(error.message);
     throw error;
@@ -29,11 +28,11 @@ class App {
     const isDuplicate = input.split('').some((number) => input.indexOf(number) !== input.lastIndexOf(number))
 
     if(isNaN(Number(input))) {
-      this.handleError('Validation Error', '[ERROR] 숫자를 입력해주세요');
+      this.handleError('[ERROR] 숫자를 입력해주세요');
     } else if(input.length !== 3) {
-      this.handleError('Validation Error', '[ERROR] 3자리 숫자를 입력해주세요');
+      this.handleError('[ERROR] 3자리 숫자를 입력해주세요');
     } else if(isDuplicate) {
-      this.handleError('Validation Error', '[ERROR] 중복되지 않는 숫자를 입력해주세요');
+      this.handleError('[ERROR] 중복되지 않는 숫자를 입력해주세요');
     } else {
       this.playerInput = input;
     }
@@ -73,7 +72,7 @@ class App {
       Console.print(replay);
       Console.print('게임을 종료합니다.');
     } else {
-      this.handleError('Error', '[ERROR] 1 또는 2를 입력해주세요');
+      this.handleError('[ERROR] 1 또는 2를 입력해주세요');
     }
   }
   // 게임 진행 메서드
