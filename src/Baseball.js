@@ -42,9 +42,7 @@ class Baseball{
       
       this.getNumberResult(checkCount);
     }
-    ).catch ((error) => {
-      return false;
-    })
+    );
   };
 
   //숫자가 3자리가 입력되었는지 확인
