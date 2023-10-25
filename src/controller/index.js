@@ -20,7 +20,7 @@ class BaseBallController {
 
   /**
    * no-await-in-loop
-   * when to it await in loop
+   * When not to use it
    * 1. 한 번의 반복에서 출력물이 다른 반복의 입력으로 사용되는 경우
    * 2. 비동기 작업을 다시 시도하기 위해 사용 사용되는 경우
    * 3. 코드가 과도한 수의 요청을 보내지 않도록 하는 데 사용하는 경우
