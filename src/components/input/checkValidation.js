@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from '../../constants';
+import { GAME_MESSAGE } from '../../constants';
 
 const checkRange = (userNumber) => {
   let flag = true;
@@ -18,17 +18,16 @@ const checkUniqueness = (userNumber) => {
   else return false;
 };
 
-// 유효한 입력인지 검사합니다.
 const checkValidation = (userNumber) => {
   if (userNumber === 'NaN' || !userNumber) {
-    throw new Error(ERROR_MESSAGE);
+    throw new Error(GAME_MESSAGE.INPUT_ERROR);
   }
   if (
     !checkRange(userNumber) ||
     !checkLength(userNumber) ||
     !checkUniqueness(userNumber)
   ) {
-    throw new Error(ERROR_MESSAGE);
+    throw new Error(GAME_MESSAGE.INPUT_ERROR);
   }
   return true;
 };
