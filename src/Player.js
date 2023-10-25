@@ -13,7 +13,7 @@ class Player {
   static RANGE_ERROR = "[ERROR]입력값은 1에서 9 사이의 숫자여야 합니다.";
 
   // 게임 시작, 입력 값 받기, 재시작 or 종료 함수
-  async inputValue() {
+  async startGame() {
     Console.print("숫자 야구 게임을 시작합니다.");
     this.computer = new Computer();
     var result = true;
@@ -24,7 +24,7 @@ class Player {
     }
     const select = await this.computer.correctAnswer();
     if (select === Player.RESTART_COMMAND) {
-      this.inputValue();
+      this.startGame();
     }
     if (select === Player.END_COMMAND) {
       return;

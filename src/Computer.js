@@ -10,9 +10,7 @@ class Computer {
     "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n";
 
   constructor() {
-    // 생성자에서 answer를 초기화
     this.answer = this.createAnswer();
-    console.log(this.answer);
   }
 
   // 정답을 만드는 함수
@@ -49,6 +47,7 @@ class Computer {
       return true;
     }
   };
+
   // 결과를 출력하는 함수
   printResult = (ball, strike) => {
     if (ball === 0 && strike === 0) {
@@ -65,10 +64,11 @@ class Computer {
     }
   };
 
-  // Playe가 정답을 맞췄을 경우
+  // Player가 재시작할것인지, 종료할것인지 정하는 함수
   async correctAnswer() {
     Console.print(Computer.SUCESS_MESSAGE);
     const select = await Console.readLineAsync(Computer.SELECT_MESSAGE);
+
     return select;
   }
 }
