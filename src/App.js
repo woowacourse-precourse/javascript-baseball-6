@@ -16,7 +16,17 @@ class App {
     try {
       while (true) {
         await this.getUserInput();
-        this.getResult();
+        let result = this.getResult();
+
+        if (result) {
+          const restart = await this.checkRestart();
+
+          if (restart === 1) {
+            this.generateRandomNumbers();
+          } else {
+            break;
+          }
+        }
       }
     } catch (error) {
       console.error(error.message);
@@ -69,6 +79,23 @@ class App {
 
     MissionUtils.Console.print(result);
     return false;
+  }
+
+  async checkRestart() {
+    let restart = 0;
+
+    console.log("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    const userInput = await MissionUtils.Console.readLineAsync(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+    );
+
+    restart = parseInt(userInput);
+
+    if (![1, 2].includes(restart)) {
+      throw new Error("[ERROR] 1 또는 2를 입력해주세요.");
+    }
+
+    return restart;
   }
 
   validateUserInput(userInput) {
