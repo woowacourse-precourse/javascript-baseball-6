@@ -6,6 +6,7 @@ const CONDITIONS = {
     MIN: 1,
     MAX: 9,
   },
+  NUMBER_LENGTH: 3,
 };
 
 export default CONDITIONS;
