@@ -1,5 +1,4 @@
 import Game from "./Game/Game.js";
-
 class App {
   constructor() {
     this.game = new Game();
