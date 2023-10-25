@@ -1,4 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
+import { validCheckUserNum } from './components/ValidInput';
 
 class App {
   async play() {
@@ -21,30 +22,8 @@ class App {
 
   async getUserNum(computerNum) {
     const userNum = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
-    await this.validCheckUserNum(userNum);
+    await validCheckUserNum(userNum);
     await this.checkResult(computerNum, userNum);
-  }
-
-  async validCheckUserNum(userNum) {
-    if (!this.isCheckLength(userNum)) {
-      throw new Error("[ERROR] 숫자의 길이는 3이어야합니다.");
-    } else if (!this.isCheckDigit(userNum)) {
-      throw new Error("[ERROR] 1~9사이의 숫자만 입력해야합니다.");
-    } else if (!this.isCheckDuplicate(userNum)) {
-      throw new Error("[ERROR] 중복되지 않은 숫자여야합니다.");
-    }
-  }
-
-  isCheckLength(userNum) {
-    return userNum.length === 3;
-  }
-
-  isCheckDigit(userNum) {
-    return /^[1-9]+$/.test(userNum);
-  }
-
-  isCheckDuplicate(userNum) {
-    return new Set(userNum).size === 3;
   }
 
   async checkResult(computerNum, userNum) {
