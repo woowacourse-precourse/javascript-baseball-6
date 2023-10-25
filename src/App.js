@@ -2,11 +2,11 @@ import { MissionUtils, Console } from '@woowacourse/mission-utils';
 
 class App {
   async play() {
-    function isThreeDigitNumber(input) { //3자리 숫자가 맞는지 확인하는 함수
+    function isThreeDigitNumber(input) { //숫자가 3자릿수인지 판별하는 함수
       return /^\d{3}$/.test(input);
     }
 
-    function validateNumber(num) { // 1 아니면 2가 맞는지 판별하는 함수
+    function validateNumber(num) { // 입력받은 숫자가 1,2 둘중 하나인지 판별하는 함수
       if (num === '1' || num === '2') {
         return true;
       }
@@ -27,7 +27,7 @@ class App {
       return numArray;
     }
 
-    async function numberGame() { // 숫자 게임 함수
+    async function numberGame() { // 숫자 게임 함수 
       let computer = [];
       while (computer.length < 3) {
         let number = MissionUtils.Random.pickNumberInRange(1, 9);
