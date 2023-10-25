@@ -12,28 +12,51 @@ class App {
   async play() {
     Console.print("숫자 야구 게임을 시작합니다.");
     this.answer = this.createAnswer();
-    this.toggleGame("playing");
+    await this.toggleGame("playing");
+  }
+
+  async restart(){
+    this.answer = this.createAnswer();
+    await this.toggleGame("playing");
+  }
+
+  async resume(status){
+    await this.toggleGame(status);
   }
 
   async toggleGame(status) {
     switch(status){
       case "playing":{
+
         const inputNumber = await Console.readLineAsync("숫자를 입력해주세요 : ");
         this.validateAndThrowError(inputNumber)
 
         const scoreInfo = this.createScore(inputNumber);
 
         if (scoreInfo.strike === ANSWER_LENGTH) {
-          await this.toggleGame("clear");
+          await this.resume("clear");
         } else {
           const hintText = this.createHint(scoreInfo);
           Console.print(hintText);
-          await this.toggleGame("playing");
+          await this.resume("playing")
         }
         break;
       }
-      case "clear":
-      default: break;
+      case "clear":{
+        Console.print(`${ANSWER_LENGTH}스트라이크\n${ANSWER_LENGTH}개의 숫자를 모두 맞히셨습니다! 게임 종료`)
+        let inputNumber = null;
+        while(inputNumber !== "1" && inputNumber !== "2"){
+          inputNumber = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n");
+        }
+        if(inputNumber === "1"){
+          await this.restart()
+        }else if(inputNumber === "2"){
+          await this.resume("end")
+        }
+      }
+      case "end":{
+        break;
+      }
     }
   }
 
@@ -86,7 +109,4 @@ class App {
   }
 }
 
-export default App;
-
-const app = new App();
-app.play()
+export default App; 
