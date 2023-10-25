@@ -11,15 +11,8 @@ class App {
         let userInputNumberArray = [];
         let ballStrikeCounts = [];
 
-        try {
-          let userInputNumber = await Console.readLineAsync('숫자를 입력해주세요: ');
-          userInputNumberArray = stringToNumberArray(userInputNumber);
-        } catch (error) {
-          Console.print(error.message + ' 게임 종료');
-          gameStatus = 2;
-          throw new Error('[ERROR]'); // 추가
-          //break;
-        }
+        let userInputNumber = await Console.readLineAsync('숫자를 입력해주세요: ');
+        userInputNumberArray = stringToNumberArray(userInputNumber.trim());
 
         ballStrikeCounts = countBS(answerNumberArray, userInputNumberArray);  // 두 배열을 비교해서 ball, strike 개수 세기
         printBallStrike(ballStrikeCounts);
@@ -31,15 +24,8 @@ class App {
       }
 
       if (gameStatus === 1) { // 게임 종료 상태가 아닌 경우에만 게임 진행 여부 입력 받기
-        try {
-          let startOrQuitInput = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
-          gameStatus = getGameStatusChoice(startOrQuitInput.trim());
-
-        } catch (error) {
-          Console.print(error.message + ' 게임 종료');
-          gameStatus = 2;
-          break;
-        }
+        let startOrQuitInput = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
+        gameStatus = getGameStatusChoice(startOrQuitInput.trim());
       }
     }
   }
@@ -65,7 +51,7 @@ function stringToNumberArray(input) { // 입력값 예외 처리 후 숫자 배�
   if (!input) {
     throw new Error('[ERROR] 입력값이 없습니다.');
   }
-  
+
   if (input.length !== 3) {
     throw new Error('[ERROR] 입력값의 길이가 3이 아닙니다.');
   }
