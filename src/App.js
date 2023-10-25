@@ -12,7 +12,7 @@ class App {
 
   async getInput() {
     const input = await Console.readLineAsync('숫자를 입력해주세요 : ');
-    this.inputCheck(input);
+    this.inputCheck(input.trim());
     this.computeGame();
   }
 
@@ -50,18 +50,20 @@ class App {
   }
 
   printGame(strike, ball) {
+    let message = '';
     if (ball > 0) {
-      if (strike > 0) {
-        Console.print(`${ball}볼 ${strike}스트라이크`);
-      } else {
-        Console.print(`${ball}볼`);
-      }
-    } else if (strike > 0) {
-      Console.print(`${strike}스트라이크`);
-    } else {
-      Console.print('낫싱');
+      message += `${ball}볼`;
     }
-
+    if (strike > 0) {
+      if (message.length > 0) {
+        message += ' ';
+      }
+      message += `${strike}스트라이크`;
+    }
+    if (message.length === 0) {
+      message = '낫싱';
+    }
+    Console.print(message);
     if (strike === 3) {
       return this.checkRestart();
     }
@@ -94,7 +96,7 @@ class App {
   }
 }
 
-// export default App;
+export default App;
 
-const app = new App();
-app.play();
+// const app = new App();
+// app.play();
