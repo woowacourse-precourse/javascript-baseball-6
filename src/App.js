@@ -8,7 +8,7 @@ class App {
   }
 
   createRandomNumber() {
-    this.randomNumberArray = [...Random.pickUniqueNumbersInRange(1, 10, 3)];
+    this.randomNumberArray = [...Random.pickUniqueNumbersInRange(1, 9, 3)];
   }
 
   submitUserAnswerHalnder() {
@@ -26,8 +26,30 @@ class App {
       if (userAnswerArray.length !== [...new Set(userAnswerArray)].length) {
         throw new Error("[Error] 중복되지 않은 3자리의 숫자를 입력해 주세요.");
       }
+
+      return this.createUserAnswerResult(userAnswerArray);
     });
   }
+
+  createUserAnswerResult(userAnswerArray) {
+    let resultStrike = 0;
+    let resultBall = 0;
+    let currnetIndexValueResult;
+
+    for (let index = 0; index < 3; index++) {
+      currnetIndexValueResult = userAnswerArray.findIndex((element) => {
+        return element == this.randomNumberArray[index];
+      });
+
+      if (currnetIndexValueResult == index) resultStrike = resultStrike + 1;
+      if (currnetIndexValueResult !== -1 && currnetIndexValueResult !== index)
+        resultBall = resultBall + 1;
+    }
+
+    this.gameReultPrint(resultBall, resultStrike);
+  }
+
+  gameReultPrint(resultBall, resultStrike) {}
 
   async play() {
     this.createRandomNumber();
