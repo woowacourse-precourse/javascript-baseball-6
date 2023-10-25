@@ -4,9 +4,8 @@ class App {
   async play() {
     
     async function setAnswer ( answer ) {
-      let element = 0;
       while ( answer.length < 3 ) {
-        element = MissionUtils.Random.pickNumberInRange(1,9);
+        const element = MissionUtils.Random.pickNumberInRange(1,9);
         if(!answer.includes(element)) {
           answer.push(element);
         }
@@ -20,15 +19,11 @@ class App {
 
       try {
         input = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요.');
+        
+        user.push(Number(input.substring(0,1)));
+        user.push(Number(input.substring(1,2)));
+        user.push(Number(input.substring(2,3)));
 
-        if( userNum > 987 ){
-          MissionUtils.Console.print("[ERROR] 세자리 숫자가 아닙니다.")
-          return;
-        }
-
-        for (let len=1; len++; len<4) {
-          user.push( input.substr(len-1, len));
-        }
 
       } catch (error) {
         MissionUtils.Console.print('[ERROR] 에러가 발생했습니다');
@@ -38,7 +33,7 @@ class App {
   
   
     // 정답 난수와 유저 숫자를 비교
-    async function compareResult ( answer, user, result ) {
+    function compareResult ( answer, user, result ) {
       for (let answer_num of answer ) {
         for ( let user_num of user ) {
           if ( answer_num == user_num ) {
@@ -56,26 +51,32 @@ class App {
     
   
     // 비교한 결과 출력
-    function printResult ( result ) {
+    function printResult ( strike, ball ) {
       
-      if ( result.ball == 0 ) {
-        if ( result.strike == 0 ) {
-          MissionUtils.Console.print('낫싱');
-        }
-        else if ( result.strike == 3 ) {
-          MissionUtils.Console.print(result.strike, '스트라이크');
+      if ( ball == '0' ) {
+        
+        if ( strike == '3' ) {
+          MissionUtils.Console.print(strike + '스트라이크');
           MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+          return;
+        } else if ( strike == '0' ) {
+          MissionUtils.Console.print('낫싱');
+          return;
         }
+        
         else {
-          MissionUtils.Console.print(result.strike, '스트라이크');
+          MissionUtils.Console.print(strike + '스트라이크');
+          return;
         }
       }
       else {
-        if ( result.strike == 0 ) {
-          MissionUtils.Console.print(result.ball, '볼');
+        if ( result.strike == '0' ) {
+          MissionUtils.Console.print(ball + '볼');
+          return;
         }
         else {
-          MissionUtils.Console.print(result.ball, '볼', result.strike, '스트라이크');
+          MissionUtils.Console.print(ball + '볼 ' + strike + '스트라이크');
+          return;
         }
       }
     }
@@ -97,19 +98,19 @@ class App {
     var result = {
       ball: 0,
       strike: 0
-    }
-    var userwant = 1;
+    };
+    var userwant = 0;
+    
+    MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
 
     do {
-      MissionUtils.Console.print('숫자 야구 게임을 시작합니다.')
-      answer = setAnswer(answer);
-      user = getUsernumber(user);
-
+      answer = await setAnswer(answer);
+      user = await getUsernumber(user);
 
       result = compareResult( answer, user, result );
-      printResult( result );
+      printResult( result.strike, result.ball );
 
-      if ( result.strike == 3) {
+      if ( result.strike == 3 ) {
         userwant = isEnd( userwant );
         if ( userwant == 2) {
           return;
