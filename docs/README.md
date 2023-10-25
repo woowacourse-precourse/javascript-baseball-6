@@ -8,9 +8,11 @@
 
 ✅ 랜덤 값 생성
 1 ~ 9 사이에서 서로 다른 3개의 수를 뽑는다.
+=> Random 값 추출은 Random.pickNumberInRange()를 활용한다.
 
 ✅ 입력값 받기
 3자리 숫자 값을 입력 받는다.
+=> 사용자의 값을 입력 받고 출력하기 위해서는 Console.readLineAsync, Console.print를 활용한다.
 
 ✅ 입력값 예외 출력
 1. 입력 값이 숫자가 아닌 경우
