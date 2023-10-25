@@ -3,6 +3,8 @@ class App {
   constructor() {
     this.randomNum = [];
     this.userNum = [];
+    this.ball = 0;
+    this.strike = 0;
   }
   async play() {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
@@ -13,6 +15,8 @@ class App {
   async startGame() {
     await this.userNumber();
     this.validation();
+    this.checkBall();
+    this.result();
   }
 
   randomNumber() {
@@ -44,6 +48,33 @@ class App {
       }
       validationNum.push(num);
     });
+  }
+  checkBall() {
+    let ball = 0;
+    let strike = 0;
+    this.randomNum.forEach((randomNum, randomNumIndex) => {
+      this.userInput.forEach((userNum, userIndex) => {
+        if (randomNum === userNum && randomNumIndex === userIndex) {
+          strike++;
+        } else if (randomNum === userNum && randomNumIndex !== userIndex) {
+          ball++;
+        }
+      });
+    });
+    this.ball = ball;
+    this.strike = strike;
+  }
+
+  result() {
+    if (this.strike === 0 && this.ball === 0) {
+      MissionUtils.Console.print("낫싱");
+    } else if (this.strike !== 0 && this.ball === 0) {
+      MissionUtils.Console.print(`${this.strike}스트라이크`);
+    } else if (this.strike === 0 && this.ball !== 0) {
+      MissionUtils.Console.print(`${this.ball}볼`);
+    } else {
+      MissionUtils.Console.print(`${this.ball}볼 ${this.strike}스트라이크`);
+    }
   }
 }
 
