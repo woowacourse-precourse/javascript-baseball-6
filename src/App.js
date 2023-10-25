@@ -57,7 +57,7 @@ class App {
 
   async play() {
     try {
-      MissionUtils.Console.print(GAME_MESSAGES.START);
+      this.#printMessage(GAME_MESSAGES.START);
       await this.#processGame();
     } catch (error) {
       throw error;
