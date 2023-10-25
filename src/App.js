@@ -1,32 +1,32 @@
 class App {
   constructor() {
-    this.RESTART_BUTTON = document.createElement('button');
-    this.RESTART_BUTTON.textContent = '게임 재시작';
-    this.RESTART_BUTTON.addEventListener('click', this.restartGame.bind(this));
+    this.restartButton = document.createElement('button');
+    this.restartButton.textContent = '게임 재시작';
+    this.restartButton.addEventListener('click', this.restartGame.bind(this));
 
-    this.QUIT_BUTTON = document.createElement('button');
-    this.QUIT_BUTTON.textContent = '게임 종료';
-    this.QUIT_BUTTON.addEventListener('click', this.quitGame.bind(this));
+    this.quitButton = document.createElement('button');
+    this.quitButton.textContent = '게임 종료';
+    this.quitButton.addEventListener('click', this.quitGame.bind(this));
   }
 
-  async play() {
-    const $input = document.querySelector('#input');
-    const $form = document.querySelector('#form');
-    const $logs = document.querySelector('#logs');
+  async playGame() {
+    const inputElement = document.querySelector('#input');
+    const formElement = document.querySelector('#form');
+    const logsElement = document.querySelector('#logs');
 
     const numbers = [];
     for (let n = 0; n < 9; n += 1) {
       numbers.push(n + 1);
     }
 
-    const ANSWER = [];
+    const answer = [];
     for (let n = 0; n < 3; n += 1) {
       const index = Math.floor(Math.random() * numbers.length);
-      ANSWER.push(numbers[index]);
+      answer.push(numbers[index]);
       numbers.splice(index, 1);
     }
 
-    const TRIES = [];
+    const tries = [];
 
     function checkInput(input) {
       if (input.length !== 3) {
@@ -35,46 +35,46 @@ class App {
       if (new Set(input).size !== 3) {
         throw new Error('중복되지 않게 입력해 주세요.');
       }
-      if (TRIES.includes(input)) {
+      if (tries.includes(input)) {
         throw new Error('이미 시도한 값입니다.');
       }
       return true;
     }
 
-    function defeated() {
-      const message = document.createTextNode(`패배! 정답은 ${ANSWER.join('')}`);
-      $logs.appendChild(message);
-      $logs.appendChild(this.RESTART_BUTTON);
-      $logs.appendChild(this.QUIT_BUTTON);
+    function gameDefeated() {
+      const message = document.createTextNode(`패배! 정답은 ${answer.join('')}`);
+      logsElement.appendChild(message);
+      logsElement.appendChild(this.restartButton);
+      logsElement.appendChild(this.quitButton);
     }
 
     let out = 0;
-    $form.addEventListener('submit', (event) => {
+    formElement.addEventListener('submit', (event) => {
       event.preventDefault();
-      const value = $input.value;
-      $input.value = '';
+      const value = inputElement.value;
+      inputElement.value = '';
 
       try {
         const valid = checkInput(value);
         if (!valid) return;
 
-        if (ANSWER.join('') === value) {
-          $logs.textContent = '홈런!';
-          $logs.appendChild(this.RESTART_BUTTON);
-          $logs.appendChild(this.QUIT_BUTTON);
+        if (answer.join('') === value) {
+          logsElement.textContent = '홈런!';
+          logsElement.appendChild(this.restartButton);
+          logsElement.appendChild(this.quitButton);
           return;
         }
 
-        if (TRIES.length >= 9) {
-          defeated();
+        if (tries.length >= 9) {
+          gameDefeated();
           return;
         }
 
         let strike = 0;
         let ball = 0;
 
-        for (let i = 0; i < ANSWER.length; i++) {
-          const index = value.indexOf(ANSWER[i]);
+        for (let i = 0; i < answer.length; i++) {
+          const index = value.indexOf(answer[i]);
           if (index > -1) {
             if (index === i) {
               strike += 1;
@@ -86,19 +86,19 @@ class App {
 
         if (strike === 0 && ball === 0) {
           out++;
-          $logs.append(`${value}: 낫싱`, document.createElement('br'));
+          logsElement.append(`${value}: 낫싱`, document.createElement('br'));
         } else {
-          $logs.append(`${value}: ${strike} 스트라이크 ${ball} 볼`, document.createElement('br'));
+          logsElement.append(`${value}: ${strike} 스트라이크 ${ball} 볼`, document.createElement('br'));
         }
 
         if (out === 3) {
-          defeated();
+          gameDefeated();
         }
 
-        TRIES.push(value);
+        tries.push(value);
       } catch (error) {
-        $logs.textContent = error.message;
-        defeated();
+        logsElement.textContent = error.message;
+        gameDefeated();
       }
     });
   }
@@ -108,7 +108,7 @@ class App {
   }
 
   quitGame() {
-    window.close();
+    // 브라우저에서는 프로그램 종료를 처리할 수 없으므로 아무 동작을 하지 않음
   }
 }
 
