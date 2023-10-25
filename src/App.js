@@ -25,6 +25,16 @@ class App {
 
     return randomNumber;
   }
+
+  async parsingUserInput() {
+    const userInput = await Console.readLineAsync(MESSAGE_TABLE.REQUIRED_INPUT);
+
+    if (!userInput || userInput.trim() === "") {
+      throw new Error(MESSAGE_TABLE.ERROR_INPUT);
+    }
+
+    return userInput.trim().split("").map(Number);
+  }
 }
 
 const app = new App();
