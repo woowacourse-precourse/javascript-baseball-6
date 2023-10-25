@@ -7,10 +7,7 @@ export const player = {
     try {
       const input = await Console.readLineAsync(inputString);
       const validation = new Validation(input);
-      const valid = validation.validate();
-      if (!valid) {
-        throw new Error(validation.errorMessage);
-      }
+      validation.validate();
 
       return input;
     } catch (error) {
