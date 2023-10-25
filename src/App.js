@@ -46,9 +46,8 @@ class App {
     Console.print('\x1b[37m숫자 야구 게임을 시작합니다.');
     while (1) {
       const COMPUTER_NUMBER = RandomBallNumber();
-
       while (1) {
-        const my_result = await Console.readLineAsync("숫자를 입력해주세요 : ");
+        const my_result = await Console.readLineAsync('숫자를 입력해주세요 : ');
 
         WRONG_NUMBER(my_result);
 
@@ -63,14 +62,11 @@ class App {
         } if (COMPUTER_NUMBER[2] == my_result[0] || COMPUTER_NUMBER[2] == my_result[1]) {
           BallCnt++;
         }
-
-        if (COMPUTER_NUMBER[0] == my_result[0]) {
-          StrikeCnt++;
-        }
-        if (COMPUTER_NUMBER[1] == my_result[1]) {
-          StrikeCnt++;
-        } if (COMPUTER_NUMBER[2] == my_result[2]) {
-          StrikeCnt++;
+        
+        for(let i = 0; i< 3; i++) {
+          if (COMPUTER_NUMBER[i] === my_result[i]) {
+            StrikeCnt++;
+          }
         }
 
         if (BallCnt == 1) {
