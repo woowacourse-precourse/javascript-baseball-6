@@ -10,3 +10,9 @@ export const validateInput = (userInput) => {
   }
   return true;
 };
+
+export const validateAskRetry = (input) => {
+  if (input !== 1 || input !== 2) {
+    throw new Error('[ERROR] 1 혹은 2를 입력해주세요.');
+  }
+}
