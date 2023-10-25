@@ -56,6 +56,7 @@ class App {
 
     if (strike.length === LIMIT_NUM_LENGTH) {
       Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
+      await this.gameset();
     } else if (strike.length !== LIMIT_NUM_LENGTH) {
       await this.getInputNum(ranNum);
     }
@@ -67,6 +68,19 @@ class App {
       return false;
     }
     return true;
+  }
+
+  async gameset() {
+    let gameSet = await Console.readLineAsync(
+      `게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.`
+    );
+    if (gameSet === "1") {
+      await this.play();
+    } else if (gameSet === "2") {
+      return;
+    } else if (gameSet !== "1" && gameSet !== "2") {
+      throw new Error("[ERROR]1 또는 2 를 입력해주세요.");
+    }
   }
 
   printResult(strikes, balls) {
