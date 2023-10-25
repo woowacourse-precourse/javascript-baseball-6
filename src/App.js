@@ -54,52 +54,29 @@ class App {
         let BallCnt = 0;
         let StrikeCnt = 0;
 
-        if (COMPUTER_NUMBER[0] == my_result[1] || COMPUTER_NUMBER[0] == my_result[2]) {
-          BallCnt++;
-        }
-        if (COMPUTER_NUMBER[1] == my_result[0] || COMPUTER_NUMBER[1] == my_result[2]) {
-          BallCnt++;
-        } if (COMPUTER_NUMBER[2] == my_result[0] || COMPUTER_NUMBER[2] == my_result[1]) {
-          BallCnt++;
-        }
-        
-        for(let i = 0; i< 3; i++) {
+        for(let i = 0; i < 3; i++) {
           if (COMPUTER_NUMBER[i] === my_result[i]) {
             StrikeCnt++;
           }
-        }
-
-        if (BallCnt == 1) {
-          if (StrikeCnt == 1) {
-            Console.print('1볼 1스트라이크');
-            continue;
+          else if (COMPUTER_NUMBER.includes(my_result[i])) {
+            BallCnt++;
           }
-          Console.print('1볼');
-        }
-        if (BallCnt == 2) {
-          if (StrikeCnt == 1) {
-            Console.print('2볼 1스트라이크');
-            continue;
-          }
-          Console.print('2볼');
-          continue;
-        }
-        if (BallCnt == 3) {
-          Console.print('3볼');
         }
 
-        if (StrikeCnt == 1) {
-          Console.print('1스트라이크');
+        if (BallCnt > 0 && StrikeCnt > 0) {
+          Console.print(`${BallCnt}볼 ${StrikeCnt}스트라이크`);
         }
-        if (StrikeCnt == 2) {
-          Console.print('2스트라이크');
+        if (BallCnt > 0) {
+          Console.print(`${BallCnt}볼`);
+        }
+        if (StrikeCnt > 0) {
+          Console.print(`${StrikeCnt}스트라이크`);
+        }
+        if (BallCnt === 0 && StrikeCnt === 0) {
+          Console.print(`낫싱`);
         }
 
-        if (StrikeCnt == 0 && BallCnt == 0) {
-          Console.print('낫싱');
-        }
-
-        if (StrikeCnt == 3) {
+        if (StrikeCnt === 3) {
           Console.print('3스트라이크');
           Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
           break;
