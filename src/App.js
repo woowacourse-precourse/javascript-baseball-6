@@ -20,6 +20,7 @@ class App {
 
   async setting() {
     const randomNumbers = createRandomNumbers(3);
+    console.log(randomNumbers);
     this.baseBall = new BaseBall(randomNumbers);
 
     await this.pitching();
@@ -27,9 +28,10 @@ class App {
 
   async pitching() {
     const response = await this.inputReader.baseBallNumbers();
-    const userInput = Number(response);
 
-    validation.baseBallNumbersInputOfUser(userInput);
+    validation.baseBallNumbersInputOfUser(response);
+
+    const userInput = Number(response);
 
     await this.check(userInput);
   }
@@ -55,9 +57,10 @@ class App {
 
   async requestRestart() {
     const response = await this.inputReader.restartNumber();
-    const userInput = Number(response);
 
-    validation.restartNumberInputOfUser(userInput);
+    validation.restartNumberInputOfUser(response);
+
+    const userInput = Number(response);
 
     await this.excuteCommand(userInput);
   }
