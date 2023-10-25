@@ -2,6 +2,7 @@ import { MissionUtils } from "@woowacourse/mission-utils"
 import Computer from "./class/Computer"
 import Player from "./class/Player" 
 import { checkAnswer, checkInputValidity, checkStrike, checkBall, checkRetryValidity } from "./utils/Check"
+import { LOGS } from "./libs/LOGS"
 
 let strikeCount = 0
 let ballCount = 0
@@ -14,17 +15,17 @@ class App {
         computer.generateRandNum() // 컴퓨터 난수 생성
 
         while(true){
-            const playerNum = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ') // 사용자 input 받기
+            const playerNum = await MissionUtils.Console.readLineAsync(LOGS.INPUT_1) // 사용자 input 받기
             if(!checkInputValidity(playerNum)) // input 값의 유효성 확인
-                throw new Error('[ERROR] 잘못된 형식입니다.')
+                throw new Error(LOGS.ERROR)
             else player.convertToArray(playerNum) // 사용자 input과 컴퓨터 난수 형식 통일(int 배열)
 
             // 3스트라이크인 경우
             if(checkAnswer(player.number, computer.number)){
                 endGame() // 게임 종료 메시지 출력
-                const retry = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n') // 재시도 여부 input 받기
+                const retry = await MissionUtils.Console.readLineAsync(LOGS.INPUT_2) // 재시도 여부 input 받기
                 if(!checkRetryValidity(retry)) // 재시도 input값의 유효성 확인
-                    throw new Error('[ERROR] 잘못된 형식입니다.')
+                    throw new Error(LOGS.ERROR)
 
                 if(retry === '1'){ // 재시도인 경우
                     computer.generateRandNum()
@@ -51,14 +52,14 @@ const initGame = () => {
 
 // 게임 시작 메시지 출력
 const welcomeMsg = () => {
-    MissionUtils.Console.print('숫자 야구 게임을 시작합니다.')
+    MissionUtils.Console.print(LOGS.GAME_START)
 }
 
 
 // 컴퓨터 & 사용자 
 const printResult = ()=>{
     if(!strikeCount && !ballCount)
-        MissionUtils.Console.print('낫싱')
+        MissionUtils.Console.print(LOGS.NOTHING)
     else if(!strikeCount)
         MissionUtils.Console.print(`${ballCount}볼`)
     else if(!ballCount)
@@ -69,8 +70,7 @@ const printResult = ()=>{
 
 // 3스트라이크 발생시
 const endGame = () => {
-    MissionUtils.Console.print('3스트라이크')
-    MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료')
+    MissionUtils.Console.print(LOGS.GAME_END)
 }
 
 const app = new App()
