@@ -1,4 +1,5 @@
 import { MissionUtils, Console } from "@woowacourse/mission-utils";
+import { RESTART_NUMBER_REGEXP, USER_NUMBER_REGEXP } from "./constant";
 
 class App {
   #COMPUTERNUMBERS=[];
@@ -15,55 +16,54 @@ class App {
   }
   validation(checkNumber)
   {
-    const REGEXP=/^\d{3}$/;
-    if(!REGEXP.test(checkNumber)) return false;
+    if(!USER_NUMBER_REGEXP.test(checkNumber)) return false;
     return checkNumber;
   }
   async userNumberInput(){
       const userNumbers = await Console.readLineAsync('숫자를 입력해주세요 : ');
       if(this.validation(userNumbers)) return userNumbers;
       else{
-        throw new Error("[ERROR] 숫자가 잘못된 형식입니다");
+        throw new Error('[ERROR] 숫자가 잘못된 형식입니다');
       }
   }
   compareResult(userNumbers)
   {
-    let STRIKE=0; let BALL=0;
+    let strike=0; let ball=0;
     this.#COMPUTERNUMBERS.forEach( (comNumber,comIndex)=>{
       for(let i=0; i<userNumbers.length;i++){
         if(comNumber === parseInt(userNumbers[i]))
         {
-          if(comIndex === i) STRIKE++;
-          else BALL++;
+          if(comIndex === i) strike++;
+          else ball++;
         }
       }
     })
-    return {STRIKE,BALL};
+    return {strike,ball};
   }
-  comparePrint(STRIKE,BALL)
+  comparePrint(strike,ball)
   {
-    if(STRIKE && BALL) Console.print(`${BALL}볼 ${STRIKE}스트라이크`);
-    if(!STRIKE && BALL) Console.print(`${BALL}볼`);
-    if(STRIKE && !BALL) Console.print(`${STRIKE}스트라이크`);
-    if(!STRIKE && !BALL) Console.print(`낫싱`);
+    if(strike && ball) Console.print(`${ball}볼 ${strike}스트라이크`);
+    if(!strike && ball) Console.print(`${ball}볼`);
+    if(strike && !ball) Console.print(`${strike}스트라이크`);
+    if(!strike && !ball) Console.print(`낫싱`);
   }
   endPrint()
   {
-    Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
-    Console.print(`게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.`);
+    Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+    Console.print('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
   }
   compareNumber(userNumbers)
   {
-     let { STRIKE,BALL} = this.compareResult(userNumbers);
-     this.comparePrint(STRIKE,BALL);
-     if(STRIKE === 3){
+     const {strike,ball} = this.compareResult(userNumbers);
+     this.comparePrint(strike,ball);
+     if(strike === 3)
+     {
       this.endPrint();
       return "END";
      }
   }
   checkRestartNumber(menu) {
-    const REGEXP=/^[12]$/;
-    if (REGEXP.test(menu)) return true;
+    if (RESTART_NUMBER_REGEXP.test(menu)) return true;
     throw new Error('[ERROR] 입력은 공백을 포함하지않은 1 또는 2 이어야합니다.');
   }
   async restartInput(){
@@ -75,30 +75,17 @@ class App {
       throw new Error('[ERROR] woowacourse 라이브러리 에러' + error.message);
     }
   }
-  restart(menu)
-  {
-    if(menu ===1){
-
-    }
-  }
-  getCompuerNum()
-  {
-    console.log(this.#COMPUTERNUMBERS)
-  }
   async play() {
       this.initializeComputerNumer();
-      // this.getCompuerNum();
-      Console.print("숫자 야구 게임을 시작합니다.");
+      await Console.print("숫자 야구 게임을 시작합니다.");
       while(this.USERACTION === 1)
       {
         const userNumbers = await this.userNumberInput();
-        if(this.compareNumber(userNumbers)==="END"){
+        if(this.compareNumber(userNumbers)==="END")
+        {
           const menu = await this.restartInput();
-          if(menu === 1)
-          {
-            this.initializeComputerNumer();
-          }
-          else this.USERACTION=2;
+          if(menu === 1) this.initializeComputerNumer();
+          else this.USERACTION=menu;
         }
       }
   }
