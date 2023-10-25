@@ -48,7 +48,7 @@ class Balls {
     return balls;
   }
 
-  async EndGame() {
+  async askRegame() {
     const choice = await Console.readLineAsync(
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. "
     );
