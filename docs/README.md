@@ -1,0 +1,13 @@
+- feat: initial setting 
+    - README 작성
+- feat: 서로 다른 3개의 입력값 받기  
+    - input validation 1: 3자리 수인가
+    - input validation 2: 서로 다른 수인가
+- feat: 입력값과 대조
+    - 컴퓨터의 랜덤 숫자 3개 선택 (Random API)
+    - 같은 수, 같은 위치: 스트라이크 +1
+    - 같은 수, 다른 위치: 볼 +1
+    - 모두 다른 수: 낫싱
+- feat: 게임 반복하기
+    - 3 스트라이크가 되면 반복
+    - 게임 재시작, 게임 종료 기능
