@@ -41,6 +41,7 @@ class App {
     }
     await this.printResult(strike, ball);
 
+    // 3스트라이크가 아니면 다시 비교, 맞으면 endGamePoint() 호출
     if (strike !== 3) return this.compareNum();
     else return this.endGamePoint();
   }
@@ -63,18 +64,20 @@ class App {
 
   // #5 3스트라이크 시 재시작/종료 구분하는 메세지 출력 및 실행
   async endGamePoint() {
-    const endGameInput =
-      await Console.readLineAsync(`3개의 숫자를 모두 맞히셨습니다! 게임 종료
-    게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.`);
+    try {
+      Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+      const endGameInput = await Console.readLineAsync(
+        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+      );
 
-    if (endGameInput === "1") {
-      // this.setComputerNum();
-      return this.play();
-    } else if (endGameInput === "2") {
-      Console.print("숫자 야구 게임을 종료합니다.");
-      return;
-    } else {
-      throw new Error("[ERROR]");
+      if (endGameInput === "1") {
+        return this.play();
+      } else {
+        Console.print("숫자 야구 게임을 종료합니다.");
+        return;
+      }
+    } catch (error) {
+      throw error;
     }
   }
   // #0 게임 실행
