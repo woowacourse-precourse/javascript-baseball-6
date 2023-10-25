@@ -1,78 +1,87 @@
-import { MissionUtils } from "@woowacourse/mission-utils"
-import Computer from "./class/Computer.js"
-import Player from "./class/Player.js" 
-import { checkAnswer, checkInputValidity, checkStrike, checkBall, checkRetryValidity } from "./utils/Check.js"
-import { LOGS } from "./libs/LOGS.js"
-
-let strikeCount = 0
-let ballCount = 0
+import { MissionUtils } from '@woowacourse/mission-utils'
 
 class App {
-    async play() {
-        try{
-            welcomeMsg() // 게임 시작 메시지 출력
-            const computer = new Computer()
-            const player = new Player()
-            computer.generateRandNum() // 컴퓨터 난수 생성
-
-            while(true){
-                const playerNum = await MissionUtils.Console.readLineAsync(LOGS.INPUT_1) // 사용자 input 받기
-                if(!checkInputValidity(playerNum)) // input 값의 유효성 확인
-                    throw new Error(LOGS.ERROR)
-                player.convertToArray(playerNum) // 사용자 input과 컴퓨터 난수 형식 통일(int 배열)
-
-                // 3스트라이크인 경우
-                if(checkAnswer(player.number, computer.number)){
-                    endGame() // 게임 종료 메시지 출력
-                    const retry = await MissionUtils.Console.readLineAsync(LOGS.INPUT_2) // 재시도 여부 input 받기
-
-                    if(retry === '1'){ // 재시도인 경우
-                        computer.generateRandNum()
-                        continue
-                    }
-                    else if(retry === '2') break // 게임 종료인 경우
-                    else throw new Error(LOGS.ERROR)
-                }
-                // 3스트라이크가 아닌 경우
-                else{
-                    strikeCount = checkStrike(player.number, computer.number) // 스트라이크 개수 계산
-                    ballCount = checkBall(player.number, computer.number, strikeCount) // 볼 개수 계산
-                    printResult() // 스트라이크, 볼 개수 출력
-                }
-            }
-        }
-        catch(error){
-            throw new Error('[ERROR]')
-        }
-        
+    constructor() {
+        this.retry = true
     }
-}
 
+    async play() {
+        MissionUtils.Console.print('숫자 야구 게임을 시작합니다.')
+        while (this.retry) {
+            await this.compareNumber()
+        }
+    }
 
-// 게임 시작 메시지 출력
-const welcomeMsg = () => {
-    MissionUtils.Console.print(LOGS.GAME_START)
-}
+    async getInput() {
+        const userNumber = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ')
 
+        if(userNumber.length !== 3)
+            throw new Error('[ERROR] 잘못된 형식입니다.')
+        if (userNumber.includes(' ')) 
+            throw new Error('[ERROR] 잘못된 형식입니다.')
+        if (userNumber.includes('0')) 
+            throw new Error('[ERROR] 잘못된 형식입니다.')
+        if (userNumber.split('').some((num) => isNaN(num))) 
+            throw new Error('[ERROR] 잘못된 형식입니다.')
+        
+        return userNumber
+    }
 
-// 컴퓨터 & 사용자 
-const printResult = ()=>{
-    if(!strikeCount && !ballCount)
-        MissionUtils.Console.print(LOGS.NOTHING)
-    else if(!strikeCount)
-        MissionUtils.Console.print(`${ballCount}볼`)
-    else if(!ballCount)
-        MissionUtils.Console.print(`${strikeCount}스트라이크`)
-    else 
-        MissionUtils.Console.print(`${ballCount}볼 ${strikeCount}스트라이크`)
-}
+    async generateNum() {
+        const computerNumber = []
+        while (computerNumber.length < 3) {
+            const randomNumber = MissionUtils.Random.pickNumberInRange(1, 9)
+            if (!computerNumber.includes(randomNumber)) computerNumber.push(randomNumber)
+        }
+        return computerNumber.join('')
+    }
 
-// 3스트라이크 발생시
-const endGame = () => {
-    MissionUtils.Console.print(LOGS.GAME_END)
+    async compareNumber() {
+        const computerNumber = await this.generateNum()
+        
+        let strikeCount = 0
+        let ballCount = 0
+        
+        while (strikeCount !== 3) {
+            const userNumber = await this.getInput()
+            strikeCount = 0
+            ballCount = 0
+
+            for (let i = 0; i < 3; i++) {
+                if (userNumber[i] === computerNumber[i]) strikeCount += 1
+                else if (computerNumber.includes(userNumber[i])) ballCount += 1
+            }
+
+            this.printResult(ballCount, strikeCount)
+            if (strikeCount === 3) await this.retryGame()
+        }
+    }
+
+    printResult(ballCount, strikeCount) {
+        if (ballCount === 0 && strikeCount === 0) 
+            MissionUtils.Console.print('낫싱')
+        else if (ballCount === 0 && strikeCount !== 0) 
+            MissionUtils.Console.print(`${strikeCount}스트라이크`)
+        else if (ballCount !== 0 && strikeCount === 0) 
+            MissionUtils.Console.print(`${ballCount}볼`)
+        else 
+            MissionUtils.Console.print(`${ballCount}볼 ${strikeCount}스트라이크`)
+    }
+
+    async retryGame() {
+        MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료')
+        const answer = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.')
+
+        if (answer === '1') 
+            this.retry = true
+        else if (answer === '2')
+            this.retry = false
+        else 
+            throw new Error('[ERROR] 잘못된 형식입니다.')
+    }
 }
 
 const app = new App()
 app.play()
 
-export default App;
+export default App
