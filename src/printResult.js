@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import { ERROR, BALL, STRIKE, NOTHING } from "./constant.js";
+import { GAME_HELP, ERROR, BALL, STRIKE, NOTHING } from "./constant.js";
 
 export function printResult(strikeCount, ballCount) {
   const printBall = ballCount + BALL;
@@ -22,7 +22,7 @@ export function printResult(strikeCount, ballCount) {
   }
 
   if (strikeCount === 3) {
-    Console.print(ERROR.CORRECT_NUMBER);
+    Console.print(GAME_HELP.CORRECT_NUMBER);
     return strikeCount;
   }
 }
