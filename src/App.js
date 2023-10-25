@@ -73,6 +73,13 @@ class App {
       scoreText += `${strike}${STRIKE}`;
     }
     Console.print(scoreText);
+    await this.checkThreeStrike();
+  }
+
+  async checkThreeStrike() {
+    if (this.score[1] === 3) {
+      Console.print(GAME_SUCCESS);
+    }
   }
 }
 
