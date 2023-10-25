@@ -9,7 +9,7 @@ const mockQuestions = (inputs) => {
     return Promise.resolve(input);
   });
 };
-
+j
 const mockRandoms = (numbers) => {
   MissionUtils.Random.pickNumberInRange = jest.fn();
   numbers.reduce((acc, number) => {
@@ -30,6 +30,9 @@ describe("숫자 야구 게임", () => {
     const answers = ["246", "135", "1", "597", "589", "2"];
     const logSpy = getLogSpy();
     const messages = ["낫싱", "3스트라이크", "1볼 1스트라이크", "3스트라이크", "게임 종료"];
+
+
+    console.log('test')
 
     mockRandoms(randoms);
     mockQuestions(answers);
