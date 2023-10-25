@@ -13,6 +13,17 @@ class App {
     return temp;
   }
 
+  checkInput(input){
+
+    if (!/^\d{3}$/.test(input)
+        || input[0] === input[1] 
+        || input[0] === input[2] 
+        || input[1] === input[2]) {
+      throw new Error("[ERROR]");
+    }
+
+  }
+
   countStrikeAndBall(computer,input){
 
     let strike = 0;
@@ -69,9 +80,7 @@ class App {
       while(true){
        
         const USERINPUT = await MissionUtils.Console.readLineAsync("숫자를 입력하세요 : ");
-        if (!/^\d{3}$/.test(USERINPUT)) {
-          throw new Error("[ERROR]");
-        }
+        this.checkInput(USERINPUT);
 
         const {strike,ball} = this.countStrikeAndBall(COMPUTER,USERINPUT);
         this.printStrikeAndBall(strike,ball);
