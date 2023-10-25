@@ -41,6 +41,31 @@ class App {
     return input;
   }
   
+  compareNum(playerNumbers) {
+    let ball = 0;
+    let strike = 0;
+    for (let i = 0; i < 3; i++) {
+      if (playerNumbers[i] === this.computerNumbers[i]) {
+        strike++;
+      } else if (this.computerNumbers.includes(playerNumbers[i])) {
+        ball++;
+      }
+    }
+    return { ball, strike };
+  }
+
+  printHint(ball, strike) {
+    if (strike === 0 && ball === 0) {
+      Console.print("낫싱");
+    } else if (ball === 0) {
+      Console.print(`${strike}스트라이크`);
+    } else if (strike === 0) {
+      Console.print(`${ball}볼`);
+    } else {
+      Console.print(`${ball}볼 ${strike}스트라이크`);
+    }
+  }
+  
   async resetGame() {
     const answer = await Console.readLineAsync(
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요: "
