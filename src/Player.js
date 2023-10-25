@@ -1,12 +1,12 @@
-import {Console} from "@woowacourse/mission-utils";
-import {INPUT_MESSAGE} from "./Define.js";
-import {VALIDATE_PLAYER_INPUT} from "./GameRefree.js"
-import {PRINT_ERROR_MESSAGE} from "./GameManager.js";
+import { Console } from "@woowacourse/mission-utils";
+import { INPUT_MESSAGE } from "./Define.js";
+import { validatePlayerInput } from "./GameRefree.js"
+import { printErrorMessage } from "./GameManager.js";
 
-export const PLAYER_INPUT = async () => {
-    const INPUT = await Console.readLineAsync(INPUT_MESSAGE);
-    if (!VALIDATE_PLAYER_INPUT(INPUT)){
-        PRINT_ERROR_MESSAGE();
+export const getPlayerInput = async () => {
+    const input = await Console.readLineAsync(INPUT_MESSAGE);
+    if (!validatePlayerInput(input)){
+        printErrorMessage();
     }
-    return INPUT;
+    return input;
 }

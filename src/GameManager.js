@@ -1,45 +1,43 @@
-import {END_GAME_MESSAGE, ERROR_MESSAGE, RESTART_GAME_MESSAGE} from "./Define.js";
-import {CREATE_RANDOM_NUMBER} from "./Computer.js";
-import {PLAYER_INPUT} from "./Player.js";
-import {RETURN_RESULT} from "./GameRefree.js";
-import {Console} from "@woowacourse/mission-utils";
+import { END_GAME_MESSAGE, ERROR_MESSAGE, RESTART_GAME_MESSAGE } from "./Define.js";
+import { createRandomNumber } from "./Computer.js";
+import { getPlayerInput } from "./Player.js";
+import { returnResult } from "./GameRefree.js";
+import { Console } from "@woowacourse/mission-utils";
 
-export const PRINT_ERROR_MESSAGE = () => {
+export const printErrorMessage = () => {
     throw new Error(ERROR_MESSAGE);
 };
-export const PLAY_GAME = async () => {
-    let flag = true;
+export const playGame = async () => {
+    let shouldContinue = true;
     do {
-        const RANDOM_NUMBER = CREATE_RANDOM_NUMBER();
-        console.log("컴퓨터" + RANDOM_NUMBER);
+        const randomNumber = createRandomNumber();
         do {
-            const PLAYER_NUMBER = (await PLAYER_INPUT()).split('').map(Number);
-            console.log("사용자" + PLAYER_NUMBER);
-            flag = await CHECK_END_GAME(PLAYER_NUMBER, RANDOM_NUMBER);
+            const playerNumber = (await getPlayerInput()).split('').map(Number);
+            shouldContinue = await checkEndGame(playerNumber, randomNumber);
         }
-        while (flag === 1);
+        while (shouldContinue === 1);
     }
-    while (flag);
+    while (shouldContinue);
 }
 
-export const CHECK_END_GAME = async (PLAYER_NUMBER, RANDOM_NUMBER) => {
-    const RESULT = await RETURN_RESULT(PLAYER_NUMBER, RANDOM_NUMBER);
-    if (RESULT === "3스트라이크") {
+export const checkEndGame = async (playerNumber, randomNumber) => {
+    const result = await returnResult(playerNumber, randomNumber);
+    if (result === "3스트라이크") {
         Console.print(END_GAME_MESSAGE);
-        return await QUESTION_GAME_RESTART();
+        return await questionGameRestart();
     } else {
         return 1;
     }
 }
 
-export const QUESTION_GAME_RESTART = async () => {
-    const INPUT = await Console.readLineAsync(RESTART_GAME_MESSAGE);
-    const INPUT_INT = parseInt(INPUT, 10);
-    if (INPUT_INT === 1) {
+export const questionGameRestart = async () => {
+    const input = await Console.readLineAsync(RESTART_GAME_MESSAGE);
+    const inputInt = parseInt(input, 10);
+    if (inputInt === 1) {
         return true;
-    } else if (INPUT_INT === 2) {
+    } else if (inputInt === 2) {
         return false;
     } else {
-        PRINT_ERROR_MESSAGE();
+        printErrorMessage();
     }
 }

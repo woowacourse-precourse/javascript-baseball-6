@@ -1,10 +1,10 @@
-import {Random} from "@woowacourse/mission-utils";
+import { Random } from "@woowacourse/mission-utils";
 
-export const CREATE_RANDOM_NUMBER = () => {
-    const NUMBERS = new Set();
+export const createRandomNumber = () => {
+    const numbers = new Set();
 
-    while (NUMBERS.size < 3) {
-        NUMBERS.add(Random.pickNumberInRange(1, 9));
+    while (numbers.size < 3) {
+        numbers.add(Random.pickNumberInRange(1, 9));
     }
-    return [...NUMBERS];
+    return [...numbers];
 };

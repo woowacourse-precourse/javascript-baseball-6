@@ -1,9 +1,11 @@
-import {PLAY_GAME} from "./GameManager.js";
+import {playGame} from "./GameManager.js";
+
 class App {
-  async play() {
-    await PLAY_GAME();
-  }
+    async play() {
+        await playGame();
+    }
 }
+
 export default App;
 
 
