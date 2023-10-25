@@ -1,5 +1,6 @@
 import { MissionUtils, Console } from "@woowacourse/mission-utils";
 import { error } from "./error.js";
+import { constant } from "./constant.js";
 
 class App {
   constructor(
@@ -19,7 +20,7 @@ class App {
   }
 
   async play() {
-    Console.print("숫자 야구 게임을 시작합니다.");
+    Console.print(constant.GAME_START);
     await this.getNumber();
     while (this.proceeding) {
       this.restart && (await this.getNumber());
@@ -40,13 +41,12 @@ class App {
   }
 
   async inputNumber() {
-    const number = await Console.readLineAsync("숫자를 입력해주세요 : ");
+    const number = await Console.readLineAsync(constant.INPUT_NUMBER_MSG);
     this.strikeCount = 0;
     this.ballCount = 0;
     await this.settingNumber(number);
     if (!number) {
-      throw new Error("[Error] 숫자 입력이 들어오지 않았습니다.");
-      return;
+      throw new Error(constant.ERROR.INPUT_VALUE);
     }
   }
 
@@ -101,20 +101,17 @@ class App {
     }
 
     if (strikeCount === 3) {
-      await Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+      await Console.print(constant.CORRECT_NUMBER);
       await this.finishedGame();
     }
   }
 
   async finishedGame() {
-    const restartChoice = await Console.readLineAsync(
-      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
-    );
+    const restartChoice = await Console.readLineAsync(constant.RESTART_OPTION);
     const choice = parseInt(restartChoice);
 
     if (choice !== 1 && choice !== 2) {
-      throw new Error("[ERROR] 1과 2 중에서 입력 해야합니다.");
-      return;
+      throw new Error(constant.ERROR.ONE_OR_TWO);
     }
 
     if (choice === 1) {
