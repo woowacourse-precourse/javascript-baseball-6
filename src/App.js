@@ -5,18 +5,23 @@ class App {
     let shouldExit = false;
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
     while (shouldExit === false) {
-      let computer = this.generateRandomNumber();
-      let human = await this.getUserNumberInput();
-      while (this.compareNumberArray(human, computer) === false) {
-        human = await this.getUserNumberInput();
+      let computer = this.generateComputerArray();
+      while (true) {
+        let human = await this.processInput();
+        if (this.isValidInput(human) === false) {
+          throw new Error("[ERROR]");
+        }
+        if (this.compareNumberArray(human, computer)) {
+          break;
+        }
       }
       MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-      shouldExit = await this.getUserExitInput();
+      shouldExit = await this.getExitInput();
     }
   }
 
-  generateRandomNumber() {
-    const isGenerated = new Array(9).fill(false);
+  generateComputerArray() {
+    const isGenerated = new Array(10).fill(false);
     const computer = [];
     while (computer.length < 3) {
       const number = MissionUtils.Random.pickNumberInRange(1, 9);
@@ -28,34 +33,27 @@ class App {
     return computer;
   }
 
-  async getUserNumberInput() {
+  async processInput() {
     let numberArray = [];
-    let inputValidity = false;
-    while (inputValidity === false) {
-      try {
-        const userNumberInput = await MissionUtils.Console.readLineAsync(
-          "숫자를 입력해주세요 : "
-        );
-        numberArray = Array.from(userNumberInput).map(Number);
-        inputValidity = this.checkInputValidity(numberArray);
-      } catch (error) {
-        console.log(error);
-      }
-    }
+    const userNumberInput = await MissionUtils.Console.readLineAsync(
+      "숫자를 입력해주세요 : "
+    );
+    numberArray = Array.from(userNumberInput).map(Number);
     return numberArray;
   }
 
-  checkInputValidity(numberArray) {
-    const numberCount = new Array(9).fill(0);
+  isValidInput(numberArray) {
+    const numberCount = new Array(10).fill(0);
     if (numberArray.length !== 3) {
       // 길이 검사
       return false;
     }
     for (const num of numberArray) {
-      // 중복 수 검사 & 숫자인지 검사
+      // 숫자인지 검사
       if (isNaN(num)) {
         return false;
       }
+      // 중복 수 검사
       numberCount[num]++;
       if (numberCount[num] === 2) {
         return false;
@@ -64,21 +62,17 @@ class App {
     return true;
   }
 
-  async getUserExitInput() {
-    try {
-      let userEixtInput = " ";
-      while (userEixtInput !== "1" && userEixtInput !== "2") {
-        userEixtInput = await MissionUtils.Console.readLineAsync(
-          "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
-        );
-      }
-      if (userEixtInput === "1") {
-        return false;
-      } else {
-        return true;
-      }
-    } catch (error) {
-      console.log(error);
+  async getExitInput() {
+    let eixtInput = " ";
+    eixtInput = await MissionUtils.Console.readLineAsync(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+    );
+    if (eixtInput === "1") {
+      return false;
+    } else if (eixtInput === "2") {
+      return true;
+    } else {
+      throw new Error("[ERROR]");
     }
   }
 
