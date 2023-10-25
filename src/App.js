@@ -32,9 +32,9 @@ class App {
 
           correctNumbers.forEach((v, idx) => {
             if (userNumbers.indexOf(v) === computerNumbers.indexOf(v)) {
-              strike++;
+              strike += 1;
             } else if (userNumbers.indexOf(v) !== computerNumbers.indexOf(v)) {
-              ball++;
+              ball += 1;
             }
           });
 
@@ -59,6 +59,19 @@ class App {
 
     return;
   }
+
+  // target number 생성함수
+  generateTargetNumbers() {
+    const setNumbers = new Set();
+
+    // 중복되지 않은 랜덤 숫자 3개 뽑기
+    while (setNumbers.size < 3) {
+      const randomNumber = Random.pickNumberInRange(1, 9);
+      setNumbers.add(randomNumber);
+    }
+    return [...setNumbers];
+  }
+  // 사용자 입력 검즘함수
   async validUserInput(string) {
     const userInputString = await Console.readLineAsync(string);
 
@@ -81,17 +94,8 @@ class App {
     }
     return userInputString;
   }
-  generateTargetNumbers() {
-    const setNumbers = new Set();
 
-    // 중복되지 않은 랜덤 숫자 3개 뽑기
-    while (setNumbers.size < 3) {
-      const randomNumber = Random.pickNumberInRange(1, 9);
-      setNumbers.add(randomNumber);
-    }
-    return [...setNumbers];
-  }
-
+  // 게임 재시작 여부 확인 함수
   async reGame() {
     return await Console.readLineAsync(
       '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.'
