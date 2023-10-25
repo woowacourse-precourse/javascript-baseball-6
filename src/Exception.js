@@ -1,3 +1,4 @@
+import MESSEAGE from "./Constants.js";
 
 class Exception {
   static isNumber(input) {
@@ -28,6 +29,10 @@ class Exception {
   
   static isNonException(input) {
     return this.isNumber(input) && this.isThreeDigits(input) && this.isNonExistZero(input) && this.isNonDuplicate(input) ? true : false;
+  }
+
+  static isExceptionChoice(input) {
+    return input !== MESSEAGE.RESTART && input !== MESSEAGE.EXIT ? true : false;
   }
 }
   
