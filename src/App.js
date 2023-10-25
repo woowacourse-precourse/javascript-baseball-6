@@ -8,22 +8,13 @@ class App {
     Console.print(Messages.START);
     while (true) {
       await new BaseballGame().start();
-      const selectNumber = Number(await this.getExitInput());
-      if (![Constants.RESTART, Constants.EXIT].includes(selectNumber)) {
+      const selectNumber = parseInt(await Console.readLineAsync(Messages.RESTART_OR_EXIT));
+      if (selectNumber !== Constants.RESTART && selectNumber !== Constants.EXIT) {
         throw new Error(Messages.ERROR.INVALID_SELECT_NUMBER);
       }
       if (selectNumber === Constants.EXIT) {
         break;
       }
-    }
-  }
-
-  async getExitInput() {
-    try {
-      const selectNumber = await Console.readLineAsync(Messages.RESTART_OR_EXIT);
-      return selectNumber;
-    } catch (error) {
-      throw new Error(Messages.ERROR.REJECTED_READLINE);
     }
   }
 }

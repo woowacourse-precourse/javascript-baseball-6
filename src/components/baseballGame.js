@@ -7,8 +7,9 @@ import Messages from "../utils/Messages.js";
 class BaseballGame {
   async start() {
     const randomNumber = new CreateNumber().randomNumber;
+    Console.print(randomNumber);
     while (true) {
-      const inputNumber = await this.getUserInput();
+      const inputNumber = await Console.readLineAsync(Messages.INPUT_NUMBER);
       if (!vaildateNumber(inputNumber)) {
         throw new Error(Messages.ERROR.INVALID_BALL_NUMBER);
       }
@@ -17,15 +18,6 @@ class BaseballGame {
         Console.print(Messages.RESULT);
         break;
       }
-    }
-  }
-
-  async getUserInput() {
-    try {
-      const inputNumber = await Console.readLineAsync(Messages.INPUT_NUMBER);
-      return inputNumber;
-    } catch (error) {
-      throw new Error(Messages.ERROR.REJECTED_READLINE);
     }
   }
 }
