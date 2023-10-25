@@ -1,6 +1,8 @@
 // 라이브러리 import
 import { Console, Random } from "@woowacourse/mission-utils";
 
+var isClear = false;
+
 // 메인 App 클래스
 class App {  
   async play() {  // play 메소드.   async는 비동기 처리를 할 때 await와 함께 쓰인다고 함.
@@ -16,7 +18,7 @@ class App {
       }
     }
 
-    const isClear = false;
+    isClear = false;
 
     Console.print("답 : " + computer_number);
 
@@ -27,7 +29,7 @@ class App {
         throw new Error("[ERROR] 1~9 사이의 숫자로 이루어진 중복되지 않은 세 자리 수를 입력해주세요 !!");
       }
 
-      Console.print("검증 완료 : " + userInputNumber);
+      countHint(computer_number, userInputNumber);  // 답과 입력값을 이용해 힌트(볼/스트라이크/낫싱)를 계산.
     }
   }
 }
@@ -54,6 +56,46 @@ function isUserInputNumberValid(num){  // 입력받은 수가 올바른지 검�
   }
 
   return true;
+}
+
+function countHint(comNumber, userNumber) {  // 답과 입력값을 이용해 힌트를 계산 후 출력.
+  let strike = 0;
+  let ball = 0;
+
+  for (let i = 0; i < 3; i++) {  // for문을 돌려 전부 비교해 자릿수까지 같으면 strike, 숫자만 같으면 ball 값을 올림.
+    for (let j = 0; j < 3; j++) {
+      if (comNumber[i] == userNumber[j]) {
+        if (i === j) {
+          strike++;
+        } else {
+          ball++;
+        }
+        break;
+      }
+    }
+  }
+
+  if (strike === 0 && ball === 0){  // 스트라이크와 볼 모두 없으면 낫싱
+    Console.print("낫싱");
+    return;
+  }
+
+  let hintText = "";
+
+  if (ball > 0){
+    hintText += ball + "볼 ";
+  }
+
+  if (strike > 0){
+    hintText += strike + "스트라이크";
+  }
+
+  Console.print(hintText);
+
+  if (strike === 3) {  // 스트라이크가 세 개, 즉 다 맞추면 끝
+    Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    isClear = true;  // 클리어 true로 바꿔서 while문 빠져나가도록.
+  }
 }
 
 export default App;
