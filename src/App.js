@@ -1,5 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import playAGame from "./baseball-game/playAGame.js";
+import { GAME_MESSAGE } from "./constants.js";
 import { getThreeDistinctNumbers } from "./utils/array.js";
 
 class App {
@@ -7,7 +8,7 @@ class App {
     while (true) {
       const computerNumbers = getThreeDistinctNumbers();
 
-      MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
+      MissionUtils.Console.print(GAME_MESSAGE.START);
 
       const { isRestart } = await playAGame(computerNumbers);
 

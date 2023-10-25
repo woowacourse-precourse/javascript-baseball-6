@@ -1,9 +1,8 @@
-const checkIsRestart = (processStateInput) => {
-  const RESTART_GAME = "1";
-  const END_GAME = "2";
+import { PROCESS_STATUS } from "../../constants.js";
 
-  if (processStateInput === RESTART_GAME) return true;
-  if (processStateInput === END_GAME) return false;
+const checkIsRestart = (processStateInput) => {
+  if (processStateInput === PROCESS_STATUS.RESTART) return true;
+  if (processStateInput === PROCESS_STATUS.END) return false;
 };
 
 export default checkIsRestart;

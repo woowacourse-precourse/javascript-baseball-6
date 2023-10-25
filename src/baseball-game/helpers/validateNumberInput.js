@@ -1,8 +1,9 @@
+import { INPUT_ERROR_MESSAGE } from "../../constants.js";
 import InputError from "../../errors/InputError.js";
 
 const validateNumberInput = (input) => {
   if (!isThreeNumbers(input) || !isUniqueChars(input)) {
-    throw new InputError("[ERROR] 서로 다른 3자리 숫자를 입력해 주세요.");
+    throw new InputError(INPUT_ERROR_MESSAGE.NUMBER);
   }
 };
 

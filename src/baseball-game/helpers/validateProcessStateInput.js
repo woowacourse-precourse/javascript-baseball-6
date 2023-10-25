@@ -1,8 +1,9 @@
+import { INPUT_ERROR_MESSAGE } from "../../constants.js";
 import InputError from "../../errors/InputError.js";
 
 const validateProcessStateInput = (input) => {
   if (!isOneOrTwo(input)) {
-    throw new InputError("[ERROR] 1이나 2가 아닌 값을 입력하셨습니다.");
+    throw new InputError(INPUT_ERROR_MESSAGE.PROCESS_STATE);
   }
 };
 
