@@ -88,10 +88,24 @@ describe('숫자 야구 게임 중 입력 예외에 대한 테스트', () => {
     await expect(app.play()).rejects.toThrow('[ERROR]');
   });
 
-  test('3자리 수 이하의 입력 예외 테스트', async () => {
+  test('재시작/종료를 구분하는 1과 2가 아닌 다른 입력 테스트', async () => {
     // given
     const randoms = [1, 3, 5];
     const answers = ['135', '3'];
+
+    mockRandoms(randoms);
+    mockQuestions(answers);
+
+    // when & then
+    const app = new App();
+
+    await expect(app.play()).rejects.toThrow('[ERROR]');
+  });
+
+  test('재시작/종료를 구분하는 1과 2가 아닌 다른 입력 테스트', async () => {
+    // given
+    const randoms = [1, 3, 5];
+    const answers = ['135', 1];
 
     mockRandoms(randoms);
     mockQuestions(answers);
