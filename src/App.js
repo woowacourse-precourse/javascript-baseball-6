@@ -68,6 +68,7 @@ class App {
       }
     } catch (error) {
       // reject 되는 경우
+      MissionUtils.Console.print("서로 다른 3자리의 수를 입력해주세요. 게임종료")
     }
   }
 }
