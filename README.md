@@ -154,3 +154,11 @@ while (computer.length < 3) {
 - 미션은 [javascript-baseball](https://github.com/woowacourse-precourse/javascript-baseball-6/) 저장소를 Fork & Clone해 시작한다.
 - **기능을 구현하기 전 `docs/README.md`에 구현할 기능 목록을 정리**해 추가한다.
 - 과제 진행 및 제출 방법은 [프리코스 과제 제출](https://github.com/woowacourse/woowacourse-docs/tree/master/precourse) 문서를 참고한다.
+
+
+[구현할 기능 목록]
+- 사용자로부터 세자리 숫자 입력 받는다.
+- Random.pickNumberInRange() API 를 활용해 정답값을 추출한다.
+- 서로 같은 자리에 숫자가 일치하면 스트라이크 , 서로 다른 자리에 숫자가 일치하면 볼의 결과값을 갖는다. 그리고 일치하는 숫자가 없을 시 낫싱의 값을 갖는다.
+- 3 스트라이크가 성립되면 게임이 종료되고, 이외의 결과값을 가질시 게임은 반복된다.
+- 게임 종료 후, 숫자값을 입력받아 게임을 재 시작 할 수 있다. 이때 1을 입력하면 재시작, 2를 입력하면 종료한다.
