@@ -1,6 +1,6 @@
 import Computer from './Computer.js';
 import Playgame from './Playgame.js';
-import { Consol } from "@woowacourse/mission-utils";
+import { Console } from "@woowacourse/mission-utils";
 
 class App {
   constructor() {

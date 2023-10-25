@@ -8,7 +8,7 @@ class Playgame {
         if (input.length !== 3) { // 길이가 3이 아닐때
             return false;
           }
-        if (new Set(input).size !== 4) { // 중복된 숫자가 있을때
+        if (new Set(input).size !== 3) { // 중복된 숫자가 있을때
             return false;
           }
         if (tries.includes(input)) { // 이미 시도한 값일때
@@ -42,6 +42,4 @@ class Playgame {
         }
 
     }
-}   
-
-//계산 여기까지
+}
