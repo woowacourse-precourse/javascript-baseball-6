@@ -45,17 +45,15 @@ class BaseballGame {
     const isValidGameInputEndGame = [GAME_SELECT.RESTART, GAME_SELECT.END];
 
     if (!isValidGameInputEndGame.includes(input)) {
-      throw new Error(ERROR_MESSAGE.INCORRECT_VALUE);
+      throwError(ERROR_MESSAGE.INCORRECT_VALUE);
+      return;
     }
-    // TODO: 주석 삭제 필요
-    // eslint-disable-next-line default-case
-    switch (input) {
-      case GAME_SELECT.RESTART:
-        this.restartGame();
-        break;
-      case GAME_SELECT.END:
-        Console.print(LOG_MESSAGE.END_GAME);
-        break;
+    if (input === GAME_SELECT.RESTART) {
+      this.restartGame();
+      return;
+    }
+    if (input === GAME_SELECT.END) {
+      printMessage(LOG_MESSAGE.END_GAME);
     }
   }
 
