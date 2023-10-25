@@ -6,13 +6,23 @@ export default class InputReader {
   constructor() {}
 
   async baseBallNumbers() {
-    const userInput = await this.#onRead(GAME_MESSAGE.REQUEST_WINNING_NUMBERS);
-    return userInput;
+    try {
+      const userInput = await this.#onRead(
+        GAME_MESSAGE.REQUEST_WINNING_NUMBERS
+      );
+      return userInput;
+    } catch (error) {
+      throw error;
+    }
   }
 
   async restartNumber() {
-    const userInput = await this.#onRead(GAME_MESSAGE.REQUEST_RESTART_NUMBER);
-    return userInput;
+    try {
+      const userInput = await this.#onRead(GAME_MESSAGE.REQUEST_RESTART_NUMBER);
+      return userInput;
+    } catch (error) {
+      throw error;
+    }
   }
 
   async #onRead(text, _ = paramType(text, String)) {
