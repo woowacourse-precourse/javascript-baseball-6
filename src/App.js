@@ -1,6 +1,18 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
+  makeComputerNum() {
+    // 컴퓨터 값 생성
+    let computer = [];
+    while (computer.length < 3) {
+      const number = MissionUtils.Random.pickNumberInRange(1, 9);
+      if (!computer.includes(number)) {
+        computer.push(number);
+      }
+    }
+    return computer;
+  }
+
   isValid(input) {
     // 입력값이 3자리 숫자로 이루어져 있는지 확인
     const numCheck = /^[1-9]{3}$/.test(input); //3자리 숫자 정규식
@@ -9,6 +21,19 @@ class App {
     }
     return true;
   }
+
+  changeInput(input) {
+    //입력값을 3자리 숫자에서 배열로 변환
+    let me = [];
+    input = Number(input);
+
+    for (let i = 0; i < 3; i++) {
+      me.push(Math.floor(input / 10 ** (2 - i))); //첫 자리부터 push
+      input = input % 10 ** (2 - i);
+    }
+    return me;
+  }
+
   rusultCheck(me, computer) {
     //나의 입력값과 컴퓨터의 값 비교
     let ballCount = 0;
@@ -31,17 +56,7 @@ class App {
       return `${ballCount}볼 ${strikeCount}스트라이크`;
     }
   }
-  makeComputerNum() {
-    // 컴퓨터 값 생성
-    let computer = [];
-    while (computer.length < 3) {
-      const number = MissionUtils.Random.pickNumberInRange(1, 9);
-      if (!computer.includes(number)) {
-        computer.push(number);
-      }
-    }
-    return computer;
-  }
+
   async continueCheck() {
     // 계속할지 여부 체크
     MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
@@ -61,6 +76,7 @@ class App {
       throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
     }
   }
+
   async play() {
     try {
       MissionUtils.Console.print("숫자 야구 게임을 시작합니다!");
@@ -70,20 +86,13 @@ class App {
       while (!gameOver) {
         let computer = [];
         let me = [];
-
-        computer = this.makeComputerNum(); //컴퓨터 값 생성
+        computer = this.makeComputerNum();
 
         while (!finish) {
           let userInput =
             await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 :");
-
           if (this.isValid(userInput) === true) {
-            userInput = Number(userInput);
-
-            for (let i = 0; i < 3; i++) {
-              me.push(Math.floor(userInput / 10 ** (2 - i))); //첫 자리부터 push
-              userInput = userInput % 10 ** (2 - i);
-            }
+            me = this.changeInput(userInput);
 
             const result = this.rusultCheck(me, computer);
             MissionUtils.Console.print(result);
