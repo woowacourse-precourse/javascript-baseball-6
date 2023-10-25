@@ -1,6 +1,12 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 class App {
-  async setComputerNumber() {
+  play() {
+    MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
+    this.setComputerNumber();
+    return this.calculateScore();
+  }
+
+  setComputerNumber() {
     const computer = [];
     while (computer.length < 3) {
       const number = MissionUtils.Random.pickNumberInRange(1, 9);
@@ -17,7 +23,7 @@ class App {
     return userAnswer.length === 3;
   }
 
-  async answerCheck() {
+  async validateNumber() {
     const USER_NUMBER = await MissionUtils.Console.readLineAsync(
       "숫자를 입력해주세요 : "
     );
@@ -34,7 +40,7 @@ class App {
 
   async calculateScore() {
     const COMPUTER_NUM = [...this.computer];
-    const USER_NUMBER = await this.answerCheck();
+    const USER_NUMBER = await this.validateNumber();
     let strike = 0;
     let ball = 0;
 
@@ -72,11 +78,6 @@ class App {
     } else {
       throw new Error("[ERROR]");
     }
-  }
-  async play() {
-    MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
-    this.setComputerNumber();
-    return this.calculateScore();
   }
 }
 
