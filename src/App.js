@@ -4,7 +4,7 @@ class App {
   async play() {
     Console.print('숫자 야구 게임을 시작합니다.');
     while (
-      await this.startGame(this.getRandomNumbers())
+      await this.startGame(this.getRandomNumbers()) === 1
     );
   }
 
@@ -22,6 +22,18 @@ class App {
 
       const message = this.getMessage(strike, ball);
       Console.print(message);
+
+      if (strike === 3) {
+        Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+        Console.print('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+        const isRetry = Number(await Console.readLineAsync(''));
+
+        if (isRetry !== 1 && isRetry !== 2) {
+          throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+        }
+
+        return isRetry;
+      }
     }
   }
 
