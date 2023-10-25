@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import Constants from "../util/Constants.js";
+import Constants from "../utils/Constants.js";
 
 export function compareNumber(target, guess) {
   let ball = 0;

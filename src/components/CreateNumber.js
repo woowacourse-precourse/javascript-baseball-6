@@ -1,5 +1,5 @@
 import { Random } from "@woowacourse/mission-utils";
-import Constants from "../util/Constants.js";
+import Constants from "../utils/Constants.js";
 
 export class CreateNumber {
   constructor() {

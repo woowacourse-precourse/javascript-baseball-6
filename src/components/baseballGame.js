@@ -2,7 +2,7 @@ import { Console } from "@woowacourse/mission-utils";
 import { CreateNumber } from "./createNumber.js";
 import { vaildateNumber } from "./vaildateNumber.js";
 import { compareNumber } from "./compareNumber.js";
-import Messages from "../util/Messages.js";
+import Messages from "../utils/Messages.js";
 
 class BaseballGame {
   async start() {
