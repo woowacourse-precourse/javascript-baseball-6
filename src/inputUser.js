@@ -13,7 +13,7 @@ const inputUserNumbers = async () => {
 
 const checkNewGame = (selection) => {
     return selection === 1 ? true : false;
-}
+};
 
 const inputNewGameSelection = async () => {
     const selection = await input();
