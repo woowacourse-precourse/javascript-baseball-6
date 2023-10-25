@@ -16,7 +16,6 @@ export class BaseballController {
 
       const gameResult = this.model.getGameResult();
       this.view.printGameResult(gameResult);
-
       if (gameResult.strike === DONE_COUNT) break;
     }
 
@@ -28,12 +27,12 @@ export class BaseballController {
   }
 
   async getUserInput() {
-    const userNumber = await this.view.getInputAsync(MESSAGE.INPUT);
+    const userNumber = await this.view.promptUserInput(MESSAGE.INPUT);
     this.model.setUserNumber(userNumber);
   }
 
   async queryRestartOption() {
-    const restartCommand = await this.view.getInputAsync(MESSAGE.RESTART);
+    const restartCommand = await this.view.promptUserInput(MESSAGE.RESTART);
     this.validateRestartCommand(restartCommand);
     restartCommand === RESTART_COMMAND.NEWGAME ? this.start() : this.quit();
   }
