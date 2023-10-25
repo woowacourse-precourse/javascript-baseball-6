@@ -40,6 +40,21 @@ const WRONG_EXIT_CODE = (exit_code) => {
   }
 }
 
+const print_cnt = (BallCnt, StrikeCnt) => {
+  if (BallCnt > 0 && StrikeCnt > 0) {
+    Console.print(`${BallCnt}볼 ${StrikeCnt}스트라이크`);
+  }
+  if (BallCnt > 0) {
+    Console.print(`${BallCnt}볼`);
+  }
+  if (StrikeCnt > 0) {
+    Console.print(`${StrikeCnt}스트라이크`);
+  }
+  if (BallCnt === 0 && StrikeCnt === 0) {
+    Console.print(`낫싱`);
+  }
+}
+
 class App {
   async play() {
 
@@ -54,7 +69,7 @@ class App {
         let BallCnt = 0;
         let StrikeCnt = 0;
 
-        for(let i = 0; i < 3; i++) {
+        for (let i = 0; i < 3; i++) {
           if (COMPUTER_NUMBER[i] === my_result[i]) {
             StrikeCnt++;
           }
@@ -63,18 +78,7 @@ class App {
           }
         }
 
-        if (BallCnt > 0 && StrikeCnt > 0) {
-          Console.print(`${BallCnt}볼 ${StrikeCnt}스트라이크`);
-        }
-        if (BallCnt > 0) {
-          Console.print(`${BallCnt}볼`);
-        }
-        if (StrikeCnt > 0) {
-          Console.print(`${StrikeCnt}스트라이크`);
-        }
-        if (BallCnt === 0 && StrikeCnt === 0) {
-          Console.print(`낫싱`);
-        }
+        print_cnt(BallCnt, StrikeCnt);
 
         if (StrikeCnt === 3) {
           Console.print('3스트라이크');
