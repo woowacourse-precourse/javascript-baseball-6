@@ -18,18 +18,17 @@ class App {
 
     function calculateResult(computer, guess) {
       // 입력한 수에 대한 결과를 볼, 스트라이크 개수 계산 함수
-
-      let strikes = 0;
-      let balls = 0;
+      const result = {
+        strikes: 0,
+        balls: 0,
+      };
 
       for (let i = 0; i < 3; i++) {
-        if (guess[i] === computer[i]) strikes++;
-        else if (computer.includes(guess[i])) balls++;
+        if (computer[i] === guess[i]) result.strikes++;
+        else if (computer.includes(guess[i])) result.balls++;
       }
 
-      if (strikes === 0 && balls === 0) return "낫싱";
-
-      return { strikes, balls };
+      return result;
     }
 
     async function inputNumber() {
@@ -37,7 +36,7 @@ class App {
 
       const userGuess = await MissionUtils.Console.readLineAsync(GAME.INPUT);
       if (isNaN(userGuess)) throw new ERROR(ERROR.NUMBER);
-      else if (userGuess <= 1 || userGuess >= 9) throw new ERROR(ERROR.RANGE);
+      else if (userGuess < "1" || userGuess > "9") throw new ERROR(ERROR.RANGE);
       if (userGuess.length !== 3) throw new ERROR(ERROR.LENGTH);
       if (new Set(userGuess).size !== userGuess.length)
         throw new ERROR(ERROR.REPEATED);
@@ -45,10 +44,8 @@ class App {
       return [...userGuess].map(Number);
     }
 
-    function printResult() {
+    function printResult(result) {
       // 결과 출력하는 함수
-
-      const result = calculateResult(computer, userGuess);
       if (result.balls !== 0 || result.strikes !== 0) {
         if (result.strikes === 3) {
           MissionUtils.Console.print(
