@@ -63,7 +63,7 @@ class App {
     await this.inGame(computerBall, user);
   }
 
-  errorCase(user) {
+  validateError(user) {
     const userLength = Array.from(user);
     if (/[^1-9]/.test(user)) {
       throw new Error("[ERROR] 잘못된 값을 입력하였습니다.");
@@ -77,7 +77,7 @@ class App {
   }
 
   async inGame(computerBall, user) {
-    this.errorCase(user);
+    this.validateError(user);
     const gameResult = this.guessNumber(computerBall, user);
     if (computerBall === user) {
       const response = await MissionUtils.Console.readLineAsync(
