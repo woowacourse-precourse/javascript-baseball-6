@@ -11,7 +11,6 @@ export function checkInputValidity(input){
         return false
     }
 
-    // 1&2번 조건 모두 통과시 return true
     return true
 }
 
