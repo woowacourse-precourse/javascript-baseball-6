@@ -12,7 +12,6 @@ class Balls {
         threeDigitNumber.push(number);
       }
     }
-    Console.print(threeDigitNumber);
     return threeDigitNumber;
   }
 
