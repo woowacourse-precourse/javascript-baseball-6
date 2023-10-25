@@ -28,11 +28,20 @@ class Controller {
 
   /**
    * 게임을 실행하는 함수
+   * @returns {boolean} 재시작 여부
    */
   async run() {
     // 게임 시작
     GAME_START_VIEW();
     this.generateOpponent();
+
+    // 숫자 입력 후 평가
+    this.#user = new User();
+    await this.matchNumber();
+
+    // 재시작 여부 입력
+    await this.saveUserRestart();
+    return this.#user.getRestart();
   }
 
   /**
@@ -42,17 +51,6 @@ class Controller {
   generateOpponent() {
     this.#opponent = new Opponent(RANDOM_NUMBER());
     return this.#opponent;
-  }
-
-  /**
-   * 사용자의 숫자를 입력받는 함수
-   * @returns {number}
-   */
-  async saveUserInput() {
-    const userInput = await INPUT_NUMBER_VIEW();
-    if (!CHECK_VALIDATION(userInput)) throw new Error(MESSAGES.WRONG_INPUT);
-    this.#user.setNumber(userInput);
-    return this.#user.getNumber();
   }
 
   /**
@@ -68,6 +66,9 @@ class Controller {
     let strikeCount = 0;
     let ballCount = 0;
     while (strikeCount !== CONDITIONS.MAX_STRIKE_COUNT) {
+      strikeCount = 0;
+      ballCount = 0;
+
       const userNumber = await this.saveUserInput();
       const userNumberElements = userNumber.toString().split("").map(Number);
       for (let i = 0; i < CONDITIONS.NUMBER_LENGTH; i += 1) {
@@ -80,6 +81,17 @@ class Controller {
       OUTPUT_VIEW(strikeCount, ballCount);
     }
     Console.print(MESSAGES.SUCCESS);
+  }
+
+  /**
+   * 사용자의 숫자를 입력받는 함수
+   * @returns {number}
+   */
+  async saveUserInput() {
+    const userInput = await INPUT_NUMBER_VIEW();
+    if (!CHECK_VALIDATION(userInput)) throw new Error(MESSAGES.WRONG_INPUT);
+    this.#user.setNumber(userInput);
+    return this.#user.getNumber();
   }
 
   /**
