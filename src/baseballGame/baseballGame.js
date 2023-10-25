@@ -4,19 +4,19 @@ import { getComputerNum, getUserNum } from "./getValue";
 
 // 3. 컴퓨터와 유저의 숫자 비교
 export async function compareNum() {
-  const COMPUTER_NUM = getComputerNum();
+  const computer_num = getComputerNum();
 
   let ball = 0;
   let strike = 0;
   while (strike !== 3) {
-    let USER_NUM = await getUserNum();
-    USER_NUM = USER_NUM.split("").map(Number);
+    let user_num = await getUserNum();
+    user_num = user_num.split("").map(Number);
     ball = 0;
     strike = 0;
 
     for (let i = 0; i < 3; i++) {
-      if (COMPUTER_NUM[i] === USER_NUM[i]) strike++;
-      else if (USER_NUM.includes(COMPUTER_NUM[i])) ball++;
+      if (computer_num[i] === user_num[i]) strike++;
+      else if (user_num.includes(computer_num[i])) ball++;
     }
 
     getHint(ball, strike);

@@ -4,22 +4,22 @@ import { userInputValid } from "../vaildation";
 
 // 1. 컴퓨터의 랜덤 숫자
 export function getComputerNum() {
-  const COMPUTER = [];
-  while (COMPUTER.length < 3) {
+  const computer = [];
+  while (computer.length < 3) {
     const RANDOM_NUM = MissionUtils.Random.pickNumberInRange(1, 9);
-    if (!COMPUTER.includes(RANDOM_NUM)) {
-      COMPUTER.push(RANDOM_NUM);
+    if (!computer.includes(RANDOM_NUM)) {
+      computer.push(RANDOM_NUM);
     }
   }
-  return COMPUTER;
+  return computer;
 }
 
 // 2. 유저의 숫자 입력
 export async function getUserNum() {
-  let USER_INPUT = await MissionUtils.Console.readLineAsync(GAME_MSG.INPUT);
-  userInputValid(USER_INPUT);
+  let user_input = await MissionUtils.Console.readLineAsync(GAME_MSG.INPUT);
+  userInputValid(user_input);
   try {
-    return USER_INPUT;
+    return user_input;
   } catch (error) {
     throw new Error("[ERROR]");
   }
