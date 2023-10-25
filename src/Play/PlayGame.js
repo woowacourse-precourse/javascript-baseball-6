@@ -28,7 +28,7 @@ const inputNum = async() => {
 
 //힌트 계산하기
 const checkNum = (inputNumber, answerNumber) => {
-    let userNumber = inputNumber.toString().split('').map(Number);
+    let userNumber = Array.from(inputNumber, Number);
 
     let hintcount = {
         strike : 0,
