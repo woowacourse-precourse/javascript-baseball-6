@@ -40,5 +40,18 @@ class App {
       return;
     }
   }
+
+  calculateResult() {
+    const strike = this.computerNumbers.reduce(
+      (acc, number) => acc + this.userNumbers.indexOf(number) !== -1,
+      0
+    );
+    const ball =
+      this.computerNumbers.reduce(
+        (acc, number) => acc + this.userNumbers.includes(number),
+        0
+      ) - strike;
+    this.result = { strike, ball };
+  }
 }
 export default App;
