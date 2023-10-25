@@ -34,9 +34,6 @@ export const returnResultMessage = ({ strike, ball }) => {
     if (!result) {
         return "낫싱";
     }
-    if (strike === 3) {
-        return "3스트라이크";
-    }
 
     return result;
 };
