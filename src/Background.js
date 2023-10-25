@@ -7,7 +7,7 @@ gameState
 2 : game's end
 */
 
-export class Background {
+class Background {
   constructor() {
     this.gameState = 0;
     this.answer = '';
@@ -17,9 +17,11 @@ export class Background {
   setAnswer(answer) {
     this.answer = answer;
   }
+
   setGameState(gameState) {
     this.gameState = gameState;
   }
+
   getGameState() {
     return this.gameState;
   }
@@ -28,14 +30,14 @@ export class Background {
   baseballQuery(query) {
     const response = { ball: 0, strike: 0 };
 
-    for (let i = 0; i < 3; ++i) {
+    for (let i = 0; i < 3; i += 1) {
       if (this.answer.includes(query[i])) {
         response.ball += 1;
       }
     }
 
-    for (let i = 0; i < 3; ++i) {
-      if (query[i] == this.answer[i]) {
+    for (let i = 0; i < 3; i += 1) {
+      if (query[i] === this.answer[i]) {
         response.ball -= 1;
         response.strike += 1;
       }
@@ -43,6 +45,7 @@ export class Background {
 
     return response;
   }
+
   updateGameState(result) {
     if (result.strike === 3) {
       this.setGameState(2);
@@ -54,6 +57,7 @@ export class Background {
     this.gameState = 1;
     this.initAnswer();
   }
+
   initAnswer() {
     const newAnswer = [];
     while (newAnswer.length !== 3) {
@@ -65,3 +69,5 @@ export class Background {
     this.setAnswer(newAnswer.join(''));
   }
 }
+
+export default Background;

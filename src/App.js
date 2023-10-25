@@ -1,6 +1,6 @@
-import { write } from './IO.js';
-import { Background } from './Background.js';
-import { Controls } from './Controls.js';
+import { write } from './IO';
+import Background from './Background';
+import Controls from './Controls';
 
 const TEXT = {
   WELCOME: '숫자 야구 게임을 시작합니다.',
@@ -17,12 +17,8 @@ class App {
     write(TEXT.WELCOME);
 
     // serve as many games as user wants
-    try {
-      while (this.background.getGameState() !== 2) {
-        await this.game();
-      }
-    } catch (error) {
-      throw error;
+    while (this.background.getGameState() !== 2) {
+      await this.game();
     }
   }
 

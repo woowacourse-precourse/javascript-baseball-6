@@ -1,4 +1,4 @@
-import { read, write } from './IO.js';
+import { read, write } from './IO';
 
 const TEXT = {
   ENTER_GUESS: '숫자를 입력해주세요 : ',
@@ -9,7 +9,7 @@ const TEXT = {
 };
 
 // App에서 사용하는 함수들에 대한 구현
-export class Controls {
+class Controls {
   // get user input
   static async getUserGuess() {
     const userInput = await read(TEXT.ENTER_GUESS);
@@ -18,6 +18,7 @@ export class Controls {
     }
     return userInput;
   }
+
   static async getUserContinue() {
     const userInput = await read(TEXT.ENTER_CONTINUE);
     if (!this.validateContinue(userInput)) {
@@ -38,7 +39,7 @@ export class Controls {
       write(`${result.strike}스트라이크`);
     }
     if (result.ball === 0 && result.strike === 0) {
-      write(`낫싱`);
+      write('낫싱');
     }
   }
 
@@ -46,12 +47,15 @@ export class Controls {
   static validateGuess(query) {
     let ok = true;
     if (query.length !== 3) ok = false;
-    if (isNaN(query)) ok = false;
+    if (Number.isNaN(query)) ok = false;
     return ok;
   }
+
   static validateContinue(query) {
     let ok = true;
     if (query !== '1' && query !== '2') ok = false;
     return ok;
   }
 }
+
+export default Controls;
