@@ -54,6 +54,32 @@ class App {
       );
     }
   }
+
+  compareWithAnswer(input) {
+    let strike = 0;
+    let ball = 0;
+
+    for (let i = 0; i < 3; i++) {
+      if (input[i] === this.answer[i]) {
+        strike++;
+      } else if (this.answer.includes(input[i])) {
+        ball++;
+      }
+    }
+
+    return { strike, ball };
+  }
+
+  buildResultMessage({ strike, ball }) {
+    const resultArr = [];
+    if (ball > 0) {
+      resultArr.push(`${ball}볼`);
+    }
+    if (strike > 0) {
+      resultArr.push(`${strike}스트라이크`);
+    }
+    return resultArr.length === 0 ? '낫싱' : resultArr.join(' ');
+  }
 }
 
 export default App;
