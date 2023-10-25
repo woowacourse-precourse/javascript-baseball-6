@@ -42,10 +42,12 @@ class App {
           else if (idx != -1) b++;
         }
 
-        if (s === 0 && b === 0) console.log("낫싱");
+        if (s === 0 && b === 0) MissionUtils.Console.print("낫싱");
         else if (s === 3) {
-          console.log("3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임종료"); break;
-        } else console.log(b + "볼 " + s + "스트라이크");
+          MissionUtils.Console.print("3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임종료"); break;
+        } else if(s === 0) MissionUtils.Console.print(b+"볼");
+        else if(b === 0) MissionUtils.Console.print(s+"스트라이크");
+        else MissionUtils.Console.print(b + "볼 " + s + "스트라이크");
       }
     } catch (error) {
       // reject 되는 경우
