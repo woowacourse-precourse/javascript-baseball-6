@@ -20,7 +20,11 @@ class App {
 
       if (strike === 3) {
         this.view.printSuccess();
-        this.isGameEnded = await this.balls.askRegame();
+        this.isGameEnded = await this.view.askRegame();
+        if (this.isGameEnded === false) {
+          this.view.printRestartGame();
+          this.balls.regenerateRandomNumber();
+        }
       } else {
         this.view.printHint(strike, ball);
       }
