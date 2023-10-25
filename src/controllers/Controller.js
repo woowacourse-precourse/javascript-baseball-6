@@ -12,6 +12,7 @@ import CHECK_VALIDATION from "../utils/CheckValidation.js";
 
 import MESSAGES from "../constants/Messages.js";
 import CONDITIONS from "../constants/Conditions.js";
+import RESTART_VIEW from "../views/RestartView.js";
 
 /**
  * @class Controller
@@ -79,6 +80,20 @@ class Controller {
       Console.print(OUTPUT_VIEW(strikeCount, ballCount));
     }
     Console.print(MESSAGES.SUCCESS);
+  }
+
+  /**
+   * 재시작 여부를 입력받는 함수
+   */
+  async saveUserRestart() {
+    const isRestart = await RESTART_VIEW();
+    if (isRestart === CONDITIONS.RESTART.YES) {
+      this.#user.setRestart(true);
+    } else if (isRestart === CONDITIONS.RESTART.NO) {
+      this.#user.setRestart(false);
+    } else {
+      throw new Error(MESSAGES.WRONG_INPUT);
+    }
   }
 }
 
