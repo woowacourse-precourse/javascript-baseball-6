@@ -9,8 +9,9 @@ class App {
 
     const computer = [];
     let player = playerNum.split("");
+    const isNumber = /^[0-9]+$/;
 
-    if (player.length !== 3 /*typeof player !== "number"*/) {
+    if (player.length !== 3 || isNumber.test(playerNum) === false) {
       throw new Error("[ERROR]");
     }
 
