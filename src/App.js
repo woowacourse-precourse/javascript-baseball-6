@@ -20,8 +20,6 @@ class App {
 
     isClear = false;
 
-    Console.print("답 : " + computer_number);
-
     while (!isClear) {  // 게임이 클리어되지 않은 경우, 세 자리 숫자 입력 받고 검증을 반복.
       let userInputNumber = await getUserInputNumber("숫자를 입력해주세요 : ");
 
