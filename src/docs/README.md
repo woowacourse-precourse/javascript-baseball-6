@@ -1,10 +1,5 @@
 # ⚾️ 숫자야구 미션
 
-## 🏷️ 목차
-- [📄 기능목록](#2-📄-기능-목록)
-- [🗂️ 폴더 구조](#2-🗂️-폴더-구조)
-- [🗄️ Class Diagram](#2-🗄️-Class-Diagram)
- 
 ## 📄 기능 목록
 
 ### 게임 시작
@@ -110,7 +105,7 @@ classDiagram
 ### Controller -Model
 ``` mermaid
 classDiagram
-  Controller <-- Model
+  Controller <-- Model : Model Dependency
   mkOpponentNum --> Model
   compareNum <-- Model
 
