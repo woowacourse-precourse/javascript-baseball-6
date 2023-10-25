@@ -100,6 +100,19 @@ class App {
 
     this.userNumber = inputNumber;
   }
+
+  async restartOrEndGame() {
+    const restartOrEndNum = await MissionUtils.Console.readLineAsync(
+      this.texts.GAME_RESTART
+    );
+
+    if (restartOrEndNum === "1") {
+      await this.play(restartOrEndNum);
+    }
+    if (restartOrEndNum === "2") {
+      return;
+    }
+  }
 }
 
 const myApp = new App();
