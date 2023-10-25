@@ -1,5 +1,4 @@
 import { Random, Console } from "@woowacourse/mission-utils";
-import readline from "readline";
 
 class App {
 
@@ -15,96 +14,99 @@ class App {
   }
 
   async play() {
-    let startNumSetting = 1; // 값이 1이면 루프 진행, 2이면 멈춤
+    let start_Num_Setting = 1; // 값이 1이면 루프 진행, 2이면 멈춤
     let computer = this.computerNumberPick();
-    let countStrike, countBall, countBallAndStrike; // 스트라이크, 볼, 스트라이크 + 볼 횟수
+    let count_Strike, count_Ball, count_Ball_And_Strike; // 스트라이크, 볼, 스트라이크 + 볼 횟수
 
     Console.print("숫자 야구 게임을 시작합니다.");
 
-    while (startNumSetting == 1) {
+    while (start_Num_Setting == 1) {
 
-      let userNumber = await Console.readLineAsync("숫자를 입력해주세요 : ");
+      let user_Number = await Console.readLineAsync("숫자를 입력해주세요 : ");
 
       try { // 숫자 3개 확인
-        if (userNumber.length != 3 || isNaN(userNumber)) {
-          throw new Error("[숫자 3개를 입력하세요.");
+        if (user_Number.length != 3 || isNaN(user_Number)) {
+          throw new Error("숫자 3개를 입력하세요.");
         }
       } catch (error) {
         Console.print("[ERROR]" + error.message);
-        return;
+        continue;
       }
 
       try { //띄어쓰기 감지
-        if (userNumber.includes(" ")) {
+        if (user_Number.includes(" ")) {
           throw new Error("띄어쓰기를 없애주세요.");
         }
       } catch (error) {
         Console.print("[ERROR]" + error.message);
-        return;
+        continue;
       }
 
       try { // 띄어쓰기 감지
-        if (userNumber.includes("0")) {
+        if (user_Number.includes("0")) {
           throw new Error("0은 안됩니다.");
         }
       } catch (error) {
         Console.print("[ERROR]" + error.message);
-        return;
+        continue;
       }
 
       try { // 겹치는 숫자 확인
-        if (new Set(userNumber).size !== userNumber.length) {
+        if (new Set(user_Number).size !== user_Number.length) {
           throw new Error("겹치지 않게 숫자를 입력하세요.");
         }
       } catch (error) {
         Console.print("[ERROR]" + error.message);
-        return;
+        continue;
       }
 
-      const user = userNumber.split('').map(Number); // 문자로 받은 userNumber를 user에 숫자로 배열로 넣기
+      const user = user_Number.split('').map(Number); // 문자로 받은 userNumber를 user에 숫자로 배열로 넣기
 
-      countStrike = 0;
-      countBallAndStrike = 0;
+      count_Strike = 0;
+      count_Ball_And_Strike = 0;
 
       // 볼+스트라이크, 스트라이크 갯수 카운트
       for (let count = 0; count < 3; count++) {
         if (user[count] == computer[count]) {
-          countStrike++;
+          count_Strike++;
         }
         if (user.includes(computer[count])) {
-          countBallAndStrike++;
+          count_Ball_And_Strike++;
         }
       }
 
-      countBall = countBallAndStrike - countStrike;
+      count_Ball = count_Ball_And_Strike - count_Strike;
 
 
       // 출력할 문장 변수
-      let printSentence = "";
+      let print_Sentence = "";
 
-      if (countBallAndStrike == 0) {
-        printSentence = "낫싱";
+      if (count_Ball_And_Strike == 0) {
+        print_Sentence = "낫싱";
       }
 
-      if (countBall != 0) {
-        printSentence = printSentence + countBall + "볼";
-        if (countStrike != 0) {
-          printSentence += " ";
+      if (count_Ball != 0) {
+        print_Sentence = print_Sentence + count_Ball + "볼";
+        if (count_Strike != 0) {
+          print_Sentence += " ";
         }
       }
 
-      if (countStrike != 0) {
-        printSentence = printSentence + countStrike + "스트라이크";
+      if (count_Strike != 0) {
+        print_Sentence = print_Sentence + count_Strike + "스트라이크";
       }
 
-      Console.print(printSentence);
-      if (countStrike == 3) {
-        Console.print(countStrike + "개의 숫자를 모두 맞히셨습니다! 게임종료");
-        startNumSetting = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+      Console.print(print_Sentence);
+      if (count_Strike == 3) {
+        Console.print(count_Strike + "개의 숫자를 모두 맞히셨습니다! 게임종료");
+        start_Num_Setting = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
         computer = this.computerNumberPick();
       }
     }
   }
 }
+
+const game = new App();
+game.play();
 
 export default App;
