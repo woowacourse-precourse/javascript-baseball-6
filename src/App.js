@@ -32,6 +32,35 @@ class App {
 
     return input.split("").map(Number); // 입력값을 배열로 변환
   }
+  calculateResult(computerNumber, userInput) {
+    let S = 0;
+    let B = 0;                    //  명시적으로 S,B,N 0으로 선언 및 초기화
+    let N = 0;
+
+    for (let i = 0; i < 3; i++) {           
+      if (computerNumber[i] === userInput[i]) {  // 배열의 위치와 숫자가 동일하면 S
+        S++;
+      } else if (computerNumber.includes(userInput[i])) {    //위치 상관없이 포함되어 있으면 B
+        B++;
+      } else {     // 아무것도 아니면 N
+        N++;
+      }
+    }
+
+    let result = "";
+
+    if (B > 0) {
+      result += `${B}볼 `;
+    }
+    if (S > 0) {
+      result += `${S}스트라이크 `;
+    }
+    if (B === 0 && S === 0) {
+      result = `낫싱`;
+    }
+
+    return result; // 볼, 스트라이크, 낫싱 결과 출력
+  }
 
   async play() {}
 }
