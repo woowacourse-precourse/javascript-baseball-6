@@ -1,4 +1,4 @@
-import { InputError } from "../../errors.js";
+import InputError from "../../errors/InputError.js";
 
 const validateNumberInput = (input) => {
   if (!isThreeNumbers(input) || !isUniqueChars(input)) {
