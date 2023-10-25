@@ -1,20 +1,16 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
-import { initGame, playGame } from "./game";
+import { initGame, playGame, completeGame } from "./game";
+import { RESTART_FLAG, QUIT_FLAG } from "./constant";
 
 class App {
   async play() {
     while (true) {
       const answer = await initGame();
       await playGame(answer);
+      const restart = await completeGame();
 
-      MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-
-      const restart = await MissionUtils.Console.readLineAsync(
-        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
-      );
-
-      if (restart === "2") break;
-      if (restart === "1") continue;
+      if (restart === RESTART_FLAG) continue;
+      if (restart === QUIT_FLAG) break;
+      throw Error(`[ERROR] ${RESTART_FLAG} 또는 ${QUIT_FLAG}를 입력해주세요`);
     }
   }
 }
