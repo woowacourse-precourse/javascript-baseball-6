@@ -1,9 +1,9 @@
 import { Console } from "@woowacourse/mission-utils";
-import { GAMEMESSAGE, ERRORMESSAGE } from "../constants/Message";
+import { GAME_MESSAGE, ERROR_MESSAGE } from "../constants/Message";
 
 export default class User {
   async getNumber() {
-    Console.print(GAMEMESSAGE.inputNumberPrompt);
+    Console.print(GAME_MESSAGE.inputNumberPrompt);
     const playerInput = await Console.readLineAsync("");
 
     this.checkInputValidation(playerInput);
@@ -21,31 +21,31 @@ export default class User {
 
   validateInputLength(input) {
     if (input.length !== 3) {
-      this.throwErrorMessage(ERRORMESSAGE.invalidLength);
+      this.throwErrorMessage(ERROR_MESSAGE.invalidLength);
     }
   }
 
   validateZeroIncluded(input) {
     if (input.includes("0")) {
-      this.throwErrorMessage(ERRORMESSAGE.zeroIncluded);
+      this.throwErrorMessage(ERROR_MESSAGE.zeroIncluded);
     }
   }
 
   validateNonNumber(input) {
     if (input.split("").some((num) => isNaN(num))) {
-      this.throwErrorMessage(ERRORMESSAGE.nonNumber);
+      this.throwErrorMessage(ERROR_MESSAGE.nonNumber);
     }
   }
 
   validateDuplicateNumber(input) {
     if (input.split("").some((num, index, arr) => arr.indexOf(num) !== index)) {
-      this.throwErrorMessage(ERRORMESSAGE.duplicateNumber);
+      this.throwErrorMessage(ERROR_MESSAGE.duplicateNumber);
     }
   }
 
   validateSpaceIncluded(input) {
     if (input.includes(" ")) {
-      this.throwErrorMessage(ERRORMESSAGE.spaceIncluded);
+      this.throwErrorMessage(ERROR_MESSAGE.spaceIncluded);
     }
   }
 

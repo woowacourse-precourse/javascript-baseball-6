@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import { GAMEMESSAGE } from "../constants/Message";
+import { GAME_MESSAGE } from "../constants/Message";
 
 export default class Control {
   constructor(app) {
@@ -7,7 +7,7 @@ export default class Control {
   }
 
   async startGame() {
-    Console.print(GAMEMESSAGE.startGame);
+    Console.print(GAME_MESSAGE.startGame);
     while (this.app.isReplaying) {
       const gameWon = await this.app.compare.compareNumbers();
       if (gameWon) {
@@ -17,8 +17,8 @@ export default class Control {
   }
 
   async askReplay() {
-    Console.print(GAMEMESSAGE.gameWon);
-    Console.print(GAMEMESSAGE.askReplay);
+    Console.print(GAME_MESSAGE.gameWon);
+    Console.print(GAME_MESSAGE.askReplay);
     const userChoice = await Console.readLineAsync("");
 
     if (userChoice === "1") {
