@@ -12,9 +12,11 @@ const mockQuestions = (inputs) => {
 
 const mockRandoms = (numbers) => {
   MissionUtils.Random.pickNumberInRange = jest.fn();
-  numbers.reduce((acc, number) => {
-    return acc.mockReturnValueOnce(number);
-  }, MissionUtils.Random.pickNumberInRange);
+
+  MissionUtils.Random.pickNumberInRange.mockImplementation(() => {
+    const input = numbers.shift();
+    return input;
+  });
 };
 
 const getLogSpy = () => {
@@ -44,7 +46,7 @@ describe("숫자 야구 게임", () => {
     });
   });
 
-  test("예외 테스트", async () => {
+  test("입력 길이 예외 테스트", async () => {
     // given
     const randoms = [1, 3, 5];
     const answers = ["1234"];
@@ -52,9 +54,24 @@ describe("숫자 야구 게임", () => {
     mockRandoms(randoms);
     mockQuestions(answers);
 
-    // when & then
+    //when & then
     const app = new App();
 
-    await expect(app.play()).rejects.toThrow("[ERROR]");
+    expect(app.play()).rejects.toThrow("[ERROR]");
   });
+
+  test("입력값 중복 예외 테스트", async () => {
+    // given
+    const randoms = [1, 3, 5];
+    const answers = ["123","577"];
+
+    mockRandoms(randoms);
+    mockQuestions(answers);
+
+    //when & then
+    const app = new App();
+
+    expect(app.play()).rejects.toThrow("[ERROR]");
+  });
+
 });
