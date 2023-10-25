@@ -45,16 +45,16 @@ class App {
     // 숫자를 입력했는지 확인
     for(let i=0;i<userNumArr.length;i++){
       if(!NUMBERS.test(userNumArr[i])){
-        throw new Error('숫자를 입력하세요.');
+        throw new Error('[ERROR] 숫자를 입력하세요.');
       }
     }
     // 3자리수인지 확인
     if(userNumArr.length!=3){
-      throw new Error('3개의 숫자를 입력하세요.');
+      throw new Error('[ERROR] 3개의 숫자를 입력하세요.');
     }
     // 중복된 숫자가 있는지 확인
     if(new Set(userNumArr).size!=3){
-      throw new Error('중복된 숫자가 있습니다.');
+      throw new Error('[ERROR] 중복된 숫자가 있습니다.');
     }
   }
 
@@ -107,12 +107,15 @@ class App {
         "게임을 재시작하려면 1, 게임종료를 원하시면 2를 입력하세요: "
       );
       if (input === "1") {
-        await this.play();
+        // 게임을 재시작하고 무한 루프를 계속합니다.
+        return this.play();
       } else if (input === "2") {
-        // close 함수가 모듈에 없는 에러 발생
-        MissionUtils.Console.close();
+        MissionUtils.Console.print("게임 종료");
+        // 게임을 종료하고 무한 루프를 빠져나갑니다.
+        // close함수 적용 안됨 -> return으로 무한 루프 탈출(게임종료)
+        return;
       } else {
-        throw new Error("1과 2 중에서 입력해주세요.");
+        throw new Error("[ERROR] 1과 2 중에서 입력해주세요.");
       }
     }
   }
