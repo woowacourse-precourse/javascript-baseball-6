@@ -86,6 +86,10 @@ class App {
     this.ballCount = isBall.filter((x) => x).length;
     return this.ballCount;
   }
+  async consoleOutput(strikeCount, ballCount) {
+    const BALL = `${ballCount}볼`;
+    const STRIKE = `${strikeCount}스트라이크`;
+  }
     }
   }
 }
