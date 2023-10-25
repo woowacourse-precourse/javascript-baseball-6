@@ -6,7 +6,6 @@ class App {
     await gameStart();
   }
 }
-export default App;
 
 const gameStart = async () => {
   const computer = await ComputerNumbers();
@@ -33,7 +32,7 @@ const getUserInput = async (computer) => {
     const user = userInput.split("").map(Number);
     await compareNumbers(user, computer);
   } catch (error) {
-    await MissionUtils.Console.print(error);
+    throw new Error("[ERROR]" + error);
   }
 };
 
@@ -52,8 +51,37 @@ const checkInput = async (input) => {
   }
 };
 
-const compareNumbers = async (user, computer) => {};
+const compareNumbers = async (user, computer) => {
+  let strike = 0;
+  let ball = 0;
+
+  for (let i = 0; i < user.length; i++) {
+    if (user[i] === computer[i]) {
+      strike++;
+    } else if (computer.includes(user[i])) {
+      ball++;
+    }
+  }
+
+  if (strike === 0 && ball === 0) {
+    await MissionUtils.Console.print("낫싱");
+  } else if (strike === 0) {
+    await MissionUtils.Console.print(ball + "볼");
+  } else if (ball === 0) {
+    await MissionUtils.Console.print(strike + "스트라이크");
+  } else {
+    await MissionUtils.Console.print(ball + "볼 " + strike + "스트라이크");
+  }
+
+  if (strike === 3) {
+    await MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    return;
+  }
+
+  await getUserInput(computer);
+};
 
 const compareResult = async () => {};
 
 const playAgain = async () => {};
+export default App;
