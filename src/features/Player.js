@@ -1,5 +1,6 @@
 import { Console } from "@woowacourse/mission-utils";
 import { Validation } from "./Validation.js";
+import { MESSAGE } from "../constants/messages.js";
 
 export const player = {
   input: async function (inputString) {
