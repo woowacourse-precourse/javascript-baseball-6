@@ -1,5 +1,13 @@
+import View from './view/View.js'
+import Model from './model/Model.js'
+import Controller from './controller/Controller.js'
+
 class App {
-  async play() {}
+    async play() {
+        const controller = new Controller(new Model(), new View());
+        await controller.playGame();
+        return
+    }
 }
 
 export default App;
