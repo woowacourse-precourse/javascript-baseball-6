@@ -46,18 +46,22 @@ const Print_Result = (strike_num, ball_num) => {
 
 const Check_Input = (input, computer)=>{
     // 사용자에게 유효한 숫자를 입력받았는지 확인
-
     //길이 확인
-    if (input.length !== computer.length) {
-        throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+    if (input.length !== 3) {
+        throw new Error("[ERROR]");
     }
     //중복되는 입력값이 있는지 확인,
     if(input[0] === input[1] || input[1] === input[2] || input[2] === input[0]){
-        throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+        throw new Error("[ERROR]");
     }
     //0이 포함되어 있는지 확인
-    if('0' in input){
-        throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+    if(input[0] === '0' || input[1] === '0' || input[2] === '0'){
+        throw new Error("[ERROR]");
+    }
+    // 정수입력되었는지 확인
+    if( !(Number.isInteger(Number(input))))
+    {
+        throw new Error("[ERROR]");
     }
 }
 
@@ -129,11 +133,12 @@ class App {
                     continue;
                 }
 
-                if (continue_num === '1') {//새로 시작
+                if (continue_num == '1') {//새로 시작
                     //컴퓨터 값 변경하기
                    computer=Set_Computer();
+                   Console.print("dh")
                 }
-                else if (continue_num === '2') {//종료
+                else if (continue_num == '2') {//종료
                     flag = 0;
                 }
 
@@ -148,7 +153,6 @@ class App {
 
 
 }
-
 
 export default App;
 
