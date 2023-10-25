@@ -1,12 +1,13 @@
 import { Console } from "@woowacourse/mission-utils";
+import {INPUT_SIZE, NUMBER_MAX, NUMBER_MIN} from "./Define.js";
 
 export const validatePlayerInput = (input) => {
     if (!input) return false;
     const numbers = new Set(input);
     return (
-        input.length === 3 &&
-        numbers.size === 3 &&
-        [...numbers].every((num) => num >= 1 && num <= 9)
+        input.length === INPUT_SIZE &&
+        numbers.size === INPUT_SIZE &&
+        [...numbers].every((num) => num >= NUMBER_MIN && num <= NUMBER_MAX)
     );
 };
 
