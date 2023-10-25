@@ -12,6 +12,7 @@ class App {
 
   async startGame() {
     await this.userNumber();
+    this.validation();
   }
 
   randomNumber() {
@@ -27,6 +28,22 @@ class App {
       "숫자를 입력해주세요 : "
     );
     this.userNum = userNum.split("").map(Number);
+  }
+
+  validation() {
+    const validationNum = [];
+    if (this.userNum.length !== 3) {
+      throw new Error("[ERROR] 세 자리 수를 입력해 주세요.");
+    }
+    this.userNum.forEach((num) => {
+      if (isNaN(num) || num === 0) {
+        throw new Error("[ERROR] 1~9 사이의 숫자를 입력해 주세요.");
+      }
+      if (validationNum.includes(num)) {
+        throw new Error("[ERROR] 서로 다른 세 자리 수를 입력해 주세요.");
+      }
+      validationNum.push(num);
+    });
   }
 }
 
