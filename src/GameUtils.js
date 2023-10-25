@@ -9,6 +9,10 @@ const FORM_ERROR =
   "[ERROR] 유효하지 않은 입력입니다. 세 자릿수를 입력해주세요.";
 const DUPLICATION_ERROR = "[ERROR] 중복되는 숫자는 입력 불가능합니다.";
 const DECISION_ERROR = "[ERROR] 1과 2 이외의 숫자는 입력할 수 없습니다.";
+const ZERO_INPUT_ERROR = "[ERROR] 세 자리 숫자에 0을 포함할 수 없습니다.";
+const ZERO = "0";
+const RESTART = "1";
+const EXIT = "2";
 
 export {
   NUMBER_SIZE,
@@ -16,8 +20,12 @@ export {
   INPUT_MESSAGE,
   END_MESSAGE,
   DECISION_MESSAGE,
-  FORM_ERROR,
   DUPLICATION_ERROR,
   DECISION_ERROR,
+  ZERO_INPUT_ERROR,
+  FORM_ERROR,
   VALID_INPUT_FORM,
+  RESTART,
+  EXIT,
+  ZERO,
 };
