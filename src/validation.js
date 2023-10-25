@@ -1,7 +1,6 @@
-import { getUniqueNumbersInRange } from './utils.js';
 import { ERROR_MESSAGES } from './constants.js';
 
-export const isValidUserNumber = (input) => {
+export const isValidUserNumber = async (input) => {
   if (!isAllCorrectRangeDigits(input)) {
     throw new Error(ERROR_MESSAGES.NOT_DIGIT_IN_RANGE);
   }
@@ -14,14 +13,16 @@ export const isValidUserNumber = (input) => {
   }
   return true;
 };
-
 const isAllCorrectRangeDigits = (input) => {
-  const possibleDigits = getUniqueNumbersInRange(1, 9, 9);
-  if (input.split('').every((character) => possibleDigits.includes(+character))) return true;
+  const possibleCharacters = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
+  for (let i = 0; i < input.length; i++) {
+    if (!possibleCharacters.includes(input[i])) return false;
+  }
+  return true;
 };
 
 const isThreeDigits = (input) => {
-  if (input.length === 3) return true;
+  return input.length === 3;
 };
 
 const isNotDuplicate = (input) => {
@@ -31,7 +32,7 @@ const isNotDuplicate = (input) => {
       numbers.push(+digit);
     }
   });
-  if (numbers.length === 3) return true;
+  return numbers.length === 3;
 };
 
 export const isValidRestartNumber = (input) => {

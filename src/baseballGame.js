@@ -1,64 +1,59 @@
-import { GUIDE_MESSAGES } from './constants.js';
+import { GAME_STATE, GUIDE_MESSAGES } from './constants.js';
 import { Console } from '@woowacourse/mission-utils';
-import { isValidUserNumber, isValidRestartNumber } from './validation.js';
+import { isValidRestartNumber, isValidUserNumber } from './validation.js';
 import { getUniqueNumbersInRange } from './utils.js';
 
 class BaseballGame {
   constructor() {
-    this.showGameStartMessage();
-    this.init();
+    this.gameState = GAME_STATE.IN_PROGRESS;
   }
 
   async playBaseball() {
-    await this.guessComputerNumber();
-    while (this.getNumberOfStrikes() !== 3) {
-      await this.guessComputerNumber();
-    }
-    this.restartNumber = await this.getRestartNumber();
-    if (this.restartNumber === 1) {
-      this.createComputerNumber();
-      this.init();
-      this.playBaseball();
+    this.showGameStartMessage();
+
+    while (this.gameState !== GAME_STATE.END) {
+      let computerNumber = await this.createComputerNumber();
+
+      while (this.gameState === GAME_STATE.IN_PROGRESS) {
+        const userNumberInput = await Console.readLineAsync(GUIDE_MESSAGES.ENTER_USER_NUMBER);
+
+        const userNumber =
+          (await isValidUserNumber(userNumberInput)) &&
+          userNumberInput.split('').map((character) => +character);
+
+        const { numberOfStrikes, numberOfBalls } = this.getCountResult(computerNumber, userNumber);
+        this.showCountResult(numberOfStrikes, numberOfBalls);
+
+        if (numberOfStrikes === 3) {
+          this.gameState = GAME_STATE.FINISH;
+          break;
+        }
+      }
+
+      const restartNumberInput = await Console.readLineAsync(GUIDE_MESSAGES.ENTER_RESTART_NUMBER);
+      const restartNumber = (await isValidRestartNumber(restartNumberInput)) && +restartNumberInput;
+      this.gameState = restartNumber === 1 ? GAME_STATE.IN_PROGRESS : GAME_STATE.END;
     }
   }
 
-  init() {
-    this.computerNumber = [];
-    this.userNumber = [];
-    this.restartNumber = 0;
-    this.createComputerNumber();
+  getCountResult(computerNumber, userNumber) {
+    const numberOfStrikes = this.getNumberOfStrikes(computerNumber, userNumber);
+    const numberOfBalls = this.getNumberOfBalls(computerNumber, userNumber);
+    return { numberOfStrikes, numberOfBalls };
+  }
+
+  createComputerNumber() {
+    return getUniqueNumbersInRange(1, 9, 3);
   }
 
   showGameStartMessage() {
     Console.print(GUIDE_MESSAGES.GAME_START);
   }
 
-  createComputerNumber() {
-    this.computerNumber = getUniqueNumbersInRange(1, 9, 3);
-  }
-
-  async guessComputerNumber() {
-    this.userNumber = await this.getUserNumber();
-    this.showCountResult();
-    return;
-  }
-
-  async getUserNumber() {
-    const userInput = await Console.readLineAsync(GUIDE_MESSAGES.ENTER_USER_NUMBER);
-    return isValidUserNumber(userInput) && userInput.split('').map((character) => +character);
-  }
-
-  async getRestartNumber() {
-    const userInput = await Console.readLineAsync(GUIDE_MESSAGES.ENTER_RESTART_NUMBER);
-    return isValidRestartNumber(userInput) && +userInput;
-  }
-
-  showCountResult() {
-    const numberOfStrikes = this.getNumberOfStrikes();
-    const numberOfBalls = this.getNumberOfBalls();
-
+  showCountResult(numberOfStrikes, numberOfBalls) {
     if (numberOfStrikes === 0 && numberOfBalls === 0) {
       Console.print(GUIDE_MESSAGES.NONE_MATCHING);
+      return;
     }
 
     if (numberOfBalls === 0) {
@@ -71,23 +66,23 @@ class BaseballGame {
       } else {
         Console.print(`${numberOfBalls}볼 ${numberOfStrikes}스트라이크`);
       }
+      return;
     }
   }
 
-  getNumberOfStrikes() {
+  getNumberOfStrikes(computerNumber, userNumber) {
     let numberOfStrikes = 0;
-    this.computerNumber.forEach((digit, idx) => {
-      if (this.userNumber.includes(digit) && this.computerNumber[idx] === this.userNumber[idx])
+    computerNumber.forEach((digit, idx) => {
+      if (userNumber.includes(digit) && computerNumber[idx] === userNumber[idx])
         numberOfStrikes += 1;
     });
     return numberOfStrikes;
   }
 
-  getNumberOfBalls() {
+  getNumberOfBalls(computerNumber, userNumber) {
     let numberOfBalls = 0;
-    this.computerNumber.forEach((digit, idx) => {
-      if (this.userNumber.includes(digit) && this.computerNumber[idx] !== this.userNumber[idx])
-        numberOfBalls += 1;
+    computerNumber.forEach((digit, idx) => {
+      if (userNumber.includes(digit) && computerNumber[idx] !== userNumber[idx]) numberOfBalls += 1;
     });
     return numberOfBalls;
   }

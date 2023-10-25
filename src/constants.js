@@ -12,3 +12,9 @@ export const ERROR_MESSAGES = Object.freeze({
   DUPLICATE: '[ERROR] 중복된 숫자가 존재합니다.',
   NOT_CORRECT_RESTART_NUMBER: `[ERROR] 재시작/종료를 구분하는 올바른 입력값이 아닙니다.`,
 });
+
+export const GAME_STATE = Object.freeze({
+  IN_PROGRESS: 'IN PROGRESS',
+  FINISH: 'FINISH',
+  END: 'END',
+});
