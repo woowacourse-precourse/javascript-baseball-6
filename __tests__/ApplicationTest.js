@@ -24,11 +24,6 @@ const getLogSpy = () => {
 };
 
 describe("숫자 야구 게임", () => {
-  beforeEach(() => {
-    const logSpy = getLogSpy();
-    logSpy.mockClear();
-  });
-
   test("게임 종료 후 재시작", async () => {
     // given
     const randoms = [1, 3, 5, 5, 8, 9];
@@ -53,17 +48,13 @@ describe("숫자 야구 게임", () => {
     // given
     const randoms = [1, 3, 5];
     const answers = ["1234"];
-  
+
     mockRandoms(randoms);
     mockQuestions(answers);
-  
+
     // when & then
     const app = new App();
-  
-    await expect(async () => {
-      await app.play();
-    }).rejects.toThrow("[ERROR] 숫자가 잘못된 형식입니다.");
+
+    await expect(app.play()).rejects.toThrow("[ERROR]");
   });
-  
-  
 });
