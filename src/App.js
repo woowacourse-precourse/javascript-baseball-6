@@ -44,11 +44,9 @@ class App {
 
       this.isCorrect = this.compareNumbers();
 
-      console.log(this.computer);
-      console.log(this.user);
-      console.log(
-        `STRIKE : ${this.status.strike}, BALL : ${this.status.ball}, OUT : ${this.status.out}`
-      );
+      this.printMessage();
+
+      if (this.isCorrect) await this.askRestart();
     }
   }
 
@@ -100,6 +98,45 @@ class App {
         this.status.out++;
       }
     }
+
+    return this.status.strike === 3;
+  }
+
+  printMessage() {
+    const STRIKE = this.status.strike;
+    const BALL = this.status.ball;
+    const OUT = this.status.out;
+    let message = "";
+
+    message += BALL ? `${BALL}볼 ` : "";
+    message += STRIKE ? `${STRIKE}스트라이크` : "";
+
+    if (OUT === 3) message = "낫싱";
+
+    MissionUtils.Console.print(message);
+  }
+
+  async askRestart() {
+    const INPUT = await MissionUtils.Console.readLineAsync(
+      "3개의 숫자를 모두 맞히셨습니다! 게임 종료\n게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+    );
+
+    if (INPUT == 1) return this.init();
+    if (INPUT == 2) return this.quitGame();
+
+    throw new Error("[ERROR]");
+  }
+
+  quitGame() {
+    this.isPlaying = false;
+    this.isCorrect = false;
+
+    this.computer = [];
+    this.user = [];
+
+    this.clearStatus();
+
+    MissionUtils.Console.print("게임 종료");
   }
 }
 
