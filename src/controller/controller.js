@@ -1,7 +1,7 @@
 import { OUTPUT_MASSAGE } from '../contants.js';
 import Computer from '../model/computer.js';
 import scoreConversion from '../util/score-conversion.js';
-import { guessAnswerValidate, retryAnswerValidate } from '../util/validation.js';
+import Validator from '../validator/Validator.js';
 import View from '../view/view.js';
 
 class Controller {
@@ -21,7 +21,7 @@ class Controller {
 
   async #askAnswer() {
     const answer = await View.input(OUTPUT_MASSAGE.ENTER_NUMBER);
-    guessAnswerValidate(answer);
+    Validator.guessAnswerValidate(answer);
     await this.#checkAnswer(answer);
   }
 
@@ -39,13 +39,13 @@ class Controller {
 
   async #askRetry() {
     const answer = await View.input(OUTPUT_MASSAGE.RESTART_GAME_MASSAGE);
-    retryAnswerValidate(answer);
+    Validator.retryAnswerValidate(answer);
     if (answer === '1') {
       this.computer.setNumber();
       await this.play();
     }
     if (answer === '2') {
-      View.print('게임 종료');
+      View.print(OUTPUT_MASSAGE.END_GAME);
     }
   }
 }
