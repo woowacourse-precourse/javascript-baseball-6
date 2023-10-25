@@ -23,14 +23,13 @@ class GameManager {
   }
 
   async insertNum() {
-    while (true) {
-      try {
-        const myNum = await Console.readLineAsync("숫자를 입력해주세요 : ");
-        this.checkNum(myNum);
-        return myNum;
-      } catch (error) {
-        Console.print(error.message);
-      }
+    try {
+      const myNum = await Console.readLineAsync("숫자를 입력해주세요 : ");
+      this.checkNum(myNum);
+      return myNum;
+    } catch (error) {
+      Console.print(error.message);
+      throw new Error("[ERROR]");
     }
   }
 
@@ -85,16 +84,18 @@ class GameManager {
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
     );
 
-    if (responese == 1) {
-      return true;
-    } else if (responese == 2) {
-      return false;
+    if (responese == "1") {
+      await this.restartGame();
+      await this.baseBall();
+      this.isContinue();
+    } else if (responese == "2") {
+      return null;
     } else {
       throw new Error("다시 입력하세요.");
     }
   }
 
-  restartGame() {
+  async restartGame() {
     this.randomNum = this.generateRandomNum();
   }
 }
