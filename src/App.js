@@ -17,20 +17,23 @@ class App {
   }
 
   async play() {
-    this.getRandomNumber();
+    this.computer = this.getRandomNumber();
     await this.getUserInput();
     await this.getGameResult(this.computer, this.userNumber);
   }
 
   getRandomNumber() {
-    this.computer = [];
-    while (this.computer.length < 3) {
+    const randomNumbers = [];
+
+    while (randomNumbers.length < 3) {
       const number = Random.pickNumberInRange(1, 9);
 
-      if (!this.computer.includes(number)) {
-        this.computer.push(number);
+      if (!randomNumbers.includes(number)) {
+        randomNumbers.push(number);
       }
     }
+
+    return randomNumbers;
   }
 
   async getUserInput() {
