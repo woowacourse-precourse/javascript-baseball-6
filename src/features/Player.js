@@ -18,4 +18,18 @@ export const player = {
       });
     }
   },
+  selectReplayOrExit: async function () {
+    const input = await Console.readLineAsync(
+      MESSAGE.PLAYER.SELECT_REPLAY_OR_EXIT
+    );
+
+    if (input === "1") {
+      return true;
+    }
+    if (input === "2") {
+      return false;
+    }
+
+    throw new Error(MESSAGE.ERROR.UNDEFINED);
+  },
 };

@@ -1,12 +1,13 @@
 import { Console } from "@woowacourse/mission-utils";
 import { Computer } from "./Computer.js";
 import { MESSAGE } from "../constants/messages.js";
+import { player } from "./Player.js";
 
 export class Game {
   async startNewGame() {
     const completed = await this.#play();
     if (completed) {
-      const replay = await this.#replayOrExit();
+      const replay = await player.selectReplayOrExit();
 
       if (replay) {
         this.startNewGame();
@@ -22,20 +23,5 @@ export class Game {
     computer.makeAnswer();
 
     return await computer.compareAnswerRepeatedly();
-  }
-
-  async #replayOrExit() {
-    const input = await Console.readLineAsync(
-      MESSAGE.PLAYER.SELECT_REPLAY_OR_EXIT
-    );
-
-    if (input === "1") {
-      return true;
-    }
-    if (input === "2") {
-      return false;
-    }
-
-    throw new Error(MESSAGE.ERROR.UNDEFINED);
   }
 }
