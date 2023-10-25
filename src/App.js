@@ -32,10 +32,10 @@ class App {
     const strikes = this.calculateStrikes(computerNumbers, userNumbers);
     const balls = this.calculateBalls(computerNumbers, userNumbers);
 
-    // console.log("Computer Numbers:", computerNumbers);
-    // console.log("User Numbers:", userNumbers);
-    // console.log("Strikes:", strikes);
-    // console.log("Balls:", balls);
+    console.log("Computer Numbers:", computerNumbers);
+    console.log("User Numbers:", userNumbers);
+    console.log("Strikes:", strikes);
+    console.log("Balls:", balls);
 
     if (strikes > 0 || balls > 0) {
       let resultString = '';
@@ -63,7 +63,6 @@ class App {
     // 게임 루프 시작
     while (true) {
       try {
-        // const user = new User();
         await this.user.createInputs();
 
         const computerNumbers = this.computer.getNumbers();
@@ -123,36 +122,39 @@ class User {
   }
 
   async createInputs() {
-    return new Promise(async (resolve, reject) => {
+    // console.log("입력값:", input);
+    // console.log("변환된 숫자 배열:", numbers);
+    // console.log("중복 확인 결과:", uniqueNumbers);
 
-
-      try {
-        const input = await MissionUtils.Console.readLineAsync(`숫자를 입력해주세요 : `);
-        // 숫자로 구성된 배열로 전환
-        const numbers = input.split('').map(num => parseInt(num)); // num은 map함수의 매개변수 ex) const map1 = array1.map((x) => x * 2);
-
-        // 숫자 입력이 3개인지 확인
-        if (numbers.some(isNaN) || numbers.length !== 3) {
-          throw new Error(`숫자 3개를 올바르게 입력해주세요.`); // some 함수로 numbers 배열 중 NaN이 있는지 확인한다.
+    let input; // input 변수를 먼저 정의해야 합니다.
+    try {
+      while (!input) {
+        input = await MissionUtils.Console.readLineAsync(`숫자를 입력해주세요 : `);
+        if (!input) {
+          console.log("입력이 비어있습니다. 다시 입력해주세요.");
+          throw new Error("입력이 비어있습니다.");
         }
-
-        // 중복된 값 유무 확인
-        // Set 은 중복된 값을 제거한다 , uniqueNumbers.size는 Set객체의 크기로 중복값을 제거후의 개수를 나타낸다 , numbers.length는 원래 입력된 숫자 개수로 중복이 포함된다, 따라서 두개를 비교함으로 중복 숫자를 찾을 수 있다
-
-        const uniqueNumbers = new Set(numbers);
-        if (uniqueNumbers.size !== numbers.length) {
-          throw new Error(`중복된 숫자가 있습니다. 다시 입력해주세요.`);
-        }
-
-        this.numbers = numbers;
-        console.log("User Numbers:", this.numbers);
-        resolve();
-
-      } catch (error) {
-        reject(error);
       }
-    });
+
+      const numbers = input.split('').map(num => parseInt(num));
+
+      if (numbers.some(isNaN) || numbers.length !== 3) {
+        throw new Error(`숫자 3개를 올바르게 입력해주세요.`);
+      }
+
+      const uniqueNumbers = new Set(numbers);
+      if (uniqueNumbers.size !== numbers.length) {
+        throw new Error(`중복된 숫자가 있습니다. 다시 입력해주세요.`);
+      }
+
+      this.numbers = numbers;
+      console.log("User Numbers:", this.numbers);
+    } catch (error) {
+      throw error;
+    }
   }
+
+
 
   getNumbers() {
     return this.numbers;
