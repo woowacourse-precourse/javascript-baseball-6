@@ -46,8 +46,11 @@ class App {
     if (this.hasEmptySpace(userInput)) {
       throw new Error('[ERROR] 숫자에 공백이 포함되어있습니다.');
     }
-  }
 
+    if (this.hasZeroNumber(userInput)) {
+      throw new Error('[ERROR] 숫자에 0이 포함되어있습니다. 1부터 9까지 입력해주세요.');
+    }
+  }
 
   isNotNumbers(userInput) {
     const nonNumericRegex = /^\D+$/;
@@ -62,6 +65,11 @@ class App {
   hasEmptySpace(userInput) {
     const nonEmptySpaceRegex = /\s/;
     return nonEmptySpaceRegex.test(userInput);
+  }
+
+  hasZeroNumber(userInput) {
+    const zeroRegex = /0/;
+    return zeroRegex.test(userInput);
   }
 
   countMatchingNumbers() {
