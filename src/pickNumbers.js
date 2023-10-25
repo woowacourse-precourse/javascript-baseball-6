@@ -4,17 +4,17 @@ const pickNumberInRange = () => MissionUtils.Random.pickNumberInRange(1, 9);
 
 const isUnique = (arr, number) => !arr.includes(number);
 
-const getPushedArr = (arr, number) => {
+const getPushedUniqueNumberArr = (arr, number) => {
     if (isUnique(arr, number)) {
         return [...arr, number];
     }
+    return [...arr];
 };
 
 const makeNumbersLength = (numbersLength, arr = []) => {
     if (arr.length < numbersLength) {
-        return makeNumbersLength(numbersLength, getPushedArr(arr, pickNumberInRange()));
+        return makeNumbersLength(numbersLength, getPushedUniqueNumberArr(arr, pickNumberInRange()));
     }
-
     return [...arr];
 };
 
