@@ -14,18 +14,30 @@ class Game {
       }
     }
   }
-
+  //스트라이크인지 확인
+  isStrike(guessNumber, i) {
+    if (Number(guessNumber[i]) === this.computerNumber[i]) {
+      return 1;
+    }
+    return 0;
+  }
+  //볼인지 확인
+  isBall(guessNumber, i) {
+    if (
+      this.computerNumber.includes(Number(guessNumber[i])) &&
+      this.computerNumber[i] !== Number(guessNumber[i])
+    ) {
+      return 1;
+    }
+    return 0;
+  }
   //유저의 숫자와 컴퓨터의 숫자 비교
   compareNumbers(guessNumber) {
     let strikeNumbers = 0;
     let ballNumbers = 0;
-    this.computerNumber;
     for (let i = 0; i < NUMBER_LENGTH; i++) {
-      if (Number(guessNumber[i]) === this.computerNumber[i]) {
-        strikeNumbers += 1;
-      } else if (this.computerNumber.includes(Number(guessNumber[i]))) {
-        ballNumbers += 1;
-      }
+      strikeNumbers += this.isStrike(guessNumber, i);
+      ballNumbers += this.isBall(guessNumber, i);
     }
     return { strikeNumbers, ballNumbers };
   }
