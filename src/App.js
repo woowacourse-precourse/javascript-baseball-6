@@ -1,7 +1,7 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 class App {
   async play() {
-    // ** 컴퓨터 클래스
+    // ** 🖥️ 컴퓨터 클래스
     class Computer {
       // * 컴퓨터 숫자 랜덤 생성 메서드
       static generateNumbers() {
@@ -35,7 +35,6 @@ class App {
         });
         // 결과 출력 메서드에 완성된 counting객체 전달하며 호출
         this.printResult(counting);
-
         // strike가 3인 경우 result 출력 후 true 리턴 --> 이를 사용자 입력 메서드가 이어 받아 게임 종료 및 시작여부 프린트에 사용할 예정.
         return counting.strike === 3; // true or false. false면 게임 종료 X && 게임 재시작 여부 프린트 X
       }
@@ -47,11 +46,9 @@ class App {
         if (ball > 0) {
           result += `${ball}볼`;
         }
-
         if (strike > 0) {
           result += `${strike}스트라이크`;
         }
-
         if (strike === 0 && ball === 0) {
           Console.print("낫싱");
           return;
@@ -59,21 +56,21 @@ class App {
       }
     }
 
-    // ** 사용자 클래스
+    // ** 👩🏻‍💻 사용자 클래스
     class GamePlayer {
       // * 게임 실행 메서드
       static async playGame() {
         // 게임 시작을 알리는 문구 출력
         Console.print("숫자 야구 게임을 시작합니다.");
         // 게임 진행 여부(Boolean) 담는 변수 (일종의 상태관리)
-        let isPlay = false; // 3스트라이크 맞아서 재시작 여부 물었을 때 이 값을 true로 만들어서 아래 로직 이행
+        let isPlay = false; // 3 스트라이크 맞아서 재시작 여부 물었을 때 이 값을 true로 만들어서 아래 로직 이행
         // isPlay 여부가 true일 때만 게임이 진행되도록
         while (!isPlay) {
           // 컴퓨터 클래스의 generateNumbers로 랜덤으로 생성된 숫자가 들어있는 배열을 computerNumbers변수에 담는다.
           const computerNumbers = Computer.generateNumbers();
           // 사용자에게 숫자를 입력받는 메서드인 inputUserNumber에 컴퓨터 숫자를 인자로 넘기면서 호출한다.
           await this.inputUserNumber(computerNumbers);
-          //
+          // 재시작 및 시작 시 isPlay변수에 true값이 들어오게끔 하는 로직
           isPlay = await this.isPlay();
         }
       }
@@ -102,6 +99,7 @@ class App {
         const isPlay = await Console.readLineAsync(
           `게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.`
         );
+        // 1, 2 이외의 문자 입력 시 에러 발생
         if (isPlay !== "1" && isPlay !== "2") {
           throw new Error("[ERROR] 숫자 1 또는 2만 입력할 수 있습니다.");
         }
@@ -114,7 +112,9 @@ class App {
           throw new Error("[ERROR] 숫자는 반드시 3자리값이여야 합니다.");
         }
         // userInput은 string이기때문에, 이를 ''기준으로 나눠서 먼저 배열로 만들고, 배열 內 각 요소를 넘버타입으로 바꾸기 위해 map(반복문을 돌며 새로운 값의 배열로 리턴하는 배열 메서드)이용한 메서드에 돌려준다.
-        const gamePlayerNumbers = this.userInputTypeCasting(input.split(""));
+        const gamePlayerNumbers = this.userInputTypeCasting(
+          userInput.split("")
+        );
         this.userNumbersValidation(gamePlayerNumbers);
         return gamePlayerNumbers;
       }
@@ -133,18 +133,18 @@ class App {
       // * userNumbers 유효성 검사 메서드
       static userNumbersValidation(userNumbers) {
         userNumbers.forEach((el) => {
-          // 1. 중복 숫자 존재 여부 검사
-          if (userNumbers.filter((number) => number === el).length !== 1) {
+          // 1. 중복 숫자 존재 여부 검사 : filter로 걸러낸 배열에 담기는 값은 컴퓨터값 === 사용자값인 값. 근데 이 배열의 길이가 1보다 크면 중복된 숫자가 있다는 뜻.
+          if (userNumbers.filter((number) => number === el).length > 1) {
             throw new Error("[ERROR] 중복되지 않는 숫자만 입력할 수 있습니다.");
           }
           // 2. 범위를 벗어난 숫자 입력 여부 검사
           if (el < 1 || el > 9) {
             throw new Error("[ERROR] 1부터 9까지의 숫자만 입력할 수 있습니다.");
           }
-          // 3. 문자열 여부 검사
         });
       }
     }
+
     await GamePlayer.playGame();
   }
 }
