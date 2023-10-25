@@ -1,4 +1,11 @@
 {
   "extends": "airbnb-base",
+  "env": {
+    "jest": true
+  },
+  "rules": {
+    "no-await-in-loop": "off",
+    "no-constant-condition": "off"
+  },
   "ignorePatterns": ["__tests__/ApplicationTest.js"]
 }

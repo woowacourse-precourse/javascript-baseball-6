@@ -1,5 +1,6 @@
 {
   "deno.enable": false,
+  "editor.tabSize": 2,
   "[javascript]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   }
