@@ -14,8 +14,14 @@ class Validation {
       guessNumber.length !== NUMBER_LENGTH ||
       !guessNumber ||
       isNaN(guessNumber) ||
-      this.checkUniqueDigits(guessNumber)
+      this.checkUniqueDigits(guessNumber) ||
+      guessNumber.includes('0')
     ) {
+      throw new Error(ERROR_MESSAGE);
+    }
+  }
+  static verifyExitNumber(exitNumber) {
+    if(exitNumber!=='1' && exitNumber !== '2'){
       throw new Error(ERROR_MESSAGE);
     }
   }
