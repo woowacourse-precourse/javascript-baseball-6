@@ -42,6 +42,12 @@ const validation = {
     this.isInRange(input);
     this.isNotDuplicate(input);
   },
+
+  isEndSign(input) {
+    if (input !== RESTART_SIGN && input !== EXIT_SIGN)
+      throw new Error(ERROR_MSG.INVALID_ENDING_SIGN);
+    return 0;
+  },
 };
 
 export default validation;
