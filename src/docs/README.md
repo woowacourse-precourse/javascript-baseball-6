@@ -73,6 +73,7 @@
 ```
 
 ## 🗄️ Class Diagram
+---
 ### Controller - View
 ``` mermaid
 classDiagram
@@ -106,7 +107,7 @@ classDiagram
   RestartValidation : checkOneOrTwo(input)
 ```
 ---
-### Controller - Model
+### Controller -Model
 ``` mermaid
 classDiagram
   Controller <-- Model
