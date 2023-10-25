@@ -86,10 +86,32 @@ class App {
     this.ballCount = isBall.filter((x) => x).length;
     return this.ballCount;
   }
+
   async consoleOutput(strikeCount, ballCount) {
     const BALL = `${ballCount}볼`;
     const STRIKE = `${strikeCount}스트라이크`;
+    if (!strikeCount && !ballCount) {
+      Console.print("낫싱");
+    }
+
+    if (strikeCount && ballCount) {
+      Console.print(`${BALL} ${STRIKE}`);
+    }
+
+    if (strikeCount && !ballCount) {
+      Console.print(STRIKE);
+    }
+
+    if (!strikeCount && ballCount) {
+      Console.print(BALL);
+    }
+
+    if (strikeCount === 3) {
+      await Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+      await this.finishedGame();
+    }
   }
+
     }
   }
 }
