@@ -1,12 +1,23 @@
-import { MissionUtils } from '@woowacourse/mission-utils';
-import startGame from './startup.js';
-import Computer from './Computer.js';
+import printGameStartMessage from './startup.js';
+import printGameShutdownMessage from './shutdown.js';
+import Game from './Game.js';
+import { SHUTDOWN_GAME } from './utils.js';
 
 class App {
   async play() {
-    startGame();
-    const computer = Computer.getComputer();
-    MissionUtils.Console.print(computer);
+    let shouldPlayGame = true;
+
+    printGameStartMessage();
+
+    while (shouldPlayGame) {
+      await Game.playGame();
+      const shouldRestartGame = await Game.askToRestartGame();
+      if (shouldRestartGame === SHUTDOWN_GAME) {
+        shouldPlayGame = false;
+      }
+    }
+
+    printGameShutdownMessage();
   }
 }
 
