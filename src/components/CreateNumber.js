@@ -1,7 +1,7 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import Constants from "../utils/Constants.js";
 
-export class CreateNumber {
+export class createNumber {
   constructor() {
     this.randomNumber = this.generateRandomNumbers();
   }

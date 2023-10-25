@@ -1,12 +1,12 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import { CreateNumber } from "./createNumber.js";
+import { createNumber } from "./createNumber.js";
 import { validateNumber } from "./validateNumber.js";
 import { compareNumber } from "./compareNumber.js";
 import Messages from "../utils/Messages.js";
 
 class baseballGame {
   async start() {
-    const randomNumber = new CreateNumber().randomNumber;
+    const randomNumber = new createNumber().randomNumber;
     while (true) {
       const inputNumber = await MissionUtils.Console.readLineAsync(Messages.INPUT_NUMBER);
       if (!validateNumber(inputNumber)) {
