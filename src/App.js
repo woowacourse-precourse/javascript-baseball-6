@@ -3,6 +3,7 @@ import {MissionUtils} from "@woowacourse/mission-utils";
 class InputHandler {
   async getUserInput(message) {
     const input = await MissionUtils.Console.readLineAsync(message);
+    console.log("input", input);
     if (typeof input === "undefined" || input === null || input === "") {
       throw new Error("[ERROR]:Invalid input");
     }
@@ -36,32 +37,39 @@ class Game {
   constructor(player) {
     this.player = player;
     this.targetNumber = this.generateRandomNumber();
+    console.log("target", this.targetNumber);
   }
 
   generateRandomNumber() {
-    let numbers = Array.from({length: 9}, (_, i) => i + 1);
-    let result = "";
-
-    for (let i = 0; i < 3; i++) {
-      const randomIndex = MissionUtils.Random.pickNumberInRange(
-        0,
-        numbers.length - 1
-      );
-      result += numbers[randomIndex];
-      numbers = numbers.filter((_, idx) => idx !== randomIndex);
+    const computer = [];
+    while (computer.length < 3) {
+      const number = MissionUtils.Random.pickNumberInRange(1, 9);
+      if (!computer.includes(number)) {
+        computer.push(number);
+      }
+      console.log(computer);
     }
-    return result;
+    return computer.join("");
   }
 
   checkStrikeAndBall(guess) {
     let strikes = 0;
     let balls = 0;
-    console.log(typeof guess);
+
     for (let i = 0; i < 3; i++) {
       if (guess[i] === this.targetNumber[i]) {
         strikes++;
+        console.log(
+          "guess랑 targetNumber맞는지",
+          guess[i],
+          this.targetNumber[i]
+        );
       } else if (this.targetNumber.includes(guess[i])) {
         balls++;
+        console.log(
+          "targetNumber가 guess[i]에 포함되는지",
+          this.targetNumber.includes(guess[i])
+        );
       }
     }
 
@@ -69,12 +77,14 @@ class Game {
   }
 
   async playRound() {
+    console.log("playround on");
     const guess = await this.player.guessNumber();
 
-    if (guess.length !== 3) {
-      throw new Error("[ERROR]:3자리 수를 입력하세요");
+    console.log(guess);
+    if (guess.length > 3 || guess.length < 3) {
+      throw new Error("[ERROR]:3자리 수를 입력하세요 ");
     }
-
+    console.log("guess", guess);
     const {strikes, balls} = this.checkStrikeAndBall(guess);
 
     if (strikes === 3) {
@@ -84,6 +94,7 @@ class Game {
     }
 
     if (strikes === 0 && balls === 0) {
+      console.log("strike,balls", strikes, balls);
       MissionUtils.Console.print("낫싱");
     } else if (strikes === 0) {
       MissionUtils.Console.print(`${balls}볼`);
@@ -103,21 +114,8 @@ class App {
     this.player = new Player(this.inputHandler);
     this.game = new Game(this.player);
   }
-
-  async play() {
-    let isFirstGame = true;
+  async restart() {
     let restart;
-
-    if (isFirstGame) {
-      MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
-      isFirstGame = false;
-    }
-
-    let isGameOver = false;
-    while (!isGameOver) {
-      isGameOver = await this.game.playRound();
-    }
-
     restart = await this.inputHandler.getRestartInput(
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
     );
@@ -127,6 +125,23 @@ class App {
     } else {
       MissionUtils.Console.print("게임을 종료합니다.");
     }
+  }
+  async play() {
+    let isFirstGame = true;
+    let restart;
+    console.log("start");
+
+    if (isFirstGame) {
+      MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
+      isFirstGame = false;
+    }
+
+    const isGameOver = await this.game.playRound();
+    if (!isGameOver) {
+      await this.play();
+    }
+
+    await this.restart();
   }
 }
 
