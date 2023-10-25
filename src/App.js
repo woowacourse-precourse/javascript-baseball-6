@@ -28,22 +28,6 @@ class App {
     return numbers;
   }
 
-  // async getUserGuess() {
-  //   const userGuess = await MissionUtils.Console.readLineAsync(message.REQUEST_GUESS_INPUT);
-
-  //   if (isNaN(userGuess)) {
-  //     throw new Error(message.ERROR);
-  //   } else if (String(userGuess).length !== 3) {
-  //     throw new Error(message.ERROR);
-  //   } else if (String(userGuess) !== [...new Set(String(userGuess).split(''))].join('')) {
-  //     throw new Error(message.ERROR);
-  //   } else if (String(userGuess).split('').includes('0')) {
-  //     throw new Error(message.ERROR);
-  //   } else {
-  //     return userGuess;
-  //   }
-  // }
-
   async getUserGuess() {
     const userGuess = await MissionUtils.Console.readLineAsync(message.REQUEST_GUESS_INPUT);
     return await this.checkUserGuessValidity(userGuess);
@@ -95,7 +79,6 @@ class App {
       MissionUtils.Console.print(result.STRIKE_1);
       return false;
     } else if (ball === 0 && strike === 2) {
-      // return [false, result.STRIKE_2];
       MissionUtils.Console.print(result.STRIKE_2);
       return false;
     } else if (ball === 0 && strike === 3) {
