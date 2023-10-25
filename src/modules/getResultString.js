@@ -1,14 +1,15 @@
 import Constant from '../constant/Constant';
 
 const { STRIKE, BALL, NOTHING } = Constant;
+const ZERO = 0;
 
 const getResultString = ({ strike, ball }) => {
-  if (strike === 0 && ball === 0) {
+  if (strike + ball === ZERO) {
     return NOTHING;
   }
 
-  const ballString = ball > 0 ? `${ball}${BALL} ` : '';
-  const strikeString = strike > 0 ? `${strike}${STRIKE}` : '';
+  const ballString = ball > ZERO ? `${ball}${BALL} ` : '';
+  const strikeString = strike > ZERO ? `${strike}${STRIKE}` : '';
 
   return ballString + strikeString;
 };
