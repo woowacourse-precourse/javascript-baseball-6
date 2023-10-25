@@ -1,6 +1,7 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 import { IN_GAME_SETTING, IN_GAME_MESSAGE, AFTER_GAME_USER_COMMAND, IN_GAME_ERROR } from "../utils/Constants.js";
 import validateUserAnswer from "../utils/validateUserAnswer.js";
+import generateRightAnswer from "../utils/generateAnswer.js";
 import getUserScore from "../utils/getUserScore.js";
 import convertUserScoreToMessage from "../utils/convertUserScoreToMessage.js";
 
@@ -15,11 +16,7 @@ class App {
 
   async createNewGame() {
     // 1-9 사이의 서로 다른 수로 이루어진 3자리 난수를 생성하여 정답으로 설정
-    this.rightAnswer = Random.pickUniqueNumbersInRange(
-      IN_GAME_SETTING.answerMinNumber,
-      IN_GAME_SETTING.answerMaxNumber,
-      IN_GAME_SETTING.answerLength
-    );
+    this.rightAnswer = generateRightAnswer();
 
     // 게임 시작 메시지 출력
     Console.print(IN_GAME_MESSAGE.startGame);
