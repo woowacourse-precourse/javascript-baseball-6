@@ -1,14 +1,17 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 
 export default class Computer {
-    static QUIT = '2';
-    static STRIKE = 3;
+    static REPLAY_CODE = '1';
+    static QUIT_CODE = '2';
+    static NUM_SIZE = 3;
+    static MODE_SIZE = 1;
+
     constructor() {
         this.numbers = [];
     }
     pickRandomNumbers() {
         this.clearNumbers();
-        while (this.numbers.length < 3) {
+        while (this.numbers.length < Computer.NUM_SIZE) {
             const number = MissionUtils.Random.pickNumberInRange(1, 9);
             if (!this.numbers.includes(number)) {
                 this.numbers.push(number);
@@ -31,7 +34,7 @@ export default class Computer {
                 }
             }
             const input = await user.getUserReplay();
-            if (input === Computer.QUIT) break;
+            if (input === Computer.QUIT_CODE) break;
         }
     }
     getMessage(expectedNumbers) {
@@ -39,7 +42,7 @@ export default class Computer {
         const result = this.getResultString(ballStrike);
         return {
             result,
-            success: ballStrike.strike === Computer.STRIKE,
+            success: ballStrike.strike === Computer.NUM_SIZE,
         };
     }
     calculateBallStrike(expectedNumbers) {
