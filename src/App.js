@@ -18,10 +18,13 @@ class App {
   checkAnswer(answer){
     const userAnswer = answer.split('');
     const computerAnsw = this.computerAnswer.split('');
-    if(userAnswer.length !==3){
+    if(userAnswer.length !== 3){
       throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
     }
-    if(new Set(answer).size !==3){
+    if(userAnswer[0] === userAnswer[1] 
+      || userAnswer[1] === userAnswer[2] 
+      || userAnswer[2] === userAnswer[3]
+      ){
       throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
     }
     userAnswer.forEach((idx) => {
@@ -29,8 +32,8 @@ class App {
         throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
       }
     })
-    //return true
-    return this.checkAllStrike(userAnswer, computerAnsw);
+    return true
+    
   }
 
   checkAllStrike(userAnswer, computerAnsw) {
