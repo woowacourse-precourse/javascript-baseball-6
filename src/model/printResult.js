@@ -1,7 +1,7 @@
-import { BASEBALL } from "../constants/baseBall";
-import { OUTPUT_MESSAGE } from "../constants/message";
-import { ZERO } from "../constants/number";
-import consoleView from "../util/consoleControll";
+import { BASEBALL } from "../constants/baseBall.js";
+import { OUTPUT_MESSAGE } from "../constants/message.js";
+import { ZERO } from "../constants/number.js";
+import consoleView from "../util/consoleControll.js";
 
 export default function printResult(data) {
   const { ball, strike } = data;
