@@ -2,7 +2,9 @@ import { Console } from "@woowacourse/mission-utils";
 import { MESSAGE, RESET_OPTIONS, ERROR } from "./Constants.js";
 
 const answerNumberCheck = (input) => {
-  if (input.length !== 3) {
+  // 1~9까지의 3자리 수 판단
+  const REGEXP = /^\d{3}$/;
+  if (!REGEXP.test(input)) {
     throw new Error(ERROR.INPUT_LENGTH);
   }
 };
