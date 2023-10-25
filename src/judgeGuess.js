@@ -1,3 +1,4 @@
+// 추측값과 정답값 비교를 통해 ball, strike 반환
 function judgeGuess(guess, answer) {
   let ball = 0;
   let strike = 0;

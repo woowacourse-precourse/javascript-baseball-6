@@ -1,4 +1,5 @@
-function returnResult({ ball, strike }) {
+// ball, strike 결과를 통해 출력 요구사항에 맞게 출력
+function resultToString({ ball, strike }) {
   let output = ''
 
   if (ball + strike === 0) {
@@ -14,4 +15,4 @@ function returnResult({ ball, strike }) {
   return output;
 }
 
-export default returnResult;
+export default resultToString;
