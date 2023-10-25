@@ -2,8 +2,8 @@ import { Console } from '@woowacourse/mission-utils';
 
 export default function checkingBaseball(player, computer) {
 	try {
-		let BALL = CheckBall(player, computer);
-		let STRIKE = CheckStrike(player, computer);
+		const BALL = CheckBall(player, computer);
+		const STRIKE = CheckStrike(player, computer);
 		PrintResult(BALL, STRIKE);
 		if (STRIKE === 3) {
 			return false;
@@ -15,22 +15,23 @@ export default function checkingBaseball(player, computer) {
 }
 
 function CheckBall(player, computer) {
-	let BALL = 0;
+	let ballCount = 0;
 	for (let i = 0; i < 3; i++) {
 		if (computer.includes(player[i])) {
-			BALL += 1;
+			ballCount += 1;
 		}
 	}
-	return BALL;
+	return ballCount;
 }
+
 function CheckStrike(player, computer) {
-	let STRIKE = 0;
+	let strikeCount = 0;
 	for (let i = 0; i < 3; i++) {
 		if (player[i] === computer[i]) {
-			STRIKE += 1;
+			strikeCount += 1;
 		}
 	}
-	return STRIKE;
+	return strikeCount;
 }
 
 function PrintResult(ball, strike) {

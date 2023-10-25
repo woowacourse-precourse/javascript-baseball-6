@@ -32,10 +32,10 @@ export default class App {
 
 	async gamePlay() {
 		const COMPUTER = this.randomNumber();
-		let CHECKBASEBALL = true;
-		while (CHECKBASEBALL) {
+		let booleanBaseball = true;
+		while (booleanBaseball) {
 			const PLAYER = await playerInput();
-			CHECKBASEBALL = checkingBaseball(PLAYER, COMPUTER);
+			booleanBaseball = checkingBaseball(PLAYER, COMPUTER);
 		}
 	}
 }
