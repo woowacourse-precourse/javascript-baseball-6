@@ -3,9 +3,9 @@ import { Validation } from "./Validation.js";
 import { MESSAGE } from "../constants/messages.js";
 
 export const player = {
-  input: async function (inputString) {
+  input: async function () {
     try {
-      const input = await Console.readLineAsync(inputString);
+      const input = await Console.readLineAsync(MESSAGE.PLAYER.INPUT);
       const validation = new Validation(input);
       validation.validate();
 
