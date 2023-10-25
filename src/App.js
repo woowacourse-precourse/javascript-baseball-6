@@ -1,12 +1,12 @@
 class App {
   constructor() {
-    this.restartButton = document.createElement('button');
-    this.restartButton.textContent = '게임 재시작';
-    this.restartButton.addEventListener('click', this.restartGame.bind(this));
+    this.RESTART_BUTTON = document.createElement('button');
+    this.RESTART_BUTTON.textContent = '게임 재시작';
+    this.RESTART_BUTTON.addEventListener('click', this.restartGame.bind(this));
 
-    this.quitButton = document.createElement('button');
-    this.quitButton.textContent = '게임 종료';
-    this.quitButton.addEventListener('click', this.quitGame.bind(this));
+    this.QUIT_BUTTON = document.createElement('button');
+    this.QUIT_BUTTON.textContent = '게임 종료';
+    this.QUIT_BUTTON.addEventListener('click', this.quitGame.bind(this));
   }
 
   async play() {
@@ -19,14 +19,14 @@ class App {
       numbers.push(n + 1);
     }
 
-    const answer = [];
+    const ANSWER = [];
     for (let n = 0; n < 3; n += 1) {
       const index = Math.floor(Math.random() * numbers.length);
-      answer.push(numbers[index]);
+      ANSWER.push(numbers[index]);
       numbers.splice(index, 1);
     }
 
-    const tries = [];
+    const TRIES = [];
 
     function checkInput(input) {
       if (input.length !== 3) {
@@ -35,17 +35,17 @@ class App {
       if (new Set(input).size !== 3) {
         throw new Error('중복되지 않게 입력해 주세요.');
       }
-      if (tries.includes(input)) {
+      if (TRIES.includes(input)) {
         throw new Error('이미 시도한 값입니다.');
       }
       return true;
     }
 
     function defeated() {
-      const message = document.createTextNode(`패배! 정답은 ${answer.join('')}`);
+      const message = document.createTextNode(`패배! 정답은 ${ANSWER.join('')}`);
       $logs.appendChild(message);
-      $logs.appendChild(this.restartButton);
-      $logs.appendChild(this.quitButton);
+      $logs.appendChild(this.RESTART_BUTTON);
+      $logs.appendChild(this.QUIT_BUTTON);
     }
 
     let out = 0;
@@ -58,14 +58,14 @@ class App {
         const valid = checkInput(value);
         if (!valid) return;
 
-        if (answer.join('') === value) {
+        if (ANSWER.join('') === value) {
           $logs.textContent = '홈런!';
-          $logs.appendChild(this.restartButton);
-          $logs.appendChild(this.quitButton);
+          $logs.appendChild(this.RESTART_BUTTON);
+          $logs.appendChild(this.QUIT_BUTTON);
           return;
         }
 
-        if (tries.length >= 9) {
+        if (TRIES.length >= 9) {
           defeated();
           return;
         }
@@ -73,8 +73,8 @@ class App {
         let strike = 0;
         let ball = 0;
 
-        for (let i = 0; i < answer.length; i++) {
-          const index = value.indexOf(answer[i]);
+        for (let i = 0; i < ANSWER.length; i++) {
+          const index = value.indexOf(ANSWER[i]);
           if (index > -1) {
             if (index === i) {
               strike += 1;
@@ -95,7 +95,7 @@ class App {
           defeated();
         }
 
-        tries.push(value);
+        TRIES.push(value);
       } catch (error) {
         $logs.textContent = error.message;
         defeated();
@@ -113,4 +113,3 @@ class App {
 }
 
 export default App;
-
