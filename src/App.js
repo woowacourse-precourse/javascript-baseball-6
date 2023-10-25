@@ -15,15 +15,6 @@ class App {
       Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
   }
 
-  #generateSecretNumber() {
-    while (this.#secretNumber.length < 3) {
-      const number = Random.pickNumberInRange(1, 9);
-      if (!this.#secretNumber.includes(number)) {
-        this.#secretNumber.push(number);
-      }
-    }
-  }
-
   // 입력의 위치에 따라 유효성 검사를 실시한다.
   static #inputTest(type, userInput) {
     let regex = / /;
@@ -40,11 +31,13 @@ class App {
     return userInputArray;
   }
 
-  printCompareResult() {
-    let result = "";
-    result += this.#ball !== 0 ? `${this.#ball}볼 ` : "";
-    result += this.#strike !== 0 ? `${this.#strike}스트라이크` : "";
-    result === "" ? Console.print("낫싱") : Console.print(result);
+  #generateSecretNumber() {
+    while (this.#secretNumber.length < 3) {
+      const number = Random.pickNumberInRange(1, 9);
+      if (!this.#secretNumber.includes(number)) {
+        this.#secretNumber.push(number);
+      }
+    }
   }
 
   #compareNumber(guessNumber) {
@@ -60,12 +53,11 @@ class App {
     this.printCompareResult();
   }
 
-  static async #isPlayAgain() {
-    const userInput = await Console.readLineAsync(
-      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
-    );
-    App.#inputTest("playAgain", userInput);
-    return userInput === "1" ? true : false;
+  printCompareResult() {
+    let result = "";
+    result += this.#ball !== 0 ? `${this.#ball}볼 ` : "";
+    result += this.#strike !== 0 ? `${this.#strike}스트라이크` : "";
+    result === "" ? Console.print("낫싱") : Console.print(result);
   }
 
   async #playBaseBall() {
@@ -74,6 +66,15 @@ class App {
       const guessNumber = await App.#inputGuessNumber();
       this.#compareNumber(guessNumber);
     } while (this.#strike < 3);
+  }
+
+  static async #isPlayAgain() {
+    const userInput = await Console.readLineAsync(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+    );
+    App.#inputTest("playAgain", userInput);
+    if (userInput === "1") return true;
+    if (userInput === "2") return false;
   }
 
   async play() {
