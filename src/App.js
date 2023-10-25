@@ -1,6 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils"
-import Computer from "./Class/Computer"
-import Player from "./Class/Player" 
+import Computer from "./class/Computer"
+import Player from "./class/Player" 
 import { checkAnswer, checkInputValidity, checkStrike, checkBall, checkRetryValidity } from "./utils/Check"
 
 let strikeCount = 0
@@ -22,7 +22,7 @@ class App {
             // 3스트라이크인 경우
             if(checkAnswer(player.number, computer.number)){
                 endGame() // 게임 종료 메시지 출력
-                const retry = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ') // 재시도 여부 input 받기
+                const retry = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n') // 재시도 여부 input 받기
                 if(!checkRetryValidity(retry)) // 재시도 input값의 유효성 확인
                     throw new Error('[ERROR] 잘못된 형식입니다.')
 
