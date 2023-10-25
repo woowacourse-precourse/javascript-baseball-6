@@ -25,7 +25,7 @@ class App {
 
   async game(targetNumber) {
     while (true) {
-      const input = await Console.readLineAsync(MESSAGE.input);
+      const input = (await Console.readLineAsync(MESSAGE.input)).trim();
       const isValidInput = this.validateInput(input);
       if (!isValidInput) {
         throw new Error(MESSAGE.error);
