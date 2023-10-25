@@ -18,7 +18,11 @@ class App {
 
       if (result === "3스트라이크") {
         Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-        // 게임 다시 시작 기능 추가
+        const continueGame = await this.checkContinueGame();
+
+        if (!continueGame) break;
+
+        this.resetGame();
       }
     }
   }
@@ -29,6 +33,7 @@ class App {
   }
 
   setComputerNumbers() {
+    this.computerNumbers = [];
     while (this.computerNumbers.length < 3) {
       const number = Random.pickNumberInRange(1, 9);
       if (!this.computerNumbers.includes(number)) {
@@ -64,6 +69,21 @@ class App {
     return `${balls ? balls + "볼" : ""} ${
       strikes ? strikes + "스트라이크" : ""
     }`.trim();
+  }
+
+  async checkContinueGame() {
+    const input = await Console.readLineAsync(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+    );
+    if (input !== "1" && input !== "2") {
+      throw new Error("[ERROR] 잘못된 입력입니다.");
+    }
+    return input === "1";
+  }
+
+  resetGame() {
+    this.setComputerNumbers();
+    this.userNumbers = [];
   }
 }
 export default App;
