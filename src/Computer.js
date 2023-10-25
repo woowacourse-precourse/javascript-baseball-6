@@ -1,6 +1,7 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import { QUERY_STATUS } from "./query_status.js";
 export default class Computer {
+    static QUIT = "2";
     constructor() {
         this.numbers = [];
     }
@@ -35,7 +36,7 @@ export default class Computer {
                 "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n",
                 QUERY_STATUS.REPLAY
             );
-            if (input === "2") break;
+            if (input === Computer.QUIT) break;
         }
     }
     returnMessage(expectNumbers) {
