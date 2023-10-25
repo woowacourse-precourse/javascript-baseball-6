@@ -6,7 +6,6 @@ const Messages = Object.freeze({
   GAME_OVER: "숫자 야구 게임을 종료합니다.",
 
   ERROR: {
-    REJECTED_READLINE: "[ERROR] readLineAsync Promise가 거부되었습니다.",
     INVALID_BALL_NUMBER: "[ERROR] 3자리 숫자를 중복없이 입력해주세요.",
     INVALID_SELECT_NUMBER: "[ERROR] 1 혹은 2만 입력해주세요.",
   },

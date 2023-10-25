@@ -8,7 +8,7 @@ class App {
     MissionUtils.Console.print(Messages.START);
     while (true) {
       await new BaseballGame().start();
-      const selectNumber = parseInt(await MissionUtils.Console.readLineAsync(Messages.RESTART_OR_EXIT));
+      const selectNumber = await MissionUtils.Console.readLineAsync(Messages.RESTART_OR_EXIT);
       if (selectNumber !== Constants.RESTART && selectNumber !== Constants.EXIT) {
         throw new Error(Messages.ERROR.INVALID_SELECT_NUMBER);
       }

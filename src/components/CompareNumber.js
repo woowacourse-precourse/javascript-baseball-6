@@ -6,7 +6,7 @@ export function compareNumber(target, guess) {
   let strike = 0;
   // 개수 세기
   for (let i = 0; i < Constants.RANDOM_DIGIT; i++) {
-    if (target[i] == guess[i]) {
+    if (target[i] === guess[i]) {
       strike++;
     } else if (target.includes(guess[i])) {
       ball++;
@@ -19,6 +19,6 @@ export function compareNumber(target, guess) {
   if (!ball && !strike) resultString += "낫싱";
   MissionUtils.Console.print(resultString);
   // 반환값
-  if (strike == Constants.RANDOM_DIGIT) return true;
+  if (strike === Constants.RANDOM_DIGIT) return true;
   else return false;
 }
