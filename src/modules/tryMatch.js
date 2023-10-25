@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import inputToUser from './inputToUser';
+import getUserInput from './getUserInput';
 import compareNumberString from './compareNumberString';
 import getResultString from './getResultString';
 import Constant from '../constant/Constant';
@@ -31,7 +31,7 @@ const tryMatch = async (baseNumber) => {
   let isMatch = false;
 
   while (!isMatch) {
-    const inputValue = await inputToUser(INPUT_PROMPT, isUniqueNumber);
+    const inputValue = await getUserInput(INPUT_PROMPT, isUniqueNumber);
 
     const { strike, ball } = compareNumberString(baseNumber, inputValue);
 
