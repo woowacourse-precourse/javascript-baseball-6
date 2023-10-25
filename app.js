@@ -4,6 +4,7 @@ const computerNumbersArray = [];    // 컴퓨터가 생성한 난수
 let userNumbersArray = null         // 유저가 입력한 값 리스트
 let times = 1                       // 현재 시도 횟수
 
+
 // ========== Functions ==========
 
 // 유저의 입력 배열 userNumbersArray 생성
@@ -15,6 +16,7 @@ function makeUserNumbersArray() {
     console.log(userNumbersArray);
 }
 
+
 // 입력된 숫자의 범위 체크
 function rangeException() {
     let isValid = false;
@@ -25,7 +27,6 @@ function rangeException() {
             break;
         }
     }
-
     return isValid
 }
 
@@ -62,6 +63,7 @@ function addTry() {
     document.querySelector("#container").appendChild(newTry);
 }
 
+
 // 키보드 '1' 누르면 게임 재시작
 function gameRestart() {
     window.addEventListener('keydown', function(e) {
@@ -70,6 +72,20 @@ function gameRestart() {
         }
     });
 }
+
+
+// 키보드 '2' 누르면 게임 완전히 종료
+function gameRestart() {
+    window.addEventListener('keydown', function(e) {
+        if (e.key === '2') {
+            document.body.innerHTML = '';
+            const h1 = document.querySelector('h1');
+            h1.innerText = "⚾️ 숫자 야구 게임이 종료되었습니다 ⚾️";
+            document.body.appendChild(h1); 
+        }
+    });
+}
+
 
 // 확인버튼 클릭했을 때 numArrayCompareEvent() 발생
 function numArrayCompareEvent() {
@@ -116,7 +132,8 @@ function numArrayCompareEvent() {
 
 // 프로그램의 시작 함수
 function play() {
-    while (computerNumbersArray.length < 3) {   // 퓨터의 서로 다른 세 자리 랜덤 값 배열 생성
+    // 컴퓨터의 서로 다른 세 자리 랜덤 값 배열 생성
+    while (computerNumbersArray.length < 3) {   
         const number = MissionUtils.Random.pickNumberInRange(1, 9);
         if (!computerNumbersArray.includes(number)) {
             computerNumbersArray.push(number);
@@ -125,8 +142,8 @@ function play() {
     console.log(computerNumbersArray);
 }
 
-// ========== Main Function ==========
 
+// ========== Main Function ==========
 window.onload = function() {
     play()
 }

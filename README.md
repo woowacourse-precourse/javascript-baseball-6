@@ -100,7 +100,9 @@ Console.print("안녕하세요.");
 ### 8. (요구) '1' 누르면 게임 재시작
 
 - gameRestart 함수 생성
+- 페이지 새로고침 되는 방향으로 진행 window.location.reload();
 
 ### 9. (요구) '2' 누르면 게임 완전히 종료
 
 - gameFinished 함수 생성
+- body태그 안에 h1태그의 '⚾️ 숫자 야구 게임이 종료되었습니다 ⚾️'만 남김
