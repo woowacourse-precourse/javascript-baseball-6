@@ -1,5 +1,3 @@
-import { MESSAGE } from "../constants/messages.js";
-
 const ERROR_MESSAGE = {
   NOT_NUMBER: "문자를 입력했습니다.",
   OVER_OR_UNDER_LIMIT: "입력된 숫자의 개수가 초과/미달 입니다.",

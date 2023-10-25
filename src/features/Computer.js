@@ -1,10 +1,18 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 import { player } from "./Player.js";
-import { MESSAGE } from "../constants/messages.js";
+
+const COMPUTER_MESSAGE = {
+  START: "숫자 야구 게임을 시작합니다.",
+  COMPLETED: "3개의 숫자를 모두 맞히셨습니다! 게임 종료",
+};
 
 export class Computer {
   #answer = [];
   #count = { ball: 0, strike: 0 };
+
+  printStart() {
+    Console.print(COMPUTER_MESSAGE.START);
+  }
 
   makeAnswer() {
     while (this.#answer.length < 3) {
@@ -54,7 +62,7 @@ export class Computer {
     );
 
     if (strike === 3) {
-      Console.print(MESSAGE.GAME.COMPLETED);
+      Console.print(COMPUTER_MESSAGE.COMPLETED);
     }
   }
 }

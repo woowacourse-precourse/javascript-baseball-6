@@ -1,11 +1,15 @@
 import { Console } from "@woowacourse/mission-utils";
 import { validation } from "./Validation.js";
-import { MESSAGE } from "../constants/messages.js";
+
+const INPUT_MESSAGE = {
+  PLAY_NUMBER: "숫자를 입력해주세요 : ",
+  SELECT_REPLAY_OR_EXIT: "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.",
+};
 
 export const player = {
   input: async function () {
     try {
-      const input = await Console.readLineAsync(MESSAGE.PLAYER.INPUT);
+      const input = await Console.readLineAsync(INPUT_MESSAGE.PLAY_NUMBER);
       validation.validatePlayerNumber(input);
 
       return input;
@@ -17,7 +21,7 @@ export const player = {
   },
   selectReplayOrExit: async function () {
     const input = await Console.readLineAsync(
-      MESSAGE.PLAYER.SELECT_REPLAY_OR_EXIT
+      INPUT_MESSAGE.SELECT_REPLAY_OR_EXIT
     );
     validation.validateSelectReplayOrExit(input);
 
