@@ -5,12 +5,10 @@ class App {
     Console.print("숫자 야구 게임을 시작합니다. ");
 
     while ( 
-      await this.startGame(this.getRandomNum())
+      await this.getUserNum(this.getRandomNum())
     );
   }
 
-  async startGame(answer) {}
-  
   getRandomNum() { // 서로 다른 임의의 수 생성
     const computer = [];
     while (computer.length < 3) {
@@ -22,13 +20,36 @@ class App {
     return computer;
   }
 
-  async getUserNum() {
-    const input = await Console.readLineasync('숫자를 입력해주세요 : ');
 
-    if (input.length !== 3) throw new Error('세 자리 숫자를 입력해주세요.');
+  async getUserNum(random) { // 사용자로부터 입력
+    while (true) {
+      const input = await Console.readLineasync('숫자를 입력해주세요 : ').split(' ').join('').split('').map(Number);
+
+      if (input.length !== 3 || input.some((n) => !Number.isInteger(n))) {
+        throw new Error('[ERROR] 입력값이 유효하지 않습니다.');
+      }
+    }
     
+    const [strike, ball] = this.CompareNum(input, random);
+  }
+
+  CompareNum(input, random) { // 입력받은 수와 일치여부 확인
+    let ball = 0;
+    let strike = 0;
+    
+    for (let i = 0; i < 3 ; i++) {
+      if (input[i] === random[i]) {
+        strike++;
+      }
+      else if (random.includes(input[i])) {
+        ball++;
+      }
+    }
+
+    return [strike, ball];
   }
 }
+
 
 const app = new App();
 Console.log(app.computer);
