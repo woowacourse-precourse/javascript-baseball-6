@@ -2,7 +2,7 @@ import mainPage from "./page/MainPage.js";
 
 class App {
   async play() {
-    mainPage();
+    return mainPage();
   }
 }
 
