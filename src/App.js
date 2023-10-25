@@ -3,7 +3,7 @@ import printResult from "./model/printResult.js";
 import restartGame from "./model/restartGame.js";
 import ballCount from "./util/ballCount.js";
 import ballNumberMaker from "./util/ballNumberMaker.js";
-import ConsoleView from "./util/ConsoleControll.js";
+import consoleView from "./util/consoleControll.js";
 
 class App {
   async play() {
@@ -11,10 +11,9 @@ class App {
     let userNumbers;
     while (true) {
       userNumbers = await getInputAndCheck();
-
       if (printResult(ballCount(userNumbers, computerNumbers))) {
-        const RESTART = await restartGame();
-        if (RESTART) {
+        const restart = await restartGame();
+        if (restart) {
           computerNumbers = ballNumberMaker();
         } else {
           break;
@@ -26,7 +25,7 @@ class App {
 
 export default App;
 
-ConsoleView.printStart();
+consoleView.printStart();
 
 // const app = new App();
 // app.play();

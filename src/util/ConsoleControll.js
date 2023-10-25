@@ -1,7 +1,7 @@
 import { Console } from "@woowacourse/mission-utils";
 import { INPUT_MESSAGE, OUTPUT_MESSAGE } from "../constants/message.js";
 
-const ConsoleView = {
+const consoleView = {
   async readNumber() {
     return await Console.readLineAsync(INPUT_MESSAGE.NUMBER);
   },
@@ -15,4 +15,4 @@ const ConsoleView = {
   },
 };
 
-export default ConsoleView;
+export default consoleView;

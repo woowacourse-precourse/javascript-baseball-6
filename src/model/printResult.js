@@ -5,7 +5,9 @@ import { ZERO } from "../constants/number";
 
 export default function printResult(data) {
   const { ball, strike } = data;
+
   const format = makeBallFormat(ball) + makeStrikeFormat(strike);
+
   if (strike === 3) {
     Console.print(`${data.strike}${BASEBALL.STRIKE}\n${OUTPUT_MESSAGE.FINISH}`);
     return true;
@@ -14,6 +16,7 @@ export default function printResult(data) {
     return false;
   }
 }
+
 function makeBallFormat(ball) {
   return ball !== ZERO ? `${ball}${BASEBALL.BALL} ` : "";
 }
