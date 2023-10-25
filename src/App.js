@@ -151,7 +151,7 @@ class App {
 
   /** 
    * 설명 : 재시작 여부를 확인함
-   * 기타 : 1, 2 이외의 값을 입력 받으면 다시 재시작 여부를 물어봄
+   * 기타 : 1, 2 이외의 값을 입력 받으면 ERROR
   */
   async reStart() {
     const input = await this.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n");
@@ -201,4 +201,6 @@ class App {
   }
 }
 
+let app = new App();
+app.play()
 export default App;
