@@ -6,14 +6,9 @@ import { calculateScore } from "./CalculateScore.js";
 import { Console } from "@woowacourse/mission-utils";
 
 async function getUserInput() {
-  try {
     const userNumber = await Console.readLineAsync(INPUT_MESSAGE.start);
     validateInput(userNumber);
     return userNumber;
-  }
-  catch (error) {
-    throw error;
-  }
 }
 
 async function askRetry() {
@@ -26,31 +21,21 @@ async function startGame() {
   const computer = generateRandomNumber();
   let score;
   let user;
-  try {
-    do {
-      user = await getUserInput();
-      score = calculateScore(computer, user);
-      printGameResult(score);
-    } while (score.strike !== 3)
-  }
-  catch (error) {
-    throw error;
-  }
+  do {
+    user = await getUserInput();
+    score = calculateScore(computer, user);
+    printGameResult(score);
+  } while (score.strike !== 3)
 }
 
 async function playGame() {
   let retry;
-	try{
 		do {
 	    printIntroMessage();
 	    await startGame();
 	    retry = await askRetry()
 	  } while(retry)
 	  printEndMessage();
-	}
-	catch (error) {
-		throw error;
-	}
 }
 
 export { playGame };
