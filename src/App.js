@@ -39,6 +39,24 @@ class App {
     }
   }
 
+  // 종료 또는 재시작 (테스트 필요)
+  async endOrReplay() {
+    try {
+      MissionUtils.Console.print(MESSAGES.GAME_END);
+      const restart = await MissionUtils.Console.readLineAsync(MESSAGES.ASK_RESTART);
+      if (restart == 1) {
+        app.answer.numbersArray = generateAnswer();
+        this.play();
+      } else if (restart == 2) {
+        console.log("종료");
+      } else {
+        throw Error;
+      }
+      // 끝나고 밑으로가서 캐치?
+    } catch (error) {
+      MissionUtils.Console.print(MESSAGES.ERROR_REPLAY)
+    }
+  }
 }
 
   
