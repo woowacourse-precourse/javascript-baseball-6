@@ -6,7 +6,7 @@ const printMessage = (message) => Console.print(message);
 // 컴퓨터가 랜덤한 숫자를 생성하는 함수
 const generateNumberInRange = (min, max) => Random.pickNumberInRange(min, max);
 
-// 에러를 출력하는 함수 (throwError)
+// 에러를 출력하는 함수
 const throwError = (message, condition = true) => {
   if (condition) throw new Error(message);
 };

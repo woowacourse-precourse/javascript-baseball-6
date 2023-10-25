@@ -6,8 +6,6 @@ const countStrike = (computerNumber, userNumber) => {
   const computerNumberArray = convertStringToArray(computerNumber);
   const userNumberArray = convertStringToArray(userNumber);
 
-  // TODO: 주석 삭제 필요
-  // eslint-disable-next-line no-plusplus
   for (let i = 0; i < computerNumber.length; i++) {
     if (computerNumberArray[i] === userNumberArray[i]) {
       strikeNumber += 1;
@@ -20,7 +18,6 @@ const countStrike = (computerNumber, userNumber) => {
 const countBall = (computerNumber, userNumber, strikeNumber) => {
   const computerNumberArray = convertStringToArray(computerNumber);
   const userNumberArray = convertStringToArray(userNumber);
-  // eslint-disable-next-line max-len
   const commonNumbers = computerNumberArray.filter((number) => userNumberArray.includes(number)).length;
 
   return commonNumbers - strikeNumber;
@@ -44,7 +41,6 @@ const convertNumberToString = (strikeNumber, ballNumber) => {
   return hintMessage;
 };
 
-// eslint-disable-next-line import/prefer-default-export
 export const getHintToUser = (computerNumber, userNumber) => {
   const strikeNumber = countStrike(computerNumber, userNumber);
   const ballNumber = countBall(computerNumber, userNumber, strikeNumber);
