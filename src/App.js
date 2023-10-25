@@ -1,10 +1,20 @@
 import { MissionUtils, Console } from "@woowacourse/mission-utils";
 
 class App {
-  constructor(input, answer, gameContinue = 0) {
+  constructor(
+    input,
+    answer,
+    strikeCount,
+    ballCount,
+    proceeding = true,
+    restart = false
+  ) {
     this.input = input;
     this.answer = answer;
-    this.gameContinue = gameContinue;
+    this.strikeCount = strikeCount;
+    this.ballCount = ballCount;
+    this.proceeding = proceeding;
+    this.restart = restart;
   }
 
   async play() {
