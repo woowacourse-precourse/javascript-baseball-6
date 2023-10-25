@@ -35,6 +35,19 @@ class App {
 
     return userInput.trim().split("").map(Number);
   }
+
+  checkValidAnswer(userInput) {
+    const condition =
+      userInput.length !== 3 ||
+      new Set(userInput).size !== 3 ||
+      userInput.some(isNaN);
+
+    if (condition) {
+      return false;
+    }
+
+    return true;
+  }
 }
 
 const app = new App();
