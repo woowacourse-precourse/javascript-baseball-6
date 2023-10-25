@@ -57,6 +57,7 @@ class App {
     //컴퓨터 숫자 초기화
     COMPUTER_NUMBER = makeComputerNumber();
     
+    
 
     async function getUserNumber() {
       let USER_NUMBER = await Console.readLineAsync("숫자를 입력해주세요 : ");
