@@ -33,21 +33,23 @@ class Player {
         GAME_MESSAGES.ENTER_NUMBER
       );
 
-      playerInput.then((input) => {
-        if (!this.#isNumeric(input)) {
-          reject(new Error(ERROR_MESSAGES.INVALID_STRING));
-        }
+      playerInput
+        .then((input) => {
+          if (!this.#isNumeric(input)) {
+            reject(new Error(ERROR_MESSAGES.INVALID_STRING));
+          }
 
-        if (!this.#isValidLength(input)) {
-          reject(new Error(ERROR_MESSAGES.INVALID_INPUT_LENGTH));
-        }
+          if (!this.#isValidLength(input)) {
+            reject(new Error(ERROR_MESSAGES.INVALID_INPUT_LENGTH));
+          }
 
-        if (!this.#isUniqueNumbers(input)) {
-          reject(new Error(ERROR_MESSAGES.DUPLICATED));
-        }
+          if (!this.#isUniqueNumbers(input)) {
+            reject(new Error(ERROR_MESSAGES.DUPLICATED));
+          }
 
-        resolve(input.split("").map((number) => parseInt(number)));
-      });
+          resolve(input.split("").map((number) => parseInt(number)));
+        })
+        .catch((error) => reject(new Error(error)));
     });
   }
 
@@ -57,13 +59,15 @@ class Player {
         GAME_MESSAGES.CONFIRM_RESTART
       );
 
-      restartSign.then((sign) => {
-        if (!this.#isValidRestartSign(sign)) {
-          reject(new Error(ERROR_MESSAGES.INVALID_RESTART_SIGN));
-        }
+      restartSign
+        .then((sign) => {
+          if (!this.#isValidRestartSign(sign)) {
+            reject(new Error(ERROR_MESSAGES.INVALID_RESTART_SIGN));
+          }
 
-        resolve(parseInt(sign));
-      });
+          resolve(parseInt(sign));
+        })
+        .catch((error) => reject(new Error(error)));
     });
   }
 }
