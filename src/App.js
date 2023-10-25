@@ -10,7 +10,7 @@ class App {
     if (!this.isValidNumber(await inputNumber)) {
       throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
     }
-    this.countBallStrike(this.generateRandomNumber() ,await inputNumber);
+    Console.print(this.countBallStrike(this.generateRandomNumber() ,await inputNumber));
   }
 
   // 1~9까지 서로 다른 수로 이루어진 세자릿수 생성
@@ -22,6 +22,7 @@ class App {
         computer.push(number);
       }
     }
+    console.log(computer.join(''))
     return computer.join('');
   }
 
@@ -29,6 +30,7 @@ class App {
   countBallStrike(computerGenerateNumber, userInputNumber) {
     let ball = 0;
     let strike = 0;
+    let inform = [];
     for (let computerIndex = 0; computerIndex < 3; computerIndex++) {
       for (let userIndex = 0; userIndex < 3; userIndex++) {
         if (computerGenerateNumber[computerIndex] === userInputNumber[userIndex]) {
@@ -40,12 +42,17 @@ class App {
         }
       }
     }
-    if (strike === 0 && ball === 0) {
-      return ("낫싱");
+    // 볼과 스트라이크 개수 출력
+    if (ball !== 0) {
+      inform.push (`${ball}볼`);
     }
-    else {
-      return {strike, ball};
+    if (strike !== 0) {
+      inform.push(`${strike}스트라이크`);
     }
+    let informText = '낫싱';
+    informText = inform.join('');
+
+    return informText;
   }
 
   // 플레이어가 입력한 값의 유효성 검사
