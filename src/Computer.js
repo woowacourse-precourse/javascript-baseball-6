@@ -1,4 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
+import { QUERY_STATUS } from "./query_status.js";
 export default class Computer {
     constructor() {
         this.numbers = [];
@@ -11,7 +12,6 @@ export default class Computer {
                 this.numbers.push(number);
             }
         }
-        console.log({ numbers: this.numbers });
     }
     async playGame(USER) {
         MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
@@ -19,7 +19,8 @@ export default class Computer {
             this.pickRandomNumbers();
             while (true) {
                 const INPUT = await USER.returnUserQuery(
-                    "숫자를 입력해주세요 : "
+                    "숫자를 입력해주세요 : ",
+                    QUERY_STATUS.PLAYING
                 );
                 const RESULT = this.returnMessage(INPUT);
                 MissionUtils.Console.print(RESULT.result);
@@ -31,7 +32,8 @@ export default class Computer {
                 }
             }
             const INPUT = await USER.returnUserQuery(
-                "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+                "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n",
+                QUERY_STATUS.REPLAY
             );
             if (INPUT === "2") break;
         }

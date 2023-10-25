@@ -10,6 +10,5 @@ class App {
         this.COMPUTER.playGame(this.USER);
     }
 }
-new App().play();
 
 export default App;
