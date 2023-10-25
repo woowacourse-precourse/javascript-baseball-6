@@ -41,6 +41,12 @@ class App {
     while (this.isPlaying) {
       if (this.isCorrect) this.computer = this.getComputerNumbers();
       this.user = await this.getUserNumbers();
+
+      this.isCorrect = this.compareNumbers();
+
+      console.log(
+        `STRIKE : ${this.status.strike}, BALL : ${this.status.ball}, OUT : ${this.status.out}`
+      );
     }
   }
 
@@ -75,6 +81,23 @@ class App {
     });
 
     return NUMBERS;
+  }
+
+  compareNumbers() {
+    for (let i = 0; i < this.user.length; i++) {
+      const USER = this.user[i];
+      const COMPUTER = this.computer[i];
+
+      this.clearStatus();
+
+      if (USER === COMPUTER) {
+        this.status.strike++;
+      } else if (this.computer.includes(USER)) {
+        this.status.ball++;
+      } else {
+        this.status.out++;
+      }
+    }
   }
 }
 
