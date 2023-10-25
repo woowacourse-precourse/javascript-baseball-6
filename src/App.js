@@ -11,7 +11,16 @@ class App {
   async play() {
     MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
     this.makeRandomNumbers();
-    await this.startGame();
+    await this.playRound();
+  }
+
+  async playRound() {
+    while (true) {
+      await this.startGame();
+      if (this.strike === 3) {
+        MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+      }
+    }
   }
 
   async startGame() {
