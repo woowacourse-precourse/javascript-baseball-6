@@ -4,6 +4,9 @@ import OutputView from './View/OutputView.js';
 import Player from './Player.js';
 import Refree from './Refree.js';
 import Validation from './util/Validation.js';
+import { QUIT, RESTART } from './util/constants.js';
+
+const SUCESS = 3;
 
 class App {
   #refree;
@@ -27,7 +30,7 @@ class App {
   }
 
   async #checkSuccess(strike) {
-    strike === 3 ? await this.#confirmGame() : await this.#continueGame();
+    strike === SUCESS ? await this.#confirmGame() : await this.#continueGame();
   }
 
   async #confirmGame() {
@@ -35,8 +38,8 @@ class App {
     const input = await InputView.confirmContinue();
     Validation.validateConfirmNumber(input);
 
-    if (Number(input) === 1) await this.play();
-    if (Number(input) === 2) return;
+    if (Number(input) === RESTART) await this.play();
+    if (Number(input) === QUIT) return;
   }
 
   async #continueGame() {

@@ -1,4 +1,10 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
+import { GAME_NUMBER_LENGTH } from './util/constants.js';
+
+const RANDOM_NUMBER_MINIMUM = 1;
+const RANDOM_NUMBER_MAXIMUM = 9;
+const DEFAULT_COUNT_BALL = 0;
+const DEFAULT_COUNT_STRIKE = 0;
 
 class Refree {
   #opponentNumber;
@@ -9,11 +15,12 @@ class Refree {
 
   #generateNumber() {
     const result = [];
-    while (result.length < 3) {
-      const number = MissionUtils.Random.pickNumberInRange(1, 9);
-      if (!result.includes(number)) {
-        result.push(number);
-      }
+    while (result.length < GAME_NUMBER_LENGTH) {
+      const number = MissionUtils.Random.pickNumberInRange(
+        RANDOM_NUMBER_MINIMUM,
+        RANDOM_NUMBER_MAXIMUM
+      );
+      if (!result.includes(number)) result.push(number);
     }
 
     return result;
@@ -31,7 +38,7 @@ class Refree {
       return this.#opponentNumber.includes(target) && this.#opponentNumber[index] !== target
         ? count + 1
         : count;
-    }, 0);
+    }, DEFAULT_COUNT_BALL);
   }
 
   #countStrike(playerNumber) {
@@ -39,7 +46,7 @@ class Refree {
       return this.#opponentNumber.includes(target) && this.#opponentNumber[index] === target
         ? count + 1
         : count;
-    }, 0);
+    }, DEFAULT_COUNT_STRIKE);
   }
 }
 export default Refree;
