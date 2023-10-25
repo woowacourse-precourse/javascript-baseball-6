@@ -6,6 +6,7 @@ class App {
     const setNum = [];
     for (let i = 0; i < 3; i++) {
       let pickOneNumber = Random.pickNumberInRange();
+      // setNum의 중복값 제거
       if (!setNum.includes(pickOneNumber)) setNum.push(pickOneNumber);
     }
     this.setNum = setNum;
@@ -17,7 +18,7 @@ class App {
     const inputNum = await Console.readLineAsync("숫자를 입력해주세요 : ");
     // inputNum 예외처리
     if (isNaN(inputNum) || inputNum.length !== 3 || inputNum.includes(0)) {
-      throw new Error("[ERROR]");
+      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
     } else {
       return Array.from(inputNum).map(Number);
     }
@@ -46,7 +47,7 @@ class App {
     else return this.endGamePoint();
   }
 
-  // #4 3의 결과 출력
+  // #4 #3의 결과 출력
   async printResult(strike, ball) {
     if (strike === 3) {
       Console.print("3스트라이크");
@@ -72,9 +73,11 @@ class App {
 
       if (endGameInput === "1") {
         return this.play();
-      } else {
+      } else if (endGameInput === "2") {
         Console.print("숫자 야구 게임을 종료합니다.");
         return;
+      } else {
+        throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
       }
     } catch (error) {
       throw error;
