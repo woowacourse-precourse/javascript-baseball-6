@@ -26,8 +26,7 @@ class App {
   printResult(strike,ball){
     if (ball===0&&strike>0){      
       if (strike ===3){
-        MissionUtils.Console.print(`${strike}스트라이크`);
-        MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+        MissionUtils.Console.print(`${strike}스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료`);        
       }else{
         MissionUtils.Console.print(`${strike}스트라이크`);
       }
@@ -45,16 +44,16 @@ class App {
   }
   playerErrorCheck(player){
     if (player.length !== 3) {
-      throw new Error("[ERROR] 3자리 숫자가 아닙니다.");
+      throw new Error("[ERROR] 3자리 숫자가 아닙니다."+` 입력: ${player}`);
     }
     if (new Set(player).size !== player.length) {
-      throw new Error("[ERROR] 중복입니다.");
+      throw new Error("[ERROR] 중복입니다."+` 입력: ${player}`);
     }
   }
   async restartInputErrorCheck(restartInput){
     
     if (restartInput !== "1" && restartInput !=="2"){
-      throw new Error("[ERROR]");
+      throw new Error("[ERROR] 1또는 2를 입력해주세요."+` 입력: ${restartInput}`);
     }
        
   }
