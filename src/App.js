@@ -32,14 +32,15 @@ class App {
 
       if (
         userInput.length !== 3 ||
-        userInput.some((char) => isNaN(parseInt(char, 10)))
+        userInput.some(char => isNaN(parseInt(char, 10))) ||
+        new Set(userInput).size !== 3
       ) {
         throw new Error(
           '[ERROR] 1에서 9 사이의 서로 다른 세 숫자를 입력해 주세요.'
         );
       }
 
-      return userInput.map((char) => parseInt(char, 10));
+      return userInput.map(char => parseInt(char, 10));
     } catch (error) {
       throw new Error(error.message);
     }
@@ -60,7 +61,7 @@ class App {
 
   // 낫싱을 확인하는 함수
   isNothing = (userGuess, computerAnswer) => {
-    return userGuess.filter((x) => computerAnswer.includes(x)).length === 0
+    return userGuess.filter(x => computerAnswer.includes(x)).length === 0
       ? true
       : false;
   };
@@ -82,7 +83,7 @@ class App {
   };
 
   // 사용자의 추측을 출력하는 함수
-  printGuessResult = (guessResult) => {
+  printGuessResult = guessResult => {
     if (guessResult.strikeCount === 3) {
       Console.print('3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료');
     } else if (guessResult.strikeCount === 0) {
