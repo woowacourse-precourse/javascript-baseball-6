@@ -1,24 +1,24 @@
-import { inputNumberError } from "../constants/errorMessage";
+import { INPUT_NUMBER_ERROR } from '../constants/errorMessage';
 
-export function validateNumber(inputNumber) {
+export const validateNumber = function validateNumber(inputNumber) {
     if (!inputNumber) {
-        throw new Error(inputNumberError.NOT_NUMBER_ERROR);
+        throw new Error(INPUT_NUMBER_ERROR.notNumberError);
     }
 
     if (inputNumber.length > 3) {
-        throw new Error(inputNumberError.LENGTH_ERROR);
+        throw new Error(INPUT_NUMBER_ERROR.lengthError);
     }
 
     if (isNaN(inputNumber)) {
-        throw new Error(inputNumberError.NOT_NUMBER_ERROR);
+        throw new Error(INPUT_NUMBER_ERROR.notNumberError);
     }
 
     if (!isDifferentNumbers(inputNumber.split(''))) {
-        throw new Error(inputNumberError.NOT_DIFFERENT_ERROR);
+        throw new Error(INPUT_NUMBER_ERROR.notDifferentError);
     }
 }
 
-function isDifferentNumbers(numbers) {
+const isDifferentNumbers = function isDifferentNumbers(numbers) {
     const result = numbers.map(n => {
         if (numbers.indexOf(n) !== -1) {
             return false;
