@@ -23,7 +23,6 @@ class Game {
   }
 
   checkNumbers(numbers) {
-    console.log("computer: ", this.computer);
     this.resetCount();
     this.countBallandStrike(numbers);
 
