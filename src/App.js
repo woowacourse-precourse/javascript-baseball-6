@@ -8,18 +8,20 @@ import consoleView from "./util/consoleControll.js";
 class App {
   async play() {
     let computerNumbers = ballNumberMaker();
+
     let userNumbers;
-    do {
+    let restart = true;
+    while (restart) {
       userNumbers = await getInputAndCheck();
       if (printResult(ballCount(userNumbers, computerNumbers))) {
-        let restart = await restartGame();
+        restart = await restartGame();
         if (restart) {
           computerNumbers = ballNumberMaker();
         } else {
           break;
         }
       }
-    } while (true);
+    }
   }
 }
 
