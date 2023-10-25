@@ -11,6 +11,16 @@ class App {
       }
     }
   }
+  validation(checknumer)
+  {
+    const REGEXP=/^\d{3}$/;
+    if(!REGEXP.test(checknumer)) return false;
+    return checknumer;
+  }
+  async userNumberInput(){
+      const userNumber = await Console.readLineAsync('숫자를 입력해주세요 : ');
+      
+  }
   async play() {
     Console.print("숫자 야구 게임을 시작합니다.");
   }
@@ -18,5 +28,6 @@ class App {
 
 const app = new App();
 app.play()
+app.userNumberInput();
 
 export default App;
