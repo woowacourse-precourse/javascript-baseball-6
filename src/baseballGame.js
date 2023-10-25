@@ -1,4 +1,5 @@
 import { Console, Random } from "@woowacourse/mission-utils";
+import { MESSAGES } from "./message.js";
 
 const RANDOM_MIN = 1;
 const RANDOM_MAX = 9;
@@ -6,12 +7,15 @@ const RANDOM_MAX = 9;
 class BaseballGame {
   constructor() {
     this.computer = [];
+    this.correct = false;
   }
 
   async start() {
     this.computer = this.generateRandomNumbers();
 
-    Console.print(this.computer);
+    while (!this.correct) {
+      const guess = await Console.readLineAsync(MESSAGES.INPUT_NUMBER);
+    }
   }
 
   generateRandomNumbers() {
