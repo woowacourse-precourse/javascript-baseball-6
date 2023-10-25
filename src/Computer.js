@@ -39,10 +39,10 @@ export default class Computer {
         }
     }
     returnMessage(expect_numbers) {
-        const BALL_STRIKE = this.calculateBallStrike(expect_numbers);
-        const RESULT = this.getResultString(BALL_STRIKE);
-        if (BALL_STRIKE.strike === 3) return { result: RESULT, success: true };
-        return { result: RESULT, success: false };
+        const ballStrike = this.calculateBallStrike(expect_numbers);
+        const result = this.getResultString(ballStrike);
+        if (ballStrike.strike === 3) return { result: result, success: true };
+        return { result: result, success: false };
     }
     calculateBallStrike(expect_numbers) {
         let ball = 0;

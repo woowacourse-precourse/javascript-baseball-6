@@ -2,10 +2,10 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 import { QUERY_STATUS } from "./query_status.js";
 export default class User {
     async returnUserQuery(query, status) {
-        const INPUT = await MissionUtils.Console.readLineAsync(query);
-        if (!this.checkValidation(INPUT, status))
+        const input = await MissionUtils.Console.readLineAsync(query);
+        if (!this.checkValidation(input, status))
             throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
-        return INPUT;
+        return input;
     }
     checkValidation(str, status) {
         if (status === QUERY_STATUS.PLAYING && str.length > 3) return false;
