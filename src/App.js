@@ -93,7 +93,6 @@ class App {
     while (this.restart === '1') {
       this.isAnswer = false;
       this.pickComputerNumbers();
-      console.log(this.computer);
 
       while (!this.isAnswer) {
         await this.getUserInput();
