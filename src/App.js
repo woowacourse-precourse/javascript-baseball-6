@@ -39,7 +39,7 @@ class App {
       const is_re = await Console.readLineAsync('')
       if (is_re == 1) continue
       else if (is_re == 2) is_play = false
-      else{
+      else{d
         throw new Error('[ERROR]')
       }
     }
