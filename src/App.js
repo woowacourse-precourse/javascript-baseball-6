@@ -41,6 +41,19 @@ class App {
       }
     }
   }
+
+  validateInput(input) {
+    if (
+      input.length !== 3 ||
+      new Set(input).size !== 3 ||
+      !/^[1-9]+$/.test(input) ||
+      input.includes(' ')
+    ) {
+      throw new Error(
+        `[ERROR] 서로 다른 수로 이루어진 세 자리 숫자를 입력해야 합니다. (0은 제외)`
+      );
+    }
+  }
 }
 
 export default App;
