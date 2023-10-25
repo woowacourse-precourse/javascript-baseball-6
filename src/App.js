@@ -39,41 +39,43 @@ class App {
 
       this.strike = 0;
       this.ball = 0;
+  
+      const number = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
+      console.log(number, typeof number, number.length);
+      // 입력이 정상적인지 확인
+      if (isNaN(Number(number))) throw new Error("[ERROR] 숫자만 입력해주세요.");
+      console.log(number.length)
+      if (number.length !== 3) throw new Error("[ERROR] 3자리 숫자를 입력해주세요.");
+      if (number.includes(0)) throw new Error("[ERROR] 0은 입력할 수 없습니다.");
 
-      try {
-        const number = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
-        // console.log(number);
-        // 컴퓨터는 사용자가 입력한 수에 대한 결과를 낫싱과, 볼, 스트라이크 개수로 표시한다.
-        this.num_list = [...number].map(v => +v);
-  
-        this.computer.map((v, idx) => {
-          // 다 같으면 스트라이크
-          if (this.computer[idx] === this.num_list[idx]) {
-            this.strike++;
-          }
-          // 들어는 있는데, 같은 자리가 아니라면, 볼
-          else if (this.num_list.includes(v)) {
-            this.ball++;
-          }
-        })
-  
-        // 출력
-        this.print();
-        if (this.strike === 3) {
-          MissionUtils.Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
-          gameNum = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
-          if (gameNum == 1) {
-            isEnd = false;
-            this.setComputerNum();
-          }
-          else if(gameNum == 2) isEnd = true;
+
+      // 컴퓨터는 사용자가 입력한 수에 대한 결과를 낫싱과, 볼, 스트라이크 개수로 표시한다.
+      this.num_list = [...number].map(v => +v);
+
+      this.computer.map((v, idx) => {
+        // 다 같으면 스트라이크
+        if (this.computer[idx] === this.num_list[idx]) {
+          this.strike++;
         }
+        // 들어는 있는데, 같은 자리가 아니라면, 볼
+        else if (this.num_list.includes(v)) {
+          this.ball++;
+        }
+      })
 
-      } catch (error) {
-        // reject 되는 경우
-        // console.log('error:', error);
+      // 출력
+      this.print();
+      if (this.strike === 3) {
+        MissionUtils.Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
+        gameNum = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+        if (gameNum == 1) {
+          isEnd = false;
+          this.setComputerNum();
+        }
+        else if(gameNum == 2) isEnd = true;
       }
-    }
+
+    } 
  
   }
 }
