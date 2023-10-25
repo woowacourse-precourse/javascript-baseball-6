@@ -28,7 +28,7 @@ const startGame = async (computerNumber) => {
 
 
 const finishGame = () => {
-  MissionUtils.Console.print('');
+  MissionUtils.Console.print('게임 종료');
 }
 
 const askReplay = async () => {
