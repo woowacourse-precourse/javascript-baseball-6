@@ -53,13 +53,17 @@ describe("숫자 야구 게임", () => {
     // given
     const randoms = [1, 3, 5];
     const answers = ["1234"];
-
+  
     mockRandoms(randoms);
     mockQuestions(answers);
-
+  
     // when & then
     const app = new App();
-
-    await expect(app.play()).rejects.toThrow("[ERROR]");
+  
+    await expect(async () => {
+      await app.play();
+    }).rejects.toThrow("[ERROR] 숫자가 잘못된 형식입니다.");
   });
+  
+  
 });
