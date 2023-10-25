@@ -15,3 +15,11 @@ export class InputViewError extends CustomError {
     this.name = ERROR.NAME.INPUT_VIEW;
   }
 }
+
+export class BaseballNumberError extends CustomError {
+  constructor(message) {
+    super(message);
+
+    this.name = ERROR.NAME.BASEBALL_NUMBER;
+  }
+}

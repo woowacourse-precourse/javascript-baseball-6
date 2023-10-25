@@ -1,6 +1,6 @@
-import { CustomError } from '../Model/Error.js';
+import { BaseballNumberError } from '../Model/Error.js';
 import { BASEBALL_NUMBER } from '../constants/baseballGame.js';
-import { MESSAGE } from '../constants/message.js';
+import { ERROR } from '../constants/error.js';
 
 export class BaseballNumber {
   #numberList;
@@ -15,16 +15,16 @@ export class BaseballNumber {
 
   #validation(numberList) {
     if (numberList.length !== BASEBALL_NUMBER.DIGIT)
-      throw new CustomError(MESSAGE.ERROR.INVALID_DIGITS);
+      throw new BaseballNumberError(ERROR.MESSAGE.INVALID_DIGITS);
 
     if (new Set(numberList).size !== numberList.length)
-      throw new CustomError(MESSAGE.ERROR.DUPLICATE_NUMBERS);
+      throw new BaseballNumberError(ERROR.MESSAGE.DUPLICATE_NUMBERS);
 
     if (!numberList.every(Number))
-      throw new CustomError(MESSAGE.ERROR.INVALID_TYPE);
+      throw new BaseballNumberError(ERROR.MESSAGE.INVALID_TYPE);
 
     if (!numberList.every(isBaseballNumber))
-      throw new CustomError(MESSAGE.ERROR.OUT_OF_RANGE);
+      throw new BaseballNumberError(ERROR.MESSAGE.OUT_OF_RANGE);
   }
 
   get _numberList() {
