@@ -83,7 +83,7 @@
 
 - [ ] 각 도메인별로 유의미한 테스트를 작성한다
   - [x] BaseballNumber
-  - [ ] Computer
+  - [x] Computer
   - [ ] BaseballGame
 
 ---
