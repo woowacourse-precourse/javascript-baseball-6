@@ -7,7 +7,7 @@ class Input {
     return inputNumbers;
   }
 
-  async askRegame() {
+  async askRestart() {
     const choice = await Console.readLineAsync(GAME.ASK_REGAME_OR_ENDGAME);
     if (choice === GAME.CHOOSE_FINISH) {
       Console.print(GAME.GAME_ENDED);

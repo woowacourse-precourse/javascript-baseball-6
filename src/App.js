@@ -23,7 +23,7 @@ class App {
 
       if (strike === GAME.THREE_STRIKE) {
         this.output.printSuccess();
-        this.isGameEnded = await this.input.askRegame();
+        this.isGameEnded = await this.input.askRestart();
         if (this.isGameEnded === false) {
           this.output.printRestartGame();
           this.balls.regenerateRandomNumber();
