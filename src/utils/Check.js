@@ -1,12 +1,11 @@
 // 사용자 input 유효성 검사
 export function checkInputValidity(input){
-    // 1. 1-9로 이루어진 세자리 숫자인지 확인
-    const INPUT_REGEX = /^[1-9]\d{2}$/
-    if(!INPUT_REGEX.test(input)){
-        return false
-    }
+    if(input.length !== 3) return false
+    
+    if(isNaN(input)) return false
 
-    // 2. 중복성 확인
+    if(input.includes('0')) return 0
+
     const inputArray = String(input).split('')
     if(new Set(inputArray).size !== inputArray.length){
         return false
@@ -37,11 +36,9 @@ export function checkStrike(player, computer){
 export function checkBall(player, computer, strikeCount){
     let ballCount = 0
     player.forEach((num) => {
-        if(computer.includes(num)) ballCount += 1
+        if(computer.includes(num) && num!==computer[i]) ballCount += 1
     })
-
-    if(ballCount === 0) return 0
-    return ballCount - strikeCount
+    return ballCount
 }
 
 // 재시작시 사용자 input 유효성 검사

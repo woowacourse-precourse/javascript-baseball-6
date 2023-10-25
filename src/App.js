@@ -24,15 +24,14 @@ class App {
             if(checkAnswer(player.number, computer.number)){
                 endGame() // 게임 종료 메시지 출력
                 const retry = await MissionUtils.Console.readLineAsync(LOGS.INPUT_2) // 재시도 여부 input 받기
-                if(!checkRetryValidity(retry)) // 재시도 input값의 유효성 확인
-                    throw new Error(LOGS.ERROR)
 
                 if(retry === '1'){ // 재시도인 경우
                     computer.generateRandNum()
                     initGame()
                     continue
                 }
-                else break // 게임 종료인 경우
+                else if(retry === '2') break // 게임 종료인 경우
+                else throw new Error(LOGS.ERROR)
             }
             // 3스트라이크가 아닌 경우
             else{
