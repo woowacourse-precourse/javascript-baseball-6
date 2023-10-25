@@ -29,45 +29,6 @@ function rangeException() {
     return isValid
 }
 
-// 확인버튼 클릭했을 때 numArrayCompareEvent() 발생
-function numArrayCompareEvent() {
-
-    // userNumbersArray 생성
-    makeUserNumbersArray();
-
-    // userNumbersArray의 예외처리
-    if (userNumbersArray.length!==3) {
-        alert("[ERROR] 세 자리 숫자가 아닙니다.");
-    } else if (new Set(userNumbersArray).size !== userNumbersArray.length) {
-        alert("[ERROR] 중복된 값이 존재합니다.")
-    } else if(rangeException()) {
-        alert("[ERROR] 1에서 9 사이의 범위를 벗어나는 숫자가 있습니다.");
-    } else {
-        // userNumbersArray에 더이상 문제 없음
-        // computerNumbersArray와 userNumbersArray 비교  
-        let strike = 0;
-        let ball = 0;
-        const result = document.querySelector(`.result_${times}`);
-
-        for (let i = 0; i < userNumbersArray.length; i++) {
-            if (computerNumbersArray[i] === userNumbersArray[i]) {
-                strike++;
-            } else if (computerNumbersArray.includes(userNumbersArray[i])) {
-                ball++;
-            } 
-        }
-        if (strike === 3) {
-            result.innerHTML = "3스트라이크🥇🥇🥇"+"<br>"+"3개의 숫자를 모두 맞히셨습니다!"+"<br>"+"게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
-        } else {
-            if (strike === 0 && ball === 0) {
-                result.innerHTML = "낫싱";
-            } else {
-                result.innerHTML = `${strike}스트라이크 ${ball}볼`;
-            }
-            addTry();
-        }
-    }
-}
 
 // '3스트라이크'가 아닐 경우 추가기능 구현
 function addTry() {
@@ -100,6 +61,58 @@ function addTry() {
 
     document.querySelector("#container").appendChild(newTry);
 }
+
+// 키보드 '1' 누르면 게임 재시작
+function gameRestart() {
+    window.addEventListener('keydown', function(e) {
+        if (e.key === '1') {
+            window.location.reload();
+        }
+    });
+}
+
+// 확인버튼 클릭했을 때 numArrayCompareEvent() 발생
+function numArrayCompareEvent() {
+
+    // userNumbersArray 생성
+    makeUserNumbersArray();
+
+    // userNumbersArray의 예외처리
+    if (userNumbersArray.length!==3) {
+        alert("[ERROR] 세 자리 숫자가 아닙니다.");
+    } else if (new Set(userNumbersArray).size !== userNumbersArray.length) {
+        alert("[ERROR] 중복된 값이 존재합니다.")
+    } else if(rangeException()) {
+        alert("[ERROR] 1에서 9 사이의 범위를 벗어나는 숫자가 있습니다.");
+    } else {
+        // userNumbersArray에 더이상 문제 없음
+        // computerNumbersArray와 userNumbersArray 비교  
+        let strike = 0;
+        let ball = 0;
+        const result = document.querySelector(`.result_${times}`);
+
+        for (let i = 0; i < userNumbersArray.length; i++) {
+            if (computerNumbersArray[i] === userNumbersArray[i]) {
+                strike++;
+            } else if (computerNumbersArray.includes(userNumbersArray[i])) {
+                ball++;
+            } 
+        }
+        if (strike === 3) {
+            result.innerHTML = "3스트라이크🥇🥇🥇"+"<br>"+"3개의 숫자를 모두 맞히셨습니다!"+"<br>"+"게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+            gameRestart();
+            gameFinished();
+        } else {
+            if (strike === 0 && ball === 0) {
+                result.innerHTML = "낫싱";
+            } else {
+                result.innerHTML = `${strike}스트라이크 ${ball}볼`;
+            }
+            addTry();
+        }
+    }
+}
+
 
 // 프로그램의 시작 함수
 function play() {
