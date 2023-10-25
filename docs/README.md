@@ -65,7 +65,7 @@
 
 - [x] `게임 종료 후 재시작` 테스트 통과하기
 - [x] `예외 테스트` 테스트 통과하기
-- [ ] IOManager 모듈 테스트 코드 작성, 전부 fail
+- [x] IOManager 모듈 테스트 코드 작성, 전부 fail
 - [ ] IOManager 모듈 테스트 통과하기
 - [ ] AnswerManager 모듈 테스트 코드 작성, 전부 fail
 - [ ] AnswerManager 모듈 테스트 통과하기
