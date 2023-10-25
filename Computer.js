@@ -6,3 +6,8 @@ for (let n = 0; n <= 2; n += 1) {
     numbers.splice(index, 1);
 }
 console.log(answer);
+
+function defeated() {
+    const message = document.createTextNode(`패배! 정답은 ${answer.join('')}`);
+    $logs.appendChild(message);
+}
