@@ -18,6 +18,10 @@ class App {
     const checkIsDuplicate = new Set(answer).size === 3;
     const checkIsNumber = new RegExp(/^[1-9]{3}$/);
 
+//    Console.print("answer 유효성 검사");
+//    Console.print(checkIsNumber.test(answer));
+//    Console.print(checkLength);
+//    Console.print(checkIsDuplicate);
     if(checkLength == true && checkIsDuplicate == true && checkIsNumber.test(answer)==true){
       return answer;
     }
@@ -45,6 +49,7 @@ class App {
 
   async playBaseballGame(){
     const computerNumber = await this.createRandomNumber();
+     // Console.print(computerNumber);
 
     while(true){  
       const userNumber = await this.userInputNumber();
@@ -56,14 +61,15 @@ class App {
         Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
         
         const restart = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
-        if(restart === '2'){
+        
+        if(restart === '1'){
+          return await this.playBaseballGame();
+        }else if(restart ==='2'){
           return;
-        }else if(restart ==='1'){
-          await this.playBaseballGame();
-        }
+        }        
         else{
-           throw Error('[ERROR] 게임을 새로 시작하려면 1, 종료하려면 2를 입력해야합니다.');
-         }
+          throw Error('[ERROR] 게임을 새로 시작하려면 1, 종료하려면 2를 입력해야합니다.');
+        }
       }
     }
   }
