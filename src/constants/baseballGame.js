@@ -10,3 +10,7 @@ export const COMMAND = Object.freeze({
   RESTART: '1',
   END: '2',
 });
+
+export const SCORE = Object.freeze({
+  UNIT: 1,
+});

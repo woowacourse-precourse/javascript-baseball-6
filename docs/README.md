@@ -103,8 +103,8 @@
 
 ### Model
 
-- [ ] BaseballNumber
-- [ ] Computer
+- [x] BaseballNumber
+- [x] Computer
 - [ ] Error
 
 ### utils

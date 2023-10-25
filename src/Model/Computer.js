@@ -1,3 +1,5 @@
+import { SCORE } from '../constants/baseballGame.js';
+import { NUMBER } from '../constants/baseballNumber.js';
 import { BaseballNumber } from './BaseballNumber.js';
 
 export class Computer {
@@ -14,17 +16,17 @@ export class Computer {
   }
 
   #checkResult(answer, userNumber) {
-    const defaultValue = { strike: 0, ball: 0 };
+    const defaultScore = { strike: NUMBER.ZERO, ball: NUMBER.ZERO };
 
-    return answer.reduce((acc, current, index) => {
+    return answer.reduce((score, current, index) => {
       if (current === userNumber[index]) {
-        acc.strike += 1;
-        return acc;
+        score.strike += SCORE.UNIT;
+        return score;
       }
 
-      if (userNumber.includes(current)) acc.ball += 1;
+      if (userNumber.includes(current)) score.ball += SCORE.UNIT;
 
-      return acc;
-    }, defaultValue);
+      return score;
+    }, defaultScore);
   }
 }
