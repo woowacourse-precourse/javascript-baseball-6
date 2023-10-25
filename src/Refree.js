@@ -31,7 +31,7 @@ export default class Referee {
     }
 
     const result = [];
-    this.#ball && result.push(`${this.#ball}볼`);
+    this.#ball && result.push(`${this.#ball}`);
     this.#strike && result.push(`${this.#strike}스트라이크`);
 
     const output = result.join(" ");
