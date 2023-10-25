@@ -154,3 +154,11 @@ while (computer.length < 3) {
 - 미션은 [javascript-baseball](https://github.com/woowacourse-precourse/javascript-baseball-6/) 저장소를 Fork & Clone해 시작한다.
 - **기능을 구현하기 전 `docs/README.md`에 구현할 기능 목록을 정리**해 추가한다.
 - 과제 진행 및 제출 방법은 [프리코스 과제 제출](https://github.com/woowacourse/woowacourse-docs/tree/master/precourse) 문서를 참고한다.
+
+## 구현할 기능 목록 정리
+
+1. 숫자 랜덤으로 정하기 0~999
+2. 숫자 입력 받기
+3. 처음에 랜덤으로 정한 숫자와 비교
+4. 입력값과 처음에 정해진 숫자가 같을 경우, 루프 종료
+5. 예외 처리
