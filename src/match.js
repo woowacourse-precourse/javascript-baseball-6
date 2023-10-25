@@ -1,16 +1,12 @@
-const countBall = (numberArray1, numberArray2) => {
-    return numberArray1.filter((number, idx) => {
-        return numberArray2.includes(number) && numberArray2[idx] !== number;
-    }).length;
-};
+const checkBall = (numbersArray) => (number, idx) => numbersArray.includes(number) && numbersArray[idx] !== number;
 
-const countStrike = (numberArray1, numberArray2) => {
-    return numberArray1.filter((number, idx) => numberArray2[idx] === number).length;
-};
+const checkStrike = (numbersArray) => (number, idx) => numbersArray[idx] === number;
+
+const getCount = (numbersArray, check) => numbersArray.filter(check).length;
 
 const match = (numberArray1, numberArray2) => {
-    const ballCount = countBall(numberArray1, numberArray2);
-    const strikeCount = countStrike(numberArray1, numberArray2);
+    const ballCount = getCount(numberArray1, checkBall(numberArray2));
+    const strikeCount = getCount(numberArray1, checkStrike(numberArray2));
     return {
         ballCount,
         strikeCount
