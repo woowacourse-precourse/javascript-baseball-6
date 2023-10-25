@@ -25,12 +25,12 @@ class App{
     validateInputError(userNumber){
         const userNumberSet = new Set(userNumber.split('').map(Number));
 
-        if (userNumber.length !== 3) return '[ERROR]';
+        if (userNumber.length !== 3) return '[ERROR] 세자리 숫자를 입력해주세요';
         if ([...userNumberSet].length !== 3) {
-        return '[ERROR]';
+        return '[ERROR] 중첩되지 않는 세자리 수를 입력해주세요';
         }
-        if (userNumber.includes(' ')) return '[ERROR]';
-        if (Number.isNaN(userNumber)) return '[ERROR]';
+        if (userNumber.includes(' ')) return '[ERROR] 공백빼고 입력해주세요';
+        if (Number.isNaN(userNumber)) return '[ERROR] 숫자만 입력해주세요';
 
         return 'PASS';
     }
@@ -38,7 +38,6 @@ class App{
     countBall(randomNumber, userNumber){
         var balls = 0;
         for(var index =0; index<3; index++){
-            // 같은 index의 숫자는 다르지만 userNumber[index]가 randomNumber에 포함
             if(randomNumber[index] !== Number(userNumber[index])
             && randomNumber.includes(Number(userNumber[index]))){
                 balls+=1;
@@ -50,7 +49,6 @@ class App{
     countStrike(randomNumber, userNumber){
         var strikes = 0;
         for(var index =0; index<3; index++){
-            // 같은 index의 숫자는 다르지만 userNumber[index]가 randomNumber에 포함
             if(randomNumber[index] === Number(userNumber[index])){
                 strikes+=1;
             }
@@ -71,7 +69,7 @@ class App{
         Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');        
     }
 
-    printWithDelay(message) {
+    printGameoverMessage(message) {
         return new Promise((resolve) => {
             Console.print(message);
             resolve();
@@ -94,7 +92,7 @@ class App{
                             this.randomNumber = this.generateRandomNumbers();       
                         }
                         if (decisionNumber === 2) {
-                            await this.printWithDelay('게임 종료');
+                            await this.printGameoverMessage('게임 종료');
                             this.runningPlay = false;
                         }
                     }
@@ -113,9 +111,7 @@ class App{
 
 const app = new App();
 try {
-    app.play().catch(error => {
-        Console.print(error);
-    });
+    app.play();
 } catch (error) {
     Console.print(error);
 }
