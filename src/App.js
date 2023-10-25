@@ -51,11 +51,11 @@ class App {
   countStrike(computerPickNumArr, userPickNumArr) {
     let strikes = 0;
 
-    for (let i = 0; i < computerPickNumArr.length; i ++) {
-      if (computerPickNumArr[i] === userPickNumArr[i]) {
+    computerPickNumArr.forEach((number, idx) => {
+      if (number === userPickNumArr[idx]) {
         strikes += 1;
       }
-    }
+    });
 
     return strikes;
   }
@@ -63,11 +63,11 @@ class App {
   countBall(computerPickNumArr, userPickNumArr) {
     let balls = 0;
 
-    for (let i = 0; i < computerPickNumArr.length; i ++) {
-      if ((computerPickNumArr[i] !== userPickNumArr[i]) && (userPickNumArr.includes(computerPickNumArr[i]))) {
+    computerPickNumArr.forEach((number, idx) => {
+      if ((number !== userPickNumArr[idx]) && (userPickNumArr.includes(number))) {
         balls += 1;
       }
-    } 
+    });
 
     return balls;
   }
