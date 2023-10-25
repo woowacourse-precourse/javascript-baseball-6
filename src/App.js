@@ -44,15 +44,19 @@ class App {
 // -1 내 입력값이 ERROR인지 먼저 체크
 // 스트라이크와 볼 체크 전에 내 입력값이 ERROR인지 확인한다
 // 내 값의 배열에 0이 들어가 있거나 배열의 길이가 3이 아니면 throw [ERROR]
+// 내 값의 배열에 같은 숫자가 들어가있는지 체크(3-3중복체크)하고 그렇다면 throw [ERROR]
 
   async gameStart(RAN,MY_NUM){
     for(let I=0;I<MY_NUM.length;I++){
       if(MY_NUM[I] === 0) {
-        throw new Error('[ERROR] 입력범위_ 0 입력');
+        throw new Error('[ERROR] 0이 포함되어 있습니다.');
       }
     }
+    if(this.doubleNumber === true){
+      throw new Error('[ERROR]같은 숫자가 포함되어 있습니다.')
+    }
     if(MY_NUM.length !== 3){
-      throw new Error("[ERROR] 3자리 숫자를 입력하세요");
+      throw new Error("[ERROR] 3자리 숫자를 입력하세요.");
     }
 
 // 3-2.스트라이크와 볼 체크
@@ -91,6 +95,18 @@ class App {
       await this.myNumber(RAN);
     }
   }
+// 3-3중복체크 메서드
+// 내 배열에 중복이 있는지 확인하고 중복이 없으면(Set한 것이 길이가 3이면) false,
+// 그렇지 않으면 그 if문을 넘겨서 중복이 있다는 것이 되기 때문에 true 
+// 위에 this.doubleNumber 하여 true이면 throw Error
+  doubleNumber(MY_NUM){
+    const NUMBER_SET = new Set(MY_NUM)
+    if(NUMBER_SET.length === 3){
+      return false;
+    }
+    return true;
+  }
+
 
 // 4.printCheck
 // 받아온 것은 스트라이크 배열의 길이, 즉 스트라이크의 수와 볼의 배열(볼의 수)
