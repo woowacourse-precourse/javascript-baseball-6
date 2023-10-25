@@ -79,6 +79,8 @@ class App {
   async checkThreeStrike() {
     if (this.score[1] === 3) {
       Console.print(GAME_SUCCESS);
+    } else {
+      await this.getHitterNumbers();
     }
   }
 }
