@@ -25,24 +25,24 @@ class GameModel {
 
   // 결과 계산
   calculateResult(userInput) {
-    const RESULT = { STRIKES: 0, BALLS: 0 };
+    const result = { STRIKES: 0, BALLS: 0 };
 
     // 3개의 숫자로 이루어진 게임으로 3번 순환하며 비교
     for (let i = 0; i < 3; i++) {
       if (this.COMPUTER[i] === userInput[i]) {
         // 숫자와 자리 모두 일치하면 STRIKE에 1추가
-        RESULT.STRIKES += 1;
+        result.STRIKES += 1;
       } else if (this.COMPUTER.includes(userInput[i])) {
         // 일치하는 숫자가 존제하면 BALL에 1추가
-        RESULT.BALLS += 1;
+        result.BALLS += 1;
       }
     }
 
-    if (RESULT.STRIKES === 3) {
+    if (result.STRIKES === 3) {
       this.GAME_OVER = true;
     }
 
-    return this.formatGameResultMessage(RESULT);
+    return this.formatGameResultMessage(result);
   }
 
   // 게임 결과 표시

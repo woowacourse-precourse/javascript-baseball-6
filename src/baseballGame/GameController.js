@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE, GAME_TEXT } from "../Message";
+import { GAME_TEXT } from "../Message";
 import GameModel from "./GameModel";
 import GameUtil from "./GameUtil";
 import GameView from "./GameView";
