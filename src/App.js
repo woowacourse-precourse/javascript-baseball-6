@@ -27,4 +27,11 @@ class App {
 		return restart;
 	}
 
+	async play() {
+		const newGame = await this.playGame();
+		if (!newGame) {
+			return MissionUtils.Console.print(STRINGS.NO_REPLAY);
+		}
+	}
+}
 export default App;
