@@ -16,10 +16,11 @@ class App {
         }
       }
       MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-      shouldExit = await this.getExitInput();
+      shouldExit = await this.recieveExitInput();
     }
   }
 
+  // 컴퓨터 숫자 배열을 랜덤하게 생성
   generateComputerArray() {
     const isGenerated = new Array(10).fill(false);
     const computer = [];
@@ -33,6 +34,7 @@ class App {
     return computer;
   }
 
+  // 사용자에게 입력받은 뒤 숫자 배열로 처리
   async processInput() {
     let numberArray = [];
     const userNumberInput = await MissionUtils.Console.readLineAsync(
@@ -42,10 +44,11 @@ class App {
     return numberArray;
   }
 
+  // 입력이 유효한지 검사
   isValidInput(numberArray) {
     const numberCount = new Array(10).fill(0);
+    // 길이 검사
     if (numberArray.length !== 3) {
-      // 길이 검사
       return false;
     }
     for (const num of numberArray) {
@@ -62,7 +65,8 @@ class App {
     return true;
   }
 
-  async getExitInput() {
+  // 사용자가 종료를 원하는지 입력받은 뒤 bool형으로 리턴
+  async recieveExitInput() {
     let eixtInput = " ";
     eixtInput = await MissionUtils.Console.readLineAsync(
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
@@ -76,6 +80,7 @@ class App {
     }
   }
 
+  // 숫자 배열끼리 비교 --> 결과 메세지 출력
   compareNumberArray(human, computer) {
     let strikeCount = 0;
     let ballCount = 0;
@@ -93,6 +98,7 @@ class App {
     return false;
   }
 
+  // 비교 결과 메세지 생성
   generateMessage(strikeCount, ballCount) {
     let message = "";
     if (ballCount) {
