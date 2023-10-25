@@ -43,9 +43,10 @@ export default class Computer {
     returnMessage(expectNumbers) {
         const ballStrike = this.calculateBallStrike(expectNumbers);
         const result = this.getResultString(ballStrike);
-        if (ballStrike.strike === Computer.STRIKE)
-            return { result: result, success: true };
-        return { result: result, success: false };
+        return {
+            result: result,
+            success: ballStrike.strike === Computer.STRIKE,
+        };
     }
     calculateBallStrike(expectNumbers) {
         let ball = 0;
