@@ -1,11 +1,10 @@
 import { Console, MissionUtils } from "@woowacourse/mission-utils";
+import App from "./App.js";
 import {
   NOTHING,
   STRIKE,
   BALL,
-  END_OR_RESET_MESSAGE,
-  END_MESSAGE,
-  CORRECT_MESSAGE,
+
   INPUT_MESSAGE,
 } from "./Constants.js";
 
@@ -63,14 +62,5 @@ export default class Game {
     return "통과";
   }
 
-  async endOrReset() {
-    Console.print(CORRECT_MESSAGE);
-    const endMessage = await Console.readLineAsync(END_OR_RESET_MESSAGE);
-    if (endMessage == 1) {
-      this.answer = this.makeAnswer();
-      await this.play();
-    } else {
-      Console.print(END_MESSAGE);
-    }
-  }
+
 }
