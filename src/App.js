@@ -112,6 +112,24 @@ class App {
     }
   }
 
+  async finishedGame() {
+    const restartChoice = await Console.readLineAsync(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+    );
+    const choice = parseInt(restartChoice);
+
+    if (choice !== 1 && choice !== 2) {
+      throw new Error("[ERROR] 1과 2 중에서 입력 해야합니다.");
+      return;
+    }
+
+    if (choice === 1) {
+      this.restart = true;
+    }
+
+    if (choice === 2) {
+      this.proceeding = false;
+      return;
     }
   }
 }
