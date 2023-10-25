@@ -13,7 +13,7 @@ class App {
 
     while (!this.isGameEnded) {
       const inputNumbers = await this.view.getPlayerGuess();
-      this.balls.isValidInput(inputNumbers);
+      this.balls.inputValidation(inputNumbers);
 
       const ball = this.balls.calculateBall(inputNumbers);
       const strike = this.balls.calculateStrike(inputNumbers);
