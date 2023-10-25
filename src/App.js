@@ -37,17 +37,19 @@ class App {
   async check(userInput, _ = paramType(userInput, Number)) {
     const countResult = this.baseBall.countResult(userInput);
     const { strike } = countResult;
+
+    this.outputView.printBaseBallCountResult(countResult);
+
     if (strike === GAME_COMMAND.IS_OUT_COUNT) {
-      this.outputView.printThreeStrikes();
       await this.complete();
       return;
     }
-    this.outputView.printBaseBallCountResult(countResult);
 
     await this.pitching();
   }
 
   async complete() {
+    this.outputView.printGameEndMessage();
     await this.requestRestart();
   }
 

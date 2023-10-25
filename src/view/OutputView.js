@@ -19,27 +19,24 @@ export default class OutputView {
     _ = paramType(baseBallCountResult, Object)
   ) {
     const { strike, ball, isNothing } = baseBallCountResult;
+    console.log(baseBallCountResult);
 
-    if (!ball && strike) {
-      this.#print(`${strike}${BASEBALL_TEXT.STRIKE}`);
-      return;
-    }
-    if (ball && !strike) {
-      this.#print(`${ball}${BASEBALL_TEXT.BALL}`);
-      return;
-    }
     if (isNothing) {
       this.#print(BASEBALL_TEXT.NOTHING);
       return;
     }
-    this.#print(
-      `${ball}${BASEBALL_TEXT.BALL} ${strike}${BASEBALL_TEXT.STRIKE}`
-    );
-  }
 
-  printThreeStrikes() {
-    this.#print(`3스트라이크
-3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
+    if (!ball && strike) {
+      this.#print(`${strike}${BASEBALL_TEXT.STRIKE}`);
+      return;
+    } else if (ball && !strike) {
+      this.#print(`${ball}${BASEBALL_TEXT.BALL}`);
+      return;
+    } else {
+      this.#print(
+        `${ball}${BASEBALL_TEXT.BALL} ${strike}${BASEBALL_TEXT.STRIKE}`
+      );
+    }
   }
 
   #print(text, _ = paramType(text, String)) {
