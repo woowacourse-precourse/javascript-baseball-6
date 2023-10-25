@@ -8,14 +8,14 @@ class App {
       if (isPlaying) {
         let isDup = new Set(arrInput).size !== arrInput.length;
         if (arrInput.length !== 3 || arrInput.includes(0) || isDup) {
-          throw new Error("세자리 숫자오류, 종료합니다.");
+          throw new Error("[ERROR]");
         }
       }
       //게임 끝
       else if (!isPlaying) {
         if (arrInput[0] !== 1 && arrInput[0] !== 2) {
           //1이나 2가 아닐 때
-          throw new Error("한자리 숫자오류, 종료합니다.");
+          throw new Error("[ERROR]");
         }
       }
     }
