@@ -24,11 +24,16 @@ class App {
     //Console의 readLineAsync(query) :  주어진 질문을 화면에 출력하고, 사용자가 입력한 답변을 Promise를 통해 반환
     async function getNumber() {
       try {
-        const number = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 (단, 조건은 서로 다른 3자리의 수를 입력)');
+        MissionUtils.Console.print('아래의 조건에 따르세요.')
+        MissionUtils.Console.print('조건 1 : 1부터 9까지의 숫자를 입력')
+        MissionUtils.Console.print('조건 2 : 서로 다른 3자리의 수를 입력')
+        const number = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요');
       } catch (error) {
         //reject 되는 경우
       }
     }
+
+    //플레이어와 컴퓨터(상대방)의 숫자 비교
     
     
     //1볼 1스트라이크
