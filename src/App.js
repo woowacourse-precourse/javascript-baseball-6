@@ -12,7 +12,7 @@ class App {
    * @returns
    */
   async play() {
-    OutputView.printMessage(GUIDE_MESSAGES.START);
+    OutputView.printMessage(GUIDE_MESSAGES.start);
     await this.#player.startGame();
   }
 }
