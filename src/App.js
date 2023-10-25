@@ -26,7 +26,14 @@ class App {
     // MissionUtils.Console.print("comNumbers");
     // MissionUtils.Console.print(this.comNumbers);
 
-    let intersection = userNumbers.filter((num) => this.comNumbers.includes(num));
+    /* 
+    스트라이크 후보군을 뽑습니다
+    사용자 숫자 리스트와 컴퓨터 숫자 리스트의 교집합이 존재하면 이는 "스트라이크" 또는 "볼"이 될 수 있고
+    각 배열의 교집합의 원소의 인덱스가 같으면 "스트라이크", 다르면 "볼"로 판단할 수 있습니다  
+    */
+    let intersection = userNumbers.filter((num) =>
+      this.comNumbers.includes(num)
+    );
 
     if (Array.isArray(intersection) && intersection.length === 0) {
       return "낫싱";
@@ -60,12 +67,15 @@ class App {
   async play() {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
     this.comNumbers = [...this.getComNumbers()];
+
+    // this.FLAG = False 때까지 게임 지속 (종료조건은 strike 3개 && 2 입력)
     while (this.FLAG) {
       let userNumberstr = await MissionUtils.Console.readLineAsync(
         "숫자를 입력해주세요 : "
       );
       let userNumbers = [...userNumberstr].map(Number);
 
+      // 사용자 입력 유효성 검증
       this.validationInput(userNumbers);
 
       let res = this.calculateResult(userNumbers);
@@ -107,5 +117,5 @@ class App {
 
 export default App;
 
-const app = new App();
-app.play();
+// const app = new App();
+// app.play();
