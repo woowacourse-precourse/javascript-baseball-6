@@ -60,8 +60,9 @@ class App {
       MissionUtils.Console.print(output);
     }
 
-    //Start game
+    //게임 시작 함수
     async function gameStart() {
+      MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
       const computer = getComputer();
       // console.log(computer);
       let strike = 0;
@@ -108,8 +109,8 @@ class App {
       }
     }
 
-    //게임 실행
-    gameStart();
+    //게임 시작
+    await gameStart();
   }
 }
 
