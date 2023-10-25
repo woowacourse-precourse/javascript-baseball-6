@@ -1,6 +1,6 @@
 import { Random } from '@woowacourse/mission-utils';
 
-class Computer {
+class Generator {
   constructor() {
     this.computerNumber = this.generateRandomNumber();
   }
@@ -10,18 +10,15 @@ class Computer {
   }
 
   generateRandomNumber() {
-    const computerArray = [];
+    const generatedNumber = new Set();
 
-    while (computerArray.length < 3) {
+    while (generatedNumber.size < 3) {
       const newComputerNumber = Random.pickNumberInRange(1, 9);
-
-      if (!computerArray.includes(newComputerNumber)) {
-        computerArray.push(newComputerNumber);
-      }
+      generatedNumber.add(newComputerNumber);
     }
 
-    return computerArray.join('');
+    return Array.from(generatedNumber).join('');
   }
 }
 
-export default Computer;
+export default Generator;

@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import Computer from './Computer.js';
+import Computer from './Generator.js';
 import { isValidGameInputDuringGame } from './validator.js';
 import { getHintToUser } from './hintMaker.js';
 import { LOG_MESSAGE, HINT_MESSAGE, GAME_SELECT, ERROR_MESSAGE } from './constants.js';
