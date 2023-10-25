@@ -1,14 +1,8 @@
-import gameStart from "../src/controller/game-controller.js";
+import gameStart from './controller/game-controller';
 
 class App {
   async play() {
-    try{
-      await gameStart();
-    }catch(err){
-      throw err;
-    }
-   
+    await gameStart();
   }
 }
 export default App;
-

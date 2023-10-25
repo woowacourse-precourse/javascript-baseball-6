@@ -1,63 +1,35 @@
-import gameCase from "../model/game-case.js"
-import {inputController,continueController}  from "./input-controller.js";
-import { MissionUtils } from "@woowacourse/mission-utils";
-import {setResultView, pickView, viewError, viewGameContinue} from "../view/text-case.js";
-import {clearData, correct, ballCnt, strikeCnt} from "../model/data.js";
+import gameCase from '../model/game-case';
+import { inputController, continueController } from './input-controller';
+import { pickView, viewGameContinue } from '../view/text-case';
+import { clearData, ballCnt, strikeCnt } from '../model/data';
 
-//전체 게임 실행 or 종료
-const gameStart = async function(){
-   
-    var gameContinue = true;
-    
-    while(gameContinue){
+// 게임 진행 -> state에 따른 반복문 실행
+const gamePlay = async function gamePlay() {
+  let gameState = 1;
+  let caseNum = 1;
+  let viewText;
+  while (caseNum !== 4) {
+    caseNum = parseInt(await gameCase(gameState),10);
+    viewText = await pickView(caseNum, ballCnt, strikeCnt);
+    await inputController(caseNum, String(await viewText));
 
-        try{
-            await gamePlay();
-        }catch(err){
-            throw err;
-        }
-
-        try{
-            var answer = await continueController(viewGameContinue);
-            gameContinue = answer;
-            clearData();
-        }catch(err){
-            throw err;
-        }      
-         
+    if (gameState === 1 || gameState === 2) {
+      gameState += 1;
+    } else if (gameState === 3) {
+      gameState = 2;
     }
+  }
+};
 
-}
+//  전체 게임 실행 or 종료
+const gameStart = async function gameStart() {
+  let gameContinue = true;
+  let answer;
+  while (gameContinue) {
+    await gamePlay();
+    answer = await continueController(viewGameContinue);
+    gameContinue = answer;
+    clearData();
+  }
+};
 export default gameStart;
-
-//게임 진행 -> state에 따른 반복문 실행
-const gamePlay = async function(){
-    var gameState = 1;
-    var caseNum = 1;
-    while (true) {
-
-        //view처리를 어디서 해줄건지 정해야됨
-
-        caseNum = parseInt(await gameCase(gameState),10);
-       
-        var viewText = await pickView(caseNum, ballCnt, strikeCnt);
-        
-        try{
-            await inputController(caseNum, String(await viewText));
-            
-        }catch(err){
-            throw err;
-        }
-
-        if(caseNum===4)break;
-        if (gameState === 1 || gameState === 2) {
-            gameState++;
-        }else if(gameState === 3){
-            gameState = 2;
-        }
-        
-    }
-    
-
-}
-

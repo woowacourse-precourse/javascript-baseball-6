@@ -1,57 +1,35 @@
+import { MissionUtils } from '@woowacourse/mission-utils';
+import { setUserInputNum } from '../model/data';
 
-import { MissionUtils } from "@woowacourse/mission-utils";
-import {setResultView, viewError} from "../view/text-case.js";
-import { setUserInputNum } from "../model/data.js";
-import {error,ballCnt, strikeCnt} from "../model/data.js";
-
-const gameContinueInputController = async function continueController(viewInput){
-    while(true){
-        var stop = await MissionUtils.Console.readLineAsync(viewInput);
-        try{
-            if(parseInt(stop) === 1){
-                return true;
-            }
-            if(parseInt(stop) === 2){
-                return false;
-            }
-            error = false;
-            throw new Error('[ERROR] 잘못된 입력입니다.');
-        }catch(err){
-            error = false;
-            throw new Error('[ERROR] 잘못된 입력입니다.');
-        }
-
-    }       
-}
-
-const inputController = async function inputController(caseNum, viewText){
-
-    if(caseNum === 1||caseNum === 3||caseNum === 4){
-        MissionUtils.Console.print(viewText);
-        return;
+const gameContinueInputController = async function continueController(viewInput) {
+  const stop = await MissionUtils.Console.readLineAsync(viewInput);
+  try {
+    if (parseInt(stop, 10) === 1) {
+      return true;
     }
-
-    if(caseNum === 2){
-        try{
-            await getInputNum(viewText);
-        }catch(err){
-            throw err;
-        }
+    if (parseInt(stop, 10) === 2) {
+      return false;
     }
+    throw new Error('[ERROR] 잘못된 입력입니다.');
+  } catch (err) {
+    throw new Error('[ERROR] 잘못된 입력입니다.');
+  }
+};
 
-}
+const getInputNum = async function getInputNum(viewText) {
+  const answer = await MissionUtils.Console.readLineAsync(viewText);
+  setUserInputNum(await answer);
+};
 
+const inputController = async function inputController(caseNum, viewText) {
+  if (caseNum === 1 || caseNum === 3 || caseNum === 4) {
+    MissionUtils.Console.print(viewText);
+    return;
+  }
 
-const getInputNum = async function getInputNum(viewText){
-    var answer = await MissionUtils.Console.readLineAsync(viewText);
-    try{
-        setUserInputNum(await answer);
-    }catch(e){
-        throw e;
-    }
-        
+  if (caseNum === 2) {
+    await getInputNum(viewText);
+  }
+};
 
-    
-}
-
-export {inputController, gameContinueInputController as continueController};
+export { inputController, gameContinueInputController as continueController };
