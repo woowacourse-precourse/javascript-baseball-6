@@ -12,6 +12,10 @@ class App {
     this.isContinuous = true;
   }
 
+  async play() {
+    Console.print(MESSAGE_TABLE.GAME_START);
+  }
+
   generateRandomNumber() {
     const randomNumber = [];
 
@@ -47,6 +51,23 @@ class App {
     }
 
     return true;
+  }
+
+  validateParsedInput(userInput) {
+    let strikeCount = 0;
+    let ballCount = 0;
+
+    userInput.forEach((num, idx) => {
+      if (!this.#randomNumber.includes(num)) return;
+
+      if (this.#randomNumber.indexOf(num) === idx) {
+        strikeCount++;
+      } else {
+        ballCount++;
+      }
+    });
+
+    return `${ballCount}b${strikeCount}s`;
   }
 }
 
