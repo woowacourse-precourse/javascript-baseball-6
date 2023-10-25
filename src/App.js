@@ -6,7 +6,4 @@ class App {
     game.init();
   }
 }
-const app = new App();
-app.play();
-
 export default App;
