@@ -62,13 +62,20 @@ const checkIsNonDuplicated = (userInput) => {
   return input.length === 3;
 };
 
+const checkIncludeZero = (userInput) => {
+  const input = userInput.includes(0);
+
+  return input;
+};
+
 const checkInputIsValid = (userInput) => {
   const input = [...userInput];
 
   const isNumber = checkIsNumber(input);
   const isNonDuplicated = checkIsNonDuplicated(input);
+  const isIncludeZero = checkIncludeZero(input);
 
-  return isNumber && isNonDuplicated ? true : false;
+  return isNumber && isNonDuplicated && !isIncludeZero ? true : false;
 };
 
 const calculateScore = (userInput, randomNumber) => {

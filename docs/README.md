@@ -42,6 +42,15 @@
 - true : 사용자의 입력에 중복이 없음.
 - false : 사용자의 입력에 중복이 있음.
 
+**사용자 입력 유효성 검사 (0포함)**
+
+- name : checkIncludeZero
+- parameter : userInput
+- input : 사용자 입력 3자리
+- output : true, false
+- true : 사용자의 입력에 0이 포함.
+- false : 사용자의 입력에 0이 포함안됨.
+
 **사용자 입력 스코어 검사**
 
 - name : calculateScore
