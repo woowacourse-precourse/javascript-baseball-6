@@ -48,7 +48,7 @@ class PlayStage {
    * 사용자의 입력이 형식에 맞지 않을 경우 예외를 발생시킨다.
    * @param {string} text 사용자의 입력
    */
-  setIsValid(text) {
+  #setIsValid(text) {
     if (!/^[1-9]{3}$/.test(text)) {
       this.#isValid = false;
       return;
@@ -61,11 +61,41 @@ class PlayStage {
   }
 
   /**
-   * isValid를 반환한다.
-   * @return {boolean}
+   * 사용자의 입력에 따라 결과를 출력한다.
    */
-  getIsValid() {
-    return this.#isValid;
+  async run() {
+    while (this.#strikeCount !== 3) {
+      this.#strikeCount = 0;
+      this.#ballCount = 0;
+
+      const input = await this.#numberInput();
+      this.#setIsValid(input);
+      if (!this.#isValid) {
+        throw new Error("[ERROR]");
+      }
+
+      const inputNumbers = input.split("").map(Number);
+      for (let i = 0; i < 3; i += 1) {
+        if (this.#numbers[i] === inputNumbers[i]) {
+          this.#strikeCount += 1;
+        } else if (this.#numbers.includes(inputNumbers[i])) {
+          this.#ballCount += 1;
+        }
+      }
+
+      if (this.#strikeCount === 0 && this.#ballCount === 0) {
+        Console.print(MESSAGES.NOTHING);
+      } else if (this.#strikeCount === 0 && this.#ballCount > 0) {
+        Console.print(`${this.#ballCount}${MESSAGES.BALL}`);
+      } else if (this.#strikeCount > 0 && this.#ballCount === 0) {
+        Console.print(`${this.#strikeCount}${MESSAGES.STRIKE}`);
+      } else {
+        Console.print(
+          `${this.#ballCount}${MESSAGES.BALL} ${this.#strikeCount}${MESSAGES.STRIKE}`
+        );
+      }
+    }
+    Console.print(MESSAGES.SUCCESS);
   }
 }
 

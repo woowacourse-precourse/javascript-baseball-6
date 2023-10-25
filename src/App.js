@@ -1,5 +1,3 @@
-import InitialStage from "./InitialStage.js";
-
 class App {
   async play() {}
 }
