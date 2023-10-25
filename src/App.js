@@ -7,6 +7,10 @@ class App {
   async play() {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
     this.randomNumber();
+    await this.startGame();
+  }
+
+  async startGame() {
     await this.userNumber();
   }
 
