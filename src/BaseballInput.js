@@ -32,30 +32,6 @@ class BaseballInput {
       throw new Error("[ERROR] 3개의 숫자를 입력해주세요.");
     }
   }
-
-  guessRandomNum(random, userNum) {
-    let BALL = 0;
-    let STRIKE = 0;
-
-    for (let i = 0; i < 3; i++) {
-      if (userNum[i] === random[i]) STRIKE++;
-      else if (random.includes(userNum[i])) BALL++;
-    }
-    return { BALL, STRIKE };
-  }
-
-  printAnswer(BALL, STRIKE) {
-    if (STRIKE && BALL) {
-      Console.print(`${BALL}볼 ${STRIKE}스트라이크`);
-    } else if (STRIKE && !BALL) {
-      Console.print(`${STRIKE}스트라이크`);
-    } else if (!STRIKE && BALL) {
-      Console.print(`${BALL}볼`);
-    } else {
-      Console.print("낫싱");
-    }
-  }
-
   async printEnd() {
     const INPUT = await Console.readLineAsync(
       `게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n`
