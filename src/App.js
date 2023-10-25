@@ -36,7 +36,7 @@ class Game {
   constructor(player, restartCallback) {
     this.player = player;
     this.targetNumber = this.generateRandomNumber();
-    this.restartCallback = restartCallback; // 여기에 restart 함수를 전달받음
+    this.restartCallback = restartCallback; 
   }
 
   generateRandomNumber() {
@@ -107,7 +107,7 @@ class App {
   }
 
   async startNewGame() {
-    this.game = new Game(this.player, this.restartAndPlay.bind(this)); // restartCallback으로 restartAndPlay 함수를 전달
+    this.game = new Game(this.player, this.restartAndPlay.bind(this)); 
   }
 
   async restartAndPlay() {
@@ -129,9 +129,9 @@ class App {
     const isGameOver = await this.game.playRound();
 
     if (!isGameOver) {
-      this.play();  // 재귀적 호출로 게임을 계속함
+      this.play();  
     } else {
-      this.restartAndPlay();  // 게임이 끝났으면 재시작 여부를 물어봄
+      this.restartAndPlay(); 
     }
   }
 }
