@@ -56,8 +56,8 @@ class App {
   }
   // 힌트 출력 메서드
   printHintText(ball, strike) {
-    const ballCount = ball > 0 ? ball + '볼 ' : '';
-    const strikeCount = strike > 0 ? strike + '스트라이크' : '';
+    const ballCount = ball > 0 ? `${ball}볼 ` : '';
+    const strikeCount = strike > 0 ? `${strike}스트라이크` : '';
     if (strike === 0 && ball === 0) {
       Console.print('낫싱');
     } else {
