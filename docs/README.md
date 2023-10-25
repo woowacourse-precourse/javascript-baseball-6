@@ -114,13 +114,15 @@
 
 ### View
 
-- [ ] InputView
-- [ ] View
+- [x] InputView
+- [x] View
 
 ### Root
 
-- [ ] App.js
-- [ ] BaseballGame
+- [x] App.js
+      흠.. 이 부분은 재귀 => while문으로 바꾸는 것도 나쁜 선택은 아니었지만, 지금 보니까 App 내부에 Baseball 도메인 관련 메서드를 최소화했으면 더 좋지 않았을까? 싶기도 함. input받는 메서드를 DI 후, baseball에서 사용했어도 그렇게 큰 의존성은 아니지 않을까? 숫자 검증도 BaseballNumber 사용해도 괜찮으니..! 더 고민해보기.
+
+- [x] BaseballGame
 
 ### CustomError
 
