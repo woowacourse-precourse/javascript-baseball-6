@@ -13,7 +13,6 @@ class App {
       }
     }
 
-    MissionUtils.Console.print(computer);
     //플레이어 입력 받기
     let finished = false;
 
@@ -21,14 +20,15 @@ class App {
       let userInput = await MissionUtils.Console.readLineAsync(
         "숫자를 입력해주세요 : "
       );
-      userInput = Number(userInput);
 
-      if (typeof userInput !== "number") {
-        MissionUtils.Console.print(typeof userInput);
+      if (isNaN(userInput)) {
         MissionUtils.Console.print("[ERROR] 숫자를 입력해야 합니다.");
+        throw new Error("[ERROR] 숫자를 입력해야 합니다.");
+        finished = true;
       } else if (userInput.toString().length !== 3) {
-        MissionUtils.Console.print(userInput.toString().length);
         MissionUtils.Console.print("[ERROR] 세 자리 숫자를 입력해야 합니다.");
+        throw new Error("[ERROR] 세 자리 숫자를 입력해야 합니다.");
+        finished = true;
       } else {
         let countStrike = 0;
         let countBall = 0;
@@ -47,6 +47,8 @@ class App {
 
         if (countStrike === 3) {
           //r게임 종료
+          MissionUtils.Console.print("3스트라이크");
+
           MissionUtils.Console.print(
             "3개의 숫자를 모두 맞히셨습니다! 게임 종료"
           );
@@ -67,8 +69,10 @@ class App {
           MissionUtils.Console.print("낫싱");
         } else if (countStrike === 0) {
           MissionUtils.Console.print(`${countBall}볼`);
-        } else {
+        } else if (countBall === 0) {
           MissionUtils.Console.print(`${countStrike}스트라이크`);
+        } else {
+          MissionUtils.Console.print(`${countBall}볼 ${countStrike}스트라이크`);
         }
       }
     }
