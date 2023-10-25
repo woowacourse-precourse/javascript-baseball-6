@@ -7,7 +7,6 @@ class App {
 
     while (End != true) {
       const computer = this.creatingComputer();
-      Console.print(computer);
       while (true) {
         const userNumbers = await this.UserInput();
         const result = this.calculateResult(computer, userNumbers);
