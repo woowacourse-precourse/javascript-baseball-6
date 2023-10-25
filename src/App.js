@@ -24,7 +24,6 @@ class App {
 
   async setting() {
     const randomNumbers = createRandomNumbers(3);
-    console.log(randomNumbers);
     this.baseBall = new BaseBall(randomNumbers);
 
     await this.pitching();
