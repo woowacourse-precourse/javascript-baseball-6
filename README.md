@@ -1,3 +1,63 @@
+# 구현 기능 목록
+
+## 컴퓨터의 숫자 결정
+
+- 랜덤한 세개의 숫자를 중복되지 않게 임의로 선정한다.
+
+```javascript
+  #setAnswer() {
+    this.#answer = setRandomAnswer();
+  }
+```
+
+## 사용자의 입력값 받기 및 유효성 검사
+
+- 사용자의 입력을 받고, 입력이 중복되지 않은 세자리 숫자인지 확인한다.
+
+```javascript
+  async #setGuess() {
+    this.#guess = await inputGuess();
+  }
+```
+
+## 컴퓨터의 숫자와 사용자의 숫자 비교
+
+- 컵퓨터의 숫자와 사용자의 숫자를 비교하여 ball, strike 결과를 반환한다.
+
+## 비교 결과를 통한 결과 출력
+
+- ball, strike 결과를 통해 출력 요구사항에 맞추어 출력한다.
+- 정답인 경우 게임을 종료한다
+
+```javascript
+  #judgeGuessAndResult(guess, answer) {
+    const result = judgeGuess(guess, answer);
+    
+    if (result.strike === 3) {
+      this.#setIsCorrect(true);      
+    }
+
+    Console.print(resultToString(result));
+  }
+```
+
+## 정답 시 게임 재시작 및 종료
+
+- 정답을 맞춘 경우 사용자의 입력을 받아 게임을 재시작하거나 완전히 종료한다.
+
+```javascript
+  async #restartControl() {
+    if (await restartInput() === '2') {
+      this.#setIsEnded(true);
+    } else {
+      this.#setAnswer();
+      this.#setIsCorrect(false);
+    }
+  }
+```
+
+---
+
 # 미션 - 숫자 야구
 
 ## 🔍 진행 방식
