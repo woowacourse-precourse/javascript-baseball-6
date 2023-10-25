@@ -36,6 +36,18 @@ class Numbers {
         return score;
         }
 
+    // 점수 결과 메세지
+    result(scoreArray) {
+        if (scoreArray[0] === 0 && scoreArray[1] === 0) {
+          MissionUtils.Console.print(MESSAGES.RESULT_NOTHING);
+        } else if (scoreArray[1] === 0) {
+          MissionUtils.Console.print(`${scoreArray[0]}${MESSAGES.RESULT_STRIKE}`);
+        } else if (scoreArray[0] === 0) {
+          MissionUtils.Console.print(`${scoreArray[1]}${MESSAGES.RESULT_BALL}`);
+        } else {
+          MissionUtils.Console.print(`${scoreArray[1]}${MESSAGES.RESULT_BALL} ${scoreArray[0]}${MESSAGES.RESULT_STRIKE}`);
+        }
+      }
 }
 
 
