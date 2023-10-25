@@ -1,7 +1,7 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
+import { AnswerMaker } from "./AnswerMaker";
 
 class App {
-  
   async play() {
       await gameStart();
   }
@@ -21,7 +21,7 @@ app.play();
 function gameStart() {
   results.strick = 0;
   results.ball = 0;
-  const answer = makeAnswer(); //list
+  const answer = AnswerMaker.generate(); //list
   return gameContinue(answer);
 }
 
@@ -84,19 +84,6 @@ function userIntention(select) {
   } else {
       process.exitCode = 0;
   }
-}
-
-//정답 생성
-function makeAnswer() {
-  const computer = [];
-      while (computer.length < 3) {
-          const number = MissionUtils.Random.pickNumberInRange(1, 9);
-          if (!computer.includes(number)) {
-              computer.push(number);
-          }
-      }
-  //console.log(computer);
-  return computer;
 }
 
 //유효숫자 검증
