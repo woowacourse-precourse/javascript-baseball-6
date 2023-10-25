@@ -7,6 +7,10 @@ class App {
   async play() {
     Console.print('숫자 야구 게임을 시작합니다.');
     this.initAnswer();
+    await this.playball();
+  }
+
+  async playball() {
     while (!this.#isPause) {
       let inputedNumbers = '';
       try {
@@ -19,13 +23,17 @@ class App {
       Console.print(this.trimString(countedResult));
       if (this.checkAnswer(countedResult.cntStrike)) {
         Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
-        const pickedType = await Console.readLineAsync(`게임을 새로 시작하려면 ${GameType.RESTART}, 종료하려면 ${GameType.END}를 입력하세요.`);
-        if (pickedType === GameType.END) {
-          this.#isPause = true;
-        } else if (pickedType === GameType.RESTART) {
-          this.initAnswer();
-        }
+        await this.checkTryAgain();
       }
+    }
+  }
+
+  async checkTryAgain() {
+    const pickedType = await Console.readLineAsync(`게임을 새로 시작하려면 ${GameType.RESTART}, 종료하려면 ${GameType.END}를 입력하세요.`);
+    if (pickedType === GameType.END) {
+      this.#isPause = true;
+    } else if (pickedType === GameType.RESTART) {
+      this.initAnswer();
     }
   }
 
@@ -110,7 +118,5 @@ class App {
     this.#answer = computer.join('');
   }
 }
-
-new App().play();
 
 export default App;
