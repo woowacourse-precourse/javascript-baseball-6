@@ -10,10 +10,12 @@ class App {
       }
     }
     const secretNumber =  computer.join('');
-    // console.log(secretNumber);
     return secretNumber;
   }
-
+  
+  sayStart(){
+    Console.print('숫자 야구 게임을 시작합니다.');
+  }
 
   startGame() {
     const secretNumber = this.generateSecretNumber();
@@ -30,7 +32,7 @@ class App {
     if (guess[0] === guess[1] || guess[1] === guess[2] || guess[2] === guess[0]) {
       throw new Error('숫자가 잘못된 형식입니다.');
     }
-  };
+  }
 
   restartOrExit(secretNumber, guess) {
     this.isValidGuess(guess);
@@ -83,16 +85,12 @@ class App {
 
   }
 
-  play() {
-    Console.print('숫자야구 게임을 시작합니다.');
+  async play() {
+    this.sayStart();
     this.startGame();
   }
 
   
 }
-
-// const app = new App();
-// app.play();
-
 
 export default App;
