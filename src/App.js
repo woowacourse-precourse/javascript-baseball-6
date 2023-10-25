@@ -109,7 +109,7 @@ class App {
       case WORD.EXIT:
         return false;
       default:
-        this.Error.validateUserInput(input);
+        this.Error.validateRetryInput(input);
     }
   }
 }
