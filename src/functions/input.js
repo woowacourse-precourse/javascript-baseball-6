@@ -7,8 +7,9 @@ export async function input() {
   const inputString = await Console.readLineAsync('숫자를 입력해주세요 : ');
 
   const numbers = inputString.split('').map(Number);
-  validate(numbers);
+  const { valid, reason } = validate(numbers);
 
+  if (!valid) throw new InputError(reason);
   return numbers;
 }
 

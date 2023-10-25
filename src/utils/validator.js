@@ -1,4 +1,3 @@
-import InputError from '../errors/input-error';
 import { CONSTANTS } from '../constants';
 
 /**
@@ -34,20 +33,37 @@ export const isUnique = (numbers) => new Set(numbers).size === numbers.length;
 /**
  * 입력값을 검사하는 함수
  * @param {number[]} numbers
+ * @returns {{reason: string, valid: boolean}}
  */
 export default function validate(numbers) {
   if (!isSafeInteger(numbers)) {
-    throw new InputError('숫자를 입력해주세요.');
+    return {
+      valid: false,
+      reason: '숫자를 입력해주세요.',
+    };
   }
+
   if (!isInRange(numbers)) {
-    throw new InputError(
-      `${CONSTANTS.RANGE.from}~${CONSTANTS.RANGE.to} 사이의 숫자를 입력해주세요.`,
-    );
+    return {
+      valid: false,
+      reason: `${CONSTANTS.RANGE.from}~${CONSTANTS.RANGE.to} 사이의 숫자를 입력해주세요.`,
+    };
   }
   if (!isThreeWord(numbers)) {
-    throw new InputError(`${CONSTANTS.MAX_INPUT_SIZE}자리 숫자를 입력해주세요.`);
+    return {
+      valid: false,
+      reason: `${CONSTANTS.MAX_INPUT_SIZE}자리 숫자를 입력해주세요.`,
+    };
   }
   if (!isUnique(numbers)) {
-    throw new InputError('중복되지 않는 숫자를 입력해주세요.');
+    return {
+      valid: false,
+      reason: '중복되지 않는 숫자를 입력해주세요.',
+    };
   }
+
+  return {
+    valid: true,
+    reason: '',
+  };
 }
