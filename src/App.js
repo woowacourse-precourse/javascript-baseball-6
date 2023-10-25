@@ -62,10 +62,11 @@ class App {
         if (restart == 1){
           start = true;
         }
-        else{
+        else if (restart == 2){
           end = true;
           start = true;
         }
+        throw new Error('[ERROR] 입력이 잘못되었습니다')
       }
     }
   }
