@@ -1,14 +1,14 @@
 import { Console } from "@woowacourse/mission-utils";
-
+import { Message } from "../domain/Constant.js";
 const InputView = {
   async readUserGuessNumber(callback) {
-    await Console.readLineAsync("숫자를 입력해주세요 : ").then((input) => {
+    await Console.readLineAsync(Message.GUESS_NUMBER).then((input) => {
       callback(input);
     });
   },
 
   async readRestartNumber(callback) {
-    await Console.readLineAsync("").then((input) => {
+    await Console.readLineAsync(Message.RESTART_GAME).then((input) => {
       callback(input);
     });
   },

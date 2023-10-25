@@ -2,13 +2,13 @@ import BaseballGame from "../domain/BaseballGame.js";
 import randomNumberGenerator from "../utils/RandomNumberGenerator.js";
 import InputView from "../view/InputView.js";
 import OutputView from "../view/OutputView.js";
+import { StaticNumber } from "../domain/Constant.js";
 
 class BaseballGameController {
   #baseball;
 
   constructor(size) {
-    // randomNumberGenerator.generate(size))
-    this.#baseball = new BaseballGame([4, 2, 5]);
+    this.#baseball = new BaseballGame(randomNumberGenerator.generate(size));
   }
 
   async startGame() {
@@ -24,10 +24,10 @@ class BaseballGameController {
 
   async readRestartNumber() {
     await InputView.readRestartNumber((input) => {
-      if (input === "1") {
+      if (input === StaticNumber.RESTART_NUMBER) {
         this.resetGame();
       }
-      if (input === "2") return;
+      if (input === StaticNumber.END_NUMBER) return;
     });
   }
 
@@ -42,7 +42,7 @@ class BaseballGameController {
   checkUserScore(strikeCount, ballCount) {
     OutputView.printUserScore(strikeCount, ballCount);
 
-    if (strikeCount == 3) {
+    if (strikeCount === StaticNumber.ANSWER_NUMBER_LENGTH) {
       OutputView.printGameOverMessage();
       return this.readRestartNumber();
     }
