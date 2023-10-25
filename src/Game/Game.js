@@ -3,6 +3,7 @@ import Computer from "../Computer/Computer.js";
 import User from "../User/User.js";
 import Validator from "./Validator.js";
 import Calculator from "./Calculator.js";
+import RestartManager from "./RestartManager.js";
 
 class Game {
   constructor() {
@@ -37,24 +38,13 @@ class Game {
       );
       MissionUtils.Console.print(resultMessage);
 
-      if (result.strikes === 3) break;
-    }
-
-    await MissionUtils.Console.print(
-      "3개의 숫자를 모두 맞히셨습니다! 게임 종료"
-    );
-    const restartInput = await MissionUtils.Console.readLineAsync(
-      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
-    );
-
-    switch (restartInput.trim()) {
-      case "1":
-        return this.start();
-      case "2":
-        MissionUtils.Console.print("게임을 종료합니다.");
+      if (result.strikes === 3) {
+        if (await RestartManager.askForRestart()) {
+          this.start();
+          break;
+        }
         break;
-      default:
-        throw new Error("잘못된 값을 입력하였습니다.");
+      }
     }
   }
 }
