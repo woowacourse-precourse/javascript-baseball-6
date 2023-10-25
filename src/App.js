@@ -35,7 +35,7 @@ class App {
   }
 
   async play() {
-    Console.print('숫자 야구 게임을 시작합니다.')
+    await Console.print('숫자 야구 게임을 시작합니다.')
     
     //게임 반복
     while(Number(this.getRestartNo()) === 1) { 
@@ -50,21 +50,21 @@ class App {
         }
 
         if(this.getAnswer() === this.getComputer().join('')) {
-          Console.print('3스트라이크');
-          Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+          await Console.print('3스트라이크');
+          await Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
           break;
         }
 
         const BALLSANDSTRIKES = await checkStrikesBalls(this.getAnswer(), this.getComputer());
 
         if(BALLSANDSTRIKES.balls > 0 && BALLSANDSTRIKES.strikes > 0) {
-          Console.print(BALLSANDSTRIKES.balls + '볼 ' + BALLSANDSTRIKES.strikes + '스트라이크');
+          await Console.print(BALLSANDSTRIKES.balls + '볼 ' + BALLSANDSTRIKES.strikes + '스트라이크');
         }else if(BALLSANDSTRIKES.balls > 0) {
-          Console.print(BALLSANDSTRIKES.balls + '볼');
+          await Console.print(BALLSANDSTRIKES.balls + '볼');
         }else if(BALLSANDSTRIKES.strikes > 0) {
-          Console.print(BALLSANDSTRIKES.strikes + '스트라이크');
+          await Console.print(BALLSANDSTRIKES.strikes + '스트라이크');
         }else {
-          Console.print('낫싱');
+          await Console.print('낫싱');
         }
       }
       
