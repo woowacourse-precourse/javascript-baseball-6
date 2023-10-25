@@ -5,7 +5,7 @@ import {
   checkDuplicate,
 } from "../util/inputValidation.js";
 
-export default async function getNumberAndCheck() {
+export default async function getInputAndCheck() {
   const userInput = await consoleView.readNumber();
 
   checkNumber(userInput);

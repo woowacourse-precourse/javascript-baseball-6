@@ -26,7 +26,7 @@ class App {
 
 export default App;
 
-// consoleView.printStart();
+consoleView.printStart();
 
 // const app = new App();
 // app.play();
