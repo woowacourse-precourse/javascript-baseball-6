@@ -1,5 +1,6 @@
 import { ERROR_MESSAGE, GAME_TEXT } from "../Message";
 import GameModel from "./GameModel";
+import GameUtil from "./GameUtil";
 import GameView from "./GameView";
 import { MissionUtils } from "@woowacourse/mission-utils";
 
@@ -7,6 +8,7 @@ class GameController {
   constructor() {
     this.model = new GameModel();
     this.view = new GameView();
+    this.util = new GameUtil();
   }
 
   async start() {
@@ -26,10 +28,9 @@ class GameController {
           // 유저 인풋 출력
           await this.view.displayUserInput(userInput);
           // 게임 결과 분석
-          const result = this.model.calculateResult(userInput);
+          const resultMessage = this.model.calculateResult(userInput);
           // 게임 결과 출력
-          this.displayGameResult(result);
-          // `GAME_OVER`이 true상태이면 게임 종료 메시지 출력
+          this.view.displayGameMessage(resultMessage);
           if (this.model.GAME_OVER === true) {
             this.view.displayGameMessage(GAME_TEXT.END);
           }
@@ -51,40 +52,19 @@ class GameController {
     const userInput = await MissionUtils.Console.readLineAsync(GAME_TEXT.INPUT);
 
     // 인풋 유효성 검사
-    this.model.inputValidator(userInput);
+    this.util.gameInputValidator(userInput);
 
     return userInput.split("").map(Number);
   }
 
-  // 게임 결과 표시
-  displayGameResult(result) {
-    let message = "";
-    // 3스트라이크인경우 게임 종료
-    if (result.STRIKES === 3) {
-      this.model.GAME_OVER = true;
-    }
-    if (result.STRIKES === 0 && result.BALLS === 0) {
-      // 하나도 일치하지 않는경우 "낫싱" 출력
-      message = GAME_TEXT.NOTHING;
-    } else {
-      // 스트라이크와 볼이 몇개인지 출력
-      message = `${result.BALLS > 0 ? result.BALLS + "볼" : ""} ${
-        result.STRIKES > 0 ? result.STRIKES + "스트라이크" : ""
-      }`;
-    }
-
-    // 게임 메시지 출력
-    this.view.displayGameMessage(message);
-  }
-
-  // 재시작 함수
+  // 재시작 인풋
   async restartGame() {
     const userRestart = await MissionUtils.Console.readLineAsync(
       GAME_TEXT.RESTART
     );
-    if (userRestart !== "1" && userRestart !== "2") {
-      throw new Error(ERROR_MESSAGE.RESTART_ERROR);
-    }
+    // 재시작 인풋 유효성 검사
+    this.util.restartInputVaildator(userRestart);
+
     return userRestart === "1";
   }
 }

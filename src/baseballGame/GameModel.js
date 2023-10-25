@@ -1,5 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import { ERROR_MESSAGE } from "../Message";
+import { GAME_TEXT } from "../Message";
 
 class GameModel {
   constructor() {
@@ -13,19 +13,6 @@ class GameModel {
     this.COMPUTER = this.generateRandomNumber();
   }
 
-  // 랜덤숫자 생성함수
-  // array를 사용하는경우
-  // generateRandomNumber() {
-  //   const randomNumbers = new Array();
-  //   while (randomNumbers.length < 3) {
-  //     const number = MissionUtils.Random.pickNumberInRange(1, 9);
-  //     if (!randomNumbers.includes(number)) {
-  //       randomNumbers.push(number);
-  //     }
-  //   }
-  //   return randomNumbers;
-  // }
-
   // Set을 사용하는 경우
   generateRandomNumber() {
     const randomNumbers = new Set();
@@ -36,6 +23,7 @@ class GameModel {
     return Array.from(randomNumbers);
   }
 
+  // 결과 계산
   calculateResult(userInput) {
     const RESULT = { STRIKES: 0, BALLS: 0 };
 
@@ -54,24 +42,28 @@ class GameModel {
       this.GAME_OVER = true;
     }
 
-    return RESULT;
+    return this.formatGameResultMessage(RESULT);
   }
 
-  // 중복검사 함수
-  inputValidator(userInput) {
-    // 중복검사를위한 객체 생성
-    const isDuple = new Set(userInput).size;
-
-    if (userInput.length !== 3) {
-      // 인풋의 길이가 3이상이면 LENTH_ERROR 반환
-      throw new Error(ERROR_MESSAGE.LENTH_ERROR);
-    } else if (isDuple !== 3) {
-      // isDuple의 size가 3이 아니면 중복된 값이 있었기 때문에 DUPLE_ERROR 반환
-      throw new Error(ERROR_MESSAGE.DUPLE_ERROR);
-    } else if (/\D/.test(userInput)) {
-      // 인풋값을 정수로 파싱후 Number.isInterger을사용해 정수인지 확인하여 false면 TYPE_ERROR 반환
-      throw new Error(ERROR_MESSAGE.TYPE_ERROR);
+  // 게임 결과 표시
+  formatGameResultMessage(result) {
+    // 변수 선언
+    let resultMessage = "";
+    // 3스트라이크인경우 게임 종료
+    if (result.STRIKES === 3) {
+      this.GAME_OVER = true;
     }
+    if (result.STRIKES === 0 && result.BALLS === 0) {
+      // 하나도 일치하지 않는경우 "낫싱" 출력
+      resultMessage = GAME_TEXT.NOTHING;
+    } else {
+      // 스트라이크와 볼이 몇개인지 출력
+      resultMessage = `${result.BALLS > 0 ? result.BALLS + "볼" : ""} ${
+        result.STRIKES > 0 ? result.STRIKES + "스트라이크" : ""
+      }`;
+    }
+    // 게임 메시지 출력
+    return resultMessage;
   }
 }
 

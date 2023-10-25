@@ -81,4 +81,37 @@
 - 게임 재시작 또는 종료 선택
 - 프로그램 종료
 
-## 추가 기능
+## 디자인페턴 적용
+
+### MVC
+
+MVC패턴을 사용하여 코드 모듈화, 유지보수, 재사용성 및 테스트 용이성을 향상시킬 수 있습니다.
+
+- M(Model) - 데이터와 데이터 처리를 담당하며 비즈니스 로직과 애플리케이션 상태를 관리합니다.
+- V(view) - 사용자 인터페이스와 관련되며 데이터의 시각적 표현과 사용자 입력 처리를 담당합니다.
+- C(Controller) - Model과 View 간의 상호 작용을 조정하며 사용자 입력을 해석하고 처리한 뒤 Model과 View에 전달합니다.
+
+1. Model
+
+   - startNewGame -> 게임의 초기 셋팅
+   - generateRandomNumber -> Set을 사용하여 컴퓨터 랜덤 숫자를 겹치지않게 생성
+   - calculateResult -> 사용자가 입력한 숫자와 컴퓨터 랜덤숫자를 비교 후 결과 도출
+   - formatGameResultMessage -> 결과 메시지를 형식화
+
+2. View
+
+   - displayGameStart -> 게임의 시작멘트를 출력
+   - displayUserInput -> 사용자의 입력갑 출력
+   - displayGameMessage -> 게임 결과 출력
+
+3. Controller
+
+   - start -> baseBall게임의 실행 함수
+   - getPlayerInput -> 사용자로부터 3자리 숫자를 받아옴
+   - restartGame -> 사용자로부터 재시작/종료 숫자를 받아옴
+
+4. Util
+   MVC각각의 독립성을 유지하기 위해 사용자로부터 받아온 인풋값의 유효성 검사 및 추가기능을 위한 utility
+
+   - inputValidator -> 사용자의 입력값의 유효성 검사
+   - restartInputVaildator -> 사용자가 입력한 재시작 입력값의 유효성 검사
