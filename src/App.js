@@ -20,7 +20,7 @@ class App {
   }
 }
 
-const app = new App();
-app.play();
+// const app = new App();
+// app.play();
 
 export default App;

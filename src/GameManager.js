@@ -67,10 +67,10 @@ class GameManager {
 
     if (strike === 0 && ball === 0) {
       Console.print("낫싱");
-      Console.print(this.randomNum);
+      // Console.print(this.randomNum);
     } else {
       Console.print(`${ball}볼 ${strike}스트라이크`);
-      Console.print(this.randomNum);
+      // Console.print(this.randomNum);
     }
 
     if (strike !== 3) {
