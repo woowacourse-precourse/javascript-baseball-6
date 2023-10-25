@@ -1,4 +1,5 @@
 import ComputerNum from '../model/computer_num.js';
+import CalculateResult from '../model/calculate_game_result.js';
 import UserNumError from '../../utils/error/user_num_error.js';
 import {Console} from '@woowacourse/mission-utils';
 
@@ -29,6 +30,16 @@ class GameManage {
     new ComputerNum().createComputerNum() 
     : 
     this.computerNum; 
+    
+    this.gameResult(USER_NUM);
+  }
+  gameResult(USER_NUM) {
+    const GAME_RESULT = new CalculateResult(USER_NUM, this.computerNum).gameResult();
+    const PRINT_GAME_RESULT = new PrintGameResult(GAME_RESULT);
+    if (GAME_RESULT.strike === 3) {
+      PRINT_GAME_RESULT.printThreeStrike();
+    }
+    PRINT_GAME_RESULT.printNotRight();
   }
 }
 
