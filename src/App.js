@@ -1,91 +1,96 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import * as readline from 'node:readline/promises'
-import { stdin as input, stdout as output } from 'node:process'
-
-// 랜덤세자리 만들기
-const randomThree = () => {
-  const computer = [];
-  while (computer.length < 3) {
-    const number = MissionUtils.Random.pickNumberInRange(1, 9);
-    if (!computer.includes(number.toString())) {
-      computer.push(number.toString());
-    }
-  }
-  return computer;
-}
-
-// 유저 인풋 받기
-const userInput = async () => {
-  const rl = readline.createInterface({ input, output })
-  let userInputValue = await rl.question('숫자를 입력해주세요 : ');
-  rl.close();
-  return userInputValue;
-}
-
-// 타겟넘버랑 유저인풋 비교하기
-const compare = (TARGET_NUMBER, input) => {
-  let [ball, strike] = [0, 0];
-  input.forEach((v,i) => {
-    if(TARGET_NUMBER.includes(v)){
-      if(TARGET_NUMBER.indexOf(v)=== i){
-        strike++;
-      }else{
-        ball++;
-      }
-    }
-  }) 
-  return [ball, strike];
-}
-
-// 라운드 종료 메세지
-const endMessage = (ball, strike) => {
-  let message = '';
-
-  message = ball + strike == 0? '낫싱' : 
-    ball == 0? `${strike}스트라이크` : 
-    strike == 0? `${ball}볼` :
-    `${ball}볼 ${strike}스트라이크`;
-
-  return message;
-}
-
-// 도전 시작
-const round = (TARGET_NUMBER, input) => {
-  let [ball, strike] = compare(TARGET_NUMBER, input);
-  console.log(endMessage(ball, strike));
-  return strike === 3 ? 'clear' : 'fail';
-}
-
-// 맞힐 때까지 반복
-const trial = async (TARGET_NUMBER, round) => {
-  let trialN = await userInput()
-  trialN = trialN.toString().split('');
-  let result = round(TARGET_NUMBER, trialN);
-
-  if(result === 'fail'){
-    trial(TARGET_NUMBER, round);
-  }else if(result === 'clear'){
-    console.log('3개의 숫자를 모두 맞히셨습니다! 게임을 새로시작하려면 1을 종료하시려면 2를 입력하세요.') 
-    let restart = userInput();
-    return restart;
-  }
-}   
 
 class App {
+  createRandomThree() {
+    const computer = [];
+    while (computer.length < 3) {
+      const number = MissionUtils.Random.pickNumberInRange(1, 9);
+      if (!computer.includes(number.toString())) {
+        computer.push(number.toString());
+      }
+    }
+    return computer;
+  }
+
+  async getUserInput() {
+    const userInputValue = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
+    return userInputValue;
+  }
+
+  compare(input) {
+    let [ball, strike] = [0, 0];
+    input.forEach((v, i) => {
+      if (this.TARGET_NUMBER.includes(v)) {
+        if (this.TARGET_NUMBER.indexOf(v) === i) {
+          strike++;
+        } else {
+          ball++;
+        }
+      }
+    })
+    return [ball, strike];
+  }
+
+  getEndMessage(ball, strike) {
+    const message = ball + strike == 0 ? '낫싱' :
+      ball == 0 ? `${strike}스트라이크` :
+        strike == 0 ? `${ball}볼` :
+          `${ball}볼 ${strike}스트라이크`;
+
+    return message;
+  }
+
+  async startTrial(input) {
+    const [ball, strike] = this.compare(input);
+    MissionUtils.Console.print(this.getEndMessage(ball, strike));
+    return strike === 3 ? 'clear' : 'fail';
+  }
+
+  async startRound() {
+    let userTrial = await this.getUserInput();
+    userTrial = userTrial.toString();
+    const regExpNum = /^[1-9]+$/g;
+    const regExpSame = /(\d).*\1/g;
+    if (!userTrial.match(regExpNum) || userTrial.length !== 3 || userTrial.match(regExpSame)) {
+      throw new Error('[error] 숫자가 잘못된 형식입니다.');
+    } else {
+      userTrial = userTrial.split('');
+    }
+
+    const result = await this.startTrial(userTrial);
+
+    if (result === 'fail') {
+      return await this.startRound();
+    } else if (result === 'clear') {
+      MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료\n 게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+      const restart = await this.getUserInput();
+      return restart;
+    }
+  }
+
+  async startNewGame () {
+    this.TARGET_NUMBER = this.createRandomThree();
+      // console.log(this.TARGET_NUMBER)
+      const restart = await this.startRound();
+      if (restart === '1') {
+        return this.startNewGame();
+      } else if (restart === '2') {
+        MissionUtils.Console.print('게임종료')
+        return;
+      }
+  }
+
   async play() {
-    console.log('숫자 야구 게임을 시작합니다.')
-    const TARGET_NUMBER = randomThree();
-    let restart = await trial(TARGET_NUMBER, round);
-    if(restart === '1'){
-      return this.play();
-    }else if(restart === '2'){
-      return;
-    }else{
-      throw new Error('에러!')
+    try {
+      MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
+      this.startNewGame();
+    } catch (error) {
+      throw new Error(error);
     }
   }
 }
 
-export default App;
 const app = new App();
 app.play();
+
+export default App;
