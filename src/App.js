@@ -7,7 +7,6 @@ class App {
 
     while (gameStatus === 1) {
       let answerNumberArray = generateAnswerNumber(); // 정답 숫자 생성
-
       while (true) {  // 맞출 때까지
         let userInputNumberArray = [];
         let ballStrikeCounts = [];
@@ -16,9 +15,10 @@ class App {
           let userInputNumber = await Console.readLineAsync('숫자를 입력해주세요: ');
           userInputNumberArray = stringToNumberArray(userInputNumber);
         } catch (error) {
-          Console.print('[ERROR] ' + error.message + ' 게임 종료');
+          Console.print(error.message + ' 게임 종료');
           gameStatus = 2;
-          break;
+          throw new Error('[ERROR]'); // 추가
+          //break;
         }
 
         ballStrikeCounts = countBS(answerNumberArray, userInputNumberArray);  // 두 배열을 비교해서 ball, strike 개수 세기
@@ -30,18 +30,13 @@ class App {
         }
       }
 
-      if (gameStatus !== 2) { // 게임 종료 상태가 아닌 경우에만 게임 진행 여부 입력 받기
+      if (gameStatus === 1) { // 게임 종료 상태가 아닌 경우에만 게임 진행 여부 입력 받기
         try {
           let startOrQuitInput = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
-
-          if (startOrQuitInput != 1 && startOrQuitInput != 2) {
-            throw new Error('1 또는 2가 아닌 값이 입력되었습니다.');
-          }
-
-          gameStatus = parseInt(startOrQuitInput, 10);
+          gameStatus = getGameStatusChoice(startOrQuitInput.trim());
 
         } catch (error) {
-          Console.print('[ERROR] ' + error.message + ' 게임 종료');
+          Console.print(error.message + ' 게임 종료');
           gameStatus = 2;
           break;
         }
@@ -68,20 +63,20 @@ function generateAnswerNumber() { // 정답 숫자 배열 생성
 function stringToNumberArray(input) { // 입력값 예외 처리 후 숫자 배열로 만들어 리턴
 
   if (!input) {
-    throw new Error('입력값이 없습니다.');
+    throw new Error('[ERROR] 입력값이 없습니다.');
   }
   
   if (input.length !== 3) {
-    throw new Error('입력값의 길이가 3이 아닙니다.');
+    throw new Error('[ERROR] 입력값의 길이가 3이 아닙니다.');
   }
 
   if (!/^[1-9]+$/.test(input)) {
-    throw new Error('입력값에 0이 있거나 숫자가 아닌 값이 있습니다.');
+    throw new Error('[ERROR] 입력값에 0이 있거나 숫자가 아닌 값이 있습니다.');
   }
 
   let duplicateCheckSet = new Set(input.split(''));
   if (duplicateCheckSet.size !== 3) {
-    throw new Error('입력값 중 같은 숫자가 존재합니다.')
+    throw new Error('[ERROR] 입력값 중 같은 숫자가 존재합니다.')
   }
 
   return input.split('').map(str => parseInt(str, 10));
@@ -112,6 +107,14 @@ function printBallStrike(bsArray) { // ball, strike 개수에 따른 결과값 �
   } else {
     Console.print(`${bsArray[0]}볼`);
   }
+}
+
+function getGameStatusChoice(input) {
+  if (input != 1 && input != 2) {
+    throw new Error('[ERROR] 1 또는 2가 아닌 값이 입력되었습니다.');
+  }
+
+  return parseInt(input, 10);
 }
 
 const app = new App();
