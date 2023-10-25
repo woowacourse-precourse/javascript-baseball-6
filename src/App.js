@@ -1,9 +1,11 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
+import { ERROR, GAME } from "./Message";
 
 class App {
   async play() {
     function generateRandomNumber() {
       // 컴퓨터가 1~9 사이의 서로 다른 임의의 수 3개 선택하는 함수
+
       const computer = [];
       while (computer.length < 3) {
         const number = MissionUtils.Random.pickNumberInRange(1, 9);
@@ -16,6 +18,7 @@ class App {
 
     function calculateResult(computer, guess) {
       // 입력한 수에 대한 결과를 볼, 스트라이크 개수 계산 함수
+
       let strikes = 0;
       let balls = 0;
 
@@ -29,61 +32,68 @@ class App {
       return { strikes, balls };
     }
 
-    function palyGame() {
-      //숫자 야구 게임
-      MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
-      let Regame = true;
+    async function inputNumber() {
+      // 사용자로부터 서로 다른 3자리의 수 입력 받는 함수
 
-      while (Regame) {
-        const computer = generateRandomNumber();
-        let attempts = 0;
+      const userGuess = await MissionUtils.Console.readLineAsync(GAME.INPUT);
+      if (isNaN(userGuess)) throw new ERROR(ERROR.NUMBER);
+      else if (userGuess <= 1 || userGuess >= 9) throw new ERROR(ERROR.RANGE);
+      if (userGuess.length !== 3) throw new ERROR(ERROR.LENGTH);
+      if (new Set(userGuess).size !== userGuess.length)
+        throw new ERROR(ERROR.REPEATED);
 
-        while (ture) {
-          let input =
-            MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
-          let userGuess = input.split("").map(Number);
+      return [...userGuess].map(Number);
+    }
 
-          if (
-            userGuess.length !== 3 ||
-            userGuess.some(isNaN) ||
-            userGuess.some((num) => num < 1 || num > 9)
-          ) {
-            throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
-          }
+    function printResult() {
+      // 결과 출력하는 함수
 
-          attempts++;
-          const result = calculateResult(computer, userGuess);
-          if (result === "낫싱") MissionUtils.Console.print("낫싱");
-          else if (result.strikes === 3) {
-            MissionUtils.Console.print(
-              "3개의 숫자를 모두 맞히셨습니다! 게임 종료"
-            );
-            MissionUtils.Console.print(
-              "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
-            );
-            // 게임 재시작 or 종료
-            let answer = MissionUtils.Console.readLineAsync();
-            if (answer !== 1) {
-              Regame = false;
-            }
-            break;
-          } else if (result.strikes === 0) {
-            MissionUtils.Console.print(`${result.balls}볼`);
-          } else if (result.balls === 0) {
-            MissionUtils.Console.print(`${result.strikes}스트라이크`);
-          } else {
-            MissionUtils.Console.print(
-              `${result.balls}볼 ${result.strikes}스트라이크`
-            );
-          }
-        }
+      const result = calculateResult(computer, userGuess);
+      if (result.balls !== 0 || result.strikes !== 0) {
+        if (result.strikes === 3) {
+          MissionUtils.Console.print(
+            "3개의 숫자를 모두 맞히셨습니다! 게임 종료"
+          );
+          return true;
+        } else if (result.balls === 0)
+          MissionUtils.Console.print(`${result.strikes}스트라이크`);
+        else if (result.strikes === 0)
+          MissionUtils.Console.print(`${result.balls}볼`);
+        else
+          MissionUtils.Console.print(
+            `${result.balls}볼 ${result.strikes}스트라이크`
+          );
+      } else MissionUtils.Console.print("낫싱");
+      return false;
+    }
+
+    async function reGame() {
+      // 게임 재시작 or 종료
+
+      while (true) {
+        const userInput = await MissionUtils.Console.readLineAsync(
+          GAME.RESTART
+        );
+        if (userInput === "1") return true;
+        else if (userInput === "2") return false;
       }
     }
-    try {
-      palyGame();
-    } catch (error) {
-      MissionUtils.Console.print(error);
+
+    async function palyGame() {
+      // 숫자 야구 게임
+
+      MissionUtils.Console.print(GAME.START);
+      let computer = generateRandomNumber();
+      let RESTART = true;
+      do {
+        let userGuess = await inputNumber();
+        if (printResult(calculateResult(computer, userGuess))) {
+          RESTART = await reGame();
+          if (RESTART) computer = generateRandomNumber();
+        }
+      } while (RESTART);
     }
+    palyGame();
   }
 }
 
