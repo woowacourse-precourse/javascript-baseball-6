@@ -79,8 +79,18 @@ class App {
   async checkThreeStrike() {
     if (this.score[1] === 3) {
       Console.print(GAME_SUCCESS);
+      await this.getRestartStatus();
     } else {
       await this.getHitterNumbers();
+    }
+  }
+
+  async getRestartStatus() {
+    try {
+      const answer = await Console.readLineAsync(GAME_RESTART);
+      const answerNum = Number(answer);
+    } catch (error) {
+      throw new Error(ERROR_TEXT);
     }
   }
 }
