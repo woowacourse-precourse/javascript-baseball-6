@@ -21,5 +21,3 @@ export const validation = {
       throw new Error('[ERROR] 1 또는 2만 입력해주세요');
   },
 };
-
-console.log(' 12'.trim().length === 3);
