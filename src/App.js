@@ -1,8 +1,8 @@
 #!/usr/bin/env node
-const { Random, Console } = import('@woowacourse/mission-utils');
+import { Random, Console } from '@woowacourse/mission-utils';
 
 class App {
-  play() {
+  async play() {
     Console.print('숫자 야구 게임을 시작합니다.');
 
     while (true) {
@@ -10,8 +10,8 @@ class App {
       Console.print('서로 다른 3자리의 숫자를 입력해주세요: ');
       const userGuess = Console.readLineAsync();
 
-      if (userGuess.length !== 3 || !this.isUnique(userGuess)) {
-        Console.print('올바른 3자리 숫자를 입력해주세요.');
+      if (!this.isUnique(userGuess)) {
+        Console.print('서로 다른 3자리의 숫자를 입력해주세요.');
         continue;
       }
 
@@ -45,30 +45,24 @@ class App {
   }
 
   calculateResult(computer, userGuess) {
-    let strike = 0;
     let ball = 0;
-
+    let strike = 0;
     for (let i = 0; i < 3; i++) {
-      if (computer[i] === userGuess[i]) {
+      if (userGuess[i] === computer[i]) {
         strike++;
       } else if (computer.includes(userGuess[i])) {
         ball++;
       }
     }
-
-    if (strike === 3) {
-      return '3스트라이크';
-    } else {
-      const strikeText = strike > 0 ? `${strike}스트라이크` : '';
-      const ballText = ball > 0 ? `${ball}볼` : '';
-      const nothingText = strike === 0 && ball === 0 ? '낫싱' : '';
-      return `${strikeText} ${ballText} ${nothingText}`;
+    if (strike === 0 && ball === 0) {
+      return '낫싱';
     }
+    return (ball > 0 ? `${ball}볼 ` : '') + (strike > 0 ? `${strike}스트라이크` : '');
   }
 
-  askForRestart() {
-    Console.print('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
-    return Console.readLineAsync();
+  async askForRestart() {
+    Console.print('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요: ');
+    return await Console.readLineAsync();
   }
 }
 
