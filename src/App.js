@@ -56,7 +56,6 @@ export default class App {
     this.#view.print(GAME_START);
     const inputNumber = (await this.#view.input(INPUT_NUMBER)).trim();
     this.validateInput(inputNumber);
-
     return inputNumber;
   }
 
@@ -67,10 +66,8 @@ export default class App {
 
   async getUserRestartChoice() {
     const restartNumber = Number(await this.#view.input(SUGGEST_NEW_GAME));
-    if (this.validateRestartInput(restartNumber)) {
-      return restartNumber;
-    }
-    return null;
+    this.validateRestartInput(restartNumber);
+    return restartNumber;
   }
 
   /**
@@ -122,7 +119,6 @@ export default class App {
       `${HEADER}${DUPLICATE}`,
       validator.isDuplicate(input),
     );
-
     return true;
   }
 
