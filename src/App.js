@@ -13,20 +13,13 @@ class App {
       let gameContinue = true;
       while (gameContinue) {
         let user_input = await getUserNumbers();
-
-        MissionUtils.Console.print(
-          "!!!!!!컴퓨터에서 생성한 넘버!!!!!!!" + computer_random_number
-        );
-
         compareNumbers(computer_random_number, user_input);
         if (computer_random_number == user_input) {
           const restartOrExit = await MissionUtils.Console.readLineAsync(
             "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요: "
           );
-
           if (restartOrExit === "1") {
             computer_random_number = generateRandomNumber();
-
             continue; // 게임 재시작
           } else if (restartOrExit === "2") {
             MissionUtils.Console.print("게임 종료");
@@ -35,7 +28,6 @@ class App {
         }
       }
     }
-
     //게임 시작
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
     await baseballGame();
