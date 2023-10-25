@@ -5,12 +5,11 @@ class App {
     try {
       const GOAL = await this.getComNum();
       await this.tryPlay(GOAL)
-
-      //Console.print(`유저가 입력한 숫자 : ${number} ${Array.isArray(number)}`);
     } catch (error) {
       Console.print(`에러 발생: ${error.message}`);
       await this.play()
     }
+
   }
 
   async getComNum() {
@@ -35,7 +34,6 @@ class App {
   async getUserNum(GOAL) {
     const number = await Console.readLineAsync("숫자를 입력해주세요 : ");
 
-    console.log("??!?!")
     const EXIST = new Set();
 
     for (const digit of number) {
@@ -43,11 +41,13 @@ class App {
     }
 
     if(EXIST.size === 3){
+      /*
       const toInt = Array.from(EXIST).map((item)=>{
         return parseInt(item)
       })
-      console.log("toplay: return")
       return toInt;
+      */
+      return Array.from(EXIST).map(Number);
     }else{
       Console.print(`${number} 의 길이가 3 이 아니거나 중복숫자가 있습니다. ${EXIST.size}`);
       return 0;
