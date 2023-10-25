@@ -41,22 +41,18 @@ export class BaseballGame {
 
   async getUserNumber() {
     const user = await Console.readLineAsync(ConsoleMessage.USER_NUMBER);
-    const checkedNum = this.validateUserDigits(user.trim());
-    const parsedNum = checkedNum.map((v) => parseInt(v));
+    const validatedNum = this.validateUserDigits(user.trim());
+    const parsedNum = validatedNum.map((v) => parseInt(v));
     return parsedNum;
   }
 
   validateUserDigits(user) {
-    if (isNaN(user)) throw new Error(ErrorMessage.NUMBERS_ONLY);
-    const array = user.split('');
-    if (
-      array.length > BaseballGame.DIGITS_COUNT ||
-      array.length < BaseballGame.DIGITS_COUNT
-    )
-      throw new Error(ErrorMessage.THREE_DIGITS_ONLY);
-    const dupCheck = array.filter((v, i) => user.indexOf(v) === i);
-    if (dupCheck.includes('0'))
+    if (isNaN(user) || user.includes('0') || user.includes('.'))
       throw new Error(ErrorMessage.VALID_FROM_ONE_TO_NINE);
+    if (user.length !== BaseballGame.DIGITS_COUNT)
+      throw new Error(ErrorMessage.THREE_DIGITS_ONLY);
+    const array = user.split('');
+    const dupCheck = array.filter((v, i) => user.indexOf(v) === i);
     if (dupCheck.length < BaseballGame.DIGITS_COUNT)
       throw new Error(ErrorMessage.MUST_DIFFERENT_DIGITS);
     return dupCheck;
@@ -73,7 +69,7 @@ export class BaseballGame {
 
   printResult(score) {
     const { strike, ball } = score;
-    if (strike && ball) Console.print(`${strike}스트라이크 ${ball}볼`);
+    if (strike && ball) Console.print(`${ball}볼 ${strike}스트라이크`);
     if (strike && !ball) Console.print(`${strike}스트라이크`);
     if (!strike && ball) Console.print(`${ball}볼`);
     if (!strike && !ball) Console.print('낫싱');

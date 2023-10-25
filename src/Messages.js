@@ -1,8 +1,8 @@
 export const ErrorMessage = Object.freeze({
-  ONE_OR_TWO_ONLY: '[ERROR] 1 또는 2만 입력 가능합니다.',
   NUMBERS_ONLY: '[ERROR] 숫자만 입력 가능합니다.',
   THREE_DIGITS_ONLY: '[ERROR] 세 자리 수여야 합니다.',
-  VALID_FROM_ONE_TO_NINE: '[ERROR] 각 자리 수는 1~9 사이의 수여야 합니다.',
+  VALID_FROM_ONE_TO_NINE:
+    '[ERROR] 각 자리 수는 1~9 사이의 정수만 입력 가능 합니다.',
   MUST_DIFFERENT_DIGITS: '[ERROR] 각 자리 수는 모두 다른 수여야 합니다.',
 });
 
