@@ -6,6 +6,11 @@ const BaseballView  = {
 			MissionUtils.Console.print(message);
 	},
 
+	async getUserInput(message) {
+		const input = await MissionUtils.Console.readLineAsync(message);
+		return input;
+	}
+
 }
 
 export default BaseballView;
