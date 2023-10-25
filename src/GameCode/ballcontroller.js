@@ -19,10 +19,11 @@ export const getComputerBall = () => {
   const COMPUTER_NUM_ARRAY = [];
   while (COMPUTER_NUM_ARRAY.length < 3) {
     const NUM = MissionUtils.Random.pickNumberInRange(1, 9);
+
     if (!COMPUTER_NUM_ARRAY.includes(NUM)) {
       COMPUTER_NUM_ARRAY.push(NUM);
     }
   }
-
+  MissionUtils.Console.print(COMPUTER_NUM_ARRAY);
   return COMPUTER_NUM_ARRAY.join("");
 };
