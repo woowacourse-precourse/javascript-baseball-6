@@ -47,5 +47,9 @@ class Balls {
     }
     return balls;
   }
+
+  regenerateRandomNumber() {
+    this.randomNumbers = this.generateRandomNumber();
+  }
 }
 export default Balls;
