@@ -1,36 +1,37 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 
 export function getAnswer(SIZE) {
-  if (!Number.isInteger(SIZE)) {
-    return new Error("[ERROR]: digitNumber must be a natural number");
-  }
-  if (SIZE <= 0 || SIZE >= 10) {
-    return new Error(
-      "[ERROR]: digitNumber cannot be less than 0 or greater than 10"
-    );
-  }
-
-  let validNumber = "";
+  let answer = "";
   let digitCount = 0;
+
   while (digitCount < SIZE) {
     const pickedNumber = Random.pickNumberInRange(1, 9);
-    if (validNumber.indexOf(pickedNumber) === -1) {
+
+    if (answer.indexOf(pickedNumber) === -1) {
       digitCount += 1;
-      validNumber = validNumber + pickedNumber;
+      answer = answer + pickedNumber;
     }
   }
-  return validNumber;
+  return answer;
 }
 
 export async function getUserInput(SIZE) {
-  const guessInputNumber = await Console.readLineAsync(
-    "숫자를 입력해주세요 : "
-  );
-  if (isNaN(guessInputNumber)) {
-    throw new Error("[ERROR]: guessInputNumber must be a Number");
+  const userInput = await Console.readLineAsync("숫자를 입력해주세요 : ");
+  const userInputSet = new Set(userInput);
+
+  if (isNaN(userInput)) {
+    throw new Error("[ERROR]: Input value must be a number");
   }
-  if (guessInputNumber.length !== SIZE) {
-    throw new Error(`[ERROR]: guessInputNumber must be ${SIZE} digit Number`);
+  if (userInput.length !== SIZE) {
+    throw new Error(`[ERROR]: Input value must be ${SIZE} digit number`);
   }
-  return guessInputNumber;
+  if (userInputSet.size !== SIZE) {
+    throw new Error(
+      `[ERROR]: Input value must be ${SIZE} digit number with unique.`
+    );
+  }
+  if (userInput.indexOf("0") !== -1) {
+    throw new Error(`[ERROR]: Input value can not include zero.`);
+  }
+  return userInput;
 }
