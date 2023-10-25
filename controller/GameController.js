@@ -2,6 +2,8 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 import InputView from "../views/InputView.js";
 import OutputView from "../views/OutputView.js";
 import createRandomNumber from "../utils/CreateRandomNumber.js";
+import ERROR from "../src/Error.js";
+import Value from "../src/Value.js";
 
 class GameController {
   startGame() {
@@ -27,6 +29,15 @@ class GameController {
   }
 
   validCheck(number) {
+    if (number.some(isNaN))
+      throw new Error(ERROR.notNumber);
+    if (number.length !== Value.length)
+      throw new Error(ERROR.invalidLength);
+    if (number.includes(0))
+      throw new Error(ERROR.enterZero);
+    if (hasDuplication(number))
+      throw new Error(ERROR.duplicate);
+
     this.userInputNumber = number;
     this.countBallStrike();
   }
@@ -56,8 +67,13 @@ class GameController {
       this.startGame();
     else if (inputRegame == 2)
       return;
+    else
+      throw new Error(ERROR.invalidRestart);
   }
+}
 
+function hasDuplication(array) {
+  return (new Set(array)).size !== array.length;
 }
 
 export default GameController;
