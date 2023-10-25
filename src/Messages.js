@@ -10,4 +10,7 @@ const MESSAGES = {
   },
 };
 
+Object.freeze(MESSAGES);
+Object.freeze(MESSAGES.ERROR);
+
 export default MESSAGES;
