@@ -6,6 +6,7 @@ const LIMIT_NUM_LENGTH = 3;
 class App {
   async play() {
     const randomNum = this.getRandomNum();
+    await this.getInputNum(randomNum);
   }
 
   getRandomNum() {
@@ -18,6 +19,10 @@ class App {
       }
     }
     return computer;
+  }
+
+  async getInputNum(ranNum) {
+    let inputNum = await Console.readLineAsync("숫자를 입력해주세요 :");
   }
 }
 
