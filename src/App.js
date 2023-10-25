@@ -31,6 +31,7 @@ class App {
     }
     
     const [strike, ball] = this.CompareNum(input, random);
+    this.printResult(strike, ball);
   }
 
   CompareNum(input, random) { // 입력받은 수와 일치여부 확인
@@ -47,6 +48,21 @@ class App {
     }
 
     return [strike, ball];
+  }
+
+  printResult(strike, ball) {
+    if (ball === 0 && strike === 0) {
+      Console.print('낫싱');
+    }
+    else if (strike === 0) {
+      Console.print('${ball}볼');
+    }
+    else if (ball === 0) {
+      Console.print('${strike}스트라이크');
+    }
+    else {
+      Console.print('${ball}볼 ${strike}스트라이크');
+    }
   }
 }
 
