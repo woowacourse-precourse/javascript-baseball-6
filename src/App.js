@@ -66,6 +66,7 @@ class App {
         }
     }
 
+    // * 결과 문구 프린트 함수
     resultText(score) {
         if (score.strike <= 0 && score.ball <= 0) {
             MissionUtils.Console.print('낫싱');
