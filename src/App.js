@@ -24,7 +24,14 @@ class App {
   }
 
   async getNumber() {
-    this.answer = MissionUtils.Random.pickNumberInRange(100, 999);
+    const answerSet = new Set();
+
+    while (answerSet.size !== 3) {
+      answerSet.add(MissionUtils.Random.pickNumberInRange(1, 9));
+    }
+
+    this.answer = Array.from(answerSet).join("");
+    this.restart = false;
     return this.answer;
   }
 
