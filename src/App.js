@@ -70,12 +70,13 @@ class App {
     await Console.print(this.isIncluded());
   }
 
-  async isIncluded() {
-    const inputArr = this.input.toString().split("");
-    const answerArr = this.answer.toString().split("");
-    try {
-      const isInclude = answerArr.map((item, index) => {
-        return inputArr.includes(item);
+  async strike(inputArr, answerArr) {
+    const isStrike = answerArr.map((item, index) => {
+      return item === inputArr[index];
+    });
+    this.strikeCount = isStrike.filter((x) => x).length;
+    return this.strikeCount;
+  }
       });
       return isInclude.filter((x) => x).length;
     } catch (error) {
