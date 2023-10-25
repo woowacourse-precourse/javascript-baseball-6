@@ -19,12 +19,9 @@ export class BaseballGame {
   }
 
   async playBaseball(computer) {
-    let result = false;
-    while (!result) {
-      const user = await this.getUserNumber();
-      const score = this.getScore(computer, user);
-      result = this.printResult(score);
-    }
+    const user = await this.getUserNumber();
+    const score = this.getScore(computer, user);
+    const result = this.printResult(score);
     await this.restartGame(result);
   }
 
@@ -85,8 +82,8 @@ export class BaseballGame {
     else return false;
   }
 
-  restartGame(answer) {
-    if (answer) {
+  restartGame(result) {
+    if (result) {
       Console.print(ConsoleMessage.ALL_CORRECT);
       return this.endGame();
     } else return this.playBaseball(this.computer);
