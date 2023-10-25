@@ -56,7 +56,8 @@ describe("컴퓨터", () => {
 
     //then
     answers.forEach((answer, index) => {
-      const { strike, ball } = computer.calculateResult(answer);
+      computer.setResult(answer);
+      const { strike, ball } = computer.getResult();
       const { strike: correctStrike, ball: correctBall } = results[index];
 
       expect(strike).toBe(correctStrike);

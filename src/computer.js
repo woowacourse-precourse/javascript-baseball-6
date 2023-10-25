@@ -11,6 +11,9 @@ const NOTHING_TEXT = "낫싱";
 const STRIKE_TEXT = "스트라이크";
 const BALL_TEXT = "볼";
 const SUCCESS_MESSAGE = "3개의 숫자를 모두 맞히셨습니다! 게임 종료";
+const INVALID_CHARATER_ERROR_MESSAGE = "[ERROR] 1부터 9 사이의 숫자 이외의 값을 입력했습니다.";
+const INVALID_INPUT_LENGTH_ERROR_MESSAGE = "[ERROR] 입력값의 길이가 잘못됐습니다.";
+const DUPLICATED_NUMBER_ERROR_MESSAGE = "[ERROR] 중복된 숫자를 입력했습니다.";
 
 const toUniqueNumbers = (answer) => {
   const numbers = [
@@ -27,6 +30,10 @@ const toUniqueNumbers = (answer) => {
 class Computer {
   constructor() {
     this.numbers = [];
+    this.result = {
+      strike: 0,
+      ball: 0,
+    };
   }
 
   selectNumbers() {
@@ -63,7 +70,15 @@ class Computer {
     return uniqueNumbers.length === NUMBER_LENGTH;
   }
 
-  calculateResult(answer) {
+  setResult(answer) {
+    if (!Computer.validateAnswerLength(answer)) {
+      throw new Error(INVALID_INPUT_LENGTH_ERROR_MESSAGE);
+    } else if (!Computer.validateAnswerCharacter(answer)) {
+      throw new Error(INVALID_CHARATER_ERROR_MESSAGE);
+    } else if (!Computer.validateAnswerUnique(answer)) {
+      throw new Error(DUPLICATED_NUMBER_ERROR_MESSAGE);
+    }
+
     const userNumbers = toUniqueNumbers(answer);
 
     const result = userNumbers.reduce((result, userNumber, index) => {
@@ -92,7 +107,18 @@ class Computer {
       ball: 0,
     });
 
-    return result;
+    this.result = result;
+  }
+
+  resetResult() {
+    this.result = {
+      strike: 0,
+      ball: 0,
+    };
+  }
+
+  getResult() {
+    return this.result;
   }
 
   static validateReplayValue(replay) {
@@ -103,7 +129,9 @@ class Computer {
     MissionUtils.Console.print(INTRO_MESSAGE);
   }
 
-  static printResultMessage({ strike, ball }) {
+  printResultMessage() {
+    const { strike, ball } = this.result;
+
     if (strike === 0 && ball === 0) {
       MissionUtils.Console.print(NOTHING_TEXT);
       return;
@@ -122,12 +150,19 @@ class Computer {
     MissionUtils.Console.print(generatedMessage);
   }
 
-  static printSuccessMessage() {
+  printSuccessMessage() {
+    if (!this.checkSuccess()) return;
+    
     MissionUtils.Console.print(SUCCESS_MESSAGE);
   }
 
-  static checkSuccess(strike) {
-    return strike === NUMBER_LENGTH;
+  checkSuccess() {
+    return this.result.strike === NUMBER_LENGTH;
+  }
+
+  setRound() {
+    this.selectNumbers();
+    this.resetResult();
   }
 }
 
