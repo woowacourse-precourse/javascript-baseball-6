@@ -1,6 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 
-export default async function PlayerInputNumber() {
+export default async function playerInputNumber() {
 	try {
 		const answer = await Console.readLineAsync('숫자를 입력해주세요 : ');
 
