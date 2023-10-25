@@ -7,6 +7,10 @@ const answerNumberCheck = (input) => {
   if (!REGEXP.test(input)) {
     throw new Error(ERROR.INPUT_LENGTH);
   }
+  // 서로 다른 수인지 판단
+  if (new Set(input).size !== 3) {
+    throw new Error(ERROR.UNIQUE_VALUE);
+  }
 };
 
 const resetNumberCheck = (input) => {
