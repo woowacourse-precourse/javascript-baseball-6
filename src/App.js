@@ -21,7 +21,7 @@ class App {
         }
       }
 
-      if (!(await this.askForNewGame())) {
+      if (!(await this.resetGame())) {
         break;
       }
     }
@@ -37,7 +37,7 @@ class App {
       }
     }
   }
-  
+
   async checkUserNum(input) {
     if (!/^\d{3}$/.test(input) || !input.trim()) {
       throw new Error("[ERROR] 숫자가 잘못된 형식입니다");
@@ -79,7 +79,7 @@ class App {
     }
   }
 
-  async askForNewGame() {
+  async resetGame() {
     const answer = await Console.readLineAsync(
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요: \n"
     );
