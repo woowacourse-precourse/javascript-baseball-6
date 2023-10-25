@@ -22,7 +22,7 @@ export default async function startGame(COM_NUM) {
     let strikeCount = 0;
     let ballCount = 0;
 
-    USER_INPUT.forEach((elem, idx) => {
+    [...USER_INPUT].forEach((elem, idx) => {
       if (elem === COM_NUM[idx]) {
         return strikeCount += 1;
       }
@@ -32,16 +32,16 @@ export default async function startGame(COM_NUM) {
     });
 
     if (strikeCount === 0 && ballCount === 0) {
-      return Console.print('낫싱');
+      Console.print('낫싱');
     }
     if (strikeCount === 0 && ballCount !== 0) {
-      return Console.print(`${ballCount}볼`);
+      Console.print(`${ballCount}볼`);
     }
     if (strikeCount !== 0 && ballCount === 0) {
-      return Console.print(`${strikeCount}스트라이크`);
+      Console.print(`${strikeCount}스트라이크`);
     }
     if (strikeCount !== 0 && ballCount !== 0) {
-      return Console.print(`${ballCount}볼 ${strikeCount}스트라이크`);
+      Console.print(`${ballCount}볼 ${strikeCount}스트라이크`);
     }
   }
 }
