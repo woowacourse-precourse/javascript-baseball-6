@@ -53,6 +53,15 @@ class App {
 
         return true;
     }
+
+    async judgeContinue(userInput) {
+        const result = this.judgeResult(userInput);
+        MissionUtils.Console.print(result);
+        if (this.isGameWon(result)) {
+            return await this.isGameEnd();
+        }
+        return true;
+    }   
 }
 
 export default App;
