@@ -1,16 +1,26 @@
-import { getUserInput, getRandomNumber } from '@/components';
-import { print } from '@/utils';
+import { MissionUtils } from '@woowacourse/mission-utils';
+import {
+  getUserInput,
+  getRandomNumber,
+  getResult,
+  checkValidation,
+  setGame,
+} from './components';
 
 class App {
-  constructor() {
-    print('숫자 야구 게임을 시작합니다.');
-  }
-  async play() {
-    const computedAnswer = getRandomNumber();
-    const userInputNumber = getUserInput();
+  _computedNumbers = [];
+  _userNumbers = [];
 
-    print(computedAnswer);
-    print(userInputNumber);
+  constructor() {
+    MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
+  }
+
+  async play() {
+    this._computedNumbers = getRandomNumber();
+    this._userNumbers = await getUserInput();
+    checkValidation(this._userNumbers);
+    const result = getResult(this._computedNumbers, this._userNumbers);
+    setGame(result);
   }
 }
 
