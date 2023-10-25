@@ -1,4 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
+import NUMBERS_LENGTH from './numbersLength.js';
 
 const pickNumberInRange = () => MissionUtils.Random.pickNumberInRange(1, 9);
 
@@ -11,15 +12,15 @@ const getPushedUniqueNumbersArr = (arr, number) => {
     return [...arr];
 };
 
-const makeNumbersArrayGivenLength = (numbersLength, arr = []) => {
-    if (arr.length < numbersLength) {
-        return makeNumbersArrayGivenLength(numbersLength, getPushedUniqueNumbersArr(arr, pickNumberInRange()));
+const makeNumbersArrayGivenLength = (arr = []) => {
+    if (arr.length < NUMBERS_LENGTH) {
+        return makeNumbersArrayGivenLength(getPushedUniqueNumbersArr(arr, pickNumberInRange()));
     }
     return [...arr];
 };
 
-const pickUniqueNumbersInRange = (numbersLength) => {
-    return makeNumbersArrayGivenLength(numbersLength);
+const pickUniqueNumbersInRange = () => {
+    return makeNumbersArrayGivenLength();
 };
 
 export { pickUniqueNumbersInRange };

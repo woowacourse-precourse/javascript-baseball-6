@@ -5,9 +5,9 @@ const input = async (printString = '') => {
     return Number(await MissionUtils.Console.readLineAsync(printString));
 };
 
-const inputUserNumbers = async (fixLength) => {
+const inputUserNumbers = async () => {
     const userNumbers = await input('숫자를 입력하세요 : ');
-    validateInputUserNumbers(userNumbers, fixLength);
+    validateInputUserNumbers(userNumbers);
     return [...String(userNumbers)].map(v => Number(v));
 };
 

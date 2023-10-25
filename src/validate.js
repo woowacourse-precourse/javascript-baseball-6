@@ -1,3 +1,5 @@
+import NUMBERS_LENGTH from './numbersLength.js';
+
 const throwErrorMessage = () => {
     throw new Error('[ERROR]');
 };
@@ -18,20 +20,20 @@ const isDuplicateNumber = (numbersArray) => {
     return true;
 };
 
-const isEqualNumbersLength = (numbersArray, fixLength) => {
-    if (numbersArray.length !== fixLength) {
+const isEqualNumbersLength = (numbersArray) => {
+    if (numbersArray.length !== NUMBERS_LENGTH) {
         return false;
     }
 
     return true;
 };
 
-const validateInputUserNumbers = (numbers, fixLength) => {
+const validateInputUserNumbers = (numbers) => {
     const numbersArray = [...String(numbers)].map(v => Number(v));
     if (
         isNumber(numbers)
         && isDuplicateNumber(numbersArray)
-        && isEqualNumbersLength(numbersArray, fixLength) 
+        && isEqualNumbersLength(numbersArray) 
     ) {
         return true;
     }

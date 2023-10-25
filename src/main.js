@@ -1,5 +1,6 @@
 import match from './match.js';
 import { pickUniqueNumbersInRange } from './pickNumbers.js';
+import NUMBERS_LENGTH from './numbersLength.js';
 import { 
   inputUserNumbers,
   inputNewGameSelection
@@ -12,30 +13,30 @@ import {
 } 
 from './print.js';
 
-const isAnswer = (strikeCount, fixedLength) => strikeCount === fixedLength;
+const isAnswer = (strikeCount) => strikeCount === NUMBERS_LENGTH;
 
-const playGame = async (computerNumbers, fixedLength) => {
-    const userNumbers = await inputUserNumbers(fixedLength);
+const playGame = async (computerNumbers) => {
+    const userNumbers = await inputUserNumbers();
     const matchResult = match(computerNumbers, userNumbers);
 
     printMatchResult(matchResult); 
 
-    if (!isAnswer(matchResult.strikeCount, fixedLength)) {
-        await playGame(computerNumbers, fixedLength);
+    if (!isAnswer(matchResult.strikeCount)) {
+        await playGame(computerNumbers);
     }
 
     printEndGame();
 };
 
-const main = async (fixedLength) => {
-    const computerNumbers = pickUniqueNumbersInRange(fixedLength);
-    await playGame(computerNumbers, fixedLength);
+const main = async () => {
+    const computerNumbers = pickUniqueNumbersInRange();
+    await playGame(computerNumbers);
 
     printQuestionNewGame();
     const newGameSelection = await inputNewGameSelection();
 
     if (newGameSelection) {
-        await main(fixedLength);
+        await main();
     }
 };
 
