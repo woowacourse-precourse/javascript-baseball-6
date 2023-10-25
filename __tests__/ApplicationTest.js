@@ -57,4 +57,18 @@ describe("숫자 야구 게임", () => {
 
     await expect(app.play()).rejects.toThrow("[ERROR]");
   });
+
+  test("숫자 테스트", async () => {
+    // given
+    const randoms = [1, 3, 5];
+    const answers = ["a34"];
+
+    mockRandoms(randoms);
+    mockQuestions(answers);
+
+    // when & then
+    const app = new App();
+
+    await expect(app.play()).rejects.toThrow("[ERROR]");
+  });
 });

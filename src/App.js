@@ -8,11 +8,12 @@ class App {
     this.player = new Player();
   }
 
+
   async getUserInput(){
     let input;
     while(true) {
       input = await Console.readLineAsync("숫자를 입력해주세요 : ");
-      const playerNums = input.split("").map(Number);
+      const playerNums = input.split("").map(v=> this.validNaturalNumber(v))
       this.validLen(playerNums);
       this.player.fill(input);
       const gameResult = this.enemy.compare(this.player.get());
@@ -25,6 +26,11 @@ class App {
 
   validLen(str) {
     if(str.length !== 3) throw new Error("[ERROR]");
+  }
+
+  validNaturalNumber(str) {
+    if(! (/[0-9]/g.test(str))) throw new Error("[ERROR]");
+    return parseInt(str);
   }
 
   chkIsOver(gameResult) {
