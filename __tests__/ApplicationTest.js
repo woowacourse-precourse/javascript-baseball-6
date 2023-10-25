@@ -54,7 +54,6 @@ describe("숫자 야구 게임", () => {
 
     // when & then
     const app = new App();
-    const name = "Capt. Janeway";
 
     await expect(app.play()).rejects.toThrow("[ERROR]");
   });

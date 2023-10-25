@@ -1,6 +1,4 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
-
-const { Console, Random } = MissionUtils;
+import { Console, Random } from '@woowacourse/mission-utils';
 
 class App {
   constructor() {
@@ -21,8 +19,8 @@ class App {
 
   isVerified(userInput) {
     // 1. 3자리 수가 아님
-    if (userInput.length !== 3) {
-      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+    if (!userInput || userInput.length !== 3) {
+      throw new Error('[ERROR] 3자리 수를 입력해 주세요');
     }
 
     // 2. 중복이 있음
@@ -31,7 +29,7 @@ class App {
       userInput[1] === userInput[2] ||
       userInput[2] === userInput[0]
     ) {
-      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+      throw new Error('[ERROR] 서로 다른 수 3자리를 입력해 주세요');
     }
 
     return true;
@@ -46,12 +44,11 @@ class App {
       else if (this.createdOpponentNumber.includes(number)) ball++;
     });
     if (strike === 3) {
-      Console.print("3스트라이크");
-      Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+      Console.print('3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료');
       this.isPlaying = false;
       this.askRestart();
     } else if (ball === 0 && strike === 0) {
-      Console.print("낫싱");
+      Console.print('낫싱');
     } else if (ball > 0 && strike > 0) {
       Console.print(`${ball}볼 ${strike}스트라이크`);
     } else if (ball > 0) {
@@ -63,20 +60,20 @@ class App {
 
   async askRestart() {
     const restart = await Console.readLineAsync(
-      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+      '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n',
     );
-    if (restart === "1") {
+    if (restart === '1') {
       this.play();
-    } else if (restart === "2") {
+    } else if (restart === '2') {
       this.isPlaying = false;
     } else {
-      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+      throw new Error('[ERROR] 1과 2 중 하나를 입력해주세요.');
     }
   }
 
   async play() {
     if (this.isFirstRound) {
-      Console.print("숫자 야구 게임을 시작합니다.");
+      Console.print('숫자 야구 게임을 시작합니다.');
       this.isFirstRound = false;
     }
     this.isPlaying = true;
@@ -84,10 +81,9 @@ class App {
     this.createAndSetOpponentNumber();
 
     while (this.isPlaying) {
-      const userInput = await Console.readLineAsync("숫자를 입력해주세요 : ");
-      const userInputList = userInput.split("").map(Number);
-      if (this.isVerified(userInputList)) {
-        this.check(userInputList);
+      const userInput = await Console.readLineAsync('숫자를 입력해주세요 : ');
+      if (this.isVerified(userInput)) {
+        this.check(userInput.split('').map(Number));
       }
     }
   }
