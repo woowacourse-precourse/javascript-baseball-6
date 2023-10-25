@@ -10,9 +10,10 @@ class App {
       await new BaseballGame().start();
       const selectNumber = Number(await this.getExitInput());
       if (selectNumber === Constants.EXIT) break;
-      if (selectNumber !== Constants.RESTART && selectNumber !== Constants.EXIT) throw new Error(Messages.ERROR.INVALID_SELECT_NUMBER);
+      if (![Constants.RESTART, Constants.EXIT].includes(selectNumber)) throw new Error(Messages.ERROR.INVALID_SELECT_NUMBER);
     }
   }
+
   async getExitInput() {
     try {
       const userNumber = await Console.readLineAsync(Messages.RESTART_OR_EXIT);
