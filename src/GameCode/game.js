@@ -50,6 +50,7 @@ export const init = async () => {
   try {
     //컴퓨터 랜덤 볼
     const COMPUTER_BALL = getComputerBall();
+    MissionUtils.Console.print(COMPUTER_BALL);
     //게임 시작
     await gameStart(COMPUTER_BALL.join(''));
   } catch (error) {
