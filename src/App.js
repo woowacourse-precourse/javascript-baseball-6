@@ -7,17 +7,18 @@ class App {
   }
 
   async play() {
-    while (true) {
-      MissionUtils.Console.print("숫자 야구 게임을 시작합니다");
+    let shouldQuit = true;
+    const COMPUTER_NUM = this.generateRandomNumbers(3);
+
+    while (!shouldQuit) {
+      MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
       const { ball, strike } = this.start();
 
       if (strike === 3) {
         MissionUtils.Console.print(
           "3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료"
         );
-        if (!(await this.shouldContinue())) {
-          break;
-        }
+        shouldQuit = !(await this.shouldContinue());
       } else {
         this.printGameResultMessage(ball, strike);
       }
@@ -25,14 +26,22 @@ class App {
   }
 
   printGameResultMessage(ball, strike) {
-    let message =
-      ball === 0
-        ? strike === 0
-          ? "낫싱"
-          : `${strike}스트라이크`
-        : strike === 0
-        ? `${ball}볼`
-        : `${ball}볼 ${strike}스트라이크`;
+    let message;
+
+    if (ball === 0) {
+      if (strike === 0) {
+        message = "낫싱";
+      } else {
+        message = `${strike}스트라이크`;
+      }
+    } else {
+      if (strike === 0) {
+        message = `${ball}볼`;
+      } else {
+        message = `${ball}볼 ${strike}스트라이크`;
+      }
+    }
+
     MissionUtils.Console.print(message);
   }
 
@@ -40,20 +49,23 @@ class App {
     return /^[1-9]{3}$/.test(input);
   }
 
+  getInputNum() {
+    return MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
+  }
+
   async start() {
     const COMPUTER_NUM = this.generateRandomNumbers(3);
-    let input;
-
     while (true) {
-      input = await this.getInputNum();
-
+      const input = await this.getInputNum("숫자를 입력해주세요 : ");
       if (this.isInputValid(input)) {
         const { ball, strike } = this.calculateScore(COMPUTER_NUM, input);
-        MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
-        return { ball, strike };
+        MissionUtils.Console.print(`${ball}${App.BALL} ${strike}${App.STRIKE}`);
+        if (strike === 3) {
+          return { ball, strike };
+        }
       } else {
-        MissionUtils.Console.print("[Error]");
-        throw new Error("[Error]");
+        MissionUtils.Console.print(App.ERROR);
+        throw new Error(App.ERROR);
       }
     }
   }
@@ -73,10 +85,6 @@ class App {
     return { ball, strike };
   }
 
-  async getInputNum() {
-    return MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
-  }
-
   generateRandomNumbers(count) {
     const numbers = new Set();
     while (numbers.size < count) {
@@ -92,9 +100,9 @@ class App {
     if (choice === this.NEW_GAME) {
       return true;
     } else if (choice === this.QUIT_GAME) {
-      process.exit(0);
+      return false;
     }
-    return false;
+    return true;
   }
 }
 
