@@ -77,7 +77,7 @@ class Controller {
           ballCount += CONDITIONS.COUNT;
         }
       }
-      Console.print(OUTPUT_VIEW(strikeCount, ballCount));
+      OUTPUT_VIEW(strikeCount, ballCount);
     }
     Console.print(MESSAGES.SUCCESS);
   }
