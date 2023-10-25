@@ -9,5 +9,5 @@ export default async function generateAnswerArray() {
     }
   }
 
-  return computer;
+  return computer.join("");
 }

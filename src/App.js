@@ -16,12 +16,14 @@ class App {
         throw Error("[ERROR] 숫자가 잘못된 형식입니다.");
       }
 
-      while (userInput !== answer.join("")) {
+      while (userInput !== answer) {
         userInput = await getUserInput();
         const isValidInput = checkIsValidInput(userInput);
         if (!isValidInput) {
           throw Error("[ERROR] 숫자가 잘못된 형식입니다.");
         }
+
+        // getHint(userInput, answer);
 
         MissionUtils.Console.print("계산 결과를 출력하기");
       }
