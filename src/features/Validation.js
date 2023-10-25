@@ -1,3 +1,5 @@
+import { MESSAGE } from "../constants/messages";
+
 export class Validation {
   #errorMessage = "";
 
@@ -11,15 +13,16 @@ export class Validation {
 
   get invalidConditions() {
     const inputArray = this.input.split("");
+    const { NOT_NUMBER, OVER_OR_UNDER_LIMIT, DUPLICATED } = MESSAGE.ERROR;
     return new Map([
-      [Number.isNaN(parseInt(this.input)), "문자를 입력했습니다."],
-      [this.input.length !== 3, "입력된 숫자의 개수가 초과/미달 입니다."],
+      [Number.isNaN(parseInt(this.input)), NOT_NUMBER],
+      [this.input.length !== 3, OVER_OR_UNDER_LIMIT],
       [
         parseInt(this.input) &&
           inputArray.findIndex(
             (item) => inputArray.indexOf(item) !== inputArray.lastIndexOf(item)
           ) !== -1,
-        "중복된 입력이 있습니다.",
+        DUPLICATED,
       ],
     ]);
   }

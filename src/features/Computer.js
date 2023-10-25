@@ -1,5 +1,6 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 import { player } from "./Player.js";
+import { MESSAGE } from "../constants/messages.js";
 
 export class Computer {
   #answer = [];
@@ -17,7 +18,7 @@ export class Computer {
   async compareAnswerRepeatedly() {
     while (this.#count.strike !== 3) {
       this.#initializeCount();
-      this.#compareAnswer(await player.input("숫자를 입력해주세요 : "));
+      this.#compareAnswer(await player.input(MESSAGE.PLAYER.INPUT));
       this.#printResult();
     }
     return true;
@@ -53,7 +54,7 @@ export class Computer {
     );
 
     if (strike === 3) {
-      Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+      Console.print(MESSAGE.GAME.COMPLETED);
     }
   }
 }

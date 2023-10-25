@@ -1,5 +1,6 @@
 import { Console } from "@woowacourse/mission-utils";
 import { Computer } from "./Computer.js";
+import { MESSAGE } from "../constants/messages.js";
 
 export class Game {
   async startNewGame() {
@@ -11,12 +12,12 @@ export class Game {
         this.startNewGame();
         return;
       }
-      Console.print("게임 종료");
+      Console.print(MESSAGE.GAME.END);
     }
   }
 
   async #play() {
-    Console.print("숫자 야구 게임을 시작합니다.");
+    Console.print(MESSAGE.GAME.START);
     const computer = new Computer();
     computer.makeAnswer();
 
@@ -25,7 +26,7 @@ export class Game {
 
   async #replayOrExit() {
     const input = await Console.readLineAsync(
-      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+      MESSAGE.PLAYER.SELECT_REPLAY_OR_EXIT
     );
 
     if (input === "1") {
@@ -35,6 +36,6 @@ export class Game {
       return false;
     }
 
-    throw new Error("입력값을 확인할 수 없습니다. 종료하겠습니다.");
+    throw new Error(MESSAGE.ERROR.UNDEFINED);
   }
 }
