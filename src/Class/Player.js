@@ -4,14 +4,9 @@ import { checkInputValidity, checkRetryValidity } from "../utils/Check"
 export default class Player{
     number = []
     
+    // string 타입의 input을 int 배열로 변환. ex) '123' > [1, 2, 3]
     convertToArray = (input) => {
         const inputArr = input.split('').map(Number)
         this.number = [...inputArr]
-    }
-
-    askRetry = async () => {
-        const input = MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ')
-        if(checkRetryValidity(Number(input)))
-            return Number(input)
     }
 }
