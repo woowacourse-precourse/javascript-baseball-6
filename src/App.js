@@ -12,12 +12,12 @@ class App {
   async play() {
     Console.print("숫자 야구 게임을 시작합니다.");
     this.answer = this.createAnswer();
-    this.toggleGame('playing');
+    this.toggleGame("playing");
   }
 
   async toggleGame(status) {
     switch(status){
-      case 'playing':{
+      case "playing":{
         const inputNumber = await Console.readLineAsync("숫자를 입력해주세요 : ");
         this.validateAndThrowError(inputNumber)
 
@@ -25,10 +25,14 @@ class App {
 
         if (scoreInfo.strike === ANSWER_LENGTH) {
           await this.toggleGame("clear");
-        } 
+        } else {
+          const hintText = this.createHint(scoreInfo);
+          Console.print(hintText);
+          await this.toggleGame("playing");
+        }
         break;
       }
-      case 'clear':
+      case "clear":
       default: break;
     }
   }
@@ -59,6 +63,19 @@ class App {
     return scoreInfo;
   }
 
+  createHint(scoreInfo) {
+    const {strike, ball} = scoreInfo;
+    const hintArr = [];
+    if(ball > 0){
+      hintArr.push(`${ball}볼`);
+    }
+    if(strike > 0){
+      hintArr.push(`${strike}스트라이크`);
+    }
+    return hintArr.length === 0 ? "낫싱" : hintArr.join(" ")
+
+  }
+
   validateAndThrowError(inputNumber){
     if (inputNumber.length !== ANSWER_LENGTH || new Set(inputNumber).size !== ANSWER_LENGTH)
       throw new Error(`[ERROR] 1부터 9까지 서로 다른 수로 이루어진 ${ANSWER_LENGTH}자리 숫자를 입력해야 합니다.`);
@@ -70,3 +87,6 @@ class App {
 }
 
 export default App;
+
+const app = new App();
+app.play()
