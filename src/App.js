@@ -71,5 +71,9 @@ export default class App {
       if (ball === 0 && strike === 0) resultMessage = '낫싱';
       return resultMessage.trim();
   }
-    
-  }
+}
+
+const app = new App();
+app.play().catch(error => {
+    MissionUtils.Console.print(error.message);
+});
