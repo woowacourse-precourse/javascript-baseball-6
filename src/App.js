@@ -4,7 +4,6 @@ const ANSWER_LENGTH = 3;
 const NUMBER_RANGE = /^[1-9]+$/;
 
 class App {
-
   constructor() {
     this.answer = null;
   }
@@ -15,21 +14,22 @@ class App {
     await this.toggleGame("playing");
   }
 
-  async restart(){
+  async restart() {
     this.answer = this.createAnswer();
     await this.toggleGame("playing");
   }
 
-  async resume(status){
+  async resume(status) {
     await this.toggleGame(status);
   }
 
   async toggleGame(status) {
-    switch(status){
-      case "playing":{
-
-        const inputNumber = await Console.readLineAsync("숫자를 입력해주세요 : ");
-        this.validateAndThrowError(inputNumber)
+    switch (status) {
+      case "playing": {
+        const inputNumber = await Console.readLineAsync(
+          "숫자를 입력해주세요 : "
+        );
+        this.validateAndThrowError(inputNumber);
 
         const scoreInfo = this.createScore(inputNumber);
 
@@ -38,23 +38,27 @@ class App {
         } else {
           const hintText = this.createHint(scoreInfo);
           Console.print(hintText);
-          await this.resume("playing")
+          await this.resume("playing");
         }
         break;
       }
-      case "clear":{
-        Console.print(`${ANSWER_LENGTH}스트라이크\n${ANSWER_LENGTH}개의 숫자를 모두 맞히셨습니다! 게임 종료`)
+      case "clear": {
+        Console.print(
+          `${ANSWER_LENGTH}스트라이크\n${ANSWER_LENGTH}개의 숫자를 모두 맞히셨습니다! 게임 종료`
+        );
         let inputNumber = null;
-        while(inputNumber !== "1" && inputNumber !== "2"){
-          inputNumber = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n");
+        while (inputNumber !== "1" && inputNumber !== "2") {
+          inputNumber = await Console.readLineAsync(
+            "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+          );
         }
-        if(inputNumber === "1"){
-          await this.restart()
-        }else if(inputNumber === "2"){
-          await this.resume("end")
+        if (inputNumber === "1") {
+          await this.restart();
+        } else if (inputNumber === "2") {
+          await this.resume("end");
         }
       }
-      case "end":{
+      case "end": {
         break;
       }
     }
@@ -73,13 +77,13 @@ class App {
 
   createScore(inputNumber) {
     const scoreInfo = { strike: 0, ball: 0 };
-    for(let i = 0 ; i < ANSWER_LENGTH ; i++){
+    for (let i = 0; i < ANSWER_LENGTH; i++) {
       const currentNumber = inputNumber[i];
-      if(currentNumber === this.answer[i]){
+      if (currentNumber === this.answer[i]) {
         scoreInfo.strike++;
         continue;
       }
-      if(this.answer.includes(currentNumber)){
+      if (this.answer.includes(currentNumber)) {
         scoreInfo.ball++;
       }
     }
@@ -87,26 +91,30 @@ class App {
   }
 
   createHint(scoreInfo) {
-    const {strike, ball} = scoreInfo;
+    const { strike, ball } = scoreInfo;
     const hintArr = [];
-    if(ball > 0){
+    if (ball > 0) {
       hintArr.push(`${ball}볼`);
     }
-    if(strike > 0){
+    if (strike > 0) {
       hintArr.push(`${strike}스트라이크`);
     }
-    return hintArr.length === 0 ? "낫싱" : hintArr.join(" ")
-
+    return hintArr.length === 0 ? "낫싱" : hintArr.join(" ");
   }
 
-  validateAndThrowError(inputNumber){
-    if (inputNumber.length !== ANSWER_LENGTH || new Set(inputNumber).size !== ANSWER_LENGTH)
-      throw new Error(`[ERROR] 1부터 9까지 서로 다른 수로 이루어진 ${ANSWER_LENGTH}자리 숫자를 입력해야 합니다.`);
-    if(!NUMBER_RANGE.test(inputNumber))
+  validateAndThrowError(inputNumber) {
+    if (
+      inputNumber.length !== ANSWER_LENGTH ||
+      new Set(inputNumber).size !== ANSWER_LENGTH
+    )
+      throw new Error(
+        `[ERROR] 1부터 9까지 서로 다른 수로 이루어진 ${ANSWER_LENGTH}자리 숫자를 입력해야 합니다.`
+      );
+    if (!NUMBER_RANGE.test(inputNumber))
       throw new Error(`[ERROR] 1부터 9까지의 수가 아닙니다.`);
-    if(inputNumber.includes(" "))
+    if (inputNumber.includes(" "))
       throw new Error(`[ERROR] 공백 없이 숫자를 입력해야합니다.`);
   }
 }
 
-export default App; 
+export default App;
