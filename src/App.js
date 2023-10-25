@@ -1,48 +1,74 @@
-import {Console} from '@woowacourse/mission-utils';
-import GameUtil from './GameUtil';
+import {Console, MissionUtils} from '@woowacourse/mission-utils';
 
-class App extends GameUtil{
+class App{
     constructor(){
-        super();
+        this.randomNumber = this.generateRandomNumbers();
+        this.runningPlay = true;
         this.init();
     }
 
     init(){
-        this.randomNumber = super.generateRandomNumbers();
         Console.print('숫자 야구 게임을 시작합니다.');
     }
 
-    async play(){
-        try{
-        const userNumber = await Console.readLineAsync('숫자를 입력해주세요 : ');
-        await this.validateInput(userNumber);
-        }catch(error){
-            Console.print(error);
+    generateRandomNumbers(){
+        const computer = [];
+        while (computer.length < 3) {
+            const number = MissionUtils.Random.pickNumberInRange(1, 9);
+            if (!computer.includes(number)) {
+                computer.push(number);
+            }
         }
+        return computer;
     }
 
-    validateInput(userNumber){
-        const result = super.validateInput(userNumber);
-        if(result === 'PASS') return this.countNumberResult(userNumber);
-        throw new Error(result);
+    validateInputError(userNumber){
+        const userNumberSet = new Set(userNumber.split('').map(Number));
+
+        if (userNumber.length !== 3) return '[ERROR] 입력값은 세자리 수를 입력해주세요.';
+        if ([...userNumberSet].length !== 3) {
+        return '[ERROR] 중첩되지 않는 세자리 수를 입력해주세요.';
+        }
+        if (userNumber.includes(' ')) return '[ERROR] 공백은 넣지 말아주세요.';
+        if (Number.isNaN(userNumber)) return '[ERROR] 숫자만 입력해주세요.';
+
+        return 'PASS';
     }
 
-    countNumberResult(userNumber){
-        const ballCount = super.countBall(this.randomNumber, userNumber);
-        const strikeCount = super.countStrike(this.randomNumber, userNumber);
+    countBall(randomNumber, userNumber){
+        var balls = 0;
+        for(var index =0; index<3; index++){
+            // 같은 index의 숫자는 다르지만 userNumber[index]가 randomNumber에 포함
+            if(randomNumber[index] !== Number(userNumber[index])
+            && randomNumber.includes(Number(userNumber[index]))){
+                balls+=1;
+            }
+        }
+        return balls;
+    }
 
-        if(strikeCount === 3) return this.answerCorrect();
+    countStrike(randomNumber, userNumber){
+        var strikes = 0;
+        for(var index =0; index<3; index++){
+            // 같은 index의 숫자는 다르지만 userNumber[index]가 randomNumber에 포함
+            if(randomNumber[index] === Number(userNumber[index])){
+                strikes+=1;
+            }
+        }
+        return strikes;
+    }
 
-        Console.print(super.showUserResult(ballCount, strikeCount));
-        return this.play();
+    showUserResult(ballCount, strikeCount){
+        if(ballCount!==0 && strikeCount!==0) {
+            Console.print(`${ballCount}볼 ${strikeCount}스트라이크`);
+        }
+        if(ballCount!==0 && strikeCount===0) Console.print(`${ballCount}볼`);
+        if(ballCount===0 && strikeCount!==0) Console.print(`${strikeCount}스트라이크`);
+        if(ballCount===0 && strikeCount===0) Console.print('낫싱');
     }
     async answerCorrect(){
         Console.print('3스트라이크');
-        Console.print('3개의 숫자를 모두 맞히셨습니다! 게임종료');
-        const decision = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
-        if(Number(decision) === 1) await this.restart();
-        else if(Number(decision) === 2) await this.terminate();
-        else if(Number(decision)!==1 && Number(decision)!== 2) await this.answerCorrect();
+        Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');        
     }
 
     printWithDelay(message) {
@@ -52,19 +78,41 @@ class App extends GameUtil{
         });
     }
 
-
-    restart(){
-        this.randomNumber = super.generateRandomNumbers();
-        this.play();
-    }
-    
-    async terminate(){
-        await this.printWithDelay('게임 종료');
-        await process.kill(process.pid);
-    }
+    async play(){
+        while(this.runningPlay){
+            try{
+                const userNumber = await Console.readLineAsync('숫자를 입력해주세요 : ');
+                const result = this.validateInputError(userNumber);
+                if(result === 'PASS') {
+                    const ballCount = this.countBall(this.randomNumber, userNumber);
+                    const strikeCount = this.countStrike(this.randomNumber, userNumber);
+                    if(strikeCount === 3){
+                        this.answerCorrect();
+                        const decision = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
+                        var decisionNumber = Number(decision);
+                        if(decisionNumber === 1) {
+                            this.randomNumber = this.generateRandomNumbers();       
+                        }
+                        if (decisionNumber === 2) {
+                            await this.printWithDelay('게임 종료');
+                            this.runningPlay = false;
+                        }
+                    }
+                    if(strikeCount!==3){
+                        this.showUserResult(ballCount,strikeCount);
+                    }
+                }
+                if(result!=='PASS') throw new Error(result);
+                
+            }catch(error){
+                Console.print(error);
+                this.runningPlay = false;
+            }
+        }
+    } 
 }
 
-const app = new App();
-app.play().catch(error=> Console.print(error));
+//const app = new App();
+//app.play().catch(error=> Console.print(error));
 
 export default App;
