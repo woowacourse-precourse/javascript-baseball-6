@@ -1,23 +1,22 @@
 import { Console } from "@woowacourse/mission-utils";
+import { GAME, ERROR } from "../utils/Constants.js";
 
 class Input {
   async getPlayerGuess() {
-    const inputNumbers = await Console.readLineAsync("숫자를 입력해주세요 : ");
+    const inputNumbers = await Console.readLineAsync(GAME.INPUT_NUMBERS);
     return inputNumbers;
   }
 
   async askRegame() {
-    const choice = await Console.readLineAsync(
-      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
-    );
-    if (choice === "2") {
-      Console.print("게임을 종료합니다.");
+    const choice = await Console.readLineAsync(GAME.ASK_REGAME_OR_ENDGAME);
+    if (choice === GAME.CHOOSE_FINISH) {
+      Console.print(GAME.GAME_ENDED);
       return true;
     }
-    if (choice === "1") {
+    if (choice === GAME.CHOOSE_RESTART) {
       return false;
     }
-    throw new Error("[ERROR]: 잘못된 입력입니다. (1 또는 2 입력)");
+    throw new Error(ERROR.INVALID_CHOICE);
   }
 }
 export default Input;

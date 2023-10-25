@@ -1,6 +1,7 @@
 import Balls from "./Balls.js";
 import Output from "./GameView/Output.js";
 import Input from "./GameView/Input.js";
+import { GAME } from "./utils/Constants.js";
 
 class App {
   constructor() {
@@ -20,7 +21,7 @@ class App {
       const ball = this.balls.calculateBall(inputNumbers);
       const strike = this.balls.calculateStrike(inputNumbers);
 
-      if (strike === 3) {
+      if (strike === GAME.THREE_STRIKE) {
         this.output.printSuccess();
         this.isGameEnded = await this.input.askRegame();
         if (this.isGameEnded === false) {

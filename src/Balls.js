@@ -1,4 +1,6 @@
 import { Random } from "@woowacourse/mission-utils";
+import { ERROR, GAME } from "./utils/Constants.js";
+
 class Balls {
   constructor() {
     this.randomNumbers = this.generateRandomNumber();
@@ -6,7 +8,7 @@ class Balls {
 
   generateRandomNumber() {
     const threeDigitNumber = [];
-    while (threeDigitNumber.length < 3) {
+    while (threeDigitNumber.length < GAME.BALL_LENGTH) {
       const number = Random.pickNumberInRange(1, 9);
       if (!threeDigitNumber.includes(number)) {
         threeDigitNumber.push(number);
@@ -16,8 +18,13 @@ class Balls {
   }
 
   inputValidation(inputNumbers) {
-    if (!(/^\d{3}$/.test(inputNumbers) && new Set(inputNumbers).size === 3)) {
-      throw new Error("[ERROR]: 잘못된 입력입니다.");
+    if (
+      !(
+        /^\d{3}$/.test(inputNumbers) &&
+        new Set(inputNumbers).size === GAME.BALL_LENGTH
+      )
+    ) {
+      throw new Error(ERROR.INVALID_BALL);
     }
   }
 
@@ -25,7 +32,7 @@ class Balls {
     const guessNumbers = inputNumbers.split("").map(Number);
     let strikes = 0;
 
-    for (let i = 0; i < 3; i += 1) {
+    for (let i = 0; i < GAME.BALL_LENGTH; i += 1) {
       if (guessNumbers[i] === this.randomNumbers[i]) {
         strikes += 1;
       }
@@ -36,7 +43,7 @@ class Balls {
   calculateBall(inputNumbers) {
     const guessNumbers = inputNumbers.split("").map(Number);
     let balls = 0;
-    for (let i = 0; i < 3; i += 1) {
+    for (let i = 0; i < GAME.BALL_LENGTH; i += 1) {
       if (
         guessNumbers[i] !== this.randomNumbers[i] &&
         this.randomNumbers.includes(guessNumbers[i])
