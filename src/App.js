@@ -20,7 +20,7 @@ class App {
     this.inputNumber();
   }
 
-  randomNumber() {
+  async randomNumber() {
     const computer = [];
     while (computer.length < 3) {
       const number = Random.pickNumberInRange(1, 9);
@@ -33,8 +33,20 @@ class App {
   }
 
   async inputNumber() {
-    const user = await Console.readLineAsync("숫자를 입력해주세요 : ");
-    console.log(user);
+    try {
+      const username = await Console.readLineAsync("숫자를 입력해주세요 : ");
+    } catch (error) {
+      // reject 되는 경우
+      for (let i = 0; i < 3; i++) {
+        if (typeof user[i] !== "number") {
+          throw new Error("숫자만 입력해주세요");
+        } else if (isNull(user)) {
+          throw new Error("값을 입력해주세요.");
+        } else if (user.length !== 3) {
+          throw new Error("3자리 미만으로 입력해주세요.");
+        }
+      }
+    }
   }
 }
 
