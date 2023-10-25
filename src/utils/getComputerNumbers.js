@@ -6,7 +6,9 @@ export default function getComputerNumbers() {
   while (computerNumbers.length !== 3) {
     const number = MissionUtils.Random.pickNumberInRange(1, 9);
 
-    !computerNumbers.includes(number) && (computerNumbers += number);
+    if (!computerNumbers.includes(number)) {
+      computerNumbers += number;
+    }
   }
 
   return +computerNumbers;
