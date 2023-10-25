@@ -1,10 +1,11 @@
-<p align=“middle”>
-<img width=“200px;” src=“https://i.ibb.co/D1CHbsB/logo-dark.png” />
+<br/>
+<p align="center">
+    <img width="300" src="https://github.com/fox9star/dotorimall/assets/147479268/17902025-7fe8-4908-883a-cbbf71b66cb8">
 </p>
+<br/>
 
 <h1 align=“middle”>1주 차 프리코스 미션 - 숫자 야구 게임</h1>
 
----
 
 ## 🚀 기능 목록
 
