@@ -36,17 +36,18 @@ class App {
       throw Error('[ERROR] 1에서 9사이의 숫자를 입력해주세요.');
     }
   }
-
   async play() {    
     
     Console.print('숫자 야구 게임을 시작합니다.');
     const computerNumber = await this.createRandomNumber();
     const userNumber = await this.userInputNumber();
     // const {gameSuccess, hintMessage} = await roundResult(computerNumber, userNumber);
-    
+    Console.print(computerNumber);
+    Console.print(userNumber.split(''));
+
+
     if(true){
       Console.print('3개의 숫자를 모두 맞히셨습니다! 게임종료');
-//      Console.print('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
       
       const restart = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
       if(restart === '2'){
