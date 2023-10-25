@@ -14,7 +14,7 @@ class App {
 
         try {
           let userInputNumber = await Console.readLineAsync('숫자를 입력해주세요: ');
-          userInputNumberArray = validateInputNumber(userInputNumber);
+          userInputNumberArray = stringToNumberArray(userInputNumber);
         } catch (error) {
           Console.print('[ERROR] ' + error.message + ' 게임 종료');
           gameStatus = 2;
@@ -33,6 +33,7 @@ class App {
       if (gameStatus !== 2) { // 게임 종료 상태가 아닌 경우에만 게임 진행 여부 입력 받기
         try {
           let startOrQuitInput = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
+
           if (startOrQuitInput != 1 && startOrQuitInput != 2) {
             throw new Error('1 또는 2가 아닌 값이 입력되었습니다.');
           }
@@ -64,7 +65,12 @@ function generateAnswerNumber() { // 정답 숫자 배열 생성
   return numbers;
 }
 
-function validateInputNumber(input) { // 입력값 예외 처리 후 숫자 배열로 만들어 리턴
+function stringToNumberArray(input) { // 입력값 예외 처리 후 숫자 배열로 만들어 리턴
+
+  if (!input) {
+    throw new Error('입력값이 없습니다.');
+  }
+  
   if (input.length !== 3) {
     throw new Error('입력값의 길이가 3이 아닙니다.');
   }
