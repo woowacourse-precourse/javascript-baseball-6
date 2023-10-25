@@ -26,8 +26,8 @@ const IN_GAME_RESULT_ITEM = {
 };
 
 const AFTER_GAME_USER_COMMAND = {
-  restart: 1,
-  exit: 2,
+  restart: "1",
+  exit: "2",
 };
 
 export { IN_GAME_SETTING, IN_GAME_MESSAGE, IN_GAME_ERROR, IN_GAME_RESULT_ITEM, AFTER_GAME_USER_COMMAND };
