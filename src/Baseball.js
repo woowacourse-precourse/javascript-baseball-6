@@ -30,7 +30,6 @@ class Baseball{
   async getUserInput() {
     await MissionUtils.Console.readLineAsync(SystemMessage.INPUT_NUMBER)
     .then((number) => {
-      //MissionUtils.Console.print(`${number} <- 현재 숫자`)
       
       if (this.checkNotThreeDigits(number)) {
         throw new Error(SystemMessage.ERROR.INVALID_BALL_NUMBER);
@@ -55,13 +54,6 @@ class Baseball{
     );
   };
 
-  //문자가 입력되었는지 확인
-  // checkLetterEntered = (number) => {
-  //   const inputNumSet = new Set(number);
-  //   if(isNaN(inputNumSet)){
-  //     return true;
-  //   }
-  // };
 
   //입력된 숫자를 비교
   compareNumber() {
