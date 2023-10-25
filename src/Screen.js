@@ -57,7 +57,7 @@ class Screen {
     Console.print(this.MESSAGES.GAME_OVER_MESSAGE);
   }
 
-  static async askRestart() {
+  static async askContinue() {
     Console.print(this.MESSAGES.GAME_CONTINNUE_MEESAGE);
     const answer = await Console.readLineAsync();
 

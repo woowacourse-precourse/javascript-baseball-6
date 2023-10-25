@@ -17,7 +17,7 @@ class App {
 
       Screen.printGameOver();
 
-      const answer = await Screen.askRestart();
+      const answer = await Screen.askContinue();
 
       if (answer === '2') {
         break;
