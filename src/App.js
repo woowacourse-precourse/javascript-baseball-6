@@ -31,10 +31,13 @@ class App {
   }
 
   async askRestartOrExit() {
+    const status = await this.model.getUserInputForRestartOrExit();
+    if (status === GAMEOVER) {
+      return ;
+    } else if (status === RESTART) {
+      await this.start();
+    }
   }
 }
-
-// const app = new App();
-// app.play();
 
 export default App;

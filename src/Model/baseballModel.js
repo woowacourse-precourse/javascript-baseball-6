@@ -53,6 +53,18 @@ class BaseballModel {
 		}
 		return CONTINUE;
 	}
+
+	async getUserInputForRestartOrExit() {
+		BaseballView.displayMessage('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+		const input = await BaseballView.getUserInput('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
+		if (input == GAMEOVER) {
+			return GAMEOVER;
+		} else if (input == RESTART) {
+			return RESTART;
+		} else {
+			throw '[ERROR] 입력값은 1 또는 2 만 가능합니다.';
+		}
+	}
 }
 
 export default BaseballModel;
