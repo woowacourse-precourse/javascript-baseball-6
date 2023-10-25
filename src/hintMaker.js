@@ -1,6 +1,5 @@
 import { HINT_MESSAGE } from './constants.js';
-
-const convertStringToArray = (string) => string.split('');
+import { convertStringToArray } from './utils.js';
 
 const countStrike = (computerNumber, userNumber) => {
   let strikeNumber = 0;
@@ -21,9 +20,10 @@ const countStrike = (computerNumber, userNumber) => {
 const countBall = (computerNumber, userNumber, strikeNumber) => {
   const computerNumberArray = convertStringToArray(computerNumber);
   const userNumberArray = convertStringToArray(userNumber);
-  const sameNumberArray = computerNumberArray.filter((number) => userNumberArray.includes(number));
+  // eslint-disable-next-line max-len
+  const commonNumbers = computerNumberArray.filter((number) => userNumberArray.includes(number)).length;
 
-  return sameNumberArray.length - strikeNumber;
+  return commonNumbers - strikeNumber;
 };
 
 const convertNumberToString = (strikeNumber, ballNumber) => {
@@ -37,7 +37,7 @@ const convertNumberToString = (strikeNumber, ballNumber) => {
     hintMessage += `${strikeNumber}${HINT_MESSAGE.STRIKE}`;
   }
 
-  if (hintMessage.length === 0) {
+  if (!hintMessage) {
     hintMessage += HINT_MESSAGE.NOTING;
   }
 

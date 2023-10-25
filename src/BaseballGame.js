@@ -1,12 +1,13 @@
 import { Console } from '@woowacourse/mission-utils';
-import Computer from './Generator.js';
+import Generator from './Generator.js';
 import { isValidGameInputDuringGame } from './validator.js';
 import { getHintToUser } from './hintMaker.js';
 import { LOG_MESSAGE, HINT_MESSAGE, GAME_SELECT, ERROR_MESSAGE } from './constants.js';
+import { printMessage, throwError } from './utils.js'
 
 class BaseballGame {
   constructor() {
-    this.computer = new Computer();
+    this.computer = new Generator();
   }
 
   async startGame() {
@@ -14,12 +15,12 @@ class BaseballGame {
   }
 
   async getUserInput() {
-    const input = await Console.readLineAsync(LOG_MESSAGE.INPUT_NUMNER);
+    const input = await Console.readLineAsync(LOG_MESSAGE.INPUT_NUMBER);
     this.handleUserInputDuringGame(input);
   }
 
   async recommendRestart() {
-    await Console.print(LOG_MESSAGE.CORRECT_END);
+    await printMessage(LOG_MESSAGE.CORRECT_END);
 
     const input = await Console.readLineAsync(`${LOG_MESSAGE.RESTART_INPUT}\n`);
     this.handleUserInputEndGame(input);
@@ -27,11 +28,11 @@ class BaseballGame {
 
   handleUserInputDuringGame(input) {
     if (!isValidGameInputDuringGame(input)) {
-      throw new Error(ERROR_MESSAGE.INCORRECT_VALUE);
+      throwError(ERROR_MESSAGE.INCORRECT_VALUE);
     }
 
     const hintMessage = getHintToUser(this.computer.computerNumber, input);
-    Console.print(hintMessage);
+    printMessage(hintMessage);
 
     if (hintMessage === HINT_MESSAGE.ALL_STRIKE) {
       this.recommendRestart();

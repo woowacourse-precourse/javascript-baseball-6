@@ -1,12 +1,5 @@
-const isNumeric = (userInputValue) => /^[1-9]+$/.test(userInputValue);
+import { isNumeric, isUniqueDigits } from './utils.js';
 
-const isUniqueDigits = (userInputValue) => new Set(userInputValue.toString().split('')).size === 3;
-
-const isValidGameInputDuringGame = (userInputValue) => {
-  if (userInputValue.toString().length !== 3) return false;
-  if (!isUniqueDigits(userInputValue)) return false;
-  if (!isNumeric(userInputValue)) return false;
-  return true;
-};
-
-export { isNumeric, isUniqueDigits, isValidGameInputDuringGame };
+// eslint-disable-next-line import/prefer-default-export
+export const isValidGameInputDuringGame = (userInputValue) => userInputValue.toString().length === 3
+  && isUniqueDigits(userInputValue) && isNumeric(userInputValue);

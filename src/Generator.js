@@ -1,4 +1,4 @@
-import { Random } from '@woowacourse/mission-utils';
+import { generateNumberInRange } from './utils.js'
 
 class Generator {
   constructor() {
@@ -13,7 +13,7 @@ class Generator {
     const generatedNumber = new Set();
 
     while (generatedNumber.size < 3) {
-      const newComputerNumber = Random.pickNumberInRange(1, 9);
+      const newComputerNumber = generateNumberInRange(1, 9);
       generatedNumber.add(newComputerNumber);
     }
 
