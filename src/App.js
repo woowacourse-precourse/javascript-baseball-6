@@ -104,7 +104,6 @@ class App {
             try {
                 playGame = await game();
             } catch (e) {
-                MissionUtils.Console.print(e.message);
                 throw e;
             }
         }
