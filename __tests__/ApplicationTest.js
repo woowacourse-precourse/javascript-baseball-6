@@ -111,6 +111,140 @@ describe("숫자 야구 게임", () => {
 
     await expect(app.play()).rejects.toThrow("[ERROR] 숫자가 3자리여야 합니다.");
   });
+  // 예외테스트2
+  test("예외 테스트: 입력값이 숫자가 아닌 값이 포함된 경우 - 문자 1개", async () => {
+    // given
+    const randoms = [1, 3, 5];
+    const answers = ["12a"];
 
+    mockRandoms(randoms);
+    mockQuestions(answers);
+
+    // when & then
+    const app = new App();
+
+    await expect(app.play()).rejects.toThrow("[ERROR] 입력값은 숫자여야 합니다.");
+  });
+  test("예외 테스트: 입력값이 숫자가 아닌 값이 포함된 경우 - 문자 2개", async () => {
+    // given
+    const randoms = [1, 3, 5];
+    const answers = ["1ab"];
+
+    mockRandoms(randoms);
+    mockQuestions(answers);
+
+    // when & then
+    const app = new App();
+
+    await expect(app.play()).rejects.toThrow("[ERROR] 입력값은 숫자여야 합니다.");
+  });
+  test("예외 테스트: 입력값이 숫자가 아닌 값이 포함된 경우 - 문자 3개", async () => {
+    // given
+    const randoms = [1, 3, 5];
+    const answers = ["abb"];
+
+    mockRandoms(randoms);
+    mockQuestions(answers);
+
+    // when & then
+    const app = new App();
+
+    await expect(app.play()).rejects.toThrow("[ERROR] 입력값은 숫자여야 합니다.");
+  });
+
+    // 예외테스트3
+    test("예외 테스트: 입력값이 숫자가 중복인 경우1, 1자리와 2자리 동일", async () => {
+      // given
+      const randoms = [1, 3, 5];
+      const answers = ["112"];
+  
+      mockRandoms(randoms);
+      mockQuestions(answers);
+  
+      // when & then
+      const app = new App();
+  
+      await expect(app.play()).rejects.toThrow("[ERROR] 숫자가 중복되지 않아야 합니다.");
+    });
+    test("예외 테스트: 입력값이 숫자가 중복인 경우2, 1자리와 3자리 동일", async () => {
+      // given
+      const randoms = [1, 3, 5];
+      const answers = ["121"];
+  
+      mockRandoms(randoms);
+      mockQuestions(answers);
+  
+      // when & then
+      const app = new App();
+  
+      await expect(app.play()).rejects.toThrow("[ERROR] 숫자가 중복되지 않아야 합니다.");
+    });
+    test("예외 테스트: 입력값이 숫자가 중복인 경우3, 2자리와 3자리 동일", async () => {
+      // given
+      const randoms = [1, 3, 5];
+      const answers = ["122"];
+  
+      mockRandoms(randoms);
+      mockQuestions(answers);
+  
+      // when & then
+      const app = new App();
+  
+      await expect(app.play()).rejects.toThrow("[ERROR] 숫자가 중복되지 않아야 합니다.");
+    });
+    test("예외 테스트: 입력값이 숫자가 중복인 경우4, 모두 동일", async () => {
+      // given
+      const randoms = [1, 3, 5];
+      const answers = ["111"];
+  
+      mockRandoms(randoms);
+      mockQuestions(answers);
+  
+      // when & then
+      const app = new App();
+  
+      await expect(app.play()).rejects.toThrow("[ERROR] 숫자가 중복되지 않아야 합니다.");
+    });
+  
+    // 예외테스트4
+    test("예외 테스트: 입력값에 숫자 0이 포함된 경우 1", async () => {
+      // given
+      const randoms = [1, 3, 5];
+      const answers = ["011"];
+  
+      mockRandoms(randoms);
+      mockQuestions(answers);
+  
+      // when & then
+      const app = new App();
+  
+      await expect(app.play()).rejects.toThrow("[ERROR] 숫자는 1~9 사이의 숫자여야 합니다.");
+    });
+    test("예외 테스트: 입력값에 숫자 0이 포함된 경우 2", async () => {
+      // given
+      const randoms = [1, 3, 5];
+      const answers = ["102"];
+  
+      mockRandoms(randoms);
+      mockQuestions(answers);
+  
+      // when & then
+      const app = new App();
+  
+      await expect(app.play()).rejects.toThrow("[ERROR] 숫자는 1~9 사이의 숫자여야 합니다.");
+    });
+    test("예외 테스트: 입력값에 숫자 0이 포함된 경우 3", async () => {
+      // given
+      const randoms = [1, 3, 5];
+      const answers = ["120"];
+  
+      mockRandoms(randoms);
+      mockQuestions(answers);
+  
+      // when & then
+      const app = new App();
+  
+      await expect(app.play()).rejects.toThrow("[ERROR] 숫자는 1~9 사이의 숫자여야 합니다.");
+    });
 
 });
