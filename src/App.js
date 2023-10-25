@@ -1,122 +1,118 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
+import { Console, Random } from "@woowacourse/mission-utils";
+
+const NUMBER_RANGE = /^[1-9]+$/;
+const RESTART = '1';
+const END = '2';
 
 class App {
+  constructor() {
+    this.answer = null;
+  }
+
   async play() {
-    
-    async function setAnswer ( answer ) {
-      while ( answer.length < 3 ) {
-        const element = MissionUtils.Random.pickNumberInRange(1,9);
-        if(!answer.includes(element)) {
-          answer.push(element);
+    Console.print('숫자 야구 게임을 시작합니다.');
+    this.answer = this.createAnswer();
+    await this.game('playing');
+  }
+
+  async restart() {
+    this.answer = this.createAnswer();
+    await this.game('playing');
+  }
+
+  async game(status) {
+    switch (status) {
+      case 'playing': {
+        const input = await Console.readLineAsync(
+          '숫자를 입력해주세요 : '
+        );
+        this.isError(input);
+
+        const result = this.createResult(input);
+        if (result.strike === 3) {
+          await this.game('correct');
+        } else {
+          const resultArr = this.printResult(result);
+          Console.print(resultArr);
+          await this.game('playing');
+        }
+        break;
+      }
+      case 'correct': {
+        Console.print(
+          `3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료`
+        );
+        let input = null;
+        while (input !== RESTART && input !== END) {
+          input = await Console.readLineAsync(
+            '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'
+          );
+        }
+        if (input === RESTART) {
+          await this.restart();
+        } else if (input === END) {
+          await this.game('end');
         }
       }
-      return answer;
-    }
-
-
-    async function getUsernumber( user ) {
-      let input = '';
-
-      try {
-        input = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요.');
-        
-        user.push(Number(input.substring(0,1)));
-        user.push(Number(input.substring(1,2)));
-        user.push(Number(input.substring(2,3)));
-
-
-      } catch (error) {
-        MissionUtils.Console.print('[ERROR] 에러가 발생했습니다');
-      }
-      return user;
-    }
-  
-  
-    // 정답 난수와 유저 숫자를 비교
-    function compareResult ( answer, user, result ) {
-      for (let answer_num of answer ) {
-        for ( let user_num of user ) {
-          if ( answer_num == user_num ) {
-            if ( answer.indexOf(answer_num) == user.indexOf(user_num) ) {
-              result.strike++;
-            }
-            else {
-              result.ball++;
-            }
-          }
-        }
-      }
-      return result;
-    }
-    
-  
-    // 비교한 결과 출력
-    function printResult ( strike, ball ) {
-      
-      if ( ball == '0' ) {
-        
-        if ( strike == '3' ) {
-          MissionUtils.Console.print(strike + '스트라이크');
-          MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
-          return;
-        } else if ( strike == '0' ) {
-          MissionUtils.Console.print('낫싱');
-          return;
-        }
-        
-        else {
-          MissionUtils.Console.print(strike + '스트라이크');
-          return;
-        }
-      }
-      else {
-        if ( result.strike == '0' ) {
-          MissionUtils.Console.print(ball + '볼');
-          return;
-        }
-        else {
-          MissionUtils.Console.print(ball + '볼 ' + strike + '스트라이크');
-          return;
-        }
+      case 'end': {
+        break;
       }
     }
-  
-  
-    async function isEnd ( userwant ) {
-      userwant = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
-      if ( userwant == 1 ) {
-        return 1;
+  }
+
+  createAnswer() {
+    const answer = [];
+    while (answer.length < 3) {
+      const number = String(Random.pickNumberInRange(1, 9));
+      if (!answer.includes(number)) {
+        answer.push(number);
       }
-      return;
     }
+    return answer.join("");
+  }
 
-
-
-
-    var answer = [];
-    var user = [];
-    var result = {
-      ball: 0,
-      strike: 0
-    };
-    var userwant = 0;
-    
-    MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
-
-    do {
-      answer = await setAnswer(answer);
-      user = await getUsernumber(user);
-
-      result = compareResult( answer, user, result );
-      printResult( result.strike, result.ball );
-
-      if ( result.strike == 3 ) {
-        userwant = isEnd( userwant );
-        if ( userwant == 2) {
-          return;
-        }
+  createResult(input) {
+    const result = { 
+      strike: 0, 
+      ball: 0 };
+    for (let i = 0; i < 3; i++) {
+      const currentNumber = input[i];
+      if (currentNumber === this.answer[i]) {
+        result.strike++;
+        continue;
       }
-    } while ( userwant == 1 );
+      if (this.answer.includes(currentNumber)) {
+        result.ball++;
+      }
+    }
+    return result;
+  }
+
+  printResult(result) {
+    const { strike, ball } = result;
+    const resultArr = [];
+    if (ball > 0) {
+      resultArr.push(`${ball}볼`);
+    }
+    if (strike > 0) {
+      resultArr.push(`${strike}스트라이크`);
+    }
+    return resultArr.length === 0 ? '낫싱' : resultArr.join(' ');
+  }
+
+  isError(input) {
+    if (
+      input.length !== 3 ||
+      new Set(input).size !== 3
+    )
+      throw new Error(
+        `[ERROR] 0을 제외한 서로 다른 수로 이루어진 세 자리 숫자를 입력해야 합니다.`
+      );
+    if (!NUMBER_RANGE.test(input))
+      throw new Error(`[ERROR] 1부터 9까지만 입력할 수 있습니다.`);
+    if (input.includes(" "))
+      throw new Error(`[ERROR] 공백 없이 숫자를 입력해야 합니다.`);
   }
 }
+
 export default App;
