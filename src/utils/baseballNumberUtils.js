@@ -1,5 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import { BASEBALL_NUMBER } from '../constants/baseballGame.js';
+import { BASEBALL_NUMBER, NUMBER } from '../constants/baseballNumber.js';
 
 export const answerGenerator = () => {
   const numberSet = new Set();
@@ -14,4 +14,10 @@ export const answerGenerator = () => {
   }
 
   return [...numberSet];
+};
+
+export const isBaseballNumber = (numberString) => {
+  const number = parseInt(numberString, NUMBER.RADIX);
+
+  return number <= BASEBALL_NUMBER.MAX && number >= BASEBALL_NUMBER.MIN;
 };

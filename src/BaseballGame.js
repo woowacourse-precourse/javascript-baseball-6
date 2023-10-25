@@ -1,5 +1,5 @@
 import { Computer } from './Model/Computer.js';
-import { answerGenerator } from './utils/answerGenerator.js';
+import { answerGenerator } from './utils/baseballNumberUtils.js';
 
 export class BaseballGame {
   #computer;

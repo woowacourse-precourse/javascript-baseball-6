@@ -1,7 +1,7 @@
 import { BaseballNumberError } from '../Model/Error.js';
-import { BASEBALL_NUMBER } from '../constants/baseballGame.js';
+import { BASEBALL_NUMBER, TYPE, NUMBER } from '../constants/baseballNumber.js';
 import { ERROR } from '../constants/error.js';
-import { TYPE } from '../constants/type.js';
+import { isBaseballNumber } from '../utils/baseballNumberUtils.js';
 
 export class BaseballNumber {
   #numberList;
@@ -24,10 +24,13 @@ export class BaseballNumber {
 
   #validation(numberList) {
     if (numberList.length !== BASEBALL_NUMBER.DIGIT)
-      throw new BaseballNumberError(`${ERROR.MESSAGE.INVALID_DIGITS}`);
+      throw new BaseballNumberError(ERROR.MESSAGE.INVALID_DIGITS);
 
     if (new Set(numberList).size !== numberList.length)
       throw new BaseballNumberError(ERROR.MESSAGE.DUPLICATE_NUMBERS);
+
+    if (numberList.includes(NUMBER.ZERO))
+      throw new BaseballNumberError(ERROR.MESSAGE.OUT_OF_RANGE);
 
     if (!numberList.every(Number))
       throw new BaseballNumberError(ERROR.MESSAGE.NOT_A_NUMBER);
@@ -40,11 +43,3 @@ export class BaseballNumber {
     return this.#numberList;
   }
 }
-
-const isBaseballNumber = (number) =>
-  number <= BASEBALL_NUMBER.MAX && number >= BASEBALL_NUMBER.MIN;
-
-const TYPE = Object.freeze({
-  NUMBER: 'number',
-  STRING: 'string',
-});
