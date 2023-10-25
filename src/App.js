@@ -21,7 +21,7 @@ class App {
   setComputer(computer) {
     this.computer = computer;
   }
-oky794
+
   getComputer() {
     return this.computer;
   }
