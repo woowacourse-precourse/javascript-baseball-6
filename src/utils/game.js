@@ -37,10 +37,6 @@ export async function printGameResult(strike, ball) {
     } else if (ball === 0 && strike === 0) {
         await MissionUtils.Console.print(gameMessage.NOTHING);
     } else {
-        await MissionUtils.Console.print(getStrikeAndBallMessage(strike, ball));
+        await MissionUtils.Console.print(gameMessage.getStrikeAndBallMessage(strike, ball));
     }
-}
-
-function getStrikeAndBallMessage(ball, strike) {
-    return `${ball}볼 ${strike}스트라이크`;
 }
