@@ -73,7 +73,7 @@ class App {
     if (this.strike === 3) {
       Console.print(`${this.strike}스트라이크`);
       Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-      this.playRestart();
+      this.restart();
     } else {
       Console.print(
         `${this.ball === 0 ? "" : this.ball + "볼"} ${
