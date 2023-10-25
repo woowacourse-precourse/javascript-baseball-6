@@ -74,6 +74,10 @@
 ...
 ```
 
+### 애러 예시
+
+예외 상황 시 에러 문구를 출력해야 한다. 단, 에러 문구는 "[ERROR]"로 시작해야 한다.
+
 ### 라이브러리
 
 - `@woowacourse/mission-utils`의 `Random` 및 `Console` API를 사용하여 구현해야 한다.
