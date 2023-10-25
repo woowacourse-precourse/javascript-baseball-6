@@ -7,7 +7,7 @@ class App {
         this.user = new User();
     }
     async play() {
-        this.computer.playGame(this.user);
+        await this.computer.playGame(this.user);
     }
 }
 
