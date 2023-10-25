@@ -46,8 +46,25 @@ class App {
     return this.startGameTurn();
   }
 
-  // TODO: 게임 종료 후 사용자에게 재시작 여부를 확인
-  async checkRestartGame() {}
+  async checkRestartGame() {
+    // 사용자로부터 '1' 또는 '2'의 1자리 숫자로 이루어진 게임 재시작/종료 선택 입력값 수신
+    const userCommandToRestart = await Console.readLineAsync(IN_GAME_MESSAGE.getUserCommandToRestart);
+
+    // 게임 재시작/종료 여부에 대한 입력값의 유효성 검증 후 게임 재시작/종료 또는 에러 처리
+    if (userCommandToRestart === AFTER_GAME_USER_COMMAND.restart) {
+      return this.createNewGame();
+    }
+    if (userCommandToRestart === AFTER_GAME_USER_COMMAND.exit) {
+      Console.print(IN_GAME_MESSAGE.exitGame);
+      return;
+    }
+    if (
+      userCommandToRestart !== AFTER_GAME_USER_COMMAND.restart &&
+      userCommandToRestart !== AFTER_GAME_USER_COMMAND.exit
+    ) {
+      throw new Error(IN_GAME_ERROR.invalidCommand);
+    }
+  }
 }
 
 const app = new App();
