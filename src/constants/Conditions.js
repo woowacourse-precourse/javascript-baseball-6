@@ -8,6 +8,8 @@ const CONDITIONS = {
   },
   NUMBER_LENGTH: 3,
   NUMBER_REGEX: /^[1-9]{3}$/,
+  SUCCESS_COUNT: 3,
+  COUNT: 1,
 };
 
 export default CONDITIONS;
