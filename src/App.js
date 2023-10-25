@@ -1,21 +1,36 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 
-// 자주 사용되는 숫자를 상수로 선언
-const REG_INPUT_NUMBER = /^(?!.*([1-9]).*\1)[1-9]{3}$/; //사용자가 입력하는 숫자가 1부터 9까지 중복 없이 3자리 숫자인지를 검증하기 위해 정규식 선언
+// 자주 사용되는 정규식을 상수로 선언
+const REG_USER_NUM = /^(?!.*([1-9]).*\1)[1-9]{3}$/; //사용자가 입력하는 숫자가 1부터 9까지 중복 없이 3자리 숫자인지를 검증하기 위해 정규식 선언
 
 class App {
   //숫자 야구 게임 프로그램 실행하는 메서드
   async play() {
     // 기능 1) 프로그램 시작시 "숫자 야구 게임을 시작합니다." 출력하기
     Console.print("숫자 야구 게임을 시작합니다.");
-    const computerNum = this.CreateComputerNum();
-    const userNum = await this.GetUserNum();
-    const { ball, strike } = this.CompareNum(computerNum, userNum);
-    this.PrintResult(ball, strike);
+    do {
+      const computerNum = this.createComputerNum();
+      let isCorrect = false;
+
+      while (!isCorrect) {
+        try {
+          const userNum = await this.getUserNum();
+          const { ball, strike } = this.compareNum(computerNum, userNum);
+          this.printResult(ball, strike);
+
+          if (strike === 3) {
+            Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+            isCorrect = true;
+          }
+        } catch (e) {
+          throw new Error("[ERROR] z");
+        }
+      }
+    } while (await this.askRestart());
   }
 
   // 기능 2) 컴퓨터가 선택한 임의의 3자리 수 생성하기
-  CreateComputerNum() {
+  createComputerNum() {
     const computer = [];
     while (computer.length < 3) {
       const number = Random.pickNumberInRange(1, 9);
@@ -27,23 +42,21 @@ class App {
   }
 
   // 기능 3) 사용자에게 3자리 수 입력받기
-  async GetUserNum() {
+  async getUserNum() {
     let user;
-    do {
-      //숫자 입력받기
-      user = await Console.readLineAsync("숫자를 입력해주세요 : ");
-      if (!REG_INPUT_NUMBER.test(user)) {
-        // 사용자의 입력이 유효하지 않으면 에러 메시지 출력
-        Console.print("[ERROR] 숫자가 잘못된 형식입니다.");
-      }
-    } while (!REG_INPUT_NUMBER.test(user)); // 조건이 만족하지 않는 경우 반복
+    //숫자 입력받기
+    user = await Console.readLineAsync("숫자를 입력해주세요 : ");
+    if (!REG_USER_NUM.test(user)) {
+      // 사용자의 입력이 유효하지 않으면 에러
+      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+    }
 
     // 사용자의 입력이 유효하면 숫자 배열로 변환하여 반환
     return Array.from(user).map(Number);
   }
 
   // 기능 4) 컴퓨터의 임의의 수와 사용자가 입력한 수 비교
-  CompareNum(computerNum, userNum) {
+  compareNum(computerNum, userNum) {
     let ball = 0,
       strike = 0; // 볼과 스트라이크 0으로 초기화
 
@@ -65,7 +78,7 @@ class App {
   }
 
   //기능 5) 비교 결과 출력
-  PrintResult(ball, strike) {
+  printResult(ball, strike) {
     if (strike === 0 && ball === 0) {
       Console.print("낫싱");
     } else {
@@ -74,6 +87,18 @@ class App {
       if (strike !== 0) result += `${strike}스트라이크`;
       Console.print(result);
     }
+  }
+
+  // 기능 6) 재시작 여부 묻기
+  async askRestart() {
+    let restart;
+    restart = await Console.readLineAsync(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+    );
+    if (restart !== "1" && restart !== "2") {
+      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+    } else if (restart === "2") return false; // 2를 입력하면 게임 종료
+    else return true; //1을 입력하면 게임 재시작
   }
 }
 
