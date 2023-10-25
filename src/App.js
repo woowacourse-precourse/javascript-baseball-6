@@ -65,6 +65,9 @@ class App {
       "숫자를 입력해주세요 : "
     );
 
+    //
+    if (INPUT.length !== 3) throw new Error("[ERROR]");
+
     INPUT.split("").forEach((e) => {
       if (NUMBERS.includes(e)) throw new Error("[ERROR]");
 
