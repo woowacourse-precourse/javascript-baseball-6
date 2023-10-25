@@ -14,6 +14,17 @@ class App {
 
     return computer;
   }
+
+  takeUserGuess() {
+    const inputString = MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
+    const input = inputString.trim().split('').map(Number);
+
+    if (input.length !== 3 || input.includes(NaN)) {
+      throw MissionUtils.Console.print('3자리 숫자만 입력 가능합니다.');
+    }
+
+    return input;
+  }
 }
 
 export default App;
