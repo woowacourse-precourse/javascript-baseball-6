@@ -3,23 +3,25 @@
 - ### Baseball.js 
   볼, 스트라이크, 낫싱 결과값을 계산후 내보내는 곳
 
-* * * *
+- ### Qna.js
 
-- ### Constans.js   
+  사용자 입력을 처리하고, 입력받은 값에 대한 결과값을 내보내는 곳
+
+- ### Constants.js   
   게임중 출력되는 모든 메세지들을 모아둔 곳
-* * *
+
 
 - ### RandomNumber.js 
   서로 다른 3자리 랜덤값을 도출하는 곳
-* * *
+
 
 - ### Exception.js 
   올바른 형식이 아닌 사용자 입력에 대한 예외 처리실
-* * *
+
 
 - ### App.js   
-  Baseball.js + Constants.js + RandomNumber.js + Exception.js 
-* * *
+  Baseball.js + Qna.js + Constants.js + RandomNumber.js + Exception.js 
+
 <br>
 <br>
 <br>
@@ -34,6 +36,25 @@
 
 <br>
 
+> Qna.js
+- class Qna
+- 메서드 전원 static 적용
+- numberAsking :   
+  1. '숫자를 입력해주세요 : ' 콘솔 출력
+  2. 사용자 입력을 받을때 까지 기다림
+  3. 사용자 입력을 받으면 입력값에 대한 예외처리
+  4. 사용자 입력값이 예외가 아니라면 입력 숫자에 대한 게임 결과를 계산 후 출력
+  5. 게임 결과값을 반환
+
+- choiceAsking :    
+  1. '3개의 숫자를 모두 맞히셨습니다! 게임 종료' 콘솔 출력
+  2. '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요' 콘솔 출력
+  3. 사용자 입력을 받을때 까지 기다림
+  4. 사용자 입력을 받으면 입력값에 대한 예외처리
+  5. 사용자 입력값이 예외가 아니라면 입력값 반환
+
+<br>
+
 > Exception.js
 - class Exception 
 - 메서드 전원 static 적용
@@ -42,6 +63,8 @@
 - 사용자 입력값 예외 : 숫자 1 - 9 이외의 모든 것
 - 사용자 입력값 예외 : 네자리 수 이상의 모든 것
 - 사용자 입력값 예외 : 중복이 포함된 모든 것
+- Exception.isExceptionChoice(사용자 입력) = true or false
+- 사용자 입력이 "1" 또는 "2" 가 아니라면 true를 반환
 
 <br>
 
@@ -71,85 +94,51 @@
 - RandomNumber.computer() = 1부터 9로 이루어진 길이가 3인 unique 배열
 
 <br>
-
-> App.js 
-
-class App with imported ...
-
-- outcome() from class Baseball  
-- isNonException() from class Exception  
-- computer() from class RandomNumber   
-- MESSEAGE from Constans object 
-
-<br>
 <br>
 <br>
 
 # App.js
 
-class App {    
+    
 
-> ## numberAsking
->  1. '숫자를 입력해주세요 : ' 콘솔 출력
->
->  2. 사용자 입력을 받는다
->
->  3. 사용자 입력에 대한 예외처리 
->
->  4. 숫자 야구 결과 반환    
-> >  
-  
+ ## start
+  1. numberAsking 을 실행한다
 
-> ## choiceAsking
->  1. '3개의 숫자를 모두 맞히셨습니다! 게임 종료' 콘솔 출력
->
->  2. '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요' 
-콘솔 출력
->  
->  3. 사용자 선택을 입력 받는다 
->
->  4. 사용자 선택 입력에 대한 예외처리
->
->  5. 사용자 선택 입력값 반환
-> >
-> ## start
->  1. numberAsking 을 실행한다
->
->  2. numberAsking 반환 값이 '3스트라이크' 가 아니면 start 
+  2. numberAsking 반환 값이 '3스트라이크' 가 아니면 start 
 재실행
->
->  3. numberAsking 반환 값이 '3스트라이크' 라면 determine 실행
-> > 
-> ## replay
->  1. start 실행
->
->  2. start 가 최종 종료 될 때까지 기다림 
->
->  3. determine 실행
->
->  4. determine 가 최종 종료 될 때까지 기다림
-> > 
-> ## determine
->  1. choiceAsking 을 실행한다.
->
->  2. choiceAsking 반환 값이 "1" 이라면 replay 실행
->
->  3. choiceAsking 반환 값이 "2" 이라면 함수 종료  
-> >
-> ## play
->  1. '숫자 야구 게임을 시작합니다.' 콘솔 출력
->
->  2. start 실행
->
->  3. start 가 최종 종료 될 때가지 기다림
->
->  4. determine 실행
->
->  5. determine 가 최종 종료 될 때까지 기다림
->
->  6. determine 이 최종 종료되면 프로그램 종료    
 
-}
+  3. numberAsking 반환 값이 '3스트라이크' 라면 choice 실행
+ 
+ ## replay
+  1. start 실행
+
+  2. start 가 최종 종료 될 때까지 기다림 
+
+  3. choice 실행
+
+  4. choice 가 최종 종료 될 때까지 기다림
+ 
+ ## choice
+  1. choiceAsking 을 실행한다.
+
+  2. choiceAsking 반환 값이 "1" 이라면 replay 실행
+
+  3. choiceAsking 반환 값이 "2" 이라면 함수 종료  
+
+ ## play
+  1. '숫자 야구 게임을 시작합니다.' 콘솔 출력
+
+  2. start 실행
+
+  3. start 가 최종 종료 될 때가지 기다림
+
+  4. choice 실행
+
+  5. choice 가 최종 종료 될 때까지 기다림
+
+  6. choice 가 최종 종료되면 프로그램 종료    
+
+<br>
 <br>
 <br>
 
