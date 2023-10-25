@@ -26,6 +26,10 @@ export function validateNumber(num) {
   if (typeof num !== 'number') throw new Error('인자는 숫자이어야 합니다.');
 }
 
+export function validateString(num) {
+  if (typeof num !== 'string') throw new Error('인자는 문자열이어야 합니다.');
+}
+
 export function validateThreeDigit(num) {
   if (num > UPPER_BOUND || num < LOWER_BOUND)
     throw new Error('입력된 숫자는 세자리이어야 합니다.');
