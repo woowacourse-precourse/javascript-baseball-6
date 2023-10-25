@@ -28,36 +28,34 @@ function processBallAndStrike(computerAnswer, userAnswer) {
   return { ball, strike };
 }
 
-function printBallAndStrikeResult({ ball, strike }) {
+function getMessageForBallAndStrike({ ball, strike }) {
   if (strike === 3) {
-    return Console.print(`${strike}스트라이크 \n3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
+    return `${strike}스트라이크 \n3개의 숫자를 모두 맞히셨습니다! 게임 종료`;
   }
-
   if (strike === 0 && ball === 0) {
-    return Console.print('낫싱');
+    return '낫싱';
   }
-
   if (ball > 0 && strike > 0) {
-    return Console.print(`${ball}볼 ${strike}스트라이크`);
+    return `${ball}볼 ${strike}스트라이크`;
   }
-
   if (strike === 0) {
-    return Console.print(`${ball}볼`);
+    return `${ball}볼`;
   }
-
-  return Console.print(`${strike}스트라이크`);
+  return `${strike}스트라이크`;
 }
 
 function compareNumbers(computerAnswer, userAnswer) {
   const result = processBallAndStrike(computerAnswer, userAnswer);
-  printBallAndStrikeResult(result);
+  Console.print(getMessageForBallAndStrike(result));
   return result;
 }
 
 function isValidInput(input) {
-  if (input.length !== 3) return false;
-  if (new Set(input).size !== 3) return false;
-  return input.every((digit) => Number.isInteger(Number(digit)));
+  return (
+    input.length === 3 &&
+    new Set(input).size === 3 &&
+    input.every((digit) => Number.isInteger(Number(digit)))
+  );
 }
 
 async function requestUserAnswer() {
@@ -82,7 +80,15 @@ async function postGameChoice() {
 }
 
 class App {
-  async playGame() {
+  static async play() {
+    let continueGame = true;
+
+    while (continueGame) {
+      continueGame = await App.playGame();
+    }
+  }
+
+  static async playGame() {
     Console.print('숫자 야구 게임을 시작합니다.');
     const computerAnswer = createComputerNumber();
     let strike = 0;
@@ -94,14 +100,6 @@ class App {
     }
 
     return postGameChoice();
-  }
-
-  async play() {
-    let continueGame = true;
-
-    while (continueGame) {
-      continueGame = await this.playGame();
-    }
   }
 }
 
