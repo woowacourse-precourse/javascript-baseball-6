@@ -6,19 +6,11 @@ export default class InputReader {
   constructor() {}
 
   async baseBallNumbers() {
-    try {
-      return await this.#onRead(GAME_MESSAGE.REQUEST_WINNING_NUMBERS);
-    } catch (error) {
-      throw error;
-    }
+    return await this.#onRead(GAME_MESSAGE.REQUEST_WINNING_NUMBERS);
   }
 
   async restartNumber() {
-    try {
-      return await this.#onRead(GAME_MESSAGE.REQUEST_RESTART_NUMBER);
-    } catch (error) {
-      throw error;
-    }
+    return await this.#onRead(GAME_MESSAGE.REQUEST_RESTART_NUMBER);
   }
 
   async #onRead(text, _ = paramType(text, String)) {
