@@ -1,4 +1,4 @@
-import { Random, Console } from "@woowacourse/mission-utils";
+import { Random, Console } from '@woowacourse/mission-utils';
 
 class App {
   async play() {
@@ -49,13 +49,13 @@ class App {
   }
 
   async getInputNumber() {
-    const INPUT = await Console.readLineAsync("숫자를 입력해주세요 : ");
+    const INPUT = await Console.readLineAsync('숫자를 입력해주세요 : ');
     this.checkInputNumber(INPUT);
     return INPUT;
   }
 
   async startGameAgain() {
-    let input = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+    let input = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
     this.checkInput(input);
     if (input === '1') this.play();
     return;
@@ -66,13 +66,13 @@ class App {
     const SET_INPUT = [...new Set(input)];
 
     if (isNaN(parseInt(input)) || SET_INPUT.length !== 3) {
-      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+      throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
     }
   }
 
   checkInput(input) {
     if (input !== '1' && input !== '2') {
-      throw new Error("[ERROR] 잘못된 형식입니다.");
+      throw new Error('[ERROR] 잘못된 형식입니다.');
     }
   }
 
