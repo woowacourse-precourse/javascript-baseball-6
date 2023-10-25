@@ -72,7 +72,6 @@ class App {
     do {
       let correct = false;
       const RANDOM_NUMBER = this.createRandomNumber().join("");
-      MissionUtils.Console.print(RANDOM_NUMBER);
 
       while (correct === false) {
         const USER_NUMBER = await this.inputNumber();
