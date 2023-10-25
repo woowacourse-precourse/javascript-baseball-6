@@ -39,6 +39,7 @@ class App {
         let userInput = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
         const THREE_DIGITS = userInput.length === 3;
         const INPUT_STRING = isNaN(userInput) === true;
+        const INPUT_ZERO = userInput.includes(0);
         let inputSameNumberForEach = userInput.split('').filter((item, index) => userInput.indexOf(item) !== index).length > 0;
                   
         if (!THREE_DIGITS) {
@@ -54,6 +55,11 @@ class App {
         if (inputSameNumberForEach) {
           exportLibrary('[ERROR] 서로다른 숫자를 입력하세요')
           throw new Error('[ERROR] 서로다른 숫자를 입력하세요');
+        };
+
+        if (INPUT_ZERO) {
+          exportLibrary('[ERROR] 1부터 9까지 서로 다른 수를 입력하세요');
+          throw new Error('[ERROR] 1부터 9까지 서로 다른 수를 입력하세요');
         };
 
          // 정상적으로 입력했을 때 -> 비교시작
