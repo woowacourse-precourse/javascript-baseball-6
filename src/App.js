@@ -55,12 +55,13 @@ function isValidInput(input) {
 
 async function requestUserAnswer() {
   const input = await Console.readLineAsync('숫자를 입력해주세요: ');
+  const inputArray = input.split('').map(Number);
 
-  if (!isValidInput(input)) {
+  if (!isValidInput(inputArray)) {
     throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
   }
 
-  return input;
+  return inputArray;
 }
 
 class App {
@@ -70,7 +71,7 @@ class App {
 
     try {
       const userAnswer = await requestUserAnswer();
-      compareNumbers(computerAnswer, userAnswer.split(''));
+      compareNumbers(computerAnswer, userAnswer);
     } catch (error) {
       Console.print(error);
     }
