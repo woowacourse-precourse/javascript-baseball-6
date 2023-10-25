@@ -1,7 +1,7 @@
 import { NUMBER, COMMAND } from './Constant.js';
 
-class Validator {
-  static validateNumber(userNumbers) {
+const Validator = {
+  validateNumber(userNumbers) {
     if (/\s/.test(userNumbers.trim())) {
       throw new Error('[ERROR] 중간에 공백은 입력할 수 없습니다.');
     }
@@ -17,15 +17,15 @@ class Validator {
     if (new Set(userNumbers).size !== userNumbers.length) {
       throw new Error('[ERROR] 중복된 숫자를 입력해서는 안됩니다.');
     }
-  }
+  },
 
-  static validateCommand(userCommand) {
+  validateCommand(userCommand) {
     if (userCommand !== COMMAND.REPLAY && userCommand !== COMMAND.FINISH) {
       throw new Error(
         `[ERROR] ${COMMAND.REPLAY}(재시작) 또는 ${COMMAND.FINISH}(종료)를 입력해야 합니다.`
       );
     }
-  }
-}
+  },
+};
 
 export default Validator;
