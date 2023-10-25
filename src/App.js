@@ -10,8 +10,7 @@ class App {
 
     //게임 실행함수
     async function baseballGame() {
-      let gameContinue = true;
-      while (gameContinue) {
+      while (true) {
         let user_input = await getUserNumbers();
         compareNumbers(computer_random_number, user_input);
         if (computer_random_number == user_input) {
@@ -23,7 +22,7 @@ class App {
             continue; // 게임 재시작
           } else if (restartOrExit === "2") {
             MissionUtils.Console.print("게임 종료");
-            gameContinue = false; // 게임 종료
+            return; // 게임 종료
           }
         }
       }

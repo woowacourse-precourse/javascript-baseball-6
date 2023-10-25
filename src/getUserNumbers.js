@@ -1,12 +1,10 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 // 입력값 예외처리
-function checkInput(human_input) {
-  if (isNaN(human_input) == true) {
+function checkInput(input) {
+  if (isNaN(input) == true) {
     return "[ERROR] 숫자가 아닙니다";
-  } else if (human_input.length > 3) {
-    return "[ERROR] 세자리만 입력하십시오!";
-  } else if (human_input.length < 3) {
+  } else if (input.length !== 3) {
     return "[ERROR] 세자리를 입력하십시오!";
   }
 }
