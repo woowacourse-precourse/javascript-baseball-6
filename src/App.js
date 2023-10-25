@@ -93,6 +93,12 @@ class App {
       throw new Error(ERROR_TEXT);
     }
   }
+
+  restartStatusValidator(answer) {
+    if (answer !== 1 && answer !== 2) {
+      throw new Error(ERROR_TEXT);
+    }
+  }
 }
 
 export default App;
