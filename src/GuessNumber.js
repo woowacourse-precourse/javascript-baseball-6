@@ -8,11 +8,15 @@ import {
   isWrongLength,
   hasSameNumberArray,
 } from "./utils/validation.js";
+import {
+  countMatchNumbersWithPos,
+  countMatchNumbers,
+} from "./utils/counting.js";
 
 class GuessNumber {
-  constructor() {
+  constructor(correctAnswerArray) {
+    this.correctAnswerArray = correctAnswerArray;
     this.guessNumberArray = [];
-    this.inputGuessNumber();
   }
 
   validation() {
@@ -47,6 +51,47 @@ class GuessNumber {
         console.log(e.message);
       }
     }
+  }
+
+  getStrike() {
+    return countMatchNumbersWithPos(
+      this.correctAnswerArray,
+      this.guessNumberArray
+    );
+  }
+
+  getBall() {
+    return (
+      countMatchNumbers(this.correctAnswerArray, this.guessNumberArray) -
+      countMatchNumbersWithPos(this.correctAnswerArray, this.guessNumberArray)
+    );
+  }
+
+  async getResult() {
+    await this.inputGuessNumber();
+
+    const strike = this.getStrike();
+    const ball = this.getBall();
+
+    if (strike === GAME_INFO.GUESS_NUMBER_LENGTH) {
+      console.log(`${GAME_INFO.GUESS_NUMBER_LENGTH}스트라이크`);
+      return true;
+    }
+    if (ball > 0 && strike > 0) {
+      console.log(`${ball}볼 ${strike}스트라이크`);
+      return false;
+    }
+    if (ball > 0) {
+      console.log(`${ball}볼`);
+      return false;
+    }
+    if (strike > 0) {
+      console.log(`${strike}스트라이크`);
+      return false;
+    }
+
+    console.log("낫싱");
+    return false;
   }
 }
 

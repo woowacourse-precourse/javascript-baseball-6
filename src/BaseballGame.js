@@ -5,10 +5,13 @@ import { GAME_INFO } from "./constants/baseballGameInfo.js";
 class BaseballGame {
   constructor() {
     this.correctAnswerArray = [];
+    this.guessNumberInstance = null;
+    this.isWin = false;
 
     console.log("숫자 야구 게임을 시작합니다.");
     this.startTurn();
     this.getCorrectAnswerArray();
+    this.resultTurn();
   }
 
   getCorrectAnswerArray() {
@@ -24,7 +27,17 @@ class BaseballGame {
   }
 
   startTurn() {
-    new GuessNumber();
+    this.guessNumberInstance = new GuessNumber(this.correctAnswerArray);
+  }
+
+  async resultTurn() {
+    while (!this.isWin) {
+      this.isWin = await this.guessNumberInstance.getResult();
+    }
+
+    console.log(
+      `${GAME_INFO.GUESS_NUMBER_LENGTH}개의 숫자를 모두 맞히셨습니다! 게임 종료`
+    );
   }
 }
 
