@@ -2,7 +2,7 @@ import { Random, Console } from '@woowacourse/mission-utils';
 import { ErrorMessage, ConsoleMessage } from './Messages.js';
 
 class App {
-  #computer;
+  computer;
   static DIGITS_COUNT = 3;
   static MIN_DIGIT = 1;
   static MAX_DIGIT = 9;
@@ -11,12 +11,12 @@ class App {
 
   async play() {
     this.init();
-    this.playBaseball(this.computer);
   }
 
   init() {
     this.computer = this.getRandomComputerNumber();
     Console.print(ConsoleMessage.START_GAME);
+    return this.playBaseball(this.computer);
   }
 
   async playBaseball(computer) {
@@ -39,12 +39,12 @@ class App {
 
   async getUserNumber() {
     const user = await Console.readLineAsync(ConsoleMessage.USER_NUMBER);
-    const checkedNum = this.checkDifferentThreeDigits(user.trim());
+    const checkedNum = this.validateUserDigits(user.trim());
     const parsedNum = checkedNum.map((v) => parseInt(v));
     return parsedNum;
   }
 
-  checkDifferentThreeDigits(user) {
+  validateUserDigits(user) {
     if (isNaN(user)) throw new Error(ErrorMessage.NUMBERS_ONLY);
     const array = user.split('');
     if (array.length > App.DIGITS_COUNT || array.length < App.DIGITS_COUNT)
@@ -102,5 +102,7 @@ class App {
     }
   }
 }
+const app = new App();
+app.play();
 
 export default App;
