@@ -14,3 +14,9 @@ export const GAME_MESSAGE = {
 };
 
 export const INPUT_REG_EX = /^[1-9]{3}$/;
+
+export const GAME_STATE = {
+  init: "init",
+  strike: "strike",
+  end: "end",
+};
