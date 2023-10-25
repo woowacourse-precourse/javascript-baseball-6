@@ -31,6 +31,6 @@
         - return result
 
     - isValid(input:string, restart:boolean) : 
-        - restart가 false인 상태이면 (게임 진행 중) input이 숫자인지, 3자리인지 확인한다.
+        - restart가 false인 상태이면 (게임 진행 중) input이 숫자인지, 전부 다른 3자리인지 확인한다.
         - restart가 true인 상태이면 (게임 종료) input이 "1" 또는 "2"인지 확인한다.
         - 유효하지 않으면 throw Error, 유효하면 return
