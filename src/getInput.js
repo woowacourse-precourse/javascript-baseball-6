@@ -15,10 +15,9 @@ export const getContinueGame = async () => {
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
     );
     if (input === "1" || input === "2") {
-      break;
+      return input;
     } else {
-      Console.print("잘못된 입력입니다.");
+      throw new Error("[ERROR] 잘못된 입력입니다.");
     }
   }
-  return input;
 };
