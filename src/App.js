@@ -2,6 +2,7 @@ import { MissionUtils, Console } from "@woowacourse/mission-utils";
 
 class App {
   #COMPUTERNUMBERS=[];
+  USERACTION=1;
   initializeComputerNumer()
   {
     if(this.#COMPUTERNUMBERS.length !==0) this.#COMPUTERNUMBERS=[];
@@ -86,17 +87,19 @@ class App {
   }
   async play() {
       this.initializeComputerNumer();
+      // this.getCompuerNum();
       Console.print("숫자 야구 게임을 시작합니다.");
-      while(1)
+      while(this.USERACTION === 1)
       {
         const userNumbers = await this.userNumberInput();
-        if(this.compareNumber(userNumbers)==="END")break;
-      }
-      const menu = await this.restartInput();
-      if(menu === 1)
-      {
-        this.initializeComputerNumer();
-        this.play()
+        if(this.compareNumber(userNumbers)==="END"){
+          const menu = await this.restartInput();
+          if(menu === 1)
+          {
+            this.initializeComputerNumer();
+          }
+          else this.USERACTION=2;
+        }
       }
   }
 }
