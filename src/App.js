@@ -8,7 +8,17 @@ class App {
     );
   }
 
-  async startGame(answer) {}
+  async startGame(answer) {
+    while (true) {
+      const input = (await Console.readLineAsync('숫자를 입력해주세요 : '))
+        .split(' ').join('')
+        .split('').map(Number);
+
+      if (input.length !== 3 || input.some((n) => !Number.isInteger(n))) {
+        throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+      }
+    }
+  }
 
   getRandomNumbers() {
     const arr = [];
