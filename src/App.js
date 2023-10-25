@@ -44,9 +44,9 @@ class App {
     // 결과에 따른 다음 프로세스 분기 처리 후 턴 종료
     if (userScore.strike === 3 && userScore.ball === 0) {
       Console.print(IN_GAME_MESSAGE.rightAnswer);
-      return self.checkRestartGame();
+      return this.checkRestartGame();
     }
-    return self.startGameTurn();
+    return this.startGameTurn();
   }
 
   // TODO: 게임 종료 후 사용자에게 재시작 여부를 확인
