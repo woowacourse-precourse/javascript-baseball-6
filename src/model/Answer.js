@@ -1,5 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import { ANSWER_LENGTH, MIN, MAX } from "../constants/constants";
+import { ANSWER_LENGTH, MIN, MAX } from "../constants/constants.js";
 
 class Answer {
   #computerNum;

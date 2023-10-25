@@ -9,7 +9,7 @@ import {
 
 const validation = {
   isNumber(input) {
-    if (NUMBER_REGEXP.test(input))
+    if (!NUMBER_REGEXP.test(input))
       throw new Error(ERROR_MSG.INVALID_INPUT_TYPE);
     return 0;
   },
