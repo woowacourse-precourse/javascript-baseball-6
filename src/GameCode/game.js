@@ -22,11 +22,11 @@ const gamePlay = (playerNum, computerNum) => {
 const gameEnd = async () => {
   const RESTART_BUTTON = await MissionUtils.Console.readLineAsync(END_MESSAGE.restart);
 
-  if (RESTART_BUTTON.trim() === RESTART_CHECK.continue) {
+  if (RESTART_BUTTON === RESTART_CHECK.continue) {
     init(); //다시 시작
     return;
   }
-  if (RESTART_BUTTON.trim() === RESTART_CHECK.stop) {
+  if (RESTART_BUTTON === RESTART_CHECK.stop) {
     return; //종료
   }
   // 1과 2 입력 아닐 때, throw
@@ -38,11 +38,12 @@ const gameStart = async (computerNum) => {
   //사용사 숫자 입력 받기
   const PLAYER_NUM = await MissionUtils.Console.readLineAsync(START_MESSAGE.input);
 
-  //숫자 형식이 맞을 때
-  if (!errorOccurred(PLAYER_NUM)) {
-    //게임 진행
-    gamePlay(PLAYER_NUM, computerNum);
+  //숫자 형식 에러
+  if (errorOccurred(PLAYER_NUM)) {
+    throw new Error(ERROR_MESSAGE.rangeError);
   }
+  //게임 진행
+  await gamePlay(PLAYER_NUM, computerNum);
 };
 
 //game set
