@@ -28,7 +28,7 @@ class App {
       userInput.length !== 3 ||
       userInput.split("").some((num) => num < "1" || num > "9")
     ) {
-      throw new Error("올바른 입력이 아닙니다.");
+      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
     }
   }
 
@@ -69,7 +69,7 @@ class App {
       const userInputPromise = this.getInput();
       const timeoutPromise = new Promise((_, reject) => {
         setTimeout(() => {
-          reject(new Error("입력 시간이 초과되었습니다."));
+          reject(new Error("[ERROR] 입력 시간이 초과되었습니다."));
         }, timeout);
       });
 
