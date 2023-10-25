@@ -25,12 +25,12 @@ class App{
     validateInputError(userNumber){
         const userNumberSet = new Set(userNumber.split('').map(Number));
 
-        if (userNumber.length !== 3) return '[ERROR] 입력값은 세자리 수를 입력해주세요.';
+        if (userNumber.length !== 3) return '[ERROR]';
         if ([...userNumberSet].length !== 3) {
-        return '[ERROR] 중첩되지 않는 세자리 수를 입력해주세요.';
+        return '[ERROR]';
         }
-        if (userNumber.includes(' ')) return '[ERROR] 공백은 넣지 말아주세요.';
-        if (Number.isNaN(userNumber)) return '[ERROR] 숫자만 입력해주세요.';
+        if (userNumber.includes(' ')) return '[ERROR]';
+        if (Number.isNaN(userNumber)) return '[ERROR]';
 
         return 'PASS';
     }
@@ -102,17 +102,23 @@ class App{
                         this.showUserResult(ballCount,strikeCount);
                     }
                 }
-                if(result!=='PASS') throw new Error(result);
-                
+                else if(result !== 'PASS') throw new Error(result);
             }catch(error){
-                Console.print(error);
                 this.runningPlay = false;
+                throw new Error(error);
             }
         }
     } 
 }
 
-//const app = new App();
-//app.play().catch(error=> Console.print(error));
+const app = new App();
+try {
+    app.play().catch(error => {
+        Console.print(error);
+    });
+} catch (error) {
+    Console.print(error);
+}
+
 
 export default App;
