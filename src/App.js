@@ -1,5 +1,7 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 
+let gameResult = 0;
+
 function randomNumber() {
   const randomNumbers = [];
   for (let i = 0; i < 3; i++) {
@@ -11,6 +13,23 @@ function randomNumber() {
     }
   }
   return randomNumbers;
+}
+
+function getGameResult(computer, user) {
+  let ball = 0;
+  let strike = 0;
+
+  computer.map((num, idx) => {
+    // 각 자릿수를 돌며 strike, ball 갯수 판단.
+    if (num === user[idx]) {
+      strike += 1;
+    } else {
+      if (user.includes(num)) {
+        ball += 1;
+      }
+    }
+  });
+  return [ball, strike];
 }
 
 class App {
@@ -27,7 +46,10 @@ class App {
     if (userInputSet.size !== 3) {
       throw new Error("duplicated input");
     } // 중복된 숫자가 없는지 검증
-    Console.print(userInputs);
+    //Console.print(userInputs);
+    const [ball, strike] = getGameResult(randaomNumbers, userInputs);
+    Console.print(ball);
+    Console.print(strike);
   }
 }
 
