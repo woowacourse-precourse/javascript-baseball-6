@@ -9,7 +9,12 @@ class App {
   async play() {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
     this.randomNumber();
-    await this.playBall();
+    try {
+      await this.playBall();
+    } catch (error) {
+      return Promise.reject(error);
+    }
+    return Promise.resolve();
   }
   async playBall() {
     while (true) {
@@ -63,7 +68,7 @@ class App {
     let ball = 0;
     let strike = 0;
     this.randomNum.forEach((randomNum, randomNumIndex) => {
-      this.userInput.forEach((userNum, userIndex) => {
+      this.userNum.forEach((userNum, userIndex) => {
         if (randomNum === userNum && randomNumIndex === userIndex) {
           strike++;
         } else if (randomNum === userNum && randomNumIndex !== userIndex) {
