@@ -1,37 +1,52 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import { MESSAGE } from "./Constant/Constant.js";
 import Computer from "./Computer/Computer.js";
-import NumCompare from "./Computer/NumCompare.js";
-import User from "./User/User.js";
+import UserInput from "./UserInput/UserInput.js";
 
 class App {
   constructor() {
-    this.user = new User();  
-    this.numCompare = new NumCompare(); 
-    this.isRunning = true;
+    this.computer = new Computer();
+    this.userInput = new UserInput();
   }
 
   async play() {
-    while (this.isRunning) {
-      const computer = new Computer();
-      const START = computer.makeAnswer();
+    MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
 
-      MissionUtils.Console.print(MESSAGE.START);
+    while (true) {
+      const userInput = await this.userInput.inputUser();
+      const result = this.compareNum(userInput);
 
-      let result;
-      while (result !== "3스트라이크") {
-        const userInput = await this.user.getInput();
-        result = this.numCompare.checkAnswer(userInput, START);
-        MissionUtils.Console.print(result);
+      MissionUtils.Console.print(result);
+
+      if (result === '3스트라이크') {
+        MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+        if (!(await this.userInput.restartOption())) {
+          break;
+        }
+        this.computer = new Computer();
       }
+    }
+  }
 
-      MissionUtils.Console.print(MESSAGE.END);
+  compareNum(userInput) {
+    let strike = 0;
+    let ball = 0;
 
-      const replayInput = await this.user.getReplay();
-
-      if (replayInput === "2") {
-        this.isRunning = false;
+    for (let i = 0; i < 3; i++) {
+      if (userInput[i] === this.computer.number[i]) {
+        strike++;
+      } else if (this.computer.number.includes(userInput[i])) {
+        ball++;
       }
+    }
+
+    if (strike > 0 && ball > 0) {
+      return `${ball}볼 ${strike}스트라이크`;
+    } else if (strike > 0) {
+      return `${strike}스트라이크`;
+    } else if (ball > 0) {
+      return `${ball}볼`;
+    } else {
+      return "낫싱";
     }
   }
 }
