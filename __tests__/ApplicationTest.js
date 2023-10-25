@@ -1,4 +1,4 @@
-import App from "../src/App.js";
+import {App} from "../App.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 const mockQuestions = (inputs) => {

@@ -3,7 +3,7 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 class App {
     async play() {
         const game = new Game();
-        await game.playGame();
+        return await game.playGame();
     }
 }
 
@@ -89,11 +89,13 @@ class Game {
         const choice = await MissionUtils.Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요: ");
         if (choice === "1") {
             this.randomNumber = this.generateRandomNumber();
-            await this.playGame(); 
+            return await this.playGame(); 
         } else if (choice === "2") {
             MissionUtils.Console.print("게임을 종료합니다.");
+            return;
         } else {
             MissionUtils.Console.print("[ERROR] 숫자가 잘못된 형식입니다. 게임을 종료합니다.");
+            return;
         }
     }
 }
