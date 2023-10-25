@@ -1,11 +1,13 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
+import { gameMessage } from './constants/gameMessage';
+import { inputNumberError } from './constants/errorMessage';
 
 class App {
   async play() {
     let computerNumber = await this.getComputerNumber();
     let userAnswer = 1;
 
-    await MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
+    await MissionUtils.Console.print(gameMessage.GAME_START);
 
     while (userAnswer === 1) {
       const inputNumber = await this.getInputNumber();
@@ -36,28 +38,28 @@ class App {
   }
 
   async getInputNumber() {
-    const inputNumber = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
+    const inputNumber = await MissionUtils.Console.readLineAsync(gameMessage.INPUT_NUMBER_ASK);
     
     if (inputNumber.length > 3) {
-      throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+      throw new Error(inputNumberError.LENGTH_ERROR);
     }
 
     if (isNaN(inputNumber)) {
-      throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+      throw new Error(inputNumberError.NOT_NUMBER_ERROR);
     }
 
     return inputNumber;
   }
 
   async getInputContinueNumber() {
-    await MissionUtils.Console.print('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+    await MissionUtils.Console.print(gameMessage.GAME_CONTINUE_ASK);
     const inputNumber = await MissionUtils.Console.readLineAsync();
 
     if (inputNumber === '1' || inputNumber === '2') {
       return Number(inputNumber);
     }
 
-    throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+    throw new Error(inputNumberError.CONTINUE_NUMBER_ERROR);
   }
 
   getGameResult(computerNumber, inputNumber) {
@@ -78,10 +80,10 @@ class App {
 
   async printGameResult(strike, ball) {
     if (strike === 3) {
-      await MissionUtils.Console.print('3스트라이크');
-      await MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+      await MissionUtils.Console.print(gameMessage.STRIKE);
+      await MissionUtils.Console.print(gameMessage.SUCCESS_GAME);
     } else if (ball === 0 && strike === 0) {
-      await MissionUtils.Console.print('낫싱');
+      await MissionUtils.Console.print(gameMessage.NOTHING);
     } else {
       await MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
     }
