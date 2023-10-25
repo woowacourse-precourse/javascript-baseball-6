@@ -13,9 +13,9 @@ const inputValidator = {
   },
 
   validateRestart(input) {
-    if (input.length !== 1) throw new Error(MESSAGE.ERROR.LENGTH_ERROR);
+    if (input.length !== 1) throw new Error(MESSAGE.ERROR.RESTART_ERROR);
     if (input.replace(/1|2/g, '').length > 0)
-      throw new Error(MESSAGE.ERROR.NUMBER_ERROR);
+      throw new Error(MESSAGE.ERROR.RESTART_ERROR);
   },
 };
 
