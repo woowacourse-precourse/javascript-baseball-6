@@ -12,7 +12,6 @@ class App {
 
     while (restart) {
       this.gameManager.restartGame();
-      await this.gameManager.insertNum();
       await this.gameManager.baseBall();
       restart = await this.gameManager.isContinue();
     }
