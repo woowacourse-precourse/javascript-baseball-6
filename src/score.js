@@ -44,7 +44,7 @@ class Score {
 
     let result = '';
     if (this.getBallCount() > 0) result += `${this.getBallCount()}볼`;
-    if (this.getStrikeCount() > 0 && this.getStrikeCount() > 0) result += ' ';
+    if (this.getStrikeCount() > 0 && this.getBallCount() > 0) result += ' ';
     if (this.getStrikeCount() > 0) result += `${this.getStrikeCount()}스트라이크`;
 
     return result;
