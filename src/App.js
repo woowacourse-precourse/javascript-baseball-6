@@ -17,7 +17,7 @@ class App {
     if (!input.match(/^[1-9]{3}$/)) {
       throw new Error('[ERROR] 1-9 사이의 3자리 숫자가 아닙니다.');
     }
-    const number = input.split('').map(Number);
+    const number = Array.from(input.split(''), Number);
     if (new Set(number).size !== 3) {
       throw new Error('[ERROR] 서로 다른 숫자가 아닙니다.');
     }
