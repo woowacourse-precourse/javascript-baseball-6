@@ -48,9 +48,6 @@ class App {
     if (Number(userResponse) === 2){
       return 
     }
-
-    // 재도전 여부를 잘못 입력시 다시 한번 물어보는 코드 
-    
   }
 
   printGameWinMessage(){
@@ -81,13 +78,14 @@ class App {
       MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
   }
 
+  // 사용자의 입력값이 유효한 값인지 체크 - 숫자인지, 3자리인지, 중복됬는지
   async getUserInput() {
-    return MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
+    this.input = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
   }
 
   checkValidInput(input) {
     if (!this.isThreeNumber(input)) {
-      throw new Error("[ERROR]");
+      throw new Error("[ERROR]:Is not ThreeNumber Input");
     }
     if (!this.isSameNumber(input)) {
       throw new Error("[ERROR]:Is Duplicate Input");
@@ -151,5 +149,5 @@ class App {
 
 export default App;
 
-// const start = new App();
-// start.play();
+const start = new App();
+start.play();
