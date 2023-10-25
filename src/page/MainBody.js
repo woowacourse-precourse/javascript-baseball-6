@@ -9,7 +9,7 @@ async function body(computer_num){
         
         if(errorDetection(player_num)){
             MissionUtils.Console.print('[ERROR] 숫자가 잘못된 형식입니다.');
-            return true;
+            throw new Error("[ERROR]");
         }
         strike = compareNumbers(computer_num, player_num)
 
