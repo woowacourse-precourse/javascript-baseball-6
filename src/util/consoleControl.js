@@ -16,7 +16,7 @@ const consoleControl = {
   printEnd() {
     MissionUtils.Console.print(OUTPUT_MESSAGE.FINISH);
   },
-  printResult(data) {
+  printCount(data) {
     MissionUtils.Console.print(data);
   },
   printNothing() {

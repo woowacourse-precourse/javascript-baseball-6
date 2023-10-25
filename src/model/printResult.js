@@ -9,13 +9,13 @@ export default function printResult(data) {
   const format = makeBallFormat(ball) + makeStrikeFormat(strike);
 
   if (strike === 3) {
-    consoleControl.printResult(`${strike}${BASEBALL.STRIKE}`);
+    consoleControl.printCount(`${strike}${BASEBALL.STRIKE}`);
     consoleControl.printEnd(`${OUTPUT_MESSAGE.FINISH}`);
     return true;
   } else {
     format === ""
       ? consoleControl.printNothing()
-      : consoleControl.printResult(format);
+      : consoleControl.printCount(format);
     return false;
   }
 }

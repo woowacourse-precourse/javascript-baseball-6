@@ -11,6 +11,8 @@ export default async function getInputAndCheck() {
   checkNumber(userInput);
   checkLength(userInput);
   checkDuplicate(userInput);
+  let inputSplit;
+  inputSplit = userInput.split("").map(Number);
 
-  return [...userInput].map(Number);
+  return inputSplit;
 }
