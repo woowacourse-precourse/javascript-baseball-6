@@ -121,6 +121,38 @@ class BaseballGame {
       return choice;
     } catch (error) {}
   }
+
+  async startGame() {
+    const CONSOLE_MESSAGE = '숫자 야구 게임을 시작합니다.';
+    MissionUtils.Console.print(CONSOLE_MESSAGE);
+    this.selectTargetNumbers();
+
+    while (this.#strikeCnt != 3) {
+      await this.getUserNumbers();
+      this.validateUserNumbers();
+      this.compareNumbers();
+      this.printResult();
+
+      if (this.#strikeCnt !== 3) {
+        this.#strikeCnt = 0;
+        this.#ballCnt = 0;
+        this.#userNumbers = [];
+      }
+    }
+
+    const isRestart = await this.confirmRestart();
+
+    if (isRestart === 1) {
+      this.#targetNumbers = [];
+      this.#userNumbers = [];
+      this.#strikeCnt = 0;
+      this.#ballCnt = 0;
+      this.startGame();
+    } else {
+      MissionUtils.Console.print('게임 종료');
+    }
+    return;
+  }
 }
 
 export default BaseballGame;
