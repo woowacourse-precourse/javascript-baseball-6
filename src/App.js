@@ -35,7 +35,7 @@ class BaseballGame {
       const result = this.compareNumbers(userInput);
 
       if (result.strikes === 3) {
-        Console.print(`3스트라이크! 3개의 숫자를 모두 맞히셨습니다! 게임 종료 (${this.attempts}번 시도).`);
+        Console.print(`3스트라이크! 3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
         this.askForNewGame();
       } else if (result.strikes === 0 && result.balls === 0) {
         Console.print('낫싱');
@@ -103,5 +103,8 @@ class BaseballGame {
     });
   }
 }
+
+const game = new BaseballGame();
+game.play();
 
 export default BaseballGame;
