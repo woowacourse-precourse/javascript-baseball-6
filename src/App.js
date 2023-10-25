@@ -50,6 +50,7 @@ class App {
   }
 
   async correctAnswer() {
+    Console.print('3스트라이크');
     Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
     this.option = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
     if (this.option !== '1' && this.option !== '2') {
@@ -81,7 +82,6 @@ class App {
       const { strike, ball } = this.compareNum(userInput, computerNum);
 
       if (strike === 3) {
-        Console.print('3스트라이크');
         const option = await this.correctAnswer();
         if (option === '1') {
           computerNum = this.getComputerNum();
