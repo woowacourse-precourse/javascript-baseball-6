@@ -20,5 +20,19 @@ class GameView {
       Console.print(`${balls}볼 ${strikes}스트라이크`);
     }
   }
+  async askRegame() {
+    const choice = await Console.readLineAsync(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. "
+    );
+    if (choice === "2") {
+      Console.print("게임을 종료합니다.");
+      return true;
+    }
+    if (choice === "1") {
+      // this.restartGame();
+      return false;
+    }
+    throw new Error("[ERROR]");
+  }
 }
 export default GameView;

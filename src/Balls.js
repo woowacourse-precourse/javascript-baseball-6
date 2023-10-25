@@ -47,25 +47,5 @@ class Balls {
     }
     return balls;
   }
-
-  async askRegame() {
-    const choice = await Console.readLineAsync(
-      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. "
-    );
-    if (choice === "2") {
-      Console.print("게임을 종료합니다.");
-      return true;
-    }
-    if (choice === "1") {
-      this.restartGame();
-      return false;
-    }
-    throw new Error("[ERROR]");
-  }
-
-  restartGame() {
-    this.randomNumbers = this.generateRandomNumber();
-    Console.print("게임을 다시 시작합니다.");
-  }
 }
 export default Balls;
