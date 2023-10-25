@@ -38,12 +38,11 @@ const gameStart = async (computerNum) => {
   //사용사 숫자 입력 받기
   const PLAYER_NUM = await MissionUtils.Console.readLineAsync(START_MESSAGE.input);
 
-  //숫자 형식이 안 맞을 때
-  if (errorOccurred(PLAYER_NUM)) {
-    throw new error(ERROR_MESSAGE.rangeError);
+  //숫자 형식이 맞을 때
+  if (!errorOccurred(PLAYER_NUM)) {
+    //게임 진행
+    gamePlay(PLAYER_NUM, computerNum);
   }
-  //게임 진행
-  gamePlay(PLAYER_NUM, computerNum);
 };
 
 //game set
