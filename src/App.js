@@ -16,7 +16,7 @@ function makeNumber() {
 function isInvalid(number) { 
   const numSet = new Set(number);
   const reg = new RegExp(/[1-9]{3}/);
-  return number.length != 3 || numSet.size != 3 || !reg.test(number);
+  return number.length !== 3 || numSet.size !== 3 || !reg.test(number);
 }
 
 //사용자 입력
@@ -34,7 +34,7 @@ async function getInput() {
 function cntStrikeBall(num1, num2) {
   let strike = 0, ball = 0;
   for (let i = 0; i < 3; i++) {
-    if (num1[i] == num2[i]) {
+    if (num1[i] === num2[i]) {
       strike++;
     } else if (num1.includes(num2[i])) {
       ball++;
@@ -48,9 +48,9 @@ async function askNewGame() {
   const chosenNum = await MissionUtils.Console.readLineAsync(
     "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
   );
-  if (chosenNum == "1") {
+  if (chosenNum === "1") {
     playGame();
-  } else if (chosenNum == "2") {
+  } else if (chosenNum === "2") {
     MissionUtils.Console.print("숫자 야구 게임을 종료합니다.");
   } else {
     throw new Error("[ERROR] 잘못된 입력입니다.");
