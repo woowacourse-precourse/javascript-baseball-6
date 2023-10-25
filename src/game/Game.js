@@ -1,5 +1,6 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import { NUMBER_LENGTH } from '../Constants.js';
+
 class Game {
   constructor() {
     this.computerNumber = [];

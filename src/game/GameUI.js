@@ -1,6 +1,7 @@
 import { CONSOLE_MESSAGE } from '../Constants.js';
 import { MissionUtils } from '@woowacourse/mission-utils';
-import Validation from '../validation.js';
+import Validation from '../validation/Validation.js';
+
 class GameUI {
   constructor(game) {
     this.game = game;
@@ -19,18 +20,18 @@ class GameUI {
     const guessNumber = await MissionUtils.Console.readLineAsync(
       CONSOLE_MESSAGE.INPUT_NUMBER
     );
-    Validation.verityUserNumber(guessNumber);
+    Validation.verityGuessNumber(guessNumber);
     return guessNumber;
   }
   //출력 메소드들
-  //볼 출력값
+  //볼 출력
   ballOutput(ballNumbers) {
     if (ballNumbers !== 0) {
       return `${ballNumbers}볼 `;
     }
     return '';
   }
-  //스트라이크 출력값
+  //스트라이크 출력
   strikeOutput(strikeNumbers) {
     if (strikeNumbers !== 0) {
       return `${strikeNumbers}스트라이크`;
