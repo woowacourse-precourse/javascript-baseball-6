@@ -1,4 +1,4 @@
-import { startGame } from "./components/Game";
+import { startGame } from "./utils/Game";
 
 class App {
   async play() {
