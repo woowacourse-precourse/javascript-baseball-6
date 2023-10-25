@@ -103,8 +103,6 @@ class App {
       }
     }
 
-    console.log(`컴퓨터의 랜덤 값은 : ${numbers.join("")}`);
-
     return numbers.join("");
   }
 }
