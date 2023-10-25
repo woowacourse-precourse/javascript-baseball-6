@@ -1,17 +1,24 @@
-import { Console } from "@woowacourse/mission-utils";
+import { MissionUtils } from "@woowacourse/mission-utils";
 import { INPUT_MESSAGE, OUTPUT_MESSAGE } from "../constants/message.js";
+import { BASEBALL } from "../constants/baseBall.js";
 
 const consoleView = {
   async readNumber() {
-    return await Console.readLineAsync(INPUT_MESSAGE.NUMBER);
+    return await MissionUtils.Console.readLineAsync(INPUT_MESSAGE.NUMBER);
   },
 
   async readRetry() {
-    return await Console.readLineAsync(INPUT_MESSAGE.RETRY);
+    return await MissionUtils.Console.readLineAsync(INPUT_MESSAGE.RETRY);
   },
 
   async printStart() {
-    await Console.print(OUTPUT_MESSAGE.START);
+    await MissionUtils.Console.print(OUTPUT_MESSAGE.START);
+  },
+  async printResult(data) {
+    await MissionUtils.Console.print(data);
+  },
+  async printNothing() {
+    await MissionUtils.Console.print(BASEBALL.NOTHING);
   },
 };
 

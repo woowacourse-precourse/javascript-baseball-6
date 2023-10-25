@@ -1,7 +1,7 @@
-import { Console } from "@woowacourse/mission-utils";
 import { BASEBALL } from "../constants/baseBall";
 import { OUTPUT_MESSAGE } from "../constants/message";
 import { ZERO } from "../constants/number";
+import consoleView from "../util/consoleControll";
 
 export default function printResult(data) {
   const { ball, strike } = data;
@@ -9,10 +9,15 @@ export default function printResult(data) {
   const format = makeBallFormat(ball) + makeStrikeFormat(strike);
 
   if (strike === 3) {
-    Console.print(`${data.strike}${BASEBALL.STRIKE}\n${OUTPUT_MESSAGE.FINISH}`);
+    consoleView.printResult(
+      `${data.strike}${BASEBALL.STRIKE}\n${OUTPUT_MESSAGE.FINISH}`
+    );
+
     return true;
   } else {
-    format === "" ? Console.print(BASEBALL.NOTHING) : Console.print(format);
+    format === ""
+      ? consoleView.printNothing()
+      : consoleView.printResult(format);
     return false;
   }
 }
