@@ -1,5 +1,10 @@
 ## Baseball game 기능 목록
 
+- mvc 적용
+- app.js (controller 역할)
+- balls.js (model 역할)
+- gameView.js (view 역할)
+
 1. 컴퓨터가 3자리 임의의 수 생성
    1. 1~9까지 서로 다른 임의의 수 3개를 선택
 2. 게임 시작 문구 출력
