@@ -4,7 +4,7 @@ import InputReader from './view/InputReader.js';
 import { validation } from './utils/Validation.js';
 import { paramType } from './utils/paramType.js';
 import { createRandomNumbers } from './utils/createRandomNumbers.js';
-import { GAME_COMMAND } from './utils/gameCommand.js';
+import { GAME_COMMAND } from './constants/gameCommand.js';
 
 class App {
   constructor() {
