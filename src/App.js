@@ -53,8 +53,8 @@ class App {
   compareNumber(userNumbers)
   {
      let { STRIKE,BALL} = this.compareResult(userNumbers);
-     this.comparePrint();
-     if(STRIKE ===3){
+     this.comparePrint(STRIKE,BALL);
+     if(STRIKE === 3){
       this.endPrint();
       return "END";
      }
