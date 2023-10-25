@@ -1,4 +1,4 @@
-import { Console } from "@woowacourse/mission-utils";
+import HintView from "../utils/HintView";
 
 export default class Compare {
   constructor(user, computer) {
@@ -12,44 +12,41 @@ export default class Compare {
 
     while (strikeCount !== 3) {
       const userInput = await this.user.getNumber();
-      let ballCount = 0;
+      const ballCount = this.getBallCount(userInput, computerNumber);
 
-      for (let i = 0; i < 3; i++) {
-        if (userInput[i] === computerNumber[i]) {
-          strikeCount++;
-        } else if (computerNumber.includes(userInput[i])) {
-          ballCount++;
-        }
-      }
+      strikeCount = this.getStrikeCount(userInput, computerNumber);
 
-      this.printHintMessage(ballCount, strikeCount);
+      HintView.printHintMessage(ballCount, strikeCount);
 
       if (strikeCount === 3) {
-        return true; 
+        return true;
       }
-
-      strikeCount = 0;
     }
 
     return false;
   }
 
-  printHintMessage(ball, strike) {
-    if (ball === 0 && strike === 0) {
-      Console.print("낫싱");
-      return;
-    }
-    
-    if (ball === 0) {
-      Console.print(`${strike}스트라이크`);
-      return;
-    }
-    
-    if (strike === 0) {
-      Console.print(`${ball}볼`);
-      return;
+  getBallCount(userInput, computerNumber) {
+    let ballCount = 0;
+
+    for (let i = 0; i < 3; i++) {
+      if (userInput[i] !== computerNumber[i] && computerNumber.includes(userInput[i])) {
+        ballCount++;
+      }
     }
 
-    Console.print(`${ball}볼 ${strike}스트라이크`);
+    return ballCount;
+  }
+
+  getStrikeCount(userInput, computerNumber) {
+    let strikeCount = 0;
+
+    for (let i = 0; i < 3; i++) {
+      if (userInput[i] === computerNumber[i]) {
+        strikeCount++;
+      }
+    }
+
+    return strikeCount;
   }
 }
