@@ -4,7 +4,10 @@
   "description": "우아한테크코스 프리코스 숫자 야구 게임 미션",
   "type": "module",
   "dependencies": {
-    "@woowacourse/mission-utils": "2.1.1"
+    "@woowacourse/mission-utils": "^2.1.1",
+    "prompt": "^1.3.0",
+    "prompt-sync": "^4.2.0",
+    "save": "^2.9.0"
   },
   "devDependencies": {
     "@babel/core": "^7.23.0",
