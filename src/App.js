@@ -23,6 +23,12 @@ class App {
         break;
       }
     }
+    const restartOption = await this.newGame();
+    if (restartOption === '1') {
+      return await this.start();
+    } else if (restartOption !== '2') {
+      throw new Error(MESSAGE.ERROR_RESTART);
+    }
   }
   getRandomNumber() {
     const randomNumber = [];
@@ -66,9 +72,10 @@ class App {
     }
     return resultMessage;
   }
+  async newGame() {
+    Console.print(MESSAGE.END);
+    return await Console.readLineAsync(MESSAGE.ASK_RESTART);
+  }
 }
-
-const app = new App();
-app.play();
 
 export default App;
