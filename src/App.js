@@ -41,9 +41,8 @@ function compareNumbers(computerAnswer, userAnswer) {
   }
 
   if (ball > 0 && strike == 0) Console.print(`${ball}볼`);
-  if (ball > 0 && strike !== 0) Console.print(`${ball}볼 ${strike}스트라이크`);
   if (strike > 0 && ball == 0) Console.print(`${strike}스트라이크`);
-  if (strike > 0 && ball !== 0) Console.print(`${ball}볼 ${strike}스트라이크`);
+  if (ball > 0 && strike > 0) Console.print(`${ball}볼 ${strike}스트라이크`);
   return { strike, ball };
 }
 
@@ -61,29 +60,47 @@ async function requestUserAnswer() {
   const inputArray = input.split('').map(Number);
 
   if (!isValidInput(inputArray)) {
-    throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+    throw new Error('[ERROR]');
   }
-
   return inputArray;
+}
+
+async function postGameChoice() {
+  const choice = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+
+  switch (choice) {
+    case '1':
+      return true;
+    case '2':
+      return false;
+    default:
+      return await postGameChoice();  // 사용자가 올바른 선택을 할 때까지 반복 요청
+  }
 }
 
 class App {
   async play() {
-    Console.print('숫자 야구 게임을 시작합니다.');
-    const computerAnswer = createComputerNumber();
-    let strike = 0;
-    // loop 추가
-    while (strike !== 3) {
-      try {
-        const userAnswer = await requestUserAnswer();
-        const result = compareNumbers(computerAnswer, userAnswer);
-        strike = result.strike;
-      } catch (error) {
-        Console.print(error);
+    let continueGame = true;
+
+    while (continueGame) {
+      Console.print('숫자 야구 게임을 시작합니다.');
+      const computerAnswer = createComputerNumber();
+      let strike = 0;
+
+      while (strike !== 3) {
+        try {
+          const userAnswer = await requestUserAnswer();
+          const result = compareNumbers(computerAnswer, userAnswer);
+          strike = result.strike;
+        } catch (error) {
+          Console.print(error);
+        }
       }
+      continueGame = await postGameChoice();  // 게임이 끝나고 사용자의 선택을 기다립니다.
     }
   }
 }
+
 
 const app = new App();
 app.play();
