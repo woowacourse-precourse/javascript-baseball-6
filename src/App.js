@@ -1,6 +1,7 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 
-const SCORE = Object.seal({
+const score = Object.seal({
+  //상수가 아니니 score 변수는 대문자로 쓰면 안되지 않나? SCORE
   ball: 0, //상수가 아니니 대문자로 쓰는게 아니지 않나?
   strike: 0,
   success: false,
@@ -73,37 +74,37 @@ function calculateScore(answer, number) {
     let index = answer.findIndex((el) => el === number[i]);
 
     if (index === i) {
-      SCORE.strike++;
+      score.strike++;
     }
     if (index >= 0 && index !== i) {
-      SCORE.ball++;
+      score.ball++;
     }
   }
   printResult();
 }
 function resetScore() {
-  SCORE.ball = 0;
-  SCORE.strike = 0;
+  score.ball = 0;
+  score.strike = 0;
 }
 function printResult() {
   //switch 문, if문, if-else 문 어느것이 더 적절했나
-  if (SCORE.ball === 0 && SCORE.strike === 0) {
+  if (score.ball === 0 && score.strike === 0) {
     Console.print(MESSAGE.NOTHING);
     return;
   }
-  if (SCORE.strike === NUMBERCOUNT) {
+  if (score.strike === NUMBERCOUNT) {
     Console.print(MESSAGE.SUCCESS);
-    SCORE.success = true;
+    score.success = true;
     return;
   }
-  if (SCORE.ball && SCORE.strike) {
-    let text = `${SCORE.ball}${MESSAGE.BALL} ${SCORE.strike}${MESSAGE.STRIKE}`;
+  if (score.ball && score.strike) {
+    let text = `${score.ball}${MESSAGE.BALL} ${score.strike}${MESSAGE.STRIKE}`;
     Console.print(text);
     return;
   }
-  let text = SCORE.ball
-    ? SCORE.ball + MESSAGE.BALL
-    : SCORE.strike + MESSAGE.STRIKE;
+  let text = score.ball
+    ? score.ball + MESSAGE.BALL
+    : score.strike + MESSAGE.STRIKE;
   Console.print(text);
   return;
 }
@@ -115,7 +116,7 @@ class App {
     Console.print(MESSAGE.START);
     const ANSWER = await makeRandom();
 
-    while (!SCORE.success) {
+    while (!score.success) {
       let num = await getUserInput(MESSAGE.INPUTREQUEST);
       if (!isInputValid(num)) {
         throw new Error(MESSAGE.ERROR);
@@ -123,7 +124,7 @@ class App {
 
       calculateScore(ANSWER, num);
 
-      if (!SCORE.success) {
+      if (!score.success) {
         resetScore();
       }
     }
@@ -135,7 +136,7 @@ class App {
 
     if (number === RESTART) {
       resetScore();
-      SCORE.success = false;
+      score.success = false;
       return this.play();
     }
 
