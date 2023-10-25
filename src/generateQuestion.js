@@ -10,9 +10,7 @@ export default (n) => {
   const question = new Set();
   while (question.size !== n) {
     const pick = Random.pickNumberInRange(1, 9);
-    if (!question.has(pick)) {
-      question.add(pick);
-    }
+    question.add(pick);
   }
   return question;
 };
