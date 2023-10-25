@@ -36,8 +36,8 @@ class App{
     }
 
     countBall(randomNumber, userNumber){
-        var balls = 0;
-        for(var index =0; index<3; index++){
+        let balls = 0;
+        for(let index =0; index<3; index++){
             if(randomNumber[index] !== Number(userNumber[index])
             && randomNumber.includes(Number(userNumber[index]))){
                 balls+=1;
@@ -47,8 +47,8 @@ class App{
     }
 
     countStrike(randomNumber, userNumber){
-        var strikes = 0;
-        for(var index =0; index<3; index++){
+        let strikes = 0;
+        for(let index =0; index<3; index++){
             if(randomNumber[index] === Number(userNumber[index])){
                 strikes+=1;
             }
