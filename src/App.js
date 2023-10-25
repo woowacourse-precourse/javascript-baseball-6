@@ -1,16 +1,16 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 
 class App {
-  checkUserInput(value) {
-    if (value.length !== 3) {
+  checkUserInput(userInput) {
+    if (userInput.length !== 3) {
       return false;
     } 
-    const set = new Set(value);
+    const set = new Set(userInput);
     if (set.size !== 3) {
       return false;
     }
     for (let i = 0; i < 3; i++) {
-      if (!/[1-9]/.test(value[i])) {
+      if (!/[1-9]/.test(userInput[i])) {
         return false;
       }
     }
