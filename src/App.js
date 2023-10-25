@@ -21,7 +21,7 @@ class App {
   
   inputUser(computer){
     MissionUtils.Console.readLine(Messages.INPUT_NUMBER, (number) => {
-      const numberRegExp = new RegExp(/[0-9]/g);
+      const numberRegExp = new RegExp(/[1-9]/g);
       const numSet = new Set(number);
       
       if (number.length !== 3 || !numberRegExp.test(number)) {
@@ -45,9 +45,20 @@ class App {
         if (out === 3) result += `낫싱`;
         MissionUtils.Console.print(result);
 
-        if (strike !== 3) this.inputUser(computer);
-        else {
-          MissionUtils.Console.print(Messages.GAME_OVER);
+        if (strike !== 3) {
+          this.inputUser(computer);
+        } else {
+          MissionUtils.Console.print(Messages.RESULT);
+          MissionUtils.Console.readLine(Messages.RESTART_OR_EXIT, (choose) => {
+            if (choose === '1') {
+              this.play();
+            } else if (choose === '2') {
+              MissionUtils.Console.print(Messages.GAME_OVER);
+              MissionUtils.Console.close();
+            } else {
+              throw new Error(Message.ERROR.CHOOSE_NUMBER);
+            }
+          })
         }
       }
     });
