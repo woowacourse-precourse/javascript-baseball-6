@@ -3,12 +3,15 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 class App {
   async play() {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
-    const computer = this.generateRandomNumbers();
+    let computer = this.generateRandomNumbers();
     while (true) {
       if (this.printUserGuess(this.judgeUserGuess(computer, await this.takeUserGuess()))) {
         const playContinue = await this.takePlayContinue();
         if (playContinue !== "1" && playContinue !== "2") {
           throw MissionUtils.Console.print("1 또는 2만 입력 가능합니다.");
+        }
+        if (playContinue === "1") {
+          computer = this.generateRandomNumbers();
         }
         if (playContinue === "2") {
           break;
