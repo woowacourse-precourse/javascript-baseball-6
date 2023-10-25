@@ -9,7 +9,15 @@ class App {
   async play() {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
     this.randomNumber();
-    await this.startGame();
+    await this.playBall();
+  }
+  async playBall() {
+    while (true) {
+      await this.startGame();
+      if (this.strike === 3) {
+        MissionUtils.Console.print("게임 종료!");
+      }
+    }
   }
 
   async startGame() {
