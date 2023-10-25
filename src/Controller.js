@@ -25,7 +25,9 @@ class Controller {
         INFO_MESSAGE.INPUT_USER_NUMBER,
       );
       this.validate.userPickNumbers(userPickValue);
-      const userNumbers = userPickValue.split('').map((element) => +element);
+      const userNumbers = userPickValue
+        .split('')
+        .map((element) => Number(element));
       [this.ball, this.strike] = this.judge.counter(
         computerNumbers,
         userNumbers,
