@@ -2,19 +2,19 @@ import { MissionUtils, Random, Console } from '@woowacourse/mission-utils';
 
 class App {
   async play() {
-    console.log('숫자 야구 게임을 시작합니다.');
+    Console.print('숫자 야구 게임을 시작합니다.');
     let End = false;
 
     while (End != true) {
       const computer = this.creatingComputer();
-      console.log(computer);
+      Console.print(computer);
       while (true) {
-        const userNumbers = await this.promptUserInput();
+        const userNumbers = await this.UserInput();
         const result = this.calculateResult(computer, userNumbers);
         Console.print(result);
 
         if (result === '3스트라이크') {
-          console.log('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+          Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
           break;
         }
       }
@@ -34,7 +34,7 @@ class App {
     return arr;
   }
 
-  async promptUserInput() {
+  async UserInput() {
     const userInput = await Console.readLineAsync('숫자를 입력해주세요 : ');
     if (!this.isInputValid(userInput)) {
       throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
@@ -45,7 +45,6 @@ class App {
   calculateResult(computer, userNumbers) {
     let strike = 0;
     let ball = 0;
-
     for (let i = 0; i < 3; i++) {
       if (computer[i] === userNumbers[i]) {
         strike++;
@@ -70,7 +69,7 @@ class App {
   }
 
   async promptGameEndChoice() {
-    console.log('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+    Console.print('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
     const choice = await Console.readLineAsync('');
     if (choice !== '1' && choice !== '2') {
       throw new Error('[ERROR] 올바른 선택이 아닙니다.');
