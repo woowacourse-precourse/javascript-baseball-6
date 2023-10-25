@@ -1,4 +1,4 @@
-import { Console, Random } from "@woowacourse/mission-utils";
+import { MissionUtils } from "@woowacourse/mission-utils";
 
 
 class App {
@@ -9,7 +9,7 @@ randomnum;
   setAnswer () {
     const answer = [];
     while (answer.length < 3) {
-      const number = Random.pickNumberInRange(1, 9);
+      const number = MissionUtils.Random.pickNumberInRange(1, 9);
       if (!answer.includes(number)) {
         answer.push(number);
       }
@@ -20,7 +20,7 @@ randomnum;
   //사용자 값 받기
   async getInput() {
     try {
-      this.playerInput = await Console.readLineAsync('숫자를 입력해주세요 : ');
+      this.playerInput = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
     } catch (error) {
     }
     this.checkValue(this.playerInput);
@@ -51,28 +51,28 @@ randomnum;
   //정답공개
   showResult(s,b) {
     if (s === 3) {
-      Console.print('3스트라이크');
-      Console.print('3개의 숫자를 모두 맞히셨습니다!');
-      Console.print('게임 종료');
+      MissionUtils.Console.print('3스트라이크');
+      MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다!');
+      MissionUtils.Console.print('게임 종료');
       return this.getIntention();
       }
     if (s === 0 && b === 0) {
-      Console.print('낫싱');
+      MissionUtils.Console.print('낫싱');
       return this.play();
     }
     if (s !== 0 || b !== 0) {
-      Console.print(`${s}스트라이크 ${b}볼`);
+      MissionUtils.Console.print(`${s}스트라이크 ${b}볼`);
       return this.play();
     }
   }
 
   //재시작 질문
   getIntention() {
-    Console.readLine('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.', (decision) => {
+    MissionUtils.Console.readLine('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.', (decision) => {
       if (decision === '1') {
         return this.reStart();
       } else if (decision === '2') {
-        Console.print('게임종료');
+        MissionUtils.Console.print('게임종료');
       } else {
         return this.getIntention();
       }
@@ -86,7 +86,7 @@ randomnum;
   }
 
   constructor() {
-    Console.print('숫자 야구 게임을 시작합니다.')
+    MissionUtils.Console.print('숫자 야구 게임을 시작합니다.')
     this.randomnum = this.setAnswer();
   }
 
@@ -94,5 +94,8 @@ randomnum;
     this.getInput()
   }
 }
+
+let app = new App();
+app.play();
 
 export default App;
