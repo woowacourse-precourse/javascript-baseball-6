@@ -1,6 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import { generateRandomNumber, countScore, printScore } from "./game.js";
-import { validateInput } from "./validator.js"
+import {validateAskRetry, validateInput} from "./validator.js"
 
 
 export const initGame = async () => {
@@ -40,6 +40,5 @@ const askReplay = async () => {
   if (replay === "2") {
     return finishGame();
   }
-  MissionUtils.Console.print('[ERROR] 잘못된 입력');
-  return await askReplay();
+  validateAskRetry(replay);
 };
