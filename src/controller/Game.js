@@ -36,6 +36,22 @@ class Game {
       }
     }
   }
+
+  async ending() {
+    OutputView.endMsg();
+    this.#input = await InputView.endOrReplay();
+    Validation.isEndSign(this.#input);
+    if (this.#input === RESTART_SIGN) {
+      this.restartGame();
+      return false;
+    }
+    if (this.#input === EXIT_SIGN) return true;
+  }
+
+  restartGame() {
+    this.#answer.resetAnswer();
+    this.#answer.setAnswer();
+  }
 }
 
 export default Game;
