@@ -1,5 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import { DIGIT_COUNT } from './utils';
+import { DIGIT_COUNT } from './utils/index.js';
 
 class Computer {
   #number;

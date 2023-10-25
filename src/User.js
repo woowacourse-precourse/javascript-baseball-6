@@ -1,5 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import { ERROR_MESSAGE, isValidInput } from './utils';
+import { ERROR_MESSAGE, isValidInput } from './utils/index.js';
 
 class User {
   #number;

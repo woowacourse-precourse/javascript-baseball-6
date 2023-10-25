@@ -1,7 +1,7 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import Computer from './Computer.js';
 import User from './User.js';
-import { DIGIT_COUNT, ERROR_MESSAGE, GAME_STATUS } from './utils';
+import { DIGIT_COUNT, ERROR_MESSAGE, GAME_STATUS } from './utils/index.js';
 
 class BaseballGame {
   #isAllCorrected = false;
