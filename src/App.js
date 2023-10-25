@@ -34,12 +34,15 @@ class App {
   }
 
   generateRandomNumbers() {
-    while (this.randomNumbers.length < 3) {
+    const randomNumbers = [];
+
+    while (randomNumbers.length < 3) {
       const number = MissionUtils.Random.pickNumberInRange(1, 9);
-      if (!this.randomNumbers.includes(number)) {
-        this.randomNumbers.push(number);
+      if (!randomNumbers.includes(number)) {
+        randomNumbers.push(number);
       }
     }
+    this.randomNumbers = randomNumbers;
   }
 
   async getUserInput() {
