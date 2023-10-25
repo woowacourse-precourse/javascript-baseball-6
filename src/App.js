@@ -40,7 +40,7 @@ class App {
   }
 
   
-
+// 사용자에게 수를 입력받는 메서드
   async makeInputNumber() {
     
     let inputNumber = await Console.readLineAsync(`${INPUT_MESSAGE}`);
@@ -49,11 +49,13 @@ class App {
     return inputNumber;
   }
 
+// 사용자 수에서 error를 찾는 메서드
   checkInputNumber(inputNumber) {
     if (inputNumber.length !== 3 || isNaN(inputNumber)) throw new Error(`${ERROR_MESSAGE}`);
 
   }
 
+// 리트라이 할 것인지 묻는 메서드
   async inputRetry() {
     let message = await Console.readLineAsync(`${RETRY_MESSAGE}`);
     this.checkRetryNumber(message);
@@ -61,6 +63,7 @@ class App {
    
   }
 
+// 리트라이 할 것인지 묻는 메서드의 error
   checkRetryNumber(inputNumber) {
     if (inputNumber.length !== 1 || isNaN(inputNumber) ||
     inputNumber < 0 || inputNumber > 2 
