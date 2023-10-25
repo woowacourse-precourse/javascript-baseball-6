@@ -5,42 +5,47 @@ import { WINNING_CONDITION } from './constants/baseballGame.js';
 class App {
   #game;
   #view = View;
+  #win = false;
 
   constructor() {
     this.#view.printGameStart();
   }
 
-  async play() {
+  #setConfig() {
     this.#game = new BaseballGame();
+    this.#win = false;
+  }
 
-    await this.#guessNumber();
-    await this.#readRestart();
+  async play() {
+    do {
+      this.#setConfig();
+      await this.#startGuess();
+    } while (await this.#view.readRestart());
+  }
+
+  async #startGuess() {
+    while (!this.#win) {
+      const { strike, ball } = await this.#guessNumber();
+
+      this.#win = this.#checkWin({ strike, ball });
+    }
   }
 
   async #guessNumber() {
     const userNumber = await this.#view.readUserNumber();
-    const result = this.#game.compareNumber(userNumber);
 
-    this.#checkResult(result);
+    return this.#game.compareNumber(userNumber);
   }
 
-  async #checkResult({ strike, ball }) {
+  #checkWin({ strike, ball }) {
     this.#view.printGameResult({ strike, ball });
 
-    if (strike === WINNING_CONDITION.THREE_STRIKE)
-      return this.#view.printGameWinning(strike);
+    if (strike !== WINNING_CONDITION.THREE_STRIKE) return false;
 
-    await this.#guessNumber();
-  }
+    this.#view.printGameWinning(strike);
 
-  async #readRestart() {
-    const restart = await this.#view.readRestart();
-
-    if (restart) this.play();
+    return true;
   }
 }
 
 export default App;
-
-const app = new App();
-app.play();
