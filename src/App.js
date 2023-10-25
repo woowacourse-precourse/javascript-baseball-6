@@ -21,7 +21,7 @@ class App {
       try {
         isSuccess = await this.playOneInput(RANDOM_VALUE);
       } catch (e) {
-        return true;
+        throw new Error('[ERROR]');
       }
     }
 
@@ -67,12 +67,12 @@ class App {
     return INPUT;
   }
 
-  // 게임 종료 후 재시작, 완전 종료 확인 
+  // 게임 종료 후 재시작, 완전 종료 확인
   async startGameAgain() {
     let input = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
-    this.checkInput(input);
     if (input === '1') return false;
     if (input === '2') return true;
+    else throw new Error('[ERROR] 잘못된 형식입니다.');
   }
 
   // 세자리 숫자 예외 처리 - 입력 값이 숫자가 아니거나, 중복을 제거한 길이가 3이 아니면 throw error
@@ -81,13 +81,6 @@ class App {
 
     if (isNaN(parseInt(input)) || SET_INPUT.length !== 3) {
       throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
-    }
-  }
-
-  // 재시작, 완전 종료 예외 처리 - 입력 값이 '1'이나 '2'가 아니면 throw error
-  checkInput(input) {
-    if (input !== '1' && input !== '2') {
-      throw new Error('[ERROR] 잘못된 형식입니다.');
     }
   }
 
