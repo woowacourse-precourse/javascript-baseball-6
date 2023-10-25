@@ -26,6 +26,16 @@ class Game {
     Validation.inputValidCheck(this.#input);
     return this.#answer.guessNum(this.#input);
   }
+
+  async turn() {
+    while (true) {
+      this.#guessResult = await this.guess();
+      OutputView.resultMsg(this.#guessResult.ball, this.#guessResult.strike);
+      if (this.#guessResult.strike === MAX_STRIKE) {
+        if (await this.ending()) return 0;
+      }
+    }
+  }
 }
 
 export default Game;
