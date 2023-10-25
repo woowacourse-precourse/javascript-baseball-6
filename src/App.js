@@ -15,14 +15,14 @@ class App {
 
   async play() {
     // * 1. 시작 문구 출력
-    MissionUtils.Console.print(INFO.start_comment);
+    MissionUtils.Console.print(INFO.START_COMMENT);
 
     // * 2. 컴퓨터가 랜덤한 숫자를 설정
     this.#setRandomNumber();
 
     while (this.is_continue) {
       // * 3. 사용자 입력
-      MissionUtils.Console.print(INFO.user_input_comment);
+      MissionUtils.Console.print(INFO.USER_INPUT_COMMENT);
       this.user_answer = await MissionUtils.Console.readLineAsync();
 
       // * 3-1. 사용자 입력 값 검증
@@ -37,14 +37,14 @@ class App {
 
       // * 6. 게임이 종료된 경우 처리
       if (this.strikes === 3) {
-        MissionUtils.Console.print(INFO.is_continue_comment);
+        MissionUtils.Console.print(INFO.IS_CONTINUE_COMMENT);
         // * 7. 사용자 입력
         let user_continue_input = await MissionUtils.Console.readLineAsync();
 
         // * 7-1. 사용자 입력 값 검증
         this.#verifyUserContinue(user_continue_input);
 
-        this.is_continue = user_continue_input === CONTINUE_OPTIONS.start;
+        this.is_continue = user_continue_input === CONTINUE_OPTIONS.START;
         // 게임을 새로 시작하는 경우, 랜덤 숫자를 재설정
         if (this.is_continue) {
           this.#setRandomNumber();
@@ -106,11 +106,11 @@ class App {
    */
   #verifyUserAnswerNumber() {
     if (isNaN(this.user_answer)) {
-      throw new Error(INPUT_ERROR_MESSAGES.is_nan);
+      throw new Error(INPUT_ERROR_MESSAGES.IS_NAN);
     }
 
     if (this.user_answer.length !== 3) {
-      throw new Error(INPUT_ERROR_MESSAGES.wrong_length);
+      throw new Error(INPUT_ERROR_MESSAGES.WRONG_LENGTH);
     }
 
     // ? 서로 다른 세 자리 숫자로 구성되어 있는지 확인
@@ -118,21 +118,21 @@ class App {
 
     for (let i = 0; i < this.user_answer.length; ++i) {
       if (num_set.has(this.user_answer[i]))
-        throw new Error(INPUT_ERROR_MESSAGES.is_duplicate);
+        throw new Error(INPUT_ERROR_MESSAGES.IS_DUPLICATE);
     }
   }
 
   /**
    * 사용자가 입력한 값이 CONTINUE_TYPES 에 포함된 값인지 검증한다.
    * 만약 검증에 실패한다면 오류를 발생시키고 프로그램을 종료한다.
-   * @param {string} inputString
+   * @param {string} INPUT_STRING
    */
-  #verifyUserContinue(inputString) {
+  #verifyUserContinue(INPUT_STRING) {
     if (
-      !inputString ||
-      Object.values(CONTINUE_OPTIONS).indexOf(inputString) < 0
+      !INPUT_STRING ||
+      Object.values(CONTINUE_OPTIONS).indexOf(INPUT_STRING) < 0
     ) {
-      throw new Error(CONTINUE_ERROR_MESSAGES.not_in_options);
+      throw new Error(CONTINUE_ERROR_MESSAGES.NOT_IN_OPTIONS);
     }
   }
 
@@ -146,7 +146,7 @@ class App {
     }
 
     if (this.strikes === 3) {
-      MissionUtils.Console.print(INFO.correct);
+      MissionUtils.Console.print(INFO.CORRECT_COMMENT);
       this.is_continue = false;
       return;
     }
