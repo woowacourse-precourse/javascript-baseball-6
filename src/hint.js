@@ -1,26 +1,38 @@
-export function getHint(target, input) {
-  let strike = 0,
-    ball = 0;
+function calculateStrikeCount(target, input) {
+  let strikeCount = 0;
 
-  for (let i = 0; i < 3; i++) {
-    if (target[i] === input[i]) strike++;
+  for (let index = 0; index < 3; index++) {
+    if (target[index] === input[index]) strikeCount++;
   }
 
-  for (let i = 0; i < 3; i++) {
-    for (let j = 0; j < 3; j++) {
-      if (i === j) continue;
-      if (target[i] === input[j]) ball++;
+  return strikeCount;
+}
+
+function calculateBallCount(target, input) {
+  let ballCount = 0;
+
+  for (let targetIndex = 0; targetIndex < 3; targetIndex++) {
+    for (let inputIndex = 0; inputIndex < 3; inputIndex++) {
+      if (targetIndex === inputIndex) continue;
+      if (target[targetIndex] === input[inputIndex]) ballCount++;
     }
   }
 
-  if (ball && strike) {
-    return `${ball}볼 ${strike}스트라이크`;
+  return ballCount;
+}
+
+export function getHint(target, input) {
+  const strikeCount = calculateStrikeCount(target, input);
+  const ballCount = calculateBallCount(target, input);
+
+  if (ballCount && strikeCount) {
+    return `${ballCount}볼 ${strikeCount}스트라이크`;
   }
-  if (ball) {
-    return `${ball}볼`;
+  if (ballCount) {
+    return `${ballCount}볼`;
   }
-  if (strike) {
-    return `${strike}스트라이크`;
+  if (strikeCount) {
+    return `${strikeCount}스트라이크`;
   }
   return "낫싱";
 }
