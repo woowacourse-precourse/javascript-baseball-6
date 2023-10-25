@@ -4,7 +4,7 @@ export default class Computer {
         this.numbers = [];
     }
     pickRandomNumbers() {
-        this.numbers = [];
+        this.clearNumbers();
         while (this.numbers.length < 3) {
             const number = MissionUtils.Random.pickNumberInRange(1, 9);
             if (!this.numbers.includes(number)) {
@@ -60,5 +60,7 @@ export default class Computer {
         else return `${ball}볼 ${strike}스트라이크`;
     }
 
-    clearNumbers() {}
+    clearNumbers() {
+        this.numbers = [];
+    }
 }
