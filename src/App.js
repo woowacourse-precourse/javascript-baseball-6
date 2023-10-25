@@ -69,13 +69,14 @@ class App {
   }
   async playSet(){
     const computer = this.computerNumber();
-    let strike;    
+        
     while(true){
+      let strike, ball
       try{
         const playerInput = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
         const player = this.getInputAsIntArray(playerInput)
         this.playerErrorCheck(player);
-        const [strike, ball] = this.checkResult(computer, player);        
+        [strike, ball] = this.checkResult(computer, player);        
         this.printResult(strike,ball);
       }
       catch(e){
