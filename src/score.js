@@ -1,4 +1,4 @@
-import { CONSTANTS } from './constants';
+import { MAX_INPUT_SIZE } from './constants';
 
 class Score {
   constructor(guesser, answer) {
@@ -32,7 +32,7 @@ class Score {
   }
 
   isWin() {
-    return this.getStrikeCount() === CONSTANTS.MAX_INPUT_SIZE;
+    return this.getStrikeCount() === MAX_INPUT_SIZE;
   }
 }
 
