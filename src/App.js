@@ -4,6 +4,8 @@ class App {
   constructor() {
     this.computer = [];
     this.userInput = [];
+    this.ball = 0;
+    this.strike = 0;
   }
 
   async play() {
@@ -15,6 +17,7 @@ class App {
   async startGame() {
     await this.getUserInput();
     this.handleException();
+    this.checkMatch();
   }
 
   makeRandomNumbers() {
@@ -47,6 +50,22 @@ class App {
       }
       filteredNumbers.push(num);
     });
+  }
+
+  checkMatch() {
+    let ball = 0;
+    let strike = 0;
+    this.computer.forEach((computerNum, computerIndex) => {
+      this.userInput.forEach((userNum, userIndex) => {
+        if (computerNum === userNum && computerIndex === userIndex) {
+          strike++;
+        } else if (computerNum === userNum && computerIndex !== userIndex) {
+          ball++;
+        }
+      });
+    });
+    this.ball = ball;
+    this.strike = strike;
   }
 }
 
