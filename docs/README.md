@@ -81,10 +81,10 @@
 
 ## 테스트
 
-- [ ] 각 도메인별로 유의미한 테스트를 작성한다
+- [x] 각 도메인별로 유의미한 테스트를 작성한다
   - [x] BaseballNumber
   - [x] Computer
-  - [ ] BaseballGame
+  - [x] BaseballGame => 앗.. Computer 객체랑 일이 똑같네. 테스트 동일함.
 
 ---
 
