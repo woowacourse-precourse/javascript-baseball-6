@@ -1,6 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-
-const DIGIT_COUNT = 3;
+import { DIGIT_COUNT } from './utils';
 
 class Computer {
   #number;
@@ -13,14 +12,12 @@ class Computer {
   }
 
   resetNumber() {
-    const computer = [];
-    while (computer.length < DIGIT_COUNT) {
+    const computer = new Set();
+    while (computer.size < DIGIT_COUNT) {
       const number = MissionUtils.Random.pickNumberInRange(1, 9);
-      if (!computer.includes(number)) {
-        computer.push(number);
-      }
+      computer.add(number);
     }
-    this.#number = computer.join('');
+    this.#number = Array.from(computer).join('');
   }
 }
 export default Computer;

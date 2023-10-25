@@ -1,7 +1,7 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import Computer from './Computer.js';
 import User from './User.js';
-import { ERROR_MESSAGE, GAME_STATUS } from './utils';
+import { DIGIT_COUNT, ERROR_MESSAGE, GAME_STATUS } from './utils';
 
 class BaseballGame {
   #isAllCorrected = false;
@@ -76,7 +76,7 @@ class BaseballGame {
       }
     });
 
-    this.#isAllCorrected = strike === 3;
+    this.#isAllCorrected = strike === DIGIT_COUNT;
 
     let result = '';
     if (strike === 0 && ball === 0) {
