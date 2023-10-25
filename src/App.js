@@ -5,6 +5,14 @@ class App {
     this.answerNumber = '';
     this.playerInput = '';
   }
+  // error 핸들링 메서드
+  handleError(name, message) {
+    let error = new Error();
+    error.name = name;
+    error.message = message;
+    Console.print(error.message);
+    throw error;
+  }
   // 랜덤 숫자 생성 메서드
   setAnswerNumber() {
     const numbers = [];
@@ -18,20 +26,14 @@ class App {
   }
   // 입력값이 검증 메서드
   validateInput(input) {
-    let error = new Error();
     const isDuplicate = input.split('').some((number) => input.indexOf(number) !== input.lastIndexOf(number))
-    const setValidateError = (name, message) => {
-      error.name = name;
-      error.message = message;
-      throw error;
-    }
 
     if(isNaN(Number(input))) {
-      setValidateError('TypeError', '[ERROR] 숫자를 입력해주세요');
+      this.handleError('Validation Error', '[ERROR] 숫자를 입력해주세요');
     } else if(input.length !== 3) {
-      setValidateError('RangeError', '[ERROR] 3자리 숫자를 입력해주세요');
+      this.handleError('Validation Error', '[ERROR] 3자리 숫자를 입력해주세요');
     } else if(isDuplicate) {
-      setValidateError('Duplicated Number Error', '[ERROR] 중복되지 않는 숫자를 입력해주세요');
+      this.handleError('Validation Error', '[ERROR] 중복되지 않는 숫자를 입력해주세요');
     } else {
       this.playerInput = input;
     }
@@ -68,9 +70,8 @@ class App {
     } else if (replay === "2") {
       Console.print(replay);
       Console.print('게임을 종료합니다.');
-      return;
     } else {
-      throw new Error('[ERROR] 잘못된 입력입니다.');
+      this.handleError('Error', '[ERROR] 1 또는 2를 입력해주세요');
     }
   }
   async playTheGame() {
