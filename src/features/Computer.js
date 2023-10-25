@@ -1,4 +1,4 @@
-import { Random } from "@woowacourse/mission-utils";
+import { Console, Random } from "@woowacourse/mission-utils";
 import { player } from "./Player.js";
 
 export class Computer {
@@ -37,10 +37,6 @@ export class Computer {
         this.#count = { ...this.#count, [key]: this.#count[key] + 1 };
       }
     });
-  }
-
-  #initializeCount() {
-    this.#count = { ...this.#count, strike: 0, ball: 0 };
   }
 
   #printResult() {
