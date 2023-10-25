@@ -4,13 +4,12 @@ import {
   EXIT_SIGN,
   OUT_OF_RANGE_NUMBER,
   INPUT_LENGTH,
-  NUMBER_REGEXP,
+  NUM_REGEXP,
 } from "../constants/constants.js";
 
 const validation = {
   isNumber(input) {
-    if (!NUMBER_REGEXP.test(input))
-      throw new Error(ERROR_MSG.INVALID_INPUT_TYPE);
+    if (!NUM_REGEXP.test(input)) throw new Error(ERROR_MSG.INVALID_INPUT_TYPE);
     return 0;
   },
 

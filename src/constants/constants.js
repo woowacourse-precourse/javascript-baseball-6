@@ -10,4 +10,4 @@ export const OUT_OF_RANGE_NUMBER = 0;
 
 export const MAX_STRIKE = 3;
 
-export const NUMBER_REGEXP = /^[0-9]+$/;
+export const NUM_REGEXP = /^[0-9]+$/;
