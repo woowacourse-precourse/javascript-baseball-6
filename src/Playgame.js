@@ -5,17 +5,18 @@ class Playgame {
     }
 
     check(input) {
-        if (input.length !== 3) { // 길이가 3이 아닐때
-            return false;
-          }
-        if (new Set(input).size !== 4) { // 중복된 숫자가 있을때
-            return false;
-          }
-        if (tries.includes(input)) { // 이미 시도한 값일때
+        if (userInput.length !== 3 || this.hasDuplicate(userInput)) {
             return false;
           }
         return true;
     }
+
+    //중복된 숫자 확인
+    hasDuplicate(userInput) {
+        const set = new Set(userInput);
+        return set.size !== userInput.length;
+    }
+
 
     // 스트라이크, 볼, 낫싱에 대한 계산    
     hint(numbers, input) {
@@ -43,3 +44,5 @@ class Playgame {
 
     }
 }
+
+export default Playgame;
