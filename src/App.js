@@ -16,6 +16,8 @@ class App {
       await this.startGame();
       if (this.strike === 3) {
         MissionUtils.Console.print("게임 종료!");
+        const restart = await this.restart();
+        if (!restart) break;
       }
     }
   }
@@ -82,6 +84,22 @@ class App {
       MissionUtils.Console.print(`${this.ball}볼`);
     } else {
       MissionUtils.Console.print(`${this.ball}볼 ${this.strike}스트라이크`);
+    }
+  }
+  async restart() {
+    const number = await MissionUtils.Console.readLineAsync(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+    );
+    if (number !== "1" && number !== "2") {
+      throw new Error("[ERROR] 잘못된 입력입니다. 1 또는 2만 입력해주세요.");
+    }
+    if (number === "1") {
+      this.randomNum = [];
+      this.userNum = [];
+      this.ball = 0;
+      this.strike = 0;
+      this.randomNumber();
+      await this.playBall();
     }
   }
 }
