@@ -42,8 +42,21 @@ class App {
     Console.print('숫자 야구 게임을 시작합니다.');
     const computerNumber = await this.createRandomNumber();
     const userNumber = await this.userInputNumber();
-    await roundResult(computerNumber, userNumber);
+    const {gameSuccess, hintMessage} = await roundResult(computerNumber, userNumber);
     
+    if(gameSuccess){
+      Console.print('3개의 숫자를 모두 맞히셨습니다! 게임종료');
+      Console.print('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+      
+      const restart = await Console.readLineAsync();
+      if(restart === '2'){
+        return;
+      }else if(restart ==='1'){
+        this.play();
+      }else{
+        throw Error('[ERROR] 게임을 새로 시작하려면 1, 종료하려면 2를 입력해야합니다.');
+      }
+    }
   }
 }
 
