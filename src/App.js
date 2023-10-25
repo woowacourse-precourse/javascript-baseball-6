@@ -12,7 +12,6 @@ class App {
     // * 유저 숫자를 받는 함수
     async inputUserNumber() {
         const inputValue = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
-        // MissionUtils.Console.print(`유저의 숫자는 ${inputValue}`);
 
         if (!REG_INPUT_NUMBER.test(inputValue)) {
             throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
@@ -55,12 +54,12 @@ class App {
             return this.calculateResults(computerNumber);
         } else {
             MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
-            const inputValue = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+            const inputValue = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
             if (inputValue === '1') {
                 const computerNumber = this.createComputerNumber();
                 return this.calculateResults(computerNumber);
             } else if (inputValue === '2') {
-                return MissionUtils.Console.print('게임 종료');
+                return;
             } else {
                 throw new Error('[ERROR] 잘못된 입력입니다.');
             }
