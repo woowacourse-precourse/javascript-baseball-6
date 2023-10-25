@@ -6,10 +6,10 @@ import { paramType } from './utils/paramType.js';
 import { createRandomNumbers } from './utils/createRandomNumbers.js';
 
 class App {
-  constructor(outputView, inputReader) {
-    this.outputView = outputView || new OutputView();
-    this.inputReader = inputReader || new InputReader();
-    this.baseBall = new BaseBall();
+  constructor() {
+    this.outputView = new OutputView();
+    this.inputReader = new InputReader();
+    this.baseBall = null;
   }
 
   async play() {
@@ -18,7 +18,8 @@ class App {
   }
 
   async setting() {
-    this.baseBall.init();
+    const randomNumbers = createRandomNumbers();
+    this.baseBall = new BaseBall(randomNumbers);
     await this.pitching();
   }
 
@@ -72,9 +73,7 @@ class App {
   }
 }
 
-const outputView = new OutputView();
-const inputReader = new InputReader();
-const app = new App(outputView, inputReader);
+const app = new App();
 app.play();
 
 export default App;

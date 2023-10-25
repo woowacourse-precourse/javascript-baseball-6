@@ -3,8 +3,8 @@ import { Random } from '@woowacourse/mission-utils';
 export default class BaseBall {
   #winningNumbers;
 
-  constructor() {
-    this.#winningNumbers = null;
+  constructor(winningNumbers) {
+    this.#winningNumbers = winningNumbers;
   }
 
   createPassword() {
@@ -20,9 +20,9 @@ export default class BaseBall {
     return winningNumbers;
   }
 
-  _setPassword(password) {
-    this.#winningNumbers = password;
-  }
+  // _setPassword(password) {
+  //   this.#winningNumbers = password;
+  // }
 
   _checkBallsAmount(userInput) {
     const userInputArray = [...String(userInput)];
@@ -77,8 +77,8 @@ export default class BaseBall {
     return { ball, strike, isNothing };
   }
 
-  init() {
-    const password = this.createPassword();
-    this._setPassword(password);
-  }
+  // init() {
+  //   const password = this.createPassword();
+  //   this._setPassword(password);
+  // }
 }
