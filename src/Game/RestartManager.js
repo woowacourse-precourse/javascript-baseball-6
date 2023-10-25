@@ -1,22 +1,21 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
+import { GAME_MESSAGE, RESTART_MANAGER_ERROR_MESSAGE } from "../Constants.js";
 
 class RestartManager {
   static async askForRestart() {
-    await MissionUtils.Console.print(
-      "3개의 숫자를 모두 맞히셨습니다! 게임 종료"
-    );
+    await MissionUtils.Console.print(GAME_MESSAGE.RESTART);
     const restartInput = await MissionUtils.Console.readLineAsync(
-      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+      GAME_MESSAGE.RESTART_INPUT
     );
 
     switch (restartInput.trim()) {
       case "1":
         return true;
       case "2":
-        MissionUtils.Console.print("게임을 종료합니다.");
+        MissionUtils.Console.print(GAME_MESSAGE.END_GAME);
         return false;
       default:
-        throw new Error("잘못된 값을 입력하였습니다.");
+        throw new Error(RESTART_MANAGER_ERROR_MESSAGE.INPUT);
     }
   }
 }

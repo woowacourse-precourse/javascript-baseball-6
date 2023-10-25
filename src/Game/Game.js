@@ -4,6 +4,7 @@ import User from "../User/User.js";
 import Validator from "./Validator.js";
 import Calculator from "./Calculator.js";
 import RestartManager from "./RestartManager.js";
+import { CALCULATOR_RULES, GAME_MESSAGE } from "../Constants.js";
 
 class Game {
   constructor() {
@@ -15,9 +16,7 @@ class Game {
     let input;
     do {
       try {
-        input = await MissionUtils.Console.readLineAsync(
-          "숫자를 입력해주세요 : "
-        );
+        input = await MissionUtils.Console.readLineAsync(GAME_MESSAGE.PROMPT);
         Validator.isValidInput(input);
       } catch (error) {
         throw error;
@@ -35,7 +34,7 @@ class Game {
 
   async start() {
     while (true) {
-      MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
+      MissionUtils.Console.print(GAME_MESSAGE.START);
       const answer = this.computer.generateAnswer();
       let result;
 
@@ -46,7 +45,7 @@ class Game {
           result.strikes
         );
         MissionUtils.Console.print(resultMessage);
-      } while (result.strikes !== 3);
+      } while (result.strikes !== CALCULATOR_RULES.STRIKE);
 
       if (await RestartManager.askForRestart()) continue; // 재시작
       break; // 종료
