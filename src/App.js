@@ -11,9 +11,13 @@ class App {
   }
 
   // 게임 시작
-  // async play() {
-
-  // }
+  async play() {
+    this.isFinished = false;
+    while (this.isFinished == false) {
+      await this.roundInput().then(this.inputCheck);
+    }
+    await this.endOrReplay();
+  }
 
   // 라운드 입력
   async roundInput() {
@@ -64,3 +68,8 @@ class App {
 
 
 export default App;
+
+
+const app = new App();
+app.play();
+
