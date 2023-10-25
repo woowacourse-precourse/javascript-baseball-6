@@ -35,7 +35,7 @@ export function checkStrike(player, computer){
 // 볼 개수 확인
 export function checkBall(player, computer, strikeCount){
     let ballCount = 0
-    player.forEach((num) => {
+    player.forEach((num, i) => {
         if(computer.includes(num) && num!==computer[i]) ballCount += 1
     })
     return ballCount
