@@ -97,6 +97,6 @@ class App {
   }
 
 }
-const a = new App();
-a.play();
+const baseball = new App();
+baseball.play();
 export default App;
