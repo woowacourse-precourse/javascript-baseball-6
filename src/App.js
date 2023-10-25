@@ -48,7 +48,6 @@ class App {
   }
 
   async complete() {
-    this.outputView.printGameEndMessage();
     await this.requestRestart();
   }
 
