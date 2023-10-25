@@ -4,7 +4,7 @@ export default function getResult(computerNumbers, playerNumbers) {
   const computerArr = Array.from(computerNumbers + '');
   const playerArr = Array.from(playerNumbers + '');
 
-  const hasNothing = getNothing(computerArr, playerArr);
+  const hasNothing = isNothing(computerArr, playerArr);
 
   let ball, strike;
   if (!hasNothing) {
@@ -12,7 +12,7 @@ export default function getResult(computerNumbers, playerNumbers) {
     strike = getStrike(computerArr, playerArr);
   }
 
-  const result = (ball ? ball : '') + (strike ? strike : '');
+  const result = (ball || '') + (strike || '');
   result !== '' && MissionUtils.Console.print(result);
 
   if (result === '3스트라이크') {
@@ -21,13 +21,13 @@ export default function getResult(computerNumbers, playerNumbers) {
   }
 }
 
-const getNothing = (computerNum, playerNum) => {
+const isNothing = (computerNum, playerNum) => {
   const nothingArr = computerNum.filter((item) => !playerNum.includes(item));
   if (nothingArr.length === 3) {
     MissionUtils.Console.print('낫싱');
-    return 1;
+    return true;
   } else {
-    return 0;
+    return false;
   }
 };
 
