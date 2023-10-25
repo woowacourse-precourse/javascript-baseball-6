@@ -3,11 +3,11 @@ import isValidNum from './isValidNum';
 import userInput from './userInput';
 import reGame from './regame';
 
-export default function startGame(COM_NUM) {
+export default async function startGame(COM_NUM) {
   let endGame = false;
 
   while(endGame) {
-    const USER_INPUT = userInput();
+    const USER_INPUT = await userInput();
   
     isValidNum(USER_INPUT);
   
