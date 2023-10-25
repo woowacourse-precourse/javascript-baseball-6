@@ -12,4 +12,4 @@ function generateRandomNumber() {
   return Array.from(computerNums);
 }
 
-export { generateRandomNumber };
+export default generateRandomNumber;
