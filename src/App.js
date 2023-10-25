@@ -78,10 +78,13 @@ class App {
             else // strike == ball == 0 일 때
               MissionUtils.Console.print("낫싱");
           }
-
         }
 
         MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+        
+        start = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
+        if (start != 1 && start != 2)
+          throw new Error("[ERROR] 입력이 잚못되었습니다. 게임을 종료합니다.");
       }
     } catch (error) {
       return Promise.reject(error);
