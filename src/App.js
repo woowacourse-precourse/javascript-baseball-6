@@ -77,10 +77,15 @@ class App {
     this.strikeCount = isStrike.filter((x) => x).length;
     return this.strikeCount;
   }
-      });
-      return isInclude.filter((x) => x).length;
-    } catch (error) {
-      console.log(error);
+
+  async ball(inputArr, answerArr) {
+    const isBall = answerArr.map((item, index) => {
+      return inputArr.includes(item) && item !== inputArr[index];
+    });
+
+    this.ballCount = isBall.filter((x) => x).length;
+    return this.ballCount;
+  }
     }
   }
 }
