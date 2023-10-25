@@ -7,7 +7,7 @@ class App {
     // 사용자 입력받는 함수
     async function getAnswer() {
       const answer = await MissionUtils.Console.readLineAsync(
-        "서로 다른 3자리의 수 입력 : "
+        "숫자를 입력해주세요 : "
       );
       const answerList = answer.split("").map(Number);
 
