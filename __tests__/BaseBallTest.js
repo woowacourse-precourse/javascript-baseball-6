@@ -1,4 +1,5 @@
-import BaseBall from '../src/BaseBall';
+import BaseBall from '../src/BaseBall.js';
+
 describe('class BaseBall test', () => {
   let winningNumbers;
   let baseBall;

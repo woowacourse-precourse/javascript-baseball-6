@@ -1,4 +1,4 @@
-import { paramType } from '../src/utils/paramType';
+import { paramType } from '../src/utils/paramType.js';
 
 describe('function paramType Test', () => {
   class WooTeCo {
