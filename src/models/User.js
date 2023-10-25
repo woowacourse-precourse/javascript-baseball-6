@@ -7,10 +7,10 @@ class User {
 
   /**
    * 사용자의 입력 숫자를 저장한다.
-   * @param {number} number
+   * @param {string} numberString
    */
-  setNumber(number) {
-    this.#number = number;
+  setNumber(numberString) {
+    this.#number = Number(numberString);
   }
 }
 
