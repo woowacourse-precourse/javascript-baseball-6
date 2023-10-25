@@ -57,4 +57,60 @@ describe("숫자 야구 게임", () => {
 
     await expect(app.play()).rejects.toThrow("[ERROR]");
   });
+
+  //예외테스트
+  test("예외 테스트: 입력값이 4자리 이상인 경우", async () => {
+    // given
+    const randoms = [1, 3, 5];
+    const answers = ["1234"];
+
+    mockRandoms(randoms);
+    mockQuestions(answers);
+
+    // when & then
+    const app = new App();
+
+    await expect(app.play()).rejects.toThrow("[ERROR] 숫자가 3자리여야 합니다.");
+  });
+  test("예외 테스트: 입력값이 2자리인 경우", async () => {
+    // given
+    const randoms = [1, 3, 5];
+    const answers = ["12"];
+
+    mockRandoms(randoms);
+    mockQuestions(answers);
+
+    // when & then
+    const app = new App();
+
+    await expect(app.play()).rejects.toThrow("[ERROR] 숫자가 3자리여야 합니다.");
+  });
+  test("예외 테스트: 입력값이 1자리인 경우", async () => {
+    // given
+    const randoms = [1, 3, 5];
+    const answers = ["1"];
+
+    mockRandoms(randoms);
+    mockQuestions(answers);
+
+    // when & then
+    const app = new App();
+
+    await expect(app.play()).rejects.toThrow("[ERROR] 숫자가 3자리여야 합니다.");
+  });
+  test("예외 테스트: 입력값이 공백인 경우", async () => {
+    // given
+    const randoms = [1, 3, 5];
+    const answers = [" "];
+
+    mockRandoms(randoms);
+    mockQuestions(answers);
+
+    // when & then
+    const app = new App();
+
+    await expect(app.play()).rejects.toThrow("[ERROR] 숫자가 3자리여야 합니다.");
+  });
+
+
 });

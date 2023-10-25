@@ -22,7 +22,7 @@ class App {
         throw new Error("[ERROR] 숫자가 3자리여야 합니다.");
       
       for (var i = 0; i < 3; i++) {
-        if (+inputValue[i] == NaN)
+        if (Number.isNaN(Number(inputValue[i])))
           throw new Error("[ERROR] 입력값은 숫자여야 합니다.");
         if (userInputNumber.includes(parseInt(inputValue[i])))
           throw new Error("[ERROR] 숫자가 중복되지 않아야 합니다.");
@@ -84,7 +84,7 @@ class App {
         
         start = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
         if (start != 1 && start != 2)
-          throw new Error("[ERROR] 입력이 잚못되었습니다. 게임을 종료합니다.");
+          throw new Error("[ERROR] 입력이 잘못되었습니다. 게임을 종료합니다.");
       }
     } catch (error) {
       return Promise.reject(error);
