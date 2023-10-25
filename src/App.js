@@ -1,16 +1,10 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
-import { Console, Random } from "@woowacourse/mission-utils";
-import init from "./init";
+import { Console } from "@woowacourse/mission-utils";
+import game from "./game";
 
 class App {
   async play() {
-    try {
-      Console.print("숫자 야구 게임을 시작합니다.");
-      await init();
-    } catch (error) {
-      Console.print(error.message);
-      throw error;
-    }
+    Console.print("숫자 야구 게임을 시작합니다.");
+    await game();
   }
 }
 
