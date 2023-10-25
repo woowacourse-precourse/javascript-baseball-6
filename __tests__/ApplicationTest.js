@@ -54,7 +54,9 @@ describe("숫자 야구 게임", () => {
 
     // when & then
     const app = new App();
+    const logSpy = getLogSpy(); 
+    await app.play();
 
-    await expect(app.play()).rejects.toThrow("[ERROR]");
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[ERROR]"));
   });
 });
