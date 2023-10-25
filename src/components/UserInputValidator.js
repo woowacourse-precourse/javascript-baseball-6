@@ -7,7 +7,7 @@ class UserInputValidator {
   validateUserInput() {
     
     if (
-        isNaN(this.userInputNumber) 
+        Number.isNaN(this.userInputNumber) 
         || this.userInputArr.some((number) => Number(number) < 1 || Number(number) > 9) 
         || this.userInputArr.length !== 3
         || new Set(this.userInputArr).size !== this.userInputArr.length
