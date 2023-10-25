@@ -47,11 +47,12 @@ async function gameStart(computerNum) {
     START_MESSAGE.input
   );
 
-  //숫자 형식이 안 맞을 때, throw
-  errorOccurred(PLAYER_NUM);
-
-  //게임 진행
-  gamePlay(PLAYER_NUM, computerNum);
+  //숫자 형식이 맞을 때
+  if (!errorOccurred(PLAYER_NUM)) {
+    //게임 진행
+    gamePlay(PLAYER_NUM, computerNum);
+  }
+  return;
 }
 
 //game set
