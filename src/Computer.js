@@ -57,7 +57,7 @@ class Computer {
     } else {
       scoreMessage = `${ball}볼 ${strike}스트라이크`;
     }
-    return scoreMessage;
+    MissionUtils.Console.print(scoreMessage);
   }
 }
 
