@@ -9,7 +9,7 @@ class App {
       if (!answer.includes(randomNumber))
         answer.push(randomNumber);
     }
-    console.log(answer)
+    
     return answer;
   }
 
