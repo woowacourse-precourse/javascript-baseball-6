@@ -1,5 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import { ANSWER_LENGTH } from './utils';
+import { ANSWER_LENGTH } from './utils.js';
 
 class Computer {
   constructor() {
