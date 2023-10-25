@@ -1,4 +1,5 @@
 import { Console, Random } from "@woowacourse/mission-utils";
+
 class App {
   constructor() {
     this.randomNumber = this.makeRandomNumber();
