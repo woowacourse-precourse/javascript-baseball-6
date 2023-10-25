@@ -39,7 +39,7 @@ class BaseballController {
   }
 
   checkUserInputType(userInput) {
-    return Number.isNaN(+userInput);
+    return !/^[1-9]+$/.test(userInput);
   }
   checkUserInputDuplicate(userInput) {
     return [...new Set(userInput.split(''))].length !== this.model.length;
