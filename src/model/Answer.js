@@ -16,6 +16,23 @@ class Answer {
       }
     }
   }
+
+  guessNum(input) {
+    const guessResult = { ball: 0, strike: 0 };
+
+    for (let i = 0; i < 3; i++) {
+      if (this.#computerNum.includes(parseInt(input[i]))) {
+        if (parseInt(input[i]) === this.#computerNum[i]) {
+          guessResult.strike += 1;
+        } else guessResult.ball += 1;
+      }
+    }
+    return guessResult;
+  }
+
+  resetAnswer() {
+    this.#computerNum = [];
+  }
 }
 
 export default Answer;

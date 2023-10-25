@@ -24,6 +24,7 @@ class Game {
   async guess() {
     this.#input = await InputView.getNumber();
     Validation.inputValidCheck(this.#input);
+    return this.#answer.guessNum(this.#input);
   }
 }
 
