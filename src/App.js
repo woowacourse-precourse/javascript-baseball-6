@@ -11,7 +11,7 @@ class App {
     // 3. 유저 인풋 받기
     // 4. 값 비교 및 콘솔 처리 - 맞출 때까지
     // 3,4 while문
-    // 5. 재시작 확인 1-4 while문
+    // 5. 재시작 확인 (1-4 while문)
     while (this.GAME_FLAG) {
       this.GAME_ING = true;
       const COMPUTER_NUM = this.createRandomNum();
