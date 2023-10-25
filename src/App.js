@@ -7,7 +7,6 @@ class App {
         this.USER = new User();
     }
     async play() {
-        this.COMPUTER.pickRandomNumbers();
         this.COMPUTER.playGame(this.USER);
     }
 }
