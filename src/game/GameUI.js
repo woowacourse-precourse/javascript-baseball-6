@@ -1,42 +1,53 @@
-import { NUMBER_LENGTH, CONSOLE_MESSAGE } from '../Constants.js';
+import { CONSOLE_MESSAGE } from '../Constants.js';
 import { MissionUtils } from '@woowacourse/mission-utils';
 import Validation from '../validation.js';
 class GameUI {
   constructor(game) {
     this.game = game;
   }
+  // 입력 메소드들
   // 유저가 게임을 시작할 것인지 여부를 물어보는 숫자 입력
   async askExitNumber() {
-    MissionUtils.Console.print(CONSOLE_MESSAGE.CORRECT);
     const EXIT_NUMBER = await MissionUtils.Console.readLineAsync(
       CONSOLE_MESSAGE.IS_RESTART
     );
+    Validation.verifyExitNumber(EXIT_NUMBER);
     return EXIT_NUMBER;
   }
-  //스트라이크 볼 개수 결과 출력
-  showResults(strikeNumbers, ballNumbers) {
-    if (strikeNumbers === 0 && ballNumbers === 0) {
-      MissionUtils.Console.print('낫싱');
-      return;
-    }
-    const ballOutput = ballNumbers !== 0 ? `${ballNumbers}볼 ` : '';
-    const strikeOutput =
-      strikeNumbers !== 0 ? `${strikeNumbers}스트라이크` : '';
-    MissionUtils.Console.print(`${ballOutput}${strikeOutput}`);
-  }
   //유저가 숫자 입력
-  async askNumber() {
+  async askGuessNumber() {
     const guessNumber = await MissionUtils.Console.readLineAsync(
       CONSOLE_MESSAGE.INPUT_NUMBER
     );
     Validation.verityUserNumber(guessNumber);
-    const { strikeNumbers, ballNumbers } =
-      this.game.compareNumbers(guessNumber);
-    this.showResults(strikeNumbers, ballNumbers);
-    if (strikeNumbers === NUMBER_LENGTH) {
-      return true;
+    return guessNumber;
+  }
+  //출력 메소드들
+  //볼 출력값
+  ballOutput(ballNumbers) {
+    if (ballNumbers !== 0) {
+      return `${ballNumbers}볼 `;
     }
-    await this.askNumber();
+    return '';
+  }
+  //스트라이크 출력값
+  strikeOutput(strikeNumbers) {
+    if (strikeNumbers !== 0) {
+      return `${strikeNumbers}스트라이크`;
+    }
+    return '';
+  }
+  //3스트라이크시 출력
+  threeStrike() {
+    MissionUtils.Console.print(CONSOLE_MESSAGE.THREE_STRIKE);
+  }
+  //스트라이크 볼 개수 결과 출력
+  showResults(strikeNumbers, ballNumbers) {
+    let result = '';
+    result += this.game.isNothing(strikeNumbers, ballNumbers);
+    result += this.ballOutput(ballNumbers);
+    result += this.strikeOutput(strikeNumbers);
+    MissionUtils.Console.print(result);
   }
 }
 export default GameUI;
