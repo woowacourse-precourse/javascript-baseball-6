@@ -4,6 +4,12 @@ import { Numbers } from './Numbers.js';
 
 
 class App {
+  constructor() {
+    this.answer = new Numbers();
+    this.isFinished = false;
+    MissionUtils.Console.print(MESSAGES.GAME_START);
+  }
+
   async play() {}
 }
 
