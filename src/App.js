@@ -87,11 +87,10 @@ class App{
                     if(strikeCount === 3){
                         this.answerCorrect();
                         const decision = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
-                        var decisionNumber = Number(decision);
-                        if(decisionNumber === 1) {
+                        if(Number(decision) === 1) {
                             this.randomNumber = this.generateRandomNumbers();       
                         }
-                        if (decisionNumber === 2) {
+                        if (Number(decision) === 2) {
                             await this.printGameoverMessage('게임 종료');
                             this.runningPlay = false;
                         }
