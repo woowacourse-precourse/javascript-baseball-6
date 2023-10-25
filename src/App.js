@@ -56,9 +56,10 @@ class App {
     validation.restartNumberInputOfUser(userInput);
 
     if (userInput === 1) {
-      this.restart();
+      await this.restart();
       return;
     }
+
     this.end();
   }
 

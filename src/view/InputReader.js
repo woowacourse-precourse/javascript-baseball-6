@@ -9,11 +9,13 @@ export default class InputReader {
   constructor() {}
 
   async baseBallNumbers() {
-    return this.#onRead(this.#MESSAGE.REQUEST_WINNING_NUMBERS);
+    const userInput = await this.#onRead(this.#MESSAGE.REQUEST_WINNING_NUMBERS);
+    return userInput;
   }
 
   async restartNumber() {
-    return this.#onRead(this.#MESSAGE.REQUEST_RESTART_NUMBER);
+    const userInput = await this.#onRead(this.#MESSAGE.REQUEST_RESTART_NUMBER);
+    return userInput;
   }
 
   async #onRead(text) {

@@ -8,15 +8,16 @@ export default class BaseBall {
   }
 
   createPassword() {
-    const passwordArray = [];
-    while (passwordArray.length < 3) {
+    const winningNumbersArray = [];
+    while (winningNumbersArray.length < 3) {
       const randomNumber = Random.pickNumberInRange(1, 9);
-      if (!passwordArray.includes(randomNumber)) {
-        passwordArray.push(randomNumber);
+      if (!winningNumbersArray.includes(randomNumber)) {
+        winningNumbersArray.push(randomNumber);
       }
     }
+    const winningNumbers = Number(winningNumbersArray.join(''));
 
-    return Number(passwordArray.join(''));
+    return winningNumbers;
   }
 
   _setPassword(password) {
