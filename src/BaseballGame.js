@@ -4,7 +4,7 @@ import { GAME_INFO } from "./constants/baseballGameInfo.js";
 
 class BaseballGame {
   constructor() {
-    console.log("숫자 야구 게임을 시작합니다.");
+    Console.print("숫자 야구 게임을 시작합니다.");
     this.init();
   }
 
@@ -36,10 +36,11 @@ class BaseballGame {
 
   async resultTurn() {
     while (!this.isWin) {
+      if (!(await this.guessNumberInstance.inputGuessNumber())) return;
       this.isWin = await this.guessNumberInstance.getResult();
     }
 
-    console.log(
+    Console.print(
       `${GAME_INFO.GUESS_NUMBER_LENGTH}개의 숫자를 모두 맞히셨습니다! 게임 종료`
     );
     this.overGame();

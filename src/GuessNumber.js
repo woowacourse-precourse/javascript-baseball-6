@@ -46,10 +46,12 @@ class GuessNumber {
         await Console.readLineAsync("숫자를 입력해주세요 : ")
       ).map(Number);
       this.validation();
+      return true;
     } catch (e) {
       if (e.name === "CustomError") {
-        console.log(e.message);
+        Console.print(e.message);
       }
+      return false;
     }
   }
 
@@ -68,29 +70,27 @@ class GuessNumber {
   }
 
   async getResult() {
-    await this.inputGuessNumber();
-
     const strike = this.getStrike();
     const ball = this.getBall();
 
     if (strike === GAME_INFO.GUESS_NUMBER_LENGTH) {
-      console.log(`${GAME_INFO.GUESS_NUMBER_LENGTH}스트라이크`);
+      Console.print(`${GAME_INFO.GUESS_NUMBER_LENGTH}스트라이크`);
       return true;
     }
     if (ball > 0 && strike > 0) {
-      console.log(`${ball}볼 ${strike}스트라이크`);
+      Console.print(`${ball}볼 ${strike}스트라이크`);
       return false;
     }
     if (ball > 0) {
-      console.log(`${ball}볼`);
+      Console.print(`${ball}볼`);
       return false;
     }
     if (strike > 0) {
-      console.log(`${strike}스트라이크`);
+      Console.print(`${strike}스트라이크`);
       return false;
     }
 
-    console.log("낫싱");
+    Console.print("낫싱");
     return false;
   }
 }
