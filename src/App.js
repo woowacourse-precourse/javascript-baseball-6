@@ -75,10 +75,19 @@ class App {
       S = regexResult ? parseInt(regexResult[1]) : 0;
     }
     Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-   
+    const restartOption = await Console.readLineAsync(
+      "게임을 재시작하려면 1, 종료하려면 2를 입력하세요: "
+    );
+    if (restartOption === "1") {
+      this.play(); // 재시작
+    } else if (restartOption === "2") {
+      Console.print("게임을 종료합니다.");
+      return;
+    } else {
+      throw new Error("[ERROR] 1 또는 2를 입력해주세요.");
+    }
   }
 }
-
 
 const app = new App();
 app.play();
