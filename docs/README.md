@@ -25,8 +25,17 @@ await App.run();
 
 # modules
 
+# `AppModules`
 
-## Run
+- 하나의 모듈만 가져와도 모든 모듈을 사용할 수 있게 도와주는 모듈
+- 이 문서에 기술 된 모든 모듈들은 이 모듈에 정의되어 있음
+- 가독성을 위해 다음과 같이 `import`하는 것을 권장
+
+```jsx
+import { ConvertInputTo } from './modules/AppModuels.js'
+```
+
+## `Run`
 
 
 게임을 실행시키는 함수들
