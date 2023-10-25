@@ -1,49 +1,9 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import { stringToNumberArray } from "./utils/array.js";
-import { validateProcessStateInput, validateNumberInput } from "./validate-input.js";
-
-const calculateStrikeCount = (computerNums, answerNums) => {
-  return answerNums.filter((answerNum, i) => answerNum === computerNums[i])
-    .length;
-};
-
-const calculateBallCount = (computerNums, answerNums) => {
-  const duplicateCount = answerNums.filter((answerNum) =>
-    computerNums.includes(answerNum)
-  ).length;
-
-  return duplicateCount
-    ? duplicateCount - calculateStrikeCount(computerNums, answerNums)
-    : 0;
-};
-
-const calculateCounts = (computerNums, answerNums) => {
-  const strikeCount = calculateStrikeCount(computerNums, answerNums);
-  const ballCount = calculateBallCount(computerNums, answerNums);
-
-  return { strikeCount, ballCount };
-};
-
-const printScore = (strikeCount, ballCount) => {
-  let result = "";
-
-  if (ballCount) result += `${ballCount}볼 `;
-  if (strikeCount) result += `${strikeCount}스트라이크`;
-
-  result = result.trimEnd();
-
-  MissionUtils.Console.print(result ? result : "낫싱");
-};
-
-const isThreeStrike = (strikeCount) => strikeCount === 3;
-
-const checkIsRestart = (processStateInput) => {
-  const RESTART_GAME = "1";
-  const END_GAME = "2";
-
-  if (processStateInput === RESTART_GAME) return true;
-  if (processStateInput === END_GAME) return false;
-};
+import {
+  validateNumberInput,
+  validateProcessStateInput,
+} from "./validate-input.js";
 
 export const playAGame = async (computerNumbers) => {
   while (true) {
@@ -70,4 +30,47 @@ export const playAGame = async (computerNumbers) => {
 
     return { isRestart: checkIsRestart(processStateInput) };
   }
+};
+
+const calculateCounts = (computerNums, answerNums) => {
+  const strikeCount = calculateStrikeCount(computerNums, answerNums);
+  const ballCount = calculateBallCount(computerNums, answerNums);
+
+  return { strikeCount, ballCount };
+};
+
+const calculateStrikeCount = (computerNums, answerNums) => {
+  return answerNums.filter((answerNum, i) => answerNum === computerNums[i])
+    .length;
+};
+
+const calculateBallCount = (computerNums, answerNums) => {
+  const duplicateCount = answerNums.filter((answerNum) =>
+    computerNums.includes(answerNum)
+  ).length;
+
+  return duplicateCount
+    ? duplicateCount - calculateStrikeCount(computerNums, answerNums)
+    : 0;
+};
+
+const printScore = (strikeCount, ballCount) => {
+  let result = "";
+
+  if (ballCount) result += `${ballCount}볼 `;
+  if (strikeCount) result += `${strikeCount}스트라이크`;
+
+  result = result.trimEnd();
+
+  MissionUtils.Console.print(result ? result : "낫싱");
+};
+
+const isThreeStrike = (strikeCount) => strikeCount === 3;
+
+const checkIsRestart = (processStateInput) => {
+  const RESTART_GAME = "1";
+  const END_GAME = "2";
+
+  if (processStateInput === RESTART_GAME) return true;
+  if (processStateInput === END_GAME) return false;
 };
