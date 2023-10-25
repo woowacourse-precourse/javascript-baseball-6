@@ -92,6 +92,26 @@ class BaseballGame {
       MissionUtils.Console.print(CONSOLE_MESSAGE);
     }
   }
+
+  confirmRestart() {
+    const CONSOLE_MESSAGE =
+      '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n';
+    const [RESTART, EXIT] = [1, 2];
+    let choice = 0;
+    //const EXIT = 2;
+    MissionUtils.Console.readLine(CONSOLE_MESSAGE, (number) => {
+      if (Number(number) === RESTART) {
+        choice = RESTART;
+      } else if (Number(number) === EXIT) {
+        choice = EXIT;
+      } else {
+        const INVALID_INPUT_NUMBER = '[ERROR] 올바른 숫자만 입력해주세요.';
+        MissionUtils.Console.print(INVALID_INPUT_NUMBER);
+        throw new Error(INVALID_INPUT_NUMBER);
+      }
+    });
+    return choice;
+  }
 }
 
 export default BaseballGame;
