@@ -1,7 +1,8 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
-function randomComputeNum(){
+export default function randomComputeNum(){
   const computerNum = [];
+  
   while (computerNum.length < 3) {
     const number = MissionUtils.Random.pickNumberInRange(1, 9);
     if (!computerNum.includes(number)) {
@@ -11,4 +12,3 @@ function randomComputeNum(){
   return computerNum;
 }
 
-export default randomComputeNum;
