@@ -31,13 +31,13 @@ class App {
 
     this.answer = Array.from(answerSet).join("");
     this.restart = false;
-    return this.answer;
   }
 
   async inputNumber() {
     const number = await Console.readLineAsync(constant.INPUT_NUMBER_MSG);
     this.strikeCount = 0;
     this.ballCount = 0;
+
     await this.settingNumber(number);
     if (!number) {
       throw new Error(constant.ERROR.INPUT_VALUE);
@@ -70,7 +70,6 @@ class App {
     const isBall = answerArr.map((item, index) => {
       return inputArr.includes(item) && item !== inputArr[index];
     });
-
     this.ballCount = isBall.filter((x) => x).length;
     return this.ballCount;
   }
