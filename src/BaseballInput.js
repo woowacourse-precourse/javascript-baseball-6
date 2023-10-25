@@ -34,35 +34,35 @@ class BaseballInput {
   }
 
   guessRandomNum(random, userNum) {
-    let ball = 0;
-    let strike = 0;
+    let BALL = 0;
+    let STRIKE = 0;
 
     for (let i = 0; i < 3; i++) {
-      if (userNum[i] === random[i]) strike++;
-      else if (random.includes(userNum[i])) ball++;
+      if (userNum[i] === random[i]) STRIKE++;
+      else if (random.includes(userNum[i])) BALL++;
     }
-    return { ball, strike };
+    return { BALL, STRIKE };
   }
 
-  printAnswer(ball, strike) {
-    if (strike && ball) {
-      Console.print(`${ball}볼 ${strike}스트라이크`);
-    } else if (strike && !ball) {
-      Console.print(`${strike}스트라이크`);
-    } else if (!strike && ball) {
-      Console.print(`${ball}볼`);
+  printAnswer(BALL, STRIKE) {
+    if (STRIKE && BALL) {
+      Console.print(`${BALL}볼 ${STRIKE}스트라이크`);
+    } else if (STRIKE && !BALL) {
+      Console.print(`${STRIKE}스트라이크`);
+    } else if (!STRIKE && BALL) {
+      Console.print(`${BALL}볼`);
     } else {
       Console.print("낫싱");
     }
   }
 
   async printEnd() {
-    const input = await Console.readLineAsync(
+    const INPUT = await Console.readLineAsync(
       `게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n`
     );
 
-    if (input === "1") return true;
-    else if (input === "2") return false;
+    if (INPUT === "1") return true;
+    else if (INPUT === "2") return false;
     else throw new Error("[ERROR] 1 또는 2만 입력 가능합니다.");
   }
 }
