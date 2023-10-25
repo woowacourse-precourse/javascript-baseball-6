@@ -1,4 +1,5 @@
 import { Random } from "@woowacourse/mission-utils";
+import { player } from "./Player.js";
 
 export class Computer {
   #answer = [];
@@ -11,6 +12,19 @@ export class Computer {
         this.#answer.push(number);
       }
     }
+  }
+
+  async compareAnswerRepeatedly() {
+    while (this.#count.strike !== 3) {
+      this.#initializeCount();
+      this.#compareAnswer(await player.input("숫자를 입력해주세요 : "));
+      this.#printResult();
+    }
+    return true;
+  }
+
+  #initializeCount() {
+    this.#count = { ...this.#count, strike: 0, ball: 0 };
   }
 
   #compareAnswer(input) {
