@@ -4,10 +4,6 @@ class App {
     await PLAY_GAME();
   }
 }
-
-//실행
-const app = new App();
-app.play();
 export default App;
 
 
