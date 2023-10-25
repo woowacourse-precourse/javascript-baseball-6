@@ -2,7 +2,7 @@ import App from '../src/App';
 import { mockQuestions, mockRandoms } from './ApplicationTest';
 import { ERROR } from '../src/utils/Constants';
 
-const { HEADER, NUMBER, LENGTH, DUPLICATE, RESTART_NUMBER } = ERROR;
+const { HEADER, NUMBER, LENGTH, DUPLICATE } = ERROR;
 
 describe('사용자 입력값 유효성 검사', () => {
   test('공백 입력 테스트', async () => {
