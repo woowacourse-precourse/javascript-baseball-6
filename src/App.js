@@ -13,6 +13,22 @@ class App {
     this.callbackUserNumber = this.callbackUserNumber.bind(this)
   }
 
+  async play() {
+    if (!this.#computer) {
+      this.printGameStart();
+    }
+    this.generateRandomNumbers()
+    this.inputUserNumber()
+  }
+
+  callbackUserNumber() {
+    this.convertToNumberArray();
+    this.arrayErrorCheck();
+    const [strike, ball] = this.arrayCheck()
+    this.printResult(strike, ball)
+    this.processNextStep(strike)
+  }
+
   printGameStart() {
     Console.print(PRINT_STRING.GAME_START)
   }
@@ -114,22 +130,6 @@ class App {
     } else {
       this.inputUserNumber();
     }
-  }
-
-  callbackUserNumber() {
-    this.convertToNumberArray();
-    this.arrayErrorCheck();
-    const [strike, ball] = this.arrayCheck()
-    this.printResult(strike, ball)
-    this.processNextStep(strike)
-  }
-
-  async play() {
-    if (!this.#computer) {
-      this.printGameStart();
-    }
-    this.generateRandomNumbers()
-    this.inputUserNumber()
   }
 }
 
