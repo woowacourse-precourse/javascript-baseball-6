@@ -3,47 +3,37 @@ import { Console, Random } from "@woowacourse/mission-utils";
 class App {
   async play() {
     Console.print("숫자 야구 게임을 시작합니다.");
-
     let reStart;
-
-    try {
-      do {
-        reStart = await this.playGame();
-      } while (reStart === "1");
-    } catch (error) {
-      Console.print(`[ERROR] ${error.message}`);
-
-      if (reStart !== "1" && reStart != "2") {
-        throw new Error("[ERROR]: 1 혹은 2 를 입력해야 합니다.");
-      }
-    }
+    do {
+      reStart = await this.playGame();
+    } while (reStart === "1");
   }
 
   verifyInputFormat(input) {
     const USER_INPUT = input;
     if (USER_INPUT === "") {
       throw new Error(
-        "아무것도 입력하지 않았습니다. 서로 다른 세 자리 숫자를 입력해 주세요."
+        "[ERROR]: 아무것도 입력하지 않았습니다. 서로 다른 세 자리 숫자를 입력해 주세요."
       );
     }
     if (isNaN(USER_INPUT)) {
       throw new Error(
-        "문자를 입력하였습니다. 서로 다른 세 자리 숫자를 입력해 주세요."
+        "[ERROR]: 문자를 입력하였습니다. 서로 다른 세 자리 숫자를 입력해 주세요."
       );
     }
     if (!USER_INPUT.trim()) {
       throw new Error(
-        "공백없이 입력해야 합니다. 서로 다른 세 자리를 입력해 주세요."
+        "[ERROR]: 공백없이 입력해야 합니다. 서로 다른 세 자리를 입력해 주세요."
       );
     }
     if (USER_INPUT.length != 3) {
       throw new Error(
-        "길이가 세 자리가 아닙니다. 서로 다른 세 자리 숫자를 입력해 주세요."
+        "[ERROR]: 길이가 세 자리가 아닙니다. 서로 다른 세 자리 숫자를 입력해 주세요."
       );
     }
     if (!this.areDigitsUnique(USER_INPUT)) {
       throw new Error(
-        "자릿수가 달라야 합니다. 서로 다른 세 자리를 입력해 주세요."
+        "[ERROR]: 자릿수가 달라야 합니다. 서로 다른 세 자리를 입력해 주세요."
       );
     }
   }
@@ -114,9 +104,13 @@ class App {
     } while (randomNumber !== userInput);
 
     Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+
     const RESTART = await Console.readLineAsync(
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
     );
+    if (RESTART !== "1" && RESTART != "2") {
+      throw new Error("[ERROR]: 1 혹은 2 를 입력해야 합니다.");
+    }
     return RESTART;
   }
 }
