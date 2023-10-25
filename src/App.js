@@ -23,21 +23,19 @@ class BaseballGame {
     Console.print('숫자 야구 게임을 시작합니다.');
 
     const playRound = async () => {
-      const userInput = await Console.readLineAsync('숫자를 입력해주세요: ');
+      const userInput = await Console.readLineAsync('숫자를 입력해주세요 : ');
 
-      try {
-        this.validateUserInput(userInput);
-      } catch (error) {
-        Console.print(error);
-        playRound();
-        return;
+      const validationError = this.validateUserInput(userInput);
+      if (validationError) {
+        Console.print(validationError);
+        throw new Error(validationError);
       }
 
       this.attempts++;
       const result = this.compareNumbers(userInput);
 
       if (result.strikes === 3) {
-        Console.print(`3스트라이크 3개의 숫자를 모두 맞히셨습니다!`);
+        Console.print(`3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
         this.askForNewGame();
       } else if (result.strikes === 0 && result.balls === 0) {
         Console.print('낫싱');
@@ -60,13 +58,15 @@ class BaseballGame {
 
   validateUserInput(userInput) {
     if (!/^[1-9]{3}$/.test(userInput)) {
-      throw new Error('[ERROR] 1부터 9까지의 숫자를 이용해서 3자리의 자연수를 입력해주세요.');
+      return '[ERROR] 1부터 9까지의 숫자를 이용해서 3자리의 자연수를 입력해주세요.';
     }
 
     const digits = userInput.split('');
     if (digits[0] === digits[1] || digits[1] === digits[2] || digits[0] === digits[2]) {
-      throw new Error('[ERROR] 각 자리의 숫자가 중복되지 않도록 입력해주세요.');
+      return '[ERROR] 각 자리의 숫자가 중복되지 않도록 입력해주세요.';
     }
+
+    return null;
   }
 
   compareNumbers(userInput) {
