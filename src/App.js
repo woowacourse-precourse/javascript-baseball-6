@@ -3,7 +3,7 @@ import { MissionUtils, Console } from "@woowacourse/mission-utils";
 const INPUT_MAX_LENGTH = 3;
 
 class App {
-  async play() {}
+  async play() { }
 
   /**
    * 컴퓨터 수 random generate 함수
@@ -20,7 +20,7 @@ class App {
     }
     return numbers;
   }
-  
+
   /**
    * 사용자 입력값과 컴퓨터 값을 계산하여 결과를 반환하는 함수
    * @param {string} userInput 
@@ -45,6 +45,24 @@ class App {
     })
 
     return this.getResultFromScore(strikes, balls)
+  }
+
+  /**
+   * strike, balls로 result text를 반환하는 함수 
+   * @param {number} strikes 
+   * @param {number} balls 
+   * @returns {string} ex. 1볼 1스트라이크 | 낫싱 | 3볼 ...
+   */
+  getResultFromScore = (strikes, balls) => {
+    if (strikes == 0 && balls == 0) return "낫싱";
+
+    const result = [];
+
+    if (balls > 0) result.push(`${balls}볼`);
+
+    if (strikes > 0) result.push(`${strikes}스트라이크`);
+
+    return result.join(" ");
   }
 
 
