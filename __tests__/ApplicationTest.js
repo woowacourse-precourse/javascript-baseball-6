@@ -84,7 +84,32 @@ describe("숫자 야구 게임", () => {
       expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(output));
     });
   });
+  test("예시", async () => {
+    // given
+    const randoms = [7, 1, 3, 5, 8, 9];
+    const answers = ["123", "145", "671", "216", "713", "1", "589", "2"];
+    const logSpy = getLogSpy();
+    const messages = [
+      "1볼 1스트라이크",
+      "1볼",
+      "2볼",
+      "1스트라이크",
+      "3스트라이크",
+      "3스트라이크",
+    ];
 
+    mockRandoms(randoms);
+    mockQuestions(answers);
+
+    // when
+    const app = new App();
+    await expect(app.play()).resolves.not.toThrow();
+
+    // then
+    messages.forEach((output) => {
+      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(output));
+    });
+  });
   test("스트라이크", async () => {
     // given
     const randoms = [1, 2, 3];
