@@ -6,7 +6,6 @@ import { QUERY, REGEX } from "./modules/constants.js";
 class App {
   constructor() {
     this.strikes = [];
-    this.isWin = false;
   }
 
   async play() {
@@ -27,30 +26,31 @@ class App {
   }
 
   async playGame() {
-    this.startGame();
-    while (!this.isWin) {
-      const [message, strikeCount] = await this.playInning();
-      Console.print(message);
-      if (strikeCount == 3) {
-        this.isWin = true;
-        Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-        return Promise.resolve();
-      }
-    }
-  }
-
-  startGame() {
+    Console.print("숫자 야구 게임을 시작합니다.");
     this.strikes = generateStrikes();
     // Console.print(this.strikes); // 코드 작성 시 활성화하여 작업
-    this.isWin = false;
-    Console.print("숫자 야구 게임을 시작합니다.");
+    while (true) {
+      if (await this.isWin()) {
+        break;
+      }
+    }
+    this.strikes = [];
+    Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+  }
+
+  async isWin() {
+    const strikeCount = await this.playInning();
+    if (strikeCount == 3) {
+      return true;
+    }
+    return false;
   }
 
   async playInning() {
     const guess = await getUserInput(QUERY.guess, REGEX.guess);
     const [strikeCount, ballCount] = this.getScore(guess, this.strikes);
-    const message = this.getMessage(strikeCount, ballCount);
-    return [message, strikeCount];
+    Console.print(this.getMessage(strikeCount, ballCount));
+    return strikeCount;
   }
 
   getMessage(strikeCount, ballCount) {
