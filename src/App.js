@@ -55,17 +55,21 @@ class App {
   }
 
   printUserGuess(guessResult) {
-    if (guessResult[0] === 3) {
-      MissionUtils.Console.print("3볼");
-      return false;
-    }
-    if (guessResult.reduce((acc, cur) => {return acc + cur}, 0) === 0) {
-      MissionUtils.Console.print("낫싱");
-      return false;
-    }
     if (guessResult[1] === 3) {
       MissionUtils.Console.print("3스트라이크");
       return true;
+    }
+    if (guessResult[0] === 0 && guessResult[1] === 0) {
+      MissionUtils.Console.print("낫싱");
+      return false;
+    }
+    if (guessResult[0] === 0) {
+      MissionUtils.Console.print(`${guessResult[1]}스트라이크`);
+      return false;
+    }
+    if (guessResult[1] === 0) {
+      MissionUtils.Console.print(`${guessResult[0]}볼`);
+      return false;
     }
     MissionUtils.Console.print(`${guessResult[0]}볼 ${guessResult[1]}스트라이크`);
     return false;
