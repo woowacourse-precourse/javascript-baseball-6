@@ -2,7 +2,12 @@ import { Random, Console } from "@woowacourse/mission-utils"
 
 class App {
   async play() {
-
+    Console.print("숫자 야구 게임을 시작합니다.")
+    do {
+      await this.game();
+      const answer = await this.check();
+      if (answer === "2") break;
+    } while (true)
   }
 
   async game() {
@@ -45,12 +50,12 @@ class App {
   }
 
   async check() {
-    while(true) {
+    while (true) {
       try {
         const answer = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n");
-        if(answer=== "1" || answer === "2") return answer;
+        if (answer === "1" || answer === "2") return answer;
         else throw new Error("[Error] 1과 2 중 하나를 입력해주세요.")
-      } catch(error) {
+      } catch (error) {
         Console.print(error.message);
       }
     }
