@@ -5,6 +5,7 @@ class Computer {
     this.MIN_NUMBER = 1;
     this.MAX_NUMBER = 9;
     this.MAX_LENGTH = 3;
+    this.number = this.setNumber();
   }
 
   setNumber() {

@@ -1,40 +1,40 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import { MESSAGE, RESET_OPTIONS, ERROR } from "./modules/Constants.js";
-import Computer from "./modules/Computer.js";
-import User from "./modules/User.js";
-import CheckAnswer from "./modules/CheckAnswer.js";
+import { MESSAGE, RESET_OPTIONS } from "./utils/Constants.js";
+import User from "./utils/User.js";
+import CheckAnswer from "./utils/CheckAnswer.js";
 class App {
   constructor() {
-    this.computer = new Computer();
     this.user = new User();
     this.check = new CheckAnswer();
-  }
-  async play() {
-    this.start();
-    this.isPlaying();
+    this.start = this.start();
   }
 
   start() {
-    MissionUtils.Console.print(MESSAGE.GAME_START);
+    return MissionUtils.Console.print(MESSAGE.GAME_START);
   }
 
-  async isPlaying() {
-    const ANSWER = this.computer.setNumber();
-
-    while (true) {
-      let userInput = await this.user.answerInput();
-      let strike = await this.check.showResult(ANSWER, userInput);
-      if (strike === 3) break;
+  async play() {
+    try {
+      while (true) {
+        let userInput = await this.user.answerInput();
+        let strike = await this.check.showResult(userInput);
+        if (strike === 3) break;
+      }
+      MissionUtils.Console.print(MESSAGE.GAME_CLEAR);
+      this.reset();
+    } catch (error) {
+      throw error;
     }
-    MissionUtils.Console.print(MESSAGE.GAME_CLEAR);
-    this.reset();
   }
 
   async reset() {
     try {
       const USER_INPUT = await this.user.resetInput();
 
-      if (USER_INPUT === RESET_OPTIONS.RESET_NUMBER) this.play();
+      if (USER_INPUT === RESET_OPTIONS.RESET_NUMBER) {
+        this.check = new CheckAnswer();
+        this.play();
+      }
       if (USER_INPUT === RESET_OPTIONS.END_NUMBER) return;
     } catch (error) {
       throw error;
