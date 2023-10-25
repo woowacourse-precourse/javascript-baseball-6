@@ -4,7 +4,7 @@
   "description": "우아한테크코스 프리코스 숫자 야구 게임 미션",
   "type": "module",
   "dependencies": {
-    "@woowacourse/mission-utils": "2.1.1"
+    "@woowacourse/mission-utils": "^2.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.23.0",
