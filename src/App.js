@@ -15,37 +15,47 @@ class App {
 
   //유저의 입력 받기
   async getUserNum() {
-    console.log("getusernum fun")
-    const input = await Console.readLineAsync("숫자를 입력해주세요 : ");
-    const inputStringArray = input.split('');
-    const inputNumArray = inputStringArray.map(Number);
-    
-    return inputNumArray;
+    try {
+      const input = await Console.readLineAsync("숫자를 입력해주세요 : ");
+      if (!input) {
+      console.log("durl")
+        throw new Error("[ERROR]");
+      }
+      const inputStringArray = input.split('');
+      const inputNumArray = inputStringArray.map(Number);
+      return inputNumArray;
+    } catch (error) {
+      this.exit();
+    }
   }
 
   //각 요소 하나하나가 1~9의 숫자가 맞는지
   checkNum = (inputNumArray) => {
-    console.log("checknum fun")
-    for(let i=0; i<inputNumArray.length; i++){
-      if(isNaN(inputNumArray[i])){
-        return(false)
-      }
-      if(inputNumArray[i] < 1 || inputNumArray[i] > 9){
-        return(false)
-      }
+    if (!inputNumArray) {
+      throw new Error("[ERROR]");
     }
-    return(true)
+    try{
+      for(let i=0; i<inputNumArray.length; i++){
+        if(isNaN(inputNumArray[i])){
+          return(false)
+        }
+        if(inputNumArray[i] < 1 || inputNumArray[i] > 9){
+          return(false)
+        }
+      }
+      return(true)
+    }catch(error){
+      this.exit();
+    }
   }
 
   //3개의 요소인지
   checkLen = (inputNumArray) => {
-    console.log("checklen fun")
     return(inputNumArray.length !== 3 ? false : true)
   }
 
   //중복을 제외하고도 3개의 요소인지
   checkDuple = (inputNumArray) => {
-    console.log("checkduple fun")
     const arrayToSet = new Set();
     for(let item of inputNumArray){
       arrayToSet.add(item)
@@ -55,19 +65,15 @@ class App {
 
   //유저가 입력한 숫자가 유효한지 판별
   checkUserNum = (inputNumArray) => {
-    console.log("checkusernum fun")
     const valNum = this.checkNum(inputNumArray);
     const valLen = this.checkLen(inputNumArray);
     const valDuple = this.checkDuple(inputNumArray);
 
-    console.log(`${valNum} ${valLen} ${valDuple}`)
     return (valNum && valLen && valDuple)
   }
 
   //컴퓨터가 생성한 수와 유저가 입력한 수를 비교하여 스트라이크와 볼 수를 반환
   compare = (GOAL, INPUT) => {
-    console.log(GOAL)
-    console.log(INPUT)
     let strike =0;
     let ball = 0;
     for(let i=0; i<GOAL.length ; i++){
@@ -77,7 +83,6 @@ class App {
         ball++;
       }
     }
-    console.log(strike, ball)
     return({strike, ball})
   }
 
@@ -94,28 +99,23 @@ class App {
     }
   }
 
+  //컴퓨터가 숫자를 생성한 후, 유저 차례
   async game(GOAL) {
-    console.log("game fun")
     const inputNumArray = await this.getUserNum();
     const validateNum = this.checkUserNum(inputNumArray);
 
     if(!validateNum){
-      console.log("validateNum이 false")
       await this.game(GOAL);
     }else{
-      console.log("validateNum true")
-      console.log(this.compare(GOAL, inputNumArray))
       const {strike, ball} = this.compare(GOAL, inputNumArray);
-
-      console.log(strike,ball)
 
       let OUTTEXT = '';
       if(ball > 0 && strike > 0){
-        OUTTEXT = `${ball} 볼 ${strike} 스트라이크`
+        OUTTEXT = `${ball}볼 ${strike}스트라이크`
       }else if(ball > 0){
-        OUTTEXT = `${ball} 볼`
+        OUTTEXT = `${ball}볼`
       }else if(strike > 0){
-        OUTTEXT = `${strike} 스트라이크`
+        OUTTEXT = `${strike}스트라이크`
       }else{
         OUTTEXT = '낫싱';
       }
@@ -132,13 +132,13 @@ class App {
     }
   }
 
-  async play() {
-    console.log("play fun")
+  exit(){
+  }
 
+  async play() {
     const GOAL = this.genComputerNum();
     await this.game(GOAL);
-
-    console.log("play 종료");
+    this.exit();
   }  
 }
 
