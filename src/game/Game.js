@@ -1,6 +1,6 @@
-import { ANSWER_LENGTH } from "./constants.js";
 import IOManager from "./IOManager.js";
 import Computer from "./Computer.js";
+import GameResult from "./GameResult.js";
 
 class Game {
   constructor() {
@@ -12,12 +12,11 @@ class Game {
   async play() {
     while (!this.isGameEnded) {
       const userInput = await this.ioManager.getThreeNumberInput();
-      const { strike, ball } =
-        this.computer.calculateStrikesAndBalls(userInput);
+      const gameResult = new GameResult(this.computer, userInput);
 
-      this.ioManager.printGameStatus(strike, ball);
+      this.ioManager.printGameStatus(gameResult);
 
-      if (strike === ANSWER_LENGTH) {
+      if (gameResult.isGameEnded()) {
         this.isGameEnded = true;
       }
     }

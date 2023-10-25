@@ -25,7 +25,7 @@
 # 코드 다듬기(리펙토링)
 
 - [x] 로직을 객체로 분리할 수 있는가?
-  - Game, GameLifecycleManager, Validation, IOManager, Computer
+  - Game, GameLifecycleManager, Validation, IOManager, Computer, GameResult
 - [x] 변수명이 직관적인가?
 - [x] 상수로 분리할 수 있는 요소가 있는가?
   - [x] 입출력 메세지
@@ -38,9 +38,9 @@
 ## Computer
 
 - [x] 사용자가 맞춰야 하는 3가지의 랜덤 정수를 생성
-- [x] 사용자의 입력값과 맞춰야하는 값을 비교해 결과 값을 생성
 
 ## GameResult
 
-- [ ] 스트라이크, 볼, 낫싱 여부 판정
-- [ ] 정답 여부 판단
+- [x] 사용자의 입력값과 맞춰야하는 값을 비교해 결과 값을 생성
+- [x] 정답 여부 판단
+- [x] 게임 결과를 사용자 화면에 표현하기 위한 문자열 연산
