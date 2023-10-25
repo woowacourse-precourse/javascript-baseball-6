@@ -1,7 +1,7 @@
 import BaseBall from './BaseBall.js';
 import OutputView from './view/OutputView.js';
 import InputReader from './view/InputReader.js';
-import { validation } from './utils/Validation.js';
+import { validation } from './utils/validation.js';
 import { paramType } from './utils/paramType.js';
 import { createRandomNumbers } from './utils/createRandomNumbers.js';
 import { GAME_COMMAND } from './constants/gameCommand.js';
