@@ -20,9 +20,9 @@
 
 ## 🔍 Refactoring 상황
 
-- [ ] 코드 길이가 적당한가? 기능마다 15줄 아래인가?
+- [x] 코드 길이가 적당한가? 기능마다 15줄 아래인가? , print는?
 - [x] 텍스트를 모듈화하면 수정을 줄이고 모르는 사람도 코드를 유지보수 할 수 있을까? 아니면 너무 추상화인가?
-- [ ] 단일 책임 원칙(Single Responsibility Principle)을 모듈이 만족하는가?
+- [x] 단일 책임 원칙(Single Responsibility Principle)을 모듈이 만족하는가?
 
 ## 🔍 유의 사항
 

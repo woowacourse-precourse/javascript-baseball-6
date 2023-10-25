@@ -12,27 +12,18 @@ class App {
   async play() {
     MissionUtils.Console.print(GAME.START);
     let computerNumbers = createRandomNumber();
-    console.log(computerNumbers);
-
-    let userNumbers;
+    let RESTART = true;
     do {
-      userNumbers = await inputUserNumber();
-      console.log(userNumbers);
-
+      let userNumbers = await inputUserNumber();
       if (printResult(checkResult(userNumbers, computerNumbers))) {
-        const RESTART = await restartGame();
-        if (RESTART) {
-          computerNumbers = createRandomNumber();
-          console.log(computerNumbers);
-        } else {
-          break;
-        }
+        RESTART = await restartGame();
+        if (RESTART) computerNumbers = createRandomNumber();
       }
-    } while (true);
+    } while (RESTART);
   }
 }
 
 export default App;
 
-const app = new App();
-app.play();
+// const app = new App();
+// app.play();
