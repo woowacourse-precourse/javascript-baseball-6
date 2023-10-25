@@ -12,6 +12,14 @@ class User {
   setNumber(numberString) {
     this.#number = Number(numberString);
   }
+
+  /**
+   * 사용자의 입력 숫자를 반환한다.
+   * @return {number}
+   */
+  getNumber() {
+    return this.#number;
+  }
 }
 
 export default User;
