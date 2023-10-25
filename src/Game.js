@@ -39,8 +39,10 @@ class Game {
   checkAllStrike(computerAnswer, answer) {
     let strike = 0;
     let ball = 0;
+  
     for (let i = 0; i < computerAnswer.length; i++) {
       const index = answer.indexOf(computerAnswer[i]);
+  
       if (index > -1) {
         if (index === i) {
           strike += 1;
@@ -49,10 +51,11 @@ class Game {
         }
       }
     }
+  
     if (strike > 0 && ball > 0) {
       MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
     } else if (strike === 3) {
-      MissionUtils.Console.print('3스트라이크'); 
+      MissionUtils.Console.print('3스트라이크');
     } else if (strike > 0) {
       MissionUtils.Console.print(`${strike}스트라이크`);
     } else if (ball > 0) {
@@ -60,8 +63,12 @@ class Game {
     } else {
       MissionUtils.Console.print('낫싱');
     }
+  
     return strike === 3;
   }
+  
+  
+
 }
 
 export default Game;
