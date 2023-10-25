@@ -21,15 +21,11 @@ class App {
 
   // 라운드 입력
   async roundInput() {
-    try {
-      const guessNumbers = await MissionUtils.Console.readLineAsync(MESSAGES.ASK_GUESS);
-      if (!/^[1-9]{3}$/.test(guessNumbers) || new Set(guessNumbers.split('')).size !== 3) {
-        throw Error
-      } else {
-        return guessNumbers;
-      }
-    } catch (e) {
-      MissionUtils.Console.print(MESSAGES.ERROR_GUESS);
+    const guessNumbers = await MissionUtils.Console.readLineAsync(MESSAGES.ASK_GUESS);
+    if (!/^[1-9]{3}$/.test(guessNumbers) || new Set(guessNumbers.split('')).size !== 3) {
+      throw Error(MissionUtils.Console.print(MESSAGES.ERROR_GUESS));
+    } else {
+      return guessNumbers;
     }
   }
 
@@ -43,29 +39,23 @@ class App {
     }
   }
 
-  // 종료 또는 재시작 (테스트 필요)
+  // 위아래 두 메서드에서 app.answer 말고 다른걸 쓸순 없는것인지,
+  // 저게 구린 코드가 맞긴 한건지
+
+  // 종료 또는 재시작
   async endOrReplay() {
-    try {
-      MissionUtils.Console.print(MESSAGES.GAME_END);
-      const restart = await MissionUtils.Console.readLineAsync(MESSAGES.ASK_RESTART);
-      if (restart == 1) {
-        app.answer.numbersArray = generateAnswer();
-        this.play();
-      } else if (restart == 2) {
-        console.log("종료");
-      } else {
-        throw Error;
-      }
-      // 끝나고 밑으로가서 캐치?
-    } catch (error) {
-      MissionUtils.Console.print(MESSAGES.ERROR_REPLAY)
+    MissionUtils.Console.print(MESSAGES.GAME_END);
+    const restart = await MissionUtils.Console.readLineAsync(MESSAGES.ASK_RESTART);
+    if (restart == 1) {
+      app.answer.numbersArray = app.answer.generateAnswer();
+      this.play();
+    } else if (restart == 2) {
+      console.log("종료");
+    } else {
+      throw Error(MissionUtils.Console.print(MESSAGES.ERROR_REPLAY));
     }
   }
 }
 
-  
-
-
 
 export default App;
-
