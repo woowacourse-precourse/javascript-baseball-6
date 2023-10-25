@@ -1,4 +1,4 @@
-class InputValidation {
+class InputValidator {
   static LIMIT = {
     GAME: {
       LENGTH: 3,
@@ -23,14 +23,14 @@ class InputValidation {
   }
 
   isLengthValid() {
-    return this.value.length === InputValidation.LIMIT[this.type]?.LENGTH
+    return this.value.length === InputValidator.LIMIT[this.type]?.LENGTH
   }
 
   isInAcceptableRange() {
     return [...this.value].every(token => {
       const tokenAsNumber = Number(token);
-      return (InputValidation.LIMIT[this.type]?.RANGE[0] <= tokenAsNumber)
-        && (tokenAsNumber <= InputValidation.LIMIT[this.type]?.RANGE[1])
+      return (InputValidator.LIMIT[this.type]?.RANGE[0] <= tokenAsNumber)
+        && (tokenAsNumber <= InputValidator.LIMIT[this.type]?.RANGE[1])
     })
   }
 
@@ -39,4 +39,4 @@ class InputValidation {
   }
 }
 
-export default InputValidation;
+export default InputValidator;

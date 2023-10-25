@@ -1,5 +1,5 @@
 import {Console, Random} from '@woowacourse/mission-utils'
-import InputValidation from './InputValidation.js';
+import InputValidator from './InputValidator.js';
 
 
 
@@ -15,12 +15,12 @@ class App {
 
 
   init() {
-    this.target = Array.from({ length: InputValidation.LIMIT.GAME.LENGTH }, () => Random.pickNumberInRange(1, 9)).join('');
+    this.target = Array.from({ length: InputValidator.LIMIT.GAME.LENGTH }, () => Random.pickNumberInRange(1, 9)).join('');
   }
 
   async askForGuessNumber() {
     const input = await Console.readLineAsync('숫자를 입력해주세요 : ');
-    const validation = new InputValidation(input, 'GAME');
+    const validation = new InputValidator(input, 'GAME');
 
     if (!validation.validate()) {
       throw new Error(this.ERROR_MESSAGE);
@@ -53,7 +53,7 @@ class App {
 
   async confirmExit() {
     const input = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
-    const validation = new InputValidation(input, 'EXIT');
+    const validation = new InputValidator(input, 'EXIT');
 
     if (!validation.validate()) {
       throw new Error(this.ERROR_MESSAGE);
