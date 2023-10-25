@@ -78,6 +78,15 @@ class App {
 
     return null;
   };
+
+  async initGame(restartOrEndNum) {
+    if (!restartOrEndNum) {
+      MissionUtils.Console.print(this.texts.GAME_START);
+    }
+
+    this.createRandomNumber();
+    this.userNumber = null;
+  }
 }
 
 const myApp = new App();
