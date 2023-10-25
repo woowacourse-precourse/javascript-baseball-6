@@ -33,10 +33,10 @@ class Player {
 }
 
 class Game {
-  constructor(player) {
+  constructor(player, restartCallback) {
     this.player = player;
     this.targetNumber = this.generateRandomNumber();
-    // console.log("target", this.targetNumber);
+    this.restartCallback = restartCallback; // 여기에 restart 함수를 전달받음
   }
 
   generateRandomNumber() {
@@ -67,11 +67,15 @@ class Game {
 
   async playRound() {
     const guess = await this.player.guessNumber();
-
+    if(guess === "1"){
+      this.restartCallback();
+      return false; 
+    }
+    
     if (guess.length > 3 || guess.length < 3) {
       throw new Error("[ERROR]:3자리 수를 입력하세요 ");
     }
-    // console.log("guess", guess);
+    console.log("guess", guess);
     const {strikes, balls} = this.checkStrikeAndBall(guess);
 
     if (strikes === 3) {
@@ -94,40 +98,41 @@ class Game {
   }
 }
 
+
 class App {
   constructor() {
     this.inputHandler = new InputHandler();
     this.player = new Player(this.inputHandler);
-    this.game = new Game(this.player);
+    this.startNewGame();
   }
-  async restart() {
-    let restart;
-    restart = await this.inputHandler.getRestartInput(
+
+  async startNewGame() {
+    this.game = new Game(this.player, this.restartAndPlay.bind(this)); // restartCallback으로 restartAndPlay 함수를 전달
+  }
+
+  async restartAndPlay() {
+    const restart = await this.inputHandler.getRestartInput(
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
     );
 
     if (restart === "1") {
-      this.game = new Game(this.player);
+      this.startNewGame();
+      this.play();
     } else {
       MissionUtils.Console.print("게임을 종료합니다.");
-      return;
     }
   }
-  async play() {
-    let isFirstGame = true;
-    let restart;
 
-    if (isFirstGame) {
-      MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
-      isFirstGame = false;
-    }
+  async play() {
+    MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
 
     const isGameOver = await this.game.playRound();
-    if (!isGameOver) {
-      await this.play();
-    }
 
-    await this.restart();
+    if (!isGameOver) {
+      this.play();  // 재귀적 호출로 게임을 계속함
+    } else {
+      this.restartAndPlay();  // 게임이 끝났으면 재시작 여부를 물어봄
+    }
   }
 }
 
