@@ -1,4 +1,4 @@
-import { Console, ERROR_TEXT, GAME_START_TEXT, Random } from './Constant';
+import { BALL, Console, ERROR_TEXT, GAME_START_TEXT, NOTHING, Random, STRIKE } from './Constant';
 
 class App {
   constructor() {
@@ -32,6 +32,7 @@ class App {
     if (answerStr) {
       await this.hitterValidator(answerStr);
       this.hitterNumbers = answerStr.split('').map(Number);
+      await this.compare();
     }
   }
 
@@ -44,6 +45,17 @@ class App {
         throw new Error(ERROR_TEXT);
       }
     }
+  }
+
+  async compare() {
+    this.score = [0, 0];
+    this.hitterNumbers.map((item, index) => {
+      if (this.pitcherNumbers[index] === item) {
+        this.score[1] += 1;
+      } else if (this.pitcherNumbers.includes(item)) {
+        this.score[0] += 1;
+      }
+    });
   }
 }
 
