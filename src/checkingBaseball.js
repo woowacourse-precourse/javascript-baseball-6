@@ -2,9 +2,9 @@ import { Console } from '@woowacourse/mission-utils';
 
 export default function checkingBaseball(player, computer) {
 	try {
-		const BALL = CheckBall(player, computer);
-		const STRIKE = CheckStrike(player, computer);
-		PrintResult(BALL, STRIKE);
+		const BALL = checkBall(player, computer);
+		const STRIKE = checkStrike(player, computer);
+		printResult(BALL, STRIKE);
 		if (STRIKE === 3) {
 			return false;
 		}
@@ -14,7 +14,7 @@ export default function checkingBaseball(player, computer) {
 	}
 }
 
-function CheckBall(player, computer) {
+const checkBall = function countingBall(player, computer) {
 	let ballCount = 0;
 	for (let i = 0; i < 3; i++) {
 		if (computer.includes(player[i])) {
@@ -22,9 +22,9 @@ function CheckBall(player, computer) {
 		}
 	}
 	return ballCount;
-}
+};
 
-function CheckStrike(player, computer) {
+const checkStrike = function countingStrike(player, computer) {
 	let strikeCount = 0;
 	for (let i = 0; i < 3; i++) {
 		if (player[i] === computer[i]) {
@@ -32,9 +32,9 @@ function CheckStrike(player, computer) {
 		}
 	}
 	return strikeCount;
-}
+};
 
-function PrintResult(ball, strike) {
+const printResult = function resultPhrase(ball, strike) {
 	if (!ball) {
 		Console.print(`낫싱`);
 	} else if (!strike) {
@@ -47,4 +47,4 @@ function PrintResult(ball, strike) {
 	} else {
 		Console.print(`${ball - strike}볼 ${strike}스트라이크`);
 	}
-}
+};
