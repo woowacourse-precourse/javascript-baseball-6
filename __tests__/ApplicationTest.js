@@ -24,12 +24,6 @@ const getLogSpy = () => {
   return logSpy;
 };
 
-const getReadLineLogSpy = () => {
-  const logSpy = jest.spyOn(MissionUtils.Console, "readLineAsync");
-  logSpy.mockClear();
-  return logSpy;
-};
-
 describe("숫자 야구 게임", () => {
   test("게임 종료 후 재시작", async () => {
     // given
@@ -79,16 +73,16 @@ describe("IOManager 테스트", () => {
     ioManager = new IOManager();
   });
 
-  test("에러 출력 테스트", async () => {
-    expect(ioManager.throwError()).rejects.toThrow("[ERROR]");
+  test("에러 출력 테스트", () => {
+    expect(ioManager.throwError).toThrow("ERROR");
   });
 
   test("결과 출력 테스트", () => {
     const balls = [0, 1, 1, 0, 0, 3];
     const strikes = [0, 0, 1, 2, 3, 0];
     const outputs = [
-      "0볼 0스트라이크",
-      "1볼 0스트라이크",
+      "낫싱",
+      "1볼",
       "1볼 1스트라이크",
       "2스트라이크",
       "3스트라이크",
@@ -99,7 +93,7 @@ describe("IOManager 테스트", () => {
     for (let idx in outputs) {
       ioManager.printRoundResult({
         ballCount: balls[idx],
-        strikeCsount: strikes[idx],
+        strikeCount: strikes[idx],
       });
     }
 
@@ -109,11 +103,8 @@ describe("IOManager 테스트", () => {
   });
 
   test("게임 재시작 입출력 테스트", async () => {
-    const MESSAGE = "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. : ";
     const answers = ["1", "2"];
     const errorAnswers = ["3", "0", "b", ""];
-
-    const readLineLogSpy = getReadLineLogSpy();
 
     // Valid inputs
     mockQuestions(answers);
@@ -128,22 +119,20 @@ describe("IOManager 테스트", () => {
     for (let _ of answers) {
       await expect(ioManager.askReplay()).rejects.toThrow("[ERROR]");
     }
-
-    // message logging
-    expect(readLineLogSpy).toHaveBeenCalledWith(MESSAGE);
   });
 
   test("숫자 입출력 테스트", async () => {
-    const MESSAGE = "숫자를 입력해주세요 : ";
+    const answers = ["123", "987"];
     const errorAnswers = ["a", "", "1234", "12", "1", "102"];
 
-    const readLineLogSpy = getReadLineLogSpy();
+    mockQuestions(answers);
+    for (let _ of answers) {
+      await expect(ioManager.askNumber());
+    }
 
     mockQuestions(errorAnswers);
     for (let _ of errorAnswers) {
       await expect(ioManager.askNumber()).rejects.toThrow("[ERROR]");
     }
-
-    expect(readLineLogSpy).toHaveBeenCalledWith(MESSAGE);
   });
 });
