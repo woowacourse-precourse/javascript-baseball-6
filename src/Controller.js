@@ -14,6 +14,7 @@ class Controller {
     this.view = new View();
     this.view.infoPrint(INFO_MESSAGE.GAME_START);
     this.validate = new Validate();
+    this.judge = new Judge();
   }
 
   async game() {
@@ -25,11 +26,11 @@ class Controller {
       );
       this.validate.userPickNumbers(userPickValue);
       const userNumbers = userPickValue.split('').map((element) => +element);
-      [this.ball, this.strike] = new Judge().counter(
+      [this.ball, this.strike] = this.judge.counter(
         computerNumbers,
         userNumbers,
       );
-      this.judgeResult = new Judge().result(this.ball, this.strike);
+      this.judgeResult = this.judge.result(this.ball, this.strike);
       this.view.infoPrint(this.judgeResult);
     }
     this.view.infoPrint(INFO_MESSAGE.CORRECT_ANSWER);

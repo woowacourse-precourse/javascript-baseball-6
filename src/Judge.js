@@ -1,20 +1,19 @@
 import { GAME_SETTING } from './constants/Setting.js';
 
 class Judge {
-  ballCount = 0;
-  strikeCount = 0;
-
   counter(computerNumbers, userNumbers) {
+    let ballCount = 0;
+    let strikeCount = 0;
     computerNumbers.map((number, index) => {
       if (number === userNumbers[index]) {
-        this.strikeCount += 1;
+        strikeCount += 1;
       } else {
         if (userNumbers.includes(number)) {
-          this.ballCount += 1;
+          ballCount += 1;
         }
       }
     });
-    return [this.ballCount, this.strikeCount];
+    return [ballCount, strikeCount];
   }
 
   result(ball, strike) {
