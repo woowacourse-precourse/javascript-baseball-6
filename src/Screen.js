@@ -8,6 +8,10 @@ class Screen {
   static async inputUserNumbers() {
     const numbers = await Console.readLineAsync("숫자를 입력해주세요 : ");
 
+    if (numbers.length !== 3 || Number.isNaN(numbers)) {
+      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+    }
+
     return Array.from(numbers, (number) => number * 1);
   }
 
@@ -38,6 +42,10 @@ class Screen {
   static async askRestart() {
     Console.print("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
     const answer = await Console.readLineAsync();
+
+    if (answer !== "1" && answer !== "2") {
+      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+    }
 
     return answer;
   }
