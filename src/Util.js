@@ -9,6 +9,7 @@ class GameUtil {
         RANDOM_NUMBER.push(number);
       }
     }
+    return RANDOM_NUMBER.join('');
   }
 }
 
