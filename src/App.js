@@ -1,16 +1,29 @@
-import BaseballInput from "./BaseballInput"; // 모듈의 상대 경로를 사용
+import { Console } from "@woowacourse/mission-utils";
+import BaseballInput from "./BaseballInput";
 
 class App {
-  play() {
+  async play() {
+    let restartGame = true;
     const baseballInput = new BaseballInput();
-
     baseballInput.startPrint();
-    let random = baseballInput.makeComputerNum();
-    baseballInput.makeUserInput(random);
+
+    while (restartGame) {
+      const random = baseballInput.makeComputerNum();
+      let userRetryInput = true;
+
+      while (userRetryInput) {
+        const userNum = await baseballInput.makeUserInput();
+        const { ball, strike } = baseballInput.guessRandomNum(random, userNum);
+        baseballInput.printAnswer(ball, strike);
+
+        if (strike === 3) {
+          Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
+          userRetryInput = false;
+        }
+      }
+      restartGame = await baseballInput.printEnd();
+    }
   }
 }
-
-const app = new App();
-app.play();
 
 export default App;
