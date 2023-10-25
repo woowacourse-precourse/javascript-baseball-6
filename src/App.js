@@ -4,7 +4,15 @@ class App {
   async play() {
     // 게임 시작 문구 출력
     Console.print('숫자 야구 게임을 시작합니다.');
-    
+
+    let isFinish = false;
+
+    while (!isFinish) {
+      isFinish = await this.playGame();
+    }
+  }
+
+  async playGame() {
     const RANDOM_VALUE = this.getRandomNumber();
     let isSuccess =  false;
 
@@ -13,13 +21,13 @@ class App {
       try {
         isSuccess = await this.playOneInput(RANDOM_VALUE);
       } catch (e) {
-        console.error(e);
-        return;
+        return true;
       }
     }
 
     // 게임 종료 후 재시작, 완전 종료 확인
-    this.startGameAgain();
+    const RESTART = await this.startGameAgain();
+    return RESTART;
   }
 
   async playOneInput(RANDOM_VALUE) {
@@ -61,10 +69,10 @@ class App {
 
   // 게임 종료 후 재시작, 완전 종료 확인 
   async startGameAgain() {
-    let input = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+    let input = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
     this.checkInput(input);
-    if (input === '1') this.play();
-    return;
+    if (input === '1') return false;
+    if (input === '2') return true;
   }
 
   // 세자리 숫자 예외 처리 - 입력 값이 숫자가 아니거나, 중복을 제거한 길이가 3이 아니면 throw error
@@ -86,8 +94,7 @@ class App {
   // 입력된 세자리 숫자 확인 결과 출력
   printResult(result) {
     if (result.strike === 3) {
-      Console.print('3스트라이크');
-      Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+      Console.print('3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료');
       return true;
     }
     if (result.nothing === 3) {
@@ -95,7 +102,7 @@ class App {
       return false;
     }
     const BALL = result.ball !== 0 ? `${result.ball}볼 ` : '';
-    const STRIKE = result.strike !== 0 ? `${result.strike}스트라이크 ` : '';
+    const STRIKE = result.strike !== 0 ? `${result.strike}스트라이크` : '';
     Console.print(`${BALL}${STRIKE}`);
     return false;
   }
