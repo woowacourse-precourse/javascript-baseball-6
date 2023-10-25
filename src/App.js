@@ -1,6 +1,19 @@
 class App {
   async play() {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
+    const computer = this.generateRandomNumbers();
+    while (true) {
+      if (this.printUserGuess(this.judgeUserGuess(computer, this.takeUserGuess()))) {
+        MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+        const playContinue = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+        if (playContinue !== '1' || playContinue !== '2') {
+          throw MissionUtils.Console.print('1 또는 2만 입력 가능합니다.');
+        }
+        if (playContinue === '2') {
+          break;
+        }
+      }
+    }
   }
 
   generateRandomNumbers() {
