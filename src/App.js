@@ -1,15 +1,32 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
+const START_MESSAGE = '숫자 야구 게임을 시작합니다.';
+const INPUT_MESSAGE = '숫자를 입력해주세요 : ';
+const NOTHING = '낫싱';
+const BALL = '볼';
+const STRIKE = '스트라이크';
 
 class App {
   async play() {
+    MissionUtils.Console.print(`${START_MESSAGE}`);
+    let isThreeStrike = true;
     const answerNumber = await this.makeAnsNumber();
-    console.log(answerNumber);
-    MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
+    while (isThreeStrike) {
+      isThreeStrike = await this.getGameResult(answerNumber);
+
+    }
+    
+  }
+
+  async getGameResult(answerNumber) {
     let inputNumber = await this.makeInputNumber();
     let [strike, ball, out] = this.checkNumber(answerNumber, inputNumber);
-    console.log(strike, ball, out);
-    
+    if (out === 3) MissionUtils.Console.print(`${NOTHING}`);
+    else {
+      if (ball > 0) MissionUtils.Console.print(ball + `${BALL}` + strike + `${STRIKE}`);
+      else MissionUtils.Console.print(strike + `${STRIKE}`);
+    }
+    return strike === 3 ? false : true;
   }
 
   async makeAnsNumber() {
@@ -25,7 +42,7 @@ class App {
 
   async makeInputNumber() {
     try {
-      let number = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요. : ');
+      let number = await MissionUtils.Console.readLineAsync(`${INPUT_MESSAGE}`);
       number = [...number].map(el => +el);
       return number;
 
