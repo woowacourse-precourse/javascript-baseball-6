@@ -1,31 +1,16 @@
-import * as MissionUtils from "@woowacourse/mission-utils";
+import { MissionUtils } from "@woowacourse/mission-utils";
+import { ERROR, GAME } from "../pages/texts.js";
 
 /* 사용자로부터 값을 입력받는 기능 */
 export default async function inputUserNumber() {
-  const userInput = await MissionUtils.Console.readLineAsync(
-    "숫자를 입력해주세요 : "
-  );
+  const userInput = await MissionUtils.Console.readLineAsync(GAME.INPUT);
+  if (isNaN(userInput)) throw new Error(ERROR.NUMBER);
+  else if (userInput.includes(0)) throw new Error(ERROR.INCLUDE_0);
 
-  if (isNaN(userInput)) {
-    throw new Error("[ERROR] 입력값은 숫자여야 합니다.");
-  } else {
-    if (userInput.includes(0)) {
-      throw new Error("[ERROR] 입력값은 1~9사이의 숫자여야 합니다.");
-    }
-  }
+  if (userInput.length !== 3) throw new Error(ERROR.LENGTH);
 
-  if (userInput.length !== 3) {
-    throw new Error("[ERROR] 입력값은 세 자리여야 합니다.");
-  }
-
-  const sameNumber = new Set(userInput);
-  if (sameNumber.size !== userInput.length) {
-    throw new Error("[ERROR] 입력값의 각 자리 수는 서로 다른 숫자여야 합니다.");
-  }
-  // parseInt([...userInput].map((e) => parseInt(e, 10)));
-  // return [...userInput].map((e) => {
-  //   return parseInt(e);
-  // });
+  if (new Set(userInput).size !== userInput.length)
+    throw new Error(ERROR.REPEATED);
 
   return [...userInput].map(Number);
 }
