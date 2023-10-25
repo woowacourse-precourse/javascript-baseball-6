@@ -57,7 +57,7 @@ async function userInput() {
 
     // {사용자가 1부터 9까지의 서로 다른 수로 이루어진 3자리의 수를 넣었는가?} 평가 로직 구현
     if (tempUserNumber.length !== 3) {
-      throw new Error('[ERROR] 3자리의 수가 입력되지 않음.')
+      throw new Error('[ERROR] 3자리의 수가 입력되지 않음.');
     }
 
     tempUserNumber.forEach((data) => {
@@ -94,8 +94,8 @@ async function userInput() {
 function matchNumber(computer, user) {
   const score = [0, 0];
 
-  for(let i = 0; i < 3; i++){
-    for(let j = 0; j < 3; j++) {
+  for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 3; j++) {
       if (computer[i] === user[j]) i === j ? score[1]++ : score[0]++;
     }
   }
@@ -118,7 +118,7 @@ function printScore(score) {
     score[1] > 0 ? MissionUtils.Console.print(`${score[1]}스트라이크`) : MissionUtils.Console.print('낫싱');
   }
 
-  if (score[1] === 3){
+  if (score[1] === 3) {
     MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
     return false;
   }
@@ -147,7 +147,7 @@ async function userEndInput() {
         flag = 0;
 
         return true;
-      } else if (userChoice === 2){
+      } else if (userChoice === 2) {
         flag = 0;
 
         return false;
