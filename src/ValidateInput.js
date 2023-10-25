@@ -1,7 +1,7 @@
 import { ERROR, OUT_OF_NUMBER_RANGE } from "./constants/Errors.js";
-import { DELIMITER, NUMBER_LENGTH } from "./constants/MagicNumber.js";
+import { DELIMITER, NUMBER_LENGTH, USER_CHOICE } from "./constants/MagicNumber.js";
 
-function validateInput(number) {
+function validateCountInput(number) {
   const numberList = number.split(DELIMITER);
   const uniqueValues = [...new Set(numberList)];
   if (uniqueValues.length < NUMBER_LENGTH) {
@@ -15,4 +15,10 @@ function validateInput(number) {
   }
 }
 
-export { validateInput };
+function validateRetryInput(number) {
+  if (number !== USER_CHOICE.retry && number !== USER_CHOICE.quit) {
+    throw new Error(ERROR.notOneOrTwo);
+  }
+}
+
+export { validateCountInput, validateRetryInput };
