@@ -1,7 +1,11 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
-  computerNum() {
+  async getUserNumber() {
+    return MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
+  }
+
+  getComputerNum() {
     const computerNum = [];
     while (computerNum.length !== 3) {
       const number = MissionUtils.Random.pickNumberInRange(1, 9);
@@ -54,10 +58,8 @@ class App {
   }
 
   async start() {
-    const computerBall = this.computerNum();
-    const user = await MissionUtils.Console.readLineAsync(
-      "숫자를 입력해주세요 : "
-    );
+    const computerBall = this.getComputerNum();
+    const user = await this.getUserNumber();
     await this.inGame(computerBall, user);
   }
 
@@ -89,9 +91,7 @@ class App {
         throw new Error("[ERROR] 1 또는 2가 아닌 숫자를 입력하셨습니다.");
       }
     } else {
-      const nextUser = await MissionUtils.Console.readLineAsync(
-        "숫자를 입력해주세요 : "
-      );
+      const nextUser = await this.getUserNumber();
       await this.inGame(computerBall, nextUser);
     }
   }
