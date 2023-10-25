@@ -44,11 +44,12 @@ class BaseballGame {
     }
 
     async play() {
+        console.log('숫자 야구 게임을 시작합니다.');
         this.generateComputerNumber();
         while (true) {
             let input = '';
             try {
-                input = await Console.readLineAsync('숫자를 입력해주세요 : ');
+                input = await Console.readLineAsync('숫자를 입력해주세요: ');
                 this.validateInput(input);
             } catch (error) {
                 console.log(error.message);
