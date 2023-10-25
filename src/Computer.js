@@ -2,10 +2,10 @@ import { Random } from "@woowacourse/mission-utils";
 
 class Computer {
   constructor() {
-    this.answer = this.randomNumber();
+    this.answer = this.pickrandomNumbers();
   }
   
-  randomNumber() {
+  pickrandomNumbers() {
     const answer = [];
 
     while (answer.length < 3) {
