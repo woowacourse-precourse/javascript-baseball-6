@@ -9,7 +9,7 @@
     - [x] 게임 시작 메세지 출력
       1. `Console.print` API 메서드 사용
     - [x] 사용자 숫자 입력창 및 메세지 출력
-      1. `Console.readLineAsync` API 메서드 사용
+      1. `Console.readLinegAsync` API 메서드 사용
     - [x] 사용자가 입력한 숫자에 대한 평가 결과 출력
       1. `볼`과 `스트라이크` 1개 이상씩 있을 경우: `O볼 O스트라이크`
     - [x] 사용자 재시작 입력창 및 메세지 출력
