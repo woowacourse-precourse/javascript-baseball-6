@@ -1,4 +1,4 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
+import { MissionUtils, Console } from "@woowacourse/mission-utils";
 
 class App {
   constructor() {
@@ -7,7 +7,7 @@ class App {
   }
 
   async play() {
-    console.log("숫자 야구 게임을 시작합니다.");
+    Console.print("숫자 야구 게임을 시작합니다.");
     this.startGame();
   }
 
@@ -42,7 +42,7 @@ class App {
   }
 
   async getUserInput() {
-    const userInput = await MissionUtils.Console.readLineAsync(
+    const userInput = await Console.readLineAsync(
       "서로 다른 3자리의 숫자를 입력해주세요 : "
     );
     this.validateUserInput(userInput);
@@ -69,22 +69,22 @@ class App {
     } else if (strikes > 0) {
       result = `${strikes}스트라이크`;
       if (strikes === 3) {
-        MissionUtils.Console.print("3스트라이크");
+        Console.print("3스트라이크");
         return true;
       }
     } else {
       result = "낫싱";
     }
 
-    MissionUtils.Console.print(result);
+    Console.print(result);
     return false;
   }
 
   async checkRestart() {
     let restart = 0;
 
-    console.log("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-    const userInput = await MissionUtils.Console.readLineAsync(
+    Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    const userInput = await Console.readLineAsync(
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
     );
 
@@ -99,9 +99,7 @@ class App {
 
   validateUserInput(userInput) {
     if (!this.checkUserInputLength(userInput)) {
-      throw new Error(
-        `[ERROR] ${userInput.length}자리의 숫자를 입력했습니다. 서로 다른 3자리 숫자를 입력해주세요.`
-      );
+      throw new Error(`[ERROR] 서로 다른 3자리 숫자를 입력해주세요.`);
     }
     if (!this.checkUserInputIsNumbers(userInput)) {
       throw new Error("[ERROR] 숫자가 아닌 문자가 포함되어 있습니다.");
@@ -137,6 +135,3 @@ class App {
 }
 
 export default App;
-
-const app = new App();
-app.play();
