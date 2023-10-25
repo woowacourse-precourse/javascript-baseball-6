@@ -84,8 +84,22 @@ class App {
     Console.print(resultMessage);
   }
 
-  gameEnd() {
+  async gameEnd() {
     Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+
+    const value = await Console.readLineAsync(
+      '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요: \n'
+    );
+
+    if (isNaN(value)) {
+      throw new Error('[ERROR] 숫자 1 또는 2를 입력해주세요!');
+    }
+
+    if (Number(value) === 1) {
+      this.play();
+    } else if (Number(value) !== 2) {
+      throw new Error('[ERROR] 숫자 1 또는 2를 입력해주세요!');
+    }
   }
 }
 
