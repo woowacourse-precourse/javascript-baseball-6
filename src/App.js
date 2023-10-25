@@ -1,5 +1,5 @@
-import Computer from "./Computer.js";
-import User from "./User.js";
+import Computer from './Computer.js';
+import User from './User.js';
 
 class App {
     constructor() {
