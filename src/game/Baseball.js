@@ -36,8 +36,10 @@ export const countBallStrike = (computerGenerateNumber, userInputNumber) => {
   if (strike !== 0) {
     inform.push(`${strike}스트라이크`);
   }
-  let informText = "낫싱";
-  informText = inform.join("");
+  let informText = '낫싱';
+  if (inform.length > 0) {
+    informText = inform.join("");
+  }
 
   return informText;
 };
