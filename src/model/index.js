@@ -5,6 +5,10 @@ import { ERROR_MESSAGE } from '../constants/Messages.js';
 import { SYSTEM } from '../constants/System.js';
 
 class BaseballModel {
+  /**
+   * @returns {number[]} 1~9 서로 다른 3자리 숫자
+   * @throws {GameNumberGeneratorError}
+   */
   static generateGameNumbers() {
     try {
       const randomGameNumbers = GameNumberGenerator();
@@ -24,8 +28,8 @@ class BaseballModel {
   // prettier-ignore
   /**
    * @param {string} userNumbers 숫자 string
-   * @param {number} gameNumbers
-   * @returns {{ball : number, strike : number}}
+   * @param {number} gameNumbers 상대 플레이어(컴퓨터)) 숫자
+   * @returns {{ball : number, strike : number}} score
    */
   static compareUserWithComputerNumbers(userNumbers, gameNumbers) {
     return [...userNumbers].reduce((acc, userNumber, index) => {

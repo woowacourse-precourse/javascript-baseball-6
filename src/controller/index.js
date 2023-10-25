@@ -2,14 +2,20 @@ import BaseballModel from '../model/index.js';
 import { InputView, OutputView } from '../view/index.js';
 
 class BaseBallController {
+  /** * @type {string} */
   static RETRY = '1';
 
+  /** * @type {number} */
   static END_POINT = 3;
 
   constructor() {
     OutputView.printStart();
   }
 
+  /**
+   * @async
+   * @returns {Promise<void>}
+   */
   async run() {
     const gameNumbers = BaseballModel.generateGameNumbers();
     await BaseBallController.#guessNumber(gameNumbers);
@@ -32,7 +38,9 @@ class BaseBallController {
    */
 
   /**
-   * @param {number} gameNumbers
+   * @private
+   * @param {number[]} gameNumbers
+   *  @returns {Promise<void>}
    */
   static async #guessNumber(gameNumbers) {
     while (true) {
