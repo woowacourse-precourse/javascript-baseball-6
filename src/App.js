@@ -11,7 +11,7 @@ class App {
 
         let countBall = 0;
         let countStrike = 0;
-        console.log("comp: ", computerNum);
+
         while (countStrike !== 3) {
           const input = await Console.readLineAsync("숫자를 입력해주세요 : ");
           await this.isValidInput(input);
@@ -24,10 +24,8 @@ class App {
             for (let j = 0; j < 3; j++) {
               if (computerNum[i] === userNum[j] && i === j) {
                 countStrike++;
-                console.log("S ", countStrike);
               } else if (computerNum[i] === userNum[j] && i !== j) {
                 countBall++;
-                console.log("B ", countBall);
               }
             }
           }
