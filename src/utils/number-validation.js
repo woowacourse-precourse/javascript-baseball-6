@@ -36,8 +36,8 @@ function isDuplicationError(userInputNumber) {
  * @returns 사용자가 입력한 숫자에 문자가 포함되어있지 않다면 false 반환
  */
 function isNumberError(userInputNumber) {
-  for (let i = 0; i < userInputNumber.length; i++) {
-    if (!(userInputNumber[i] >= "0" && userInputNumber[i] <= "9")) {
+  for (const number of userInputNumber) {
+    if (!(number >= "0" && number <= "9")) {
       throw new Error(NUMBER_ERROR);
     }
   }
