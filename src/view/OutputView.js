@@ -24,18 +24,17 @@ export default class OutputView {
       this.#print(BASEBALL_TEXT.NOTHING);
       return;
     }
-
     if (!ball && strike) {
       this.#print(`${strike}${BASEBALL_TEXT.STRIKE}`);
       return;
-    } else if (ball && !strike) {
+    }
+    if (ball && !strike) {
       this.#print(`${ball}${BASEBALL_TEXT.BALL}`);
       return;
-    } else {
-      this.#print(
-        `${ball}${BASEBALL_TEXT.BALL} ${strike}${BASEBALL_TEXT.STRIKE}`
-      );
     }
+    this.#print(
+      `${ball}${BASEBALL_TEXT.BALL} ${strike}${BASEBALL_TEXT.STRIKE}`
+    );
   }
 
   #print(text, _ = paramType(text, String)) {
