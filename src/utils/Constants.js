@@ -17,5 +17,5 @@ export const GAME = Object.freeze({
 
 export const ERROR = Object.freeze({
   INVALID_CHOICE: "[ERROR] 잘못된 입력입니다. 1또는 2를 입력해주세요.",
-  INVALID_BALL: "[ERROR] 1 또는 2만 입력해주세요.",
+  INVALID_BALL: "[ERROR] 잘못된 입력입니다. 유효한 숫자를 입력해주세요",
 });
