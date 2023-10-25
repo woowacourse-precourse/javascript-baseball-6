@@ -86,6 +86,7 @@ function resetScore() {
   SCORE.strike = 0;
 }
 function printResult() {
+  //switch 문, if문, if-else 문 어느것이 더 적절했나
   if (SCORE.ball === 0 && SCORE.strike === 0) {
     Console.print(MESSAGE.NOTHING);
     return;
