@@ -1,8 +1,10 @@
 import { Random } from '@woowacourse/mission-utils';
 
 export default class BaseBall {
+  #winningNumbers;
+
   constructor() {
-    this._password = null;
+    this.#winningNumbers = null;
   }
 
   createPassword() {
@@ -17,12 +19,12 @@ export default class BaseBall {
   }
 
   _setPassword(password) {
-    this._password = password;
+    this.#winningNumbers = password;
   }
 
   _checkBallsAmount(userInput) {
     const userInputArray = [...String(userInput)];
-    const ballsAmount = [...String(this._password)].reduce(
+    const ballsAmount = [...String(this.#winningNumbers)].reduce(
       (ballAmount, currentPassword, idx) => {
         if (currentPassword === userInputArray[idx]) return ballAmount;
         if (userInputArray.includes(currentPassword)) {
@@ -38,7 +40,7 @@ export default class BaseBall {
 
   _checkStrikesAmount(userInput) {
     const userInputArray = [...String(userInput)];
-    const strikesAmount = [...String(this._password)].reduce(
+    const strikesAmount = [...String(this.#winningNumbers)].reduce(
       (strikeAmount, currentPassword, idx) => {
         return currentPassword === userInputArray[idx]
           ? (strikeAmount += 1)
@@ -52,7 +54,7 @@ export default class BaseBall {
 
   _checkNothing(userInput) {
     const userInputArray = [...String(userInput)];
-    const isNothing = [...String(this._password)].every(
+    const isNothing = [...String(this.#winningNumbers)].every(
       (number) => !userInputArray.includes(number)
     );
 
