@@ -63,6 +63,8 @@ class App {
 
     if (strike !== 3) {
       await this.userChoice();
+    } else {
+      this.gameEnd();
     }
   }
 
@@ -80,6 +82,10 @@ class App {
     }
 
     Console.print(resultMessage);
+  }
+
+  gameEnd() {
+    Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
   }
 }
 
