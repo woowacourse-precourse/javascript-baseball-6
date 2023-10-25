@@ -19,7 +19,6 @@ class App {
   // 게임 진행 함수
   async game() {
     const secret = this.makeRandomNumber();
-    console.log(secret);
 
     while (true) {
       const receive = await this.receiveNumber();
@@ -120,6 +119,7 @@ class App {
     return answer;
   }
 
+  // 예외 처리하는 함수
   throwException() {
     throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
   }
