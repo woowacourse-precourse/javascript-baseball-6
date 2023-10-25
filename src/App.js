@@ -1,5 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import { ERROR, GAME } from "./Message";
+import { GAME } from "./Message";
 
 class App {
   constructor() {
@@ -32,44 +32,41 @@ class App {
   // 사용자에게 입력 받은 값 배열 반환
   getUserValue = async () => {
     const userGuess = await MissionUtils.Console.readLineAsync(GAME.INPUT);
-    if (isNaN(userGuess)) throw new Error(ERROR.NUMBER);
-    else if (userGuess < "1" || userGuess > "9") throw new Error(ERROR.RANGE);
-    if (userGuess.length !== 3) throw new Error(ERROR.LENGTH);
-    if (new Set(userGuess).size !== userGuess.length)
-      throw new Error(ERROR.REPEATED);
+
+    if (!this.isValidInput(userGuess)) {
+      throw new Error("[ERROR] 서로 다른 숫자 3개만 입력 가능합니다.");
+    }
 
     return [...userGuess].map((value) => Number(value));
   };
 
   // calculateResult(): 입력한 수에 대한 결과를 판단하는 메소드
-  // 게임이 종료됐을 때 재시작 여부를 묻기 위한 true 또는 false 반환
+  // 게임이 종료됐을 때 재시작 여부를 묻기 위한 문자열 반환
   calculateResult = (userGuess) => {
     let strikes = 0;
     let balls = 0;
 
     for (let i = 0; i < 3; i++) {
-      if (this.computerValue[i] === userGuess[i]) strikes++;
+      if (userGuess[i] === this.computerValue[i]) strikes++;
       else if (this.computerValue.includes(userGuess[i])) balls++;
     }
 
-    if (balls !== 0 || strikes !== 0) {
-      if (strikes === 3) {
-        MissionUtils.Console.print(
-          "3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료"
-        );
-        return true;
-      } else if (balls === 0)
-        MissionUtils.Console.print(`${strikes}스트라이크`);
-      else if (strikes === 0) MissionUtils.Console.print(`${balls}볼`);
-      else MissionUtils.Console.print(`${balls}볼 ${strikes}스트라이크`);
-    } else MissionUtils.Console.print("낫싱");
-    return false;
+    if (strikes === 3) {
+      MissionUtils.Console.print(
+        "3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료"
+      );
+      return "restart";
+    } else if (strikes && balls)
+      MissionUtils.Console.print(`${balls}볼 ${strikes}스트라이크`);
+    else if (strikes) MissionUtils.Console.print(`${strikes}스트라이크`);
+    else if (balls) MissionUtils.Console.print(`${balls}볼`);
+    else MissionUtils.Console.print("낫싱");
   };
 
   // reGame(): 게임 재시작 or 종료를 수행하는 메소드
   // 1 또는 2가 아닌 숫자를 입력했을 시 throw 사용해 예외 처리
   reGame = async (userValue) => {
-    const result = calculateResult(userValue);
+    const result = this.calculateResult(userValue);
 
     if (result) {
       const restart = await MissionUtils.Console.readLineAsync(GAME.RESTART);
