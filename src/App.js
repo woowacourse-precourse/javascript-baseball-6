@@ -2,10 +2,8 @@ import { MissionUtils } from '@woowacourse/mission-utils';
 import createRandomArray from './createRandomArray.js';
 import enterAnswer from './enterAnswer.js';
 import { compareArrays, Computer } from './compareArrays.js';
+import { NUMBER_OF_DIGITS, CONTINUE_GAME, END_GAME } from './constants.js';
 
-const NUMBER_OF_DIGITS = 3;
-const CONTINUE_GAME = 1;
-const END_GAME = 2;
 let gameStatus;
 
 class App {

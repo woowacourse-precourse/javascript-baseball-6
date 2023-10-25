@@ -1,5 +1,4 @@
-const OUT_COUNT = 3;
-const NUMBER_OF_DIGITS = 3;
+import { NUMBER_OF_DIGITS, STRIKE_COUNT_TO_BE_OUT } from './constants.js';
 
 class Computer {
   static isGameOver = false;
@@ -34,7 +33,7 @@ function checkStrike(copiedRandomArray, copiedInputValue) {
       copiedRandomArray.splice(i, 1, 'strike');
     }
   }
-  if (strikeCount === OUT_COUNT) {
+  if (strikeCount === STRIKE_COUNT_TO_BE_OUT) {
     Computer.setIsGameOver(true);
   }
 
