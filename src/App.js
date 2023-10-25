@@ -1,4 +1,5 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
+import { Console } from "@woowacourse/mission-utils";
+import { Random } from "@woowacourse/mission-utils";
 
 class App {
   constructor() {
@@ -8,17 +9,16 @@ class App {
 
   async play() {
     while (this.isPlaying) {
-      MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
+      Console.print("숫자 야구 게임을 시작합니다.");
       this.random = this.getRandomNumber();
 
       while (true) {
         const userInput = await this.getInput();
         const guess = this.guessing(userInput, this.random);
-        MissionUtils.Console.print(guess);
+        Console.print(guess);
         if (guess === "3스트라이크") {
-          MissionUtils.Console.print(
-            "3개의 숫자를 모두 맞히셨습니다! 게임 종료"
-          );
+          // 정답 맞춘 경우
+          Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
           const restart = await this.askToRestart();
           if (restart) this.isPlaying = true;
           else break;
@@ -27,12 +27,9 @@ class App {
     }
   }
 
-  // 사용자 입력
+  // 사용자 입력받기
   async getInput() {
-    const input = await MissionUtils.Console.readLineAsync(
-      "숫자를 입력해주세요 : "
-    );
-
+    const input = await Console.readLineAsync("숫자를 입력해주세요 : ");
     if (!this.isValidInput(input)) {
       throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
     }
@@ -78,16 +75,17 @@ class App {
 
   // 재시작 여부 확인
   async askToRestart() {
-    const ask = await MissionUtils.Console.readLineAsync(
+    const ask = await Console.readLineAsync(
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
     );
-    MissionUtils.Console.print(ask);
+    Console.print(ask);
     if (ask === "1") {
       this.isPlaying = true;
     } else if (ask === "2") {
       this.isPlaying = false;
     } else if (ask !== "1" && ask != "2") {
-      MissionUtils.Console.print("[ERROR]");
+      // 1,2외의 값인 경우 에러발생
+      Console.print("[ERROR] 숫자가 잘못된 형식입니다.");
     }
   }
 
@@ -95,7 +93,7 @@ class App {
   getRandomNumber() {
     const randomNumber = [];
     while (randomNumber.length < 3) {
-      const getNumber = MissionUtils.Random.pickNumberInRange(1, 9);
+      const getNumber = Random.pickNumberInRange(1, 9);
       if (!randomNumber.includes(getNumber)) {
         randomNumber.push(getNumber);
       }
