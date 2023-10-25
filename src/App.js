@@ -11,6 +11,33 @@ class App {
   }
 }
 
+function PrintOutput(ball, strike) {
+  let output = '';
+  if (strike === 3) {
+    return ['3스트라이크', 1];
+  } else if (strike === 0 && ball === 0) {
+    return ['낫싱', 0];
+  }
+  if (ball !== 0) output += `${ball}볼 `;
+  if (strike !== 0) output += `${strike}스트라이크`;
+
+  return [output, 0];
+}
+
+function CheckString(input) {
+  if (!REG_INPUT_NUMBER.test(input))
+    throw new Error('[ERROR] Input Value is Incorrect.');
+}
+
+function CheckRestartInput(input) {
+  if (input === '1') return true;
+  if (input === '2') return false;
+
+  throw new Error(
+    '[ERROR] Input Value is Incorrect. You have to choose 1 or 2.'
+  );
+}
+
 async function InputNumber() {
   try {
     const yourNumber = await Console.readLineAsync('숫자를 입력해주세요 : ');
@@ -19,11 +46,6 @@ async function InputNumber() {
   } catch (error) {
     throw new Error(error, '[ERROR] readLineAsync Promise Rejected.');
   }
-}
-
-function CheckString(input) {
-  if (!REG_INPUT_NUMBER.test(input))
-    throw new Error('[ERROR] Input Value is Incorrect.');
 }
 
 function CreateComputerNumber(digit) {
@@ -57,21 +79,21 @@ function CompareNumber(computerNumber, myNumber) {
     comDigits++;
   });
   const [result, isEnd] = PrintOutput(ball, strike);
-  Console.print(computerNumber);
   Console.print(result);
+  isRestartGame(isEnd);
 }
 
-function PrintOutput(ball, strike) {
-  let output = '';
-  if (strike === 3) {
-    return ['3스트라이크', 1];
-  } else if (strike === 0 && ball === 0) {
-    return ['낫싱', 0];
+async function isRestartGame(isEnd) {
+  if (!isEnd) return;
+  Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+  try {
+    const choice = await Console.readLineAsync(
+      '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.'
+    );
+    const restart = CheckRestartInput(choice);
+  } catch (error) {
+    throw new Error(error, '[ERROR] readLineAsync Promise Rejected.');
   }
-  if (ball !== 0) output += `${ball}볼`;
-  if (strike !== 0) output += ` ${strike}스트라이크`;
-
-  return [output, 0];
 }
 
 const app = new App();
