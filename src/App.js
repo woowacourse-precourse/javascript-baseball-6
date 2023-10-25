@@ -1,9 +1,9 @@
 import { Random, Console } from '@woowacourse/mission-utils';
 
 class App {
-  constructor(userNumber, computerNumber) {
-    this.userNumber = userNumber;
-    this.computerNumber = computerNumber;
+  constructor() {
+    this.user = [];
+    this.computer = [];
   }
 
   start() {
@@ -17,19 +17,15 @@ class App {
   }
 
   inputCheck(input) {
-    const regexp = /^[1-9]+$/;
+    const regexp = /^[1-9]{3}$/;
     if (!input.match(regexp)) {
-      throw new Error('[ERROR] 1부터 9까지의 수가 아닙니다.');
+      throw new Error('[ERROR] 1-9 사이의 3자리 숫자가 아닙니다.');
     }
     const number = input.split('').map(Number);
-    if (number.length !== 3) {
-      throw new Error('[ERROR] 3자리 숫자가 아닙니다.');
-    }
-    const user = [...new Set(number)];
-    if (user.length !== number.length) {
+    if (new Set(number).size !== 3) {
       throw new Error('[ERROR] 서로 다른 숫자가 아닙니다.');
     }
-    this.userNumber = user;
+    this.user = number;
   }
 
   getRandomNumber() {
@@ -40,12 +36,12 @@ class App {
         computer.push(number);
       }
     }
-    this.computerNumber = computer;
+    this.computer = computer;
   }
 
   computeNumber() {
-    const user = this.userNumber;
-    const computer = this.computerNumber;
+    const { user } = this;
+    const { computer } = this;
     let ball = 0;
     let strike = 0;
     user.map((num, index) => {
@@ -101,4 +97,7 @@ class App {
   }
 }
 
-export default App;
+// export default App;
+
+const app = new App();
+app.play();
