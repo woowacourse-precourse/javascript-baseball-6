@@ -1,38 +1,52 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 class Computer{
-    ball = 0
-    strike = 0
-    computerNumber = [];
+
+    constructor() {
+        this.ball = 0
+        this.strike = 0
+        this.computerNumber = [];
+      }
+
     createNumber() {
+        this.computerNumber = []
         while(this.computerNumber.length<3){
-            number = MissionUtils.Random.pickNumberInRange(1,9)
+            let number = MissionUtils.Random.pickNumberInRange(1,9)
             if(!this.computerNumber.includes(number)){
                 this.computerNumber.push(number)
             }
         }
+        return this.computerNumber
     }
-    checkNumber(string){
+
+
+    checkNumber(setNumber,computerNum){
+        let message = ''
+        this.ball = 0
+        this.strike = 0
         for(let i = 0; i<3; i++){
-            for(let j = 0; j<3; j++){
-                if(this.computerNumber[i] === string[j]){
-                    if( i === j ){
-                        this.strike++
-                    }else{
-                        this.ball++
-                    }
+            if (setNumber.includes(computerNum[i])) {
+                if (setNumber[i] === computerNum[i]) {
+                  this.strike++;
+                } else {
+                  this.ball++;
                 }
+              }
+        }
+        
+        if(this.ball !== 0){
+            message += `${this.ball} 볼 `
+        }
+        if(this.strike !== 0){
+            if(message !== ''){
+                message += ' '
             }
+            message += `${this.strike} 스트라이크`
         }
-        if(this.strike === 0 && this.ball === 0){
-            return '낫싱'
-        }else if(this.strike === 0 && this.ball !== 0){
-            return `${this.ball} 볼`
-        }else if(this.strike !== 0 && this.ball === 0){
-            return `${this.strike} 스트라이크`
-        }else{
-            `${this.ball} 볼 ${this.strike} 스트라이크`
+        if(this.ball === 0 && this.strike === 0){
+            message == '낫싱'
         }
+        return message
     }
 }
 
