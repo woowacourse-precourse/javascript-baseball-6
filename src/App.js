@@ -12,6 +12,15 @@ class App {
     while (true) {
       const inputNumbers = await this.view.getPlayerGuess();
       this.balls.isValidInput(inputNumbers);
+
+      const ball = this.balls.calculateBall(inputNumbers);
+      const strike = this.balls.calculateStrike(inputNumbers);
+
+      if (strike === 3) {
+        this.view.printSuccess();
+      } else {
+        this.view.printHint(strike, ball);
+      }
     }
   }
 }
