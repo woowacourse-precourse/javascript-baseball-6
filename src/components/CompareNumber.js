@@ -1,4 +1,4 @@
-import { Console } from "@woowacourse/mission-utils";
+import { MissionUtils } from "@woowacourse/mission-utils";
 import Constants from "../utils/Constants.js";
 
 export function compareNumber(target, guess) {
@@ -17,7 +17,7 @@ export function compareNumber(target, guess) {
   if (ball) resultString += `${ball}볼 `;
   if (strike) resultString += `${strike}스트라이크`;
   if (!ball && !strike) resultString += "낫싱";
-  Console.print(resultString);
+  MissionUtils.Console.print(resultString);
   // 반환값
   if (strike == Constants.RANDOM_DIGIT) return true;
   else return false;
