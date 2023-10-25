@@ -34,8 +34,22 @@ class App {
       throw new Error("[ERROR] 3자리를 입력해주세요.");
     if (this.isExistDuplication(inputedNumbers))
       throw new Error("[ERROR] 중복된 숫자가 존재합니다.");
-    if (this.isContainZero(inputedNumbers))
+    if (this.isInclude0to9(inputedNumbers))
       throw new Error("[ERROR] 1 ~ 9사이의 숫자가 필요합니다.");
+  }
+
+  isInclude0to9(inputedNumbers) {
+    return this.isContainZero(inputedNumbers) || this.isExistNotDigitNumber(inputedNumbers);
+  }
+
+  isExistNotDigitNumber(inputedNumbers) {
+    let result = false;
+    const splitedInputedNumber = inputedNumbers.split('');
+    splitedInputedNumber.forEach((number, index) => {
+      if ('0'.charCodeAt(0) > inputedNumbers.charCodeAt(index) || '9'.charCodeAt(0) < inputedNumbers.charCodeAt(index))
+        result = true;
+    });
+    return result;
   }
 
   isContainZero(inputedNumbers) {
@@ -96,5 +110,7 @@ class App {
     this.#answer = computer.join('');
   }
 }
+
+new App().play();
 
 export default App;
