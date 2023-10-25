@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from '../Text/message.js';
+import { ERROR_MESSAGE, GAME_SET } from '../Text/message.js';
 
 //error management
 export const errorOccurred = (playerNum) => {
@@ -6,8 +6,9 @@ export const errorOccurred = (playerNum) => {
   if (isNaN(Number(playerNum))) {
     throw new Error(ERROR_MESSAGE.numberError);
   }
+  const RANGE_REGEX = new RegExp(`^[${GAME_SET.min}-${GAME_SET.max}]{${GAME_SET.size}}$`);
   //입력 범위 판별
-  if (!/^[1-9]{3}$/.test(playerNum)) {
+  if (!RANGE_REGEX.test(playerNum)) {
     throw new Error(ERROR_MESSAGE.rangeError);
   }
   //중복 되는지 판별
