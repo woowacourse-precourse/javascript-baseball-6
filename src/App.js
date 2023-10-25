@@ -20,13 +20,23 @@ function compareNumbers(computerAnswer, userAnswer) {
       strike++;
       continue;
     }
-    if (userAnswer.includes(computerAnswer[i]) && computerAnswer[i] !== userAnswer[i]) {
+    if (
+      userAnswer.includes(computerAnswer[i]) &&
+      computerAnswer[i] !== userAnswer[i]
+    ) {
       ball++;
     }
   }
 
   if (strike === 3) {
-    Console.print(`${strike}스트라이트 \n 3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
+    Console.print(
+      `${strike}스트라이크 \n 3개의 숫자를 모두 맞히셨습니다! 게임 종료`,
+    );
+    return;
+  }
+
+  if (strike === 0 && ball === 0) {
+    Console.print('낫싱');
     return;
   }
 
@@ -37,7 +47,10 @@ function compareNumbers(computerAnswer, userAnswer) {
 function isValidInput(input) {
   if (input.length !== 3) return false;
   const uniqueDigits = [...new Set(input)];
-  return uniqueDigits.every(digit => Number.isInteger(Number(digit))) && uniqueDigits.length === 3;
+  return (
+    uniqueDigits.every((digit) => Number.isInteger(Number(digit))) &&
+    uniqueDigits.length === 3
+  );
 }
 
 async function requestUserAnswer() {
