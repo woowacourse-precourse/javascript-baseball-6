@@ -8,6 +8,7 @@ class App {n
         let computerInput = await this.getComputerInput()
 
 
+
         while (newGame === 1) {
             const userInput = await this.getUserInput();
 
