@@ -1,6 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import exportLibrary from "./exportLibrary.js";
-import radomNumber from "./randomNumber.js";
+import exportLibrary from "./exportLibrary";
+import radomNumber from "./randomNumber";
 
 class App {
   
@@ -13,7 +13,6 @@ class App {
                    
       // 임의의 수 3가지를 설정하는 기능
       radomNumber(COMPUTER_NUMBER);
-      console.log(COMPUTER_NUMBER);
 
       // 게임을 새로 시작하는 기능
       const restart = async () => {
@@ -42,19 +41,16 @@ class App {
         const INPUT_STRING = isNaN(userInput) === true;
         let inputSameNumberForEach = userInput.split('').filter((item, index) => userInput.indexOf(item) !== index).length > 0;
                   
-        // 세자리수가 아니면
         if (!THREE_DIGITS) {
           exportLibrary('[ERROR] 세자리수를 입력하세요')
           throw new Error('[ERROR] 세자리수를 입력하세요');
         };
 
-        // 문자열을 입력받았을때
         if (INPUT_STRING) {
           exportLibrary('[ERROR] 숫자를 입력하세요')
           throw new Error('[ERROR] 숫자를 입력하세요');
         };
 
-        // 서로같은 수를 입력받았을 때
         if (inputSameNumberForEach) {
           exportLibrary('[ERROR] 서로다른 숫자를 입력하세요')
           throw new Error('[ERROR] 서로다른 숫자를 입력하세요');
@@ -67,7 +63,6 @@ class App {
           let strike = 0;
           let ball = 0;
           
-             
           // 같은게 아무것도 없을 때 -> 낫싱출력
           if (NOTHING_SAME_NUMBER) {
             exportLibrary('낫싱');
@@ -75,7 +70,8 @@ class App {
           };
 
           // 같은게 있을때 각요소끼리 검사하는 기능
-          if (!NOTHING_SAME_NUMBER) {            
+          if (!NOTHING_SAME_NUMBER) {    
+
             COMPUTER_NUMBER.forEach((a, i) => {
              
               // 숫자도 같고 위치도 같을 때(스트라이크)
