@@ -1,4 +1,4 @@
-export default function getHint(target, input) {
+export function getHint(target, input) {
   let strike = 0,
     ball = 0;
 
@@ -23,4 +23,8 @@ export default function getHint(target, input) {
     return `${strike}스트라이크`;
   }
   return "낫싱";
+}
+
+export function checkIsAnswer(hint) {
+  return hint === "3스트라이크";
 }

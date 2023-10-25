@@ -1,7 +1,7 @@
 import getUserInput from "./getUserInput";
 import checkIsValidInput from "./checkIsValidInput";
 
-export default async function handleInput() {
+export async function handleInput() {
   let userInput = await getUserInput();
   const isValidInput = checkIsValidInput(userInput);
   if (!isValidInput) {

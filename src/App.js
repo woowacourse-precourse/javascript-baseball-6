@@ -1,7 +1,7 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import generateAnswerArray from "./generateAnswerArray";
-import handleInput from "./handleInput";
-import getHint from "./getHint";
+import { generateAnswerArray } from "./init";
+import { handleInput } from "./input";
+import { getHint, checkIsAnswer } from "./hint";
 
 class App {
   async play() {
@@ -16,7 +16,7 @@ class App {
         const hint = getHint(answer, input);
         MissionUtils.Console.print(hint);
 
-        if (hint === "3스트라이크") break;
+        if (checkIsAnswer(hint)) break;
       }
 
       MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
