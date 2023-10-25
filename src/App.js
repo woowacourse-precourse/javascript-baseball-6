@@ -39,35 +39,33 @@
 
 import { MissionUtils } from "@woowacourse/mission-utils";
 
-let start = false;
+
 
 class App {
   async play() {}
   async play(){
     try{
-
-
-      while(!start){
+      while(true){
         //시작
         MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
         //숫자생성
         const TRUE_ANSWER = generateNumber();
 
-        let end = false;
-        while(!end){
+        while(true){
+          //입력
           const USER_INPUT = await getInput(TRUE_ANSWER);
+          //볼,스트라이크 판정
           const {BALL,STRIKE} = isCorrect(USER_INPUT,TRUE_ANSWER);
+          //정답
           win(BALL,STRIKE);
-
+          //재시작여부
           let restart = await MissionUtils.Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
-          if (restart == 1){
-            start = true;
+          if(restart.length !== 1 || !['1','2'].includes(restart)){
+            throw new Error('[ERROR] 입력이 잘못되었습니다');
           }
-          else if (restart == 2){
-            end = true;
-            start = true;
+          if (restart === '2'){
+            return
           }
-          throw new Error('[ERROR] 입력이 잘못되었습니다')
         }
       }
     }catch(e){
@@ -99,7 +97,7 @@ async function getInput(){
       return answer;
     }
   }
-  throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+  throw new Error("[ERROR] 세 자리의 숫자로 입력해주세요.");
 }
 
 //스트라이크, 볼 판정
