@@ -32,7 +32,6 @@ class GameView {
       return true;
     }
     if (choice === "1") {
-      // this.restartGame();
       return false;
     }
     throw new Error("[ERROR]");
