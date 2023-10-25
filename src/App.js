@@ -104,5 +104,5 @@ class BaseballGame {
   }
 }
 
-const game = new BaseballGame();
-game.play();
+const app = new BaseballGame();
+app.play();
