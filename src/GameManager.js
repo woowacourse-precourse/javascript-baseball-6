@@ -67,6 +67,7 @@ class GameManager {
 
     if (strike === 0 && ball === 0) {
       Console.print("낫싱");
+      Console.print(this.randomNum);
     } else {
       Console.print(`${ball}볼 ${strike}스트라이크`);
       Console.print(this.randomNum);
@@ -76,7 +77,6 @@ class GameManager {
       await this.baseBall();
     } else {
       Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-      this.isContinue();
     }
   }
 
@@ -92,6 +92,10 @@ class GameManager {
     } else {
       throw new Error("다시 입력하세요.");
     }
+  }
+
+  restartGame() {
+    this.randomNum = this.generateRandomNum();
   }
 }
 

@@ -11,7 +11,7 @@ class App {
     let restart = true;
 
     while (restart) {
-      this.gameManager.generateRandomNum();
+      this.gameManager.restartGame();
       await this.gameManager.insertNum();
       await this.gameManager.baseBall();
       restart = await this.gameManager.isContinue();
