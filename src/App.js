@@ -31,7 +31,6 @@ class App {
       ball: 0, 
       nothing: 0,
     };
-    
     while (checkResult.strike !== 3){
       const userInput = await this.receiveInput();
       this.validateUserInput(userInput);
@@ -67,10 +66,10 @@ class App {
       nothing: 0,
     };
     const userInputArr = userInput.split('');
-    let i = 0;
-    while (i < 3) {
-      if (answer.includes(Number(userInputArr[i]))){
-        if (Number(userInputArr[i]) === answer[i]) {
+    let digitIndex = 0;
+    while (digitIndex < RIGHT_DIGIT_NUMBER) {
+      if (answer.includes(Number(userInputArr[digitIndex]))){
+        if (Number(userInputArr[digitIndex]) === answer[digitIndex]) {
           result.strike += 1;
         } else {
           result.ball += 1;
@@ -78,7 +77,7 @@ class App {
       } else {
         result.nothing += 1;
       }
-      i += 1;
+      digitIndex += 1;
     }
     return result;
   }
@@ -93,7 +92,7 @@ class App {
   }
   
   isContinue(res) {
-    if (!(res === TO_BE_CONTINUE.yes || res === TO_BE_CONTINUE.no)) {
+    if (res !== TO_BE_CONTINUE.yes && res !== TO_BE_CONTINUE.no) {
       throw new Error('[ERROR] 잘못된 입력입니다.');
     }
     return res === TO_BE_CONTINUE.yes;
@@ -101,42 +100,32 @@ class App {
 
   validateUserInput(userInput) {
     const formattedValue = Number(userInput);
-    
-    if (this.wrongType(formattedValue)){
+    if (isNaN(formattedValue)){
       throw new Error('[ERROR] 숫자 타입이 아닙니다.');
     }
-    if (this.hasZero(userInput)){
+    if (userInput.includes("0")){
       throw new Error('[ERROR] 0은 사용할 수 없습니다.');
     }
     if (this.wrongDigitNumber(formattedValue)){
       throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
     }
-    if (this.hasSameNumber(formattedValue)) {
+    if (this.hasSameNumber(userInput)) {
       throw new Error('[ERROR] 자릿수 중 같은 값이 존재합니다.');
     }
   }
   
-  wrongType(userInput) {
-    return isNaN(userInput);
-  }
-  
-  hasZero(userInput) {
-    return userInput.includes("0");
-  }
-  
   wrongDigitNumber(userInput) {
-    if (userInput.toString().length !== RIGHT_DIGIT_NUMBER || userInput % 1 !== 0 || userInput < 0){
-      return true;
-    }
-    return false;
+    return (
+      userInput.toString().length !== RIGHT_DIGIT_NUMBER || 
+      userInput % 1 !== 0 || 
+      userInput < 0
+    );
   }
   
   hasSameNumber(userInput) {
-    userInput = userInput.toString();
-    if (userInput[0] === userInput[1] || userInput[1] === userInput[2] || userInput[0] === userInput[2]){
-      return true;
-    }
-    return false;
+    const userInputArr = userInput.split('')
+    const set = new Set(userInputArr)
+    return (set.size !== RIGHT_DIGIT_NUMBER);
   }
 
   printResult(result) {
@@ -153,7 +142,6 @@ class App {
     }
     Console.print(str);
   }
-
 }
 
 export default App;
