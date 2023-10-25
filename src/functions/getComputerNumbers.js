@@ -1,5 +1,14 @@
 import { Random } from "@woowacourse/mission-utils";
 
-const getComputerNumbers = () => Random.pickUniqueNumbersInRange(1, 9, 3);
+const getComputerNumbers = () => {
+  const numbers = [];
+  while (numbers.length < 3) {
+    const num = Random.pickNumberInRange(1, 9);
+    if (!numbers.includes(num)) {
+      numbers.push(num);
+    }
+  }
+  return numbers;
+};
 
 export default getComputerNumbers;
