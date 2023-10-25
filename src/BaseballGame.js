@@ -1,7 +1,12 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import Computer from './Computer.js';
 import User from './User.js';
-import { DIGIT_COUNT, ERROR_MESSAGE, GAME_STATUS } from './utils/index.js';
+import {
+  DIGIT_COUNT,
+  ERROR_MESSAGE,
+  GAME_STATUS,
+  createResultMessage,
+} from './utils/index.js';
 
 class BaseballGame {
   #isAllCorrected = false;
@@ -60,6 +65,18 @@ class BaseballGame {
   }
 
   createGameResult(number1, number2) {
+    const { strike, ball } = this.createStrikeAndBall(number1, number2);
+    const resultMessage = this.createResultMessage({ strike, ball });
+
+    MissionUtils.Console.print(resultMessage);
+
+    this.#isAllCorrected = strike === DIGIT_COUNT;
+    if (this.#isAllCorrected) {
+      MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+    }
+  }
+
+  createStrikeAndBall(number1, number2) {
     let strike = 0;
     let ball = 0;
     const number1Array = number1.split('');
@@ -76,9 +93,12 @@ class BaseballGame {
       }
     });
 
-    this.#isAllCorrected = strike === DIGIT_COUNT;
+    return { strike, ball };
+  }
 
+  createResultMessage({ strike, ball }) {
     let result = '';
+
     if (strike === 0 && ball === 0) {
       result = '낫싱';
     } else if (strike === 0) {
@@ -88,12 +108,7 @@ class BaseballGame {
     } else {
       result = `${ball}볼 ${strike}스트라이크`;
     }
-
-    MissionUtils.Console.print(result);
-
-    if (this.#isAllCorrected) {
-      MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
-    }
+    return result;
   }
 }
 
