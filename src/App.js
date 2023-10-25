@@ -28,7 +28,7 @@ class BaseballGame {
       const validationError = this.validateUserInput(userInput);
       if (validationError) {
         Console.print(validationError);
-        process.exit(1);
+        throw new Error(validationError);
       }
 
       this.attempts++;
@@ -67,8 +67,6 @@ class BaseballGame {
     if (digits[0] === digits[1] || digits[1] === digits[2] || digits[0] === digits[2]) {
       return "[ERROR] 각 자리의 숫자가 중복되지 않도록 입력해주세요.";
     }
-
-    return null;
   }
 
   compareNumbers(userInput) {
