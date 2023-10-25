@@ -42,7 +42,7 @@ class App {
 
       try {
         const number = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
-        console.log(number);
+        // console.log(number);
         // 컴퓨터는 사용자가 입력한 수에 대한 결과를 낫싱과, 볼, 스트라이크 개수로 표시한다.
         this.num_list = [...number].map(v => +v);
   
@@ -62,23 +62,23 @@ class App {
         if (this.strike === 3) {
           MissionUtils.Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
           gameNum = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
-          console.log(gameNum);
-          if (gameNum == 1) isEnd = false;
+          if (gameNum == 1) {
+            isEnd = false;
+            this.setComputerNum();
+          }
           else if(gameNum == 2) isEnd = true;
-          // 컴퓨터 번호 다시 세팅
-          this.setComputerNum();
         }
 
       } catch (error) {
         // reject 되는 경우
-        console.log('error:', error);
+        // console.log('error:', error);
       }
     }
  
   }
 }
 
-// const app = new App();
-// app.play();
+const app = new App();
+app.play();
 
 export default App;
