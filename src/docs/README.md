@@ -3,7 +3,8 @@
 ## 🏷️ 목차
 - [📄 기능목록](#2-📄-기능-목록)
 - [🗂️ 폴더 구조](#2-🗂️-폴더-구조)
-
+- [🗄️ Class Diagram](#2-🗄️-Class-Diagram)
+ 
 ## 📄 기능 목록
 
 ### 게임 시작
@@ -49,7 +50,7 @@
 │  │  ├─ CONSTANT.js
 │  │  ├─ ERROR.js
 │  │  └─ MESSAGE.js
-│  ├─ 📂 controller
+│  ├─ 📂 Controller
 │  │  └─ Controller.js
 │  ├─ 📂 docs
 │  │  └─ README.md
@@ -70,3 +71,63 @@
    ├─ UtilTest.js
    └─ ValidationTest.js
 ```
+
+## 🗄️ Class Diagram
+### Controller - View
+``` mermaid
+classDiagram
+  App --|> Controller : Object Instantiation
+  Controller <|-- inputView : Passing Input
+  Controller --|> outputView : Output
+  MainValidation --|> inputView : Valide Input
+  RestartValidation --|> inputView : Valide Input
+
+  App : play()
+
+  Controller : #model
+  Controller : sendPlayerNum() 
+  Controller : ballCountController(input)
+  Controller : ballCountOutputController()
+  Controller : endController()
+
+  inputView : readPlayerNum()
+  inputView : readPlayerNum()
+
+  outputView : printGameStart()
+  outputView : printBallStrike(ball, strike)
+  outputView : printNothing()
+  outputView : printThreeStrike()
+
+  MainValidation : checkCorrectMainNumber(input)
+  MainValidation : checkCorrectMainNumberRange(input)
+  MainValidation : checkCorrectMainNumbersize(input)
+  MainValidation : checkDuplicationMainNumber(input)
+
+  RestartValidation : checkOneOrTwo(input)
+```
+---
+### Controller - Model
+``` mermaid
+classDiagram
+  Controller <-- Model
+  mkOpponentNum --> Model
+  compareNum <-- Model
+
+  Controller : #model
+  Controller : sendPlayerNum() 
+  Controller : ballCountController(input)
+  Controller : ballCountOutputController()
+  Controller : endController()
+
+  Model : #opponentNum
+  Model : #playerNum
+  Model : #ball
+  Model : #strike
+  Model : savePlayerNum(input)
+  Model : ballStrike()
+  Model : getOpponentNum()
+  Model : getPlayerNum()
+  Model : getBall()
+  Model : getStrike()
+```
+---
