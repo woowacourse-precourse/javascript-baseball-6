@@ -1,9 +1,10 @@
-import BaseballTerms from "../src/BaseballTerms.js";
-import Umpire from "../src/Umpire.js";
+import NumberBaseballUmpire from "../src/NumberBaseballUmpire";
+import NumberBaseballUmpireIndicator from "../src/NumberBaseballUmpireIndicator.js";
+import NumberBaseballConsole from "../src/NumberBaseballConsole";
 
 describe("UmpireTest", () => {
-  const umpire = new Umpire();
-  const { NOTHING, STRIKE, BALL } = BaseballTerms;
+  const umpire = new NumberBaseballUmpire(new NumberBaseballUmpireIndicator(3));
+  const console = new NumberBaseballConsole(1, 9, 3, 1, 2);
 
   test("같은 숫자가 하나도 없는 경우 낫싱", () => {
     expect(umpire.umpire([1, 2, 3], [4, 5, 6])).toBe(NOTHING);
