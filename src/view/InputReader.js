@@ -17,7 +17,7 @@ export default class InputReader {
     try {
       return await Console.readLineAsync(text);
     } catch (error) {
-      throw error;
+      throw new Error('[ERROR] invalid input');
     }
   }
 }
