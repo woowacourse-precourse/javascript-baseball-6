@@ -2,10 +2,10 @@
 
 함수 기능 목록
 
-1. 숫자가 3자리가 맞는지 판단하는 함수 (isThreeDigitNumber)
-2. 1 아니면 2가 맞는지 판별하는 함수 (validateNumber)
-3. 배열 변환 함수 (changeArray)
-4. 숫자 게임 함수 (numberGame)
+* 숫자가 3자리가 맞는지 판단하는 함수 (isThreeDigitNumber)
+* 1 아니면 2가 맞는지 판별하는 함수 (validateNumber)
+* 배열 변환 함수 (changeArray)
+* 숫자 게임 함수 (numberGame)
 
 코드 작동 원리
 
@@ -14,3 +14,4 @@
 3. strike가 3일 경우에는 사용자에게 숫자를 입력받는 do-while 함수에서 빠져나오고, 게임을 다시 할지 묻는 문자를 출력한다.
 4. 1일 경우 numberGame 함수를 다시 불러오고, 2일 경우 종료한다.
 5. 정해진 숫자 외에 다른 숫자가 나올 경우에는 throw문으로 에러를 출력한다.
+6. 
