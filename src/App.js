@@ -40,37 +40,41 @@ class App {
   }
   comparePrint(STRIKE,BALL)
   {
-    if(STRIKE && BALL) Console.print(`${BALL}볼 ${STRIKE}스트라이크`); else false;
-    if(!STRIKE && BALL) Console.print(`${BALL}볼`); else false
-    if(STRIKE && !BALL) Console.print(`${STRIKE}스트라이크`)
-    else{
-      if(STRIKE===3){
-        Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
-        return true;
-      }
-      else false;
-    }
+    if(STRIKE && BALL) Console.print(`${BALL}볼 ${STRIKE}스트라이크`);
+    if(!STRIKE && BALL) Console.print(`${BALL}볼`);
+    if(STRIKE && !BALL) Console.print(`${STRIKE}스트라이크`);
     if(!STRIKE && !BALL) Console.print(`낫싱`);
+  }
+  endPrint()
+  {
+    Console.print(`3개의 숫자를 모두 맞히셨습니다! 게임 종료`);
+    Console.print(`게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.`);
   }
   compareNumber(userNumbers)
   {
      let { STRIKE,BALL} = this.compareResult(userNumbers);
-     this.comparePrint(STRIKE,BALL);
+     this.comparePrint();
+     if(STRIKE ===3){
+      this.endPrint();
+      return "END";
+     }
   }
-
+  getCompuerNum()
+  {
+    console.log(this.#COMPUTERNUMBERS)
+  }
   async play() {
-
       Console.print("숫자 야구 게임을 시작합니다.");
-
       while(1)
       {
         const userNumbers = await this.userNumberInput();
-        this.compareNumber(userNumbers);
+        if(this.compareNumber(userNumbers)==="END")break;
       }
   }
 }
 
 const app = new App();
 app.initializeComputerNumer();
+app.getCompuerNum();
 app.play();
 export default App;
