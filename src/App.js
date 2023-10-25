@@ -4,6 +4,7 @@ import InputReader from './view/InputReader.js';
 import { validation } from './utils/Validation.js';
 import { paramType } from './utils/paramType.js';
 import { createRandomNumbers } from './utils/createRandomNumbers.js';
+import { GAME_COMMAND } from './utils/gameCommand.js';
 
 class App {
   constructor() {
@@ -18,7 +19,7 @@ class App {
   }
 
   async setting() {
-    const randomNumbers = createRandomNumbers();
+    const randomNumbers = createRandomNumbers(3);
     this.baseBall = new BaseBall(randomNumbers);
 
     await this.pitching();
@@ -39,7 +40,7 @@ class App {
 
     this.outputView.printBaseBallCountResult(countResult);
 
-    if (strike === 3) {
+    if (strike === GAME_COMMAND.IS_OUT_COUNT) {
       await this.complete();
       return;
     }
@@ -58,12 +59,16 @@ class App {
 
     validation.restartNumberInputOfUser(userInput);
 
-    if (userInput === 1) {
-      await this.restart();
-      return;
-    }
+    await this.excuteCommand(userInput);
+  }
 
-    this.end();
+  async excuteCommand(userInput, _ = paramType(userInput, Number)) {
+    const excuteTable = {
+      [GAME_COMMAND.RESTART]: await this.restart.bind(this),
+      [GAME_COMMAND.EXIT]: this.end.bind(this),
+    };
+
+    excuteTable[userInput]();
   }
 
   async restart() {
