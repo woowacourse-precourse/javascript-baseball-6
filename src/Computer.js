@@ -2,10 +2,14 @@ import { Random } from '@woowacourse/mission-utils';
 
 class Computer {
   constructor() {
-    this.answer = this.randomNumGenerate();
+    this.answer = this.randomNumGenerator();
   }
 
-  randomNumGenerate() {
+  /**
+   *
+   * @returns {[number, number, number]}
+   */
+  randomNumGenerator() {
     const numbers = [];
     while (numbers.length < 3) {
       const number = Random.pickNumberInRange(1, 9);
