@@ -29,13 +29,10 @@ class App {
   }
 
   async getUserAnswers() {
-    const 
-    const user = await Console.readLineAsync(
-      "1~9 숫자 내에서 중복 없이 임의의 숫자 3자리를 입력하세요."
-    );
+    const user = await Console.readLineAsync(MESSAGES.GAME_PROCESS.GUIDE);
     const userAnswers = user.split("").map(Number);
     if (userAnswers.length !== 3 || userAnswers.some(isNaN)) {
-      throw new Error("");
+      throw new Error(`[ERROR] ${MESSAGES.GAME_PROCESS.GUIDE}`);
     } else {
       this.boardBaseBall(userAnswers);
     }
