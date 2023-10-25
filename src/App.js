@@ -3,16 +3,32 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
   async play() {
-    // 랜덤 넘버 생성
-    let computer_random_array = [];
-    while (computer_random_array.length < 3) {
-      let random_number = MissionUtils.Random.pickNumberInRange(1, 9);
+    //랜덤 넘버 생성
 
-      if (!computer_random_array.includes(random_number)) {
-        computer_random_array.push(random_number);
+    // let computer_random_array = [];
+    // while (computer_random_array.length < 3) {
+    //   let random_number = MissionUtils.Random.pickNumberInRange(1, 9);
+    //   if (!computer_random_array.includes(random_number)) {
+    //     computer_random_array.push(random_number);
+    //   }
+    // }
+    // let computer_random_number = computer_random_array.join("");
+
+    class RandomNumberGenerator {
+      generate() {
+        let computer_random_array = [];
+        while (computer_random_array.length < 3) {
+          let random_number = MissionUtils.Random.pickNumberInRange(1, 9);
+          if (!computer_random_array.includes(random_number)) {
+            computer_random_array.push(random_number);
+          }
+        }
+        return computer_random_array.join("");
       }
     }
-    let computer_random_number = computer_random_array.join("");
+
+    let generator = new RandomNumberGenerator();
+    let computer_random_number = generator.generate();
 
     // 숫자 비교13
     function compareNumbers(computer_random_number, human_input) {
@@ -91,10 +107,7 @@ class App {
             );
 
             if (restartOrExit === "1") {
-              computer_random_number =
-                MissionUtils.Random.pickNumberInRange(1, 9) * 100 +
-                MissionUtils.Random.pickNumberInRange(1, 9) * 10 +
-                MissionUtils.Random.pickNumberInRange(1, 9);
+              computer_random_number = generator.generate();
               continue; // 게임 재시작
             } else if (restartOrExit === "2") {
               MissionUtils.Console.print("게임 종료");
