@@ -3,8 +3,6 @@ import Player from '../model/Player';
 import GameResult from '../model/GameResult';
 import InputView from '../view/InputView';
 import OutputView from '../view/OutputView';
-import { playerGameCodeValidator } from '../utils/playerInputValidator';
-import { GAME_CODE } from '../constants/constants';
 
 class BaseballGameController {
   #computer;
@@ -62,9 +60,9 @@ class BaseballGameController {
     this.#gameResult.resetResult();
 
     const gameCode = await this.#inputView.readPlayerGameCode();
-    playerGameCodeValidator(gameCode);
+    this.#player.resetGameCode(gameCode);
 
-    if (gameCode === GAME_CODE.restart) {
+    if (this.#player.isRestart()) {
       this.play();
     }
   }
