@@ -7,7 +7,7 @@ const INPUT_MESSAGE = {
 };
 
 export const player = {
-  getPlayNumber: async function () {
+  async getPlayNumber() {
     try {
       const input = await Console.readLineAsync(INPUT_MESSAGE.PLAY_NUMBER);
       validation.validatePlayNumber(input);
@@ -19,7 +19,7 @@ export const player = {
       });
     }
   },
-  selectReplayOrExit: async function () {
+  async selectReplayOrExit() {
     const input = await Console.readLineAsync(
       INPUT_MESSAGE.SELECT_REPLAY_OR_EXIT
     );
