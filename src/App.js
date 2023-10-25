@@ -19,13 +19,8 @@ class App {
     while (true) {
       const sign = [0, 0];
       let line;
-      try {
-        line = await Console.readLineAsync("숫자를 입력해주세요 : ");
-        if (line.length !== 3) throw new Error("[ERROR] 숫자 형식이 맞지 않습니다.")
-      } catch (error) {
-        Console.print(error.message);
-        continue;
-      }
+      line = await Console.readLineAsync("숫자를 입력해주세요 : ");
+      if (isNaN(line) || line.length !== 3) throw new Error("[ERROR] 숫자 형식이 맞지 않습니다.")
 
       for (let i = 0; i < 3; i++) {
         const idx = line.indexOf(value[i]);
@@ -34,7 +29,8 @@ class App {
       }
 
       if (sign[0] == 3) {
-        Console.print("3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+        Console.print("3스트라이크");
+        Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
         break;
       }
       else {
@@ -50,15 +46,9 @@ class App {
   }
 
   async check() {
-    while (true) {
-      try {
-        const answer = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n");
-        if (answer === "1" || answer === "2") return answer;
-        else throw new Error("[Error] 1과 2 중 하나를 입력해주세요.")
-      } catch (error) {
-        Console.print(error.message);
-      }
-    }
+    const answer = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n");
+    if (answer === "1" || answer === "2") return answer;
+    else throw new Error("[Error] 1과 2 중 하나를 입력해주세요.")
   }
 }
 
