@@ -1,8 +1,8 @@
-import { stringToIntArrayConvertor } from '../utils/stringToIntArrayConvertor.js';
+import { stringToIntArrayConvertor } from '../utils/stringToIntArrayConvertor';
 import {
   playerNumbersValidator,
   playerGameCodeValidator,
-} from '../utils/playerInputValidator.js';
+} from '../utils/playerInputValidator';
 import { GAME_CODE } from '../constants/constants';
 
 class Player {

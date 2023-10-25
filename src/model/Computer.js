@@ -1,4 +1,4 @@
-import { randomNumbersGenerator } from '../utils/randomNumbersGenerator.js';
+import { randomNumbersGenerator } from '../utils/randomNumbersGenerator';
 
 class Computer {
   #numbers;
