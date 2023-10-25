@@ -8,6 +8,7 @@ class App {
   async play() {
     this.gameStartMessage();
     this.generateRandomNumber();
+    await this.userChoice();
   }
 
   gameStartMessage() {
@@ -23,6 +24,11 @@ class App {
       }
     }
     this.answer = computer;
+  }
+
+  async userChoice() {
+    const userInput = await Console.readLineAsync('숫자를 입력해주세요: ');
+    const userNumbers = userInput.split('').map(Number);
   }
 }
 
