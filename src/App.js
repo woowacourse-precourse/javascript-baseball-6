@@ -1,5 +1,15 @@
 class App {
-  async play() {}
+  async play() {
+
+  }
+
+  async game() {
+
+  }
+
+  async check() {
+
+  }
 }
 
 export default App;
