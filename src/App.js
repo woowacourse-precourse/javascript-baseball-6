@@ -16,6 +16,9 @@ const MESSAGE = Object.freeze({
   SUCCESS: "3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료",
 });
 const NUMBERCOUNT = 3; //맞추는 숫자갯수
+const RESTART = "1";
+// const END = "2";
+
 async function makeRandom() {
   const answer = [];
   while (answer.length < NUMBERCOUNT) {
@@ -54,7 +57,11 @@ function isInputValid(number) {
   return true;
 }
 function isRestartValid(number) {
-  if (number === "1" || number === "2") {
+  //해당 상수를 isRestartValid 와 App 함수에 각각 넣어 작성하면 단일 출처 원칙을 반하지 않나.
+  // 전역 변수를 최대한 자제하는 것이 좋은 데 더 나은 방법이 무엇인지 궁금합니다.
+  // const RESTART = "1";
+  const END = "2";
+  if (number === RESTART || number === END) {
     return true;
   }
 
@@ -102,6 +109,8 @@ function printResult() {
 
 class App {
   async play() {
+    // const RESTART = "1";
+
     Console.print(MESSAGE.START);
     const ANSWER = await makeRandom();
 
@@ -123,7 +132,7 @@ class App {
       throw new Error(MESSAGE.ERROR);
     }
 
-    if (number === "1") {
+    if (number === RESTART) {
       resetScore();
       SCORE.success = false;
       return this.play();
