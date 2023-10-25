@@ -1,6 +1,14 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
+  // 입력값이 서로 다른 수 인지 체크
+  async isIncludes(number) {
+    for (let i = 0; i < number.length - 1; i++) {
+      if (number.slice(i + 1).includes(number[i])) return false;
+    }
+    return true;
+  }
+
   async play() {
     try {
       // 서로 다른 random값 추출
@@ -12,6 +20,33 @@ class App {
         }
       }
 
+      console.log(computer);
+
+      // b / s 체크
+      while (true) {
+        // 서로 다른 세자리 수 입력 받기
+        const number = await MissionUtils.Console.readLineAsync(
+          "숫자를 입력해주세요."
+        );
+
+        // 입력값 체크
+        if (number.length != 3 || isNaN(number) || !await this.isIncludes(number)) {
+          throw new Error("올바른 입력값이 아닙니다.");
+        }
+
+        // 스트라이크 / 볼 체크
+        let s = 0, b = 0; 
+        for (let i = 0; i < computer.length; i++) {
+          const idx = number.indexOf(computer[i]);
+          if (idx === i) s++;
+          else if (idx != -1) b++;
+        }
+
+        if (s === 0 && b === 0) console.log("낫싱");
+        else if (s === 3) {
+          console.log("3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임종료"); break;
+        } else console.log(b + "볼 " + s + "스트라이크");
+      }
     } catch (error) {
       // reject 되는 경우
     }
