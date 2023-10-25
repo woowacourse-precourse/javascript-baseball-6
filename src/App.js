@@ -28,6 +28,18 @@ const WRONG_NUMBER = (my_result) => {
   }
 }
 
+const WRONG_EXIT_CODE = (exit_code) => {
+  if (exit_code.length != 1) {
+    throw new Error('\x1b[31m[ERROR] 1개만 입력해주세요\x1b[37m');
+  }
+  if (isNaN(exit_code[0]) === true) {
+    throw new Error('\x1b[31m[ERROR] 숫자만 입력해주세요\x1b[37m');
+  }
+  if (exit_code[0] != 1 && exit_code[0] != 2) {
+    throw new Error('\x1b[31m[ERROR] 1과 2 둘 중 하나만 입력해주세요\x1b[37m');
+  }
+}
+
 class App {
   async play() {
 
@@ -37,7 +49,7 @@ class App {
 
       while (1) {
         const my_result = await Console.readLineAsync("숫자를 입력해주세요 : ");
-        
+
         WRONG_NUMBER(my_result);
 
         let BallCnt = 0;
@@ -99,15 +111,7 @@ class App {
       }
       Console.print('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
       const exit_code = await Console.readLineAsync('');
-      if (exit_code.length != 1) {
-        throw new Error('\x1b[31m[ERROR] 1개만 입력해주세요\x1b[37m');
-      }
-      if (isNaN(exit_code[0]) === true) {
-        throw new Error('\x1b[31m[ERROR] 숫자만 입력해주세요\x1b[37m');
-      }
-      if (exit_code[0] != 1 && exit_code[0] != 2) {
-        throw new Error('\x1b[31m[ERROR] 1과 2 둘 중 하나만 입력해주세요\x1b[37m');
-      }
+      WRONG_EXIT_CODE(exit_code);
       if (exit_code[0] == 2) {
         Console.print('게임 종료');
         break;
