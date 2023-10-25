@@ -10,6 +10,13 @@ class GameManage {
   }
   async inputUserNum() {
     const USER_NUM = await Console.readLineAsync('숫자를 입력해주세요: ');
+    this.checkUserNum(USER_NUM);
+  }
+  checkUserNum(USER_NUM) {
+    const ERROR = new UserNumError(USER_NUM);
+    if (!ERROR.userNumNotExist() && !ERROR.userNumNotNumber() &&
+        !ERROR.userNumNotThree() && !ERROR.userNumSameNum()) {
+    }
   }
 }
 
