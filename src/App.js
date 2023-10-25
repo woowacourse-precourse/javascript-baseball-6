@@ -43,7 +43,6 @@ class App {
         computer.push(number);
       }
     }
-    console.log(computer);
     return computer;
   }
   // 유효성체크. 3자리숫자인지
@@ -85,6 +84,8 @@ class App {
     }
   }
 }
-export default App;
+
 const app = new App();
 app.play();
+
+export default App;
