@@ -58,6 +58,8 @@ class BaseballGame {
       await this.gameStart();
     } else if (RESTART_INPUT === '2') {
       return;
+    } else {
+      throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
     }
   }
 }
