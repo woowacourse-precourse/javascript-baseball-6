@@ -11,6 +11,17 @@ class App {
     await this.runGame();
   }
 
+  generateAnswer() {
+    let answer = [];
+    while (answer.length < 3) {
+      const number = String(Random.pickNumberInRange(1, 9));
+      if (!answer.includes(number)) {
+        answer.push(number);
+      }
+    }
+    return answer.join('');
+  }
+
 }
 
 export default App;
