@@ -1,8 +1,8 @@
 export function validateNumber(number) {
   const numberSet = new Set(number);
-  const numberRegExp = /^[1-9]{3}$/;
+  const numberRegExp = /^[1-9]+$/;
 
-  if (numberSet.size !== 3 || !numberRegExp.test(number)) {
+  if (number.length !== 3 || numberSet.size !== 3 || !numberRegExp.test(number)) {
     return false;
   }
   return true;
