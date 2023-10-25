@@ -5,10 +5,17 @@ const RESTART ="1";
 const QUIT = "2";
 
 
+const INPUT_MSG= "숫자를 입력해주세요 : ";
+const ERROR_MSG = "[ERROR] 숫자가 잘못된 형식입니다.";
+const GAME_WIN_MSG = "3개의 숫자를 모두 맞히셨습니다! 게임 종료";
+const RETRY_MSG= "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.";
+
+
 class App {
   //생성자 = 객체 생성하며 랜덤값을 받아오셈
   constructor(){
     this.answerList= this.makeRandom();
+    MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
   }
   
   //랜덤값 구하기
@@ -63,14 +70,13 @@ class App {
   }
 
   async play() {
-    MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
     while(true){
       //숫자 입력받기
-      const USER_INPUT = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
+      const USER_INPUT = await MissionUtils.Console.readLineAsync(INPUT_MSG);
       
       //에러체크
       if (!USER_INPUT){
-        throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+        throw new Error(ERROR_MSG);
       }
       
       //입력받은 숫자 배열에 넣기
@@ -82,12 +88,14 @@ class App {
 
       // 게임종료
       if (strike===3){
-        MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-        const again =await MissionUtils.Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+        MissionUtils.Console.print(GAME_WIN_MSG);
+        const again =await MissionUtils.Console.readLineAsync(RETRY_MSG);
         //1 일때는 한번 더
         if (again===RESTART){
-          this.answerList=this.makeRandom();
-          continue;
+          const newGame = new App();
+          await newGame.play();
+          break;
+        
         //2 일때는 그만
         }else if(again ===QUIT){
           break;
