@@ -4,15 +4,10 @@ export const isValidInput = (input) => {
   }
 
   const numberArray = input.split('');
-  const isOneToNine = (number) => '1' <= number && number <= '9';
-  const isUniqueness =
-    numberArray[0] !== numberArray[1] &&
-    numberArray[1] !== numberArray[2] &&
-    numberArray[2] !== numberArray[0];
-  const isValid = numberArray.every(isOneToNine) && isUniqueness;
+  const set = new Set(numberArray);
 
-  if (isValid) {
-    return true;
-  }
-  return false;
+  const isUnique = set.size === 3;
+  const isOneToNine = (number) => '1' <= number && number <= '9';
+
+  return numberArray.every(isOneToNine) && isUnique;
 };
