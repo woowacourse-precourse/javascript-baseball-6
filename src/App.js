@@ -18,7 +18,7 @@ class App {
       this.printGameStart();
     }
     this.generateRandomNumbers()
-    this.inputUserNumber()
+    await this.inputUserNumber()
   }
 
   callbackUserNumber() {
@@ -117,7 +117,7 @@ class App {
     if (userGameRestart === '1') {
       this.play();
     } else if (userGameRestart === '2') {
-      throw new Error("[프로그램 종료]")
+
     } else {
       throw new Error(PRINT_ERROR_STRING.ERROR_INPUT_GAME_RESTART);
     }
