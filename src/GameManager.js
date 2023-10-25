@@ -5,7 +5,7 @@ class GameManager {
     this.randomNum = this.generateRandomNum();
   }
 
-  async gamestart() {
+  async gameStart() {
     Console.print("숫자 야구 게임을 시작합니다.");
   }
 
@@ -69,12 +69,28 @@ class GameManager {
       Console.print("낫싱");
     } else {
       Console.print(`${ball}볼 ${strike}스트라이크`);
+      Console.print(this.randomNum);
     }
 
     if (strike !== 3) {
       await this.baseBall();
     } else {
-      Console.print("정답입니다. 게임 종료!");
+      Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+      this.isContinue();
+    }
+  }
+
+  async isContinue() {
+    let responese = await Console.readLineAsync(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+    );
+
+    if (responese == 1) {
+      return true;
+    } else if (responese == 2) {
+      return false;
+    } else {
+      throw new Error("다시 입력하세요.");
     }
   }
 }

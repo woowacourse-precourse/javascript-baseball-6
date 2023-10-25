@@ -1,13 +1,23 @@
 import GameManager from "./GameManager.js";
 
 class App {
-  async play() {
-    const gameManager = new GameManager();
+  constructor() {
+    this.gameManager = new GameManager();
+  }
 
-    await gameManager.gamestart();
-    gameManager.generateRandomNum();
-    await gameManager.insertNum();
-    gameManager.baseBall();
+  async play() {
+    await this.gameManager.gameStart();
+
+    let restart = true;
+
+    while (restart) {
+      this.gameManager.generateRandomNum();
+      await this.gameManager.insertNum();
+      await this.gameManager.baseBall();
+      restart = await this.gameManager.isContinue();
+    }
+
+    console.log("게임 종료");
   }
 }
 
