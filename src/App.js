@@ -36,8 +36,37 @@ class App {
     this.#userNumber = this.#userNumber.split('').map((num) => Number(num));
   }
 
+  arrayLengthCheck() {
+    if (this.#userNumber.length !== 3) {
+      throw new Error(PRINT_ERROR_STRING.ERROR_LENGTH);
+    }
+  }
+
+  arrayValueRangeCheck() {
+    console.log(this.#userNumber)
+    for (let i = 0; i < this.#userNumber.length; i++) {
+      if (!this.#userNumber[i] > 0 && this.#userNumber[i] < 10) {
+        throw new Error(PRINT_ERROR_STRING.ERROR_RANGE);
+      }
+    }
+  }
+
+  arrayValueDuplicateCheck() {
+    const numberSet = new Set(this.#userNumber);
+    if (numberSet.size !== 3) {
+      throw new Error(PRINT_ERROR_STRING.ERROR_DUPLE);
+    }
+  }
+
+  arrayErrorCheck() {
+    this.arrayLengthCheck()
+    this.arrayValueRangeCheck()
+    this.arrayValueDuplicateCheck()
+  }
+
   callbackUserNumber() {
     this.convertToNumberArray();
+    this.arrayErrorCheck();
   }
 
   async play() {
