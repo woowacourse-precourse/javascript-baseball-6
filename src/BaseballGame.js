@@ -19,10 +19,13 @@ export class BaseballGame {
   }
 
   async playBaseball(computer) {
-    const user = await this.getUserNumber();
-    const score = this.getScore(computer, user);
-    const result = this.printResult(score);
-    this.restartGame(result);
+    let result = false;
+    while (!result) {
+      const user = await this.getUserNumber();
+      const score = this.getScore(computer, user);
+      result = this.printResult(score);
+    }
+    await this.restartGame(result);
   }
 
   getRandomComputerNumber() {
@@ -85,25 +88,19 @@ export class BaseballGame {
   restartGame(answer) {
     if (answer) {
       Console.print(ConsoleMessage.ALL_CORRECT);
-      this.endGame();
-    } else {
-      this.playBaseball(this.computer);
-    }
+      return this.endGame();
+    } else return this.playBaseball(this.computer);
   }
 
   async endGame() {
     const num = await Console.readLineAsync(ConsoleMessage.RESTART_GAME_OR_NOT);
-    this.validateAnswer(num);
+    return this.validateAnswer(num);
   }
 
   validateAnswer(num) {
     const answer = parseInt(num);
-    if (answer === BaseballGame.RESTART_GAME) {
-      this.init();
-    } else if (answer === BaseballGame.GAME_OVER) {
-      return;
-    } else {
-      throw new Error(ErrorMessage.ONE_OR_TWO_ONLY);
-    }
+    if (answer === BaseballGame.RESTART_GAME) return this.init();
+    else if (answer === BaseballGame.GAME_OVER) return;
+    else throw new Error(ErrorMessage.ONE_OR_TWO_ONLY);
   }
 }
