@@ -31,6 +31,18 @@ class App {
 
       countHint(computer_number, userInputNumber);  // 답과 입력값을 이용해 힌트(볼/스트라이크/낫싱)를 계산.
     }
+
+    let restartNumber = await getUserInputNumber("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n");
+
+    if(restartNumber === "1") {  // 1이면 재시작
+      return this.play();
+    }
+
+    if(restartNumber === "2") {  // 2면 종료
+      return;
+    } else {
+      throw new Error("[ERROR] 입력값이 제대로 되어있지 않습니다 !!");  // 1이나 2가 아닐 시, 에러
+    }
   }
 }
 
