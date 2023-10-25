@@ -1,0 +1,4 @@
+diff a/.gitignore b/.gitignore	(rejected hunks)
+@@ -0,0 +1,2 @@
++node_modules
++package-lock.json
