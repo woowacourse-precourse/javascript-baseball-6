@@ -1,51 +1,23 @@
 //App.js
+//프로그래밍 요구사항 : 라이브러리 사용
+import * as MissionUtils from "@woowacourse/mission-utils";
+console.log(MissionUtils.Random.pickNumberInList([1, 2, 3]));
 
 class App {
-  async play() { 
-     // 컴퓨터가 생각하는 3개의 숫자를 생성
-     const computer = await MissionUtils.Random.pickNumbersInRange(1, 9, 3);
-
-     // 게임 반복하기 위한 while문
-     while (true) {
-       // 플레이어의 입력을 받음
-       const input = await Console.readLineAsync();
- 
-       // 플레이어의 입력을 컴퓨터가 생각하는 숫자와 비교하여 결과를 출력
-       const result = this.guess(input, computer);
-       Console.print(result);
- 
-       // 게임이 종료되는 시점, break
-       if (result === "3스트라이크") {
-         break;
-       }
-     }
- 
-     // 게임을 다시 시작할지 여부를 물어봄
-     const restart = await Console.readLineAsync();
- 
-     // 게임을 다시 시작하려면 다시 시작
-     if (restart === "1") {
-       return this.play();
-     }
- 
-     // 게임을 종료
-     return;
-  }//END Play
   
-    // 플레이어의 입력을 컴퓨터가 생각하는 숫자와 비교하여 결과 반환
-    guess(input, computer) {
-    const numbers = input.split("");
+  async play() { 
 
-    // 스트라이크의 개수 계산
-    const strikes = numbers.filter((number, index) => number === computer[index]);
-    const strikeCount = strikes.length;
+    //하영 임시
+    const randomNum = MissionUtils.Random.pickNumberInRange(1, 9);
+    console.log(`랜덤한 숫자: ${randomNum}`);
 
-    // 볼의 개수 계산
-    const balls = numbers.filter((number) => computer.includes(number));
-    const ballCount = balls.length - strikeCount;
+    const userInput = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
+console.log(`사용자 입력: ${userInput}`);
+    //하영임시
 
-    return `${strikeCount}스트라이크 ${ballCount}볼`;
-    }//END Guess
+    Console.print('숫자 야구 게임을 시작합니다.');
+
+  
 
 }//END App
 
