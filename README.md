@@ -15,7 +15,7 @@ app.play();
 
 ---
 
-### 1. 컴퓨터가 가질 1~9 사이 서로 다른 세 자리 랜덤 숫자 생성
+### 1. 컴퓨터가 가질 1~9 사이 서로 다른 세 자리 랜덤 숫자 생성 ✅
 
 - (요구) `@woowacourse/mission-utils`의 `Random` 및 `Console` API를 사용하여 구현
 - (요구) Random 값 추출은 `Random.pickNumberInRange()`를 활용
@@ -32,9 +32,9 @@ Random.pickNumberInRange(1, 10); // 5
 
 ---
 
-### 2. 유저가 input 창에 입력 후 확인버튼 누르면
+### 2. 유저가 input 창에 입력 후 확인버튼 누르면 ✅
 
-### 3. 유저가 입력한 서로 다른 세 자리 숫자 배열 `userNumbersArray` 생성
+### 3. 유저가 입력한 서로 다른 세 자리 숫자 배열 `userNumbersArray` 생성 ✅
 
 - (요구) 사용자의 값을 입력 받고 출력하기 위해서는 Console.readLineAsync, Console.print를 활용
 
@@ -64,7 +64,7 @@ Console.print("안녕하세요.");
 
 ---
 
-### 4. userNumbersArray의 유효성 검사
+### 4. userNumbersArray의 유효성 검사 ✅
 
 - `userNumbersArray`.length === 3 이어야 함
 - `userNumbersArray` 안의 값들은 모두 1~9 사이의 정수여야 함
@@ -74,7 +74,7 @@ Console.print("안녕하세요.");
 
 ---
 
-### 5. computerNumbersArray와 userNumbersArray 비교
+### 5. computerNumbersArray와 userNumbersArray 비교 ✅
 
 - for문으로 배열 전체 확인
 - 같은 인덱스 [i]에 같은 숫자가 위치하면 strike++
@@ -86,10 +86,12 @@ Console.print("안녕하세요.");
 
 ---
 
-### 6. (추가) 결과가 '3스트라이크'가 아닐 경우
+### 6. (추가) 결과가 '3스트라이크'가 아닐 경우 ✅
 
 - #container 안에 input, 확인button, 결과div를 묶은 try 클래스 또 하나 생성
-- try 클래스 생성될 때마다 h5태그 안에 'n차 시도' 표현
+- try 클래스 생성될 때마다 h3태그 안에 'n차 시도' 표현
+- 생성되는 selector의 이름이 모두 같아서 같은 결과로 덮어 씌워지는게 문제
+  - 각 selector에 index를 넣어주는 것으로 해결
 
 ---
 
