@@ -7,8 +7,10 @@ import printScore from "./functions/printScore.js";
 import replay from "./functions/replay.js";
 
 class App {
-  async play() {
-    Console.print(MESSAGE.START);
+  async play(isRestarted = false) {
+    if (!isRestarted) {
+      Console.print(MESSAGE.START);
+    }
 
     const computer = getComputerNumbers();
     while (true) {
@@ -22,7 +24,7 @@ class App {
 
     const replay_answer = await replay();
     if (replay_answer) {
-      this.play();
+      this.play(true);
     }
   }
 }
