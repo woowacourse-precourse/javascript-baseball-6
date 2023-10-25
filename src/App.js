@@ -52,6 +52,14 @@ class App {
     if (!INPUT_REGEX.test(input)) {
       return false;
     }
+    // 중복제거
+    const set = new Set();
+    for (let i of input) {
+      if (set.has(i)) {
+        return false;
+      }
+      set.add(i);
+    }
     return true;
   }
   //스트라이크판별.
