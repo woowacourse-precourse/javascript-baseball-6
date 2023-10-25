@@ -13,7 +13,7 @@ export function getResultString([ball, strike]) {
   if (strike === GAME_CONSTANTS.strikeOutCount) {
     return `${resultString}\n${GAME_MESSAGES.finish}`.trim();
   }
-  return resultString;
+  return resultString.trim();
 }
 
 const GAME_RESULTS = {
