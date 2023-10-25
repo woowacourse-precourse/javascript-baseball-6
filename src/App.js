@@ -49,16 +49,6 @@ class App {
     return { strike, ball };
   }
 
-  async correctAnswer() {
-    Console.print('3스트라이크');
-    Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
-    this.option = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
-    if (this.option !== '1' && this.option !== '2') {
-      throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
-    }
-    return this.option;
-  }
-
   printResult(strike, ball) {
     let resultMessage = ''
     if (ball !== 0) {
@@ -71,6 +61,16 @@ class App {
       resultMessage += '낫싱';
     }
     return resultMessage;
+  }
+
+  async correctAnswer() {
+    Console.print('3스트라이크');
+    Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+    this.option = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
+    if (this.option !== '1' && this.option !== '2') {
+      throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
+    }
+    return this.option;
   }
 
   async play() {
