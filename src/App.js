@@ -147,7 +147,6 @@ class App {
 }
 
 const app = new App();
-// app.play().then((answer) => Console.print(answer));
 app.play();
 
 export default App;
