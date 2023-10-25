@@ -16,6 +16,7 @@ class App {
 
   init() {
     this.computer = this.getRandomComputerNumber();
+    Console.print(ConsoleMessage.startGame);
   }
 
   async playBaseball(computer) {
@@ -100,4 +101,6 @@ class App {
     }
   }
 }
+const app = new App();
+app.play();
 export default App;
