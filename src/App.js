@@ -43,7 +43,6 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 
 
 class App {
-  async play() {}
   async play(){
     let game = false;
     while(!game){
