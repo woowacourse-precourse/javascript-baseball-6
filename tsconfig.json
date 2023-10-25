@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "noEmit": true,
+    "checkJs": true,
+    "allowJs": true,
+    "strict": true
+  },
+  "include": ["**/*.js", "**/*.d.ts"],
+  "exclude": ["__tests__/ApplicationTest.js"]
+}
