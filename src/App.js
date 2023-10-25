@@ -1,4 +1,4 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
+import { Console, Random } from "@woowacourse/mission-utils";
 class App {
   async play() {
     //input 예외처리 함수
@@ -21,9 +21,7 @@ class App {
     }
     //input 입력값 지정 함수
     async function getUserInput(isPlaying) {
-      const input = await MissionUtils.Console.readLineAsync(
-        "숫자를 입력해주세요 : "
-      );
+      const input = await Console.readLineAsync("숫자를 입력해주세요 : ");
       //check input
       await checkInput(isPlaying, input);
       return input;
@@ -32,7 +30,7 @@ class App {
     function getComputer() {
       const computer = [];
       while (computer.length < 3) {
-        const number = MissionUtils.Random.pickNumberInRange(1, 9);
+        const number = Random.pickNumberInRange(1, 9);
         if (!computer.includes(number)) {
           computer.push(number);
         }
@@ -57,12 +55,12 @@ class App {
         //볼, 스트라이크 둘 다
         else output = ballOutput.concat(" ", strikeOutput);
       }
-      MissionUtils.Console.print(output);
+      Console.print(output);
     }
 
     //게임 시작 함수
     async function gameStart() {
-      MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
+      Console.print("숫자 야구 게임을 시작합니다.");
       const computer = getComputer();
       // console.log(computer);
       let strike = 0;
@@ -94,9 +92,7 @@ class App {
       }
       //3strike (while문 빠져나옴)
       playing = !playing;
-      MissionUtils.Console.print(
-        "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
-      );
+      Console.print("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
       let user = await getUserInput(playing);
 
       //재귀
