@@ -1,12 +1,17 @@
-import GameManager from "./GameManager";
+import GameManager from "./GameManager.js";
 
 class App {
   async play() {
     const gameManager = new GameManager();
-    gameManager.gamestart();
+
+    await gameManager.gamestart();
     gameManager.generateRandomNum();
-    gameManager.insertNum();
+    await gameManager.insertNum();
+    gameManager.baseBall();
   }
 }
+
+const app = new App();
+app.play();
 
 export default App;
