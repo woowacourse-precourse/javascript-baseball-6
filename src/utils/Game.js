@@ -1,15 +1,26 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import { getRandomNum, getRestartNum } from "./NumberSet";
+import { checkResult } from "./NumberCount";
+import { getRandomNum, getRestartNum, getUserNum } from "./NumberSet";
 
 async function startGame() {
   MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
-  await getRandomNum();
+  await game();
+}
+
+async function game() {
+  const computerNum = await getRandomNum();
+  let isSuccess = false;
+  while (!isSuccess) {
+    const userNum = await getUserNum();
+    isSuccess = await checkResult(computerNum, userNum);
+  }
+  await exitGame();
 }
 
 async function exitGame() {
   const restart = await getRestartNum();
   if (restart === "1") {
-    await getRandomNum();
+    await game();
   } else if (restart === "2") {
     MissionUtils.Console.print("게임 종료");
   } else {
@@ -18,4 +29,3 @@ async function exitGame() {
 }
 
 export { exitGame, startGame };
-

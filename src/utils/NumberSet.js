@@ -1,24 +1,21 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import { validCheckUserNum } from "./ValidInput";
-import { checkResult } from "./NumberCount";
 
 async function getRandomNum() {
   const computer = [];
-  let computerNum = "";
   while (computer.length < 3) {
     const number = MissionUtils.Random.pickNumberInRange(1, 9);
     if (!computer.includes(number)) {
       computer.push(number);
     }
   }
-  computerNum = computer.join("");
-  await getUserNum(computerNum);
+  return computer.join("");
 }
 
-async function getUserNum(computerNum) {
+async function getUserNum() {
   const userNum = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
   await validCheckUserNum(userNum);
-  await checkResult(computerNum, userNum);
+  return userNum;
 }
 
 async function getRestartNum() {
@@ -26,4 +23,4 @@ async function getRestartNum() {
   return restart;
 }
 
-export { getRandomNum, getUserNum, getRestartNum };
+export { getRandomNum, getRestartNum, getUserNum };
