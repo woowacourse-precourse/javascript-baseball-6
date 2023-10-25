@@ -69,17 +69,18 @@ class App {
   }
 
   async getGameResult(computerNum, inputNum) {
-    this.compareNumber(computerNum, inputNum);
+    const MAXIMUM_STRIKE_COUNT = 3;
+    const { strike, ball, nothing } = this.compareNumber(computerNum, inputNum);
 
-    if (this.strike === 3) {
-      Console.print(`${this.strike}스트라이크`);
+    if (strike === MAXIMUM_STRIKE_COUNT) {
+      Console.print(`${strike}스트라이크`);
       Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
       this.restart();
     } else {
       Console.print(
-        `${this.ball === 0 ? "" : this.ball + "볼"} ${
-          this.strike === 0 ? "" : this.strike + "스트라이크"
-        } ${this.nothing === 3 ? "낫싱" : ""}`.trim()
+        `${ball === 0 ? "" : ball + "볼"} ${
+          strike === 0 ? "" : strike + "스트라이크"
+        } ${nothing === 3 ? "낫싱" : ""}`.trim()
       );
 
       const userInput = await this.getUserInput();
