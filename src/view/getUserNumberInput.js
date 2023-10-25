@@ -34,7 +34,7 @@ const checkNoZero = function checkHasNoZeroElseError(input) {
 }
 
 const getUserNumberInput = async function validateAndReturnInput() {
-    const userNumberInput = await MissionUtils.Console.readLineAsync('숫자를 입력하세요 : ')
+    const userNumberInput = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ')
     checkBlank(userNumberInput)
     checkThreeDigit(userNumberInput)
     checkAllNumber(userNumberInput)
