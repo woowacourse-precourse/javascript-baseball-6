@@ -8,6 +8,8 @@ class Computer {
   static SUCESS_MESSAGE = "3개의 숫자를 모두 맞히셨습니다! 게임 종료";
   static SELECT_MESSAGE =
     "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n";
+  static SELECT_ERROR =
+    "[ERROR]재시작은 1을 종료는 2를 입력해주세요. 이외의 입력값은 에러를 발생시킵니다.";
 
   constructor() {
     this.answer = this.createAnswer();
@@ -68,7 +70,9 @@ class Computer {
   async correctAnswer() {
     Console.print(Computer.SUCESS_MESSAGE);
     const select = await Console.readLineAsync(Computer.SELECT_MESSAGE);
-
+    if (select !== "1" && select !== "2") {
+      throw new Error(Computer.SELECT_ERROR);
+    }
     return select;
   }
 }
