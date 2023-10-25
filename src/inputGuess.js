@@ -1,9 +1,10 @@
 import { Console } from '@woowacourse/mission-utils';
+import { ERROR, MESSAGE } from './constatns/constants.js';
 
 // 플레이어의 추측값 유효성 검사 후 반환
 async function inputGuess() {
   let input = '';
-  input = await Console.readLineAsync('숫자를 입력해주세요 : ');
+  input = await Console.readLineAsync(MESSAGE.GUESS_INPUT);
 
   /**
    * 입력값 유효성 검증
@@ -13,7 +14,7 @@ async function inputGuess() {
    * 올바르지 않은 input의 경우 error 예외 발생
    */
   if (Number.isNaN(input) || input.length !== 3 || isDuplicated(input)) {
-    throw Error('[ERROR]서로 다른 3자리의 수를 입력해 주세요');
+    throw Error(ERROR.GUESS_FORMAT);
   }
 
   return input;

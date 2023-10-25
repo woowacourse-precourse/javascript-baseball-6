@@ -1,4 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
+import { MESSAGE } from './constatns/constants.js';
 import setRandomAnswer from './setRandomAnswer.js';
 import inputGuess from './inputGuess.js';
 import judgeGuess from './judgeGuess.js';
@@ -20,7 +21,7 @@ class App {
 
   // public : 숫자야구 실행
   async play() {
-    Console.print('숫자 야구 게임을 시작합니다.')
+    Console.print(MESSAGE.START_GAME);
     this.#setAnswer();
 
     while (!this.#isEnded) {
