@@ -1,13 +1,15 @@
 import {Console} from "@woowacourse/mission-utils";
 import printGameResult from "./message/result/printGameResult.js";
+import Pitcher from "./unit/Pitcher.js";
+import Batter from "./unit/Batter.js";
+import checkRestartStatus from "./message/restaart/checkRestartStatus.js";
 
 
 class App {
-    constructor(pitcher, batter, winCondition, hasStartToken) {
-        this.batter = batter;
-        this.pitcher = pitcher;
-        this.winCondition = winCondition;
-        this.hasStartToken = hasStartToken;
+    constructor() {
+        this.winCondition = 3;
+        this.hasStartToken = true;
+        this.restartToken = "1"
     }
 
     checkBatterResult (pitcherBallNumbers, batterBallNumbers) {
@@ -33,24 +35,30 @@ class App {
     }
 
     async play(){
-        const {pitcher, batter, winCondition ,checkBatterResult } = this;
-        let { hasStartToken } = this;
 
-        pitcher.setRandomBallCount();
-        const pitcherBallNumbers = pitcher.ballCountNumbers;
-        Console.print(pitcherBallNumbers)
+        while (this.restartToken === "1") {
+            const batter = new Batter();
+            const pitcher = new Pitcher();
+            const { winCondition ,checkBatterResult } = this;
+            let { hasStartToken } = this;
 
-        while (hasStartToken) {
-            await batter.setThreeBatNumbers();
-            const batterBallNumbers = batter.ballCountNumbers;
+            pitcher.setRandomBallCount();
+            const pitcherBallNumbers = pitcher.gameCountNumbers;
 
-            const { strikeCount, ballCount} = checkBatterResult(pitcherBallNumbers, batterBallNumbers,);
+            while (hasStartToken) {
+                await batter.setThreeBatNumbers();
+                const batterBallNumbers = batter.ballCountNumbers;
 
-            if(strikeCount === winCondition) {
-                hasStartToken = false;
+                const { strikeCount, ballCount} = checkBatterResult(pitcherBallNumbers, batterBallNumbers,);
+
+                if(strikeCount === winCondition) {
+                    hasStartToken = false;
+                }
+
+                printGameResult(winCondition, strikeCount, ballCount);
             }
 
-            printGameResult(winCondition, strikeCount, ballCount);
+            this.restartToken = await checkRestartStatus();
         }
     }
 }
