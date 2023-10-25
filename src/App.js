@@ -13,23 +13,19 @@ class App {
 
   async startGame() {
     this.generateRandomNumbers();
-    try {
-      while (true) {
-        await this.getUserInput();
-        let result = this.getResult();
+    while (true) {
+      await this.getUserInput();
+      let result = this.getResult();
 
-        if (result) {
-          const restart = await this.checkRestart();
+      if (result) {
+        const restart = await this.checkRestart();
 
-          if (restart === 1) {
-            this.generateRandomNumbers();
-          } else {
-            break;
-          }
+        if (restart === 1) {
+          this.generateRandomNumbers();
+        } else {
+          break;
         }
       }
-    } catch (error) {
-      console.error(error.message);
     }
   }
 
