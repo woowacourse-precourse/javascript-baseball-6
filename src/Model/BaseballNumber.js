@@ -41,5 +41,10 @@ export class BaseballNumber {
   }
 }
 
-export const isBaseballNumber = (number) =>
+const isBaseballNumber = (number) =>
   number <= BASEBALL_NUMBER.MAX && number >= BASEBALL_NUMBER.MIN;
+
+const TYPE = Object.freeze({
+  NUMBER: 'number',
+  STRING: 'string',
+});
