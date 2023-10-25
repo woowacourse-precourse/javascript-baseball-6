@@ -113,6 +113,29 @@ class App {
       return;
     }
   }
+
+  async play(restartOrEndNum) {
+    await this.initGame(restartOrEndNum);
+
+    try {
+      while (true) {
+        await this.getUserNumber();
+
+        const ball = this.getBallCount(this.answer, this.userNumber);
+        const strike = this.getStrikeCount(this.answer, this.userNumber);
+
+        this.getResult(strike, ball);
+
+        if (strike === 3) {
+          await this.restartOrEndGame();
+
+          return;
+        }
+      }
+    } catch (error) {
+      throw new Error(this.texts.ERROR);
+    }
+  }
 }
 
 const myApp = new App();
