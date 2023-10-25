@@ -67,7 +67,7 @@ async function requestUserAnswer() {
   const inputArray = input.split('').map(Number);
 
   if (!isValidInput(inputArray)) {
-    throw new Error('[ERROR]');
+    throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
   }
   return inputArray;
 }
