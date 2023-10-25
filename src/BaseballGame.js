@@ -1,10 +1,8 @@
 import { Console } from '@woowacourse/mission-utils';
 import Computer from './Computer.js';
-import { checkValidNumberDuringGame } from './checkValid.js';
+import { isValidGameInputDuringGame } from './validator.js';
 import { getHintToUser } from './hintMaker.js';
-import {
-  LOG_MESSAGE, HINT_MESSAGE, GAME_SELECT, ERROR_MESSAGE,
-} from './constants.js';
+import { LOG_MESSAGE, HINT_MESSAGE, GAME_SELECT, ERROR_MESSAGE } from './constants.js';
 
 class BaseballGame {
   constructor() {
@@ -28,7 +26,7 @@ class BaseballGame {
   }
 
   handleUserInputDuringGame(input) {
-    if (!checkValidNumberDuringGame(input)) {
+    if (!isValidGameInputDuringGame(input)) {
       throw new Error(ERROR_MESSAGE.INCORRECT_VALUE);
     }
 
@@ -43,9 +41,9 @@ class BaseballGame {
   }
 
   async handleUserInputEndGame(input) {
-    const checkValidNumberEndGame = [GAME_SELECT.RESTART, GAME_SELECT.END];
+    const isValidGameInputEndGame = [GAME_SELECT.RESTART, GAME_SELECT.END];
 
-    if (!checkValidNumberEndGame.includes(input)) {
+    if (!isValidGameInputEndGame.includes(input)) {
       throw new Error(ERROR_MESSAGE.INCORRECT_VALUE);
     }
     // TODO: 주석 삭제 필요
