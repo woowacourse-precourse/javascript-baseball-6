@@ -62,7 +62,25 @@ class App {
     return result; // 볼, 스트라이크, 낫싱 결과 출력
   }
 
-  async play() {}
+  async play() {
+    Console.print("숫자 야구 게임을 시작합니다");
+    const computerNumber = this.getRandomNumber();
+    let S = 0;
+
+    while (S !== 3) {
+      const userInput = await this.getUserInput();
+      const result = this.calculateResult(computerNumber, userInput);
+      Console.print(result);
+      const regexResult = /(\d+)스트라이크/.exec(result); // 문자열 3스트라이크 대신 result에서 S 값을 추출해온뒤 변수로 저장해서 3이면
+      S = regexResult ? parseInt(regexResult[1]) : 0;
+    }
+    Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+   
+  }
 }
+
+
+const app = new App();
+app.play();
 
 export default App;
