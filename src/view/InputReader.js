@@ -7,10 +7,7 @@ export default class InputReader {
 
   async baseBallNumbers() {
     try {
-      const userInput = await this.#onRead(
-        GAME_MESSAGE.REQUEST_WINNING_NUMBERS
-      );
-      return userInput;
+      return await this.#onRead(GAME_MESSAGE.REQUEST_WINNING_NUMBERS);
     } catch (error) {
       throw error;
     }
@@ -18,15 +15,17 @@ export default class InputReader {
 
   async restartNumber() {
     try {
-      const userInput = await this.#onRead(GAME_MESSAGE.REQUEST_RESTART_NUMBER);
-      return userInput;
+      return await this.#onRead(GAME_MESSAGE.REQUEST_RESTART_NUMBER);
     } catch (error) {
       throw error;
     }
   }
 
   async #onRead(text, _ = paramType(text, String)) {
-    const userInput = await Console.readLineAsync(text);
-    return userInput;
+    try {
+      return await Console.readLineAsync(text);
+    } catch (error) {
+      throw error;
+    }
   }
 }
