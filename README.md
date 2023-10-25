@@ -154,3 +154,41 @@ while (computer.length < 3) {
 - 미션은 [javascript-baseball](https://github.com/woowacourse-precourse/javascript-baseball-6/) 저장소를 Fork & Clone해 시작한다.
 - **기능을 구현하기 전 `docs/README.md`에 구현할 기능 목록을 정리**해 추가한다.
 - 과제 진행 및 제출 방법은 [프리코스 과제 제출](https://github.com/woowacourse/woowacourse-docs/tree/master/precourse) 문서를 참고한다.
+
+### TODO
+
+1. 랜덤한 번호 생성
+
+- 1부터 9까지 서로 다른 숫자로 이루어진 3자리 숫자를 무작위로 생성한다.
+
+2. 숫자의 입력을 기다리기
+
+- 사용자로부터 3자리 숫자를 입력받는다
+- 입력은 세 자리 숫자, 숫자로 이루어져야 하며 중복된 숫자 없어야 함
+
+3. 숫자 비교 및 결론 산출
+
+- 입력한 숫자를 돌면서 정답과 비교한다
+- 숫자 일치? 인덱스까지 일치하면 스트라이크에 1증가 : 숫자만 존재한다면 볼 1 증가
+- 인덱스 끝까지 돌면 스트라이크 + 볼 양식에 맞게 출력 **(출력 이후 항상 볼 + 스트라이크 숫자 초기화)**
+
+4. 게임 상태 결정:
+
+- 모든 자리의 숫자가 스트라이크인 경우 "3스트라이크, 3개의 숫자를 모두 맞히셨습니다! 게임종료" 후 **(5번 이동)**
+- 그 외 경우 "스트라이크 개수 - 볼 개수" **(2번 이동)**
+- 일치하는 숫자 없으면 '낫싱' **(2번 이동)**
+
+5. 게임 진행 여부 확인:
+
+- 게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.
+
+6. 게임 반복 :
+
+- 1을 선택하면 게임 재시작 **(1번 반복)**
+- 2를 선택하면 게임 종료
+
+#### MissionUtils 적용하기
+
+1. MissionUtils.Random.pickNumberInRange()
+2. MissionUtils.Console.readLineAsync
+3. MissionUtils.Console.print
