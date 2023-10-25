@@ -20,20 +20,14 @@ class App {
 
   async isPlaying() {
     const ANSWER = this.computer.setNumber();
-    const USER_INPUT = await this.user.answerInput();
-    // this.user.answerInput();
-    let result = this.check.countCorrectNumber(ANSWER, USER_INPUT);
-    MissionUtils.Console.print(result);
-    // let result = { strike: 0 };
-    // while (result.strike !== 3) {
-    //   try {
-    //     await this.user.answerInput();
-    //     return result;
-    //   } catch (error) {
-    //     throw error;
-    //   }
-    // }
-    // this.reset();
+
+    while (true) {
+      let userInput = await this.user.answerInput();
+      let strike = await this.check.showResult(ANSWER, userInput);
+      if (strike === 3) break;
+    }
+    MissionUtils.Console.print(MESSAGE.GAME_CLEAR);
+    this.reset();
   }
 
   async reset() {
