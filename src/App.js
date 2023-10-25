@@ -1,7 +1,4 @@
-import {Random} from "@woowacourse/mission-utils";
-import {Console} from "@woowacourse/mission-utils";
-
-// import console from "@woowacourse/mission-utils";
+import {Random, Console} from "@woowacourse/mission-utils";
 
 class App {
   computerNumberPick() {
@@ -19,7 +16,7 @@ class App {
     let computer = this.computerNumberPick();
     let count_Strike, count_Ball, count_Ball_And_Strike; // 스트라이크, 볼, 스트라이크 + 볼 횟수
     
-    console.log("숫자 야구 게임을 시작합니다.");
+    Console.print("숫자 야구 게임을 시작합니다.");
 
     while (start_Num_Setting == 1) {
 
@@ -30,7 +27,7 @@ class App {
           throw new Error("숫자 3개를 입력하세요.");
         }
       } catch (error) {
-        console.log("[ERROR]" + error.message);
+        Console.print("[ERROR]" + error.message);
         continue;
       }
 
@@ -39,7 +36,7 @@ class App {
           throw new Error("띄어쓰기를 없애주세요.");
         }
       } catch (error) {
-        console.log("[ERROR]" + error.message);
+        Console.print("[ERROR]" + error.message);
         continue;
       }
 
@@ -48,7 +45,7 @@ class App {
           throw new Error("0은 안됩니다.");
         }
       } catch (error) {
-        console.log("[ERROR]" + error.message);
+        Console.print("[ERROR]" + error.message);
         continue;
       }
 
@@ -57,7 +54,7 @@ class App {
           throw new Error("겹치지 않게 숫자를 입력하세요.");
         }
       } catch (error) {
-        console.log("[ERROR]" + error.message);
+        Console.print("[ERROR]" + error.message);
         continue;
       }
 
@@ -97,9 +94,9 @@ class App {
         print_Sentence = print_Sentence + count_Strike + "스트라이크";
       }
 
-      console.log(print_Sentence);
+      Console.print(print_Sentence);
       if (count_Strike == 3) {
-        console.log(count_Strike + "개의 숫자를 모두 맞히셨습니다! 게임종료");
+        Console.print(count_Strike + "개의 숫자를 모두 맞히셨습니다! 게임종료");
         start_Num_Setting = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
         computer = this.computerNumberPick();
       }
