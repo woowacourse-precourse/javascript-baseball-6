@@ -1,5 +1,5 @@
 import BaseballGame from '../src/BaseballGame';
-import Computer from '../src/Computer';
+import RandomNumberGenerator from '../src/RandomNumberGenerator';
 import User from '../src/User';
 import GameDisplay from '../src/GameDisplay';
 import { calculateStrikeAndBall } from '../src/StrikeAndBallCalculator';
@@ -7,7 +7,7 @@ import InputValidator from '../src/utils/InputValidator';
 import { RESTART_GAME, END_GAME } from '../src/constants/GameConstants';
 import { WINNING_STRIKE_COUNT } from '../src/constants/NumberConstants';
 
-jest.mock('../src/Computer');
+jest.mock('../src/RandomNumberGenerator');
 jest.mock('../src/User');
 jest.mock('../src/GameDisplay');
 jest.mock('../src/StrikeAndBallCalculator');
@@ -24,7 +24,7 @@ describe('BaseballGame 클래스의', () => {
       const mockComputerNumbers = [1, 2, 3];
       const mockGameEnd = false;
 
-      Computer.prototype.generateNumbers.mockReturnValue(mockComputerNumbers);
+      RandomNumberGenerator.prototype.generateRandomNumbers.mockReturnValue(mockComputerNumbers);
       const mockPlayGame = jest.spyOn(baseballGame, 'playGame');
       mockPlayGame.mockResolvedValue(null);
       const mockShowGameEnd = jest.spyOn(baseballGame, 'showGameEnd');
@@ -32,7 +32,7 @@ describe('BaseballGame 클래스의', () => {
 
       await baseballGame.start();
 
-      expect(Computer.prototype.generateNumbers).toHaveBeenCalled();
+      expect(RandomNumberGenerator.prototype.generateRandomNumbers).toHaveBeenCalled();
       expect(GameDisplay.prototype.showStartMessage).toHaveBeenCalled();
       expect(mockPlayGame).toHaveBeenCalledWith(mockComputerNumbers);
       expect(mockShowGameEnd).toHaveBeenCalled();

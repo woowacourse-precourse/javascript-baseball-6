@@ -1,6 +1,7 @@
 import User from './User';
-import Computer from './Computer';
+import Computer from './RandomNumberGenerator';
 import GameDisplay from './GameDisplay';
+import RandomNumberGenerator from './RandomNumberGenerator';
 import { calculateStrikeAndBall } from './StrikeAndBallCalculator';
 import InputValidator from './utils/InputValidator';
 import { RESTART_GAME } from './constants/GameConstants';
@@ -8,13 +9,13 @@ import { WINNING_STRIKE_COUNT } from './constants/NumberConstants';
 
 export default class BaseballGame {
   constructor() {
-    this.computer = new Computer();
+    this.number = new RandomNumberGenerator();
     this.user = new User();
     this.display = new GameDisplay();
   }
 
   async start() {
-    const computerNumbers = this.computer.generateNumbers();
+    const computerNumbers = this.number.generateRandomNumbers();
     this.display.showStartMessage();
     await this.playGame(computerNumbers);
     await this.showGameEnd();
