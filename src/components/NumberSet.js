@@ -1,5 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import { validCheckUserNum } from './ValidInput';
+import { validCheckUserNum } from "./ValidInput";
+import { checkResult } from "./NumberCount";
 
 async function getRandomNum() {
   const computer = [];
@@ -17,8 +18,7 @@ async function getRandomNum() {
 async function getUserNum(computerNum) {
   const userNum = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
   await validCheckUserNum(userNum);
-  //TODO: checkResult 파일로 분리하기
-  //   await this.checkResult(computerNum, userNum);
+  await checkResult(computerNum, userNum);
 }
 
 async function getRestartNum() {
