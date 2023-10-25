@@ -32,7 +32,19 @@ const startGame = (computerNum) => {
     const userNum = input.split('').map(Number);
 
     checkInput(input);
+
+    let strike = countStrike(computerNum, userNum);
+    let ball = countBall(computerNum, userNum);
+
+    const result = printResult(ball, strike);
+    MissionUtils.Console.print(result);
+
+    if (result === '3스트라이크') {
+      MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+      break;
+    }
   }
+
 }
 
 const checkInput = (input) => {
@@ -45,6 +57,35 @@ const checkInput = (input) => {
 }
 
 //(3)결과 출력
+const countStrike = (computerNum, userNum) => {
+  let strike = 0;
+
+  for (let i = 0; i < NUM_LENGTH; i++)
+    if (computerNum[i] === Number(userNum[i]))
+      strike += 1;
+
+  return strike;
+}
+
+const countBall = (computerNum, userNum) => {
+  let ball = 0;
+
+  for (let i = 0; i < NUM_LENGTH; i++)
+    if (computerNum[i] !== Number(userNum[i]) && computerNum.includes(Number(userNum[i])))
+      ball += 1;
+
+  return ball;
+}
+
+const printResult = (ball, strike) => {
+  if (ball !== 0 && strike === 0)
+    return `${ball}볼`;
+  if (ball !== 0 && strike !== 0)
+    return `${ball}볼 ${strike}스트라이크`;
+  if (ball === 0 && strike !== 0)
+    return `${strike}스트라이크`;
+  return '낫싱';
+}
 
 //(4)게임 결과
 
