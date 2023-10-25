@@ -1,9 +1,10 @@
 import { Console } from "@woowacourse/mission-utils";
-import { constant, BALL, STRIKE, NOTHING } from "./constant.js";
+import { ERROR, BALL, STRIKE, NOTHING } from "./constant.js";
 
 export function printResult(strikeCount, ballCount) {
   const printBall = ballCount + BALL;
   const printStrike = strikeCount + STRIKE;
+
   if (!strikeCount && !ballCount) {
     Console.print(NOTHING);
   }
@@ -21,7 +22,7 @@ export function printResult(strikeCount, ballCount) {
   }
 
   if (strikeCount === 3) {
-    Console.print(constant.CORRECT_NUMBER);
+    Console.print(ERROR.CORRECT_NUMBER);
     return strikeCount;
   }
 }

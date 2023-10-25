@@ -1,6 +1,6 @@
 import { MissionUtils, Console } from "@woowacourse/mission-utils";
 import { error } from "./error.js";
-import { constant } from "./constant.js";
+import { GAME_HELP, ERROR } from "./constant.js";
 import { printResult } from "./printResult.js";
 
 class App {
@@ -14,7 +14,7 @@ class App {
   }
 
   async play() {
-    Console.print(constant.GAME_START);
+    Console.print(GAME_HELP.GAME_START);
 
     while (this.proceeding) {
       this.restart && (await this.getNumber());
@@ -34,13 +34,13 @@ class App {
   }
 
   async inputNumber() {
-    const number = await Console.readLineAsync(constant.INPUT_NUMBER_MSG);
+    const number = await Console.readLineAsync(GAME_HELP.INPUT_NUMBER_MSG);
     this.strikeCount = 0;
     this.ballCount = 0;
 
     await this.settingNumber(number);
     if (!number) {
-      throw new Error(constant.ERROR.INPUT_VALUE);
+      throw new Error(ERROR.INPUT_VALUE);
     }
   }
 
@@ -82,11 +82,11 @@ class App {
   }
 
   async finishedGame() {
-    const restartChoice = await Console.readLineAsync(constant.RESTART_OPTION);
+    const restartChoice = await Console.readLineAsync(GAME_HELP.RESTART_OPTION);
     const choice = parseInt(restartChoice);
 
     if (choice !== 1 && choice !== 2) {
-      throw new Error(constant.ERROR.ONE_OR_TWO);
+      throw new Error(ERROR.ONE_OR_TWO);
     }
 
     if (choice === 1) {
