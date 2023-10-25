@@ -94,6 +94,5 @@ randomnum;
     this.getInput()
   }
 }
-let app = new App();
-app.play();
+
 export default App;
