@@ -1,101 +1,109 @@
-import readline from "readline";
+import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
+  constructor() {
+    this.isPlaying = true;
+    this.random = "";
+  }
+
   async play() {
-    console.log("숫자 야구 게임을 시작합니다.");
-
-    while (true) {
-      const r1 = readline.createInterface({
-        input: process.stdin,
-        output: process.stdout,
-      });
-
-      let randomNumber = "";
-      for (let i = 0; i < 3; i++) {
-        const getRandom = Math.floor(Math.random() * 9) + 1;
-        randomNumber += getRandom;
-      }
+    while (this.isPlaying) {
+      MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
+      this.random = this.getRandomNumber();
 
       while (true) {
-        const input = await this.getInput(r1);
-        if (!this.isValidInput(input)) {
-          console.error("[ERROR] 숫자가 잘못된 형식입니다.");
-        } else {
-          const result = this.guess(input, randomNumber);
+        const userInput = await this.getInput();
+        const guess = this.guessing(userInput, this.random);
+        MissionUtils.Console.print(guess);
 
-          if (result === 3) {
-            console.log(`${result}개의 숫자를 모두 맞히셨습니다! 게임 종료`);
-            const restart = await this.askToRestart(r1);
-            r1.close();
-            if (restart === "1") {
-              break; // 게임 재시작
-            } else if (restart === "2") {
-              return; // 게임 종료
-            }
+        if (guess === "3스트라이크") {
+          MissionUtils.Console.print(
+            "3개의 숫자를 모두 맞히셨습니다! 게임 종료"
+          );
+          const restart = await this.askToRestart();
+          if (restart) {
+            this.isPlaying = true;
+          } else {
+            break;
           }
         }
       }
     }
   }
 
-  async getInput(rl) {
-    return new Promise((resolve) => {
-      const getInputRecursive = () => {
-        rl.question("숫자를 입력해주세요 : ", (input) => {
-          if (!this.isValidInput(input)) {
-            console.log("[ERROR] 숫자가 잘못된 형식입니다.");
-            getInputRecursive();
-          } else {
-            resolve(input);
-          }
-        });
-      };
-      getInputRecursive();
-    });
+  async askToRestart() {
+    const ask = await MissionUtils.Console.readLineAsync(
+      "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+    );
+    MissionUtils.Console.print(ask);
+    if (ask === "1") {
+      this.isPlaying = true;
+    } else if (ask === "2") {
+      this.isPlaying = false;
+    } else if (ask !== "1" && ask != "2") {
+      MissionUtils.Console.print("[ERROR]");
+    }
   }
 
-  async askToRestart(rl) {
-    return new Promise((resolve) => {
-      rl.question(
-        "게임을 다시 시작하려면 1, 종료하려면 2를 입력하세요: ",
-        resolve
-      );
-    });
+  async getInput() {
+    const input = await MissionUtils.Console.readLineAsync(
+      "숫자를 입력해주세요 : "
+    );
+
+    if (!this.isValidInput(input)) {
+      throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+    }
+    return input;
   }
 
   isValidInput(input) {
-    return /^\d{3}$/.test(input);
+    return /^[1-9]{3}$/.test(input) && new Set(input).size === 3;
   }
 
-  guess(input, answer) {
+  guessing(input, random) {
     let strikeCount = 0;
     let ballCount = 0;
 
-    for (let i = 0; i < answer.length; i++) {
-      if (input[i] === answer[i]) {
+    const randomNum = random.join("");
+
+    for (let i = 0; i < randomNum.length; i++) {
+      if (input[i] === randomNum[i]) {
         strikeCount++;
-      } else if (answer.includes(input[i])) {
+      } else if (randomNum.includes(input[i])) {
         ballCount++;
       }
     }
 
     if (strikeCount === 0 && ballCount === 0) {
-      console.log("낫싱");
-    } else {
-      const result = [];
-      if (strikeCount > 0) {
-        result.push(`${strikeCount}스트라이크`);
-      }
-      if (ballCount > 0) {
-        result.push(`${ballCount}볼`);
-      }
-      console.log(result.join(" "));
+      return "낫싱";
     }
-    return strikeCount;
+
+    let result = "";
+
+    if (ballCount > 0) {
+      result += `${ballCount}볼 `;
+    }
+
+    if (strikeCount > 0) {
+      result += `${strikeCount}스트라이크`;
+    }
+
+    return result.trim();
+  }
+
+  getRandomNumber() {
+    const randomNumber = [];
+    while (randomNumber.length < 3) {
+      const getNumber = MissionUtils.Random.pickNumberInRange(1, 9);
+      if (!randomNumber.includes(getNumber)) {
+        randomNumber.push(getNumber);
+      }
+    }
+    return randomNumber;
   }
 }
 
-export default App;
-
 const app = new App();
 app.play();
+
+export default App;
