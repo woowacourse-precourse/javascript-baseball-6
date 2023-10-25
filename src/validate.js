@@ -4,35 +4,18 @@ const throwErrorMessage = () => {
     throw new Error('[ERROR]');
 };
 
-const isNumber = (number) => {
-    if (typeof number !== 'number') {
-        return false;
-    }
+const isNumber = (number) => typeof number === 'number';
 
-    return true;
-};
+const isDuplicateNumbers = (numbersArray) => !(new Set(numbersArray).size < numbersArray.length);
 
-const isDuplicateNumber = (numbersArray) => {
-    if (new Set(numbersArray).size < numbersArray.length) {
-        return false;
-    }
+const isEqualNumbersLength = (numbersArray) => numbersArray.length === NUMBERS_LENGTH;
 
-    return true;
-};
-
-const isEqualNumbersLength = (numbersArray) => {
-    if (numbersArray.length !== NUMBERS_LENGTH) {
-        return false;
-    }
-
-    return true;
-};
 
 const validateInputUserNumbers = (numbers) => {
     const numbersArray = [...String(numbers)].map(v => Number(v));
     if (
         isNumber(numbers)
-        && isDuplicateNumber(numbersArray)
+        && isDuplicateNumbers(numbersArray)
         && isEqualNumbersLength(numbersArray) 
     ) {
         return true;
