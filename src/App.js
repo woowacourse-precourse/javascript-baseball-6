@@ -1,23 +1,11 @@
-import { MissionUtils, Console } from "@woowacourse/mission-utils";
+import { MissionUtils } from "@woowacourse/mission-utils";
 
 class App {
-
   async play() { 
-    // 변수 선언
-    let GAME_END = false;
-
     // 초기 설정
-    Console.print("숫자 야구 게임을 시작합니다.");
-    
-    while (!GAME_END) {
-      const CORRECT_ANSWER = NewRandomAnswer();
-      const USER_ANSWER = await InputAnswer();
-
-      const [strike, ball] = CheckBallStrike(CORRECT_ANSWER, USER_ANSWER);
-
-    }
+    MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
+    NumberGame();
   }
-
 }
 
 // 2. 게임을 위한 랜덤 숫자야구 생성해주는 함수
@@ -74,4 +62,42 @@ function CheckBallStrike(computerAnswer,userAnswer) {
   return [strike, ball];
 }
 
+async function NumberGame() {
+  let ResultMessage = "";
+  const CORRECT_ANSWER = NewRandomAnswer();
+    while (true) {
+      const USER_ANSWER = await InputAnswer();
+      const [strike, ball] = CheckBallStrike(CORRECT_ANSWER, USER_ANSWER);
+
+      if (ball > 0) {
+        ResultMessage += `${ball}볼 `;
+      }
+      if (strike > 0) {
+        ResultMessage += `${strike}스트라이크`;
+      }
+      if (!strike && !ball) {
+        ResultMessage = "낫싱"
+      }
+      MissionUtils.Console.print(ResultMessage);
+      
+      if (strike == 3) {
+        break;
+      }
+  }
+  MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+  NewGame();
+}
+
+async function NewGame() {
+  const SELECT_NUMBER = await MissionUtils.Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n");
+  if (SELECT_NUMBER === "1") {
+    NumberGame();
+  }
+  else if (SELECT_NUMBER === "2") {
+    MissionUtils.Console.print("숫자 야구 게임을 종료합니다.");
+  }
+  else {
+    throw new Error("[ERROR] 정의되지 않은 입력값입니다. ");
+  }
+}
 export default App;
