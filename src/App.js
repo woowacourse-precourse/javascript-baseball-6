@@ -106,7 +106,7 @@ class App {
   }
 }
 
-const game = new App();
-game.play();
+// const game = new App();
+// game.play();
 
 export default App;
