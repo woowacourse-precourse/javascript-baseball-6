@@ -2,6 +2,8 @@ import { Console, Random } from "@woowacourse/mission-utils";
 
 const ANSWER_LENGTH = 3;
 const NUMBER_RANGE = /^[1-9]+$/;
+const RESTART = '1';
+const END = '2';
 
 class App {
   constructor() {
@@ -9,56 +11,51 @@ class App {
   }
 
   async play() {
-    Console.print("숫자 야구 게임을 시작합니다.");
+    Console.print('숫자 야구 게임을 시작합니다.');
     this.answer = this.createAnswer();
-    await this.toggleGame("playing");
+    await this.toggleGame('playing');
   }
 
   async restart() {
     this.answer = this.createAnswer();
-    await this.toggleGame("playing");
-  }
-
-  async resume(status) {
-    await this.toggleGame(status);
+    await this.toggleGame('playing');
   }
 
   async toggleGame(status) {
     switch (status) {
-      case "playing": {
+      case 'playing': {
         const inputNumber = await Console.readLineAsync(
-          "숫자를 입력해주세요 : "
+          '숫자를 입력해주세요 : '
         );
         this.validateAndThrowError(inputNumber);
 
         const scoreInfo = this.createScore(inputNumber);
-
         if (scoreInfo.strike === ANSWER_LENGTH) {
-          await this.resume("clear");
+          await this.toggleGame('clear');
         } else {
           const hintText = this.createHint(scoreInfo);
           Console.print(hintText);
-          await this.resume("playing");
+          await this.toggleGame('playing');
         }
         break;
       }
-      case "clear": {
+      case 'clear': {
         Console.print(
           `${ANSWER_LENGTH}스트라이크\n${ANSWER_LENGTH}개의 숫자를 모두 맞히셨습니다! 게임 종료`
         );
         let inputNumber = null;
-        while (inputNumber !== "1" && inputNumber !== "2") {
+        while (inputNumber !== RESTART && inputNumber !== END) {
           inputNumber = await Console.readLineAsync(
-            "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
+            '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'
           );
         }
-        if (inputNumber === "1") {
+        if (inputNumber === RESTART) {
           await this.restart();
-        } else if (inputNumber === "2") {
-          await this.resume("end");
+        } else if (inputNumber === END) {
+          await this.toggleGame('end');
         }
       }
-      case "end": {
+      case 'end': {
         break;
       }
     }
@@ -99,7 +96,7 @@ class App {
     if (strike > 0) {
       hintArr.push(`${strike}스트라이크`);
     }
-    return hintArr.length === 0 ? "낫싱" : hintArr.join(" ");
+    return hintArr.length === 0 ? '낫싱' : hintArr.join(' ');
   }
 
   validateAndThrowError(inputNumber) {
@@ -113,7 +110,7 @@ class App {
     if (!NUMBER_RANGE.test(inputNumber))
       throw new Error(`[ERROR] 1부터 9까지의 수가 아닙니다.`);
     if (inputNumber.includes(" "))
-      throw new Error(`[ERROR] 공백 없이 숫자를 입력해야합니다.`);
+      throw new Error(`[ERROR] 공백 없이 숫자를 입력해야 합니다.`);
   }
 }
 
