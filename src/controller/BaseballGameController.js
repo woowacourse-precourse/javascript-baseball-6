@@ -50,7 +50,7 @@ class BaseballGameController {
     const ball = this.#gameResult.getBall();
     const strike = this.#gameResult.getStrike();
 
-    if (ball === 0 && strike === 0) {
+    if (this.#gameResult.isNothing()) {
       this.#outputView.printNothing();
     } else {
       this.#outputView.printHint(ball, strike);

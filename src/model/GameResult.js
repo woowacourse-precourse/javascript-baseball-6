@@ -30,6 +30,10 @@ class GameResult {
     this.#strike = 0;
   }
 
+  isNothing() {
+    return this.#ball === 0 && this.#strike === 0;
+  }
+
   isCompleteMatch() {
     return this.#strike === VALIDATION.maxSize;
   }
