@@ -1,20 +1,25 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 export default class Computer {
-    static numbers = [];
-    static pickRandomNumbers() {
-        while (numbers.length < 3) {
+    constructor() {
+        this.numbers = [];
+    }
+    pickRandomNumbers() {
+        while (this.numbers.length < 3) {
             const number = MissionUtils.Random.pickNumberInRange(1, 9);
-            if (!numbers.includes(number)) {
-                numbers.push(number);
+            if (!this.numbers.includes(number)) {
+                this.numbers.push(number);
             }
         }
+        console.log({ number: this.numbers });
     }
-    static playGame(USER) {
+    async playGame(USER) {
+        MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
         while (true) {
-            MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
             while (true) {
-                const INPUT = USER.returnUserQuery("숫자를 입력해주세요 : ");
-                const RESULT = returnMessage(INPUT);
+                const INPUT = await USER.returnUserQuery(
+                    "숫자를 입력해주세요 : "
+                );
+                const RESULT = this.returnMessage(INPUT);
                 MissionUtils.Console.print(RESULT.result);
                 if (RESULT.success) {
                     MissionUtils.Console.print(
@@ -29,8 +34,29 @@ export default class Computer {
             if (USER.returnUserInput() === 2) break;
         }
     }
-    static returnMessage(expect_numbers) {
+    returnMessage(expect_numbers) {
+        const BALL_STRIKE = this.calculateBallStrike(expect_numbers);
+        const RESULT = this.getResultString(BALL_STRIKE);
+        if (BALL_STRIKE.strike === 3) return { result: RESULT, success: true };
         return { result: "", success: false };
     }
-    static clearNumbers() {}
+    calculateBallStrike(expect_numbers) {
+        let ball = 0;
+        let strike = 0;
+        [...expect_numbers]
+            .map((n) => +n)
+            .forEach((n, idx) => {
+                if (this.numbers[idx] === n) strike++;
+                else if (this.numbers.includes(n)) ball++;
+            });
+        return { ball, strike };
+    }
+    getResultString({ ball, strike }) {
+        if (ball === 0 && strike === 0) return "낫싱";
+        else if (ball === 0) return `${strike}스트라이크`;
+        else if (strike === 0) return `${ball}볼`;
+        else return `${ball}볼 ${strike}스트라이크`;
+    }
+
+    clearNumbers() {}
 }
