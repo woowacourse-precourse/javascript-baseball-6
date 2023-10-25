@@ -2,16 +2,10 @@ import { Console, Random } from "@woowacourse/mission-utils";
 
 class App {
   computer;
-  strike;
-  ball;
-  nothing;
 
   constructor() {
     Console.print("숫자 야구 게임을 시작합니다.");
     this.computer = [];
-    this.strike = 0;
-    this.ball = 0;
-    this.nothing = 0;
   }
 
   async play() {
@@ -57,15 +51,21 @@ class App {
   }
 
   compareNumber(computerNum, inputNum) {
+    let strike = 0;
+    let ball = 0;
+    let nothing = 0;
+
     computerNum.map((num, i, array) => {
       if (num === Number(inputNum[i])) {
-        this.strike += 1;
+        strike++;
       } else if (array.includes(Number(inputNum[i]))) {
-        this.ball += 1;
+        ball++;
       } else {
-        this.nothing += 1;
+        nothing++;
       }
     });
+
+    return { strike, ball, nothing };
   }
 
   async getGameResult(computerNum, inputNum) {
