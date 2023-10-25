@@ -27,15 +27,19 @@ class Baseball {
       const strikeBallCount = this.calcStrikeBallCount(userInput);
       MissionUtils.Console.print(this.makeGameResultString(strikeBallCount));
       if (strikeBallCount.strikeCount === VALUE_MAX_GAME_INPUT_DIGIT) {
-        MissionUtils.Console.print(MSG_GAME_OVER);
-        MissionUtils.Console.print(MSG_GAME_RESTART);
-        const userInput = await this.getUserInput(true);
-        if (userInput === VALUE_RESTART_GAME) {
-          this.makeRandomNumber();
-        } else {
-          isPlaying = false;
-        }
+        isPlaying = await this.checkGameOver();
       }
+    }
+  }
+  async checkGameOver() {
+    MissionUtils.Console.print(MSG_GAME_OVER);
+    MissionUtils.Console.print(MSG_GAME_RESTART);
+    const userInput = await this.getUserInput(true);
+    if (userInput === VALUE_RESTART_GAME) {
+      this.makeRandomNumber();
+      return true;
+    } else {
+      return false;
     }
   }
   async getUserInput(gameOver) {
@@ -43,20 +47,14 @@ class Baseball {
       const userinput = await MissionUtils.Console.readLineAsync(
         MSG_ENTER_THE_NUMBER
       );
-      if (!gameOver) {
-        if (this.checkInputGamePlaying(userinput)) {
-          return userinput;
-        }
-        throw new Error(ERROR_MSG_INPUT_NUMBER);
-      } else {
-        if (this.checkInputGameOver(userinput)) {
-          return userinput;
-        }
-        throw new Error(ERROR_MSG_INPUT_NUMBER);
+      if (!gameOver && this.checkInputGamePlaying(userinput)) {
+        return userinput;
+      } else if (gameOver && this.checkInputGameOver(userinput)) {
+        return userinput;
       }
-    } catch (error) {
-      // reject 되는 경우
       throw new Error(ERROR_MSG_INPUT_NUMBER);
+    } catch (error) {
+      throw error;
     }
   }
 
