@@ -8,7 +8,7 @@ class App {
       if (this.printUserGuess(this.judgeUserGuess(computer, await this.takeUserGuess()))) {
         const playContinue = await this.takePlayContinue();
         if (playContinue !== "1" && playContinue !== "2") {
-          throw MissionUtils.Console.print("1 또는 2만 입력 가능합니다.");
+          throw new Error("[ERROR] 1 또는 2만 입력 가능합니다.");
         }
         if (playContinue === "1") {
           computer = this.generateRandomNumbers();
@@ -37,7 +37,7 @@ class App {
     const input = inputString.trim().split('').map(Number);
 
     if (input.length !== 3 || input.includes(NaN)) {
-      throw MissionUtils.Console.print("3자리 숫자만 입력 가능합니다.");
+      throw new Error("[ERROR] 3자리 숫자만 입력 가능합니다.");
     }
 
     return input;
