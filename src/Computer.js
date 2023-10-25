@@ -38,7 +38,7 @@ export default class Computer {
         const BALL_STRIKE = this.calculateBallStrike(expect_numbers);
         const RESULT = this.getResultString(BALL_STRIKE);
         if (BALL_STRIKE.strike === 3) return { result: RESULT, success: true };
-        return { result: "", success: false };
+        return { result: RESULT, success: false };
     }
     calculateBallStrike(expect_numbers) {
         let ball = 0;
