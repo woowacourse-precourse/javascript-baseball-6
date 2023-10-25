@@ -2,6 +2,7 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 import { QUERY_STATUS } from "./query_status.js";
 export default class Computer {
     static QUIT = "2";
+    static STRIKE = 3;
     constructor() {
         this.numbers = [];
     }
@@ -42,7 +43,8 @@ export default class Computer {
     returnMessage(expectNumbers) {
         const ballStrike = this.calculateBallStrike(expectNumbers);
         const result = this.getResultString(ballStrike);
-        if (ballStrike.strike === 3) return { result: result, success: true };
+        if (ballStrike.strike === Computer.STRIKE)
+            return { result: result, success: true };
         return { result: result, success: false };
     }
     calculateBallStrike(expectNumbers) {
