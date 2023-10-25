@@ -1,8 +1,14 @@
-import { MissionUtils } from "@woowacourse/mission-utils"
-import Computer from "./class/Computer"
-import Player from "./class/Player" 
-import { checkAnswer, checkInputValidity, checkStrike, checkBall, checkRetryValidity } from "./utils/Check"
-import { LOGS } from "./libs/LOGS"
+const MissionUtils = require("@woowacourse/mission-utils")
+const Computer = require("./class/Computer")
+const Player = require("./class/Player")
+const {
+  checkAnswer,
+  checkInputValidity,
+  checkStrike,
+  checkBall,
+  checkRetryValidity
+} = require("./utils/Check")
+const { LOGS } = require("./libs/LOGS")
 
 let strikeCount = 0
 let ballCount = 0
@@ -72,7 +78,7 @@ const endGame = () => {
     MissionUtils.Console.print(LOGS.GAME_END)
 }
 
-// const app = new App()
-// app.play()
+const app = new App()
+app.play()
 
 export default App;
