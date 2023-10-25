@@ -95,7 +95,4 @@ randomnum;
   }
 }
 
-let app = new App();
-app.play();
-
 export default App;
