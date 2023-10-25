@@ -31,7 +31,9 @@ class App {
       this.handleError('[ERROR] 숫자를 입력해주세요');
     } else if(input.length !== 3) {
       this.handleError('[ERROR] 3자리 숫자를 입력해주세요');
-    } else if(isDuplicate) {
+    } else if(input.includes('0')) {
+      this.handleError('[ERROR] 1~9 사이의 숫자를 입력해주세요');
+    }  else if(isDuplicate) {
       this.handleError('[ERROR] 중복되지 않는 숫자를 입력해주세요');
     } else {
       this.playerInput = input;
