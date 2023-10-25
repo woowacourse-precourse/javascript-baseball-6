@@ -19,15 +19,12 @@ class App {
     this.randomNumber = [...computer];
   }
 
-
   async getUserInput() {
     this.strike = 0;
     const userInput = await Console.readLineAsync('숫자를 입력해주세요 : ');
     this.isValidUserInput(userInput);
     this.userBaseballNumber = userInput.split('').map(Number);
   }
-
-
 
   isValidUserInput(userInput) {
     if (this.isNotNumbers(userInput)) {
@@ -89,10 +86,10 @@ class App {
     if (this.balls > 0 && this.strike > 0)
       Console.print(`${this.balls}` + '볼 ' + `${this.strike}` + '스트라이크');
 
-    if (this.balls > 0 && this.strike == 0)
+    if (this.balls > 0 && this.strike === 0)
       Console.print(`${this.balls}` + '볼');
 
-    if (this.strike > 0 && this.balls == 0)
+    if (this.strike > 0 && this.balls === 0)
       Console.print(`${this.strike}` + '스트라이크');
   }
 
@@ -113,8 +110,7 @@ class App {
     const userInput = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
     result = this.isValidUserInputRestartGame(userInput);
 
-    if (result == 1) {
-      // 이 부분에서 모듈화 해야겠다는 생각이 듦
+    if (result === 1) {
       this.strike = 0;
       this.setRandomNumber();
       this.playBaseballGame();
@@ -132,7 +128,7 @@ class App {
       throw new Error('[Error] 빈칸을 입력하셨습니다. 1또는 2를 입력해주세요.');
     }
 
-    if (userInput != 1 && userInput != 2) {
+    if (userInput !== 1 && userInput !== 2) {
       throw new Error('[Error] 1 또는 2를 입력해주세요.');
     }
 
