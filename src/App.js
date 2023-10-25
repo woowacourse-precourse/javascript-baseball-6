@@ -39,7 +39,20 @@ class App {
             }
         }
     }
-    
+
+    isValidInput(enterInput) {
+        if (enterInput.length !== 3) {
+            return false;
+        }
+
+        for (const char of enterInput) {
+            if (char < '1' || char > '9' || enterInput.indexOf(char) !== enterInput.lastIndexOf(char)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
 
 export default App;
