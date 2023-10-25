@@ -1,5 +1,5 @@
-import { Console, Random } from "@woowacourse/mission-utils";
-import { IN_GAME_SETTING, IN_GAME_MESSAGE, AFTER_GAME_USER_COMMAND, IN_GAME_ERROR } from "../utils/Constants.js";
+import { Console } from "@woowacourse/mission-utils";
+import { IN_GAME_MESSAGE, AFTER_GAME_USER_COMMAND, IN_GAME_ERROR } from "../utils/Constants.js";
 import validateUserAnswer from "../utils/validateUserAnswer.js";
 import generateRightAnswer from "../utils/generateAnswer.js";
 import getUserScore from "../utils/getUserScore.js";
