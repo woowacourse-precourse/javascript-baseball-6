@@ -40,9 +40,9 @@ class App {
   async play() {
     let gameNum = 0;
     let isEnd = false;
-
-    // 컴퓨터 번호 다시 세팅
     this.setComputerNum();
+
+    MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
 
     while(!isEnd) {
 
