@@ -1,12 +1,7 @@
 const checkNum = (userNum) =>{
-    if(userNum.length !== 3 ||
-        userNum[0] === userNum[1] ||
-        userNum[1] === userNum[2] ||
-        userNum[0] === userNum[2]
-    ){
+    if(!/^\d{3}$/.test(userNum) || !userNum.trim()){
         throw new Error();
     }
-    
     return;
 }
 
