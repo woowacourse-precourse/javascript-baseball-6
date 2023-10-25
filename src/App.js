@@ -41,9 +41,9 @@ class App {
   }
 
   /**
-   * input을 randoms와 비교한 후 Strike, Ball 개수 반환
+   * input을 randoms와 비교한 후 Ball,Strike 개수 반환
    * @param {String} input
-   * @returns {[Number, Number]} Strike, Ball 개수
+   * @returns {[Number, Number]} Ball, Strike 개수
    */
   countBallStrike = (input) => {
     const countStrike = [...input].filter(
@@ -58,7 +58,6 @@ class App {
   /**
    * 입력 값에 대한 결과 값 반환
    * @param {String} input
-   * @returns {String} 입력 값에 대한 결과
    */
   resultMessage = (input) => {
     let resultText = [];
