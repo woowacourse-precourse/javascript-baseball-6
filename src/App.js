@@ -3,6 +3,7 @@ import OutputView from './view/OutputView.js';
 import InputReader from './view/InputReader.js';
 import { validation } from './utils/Validation.js';
 import { paramType } from './utils/paramType.js';
+import { createRandomNumbers } from './utils/createRandomNumbers.js';
 
 class App {
   constructor(outputView, inputReader) {
@@ -37,7 +38,7 @@ class App {
     this.outputView.printBaseBallCountResult(countResult);
 
     if (strike === 3) {
-      this.complete();
+      await this.complete();
       return;
     }
     await this.pitching();
@@ -65,7 +66,9 @@ class App {
     this.setting();
   }
 
-  end() {}
+  end() {
+    return;
+  }
 }
 
 const outputView = new OutputView();
