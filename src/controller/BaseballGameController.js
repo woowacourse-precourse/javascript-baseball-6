@@ -12,9 +12,9 @@ class BaseballGameController {
   #userNumber;
   #gameResult;
 
-  start() {
+  async start() {
     OutputView.printStart();
-    return Console.readLineAsync('숫자를 입력해주세요 : ').then(
+    await Console.readLineAsync('숫자를 입력해주세요 : ').then(
       (userNumbers) => {
         Validator.validateNumber(userNumbers);
         this.makeComputerNumberStage();
