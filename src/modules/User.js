@@ -3,7 +3,7 @@ import { MESSAGE, RESET_OPTIONS, ERROR } from "./Constants.js";
 
 const answerNumberCheck = (input) => {
   // 1~9까지의 3자리 수 판단
-  const REGEXP = /^\d{3}$/;
+  const REGEXP = /^[1-9]{3}$/;
   if (!REGEXP.test(input)) {
     throw new Error(ERROR.INPUT_LENGTH);
   }

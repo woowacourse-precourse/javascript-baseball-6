@@ -18,6 +18,7 @@ class Computer {
       !ANSWER.includes(RANDOM_NUMBER) && ANSWER.push(RANDOM_NUMBER);
     }
     MissionUtils.Console.print(ANSWER);
+    return ANSWER;
   }
 }
 
