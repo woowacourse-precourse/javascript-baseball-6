@@ -26,6 +26,6 @@ class App {
     return ;
   }
 
-}
+};
 
 export default App;
