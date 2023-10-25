@@ -40,6 +40,10 @@ class App {
     return userInput.trim().split("").map(Number);
   }
 
+  printResult(usersAnswer) {
+    Console.print(ANSWER_TABLE[usersAnswer]);
+  }
+
   checkValidAnswer(userInput) {
     const condition =
       userInput.length !== 3 ||
