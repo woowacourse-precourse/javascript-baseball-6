@@ -9,51 +9,50 @@ import {
 } from "../Text/message.js";
 
 //game play
-const gamePlay = async (playerNum, computerNum) => {
+const gamePlay = (playerNum, computerNum) => {
   //3스트라이크
   if (playerNum === computerNum) {
     MissionUtils.Console.print(END_MESSAGE.perfect);
-
-    return await gameEnd();
+    MissionUtils.Console.print(END_MESSAGE.ending);
+    gameEnd();
+    return;
   }
   //아닐 때, 볼 판정 후 다시 사용자 입력 받기
   const PLAY_TEXT = ballManager(playerNum, computerNum);
   MissionUtils.Console.print(PLAY_TEXT);
-  await gameStart(computerNum);
+  gameStart(computerNum);
 };
 
 //game end
-async function gameEnd() {
-  MissionUtils.Console.print(END_MESSAGE.ending);
-
+const gameEnd = async () => {
   const RESTART_BUTTON = await MissionUtils.Console.readLineAsync(
     END_MESSAGE.restart
   );
 
   if (RESTART_BUTTON.trim() === RESTART_CHECK.continue) {
-    return init(); //다시 시작
+    init(); //다시 시작
+    return;
   }
   if (RESTART_BUTTON.trim() === RESTART_CHECK.stop) {
     return; //종료
   }
   // 1과 2 입력 아닐 때, throw
   throw new Error(ERROR_MESSAGE.oneTwoError);
-}
+};
 
 //game start
-async function gameStart(computerNum) {
+const gameStart = async (computerNum) => {
   //사용사 숫자 입력 받기
   const PLAYER_NUM = await MissionUtils.Console.readLineAsync(
     START_MESSAGE.input
   );
 
   //숫자 형식이 맞을 때
-  if (!errorOccurred(PLAYER_NUM)) {
+  if (errorOccurred(PLAYER_NUM) === false) {
     //게임 진행
-    await gamePlay(PLAYER_NUM, computerNum);
+    gamePlay(PLAYER_NUM, computerNum);
   }
-  return;
-}
+};
 
 //game set
 export const init = async () => {
