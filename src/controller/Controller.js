@@ -11,10 +11,11 @@ class Controller {
             hint = this.model.getHint(await this.view.getUserNumberInput());
             this.view.printHintMsg(hint);
         } while (this.model.isRoundContinuedFromHint(hint))
-        this.view.printEndMsg();
+        this.view.printRoundEndMsg();
     }
 
     async playGame() {
+        this.view.printGameStartMsg()
         do {
             await this.playRound()
         } while (this.model.isGameContinued(await this.view.getUserGameDecision()) === true)
