@@ -4,6 +4,7 @@ class App {
   constructor(name) {
     this.name = name;
   }
+  // 컴퓨터 숫자 받아오기
   async play() {
     const computer = [];
     while (computer.length < 3) {
