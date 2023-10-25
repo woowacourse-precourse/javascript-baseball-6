@@ -48,10 +48,9 @@ const gameStart = async (computerNum) => {
   );
 
   //숫자 형식이 맞을 때
-  if (errorOccurred(PLAYER_NUM) === false) {
-    //게임 진행
-    gamePlay(PLAYER_NUM, computerNum);
-  }
+  errorOccurred(PLAYER_NUM);
+  //게임 진행
+  gamePlay(PLAYER_NUM, computerNum);
 };
 
 //game set

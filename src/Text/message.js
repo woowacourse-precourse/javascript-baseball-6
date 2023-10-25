@@ -1,4 +1,4 @@
-export function getResultMessage(ball, strike) {
+export const getResultMessage = (ball, strike) => {
   const textArray = [];
   if (ball > 0) {
     textArray.push(`${ball}볼`);
@@ -8,7 +8,7 @@ export function getResultMessage(ball, strike) {
   }
 
   return textArray.length > 0 ? textArray.join(" ") : "낫싱";
-}
+};
 
 export const START_MESSAGE = {
   initial: "숫자 야구 게임을 시작합니다.",

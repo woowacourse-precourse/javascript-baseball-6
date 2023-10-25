@@ -18,6 +18,4 @@ export const errorOccurred = (playerNum) => {
   ) {
     throw new Error(ERROR_MESSAGE.dupError);
   }
-
-  return false;
 };
