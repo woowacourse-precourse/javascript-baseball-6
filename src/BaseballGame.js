@@ -73,6 +73,25 @@ class BaseballGame {
       }
     }
   }
+
+  printResult() {
+    let consoleMessage = '';
+
+    if (this.#ballCnt) {
+      consoleMessage = `${this.#ballCnt}볼 `;
+    } else if (this.#strikeCnt) {
+      consoleMessage += `${this.#strikeCnt}스트라이크 `;
+    } else {
+      consoleMessage = '낫싱';
+    }
+
+    MissionUtils.Console.print(consoleMessage);
+
+    if (this.#strikeCnt == 3) {
+      const CONSOLE_MESSAGE = '3개의 숫자를 모두 맞히셨습니다! 게임 종료';
+      MissionUtils.Console.print(CONSOLE_MESSAGE);
+    }
+  }
 }
 
 export default BaseballGame;
