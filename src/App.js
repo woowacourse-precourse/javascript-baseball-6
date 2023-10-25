@@ -6,10 +6,13 @@ class App {
     Screen.printTitle();
 
     const computer = new Computer();
-    const userNumbers = await Screen.inputUserNumbers();
 
-    computer.calculateResult(userNumbers);
-    Screen.printResult(computer);
+    while (!computer.isFinished()) {
+      const userNumbers = await Screen.inputUserNumbers();
+
+      computer.calculateResult(userNumbers);
+      Screen.printResult(computer);
+    }
   }
 }
 

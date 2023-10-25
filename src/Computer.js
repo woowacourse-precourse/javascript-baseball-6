@@ -34,6 +34,10 @@ class Computer {
     this.strike = strike;
     this.ball = ball;
   }
+
+  isFinished() {
+    return this.strike === 3;
+  }
 }
 
 export default Computer;
