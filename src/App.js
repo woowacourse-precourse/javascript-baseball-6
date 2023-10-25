@@ -15,12 +15,31 @@ const ANSWER_TABLE = {
 
 class App {
   constructor() {
-    Console.print("숫자 야구 게임을 시작합니다.");
     this._randomNumber = this.generateRandomNumber();
+    this.isContinue = true;
   }
 
-  play() {
-    this.getUserInput();
+  async play() {
+    Console.print("숫자 야구 게임을 시작합니다.");
+
+    while (this.isContinue) {
+      const userInput = await this.getUserInput();
+
+      if (!this.checkValidAnswer(userInput)) {
+        Console.print("올바르지 않은 숫자입니다.");
+        continue;
+      }
+
+      let usersAnswer = this.checkParsedAnswer(userInput);
+
+      this.printResult(usersAnswer);
+
+      if (usersAnswer === "0b3s") {
+        Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+        this.isContinue = false;
+        await this.checkContinueOrExit();
+      }
+    }
   }
 
   generateRandomNumber() {
@@ -40,33 +59,22 @@ class App {
   async getUserInput() {
     const userInput = await Console.readLineAsync("숫자를 입력해주세요: ");
 
-    this.validateUserInput(userInput);
+    if (userInput == null || userInput.trim() === "") {
+      throw new Error("[ERROR] 입력값이 유효하지 않습니다.");
+    }
+
+    return userInput.trim().split("").map(Number);
   }
 
-  validateUserInput(userInput) {
-    let usersAnswer = this.checkCorrectAnswer(userInput);
-    let isValidAnswer = this.checkValidAnswer(userInput);
-
-    if (!isValidAnswer) {
-      throw new Error(
-        "[ERROR] 올바르지 않은 숫자입니다. 프로그램을 종료합니다."
-      );
-    }
-
-    if (usersAnswer === "0b3s") {
-      Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-      this.checkContinueOrExit();
-    } else {
-      Console.print(ANSWER_TABLE[usersAnswer]);
-      this.getUserInput();
-    }
+  async printResult(usersAnswer) {
+    Console.print(ANSWER_TABLE[usersAnswer]);
   }
 
   checkValidAnswer(userInput) {
     if (
       userInput.length !== 3 ||
       new Set(userInput).size !== 3 ||
-      userInput.split("").some(isNaN)
+      userInput.some(isNaN)
     ) {
       return false;
     }
@@ -74,13 +82,11 @@ class App {
     return true;
   }
 
-  checkCorrectAnswer(userInput) {
+  checkParsedAnswer(userInput) {
     let strike = 0;
     let ball = 0;
 
-    const usersNumberArr = userInput.split("").map((num) => parseInt(num));
-
-    usersNumberArr.forEach((num, idx) => {
+    userInput.forEach((num, idx) => {
       if (!this._randomNumber.includes(num)) return;
 
       if (this._randomNumber.indexOf(num) === idx) {
@@ -99,7 +105,7 @@ class App {
     );
 
     if (userInput === "1") {
-      this.checkContinueGame();
+      this.continueGame();
     }
 
     if (userInput === "2") {
@@ -107,9 +113,10 @@ class App {
     }
   }
 
-  checkContinueGame() {
+  async continueGame() {
     this._randomNumber = this.generateRandomNumber();
-    this.play();
+    this.isContinue = true;
+    await this.play();
   }
 }
 
