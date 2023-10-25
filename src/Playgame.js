@@ -5,16 +5,16 @@ class Playgame {
     }
 
     check(input) {
-        if (userInput.length !== 3 || this.hasDuplicate(userInput)) {
+        if (input.length !== 3 || this.hasDuplicate(input)) {
             return false;
           }
         return true;
     }
 
     //중복된 숫자 확인
-    hasDuplicate(userInput) {
-        const set = new Set(userInput);
-        return set.size !== userInput.length;
+    hasDuplicate(input) {
+        const set = new Set(input);
+        return set.size !== input.length;
     }
 
 
@@ -27,7 +27,7 @@ class Playgame {
         for (let i = 0; i < 3; i++) {
             if (numbers[i] === input[i]) {
                 strike++;
-            } else if (numbers.includes(input[i])) {
+            } else if (input.includes(numbers[i])) {
                 ball++;
             }
         };
