@@ -20,6 +20,7 @@ class App {
 
       if (strike === 3) {
         this.view.printSuccess();
+        this.isGameEnded = await this.balls.EndGame();
       } else {
         this.view.printHint(strike, ball);
       }
