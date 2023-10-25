@@ -96,11 +96,30 @@ class App {
     return resultString;
   }
 
+  async confirmRetry() {
+    const userGameRestart = await Console.readLineAsync(PRINT_STRING.GAME_RESTART);
+    if (userGameRestart === '1') {
+      this.play();
+    } else if (userGameRestart === '2') {
+      throw new Error("[프로그램 종료]")
+    } else {
+      throw new Error(PRINT_ERROR_STRING.ERROR_INPUT_GAME_RESTART);
+    }
+  }
+
+
+  processNextStep(strike) {
+    if (strike === 3) {
+      this.confirmRetry();
+    }
+  }
+
   callbackUserNumber() {
     this.convertToNumberArray();
     this.arrayErrorCheck();
     const [strike, ball] = this.arrayCheck()
     this.printResult(strike, ball)
+    this.processNextStep(strike)
   }
 
   async play() {
