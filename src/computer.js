@@ -125,6 +125,10 @@ class Computer {
   static printSuccessMessage() {
     MissionUtils.Console.print(SUCCESS_MESSAGE);
   }
+
+  static checkSuccess(strike) {
+    return strike === NUMBER_LENGTH;
+  }
 }
 
 export default Computer;

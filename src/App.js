@@ -6,8 +6,6 @@ const INVALID_INPUT_LENGTH_ERROR_MESSAGE = "[ERROR] 입력값의 길이가 잘�
 const DUPLICATED_NUMBER_ERROR_MESSAGE = "[ERROR] 중복된 숫자를 입력했습니다.";
 const REPLAY_INPUT_ERROR_MESSAGE = "[ERROR] 1 또는 2 이외의 값을 입력했습니다.";
 
-const NUMBER_LENGTH = 3;
-
 class App {
   constructor() {
     this.computer = new Computer();
@@ -35,7 +33,7 @@ class App {
         const { strike, ball } = this.computer.calculateResult(expectedNumbers);
         Computer.printResultMessage({ strike, ball });
   
-        if (this.checkSuccess(strike)) {
+        if (Computer.checkSuccess(strike)) {
           this.success = true;
           Computer.printSuccessMessage();
         }
@@ -49,10 +47,6 @@ class App {
       this.isPlaying = replay === "1";
       this.success = false;
     }
-  }
-
-  checkSuccess(strike) {
-    return strike === NUMBER_LENGTH;
   }
 }
 
