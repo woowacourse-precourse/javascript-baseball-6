@@ -14,6 +14,7 @@ const SUCCESS_MESSAGE = "3개의 숫자를 모두 맞히셨습니다! 게임 종
 const INVALID_CHARATER_ERROR_MESSAGE = "[ERROR] 1부터 9 사이의 숫자 이외의 값을 입력했습니다.";
 const INVALID_INPUT_LENGTH_ERROR_MESSAGE = "[ERROR] 입력값의 길이가 잘못됐습니다.";
 const DUPLICATED_NUMBER_ERROR_MESSAGE = "[ERROR] 중복된 숫자를 입력했습니다.";
+const REPLAY_INPUT_ERROR_MESSAGE = "[ERROR] 1 또는 2 이외의 값을 입력했습니다.";
 
 const toUniqueNumbers = (answer) => {
   const numbers = [
@@ -34,6 +35,7 @@ class Computer {
       strike: 0,
       ball: 0,
     };
+    this.replay = true;
   }
 
   selectNumbers() {
@@ -152,7 +154,7 @@ class Computer {
 
   printSuccessMessage() {
     if (!this.checkSuccess()) return;
-    
+
     MissionUtils.Console.print(SUCCESS_MESSAGE);
   }
 
@@ -163,6 +165,18 @@ class Computer {
   setRound() {
     this.selectNumbers();
     this.resetResult();
+  }
+
+  setReplay(replay) {
+    if (!Computer.validateReplayValue(replay)) {
+      throw new Error(REPLAY_INPUT_ERROR_MESSAGE);
+    }
+
+    this.replay = replay === REPLAY;
+  }
+
+  getReplay() {
+    return this.replay;
   }
 }
 
