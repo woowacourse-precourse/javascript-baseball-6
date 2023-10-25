@@ -1,6 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
 import Computer from './Computer.js';
 import { inputValidator, playAgainInputValidator } from './utils/inputValidator.js';
+import { GUIDE_MESSAGE } from '../constants/index.js';
 
 class Player {
   /**
@@ -14,7 +15,7 @@ class Player {
   }
 
   async getUserInput() {
-    const userInput = await Console.readLineAsync('숫자를 입력해주세요 : ');
+    const userInput = await Console.readLineAsync(GUIDE_MESSAGE.INPUT);
     inputValidator(userInput);
     this.handlePlayerNumbers(userInput);
   }
@@ -35,10 +36,8 @@ class Player {
   }
 
   async playAgain() {
-    Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
-    const userInput = await Console.readLineAsync(
-      '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'
-    );
+    Console.print(GUIDE_MESSAGE.PLAYER_WIN);
+    const userInput = await Console.readLineAsync(GUIDE_MESSAGE.RESTART);
 
     playAgainInputValidator(userInput);
 

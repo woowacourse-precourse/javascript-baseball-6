@@ -1,4 +1,5 @@
 import pickNumbers from './utils/pickNumbers.js';
+import { BALL_COUNT } from '../constants/index.js';
 
 class Computer {
   #computerNumbers;
@@ -24,9 +25,9 @@ class Computer {
   generateBallCountMessage([strike, ball, out]) {
     let ballCountMessage = '';
 
-    if (ball > 0) ballCountMessage += `${ball}볼 `;
-    if (strike > 0) ballCountMessage += `${strike}스트라이크`;
-    if (out === 3) ballCountMessage += `낫싱`;
+    if (ball > 0) ballCountMessage += `${ball}${BALL_COUNT.BALL} `;
+    if (strike > 0) ballCountMessage += `${strike}${BALL_COUNT.STRIKE}`;
+    if (out === 3) ballCountMessage += `${BALL_COUNT.OUT}`;
 
     return [ballCountMessage, strike];
   }

@@ -1,11 +1,12 @@
 import { Console } from '@woowacourse/mission-utils';
+import { GUIDE_MESSAGE } from '../constants/index.js';
 import Player from './Player.js';
 
 class App {
   #player = new Player();
 
   async play() {
-    Console.print('숫자 야구 게임을 시작합니다.');
+    Console.print(GUIDE_MESSAGE.START);
     await this.#player.startGame();
   }
 }
