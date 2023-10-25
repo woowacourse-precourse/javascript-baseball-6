@@ -1,4 +1,5 @@
-import { INPUT_MESSAGE, FINISH_MESSAGE, USER_CHOICE_RETRY } from "./constants/Messages.js";
+import { INPUT_MESSAGE, FINISH_MESSAGE } from "./constants/Messages.js";
+import { USER_CHOICE } from "./constants/MagicNumber.js";
 import { validateInput } from "./ValidateInput.js";
 import { generateRandomNumber } from "./RandomNumber.js";
 import { printIntroMessage, printGameResult, printEndMessage } from "./View.js";
@@ -13,7 +14,7 @@ async function getUserInput() {
 
 async function askRetry() {
   const retry = await Console.readLineAsync(FINISH_MESSAGE);
-  if (retry == USER_CHOICE_RETRY) return true;
+  if (retry === USER_CHOICE.retry) return true;
   else return false;
 }
 

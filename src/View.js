@@ -1,3 +1,4 @@
+import { DELIMITER } from "./constants/MagicNumber.js";
 import { OUTPUT_MESSAGE, GAME_RESULT } from "./constants/Messages.js";
 import { Console } from "@woowacourse/mission-utils";
 
@@ -6,7 +7,7 @@ function printIntroMessage() {
 }
 
 function printGameResult(score = {}) {
-  let message = "";
+  let message = DELIMITER;
   if (score.strike === 0 && score.ball === 0) {
     message += GAME_RESULT.nothing;
   }
@@ -15,7 +16,7 @@ function printGameResult(score = {}) {
       message += score.ball + GAME_RESULT.ball;
     }
     if (score.strike > 0) {
-      if (message !== "") message += " ";
+      if (message !== DELIMITER) message += BLANK;
       message += score.strike + GAME_RESULT.strike;  
     }
   }

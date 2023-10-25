@@ -15,5 +15,4 @@ export const GAME_RESULT = {
   nothing: "낫싱"
 }
 
-export const USER_CHOICE_RETRY = "1";
 export const FINISH_MESSAGE = OUTPUT_MESSAGE.outro + INPUT_MESSAGE.retry;
