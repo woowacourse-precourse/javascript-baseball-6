@@ -7,6 +7,7 @@ class App {
     const RANDOM_NUMBER = CREATE_RANDOM_NUMBER();
     console.log("컴퓨터"+RANDOM_NUMBER);
     const PLAYER_NUMBER = (await PLAYER_INPUT()).split('').map(Number);
+    await RETURN_RESULT(PLAYER_NUMBER,RANDOM_NUMBER);
   }
 }
 
