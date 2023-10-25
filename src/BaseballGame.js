@@ -12,10 +12,14 @@ export class BaseballGame {
     this.computer = null;
   }
 
-  init() {
-    this.computer = this.getRandomComputerNumber();
+  startGame() {
+    this.init();
     Console.print(ConsoleMessage.START_GAME);
     return this.playBaseball(this.computer);
+  }
+
+  init() {
+    this.computer = this.getRandomComputerNumber();
   }
 
   async playBaseball(computer) {
@@ -92,8 +96,10 @@ export class BaseballGame {
 
   validateAnswer(num) {
     const answer = parseInt(num);
-    if (answer === BaseballGame.RESTART_GAME) return this.init();
-    else if (answer === BaseballGame.GAME_OVER) return;
+    if (answer === BaseballGame.RESTART_GAME) {
+      this.init();
+      return this.playBaseball(this.computer);
+    } else if (answer === BaseballGame.GAME_OVER) return;
     else throw new Error(ErrorMessage.ONE_OR_TWO_ONLY);
   }
 }
