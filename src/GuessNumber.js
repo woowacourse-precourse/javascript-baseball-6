@@ -19,12 +19,14 @@ class GuessNumber {
     this.guessNumberArray = [];
   }
 
-  validation() {
+  async validation() {
     if (hasNaNArray(this.guessNumberArray)) {
-      throw new CustomError(EXCEPTION_CASE.NUMBER_FORMAT_EXCEPTION);
+      return Promise.reject(
+        new CustomError(EXCEPTION_CASE.NUMBER_FORMAT_EXCEPTION)
+      );
     }
     if (isWrongLength(this.guessNumberArray, GAME_INFO.GUESS_NUMBER_LENGTH)) {
-      throw new CustomError(EXCEPTION_CASE.LENGTH_EXCEPTION);
+      return Promise.reject(new CustomError(EXCEPTION_CASE.LENGTH_EXCEPTION));
     }
     if (
       hasOutOfRangeArray(
@@ -33,26 +35,21 @@ class GuessNumber {
         GAME_INFO.MAX_NUMBER
       )
     ) {
-      throw new CustomError(EXCEPTION_CASE.RANGE_EXCEPTION);
+      return Promise.reject(new CustomError(EXCEPTION_CASE.RANGE_EXCEPTION));
     }
     if (hasSameNumberArray(this.guessNumberArray)) {
-      throw new CustomError(EXCEPTION_CASE.DUPLICATION_EXCEPTION);
+      return Promise.reject(
+        new CustomError(EXCEPTION_CASE.DUPLICATION_EXCEPTION)
+      );
     }
   }
 
   async inputGuessNumber() {
-    try {
-      this.guessNumberArray = Array.from(
-        await Console.readLineAsync("숫자를 입력해주세요 : ")
-      ).map(Number);
-      this.validation();
-      return true;
-    } catch (e) {
-      if (e.name === "CustomError") {
-        Console.print(e.message);
-      }
-      return false;
-    }
+    this.guessNumberArray = Array.from(
+      await Console.readLineAsync("숫자를 입력해주세요 : ")
+    ).map(Number);
+    await this.validation();
+    return true;
   }
 
   getStrike() {
@@ -69,12 +66,15 @@ class GuessNumber {
     );
   }
 
-  async getResult() {
+  getResult() {
     const strike = this.getStrike();
     const ball = this.getBall();
+    console.log(this.guessNumberArray, this.correctAnswerArray);
 
     if (strike === GAME_INFO.GUESS_NUMBER_LENGTH) {
-      Console.print(`${GAME_INFO.GUESS_NUMBER_LENGTH}스트라이크`);
+      Console.print(
+        `${GAME_INFO.GUESS_NUMBER_LENGTH}스트라이크\n${GAME_INFO.GUESS_NUMBER_LENGTH}개의 숫자를 모두 맞히셨습니다! 게임 종료`
+      );
       return true;
     }
     if (ball > 0 && strike > 0) {

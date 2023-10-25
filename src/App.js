@@ -2,7 +2,8 @@ import BaseballGame from "./BaseballGame.js";
 
 class App {
   async play() {
-    new BaseballGame();
+    this.game = new BaseballGame();
+    await this.game.init();
   }
 }
 
