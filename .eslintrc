@@ -1,0 +1,15 @@
+{
+  "extends": "airbnb-base",
+  "parserOptions": {
+    "ecmaVersion": 13
+  },
+  "rules": {
+    "import/extensions": [
+      "error",
+      "always",
+      {
+        "js": "always"
+      }
+    ]
+  }
+}
