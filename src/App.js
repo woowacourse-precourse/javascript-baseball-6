@@ -4,6 +4,7 @@ class App {
   //FLAG = True;
   constructor() {
     this.FLAG = true;
+    this.comNumbers = [];
   }
 
   getComNumbers() {
@@ -20,18 +21,18 @@ class App {
   calculateResult(userNumbers) {
     let strikeCnt = 0;
     let ballCnt = 0;
-    let comNumbers = this.getComNumbers();
-    //comNumbers = [1, 3, 5];
-    MissionUtils.Console.print("comNumbers");
-    MissionUtils.Console.print(comNumbers);
 
-    let intersection = userNumbers.filter((num) => comNumbers.includes(num));
+    //comNumbers = [1, 3, 5];
+    // MissionUtils.Console.print("comNumbers");
+    // MissionUtils.Console.print(this.comNumbers);
+
+    let intersection = userNumbers.filter((num) => this.comNumbers.includes(num));
 
     if (Array.isArray(intersection) && intersection.length === 0) {
       return "낫싱";
     } else {
       for (const num of intersection) {
-        let comIdx = comNumbers.indexOf(num);
+        let comIdx = this.comNumbers.indexOf(num);
         let userIdx = userNumbers.indexOf(num);
         if (comIdx === userIdx) {
           strikeCnt++;
@@ -44,8 +45,8 @@ class App {
   }
 
   validationInput(userNumbers) {
-    MissionUtils.Console.print("userNumbers");
-    MissionUtils.Console.print(userNumbers);
+    // MissionUtils.Console.print("userNumbers");
+    // MissionUtils.Console.print(userNumbers);
     if (
       userNumbers.includes(NaN) ||
       userNumbers.includes(0) ||
@@ -58,7 +59,7 @@ class App {
 
   async play() {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
-
+    this.comNumbers = [...this.getComNumbers()];
     while (this.FLAG) {
       let userNumberstr = await MissionUtils.Console.readLineAsync(
         "숫자를 입력해주세요 : "
@@ -89,6 +90,7 @@ class App {
           );
           if (flagstr === "1") {
             this.FLAG = true;
+            this.comNumbers = [...this.getComNumbers()];
           } else if (flagstr === "2") {
             this.FLAG = false;
           } else {
@@ -105,5 +107,5 @@ class App {
 
 export default App;
 
-// const app = new App();
-// app.play();
+const app = new App();
+app.play();
