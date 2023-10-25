@@ -1,4 +1,4 @@
-import { Console, Random } from './Constant';
+import { Console, ERROR_TEXT, GAME_START_TEXT, Random } from './Constant';
 
 class App {
   constructor() {
@@ -29,6 +29,21 @@ class App {
 
   async getHitterNumbers() {
     const answerStr = await Console.readLineAsync(GAME_START_TEXT);
+    if (answerStr) {
+      await this.hitterValidator(answerStr);
+      this.hitterNumbers = answerStr.split('').map(Number);
+    }
+  }
+
+  hitterValidator(answer) {
+    if (answer) {
+      const answerStrArr = answer.split('');
+      const answerNumArr = answerStrArr.map(Number);
+      const repeatNumbers = [...new Set(answerNumArr)];
+      if (answerNumArr.length !== 3 || answerNumArr.includes(0) || repeatNumbers.length !== 3) {
+        throw new Error(ERROR_TEXT);
+      }
+    }
   }
 }
 
