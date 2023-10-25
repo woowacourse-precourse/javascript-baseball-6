@@ -11,7 +11,7 @@ class App {
   }
 
   async play() {
-    this.output.printStartGame("숫자 야구 게임을 시작합니다.");
+    this.output.printStartGame();
 
     while (!this.isGameEnded) {
       const inputNumbers = await this.input.getPlayerGuess();
