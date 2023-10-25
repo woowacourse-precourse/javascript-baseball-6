@@ -1,16 +1,16 @@
 import { MissionUtils } from "@woowacourse/mission-utils"; //@woowacourse/mission-utils 모듈에서 MissionUtils 값을 호출
 
-export default class App {
+class App {
   constructor() {
     this.computerNumbers = [];
     this.shouldRun = true;
     this.attempts = 0;
   }
 
-  generateRandomNumbers() { // 사용자가 입력한 값과 비교를 수행하기 위한 기준값 computerNumber를 3자리 수로 생성
+  async generateRandomNumbers() { // 사용자가 입력한 값과 비교를 수행하기 위한 기준값 computerNumber를 3자리 수로 생성
     this.computerNumbers = [];
     while (this.computerNumbers.length < 3) {
-      const number = MissionUtils.Random.pickNumberInRange(1, 9);
+      const number = await MissionUtils.Random.pickNumberInRange(1, 9);
       if (!this.computerNumbers.includes(number)) {
         this.computerNumbers.push(number);
       }
