@@ -1,6 +1,7 @@
-import { Console } from '@woowacourse/mission-utils';
-import Messages from './constants/Messages.js';
-import ComputerUser from './ComputerUser.js';
+const { Console } = require('@woowacourse/mission-utils');
+const Messages = require('./constants/Messages');
+const ComputerUser = require('./ComputerUser');
+
 
 class BaseballGame {
     /** 
@@ -88,10 +89,10 @@ class BaseballGame {
             Console.print(Messages.GAME_OVER);
             Console.close();
         } else {
-            throw new Error(Messages.ERROR.INVALUED_SELECT_NUMBER);
+            throw new Error(Messages.ERROR.INVALID_SELECT_NUMBER);
         }
     });
    };
 }
 
-export default BaseballGame;
+module.exports = BaseballGame;
