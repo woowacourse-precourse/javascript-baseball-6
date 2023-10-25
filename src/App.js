@@ -58,14 +58,11 @@ class App {
       message = '낫싱';
     }
     Console.print(message);
-    if (strike === 3) {
-      return this.endGame();
-    }
-    return this.continueGame();
+    return strike === 3 ? this.endGame() : this.continueGame();
   }
 
-  continueGame() {
-    this.getInput();
+  async continueGame() {
+    await this.getInput();
   }
 
   endGame() {
