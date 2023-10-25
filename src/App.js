@@ -51,26 +51,21 @@ class App {
   async calculate() {
     const inputArr = this.input.split("");
     const answerArr = this.answer.split("");
-
     await this.strike(inputArr, answerArr);
     await this.ball(inputArr, answerArr);
     await this.consoleOutput(this.strikeCount, this.ballCount);
   }
 
   async strike(inputArr, answerArr) {
-    const isStrike = answerArr.map((item, index) => {
-      return item === inputArr[index];
-    });
-    this.strikeCount = isStrike.filter((x) => x).length;
-    return this.strikeCount;
+    this.strikeCount = inputArr.filter(
+      (item, index) => item === answerArr[index]
+    ).length;
   }
 
   async ball(inputArr, answerArr) {
-    const isBall = answerArr.map((item, index) => {
-      return inputArr.includes(item) && item !== inputArr[index];
-    });
-    this.ballCount = isBall.filter((x) => x).length;
-    return this.ballCount;
+    this.ballCount = inputArr.filter(
+      (item, index) => answerArr.includes(item) && item !== answerArr[index]
+    ).length;
   }
 
   async consoleOutput() {
@@ -87,11 +82,9 @@ class App {
     if (choice !== 1 && choice !== 2) {
       throw new Error(ERROR.ONE_OR_TWO);
     }
-
     if (choice === 1) {
       this.restart = true;
     }
-
     if (choice === 2) {
       this.proceeding = false;
       return;
