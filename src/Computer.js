@@ -18,6 +18,22 @@ class Computer {
 
     this.numbers = numbers;
   }
+
+  calculateResult(userNumbers) {
+    let strike = 0;
+    let ball = 0;
+
+    Array.from(userNumbers).forEach((number, idx) => {
+      if (number === this.numbers[idx]) {
+        strike += 1;
+      } else if (this.numbers.includes(number)) {
+        ball += 1;
+      }
+    });
+
+    this.strike = strike;
+    this.ball = ball;
+  }
 }
 
 export default Computer;
