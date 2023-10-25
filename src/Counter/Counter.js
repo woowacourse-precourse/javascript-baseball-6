@@ -20,17 +20,14 @@ class Counter {
         else this.#ballCount += 1;
       }
     });
-
-    return this.getHintValue();
   }
 
   getStrikes() {
     return this.#strikeCount;
   }
 
-  getHintValue() {
-    // 이거 분리하자 Viewer로
-    return `${this.#strikeCount} 스트라이크 ${this.#ballCount} 볼`;
+  getBalls() {
+    return this.#ballCount;
   }
 }
 
