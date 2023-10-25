@@ -1,5 +1,5 @@
 class Umpire {
-    checkBatterResult (pitcherBallNumbers, batterBallNumbers) {
+    computeBatterResult (pitcherBallNumbers, batterBallNumbers) {
         let strikeCount = 0;
         let ballCount = 0;
 

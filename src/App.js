@@ -28,7 +28,7 @@ class App {
                 await batter.enterGameNumbers();
                 const batterGameNumbers = batter.gameNumbers;
 
-                const { strikeCount, ballCount} = umpire.checkBatterResult(
+                const { strikeCount, ballCount} = umpire.computeBatterResult(
                     pitcherGameNumbers,
                     batterGameNumbers,
                 );
