@@ -6,7 +6,7 @@ const ERROR_MESSAGE = {
 };
 
 export const validation = {
-  validatePlayerNumber(input) {
+  validatePlayNumber(input) {
     const inputArray = input.split("");
     const { NOT_NUMBER, OVER_OR_UNDER_LIMIT, DUPLICATED } = ERROR_MESSAGE;
     if (Number.isNaN(parseInt(input))) {

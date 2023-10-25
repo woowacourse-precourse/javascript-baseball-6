@@ -10,7 +10,7 @@ export const player = {
   input: async function () {
     try {
       const input = await Console.readLineAsync(INPUT_MESSAGE.PLAY_NUMBER);
-      validation.validatePlayerNumber(input);
+      validation.validatePlayNumber(input);
 
       return input;
     } catch (error) {
