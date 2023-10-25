@@ -20,19 +20,33 @@ class App {
   }
 
   async getUserGuess() {
-    const guess = [];
-    while (guess.length < 3) {
-      const input = await MissionUtils.Console.readLineAsync(
+    let guess;
+    do {
+      guess = await MissionUtils.Console.readLineAsync(
         "1부터 9까지의 숫자 중 서로 다른 숫자 3개를 입력하세요: "
       );
-      const number = parseInt(input, 10);
-      if (isNaN(number) || number < 1 || number > 9 || guess.includes(number)) {
-        console.log("잘못된 입력입니다. 다시 입력하세요.");
-      } else {
-        guess.push(number);
-      }
+    } while (!this.isValidInput(guess));
+
+    return guess.split("").map(Number);
+  }
+
+  isValidInput(input) {
+    if (input.length !== 3) {
+      console.log("3개의 숫자를 입력하세요.");
+      return false;
     }
-    return guess;
+
+    const numbers = input.split("").map(Number);
+
+    if (
+      numbers.some((num) => isNaN(num) || num < 1 || num > 9) ||
+      new Set(numbers).size < 3
+    ) {
+      console.log("잘못된 입력입니다. 다시 입력하세요.");
+      return false;
+    }
+
+    return true;
   }
 }
 
