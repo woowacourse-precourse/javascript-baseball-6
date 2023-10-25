@@ -11,6 +11,11 @@ class App {
     await this.runGame();
   }
 
+  async restart() {
+    this.answer = this.generateAnswer();
+    await this.runGame();
+  }
+
   generateAnswer() {
     let answer = [];
     while (answer.length < 3) {
@@ -79,6 +84,29 @@ class App {
       resultArr.push(`${strike}스트라이크`);
     }
     return resultArr.length === 0 ? '낫싱' : resultArr.join(' ');
+  }
+
+  async askForRestart() {
+    let input;
+    while (true) {
+      input = await Console.readLineAsync(
+        '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. '
+      );
+
+      if (input === '1' || input === '2') {
+        break;
+      }
+    }
+
+    if (input === '1') {
+      this.answer = this.generateAnswer();
+      return true;
+    }
+
+    if (input === '2') {
+      Console.print('게임을 종료합니다.');
+      return false;
+    }
   }
 }
 
