@@ -32,12 +32,13 @@ class App {
 
   /**
    * 입력 값이 입력되면 형식에 맞는지 확인
-   * @param {String} input 
+   * @param {String} input
    */
   checkInputError(input) {
     validation.checkInputLen(input);
     validation.checkInputType(input);
     validation.checkInputSameNum(input);
+    validation.checkZeroNum(input);
   }
 
   /**

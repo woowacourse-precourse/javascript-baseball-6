@@ -15,5 +15,6 @@ export const errorMessages = {
   INPUT_TYPE_ERROR: '[ERROR] 숫자를 입력해주세요.',
   INPUT_LEN_ERROR: '[ERROR] 반드시 3자리 수를 입력해야 합니다.',
   INPUT_SAME_NUM_ERROR: '[ERROR] 각각 다른 수를 입력해주세요.',
+  INPUT_ZERO_ERROR: '[ERROR] 1~9 사이의 숫자를 입력해주세요.',
   RESTART_INPUT_ERROR: `[ERROR] 잘못된 입력으로 인해 게임을 종료합니다.`,
 };
