@@ -1,9 +1,12 @@
 import { Console } from '@woowacourse/mission-utils';
 import { generateRandomBallNumber } from './Ball.js';
-import { messages, errorMessages } from './Message.js';
+import { messages } from './Message.js';
 import * as validation from './Validation.js';
 
 class App {
+  /**
+   * 생성 시 this.ramdoms에 정답 저장
+   */
   constructor() {
     this.randoms = generateRandomBallNumber();
   }
@@ -16,7 +19,6 @@ class App {
   /**
    * 사용자의 입력 값을 입력받은 후 출력
    */
-
   async getInput() {
     try {
       const input = await Console.readLineAsync(messages.INPUT_NUMBER);
@@ -27,17 +29,22 @@ class App {
       throw err;
     }
   }
+
+  /**
+   * 입력 값이 입력되면 형식에 맞는지 확인
+   * @param {String} input 
+   */
   checkInputError(input) {
     validation.checkInputLen(input);
     validation.checkInputType(input);
     validation.checkInputSameNum(input);
   }
+
   /**
    * input을 randoms와 비교한 후 Strike, Ball 개수 반환
    * @param {String} input
    * @returns {[Number, Number]} Strike, Ball 개수
    */
-
   countBallStrike = (input) => {
     const countStrike = [...input].filter(
       (num, i) => ~~num === this.randoms[i]
@@ -53,7 +60,6 @@ class App {
    * @param {String} input
    * @returns {String} 입력 값에 대한 결과
    */
-
   resultMessage = (input) => {
     let resultText = [];
     const [ball, strike] = this.countBallStrike(input);
@@ -65,7 +71,7 @@ class App {
   };
 
   /**
-   * '3 스트라이크'인지 확인
+   * 결과가 '3 스트라이크'인지 확인 후 재시작 혹은 종료
    * @param {String} text
    */
   checkSuccess = (text) => {
@@ -81,8 +87,8 @@ ${messages.GAME_FINISH}`);
 
   /**
    * 입력 값이 '1'이면 재시작, '2'이면 게임 종료 출력
+   * 입력 값이 형식에 맞지 않으면 에러 발생
    */
-
   async restart() {
     try {
       const input = await Console.readLineAsync(messages.RESTART_GAME);
