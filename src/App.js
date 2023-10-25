@@ -49,5 +49,20 @@ export default class App {
     isInputValid(input) {
         const uniqueDigits = [...new Set(input.split(''))];
         return uniqueDigits.length === 3 && uniqueDigits.every(digit => digit >= '1' && digit <= '9');
-      } 
+      }
+      getStrikeAndBallCount(userInput) {
+        let strike = 0;
+        let ball = 0;
+
+        userInput.split('').forEach((digit, index) => {
+            if (digit == this.computerNumbers[index]) {
+                strike++;
+            } else if (this.computerNumbers.includes(Number(digit))) {
+                ball++;
+            }
+        });
+
+        return { strike, ball };
+    }
+ 
   }
