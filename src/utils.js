@@ -57,10 +57,10 @@ const isValidAnswerInput = (input) => {
 const getValidRetryInput = (input) => {
   input = Number(input.trim());
   const { RESTART_NUMBER, EXIT_NUMBER } = SETTING;
-  const { NOT_RETRY_NUMBER } = ERROR_MESSAGE;
+  const { NOT_RESTART_NUMBER } = ERROR_MESSAGE;
 
   if (input !== RESTART_NUMBER && input !== EXIT_NUMBER) {
-    throw new Error(`${NOT_RETRY_NUMBER}`);
+    throw new Error(`${NOT_RESTART_NUMBER}`);
   }
 
   return input;

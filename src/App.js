@@ -2,7 +2,7 @@ import { printMessage, readLineAsync, isValidAnswerInput, getValidRetryInput } f
 import { MESSAGE, SETTING, GAME_STATUS } from './constants';
 import { Game } from './Game';
 
-const { START, INPUT_NUMBER, CORRECT, RETRY } = MESSAGE
+const { START, INPUT_NUMBER, CORRECT, RESTART } = MESSAGE
 const { SIZE, RESTART_NUMBER, EXIT_NUMBER } = SETTING;
 
 class App {
@@ -28,9 +28,9 @@ class App {
 
         if (score.strike === SIZE) {
           printMessage(CORRECT);
-          const input = await readLineAsync(RETRY);
+          const input = await readLineAsync(RESTART);
           const num = getValidRetryInput(input);
-          this.retry(num);
+          this.restart(num);
         }
       }
     } catch (error) {
@@ -50,7 +50,7 @@ class App {
    * @param {number} num: 사용자가 입력한 숫자
    * @description 게임을 재시작 혹은 종료할지 판별하는 함수
    */
-  retry(num) {
+  restart(num) {
     if (num === RESTART_NUMBER) {
       this.start();
     } else if (num === EXIT_NUMBER) {
