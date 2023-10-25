@@ -9,7 +9,6 @@ export default class App {
 		this.gameStart();
 
 		// 게임 실행
-		// true일 동안 계속 게임 실행
 		while (true) {
 			await this.gamePlay();
 			// 게임 재시작 여부 확인
