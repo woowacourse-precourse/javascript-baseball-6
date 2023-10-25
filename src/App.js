@@ -10,6 +10,7 @@ class App {
     while (true) {
       this.getComputerNum();
       
+      
     }
   }
 
