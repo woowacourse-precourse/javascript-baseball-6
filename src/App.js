@@ -24,6 +24,22 @@ class App {
         }
     }
 
+    async inputNumber() {
+        while (true) {
+            const userInput = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
+
+            if (!this.isValidInput(userInput)) {
+                throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
+            }
+
+            const isContinue = await this.judgeContinue(userInput);
+
+            if (!isContinue) {
+                break;
+            }
+        }
+    }
+    
 }
 
 export default App;
