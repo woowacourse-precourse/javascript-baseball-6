@@ -1,9 +1,16 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
+import ReturnError from "./RetrunError.js";
 
 class PlayGame {
+    constructor() {
+        this.returnError = new ReturnError();
+    }
+
     randomNumber;
     strikeCount = 0;
     ballCount = 0;
+    restartUserInput;
+
 
     getStrikeCount() {
         return this.strikeCount;
@@ -14,28 +21,26 @@ class PlayGame {
     }
 
     setRandomNumber() {
-        const COMPUTER = []
-        while (COMPUTER.length < 3) {
-            const RANDOM_NUM = MissionUtils.Random.pickNumberInRange(1, 9);
-            if (!COMPUTER.includes(RANDOM_NUM)) {
-                COMPUTER.push(RANDOM_NUM)
+        const computer = []
+        while (computer.length < 3) {
+            const randomNum = MissionUtils.Random.pickNumberInRange(1, 9);
+            if (!computer.includes(randomNum)) {
+                computer.push(randomNum)
             }
         }
-        this.randomNumber = COMPUTER;
+        this.randomNumber = computer;
     }
-    // 사용자 인풋에 대해 예외처리를 해줘야함
+    
     async handleInput() {
         this.strikeCount = 0;
         this.ballCount = 0;
         try {
-            const INPUT = await MissionUtils.Console.readLineAsync('숫자를 입력해 주세요:');
-            const USER_INPUT = INPUT.split('').map(Number);
-            // console.log('USER_INPUT', USER_INPUT);
-            return USER_INPUT;
-            // this.compareNumbers();
-            // ReturnError(USER_INPUT);
+            const input = await MissionUtils.Console.readLineAsync('숫자를 입력해 주세요:');
+            const userInput = input.split('').map(Number);
+            this.returnError.sayError(userInput);
+            return userInput;
         } catch (ERROR) {
-            MissionUtils.Console.print(ERROR);
+            throw new Error(ERROR)
         }
     }
 
@@ -64,6 +69,17 @@ class PlayGame {
             MissionUtils.Console.print(this.ballCount + '볼' + ' ' + this.strikeCount + '스트라이크');
         }
     }
+    
+    
+    async restartInput() {
+        try {
+            const restartUserInput = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n');
+            return restartUserInput;
+        } catch (ERROR) {
+            throw new Error('[ERROR] 1 또는 2를 입력해야 합니다.');
+        }
+    }
+    
 }
 
 export default PlayGame;
