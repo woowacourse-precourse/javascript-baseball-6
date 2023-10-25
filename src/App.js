@@ -49,14 +49,9 @@ class App {
       message += `${ball}볼`;
     }
     if (strike > 0) {
-      if (message.length > 0) {
-        message += ' ';
-      }
-      message += `${strike}스트라이크`;
+      message += message ? ` ${strike}스트라이크` : `${strike}스트라이크`;
     }
-    if (message.length === 0) {
-      message = '낫싱';
-    }
+    message = message || '낫싱';
     Console.print(message);
     return strike === 3 ? this.endGame() : this.continueGame();
   }
@@ -78,9 +73,6 @@ class App {
     }
     if (input.trim() === '1') {
       this.startGame();
-    }
-    if (input.trim() === '2') {
-      return;
     }
   }
 
