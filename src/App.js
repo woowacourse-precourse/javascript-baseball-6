@@ -1,7 +1,7 @@
-import { Console } from "@woowacourse/mission-utils";
-import makeNumber from "./makeNumber.js";
-import checkStrikesBalls from "./CheckStrikesBalls.js";
-import checkAnswerData from "./checkAnswerData.js";
+import { Console } from '@woowacourse/mission-utils';
+import makeNumber from './makeNumber.js';
+import checkStrikesBalls from './CheckStrikesBalls.js';
+import checkAnswerData from './checkAnswerData.js';
 
 class App {
   constructor() {
