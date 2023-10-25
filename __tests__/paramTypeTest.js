@@ -18,227 +18,111 @@ describe('function paramType Test', () => {
   const subClassInstance = new FreeCourse();
   const func = () => {};
 
-  test('parameter의 type이 String 여야하는데 다른게 들어왔을때 ERROR 반환 테스트', () => {
-    const foo = (param, _0 = paramType(param, String)) => {
-      return;
-    };
+  const testCases = [
+    {
+      type: String,
+      invalidValues: [
+        number,
+        boolean,
+        undefined,
+        null,
+        array,
+        obj,
+        func,
+        wooTeCoInstance,
+        subClassInstance,
+      ],
+    },
+    {
+      type: Number,
+      invalidValues: [
+        string,
+        boolean,
+        undefined,
+        null,
+        array,
+        obj,
+        func,
+        wooTeCoInstance,
+        subClassInstance,
+      ],
+    },
+    {
+      type: Boolean,
+      invalidValues: [
+        string,
+        number,
+        undefined,
+        null,
+        array,
+        obj,
+        func,
+        wooTeCoInstance,
+      ],
+    },
+    {
+      type: Array,
+      invalidValues: [
+        string,
+        number,
+        boolean,
+        undefined,
+        null,
+        obj,
+        func,
+        wooTeCoInstance,
+        subClassInstance,
+      ],
+    },
+    {
+      type: Object,
+      invalidValues: [
+        string,
+        number,
+        boolean,
+        undefined,
+        null,
+        array,
+        func,
+        wooTeCoInstance,
+        subClassInstance,
+      ],
+    },
+    {
+      type: Function,
+      invalidValues: [
+        string,
+        number,
+        boolean,
+        undefined,
+        null,
+        array,
+        obj,
+        wooTeCoInstance,
+        subClassInstance,
+      ],
+    },
+    {
+      type: WooTeCo,
+      invalidValues: [
+        string,
+        number,
+        boolean,
+        undefined,
+        null,
+        array,
+        obj,
+        func,
+      ],
+    },
+  ];
 
-    expect(() => {
-      foo(number);
-    }).toThrow();
-    expect(() => {
-      foo(boolean);
-    }).toThrow();
-    expect(() => {
-      foo(undefined);
-    }).toThrow();
-    expect(() => {
-      foo(null);
-    }).toThrow();
-    expect(() => {
-      foo(array);
-    }).toThrow();
-    expect(() => {
-      foo(obj);
-    }).toThrow();
-    expect(() => {
-      foo(func);
-    }).toThrow();
-    expect(() => {
-      foo(wooTeCoInstance);
-    }).toThrow();
-    expect(() => {
-      foo(subClassInstance);
-    }).toThrow();
-  });
-  test('parameter의 type이 Number 여야하는데 다른게 들어왔을때 ERROR 반환 테스트', () => {
-    const foo = (param, _0 = paramType(param, Number)) => {
-      return;
-    };
-
-    expect(() => {
-      foo(string);
-    }).toThrow();
-    expect(() => {
-      foo(boolean);
-    }).toThrow();
-    expect(() => {
-      foo(undefined);
-    }).toThrow();
-    expect(() => {
-      foo(null);
-    }).toThrow();
-    expect(() => {
-      foo(array);
-    }).toThrow();
-    expect(() => {
-      foo(obj);
-    }).toThrow();
-    expect(() => {
-      foo(func);
-    }).toThrow();
-    expect(() => {
-      foo(wooTeCoInstance);
-    }).toThrow();
-    expect(() => {
-      foo(subClassInstance);
-    }).toThrow();
-  });
-  test('parameter의 type이 Boolean 여야하는데 다른게 들어왔을때 ERROR 반환 테스트', () => {
-    const foo = (param, _0 = paramType(param, Boolean)) => {
-      return;
-    };
-
-    expect(() => {
-      foo(string);
-    }).toThrow();
-    expect(() => {
-      foo(number);
-    }).toThrow();
-    expect(() => {
-      foo(undefined);
-    }).toThrow();
-    expect(() => {
-      foo(null);
-    }).toThrow();
-    expect(() => {
-      foo(array);
-    }).toThrow();
-    expect(() => {
-      foo(obj);
-    }).toThrow();
-    expect(() => {
-      foo(func);
-    }).toThrow();
-    expect(() => {
-      foo(wooTeCoInstance);
-    }).toThrow();
-  });
-  test('parameter의 type이 Array 여야하는데 다른게 들어왔을때 ERROR 반환 테스트', () => {
-    const foo = (param, _0 = paramType(param, Array)) => {
-      return;
-    };
-
-    expect(() => {
-      foo(string);
-    }).toThrow();
-    expect(() => {
-      foo(number);
-    }).toThrow();
-    expect(() => {
-      foo(boolean);
-    }).toThrow();
-    expect(() => {
-      foo(undefined);
-    }).toThrow();
-    expect(() => {
-      foo(null);
-    }).toThrow();
-    expect(() => {
-      foo(obj);
-    }).toThrow();
-    expect(() => {
-      foo(func);
-    }).toThrow();
-    expect(() => {
-      foo(wooTeCoInstance);
-    }).toThrow();
-    expect(() => {
-      foo(subClassInstance);
-    }).toThrow();
-  });
-  test('parameter의 type이 Object 여야하는데 다른게 들어왔을때 ERROR 반환 테스트', () => {
-    const foo = (param, _0 = paramType(param, Object)) => {
-      return;
-    };
-
-    expect(() => {
-      foo(string);
-    }).toThrow();
-    expect(() => {
-      foo(number);
-    }).toThrow();
-    expect(() => {
-      foo(boolean);
-    }).toThrow();
-    expect(() => {
-      foo(undefined);
-    }).toThrow();
-    expect(() => {
-      foo(null);
-    }).toThrow();
-    expect(() => {
-      foo(array);
-    }).toThrow();
-
-    expect(() => {
-      foo(func);
-    }).toThrow();
-    expect(() => {
-      foo(wooTeCoInstance);
-    }).toThrow();
-    expect(() => {
-      foo(subClassInstance);
-    }).toThrow();
-  });
-  test('parameter의 type이 Function 여야 하는데 다른게 들어왔을때 ERROR 반환 테스트', () => {
-    const foo = (param, _0 = paramType(param, Function)) => {
-      return;
-    };
-
-    expect(() => {
-      foo(string);
-    }).toThrow();
-    expect(() => {
-      foo(number);
-    }).toThrow();
-    expect(() => {
-      foo(boolean);
-    }).toThrow();
-    expect(() => {
-      foo(undefined);
-    }).toThrow();
-    expect(() => {
-      foo(null);
-    }).toThrow();
-    expect(() => {
-      foo(array);
-    }).toThrow();
-    expect(() => {
-      foo(obj);
-    }).toThrow();
-    expect(() => {
-      foo(wooTeCoInstance);
-    }).toThrow();
-  });
-  test('parameter의 type이 class 여야 하는데 다른게 들어왔을때 ERROR 반환 테스트', () => {
-    const foo = (param, _0 = paramType(param, WooTeCo)) => {
-      return;
-    };
-
-    expect(() => {
-      foo(string);
-    }).toThrow();
-    expect(() => {
-      foo(number);
-    }).toThrow();
-    expect(() => {
-      foo(boolean);
-    }).toThrow();
-    expect(() => {
-      foo(undefined);
-    }).toThrow();
-    expect(() => {
-      foo(null);
-    }).toThrow();
-    expect(() => {
-      foo(array);
-    }).toThrow();
-    expect(() => {
-      foo(obj);
-    }).toThrow();
-    expect(() => {
-      foo(func);
-    }).toThrow();
+  testCases.forEach(({ type, invalidValues }) => {
+    test(`parameter의 type이 ${type.name}인데 parameter에 다른게 들어왔을때 throw Error 테스트`, () => {
+      invalidValues.forEach((value) => {
+        const foo = (param, _0 = paramType(param, type)) => {};
+        expect(() => foo(value)).toThrow();
+      });
+    });
   });
 });
