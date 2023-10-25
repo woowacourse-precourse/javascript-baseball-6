@@ -67,5 +67,5 @@
 - [x] `예외 테스트` 테스트 통과하기
 - [x] IOManager 모듈 테스트 코드 작성, 전부 fail
 - [x] IOManager 모듈 테스트 통과하기
-- [ ] AnswerManager 모듈 테스트 코드 작성, 전부 fail
+- [x] AnswerManager 모듈 테스트 코드 작성, 전부 fail
 - [ ] AnswerManager 모듈 테스트 통과하기
