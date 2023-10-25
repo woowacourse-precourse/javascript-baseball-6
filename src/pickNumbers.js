@@ -4,22 +4,22 @@ const pickNumberInRange = () => MissionUtils.Random.pickNumberInRange(1, 9);
 
 const isUnique = (arr, number) => !arr.includes(number);
 
-const getPushedUniqueNumberArr = (arr, number) => {
+const getPushedUniqueNumbersArr = (arr, number) => {
     if (isUnique(arr, number)) {
         return [...arr, number];
     }
     return [...arr];
 };
 
-const makeNumbersLength = (numbersLength, arr = []) => {
+const makeNumbersArrayGivenLength = (numbersLength, arr = []) => {
     if (arr.length < numbersLength) {
-        return makeNumbersLength(numbersLength, getPushedUniqueNumberArr(arr, pickNumberInRange()));
+        return makeNumbersArrayGivenLength(numbersLength, getPushedUniqueNumbersArr(arr, pickNumberInRange()));
     }
     return [...arr];
 };
 
 const pickUniqueNumbersInRange = (numbersLength) => {
-    return makeNumbersLength(numbersLength);
+    return makeNumbersArrayGivenLength(numbersLength);
 };
 
 export { pickUniqueNumbersInRange };
