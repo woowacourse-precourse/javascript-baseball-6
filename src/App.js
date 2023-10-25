@@ -21,7 +21,7 @@ class App {
   setComputer(computer) {
     this.computer = computer;
   }
-
+oky794
   getComputer() {
     return this.computer;
   }
@@ -68,15 +68,18 @@ class App {
         }
       }
       
-      const RESTARTNOINPUT = Number(await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'));
+      const RENOINPUT = Number(await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n'));
 
-      if(!(RESTARTNOINPUT === 1 || RESTARTNOINPUT === 2)) {
+      if(!(RENOINPUT === 1 || RENOINPUT === 2)) {
         throw new Error('[ERROR] 1 또는 2를 입력해주세요.');
       }else {
-        this.setRestartNo(RESTARTNOINPUT);
+        this.setRestartNo(RENOINPUT);
       }
     }
   }
 }
+
+// const myApp = new App();
+// myApp.play();
 
 export default App;

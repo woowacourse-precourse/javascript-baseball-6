@@ -8,11 +8,11 @@ async function checkAnswerData(answer) {
     }
     
     //answer이 숫자가 아닐때의 검사
-    for(let i in answer){
-      if(answer[i].charCodeAt() < 48 || answer[i].charCodeAt() > 57) {
-        throw new Error('[ERROR] 숫자가 아닙니다.');
-      }
+    
+    if(answer<100||answer>999) {
+      throw new Error('[ERROR] 숫자가 잘못된 형식입니다.');
     }
+    
 
     //answer에 중복된 값이 들어있을때의 검사
     const deleteDupAnswer = [...new Set(answer.split(''))];
