@@ -13,41 +13,41 @@ export default class Computer {
             }
         }
     }
-    async playGame(USER) {
+    async playGame(user) {
         MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
         while (true) {
             this.pickRandomNumbers();
             while (true) {
-                const INPUT = await USER.returnUserQuery(
+                const input = await user.returnUserQuery(
                     "숫자를 입력해주세요 : ",
                     QUERY_STATUS.PLAYING
                 );
-                const RESULT = this.returnMessage(INPUT);
-                MissionUtils.Console.print(RESULT.result);
-                if (RESULT.success) {
+                const result = this.returnMessage(input);
+                MissionUtils.Console.print(result.result);
+                if (result.success) {
                     MissionUtils.Console.print(
                         "3개의 숫자를 모두 맞히셨습니다! 게임 종료"
                     );
                     break;
                 }
             }
-            const INPUT = await USER.returnUserQuery(
+            const input = await user.returnUserQuery(
                 "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n",
                 QUERY_STATUS.REPLAY
             );
-            if (INPUT === "2") break;
+            if (input === "2") break;
         }
     }
-    returnMessage(expect_numbers) {
-        const ballStrike = this.calculateBallStrike(expect_numbers);
+    returnMessage(expectNumbers) {
+        const ballStrike = this.calculateBallStrike(expectNumbers);
         const result = this.getResultString(ballStrike);
         if (ballStrike.strike === 3) return { result: result, success: true };
         return { result: result, success: false };
     }
-    calculateBallStrike(expect_numbers) {
+    calculateBallStrike(expectNumbers) {
         let ball = 0;
         let strike = 0;
-        [...expect_numbers]
+        [...expectNumbers]
             .map((n) => +n)
             .forEach((n, idx) => {
                 if (this.numbers[idx] === n) strike++;
