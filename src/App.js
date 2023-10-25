@@ -66,6 +66,8 @@ class App {
 
   //컴퓨터가 생성한 수와 유저가 입력한 수를 비교하여 스트라이크와 볼 수를 반환
   compare = (GOAL, INPUT) => {
+    console.log(GOAL)
+    console.log(INPUT)
     let strike =0;
     let ball = 0;
     for(let i=0; i<GOAL.length ; i++){
@@ -75,33 +77,68 @@ class App {
         ball++;
       }
     }
+    console.log(strike, ball)
     return({strike, ball})
+  }
+
+  //3 스트라이크로 종료
+  async endGame() {
+    const restart = await Console.readLineAsync("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+    if(restart === '1'){
+      await this.play();
+    }else if(restart ==='2'){
+      return 0;
+    }else{
+      Console.print("1 또는 2 중에 하나를 입력해 주세요.");
+      await this.endGame();
+    }
+  }
+
+  async game(GOAL) {
+    console.log("game fun")
+    const inputNumArray = await this.getUserNum();
+    const validateNum = this.checkUserNum(inputNumArray);
+
+    if(!validateNum){
+      console.log("validateNum이 false")
+      await this.game(GOAL);
+    }else{
+      console.log("validateNum true")
+      console.log(this.compare(GOAL, inputNumArray))
+      const {strike, ball} = this.compare(GOAL, inputNumArray);
+
+      console.log(strike,ball)
+
+      let OUTTEXT = '';
+      if(ball > 0 && strike > 0){
+        OUTTEXT = `${ball} 볼 ${strike} 스트라이크`
+      }else if(ball > 0){
+        OUTTEXT = `${ball} 볼`
+      }else if(strike > 0){
+        OUTTEXT = `${strike} 스트라이크`
+      }else{
+        OUTTEXT = '낫싱';
+      }
+
+      Console.print(OUTTEXT);
+
+      if(strike === 3){
+        Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+        GOAL = [];
+        await this.endGame();
+      }else{
+        await this.game(GOAL);
+      }
+    }
   }
 
   async play() {
     console.log("play fun")
+
     const GOAL = this.genComputerNum();
-    const inputNumArray = await this.getUserNum();
-    const validateNum = this.checkUserNum(inputNumArray);
+    await this.game(GOAL);
 
-    const STRIKE = this.compare(GOAL, inputNumArray).strike;
-    const BALL = this.compare(GOAL, inputNumArray).ball;
-
-    let OUTTEXT = '';
-    if(BALL > 0 && STRIKE > 0){
-      OUTTEXT = `${BALL} 볼 ${STRIKE} 스트라이크`
-    }else if(BALL > 0){
-      OUTTEXT = `${BALL} 볼`
-    }else if(STRIKE > 0){
-      OUTTEXT = `${STRIKE} 스트라이크`
-    }else{
-      OUTTEXT = '낫싱';
-    }
-
-    if(STRIKE === 3){
-      //end
-    }
-    console.log(validateNum);
+    console.log("play 종료");
   }  
 }
 
