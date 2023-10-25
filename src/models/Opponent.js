@@ -15,6 +15,7 @@ class Opponent {
 
   /**
    * 상대방(컴퓨터)의 숫자를 반환한다.
+   * @returns {number} #number
    */
   getNumber() {
     return this.#number;
