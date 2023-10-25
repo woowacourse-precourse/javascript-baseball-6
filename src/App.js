@@ -1,4 +1,3 @@
-// App.js
 import Game from "./Game/Game.js";
 
 class App {
@@ -13,5 +12,8 @@ class App {
     });
   }
 }
+
+const app = new App();
+app.play();
 
 export default App;
