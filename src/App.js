@@ -34,8 +34,12 @@ class App {
     if (!input) {
       return false;
     }
-    const uniqueDigits = new Set(input.split(''));
-    return uniqueDigits.size === 3 && /^[1-9]{3}$/.test(input);
+    const digits = input.split('').map(Number);
+    return (
+      digits.length === 3 &&
+      digits.every((digit) => digit >= 1 && digit <= 9) &&
+      new Set(digits).size === 3
+    );
   }
 
   async postGameChoice() {
