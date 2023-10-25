@@ -56,6 +56,23 @@ class App {
         this.score[0] += 1;
       }
     });
+    await this.printScore();
+  }
+
+  async printScore() {
+    const ball = this.score[0];
+    const strike = this.score[1];
+    let scoreText = '';
+    if (ball + strike === 0) {
+      scoreText = NOTHING;
+    }
+    if (ball > 0) {
+      scoreText += `${ball}${BALL} `;
+    }
+    if (strike > 0) {
+      scoreText += `${strike}${STRIKE}`;
+    }
+    Console.print(scoreText);
   }
 }
 
