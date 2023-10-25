@@ -3,7 +3,6 @@ import { MissionUtils, Console } from "@woowacourse/mission-utils";
 class App {
   async play() {
     try {
-      Console.print("숫자 야구 게임을 시작합니다.");
       let isRunning = "1";
 
       while (isRunning === "1") {
