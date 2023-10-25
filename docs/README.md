@@ -54,8 +54,24 @@ MissionUtils.Console.print(`입력한 값: ${answer}`);
 
 # 객체 구조
 
+- App (src/App.js): 앱
+  - BaseballGame (src/BaseballGame/index.js): 야구 게임
+    - Computer (src/BaseballGame/Computer.js): 컴퓨터
+    - User (src/BaseballGame/User.js): 사용자
+    - Referee (src/BaseballGame/Refree.js): 심판
+
+# 객체의 주요 메서드
+
 - App
-  - BaseballGame
-    - Computer
-    - User
-    - Referee
+  - play(): 애플리케이션 실행
+- BaseballGame
+  - gameStart(): 야구 게임 시작
+  - gameOver(): 야구 게임 종료 -> 재시작 or 애플리케이션 종료
+- Computer
+  - createNumbers(): 컴퓨터의 숫자 생성 (ex:[ 1, 2, 3 ])
+  - getNumbers(): 컴퓨터의 숫자의 복사본 반환 (Referee가 판정하기 위해 사용)
+- User
+  - guessNumbers(): 사용자의 숫자 입력받아 저장 (ex: "123" -> [ 1, 2, 3 ])
+  - getNumbers(): 사용자의 숫자의 복사본 반환 (Referee가 판정하기 위해 사용)
+- Referee
+  - judge(computerNumbers, userNumbers): 컴퓨터의 숫자와 사용자의 숫자를 비교해 판정 및 판정 출력, '3스트라이크' 여부 반환(true || false)
