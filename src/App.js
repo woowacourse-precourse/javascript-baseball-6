@@ -7,7 +7,7 @@ class App {
     const player = new Player();
     const computer = new Computer();
     const playerInput = await player.inputValue();
-    computer.checkAnswer(playerInput);
+    const [ball, stirke] = computer.compareAnswer(playerInput);
   }
 }
 

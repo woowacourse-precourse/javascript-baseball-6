@@ -21,7 +21,7 @@ class Computer {
   };
 
   // 정답과 player의 input값을 비교할 함수
-  checkAnswer = (input) => {
+  compareAnswer = (input) => {
     // player의 입력값을 숫자 배열로 변환
     const inputNumber = input.split("").map(Number);
     let strike = 0;
@@ -31,10 +31,27 @@ class Computer {
       // 인덱스와 값이 모두 같다면 strike
       if (this.answer[i] === inputNumber[i]) {
         strike++;
-        // 인득세는 같지 않지만 값이 포함되어 있다면 ball
+        // 인덱스는 같지 않지만 값이 포함되어 있다면 ball
       } else if (this.answer.includes(inputNumber[i])) {
         ball++;
       }
+    }
+    this.printResult(ball, strike);
+    return [ball, strike];
+  };
+  // 결과를 출력하는 함수
+  printResult = (ball, strike) => {
+    if (ball === 0 && strike === 0) {
+      Console.print("낫싱");
+    }
+    if (ball > 0 && strike === 0) {
+      Console.print(`${ball}볼`);
+    }
+    if (strike > 0 && ball === 0) {
+      Console.print(`${strike}스트라이크`);
+    }
+    if (ball > 0 && strike > 0) {
+      Console.print(`${ball}볼 ${strike}스트라이크`);
     }
   };
 }
