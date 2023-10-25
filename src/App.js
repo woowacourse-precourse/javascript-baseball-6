@@ -46,14 +46,21 @@ class App {
     }
   }
   async settingNumber(number) {
+    const [a, b, c] = number.split("").map(Number);
+    if (a === b || b === c || c === a) {
+      throw new Error("[Error] 숫자는 서로 중복될 수 없습니다.");
+    }
+
     if (number < 0) {
       throw new Error("[Error] 숫자는 음수일 수 없습니다.");
       return;
     }
+
     if (number.length !== 3) {
       throw new Error("[ERROR] 숫자는 3자리 수여야 합니다.");
       return;
     }
+
     if (!/^\d{3}$/.test(number)) {
       throw new Error("[ERROR] 입력은 숫자 형식이어야 합니다.");
       return;
