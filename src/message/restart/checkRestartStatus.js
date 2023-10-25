@@ -10,6 +10,6 @@ const checkRestartStatus = async () => {
     } catch (error) {
         throw new Error(error);
     }
-}
+};
 
 export default checkRestartStatus;

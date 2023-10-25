@@ -2,7 +2,7 @@ import {MissionUtils} from "@woowacourse/mission-utils";
 
 class Pitcher {
     constructor() {
-        this.gameNumbers = []
+        this.gameNumbers = [];
     }
 
     setRandomGameNumbers() {

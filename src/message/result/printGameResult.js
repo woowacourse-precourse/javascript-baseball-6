@@ -13,6 +13,6 @@ const printGameResult = (winCondition, strikeCount, ballCount)=> {
     } else if (!strikeCount && !ballCount) {
         Console.print("낫싱");
     }
-}
+};
 
 export default printGameResult;

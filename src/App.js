@@ -7,7 +7,7 @@ import Umpire from "./unit/umpire.js";
 class App {
     constructor() {
         this.hasStartToken = true;
-        this.restartToken = "1"
+        this.restartToken = "1";
         this.winCondition = 3;
     }
 
@@ -30,7 +30,7 @@ class App {
 
                 const { strikeCount, ballCount} = umpire.checkBatterResult(
                     pitcherGameNumbers,
-                    batterGameNumbers
+                    batterGameNumbers,
                 );
 
                 if(strikeCount === winCondition) {
