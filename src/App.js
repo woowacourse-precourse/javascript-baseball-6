@@ -126,7 +126,7 @@ class App {
           if (RESULT) {
             break;
           }
-        } else continue;
+        }
       }
     }
 

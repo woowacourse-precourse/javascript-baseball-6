@@ -1,4 +1,4 @@
-import printResult from "./printResult";
+import printResult from "./printResult.js";
 
 export default function compareAnswer(CORRECT_ANSWER, USER_INPUT) {
   //용어 선언
@@ -13,9 +13,9 @@ export default function compareAnswer(CORRECT_ANSWER, USER_INPUT) {
         if (i == j) {
           //자리도 같으면 -> 스트라이크
           STRIKE++;
+        } else {
+          BALL++;
         }
-        //else
-        BALL++;
       }
     }
   }
