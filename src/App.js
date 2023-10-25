@@ -13,7 +13,7 @@ class App {
   async getInput() {
     const input = await Console.readLineAsync('숫자를 입력해주세요 : ');
     this.inputCheck(input);
-    this.computeNumber();
+    this.computeGame();
   }
 
   inputCheck(input) {
@@ -36,7 +36,7 @@ class App {
     this.computer = [...computer];
   }
 
-  computeNumber() {
+  computeGame() {
     const { user } = this;
     const { computer } = this;
     const strikesAndBalls = user.map((num, index) => ({
@@ -46,6 +46,10 @@ class App {
     const strike = strikesAndBalls.filter((entry) => entry.isStrike).length;
     const ball = strikesAndBalls.filter((entry) => entry.isBall).length;
 
+    this.printGame(strike, ball);
+  }
+
+  printGame(strike, ball) {
     if (ball > 0) {
       if (strike > 0) {
         Console.print(`${ball}볼 ${strike}스트라이크`);
@@ -59,22 +63,23 @@ class App {
     }
 
     if (strike === 3) {
-      this.checkRestart();
-    } else {
-      this.getInput();
+      return this.checkRestart();
     }
+    return this.getInput();
   }
 
   async checkRestart() {
     Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
     Console.print('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
     const input = await Console.readLineAsync('');
-    if (input === '1') {
-      await this.startNewGame();
-    } else if (input === '2') {
-      return;
-    } else {
+    if (!input.trim().match(/^[1-2]{1}$/)) {
       throw new Error('[ERROR] 1 또는 2를 입력받지 못했습니다.');
+    }
+    if (input.trim() === '1') {
+      this.startNewGame();
+    }
+    if (input.trim() === '2') {
+      return;
     }
   }
 
@@ -89,7 +94,7 @@ class App {
   }
 }
 
-export default App;
+// export default App;
 
-// const app = new App();
-// app.play();
+const app = new App();
+app.play();
