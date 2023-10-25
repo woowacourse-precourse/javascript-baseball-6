@@ -1,3 +1,4 @@
+import { Console } from "@woowacourse/mission-utils";
 import MESSAGES from "../constants/Messages.js";
 
 /**
@@ -17,7 +18,7 @@ const OUTPUT_VIEW = (strikeCount, ballCount) => {
   } else {
     result = `${ballCount}${MESSAGES.BALL} ${strikeCount}${MESSAGES.STRIKE}`;
   }
-  return result;
+  Console.print(result);
 };
 
 export default OUTPUT_VIEW;
