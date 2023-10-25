@@ -1,7 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import generateAnswerArray from "./generateAnswerArray";
-import getUserInput from "./getUserInput";
-import checkIsValidInput from "./checkIsValidInput";
+import handleInput from "./handleInput";
 import getHint from "./getHint";
 
 class App {
@@ -11,23 +10,15 @@ class App {
 
       const answer = await generateAnswerArray();
 
-      let userInput = await getUserInput();
-      const isValidInput = checkIsValidInput(userInput);
-      if (!isValidInput) {
-        throw Error("[ERROR] 숫자가 잘못된 형식입니다.");
+      let input = "";
+      while (true) {
+        input = await handleInput();
+        const hint = getHint(answer, input);
+        MissionUtils.Console.print(hint);
+
+        if (hint === "3스트라이크") break;
       }
 
-      while (answer !== userInput) {
-        MissionUtils.Console.print(getHint(answer, userInput));
-
-        userInput = await getUserInput();
-        const isValidInput = checkIsValidInput(userInput);
-        if (!isValidInput) {
-          throw Error("[ERROR] 숫자가 잘못된 형식입니다.");
-        }
-      }
-
-      MissionUtils.Console.print(getHint(answer, userInput));
       MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
 
       const restart = await MissionUtils.Console.readLineAsync(
