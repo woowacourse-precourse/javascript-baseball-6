@@ -18,7 +18,7 @@ class App {
     return computerBall;
   }
 
-  async strikeBall(computerBall, user) {
+  async guessNumber(computerBall, user) {
     let strike = 0;
     let ball = 0;
 
@@ -78,7 +78,7 @@ class App {
 
   async inGame(computerBall, user) {
     this.errorCase(user);
-    const gameResult = this.strikeBall(computerBall, user);
+    const gameResult = this.guessNumber(computerBall, user);
     if (computerBall === user) {
       const response = await MissionUtils.Console.readLineAsync(
         "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
