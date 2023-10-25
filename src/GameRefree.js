@@ -24,3 +24,19 @@ export const CHECK_PLAYER_INPUT = (PLAYER, COMPUTER) => {
     return {strike,ball};
 };
 
+export const RETURN_RESULT_MESSAGE = ({strike, ball}) => {
+    if (strike === 0 && ball === 0) {
+        return "낫싱";
+    }
+    if (strike === 3) {
+        return "3스트라이크";
+    }
+    let result = '';
+    if (ball > 0) {
+        result += `${ball}볼 `;
+    }
+    if (strike > 0) {
+        result += `${strike}스트라이크`;
+    }
+    return result.trim();
+};
