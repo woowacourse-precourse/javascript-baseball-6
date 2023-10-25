@@ -64,9 +64,23 @@ class App {
     this.arrayValueDuplicateCheck()
   }
 
+  arrayCheck() {
+    let strike = 0;
+    let ball = 0;
+    for (let i = 0; i < 3; i++) {
+      if (this.#userNumber[i] === this.#computer[i]) {
+        strike++;
+      } else if (this.#computer.includes(this.#userNumber[i])) {
+        ball++;
+      }
+    }
+    return [strike, ball]
+  }
+
   callbackUserNumber() {
     this.convertToNumberArray();
     this.arrayErrorCheck();
+    const [strike, ball] = this.arrayCheck()
   }
 
   async play() {
