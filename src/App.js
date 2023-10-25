@@ -9,6 +9,13 @@ class App {
     const arr = [...numbers];
     const player = arr.map(Number);
 
+    if (numbers.length !== 3 ||
+        player[0] === player[1] ||
+        player[0] === player[2] ||
+        player[1] === player[2] ) {
+      throw new error('[ERROR] 숫자가 잘못된 형식입니다.')
+    }
+
     let result = this.compare(computer,player);
     if(result === '0볼 3스트라이크') {
     Console.print('3스트라이크');
