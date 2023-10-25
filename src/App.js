@@ -62,7 +62,6 @@ class App {
         computer.push(number);
       }
     }
-    print(computer) //삭제예정
     return computer
   }
   async play() {
