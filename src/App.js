@@ -18,8 +18,8 @@ class App {
         }
 
         const { ballCounter, strikeCounter } = compareTwo3digitNumbers(targetNumber, userInputNumber)
-        strikeCounter === 3 ?  isCorrectAnswer = true : {}
-        printMassage = `${ballCounter !== 0 ? (ballCounter + '볼 ') : ''}${strikeCounter !== 0 ? (strikeCounter + '스트라이크') : ""}`
+        strikeCounter === 3 &&  (isCorrectAnswer = true)
+        printMassage = `${ballCounter !== 0 ? `${ballCounter}볼 ` : ''}${strikeCounter !== 0 ? `${strikeCounter}스트라이크` : ''}`
         !printMassage && (printMassage = '낫싱')
         Console.print(printMassage)
       }
@@ -27,6 +27,7 @@ class App {
       let userInput = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.'); 
       (userInput == 2) && (isKeepPlaying = false)
     }
+    jest.clearAllTimers();
   }
 }
 
