@@ -18,14 +18,18 @@ class Player {
       Console.print(error.message);
       return Promise.reject(error);
     }
-    return [];
   }
 
   async getEndOption() {
-    const endOption = await Console.readLineAsync(INPUT_PROMPT.END_OPTION);
+    try {
+      const endOption = await Console.readLineAsync(INPUT_PROMPT.END_OPTION);
 
-    if (Validator.checkEndOptionValidation(endOption)) {
-      return endOption;
+      if (Validator.checkEndOptionValidation(endOption)) {
+        return endOption;
+      }
+    } catch (error) {
+      Console.print(error.message);
+      return Promise.reject(error);
     }
   }
 }

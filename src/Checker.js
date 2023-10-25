@@ -1,3 +1,5 @@
+import { Random, Console } from '@woowacourse/mission-utils';
+
 class Checker {
   static getResult(ball, strike) {
     let result = '';
@@ -22,16 +24,17 @@ class Checker {
     let ball = 0;
     let strike = 0;
 
-    input.forEach((value, index) => {
-      const answerIndex = answer.indexOf(value);
-      if (answerIndex !== -1) {
-        if (index === answerIndex) {
-          strike++;
-        } else {
-          ball++;
+    for (let r = 0; r < input.length; r++) {
+      for (let i = 0; i < answer.length; i++) {
+        if (input[r] === answer[i]) {
+          if (r === i) {
+            strike++;
+          } else {
+            ball++;
+          }
         }
       }
-    });
+    }
 
     return this.getResult(ball, strike);
   }

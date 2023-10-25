@@ -28,24 +28,33 @@ class Game {
     if (endOption === '1') {
       this.startGame();
     }
+
+    return 0;
   }
 
   async progressGame() {
-    this.#input = await this.#player.getNumber();
-    const result = Checker.checkInput(this.#input, this.#answer);
-    Console.print(result);
+    let result = '';
 
-    if (result === '3스트라이크') {
-      Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
-      this.endGame();
-    } else {
-      await this.progressGame();
+    while (result !== '3스트라이크') {
+      try {
+        this.#input = await this.#player.getNumber();
+        result = Checker.checkInput(this.#input, this.#answer);
+        Console.print(result);
+      } catch (error) {
+        Console.print(error.message);
+        return; // 오류가 발생하면 게임을 종료합니다.
+      }
     }
+
+    Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+    await this.endGame();
+
+    return this.#input;
   }
 
   startGame() {
     Console.print(GAME_MESSAGE.START);
-    this.progressGame();
+    return this.progressGame();
   }
 }
 

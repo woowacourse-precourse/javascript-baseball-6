@@ -1,3 +1,5 @@
+import { Random, Console } from '@woowacourse/mission-utils';
+
 const ERROR_MESSAGE = {
   POSITIVE_NUMBER: '[ERROR] 1에서 9로 이루어진 숫자를 입력해 주세요.',
   LENGTH: '[ERROR] 세 자리 숫자를 입력해 주세요.',
@@ -15,7 +17,7 @@ class Validator {
   }
 
   static #checkLength(number) {
-    return number.length === 3;
+    return number.length == 3;
   }
 
   static #checkDouble(number) {
@@ -45,7 +47,7 @@ class Validator {
     if (!this.#checkEndOption(endOption)) {
       throw new Error(ERROR_MESSAGE.END_OPTION);
     }
-    return true;
+    return endOption;
   }
 }
 
