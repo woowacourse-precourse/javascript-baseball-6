@@ -2,6 +2,7 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 import generateAnswerArray from "./generateAnswerArray";
 import getUserInput from "./getUserInput";
 import checkIsValidInput from "./checkIsValidInput";
+import getHint from "./getHint";
 
 class App {
   async play() {
@@ -16,18 +17,17 @@ class App {
         throw Error("[ERROR] 숫자가 잘못된 형식입니다.");
       }
 
-      while (userInput !== answer) {
+      while (answer !== userInput) {
+        MissionUtils.Console.print(getHint(answer, userInput));
+
         userInput = await getUserInput();
         const isValidInput = checkIsValidInput(userInput);
         if (!isValidInput) {
           throw Error("[ERROR] 숫자가 잘못된 형식입니다.");
         }
-
-        // getHint(userInput, answer);
-
-        MissionUtils.Console.print("계산 결과를 출력하기");
       }
 
+      MissionUtils.Console.print(getHint(answer, userInput));
       MissionUtils.Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
 
       const restart = await MissionUtils.Console.readLineAsync(
