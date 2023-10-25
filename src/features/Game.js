@@ -5,7 +5,13 @@ export class Game {
   async startNewGame() {
     const completed = await this.#play();
     if (completed) {
-      await this.#replayOrExit();
+      const replay = await this.#replayOrExit();
+
+      if (replay) {
+        this.startNewGame();
+        return;
+      }
+      Console.print("게임 종료");
     }
   }
 
@@ -23,15 +29,12 @@ export class Game {
     );
 
     if (input === "1") {
-      this.startNewGame();
-      return;
+      return true;
     }
     if (input === "2") {
-      Console.print("게임 종료");
-      return;
+      return false;
     }
 
-    // 1,2 외의 입력 시 재입력
-    this.#replayOrExit();
+    throw new Error("입력값을 확인할 수 없습니다. 종료하겠습니다.");
   }
 }
