@@ -6,12 +6,8 @@ import { generateRandomNum } from "./utils/generateRandomNum.js";
 import { Console } from "@woowacourse/mission-utils";
 
 export default class App {
-  async startNewGame() {
-    try {
-      return await this.runGame(generateRandomNum());
-    } catch (error) {
-      throw error;
-    }
+  startNewGame() {
+    return this.runGame(generateRandomNum());
   }
 
   async runGame(answer) {
@@ -44,7 +40,7 @@ export default class App {
       .map((num) => Number(num));
     arrayedUserGuessInput.forEach((userNum, idx) => {
       if (answer.includes(userNum) && answer.indexOf(userNum) === idx) {
-        count.strike++;
+        count.strike += 1;
       } else if (answer.includes(userNum)) count.ball++;
     });
     return count;
@@ -85,6 +81,3 @@ export default class App {
     }
   }
 }
-
-const app = new App();
-app.play();
