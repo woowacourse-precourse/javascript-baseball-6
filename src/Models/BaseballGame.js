@@ -38,12 +38,14 @@ export default class BaseballGame {
 
   handleUserCommand(input) {
     switch (input) {
-      case USER_COMMANDS.restart:
+      case USER_COMMANDS.restart: {
         this.#startNewGame();
         break;
-      case USER_COMMANDS.quit:
+      }
+      case USER_COMMANDS.quit: {
         this.#quitGame();
         break;
+      }
     }
   }
 
