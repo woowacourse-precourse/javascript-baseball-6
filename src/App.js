@@ -20,25 +20,41 @@ class App {
     if(!App.USER_NUMBER_REGEXP.test(checkNumber)) return false;
     return checkNumber;
   }
-  async userNumberInput(){
+  async userNumberInput()
+  {
       const userNumbers = await Console.readLineAsync('숫자를 입력해주세요 : ');
       if(this.validation(userNumbers)) return userNumbers;
       else{
         throw new Error('[ERROR] 숫자가 잘못된 형식입니다');
       }
   }
+  correctNumber(userNumbers){
+    let correctcount=0;
+    for(let userindex=0;userindex<userNumbers.length;userindex++)
+    {
+      if(this.#COMPUTERNUMBERS.includes(parseInt(userNumbers[userindex]))) correctcount++;
+    }
+    return correctcount;
+  }
+  hasPlace(placeIndex,userNumber){
+    if(this.#COMPUTERNUMBERS[placeIndex] === parseInt(userNumber)) {
+      return true;
+    }
+    return false;
+  }
   compareResult(userNumbers)
   {
-    let strike=0; let ball=0;
-    this.#COMPUTERNUMBERS.forEach( (comNumber,comIndex)=>{
-      for(let i=0; i<userNumbers.length;i++){
-        if(comNumber === parseInt(userNumbers[i]))
-        {
-          if(comIndex === i) strike++;
-          else ball++;
-        }
+    let strike=0; 
+    let ball=0;
+    let correctcount = this.correctNumber(userNumbers);
+    for(let userindex=0;userindex< userNumbers.length;userindex++)
+    {
+      if(this.hasPlace(userindex,userNumbers[userindex]))
+      {
+        strike++;
       }
-    })
+    }
+    ball = correctcount - strike;
     return {strike,ball};
   }
   comparePrint(strike,ball)
