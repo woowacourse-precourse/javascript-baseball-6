@@ -22,7 +22,8 @@ export default class App {
       this.printResult(result);
       if (result.strike === MAGIC_NUM.MAX_BASEBALL_NUM) {
         return this.getRestartInput();
-      } else return this.runGame(answer);
+      }
+      return this.runGame(answer);
     } catch (error) {
       throw error;
     }
@@ -84,3 +85,6 @@ export default class App {
     }
   }
 }
+
+const app = new App();
+app.play();
