@@ -51,13 +51,13 @@ class App {
     let computerNumbers = this.generateRandomNumbers();
 
     while (true) {
-      const userNumbers = await InputProcessor.inputNumber();
+      const userNumbers = await InputProcessor.askNumbers();
       const { ball, strike } = this.compare(computerNumbers, userNumbers);
       Console.print(this.getHintString(ball, strike));
 
       if (strike === 3) {
         Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
-        const userChoice = await InputProcessor.inputOption();
+        const userChoice = await InputProcessor.askContinue();
         if (userChoice === GAME_QUIT_OPTION) {
           break;
         } else if (userChoice === GAME_RESTART_OPTION) {
