@@ -1,5 +1,6 @@
 import { Console, MissionUtils } from "@woowacourse/mission-utils";
-import { GameType, Rules } from "./constants/index.js";
+import { GameType, Rules } from "./constants";
+import { isBaseballGameInput } from "./utils/validator";
 
 class App {
   #isPause = false;
@@ -22,7 +23,7 @@ class App {
       const countedResult = this.countStrikeAndBall(this.#answer, inputedNumbers);
       Console.print(this.trimString(countedResult));
       if (this.checkAnswer(countedResult.cntStrike)) {
-        Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+        Console.print(`${Rules.DIGIT_COUNT}개의 숫자를 모두 맞히셨습니다! 게임 종료`);
         await this.checkTryAgain();
       }
     }
@@ -38,32 +39,10 @@ class App {
   }
 
   checkInputedNumbersValidation(inputedNumbers) {
-    if (inputedNumbers.length !== Rules.DIGIT_COUNT)
-      throw new Error("[ERROR] 3자리를 입력해주세요.");
     if (this.isExistDuplication(inputedNumbers))
       throw new Error("[ERROR] 중복된 숫자가 존재합니다.");
-    if (this.isInclude0to9(inputedNumbers))
-      throw new Error("[ERROR] 1 ~ 9사이의 숫자가 필요합니다.");
-  }
-
-  isInclude0to9(inputedNumbers) {
-    return this.isContainZero(inputedNumbers) || this.isExistNotDigitNumber(inputedNumbers);
-  }
-
-  isExistNotDigitNumber(inputedNumbers) {
-    let result = false;
-    const splitedInputedNumber = inputedNumbers.split('');
-    splitedInputedNumber.forEach((number, index) => {
-      if ('0'.charCodeAt(0) > inputedNumbers.charCodeAt(index) || '9'.charCodeAt(0) < inputedNumbers.charCodeAt(index))
-        result = true;
-    });
-    return result;
-  }
-
-  isContainZero(inputedNumbers) {
-    if (inputedNumbers.split('').indexOf('0') === -1)
-      return false;
-    return true;
+    if (!isBaseballGameInput(inputedNumbers, { size: Rules.DIGIT_COUNT }))
+      throw new Error(`[ERROR] 1 ~ 9사이의 ${Rules.DIGIT_COUNT}자리 숫자가 필요합니다.`);
   }
 
   isExistDuplication(inputedNumbers) {

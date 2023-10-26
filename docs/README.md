@@ -17,3 +17,10 @@
 
    1. "1": process 2) 재실행
    2. "2": "애플리케이션을 종료합니다." 출력 + 종료
+
+
+
+### 과제 제출 후 refactoring
+
+- [x] ascii값으로 비교보다는 정규표현식 in isInclude0to9 func
+
