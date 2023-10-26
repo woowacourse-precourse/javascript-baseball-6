@@ -15,15 +15,13 @@ function makeNumber() {
 //입력 유효성 확인
 function isInvalid(number) { 
   const numSet = new Set(number);
-  const reg = new RegExp(/[1-9]{3}/);
+  const reg = new RegExp(/[1-9]{3}/g);
   return number.length !== 3 || numSet.size !== 3 || !reg.test(number);
 }
 
 //사용자 입력
 async function getInput() {
-  const input = await MissionUtils.Console.readLineAsync(
-    "숫자를 입력해주세요 : "
-  );
+  const input = await MissionUtils.Console.readLineAsync("숫자를 입력해주세요 : ");
   if (isInvalid(input)) {
     throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
   }
@@ -74,7 +72,7 @@ async function playGame() {
     }
     MissionUtils.Console.print(result);
   
-    if (strike == 3) {
+    if (strike === 3) {
       break;
     } 
   }
@@ -86,7 +84,7 @@ async function playGame() {
 class App {
   async play() {
     MissionUtils.Console.print("숫자 야구 게임을 시작합니다.");
-    playGame();
+    await playGame();
   }
 }
 
