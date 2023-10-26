@@ -1,17 +1,6 @@
 import { GAME_CONSTANTS, USER_COMMANDS } from './constants.js';
 
-const ERROR_MESSAGES = {
-  invalidNumbers: {
-    length: `[ERROR] 입력값은 ${GAME_CONSTANTS.answerLength}개의 숫자여야 합니다.`,
-    duplicate: `[ERROR] 입력값에 중복된 숫자가 있습니다.`,
-    integer: `[ERROR] 입력값은 숫자만 허용됩니다.`,
-    range: `입력값은 ${GAME_CONSTANTS.minNumber} ~ ${GAME_CONSTANTS.maxNumber} 범위 내의 숫자여야 합니다.`,
-  },
-  invalidCommand: `[ERROR] 명령어는 ${USER_COMMANDS.restart}이나 ${USER_COMMANDS.quit}만 입력할 수 있습니다.`,
-};
-const { invalidNumbers, invalidCommand } = ERROR_MESSAGES;
-
-export const validationUtils = {
+const validationUtils = {
   validateNumbers(input) {
     const numbers = input.split('');
     for (const validation of numberValidations) {
@@ -26,6 +15,17 @@ export const validationUtils = {
     }
   },
 };
+
+const ERROR_MESSAGES = {
+  invalidNumbers: {
+    length: `[ERROR] 입력값은 ${GAME_CONSTANTS.answerLength}개의 숫자여야 합니다.`,
+    duplicate: `[ERROR] 입력값에 중복된 숫자가 있습니다.`,
+    integer: `[ERROR] 입력값은 숫자만 허용됩니다.`,
+    range: `입력값은 ${GAME_CONSTANTS.minNumber} ~ ${GAME_CONSTANTS.maxNumber} 범위 내의 숫자여야 합니다.`,
+  },
+  invalidCommand: `[ERROR] 명령어는 ${USER_COMMANDS.restart}이나 ${USER_COMMANDS.quit}만 입력할 수 있습니다.`,
+};
+const { invalidNumbers, invalidCommand } = ERROR_MESSAGES;
 
 const numberValidations = [
   { isValid: isValidLength, error: invalidNumbers.length },
@@ -57,3 +57,5 @@ function isValidCommand(input) {
   const commands = Object.values(USER_COMMANDS);
   return commands.includes(input);
 }
+
+export { validationUtils };

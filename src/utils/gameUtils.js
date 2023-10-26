@@ -1,6 +1,6 @@
 import { Random } from '@woowacourse/mission-utils';
 
-export const gameUtils = {
+const gameUtils = {
   generateAnswer(min, max, length) {
     const answer = new Set();
 
@@ -26,3 +26,5 @@ export const gameUtils = {
     return [ball, strike];
   },
 };
+
+export { gameUtils };

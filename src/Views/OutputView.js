@@ -2,7 +2,7 @@ import { Console } from '@woowacourse/mission-utils';
 import { GAME_MESSAGES } from '../utils/constants.js';
 import { getResultMessage } from '../utils/viewUtils.js';
 
-export default class OutputView {
+class OutputView {
   printStart() {
     Console.print(GAME_MESSAGES.start);
   }
@@ -12,3 +12,5 @@ export default class OutputView {
     Console.print(resultText);
   }
 }
+
+export default OutputView;

@@ -1,7 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
 import { GAME_MESSAGES } from '../utils/constants.js';
 
-export default class InputView {
+class InputView {
   async readUserInputNumbers() {
     return await Console.readLineAsync(GAME_MESSAGES.inputNumbers);
   }
@@ -10,3 +10,5 @@ export default class InputView {
     return await Console.readLineAsync(GAME_MESSAGES.inputCommands);
   }
 }
+
+export default InputView;

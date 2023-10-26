@@ -1,6 +1,6 @@
 import { GAME_CONSTANTS, GAME_MESSAGES } from './constants.js';
 
-export function getResultMessage(matchResult) {
+function getResultMessage(matchResult) {
   const [ball, strike] = matchResult;
   if (!ball && !strike) {
     return GAME_RESULTS.noMatch;
@@ -29,3 +29,5 @@ const GAME_RESULTS = {
   strike: '스트라이크',
   noMatch: '낫싱',
 };
+
+export { getResultMessage };

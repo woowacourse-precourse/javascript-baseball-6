@@ -1,7 +1,7 @@
 import { GAME_CONSTANTS, USER_COMMANDS } from '../utils/constants.js';
 import { gameUtils } from '../utils/gameUtils.js';
 
-export default class BaseballGame {
+class BaseballGame {
   #answer;
   #gameState;
 
@@ -72,3 +72,5 @@ const GAME_STATES = {
 
 const { playing, command, quit } = GAME_STATES;
 const { minNumber, maxNumber, answerLength, strikeOutCount } = GAME_CONSTANTS;
+
+export default BaseballGame;

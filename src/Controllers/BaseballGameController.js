@@ -1,9 +1,6 @@
-import BaseballGame from '../Models/BaseballGame.js';
-import InputView from '../Views/InputView.js';
-import OutputView from '../Views/OutputView.js';
 import { validationUtils } from '../utils/validationUtils.js';
 
-export default class BaseballGameController {
+class BaseballGameController {
   #inputView;
   #outputView;
   #baseballGame;
@@ -46,3 +43,5 @@ export default class BaseballGameController {
     this.#baseballGame.handleUserCommand(input);
   }
 }
+
+export default BaseballGameController;
