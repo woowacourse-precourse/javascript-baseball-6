@@ -1,13 +1,5 @@
 import { Random, Console } from '@woowacourse/mission-utils';
-import {
-	COMMENT_START,
-	COMMENT_ASK_INPUT,
-	COMMENT_END,
-	RESULT,
-	DECISION,
-	ERROR_NAME,
-	ERROR_MESSAGE
-} from './constants';
+import { COMMENT, RESULT, DECISION, ERROR } from './constants';
 
 const getComputerInput = () => {
 	try {
@@ -46,9 +38,9 @@ const validateUserInput = userInput => {
 			const userArr = Array.from(userInput, Number);
 			if (userArr.includes(0)) {
 				throw new MyError(
-					ERROR_NAME,
-					ERROR_MESSAGE.INVALID_INPUT,
-					ERROR_MESSAGE.ONLY_ONE_TO_NINE
+					ERROR.NAME,
+					ERROR.MESSAGE.INVALID_INPUT,
+					ERROR.MESSAGE.ONLY_ONE_TO_NINE
 				);
 			}
 			if (
@@ -59,10 +51,10 @@ const validateUserInput = userInput => {
 				return userArr;
 			}
 		} else {
-			throw new MyError(ERROR_NAME, ERROR_MESSAGE.INVALID_INPUT);
+			throw new MyError(ERROR.NAME, ERROR.MESSAGE.INVALID_INPUT);
 		}
 	} catch (error) {
-		throw new MyError(ERROR_NAME, error);
+		throw new MyError(ERROR.NAME, error);
 	}
 };
 
@@ -94,24 +86,24 @@ const start = async () => {
 
 const process = async computerArr => {
 	try {
-		const userInput = await Console.readLineAsync(COMMENT_ASK_INPUT);
-		Console.print(COMMENT_ASK_INPUT + userInput);
+		const userInput = await Console.readLineAsync(COMMENT.ASK_INPUT);
+		Console.print(COMMENT.ASK_INPUT + userInput);
 		// 사용자이 입력값이 유효한지 확인 / boolean 반환
 		const userArr = validateUserInput(userInput);
 		if (userArr) {
 			const { strike, ball } = compareUserComputer(userArr, computerArr);
 			getScore(strike, ball, computerArr);
 		} else {
-			throw new MyError(ERROR_NAME, ERROR_MESSAGE.INVALID_INPUT);
+			throw new MyError(ERROR.NAME, ERROR.MESSAGE.INVALID_INPUT);
 		}
 	} catch (error) {
-		throw new MyError(ERROR_NAME, error);
+		throw new MyError(ERROR.NAME, error);
 	}
 };
 const end = async () => {
-	Console.print(COMMENT_END);
+	Console.print(COMMENT.END);
 	try {
-		const userDecision = await Console.readLineAsync(COMMENT_END);
+		const userDecision = await Console.readLineAsync(COMMENT.END);
 		switch (userDecision) {
 			case DECISION.RESTART:
 				await start();
@@ -120,9 +112,9 @@ const end = async () => {
 				return;
 			default:
 				throw new MyError(
-					ERROR_NAME,
-					ERROR_MESSAGE.INVALID_INPUT,
-					ERROR_MESSAGE.ONLY_ONE_OR_TWO
+					ERROR.NAME,
+					ERROR.MESSAGE.INVALID_INPUT,
+					ERROR.MESSAGE.ONLY_ONE_OR_TWO
 				);
 		}
 	} catch (error) {}
@@ -138,7 +130,7 @@ class MyError extends Error {
 
 class App {
 	async play() {
-		Console.print(COMMENT_START);
+		Console.print(COMMENT.START);
 		await start(); //await 있어야 유효성 검사 통과
 		await end();
 		return;
