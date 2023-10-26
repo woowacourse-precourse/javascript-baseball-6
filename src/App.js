@@ -27,9 +27,9 @@ const compareUserComputer = (userArr, computerArr) => {
 	let ball = 0;
 
 	//strike 계산
-	for (let i = 0; i < 3; i++) {
+	for (let i = 0; i < 3; i+=1) {
 		if (userArr[i] === computerArr[i]) {
-			strike++;
+			strike+=1;
 		}
 	}
 	const ballArr = userArr.filter(item => computerArr.includes(item));
