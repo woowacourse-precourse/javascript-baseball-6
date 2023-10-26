@@ -44,10 +44,10 @@ const print_cnt = (BallCnt, StrikeCnt) => {
   if (BallCnt > 0 && StrikeCnt > 0) {
     Console.print(`${BallCnt}볼 ${StrikeCnt}스트라이크`);
   }
-  if (BallCnt > 0) {
+  else if (BallCnt > 0) {
     Console.print(`${BallCnt}볼`);
   }
-  if (StrikeCnt > 0) {
+  else if (StrikeCnt > 0) {
     Console.print(`${StrikeCnt}스트라이크`);
   }
   if (BallCnt === 0 && StrikeCnt === 0) {
@@ -61,6 +61,7 @@ class App {
     Console.print('\x1b[37m숫자 야구 게임을 시작합니다.');
     while (1) {
       const COMPUTER_NUMBER = RandomBallNumber();
+      Console.print(COMPUTER_NUMBER);
       while (1) {
         const my_result = await Console.readLineAsync('숫자를 입력해주세요 : ');
 
