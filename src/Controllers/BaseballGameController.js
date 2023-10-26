@@ -8,13 +8,13 @@ export default class BaseballGameController {
   #outputView;
   #baseballGame;
 
-  constructor() {
-    this.#inputView = new InputView();
-    this.#outputView = new OutputView();
+  constructor(inputView, outputView, baseballGame) {
+    this.#inputView = inputView;
+    this.#outputView = outputView;
+    this.#baseballGame = baseballGame;
   }
 
   async play() {
-    this.#baseballGame = new BaseballGame();
     this.#outputView.printStart();
     while (!this.#baseballGame.isGameEnded()) {
       if (this.#baseballGame.isInCommandPhase()) {
