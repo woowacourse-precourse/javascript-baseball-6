@@ -43,7 +43,7 @@ const compareUserComputer = (userArr, computerArr) => {
 const validateUserInput = userInput => {
 	try {
 		if (userInput.length === 3) {
-			const userArr = userInput.split('').map(num => +num);
+			const userArr = Array.from(userInput, Number);
 			if (userArr.includes(0)) {
 				throw new MyError(
 					ERROR_NAME,
