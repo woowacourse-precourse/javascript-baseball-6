@@ -27,9 +27,9 @@ const compareUserComputer = (userArr, computerArr) => {
 	let ball = 0;
 
 	//strike 계산
-	for (let i = 0; i < 3; i+=1) {
+	for (let i = 0; i < 3; i += 1) {
 		if (userArr[i] === computerArr[i]) {
-			strike+=1;
+			strike += 1;
 		}
 	}
 	const ballArr = userArr.filter(item => computerArr.includes(item));
@@ -50,17 +50,13 @@ const validateUserInput = userInput => {
 					ERROR_MESSAGE.INVALID_INPUT,
 					ERROR_MESSAGE.ONLY_ONE_TO_NINE
 				);
-			} else {
-				// USER_ARR 는 모두 자연수
-				if (
-					userArr[0] !== userArr[1] &&
-					userArr[0] !== userArr[2] &&
-					userArr[1] !== userArr[2]
-				) {
-					return userArr;
-				} else {
-					return false;
-				}
+			}
+			if (
+				userArr[0] !== userArr[1] &&
+				userArr[0] !== userArr[2] &&
+				userArr[1] !== userArr[2]
+			) {
+				return userArr;
 			}
 		} else {
 			throw new MyError(ERROR_NAME, ERROR_MESSAGE.INVALID_INPUT);
@@ -73,21 +69,22 @@ const validateUserInput = userInput => {
 const getScore = (strike, ball, computerArr) => {
 	if (strike === 3) {
 		Console.print(RESULT.ALL_STRIKE);
-
 		return;
-	} else if (strike === 0 && ball === 0) {
+	}
+	if (strike === 0 && ball === 0) {
 		Console.print(RESULT.NOTHING);
 		process(computerArr);
 		return;
-	} else if (strike === 0) {
+	}
+	if (strike === 0) {
 		Console.print(ball + RESULT.BALL);
 		return;
-	} else if (ball === 0) {
+	}
+	if (ball === 0) {
 		Console.print(strike + RESULT.STRIKE);
 		return;
-	} else {
-		Console.print(ball + RESULT.BALL + ' ' + strike + RESULT.STRIKE);
 	}
+	Console.print(ball + RESULT.BALL + ' ' + strike + RESULT.STRIKE);
 };
 
 const start = async () => {
