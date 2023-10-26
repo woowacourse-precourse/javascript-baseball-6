@@ -1,11 +1,11 @@
-import { MissionUtils } from '@woowacourse/mission-utils';
+import { Random } from '@woowacourse/mission-utils';
 
 export const gameUtils = {
   generateAnswer(min, max, length) {
     const answer = new Set();
 
     while (answer.size < length) {
-      const randomNumber = MissionUtils.Random.pickNumberInRange(min, max);
+      const randomNumber = Random.pickNumberInRange(min, max);
       answer.add(randomNumber);
     }
 
