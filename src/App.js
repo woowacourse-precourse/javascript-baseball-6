@@ -12,16 +12,12 @@ class App {
   async gameStart() {
     let correct = true;
     await this.createRandomNumber();
-    try {
-      while (correct) {
-        await this.getPlayerNumber();
-        await isError(this.player);
-        correct = await feedback(this.computer, this.player);
-      }
-      await this.gameOver();
-    } catch (e) {
-      throw new Error(e);
+    while (correct) {
+      await this.getPlayerNumber();
+      await isError(this.player);
+      correct = await feedback(this.computer, this.player);
     }
+    await this.gameOver();
   }
   async reStart() {
     this.computer = [];
