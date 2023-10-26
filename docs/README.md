@@ -139,4 +139,4 @@
 
 # 📈 플로우 차트
 
-![flow chart](flowChart.png)
+![flow chart](flowchart.png)
