@@ -26,7 +26,8 @@ export default class InputProcessor {
   }
 
   static convertStringToNumArray(inputString) {
-    return [...inputString].map((char) => Number(char));
+    const RADIX = 10;
+    return Array.from(inputString, (char) => parseInt(char, RADIX));
   }
 
   static isVaildOption(inputNumber) {
