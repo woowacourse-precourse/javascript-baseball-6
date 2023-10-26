@@ -27,7 +27,7 @@ export default class BaseballGame {
   }
 
   handleUserPitches(userInput) {
-    const pitchedBallNumbers = userInput.split('').map(Number);
+    const pitchedBallNumbers = Array.from(userInput, Number);
     const [ball, strike] = gameUtils.calculateBallStrikeScore(
       this.#answer,
       pitchedBallNumbers
