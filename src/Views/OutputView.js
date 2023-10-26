@@ -1,6 +1,6 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import { GAME_MESSAGES } from '../utils/constants.js';
-import { getResultString } from '../utils/viewUtils.js';
+import { getResultMessage, getResultString } from '../utils/viewUtils.js';
 
 export default class OutputView {
   printStart() {
@@ -8,7 +8,7 @@ export default class OutputView {
   }
 
   printMatchResult(matchResult) {
-    const resultText = getResultString(matchResult);
+    const resultText = getResultMessage(matchResult);
     MissionUtils.Console.print(resultText);
   }
 }
