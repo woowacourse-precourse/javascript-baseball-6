@@ -1,45 +1,45 @@
-import { MissionUtils } from '@woowacourse/mission-utils';
+import { Random , Console } from '@woowacourse/mission-utils';
 
 const getComputerInput = () => {
 	try {
-		const COMPUTERARR = [];
-		while (COMPUTERARR.length < 3) {
-			const number = MissionUtils.Random.pickNumberInRange(1, 9);
-			if (!COMPUTERARR.includes(number)) {
-				COMPUTERARR.push(number);
+		const COMPUTER_ARR = [];
+		while (COMPUTER_ARR.length < 3) {
+			const number = Random.pickNumberInRange(1, 9);
+			if (!COMPUTER_ARR.includes(number)) {
+				COMPUTER_ARR.push(number);
 			}
 		}
-		return COMPUTERARR;
+		return COMPUTER_ARR;
 	} catch (error) {}
 };
 
-const compareUserComputer = (USERARR, COMPUTERARR) => {
+const compareUserComputer = (USER_ARR, COMPUTER_ARR) => {
 	let STRIKE = 0;
 	let BALL = 0;
 	//strike 계산
 	for (let i = 0; i < 3; i++) {
-		if (USERARR[i] === COMPUTERARR[i]) {
+		if (USER_ARR[i] === COMPUTER_ARR[i]) {
 			STRIKE++;
 		}
 	}
-	const BALLARR = USERARR.filter((item) => COMPUTERARR.includes(item));
-	BALL = BALLARR.length - STRIKE;
+	const BALL_ARR = USER_ARR.filter((item) => COMPUTER_ARR.includes(item));
+	BALL = BALL_ARR.length - STRIKE;
 	return {
 		strike: STRIKE,
 		ball: BALL,
 	};
 };
 
-const validateUserInput = (USERINPUT) => {
+const validateUserInput = (USER_INPUT) => {
 	try {
-		if (USERINPUT.length === 3) {
-			const USERARR = USERINPUT.split('').map((num) => +num);
+		if (USER_INPUT.length === 3) {
+			const USER_ARR = USER_INPUT.split('').map((num) => +num);
 			if (USERARR.includes(0)) {
 				throw new MyError('[ERROR]', '1부터 9까지의 자연수만 가능합니다.');
 			} else {
-				// USERARR 는 모두 자연수
-				if (USERARR[0] !== USERARR[1] && USERARR[0] !== USERARR[2] && USERARR[1] !== USERARR[2]) {
-					return USERARR;
+				// USER_ARR 는 모두 자연수
+				if (USER_ARR[0] !== USER_ARR[1] && USER_ARR[0] !== USER_ARR[2] && USER_ARR[1] !== USER_ARR[2]) {
+					return USER_ARR;
 				} else {
 					return false;
 				}
@@ -52,40 +52,40 @@ const validateUserInput = (USERINPUT) => {
 	}
 };
 
-const getScore = (STRIKE, BALL, COMPUTERARR) => {
+const getScore = (STRIKE, BALL, COMPUTER_ARR) => {
 	if (STRIKE === 3) {
-		MissionUtils.Console.print('3스트라이크');
-		MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+		Console.print('3스트라이크');
+		Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료'); //Escape Sequence 사용하면 한 번에 두 줄 출력 가능
 		return;
 	} else if (STRIKE === 0 && BALL === 0) {
-		MissionUtils.Console.print('낫싱');
-		process(COMPUTERARR);
+		Console.print('낫싱');
+		process(COMPUTER_ARR);
 		return;
 	} else if (STRIKE === 0) {
-		MissionUtils.Console.print(`${BALL}볼`);
+		Console.print(`${BALL}볼`);
 		return;
 	} else if (BALL === 0) {
-		MissionUtils.Console.print(`${STRIKE}스트라이크`);
+		Console.print(`${STRIKE}스트라이크`);
 		return;
 	} else {
-		MissionUtils.Console.print(`${BALL}볼 ${STRIKE}스트라이크`);
+		Console.print(`${BALL}볼 ${STRIKE}스트라이크`);
 	}
 };
 
 const start = async () => {
-	const COMPUTERARR = getComputerInput();
-	await process(COMPUTERARR);
+	const COMPUTER_ARR = getComputerInput();
+	await process(COMPUTER_ARR);
 };
 
-const process = async (COMPUTERARR) => {
+const process = async (COMPUTER_ARR) => {
 	try {
-		const USERINPUT = await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 :');
-		MissionUtils.Console.print(`숫자를 입력해주세요 : ${USERINPUT}`);
+		const USER_INPUT = await Console.readLineAsync('숫자를 입력해주세요 :');
+		Console.print(`숫자를 입력해주세요 : ${USER_INPUT}`);
 		// 사용자이 입력값이 유효한지 확인 / boolean 반환
-		const USERARR = validateUserInput(USERINPUT);
-		if (USERARR) {
-			const { strike, ball } = compareUserComputer(USERARR, COMPUTERARR);
-			getScore(strike, ball, COMPUTERARR);
+		const USER_ARR = validateUserInput(USER_INPUT);
+		if (USER_ARR) {
+			const { strike, ball } = compareUserComputer(USER_ARR, COMPUTER_ARR);
+			getScore(strike, ball, COMPUTER_ARR);
 		} else {
 			throw new MyError('[ERROR]', '유효한 입력값이 아닙니다.');
 		}
@@ -94,9 +94,9 @@ const process = async (COMPUTERARR) => {
 	}
 };
 const end = async () => {
-	MissionUtils.Console.print('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+	Console.print('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
 	try {
-		const DECISION = await MissionUtils.Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+		const DECISION = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
 		switch (DECISION) {
 			case '1':
 				await start();
@@ -119,7 +119,7 @@ class MyError extends Error {
 
 class App {
 	async play() {
-		MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
+		Console.print('숫자 야구 게임을 시작합니다.');
 		await start(); //await 있어야 유효성 검사 통과
 		await end();
 		return;
