@@ -18,31 +18,31 @@ export default class BaseballGameController {
     this.#outputView.printStart();
     while (!this.#baseballGame.isGameEnded()) {
       if (this.#baseballGame.isInCommandPhase()) {
-        await this.#readCommandInput(this.#baseballGame);
+        const input = await this.#readCommandInput();
+        this.#processCommand(input);
         continue;
       }
-      await this.#readNumbersInput(this.#baseballGame);
+      const input = await this.#readNumbersInput();
+      this.#processNumbers(input);
     }
   }
 
-  async #readNumbersInput(game) {
-    const input = await this.#inputView.readUserInputNumbers();
-    this.#processNumbers(game, input);
+  async #readNumbersInput() {
+    return await this.#inputView.readUserInputNumbers();
   }
 
-  #processNumbers(game, input) {
+  #processNumbers(input) {
     validationUtils.validateNumbers(input);
-    const matchResult = game.handleUserPitches(input);
+    const matchResult = this.#baseballGame.handleUserPitches(input);
     this.#outputView.printMatchResult(matchResult);
   }
 
-  async #readCommandInput(game) {
-    const input = await this.#inputView.readUserInputCommand();
-    this.#processCommand(game, input);
+  async #readCommandInput() {
+    return await this.#inputView.readUserInputCommand();
   }
 
-  #processCommand(game, input) {
+  #processCommand(input) {
     validationUtils.validateCommand(input);
-    game.handleUserCommand(input);
+    this.#baseballGame.handleUserCommand(input);
   }
 }
