@@ -1,110 +1,157 @@
-import { Random , Console } from '@woowacourse/mission-utils';
+import { Random, Console } from '@woowacourse/mission-utils';
+// import {
+// 	COMMENT_START,
+// 	COMMENT_ASK_INPUT,
+// 	COMMENT_END,
+// 	RESULT,
+// 	DECISION,
+// 	ERROR_NAME,
+// 	ERROR_MESSAGE
+// } from './constants';
+
+export const COMMENT_START = '숫자 야구 게임을 시작합니다.';
+export const COMMENT_END =
+	'게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.';
+export const COMMENT_ASK_INPUT = '숫자를 입력해주세요 : ';
+
+export const RESULT = {
+	BALL: '볼',
+	STRIKE: '스트라이크',
+	NOTHING: '낫싱',
+	ALL_STRIKE: '3스트라이크 \n 3개의 숫자를 모두 맞히셨습니다! 게임 종료 '
+};
+
+export const DECISION = {
+	RESTART: '1',
+	END: '2'
+};
+
+export const ERROR_NAME = '[ERROR]';
+export const ERROR_MESSAGE = {
+	INVALID_INPUT: '유효한 입력값이 아닙니다.',
+	ONLY_THREE: '3글자만 입력해주세요.',
+	ONLY_ONE_TO_NINE: '1부터 9까지의 자연수만 입력해주세요.',
+	ONLY_ONE_OR_TWO: '1 또는 2 중에서 입력해주세요.'
+};
 
 const getComputerInput = () => {
 	try {
-		const COMPUTER_ARR = [];
-		while (COMPUTER_ARR.length < 3) {
+		const computerArr = [];
+		while (computerArr.length < 3) {
 			const number = Random.pickNumberInRange(1, 9);
-			if (!COMPUTER_ARR.includes(number)) {
-				COMPUTER_ARR.push(number);
+			if (!computerArr.includes(number)) {
+				computerArr.push(number);
 			}
 		}
-		return COMPUTER_ARR;
+		return computerArr;
 	} catch (error) {}
 };
 
-const compareUserComputer = (USER_ARR, COMPUTER_ARR) => {
-	let STRIKE = 0;
-	let BALL = 0;
+const compareUserComputer = (userArr, computerArr) => {
+	let strike = 0;
+	let ball = 0;
+
 	//strike 계산
 	for (let i = 0; i < 3; i++) {
-		if (USER_ARR[i] === COMPUTER_ARR[i]) {
-			STRIKE++;
+		if (userArr[i] === computerArr[i]) {
+			strike++;
 		}
 	}
-	const BALL_ARR = USER_ARR.filter((item) => COMPUTER_ARR.includes(item));
-	BALL = BALL_ARR.length - STRIKE;
+	const ballArr = userArr.filter(item => computerArr.includes(item));
+	ball = ballArr.length - strike;
 	return {
-		strike: STRIKE,
-		ball: BALL,
+		strike: strike,
+		ball: ball
 	};
 };
 
-const validateUserInput = (USER_INPUT) => {
+const validateUserInput = userInput => {
 	try {
-		if (USER_INPUT.length === 3) {
-			const USER_ARR = USER_INPUT.split('').map((num) => +num);
-			if (USERARR.includes(0)) {
-				throw new MyError('[ERROR]', '1부터 9까지의 자연수만 가능합니다.');
+		if (userInput.length === 3) {
+			const userArr = userInput.split('').map(num => +num);
+			if (userArr.includes(0)) {
+				throw new MyError(
+					ERROR_NAME,
+					ERROR_MESSAGE.INVALID_INPUT,
+					ERROR_MESSAGE.ONLY_ONE_TO_NINE
+				);
 			} else {
 				// USER_ARR 는 모두 자연수
-				if (USER_ARR[0] !== USER_ARR[1] && USER_ARR[0] !== USER_ARR[2] && USER_ARR[1] !== USER_ARR[2]) {
-					return USER_ARR;
+				if (
+					userArr[0] !== userArr[1] &&
+					userArr[0] !== userArr[2] &&
+					userArr[1] !== userArr[2]
+				) {
+					return userArr;
 				} else {
 					return false;
 				}
 			}
 		} else {
-			throw new MyError('[ERROR]', '유효한 입력값이 아닙니다.');
+			throw new MyError(ERROR_NAME, ERROR_MESSAGE.INVALID_INPUT);
 		}
 	} catch (error) {
-		throw new MyError('[ERROR]', error);
+		throw new MyError(ERROR_NAME, error);
 	}
 };
 
-const getScore = (STRIKE, BALL, COMPUTER_ARR) => {
-	if (STRIKE === 3) {
-		Console.print('3스트라이크');
-		Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료'); //Escape Sequence 사용하면 한 번에 두 줄 출력 가능
+const getScore = (strike, ball, computerArr) => {
+	if (strike === 3) {
+		Console.print(RESULT.ALL_STRIKE);
+
 		return;
-	} else if (STRIKE === 0 && BALL === 0) {
-		Console.print('낫싱');
-		process(COMPUTER_ARR);
+	} else if (strike === 0 && ball === 0) {
+		Console.print(RESULT.NOTHING);
+		process(computerArr);
 		return;
-	} else if (STRIKE === 0) {
-		Console.print(`${BALL}볼`);
+	} else if (strike === 0) {
+		Console.print(ball + RESULT.BALL);
 		return;
-	} else if (BALL === 0) {
-		Console.print(`${STRIKE}스트라이크`);
+	} else if (ball === 0) {
+		Console.print(strike + RESULT.STRIKE);
 		return;
 	} else {
-		Console.print(`${BALL}볼 ${STRIKE}스트라이크`);
+		Console.print(ball + RESULT.BALL + ' ' + strike + RESULT.STRIKE);
 	}
 };
 
 const start = async () => {
-	const COMPUTER_ARR = getComputerInput();
-	await process(COMPUTER_ARR);
+	const computerArr = getComputerInput();
+	await process(computerArr);
 };
 
-const process = async (COMPUTER_ARR) => {
+const process = async computerArr => {
 	try {
-		const USER_INPUT = await Console.readLineAsync('숫자를 입력해주세요 :');
-		Console.print(`숫자를 입력해주세요 : ${USER_INPUT}`);
+		const userInput = await Console.readLineAsync(COMMENT_ASK_INPUT);
+		Console.print(COMMENT_ASK_INPUT + userInput);
 		// 사용자이 입력값이 유효한지 확인 / boolean 반환
-		const USER_ARR = validateUserInput(USER_INPUT);
-		if (USER_ARR) {
-			const { strike, ball } = compareUserComputer(USER_ARR, COMPUTER_ARR);
-			getScore(strike, ball, COMPUTER_ARR);
+		const userArr = validateUserInput(userInput);
+		if (userArr) {
+			const { strike, ball } = compareUserComputer(userArr, computerArr);
+			getScore(strike, ball, computerArr);
 		} else {
-			throw new MyError('[ERROR]', '유효한 입력값이 아닙니다.');
+			throw new MyError(ERROR_NAME, ERROR_MESSAGE.INVALID_INPUT);
 		}
 	} catch (error) {
-		throw new MyError('[ERROR]', error);
+		throw new MyError(ERROR_NAME, error);
 	}
 };
 const end = async () => {
-	Console.print('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
+	Console.print(COMMENT_END);
 	try {
-		const DECISION = await Console.readLineAsync('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.');
-		switch (DECISION) {
-			case '1':
+		const userDecision = await Console.readLineAsync(COMMENT_END);
+		switch (userDecision) {
+			case DECISION.RESTART:
 				await start();
 				break;
-			case '2':
+			case DECISION.END:
 				return;
 			default:
-				throw new MyError('[ERROR]', '유효한 입력값이 아닙니다. 1, 2 중에서 입력해주세요.');
+				throw new MyError(
+					ERROR_NAME,
+					ERROR_MESSAGE.INVALID_INPUT,
+					ERROR_MESSAGE.ONLY_ONE_OR_TWO
+				);
 		}
 	} catch (error) {}
 };
@@ -119,7 +166,7 @@ class MyError extends Error {
 
 class App {
 	async play() {
-		Console.print('숫자 야구 게임을 시작합니다.');
+		Console.print(COMMENT_START);
 		await start(); //await 있어야 유효성 검사 통과
 		await end();
 		return;

@@ -10,6 +10,11 @@ export const RESULT = {
 	ALL_STRIKE: '3스트라이크 \n 3개의 숫자를 모두 맞히셨습니다! 게임 종료 '
 };
 
+export const DECISION = {
+	RESTART: '1',
+	END: '2'
+};
+
 export const ERROR_NAME = '[ERROR]';
 export const ERROR_MESSAGE = {
 	INVALID_INPUT: '유효한 입력값이 아닙니다.',
