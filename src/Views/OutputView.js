@@ -1,6 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 import { GAME_MESSAGES } from '../utils/constants.js';
-import { getResultMessage, getResultString } from '../utils/viewUtils.js';
+import { getResultMessage } from '../utils/viewUtils.js';
 
 export default class OutputView {
   printStart() {
