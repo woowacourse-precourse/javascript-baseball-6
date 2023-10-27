@@ -36,11 +36,11 @@ npm i
 
 사용한 패키지
 
-- eslint: "^8.52.0",
-- eslint-config-airbnb: "^19.0.4",
-- eslint-config-prettier: "^9.0.0",
-- eslint-plugin-prettier: "^5.0.1",
-- prettier: "^3.0.3"
+- eslint
+- eslint-config-airbnb-base
+- eslint-config-prettier
+- eslint-plugin-prettier
+- prettier
 
 ### Test
 
