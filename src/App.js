@@ -1,12 +1,12 @@
 import { Console, MissionUtils } from "@woowacourse/mission-utils";
-import { GameType, Rules } from "./constants";
+import { ERROR_MESSAGE, GAME_MESSAGE, GAME_TYPE, RULES } from "./constants";
 import { isBaseballGameInput } from "./utils/validator";
 
 class App {
   #isPause = false;
   #answer = null;
   async play() {
-    Console.print('숫자 야구 게임을 시작합니다.');
+    Console.print(GAME_MESSAGE.startGame);
     this.initAnswer();
     await this.playball();
   }
@@ -15,7 +15,7 @@ class App {
     while (!this.#isPause) {
       let inputedNumbers = '';
       try {
-        inputedNumbers = await Console.readLineAsync('숫자를 입력해주세요 : ');
+        inputedNumbers = await Console.readLineAsync(GAME_MESSAGE.inputNumberPrompt);
       } catch (e) {
         throw new Error(e);
       }
@@ -23,26 +23,26 @@ class App {
       const countedResult = this.countStrikeAndBall(this.#answer, inputedNumbers);
       Console.print(this.trimString(countedResult));
       if (this.checkAnswer(countedResult.cntStrike)) {
-        Console.print(`${Rules.DIGIT_COUNT}개의 숫자를 모두 맞히셨습니다! 게임 종료`);
+        Console.print(GAME_MESSAGE.win);
         await this.checkTryAgain();
       }
     }
   }
 
   async checkTryAgain() {
-    const pickedType = await Console.readLineAsync(`게임을 새로 시작하려면 ${GameType.RESTART}, 종료하려면 ${GameType.END}를 입력하세요.`);
-    if (pickedType === GameType.END) {
+    const pickedType = await Console.readLineAsync(GAME_MESSAGE.restartPrompt);
+    if (pickedType === GAME_TYPE.end) {
       this.#isPause = true;
-    } else if (pickedType === GameType.RESTART) {
+    } else if (pickedType === GAME_TYPE.restart) {
       this.initAnswer();
     }
   }
 
   checkInputedNumbersValidation(inputedNumbers) {
     if (this.isExistDuplication(inputedNumbers))
-      throw new Error("[ERROR] 중복된 숫자가 존재합니다.");
-    if (!isBaseballGameInput(inputedNumbers, { size: Rules.DIGIT_COUNT }))
-      throw new Error(`[ERROR] 1 ~ 9사이의 ${Rules.DIGIT_COUNT}자리 숫자가 필요합니다.`);
+      throw new Error(ERROR_MESSAGE.duplicateNumber);
+    if (!isBaseballGameInput(inputedNumbers, { size: RULES.digitCount }))
+      throw new Error(ERROR_MESSAGE.invalidInput);
   }
 
   isExistDuplication(inputedNumbers) {
@@ -69,7 +69,7 @@ class App {
   }
 
   checkAnswer(cntStrike) {
-    return cntStrike === Rules.DIGIT_COUNT;
+    return cntStrike === RULES.digitCount;
   }
 
   countStrikeAndBall(answer, numbers) {
@@ -88,7 +88,7 @@ class App {
 
   initAnswer() {
     const computer = [];
-    while (computer.length < Rules.DIGIT_COUNT) {
+    while (computer.length < RULES.digitCount) {
       const number = MissionUtils.Random.pickNumberInRange(1, 9);
       if (!computer.includes(number)) {
         computer.push(number);
