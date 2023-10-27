@@ -23,7 +23,7 @@ class App {
       isGameEnded = await this.checkResult(strikes, balls);
     }
 
-    return null;
+    // return null;
   }
 
   generateComputerNumber() {
@@ -54,7 +54,7 @@ class App {
       this.validateUserInput(userNum);
       return userNum;
     } catch (error) {
-      return Promise.reject(error); // 에러 처리 문구 주의하기!
+      return Promise.reject(error);
     }
   }
 
@@ -120,7 +120,7 @@ class App {
     }
 
     if (strikes > 0 || balls > 0) {
-      Console.print(`${balls}볼 ${strikes}스트라이크 `); // 출력 양식 잘 맞추기!
+      Console.print(`${balls}볼 ${strikes}스트라이크 `);
     } else {
       Console.print('낫싱');
     }
