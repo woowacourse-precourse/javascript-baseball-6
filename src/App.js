@@ -1,6 +1,7 @@
 import { Console } from "@woowacourse/mission-utils";
-import { COMPUTER_MESSAGE, Computer } from "./features/Computer.js";
+import { Computer } from "./features/Computer.js";
 import { player } from "./features/Player.js";
+import { COMPUTER_MESSAGE } from "./constants.js";
 
 class App {
   constructor() {

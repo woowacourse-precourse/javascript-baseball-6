@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import { COMPUTER_MESSAGE } from "./Computer";
+import { COMPUTER_MESSAGE, COUNT } from "../constants";
 
 export class Count {
   ball = 0;
@@ -23,15 +23,11 @@ export class Count {
 
   print() {
     if (this.strike === 0 && this.ball === 0) {
-      Console.print("낫싱");
+      Console.print(COUNT.NOTHING);
       return;
     }
 
-    Console.print(
-      `${this.ball > 0 ? `${this.ball}볼 ` : ""}${
-        this.strike > 0 ? `${this.strike}스트라이크` : ""
-      }`
-    );
+    Console.print(`${COUNT.BALL(this.ball)}${COUNT.STRIKE(this.strike)}`);
 
     if (this.strike === 3) {
       Console.print(COMPUTER_MESSAGE.COMPLETED);

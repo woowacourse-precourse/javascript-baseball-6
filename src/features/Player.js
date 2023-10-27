@@ -1,10 +1,6 @@
 import { Console } from "@woowacourse/mission-utils";
 import { validation } from "./Validation.js";
-
-const INPUT_MESSAGE = {
-  PLAY_NUMBER: "숫자를 입력해주세요 : ",
-  SELECT_REPLAY_OR_EXIT: "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.",
-};
+import { INPUT_MESSAGE, INTERFACE } from "../constants.js";
 
 export const player = {
   async getPlayNumber() {
@@ -25,10 +21,10 @@ export const player = {
     );
     validation.validateSelectReplayOrExit(input);
 
-    if (input === "1") {
+    if (input === INTERFACE.REPLAY) {
       return true;
     }
-    if (input === "2") {
+    if (input === INTERFACE.EXIT) {
       return false;
     }
   },

@@ -1,9 +1,4 @@
-const ERROR_MESSAGE = {
-  NOT_NUMBER: "문자를 입력했습니다.",
-  OVER_OR_UNDER_LIMIT: "입력된 숫자의 개수가 초과/미달 입니다.",
-  DUPLICATED: "중복된 입력이 있습니다.",
-  UNDEFINED: "입력값을 확인할 수 없습니다. 종료하겠습니다.",
-};
+import { ERROR_MESSAGE, INTERFACE } from "../constants";
 
 const VALIDATION_CONDITIONS = {
   NOT_NUMBER: (input) => Number.isNaN(parseInt(input)),
@@ -12,7 +7,7 @@ const VALIDATION_CONDITIONS = {
     inputArray.findIndex(
       (item) => inputArray.indexOf(item) !== inputArray.lastIndexOf(item)
     ) !== -1,
-  UNDEFINED: (input) => input !== "1" && input !== "2",
+  UNDEFINED: (input) => input !== INTERFACE.REPLAY && input !== INTERFACE.EXIT,
 };
 
 export const validation = {
