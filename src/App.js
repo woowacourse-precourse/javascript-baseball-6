@@ -11,14 +11,16 @@ const getComputerInput = () => {
 			}
 		}
 		return computerArr;
-	} catch (error) {}
+	} catch (error) {
+		throw new MyError(ERROR.NAME, error.message);
+	}
 };
 
 const compareUserComputer = (userArr, computerArr) => {
 	let strike = 0;
 	let ball = 0;
 
-	//strike 계산
+	//strike 계산 // 고차함수로 변경해보기
 	for (let i = 0; i < 3; i += 1) {
 		if (userArr[i] === computerArr[i]) {
 			strike += 1;
@@ -42,7 +44,7 @@ const validateUserInput = userInput => {
 					ERROR.MESSAGE.INVALID_INPUT,
 					ERROR.MESSAGE.ONLY_ONE_TO_NINE
 				);
-			}
+			} // 중복검사는 Set 사용해보기
 			if (
 				userArr[0] !== userArr[1] &&
 				userArr[0] !== userArr[2] &&
@@ -51,10 +53,14 @@ const validateUserInput = userInput => {
 				return userArr;
 			}
 		} else {
-			throw new MyError(ERROR.NAME, ERROR.MESSAGE.INVALID_INPUT);
+			throw new MyError(
+				ERROR.NAME,
+				ERROR.MESSAGE.INVALID_INPUT,
+				ERROR.MESSAGE.ONLY_THREE
+			);
 		}
 	} catch (error) {
-		throw new MyError(ERROR.NAME, error);
+		throw new MyError(ERROR.NAME, error.message);
 	}
 };
 
@@ -79,7 +85,7 @@ const getScore = (strike, ball, computerArr) => {
 	Console.print(ball + RESULT.BALL + ' ' + strike + RESULT.STRIKE);
 };
 
-const start = async () => {
+const startGame = async () => {
 	const computerArr = getComputerInput();
 	await continueGame(computerArr);
 };
@@ -88,7 +94,6 @@ const continueGame = async computerArr => {
 	try {
 		const userInput = await Console.readLineAsync(COMMENT.ASK_INPUT);
 		Console.print(COMMENT.ASK_INPUT + userInput);
-		// 사용자이 입력값이 유효한지 확인 / boolean 반환
 		const userArr = validateUserInput(userInput);
 		if (userArr) {
 			const { strike, ball } = compareUserComputer(userArr, computerArr);
@@ -97,16 +102,16 @@ const continueGame = async computerArr => {
 			throw new MyError(ERROR.NAME, ERROR.MESSAGE.INVALID_INPUT);
 		}
 	} catch (error) {
-		throw new MyError(ERROR.NAME, error);
+		throw new MyError(ERROR.NAME, error.message);
 	}
 };
-const end = async () => {
+const endGame = async () => {
 	Console.print(COMMENT.END);
 	try {
 		const userDecision = await Console.readLineAsync(COMMENT.END);
 		switch (userDecision) {
 			case DECISION.RESTART:
-				await start();
+				await startGame();
 				break;
 			case DECISION.END:
 				return;
@@ -117,7 +122,9 @@ const end = async () => {
 					ERROR.MESSAGE.ONLY_ONE_OR_TWO
 				);
 		}
-	} catch (error) {}
+	} catch (error) {
+		throw new MyError(ERROR.NAME, error.message);
+	}
 };
 
 class MyError extends Error {
@@ -131,8 +138,8 @@ class MyError extends Error {
 class App {
 	async play() {
 		Console.print(COMMENT.START);
-		await start(); //await 있어야 유효성 검사 통과
-		await end();
+		await startGame(); //await 있어야 유효성 검사 통과
+		await endGame();
 		return;
 	}
 }
