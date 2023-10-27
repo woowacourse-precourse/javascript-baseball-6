@@ -1,9 +1,8 @@
-import { INFO_MESSAGE } from "./constants/messages.js";
-import { MAGIC_NUM } from "./constants/magicNums.js";
-import { inputValidator, restartValidator } from "./utils/validators.js";
-import { generateRandomNum } from "./utils/generateRandomNum.js";
-
-import { Console } from "@woowacourse/mission-utils";
+import { Console } from '@woowacourse/mission-utils';
+import { INFO_MESSAGE } from './constants/messages.js';
+import { MAGIC_NUM } from './constants/magicNums.js';
+import { inputValidator, restartValidator } from './utils/validators.js';
+import { generateRandomNum } from './utils/generateRandomNum.js';
 
 export default class App {
   startNewGame() {
@@ -19,25 +18,21 @@ export default class App {
       if (result.strike === MAGIC_NUM.MAX_BASEBALL_NUM) {
         return this.getRestartInput();
       }
-      return this.runGame(answer);
+      this.runGame(answer);
     } catch (error) {
       throw error;
     }
   }
 
-  async getUserInput() {
-    try {
-      return await Console.readLineAsync(INFO_MESSAGE.INPUT_NUM_MESSAGE);
-    } catch (error) {
-      throw error;
-    }
+  getUserInput() {
+    return Console.readLineAsync(INFO_MESSAGE.INPUT_NUM_MESSAGE);
   }
 
   compareNums(userGuessInput, answer) {
     const count = { ball: 0, strike: 0 };
     const arrayedUserGuessInput = userGuessInput
-      .split("")
-      .map((num) => Number(num));
+      .split('')
+      .map(num => Number(num));
     arrayedUserGuessInput.forEach((userNum, idx) => {
       if (answer.includes(userNum) && answer.indexOf(userNum) === idx) {
         count.strike += 1;
@@ -49,22 +44,23 @@ export default class App {
   printResult({ ball, strike }) {
     if (ball || strike) {
       Console.print(
-        (ball ? `${ball}볼 ` : "") + (strike ? `${strike}스트라이크` : "")
+        (ball ? `${ball}볼 ` : '') + (strike ? `${strike}스트라이크` : ''),
       );
     } else Console.print(INFO_MESSAGE.NOTHING_MESSAGE);
   }
 
   async getRestartInput() {
-    try {
-      Console.print(INFO_MESSAGE.WIN_MESSAGE + " " + INFO_MESSAGE.END_MESSAGE);
-      Console.print(INFO_MESSAGE.RESTART_MESSAGE);
-      const restartInput = await Console.readLineAsync("");
-      restartValidator(restartInput);
-      if (Number(restartInput) === MAGIC_NUM.NEW_GAME_NUM) {
-        return await this.startNewGame();
-      }
-    } catch (error) {
-      throw error;
+    Console.print(
+      INFO_MESSAGE.WIN_MESSAGE +
+        ' ' +
+        INFO_MESSAGE.END_MESSAGE +
+        '\n' +
+        INFO_MESSAGE.RESTART_MESSAGE,
+    );
+    const restartInput = await Console.readLineAsync('');
+    restartValidator(restartInput);
+    if (Number(restartInput) === MAGIC_NUM.NEW_GAME_NUM) {
+      this.startNewGame();
     }
   }
 
@@ -73,11 +69,10 @@ export default class App {
   }
 
   async play() {
-    try {
-      this.printStart();
-      await this.startNewGame();
-    } catch (error) {
-      throw error;
-    }
+    this.printStart();
+    await this.startNewGame();
   }
 }
+
+const app = new App();
+app.play();

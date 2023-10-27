@@ -8,5 +8,6 @@ export const generateRandomNum = () => {
       computer.push(num);
     }
   }
+
   return computer;
 };
