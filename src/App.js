@@ -65,7 +65,7 @@ const getScore = (strike, ball, computerArr) => {
 	}
 	if (strike === 0 && ball === 0) {
 		Console.print(RESULT.NOTHING);
-		process(computerArr);
+		continueGame(computerArr);
 		return;
 	}
 	if (strike === 0) {
@@ -81,10 +81,10 @@ const getScore = (strike, ball, computerArr) => {
 
 const start = async () => {
 	const computerArr = getComputerInput();
-	await process(computerArr);
+	await continueGame(computerArr);
 };
 
-const process = async computerArr => {
+const continueGame = async computerArr => {
 	try {
 		const userInput = await Console.readLineAsync(COMMENT.ASK_INPUT);
 		Console.print(COMMENT.ASK_INPUT + userInput);
