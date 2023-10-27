@@ -23,7 +23,7 @@ class ValidTest {
     }
     if (!pass) {
       this.output.printTypeErrorMessage();
-      throw new Error(MESSAGE.TYPE_ERROR);
+      throw new Error(MESSAGE.typeError);
     }
   }
 }

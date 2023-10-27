@@ -12,35 +12,35 @@ class Output {
   }
 
   printInputMessage() {
-    this.printMessage(MESSAGE.INPUT);
+    this.printMessage(MESSAGE.input);
   }
 
   printGameStartMessage() {
-    this.printMessage(MESSAGE.GAME_START);
+    this.printMessage(MESSAGE.gameStart);
   }
 
   printGameOverMessage() {
-    this.printMessage(MESSAGE.GAME_OVER);
+    this.printMessage(MESSAGE.gameOver);
   }
 
   printGameRestartMessage() {
-    this.printMessage(MESSAGE.GAME_RESTART);
+    this.printMessage(MESSAGE.gameRestart);
   }
 
   printTypeErrorMessage() {
-    this.printMessage(MESSAGE.TYPE_ERROR);
+    this.printMessage(MESSAGE.typeError);
   }
 
   printWinMessage() {
-    this.printMessage(MESSAGE.WIN);
+    this.printMessage(MESSAGE.win);
   }
 
   printThreeStrikeMessage() {
-    this.printMessage(MESSAGE.THREE_STRIKE);
+    this.printMessage(MESSAGE.threeStrike);
   }
 
   printNothingMessage() {
-    this.printMessage(MESSAGE.NOTHING);
+    this.printMessage(MESSAGE.nothing);
   }
 }
 

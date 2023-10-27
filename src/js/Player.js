@@ -6,7 +6,7 @@ class Player {
 
   async getNumbers() {
     try {
-      const text = await MissionUtils.Console.readLineAsync(MESSAGE.INPUT);
+      const text = await MissionUtils.Console.readLineAsync(MESSAGE.input);
       this.numbers = text
         .replaceAll(' ', '')
         .split('')

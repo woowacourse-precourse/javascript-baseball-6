@@ -1,5 +1,6 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 import Output from './Output';
+import MESSAGE from './Message';
 
 class Game {
   playing = true;
@@ -13,10 +14,6 @@ class Game {
   ball = 0;
 
   score = '';
-
-  SCORE_NOTHING = '낫싱';
-
-  SCORE_THREE_STRIKE = '3스크라이크';
 
   output = new Output();
 
@@ -85,24 +82,24 @@ class Game {
     const isNothing = !this.strike && !this.ball;
     const isThreeStrike = this.strike === 3;
     const strikeAndBall = isThreeStrike
-      ? this.SCORE_THREE_STRIKE
-      : `${this.ball ? `${this.ball}볼` : ''} ${
-          this.strike ? `${this.strike}스트라이크` : ''
+      ? MESSAGE.threeStrike
+      : `${this.ball ? `${this.ball}${MESSAGE.ball}` : ''} ${
+          this.strike ? `${this.strike}${MESSAGE.strike}` : ''
         }`;
-    const result = isNothing ? this.SCORE_NOTHING : strikeAndBall;
+    const result = isNothing ? MESSAGE.nothing : strikeAndBall;
     this.score = result;
   }
 
   isWin() {
-    this.win = this.score === this.SCORE_THREE_STRIKE;
+    this.win = this.score === MESSAGE.threeStrike;
   }
 
   printScore() {
     switch (this.score) {
-      case this.SCORE_NOTHING:
+      case MESSAGE.nothing:
         this.output.printNothingMessage();
         break;
-      case this.SCORE_THREE_STRIKE:
+      case MESSAGE.threeStrike:
         this.output.printThreeStrikeMessage();
         this.output.printWinMessage();
         this.output.printGameRestartMessage();
