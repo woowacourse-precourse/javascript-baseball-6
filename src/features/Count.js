@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import { COMPUTER_MESSAGE, COUNT } from "../constants";
+import { COMPUTER_MESSAGE, COUNT } from "../constants.js";
 
 export class Count {
   ball = 0;

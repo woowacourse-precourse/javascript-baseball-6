@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE, INTERFACE } from "../constants";
+import { ERROR_MESSAGE, INTERFACE } from "../constants.js";
 
 const VALIDATION_CONDITIONS = {
   NOT_NUMBER: (input) => Number.isNaN(parseInt(input)),
