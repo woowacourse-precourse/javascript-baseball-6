@@ -1,10 +1,10 @@
-import App from "../src/App.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
+import App from "../src/App";
 
 function hasDuplicates(input) {
   const seen = {};
 
-  for (let i = 0; i < input.length; i++) {
+  for (let i = 0; i < input.length; i += 1) {
     if (seen[input[i]]) {
       return true; // 중복 발견
     }
@@ -23,19 +23,19 @@ const mockQuestions = (inputs) => {
     }
     if (input && input.length < 3 && input !== "1" && input !== "2") {
       return Promise.reject(
-        new Error("[ERROR] 재시작 여부는 1 또는 2를 입력해야 합니다.")
+        new Error("[ERROR] 재시작 여부는 1 또는 2를 입력해야 합니다."),
       );
     }
     if (input && hasDuplicates(input)) {
       return Promise.reject(
         new Error(
-          "[ERROR] 숫자 야구는 서로 다른 3자리의 숫자만 입력할 수 있습니다."
-        )
+          "[ERROR] 숫자 야구는 서로 다른 3자리의 숫자만 입력할 수 있습니다.",
+        ),
       );
     }
     if (!/^\d{3}$/.test(input)) {
       return Promise.reject(
-        new Error("[ERROR] 서로 다른 3자리의 숫자만 입력할 수 있습니다.")
+        new Error("[ERROR] 서로 다른 3자리의 숫자만 입력할 수 있습니다."),
       );
     }
     return Promise.resolve(input);
@@ -44,9 +44,10 @@ const mockQuestions = (inputs) => {
 
 const mockRandoms = (numbers) => {
   MissionUtils.Random.pickNumberInRange = jest.fn();
-  numbers.reduce((acc, number) => {
-    return acc.mockReturnValueOnce(number);
-  }, MissionUtils.Random.pickNumberInRange);
+  numbers.reduce(
+    (acc, number) => acc.mockReturnValueOnce(number),
+    MissionUtils.Random.pickNumberInRange,
+  );
 };
 
 const getLogSpy = () => {
@@ -134,7 +135,7 @@ describe("숫자 야구 게임", () => {
     const app = new App();
 
     await expect(app.play()).rejects.toThrow(
-      "[ERROR] 숫자 야구는 서로 다른 3자리의 숫자만 입력할 수 있습니다."
+      "[ERROR] 숫자 야구는 서로 다른 3자리의 숫자만 입력할 수 있습니다.",
     );
   });
 
@@ -150,7 +151,7 @@ describe("숫자 야구 게임", () => {
     const app = new App();
 
     await expect(app.play()).rejects.toThrow(
-      "[ERROR] 재시작 여부는 1 또는 2를 입력해야 합니다."
+      "[ERROR] 재시작 여부는 1 또는 2를 입력해야 합니다.",
     );
   });
 
@@ -166,7 +167,7 @@ describe("숫자 야구 게임", () => {
     const app = new App();
 
     await expect(app.play()).rejects.toThrow(
-      "[ERROR] 서로 다른 3자리의 숫자만 입력할 수 있습니다."
+      "[ERROR] 서로 다른 3자리의 숫자만 입력할 수 있습니다.",
     );
   });
 
@@ -182,7 +183,7 @@ describe("숫자 야구 게임", () => {
     const app = new App();
 
     await expect(app.play()).rejects.toThrow(
-      "[ERROR] 서로 다른 3자리의 숫자만 입력할 수 있습니다."
+      "[ERROR] 서로 다른 3자리의 숫자만 입력할 수 있습니다.",
     );
   });
 });

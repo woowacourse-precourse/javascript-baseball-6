@@ -1,0 +1,21 @@
+{
+  "env": {
+    "browser": true, // 브라우저 에서 실행 가능
+    "es2021": true,
+    "node": true, // NodeJS 에서 실행 가능
+    "jest": true // jest 사용 가능
+  },
+  "extends": ["airbnb", "prettier"],
+  "plugins": ["prettier"],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "rules": {
+    "import/prefer-default-export": ["off"],
+    "no-await-in-loop": ["off"],
+    "prettier/prettier": ["error"],
+    "no-console": "error",
+    "import/extentions": "off"
+  }
+}
