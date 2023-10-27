@@ -8,7 +8,7 @@
 
 ## <div id="introduce">Introduce</div>
 
-["2024 우아한 테크코스의 1주차 숫자야구"](https://github.com/woowacourse-precourse/javascript-baseball-6) 미션에 대한 과제입니다.
+["우아한 테크코스 6기의 1주차 숫자야구"](https://github.com/woowacourse-precourse/javascript-baseball-6) 미션에 대한 과제입니다.
 
 테스트를 통과 할 수 있도록 게임 진행 순서대로 구현한 후, 프로퍼티와 메서드를 각자의 특성에 따라 다른 JS파일로 리팩토링 했습니다.
 
