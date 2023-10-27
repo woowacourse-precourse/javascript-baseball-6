@@ -21,11 +21,6 @@ export const player = {
     );
     validation.validateSelectReplayOrExit(input);
 
-    if (input === INTERFACE.REPLAY) {
-      return true;
-    }
-    if (input === INTERFACE.EXIT) {
-      return false;
-    }
+    return input === INTERFACE.REPLAY;
   },
 };
