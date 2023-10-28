@@ -116,8 +116,8 @@ class App {
     );
 
     if (restart === "1") {
-      this.startNewGame();
-      this.play();
+      await this.startNewGame();
+      await this.play();
     } else {
       MissionUtils.Console.print("게임을 종료합니다.");
     }
@@ -129,9 +129,9 @@ class App {
     const isGameOver = await this.game.playRound();
 
     if (!isGameOver) {
-      this.play();  
+      await this.play();  
     } else {
-      this.restartAndPlay(); 
+      await this.restartAndPlay(); 
     }
   }
 }
