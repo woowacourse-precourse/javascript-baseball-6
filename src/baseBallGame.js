@@ -80,18 +80,23 @@ const BaseBallGame = {
       throw new Error('숫자만을 포함하도록 입력해주세요.');
     }
 
-    // 0이 포함된 경우
-    if (input.includes('0'))
-      throw new Error('[ERROR] 1~9(0 제외)로 이루어진 숫자를 입력해야 합니다.');
-
     // 길이가 3이 아닌 경우
     if (input.length !== BASEBALL_CONSTANT.gameRules.numberLength)
       throw new Error(
         `[ERROR] 길이가 ${BASEBALL_CONSTANT.gameRules.numberLength}이여야 합니다.`,
       );
 
-    // 중복된 숫자가 포함된 경우
     [...input].forEach((num) => {
+      // 게임 룰에서 숫자 범위에 벗어나는 숫자를 입력한 경우
+      if (
+        Number(num) < BASEBALL_CONSTANT.gameRules.minNumber ||
+        Number(num) > BASEBALL_CONSTANT.gameRules.maxNumber
+      )
+        throw new Error(
+          `[ERROR] ${BASEBALL_CONSTANT.gameRules.minNumber}~${BASEBALL_CONSTANT.gameRules.maxNumber} 범위의 숫자만을 포함해주세요.`,
+        );
+
+      // 중복된 숫자가 포함된 경우
       if (input.indexOf(num) !== input.lastIndexOf(num))
         throw new Error('중복된 숫자가 없도록 입력해주세요.');
     });
