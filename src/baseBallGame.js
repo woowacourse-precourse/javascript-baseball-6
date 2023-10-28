@@ -1,11 +1,15 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
+import BASEBALL_CONSTANT from '../constants/BASEBALL_RULES';
 import printMsg from '../utils/printMsg';
 
 const BaseBallGame = {
   getRandomArray() {
     const random = [];
-    while (random.length < 3) {
-      const number = MissionUtils.Random.pickNumberInRange(1, 9);
+    while (random.length < BASEBALL_CONSTANT.gameRules.numberLength) {
+      const number = MissionUtils.Random.pickNumberInRange(
+        BASEBALL_CONSTANT.gameRules.minNumber,
+        BASEBALL_CONSTANT.gameRules.maxNumber,
+      );
       if (!random.includes(number)) {
         random.push(number);
       }
@@ -62,12 +66,12 @@ const BaseBallGame = {
 
       // 3스트라이크일 경우
       if (countObject.strike === 3) {
-        printMsg('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+        printMsg(BASEBALL_CONSTANT.gameMessage.end);
       }
       return;
     }
     // 아무 것도 카운트 되지 않은 경우
-    printMsg('낫싱');
+    printMsg(BASEBALL_CONSTANT.gameMessage.nothing);
   },
 
   checkValidInput(input) {
@@ -81,7 +85,10 @@ const BaseBallGame = {
       throw new Error('[ERROR] 1~9(0 제외)로 이루어진 숫자를 입력해야 합니다.');
 
     // 길이가 3이 아닌 경우
-    if (input.length !== 3) throw new Error('[ERROR] 길이가 3이여야 합니다.');
+    if (input.length !== BASEBALL_CONSTANT.gameRules.numberLength)
+      throw new Error(
+        `[ERROR] 길이가 ${BASEBALL_CONSTANT.gameRules.numberLength}이여야 합니다.`,
+      );
 
     // 중복된 숫자가 포함된 경우
     [...input].forEach((num) => {

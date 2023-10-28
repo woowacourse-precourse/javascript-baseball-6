@@ -1,4 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
+import BASEBALL_CONSTANT from '../constants/BASEBALL_RULES';
 import printMsg from '../utils/printMsg';
 import BaseBallGame from './baseBallGame';
 
@@ -14,11 +15,13 @@ class App {
 
     // 게임 시작
     this.isPlaying = true;
-    printMsg('숫자 야구 게임을 시작합니다.');
+    printMsg(BASEBALL_CONSTANT.gameMessage.start);
 
     // 종료될 때까지 계속 반복
     while (this.isPlaying) {
-      const inputNumber = await Console.readLineAsync('숫자를 입력해주세요 : ');
+      const inputNumber = await Console.readLineAsync(
+        BASEBALL_CONSTANT.userInput.numberPrompt,
+      );
 
       // 입력이 유효한 경우에만
       if (this.methods.checkValidInput(inputNumber)) {
@@ -33,7 +36,7 @@ class App {
           let answer;
           while (answer !== '1' && answer !== '2') {
             answer = await Console.readLineAsync(
-              '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요. \n',
+              BASEBALL_CONSTANT.userInput.restart,
             );
             if (answer === '1') {
               computer = this.methods.getRandomArray();
