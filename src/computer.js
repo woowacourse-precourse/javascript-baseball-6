@@ -4,9 +4,7 @@ import { NUMBER_OF_DIGITS, STRIKE_COUNT_TO_BE_OUT } from './constants.js';
 
 export default class Computer {
   constructor() {
-    this.isCorrectAnswer = false;
     this.isGameOver = false;
-
     this.strikeCount = 0;
     this.ballCount = 0;
   }
