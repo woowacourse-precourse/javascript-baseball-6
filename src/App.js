@@ -92,11 +92,10 @@ class App {
     }
     else if(ball===0 && strike ===0){
       MissionUtils.Console.print('낫싱');
-      return 1;
     }
     else{
       MissionUtils.Console.print(`${ball}볼 ${strike}스트라이크`);
-      return 1;
+
     }
   }
 
