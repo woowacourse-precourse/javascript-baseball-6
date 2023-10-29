@@ -1,4 +1,4 @@
-import { MissionUtils } from '@woowacourse/mission-utils';
+import { Random, Console } from '@woowacourse/mission-utils';
 
 class BaseBallGame {
   constructor() {
@@ -12,7 +12,7 @@ class BaseBallGame {
   reset() {
     this.answer = '';
     while (this.answer.length < 3) {
-      const number = MissionUtils.Random.pickNumberInRange(1, 9);
+      const number = Random.pickNumberInRange(1, 9);
       if (!this.answer.includes(number)) {
         this.answer += number;
       }
@@ -26,7 +26,7 @@ class BaseBallGame {
     if (this.answer.length !== 3) {
       throw new Error('[ERROR] reset 후 시작해야 합니다.');
     }
-    MissionUtils.Console.print('숫자 야구 게임을 시작합니다.');
+    Console.print('숫자 야구 게임을 시작합니다.');
     let userAnswer = '';
     while (userAnswer !== this.answer) {
       userAnswer = await this.getUserGuessInput();
@@ -39,8 +39,7 @@ class BaseBallGame {
    * @returns {String}
    */
   async getUserGuessInput() {
-    const userInput =
-      await MissionUtils.Console.readLineAsync('숫자를 입력해주세요 : ');
+    const userInput = await Console.readLineAsync('숫자를 입력해주세요 : ');
     if (this.validateUserGuessInput(userInput)) {
       return userInput;
     }
@@ -75,7 +74,7 @@ class BaseBallGame {
     );
     this.printBallsAndStrikes(balls, strikes);
     if (strikes === 3) {
-      MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+      Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
     }
   }
 
@@ -110,13 +109,13 @@ class BaseBallGame {
    */
   printBallsAndStrikes(balls, strikes) {
     if (balls !== 0 && strikes !== 0) {
-      MissionUtils.Console.print(`${balls}볼 ${strikes}스트라이크`);
+      Console.print(`${balls}볼 ${strikes}스트라이크`);
     } else if (balls !== 0) {
-      MissionUtils.Console.print(`${balls}볼`);
+      Console.print(`${balls}볼`);
     } else if (strikes !== 0) {
-      MissionUtils.Console.print(`${strikes}스트라이크`);
+      Console.print(`${strikes}스트라이크`);
     } else if (balls === 0 && strikes === 0) {
-      MissionUtils.Console.print('낫싱');
+      Console.print('낫싱');
     }
   }
 
@@ -125,7 +124,7 @@ class BaseBallGame {
    * @returns {Promise<boolean>}
    */
   async askUserForReplay() {
-    const userInput = await MissionUtils.Console.readLineAsync(
+    const userInput = await Console.readLineAsync(
       '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n',
     );
     if (userInput === '1') {
