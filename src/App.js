@@ -1,13 +1,13 @@
-import { Console } from "@woowacourse/mission-utils";
-import { ANSWER_LENGTH, ERROR_MESSAGE, PLAY_GAME } from "./Constants";
-import checkBallCount from "./utils/checkBallCount";
-import printBallCount from "./utils/printBallCount";
-import validateInput from "./utils/validateInput";
-import generateRandomNumber from "./utils/generateRandomNumber";
+import { Console } from '@woowacourse/mission-utils';
+import { ANSWER_LENGTH, ERROR_MESSAGE, PLAY_GAME } from './Constants';
+import checkBallCount from './utils/checkBallCount';
+import printBallCount from './utils/printBallCount';
+import validateInput from './utils/validateInput';
+import generateRandomNumber from './utils/generateRandomNumber';
 
 class App {
   constructor() {
-    this.answer = "";
+    this.answer = '';
   }
 
   async play() {
@@ -23,7 +23,7 @@ class App {
   async gameStart() {
     const inputValue = await Console.readLineAsync(PLAY_GAME.input);
     if (validateInput(inputValue)) {
-      const scoreCount = checkBallCount(this.answer, inputValue);
+      const scoreCount = checkBallCount(inputValue, this.answer);
       const { strike } = scoreCount;
       printBallCount(scoreCount);
 
