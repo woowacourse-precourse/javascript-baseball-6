@@ -1,5 +1,5 @@
-import { ANSWER_LENGTH } from "../Constants";
-import { Random } from "@woowacourse/mission-utils";
+import { Random } from '@woowacourse/mission-utils';
+import { ANSWER_LENGTH } from '../Constants';
 
 const generateRandomNumber = () => {
   const answer = [];
@@ -10,7 +10,7 @@ const generateRandomNumber = () => {
       answer.push(randomNumber);
     }
   }
-  return answer.join("");
+  return answer.join('');
 };
 
 export default generateRandomNumber;
