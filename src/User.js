@@ -11,8 +11,7 @@ class User {
 
     User.#validateUser(user);
 
-    const userArray = User.#convertUserToArray(user);
-    return userArray;
+    return User.#convertStringToNumberArray(user);
   }
 
   static #validateUser(user) {
@@ -27,7 +26,7 @@ class User {
     }
   }
 
-  static #convertUserToArray(user) {
+  static #convertStringToNumberArray(user) {
     return [...user].map((u) => Number(u));
   }
 }

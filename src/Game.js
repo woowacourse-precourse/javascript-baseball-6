@@ -5,49 +5,35 @@ import User from './User.js';
 class Game {
   constructor() {}
 
-  static async playGame() {
+  async play() {
     const computer = Computer.getComputer();
     let user;
-    let result = {
-      strike: 0,
-      ball: 0,
-    };
+    let result = { strike: 0, ball: 0 };
 
     while (result.strike !== 3) {
       user = await User.getUser();
-      result = Game.#compareUserToComputer(computer, user, result);
-      Game.#printResult(result);
+      result = this.#compareUserToComputer(computer, user);
+      this.#printResult(result);
     }
   }
 
-  static #compareUserToComputer(computer, user, result) {
-    let [copyComputer, copyUser] = [[...computer], [...user]];
-    const copyResult = { ...result };
+  #compareUserToComputer(computer, user) {
+    const strike = this.#countStrikes(computer, user);
+    const ball = this.#countBalls(computer, user);
 
-    copyResult.strike = Game.#countStrikes(copyComputer, copyUser);
-    copyResult.ball = Game.#countBalls(copyComputer, copyUser);
-
-    return copyResult;
+    return { strike, ball };
   }
 
-  static #countStrikes(computer, user) {
-    let strikes = 0;
-    user.forEach((u, i) => {
-      if (u === computer[i]) strikes++;
-    });
-    return strikes;
+  #countStrikes(computer, user) {
+    return user.filter((u, i) => u === computer[i]).length;
   }
 
-  static #countBalls(computer, user) {
-    let balls = 0;
-    user.forEach((u, i) => {
-      if (u !== computer[i] && computer.includes(u)) balls++;
-    });
-    return balls;
+  #countBalls(computer, user) {
+    return user.filter((u, i) => u !== computer[i] && computer.includes(u))
+      .length;
   }
 
-  static #printResult(result) {
-    const { strike, ball } = result;
+  #printResult({ strike, ball }) {
     if (strike === 0 && ball === 0) {
       MissionUtils.Console.print('낫싱');
       return;

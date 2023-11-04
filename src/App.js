@@ -10,7 +10,9 @@ class App {
     printGameStartMessage();
 
     while (shouldPlayGame) {
-      await Game.playGame();
+      const game = new Game();
+      await game.play();
+
       const shouldRestartGame = await Game.askToRestartGame();
       if (shouldRestartGame === SHUTDOWN_GAME) {
         shouldPlayGame = false;

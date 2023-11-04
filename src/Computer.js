@@ -1,20 +1,8 @@
-import { MissionUtils } from '@woowacourse/mission-utils';
-import { ANSWER_LENGTH } from './utils.js';
+import RandomNumbers from './RandomNumbers.js';
 
 class Computer {
   constructor() {
-    this.numbers = this.getRandomNumbers();
-  }
-
-  getRandomNumbers() {
-    const randomNumbers = [];
-    while (randomNumbers.length < ANSWER_LENGTH) {
-      const number = MissionUtils.Random.pickNumberInRange(1, 9);
-      if (!randomNumbers.includes(number)) {
-        randomNumbers.push(number);
-      }
-    }
-    return randomNumbers;
+    this.numbers = new RandomNumbers();
   }
 
   static getComputer() {
