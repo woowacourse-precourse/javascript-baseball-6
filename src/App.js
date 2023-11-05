@@ -1,7 +1,7 @@
-import printGameStartMessage from './startup.js';
-import printGameShutdownMessage from './shutdown.js';
-import Game from './Game.js';
-import { SHUTDOWN_GAME } from './utils.js';
+import printGameStartMessage from './startup';
+import printGameShutdownMessage from './shutdown';
+import Game from './Game';
+import { SHUTDOWN_GAME } from './utils';
 
 class App {
   async play() {

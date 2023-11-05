@@ -1,12 +1,12 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import Computer from './Computer.js';
-import User from './User.js';
+import Computer from './Computer';
+import User from './User';
 
 class Game {
   constructor() {}
 
   async play() {
-    const computer = Computer.getComputer();
+    const computer = Computer.getRandomNumbers();
     let user;
     let result = { strike: 0, ball: 0 };
 
