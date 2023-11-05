@@ -9,6 +9,8 @@ class LottoController {
 
   async runMachine() {
     await this.#purchaseLotto();
+
+    const machineDTO = await this.#issueLottos();
   }
 
   async #purchaseLotto() {
@@ -21,6 +23,13 @@ class LottoController {
         Console.print(err.message);
       }
     }
+  }
+
+  async #issueLottos() {
+    while (!this.#lottoMachine.isIssueOver) {
+      await this.#lottoMachine.issueLotto();
+    }
+    return this.#lottoMachine.DTO;
   }
 }
 

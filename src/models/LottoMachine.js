@@ -1,21 +1,22 @@
 import { Random } from '@woowacourse/mission-utils';
 import Lotto from './Lotto';
 import throwError from '../utils/throwError';
+import { isNumber, isValidCost } from '../utils/validator';
 
 class LottoMachine {
   #lottos;
   #issueCnt;
 
   constructor(cost) {
-    const costNum = Number(cost);
-
-    this.#validate(costNum);
-    this.#issueCnt = costNum / 1000;
+    this.#validate(cost);
+    this.#issueCnt = cost / 1000;
     this.#lottos = [];
   }
 
   #validate(cost) {
-    if (isNaN(cost)) throwError('숫자만 입력 가능합니다.');
+    if (!isNumber(cost)) throwError('숫자만 입력 가능합니다.');
+
+    if (!isValidCost(cost)) throwError('구매는 1000원 단위로만 가능합니다.');
   }
 
   get lottos() {
