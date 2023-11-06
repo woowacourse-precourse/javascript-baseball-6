@@ -3,6 +3,7 @@ import Lotto from './Lotto';
 import throwError from '../utils/throwError';
 import { isNumber, isValidCost } from '../utils/validator';
 import MESSAGE from '../constants/message';
+import { CONSTANTS } from '../constants/constants';
 
 class LottoMachine {
   #lottos;
@@ -15,17 +16,11 @@ class LottoMachine {
   }
 
   #validate(cost) {
-    if (!isNumber(cost)) throwError(MESSAGE.errors.INVALID_NUMBER);
+    const { INVALID_NUMBER, INVALID_COST } = MESSAGE.errors;
 
-    if (!isValidCost(cost)) throwError(MESSAGE.errors.INVALID_COST);
-  }
+    if (!isNumber(cost)) throwError(INVALID_NUMBER);
 
-  get lottos() {
-    return this.#lottos;
-  }
-
-  get isIssueOver() {
-    return this.#lottos.length === this.#issueCnt;
+    if (!isValidCost(cost)) throwError(INVALID_COST);
   }
 
   get DTO() {
@@ -35,12 +30,27 @@ class LottoMachine {
     };
   }
 
-  async issueLotto() {
-    const lottoNum = Random.pickUniqueNumbersInRange(1, 45, 6);
+  get lottos() {
+    return this.#lottos;
+  }
+
+  isIssueOver() {
+    return this.#lottos.length === this.#issueCnt;
+  }
+
+  issueLotto() {
+    const lottoNum = Random.pickUniqueNumbersInRange(
+      CONSTANTS.MIN_NUMBER,
+      CONSTANTS.MAX_NUMBER,
+      CONSTANTS.DRAW_SIZE
+    );
+
     const lotto = new Lotto(lottoNum);
 
-    await this.#lottos.push(lotto);
+    this.#lottos.push(lotto);
   }
+
+  checkWinningNumbers(numbers, bonusNumber) {}
 }
 
 export default LottoMachine;

@@ -32,7 +32,7 @@ class LottoController {
   }
 
   async #issueLottos() {
-    while (!this.#lottoMachine.isIssueOver) {
+    while (!this.#lottoMachine.isIssueOver()) {
       await this.#lottoMachine.issueLotto();
     }
     return this.#lottoMachine.DTO;

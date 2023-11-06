@@ -1,4 +1,9 @@
 // [ ] numbers의 # prefix를 변경할 수 없다.
+
+import MESSAGE from '../constants/message';
+import throwError from '../utils/throwError';
+import { hasDuplicatedElements, hasSixNumbers } from '../utils/validator';
+
 // [ ] Lotto에 필드를 추가할 수 없다.
 class Lotto {
   #numbers;
@@ -9,9 +14,11 @@ class Lotto {
   }
 
   #validate(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error('[ERROR] 로또 번호는 6개여야 합니다.');
-    }
+    const { INVALID_LOTTO_NUMBERS_COUNT, DUPLICATED_NUMBERS } = MESSAGE.errors;
+
+    if (!hasSixNumbers(numbers)) throwError(INVALID_LOTTO_NUMBERS_COUNT);
+
+    if (hasDuplicatedElements(numbers)) throwError(DUPLICATED_NUMBERS);
   }
 
   // TODO: 추가 기능 구현
