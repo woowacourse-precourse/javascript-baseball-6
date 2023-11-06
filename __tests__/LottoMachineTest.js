@@ -22,7 +22,7 @@ describe('로또 기계 모델 기능 테스트', () => {
 
     //then
     lottoMachine.lottos.forEach((lotto) => {
-      expect(lotto.numbers).toEqual([1, 2, 3, 4, 5, 6]);
+      expect(lotto.getNumbers()).toEqual([1, 2, 3, 4, 5, 6]);
     });
   });
 });

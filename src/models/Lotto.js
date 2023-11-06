@@ -23,7 +23,7 @@ class Lotto {
 
   // TODO: 추가 기능 구현
   // test용 getter
-  get numbers() {
+  getNumbers() {
     return this.#numbers;
   }
 }

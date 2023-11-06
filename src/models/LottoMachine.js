@@ -26,7 +26,7 @@ class LottoMachine {
   get DTO() {
     return {
       issueCnt: this.#issueCnt,
-      lottos: this.#lottos.map((lotto) => lotto.numbers),
+      lottos: this.#lottos.map((lotto) => lotto.getNumbers()),
     };
   }
 
