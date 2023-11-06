@@ -5,12 +5,18 @@ import InputView from '../views/InputView.js';
 import OutputView from '../views/OutputView.js';
 
 class LottoController {
+  #outputView;
   #lottoMachine;
+
+  constructor() {
+    this.#outputView = new OutputView();
+  }
 
   async runMachine() {
     await this.#purchaseLotto();
 
     const machineDTO = await this.#issueLottos();
+    this.#outputView.printPurchaseResult(machineDTO);
   }
 
   async #purchaseLotto() {

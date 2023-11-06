@@ -2,6 +2,7 @@ import { Random } from '@woowacourse/mission-utils';
 import Lotto from './Lotto';
 import throwError from '../utils/throwError';
 import { isNumber, isValidCost } from '../utils/validator';
+import MESSAGE from '../constants/message';
 
 class LottoMachine {
   #lottos;
@@ -14,9 +15,9 @@ class LottoMachine {
   }
 
   #validate(cost) {
-    if (!isNumber(cost)) throwError('숫자만 입력 가능합니다.');
+    if (!isNumber(cost)) throwError(MESSAGE.errors.INVALID_NUMBER);
 
-    if (!isValidCost(cost)) throwError('구매는 1000원 단위로만 가능합니다.');
+    if (!isValidCost(cost)) throwError(MESSAGE.errors.INVALID_COST);
   }
 
   get lottos() {
