@@ -14,11 +14,11 @@ class Lotto {
   }
 
   #validate(numbers) {
-    const { INVALID_LOTTO_NUMBERS_COUNT, DUPLICATED_NUMBERS } = MESSAGE.errors;
+    const { INVALID_NUMBERS_COUNT, DUPLICATED_NUMBERS } = MESSAGE.errors;
 
-    if (!hasSixNumbers(numbers)) throwError(INVALID_LOTTO_NUMBERS_COUNT);
+    if (!hasSixNumbers(numbers)) throwError(INVALID_NUMBERS_COUNT(numbers));
 
-    if (hasDuplicatedElements(numbers)) throwError(DUPLICATED_NUMBERS);
+    if (hasDuplicatedElements(numbers)) throwError(DUPLICATED_NUMBERS(numbers));
   }
 
   // TODO: 추가 기능 구현

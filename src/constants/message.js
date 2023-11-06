@@ -23,10 +23,15 @@ export const MESSAGE = Object.freeze({
 
   errors: {
     PREFIX: '[ERROR]',
-    INVALID_NUMBER: '숫자만 입력 가능합니다.',
-    INVALID_COST: '구매는 1000원 단위로만 가능합니다.',
-    INVALID_LOTTO_NUMBERS_COUNT: '로또 번호는 6개여야 합니다.',
-    DUPLICATED_NUMBERS: '중복된 숫자는 입력할 수 없습니다.',
+    INVALID_NUMBER: (input) => `숫자만 입력 가능합니다. 입력: ${input}`,
+    INVALID_COST: (input) =>
+      `구매는 1000원 단위로만 가능합니다. 입력: ${input}`,
+    INVALID_NUMBERS_COUNT: (input) =>
+      `로또 번호는 6개여야 합니다. 입력: ${input}`,
+    DUPLICATED_NUMBERS: (input) =>
+      `중복된 숫자는 입력할 수 없습니다. 입력: ${input}`,
+    INVALID_RANGE: (input) =>
+      `입력 가능한 범위를 초과했습니다. (1~45) 입력: ${input}`,
   },
 });
 

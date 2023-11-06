@@ -11,16 +11,16 @@ class LottoMachine {
 
   constructor(cost) {
     this.#validate(cost);
-    this.#issueCnt = cost / 1000;
+    this.#issueCnt = Number(cost) / 1000;
     this.#lottos = [];
   }
 
   #validate(cost) {
     const { INVALID_NUMBER, INVALID_COST } = MESSAGE.errors;
 
-    if (!isNumber(cost)) throwError(INVALID_NUMBER);
+    if (!isNumber(cost)) throwError(INVALID_NUMBER(cost));
 
-    if (!isValidCost(cost)) throwError(INVALID_COST);
+    if (!isValidCost(cost)) throwError(INVALID_COST(cost));
   }
 
   get DTO() {

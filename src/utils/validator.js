@@ -1,10 +1,10 @@
 import { CONSTANTS } from '../constants/constants.js';
 
-const { COST_PER_GAME, DRAW_SIZE } = CONSTANTS;
+const { COST_PER_GAME, DRAW_SIZE, MAX_NUMBER, MIN_NUMBER } = CONSTANTS;
 
 // LottoMachine
 export const isNumber = (input) => {
-  return !isNaN(Number(input));
+  return !isNaN(input);
 };
 
 export const isValidCost = (cost) => {
@@ -19,4 +19,9 @@ export const hasSixNumbers = (numbers) => {
 export const hasDuplicatedElements = (input) => {
   const set = new Set(input);
   return set.size !== input.length;
+};
+
+// WinnngLotto
+export const isValidRange = (number) => {
+  return number >= MIN_NUMBER && number <= MAX_NUMBER;
 };
