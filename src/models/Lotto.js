@@ -1,8 +1,8 @@
 // [ ] numbers의 # prefix를 변경할 수 없다.
 
-import MESSAGE from '../constants/message';
-import throwError from '../utils/throwError';
-import { hasDuplicatedElements, hasSixNumbers } from '../utils/validator';
+import MESSAGE from '../constants/message.js';
+import throwError from '../utils/throwError.js';
+import { hasDuplicatedElements, hasSixNumbers } from '../utils/validator.js';
 
 // [ ] Lotto에 필드를 추가할 수 없다.
 class Lotto {

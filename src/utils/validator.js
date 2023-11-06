@@ -1,4 +1,4 @@
-import { CONSTANTS } from '../constants/constants';
+import { CONSTANTS } from '../constants/constants.js';
 
 const { COST_PER_GAME, DRAW_SIZE } = CONSTANTS;
 

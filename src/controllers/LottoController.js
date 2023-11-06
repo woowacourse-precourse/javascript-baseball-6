@@ -12,7 +12,7 @@ class LottoController {
     this.#outputView = new OutputView();
   }
 
-  async runMachine() {
+  async runLottoProgram() {
     await this.#purchaseLotto();
 
     const machineDTO = await this.#issueLottos();
