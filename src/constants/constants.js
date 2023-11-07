@@ -4,6 +4,14 @@ export const CONSTANTS = Object.freeze({
   DRAW_SIZE: 6,
 
   COST_PER_GAME: 1000,
+
+  RANK: [
+    'FIFTH_PRIZE',
+    'FOURTH_PRIZE',
+    'THIRD_PRIZE',
+    'SECOND_PRIZE',
+    'FIRST_PRIZE',
+  ],
 });
 
 export default CONSTANTS;

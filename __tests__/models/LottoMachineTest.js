@@ -38,4 +38,30 @@ describe('로또 기계 모델 기능 테스트', () => {
       new LottoMachine(1020);
     }).toThrow('[ERROR]');
   });
+
+  test('당첨 결과를 계산한다.', () => {
+    // given
+    const RESULT = {
+      FIRST_PRIZE: 0,
+      SECOND_PRIZE: 1,
+      THIRD_PRIZE: 0,
+      FOURTH_PRIZE: 0,
+      FIFTH_PRIZE: 0,
+    };
+    const RANDOM_NUMBERS_TO_END = [1, 2, 3, 4, 5, 7];
+    const WINNING_LOTTO_NUMBERS = [1, 2, 3, 4, 5, 6];
+    const BONUS_NUMBER = 7;
+    const cost = 1000;
+    const lottoMachine = new LottoMachine(cost);
+
+    mockRandoms([RANDOM_NUMBERS_TO_END]);
+
+    // when
+    lottoMachine.issueLotto();
+    lottoMachine.issueWinningLotto(WINNING_LOTTO_NUMBERS, BONUS_NUMBER);
+    lottoMachine.calculatePrizeResult();
+
+    //then
+    expect(lottoMachine.prize.prizes).toEqual(RESULT);
+  });
 });

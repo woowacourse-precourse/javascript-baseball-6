@@ -22,6 +22,9 @@ class LottoController {
     this.#outputView.printPurchaseResult(this.#lottoMachine.purchaseDTO);
 
     await handleException(async () => await this.#generateWinningLotto());
+
+    const results = await this.#lottoMachine.getResults();
+    this.#outputView.printGameResult(results);
   }
 
   async #generateLottoMachine() {

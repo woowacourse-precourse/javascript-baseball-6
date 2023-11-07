@@ -10,7 +10,7 @@ export const MESSAGE = Object.freeze({
 
     ISSUE_LOTTERY_TICKET: (numbers) => `[${numbers.join(', ')}]`,
 
-    STATISTICS: '당첨 통계',
+    STATISTICS: '당첨 통계\n---',
 
     FIFTH_PRIZE: (num) => `3개 일치 (5,000원) - ${num}개`,
     FOURTH_PRIZE: (num) => `4개 일치 (50,000원) - ${num}개`,

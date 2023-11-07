@@ -7,12 +7,12 @@ class Prize {
   #winningNumbers;
   #bonusNumber;
 
-  constructor(lottos, winningLotto) {
+  constructor(lottos, { numbers, bonusNumber }) {
     this.#prizes = {};
 
     this.#lottos = lottos;
-    this.#winningNumbers = winningLotto.numbers;
-    this.#bonusNumber = winningLotto.bonusNumber;
+    this.#winningNumbers = numbers;
+    this.#bonusNumber = bonusNumber;
 
     this.#initializePrizes();
   }

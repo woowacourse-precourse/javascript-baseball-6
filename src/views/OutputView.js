@@ -1,5 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 import MESSAGE from '../constants/message.js';
+import CONSTANTS from '../constants/constants.js';
 
 class OutputView {
   printPurchaseResult({ issueCnt, lottos }) {
@@ -12,8 +13,13 @@ class OutputView {
     Console.print('\n');
   }
 
-  static printMessage(message) {
-    Console.print(message);
+  printGameResult({ earningsRate, fullResults }) {
+    Console.print(MESSAGE.outputs.STATISTICS);
+
+    CONSTANTS.RANK.map((key) => {
+      Console.print(MESSAGE.outputs[key](fullResults[key]));
+    });
+    Console.print(MESSAGE.outputs.EARNINGS_RATE(earningsRate));
   }
 }
 
