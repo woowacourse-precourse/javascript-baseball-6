@@ -5,7 +5,7 @@ class InputView {
   async #getUserInput(prompt) {
     const userInput = await Console.readLineAsync(prompt);
 
-    this.printNewLine();
+    console.log('\n');
 
     return userInput;
   }
@@ -23,10 +23,6 @@ class InputView {
   async getBonusNumber() {
     const number = await this.#getUserInput(MESSAGE.inputs.BONUS_NUMBER);
     return Number(number);
-  }
-
-  printNewLine() {
-    Console.print('\n');
   }
 }
 

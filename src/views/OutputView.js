@@ -10,7 +10,7 @@ class OutputView {
       Console.print(MESSAGE.outputs.ISSUE_LOTTERY_TICKET(numbers));
     });
 
-    Console.print('\n');
+    console.log('\n');
   }
 
   printGameResult({ earningsRate, fullResults }) {

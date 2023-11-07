@@ -21,7 +21,6 @@ class Statistics {
     if (earnings === 0) {
       return 0;
     }
-    console.log(earnings);
     return ((earnings / price) * 100).toFixed(1);
   }
 }
