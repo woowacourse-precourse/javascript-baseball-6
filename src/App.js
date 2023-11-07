@@ -1,5 +1,10 @@
+import start from "./Play/PlayGame.js";
+
 class App {
-  async play() {}
+  async play() {
+    await start();
+  }
 }
+
 
 export default App;
