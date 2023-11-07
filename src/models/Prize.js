@@ -12,10 +12,10 @@ class Prize {
   }
 
   getResult() {
-    const result = this.#lottos.map((lotto) => {
-      matchCnt: this.#getMatchCnt(lotto);
-      bonusMatch: this.#getBonusMatch();
-    });
+    const result = this.#lottos.map((lotto) => ({
+      matchCnt: this.#getMatchCnt(lotto),
+      bonusMatch: this.#getBonusMatch(lotto),
+    }));
 
     return result;
   }

@@ -1,4 +1,4 @@
-import Prize from '../src/models/Prize';
+import Prize from '../../src/models/Prize';
 
 describe('Prize 클래스 기능 테스트', () => {
   test('당첨 결과 확인', () => {
@@ -18,8 +18,6 @@ describe('Prize 클래스 기능 테스트', () => {
     const prize = new Prize(lottos, winningLotto);
 
     // then
-    expect(() => {
-      prize.getResult();
-    }).toEqual(RESULT);
+    expect(prize.getResult()).toEqual(RESULT);
   });
 });
