@@ -24,5 +24,18 @@ describe('로또 기계 모델 기능 테스트', () => {
     lottoMachine.lottos.forEach((lotto) => {
       expect(lotto.getNumbers()).toEqual([1, 2, 3, 4, 5, 6]);
     });
+    expect(lottoMachine.isIssueOver()).toBe(true);
+  });
+
+  test('구매 가격이 숫자가 아니면 예외가 발생한다.', () => {
+    expect(() => {
+      new LottoMachine(Number('1000j'));
+    }).toThrow('[ERROR]');
+  });
+
+  test('구매 가격이 1000 단위가 아니면 예외가 발생한다.', () => {
+    expect(() => {
+      new LottoMachine(1020);
+    }).toThrow('[ERROR]');
   });
 });
