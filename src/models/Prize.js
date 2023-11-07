@@ -20,14 +20,14 @@ class Prize {
   }
 
   updatePrizes() {
-    const results = this.getResults();
+    const results = this.getMatchCntResults();
 
     results.forEach((result) => {
       this.#checkWinningStandards(result);
     });
   }
 
-  getResults() {
+  getMatchCntResults() {
     return this.#lottos.map((lotto) => ({
       matchCnt: this.#getMatchCnt(lotto),
       bonusMatch: this.#getBonusMatch(lotto),

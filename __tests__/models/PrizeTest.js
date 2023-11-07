@@ -18,10 +18,10 @@ describe('Prize 클래스 기능 테스트', () => {
     const prize = new Prize(lottos, winningLotto);
 
     // then
-    expect(prize.getResults()).toEqual(RESULT);
+    expect(prize.getMatchCntResults()).toEqual(RESULT);
   });
 
-  test('당첨 상금 확인 1개 이상 당첨됐을 때', () => {
+  test('당첨 상금 확인 - 1개 이상 당첨됐을 때', () => {
     // given
     const lottos = [
       [1, 2, 3, 4, 5, 6],
@@ -45,7 +45,7 @@ describe('Prize 클래스 기능 테스트', () => {
     expect(prize.prizes).toEqual(RESULT);
   });
 
-  test('당첨 상금 확인 당첨된 게 아무것도 없을 때', () => {
+  test('당첨 상금 확인 - 당첨된 게 아무것도 없을 때', () => {
     // given
     const lottos = [
       [1, 2, 3, 4, 5, 6],
