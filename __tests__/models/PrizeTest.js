@@ -18,6 +18,54 @@ describe('Prize 클래스 기능 테스트', () => {
     const prize = new Prize(lottos, winningLotto);
 
     // then
-    expect(prize.getResult()).toEqual(RESULT);
+    expect(prize.getResults()).toEqual(RESULT);
+  });
+
+  test('당첨 상금 확인 1개 이상 당첨됐을 때', () => {
+    // given
+    const lottos = [
+      [1, 2, 3, 4, 5, 6],
+      [1, 2, 3, 5, 6, 7],
+    ];
+    const winningLotto = { numbers: [1, 2, 3, 4, 5, 6], bonusNumber: 7 };
+
+    const RESULT = {
+      FIRST_PRIZE: 1,
+      SECOND_PRIZE: 1,
+      THIRD_PRIZE: 0,
+      FOURTH_PRIZE: 0,
+      FIFTH_PRIZE: 0,
+    };
+
+    // when
+    const prize = new Prize(lottos, winningLotto);
+    prize.updatePrizes();
+
+    // then
+    expect(prize.prizes).toEqual(RESULT);
+  });
+
+  test('당첨 상금 확인 당첨된 게 아무것도 없을 때', () => {
+    // given
+    const lottos = [
+      [1, 2, 3, 4, 5, 6],
+      [1, 2, 3, 5, 6, 7],
+    ];
+    const winningLotto = { numbers: [10, 11, 12, 13, 14, 15], bonusNumber: 7 };
+
+    const RESULT = {
+      FIRST_PRIZE: 0,
+      SECOND_PRIZE: 0,
+      THIRD_PRIZE: 0,
+      FOURTH_PRIZE: 0,
+      FIFTH_PRIZE: 0,
+    };
+
+    // when
+    const prize = new Prize(lottos, winningLotto);
+    prize.updatePrizes();
+
+    // then
+    expect(prize.prizes).toEqual(RESULT);
   });
 });

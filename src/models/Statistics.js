@@ -1,13 +1,13 @@
 class Statistics {
-  #price;
-  #earnings;
+  #cost;
+  #totalPrizeMoney;
 
-  constructor(cost, prize) {
-    this.#price = cost;
-    this.#earnings = prize;
+  constructor(cost, totalPrizeMoney) {
+    this.#cost = cost;
+    this.#totalPrizeMoney = totalPrizeMoney;
   }
 
   getPriceEarningsRatio() {
-    return ((this.#price / this.#earnings) * 100).toFixed(1);
+    return ((this.#cost / this.#totalPrizeMoney) * 100).toFixed(1);
   }
 }
