@@ -21,6 +21,14 @@ export const hasDuplicatedElements = (input) => {
   return set.size !== input.length;
 };
 
+export const isNumbersInRange = (numbers) => {
+  return (
+    numbers.filter((number) => {
+      return number >= MIN_NUMBER && number <= MAX_NUMBER;
+    }).length !== DRAW_SIZE
+  );
+};
+
 // WinnngLotto
 export const isValidRange = (number) => {
   return number >= MIN_NUMBER && number <= MAX_NUMBER;

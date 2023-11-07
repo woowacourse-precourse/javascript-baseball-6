@@ -1,8 +1,9 @@
 import LottoMachine from '../models/LottoMachine.js';
 import InputView from '../views/InputView.js';
 import OutputView from '../views/OutputView.js';
-import WinningLotto from '../models/WinningLotto.js';
 import { handleException } from '../utils/handleExeption.js';
+
+// TODO: 모든 클래스 import문 정리했나?
 
 class LottoController {
   #inputView;

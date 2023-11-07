@@ -1,10 +1,13 @@
 import { Random } from '@woowacourse/mission-utils';
+
 import Lotto from './Lotto.js';
-import { CONSTANTS } from '../constants/constants.js';
-import MESSAGE from '../constants/message.js';
-import { isNumber, isValidCost } from '../utils/validator.js';
-import throwError from '../utils/throwError.js';
 import WinningLotto from './WinningLotto.js';
+
+import CONSTANTS from '../constants/constants.js';
+import MESSAGE from '../constants/message.js';
+
+import throwError from '../utils/throwError.js';
+import { isNumber, isValidCost } from '../utils/validator.js';
 
 class LottoMachine {
   constructor(cost) {
@@ -33,6 +36,7 @@ class LottoMachine {
     };
   }
 
+  // 로또 발행 관련
   isIssueOver() {
     return this.lottos.length === this.issueCnt;
   }
@@ -50,9 +54,13 @@ class LottoMachine {
     }
   }
 
+  // 당첨 로또 발행
   issueWinningLotto(winningNumbers, bonusNumber) {
     this.winningLotto = new WinningLotto(winningNumbers, bonusNumber);
   }
+
+  // 당첨 결과 계산
+  calculatePrizeResult() {}
 }
 
 export default LottoMachine;

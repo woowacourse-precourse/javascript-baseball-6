@@ -29,6 +29,8 @@ export const MESSAGE = Object.freeze({
 
     INVALID_NUMBERS_COUNT: (input) =>
       `로또 번호는 6개여야 합니다. 입력: ${input}\n`,
+    INVALID_NUMBERS_RANGE: (input) =>
+      `유효하지 않은 범위의 숫자입니다. 입력: ${input}\n`,
     DUPLICATED_NUMBERS: (input) =>
       `중복된 숫자는 입력할 수 없습니다. 입력: ${input}\n`,
 

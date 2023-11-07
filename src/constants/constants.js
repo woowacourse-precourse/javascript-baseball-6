@@ -5,3 +5,5 @@ export const CONSTANTS = Object.freeze({
 
   COST_PER_GAME: 1000,
 });
+
+export default CONSTANTS;
