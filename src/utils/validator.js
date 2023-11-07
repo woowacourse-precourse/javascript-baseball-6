@@ -25,3 +25,7 @@ export const hasDuplicatedElements = (input) => {
 export const isValidRange = (number) => {
   return number >= MIN_NUMBER && number <= MAX_NUMBER;
 };
+
+export const isAlreadyExist = (number, numbers) => {
+  return numbers.includes(number);
+};

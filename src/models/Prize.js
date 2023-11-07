@@ -9,9 +9,11 @@ class Prize {
 
   constructor(lottos, winningLotto) {
     this.#prizes = {};
+
     this.#lottos = lottos;
     this.#winningNumbers = winningLotto.numbers;
     this.#bonusNumber = winningLotto.bonusNumber;
+
     this.#initializePrizes();
   }
 

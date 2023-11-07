@@ -34,6 +34,8 @@ export const MESSAGE = Object.freeze({
 
     INVALID_RANGE: (input) =>
       `입력 가능한 범위를 초과했습니다. (1~45) 입력: ${input}\n`,
+    ALREADY_EXISTS: (input) =>
+      `이미 뽑힌 숫자는 입력할 수 없습니다. 입력: ${input}\n`,
   },
 });
 

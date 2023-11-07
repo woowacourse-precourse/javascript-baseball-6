@@ -4,15 +4,18 @@ import { CONSTANTS } from '../constants/constants.js';
 import MESSAGE from '../constants/message.js';
 import { isNumber, isValidCost } from '../utils/validator.js';
 import throwError from '../utils/throwError.js';
+import WinningLotto from './WinningLotto.js';
 
 class LottoMachine {
-  #lottos;
-  #issueCnt;
-
   constructor(cost) {
     this.#validate(cost);
-    this.#issueCnt = Number(cost) / 1000;
-    this.#lottos = [];
+
+    this.issueCnt = Number(cost) / 1000;
+    this.lottos = [];
+
+    this.winningLotto;
+    this.prize;
+    this.statistics;
   }
 
   #validate(cost) {
@@ -23,31 +26,32 @@ class LottoMachine {
     if (!isValidCost(cost)) throwError(INVALID_COST(cost));
   }
 
-  get DTO() {
+  get purchaseDTO() {
     return {
-      issueCnt: this.#issueCnt,
-      lottos: this.#lottos.map((lotto) => lotto.getNumbers()),
+      issueCnt: this.issueCnt,
+      lottos: this.lottos.map((lotto) => lotto.getNumbers()),
     };
   }
 
-  get lottos() {
-    return this.#lottos;
-  }
-
   isIssueOver() {
-    return this.#lottos.length === this.#issueCnt;
+    return this.lottos.length === this.issueCnt;
   }
 
   issueLotto() {
-    const lottoNum = Random.pickUniqueNumbersInRange(
-      CONSTANTS.MIN_NUMBER,
-      CONSTANTS.MAX_NUMBER,
-      CONSTANTS.DRAW_SIZE
-    );
+    while (!this.isIssueOver()) {
+      const lottoNum = Random.pickUniqueNumbersInRange(
+        CONSTANTS.MIN_NUMBER,
+        CONSTANTS.MAX_NUMBER,
+        CONSTANTS.DRAW_SIZE
+      );
 
-    const lotto = new Lotto(lottoNum);
+      const lotto = new Lotto(lottoNum);
+      this.lottos.push(lotto);
+    }
+  }
 
-    this.#lottos.push(lotto);
+  issueWinningLotto(winningNumbers, bonusNumber) {
+    this.winningLotto = new WinningLotto(winningNumbers, bonusNumber);
   }
 }
 
