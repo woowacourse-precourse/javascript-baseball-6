@@ -8,6 +8,8 @@ class OutputView {
     lottos.forEach((numbers) => {
       Console.print(MESSAGE.outputs.ISSUE_LOTTERY_TICKET(numbers));
     });
+
+    Console.print('\n');
   }
 
   static printMessage(message) {

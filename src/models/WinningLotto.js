@@ -3,12 +3,13 @@ import throwError from '../utils/throwError.js';
 import { isNumber, isValidRange } from '../utils/validator.js';
 import Lotto from './Lotto.js';
 
-class WinningLotto extends Lotto {
+class WinningLotto {
+  #winningLotto;
   #bonusNumber;
 
   constructor(numbers, bonusNumber) {
-    super(numbers);
     this.#validateBonusNumber(bonusNumber);
+    this.#winningLotto = new Lotto(numbers);
     this.#bonusNumber = bonusNumber;
   }
 
@@ -22,7 +23,7 @@ class WinningLotto extends Lotto {
 
   get DTO() {
     return {
-      winningNumbers: this.getNumbers(),
+      numbers: this.#winningLotto.getNumbers(),
       bonusNumber: this.#bonusNumber,
     };
   }

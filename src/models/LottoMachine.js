@@ -1,9 +1,9 @@
 import { Random } from '@woowacourse/mission-utils';
 import Lotto from './Lotto.js';
-import throwError from '../utils/throwError.js';
-import { isNumber, isValidCost } from '../utils/validator.js';
-import MESSAGE from '../constants/message.js';
 import { CONSTANTS } from '../constants/constants.js';
+import MESSAGE from '../constants/message.js';
+import { isNumber, isValidCost } from '../utils/validator.js';
+import throwError from '../utils/throwError.js';
 
 class LottoMachine {
   #lottos;
@@ -49,8 +49,6 @@ class LottoMachine {
 
     this.#lottos.push(lotto);
   }
-
-  checkWinningNumbers(numbers, bonusNumber) {}
 }
 
 export default LottoMachine;

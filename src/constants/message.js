@@ -10,28 +10,30 @@ export const MESSAGE = Object.freeze({
 
     ISSUE_LOTTERY_TICKET: (numbers) => `[${numbers.join(', ')}]`,
 
-    STATIC: '당첨 통계',
+    STATISTICS: '당첨 통계',
 
-    FIRST_PLACE: (num) => `3개 일치 (5,000원) - ${num}개`,
-    SECOND_PLACE: (num) => `4개 일치 (50,000원) - ${num}개`,
-    THIRD_PLACE: (num) => `5개 일치 (1,500,000원) - ${num}개`,
-    FOURTH_PLACE: (num) => `5개 일치, 보너스 볼 일치 (30,000,000원) - ${num}개`,
-    FIFTH_PLACE: (num) => `6개 일치 (2,000,000,000원) - ${num}개`,
+    FIFTH_PRIZE: (num) => `3개 일치 (5,000원) - ${num}개`,
+    FOURTH_PRIZE: (num) => `4개 일치 (50,000원) - ${num}개`,
+    THIRD_PRIZE: (num) => `5개 일치 (1,500,000원) - ${num}개`,
+    SECOND_PRIZE: (num) => `5개 일치, 보너스 볼 일치 (30,000,000원) - ${num}개`,
+    FIRST_PRIZE: (num) => `6개 일치 (2,000,000,000원) - ${num}개`,
 
     EARNINGS_RATE: (num) => `총 수익률은 ${num}%입니다.`,
   },
 
   errors: {
     PREFIX: '[ERROR]',
-    INVALID_NUMBER: (input) => `숫자만 입력 가능합니다. 입력: ${input}`,
+    INVALID_NUMBER: (input) => `숫자만 입력 가능합니다. 입력: ${input}\n`,
     INVALID_COST: (input) =>
-      `구매는 1000원 단위로만 가능합니다. 입력: ${input}`,
+      `구매는 1000원 단위로만 가능합니다. 입력: ${input}\n`,
+
     INVALID_NUMBERS_COUNT: (input) =>
-      `로또 번호는 6개여야 합니다. 입력: ${input}`,
+      `로또 번호는 6개여야 합니다. 입력: ${input}\n`,
     DUPLICATED_NUMBERS: (input) =>
-      `중복된 숫자는 입력할 수 없습니다. 입력: ${input}`,
+      `중복된 숫자는 입력할 수 없습니다. 입력: ${input}\n`,
+
     INVALID_RANGE: (input) =>
-      `입력 가능한 범위를 초과했습니다. (1~45) 입력: ${input}`,
+      `입력 가능한 범위를 초과했습니다. (1~45) 입력: ${input}\n`,
   },
 });
 
