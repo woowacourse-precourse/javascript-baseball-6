@@ -77,10 +77,7 @@ class LottoMachine {
   }
 
   async calculatePrizeResult() {
-    const lottos = this.lottos.map((lotto) => lotto.getNumbers());
-    const winningLotto = this.winningLotto.DTO;
-
-    this.prize = new Prize(lottos, winningLotto);
+    this.prize = new Prize(this.lottos, this.winningLotto);
 
     await this.prize.updatePrizes();
   }

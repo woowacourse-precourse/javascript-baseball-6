@@ -39,7 +39,7 @@ describe('로또 기계 모델 기능 테스트', () => {
     }).toThrow('[ERROR]');
   });
 
-  test('당첨 결과를 계산한다.', () => {
+  test('당첨 결과를 계산한다.', async () => {
     // given
     const RESULT = {
       FIRST_PRIZE: 0,
@@ -57,9 +57,9 @@ describe('로또 기계 모델 기능 테스트', () => {
     mockRandoms([RANDOM_NUMBERS_TO_END]);
 
     // when
-    lottoMachine.issueLotto();
-    lottoMachine.issueWinningLotto(WINNING_LOTTO_NUMBERS, BONUS_NUMBER);
-    lottoMachine.calculatePrizeResult();
+    await lottoMachine.issueLotto();
+    await lottoMachine.issueWinningLotto(WINNING_LOTTO_NUMBERS, BONUS_NUMBER);
+    await lottoMachine.calculatePrizeResult();
 
     //then
     expect(lottoMachine.prize.prizes).toEqual(RESULT);

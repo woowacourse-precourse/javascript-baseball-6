@@ -1,18 +1,21 @@
 import { WINNING_STANDARDS } from '../constants/winningStandards.js';
-import { isEqual } from '../utils/object.js';
+import Lotto from './Lotto.js';
+import WinningLotto from './WinningLotto.js';
 
 class Prize {
   #prizes;
   #lottos;
-  #winningNumbers;
-  #bonusNumber;
+  #winningLotto;
 
-  constructor(lottos, { numbers, bonusNumber }) {
+  /**
+   * @param {Lotto[]} lottos
+   * @param {WinningLotto} winningLotto
+   */
+  constructor(lottos, winningLotto) {
     this.#prizes = {};
 
     this.#lottos = lottos;
-    this.#winningNumbers = numbers;
-    this.#bonusNumber = bonusNumber;
+    this.#winningLotto = winningLotto;
 
     this.#initializePrizes();
   }
@@ -22,38 +25,13 @@ class Prize {
   }
 
   updatePrizes() {
-    const results = this.getMatchCntResults();
+    this.#lottos.forEach((lotto) => {
+      const result = this.#winningLotto.getRankOfLotto(lotto.getNumbers());
 
-    results.forEach((result) => {
-      this.#checkWinningStandards(result);
+      if (result) {
+        this.#prizes[result] = (this.#prizes[result] || 0) + 1;
+      }
     });
-  }
-
-  getMatchCntResults() {
-    return this.#lottos.map((lotto) => ({
-      matchCnt: this.#getMatchCnt(lotto),
-      bonusMatch: this.#getBonusMatch(lotto),
-    }));
-  }
-
-  #getMatchCnt(lotto) {
-    const matchedNum = [...this.#winningNumbers].filter((num) =>
-      lotto.includes(num)
-    );
-    return matchedNum.length;
-  }
-
-  #getBonusMatch(lotto) {
-    return lotto.includes(this.#bonusNumber);
-  }
-
-  #checkWinningStandards(result) {
-    for (const key in WINNING_STANDARDS) {
-      const standard = WINNING_STANDARDS[key];
-
-      if (isEqual(result, standard))
-        this.#prizes[key] = (this.#prizes[key] || 0) + 1;
-    }
   }
 
   #initializePrizes() {
