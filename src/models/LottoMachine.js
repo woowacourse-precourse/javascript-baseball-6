@@ -1,21 +1,24 @@
 import { Random } from '@woowacourse/mission-utils';
 
+// models
 import Lotto from './Lotto.js';
 import WinningLotto from './WinningLotto.js';
+import Prize from './Prize.js';
+import Statistics from './Statistics.js';
 
+// constants
 import CONSTANTS from '../constants/constants.js';
 import MESSAGE from '../constants/message.js';
 
+// utils
 import throwError from '../utils/throwError.js';
 import { isNumber, isValidCost } from '../utils/validator.js';
-import Prize from './Prize.js';
-import Statistics from './Statistics.js';
 
 class LottoMachine {
   constructor(cost) {
     this.#validate(cost);
 
-    this.issueCnt = Number(cost) / 1000;
+    this.issueCnt = cost / CONSTANTS.COST_PER_GAME;
     this.lottos = [];
 
     this.winningLotto;
@@ -38,7 +41,7 @@ class LottoMachine {
     };
   }
 
-  // 로또 발행 관련
+  // 로또 발행
   isIssueOver() {
     return this.lottos.length === this.issueCnt;
   }
@@ -61,7 +64,7 @@ class LottoMachine {
     this.winningLotto = new WinningLotto(winningNumbers, bonusNumber);
   }
 
-  // 당첨 결과 계산
+  // 당첨 결과
   async getResults() {
     await this.calculatePrizeResult();
 

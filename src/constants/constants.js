@@ -12,6 +12,8 @@ export const CONSTANTS = Object.freeze({
     'SECOND_PRIZE',
     'FIRST_PRIZE',
   ],
+
+  NEW_LINE: '\n',
 });
 
 export default CONSTANTS;

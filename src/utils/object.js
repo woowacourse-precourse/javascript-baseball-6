@@ -1,5 +1,5 @@
 /**
- * 두 객체가 같은 값을 가지고 있는지 확인;
+ * 두 객체가 같은 값을 가지고 있는지 확인
  * @param {object} obj1
  * @param {object} obj2
  */

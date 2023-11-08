@@ -8,7 +8,6 @@ describe('Prize 클래스 기능 테스트', () => {
       [1, 2, 3, 5, 6, 7],
     ];
     const winningLotto = { numbers: [1, 2, 3, 4, 5, 6], bonusNumber: 7 };
-
     const RESULT = [
       { matchCnt: 6, bonusMatch: false },
       { matchCnt: 5, bonusMatch: true },

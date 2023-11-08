@@ -1,7 +1,9 @@
+import Lotto from './Lotto.js';
+
 import MESSAGE from '../constants/message.js';
+
 import throwError from '../utils/throwError.js';
 import { isAlreadyExist, isNumber, isValidRange } from '../utils/validator.js';
-import Lotto from './Lotto.js';
 
 class WinningLotto {
   #winningLotto;

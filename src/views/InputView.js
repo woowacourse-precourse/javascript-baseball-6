@@ -1,15 +1,8 @@
 import { Console } from '@woowacourse/mission-utils';
 import MESSAGE from '../constants/message.js';
+import CONSTANTS from '../constants/constants.js';
 
 class InputView {
-  async #getUserInput(prompt) {
-    const userInput = await Console.readLineAsync(prompt);
-
-    console.log('\n');
-
-    return userInput;
-  }
-
   async getCost() {
     const cost = await this.#getUserInput(MESSAGE.inputs.COST);
     return Number(cost);
@@ -23,6 +16,14 @@ class InputView {
   async getBonusNumber() {
     const number = await this.#getUserInput(MESSAGE.inputs.BONUS_NUMBER);
     return Number(number);
+  }
+
+  async #getUserInput(prompt) {
+    const userInput = await Console.readLineAsync(prompt);
+
+    Console.print(CONSTANTS.NEW_LINE);
+
+    return userInput;
   }
 }
 
