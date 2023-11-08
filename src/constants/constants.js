@@ -5,6 +5,8 @@ export const CONSTANTS = Object.freeze({
 
   COST_PER_GAME: 1000,
 
+  PERCENTAGE_CONVERSION: 100,
+
   RANK: [
     'FIFTH_PRIZE',
     'FOURTH_PRIZE',

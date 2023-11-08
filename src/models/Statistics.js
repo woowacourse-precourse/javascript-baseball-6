@@ -21,7 +21,7 @@ class Statistics {
     if (earnings === 0) {
       return 0;
     }
-    return ((earnings / price) * 100).toFixed(1);
+    return ((earnings / price) * CONSTANTS.PERCENTAGE_CONVERSION).toFixed(1);
   }
 }
 
