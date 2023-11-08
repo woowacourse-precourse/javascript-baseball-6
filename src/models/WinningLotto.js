@@ -28,13 +28,6 @@ class WinningLotto {
       throwError(ALREADY_EXISTS(bonusNumber));
   }
 
-  get DTO() {
-    return {
-      numbers: this.#winningLotto.getNumbers(),
-      bonusNumber: this.#bonusNumber,
-    };
-  }
-
   /**
    * 검사할 로또 번호를 인자로 받아 당첨 여부를 검사하여 등수를 반환
    * @param {number[]} numbers
