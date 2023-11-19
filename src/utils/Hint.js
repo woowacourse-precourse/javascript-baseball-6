@@ -1,5 +1,5 @@
-class HintClass {
-  async hint(input, answer) {
+class Hint {
+  async GetHint(input, answer) {
     let strikes = 0;
     let ball = 0;
     let result = "";
@@ -21,4 +21,4 @@ class HintClass {
   }
 }
 
-export default HintClass;
+export default Hint;

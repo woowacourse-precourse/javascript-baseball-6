@@ -1,6 +1,6 @@
 import { Random } from "@woowacourse/mission-utils";
 
-class ComputerClass {
+class Computer {
   async getNumber(min, max) {
     let randomArr = [];
     let number = 0;
@@ -14,4 +14,4 @@ class ComputerClass {
   }
 }
 
-export default ComputerClass;
+export default Computer;

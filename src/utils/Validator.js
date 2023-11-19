@@ -1,5 +1,5 @@
-class ValidatorClass {
-  async validator(input) {
+class Validator {
+  async validate(input) {
     if (input.length !== 3) return false;
     if (input[0] === input[1] || input[0] === input[2] || input[1] === input[2])
       return false;
@@ -10,4 +10,4 @@ class ValidatorClass {
   }
 }
 
-export default ValidatorClass;
+export default Validator;
