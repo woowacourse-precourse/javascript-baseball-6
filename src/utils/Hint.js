@@ -1,4 +1,4 @@
-import { CONSOLE_MESSAGE } from "../Constants";
+import { HINT_TYPE } from "../Constants";
 
 class Hint {
   async GetHint(input, answer) {
@@ -14,11 +14,11 @@ class Hint {
         ball--;
       }
     }
-    result = `${ball}${CONSOLE_MESSAGE.BALL} ${strikes}${CONSOLE_MESSAGE.STRIKE}`;
+    result = `${ball}${HINT_TYPE.BALL} ${strikes}${HINT_TYPE.STRIKE}`;
 
-    if (strikes === 0 && ball === 0) return (result = "낫싱");
-    if (strikes === 0) return (result = `${ball}볼`);
-    if (ball === 0) return (result = `${strikes}스트라이크`);
+    if (strikes === 0 && ball === 0) return (result = HINT_TYPE.NOTHING);
+    if (strikes === 0) return (result = `${ball}$`);
+    if (ball === 0) return (result = `${strikes}${HINT_TYPE.STRIKE}`);
     return result;
   }
 }
