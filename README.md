@@ -8,7 +8,7 @@
 
 ## <div id="introduce">Introduce</div>
 
-["2024 우아한 테크코스의 1주차 숫자야구"](https://github.com/woowacourse-precourse/javascript-baseball-6) 미션에 대한 과제입니다.
+["우아한 테크코스 6기의 1주차 숫자야구"](https://github.com/woowacourse-precourse/javascript-baseball-6) 미션에 대한 과제입니다.
 
 테스트를 통과 할 수 있도록 게임 진행 순서대로 구현한 후, 프로퍼티와 메서드를 각자의 특성에 따라 다른 JS파일로 리팩토링 했습니다.
 
@@ -20,7 +20,7 @@
 | Player | <ul><li>플레이어 입력값 가져와 숫자배열 상태로 관리</li> </ul> |
 | ValidTest | <ul><li>입력값에 대한 유효성 검사</li></ul> |
 
-MVC패턴을 적용해보려고 노력했습니다. MVC롤 분명하게 나눌 수는 없지만, 게임관련 상태들은 Game 클래스에서 관리하고 화면의 출력은 Output 클래스를 통해 진행하며 사용자의 입력값을 가져오는 것은 Player클래스에서 이루어지도록 했습니다.
+MVC패턴,객체지향 프로그래밍을 적용해보려고 노력했습니다. MVC롤 분명하게 나눌 수는 없지만, 게임관련 상태들은 Game 클래스에서 관리하고 화면의 출력은 Output 클래스를 통해 진행하며 사용자의 입력값을 가져오는 것은 Player클래스에서 이루어지도록 했습니다.
 
 출력 메세지는 변경이 없기 때문에 상수로 처리했고 입력값의 유효성 검사는 ValidTest 클래스에서 진행하도록 했습니다.
 
@@ -36,11 +36,11 @@ npm i
 
 사용한 패키지
 
-- eslint: "^8.52.0",
-- eslint-config-airbnb: "^19.0.4",
-- eslint-config-prettier: "^9.0.0",
-- eslint-plugin-prettier: "^5.0.1",
-- prettier: "^3.0.3"
+- eslint
+- eslint-config-airbnb-base
+- eslint-config-prettier
+- eslint-plugin-prettier
+- prettier
 
 ### Test
 
