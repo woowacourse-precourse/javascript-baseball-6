@@ -1,34 +1,62 @@
 # ⚾ 숫자 야구
 
-#### <a src="#introduce">Introduce</a>
-
-### <a src="#install">Install and Test</a>
-
-### <a src="#study">Study</a>
-
-## <div id="introduce">Introduce</div>
+## 소개
 
 ["우아한 테크코스 6기의 1주차 숫자야구"](https://github.com/woowacourse-precourse/javascript-baseball-6) 미션에 대한 과제입니다.
 
-테스트를 통과 할 수 있도록 게임 진행 순서대로 구현한 후, 프로퍼티와 메서드를 각자의 특성에 따라 다른 JS파일로 리팩토링 했습니다.
+### 시현
 
-| js | 기능 |
-| --- | --- |
-| Game | <ul><li>게임시작,재시작 및 종료</li> <li>랜덤 숫자 생성</li> <li>스트라이크,볼,낫싱 판정</li></ul> |
-| Message | <ul><li>출력하는 메세지 관리</li></ul> |
-| Output | <ul><li>메세지 출력</li></ul> |
-| Player | <ul><li>플레이어 입력값 가져와 숫자배열 상태로 관리</li> </ul> |
-| ValidTest | <ul><li>입력값에 대한 유효성 검사</li></ul> |
+<img src="./숫자야구.gif" width="400px" alt="숫자 야구 시현"/>
 
-MVC패턴,객체지향 프로그래밍을 적용해보려고 노력했습니다. MVC롤 분명하게 나눌 수는 없지만, 게임관련 상태들은 Game 클래스에서 관리하고 화면의 출력은 Output 클래스를 통해 진행하며 사용자의 입력값을 가져오는 것은 Player클래스에서 이루어지도록 했습니다.
+### 파일 구조 및 순서도
 
-출력 메세지는 변경이 없기 때문에 상수로 처리했고 입력값의 유효성 검사는 ValidTest 클래스에서 진행하도록 했습니다.
+<details>
+<summary>🗂️ 파일 구조 및 설명보기</summary>
+<br/>
+<div markdown='1'>
 
-## <div id="install">Install and Test</div>
+```
+📦src
+ ┣ 📂constants
+ ┃ ┣ 📜index.js
+ ┃ ┣ 📜Message.js : 입력,출력 메세지 관리
+ ┃ ┣ 📜RegExp.js  : 정규 표현식 관리
+ ┃ ┗ 📜Rule.js    : 게임 룰에 대한 상수 관리
+ ┣ 📂controllers
+ ┃ ┣ 📜Game.js  : 게임 시작,실행,재실행,종료 담당
+ ┃ ┣ 📜index.js
+ ┃ ┗ 📜InputControllers.js : 입력값을 가져와 모델에게 전달 (모델에서 유효성 검사 진행)
+ ┣ 📂models
+ ┃ ┣ 📜Computer.js : 랜덤 숫자를 만드는 컴퓨터 역할 담당
+ ┃ ┣ 📜GameProgress.js : 게임의 진행의 상태(play,restart,end) 관리
+ ┃ ┣ 📜index.js
+ ┃ ┣ 📜Referee.js : 컴퓨터 숫자와 사용자 숫자를 비교해 판정
+ ┃ ┗ 📜User.js : 사용자가 입력한 값에 대한 유효성 검사 후 숫자 저장 및 반환
+ ┣ 📂view
+ ┃ ┣ 📜index.js
+ ┃ ┣ 📜InputView.js : 사용자에게 입력에 대한 쿼리를 보여주고 입력값을 가져와 컨트롤에게 전달
+ ┃ ┗ 📜OutputVew.js : 사용자에게 메세지 출력
+ ┣ 📜App.js
+ ┗ 📜index.js
+```
+
+</div>
+</details>
+<br/>
+<details>
+<summary>📝 순서도 보기</summary>
+<br/>
+<div markdown="1">
+  <img src="./docs/숫자야구.png" alt="숫자야구_순서도" height="400px">
+
+</div>
+</details>
+
+## 설치,실행 및 테스트
 
 ### Install
 
-```
+```bash
 npm i
 ```
 
@@ -42,13 +70,19 @@ npm i
 - eslint-plugin-prettier
 - prettier
 
+### 실행
+
+```bash
+node ./src/index.js
+```
+
 ### Test
 
-```
+```bash
 npm run test
 ```
 
-## <div id="study">Study</div>
+## 공부
 
 ### 1. 모듈과 브라우저 호환성
 
