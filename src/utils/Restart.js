@@ -1,8 +1,9 @@
 import { Console } from "@woowacourse/mission-utils";
+import { CONSOLE_MESSAGE } from "../Constants";
 
 class Restart {
   async restart() {
-    console.log("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+    console.log(CONSOLE_MESSAGE.NEW_GAME_OR_EXIT);
     let input = await Console.readLineAsync("");
     if (String(input) === "1") return true;
     else if (String(input) === "2") return false;

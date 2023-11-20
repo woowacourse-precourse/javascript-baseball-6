@@ -1,9 +1,9 @@
 import { Console } from "@woowacourse/mission-utils";
-import ClassInstance from "./ClassInstance.js";
 import Computer from "./utils/Computer.js";
 import Hint from "./utils/Hint.js";
 import Validator from "./utils/Validator.js";
 import Restart from "./utils/Restart.js";
+import { CONSOLE_MESSAGE } from "./Constants.js";
 
 class Game {
   async playGame() {
@@ -16,7 +16,7 @@ class Game {
     let isContinue = true;
 
     while (isContinue) {
-      let input = await Console.readLineAsync("숫자를 입력해주세요: ");
+      let input = await Console.readLineAsync(CONSOLE_MESSAGE.START_MESSAGE);
       let inputArr = Array.from(String(input), Number);
       let isValidated = await validator.validate(inputArr);
       if (!isValidated) {
@@ -24,9 +24,9 @@ class Game {
       }
       const result = await hint.getHint(inputArr, answer);
       Console.print(result);
-      if (result === "3스트라이크") isContinue = false;
+      if (result === `3${CONSOLE_MESSAGE.STRIKE}`) isContinue = false;
     }
-    console.log("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    console.log(CONSOLE_MESSAGE.GAME_COMPLETE);
     let isRestart = await restart.restart();
     return isRestart;
   }
@@ -35,7 +35,7 @@ class App {
   async play() {
     const game = new Game();
 
-    console.log("숫자 야구 게임을 시작합니다.");
+    console.log(CONSOLE_MESSAGE.START_MESSAGE);
     let isRestart = await game.playGame();
     while (isRestart) {
       isRestart = await game.playGame();

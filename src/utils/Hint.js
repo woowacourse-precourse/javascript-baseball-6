@@ -1,3 +1,5 @@
+import { CONSOLE_MESSAGE } from "../Constants";
+
 class Hint {
   async GetHint(input, answer) {
     let strikes = 0;
@@ -12,7 +14,7 @@ class Hint {
         ball--;
       }
     }
-    result = `${ball}볼 ${strikes}스트라이크`;
+    result = `${ball}${CONSOLE_MESSAGE.BALL} ${strikes}${CONSOLE_MESSAGE.STRIKE}`;
 
     if (strikes === 0 && ball === 0) return (result = "낫싱");
     if (strikes === 0) return (result = `${ball}볼`);
