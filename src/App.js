@@ -12,12 +12,12 @@ class Game {
     const validator = new Validator();
     const restart = new Restart();
 
-    let answer = await computer.getNumber(1, 9);
+    const answer = await computer.getNumber(1, 9);
     let isContinue = true;
 
     while (isContinue) {
-      let input = await Console.readLineAsync(CONSOLE_MESSAGE.INPUT_MESSAGE);
-      let inputArr = Array.from(String(input), Number);
+      const input = await Console.readLineAsync(CONSOLE_MESSAGE.INPUT_MESSAGE);
+      const inputArr = Array.from(String(input), Number);
       validator.validate(inputArr);
 
       const result = await hint.getHint(inputArr, answer);
