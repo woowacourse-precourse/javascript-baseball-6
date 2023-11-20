@@ -1,5 +1,7 @@
+import CheckNumber from "../domain/CheckNumber.js";
 import RandomNumber from "../domain/RandomNumber.js";
 import SplitNumbers from "../domain/SplitNumbers.js";
+import NUMBERS from "../static/Numbers.js";
 import InputView from "../view/InputView.js";
 import OutputView from "../view/OutputView.js";
 
@@ -9,23 +11,34 @@ class BaseballController{
     #numbers;
     #random;
     #randomNum;
+    #checkNum;
+    #checkNumberFunc;
 
     constructor() {
         this.#inputView = new InputView();
         this.#outputView = new OutputView();
         this.#random = new RandomNumber();
+        this.#checkNumberFunc = new CheckNumber();
     }
-    #intro() {
+    async #intro() {
+        this.#randomNum = await this.#random.getRandomNumber();
         this.#outputView.intro();
-        this.#inputArea();
+        await this.#inputArea();
     }
     async #inputArea() {
-        this.#numbers = await this.#inputView.inputNumbers();
-        this.#randomNum = await this.#random.getRandomNumber();
-        this.#result(this.#numbers, this.#randomNum);
+        while (true) {
+            this.#numbers = await this.#inputView.inputNumbers();
+            this.#checkNum = this.#checkNumberFunc.checkNumber(this.#numbers, this.#randomNum);
+            this.#outputView.result(this.#checkNum);
+            if(this.#checkNum[0] === NUMBERS.three) {
+                this.#outputView.exit;
+                break;
+            }
+        }
+        this.#result();
     }
     #result(inputNum,randomNum) {
-        
+        this.#outputView.endGame();
     }
     async gameStart() {
         this.#intro();
