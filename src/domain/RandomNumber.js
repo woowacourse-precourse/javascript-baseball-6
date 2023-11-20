@@ -2,6 +2,7 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 import NUMBERS from "../static/Numbers.js";
 
 class RandomNumber{
+    
     #randomNum;
 
     #randomNumber() {
