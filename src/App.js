@@ -10,7 +10,7 @@ class App {
     try {
       await this.#controller.gameStart();
     } catch (error) {
-      console.log(error.message);
+      throw new Error(error);
     }
   }
 }
