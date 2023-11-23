@@ -4,7 +4,7 @@ const NUMBERS = Object.freeze({
     numberRangeMin : 1,
     numberRangeMax : 9,
     continueNum : 1,
-    exitNum : 0,
+    exitNum : 2,
 });
 
 export default NUMBERS;
