@@ -8,6 +8,7 @@ const numbers = Object.freeze({
 
 const restart = Object.freeze({
   choice: '[ERROR] 1, 2가 아닌 다른 값을 입력하셨습니다.',
+  empty: '[ERROR] 게임 재시작 여부를 입력해주세요.'
 });
 
 const ERROR = Object.freeze({
