@@ -3,7 +3,7 @@ import ERROR from '../constants/error.js';
 
 const RestartValidator = {
   validateRestart(restart) {
-    const validators = [this.validateNegative, this.validateRestartChoice];
+    const validators = [this.validateNaN, this.validateNegative, this.validateRestartChoice];
     validators.forEach(validator => validator(restart));
   },
 
@@ -15,6 +15,11 @@ const RestartValidator = {
 
   validateNegative(restart) {
     if (Number(restart) < CONSTANTS.number.zero) throw new Error(ERROR.numbers.negative);
+    return true;
+  },
+
+  validateNaN(restart) {
+    if (isNaN(restart)) throw new Error(ERROR.numbers.notANumber);
     return true;
   },
 };
