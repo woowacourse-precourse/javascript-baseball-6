@@ -3,6 +3,7 @@ const numbers = Object.freeze({
   notANumber: '[ERROR] 숫자를 입력해주세요.',
   negative: '[ERROR] 숫자가 음수입니다. 다시 입력해주세요.',
   duplicated: '[ERROR] 숫자가 중복되었습니다. 다시 입력해주세요.',
+  empty: '[ERROR] 숫자를 입력해주세요.',
 });
 
 const ERROR = Object.freeze({

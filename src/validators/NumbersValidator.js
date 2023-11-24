@@ -4,6 +4,7 @@ import ERROR from '../constants/error.js';
 const NumbersValidator = {
   validateNumbers(numbers) {
     const validators = [
+      this.validateEmpty,
       this.validateNegative,
       this.validateNaN,
       this.validateLength,
@@ -29,6 +30,11 @@ const NumbersValidator = {
 
   validateDuplicated(numbers) {
     if (numbers.length !== new Set(numbers).size) throw new Error(ERROR.numbers.duplicated);
+    return true;
+  },
+
+  validateEmpty(numbers) {
+    if (numbers.length === CONSTANTS.number.zero) throw new Error(ERROR.numbers.empty);
     return true;
   },
 };
