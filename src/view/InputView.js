@@ -1,6 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
 import MESSAGE from '../constants/message.js';
 import NumbersValidator from '../validators/NumbersValidator.js';
+import RestartValidator from '../validators/RestartValidator.js';
 
 const InputView = {
   async readNumbers() {
@@ -11,6 +12,7 @@ const InputView = {
 
   async readRestart() {
     const restart = await Console.readLineAsync(MESSAGE.read.restart);
+    RestartValidator.validateRestart(restart);
     return restart;
   },
 };
