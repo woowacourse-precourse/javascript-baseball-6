@@ -49,4 +49,16 @@ describe('숫자 입력 예외 상황 테스트', () => {
     const result = NumbersValidator.validateNaN(value);
     expect(result).toEqual(true);
   });
+
+  test('숫자를 입력하지 않을 경우 예외처리를 한다', () => {
+    const value = '';
+    const result = () => NumbersValidator.validateEmpty(value);
+    expect(result).toThrow(ERROR.numbers.empty);
+  });
+
+  test('숫자를 입력했을 경우 true를 반환한다.', () => {
+    const value = '123';
+    const result = NumbersValidator.validateEmpty(value);
+    expect(result).toEqual(true);
+  });
 });
