@@ -1,26 +1,36 @@
 import CONSTANTS from '../constants/constants.js';
 import ERROR from '../constants/error.js';
 
-class NumbersValidator {
-  static validateNumbers(numbers) {
-    const validators = [this.validateNegative, this.validateNaN, this.validateLength];
+const NumbersValidator = {
+  validateNumbers(numbers) {
+    const validators = [
+      this.validateNegative,
+      this.validateNaN,
+      this.validateLength,
+      this.validateDuplicated,
+    ];
     validators.forEach(validator => validator(numbers));
-  }
+  },
 
-  static validateLength(numbers) {
+  validateLength(numbers) {
     if (numbers.length !== CONSTANTS.number.maxLength) throw new Error(ERROR.numbers.length);
     return true;
-  }
+  },
 
-  static validateNaN(numbers) {
+  validateNaN(numbers) {
     if (isNaN(numbers)) throw new Error(ERROR.numbers.notANumber);
     return true;
-  }
+  },
 
-  static validateNegative(numbers) {
+  validateNegative(numbers) {
     if (Number(numbers) < CONSTANTS.number.zero) throw new Error(ERROR.numbers.negative);
     return true;
-  }
-}
+  },
+
+  validateDuplicated(numbers) {
+    if (numbers.length !== new Set(numbers).size) throw new Error(ERROR.numbers.duplicated);
+    return true;
+  },
+};
 
 export default NumbersValidator;
