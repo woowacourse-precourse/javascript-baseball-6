@@ -37,4 +37,16 @@ describe('게임 재시작 여부 입력 예외 상황 테스트', () => {
     const result = RestartValidator.validateNaN(value);
     expect(result).toEqual(true);
   });
+
+  test('값을 입력하지 않았을 경우 예외처리를 한다.', () => {
+    const value = '';
+    const result = () => RestartValidator.validateEmpty(value);
+    expect(result).toThrow(ERROR.restart.notANumber);
+  });
+
+  test('값을 입력했을 경우 true를 반환한다.', () => {
+    const value = '1';
+    const result = RestartValidator.validateEmpty(value);
+    expect(result).toEqual(true);
+  });
 });
