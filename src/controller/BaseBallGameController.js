@@ -1,4 +1,3 @@
-import NumbersValidator from '../validators/NumbersValidator.js';
 import InputView from '../view/InputView.js';
 import OutputView from '../view/OutputView.js';
 
@@ -8,6 +7,7 @@ class BaseBallGameController {
   async startGame() {
     OutputView.printStartString();
     const numbers = await InputView.readNumbers();
+    const restart = await InputView.readRestart();
   }
 }
 

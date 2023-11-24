@@ -8,6 +8,11 @@ const InputView = {
     NumbersValidator.validateNumbers(numbers);
     return Number(numbers);
   },
+
+  async readRestart() {
+    const restart = await Console.readLineAsync(MESSAGE.read.restart);
+    return restart;
+  },
 };
 
 export default InputView;
