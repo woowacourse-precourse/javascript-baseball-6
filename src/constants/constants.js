@@ -1,4 +1,5 @@
 const number = Object.freeze({
+  zero: 0,
   maxLength: 3,
 });
 

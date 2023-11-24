@@ -3,7 +3,7 @@ import ERROR from '../constants/error.js';
 
 class NumbersValidator {
   static validateNumbers(numbers) {
-    const validators = [this.validateNaN, this.validateLength];
+    const validators = [this.validateNegative, this.validateNaN, this.validateLength];
     validators.forEach(validator => validator(numbers));
   }
 
@@ -14,6 +14,11 @@ class NumbersValidator {
 
   static validateNaN(numbers) {
     if (isNaN(numbers)) throw new Error(ERROR.numbers.notANumber);
+    return true;
+  }
+
+  static validateNegative(numbers) {
+    if (Number(numbers) < CONSTANTS.number.zero) throw new Error(ERROR.numbers.negative);
     return true;
   }
 }
