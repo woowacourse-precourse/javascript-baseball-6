@@ -8,6 +8,7 @@ class User {
     this.#validateNumbers(string);
     this.#setNumbers(string);
   }
+
   #setNumbers(string) {
     this.#numbers = string.split('').map(v => Number(v));
   }

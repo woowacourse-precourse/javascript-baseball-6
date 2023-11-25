@@ -10,6 +10,7 @@ class Computer {
   constructor() {
     this.#setNumbers();
   }
+
   #getRandomNumbers() {
     let array = [];
     while (array.length < RULE.lengthOfNumbers) {
@@ -19,17 +20,16 @@ class Computer {
         array.push(number);
       }
     }
+
     return array;
   }
   #setNumbers() {
     const numbers = this.#getRandomNumbers();
     this.#numbers = numbers;
   }
-
   reStart() {
     this.#setNumbers();
   }
-
   getNumbers() {
     return this.#numbers;
   }

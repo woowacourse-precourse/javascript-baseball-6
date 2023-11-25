@@ -6,18 +6,20 @@ class Referee {
     ball: 0,
   };
   #gameResult;
+
   constructor(participants) {
     this.#compareNumbers(participants);
     this.#calculateScore();
   }
+
   /**
-   *
    * @param {{computer:Computer ; user:User }}participants
    */
   #compareNumbers(participants) {
     const { computer, user } = participants;
     const computerNumbers = computer.getNumbers();
     const userNumbers = user.getNumbers();
+
     computerNumbers.forEach((v, i) => {
       if (v === userNumbers[i]) {
         this.#score.strike += 1;
@@ -32,12 +34,14 @@ class Referee {
   #calculateScore() {
     let result = [];
     const { strike, ball } = this.#score;
+
     if (!strike && !ball) {
       result.push(MESSAGE.nothing);
     } else {
       ball && result.push(`${ball}${MESSAGE.ball}`);
       strike && result.push(`${strike}${MESSAGE.strike}`);
     }
+
     this.#gameResult = result.length === 1 ? result[0] : result.join(' ');
   }
 
