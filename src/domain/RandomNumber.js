@@ -9,9 +9,7 @@ class RandomNumber{
         const computer = [];
         while (computer.length < NUMBERS.three) {
             let number = MissionUtils.Random.pickNumberInRange(NUMBERS.numberRangeMin, NUMBERS.numberRangeMax);
-            if (!computer.includes(number)) {
-                computer.push(number);
-            }
+            if (!computer.includes(number)) computer.push(number);
         }
         return computer;
     }
