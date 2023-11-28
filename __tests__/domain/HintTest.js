@@ -13,9 +13,30 @@ describe('Hint 클래스 테스트', () => {
       ({ numbers, computerNumbers, expected }) => {
         // when
         const hint = new Hint(numbers, computerNumbers);
+        const strikeCount = hint.calculateStrikeCount();
+        // then
+        expect(strikeCount).toEqual(expected);
+      },
+    );
+  });
+
+  describe('calculateBallCount 메서드는 strikeCount를 입력받아 볼 개수를 반환한다.', () => {
+    const cases = [
+      { numbers: [1, 2, 3], computerNumbers: [2, 3, 1], expected: 3 },
+      { numbers: [1, 2, 3], computerNumbers: [1, 2, 3], expected: 0 },
+      { numbers: [4, 2, 1], computerNumbers: [4, 1, 2], expected: 2 },
+    ];
+
+    test.each(cases)(
+      '스트라이크 개수 $strikeCount가 주어지는 경우, calculateBallCount()는 개수 $expected를 반환한다.',
+      ({ numbers, computerNumbers, expected }) => {
+        // when
+        const hint = new Hint(numbers, computerNumbers);
+        const strikeCount = hint.calculateStrikeCount();
+        const ballCount = hint.calculateBallCount(strikeCount);
 
         // then
-        expect(hint.calculateStrikeCount()).toEqual(expected);
+        expect(ballCount).toEqual(expected);
       },
     );
   });
