@@ -7,7 +7,7 @@ const InputView = {
   async readNumbers() {
     const numbers = await Console.readLineAsync(MESSAGE.read.numbers);
     NumbersValidator.validateNumbers(numbers);
-    return Number(numbers);
+    return [...numbers].map(Number);
   },
 
   async readRestart() {

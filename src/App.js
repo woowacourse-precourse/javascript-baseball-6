@@ -1,10 +1,10 @@
-import BaseBallGameController from './controller/BaseBallGameController.js';
+import BaseballGameController from './controller/BaseballGameController.js';
 
 class App {
-  #baseBallGameController = new BaseBallGameController();
+  #baseballGameController = new BaseballGameController();
 
   async play() {
-    this.#baseBallGameController.startGame();
+    this.#baseballGameController.startGame();
   }
 }
 
