@@ -15,22 +15,18 @@ const RestartValidator = {
   validateRestartChoice(restart) {
     if (Number(restart) < CONSTANTS.restart.start || Number(restart) > CONSTANTS.restart.exit)
       throw new Error(ERROR.restart.choice);
-    return true;
   },
 
   validateNegative(restart) {
     if (Number(restart) < CONSTANTS.number.zero) throw new Error(ERROR.numbers.negative);
-    return true;
   },
 
   validateNaN(restart) {
     if (isNaN(restart)) throw new Error(ERROR.numbers.notANumber);
-    return true;
   },
 
   validateEmpty(restart) {
     if (restart.length === CONSTANTS.number.zero) throw new Error(ERROR.restart.empty);
-    return true;
   },
 };
 
