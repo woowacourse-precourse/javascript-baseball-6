@@ -6,6 +6,7 @@ class App {
   #answer;
   #userInput;
   #gameStatus;
+  
   constructor() {
     this.#answer = [];
     this.#userInput = [];
@@ -13,37 +14,16 @@ class App {
   }
 
   async play() {
-    this.showMessage("숫자 야구 게임을 시작합니다.");
+    this.showGameStartMessage();
     await this.configureGame();
   }
 
-  getAnswerValue() {
-    return this.#answer;
+  showGameStartMessage() {
+    Console.print("숫자 야구 게임을 시작합니다.");
   }
 
-  async fetchInput(message) {
-    return await Console.readLineAsync(message);
-  }
-
-  verifyInput(input) {
-    const isInt = Number.isInteger(+input);
-    const isLengthThree = input?.length === 3;
-    const isPositive = Math.sign(input) === 1;
-
-    return {
-      isInt: isInt,
-      isLengthThree: isLengthThree,
-      isPositive: isPositive,
-    };
-  }
-
-  showMessage(message) {
-    Console.print(message);
-  }
-
-  generateAnswer() {
+  generateRandomAnswer() {
     this.#answer = [];
-
     while (this.#answer.length < 3) {
       const number = Random.pickNumberInRange(1, 9);
       if (!this.#answer.includes(number)) {
@@ -52,102 +32,92 @@ class App {
     }
   }
 
-  async obtainUserInput() {
-    let input = await this.fetchInput("숫자를 입력해주세요 : ");
+  async configureGame() {
+    this.generateRandomAnswer();
+    await this.runGameLoop();
+  }
 
-    const { isInt, isLengthThree, isPositive } = this.verifyInput(input);
-    if (!isInt || !isLengthThree || !isPositive) {
-      triggerError();
+  async runGameLoop() {
+    while (!this.#gameStatus) {
+      this.#userInput = await this.obtainUserInput();
+      const { strike, ball } = this.compareAnswerWithInput();
+      this.displayResult(strike, ball);
+
+      if (strike === 3) {
+        Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+        this.#gameStatus = await this.promptForGameRestart();
+      }
     }
-
-    input = input.split("").map(Number);
-
-    return input;
   }
 
-  getUserInputValue() {
-    return this.#userInput;
+  async obtainUserInput() {
+    let input = await Console.readLineAsync("숫자를 입력해주세요 : ");
+    if (!this.isValidInput(input)) {
+      this.throwInputError();
+    }
+    return input.split("").map(Number);
   }
 
-  compareResults() {
+  isValidInput(input) {
+    const isInt = Number.isInteger(+input);
+    const isLengthThree = input?.length === 3;
+    const isPositive = Math.sign(input) === 1;
+    return isInt && isLengthThree && isPositive;
+  }
+
+  throwInputError() {
+    throw new Error("[ERROR] 입력이 잘못되었습니다. 1부터 9까지의 서로 다른 숫자 3개를 입력해주세요.");
+  }
+
+  compareAnswerWithInput() {
     let strike = 0;
     let ball = 0;
 
-    const computerNumbers = this.#answer;
-    const userNumbers = this.#userInput;
-
-    for (let i = 0; i < computerNumbers.length; i++) {
-      const index = userNumbers.indexOf(computerNumbers[i]);
-      if (index > -1) {
-        if (index === i) {
-          strike += 1;
-        } else {
-          ball += 1;
-        }
+    for (let i = 0; i < this.#answer.length; i++) {
+      const index = this.#userInput.indexOf(this.#answer[i]);
+      if (index === i) {
+        strike += 1;
+      } else if (index > -1) {
+        ball += 1;
       }
     }
 
     return { strike, ball };
   }
 
-  async configureGame() {
-    this.generateAnswer();
-    await this.initializeGame();
-  }
-
-  async displayResult(strike, ball) {
+  displayResult(strike, ball) {
     if (strike === 0 && ball === 0) {
-      this.showMessage("낫싱");
-    } else {
-      let output = "";
-
-      if (ball > 0) {
-        output += `${ball}볼 `;
-      }
-
-      if (strike > 0) {
-        output += `${strike}스트라이크`;
-      }
-
-      this.showMessage(output);
+      Console.print("낫싱");
+      return;
     }
+
+    let output = "";
+    if (ball > 0) {
+      output += `${ball}볼 `;
+    }
+    if (strike > 0) {
+      output += `${strike}스트라이크`;
+    }
+    Console.print(output);
   }
 
-  async promptRestart() {
-    const input = await this.fetchInput(
+  async promptForGameRestart() {
+    const input = await Console.readLineAsync(
       "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
     );
 
-    if (input === "1") {
-      this.generateAnswer();
-    } else if (input === "2") {
-      this.showMessage("게임종료");
-      return true;
-    } else {
-      this.showMessage("1 또는 2를 입력하세요.");
-      return "invalid";
-    }
-  }
-
-  async initializeGame() {
-    while (!this.#gameStatus) {
-      this.#userInput = await this.obtainUserInput();
-      const { strike, ball } = this.compareResults();
-      this.displayResult(strike, ball);
-
-      if (strike === 3) {
-        this.showMessage("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-        this.#gameStatus = await this.promptRestart();
-        if (this.#gameStatus === "invalid") {
-          this.#gameStatus = await this.promptRestart();
-        }
-      }
+    switch (input) {
+      case "1":
+        this.generateRandomAnswer();
+        return false;
+      case "2":
+        Console.print("게임종료");
+        return true;
+      default:
+        Console.print("1 또는 2를 입력하세요.");
+        return this.promptForGameRestart();
     }
   }
 }
-
-const triggerError = () => {
-  throw new Error("[ERROR] 숫자가 잘못된 형식입니다.");
-};
 
 export default App;
