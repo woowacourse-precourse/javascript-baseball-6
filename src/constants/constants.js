@@ -1,6 +1,11 @@
 const number = Object.freeze({
   zero: 0,
-  maxLength: 3,
+  numberSize: 3,
+});
+
+const range = Object.freeze({
+  from: 1,
+  to: 9,
 });
 
 const restart = Object.freeze({
@@ -10,6 +15,7 @@ const restart = Object.freeze({
 
 const CONSTANTS = Object.freeze({
   number,
+  range,
   restart,
 });
 

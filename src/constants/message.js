@@ -5,6 +5,9 @@ const read = Object.freeze({
 
 const print = Object.freeze({
   gameStart: '숫자 야구 게임을 시작합니다.',
+  ball: '볼',
+  strike: '스트라이크',
+  nothing: '낫싱',
 });
 
 const MESSAGE = Object.freeze({

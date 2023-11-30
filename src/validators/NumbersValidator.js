@@ -14,7 +14,7 @@ const NumbersValidator = {
   },
 
   validateLength(numbers) {
-    if (numbers.length !== CONSTANTS.number.maxLength) throw new Error(ERROR.numbers.length);
+    if (numbers.length !== CONSTANTS.number.numberSize) throw new Error(ERROR.numbers.length);
   },
 
   validateNaN(numbers) {

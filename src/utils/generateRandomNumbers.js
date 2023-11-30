@@ -1,9 +1,10 @@
-import { MissionUtils } from '@woowacourse/mission-utils';
+import { Random } from '@woowacourse/mission-utils';
+import CONSTANTS from '../constants/constants.js';
 
-const generateRandomNumbers = () => {
+const generateRandomNumbers = length => {
   const randomNumbers = [];
-  while (randomNumbers.length < 3) {
-    const number = MissionUtils.Random.pickNumberInRange(1, 9);
+  while (randomNumbers.length < length) {
+    const number = Random.pickNumberInRange(CONSTANTS.range.from, CONSTANTS.range.to);
     if (!randomNumbers.includes(number)) randomNumbers.push(number);
   }
   return randomNumbers;
