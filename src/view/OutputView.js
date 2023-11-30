@@ -9,6 +9,10 @@ const OutputView = {
   printHintString(hintMessage) {
     Console.print(hintMessage.join(' '));
   },
+
+  printEndString() {
+    Console.print(MESSAGE.print.endGame);
+  },
 };
 
 export default OutputView;

@@ -8,6 +8,7 @@ const print = Object.freeze({
   ball: '볼',
   strike: '스트라이크',
   nothing: '낫싱',
+  endGame: '3개의 숫자를 모두 맞히셨습니다! 게임 종료',
 });
 
 const MESSAGE = Object.freeze({

@@ -29,7 +29,8 @@ class BaseballGameController {
 
   #handleInputOrEnd(strikeCount, hintMessage) {
     OutputView.printHintString(hintMessage);
-    if (strikeCount !== CONSTANTS.number.numberSize) return this.#inputUserNumbers();
+    if (strikeCount === CONSTANTS.number.numberSize) return OutputView.printEndString();
+    return this.#inputUserNumbers();
   }
 }
 
