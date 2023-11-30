@@ -29,7 +29,7 @@ class BaseballGameController {
 
   #handleInputOrEnd(strikeCount, hintMessage) {
     OutputView.printHintString(hintMessage);
-    if (strikeCount === CONSTANTS.number.numberSize) {
+    if (this.#isGameEnd(strikeCount)) {
       OutputView.printEndString();
 
       return this.#inputRestart();
@@ -40,11 +40,22 @@ class BaseballGameController {
 
   async #inputRestart() {
     const restart = await InputView.readRestart();
-    if (restart === CONSTANTS.restart.start) {
-      this.#computerNumbers = generateRandomNumbers(CONSTANTS.number.numberSize);
-
+    if (this.#shouldRestart(restart)) {
+      this.#resetGame();
       return this.#inputUserNumbers();
     }
+  }
+
+  #isGameEnd(strikeCount) {
+    return strikeCount === CONSTANTS.number.numberSize;
+  }
+
+  #shouldRestart(restart) {
+    return restart === CONSTANTS.restart.start;
+  }
+
+  #resetGame() {
+    return (this.#computerNumbers = generateRandomNumbers(CONSTANTS.number.numberSize));
   }
 }
 
