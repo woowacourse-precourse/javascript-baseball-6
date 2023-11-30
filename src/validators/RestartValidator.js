@@ -22,7 +22,7 @@ const RestartValidator = {
   },
 
   validateNaN(restart) {
-    if (isNaN(restart)) throw new Error(ERROR.numbers.notANumber);
+    if (Number.isNaN(Number(restart))) throw new Error(ERROR.numbers.notANumber);
   },
 
   validateEmpty(restart) {

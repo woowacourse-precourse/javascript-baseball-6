@@ -44,6 +44,7 @@ class BaseballGameController {
       this.#resetGame();
       return this.#inputUserNumbers();
     }
+    return Promise.resolve();
   }
 
   #isGameEnd(strikeCount) {
@@ -55,7 +56,7 @@ class BaseballGameController {
   }
 
   #resetGame() {
-    return (this.#computerNumbers = generateRandomNumbers(CONSTANTS.number.numberSize));
+    this.#computerNumbers = generateRandomNumbers(CONSTANTS.number.numberSize);
   }
 }
 

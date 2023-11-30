@@ -18,7 +18,7 @@ const NumbersValidator = {
   },
 
   validateNaN(numbers) {
-    if (isNaN(numbers)) throw new Error(ERROR.numbers.notANumber);
+    if (Number.isNaN(Number(numbers))) throw new Error(ERROR.numbers.notANumber);
   },
 
   validateNegative(numbers) {
