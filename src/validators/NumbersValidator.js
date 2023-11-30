@@ -1,37 +1,37 @@
 import CONSTANTS from '../constants/constants.js';
 import ERROR from '../constants/error.js';
 
-const NumbersValidator = {
-  validateNumbers(numbers) {
+class NumbersValidator {
+  static validateNumbers(numbers) {
     const validators = [
-      this.validateEmpty,
-      this.validateNegative,
-      this.validateNaN,
-      this.validateLength,
-      this.validateDuplicated,
+      this.#validateEmpty,
+      this.#validateNegative,
+      this.#validateNaN,
+      this.#validateLength,
+      this.#validateDuplicated,
     ];
     validators.forEach(validator => validator(numbers));
-  },
+  }
 
-  validateLength(numbers) {
+  static #validateLength(numbers) {
     if (numbers.length !== CONSTANTS.number.numberSize) throw new Error(ERROR.numbers.length);
-  },
+  }
 
-  validateNaN(numbers) {
+  static #validateNaN(numbers) {
     if (Number.isNaN(Number(numbers))) throw new Error(ERROR.numbers.notANumber);
-  },
+  }
 
-  validateNegative(numbers) {
+  static #validateNegative(numbers) {
     if (Number(numbers) < CONSTANTS.number.zero) throw new Error(ERROR.numbers.negative);
-  },
+  }
 
-  validateDuplicated(numbers) {
+  static #validateDuplicated(numbers) {
     if (numbers.length !== new Set(numbers).size) throw new Error(ERROR.numbers.duplicated);
-  },
+  }
 
-  validateEmpty(numbers) {
+  static #validateEmpty(numbers) {
     if (numbers.length === CONSTANTS.number.zero) throw new Error(ERROR.numbers.empty);
-  },
-};
+  }
+}
 
 export default NumbersValidator;
