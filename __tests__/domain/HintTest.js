@@ -57,7 +57,6 @@ describe('Hint 클래스 테스트', () => {
         const ballCount = hint.calculateBallCount(strikeCount);
         const hintMessage = hint.generateHintMessage(strikeCount, ballCount);
 
-        console.log(hintMessage);
         // then
         expect(hintMessage).toEqual(expected);
       },

@@ -13,7 +13,7 @@ const InputView = {
   async readRestart() {
     const restart = await Console.readLineAsync(MESSAGE.read.restart);
     RestartValidator.validateRestart(restart);
-    return restart;
+    return Number(restart);
   },
 };
 

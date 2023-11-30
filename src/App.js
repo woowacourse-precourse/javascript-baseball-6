@@ -4,11 +4,11 @@ class App {
   #baseballGameController = new BaseballGameController();
 
   async play() {
-    this.#baseballGameController.startGame();
+    await this.#baseballGameController.startGame();
   }
 }
 
 export default App;
 
 const app = new App();
-await app.play();
+app.play();

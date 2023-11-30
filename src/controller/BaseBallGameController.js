@@ -29,8 +29,22 @@ class BaseballGameController {
 
   #handleInputOrEnd(strikeCount, hintMessage) {
     OutputView.printHintString(hintMessage);
-    if (strikeCount === CONSTANTS.number.numberSize) return OutputView.printEndString();
+    if (strikeCount === CONSTANTS.number.numberSize) {
+      OutputView.printEndString();
+
+      return this.#inputRestart();
+    }
+
     return this.#inputUserNumbers();
+  }
+
+  async #inputRestart() {
+    const restart = await InputView.readRestart();
+    if (restart === CONSTANTS.restart.start) {
+      this.#computerNumbers = generateRandomNumbers(CONSTANTS.number.numberSize);
+
+      return this.#inputUserNumbers();
+    }
   }
 }
 
