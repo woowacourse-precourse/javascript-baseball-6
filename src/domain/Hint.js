@@ -1,3 +1,6 @@
+import CONSTANTS from '../constants/constants.js';
+import MESSAGE from '../constants/message.js';
+
 class Hint {
   #numbers;
 
@@ -20,6 +23,17 @@ class Hint {
         return this.#computerNumbers.includes(digit) ? count + 1 : count;
       }, 0) - strikeCount
     );
+  }
+
+  generateHintMessage(strikeCount, ballCount) {
+    const hintMessage = [];
+    if (ballCount !== CONSTANTS.number.zero) hintMessage.push(`${ballCount}${MESSAGE.print.ball}`);
+    if (strikeCount !== CONSTANTS.number.zero)
+      hintMessage.push(`${strikeCount}${MESSAGE.print.strike}`);
+    if (ballCount === CONSTANTS.number.zero && strikeCount === CONSTANTS.number.zero)
+      hintMessage.push(MESSAGE.print.nothing);
+
+    return hintMessage;
   }
 }
 
