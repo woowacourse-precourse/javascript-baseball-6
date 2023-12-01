@@ -1,14 +1,12 @@
-import CONSTANTS from '../constants/constants.js';
-import Hint from '../domain/Hint.js';
-import generateRandomNumbers from '../utils/generateRandomNumbers.js';
+import BaseballGameService from '../service/BaseballGameService.js';
 import InputView from '../view/InputView.js';
 import OutputView from '../view/OutputView.js';
 
 class BaseballGameController {
-  #computerNumbers;
+  #baseballGameService;
 
   constructor() {
-    this.#computerNumbers = generateRandomNumbers(CONSTANTS.number.numberSize);
+    this.#baseballGameService = new BaseballGameService();
   }
 
   async startGame() {
@@ -19,17 +17,14 @@ class BaseballGameController {
 
   async #inputUserNumbers() {
     const numbers = await InputView.readNumbers();
-    const hint = new Hint(numbers, this.#computerNumbers);
-    const strikeCount = hint.calculateStrikeCount();
-    const ballCount = hint.calculateBallCount(strikeCount);
-    const hintMessage = hint.generateHintMessage(strikeCount, ballCount);
+    const { strikeCount, hintMessage } = await this.#baseballGameService.baseballResult(numbers);
 
     return this.#handleInputOrEnd(strikeCount, hintMessage);
   }
 
   #handleInputOrEnd(strikeCount, hintMessage) {
     OutputView.printHintString(hintMessage);
-    if (this.#isGameEnd(strikeCount)) {
+    if (this.#baseballGameService.isGameEnd(strikeCount)) {
       OutputView.printEndString();
 
       return this.#inputRestart();
@@ -40,23 +35,13 @@ class BaseballGameController {
 
   async #inputRestart() {
     const restart = await InputView.readRestart();
-    if (this.#shouldRestart(restart)) {
-      this.#resetGame();
+    if (this.#baseballGameService.shouldRestart(restart)) {
+      this.#baseballGameService.resetGame();
+
       return this.#inputUserNumbers();
     }
+
     return Promise.resolve();
-  }
-
-  #isGameEnd(strikeCount) {
-    return strikeCount === CONSTANTS.number.numberSize;
-  }
-
-  #shouldRestart(restart) {
-    return restart === CONSTANTS.restart.start;
-  }
-
-  #resetGame() {
-    this.#computerNumbers = generateRandomNumbers(CONSTANTS.number.numberSize);
   }
 }
 
