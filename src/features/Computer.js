@@ -1,6 +1,6 @@
 import { Random } from "@woowacourse/mission-utils";
-import { player } from "./Player.js";
 import { Count } from "./Count.js";
+import InputView from "../InputView.js";
 
 export class Computer {
   #answer = [];
@@ -18,7 +18,7 @@ export class Computer {
   async compareAnswer() {
     while (this.#count.strike !== 3) {
       this.#count = new Count(this.#answer);
-      const playerInput = await player.getPlayNumber();
+      const playerInput = await InputView.readPlayNumber();
       this.#count.set(playerInput);
       this.#count.print();
     }

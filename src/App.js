@@ -1,7 +1,7 @@
 import { Console } from "@woowacourse/mission-utils";
 import { Computer } from "./features/Computer.js";
-import { player } from "./features/Player.js";
 import { COMPUTER_MESSAGE } from "./constants.js";
+import InputView from "./InputView.js";
 
 class App {
   constructor() {
@@ -14,7 +14,7 @@ class App {
     const completed = await computer.compareAnswer();
 
     if (completed) {
-      const replay = await player.selectReplayOrExit();
+      const replay = await InputView.readReplayOrExit();
 
       if (replay) {
         this.play();
