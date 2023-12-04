@@ -1,36 +1,33 @@
-import { Console } from "@woowacourse/mission-utils";
-import { COMPUTER_MESSAGE, COUNT } from "../constants.js";
+import OutputView from "../OutputView.js";
 
 export class Count {
-  ball = 0;
-  strike = 0;
+  #ball = 0;
+  #strike = 0;
 
-  constructor(answer) {
-    this.answer = answer;
-  }
-
-  set(input) {
-    this.answer.map((ans, index) => {
-      if (input.includes(ans)) {
-        let key = "ball";
-        if (index === input.indexOf(ans)) {
-          key = "strike";
-        }
-        this[key] += 1;
-      }
-    });
-  }
-
-  print() {
-    if (this.strike === 0 && this.ball === 0) {
-      Console.print(COUNT.NOTHING);
-      return;
+  constructor(answer, input) {
+    if (answer) {
+      answer.map((ans, index) => {
+        this.#setCount(input, ans, index);
+      });
+      OutputView.printResult(this.#strike, this.#ball);
     }
+  }
 
-    Console.print(`${COUNT.BALL(this.ball)}${COUNT.STRIKE(this.strike)}`);
+  getBall() {
+    return this.#ball;
+  }
 
-    if (this.strike === 3) {
-      Console.print(COMPUTER_MESSAGE.COMPLETED);
+  getStrike() {
+    return this.#strike;
+  }
+
+  #setCount(input, answer, index) {
+    if (input.includes(answer)) {
+      if (index === input.indexOf(answer)) {
+        this.#strike += 1;
+      } else {
+        this.#ball += 1;
+      }
     }
   }
 }

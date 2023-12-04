@@ -16,11 +16,9 @@ export class Computer {
   }
 
   async compareAnswer() {
-    while (this.#count.strike !== 3) {
-      this.#count = new Count(this.#answer);
+    while (this.#count.getStrike() !== 3) {
       const playerInput = await InputView.readPlayNumber();
-      this.#count.set(playerInput);
-      this.#count.print();
+      this.#count = new Count(this.#answer, playerInput);
     }
     return true;
   }
