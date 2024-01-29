@@ -1,6 +1,7 @@
 import {Console} from "@woowacourse/mission-utils"
 import GameController from "./gameController.js";
 import GameMessage from "./GameMessage.js";
+import Validator from "./Validator.js";
 class App {
 
   constructor() {
@@ -8,6 +9,7 @@ class App {
     this.userInput;
     this.message = new GameMessage();
     this.gameController = new GameController()
+    this.validator = new Validator()
   }
 
   async play() {
@@ -20,7 +22,7 @@ class App {
 
   async getUserInput() {
     const userInput = await Console.readLineAsync("숫자를 입력해주세요 :")
-    if (this.gameController.checkValidInput(userInput)) this.userInput = userInput
+    if (this.validator.checkValidInput(userInput)) this.userInput = userInput
   }
 }
 
