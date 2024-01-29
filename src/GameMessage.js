@@ -17,6 +17,10 @@ class GameMessage {
     PRINT_ASK_RESTART_MESSAGE(){
         Console.print('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요')
     }
+
+    PRINT_INVALID_ERROR_MESSAGE(){
+        Console.print("잘못된 입력입니다.")
+    }
 }
 
 export default GameMessage;
