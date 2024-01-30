@@ -2,6 +2,7 @@ import App from "../src/App.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 const mockQuestions = (inputs) => {
+  console.log("mockQuestions test",inputs)
   MissionUtils.Console.readLineAsync = jest.fn();
 
   MissionUtils.Console.readLineAsync.mockImplementation(() => {
@@ -11,6 +12,7 @@ const mockQuestions = (inputs) => {
 };
 
 const mockRandoms = (numbers) => {
+  console.log("mockRandoms",numbers)
   MissionUtils.Random.pickNumberInRange = jest.fn();
   numbers.reduce((acc, number) => {
     return acc.mockReturnValueOnce(number);
@@ -33,7 +35,7 @@ describe("숫자 야구 게임", () => {
 
     mockRandoms(randoms);
     mockQuestions(answers);
-
+    console.log("게임 시작", randoms, answers,messages)
     // when
     const app = new App();
     await expect(app.play()).resolves.not.toThrow();
@@ -42,16 +44,17 @@ describe("숫자 야구 게임", () => {
     messages.forEach((output) => {
       expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(output));
     });
+    
   });
 
   test("예외 테스트", async () => {
     // given
     const randoms = [1, 3, 5];
     const answers = ["1234"];
+    console.log("예외",randoms,answers)
 
     mockRandoms(randoms);
     mockQuestions(answers);
-
     // when & then
     const app = new App();
 
